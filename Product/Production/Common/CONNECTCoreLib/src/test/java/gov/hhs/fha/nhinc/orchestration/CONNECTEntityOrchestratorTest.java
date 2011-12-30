@@ -107,6 +107,10 @@ public class CONNECTEntityOrchestratorTest {
             return null;
         }
 
+        public NhinAggregator getAggregator() {
+            return null;
+        }
+
         public AssertionType getAssertion() {
             return null;
         }

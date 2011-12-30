@@ -49,7 +49,8 @@ public class NhinDelegateTest {
 
     public class NhinDelegateImpl implements NhinDelegate {
 
-        public void process(EntityOrchestratable message) {
+        public EntityOrchestratable process(EntityOrchestratable message) {
+            return null;
         }
     }
 

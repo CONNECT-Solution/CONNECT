@@ -10,5 +10,5 @@ package gov.hhs.fha.nhinc.orchestration;
  * @author mweaver
  */
 public interface NhinDelegate {
-    public void process(EntityOrchestratable message);
+    public EntityOrchestratable process(EntityOrchestratable message);
 }

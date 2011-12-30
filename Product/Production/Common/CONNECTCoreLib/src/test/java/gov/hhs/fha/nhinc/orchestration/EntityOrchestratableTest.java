@@ -49,6 +49,14 @@ public class EntityOrchestratableTest {
         assertEquals(expResult, result);
     }
 
+    @Test
+    public void testGetAggregator() {
+        EntityOrchestratable instance = new EntityOrchestratableImpl();
+        NhinAggregator expResult = null;
+        NhinAggregator result = instance.getAggregator();
+        assertEquals(expResult, result);
+    }
+
     public class EntityOrchestratableImpl implements EntityOrchestratable {
 
         public NhinDelegate getNhinDelegate() {
@@ -78,6 +86,10 @@ public class EntityOrchestratableTest {
 
         public String getServiceName() {
             return "";
+        }
+
+        public NhinAggregator getAggregator() {
+            return null;
         }
     }
 

@@ -47,11 +47,13 @@ public class CONNECTEntityOrchestrator extends CONNECTOrchestrationBase implemen
     /*
      * Begin Delegate Methods
      */
-    protected void delegateToNhin(EntityOrchestratable message) {
-        getLogger().debug("Entering CONNECTNhinOrchestrator.delegateToAdapter(...)");
+    protected EntityOrchestratable delegateToNhin(EntityOrchestratable message) {
+        EntityOrchestratable resp = null;
+        getLogger().debug("Entering CONNECTNhinOrchestrator.delegateToNhin(...)");
         NhinDelegate p = message.getNhinDelegate();
-        p.process(message);
-        getLogger().debug("Exiting CONNECTNhinOrchestrator.delegateToAdapter(...)");
+        resp = p.process(message);
+        getLogger().debug("Exiting CONNECTNhinOrchestrator.delegateToNhin(...)");
+        return resp;
     }
     /*
      * End Delegate Methods
