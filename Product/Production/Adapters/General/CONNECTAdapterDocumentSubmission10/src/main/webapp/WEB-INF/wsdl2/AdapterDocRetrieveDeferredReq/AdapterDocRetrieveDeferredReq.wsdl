@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Adapter Document Retrieve Deferred Request
+  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreq"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:ihe="urn:ihe:iti:xds-b:2007"
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+   xmlns:dr="http://www.hhs.gov/healthit/nhin"
+   xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+   name="AdapterDocRetrieveDeferredRequest"
+   targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreq">
+    <documentation>Adapter document retrieve deferred request</documentation>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+                        schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+            <xsd:import namespace="http://www.hhs.gov/healthit/nhin"
+                        schemaLocation="../schemas/nhin/RetrieveDocument.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="CrossGatewayRetrieveRequestMessage">
+        <part name="CrossGatewayRetrieveRequest"
+              element="nccommondr:RespondingGateway_CrossGatewayRetrieveRequest"/>
+    </message>
+    <message name="CrossGatewayRetrieveRequestAcknowledgement_Message">
+        <part name="RespondingGateway_CrossGatewayRetrieveResponse"
+              element="dr:DocRetrieveAcknowledgement"/>
+    </message>
+
+    <portType name="AdapterDocRetrieveDeferredRequestPortType">
+        <operation name="CrossGatewayRetrieveRequest">
+            <input name="CrossGatewayRetrieveRequestMessage"
+                   message="tns:CrossGatewayRetrieveRequestMessage"/>
+            <output name="CrossGatewayRetrieveAcknowledgement"
+                    message="tns:CrossGatewayRetrieveRequestAcknowledgement_Message"/>
+        </operation>
+    </portType>
+
+    <binding name="AdapterDocRetrieveDeferredRequestBindingSoap"
+             type="tns:AdapterDocRetrieveDeferredRequestPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#AdapterDocRetrievePolicy"/>
+        <operation name="CrossGatewayRetrieveRequest">
+            <soap:operation soapAction="urn:RespondingGateway_CrossGatewayRetrieve"/>
+            <input name="CrossGatewayRetrieveRequestMessage">
+                <soap:body use="literal"/>
+            </input>
+            <output name="CrossGatewayRetrieveAcknowledgement">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="AdapterDocRetrieveDeferredRequest">
+        <port name="AdapterDocRetrieveDeferredRequestPortSoap" binding="tns:AdapterDocRetrieveDeferredRequestBindingSoap">
+            <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequest"/>
+        </port>
+    </service>
+    <wsp:Policy wsu:Id="AdapterDocRetrievePolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsoma:OptimizedMimeSerialization/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>
