@@ -141,22 +141,22 @@
             <service>
                 <name>nhincproxyxdrsecured</name>
                 <description>NHINC PROXY XDR</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdr</name>
                 <description>NHINC PROXY XDR</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdrrequestsecured</name>
                 <description>NHIN Proxy XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdrresponsesecured</name>
                 <description>NHIN Proxy XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyauditquerysecured</name>
@@ -256,32 +256,32 @@
             <service>
                 <name>adapterxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdr</name>
                 <description>Adapter Component XDR </description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdr</name>
                 <description>Adapter Component XDR </description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrsecured</name>
                 <description>Entity XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>entityxdr</name>
                 <description>Entity XDR</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>patientcorrelation</name>
@@ -587,32 +587,32 @@
             <service>
                 <name>adapterxdrrequest</name>
                 <description>Adapter Component XDR Request Unsecured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
             </service>
             <service>
                 <name>adapterxdrrequestsecured</name>
                 <description>Adapter Component XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdrrequest</name>
                 <description>Adapter Component XDR Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRRequest_Service</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentXDRRequest_Service</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdrresponse</name>
                 <description>Adapter Component XDR Response</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRResponse_Service</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentXDRResponse_Service</endpointURL>
             </service>
             <service>
                 <name>adapterxdrsecuredasyncreqerror</name>
                 <description>Adapter Component XDR Request Error Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdrrequesterror</name>
                 <description>Adapter Component XDR RequestError</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
             </service>
             <service>
                 <name>nhincliftmanager</name>
@@ -622,43 +622,43 @@
             <service>
                 <name>nhincproxyxdrrequest</name>
                 <description>NHIN Proxy XDR Request</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrrequestsecured</name>
                 <description>Entity XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrrequest</name>
                 <description>Entity XDR Request</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</endpointURL>
             </service>
             <!-- XDR Response -->
             <service>
                 <name>adapterxdrresponsesecured</name>
                 <description>Adapter Component XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdrresponse</name>
                 <description>Adapter Component XDR Response</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdrresponse</name>
                 <description>NHIN Proxy XDR Response</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrresponsesecured</name>
                 <description>Entity XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrresponse</name>
                 <description>Entity XDR Response</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</endpointURL>
             </service>
             <!--End: XDR Request and Response service definitions -->
             <service>
@@ -1034,22 +1034,22 @@
             <service>
                 <name>nhincproxyxdrsecured</name>
                 <description>NHINC PROXY XDR</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdr</name>
                 <description>NHINC PROXY XDR</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdrrequestsecured</name>
                 <description>NHIN Proxy XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0//EntityService/PassthruDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdrresponsesecured</name>
                 <description>NHIN Proxy XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0//EntityService/PassthruDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyauditquerysecured</name>
@@ -1149,32 +1149,32 @@
             <service>
                 <name>adapterxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdr</name>
                 <description>Adapter Component XDR </description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdr</name>
                 <description>Adapter Component XDR </description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrsecured</name>
                 <description>Entity XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>entityxdr</name>
                 <description>Entity XDR</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>patientcorrelation</name>
@@ -1480,32 +1480,32 @@
             <service>
                 <name>adapterxdrrequest</name>
                 <description>Adapter Component XDR Request Unsecured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
             </service>
             <service>
                 <name>adapterxdrrequestsecured</name>
                 <description>Adapter Component XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdrrequest</name>
                 <description>Adapter Component XDR Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRRequest_Service</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentXDRRequest_Service</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdrresponse</name>
                 <description>Adapter Component XDR Response</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRResponse_Service</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentXDRResponse_Service</endpointURL>
             </service>
             <service>
                 <name>adapterxdrsecuredasyncreqerror</name>
                 <description>Adapter Component XDR Request Error Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdrrequesterror</name>
                 <description>Adapter Component XDR RequestError</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
             </service>
             <service>
                 <name>nhincliftmanager</name>
@@ -1515,43 +1515,43 @@
             <service>
                 <name>nhincproxyxdrrequest</name>
                 <description>NHIN Proxy XDR Request</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrrequestsecured</name>
                 <description>Entity XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrrequest</name>
                 <description>Entity XDR Request</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</endpointURL>
             </service>
             <!-- XDR Response -->
             <service>
                 <name>adapterxdrresponsesecured</name>
                 <description>Adapter Component XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdrresponse</name>
                 <description>Adapter Component XDR Response</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdrresponse</name>
                 <description>NHIN Proxy XDR Response</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrresponsesecured</name>
                 <description>Entity XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrresponse</name>
                 <description>Entity XDR Response</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</endpointURL>
             </service>
             <!--End: XDR Request and Response service definitions -->
             <service>
@@ -1927,22 +1927,22 @@
             <service>
                 <name>nhincproxyxdrsecured</name>
                 <description>NHINC PROXY XDR</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdr</name>
                 <description>NHINC PROXY XDR</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdrrequestsecured</name>
                 <description>NHIN Proxy XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdrresponsesecured</name>
                 <description>NHIN Proxy XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb//EntityService/PassthruDocSubmissionDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyauditquerysecured</name>
@@ -2042,32 +2042,32 @@
             <service>
                 <name>adapterxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdr</name>
                 <description>Adapter Component XDR </description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdr</name>
                 <description>Adapter Component XDR </description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrsecured</name>
                 <description>Entity XDR Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionSecured</endpointURL>
             </service>
             <service>
                 <name>entityxdr</name>
                 <description>Entity XDR</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionUnsecured</endpointURL>
             </service>
             <service>
                 <name>patientcorrelation</name>
@@ -2373,32 +2373,32 @@
             <service>
                 <name>adapterxdrrequest</name>
                 <description>Adapter Component XDR Request Unsecured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequest</endpointURL>
             </service>
             <service>
                 <name>adapterxdrrequestsecured</name>
                 <description>Adapter Component XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdrrequest</name>
                 <description>Adapter Component XDR Request</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRRequest_Service</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentXDRRequest_Service</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentxdrresponse</name>
                 <description>Adapter Component XDR Response</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentXDRResponse_Service</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterComponentXDRResponse_Service</endpointURL>
             </service>
             <service>
                 <name>adapterxdrsecuredasyncreqerror</name>
                 <description>Adapter Component XDR Request Error Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdrrequesterror</name>
                 <description>Adapter Component XDR RequestError</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
             </service>
             <service>
                 <name>nhincliftmanager</name>
@@ -2408,43 +2408,43 @@
             <service>
                 <name>nhincproxyxdrrequest</name>
                 <description>NHIN Proxy XDR Request</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrrequestsecured</name>
                 <description>Entity XDR Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrrequest</name>
                 <description>Entity XDR Request</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</endpointURL>
             </service>
             <!-- XDR Response -->
             <service>
                 <name>adapterxdrresponsesecured</name>
                 <description>Adapter Component XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>adapterxdrresponse</name>
                 <description>Adapter Component XDR Response</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterDocumentSubmission/1_0/AdapterService/AdapterDocSubmissionDeferredResponse</endpointURL>
             </service>
             <service>
                 <name>nhincproxyxdrresponse</name>
                 <description>NHIN Proxy XDR Response</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrresponsesecured</name>
                 <description>Entity XDR Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>entityxdrresponse</name>
                 <description>Entity XDR Response</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentSubmission/1_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</endpointURL>
             </service>
             <!--End: XDR Request and Response service definitions -->
             <service>

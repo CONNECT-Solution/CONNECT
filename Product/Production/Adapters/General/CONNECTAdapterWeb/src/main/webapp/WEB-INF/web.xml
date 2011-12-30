@@ -275,118 +275,6 @@
         <url-pattern>/NhincProxySubjectDiscovery</url-pattern>
     </servlet-mapping>
 
-    <!-- Start: XDR Request and Response services-->
-    <servlet>
-        <servlet-name>AdapterXDRRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterXDRRequest</servlet-name>
-        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredRequest</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdapterXDRRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequestSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterXDRRequestSecured</servlet-name>
-        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredRequestSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdapterXDRRequestError</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.AdapterXDRRequestError</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterXDRRequestError</servlet-name>
-        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredRequestError</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.AdapterXDRSecuredRequestError</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterXDRSecuredRequestError</servlet-name>
-        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdapterXDRResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponse</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterXDRResponse</servlet-name>
-        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredResponse</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdapterXDRResponseSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponseSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterXDRResponseSecured</servlet-name>
-        <url-pattern>/AdapterService/AdapterDocSubmissionDeferredResponseSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdapterComponentXDRResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.AdapterComponentXDRResponse</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterComponentXDRResponse</servlet-name>
-        <url-pattern>/AdapterComponentXDRResponse_Service</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdapterComponentXDRRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.AdapterComponentXDRRequest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterComponentXDRRequest</servlet-name>
-        <url-pattern>/AdapterComponentXDRRequest_Service</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterDocSubmissionSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterDocSubmissionSecured</servlet-name>
-        <url-pattern>/AdapterDocSubmissionSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdapterDocSubmissionUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterDocSubmissionUnsecured</servlet-name>
-        <url-pattern>/AdapterDocSubmissionUnsecured</url-pattern>
-    </servlet-mapping>
-
-
-    <servlet>
-        <servlet-name>AdapterComponentDocSubmissionSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterComponentDocSubmissionSecured</servlet-name>
-        <url-pattern>/AdapterComponentDocSubmissionSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdapterComponentDocSubmissionUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterComponentDocSubmissionUnsecured</servlet-name>
-        <url-pattern>/AdapterComponentDocSubmissionUnsecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterComponentRedactionEngine</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.redactionengine.adapter.AdapterComponentRedactionEngine</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterComponentRedactionEngine</servlet-name>
-        <url-pattern>/AdapterComponentRedactionService</url-pattern>
-    </servlet-mapping>
-
-    <!-- End: XDR Request and Response services-->
-
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AdapterPolicyEngineSecured</web-resource-name>
@@ -408,7 +296,7 @@
             <web-resource-name>AdapterSubjectDiscoverySecured</web-resource-name>
             <url-pattern>/AdapterSubjectDiscoverySecured</url-pattern>
         </web-resource-collection>
-           <user-data-constraint>
+        <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>

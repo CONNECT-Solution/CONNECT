@@ -151,60 +151,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>EntityDocSubmissionSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocSubmissionSecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocSubmissionSecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocSubmissionUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocSubmissionUnsecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocSubmissionUnsecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocSubmissionDeferredRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocSubmissionDeferredRequestSecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocSubmissionDeferredRequestSecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocSubmissionDeferredRequestUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocSubmissionDeferredRequestUnsecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocSubmissionDeferredRequestUnsecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocSubmissionDeferredResponseSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocSubmissionDeferredResponseSecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocSubmissionDeferredResponseSecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocSubmissionDeferredResponseUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocSubmissionDeferredResponseUnsecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocSubmissionDeferredResponseUnsecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>AuditRepository</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepository</servlet-class>
     </servlet>

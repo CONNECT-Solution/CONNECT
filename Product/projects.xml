@@ -44,7 +44,12 @@
 	<name>CONENCTAdapterDocumentRetrieve10</name>
         <directory>/Production/Adapters/CONNECTAdapterDocumentRetrieve10</directory>
         <dist.type>war</dist.type>
-    </project>	
+    </project>
+    <project>
+        <name>CONENCTAdapterDocumentSubmission10</name>
+        <directory>/Production/Adapters/General/CONNECTAdapterDocumentSubmission10</directory>
+        <dist.type>war</dist.type>
+    </project>
     <project>
         <name>CONNECTNhinServicesWeb</name>
         <directory>/Production/Gateway/CONNECTNhinServicesWeb</directory>
