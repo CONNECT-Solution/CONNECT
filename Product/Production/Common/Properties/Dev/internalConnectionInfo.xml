@@ -14,17 +14,17 @@
             <service>
                 <name>QueryForDocument</name>
                 <description>documentquery</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
             </service>
             <service>
                 <name>QueryForDocumentsDeferredRequest</name>
                 <description>NHIN Doc Query Deferred Request</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredRequestService</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/DocQueryDeferredRequestService</endpointURL>
             </service>
             <service>
                 <name>QueryForDocumentsDeferredResponse</name>
                 <description>NHIN Doc Query Deferred Response</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/DocQueryDeferredResponseService</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/DocQueryDeferredResponseService</endpointURL>
             </service>
             <service>
                 <name>RetrieveDocument</name>
@@ -96,7 +96,7 @@
             <service>
                 <name>nhincproxydocquerysecured</name>
                 <description>NHINC Proxy Document Query Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQuerySecured</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/EntityService/NhincProxyDocQuerySecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievesecured</name>
@@ -480,17 +480,17 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/EntityService/EntityDocQueryUnsecured</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>
                 <description>Entity Document Query Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocQuerySecured</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/EntityService/EntityDocQuerySecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/EntityService/NhincProxyDocQueryUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterauthentication</name>
@@ -816,27 +816,27 @@
             <service>
                 <name>passthrudocquerydeferredrequest</name>
                 <description>Unsecure Passthru Doc Query Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestUnsecured</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/EntityService/PassthruDocQueryDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>passthrudocquerydeferredrequestsecured</name>
                 <description>Secured Passthru Doc Query Deferred Request </description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/EntityService/PassthruDocQueryDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>passthrudocquerydeferredresponse</name>
                 <description>Unsecure Passthru Doc Query Deferred Response</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseUnsecured</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/EntityService/PassthruDocQueryDeferredResponseUnsecured</endpointURL>
             </service>
             <service>
                 <name>passthrudocquerydeferredresponsesecured</name>
                 <description>Secured Passthru Doc Query Deferred Response </description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/EntityService/PassthruDocQueryDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>entitydocquerydeferredresponse</name>
                 <description>Unsecure Entity Doc Query Deferred Response</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/EntityService/EntityDocQueryDeferredResponseUnsecured</endpointURL>
             </service>
             <service>
                 <name>entitydocquerydeferredresponsesecured</name>
@@ -846,7 +846,7 @@
             <service>
                 <name>entitydocquerydeferredrequest</name>
                 <description>Unsecure Entity Doc Query Deferred Request</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestUnsecured</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/EntityService/EntityDocQueryDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>entitydocquerydeferredrequestsecured</name>
