@@ -5,9 +5,13 @@
 
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import java.util.Set;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -31,6 +35,27 @@ public class NhinDocRetrieveAggregator_a0 implements NhinAggregator {
                 {
                     to_a0.setResponse(new RetrieveDocumentSetResponseType());
                 }
+
+                if (to_a0.getResponse().getRegistryResponse() == null) {
+                    RegistryResponseType rrt = new RegistryResponseType();
+                    to_a0.getResponse().setRegistryResponse(rrt);
+                }
+
+                if (from_a0.getResponse() == null ||
+                        from_a0.getResponse().getRegistryResponse() == null ||
+                        NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE.equalsIgnoreCase(from_a0.getResponse().getRegistryResponse().getStatus()))
+                {
+                    to_a0.getResponse().getRegistryResponse().setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
+                } else if ("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure".equalsIgnoreCase(from_a0.getResponse().getRegistryResponse().getStatus()) ||
+                        !from_a0.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError().isEmpty()) {
+                    to_a0.getResponse().getRegistryResponse().setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+                    if (to_a0.getResponse().getRegistryResponse().getRegistryErrorList() == null)
+                    {
+                        to_a0.getResponse().getRegistryResponse().setRegistryErrorList(new RegistryErrorList());
+                    }
+                    to_a0.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError().addAll(from_a0.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError());
+                }
+
                 to_a0.getResponse().getDocumentResponse().addAll(from_a0.getResponse().getDocumentResponse());
             } /*else if (from instanceof EntityDocRetrieveOrchestratableImpl_a1)
             {

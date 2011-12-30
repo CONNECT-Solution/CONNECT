@@ -19,6 +19,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 
@@ -194,6 +195,9 @@ public class AdapterComponentDocRepositoryOrchImpl {
             }
 
         }
+        RegistryResponseType regResponse = new RegistryResponseType();
+        regResponse.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
+        response.setRegistryResponse(regResponse);
         return response;
     }
 
