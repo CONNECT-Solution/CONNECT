@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Nhinc Proxy Document Query Deferred Request Secured WSDL
+  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequestsecured"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:ihe="urn:ihe:iti:xds-b:2007"
+             xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+             xmlns:sc="http://schemas.sun.com/2006/03/wss/client"
+             xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+             xmlns:dq="http://www.hhs.gov/healthit/nhin"
+             xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+             xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+             name="NhincProxyDocQueryDeferredRequestSecured"
+             targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequestsecured">
+    <documentation>Nhinc Proxy Document Query Deferred Request Secured</documentation>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
+            <xsd:import namespace="http://www.hhs.gov/healthit/nhin" schemaLocation="../schemas/nhin/QueryDocument.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="CrossGatewayQueryRequestMessage">
+        <part name="CrossGatewayQueryRequest" element="nccommonproxy:RespondingGateway_CrossGatewayQuerySecuredRequest"/>
+    </message>
+    <message name="CrossGatewayQueryAcknowledgementMessage">
+        <part name="CrossGatewayQueryAcknowledgement" element="dq:DocQueryAcknowledgement"/>
+    </message>
+    <portType name="NhincProxyDocQueryDeferredRequestSecuredPortType">
+        <operation name="CrossGatewayQueryRequest">
+            <input name="CrossGatewayQueryRequest" message="tns:CrossGatewayQueryRequestMessage"/>
+            <output name="CrossGatewayQueryAcknowledgement" message="tns:CrossGatewayQueryAcknowledgementMessage"/>
+        </operation>
+    </portType>
+    <binding name="NhincProxyDocQueryDeferredRequestSecuredBindingSoap" type="tns:NhincProxyDocQueryDeferredRequestSecuredPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
+        <operation name="CrossGatewayQueryRequest">
+            <soap:operation soapAction="urn:CrossGatewayQueryRequest"/>
+            <input name="CrossGatewayQueryRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="CrossGatewayQueryAcknowledgement">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="NhincProxyDocQueryDeferredRequestSecured">
+        <port name="NhincProxyDocQueryDeferredRequestSecuredPortSoap" binding="tns:NhincProxyDocQueryDeferredRequestSecuredBindingSoap">
+            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyDocQueryDeferredRequestSecured"/>
+        </port>
+    </service>
+    <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc:CallbackHandlerConfiguration>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>
+

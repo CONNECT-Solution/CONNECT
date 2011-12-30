@@ -26,30 +26,6 @@
         <url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>NhinPatientDiscovery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscovery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinPatientDiscovery</servlet-name>
-        <url-pattern>/NhinService/NhinPatientDiscovery</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryAsyncReq</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
-        <url-pattern>/NhinService/NhinPatientDiscoveryAsyncReq</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncResp</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
-        <url-pattern>/NhinService/NhinPatientDiscoveryAsyncResp</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>SubjectDiscovery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery</servlet-class>
     </servlet>
@@ -101,18 +77,6 @@
         <web-resource-collection>
             <web-resource-name>HiemUnsubscribe</web-resource-name>
             <url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhinPatientDiscovery</web-resource-name>
-            <url-pattern>/NhinService/NhinPatientDiscovery</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhinPatientDiscoveryAsyncReq</web-resource-name>
-            <url-pattern>/NhinService/NhinPatientDiscoveryAsyncReq</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhinPatientDiscoveryAsyncResp</web-resource-name>
-            <url-pattern>/NhinService/NhinPatientDiscoveryAsyncResp</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>SubjectDiscovery</web-resource-name>

@@ -49,17 +49,17 @@
             <service>
                 <name>PatientDiscovery</name>
                 <description>patientdiscovery</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscovery</endpointURL>
+                <endpointURL>https://localhost:8181//CONNECTGatewayPatientDiscoveryWeb/1_0/NhinService/NhinPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>PatientDiscoveryAsyncReq</name>
                 <description>patientdiscoveryasyncreq</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
+                <endpointURL>https://localhost:8181//CONNECTGatewayPatientDiscoveryWeb/1_0/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
             </service>
             <service>
                 <name>PatientDiscoveryAsyncResp</name>
                 <description>patientdiscoveryasyncresp</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
+                <endpointURL>https://localhost:8181//CONNECTGatewayPatientDiscoveryWeb/1_0/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
             </service>
             <service>
                 <name>subjectdiscovery</name>
@@ -121,17 +121,17 @@
             <service>
                 <name>nhincproxypatientdiscoverysecured</name>
                 <description>NHINC Proxy Patient Discovery Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayPatientDiscoveryWeb/1_0//EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscoverysecuredasyncreq</name>
                 <description>NHINC Proxy Patient Discovery Secured Async Request</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayPatientDiscoveryWeb/1_0//MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscoverysecuredasyncresp</name>
                 <description>NHINC Proxy Patient Discovery Secured Async Response</description>
-                <endpointURL>https://localhost:8181/CONNECTMsgProxyWeb/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayPatientDiscoveryWeb/1_0/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxysubjectdiscoverysecured</name>
@@ -191,27 +191,27 @@
             <service>
                 <name>entitydocretrievedeferredrequestsecured</name>
                 <description>Entity Doc Retrieve Deferred Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievedeferredresponse</name>
                 <description>Entity Doc Retrieve Deferred Response</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponse</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveDeferredResponse</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievedeferredresponsesecured</name>
                 <description>Entity Doc Retrieve Deferred Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>nhindocretrievedeferredrequest</name>
                 <description>NHIN Doc Retrieve Deferred Request Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</endpointURL>
             </service>
             <service>
                 <name>nhindocretrievedeferredresponse</name>
                 <description>NHIN Doc Retrieve Deferred Response Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievedeferredrequest</name>
@@ -530,47 +530,47 @@
             <service>
                 <name>entitypatientdiscoverysecured</name>
                 <description>Entity Patient Discovery Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoverySecured</endpointURL>
+                <endpointURL>https://localhost:8181//CONNECTGatewayPatientDiscoveryWeb/1_0//EntityService/EntityPatientDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayPatientDiscoveryWeb/1_0//EntityPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>entitypatientdiscoverysecuredasyncreq</name>
                 <description>Entity Patient Discovery Secured Async Request</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredRequestSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayPatientDiscoveryWeb/1_0/EntityService/EntityPatientDiscoveryDeferredRequestSecured</endpointURL>
             </service>
             <service>
                 <name>entitypatientdiscoveryasyncreq</name>
                 <description>Entity Patient Discovery Async Request</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayPatientDiscoveryWeb/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>entitypatientdiscoverysecuredasyncresp</name>
                 <description>Entity Patient Discovery Secured Async Response</description>
-                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayPatientDiscoveryWeb/1_0/EntityService/EntityPatientDiscoveryDeferredResponseSecured</endpointURL>
             </service>
             <service>
                 <name>entitypatientdiscoveryasyncresp</name>
                 <description>Entity Patient Discovery Async Response</description>
-                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayPatientDiscoveryWeb/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayPatientDiscoveryWeb/1_0/MsgProxy/NhincProxyPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscoveryasyncreq</name>
                 <description>NHINC Proxy Patient Discovery Async Request</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayPatientDiscoveryWeb/1_0/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscoveryasyncresp</name>
                 <description>NHINC Proxy Patient Discovery Async Response</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayPatientDiscoveryWeb/1_0/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</endpointURL>
             </service>
             <service>
                 <name>adapternotificationconsumer</name>

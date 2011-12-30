@@ -25,55 +25,7 @@
         <servlet-name>ProxyHiemUnsubscribeSecured</servlet-name>
         <url-pattern>/EntityService/NhincProxySubscriptionManagerSecured</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincProxyPatientDiscoverySecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
-        <url-pattern>/EntityService/NhincProxyPatientDiscoverySecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhincProxyPatientDiscovery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincProxyPatientDiscovery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyPatientDiscovery</servlet-name>
-        <url-pattern>/MsgProxy/NhincProxyPatientDiscovery</url-pattern>
-    </servlet-mapping>
-	<servlet>
-         <servlet-name>NhincProxyPatientDiscoveryDeferredRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyPatientDiscoveryDeferredRequestSecured</servlet-name>
-        <url-pattern>/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhincProxyPatientDiscoveryDeferredRequestUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyPatientDiscoveryDeferredRequestUnsecured</servlet-name>
-        <url-pattern>/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncResp</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
-        <url-pattern>/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhincProxyPatientDiscoverySecuredAsyncResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoverySecuredAsyncResp</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyPatientDiscoverySecuredAsyncResp</servlet-name>
-        <url-pattern>/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
+      <servlet>
         <servlet-name>NhincSubjectDiscoverySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.proxy.NhincSubjectDiscoverySecured</servlet-class>
     </servlet>
@@ -154,18 +106,6 @@
         <web-resource-collection>
             <web-resource-name>ProxyHiemUnsubscribeSecured</web-resource-name>
             <url-pattern>/EntityService/NhincProxySubscriptionManagerSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhincProxyPatientDiscoverySecured</web-resource-name>
-            <url-pattern>/EntityService/NhincProxyPatientDiscoverySecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhincProxyPatientDiscoveryDeferredRequestSecured</web-resource-name>
-            <url-pattern>/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhincProxyPatientDiscoverySecuredAsyncResp</web-resource-name>
-            <url-pattern>/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>NhincSubjectDiscoverySecured</web-resource-name>
