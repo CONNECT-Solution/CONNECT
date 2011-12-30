@@ -341,12 +341,12 @@
             <service>
                 <name>adapterdocquery</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterDocQueryUnsecured</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterDocumentQuery/1_0/AdapterDocQueryUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocquerysecured</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterDocQuerySecured</endpointURL>
+                <endpointURL>https://localhost:8181/AdapterDocumentQuery/1_0/AdapterDocQuerySecured</endpointURL>
             </service>
             <service>
                 <name>adapterauditquery</name>
