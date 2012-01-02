@@ -69,12 +69,12 @@
             <service>
                 <name>serviceXDR</name>
                 <description>NHIN XDR</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/DocumentRepositoryXDR_Service</endpointURL>
             </service>
             <service>
                 <name>xdrrequest</name>
                 <description>NHIN XDR Request</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/NhinService/XDRRequest_Service</endpointURL>
                 <supportsLIFT>false</supportsLIFT>
                 <liftProtocols>
                     <liftProtocol>
@@ -85,7 +85,7 @@
             <service>
                 <name>xdrresponse</name>
                 <description>NHIN XDR Response</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRResponse_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/NhinService/XDRResponse_Service</endpointURL>
             </service>
             <service>
                 <name>auditquery</name>
@@ -962,12 +962,12 @@
             <service>
                 <name>serviceXDR</name>
                 <description>NHIN XDR</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/DocumentRepositoryXDR_Service</endpointURL>
             </service>
             <service>
                 <name>xdrrequest</name>
                 <description>NHIN XDR Request</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/NhinService/XDRRequest_Service</endpointURL>
                 <supportsLIFT>false</supportsLIFT>
                 <liftProtocols>
                     <liftProtocol>
@@ -978,7 +978,7 @@
             <service>
                 <name>xdrresponse</name>
                 <description>NHIN XDR Response</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRResponse_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/NhinService/XDRResponse_Service</endpointURL>
             </service>
             <service>
                 <name>auditquery</name>
@@ -1855,12 +1855,12 @@
             <service>
                 <name>serviceXDR</name>
                 <description>NHIN XDR</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/DocumentRepositoryXDR_Service</endpointURL>
             </service>
             <service>
                 <name>xdrrequest</name>
                 <description>NHIN XDR Request</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/NhinService/XDRRequest_Service</endpointURL>
                 <supportsLIFT>false</supportsLIFT>
                 <liftProtocols>
                     <liftProtocol>
@@ -1871,7 +1871,7 @@
             <service>
                 <name>xdrresponse</name>
                 <description>NHIN XDR Response</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRResponse_Service</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayDocumentSubmission/1_0/NhinService/XDRResponse_Service</endpointURL>
             </service>
             <service>
                 <name>auditquery</name>
