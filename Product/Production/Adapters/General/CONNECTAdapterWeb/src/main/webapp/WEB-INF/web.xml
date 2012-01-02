@@ -103,51 +103,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AdapterMpiSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterMpiSecured</servlet-name>
-        <url-pattern>/AdapterMpiSecuredService</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterMpi</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpi</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterMpi</servlet-name>
-        <url-pattern>/AdapterMpiService</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterComponentMpi</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpi</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterComponentMpi</servlet-name>
-        <url-pattern>/AdapterComponentMpiService</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterComponentMpiSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterComponentMpiSecured</servlet-name>
-        <url-pattern>/AdapterComponentMpiSecuredService</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>MpiManager</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adaptermpimanager.MpiManager</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>MpiManager</servlet-name>
-        <url-pattern>/AdapterMpiManagerService</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
         <servlet-name>AdapterSubjectDiscoverySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscoverySecured</servlet-class>
     </servlet>

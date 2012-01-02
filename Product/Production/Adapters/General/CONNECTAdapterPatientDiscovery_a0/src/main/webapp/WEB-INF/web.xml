@@ -1,66 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-    
-
-    
-
-
-    
-
-    
-
-
-    
-
-    
-
-
-    
-
-    
-
-    
-
-    
-
-
-    
-
-
-    
-
-
-
-    
-
-
-
-    
-
-
-
-    
-
-
-
-    
-
-
-
-
-    
-
-    
 <servlet>
+        <servlet-name>AdapterMpiSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterMpiSecured</servlet-name>
+        <url-pattern>/AdapterMpiSecuredService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterMpi</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterMpi</servlet-name>
+        <url-pattern>/AdapterMpiService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterComponentMpi</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentMpi</servlet-name>
+        <url-pattern>/AdapterComponentMpiService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterComponentMpiSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentMpiSecured</servlet-name>
+        <url-pattern>/AdapterComponentMpiSecuredService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MpiManager</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adaptermpimanager.MpiManager</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MpiManager</servlet-name>
+        <url-pattern>/AdapterMpiManagerService</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>AdapterPatientDiscoverySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscoverySecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterPatientDiscoverySecured</servlet-name>
         <url-pattern>/AdapterPatientDiscoverySecured</url-pattern>
-    </servlet-mapping>
-
+    </servlet-mapping>    
     <servlet>
         <servlet-name>AdapterPatientDiscovery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscovery</servlet-class>

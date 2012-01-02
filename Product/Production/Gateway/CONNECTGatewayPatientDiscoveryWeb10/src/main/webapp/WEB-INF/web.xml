@@ -61,6 +61,80 @@
         <url-pattern>/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincProxyPatientDiscoverySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
+        <url-pattern>/EntityService/NhincProxyPatientDiscoverySecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhincProxyPatientDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincProxyPatientDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscovery</servlet-name>
+        <url-pattern>/MsgProxy/NhincProxyPatientDiscovery</url-pattern>
+    </servlet-mapping>
+	<servlet>
+         <servlet-name>NhincProxyPatientDiscoveryDeferredRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscoveryDeferredRequestSecured</servlet-name>
+        <url-pattern>/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhincProxyPatientDiscoveryDeferredRequestUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscoveryDeferredRequestUnsecured</servlet-name>
+        <url-pattern>/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncResp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
+        <url-pattern>/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhincProxyPatientDiscoverySecuredAsyncResp</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoverySecuredAsyncResp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscoverySecuredAsyncResp</servlet-name>
+        <url-pattern>/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+            <servlet-name>NhinPatientDiscovery</servlet-name>
+            <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscovery</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>NhinPatientDiscovery</servlet-name>
+            <url-pattern>/NhinService/NhinPatientDiscovery</url-pattern>
+        </servlet-mapping>
+        <servlet>
+            <servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
+            <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryAsyncReq</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
+            <url-pattern>/NhinService/NhinPatientDiscoveryAsyncReq</url-pattern>
+        </servlet-mapping>
+        <servlet>
+            <servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
+            <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncResp</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
+            <url-pattern>/NhinService/NhinPatientDiscoveryAsyncResp</url-pattern>
+    </servlet-mapping>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>EntityPatientDiscoverySecured</web-resource-name>

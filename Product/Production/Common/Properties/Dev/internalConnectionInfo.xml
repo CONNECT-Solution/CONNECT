@@ -361,22 +361,22 @@
             <service>
                 <name>mpi</name>
                 <description>Master Patient Index</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterMpiService</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterPatientDiscovery/1_0/AdapterMpiService</endpointURL>
             </service>
             <service>
                 <name>mpisecured</name>
                 <description>Master Patient Index</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterMpiSecuredService</endpointURL>
+                <endpointURL>https://localhost:8181/AdapterPatientDiscovery/1_0/AdapterMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpiservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterComponentMpiService</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterPatientDiscovery/1_0/AdapterComponentMpiService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpisecuredservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentMpiSecuredService</endpointURL>
+                <endpointURL>https://localhost:8181/AdapterPatientDiscovery/1_0/AdapterComponentMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adapterreidentificationservice</name>
@@ -942,17 +942,17 @@
             <service>
                 <name>PatientDiscovery</name>
                 <description>patientdiscovery</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscovery</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayPatientDiscoveryWeb/1_0/NhinService/NhinPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>PatientDiscoveryAsyncReq</name>
                 <description>patientdiscoveryasyncreq</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayPatientDiscoveryWeb/1_0/NhinService/NhinPatientDiscoveryAsyncReq</endpointURL>
             </service>
             <service>
                 <name>PatientDiscoveryAsyncResp</name>
                 <description>patientdiscoveryasyncresp</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayPatientDiscoveryWeb/1_0/NhinService/NhinPatientDiscoveryAsyncResp</endpointURL>
             </service>
             <service>
                 <name>subjectdiscovery</name>

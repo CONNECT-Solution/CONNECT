@@ -14,10 +14,6 @@
     <import location="AdapterDocQueryDeferredRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequestsecured"/>
     <import location="AdapterDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured"/>
     <import location="AdapterPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecured"/>
-    <import location="AdapterPatientDiscoverySecuredAsyncReq.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreq"/>
-    <import location="AdapterPatientDiscoverySecuredAsyncReqError.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror"/>
-    <import location="AdapterPatientDiscoverySecuredAsyncReqQueue.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqqueue"/>
-    <import location="AdapterPatientDiscoverySecuredAsyncResp.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncresp"/>
     <import location="AdapterPolicyEngineSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured"/>
     <import location="AdapterSubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured"/>
     <import location="AdapterXDRRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrrequestsecured"/>
