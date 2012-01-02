@@ -29,7 +29,12 @@
         <name>CONNECTGatewayDocumentQuery10</name>
         <directory>/Production/Gateway/CONNECTGatewayDocumentQuery10</directory>
         <dist.type>war</dist.type>
-    </project>    
+    </project>
+    <project>
+        <name>CONNECTGatewayDocumentSubmission10</name>
+        <directory>/Production/Gateway/CONNECTGatewayDocumentSubmission10</directory>
+        <dist.type>war</dist.type>
+    </project>
     <project>
         <name>CONNECTAdapterDocumentQuery10</name>
         <directory>/Production/Adapters/CONNECTAdapterDocumentQuery10</directory>
