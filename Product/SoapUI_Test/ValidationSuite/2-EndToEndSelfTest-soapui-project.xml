@@ -6373,7 +6373,7 @@ if(gatewayBakFile.exists()) {
       <con:testStep name="Count Subscriptions (3)" type="groovy">
         <con:settings/>
         <con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
-  assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
+  assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }</script></con:config>
       </con:testStep>
       <con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
