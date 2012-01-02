@@ -18,9 +18,6 @@
         <url-pattern>/DocumentRepository_Service</url-pattern>
     </servlet-mapping>
 
-  
- 
- 
     <servlet>
         <servlet-name>AdapterDocProvideAndRegisterservice</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docprovideandregister.AdapterDocProvideAndRegisterservice</servlet-class>
