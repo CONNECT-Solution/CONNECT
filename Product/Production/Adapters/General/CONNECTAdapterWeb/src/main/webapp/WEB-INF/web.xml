@@ -146,71 +146,7 @@
         <servlet-name>MpiManager</servlet-name>
         <url-pattern>/AdapterMpiManagerService</url-pattern>
     </servlet-mapping>
-
-
-    <servlet>
-        <servlet-name>AdapterPatientDiscoverySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscoverySecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterPatientDiscoverySecured</servlet-name>
-        <url-pattern>/AdapterPatientDiscoverySecured</url-pattern>
-    </servlet-mapping>
     
-
-
-    
-
-
-
-    
-
-
-
-    
-
-
-
-
-    
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
-    
-    
-    
-
     <servlet>
         <servlet-name>AdapterSubjectDiscoverySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscoverySecured</servlet-class>

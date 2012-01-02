@@ -71,6 +71,17 @@
         <directory>/Production/Adapters/General/CONNECTAdapterAdminDistribution_a0/</directory>
         <dist.type>war</dist.type>
     </project>    
+ 
+    <project>
+        <name>CONNECTGatewayHiem_g0</name>
+        <directory>/Production/Gateway/CONNECTGatewayHiem_g0/</directory>
+        <dist.type>war</dist.type>
+    </project>    
+    <project>
+        <name>CONNECTAdapterHiem_a0</name>
+        <directory>/Production/Adapters/General/CONNECTAdapterHiem_a0/</directory>
+        <dist.type>war</dist.type>
+    </project>    
 
     <project>
         <name>CONNECTAdapterWeb</name>

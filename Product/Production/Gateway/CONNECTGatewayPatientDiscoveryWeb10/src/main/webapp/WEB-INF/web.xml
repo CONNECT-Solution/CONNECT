@@ -61,46 +61,6 @@
         <url-pattern>/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</url-pattern>
     </servlet-mapping>
 
- 
-  
-    <!-- BEGIN: Document Retrieve Deferred Services -->
-    <servlet>
-        <servlet-name>EntityDocRetrieveDeferredReq</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReq</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocRetrieveDeferredReq</servlet-name>
-        <url-pattern>/EntityService/EntityDocRetrieveDeferredRequest</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocRetrieveDeferredReqSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocRetrieveDeferredReqSecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocRetrieveDeferredRequestSecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocRetrieveDeferredResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredResp</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocRetrieveDeferredResp</servlet-name>
-        <url-pattern>/EntityService/EntityDocRetrieveDeferredResponse</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocRetrieveDeferredRespSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredRespSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocRetrieveDeferredRespSecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocRetrieveDeferredResponseSecured</url-pattern>
-    </servlet-mapping>
-  <!-- END: Document Retrieve Deferred Services -->
-
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>EntityPatientDiscoverySecured</web-resource-name>

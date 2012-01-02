@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="EndToEndSelfTest" resourceRoot="" runType="SEQUENTIAL" soapui-version="4.0.0">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="EndToEndSelfTest" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
   <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="Global Properties" value=""/>
   <con:entry key="TestSuite" value="EndToEndSelfTest TestSuite"/>
@@ -8330,23 +8330,23 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>Endpoint-DocQuery</con:name>
-      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:value>
+      <con:value>http://localhost:8080/GatewayDocumentQuery/1_0/EntityService/EntityDocQueryUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-DocRetrieve</con:name>
-      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</con:value>
+      <con:value>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieve</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-DocRetrieveDeferredRequest</con:name>
-      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredRequest</con:value>
+      <con:value>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveDeferredRequest</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-DocRetrieveDeferredResponse</con:name>
-      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponse</con:value>
+      <con:value>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveDeferredResponse</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-EntityAdminDist</con:name>
-      <con:value>http://localhost:8080/CONNECTGateway/AdministrativeDistribution_Service</con:value>
+      <con:value>http://localhost:8080/CONNECTGatewayAdminDistribution_g0/AdministrativeDistribution_Service</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-EntityXDRRequest</con:name>
@@ -8354,7 +8354,7 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>Endpoint-Notify</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationConsumer</con:value>
+      <con:value>http://localhost:8080/CONNECTAdapterHiem_a0/EntityNotificationConsumer</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-PatientDiscovery</con:name>
@@ -8374,11 +8374,11 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>Endpoint-Subscribe</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value>
+      <con:value>http://localhost:8080/CONNECTAdapterHiem_a0/EntityNotificationProducer</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-Unsubscribe</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntitySubscriptionManager</con:value>
+      <con:value>http://localhost:8080/CONNECTAdapterHiem_a0/EntitySubscriptionManager</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-XDREntity</con:name>
@@ -8430,7 +8430,7 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>NotificationEndpoint</con:name>
-      <con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value>
+      <con:value>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/NotificationConsumerService/HiemNotify</con:value>
     </con:property>
     <con:property>
       <con:name>NotifySubscriptionID</con:name>
@@ -8438,7 +8438,7 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-      <con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+      <con:value>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
     </con:property>
     <con:property>
       <con:name>PatientCorrelationDB</con:name>
@@ -8510,11 +8510,11 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>SubscriptionEndpoint</con:name>
-      <con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value>
+      <con:value>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/NotificationProducerService/HiemSubscription</con:value>
     </con:property>
     <con:property>
       <con:name>SubscriptionManagerEndpointAddress</con:name>
-      <con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+      <con:value>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
     </con:property>
     <con:property>
       <con:name>SubscriptionTable</con:name>
