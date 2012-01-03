@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This wsdl file is for an XDS.b Document Repository Actor -->
+<definitions xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xdr="http://www.hhs.gov/healthit/nhin" name="NhincProxyXDRResponse" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response">
+	<documentation>IHE XDR Document Repository</documentation>
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.hhs.gov/healthit/nhin" schemaLocation="../schemas/nhin/xdr.xsd"/>
+			<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../schemas/ebRS/rs.xsd"/>
+			<xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+			<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../schemas/ebRS/query.xsd"/>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="ProvideAndRegisterDocumentSet-bAsyncResponse_RequestMessage">
+		<documentation>Provide and Register Document Set Response - Request</documentation>
+		<part name="ProvideAndRegisterAsyncRespRequest" element="nccommonproxy:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest"/>
+	</message>
+	<message name="ProvideAndRegisterDocumentSet-bAsyncResponse_ResponseMessage">
+		<documentation>Provide And Register Document Set Response - Response</documentation>
+		<part name="ProvideAndRegisterAsyncRespResponse" element="xdr:XDRAcknowledgement"/>
+	</message>
+	<portType name="ProxyXDRAsyncResponse_PortType">
+		<operation name="ProvideAndRegisterDocumentSet-bAsyncResponse">
+			<input message="tns:ProvideAndRegisterDocumentSet-bAsyncResponse_RequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request"/>
+			<output message="tns:ProvideAndRegisterDocumentSet-bAsyncResponse_ResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Response"/>
+		</operation>
+	</portType>
+	<binding name="ProxyXDRAsyncResponse_Binding" type="tns:ProxyXDRAsyncResponse_PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ProvideAndRegisterDocumentSet-bAsyncResponse">
+			<soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bAsyncResponse"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="ProxyXDRAsyncResponse_Service">
+		<port name="ProxyXDRAsyncResponse_Port" binding="tns:ProxyXDRAsyncResponse_Binding">
+			<soap:address location="http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRAsyncResponse"/>
+		</port>
+	</service>
+</definitions>
