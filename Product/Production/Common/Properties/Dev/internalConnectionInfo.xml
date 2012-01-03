@@ -907,7 +907,7 @@
             <service>
                 <name>QueryForDocument</name>
                 <description>documentquery</description>
-                <endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
+                <endpointURL>https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
             </service>
             <service>
                 <name>QueryForDocumentsDeferredRequest</name>
