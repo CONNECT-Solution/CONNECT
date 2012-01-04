@@ -9,6 +9,7 @@ import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -44,6 +45,18 @@ public class EntityDocQueryOrchImpl{
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
 
+
+    /**
+     * Add default constructor that is used by test cases
+     * Note that implementations should always use constructor that takes
+     * the executor services as input
+     */
+    public EntityDocQueryOrchImpl(){
+        // for this default test case, we just create default executor services
+        // with a thread pool of 1
+        regularExecutor = Executors.newFixedThreadPool(1);
+        largejobExecutor = Executors.newFixedThreadPool(1);
+    }
 
 
     /**

@@ -36,8 +36,7 @@ public class EntityPatientDiscoveryProxyJavaImpl implements EntityPatientDiscove
 
     protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
     {
-        // return new EntityPatientDiscoveryOrchImpl();
-        return null;
+        return new EntityPatientDiscoveryOrchImpl();
     }
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest, AssertionType assertion, NhinTargetCommunitiesType targetCommunities)
@@ -45,20 +44,20 @@ public class EntityPatientDiscoveryProxyJavaImpl implements EntityPatientDiscove
         log.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
-//        EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
-//        if(processor == null)
-//        {
-//            log.warn("EntityPatientDiscoveryProcessor was null");
-//        }
-//        else
-//        {
-//            RespondingGatewayPRPAIN201305UV02RequestType processorRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
-//            processorRequest.setPRPAIN201305UV02(pdRequest);
-//            processorRequest.setAssertion(assertion);
-//            processorRequest.setNhinTargetCommunities(targetCommunities);
-//            response = processor.respondingGatewayPRPAIN201305UV02(processorRequest, assertion);
-//        }
-//        log.debug("End respondingGatewayPRPAIN201305UV02");
+        EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
+        if(processor == null)
+        {
+            log.warn("EntityPatientDiscoveryProcessor was null");
+        }
+        else
+        {
+            RespondingGatewayPRPAIN201305UV02RequestType processorRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
+            processorRequest.setPRPAIN201305UV02(pdRequest);
+            processorRequest.setAssertion(assertion);
+            processorRequest.setNhinTargetCommunities(targetCommunities);
+            response = processor.respondingGatewayPRPAIN201305UV02(processorRequest, assertion);
+        }
+        log.debug("End respondingGatewayPRPAIN201305UV02");
         return response;
     }
 
