@@ -14710,7 +14710,7 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>Endpoint-Notify</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapterHiem_a0/NhincProxyNotificationConsumer</con:value>
+      <con:value>http://localhost:8080/CONNECTAdapterHiem/1_0/NhincProxyNotificationConsumer</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-PatientDiscovery</con:name>
@@ -14722,15 +14722,15 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>Endpoint-Subscribe</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapterHiem_a0/NhincProxyNotificationProducer</con:value>
+      <con:value>http://localhost:8080/CONNECTAdapterHiem/1_0/NhincProxyNotificationProducer</con:value>
     </con:property>
     <con:property>
       <con:name>Endpoint-Unsubscribe</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapterHiem_a0/NhincProxySubscriptionManager</con:value>
+      <con:value>http://localhost:8080/CONNECTAdapterHiem/1_0/NhincProxySubscriptionManager</con:value>
     </con:property>
     <con:property>
       <con:name>EntitySubscribe</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapterHiem_a0/EntityNotificationProducer</con:value>
+      <con:value>http://localhost:8080/CONNECTAdapterHiem/1_0/EntityNotificationProducer</con:value>
     </con:property>
     <con:property>
       <con:name>ExpirationDate</con:name>
@@ -14762,7 +14762,7 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>NotificationEndpoint</con:name>
-      <con:value>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/NotificationConsumerService/HiemNotify</con:value>
+      <con:value>https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationConsumerService/HiemNotify</con:value>
     </con:property>
     <con:property>
       <con:name>NotifySubscriptionID</con:name>
@@ -14770,7 +14770,7 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-      <con:value>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+      <con:value>https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
     </con:property>
     <con:property>
       <con:name>PatientCorrelationDB</con:name>
@@ -14838,11 +14838,11 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>SubscriptionEndpoint</con:name>
-      <con:value>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/NotificationProducerService/HiemSubscription</con:value>
+      <con:value>https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationProducerService/HiemSubscription</con:value>
     </con:property>
     <con:property>
       <con:name>SubscriptionManagerEndpointAddress</con:name>
-      <con:value>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+      <con:value>https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
     </con:property>
     <con:property>
       <con:name>SubscriptionTable</con:name>
@@ -14878,7 +14878,7 @@ assert (auditCount.toInteger() &gt; 0)</scriptText>
     </con:property>
     <con:property>
       <con:name>Endpoint-NhincProxyAdminDist</con:name>
-      <con:value>http://localhost:8080/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDist</con:value>
+      <con:value>http://localhost:8080/CONNECTGatewayAdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:value>
     </con:property>
     <con:property>
       <con:name>AuditRepoDB</con:name>

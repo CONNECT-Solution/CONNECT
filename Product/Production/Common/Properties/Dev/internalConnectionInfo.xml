@@ -34,17 +34,17 @@
             <service>
                 <name>notificationproducer</name>
                 <description>notificationproducer</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/NotificationProducerService/HiemSubscription</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationProducerService/HiemSubscription</endpointURL>
             </service>
             <service>
                 <name>notificationconsumer</name>
                 <description>HIEM Notify</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/NotificationConsumerService/HiemNotify</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationConsumerService/HiemNotify</endpointURL>
             </service>
             <service>
                 <name>subscriptionmanager</name>
                 <description>HIEM Unsubscribe</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
             </service>
             <service>
                 <name>PatientDiscovery</name>
@@ -106,17 +106,17 @@
             <service>
                 <name>nhincproxynotificationconsumersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxynotificationproducersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxysubscriptionmanagersecured</name>
                 <description>NHINC Proxy Subscription Manager Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscoverysecured</name>
@@ -460,22 +460,22 @@
             <service>
                 <name>entitynotificationconsumer</name>
                 <description>Entity Notify</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapterHiem_a0/NhincProxyNotificationConsumer</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterHiem/1_0/NhincProxyNotificationConsumer</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumersecured</name>
                 <description>Entity Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/EntityNotificationConsumerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntityNotificationConsumerSecured</endpointURL>
             </service>
             <service>
                 <name>entitynotificationproducersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/EntityNotificationProducerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntityNotificationProducerSecured</endpointURL>
             </service>
             <service>
                 <name>entitysubscriptionmanagersecured</name>
                 <description>Entity Subscription Manager Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/EntitySubscriptionManagerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntitySubscriptionManagerSecured</endpointURL>
             </service>
             <service>
                 <name>entitydocqueryproxy</name>
@@ -709,7 +709,7 @@
             <service>
                 <name>nhinadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/NhinService/NhinAdminDist</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution/1_0/NhinService/NhinAdminDist</endpointURL>
             </service>
             <!-- Begin Doc Retrieve deferred service end points -->
             <service>
@@ -856,22 +856,22 @@
             <service>
                 <name>adapteradmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistributionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterAdminDistribution/1_0/AdapterAdministrativeDistributionSecured</endpointURL>
             </service>
             <service>
                 <name>adapteradmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistribution</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterAdminDistribution/1_0/AdapterAdministrativeDistribution</endpointURL>
             </service>
             <service>
                 <name>nhincadmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution/1_0/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
             </service>
             <service>
                 <name>nhincadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDist</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayAdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverydeferredreqqueueprocess</name>
@@ -927,17 +927,17 @@
             <service>
                 <name>notificationproducer</name>
                 <description>notificationproducer</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/NotificationProducerService/HiemSubscription</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationProducerService/HiemSubscription</endpointURL>
             </service>
             <service>
                 <name>notificationconsumer</name>
                 <description>HIEM Notify</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/NotificationConsumerService/HiemNotify</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationConsumerService/HiemNotify</endpointURL>
             </service>
             <service>
                 <name>subscriptionmanager</name>
                 <description>HIEM Unsubscribe</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
             </service>
             <service>
                 <name>PatientDiscovery</name>
@@ -999,17 +999,17 @@
             <service>
                 <name>nhincproxynotificationconsumersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxynotificationproducersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxysubscriptionmanagersecured</name>
                 <description>NHINC Proxy Subscription Manager Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscoverysecured</name>
@@ -1348,27 +1348,27 @@
             <service>
                 <name>nhincproxysubjectdiscovery</name>
                 <description>NHINC Proxy Subject Discovery</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapterHiem_a0/NhincProxySubjectDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterHiem/1_0/NhincProxySubjectDiscovery</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumer</name>
                 <description>Entity Notify</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapterHiem_a0/NhincProxyNotificationConsumer</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterHiem/1_0/NhincProxyNotificationConsumer</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumersecured</name>
                 <description>Entity Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/EntityNotificationConsumerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntityNotificationConsumerSecured</endpointURL>
             </service>
             <service>
                 <name>entitynotificationproducersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/EntityNotificationProducerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntityNotificationProducerSecured</endpointURL>
             </service>
             <service>
                 <name>entitysubscriptionmanagersecured</name>
                 <description>Entity Subscription Manager Secured</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayHiem_g0/EntityService/EntitySubscriptionManagerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntitySubscriptionManagerSecured</endpointURL>
             </service>
             <service>
                 <name>entitydocqueryproxy</name>
@@ -1602,7 +1602,7 @@
             <service>
                 <name>nhinadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/NhinService/NhinAdminDist</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution/1_0/NhinService/NhinAdminDist</endpointURL>
             </service>
             <!-- Begin Doc Retrieve deferred service end points -->
             <service>
@@ -1749,22 +1749,22 @@
             <service>
                 <name>adapteradmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistributionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterAdminDistribution/1_0/AdapterAdministrativeDistributionSecured</endpointURL>
             </service>
             <service>
                 <name>adapteradmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistribution</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterAdminDistribution/1_0/AdapterAdministrativeDistribution</endpointURL>
             </service>
             <service>
                 <name>nhincadmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution/1_0/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
             </service>
             <service>
                 <name>nhincadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDist</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayAdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverydeferredreqqueueprocess</name>
@@ -2495,7 +2495,7 @@
             <service>
                 <name>nhinadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/NhinService/NhinAdminDist</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution/1_0/NhinService/NhinAdminDist</endpointURL>
             </service>
             <!-- Begin Doc Retrieve deferred service end points -->
             <service>
@@ -2642,22 +2642,22 @@
             <service>
                 <name>adapteradmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistributionSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTAdapterAdminDistribution/1_0/AdapterAdministrativeDistributionSecured</endpointURL>
             </service>
             <service>
                 <name>adapteradmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTAdapterAdminDistribution_a0/AdapterAdministrativeDistribution</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapterAdminDistribution/1_0/AdapterAdministrativeDistribution</endpointURL>
             </service>
             <service>
                 <name>nhincadmindistsecured</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayAdminDistribution/1_0/MsgProxy/NhincProxyAdminDistSecured</endpointURL>
             </service>
             <service>
                 <name>nhincadmindist</name>
                 <description>Administrative Distribution Service</description>
-                <endpointURL>http://localhost:8080/CONNECTGatewayAdminDistribution_g0/MsgProxy/NhincProxyAdminDist</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayAdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</endpointURL>
             </service>
             <service>
                 <name>adapterpatientdiscoverydeferredreqqueueprocess</name>
