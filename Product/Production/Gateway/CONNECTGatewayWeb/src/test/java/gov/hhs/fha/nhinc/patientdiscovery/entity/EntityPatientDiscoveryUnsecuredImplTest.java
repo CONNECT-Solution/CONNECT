@@ -14,7 +14,6 @@ import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
@@ -236,7 +235,6 @@ public class EntityPatientDiscoveryUnsecuredImplTest
     }
 
     @Test
-    @Ignore
     public void testRespondingGatewayPRPAIN201305UV02NullResponse()
     {
         try
@@ -251,15 +249,18 @@ public class EntityPatientDiscoveryUnsecuredImplTest
                 @Override
                 protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
                 {
-                      EntityPatientDiscoveryOrchImpl processor = null;
-//                    EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl()
-//                    {
-//                        @Override
-//                        public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
-//                        {
-//                            return null;
-//                        }
-//                    };
+                    // we construct the processor with null references to the executor services
+                    // for this test as this test just returns a null response, so executor services
+                    // are not used in this case
+                    EntityPatientDiscoveryOrchImpl processor = new EntityPatientDiscoveryOrchImpl(null, null)
+                    {
+                        // note that this override with force a null response to be returned in all cases
+                        @Override
+                        public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion)
+                        {
+                            return null;
+                        }
+                    };
                     return processor;
                 }
                 @Override
