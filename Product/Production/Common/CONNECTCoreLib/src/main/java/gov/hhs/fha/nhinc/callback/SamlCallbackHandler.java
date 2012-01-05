@@ -107,6 +107,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static Element svAssertion;
     private static Element hokAssertion20;
     private static HashMap<String, String> factoryVersionMap = new HashMap<String, String>();
+    private static final String ID_PREFIX = "_";
 
     private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
 
@@ -189,8 +190,10 @@ public class SamlCallbackHandler implements CallbackHandler {
             SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
 
             // create the assertion id
-            String aID = String.valueOf(UUID.randomUUID());
-
+            //Per GATEWAY-847 the id attribute should not be allowed to start with a number (UUIDs can). Direction given from 2011 specification set was to prepend with and underscore.
+            String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
+            log.debug("Assertion ID: " + aID);
+            
             // name id of the issuer - For now just use default
             NameID issueId = create509NameID(factory, DEFAULT_NAME);
 
@@ -231,10 +234,11 @@ public class SamlCallbackHandler implements CallbackHandler {
         Assertion assertion = null;
         try {
             SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
-
+            
             // create the assertion id
-            String aID = String.valueOf(UUID.randomUUID());
-
+            //Per GATEWAY-847 the id attribute should not be allowed to start with a number (UUIDs can). Direction given from 2011 specification set was to prepend with and underscore.
+            String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
+            log.debug("Assertion ID: " + aID);
             // name id of the issuer - For now just use default
             NameID issueId = null;
 
