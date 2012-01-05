@@ -5,10 +5,11 @@
 
 package gov.hhs.fha.nhinc.orchestration;
 
+
 /**
  *
  * @author mweaver
  */
-public interface NhinDelegate extends Delegate {
-    public EntityOrchestratable process(EntityOrchestratable message);
+public interface OrchestrationStrategy {
+    public void execute(EntityOrchestratable message);
 }

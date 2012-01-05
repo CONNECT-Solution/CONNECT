@@ -25,13 +25,119 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author mweaver
  */
-public abstract class CONNECTOrchestrationBase {
+public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
     private static final Log logger = LogFactory.getLog(CONNECTOrchestrationBase.class);
 
-    protected Log getLogger() {
-        return logger;
-    }
+    
+    public void process(Orchestratable message) {
+		getLogger().debug(
+				"Entering CONNECTNhinOrchestrator for "
+						+ message.getServiceName());
+		if (message != null) {
+			processNotNullMessage(message);
+		}
+		getLogger().debug(
+					"Returning from CONNECTNhinOrchestrator for "
+							+ message.getServiceName());
+		
+	}
+	
+	public void processNotNullMessage(Orchestratable message) {
+
+			// audit
+			getLogger().debug("Calling audit for " + message.getServiceName());
+			auditRequest(message);
+
+			if (message.isEnabled()) {
+				processEnabledMessage(message);
+			} else {
+				getLogger()
+						.debug(message.getServiceName()
+								+ " is not enabled. returning a error response");
+				createErrorResponse((NhinOrchestratable) message,
+						message.getServiceName() + " is not enabled.");
+			}
+			// audit again
+			getLogger().debug(
+					"Calling audit response for " + message.getServiceName());
+			auditResponse(message);
+			getLogger().debug(
+					"Returning from CONNECTNhinOrchestrator for "
+							+ message.getServiceName());
+	}
+
+	public void processEnabledMessage(Orchestratable message) {
+		getLogger().debug(
+				message.getServiceName()
+						+ " service is enabled. Procesing message...");
+		if (message.isPassthru()) {
+			processPassThruMessage(message);
+		} else {
+			getLogger()
+					.debug(message.getServiceName()
+							+ "is not in passthrough mode. Calling internal processing");
+			processIfPolicyIsOk(message);
+		}
+	}
+
+	protected abstract void processIfPolicyIsOk(Orchestratable message);
+
+	public void processPassThruMessage(Orchestratable message) {
+		getLogger()
+				.debug(message.getServiceName()
+						+ " is in passthrough mode. Sending directly to adapter");
+		delegate(message);
+	}
+
+	public void processInboundIfPolicyIsOk(Orchestratable message) {
+
+		if (isPolicyOk(message, PolicyTransformer.Direction.INBOUND)) {
+			// if true, sent to adapter
+			delegate(message);
+		} else {
+			handleFailedPolicyCheck(message);
+		}
+	}
+	
+	public void processOutboundIfPolicyIsOk(Orchestratable message) {
+
+		if (isPolicyOk(message, PolicyTransformer.Direction.OUTBOUND)) {
+			// if true, sent to adapter
+			delegate(message);
+		} else {
+			handleFailedPolicyCheck(message);
+		}
+	}
+
+	private void handleFailedPolicyCheck(Orchestratable message) {
+		getLogger().debug(
+				message.getServiceName()
+						+ " failed policy check. Returning a error response");
+		createErrorResponse((NhinOrchestratable) message,
+				message.getServiceName() + " failed policy check.");
+	}
+
+	protected Log getLogger() {
+		return logger;
+	}
+
+	/*
+	 * Begin Delegate Methods
+	 */
+
+	protected void createErrorResponse(NhinOrchestratable message, String error) {
+		if (message != null && message.getAdapterDelegate() != null) {
+			AdapterDelegate delegate = message.getAdapterDelegate();
+			delegate.createErrorResponse(message, error);
+		}
+	}
+	/*
+	 * End Delegate Methods
+	 */
+    
+    
+    
 
     /*
      * Begin Audit Methods
@@ -103,7 +209,7 @@ public abstract class CONNECTOrchestrationBase {
             PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
 
             PolicyTransformer transformer = message.getPolicyTransformer();
-            CheckPolicyRequestType policyReq = transformer.tranform(message, direction);
+            CheckPolicyRequestType policyReq = transformer.transform(message, direction);
 
             if (policyReq != null && message.getAssertion() != null) {
                 CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, message.getAssertion());
@@ -127,4 +233,22 @@ public abstract class CONNECTOrchestrationBase {
     /*
      * End Policy Methods
      */
+    
+    /*
+	 * Begin Delegate Methods
+	 */
+	protected Orchestratable delegate(Orchestratable message) {
+		Orchestratable resp = null;
+		getLogger().debug(
+				"Entering CONNECTNhinOrchestrator.delegateToNhin(...)");
+		Delegate p = message.getDelegate();
+		resp = p.process(message);
+		getLogger()
+				.debug("Exiting CONNECTNhinOrchestrator.delegateToNhin(...)");
+		return resp;
+	}
+	/*
+	 * End Delegate Methods
+	 */
+	
 }

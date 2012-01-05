@@ -6,6 +6,7 @@ package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.orchestration.AdapterDelegate;
 import gov.hhs.fha.nhinc.orchestration.NhinOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
@@ -24,9 +25,19 @@ public class AdapterDocRetrieveDelegate implements AdapterDelegate {
     public AdapterDocRetrieveDelegate() {
     }
 
-    public void process(NhinOrchestratable message) {
-        if (message instanceof NhinDocRetrieveOrchestratable) {
-
+    @Override
+	public Orchestratable process(Orchestratable message) {
+    	if (message instanceof NhinDocRetrieveOrchestratable) {
+    		process((NhinOrchestratable) message);
+    	  } else {
+              getLogger().error("message is not an instance of NhinDocRetrieveOrchestratable!");
+          }
+		return null;
+	}
+    
+    
+    public NhinOrchestratable process(NhinOrchestratable message) {
+   
             // TODO: check connection manager for which endpoint to use
 
             // if we are using _a0
@@ -36,9 +47,8 @@ public class AdapterDocRetrieveDelegate implements AdapterDelegate {
             } else { // if we are using _a1
                 // TODO: implement _a1 strategy
             }
-        } else {
-            getLogger().error("message is not an instance of NhinDocRetrieveOrchestratable!");
-        }
+            
+            return null;
     }
 
     public void createErrorResponse(NhinOrchestratable message, String error) {
@@ -82,4 +92,6 @@ public class AdapterDocRetrieveDelegate implements AdapterDelegate {
             strategy.execute(message);
         }
     }
+
+	
 }

@@ -5,6 +5,9 @@
 
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
+import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -44,14 +47,20 @@ public class NhinDocRetrieveStrategyTest {
     public void testExecute() {
         System.out.println("execute");
         EntityDocRetrieveOrchestratable message = null;
-        NhinDocRetrieveStrategy instance = new NhinDocRetrieveStrategyImpl();
+        OrchestrationStrategy instance = new NhinDocRetrieveStrategyImpl();
         instance.execute(message);
     }
 
-    public class NhinDocRetrieveStrategyImpl implements NhinDocRetrieveStrategy {
+    public class NhinDocRetrieveStrategyImpl implements OrchestrationStrategy {
 
         public void execute(EntityDocRetrieveOrchestratable message) {
         }
+
+		@Override
+		public void execute(EntityOrchestratable message) {
+			// TODO Auto-generated method stub
+			
+		}
     }
 
 }

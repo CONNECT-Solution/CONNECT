@@ -56,11 +56,18 @@ public class AdapterDelegateTest {
 
     public class AdapterDelegateImpl implements AdapterDelegate {
 
-        public void process(NhinOrchestratable message) {
+        public NhinOrchestratable process(NhinOrchestratable message) {
+        	return null;
         }
 
         public void createErrorResponse(NhinOrchestratable message, String error) {
         }
+
+		@Override
+		public Orchestratable process(Orchestratable message) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
 }

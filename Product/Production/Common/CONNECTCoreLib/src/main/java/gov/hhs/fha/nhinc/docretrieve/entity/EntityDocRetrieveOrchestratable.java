@@ -111,4 +111,9 @@ public class EntityDocRetrieveOrchestratable implements EntityOrchestratable {
         return _nhinAggregator;
     }
 
+	@Override
+	public NhinDelegate getDelegate() {
+		return getNhinDelegate();
+	}
+
 }

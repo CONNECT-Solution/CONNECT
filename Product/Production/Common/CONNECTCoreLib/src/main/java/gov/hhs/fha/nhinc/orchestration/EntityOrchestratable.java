@@ -10,6 +10,6 @@ package gov.hhs.fha.nhinc.orchestration;
  * @author mweaver
  */
 public interface EntityOrchestratable extends Orchestratable {
-    public NhinDelegate getNhinDelegate();
+    public NhinDelegate getDelegate();
     public NhinAggregator getAggregator();
 }

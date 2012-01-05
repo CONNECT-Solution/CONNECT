@@ -25,47 +25,29 @@ public class EntityDocRetrieveOrchestratorImpl extends CONNECTEntityOrchestrator
     private static final Log logger = LogFactory.getLog(EntityDocRetrieveOrchestratorImpl.class);
 
     @Override
-    public void process(Orchestratable message) {
-        getLogger().debug("Entering EntityDocRetrieveOrchestratorImpl for " + message.getServiceName());
-        if (message != null) {
-            if (message instanceof EntityDocRetrieveOrchestratable) {
-                // audit
-                getLogger().debug("Calling audit for " + message.getServiceName());
-                auditRequest(message);
+	public void processEnabledMessage(Orchestratable message) {
+    	EntityDocRetrieveOrchestratable EntityDROrchMessage = (EntityDocRetrieveOrchestratable)message;
+        for (DocumentRequest docRequest : EntityDROrchMessage.getRequest().getDocumentRequest()) {
+            EntityOrchestratable impl = new EntityDocRetrieveOrchestratable(message.getPolicyTransformer(), message.getAuditTransformer(), EntityDROrchMessage.getNhinDelegate(), EntityDROrchMessage.getAggregator());
+            RetrieveDocumentSetRequestType rdRequest = new RetrieveDocumentSetRequestType();
+            rdRequest.getDocumentRequest().add(docRequest);
+            ((EntityDocRetrieveOrchestratable)impl).setRequest(rdRequest);
+            ((EntityDocRetrieveOrchestratable)impl).setAssertion(message.getAssertion());
+            ((EntityDocRetrieveOrchestratable)impl).setTarget(buildHomeCommunity(docRequest.getHomeCommunityId()));
+            
+            
+            super.processEnabledMessage(impl);
+      
+            // TODO: how do we aggregate!?!?
+            NhinAggregator agg = EntityDROrchMessage.getAggregator();
+            agg.aggregate((EntityOrchestratable)message, impl);
+        }// TODO Auto-generated method stub
+		super.processEnabledMessage(message);
+	}
 
-                if (message.isEnabled()) {
-                    getLogger().debug(message.getServiceName() + " service is enabled. Procesing message...");
 
-                    EntityDocRetrieveOrchestratable EntityDROrchMessage = (EntityDocRetrieveOrchestratable)message;
-                    for (DocumentRequest docRequest : EntityDROrchMessage.getRequest().getDocumentRequest()) {
-                        EntityOrchestratable impl = new EntityDocRetrieveOrchestratable(message.getPolicyTransformer(), message.getAuditTransformer(), EntityDROrchMessage.getNhinDelegate(), EntityDROrchMessage.getAggregator());
-                        RetrieveDocumentSetRequestType rdRequest = new RetrieveDocumentSetRequestType();
-                        rdRequest.getDocumentRequest().add(docRequest);
-                        ((EntityDocRetrieveOrchestratable)impl).setRequest(rdRequest);
-                        ((EntityDocRetrieveOrchestratable)impl).setAssertion(message.getAssertion());
-                        ((EntityDocRetrieveOrchestratable)impl).setTarget(buildHomeCommunity(docRequest.getHomeCommunityId()));
-                        
-                        // policy check
-                        if (isPolicyOk(impl, PolicyTransformer.Direction.OUTBOUND)) {
-                            // if true, send to Nhin
-                            impl = delegateToNhin(impl);
-                        } else {
-                            getLogger().debug("Policy Check failed for " + message.getServiceName());
-                        }
 
-                        // TODO: how do we aggregate!?!?
-                        NhinAggregator agg = EntityDROrchMessage.getAggregator();
-                        agg.aggregate((EntityOrchestratable)message, impl);
-                    }
-                }
-                // audit again
-                getLogger().debug("Calling audit response for " + message.getServiceName());
-                auditResponse(message);
-            }
-        }
-    }
-
-    private NhinTargetSystemType buildHomeCommunity(String homeCommunityId) {
+	private NhinTargetSystemType buildHomeCommunity(String homeCommunityId) {
         NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId(homeCommunityId);

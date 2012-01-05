@@ -18,7 +18,7 @@ import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
  */
 public class NhinDocRetrievePolicyTransformer_g0 implements PolicyTransformer {
 
-    public CheckPolicyRequestType tranform(Orchestratable message, Direction direction) {
+    public CheckPolicyRequestType transform(Orchestratable message, Direction direction) {
         CheckPolicyRequestType policyReq = null;
         if (message instanceof NhinDocRetrieveOrchestratableImpl_g0)
         {

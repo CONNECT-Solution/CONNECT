@@ -74,7 +74,7 @@ public class CONNECTEntityOrchestratorTest {
     public void testDelegateToNhin() {
         EntityOrchestratable message = new EntityOrchestratableImpl();
         CONNECTEntityOrchestrator instance = new CONNECTEntityOrchestrator();
-        instance.delegateToNhin(message);
+        instance.delegate(message);
         // there was no error, so success
         // TODO: make a better test
     }
@@ -118,5 +118,10 @@ public class CONNECTEntityOrchestratorTest {
         public String getServiceName() {
             return "";
         }
+
+		@Override
+		public NhinDelegate getDelegate() {
+			return getNhinDelegate();
+		}
     }
 }

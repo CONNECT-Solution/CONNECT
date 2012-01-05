@@ -4,15 +4,16 @@
  */
 package gov.hhs.fha.nhinc.orchestration;
 
-import gov.hhs.fha.nhinc.orchestration.CONNECTEntityOrchestratorTest.EntityOrchestratableImpl;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer.Direction;
+
 import org.apache.commons.logging.Log;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -100,5 +101,19 @@ public class CONNECTOrchestrationBaseTest {
     }
 
     public class CONNECTOrchestrationBaseImpl extends CONNECTOrchestrationBase {
+
+		@Override
+		protected void processIfPolicyIsOk(Orchestratable message) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		protected boolean isPolicyOk(Orchestratable message, Direction direction) {
+			
+			return false;
+		}
+		
+		
     }
 }

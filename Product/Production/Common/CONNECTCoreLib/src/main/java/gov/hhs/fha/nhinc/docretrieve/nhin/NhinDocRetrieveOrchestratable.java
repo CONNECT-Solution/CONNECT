@@ -9,6 +9,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AdapterDelegate;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
+import gov.hhs.fha.nhinc.orchestration.Delegate;
 import gov.hhs.fha.nhinc.orchestration.NhinOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -37,8 +38,15 @@ public abstract class NhinDocRetrieveOrchestratable implements NhinOrchestratabl
     {
         
     }
+    
+    
 
-    public NhinDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, AdapterDelegate ad)
+    @Override
+	public Delegate getDelegate() {
+		return getAdapterDelegate();
+	}
+
+	public NhinDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, AdapterDelegate ad)
     {
         _policyTransformer = pt;
         _auditTransformer = at;

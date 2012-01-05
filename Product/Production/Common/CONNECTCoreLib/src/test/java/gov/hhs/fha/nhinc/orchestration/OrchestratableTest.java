@@ -119,6 +119,12 @@ public class OrchestratableTest {
         public String getServiceName() {
             return "";
         }
+
+		@Override
+		public Delegate getDelegate() {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
 }

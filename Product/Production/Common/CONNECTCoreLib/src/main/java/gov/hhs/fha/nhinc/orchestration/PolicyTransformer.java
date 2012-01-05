@@ -11,5 +11,5 @@ package gov.hhs.fha.nhinc.orchestration;
  */
 public interface PolicyTransformer {
     public enum Direction {INBOUND, OUTBOUND};
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType tranform(Orchestratable message, Direction direction);
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transform(Orchestratable message, Direction direction);
 }

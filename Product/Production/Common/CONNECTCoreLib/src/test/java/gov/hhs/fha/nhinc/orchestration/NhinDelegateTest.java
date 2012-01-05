@@ -52,6 +52,12 @@ public class NhinDelegateTest {
         public EntityOrchestratable process(EntityOrchestratable message) {
             return null;
         }
+
+		@Override
+		public Orchestratable process(Orchestratable message) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
 }

@@ -9,7 +9,7 @@ package gov.hhs.fha.nhinc.orchestration;
  *
  * @author mweaver
  */
-public interface AdapterDelegate {
-    public void process(NhinOrchestratable message);
+public interface AdapterDelegate extends Delegate {
+    public NhinOrchestratable process(NhinOrchestratable message);
     public void createErrorResponse(NhinOrchestratable message, String error);
 }

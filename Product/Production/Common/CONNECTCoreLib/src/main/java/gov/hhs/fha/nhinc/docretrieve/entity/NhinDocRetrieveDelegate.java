@@ -6,6 +6,11 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 
 import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactory;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
@@ -14,77 +19,74 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class NhinDocRetrieveDelegate implements NhinDelegate {
 
-    private static Log log = LogFactory.getLog(NhinDocRetrieveDelegate.class);
+	private static Log log = LogFactory.getLog(NhinDocRetrieveDelegate.class);
 
-    public NhinDocRetrieveDelegate() {
-    }
+	public NhinDocRetrieveDelegate() {
+	}
 
-    public EntityOrchestratable process(EntityOrchestratable message) {
-        EntityOrchestratable resp = null;
-        if (message instanceof EntityDocRetrieveOrchestratable) {
-            EntityDocRetrieveOrchestratable DRMessage = (EntityDocRetrieveOrchestratable) message;
-            // TODO: check connection manager for which endpoint to use
+	@Override
+	public Orchestratable process(Orchestratable message) {
+		if (message instanceof EntityOrchestratable) {
+			return process((EntityOrchestratable) message);
+		}
+		return null;
+	}
 
-            // if we are using _g0
-            if (true) {
-                NhinDocRetrieveStrategyContext context = new NhinDocRetrieveStrategyContext(new NhinDocRetrieveStrategyImpl_g0());
-                EntityDocRetrieveOrchestratableImpl_a0 impl_a0 = new EntityDocRetrieveOrchestratableImpl_a0(DRMessage.getRequest(), DRMessage.getAssertion(), null, DRMessage.getAuditTransformer(), null, null);
-                impl_a0.setTarget(DRMessage.getTarget());
-                context.executeStrategy((EntityDocRetrieveOrchestratable) impl_a0);
-                resp = impl_a0;
-            } else { // if we are using _a1
-                // TODO: implement _g1 strategy
-            }
-        } else {
-            getLogger().error("message is not an instance of NhinDocRetrieveOrchestratable!");
-        }
-        return resp;
-    }
+	public EntityOrchestratable process(EntityOrchestratable message) {
+		EntityOrchestratable resp = null;
+		if (message instanceof EntityDocRetrieveOrchestratable) {
+			EntityDocRetrieveOrchestratable DRMessage = (EntityDocRetrieveOrchestratable) message;
+			// TODO: check connection manager for which endpoint to use
 
-    public void createErrorResponse(EntityOrchestratable message, String error) {
-        if (message == null) {
-            getLogger().debug("NhinOrchestratable was null");
-            return;
-        }
+			EntityDocRetrieveOrchestrationContextBuilder contextBuilder = ((EntityDocRetrieveOrchestrationContextBuilder)OrchestrationContextFactory
+					.getInstance().getBuilder(
+							DRMessage.getTarget().getHomeCommunity(),
+							DRMessage.getServiceName())).setRetrieveDocumentSetRequestType(DRMessage.getRequest()).setAssertionType(DRMessage.getAssertion()).setAuditTransformer(DRMessage.getAuditTransformer());
+			
+		
+			OrchestrationContext context = contextBuilder.build();
 
-        if (message instanceof EntityDocRetrieveOrchestratableImpl_a0) {
-            RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-            RegistryResponseType responseType = new RegistryResponseType();
-            response.setRegistryResponse(responseType);
-            responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-            RegistryErrorList regErrList = new RegistryErrorList();
-            responseType.setRegistryErrorList(regErrList);
-            RegistryError regErr = new RegistryError();
-            regErrList.getRegistryError().add(regErr);
-            regErr.setCodeContext(error);
-            regErr.setErrorCode("XDSRepositoryError");
-            regErr.setSeverity("Error");
-            ((EntityDocRetrieveOrchestratableImpl_a0) message).setResponse(response);
-        } else /* if(message instanceof NhinDocRetrieveOrchestratableImpl_g1) */ {
+			resp = context.execute();
+		} else {
+			getLogger()
+					.error("message is not an instance of NhinDocRetrieveOrchestratable!");
+		}
+		return resp;
+	}
 
-        }
-    }
+	public void createErrorResponse(EntityOrchestratable message, String error) {
+		if (message == null) {
+			getLogger().debug("NhinOrchestratable was null");
+			return;
+		}
 
-    private Log getLogger() {
-        return log;
-    }
+		if (message instanceof EntityDocRetrieveOrchestratableImpl_a0) {
+			RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
+			RegistryResponseType responseType = new RegistryResponseType();
+			response.setRegistryResponse(responseType);
+			responseType
+					.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+			RegistryErrorList regErrList = new RegistryErrorList();
+			responseType.setRegistryErrorList(regErrList);
+			RegistryError regErr = new RegistryError();
+			regErrList.getRegistryError().add(regErr);
+			regErr.setCodeContext(error);
+			regErr.setErrorCode("XDSRepositoryError");
+			regErr.setSeverity("Error");
+			((EntityDocRetrieveOrchestratableImpl_a0) message)
+					.setResponse(response);
+		} else /* if(message instanceof NhinDocRetrieveOrchestratableImpl_g1) */{
 
-    private class NhinDocRetrieveStrategyContext {
+		}
+	}
 
-        private NhinDocRetrieveStrategy strategy;
+	private Log getLogger() {
+		return log;
+	}
 
-        // Constructor
-        public NhinDocRetrieveStrategyContext(NhinDocRetrieveStrategy strategy) {
-            this.strategy = strategy;
-        }
-
-        public void executeStrategy(EntityDocRetrieveOrchestratable message) {
-            strategy.execute(message);
-        }
-    }
 }

@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.docretrieve.nhin;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.orchestration.AdapterDelegate;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
+import gov.hhs.fha.nhinc.orchestration.Delegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -43,4 +44,5 @@ public class NhinDocRetrieveOrchestratableImpl_g0 extends NhinDocRetrieveOrchest
     {
         return serviceName;
     }
+	
 }

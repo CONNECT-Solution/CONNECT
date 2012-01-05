@@ -50,7 +50,7 @@ public class EntityDocRetrievePolicyTransformer_a0Test {
         Direction direction = null;
         EntityDocRetrievePolicyTransformer_a0 instance = new EntityDocRetrievePolicyTransformer_a0();
         CheckPolicyRequestType expResult = null;
-        CheckPolicyRequestType result = instance.tranform(message, direction);
+        CheckPolicyRequestType result = instance.transform(message, direction);
         assertEquals(expResult, result);
     }
 

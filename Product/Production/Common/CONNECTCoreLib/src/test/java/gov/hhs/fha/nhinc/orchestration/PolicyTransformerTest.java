@@ -46,12 +46,12 @@ public class PolicyTransformerTest {
         Orchestratable message = null;
         Direction direction = null;
         PolicyTransformer instance = new PolicyTransformerImpl();
-        instance.tranform(message, direction);
+        instance.transform(message, direction);
         // we are just testing that the interface is good, so this test should suffice
     }
 
     public class PolicyTransformerImpl implements PolicyTransformer {
-        public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType tranform(Orchestratable message, Direction direction)
+        public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transform(Orchestratable message, Direction direction)
         {
             return null;
         }

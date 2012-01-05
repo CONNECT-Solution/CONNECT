@@ -45,7 +45,7 @@ public class EntityOrchestratableTest {
     public void testGetNhinDelegate() {
         EntityOrchestratable instance = new EntityOrchestratableImpl();
         NhinDelegate expResult = null;
-        NhinDelegate result = instance.getNhinDelegate();
+        NhinDelegate result = instance.getDelegate();
         assertEquals(expResult, result);
     }
 
@@ -91,6 +91,12 @@ public class EntityOrchestratableTest {
         public NhinAggregator getAggregator() {
             return null;
         }
+
+		@Override
+		public NhinDelegate getDelegate() {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
 }

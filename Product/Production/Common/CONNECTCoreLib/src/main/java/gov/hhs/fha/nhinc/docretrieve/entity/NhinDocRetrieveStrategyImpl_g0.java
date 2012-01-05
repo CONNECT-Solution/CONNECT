@@ -13,6 +13,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxy;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -23,7 +25,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author mweaver
  */
-public class NhinDocRetrieveStrategyImpl_g0 implements NhinDocRetrieveStrategy {
+public class NhinDocRetrieveStrategyImpl_g0 implements OrchestrationStrategy {
 
     private static Log log = LogFactory.getLog(NhinDocRetrieveStrategyImpl_g0.class);
     
@@ -36,7 +38,15 @@ public class NhinDocRetrieveStrategyImpl_g0 implements NhinDocRetrieveStrategy {
         return log;
     }
 
-    public void execute(EntityDocRetrieveOrchestratable message) {
+    @Override
+	public void execute(EntityOrchestratable message) {
+		if (message instanceof EntityDocRetrieveOrchestratable) {
+			execute((EntityDocRetrieveOrchestratable) message);
+		}
+		
+	}
+
+	public void execute(EntityDocRetrieveOrchestratable message) {
         getLogger().debug("Begin NhinDocRetrieveOrchestratableImpl_g0.process");
         if (message == null) {
             getLogger().debug("NhinOrchestratable was null");

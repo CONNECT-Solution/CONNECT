@@ -75,7 +75,7 @@ public class CONNECTNhinOrchestratorTest {
     public void testDelegateToAdapter() {
         NhinOrchestratable message = new NhinOrchestratableImpl();
         CONNECTNhinOrchestrator instance = new CONNECTNhinOrchestrator();
-        instance.delegateToAdapter(message);
+        instance.delegate(message);
         // there was no error, so success
         // TODO: make a better test
     }
@@ -114,5 +114,10 @@ public class CONNECTNhinOrchestratorTest {
         public String getServiceName() {
             return "";
         }
+
+		@Override
+		public Delegate getDelegate() {
+			return getAdapterDelegate();
+		}
     }
 }
