@@ -47,8 +47,6 @@ public class NhinDocRetrieveDelegateTest {
         EntityOrchestratable message = null;
         NhinDocRetrieveDelegate instance = new NhinDocRetrieveDelegate();
         instance.process(message);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -61,8 +59,6 @@ public class NhinDocRetrieveDelegateTest {
         String error = "";
         NhinDocRetrieveDelegate instance = new NhinDocRetrieveDelegate();
         instance.createErrorResponse(message, error);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
 }

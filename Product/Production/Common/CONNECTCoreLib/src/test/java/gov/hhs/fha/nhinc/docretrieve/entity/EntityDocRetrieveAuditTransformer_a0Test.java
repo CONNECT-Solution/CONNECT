@@ -2,11 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
+import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
+import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,6 +24,9 @@ import static org.junit.Assert.*;
  * @author mweaver
  */
 public class EntityDocRetrieveAuditTransformer_a0Test {
+
+    private Mockery mockingContext;
+    private AuditRepositoryLogger mockedDependency;
 
     public EntityDocRetrieveAuditTransformer_a0Test() {
     }
@@ -33,6 +41,10 @@ public class EntityDocRetrieveAuditTransformer_a0Test {
 
     @Before
     public void setUp() {
+        mockingContext = new JUnit4Mockery() {{
+        setImposteriser(ClassImposteriser.INSTANCE);
+    }};
+        mockedDependency = mockingContext.mock(AuditRepositoryLogger.class);
     }
 
     @After
@@ -44,14 +56,21 @@ public class EntityDocRetrieveAuditTransformer_a0Test {
      */
     @Test
     public void testTransformRequest() {
-        System.out.println("transformRequest");
-        Orchestratable message = null;
+        EntityDocRetrieveOrchestratableFactory factory = new EntityDocRetrieveOrchestratableFactory();
+        Orchestratable message = factory.getEntityDocRetrieveOrchestratableImpl_a0();
         EntityDocRetrieveAuditTransformer_a0 instance = new EntityDocRetrieveAuditTransformer_a0();
-        LogEventRequestType expResult = null;
+        
+        mockingContext.checking(new Expectations() {
+            {
+                one
+                (mockedDependency).logDocRetrieve(with(any(DocRetrieveMessageType.class)), with(any(String.class)), with(any(String.class)), with(any(String.class)));
+                will
+                (returnValue(null));
+            }
+        });
         LogEventRequestType result = instance.transformRequest(message);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("Inbound", result.getDirection());
+        assertEquals("Nhin", result.getInterface());
     }
 
     /**
@@ -59,14 +78,20 @@ public class EntityDocRetrieveAuditTransformer_a0Test {
      */
     @Test
     public void testTransformResponse() {
-        System.out.println("transformResponse");
-        Orchestratable message = null;
+        EntityDocRetrieveOrchestratableFactory factory = new EntityDocRetrieveOrchestratableFactory();
+        Orchestratable message = factory.getEntityDocRetrieveOrchestratableImpl_a0();
         EntityDocRetrieveAuditTransformer_a0 instance = new EntityDocRetrieveAuditTransformer_a0();
-        LogEventRequestType expResult = null;
-        LogEventRequestType result = instance.transformResponse(message);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
+        mockingContext.checking(new Expectations() {
+            {
+                one
+                (mockedDependency).logDocRetrieve(with(any(DocRetrieveMessageType.class)), with(any(String.class)), with(any(String.class)), with(any(String.class)));
+                will
+                (returnValue(null));
+            }
+        });
+        LogEventRequestType result = instance.transformResponse(message);
+        assertEquals("Outbound", result.getDirection());
+        assertEquals("Nhin", result.getInterface());
+    }
 }

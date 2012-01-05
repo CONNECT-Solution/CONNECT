@@ -54,8 +54,6 @@ public class EntityDocRetrieveOrchestratableTest {
         NhinTargetSystemType expResult = null;
         NhinTargetSystemType result = instance.getTarget();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -67,8 +65,6 @@ public class EntityDocRetrieveOrchestratableTest {
         NhinTargetSystemType target = null;
         EntityDocRetrieveOrchestratable instance = new EntityDocRetrieveOrchestratable();
         instance.setTarget(target);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -80,8 +76,6 @@ public class EntityDocRetrieveOrchestratableTest {
         AssertionType _assertion = null;
         EntityDocRetrieveOrchestratable instance = new EntityDocRetrieveOrchestratable();
         instance.setAssertion(_assertion);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -94,8 +88,6 @@ public class EntityDocRetrieveOrchestratableTest {
         RetrieveDocumentSetRequestType expResult = null;
         RetrieveDocumentSetRequestType result = instance.getRequest();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -107,8 +99,6 @@ public class EntityDocRetrieveOrchestratableTest {
         RetrieveDocumentSetRequestType request = null;
         EntityDocRetrieveOrchestratable instance = new EntityDocRetrieveOrchestratable();
         instance.setRequest(request);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -121,8 +111,6 @@ public class EntityDocRetrieveOrchestratableTest {
         NhinDelegate expResult = null;
         NhinDelegate result = instance.getNhinDelegate();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -132,11 +120,9 @@ public class EntityDocRetrieveOrchestratableTest {
     public void testIsEnabled() {
         System.out.println("isEnabled");
         EntityDocRetrieveOrchestratable instance = new EntityDocRetrieveOrchestratable();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.isEnabled();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -149,8 +135,6 @@ public class EntityDocRetrieveOrchestratableTest {
         boolean expResult = false;
         boolean result = instance.isPassthru();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -163,8 +147,6 @@ public class EntityDocRetrieveOrchestratableTest {
         AuditTransformer expResult = null;
         AuditTransformer result = instance.getAuditTransformer();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -177,8 +159,6 @@ public class EntityDocRetrieveOrchestratableTest {
         PolicyTransformer expResult = null;
         PolicyTransformer result = instance.getPolicyTransformer();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -191,8 +171,6 @@ public class EntityDocRetrieveOrchestratableTest {
         AssertionType expResult = null;
         AssertionType result = instance.getAssertion();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -202,11 +180,9 @@ public class EntityDocRetrieveOrchestratableTest {
     public void testGetServiceName() {
         System.out.println("getServiceName");
         EntityDocRetrieveOrchestratable instance = new EntityDocRetrieveOrchestratable();
-        String expResult = "";
+        String expResult = "NhinDocumentRetrieve";
         String result = instance.getServiceName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -219,8 +195,6 @@ public class EntityDocRetrieveOrchestratableTest {
         NhinAggregator expResult = null;
         NhinAggregator result = instance.getAggregator();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
 }

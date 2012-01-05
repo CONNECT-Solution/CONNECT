@@ -46,8 +46,6 @@ public class NhinDocRetrieveStrategyTest {
         EntityDocRetrieveOrchestratable message = null;
         NhinDocRetrieveStrategy instance = new NhinDocRetrieveStrategyImpl();
         instance.execute(message);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     public class NhinDocRetrieveStrategyImpl implements NhinDocRetrieveStrategy {

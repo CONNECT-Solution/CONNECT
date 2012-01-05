@@ -42,27 +42,12 @@ public class EntityDocRetrieveOrchestratableImpl_a0Test {
      * Test of getResponse method, of class EntityDocRetrieveOrchestratableImpl_a0.
      */
     @Test
-    public void testGetResponse() {
-        System.out.println("getResponse");
-        EntityDocRetrieveOrchestratableImpl_a0 instance = null;
-        RetrieveDocumentSetResponseType expResult = null;
+    public void testResponse() {
+        EntityDocRetrieveOrchestratableFactory factory = new EntityDocRetrieveOrchestratableFactory();
+        EntityDocRetrieveOrchestratableImpl_a0 instance = factory.getEntityDocRetrieveOrchestratableImpl_a0();
+        RetrieveDocumentSetResponseType expResult = factory.getRetrieveDocumentSetResponseType();
+        instance.setResponse(expResult);
         RetrieveDocumentSetResponseType result = instance.getResponse();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of setResponse method, of class EntityDocRetrieveOrchestratableImpl_a0.
-     */
-    @Test
-    public void testSetResponse() {
-        System.out.println("setResponse");
-        RetrieveDocumentSetResponseType response = null;
-        EntityDocRetrieveOrchestratableImpl_a0 instance = null;
-        instance.setResponse(response);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
 }
