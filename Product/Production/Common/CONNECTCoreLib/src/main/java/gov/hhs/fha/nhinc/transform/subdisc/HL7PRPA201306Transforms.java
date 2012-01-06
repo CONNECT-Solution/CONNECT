@@ -18,8 +18,10 @@ import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
-
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
  *
@@ -138,6 +140,7 @@ public class HL7PRPA201306Transforms {
      * into a patient discovery response (PRPAIN201306UV02) when a patient is not
      * found.
      * @param oRequest The patient discovery request to which no patients were found
+     * @param sErrorCode The Error code as defined by the IHE_ITI_TF_Supplement_XCPD_PC
      * @return Returns a patient discovery response for a no patient found scenario
      */
     public PRPAIN201306UV02 createPRPA201306ForErrors(PRPAIN201305UV02 oRequest, String sErrorCode) {
@@ -169,6 +172,19 @@ public class HL7PRPA201306Transforms {
         //extract the receiverOID from the request message - it will become the sender
         String sReceiverOIDFromMessage = getReceiverOIDFromPRPAIN201305UV02Request(oRequest);
         String senderOID = sReceiverOIDFromMessage;
+        //Update 3.1.1: use the current home community id as defined in gateway.properties
+        try {
+            log.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            String sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            log.info("Retrieve local home community id: " + sHomeCommunityId);
+            //If the property is set, then use this instead of from sending request
+            if(!sHomeCommunityId.isEmpty() && sHomeCommunityId != null)
+                senderOID = sHomeCommunityId;
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+        }
+
         //extract the senderOID from the request - it will become the receiver
         String sSenderOIDFromMessage = getSenderOIDFromPRPAIN201305UV02Request(oRequest);
         String receiverOID = sSenderOIDFromMessage;
@@ -189,6 +205,7 @@ public class HL7PRPA201306Transforms {
 
         // Create the Sender
         addLogDebug("Create the Sender");
+
         result.setSender(HL7SenderTransforms.createMCCIMT000300UV01Sender(senderOID));
 
         //from spec - case 5
@@ -204,6 +221,36 @@ public class HL7PRPA201306Transforms {
 
         result.setControlActProcess(oControlActProcess);
 
+        addLogDebug("*** Exiting createPRPA201306ForErrors() method ***");
+        return result;
+    }
+
+    /**
+     * This method creates/transforms a patient discovery request (PRPAIN201305UV02)
+     * into a patient discovery response (PRPAIN201306UV02) when a patient is not
+     * found.
+     * @param oRequest The patient discovery request to which no patients were found
+     * @param sErrorCode The Error code as defined by the IHE_ITI_TF_Supplement_XCPD_PC
+     * @param sErrorText Human readable contextual string for more information to the error
+     * @return Returns a patient discovery response for a no patient found scenario
+     */
+    public PRPAIN201306UV02 createPRPA201306ForErrors(PRPAIN201305UV02 oRequest, String sErrorCode, String sErrorText) {
+
+        addLogDebug("*** Entering createPRPA201306ForErrors() method ***");
+        PRPAIN201306UV02 result = createPRPA201306ForErrors(oRequest, sErrorCode);
+
+        //set the detectedIssueEvent
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oControlActProcess = result.getControlActProcess();
+        MFMIMT700711UV01Reason oReason = oControlActProcess.getReasonOf().get(0);
+        if(oReason != null){
+            MCAIMT900001UV01DetectedIssueEvent oDetectedIssueEvent = oReason.getDetectedIssueEvent();
+            if(oDetectedIssueEvent != null){
+                EDExplicit ed = new EDExplicit();
+                ed.getContent().add(sErrorText);
+                oDetectedIssueEvent.setText(ed);
+            }
+        }
+        
         addLogDebug("*** Exiting createPRPA201306ForErrors() method ***");
         return result;
     }
@@ -489,7 +536,7 @@ public class HL7PRPA201306Transforms {
     }
 
     protected II getHL7InteractionId() {
-        return HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201306UV02");
+        return HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201306UV");
     }
 
     protected II getHL7MessageId(String receiverOID) {

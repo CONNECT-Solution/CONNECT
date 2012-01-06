@@ -88,11 +88,15 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                 }
             } else {
                 log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  The input parameters are null.");
+				response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE,
+                        "Did not call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  The request was null.");
+				
             }
         } catch (Exception e) {
             log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  An unexpected exception occurred.  " +
                     "Exception: " + e.getMessage(), e);
-            response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+            response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE,
+                     e.getCause().getLocalizedMessage());
         }
 
         return response;

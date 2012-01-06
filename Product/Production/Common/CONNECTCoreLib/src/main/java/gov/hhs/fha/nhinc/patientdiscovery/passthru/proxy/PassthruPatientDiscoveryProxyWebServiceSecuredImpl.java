@@ -1,10 +1,4 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
- */
-/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -72,18 +66,23 @@ public class PassthruPatientDiscoveryProxyWebServiceSecuredImpl implements Passt
                 else
                 {
                     log.error("Failed to call the web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SECURED_SERVICE_NAME + ").  The URL is null.");
+                    response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(secureRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE,
+                            "Web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SECURED_SERVICE_NAME + ") URL is null");
                 }
             }
             else
             {
                 log.error("Failed to call the web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SECURED_SERVICE_NAME + ").  The input parameter is null.");
+                response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(secureRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE,
+                        "Did not call the web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SECURED_SERVICE_NAME + ").  The body of the message was null.");
             }
         }
         catch (Exception e)
         {
             log.error("Failed to call the web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SECURED_SERVICE_NAME + ").  An unexpected exception occurred.  " +
                       "Exception: " + e.getMessage(), e);
-            response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(secureRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+             response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(secureRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE,
+                     e.getCause().getLocalizedMessage());
         }
 
         return response;
