@@ -41,7 +41,7 @@
         <dist.type>war</dist.type>
     </project>
     <project>
-	    <name>CONNECTGatewayDocumentRetrieveWeb_g0</name>
+	    <name>CONNECTGatewayDocumentRetrieveWeb10</name>
         <directory>/Production/Gateway/CONNECTGatewayDocumentRetrieveWeb10</directory>
         <dist.type>war</dist.type>
     </project>
