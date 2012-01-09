@@ -145,9 +145,9 @@
               linecount="12"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+<threshold branchcount="8" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.gateway.servlet.InitServlet"
-              linecount="12"
+              linecount="20"
               linerate="80"
               linesexecuted="0"/>
 </thresholds>
