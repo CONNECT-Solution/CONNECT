@@ -76,36 +76,6 @@
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscovery"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryImpl"
-              linecount="17"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryAsyncReq"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryAsyncReqImpl"
-              linecount="8"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncResp"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryAsyncRespImpl"
-              linecount="10"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.subjectdiscovery.nhin.SubjectDiscovery"
               linecount="5"
               linerate="80"
