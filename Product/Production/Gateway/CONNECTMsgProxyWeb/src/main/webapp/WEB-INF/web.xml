@@ -11,40 +11,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>PassthruDocSubmissionDeferredRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PassthruDocSubmissionDeferredRequestSecured</servlet-name>
-        <url-pattern>/EntityService/PassthruDocSubmissionDeferredRequestSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>PassthruDocSubmissionDeferredRequestUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PassthruDocSubmissionDeferredRequestUnsecured</servlet-name>
-        <url-pattern>/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>PassthruDocSubmissionDeferredResponseSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.PassthruDocSubmissionDeferredResponseSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PassthruDocSubmissionDeferredResponseSecured</servlet-name>
-        <url-pattern>/EntityService/PassthruDocSubmissionDeferredResponseSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>PassthruDocSubmissionDeferredResponseUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PassthruDocSubmissionDeferredResponseUnsecured</servlet-name>
-        <url-pattern>/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>NhincAuditQueryProxy</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.auditquery.proxy.NhincAuditQueryProxy</servlet-class>
     </servlet>
@@ -53,39 +19,10 @@
         <url-pattern>/EntityService/NhincProxyAuditLogQuerySecured</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>PassthruDocSubmissionSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PassthruDocSubmissionSecured</servlet-name>
-        <url-pattern>/EntityService/PassthruDocSubmissionSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>PassthruDocSubmissionUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PassthruDocSubmissionUnsecured</servlet-name>
-        <url-pattern>/EntityService/PassthruDocSubmissionUnsecured</url-pattern>
-    </servlet-mapping>
-
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>NhincSubjectDiscoverySecured</web-resource-name>
             <url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>PassthruDocSubmissionSecured</web-resource-name>
-            <url-pattern>/EntityService/PassthruDocSubmissionSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>PassthruDocSubmissionDeferredRequestSecured</web-resource-name>
-            <url-pattern>/EntityService/PassthruDocSubmissionDeferredRequestSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>PassthruDocSubmissionDeferredResponseSecured</web-resource-name>
-            <url-pattern>/EntityService/PassthruDocSubmissionDeferredResponseSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>NhincAuditQueryProxy</web-resource-name>
