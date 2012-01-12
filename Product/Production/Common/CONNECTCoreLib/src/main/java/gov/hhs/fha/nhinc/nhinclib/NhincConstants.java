@@ -17,6 +17,8 @@ import java.math.BigInteger;
  * @author Jon Hoppesch
  */
 public class NhincConstants {
+
+    public static enum GATEWAY_API_LEVEL {LEVEL_g0, LEVEL_g1}
     // Property File Constants
 
     public static final String GATEWAY_PROPERTY_FILE = "gateway";

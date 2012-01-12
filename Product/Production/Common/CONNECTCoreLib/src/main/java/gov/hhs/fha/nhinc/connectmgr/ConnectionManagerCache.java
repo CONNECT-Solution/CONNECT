@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Collection;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -42,6 +44,7 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMStates;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -1422,5 +1425,16 @@ public class ConnectionManagerCache {
             }
         }
         return result;
+    }
+
+    public static GATEWAY_API_LEVEL getApiVersionForNhinTarget(String homeCommunityId, String service)
+    {
+        try {
+            return GATEWAY_API_LEVEL.valueOf(PropertyAccessor.getProperty("gateway", "GATEWAY_API_LEVEL"));
+        } catch (PropertyAccessException ex) {
+            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return GATEWAY_API_LEVEL.LEVEL_g0;
     }
 }
