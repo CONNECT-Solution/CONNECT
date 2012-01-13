@@ -18,7 +18,6 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxy;
 import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyObjectFactory;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
-import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyWebServiceSecuredImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 /**
@@ -36,7 +35,8 @@ public class PassthruAdminDistributionOrchImpl {
     {
         return LogFactory.getLog(getClass());
     }
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target)
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
+            NhincConstants.GATEWAY_API_LEVEL apiLevel)
     {
         log.info("begin sendAlert");
         //TODO: LogRequest        
@@ -46,7 +46,7 @@ public class PassthruAdminDistributionOrchImpl {
             log.debug("ack: " + ack.getMessage());
         }
 
-        getNhinProxy().sendAlertMessage(body, assertion, target);        
+        getNhinProxy().sendAlertMessage(body, assertion, target, apiLevel);        
 
     }
     protected AdminDistributionAuditLogger getLogger()

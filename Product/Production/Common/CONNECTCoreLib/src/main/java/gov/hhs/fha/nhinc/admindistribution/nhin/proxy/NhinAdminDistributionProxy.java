@@ -13,10 +13,12 @@ package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 /**
  *
  * @author dunnek
  */
 public interface NhinAdminDistributionProxy {
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target);
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
+            NhincConstants.GATEWAY_API_LEVEL apiLevel);
 }

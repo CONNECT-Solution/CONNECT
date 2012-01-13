@@ -18,7 +18,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMess
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType;
-import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -33,27 +32,21 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
     private static final String SERVICE_LOCAL_PART = "AdministrativeDistribution_Service";
     private static final String PORT_LOCAL_PART = "AdministrativeDistribution_PortType";
     private static final String WSDL_FILE = "EntityAdminDist.wsdl";
+    private static final String WSDL_FILE_G1 = "EntityAdminDist_g1.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entityadmindistribution:SendAlertMessage_Message";
     private Log log = null;
-    static AdministrativeDistributionService service = null;
-    private static Service cachedService = null;
     private WebServiceProxyHelper proxyHelper = null;
 
     public EntityAdminDistributionProxyWebServiceUnsecuredImpl() {
         log = createLogger();
-        service = getWebService();
         proxyHelper = getWebServiceProxyHelper();
     }
 
-    protected WebServiceProxyHelper getWebServiceProxyHelper() {
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
-    protected AdministrativeDistributionService getWebService() {
-        return new AdministrativeDistributionService();
-    }
-
-    protected Log createLogger() {
+    private Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
@@ -62,15 +55,16 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
         return new AdminDistributionHelper();
     }
 
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target) {
-        log.debug("begin sendAlert()");
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target,
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        log.debug("begin sendAlertMessage");
 
         AdminDistributionHelper helper = getHelper();
         String hcid = helper.getLocalCommunityId();
         String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SERVICE_NAME);
 
         if (NullChecker.isNotNullish(url)) {
-            AdministrativeDistributionPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+            AdministrativeDistributionPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion, apiLevel);
 
 
             RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
@@ -94,9 +88,10 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
      * @param assertion
      * @return EntityDocRetrieveDeferredResponsePortType
      */
-    private AdministrativeDistributionPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
+    private AdministrativeDistributionPortType getPort(String url, String wsAddressingAction, AssertionType assertion,
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         AdministrativeDistributionPortType port = null;
-        Service service = getService();
+        Service service = getService(apiLevel);
         if (service != null) {
             log.debug("Obtained service - creating port.");
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdministrativeDistributionPortType.class);
@@ -112,15 +107,15 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
      *
      * @return The service class for this web service.
      */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = proxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
+    protected Service getService(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        try {
+            String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0)) ?
+                    WSDL_FILE : WSDL_FILE_G1;
+            return proxyHelper.createService(wsdlFile, NAMESPACE_URI, SERVICE_LOCAL_PART);
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+            return null;
         }
-        return cachedService;
     }
 
 }

@@ -1430,7 +1430,8 @@ public class ConnectionManagerCache {
     public static GATEWAY_API_LEVEL getApiVersionForNhinTarget(String homeCommunityId, String service)
     {
         try {
-            return GATEWAY_API_LEVEL.valueOf(PropertyAccessor.getProperty("gateway", "GATEWAY_API_LEVEL"));
+            return GATEWAY_API_LEVEL.valueOf(PropertyAccessor.getProperty(
+                    NhincConstants.GATEWAY_PROPERTY_FILE, "GATEWAY_API_LEVEL"));
         } catch (PropertyAccessException ex) {
             Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
         }

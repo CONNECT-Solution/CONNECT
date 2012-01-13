@@ -5,18 +5,13 @@
 
 package gov.hhs.fha.nhinc.admindistribution.passthru.proxy;
 
-import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyJavaImpl;
 import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import org.apache.commons.logging.Log;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -54,10 +49,8 @@ public class NhincAdminDistJavaImplTest {
         final AssertionType assertion = null;
         final NhinTargetSystemType target = null;
         
-        PassthruAdminDistributionProxyJavaImpl instance = new PassthruAdminDistributionProxyJavaImpl()
-{
+        PassthruAdminDistributionProxyJavaImpl instance = new PassthruAdminDistributionProxyJavaImpl() {
 
-            @Override
             protected Log createLogger() {
                 return mockLogger;
             }
@@ -72,12 +65,12 @@ public class NhincAdminDistJavaImplTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockImpl).sendAlertMessage(body, assertion, target);
+                allowing(mockImpl).sendAlertMessage(body, assertion, target, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
                 will(returnValue(null));
             }
         });
 
-        instance.sendAlertMessage(body, assertion, target);
+        instance.sendAlertMessage(body, assertion, target, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
         context.assertIsSatisfied();
     }
 

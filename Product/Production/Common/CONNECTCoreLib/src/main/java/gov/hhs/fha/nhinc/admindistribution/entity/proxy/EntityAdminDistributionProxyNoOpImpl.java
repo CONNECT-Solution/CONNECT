@@ -19,7 +19,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
  * @author dunnek
  */
 public class EntityAdminDistributionProxyNoOpImpl implements EntityAdminDistributionProxy{
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target)
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion,
+            NhinTargetCommunitiesType target)
     {
 
     }

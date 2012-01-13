@@ -18,7 +18,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class EntityAdminDistributionProxyObjectFactory extends ComponentProxyObjectFactory{
     private static final String CONFIG_FILE_NAME = "EntityAdminDistProxyConfig.xml";
-    private static final String BEAN_NAME_AUDIT_REPOSITORY = "entityadmindist";
+    private static final String BEAN_NAME_ADMIN_DISTRIBUTION = "entityadmindist";
 
     protected String getConfigFileName()
     {
@@ -27,12 +27,12 @@ public class EntityAdminDistributionProxyObjectFactory extends ComponentProxyObj
     /**
      * Retrieve an adapter audit query implementation using the IOC framework.
      * This method retrieves the object from the framework that has an
-     * identifier of "adapterauditquery."
+     * identifier of "adapteradmindistribution."
      *
      * @return AdapterAuditQueryProxy instance
      */
     public EntityAdminDistributionProxy getAdapterAuditQueryProxy() {
-        return getBean(BEAN_NAME_AUDIT_REPOSITORY, EntityAdminDistributionProxy.class);
+        return getBean(BEAN_NAME_ADMIN_DISTRIBUTION, EntityAdminDistributionProxy.class);
     }
 
 }

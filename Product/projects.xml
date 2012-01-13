@@ -71,6 +71,13 @@
         <directory>/Production/Gateway/CONNECTGatewayAdminDistribution_g0</directory>
         <dist.type>war</dist.type>
     </project>    
+
+    <project>
+        <name>CONNECTGatewayAdminDistribution_g1</name>
+        <directory>/Production/Gateway/CONNECTGatewayAdminDistribution_g1</directory>
+        <dist.type>war</dist.type>
+    </project>    
+
     <project>
         <name>CONNECTAdapterAdminDistribution_a0</name>
         <directory>/Production/Adapters/General/CONNECTAdapterAdminDistribution_a0/</directory>

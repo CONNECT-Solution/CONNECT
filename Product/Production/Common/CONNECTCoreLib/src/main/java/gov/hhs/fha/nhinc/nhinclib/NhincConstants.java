@@ -405,6 +405,7 @@ public class NhincConstants {
     public static final String DOC_SUBMISSION_DEFERRED_RESP_PASSTHRU_PROP = "documentSubmissionDeferredRespPassthrough";
 
     //Administrative Distribution Constants
+    public static final String ADMIN_DIST_SERVICE_NAME = "admindist";
     public static final String NHIN_ADMIN_DIST_SERVICE_NAME = "nhinadmindist";
     public static final String ENTITY_ADMIN_DIST_SERVICE_NAME = "entityadmindist";
     public static final String ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME = "entityadmindistsecured";
@@ -487,7 +488,7 @@ public class NhincConstants {
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adapterdocretrievedeferredresponse";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SECURED_SERVICE_NAME = "adapterdocretrievedeferredresponsesecured";
     /* -- End Document Retrieve deferred Service Name -- */
-
+    
     private NhincConstants() {
     }
 }

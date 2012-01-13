@@ -11,6 +11,7 @@
 
 package gov.hhs.fha.nhinc.admindistribution.passthru;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
@@ -23,7 +24,8 @@ import javax.xml.ws.BindingType;
 public class NhincAdminDist {
 
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageType body) {
-            getNhincImpl().sendAlertMessage(body.getEDXLDistribution(),body.getAssertion(), body.getNhinTargetSystem());
+            getNhincImpl().sendAlertMessage(body.getEDXLDistribution(),body.getAssertion(), body.getNhinTargetSystem(),
+                    NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
     }
     public PassthruAdminDistributionOrchImpl getNhincImpl()
     {

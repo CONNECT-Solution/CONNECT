@@ -51,20 +51,10 @@ public class AdminDistributionHelper {
     }
     public String getLocalCommunityId()
     {
-
-        String result = "";
-        try
-        {
-            result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-        }
-        catch(Exception ex)
-        {
-            log.error("Unable to retrieve local home community id from Gateway.properties");
-            log.error(ex);
-        }
-        return result;
+        return readStringGatewayProperty(NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
     }
     public String getUrl(String targetHCID, String targetSystem) {
+        log.debug("begin getUrl targetHCID/targetSystem: " + targetHCID + " / " + targetSystem);
         String url = null;
 
         if (targetHCID != null) {
@@ -84,12 +74,11 @@ public class AdminDistributionHelper {
         return url;
     }
     public String getUrl(NhinTargetSystemType target, String targetSystem) {
+        log.debug("begin getUrl target/targetSystem: " + target + " / " + targetSystem);
         String url = null;
 
         if (target != null) {
             try {
-
-
                 url = getWebServiceProxyHelper().getUrlFromTargetSystem(target, targetSystem);
 
             } catch (Exception ex) {
@@ -126,5 +115,28 @@ public class AdminDistributionHelper {
         }
         return result;
     }
+    public String readStringGatewayProperty(String propertyName) {
+        String result = "";
+        try {
+            result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
+        }
+        catch(Exception ex) {
+            log.error("Unable to retrieve " + propertyName + " from Gateway.properties");
+            log.error(ex);
+        }
+        log.debug("begin Gateway property: " + propertyName + " - " + result);
+        return result;
+    }
 
+    public NhinTargetSystemType buildHomeCommunity(String homeCommunityId) {
+        NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
+        HomeCommunityType homeCommunity = new HomeCommunityType();
+        homeCommunity.setHomeCommunityId(homeCommunityId);
+        nhinTargetSystem.setHomeCommunity(homeCommunity);
+        return nhinTargetSystem;
+    }
+    // TODO: Hack the api version for testing 
+    public String getApiVersion() {
+        return readStringGatewayProperty("ad-api-version");
+    }
 }

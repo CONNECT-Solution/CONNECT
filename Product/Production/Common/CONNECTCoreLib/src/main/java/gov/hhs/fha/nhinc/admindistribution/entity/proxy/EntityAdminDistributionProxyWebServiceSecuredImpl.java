@@ -31,10 +31,6 @@ import javax.xml.ws.BindingProvider;
  * @author dunnek
  */
 public class EntityAdminDistributionProxyWebServiceSecuredImpl {
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entityadmindistribution";
-    private static final String SERVICE_LOCAL_PART = "AdministrativeDistributionSecured_Service";
-    private static final String PORT_LOCAL_PART = "AdministrativeDistributionSecured_PortType";
-    private static final String WSDL_FILE = "EntityAdminDistSecured.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entityadmindistribution:SendAlertMessage_Message";
 
     private Log log = null;
@@ -44,11 +40,11 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
         log = createLogger();
         service = getWebService();
     }
-    protected AdministrativeDistributionSecuredService getWebService()
+    private AdministrativeDistributionSecuredService getWebService()
     {
         return new AdministrativeDistributionSecuredService();
     }
-    protected Log createLogger()
+    private Log createLogger()
     {
         return LogFactory.getLog(getClass());
     }
@@ -67,9 +63,7 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
     }
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target)
     {
-        log.debug("begin sendAlert()");
-
-
+        log.debug("begin sendAlertMessage Ngoc");
         AdminDistributionHelper helper = new AdminDistributionHelper();
         String hcid = helper.getLocalCommunityId();
         String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME);

@@ -12,6 +12,7 @@
 package gov.hhs.fha.nhinc.admindistribution.passthru;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -32,7 +33,8 @@ public class NhincAdminDistSecured {
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
 
-        getNhincImpl().sendAlertMessage(body.getEDXLDistribution(),assertion, body.getNhinTargetSystem());
+        getNhincImpl().sendAlertMessage(body.getEDXLDistribution(),assertion, body.getNhinTargetSystem(),
+                NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
     }
     protected AssertionType extractAssertion(WebServiceContext context)
     {

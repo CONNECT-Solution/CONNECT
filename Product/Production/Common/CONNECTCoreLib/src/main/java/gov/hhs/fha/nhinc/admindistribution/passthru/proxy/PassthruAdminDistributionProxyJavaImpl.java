@@ -16,6 +16,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 /**
  *
  * @author dunnek
@@ -27,14 +28,15 @@ public class PassthruAdminDistributionProxyJavaImpl implements PassthruAdminDist
     {
         log = createLogger();
     }
-    protected Log createLogger()
+    private Log createLogger()
     {
         return LogFactory.getLog(getClass());
     }
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target)
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
+            NhincConstants.GATEWAY_API_LEVEL apiLevel)
     {
         log.info("begin sendAlert");
-        this.getNhincAdminDistImpl().sendAlertMessage(body, assertion, target);
+        this.getNhincAdminDistImpl().sendAlertMessage(body, assertion, target, apiLevel);
 
     }
     protected PassthruAdminDistributionOrchImpl getNhincAdminDistImpl()

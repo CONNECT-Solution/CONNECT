@@ -14,22 +14,8 @@ import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistribution;
 import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import java.util.Map;
-import javax.xml.ws.BindingProvider;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
@@ -51,7 +37,8 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhinadmindistribution";
     private static final String SERVICE_LOCAL_PART = "RespondingGateway_AdministrativeDistribution";
     private static final String PORT_LOCAL_PART = "RespondingGateway_AdministrativeDistribution_PortType";
-    private static final String WSDL_FILE = "NhinAdminDist.wsdl";
+    private static final String WSDL_FILE_G0 = "NhinAdminDist.wsdl";
+    private static final String WSDL_FILE_G1 = "NhinAdminDist_g1.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage";
 
     static RespondingGatewayAdministrativeDistribution nhinService = new RespondingGatewayAdministrativeDistribution();
@@ -59,23 +46,24 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     {
         log = createLogger();
     }
-    protected Log createLogger()
+    private Log createLogger()
     {
         return LogFactory.getLog(getClass());
     }
-    protected AdminDistributionHelper getHelper()
+    private AdminDistributionHelper getHelper()
     {
         return new AdminDistributionHelper();
     }
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target)
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
+            NhincConstants.GATEWAY_API_LEVEL apiLevel)
     {
-        String url = null;
+        log.debug("begin sendAlertMessage");
         AdminDistributionHelper helper = getHelper();
-        url = helper.getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+        String url = helper.getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
 
         if (NullChecker.isNotNullish(url))
         {
-            RespondingGatewayAdministrativeDistributionPortType port = getPort(url, assertion);
+            RespondingGatewayAdministrativeDistributionPortType port = getPort(url, assertion, apiLevel);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
@@ -92,25 +80,29 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
                 log.error("Failed to call the web service (" + NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME + ").  An unexpected exception occurred.  " +
                         "Exception: " + ex.getMessage(), ex);
             }
-
-
-
-
         }
 
 
     }
 
-    protected RespondingGatewayAdministrativeDistributionPortType getPort(String url, AssertionType assertion)
+    protected RespondingGatewayAdministrativeDistributionPortType getPort(String url, AssertionType assertion,
+            NhincConstants.GATEWAY_API_LEVEL apiLevel)
     {
         WebServiceProxyHelper proxyHelper =getWebServiceProxyHelper();
 
         RespondingGatewayAdministrativeDistributionPortType port = null;
-        Service cacheService = getService(WSDL_FILE,NAMESPACE_URI, SERVICE_LOCAL_PART);
-        if (cacheService != null)
+        Service service;
+        switch (apiLevel) {
+            case LEVEL_g0: service = getService(WSDL_FILE_G0, NAMESPACE_URI, SERVICE_LOCAL_PART);
+                break;
+            case LEVEL_g1: service = getService(WSDL_FILE_G1, NAMESPACE_URI, SERVICE_LOCAL_PART);
+                break;
+            default: service = null;
+        }
+        if (service != null)
         {
             log.debug("Obtained service - creating port.");
-            port = cacheService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayAdministrativeDistributionPortType.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayAdministrativeDistributionPortType.class);
             proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
          }
         else

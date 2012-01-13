@@ -18,11 +18,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType;
-import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredService;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.Map;
@@ -35,27 +33,22 @@ import javax.xml.ws.Service;
  */
 public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements PassthruAdminDistributionProxy {
     private Log log = null;
-    private static NhincAdminDistSecuredService service = null;
     private static Service cachedService = null;
 
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincadmindistribution";
     private static final String SERVICE_LOCAL_PART = "NhincAdminDistSecuredService";
     private static final String PORT_LOCAL_PART = "NhincAdminDistSecured_PortType";
     private static final String WSDL_FILE = "NhincAdminDistSecured.wsdl";
+    private static final String WSDL_FILE_G1 = "NhincAdminDistSecured_g1.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincadmindistribution:SendAlertMessageSecured_Message";
 
     public PassthruAdminDistributionProxyWebServiceSecuredImpl()
     {
         log = createLogger();
-        service = getWebService();
     }
     protected WebServiceProxyHelper getWebServiceProxyHelper()
     {
         return new WebServiceProxyHelper();
-    }
-    protected NhincAdminDistSecuredService getWebService()
-    {
-        return new NhincAdminDistSecuredService();
     }
     protected Log createLogger()
     {
@@ -81,14 +74,17 @@ public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements Pass
         }
         return cachedService;
     }
-    protected NhincAdminDistSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
+    protected NhincAdminDistSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion, NhincConstants.GATEWAY_API_LEVEL apiLevel)
     {
         NhincAdminDistSecuredPortType port = null;
-        Service cacheService = getService(WSDL_FILE,NAMESPACE_URI, SERVICE_LOCAL_PART);
-        if (cacheService != null)
+        String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0))
+                ? WSDL_FILE : WSDL_FILE_G1;
+        Service service = getService(wsdlFile,NAMESPACE_URI, SERVICE_LOCAL_PART);
+        if (service != null)
         {
             log.debug("Obtained service - creating port.");
-            port = cacheService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincAdminDistSecuredPortType.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincAdminDistSecuredPortType.class);
 
             WebServiceProxyHelper proxyHelper = getWebServiceProxyHelper();
             proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
@@ -100,15 +96,19 @@ public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements Pass
         return port;
     }
 
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target)
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
+            NhincConstants.GATEWAY_API_LEVEL apiLevel)
     {
+        log.debug("begin sendAlertMessage");
+        
         AdminDistributionHelper helper = getHelper();
         String hcid = helper.getLocalCommunityId();
         String url = helper.getUrl(hcid, NhincConstants.NHINC_ADMIN_DIST_SECURED_SERVICE_NAME);
 
         if (NullChecker.isNotNullish(url))
         {
-            NhincAdminDistSecuredPortType port = getPort(url, NhincConstants.NHINC_ADMIN_DIST_SECURED_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
+            NhincAdminDistSecuredPortType port = getPort(url, NhincConstants.NHINC_ADMIN_DIST_SECURED_SERVICE_NAME, WS_ADDRESSING_ACTION,
+                    assertion, apiLevel);
             RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
 
             message.setEDXLDistribution(body);

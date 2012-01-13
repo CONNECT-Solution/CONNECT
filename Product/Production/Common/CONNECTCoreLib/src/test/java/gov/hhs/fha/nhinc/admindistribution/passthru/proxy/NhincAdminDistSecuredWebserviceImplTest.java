@@ -5,19 +5,14 @@
 
 package gov.hhs.fha.nhinc.admindistribution.passthru.proxy;
 
-import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceSecuredImpl;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import org.apache.commons.logging.Log;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -67,11 +62,6 @@ public class NhincAdminDistSecuredWebserviceImplTest {
             protected AdminDistributionHelper getHelper() {
                 return mockHelper;
             }
-            @Override
-            protected NhincAdminDistSecuredService getWebService()
-            {
-                return mockService;
-            }
         };
         context.checking(new Expectations() {
 
@@ -87,7 +77,7 @@ public class NhincAdminDistSecuredWebserviceImplTest {
 
         try
         {
-            instance.sendAlertMessage(body, assertion, target);
+            instance.sendAlertMessage(body, assertion, target, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
         }
         catch(Exception ex)
         {

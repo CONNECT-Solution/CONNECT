@@ -8,9 +8,7 @@ import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactory;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
@@ -19,74 +17,69 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * 
+ *
  * @author mweaver
  */
 public class NhinDocRetrieveDelegate implements NhinDelegate {
 
-	private static Log log = LogFactory.getLog(NhinDocRetrieveDelegate.class);
+    private static Log log = LogFactory.getLog(NhinDocRetrieveDelegate.class);
 
-	public NhinDocRetrieveDelegate() {
-	}
+    public NhinDocRetrieveDelegate() {
+    }
 
-	@Override
-	public Orchestratable process(Orchestratable message) {
-		if (message instanceof EntityOrchestratable) {
-			return process((EntityOrchestratable) message);
-		}
-		return null;
-	}
+    @Override
+    public Orchestratable process(Orchestratable message) {
+        if (message instanceof EntityOrchestratable) {
+            return process((EntityOrchestratable) message);
+        }
+        return null;
+    }
 
-	public EntityOrchestratable process(EntityOrchestratable message) {
-		EntityOrchestratable resp = null;
-		if (message instanceof EntityDocRetrieveOrchestratable) {
-			EntityDocRetrieveOrchestratable DRMessage = (EntityDocRetrieveOrchestratable) message;
-			// TODO: check connection manager for which endpoint to use
+    public EntityOrchestratable process(EntityOrchestratable message) {
+        EntityOrchestratable resp = null;
+        if (message instanceof EntityDocRetrieveOrchestratable) {
+            EntityDocRetrieveOrchestratable DRMessage = (EntityDocRetrieveOrchestratable) message;
+            // TODO: check connection manager for which endpoint to use
 
-			EntityDocRetrieveOrchestrationContextBuilder contextBuilder = ((EntityDocRetrieveOrchestrationContextBuilder)OrchestrationContextFactory
-					.getInstance().getBuilder(
-							DRMessage.getTarget().getHomeCommunity(),
-							DRMessage.getServiceName())).setRetrieveDocumentSetRequestType(DRMessage.getRequest()).setAssertionType(DRMessage.getAssertion()).setAuditTransformer(DRMessage.getAuditTransformer());
-			
-		
-			OrchestrationContext context = contextBuilder.build();
+            EntityDocRetrieveOrchestrationContextBuilder contextBuilder = ((EntityDocRetrieveOrchestrationContextBuilder) OrchestrationContextFactory.getInstance().getBuilder(
+                    DRMessage.getAssertion().getHomeCommunity(), DRMessage.getServiceName()));
+            contextBuilder.init(DRMessage);
 
-			resp = context.execute();
-		} else {
-			getLogger()
-					.error("message is not an instance of NhinDocRetrieveOrchestratable!");
-		}
-		return resp;
-	}
+            OrchestrationContext context = contextBuilder.build();
 
-	public void createErrorResponse(EntityOrchestratable message, String error) {
-		if (message == null) {
-			getLogger().debug("NhinOrchestratable was null");
-			return;
-		}
+            resp = context.execute();
+        } else {
+            getLogger().error("message is not an instance of NhinDocRetrieveOrchestratable!");
+        }
+        return resp;
+    }
 
-		if (message instanceof EntityDocRetrieveOrchestratableImpl_a0) {
-			RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-			RegistryResponseType responseType = new RegistryResponseType();
-			response.setRegistryResponse(responseType);
-			responseType
-					.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-			RegistryErrorList regErrList = new RegistryErrorList();
-			responseType.setRegistryErrorList(regErrList);
-			RegistryError regErr = new RegistryError();
-			regErrList.getRegistryError().add(regErr);
-			regErr.setCodeContext(error);
-			regErr.setErrorCode("XDSRepositoryError");
-			regErr.setSeverity("Error");
-			((EntityDocRetrieveOrchestratableImpl_a0) message)
-					.setResponse(response);
-		} else /* if(message instanceof NhinDocRetrieveOrchestratableImpl_g1) */{
+    public void createErrorResponse(EntityOrchestratable message, String error) {
+        if (message == null) {
+            getLogger().debug("NhinOrchestratable was null");
+            return;
+        }
 
-		}
-	}
+        if (message instanceof EntityDocRetrieveOrchestratableImpl_a0) {
+            RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
+            RegistryResponseType responseType = new RegistryResponseType();
+            response.setRegistryResponse(responseType);
+            responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            RegistryErrorList regErrList = new RegistryErrorList();
+            responseType.setRegistryErrorList(regErrList);
+            RegistryError regErr = new RegistryError();
+            regErrList.getRegistryError().add(regErr);
+            regErr.setCodeContext(error);
+            regErr.setErrorCode("XDSRepositoryError");
+            regErr.setSeverity("Error");
+            ((EntityDocRetrieveOrchestratableImpl_a0) message).setResponse(response);
+        } else /*
+         * if(message instanceof NhinDocRetrieveOrchestratableImpl_g1)
+         */ {
+        }
+    }
 
-	private Log getLogger() {
-		return log;
-	}
-
+    private Log getLogger() {
+        return log;
+    }
 }
