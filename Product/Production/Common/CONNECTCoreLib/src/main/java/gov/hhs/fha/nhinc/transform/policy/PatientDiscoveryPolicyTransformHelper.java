@@ -124,32 +124,23 @@ public class PatientDiscoveryPolicyTransformHelper {
         log.debug("transformPRPAIN201305UV02ToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
+        ResourceType resource = new ResourceType();
+        AttributeHelper attrHelper = new AttributeHelper();
+        
         II qualifiedPatientIdentifier = extractPatientIdentifier(prpain201305UV02);
         if (qualifiedPatientIdentifier != null) {
-            ResourceType resource = new ResourceType();
-            AttributeHelper attrHelper = new AttributeHelper();
             resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, qualifiedPatientIdentifier.getRoot()));
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(qualifiedPatientIdentifier.getExtension());
             log.debug("transformPRPAIN201305UV02ToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
             resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
-
-            HomeCommunityType homeCommunityId = null;
-
-            if (prpain201305UV02 != null &&
-                    NullChecker.isNotNullish(prpain201305UV02.getReceiver()) &&
-                    prpain201305UV02.getReceiver().get(0) != null &&
-                    prpain201305UV02.getReceiver().get(0).getDevice() != null &&
-                    prpain201305UV02.getReceiver().get(0).getDevice().getId() != null &&
-                    prpain201305UV02.getReceiver().get(0).getDevice().getId().get(0) != null &&
-                    NullChecker.isNotNullish(prpain201305UV02.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
-                homeCommunityId = new HomeCommunityType(); 
-                homeCommunityId.setHomeCommunityId(prpain201305UV02.getReceiver().get(0).getDevice().getId().get(0).getRoot());
-            }
-
-            resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, subjHelp.determineSendingHomeCommunityId(homeCommunityId, assertion)));
-
-            request.getResource().add(resource);
         }
+
+        HomeCommunityType homeCommunityId = extractHomeCommunityId(prpain201305UV02);
+        if(homeCommunityId != null){
+            resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, subjHelp.determineSendingHomeCommunityId(homeCommunityId, assertion)));
+        }
+
+        request.getResource().add(resource);
 
         log.debug("transformPRPAIN201305UV02ToCheckPolicy - adding assertion data");
         AssertionHelper assertHelp = new AssertionHelper();
@@ -354,6 +345,22 @@ public class PatientDiscoveryPolicyTransformHelper {
      */
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    private static HomeCommunityType extractHomeCommunityId(PRPAIN201305UV02 prpain201305UV02){
+        HomeCommunityType homeCommunityId = null;
+
+        if (prpain201305UV02 != null &&
+                NullChecker.isNotNullish(prpain201305UV02.getReceiver()) &&
+                prpain201305UV02.getReceiver().get(0) != null &&
+                prpain201305UV02.getReceiver().get(0).getDevice() != null &&
+                prpain201305UV02.getReceiver().get(0).getDevice().getId() != null &&
+                prpain201305UV02.getReceiver().get(0).getDevice().getId().get(0) != null &&
+                NullChecker.isNotNullish(prpain201305UV02.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
+            homeCommunityId = new HomeCommunityType();
+            homeCommunityId.setHomeCommunityId(prpain201305UV02.getReceiver().get(0).getDevice().getId().get(0).getRoot());
+        }
+        return homeCommunityId;
     }
 
     private static II extractPatientIdentifier(PRPAIN201305UV02 message) {
