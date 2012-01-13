@@ -49,9 +49,7 @@ public class NhinAdminDistributionOrchImpl {
 
         auditMessage(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
         if (isServiceEnabled()) {
-            if (this.isInPassThroughMode()) {
-                sendToAgency(body, assertion);
-            } else if (checkPolicy(body, assertion)) {
+            if (this.isInPassThroughMode() || checkPolicy(body, assertion)) {
                 sendToAgency(body, assertion);
             }
         } else {
