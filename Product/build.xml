@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="NHINC" default="source.compile" basedir=".">
+<project name="NHINC" default="ci" basedir=".">
 
   <import file="build/build.targets.xml" />
   <import file="dist.targets.xml"/>
@@ -9,6 +9,8 @@
       <isset property="progress-filepath" />
     </not>
   </condition>
+
+  <target name="ci" depends="clean, dist, unittest.run, checkstyle.style"/>
 
   <target name="coverage.bless" description="Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.">
     <var name="do-to-target" value="coverage.bless" />
