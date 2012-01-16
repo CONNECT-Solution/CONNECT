@@ -11,15 +11,15 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  * 
  */
 
-public class InternalConnectionManagerDAOFileImplFactory {
+public class UddiConnectionManagerDAOFileImplFactory {
 	
 	static private String getFullFileName() {
-		return PropertyAccessor.getPropertyFileLocation() + "InternalConnectionInfo2.xml";
+		return PropertyAccessor.getPropertyFileLocation() + "uddiConnectionInfo2.xml";
 	}
 	
 	static private ConnectionManagerDAOFileImpl instance = new ConnectionManagerDAOFileImpl(getFullFileName());
 	
-	private InternalConnectionManagerDAOFileImplFactory() {
+	private UddiConnectionManagerDAOFileImplFactory() {
 	}
 
 	static public ConnectionManagerDAOFileImpl getInstance() {

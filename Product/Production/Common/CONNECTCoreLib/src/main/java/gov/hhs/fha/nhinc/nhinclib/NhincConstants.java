@@ -19,6 +19,23 @@ import java.math.BigInteger;
 public class NhincConstants {
 
     public static enum GATEWAY_API_LEVEL {LEVEL_g0, LEVEL_g1}
+    public static enum UDDI_SPEC_VERSION {
+    	SPEC_1_0 ("1.0"), 
+    	SPEC_2_0 ("1.0");
+    	
+    	private String value = null;
+    	
+    	UDDI_SPEC_VERSION(String value) {
+    		this.value = value;
+    	}
+
+		@Override
+		public String toString() {
+			return value;
+		}
+    	
+    };
+    
     // Property File Constants
 
     public static final String GATEWAY_PROPERTY_FILE = "gateway";

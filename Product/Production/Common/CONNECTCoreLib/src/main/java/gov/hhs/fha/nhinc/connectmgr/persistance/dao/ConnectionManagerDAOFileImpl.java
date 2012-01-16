@@ -51,16 +51,18 @@ public class ConnectionManagerDAOFileImpl implements ConnectionManagerDAO {
 		BusinessDetail result = null;
 		boolean done = false;
 		int attempt = 1;
+		String attemptsLog = "\n";
 		while(!done) {
 			try{
 				result = readFile();
 				done = true;
 			} catch (JAXBException ex) {
-				getLog().debug("Attempt " + attempt + " failed. due " + ex.toString());
-				attempt ++;
-				if (attempt > NUMBER_OF_ATTEMPTS) {
-					throw new RuntimeException("Unable to load from " + fileName + " in " + (attempt +1) + " attempts");
+				String errorMsg = "Attempt " + attempt + " failed. due to " + ex.toString();
+				attemptsLog += errorMsg + "\n";
+				if (attempt >= NUMBER_OF_ATTEMPTS) {
+					throw new RuntimeException("Unable to load from " + fileName + " in " + attempt + " attempts." + attemptsLog);
 				}
+				attempt ++;
 				try {
 					Thread.sleep(REATTEMPT_DELAY);
 				} catch (InterruptedException e) {
@@ -84,7 +86,17 @@ public class ConnectionManagerDAOFileImpl implements ConnectionManagerDAO {
 		getLog().info("Connection info saved to " + fileName);
 	}
 	
-	void setFileName(String fileName_) {
+	
+	public long getLastModifie() {
+		File file = new File(fileName);
+        if (file.exists()) {
+            return file.lastModified();
+        } else {
+        	return 0;
+        }
+	}
+	
+	public void setFileName(String fileName_) {
 		fileName = fileName_;
 	}
 
