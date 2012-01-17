@@ -52,24 +52,11 @@ import org.apache.commons.logging.LogFactory;
  * @author paul.eftis (updated 10/15/2011 to implement new concurrent request handling/fanout)
  * @author paul.eftis (updated 01/15/2011 to implement new multispec delegate)
  */
-public class EntityDocQueryOrchImpl{
+public class EntityDocQueryOrchImplRuntimeTest{
 
     private Log log = null;
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
-
-
-    /**
-     * Add default constructor that is used by test cases
-     * Note that implementations should always use constructor that takes
-     * the executor services as input
-     */
-    public EntityDocQueryOrchImpl(){
-        // for this default test case, we just create default executor services
-        // with a thread pool of 1
-        regularExecutor = Executors.newFixedThreadPool(1);
-        largejobExecutor = Executors.newFixedThreadPool(1);
-    }
 
 
     /**
@@ -78,7 +65,7 @@ public class EntityDocQueryOrchImpl{
      * Determination of which executor service to use (largejob or regular) is based on
      * the size of the correlationsResult and configs
      */
-    public EntityDocQueryOrchImpl(ExecutorService e, ExecutorService le){
+    public EntityDocQueryOrchImplRuntimeTest(ExecutorService e, ExecutorService le){
         log = createLogger();
         regularExecutor = e;
         largejobExecutor = le;
@@ -90,17 +77,20 @@ public class EntityDocQueryOrchImpl{
     }
 
 
-
     /**
+     * If testList is passed in (i.e. not null/empty), will fan-out DQ
+     * to entire testList (i.e. will ignore correlations)
+     * If testList is null/empty, will just do normal DQ fan-out using
+     * correlations for patientId passed in adhocQueryRequest
      *
      * @param adhocQueryRequest
      * @param assertion
-     * @param targets
+     * @param testList
      * @return <code>AdhocQueryResponse</code>
      */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
-            AssertionType assertion, NhinTargetCommunitiesType targets){
-        log.debug("Entering EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
+    public AdhocQueryResponse entityDocQueryOrchImplFanoutTest(AdhocQueryRequest adhocQueryRequest,
+            AssertionType assertion, List<QualifiedSubjectIdentifierType> testList){
+        log.debug("EntityDocQueryOrchImplRuntimeTest::entityDocQueryOrchImplLoadTest");
 
         boolean responseIsSpecA0 = true;
         AdhocQueryResponse response = null;
@@ -110,6 +100,7 @@ public class EntityDocQueryOrchImpl{
         boolean isTargeted = false;
 
         // audit initial request
+        NhinTargetCommunitiesType targets = null;
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
         RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
         request.setAdhocQueryRequest(adhocQueryRequest);
@@ -122,10 +113,6 @@ public class EntityDocQueryOrchImpl{
                     NullChecker.isNotNullish(targets.getNhinTargetCommunity())){
                 isTargeted = true;
             }
-
-            /*******************************************************************
-             * TODO test/check handling of targets is correct!!!!!!!!!!!!!!!
-             ******************************************************************/
 
             // Obtain all the URLs for the targets being sent to
             try{
@@ -147,6 +134,11 @@ public class EntityDocQueryOrchImpl{
                  List<QualifiedSubjectIdentifierType> correlationsResult =
                          new EntityDocQueryHelper().retreiveCorrelations(slotList, urlInfoList,
                          assertion, isTargeted, getLocalHomeCommunityId());
+
+                if(testList != null && testList.size() > 0){
+                    // this is load test fanout to testList
+                    correlationsResult = testList;
+                }
 
                 if(NullChecker.isNotNullish(correlationsResult)){
                     /************************************************************************
@@ -188,6 +180,8 @@ public class EntityDocQueryOrchImpl{
                             log.debug(Thread.currentThread().getName() + " added NhinCallableRequest"
                                     + " for hcid=" + target.getHomeCommunity().getHomeCommunityId());
                         }else{
+                            log.debug("Policy Check Failed for homeId=" + target.getHomeCommunity().getHomeCommunityId()
+                                    + " and aaId=" + identifier.getAssigningAuthorityIdentifier());
                             RegistryError regErr = new RegistryError();
                             regErr.setCodeContext("Policy Check Failed for homeId=" + target.getHomeCommunity().getHomeCommunityId()
                                     + " and aaId=" + identifier.getAssigningAuthorityIdentifier());
@@ -199,14 +193,13 @@ public class EntityDocQueryOrchImpl{
 
                     // note that this impl sets taskexecutor to return EntityDocQueryOrchestratable_a0
                     // you can change this to EntityDocQueryOrchestratable_a1 to return new spec response
-                    // but need to ensure the EntityDocQueryProcessor is setup for this
                     EntityDocQueryOrchestratable_a0 orchResponse = null;
 //                    EntityDocQueryOrchestratable_a1 orchResponse = null;
                     if(responseIsSpecA0){
                         @SuppressWarnings("static-access")
                         NhinTaskExecutor<EntityDocQueryOrchestratable_a0, EntityDocQueryOrchestratable> dqexecutor =
                                 new NhinTaskExecutor<EntityDocQueryOrchestratable_a0, EntityDocQueryOrchestratable>(
-                                ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor : regularExecutor,
+                                ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size()) ? largejobExecutor : regularExecutor,
                                 callableList, transactionId);
                         dqexecutor.executeTask();
                         orchResponse = (EntityDocQueryOrchestratable_a0)dqexecutor.getFinalResponse();
@@ -214,10 +207,10 @@ public class EntityDocQueryOrchImpl{
 //                        @SuppressWarnings("static-access")
 //                        NhinTaskExecutor<EntityDocQueryOrchestratable_a1, EntityDocQueryOrchestratable> dqexecutor =
 //                                new NhinTaskExecutor<EntityDocQueryOrchestratable_a1, EntityDocQueryOrchestratable>(
-//                                ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor : regularExecutor,
+//                                ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size()) ? largejobExecutor : regularExecutor,
 //                                callableList, transactionId);
 //                        dqexecutor.executeTask();
-//                        orchResponse = (EntityDocQueryOrchestratable_a1)dqexecutor.getFinalResponse(); 
+//                        orchResponse = (EntityDocQueryOrchestratable_a1)dqexecutor.getFinalResponse();
                     }
 
                     response = orchResponse.getCumulativeResponse();
@@ -247,6 +240,8 @@ public class EntityDocQueryOrchImpl{
         log.debug("Exiting EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
         return response;
     }
+
+
 
 
     private void auditInitialEntityRequest(RespondingGatewayCrossGatewayQuerySecuredRequestType request,

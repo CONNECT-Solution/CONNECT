@@ -50,24 +50,12 @@ import org.apache.commons.logging.LogFactory;
  * @author paul.eftis (updated 10/15/2011 to implement new concurrent request handling/fanout)
  * @author paul.eftis (updated 01/15/2011 to implement new multispec delegate)
  */
-public class EntityPatientDiscoveryOrchImpl{
+public class EntityPatientDiscoveryOrchImplRuntimeTest{
 
     private Log log = LogFactory.getLog(getClass());
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
 
-
-    /**
-     * Add default constructor that is used by test cases
-     * Note that implementations should always use constructor that takes
-     * the executor services as input
-     */
-    public EntityPatientDiscoveryOrchImpl(){
-        // for this default test case, we just create default executor services
-        // with a thread pool of 1
-        regularExecutor = Executors.newFixedThreadPool(1);
-        largejobExecutor = Executors.newFixedThreadPool(1);
-    }
 
 
     /**
@@ -76,49 +64,28 @@ public class EntityPatientDiscoveryOrchImpl{
      * Determination of which executor service to use (largejob or regular) is based on
      * the size of the pdlist and configs
      */
-    public EntityPatientDiscoveryOrchImpl(ExecutorService e, ExecutorService le){
+    public EntityPatientDiscoveryOrchImplRuntimeTest(ExecutorService e, ExecutorService le){
         regularExecutor = e;
         largejobExecutor = le;
     }
 
 
-    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
-            RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion){
 
-        log.debug("Begin respondingGatewayPRPAIN201305UV02");
-        RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
-
-        try{
-            if(request == null){
-                log.warn("RespondingGatewayPRPAIN201305UV02RequestType was null.");
-                throw new Exception("PatientDiscovery RespondingGatewayPRPAIN201305UV02RequestType request was null.");
-            }else if(assertion == null){
-                log.warn("AssertionType was null.");
-                throw new Exception("Assertion was null.");
-            }else if (request.getPRPAIN201305UV02() == null){
-                log.warn("PRPAIN201305UV02 was null.");
-                throw new Exception("PatientDiscovery PRPAIN201305UV02 request was null.");
-            }else{
-                logEntityPatientDiscoveryRequest(request, assertion);
-                response = getResponseFromCommunities(request, assertion);
-                logAggregatedResponseFromNhin(response, assertion);
-            }
-        }catch(Exception e){
-            // generate error message and add to response
-            CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
-            communityResponse.setPRPAIN201306UV02((new HL7PRPA201306Transforms()).createPRPA201306ForErrors(request.getPRPAIN201305UV02(),
-                        e.getMessage()));
-            response.getCommunityResponse().add(communityResponse);
-        }
-        log.debug("End respondingGatewayPRPAIN201305UV02");
-        return response;
-    }
-
-
-
+    /**
+     * If testList is passed in (i.e. not null/empty), will fan-out PD
+     * to entire testList (i.e. will ignore urlInfoList)
+     * If testList is null/empty, will just do normal PD fan-out using
+     * urlInfoList for patient passed in RespondingGatewayPRPAIN201305UV02RequestType
+     * @param request
+     * @param assertion
+     * @return
+     */
     @SuppressWarnings("static-access")
-    protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
-        log.debug("EntityPatientDiscoveryOrchImpl getResponseFromCommunities");
+    public RespondingGatewayPRPAIN201306UV02ResponseType entityPatientDiscoveryOrchImplFanoutTest(
+            RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion,
+            List<CMUrlInfo> testList){
+
+        log.debug("EntityPatientDiscoveryOrchImpl::entityPatientDiscoveryOrchImplLoadTest");
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
         boolean responseIsSpecA0 = true;
 
@@ -129,12 +96,11 @@ public class EntityPatientDiscoveryOrchImpl{
                 log.warn("No targets were found for the Patient Discovery Request");
                 throw new Exception("No Endpoints For Communities Found!!!");
             }else{
-                /************************************************************************
-                 * We replaced the 3.2.1 connect code here with the new 3.3 concurrent fanout impl
-                 * Note that the checkPolicy is done in the PDClient
-                 * and all response processing is done in the PDProcessor
-                ***********************************************************************/
                 List<CMUrlInfo> targetList = urlInfoList.getUrlInfo();
+                if(testList != null && testList.size() > 0){
+                    // this is load test fanout to testList
+                    targetList = testList;
+                }
                 List<NhinCallableRequest<EntityPatientDiscoveryOrchestratable>> callableList =
                         new ArrayList<NhinCallableRequest<EntityPatientDiscoveryOrchestratable>>();
                 String transactionId = (UUID.randomUUID()).toString();
