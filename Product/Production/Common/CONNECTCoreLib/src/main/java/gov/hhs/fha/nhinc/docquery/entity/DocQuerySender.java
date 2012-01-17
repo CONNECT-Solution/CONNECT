@@ -32,7 +32,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import org.apache.commons.logging.Log;
 
 /**
- *
+ * NOT USED ANYMORE
+ * 
  * @author Neil Webb
  */
 public class DocQuerySender {

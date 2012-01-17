@@ -181,7 +181,8 @@ public class PDClient<Target extends CMUrlInfo, Request extends RespondingGatewa
      * @param urlInfo
      * @return new RespondingGatewayPRPAIN201305UV02RequestType
      */
-    protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, CMUrlInfo urlInfo) {
+    protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request,
+            AssertionType assertion, CMUrlInfo urlInfo) {
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
 
         PRPAIN201305UV02 new201305 = new PatientDiscovery201305Processor().createNewRequest(

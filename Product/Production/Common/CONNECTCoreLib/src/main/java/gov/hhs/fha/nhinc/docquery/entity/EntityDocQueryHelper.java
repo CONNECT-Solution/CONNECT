@@ -161,8 +161,8 @@ public class EntityDocQueryHelper {
         if (subIdList != null) {
             log.debug("retreiveCorrelations subIdList.size(): " + subIdList.size());
             for (QualifiedSubjectIdentifierType qual : subIdList) {
-                log.debug("retreiveCorrelations qual.getSubjectIdentifier: " + qual.getSubjectIdentifier());
-                log.debug("retreiveCorrelations qual.getAssigningAuthorityIdentifier: " + qual.getAssigningAuthorityIdentifier());
+                log.info("retreiveCorrelations qual.getSubjectIdentifier: " + qual.getSubjectIdentifier());
+                log.info("retreiveCorrelations qual.getAssigningAuthorityIdentifier: " + qual.getAssigningAuthorityIdentifier());
             }
         } else {
             log.debug("retreiveCorrelations subIdList.size(): null");
