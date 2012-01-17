@@ -11,10 +11,7 @@ import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributio
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
@@ -111,6 +108,7 @@ public class NhinAdminDistOrchImplTest {
                 
                 
                 allowing(mockAuditLogger).auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                 allowing(mockAdapter).sendAlertMessage(body, assertion);
                 will(returnValue(null));
             }
@@ -192,6 +190,7 @@ public class NhinAdminDistOrchImplTest {
                 never(mockLogger).warn(with(any(String.class)));
                 never(mockLogger).error(with(any(String.class)));
                 allowing(mockAuditLogger).auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                 allowing(mockAdapter).sendAlertMessage(body, assertion);
                 will(returnValue(null));
             }
