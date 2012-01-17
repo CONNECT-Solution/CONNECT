@@ -41,7 +41,7 @@ public class NhinDocRetrieveDelegate implements NhinDelegate {
             EntityDocRetrieveOrchestratable DRMessage = (EntityDocRetrieveOrchestratable) message;
             // TODO: check connection manager for which endpoint to use
 
-            EntityDocRetrieveOrchestrationContextBuilder contextBuilder = ((EntityDocRetrieveOrchestrationContextBuilder) OrchestrationContextFactory.getInstance().getBuilder(
+            EntityDocRetrieveOrchestrationContextBuilder_g0 contextBuilder = ((EntityDocRetrieveOrchestrationContextBuilder_g0) OrchestrationContextFactory.getInstance().getBuilder(
                     DRMessage.getAssertion().getHomeCommunity(), DRMessage.getServiceName()));
             contextBuilder.init(DRMessage);
 

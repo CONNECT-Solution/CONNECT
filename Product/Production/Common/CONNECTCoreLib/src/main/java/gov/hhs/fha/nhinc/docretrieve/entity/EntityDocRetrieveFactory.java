@@ -4,15 +4,16 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 public class EntityDocRetrieveFactory {
 
+
     private static EntityDocRetrieveFactory INSTANCE = new EntityDocRetrieveFactory();
 
     private EntityDocRetrieveFactory() {
     }
 
-    public EntityDocRetrieveOrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+    public EntityDocRetrieveOrchestrationContextBuilder_g0 createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {
             case LEVEL_g0:
-                return new EntityDocRetrieveOrchestrationContextBuilder();
+                return new EntityDocRetrieveOrchestrationContextBuilder_g0();
             default:
                 return null;
         }

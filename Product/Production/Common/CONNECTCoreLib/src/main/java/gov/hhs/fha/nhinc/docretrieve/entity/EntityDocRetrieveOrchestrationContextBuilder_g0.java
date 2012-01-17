@@ -4,7 +4,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.orchestration.*;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
-public class EntityDocRetrieveOrchestrationContextBuilder implements OrchestrationContextBuilder {
+public class EntityDocRetrieveOrchestrationContextBuilder_g0 implements OrchestrationContextBuilder {
 	
 	private RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
 	private AssertionType assertionType;
@@ -17,7 +17,7 @@ public class EntityDocRetrieveOrchestrationContextBuilder implements Orchestrati
 	public RetrieveDocumentSetRequestType getRetrieveDocumentSetRequestType() {
 		return retrieveDocumentSetRequestType;
 	}
-	public EntityDocRetrieveOrchestrationContextBuilder setRetrieveDocumentSetRequestType(
+	public EntityDocRetrieveOrchestrationContextBuilder_g0 setRetrieveDocumentSetRequestType(
 			RetrieveDocumentSetRequestType retrieveDocumentSetRequestType) {
 		this.retrieveDocumentSetRequestType = retrieveDocumentSetRequestType;
 		return this;
@@ -43,7 +43,7 @@ public class EntityDocRetrieveOrchestrationContextBuilder implements Orchestrati
 	public NhinDelegate getNhinDelegate() {
 		return nhinDelegate;
 	}
-	public EntityDocRetrieveOrchestrationContextBuilder setNhinDelegate(NhinDelegate nhinDelegate) {
+	public EntityDocRetrieveOrchestrationContextBuilder_g0 setNhinDelegate(NhinDelegate nhinDelegate) {
 		this.nhinDelegate = nhinDelegate;
 		return this;
 	}
