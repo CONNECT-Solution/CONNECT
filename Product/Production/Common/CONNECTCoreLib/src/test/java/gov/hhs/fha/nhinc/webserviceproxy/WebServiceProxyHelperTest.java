@@ -1516,7 +1516,7 @@ public class WebServiceProxyHelperTest {
                 }
 
                 @Override
-                protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName) {
+                protected String getEndPointFromConnectionManagerByGatewayAPILevel(NhinTargetSystemType oTargetSystem, String sServiceName, GATEWAY_API_LEVEL level) {
                     return "http://www.theurl.com";
                 }
             };
@@ -1555,7 +1555,7 @@ public class WebServiceProxyHelperTest {
                 }
 
                 @Override
-                protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName) {
+                protected String getEndPointFromConnectionManagerByGatewayAPILevel(NhinTargetSystemType oTargetSystem, String sServiceName, GATEWAY_API_LEVEL level) {
                     return "http://www.theurl.com";
                 }
             };
@@ -1591,7 +1591,7 @@ public class WebServiceProxyHelperTest {
                 }
 
                 @Override
-                protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName)
+                protected String getEndPointFromConnectionManagerByGatewayAPILevel(NhinTargetSystemType oTargetSystem, String sServiceName, GATEWAY_API_LEVEL level)
                         throws ConnectionManagerException {
                     throw new ConnectionManagerException("This is a forced exception");
                 }
@@ -2136,7 +2136,7 @@ public class WebServiceProxyHelperTest {
         oTargetSystem.getHomeCommunity().setHomeCommunityId("1.1");
         String sServiceName = "QueryForDocument";
         ADAPTER_API_LEVEL level = ADAPTER_API_LEVEL.LEVEL_a0;
-        String result = instance.getEndPointFromConnectionManagerByAdapterAPILevel(oTargetSystem, sServiceName, level);
+        String result = instance.getEndPointFromConnectionManagerByAdapterAPILevel(sServiceName, level);
         assertEquals(expResult, result);
     }
     // The following commented tests came from ServiceUtilTest.java when the methods
