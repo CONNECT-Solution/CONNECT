@@ -14,6 +14,7 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
@@ -92,7 +93,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
 
         try
         {
-            String url = oProxyHelper.getUrlFromTargetSystem(target, NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
+            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
             XDRDeferredResponsePortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if(request == null)

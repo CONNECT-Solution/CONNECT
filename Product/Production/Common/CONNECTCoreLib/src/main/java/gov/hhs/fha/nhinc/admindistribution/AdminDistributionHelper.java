@@ -14,6 +14,7 @@ package gov.hhs.fha.nhinc.admindistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
@@ -62,7 +63,7 @@ public class AdminDistributionHelper {
 
                 NhinTargetSystemType ts = this.createNhinTargetSystemType(targetHCID);
 
-                url = getWebServiceProxyHelper().getUrlFromTargetSystem(ts, targetSystem);
+                url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(ts, targetSystem, GATEWAY_API_LEVEL.LEVEL_g0);
             } catch (Exception ex) {
                 log.error("Error: Failed to retrieve url for service: " + targetSystem);
                 log.error(ex.getMessage());
@@ -79,7 +80,7 @@ public class AdminDistributionHelper {
 
         if (target != null) {
             try {
-                url = getWebServiceProxyHelper().getUrlFromTargetSystem(target, targetSystem);
+                url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(target, targetSystem, GATEWAY_API_LEVEL.LEVEL_g0);
 
             } catch (Exception ex) {
                 log.error("Error: Failed to retrieve url for service: " + targetSystem);

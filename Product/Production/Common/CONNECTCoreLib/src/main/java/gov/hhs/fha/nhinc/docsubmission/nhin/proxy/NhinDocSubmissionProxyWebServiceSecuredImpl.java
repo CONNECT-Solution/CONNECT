@@ -15,6 +15,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -93,7 +94,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
         try
         {
-            String url = oProxyHelper.getUrlFromTargetSystem(targetSystem, NhincConstants.NHINC_XDR_SERVICE_NAME);
+            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, NhincConstants.NHINC_XDR_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
             DocumentRepositoryXDRPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if(request == null)

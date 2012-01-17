@@ -12,8 +12,11 @@ import gov.hhs.fha.nhinc.async.AsyncHeaderCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import java.lang.IllegalArgumentException;
@@ -24,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
 import javax.xml.ws.WebServiceException;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -44,12 +48,9 @@ import org.junit.runner.RunWith;
  * @author westberg
  */
 @RunWith(JMock.class)
-public class WebServiceProxyHelperTest
-{
+public class WebServiceProxyHelperTest {
 
-    Mockery context = new JUnit4Mockery()
-    {
-
+    Mockery context = new JUnit4Mockery() {
 
         {
             setImposteriser(ClassImposteriser.INSTANCE);
@@ -62,28 +63,23 @@ public class WebServiceProxyHelperTest
     final SamlTokenCreator mockTokenCreator = context.mock(SamlTokenCreator.class);
     final AsyncHeaderCreator mockAsyncHeaderCreator = context.mock(AsyncHeaderCreator.class);
 
-    public WebServiceProxyHelperTest()
-    {
+    public WebServiceProxyHelperTest() {
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() throws Exception {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() throws Exception {
     }
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
     }
 
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
     }
 
     /**
@@ -92,8 +88,7 @@ public class WebServiceProxyHelperTest
      * @param x an integer.
      * @param y a result.
      */
-    public Integer helperMethod(Integer x)
-    {
+    public Integer helperMethod(Integer x) {
         return x;
     }
 
@@ -104,8 +99,7 @@ public class WebServiceProxyHelperTest
      * @param y an integer.
      * @param a result.
      */
-    public Integer helperMethod2(Integer x, Integer y)
-    {
+    public Integer helperMethod2(Integer x, Integer y) {
         return x;
     }
 
@@ -113,24 +107,18 @@ public class WebServiceProxyHelperTest
      * Test the create logger method.
      */
     @Test
-    public void testCreateLogger()
-    {
-        try
-        {
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+    public void testCreateLogger() {
+        try {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
             };
             Log oLog = oHelper.createLogger();
             assertNotNull("Log was null", oLog);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger test: " + t.getMessage());
@@ -141,38 +129,31 @@ public class WebServiceProxyHelperTest
      * Test the GetExceptionText method happy path.
      */
     @Test
-    public void testGetExceptionTextHappyPath()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
+    public void testGetExceptionTextHappyPath() {
+        try {
+            context.checking(new Expectations() {
+
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "PropertyAccessException";
                 }
             };
 
             String sExceptionText = oHelper.getExceptionText();
             assertEquals("getExceptionText failed.", "PropertyAccessException", sExceptionText);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetExceptionTextHappyPath test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetExceptionTextHappyPath test: " + t.getMessage());
@@ -183,41 +164,32 @@ public class WebServiceProxyHelperTest
      * Test the GetExceptionText method with PropertyAccessException.
      */
     @Test
-    public void testGetExceptionTextPropertyException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetExceptionTextPropertyException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).warn(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     throw new PropertyAccessException("Failed to retrieve property.");
                 }
             };
 
             String sExceptionText = oHelper.getExceptionText();
             assertEquals("getExceptionText failed: ", "", sExceptionText);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetExceptionTextPropertyException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetExceptionTextPropertyException test: " + t.getMessage());
@@ -228,40 +200,31 @@ public class WebServiceProxyHelperTest
      * Test the GetRetryAttempts method happy path.
      */
     @Test
-    public void testGetRetryAttemptsHappyPath()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetRetryAttemptsHappyPath() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "5";
                 }
             };
 
             int iRetryAttempts = oHelper.getRetryAttempts();
             assertEquals("RetryAttempts failed.", 5, iRetryAttempts);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetRetryAttemptsHappyPath test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetRetryAttemptsHappyPath test: " + t.getMessage());
@@ -272,41 +235,32 @@ public class WebServiceProxyHelperTest
      * Test the GetRetryAttempts method with PropertyAccessException.
      */
     @Test
-    public void testGetRetryAttemptsPropertyException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetRetryAttemptsPropertyException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).warn(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     throw new PropertyAccessException("Failed to retrieve property.");
                 }
             };
 
             int iRetryAttempts = oHelper.getRetryAttempts();
             assertEquals("getRetryAttempts failed: ", 0, iRetryAttempts);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetRetryAttemptsPropertyException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetRetryAttemptsPropertyException test: " + t.getMessage());
@@ -317,41 +271,32 @@ public class WebServiceProxyHelperTest
      * Test the GetRetryAttempts method with NumberFormatException.
      */
     @Test
-    public void testGetRetryAttemptsNumberFormatException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetRetryAttemptsNumberFormatException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).warn(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "A";
                 }
             };
 
             int iRetryAttempts = oHelper.getRetryAttempts();
             assertEquals("getRetryAttempts failed: ", 0, iRetryAttempts);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetRetryAttemptsNumberFormatException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetRetryAttemptsNumberFormatException test: " + t.getMessage());
@@ -362,40 +307,31 @@ public class WebServiceProxyHelperTest
      * Test the GetRetryDelay method happy path.
      */
     @Test
-    public void testGetRetryDelayHappyPath()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetRetryDelayHappyPath() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "5";
                 }
             };
 
             int iRetryDelay = oHelper.getRetryDelay();
             assertEquals("RetryDelay failed.", 5, iRetryDelay);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetRetryDelayHappyPath test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetRetryDelayHappyPath test: " + t.getMessage());
@@ -406,41 +342,32 @@ public class WebServiceProxyHelperTest
      * Test the GetRetryDelay method with PropertyAccessException.
      */
     @Test
-    public void testGetRetryDelayPropertyException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetRetryDelayPropertyException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).warn(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     throw new PropertyAccessException("Failed to retrieve property.");
                 }
             };
 
             int iRetryDelay = oHelper.getRetryDelay();
             assertEquals("getRetryDelay failed: ", 0, iRetryDelay);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetRetryDelayPropertyException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetRetryDelayPropertyException test: " + t.getMessage());
@@ -451,41 +378,32 @@ public class WebServiceProxyHelperTest
      * Test the GetRetryDelay method with NumberFormatException.
      */
     @Test
-    public void testGetRetryDelayNumberFormatException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetRetryDelayNumberFormatException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).warn(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "A";
                 }
             };
 
             int iRetryDelay = oHelper.getRetryDelay();
             assertEquals("getRetryDelay failed: ", 0, iRetryDelay);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetRetryDelayNumberFormatException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetRetryDelayNumberFormatException test: " + t.getMessage());
@@ -496,40 +414,31 @@ public class WebServiceProxyHelperTest
      * Test the GetTimeout method happy path.
      */
     @Test
-    public void testGetTimeoutHappyPath()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetTimeoutHappyPath() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "5";
                 }
             };
 
             int iTimeout = oHelper.getTimeout();
             assertEquals("Timeout failed.", 5, iTimeout);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetTimeoutHappyPath test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetTimeoutHappyPath test: " + t.getMessage());
@@ -540,41 +449,32 @@ public class WebServiceProxyHelperTest
      * Test the GetTimeout method with PropertyAccessException.
      */
     @Test
-    public void testGetTimeoutPropertyException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetTimeoutPropertyException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).warn(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     throw new PropertyAccessException("Failed to retrieve property.");
                 }
             };
 
             int iTimeout = oHelper.getTimeout();
             assertEquals("getTimeout failed: ", 0, iTimeout);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetTimeoutPropertyException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetTimeoutPropertyException test: " + t.getMessage());
@@ -585,41 +485,32 @@ public class WebServiceProxyHelperTest
      * Test the GetTimeout method with NumberFormatException.
      */
     @Test
-    public void testGetTimeoutNumberFormatException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetTimeoutNumberFormatException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).warn(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "A";
                 }
             };
 
             int iTimeout = oHelper.getTimeout();
             assertEquals("getTimeout failed: ", 0, iTimeout);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetTimeoutNumberFormatException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetTimeoutNumberFormatException test: " + t.getMessage());
@@ -630,13 +521,9 @@ public class WebServiceProxyHelperTest
      * Test the initializePort no assertion class method happy path.
      */
     @Test
-    public void testInitializePortNoAssertionHappyPath()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInitializePortNoAssertionHappyPath() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(1).of(mockLog).warn(with(any(String.class)));
@@ -644,25 +531,21 @@ public class WebServiceProxyHelperTest
                     exactly(3).of(mockLog).debug(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "5";
                 }
 
                 @Override
-                protected Map getRequestContextFromPort(BindingProvider port)
-                {
+                protected Map getRequestContextFromPort(BindingProvider port) {
                     oMap.clear();
                     oMap.put("javax.xml.ws.service.endpoint.address", "http://www.someurlold.com");
                     return oMap;
@@ -677,9 +560,7 @@ public class WebServiceProxyHelperTest
             assertEquals("RequestContext failed to have correct value for key: com.sun.xml.ws.connect.timeout", 5, ((Integer) oMap.get("com.sun.xml.ws.connect.timeout")).intValue());
             assertTrue("RequestContext Failed to have key: com.sun.xml.ws.request.timeout", oMap.containsKey("com.sun.xml.ws.request.timeout"));
             assertEquals("RequestContext failed to have correct value for key: com.sun.xml.ws.request.timeout", 5, ((Integer) oMap.get("com.sun.xml.ws.request.timeout")).intValue());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInitializePortNoAssertionHappyPath test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInitializePortNoAssertionHappyPath test: " + t.getMessage());
@@ -690,52 +571,42 @@ public class WebServiceProxyHelperTest
      * Test the initializePort with assertion class method happy path.
      */
     @Test
-    public void testInitializePortWithAssertionHappyPath()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInitializePortWithAssertionHappyPath() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(4).of(mockLog).info(with(any(String.class)));
                     exactly(3).of(mockLog).debug(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "5";
                 }
 
                 @Override
-                protected Map getRequestContextFromPort(BindingProvider port)
-                {
+                protected Map getRequestContextFromPort(BindingProvider port) {
                     oMap.clear();
                     oMap.put("javax.xml.ws.service.endpoint.address", "http://www.someurlold.com");
                     return oMap;
                 }
 
                 @Override
-                protected SamlTokenCreator getSamlTokenCreator()
-                {
+                protected SamlTokenCreator getSamlTokenCreator() {
                     return mockTokenCreator;
                 }
 
                 @Override
-                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction)
-                {
+                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction) {
                     HashMap<String, Object> oMap = new HashMap<String, Object>();
                     oMap.put("TestProp1", "TestValue1");
                     oMap.put("TestProp2", "TestValue2");
@@ -743,16 +614,14 @@ public class WebServiceProxyHelperTest
                 }
 
                 @Override
-                protected List getWSAddressingHeaders(String url, String wsAddressingAction, AssertionType assertion)
-                {
+                protected List getWSAddressingHeaders(String url, String wsAddressingAction, AssertionType assertion) {
                     List oList = new ArrayList();
                     oList.add(wsAddressingAction);
                     return oList;
                 }
 
                 @Override
-                protected void setOutboundHeaders(BindingProvider port, List createdHeaders)
-                {
+                protected void setOutboundHeaders(BindingProvider port, List createdHeaders) {
                     assertEquals("Failed to initialize headers", 1, createdHeaders.size());
                     assertTrue("Headers failed to contain correct value for WS-Addressing action", "Test-ws-action".equals(createdHeaders.get(0)));
                 }
@@ -771,9 +640,7 @@ public class WebServiceProxyHelperTest
             assertEquals("RequestContext failed to have correct value for key: TestProp1", "TestValue1", (String) oMap.get("TestProp1"));
             assertTrue("RequestContext Failed to have key: TestProp2", oMap.containsKey("TestProp2"));
             assertEquals("RequestContext failed to have correct value for key: TestProp2", "TestValue2", (String) oMap.get("TestProp2"));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInitializePortWithAssertionHappyPath test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInitializePortWithAssertionHappyPath test: " + t.getMessage());
@@ -784,51 +651,41 @@ public class WebServiceProxyHelperTest
      * Test the initializePort with assertion class method with empty serviceaction.
      */
     @Test
-    public void testInitializePortWithAssertionEmptyServiceAction()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInitializePortWithAssertionEmptyServiceAction() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(1).of(mockLog).info(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "5";
                 }
 
                 @Override
-                protected Map getRequestContextFromPort(BindingProvider port)
-                {
+                protected Map getRequestContextFromPort(BindingProvider port) {
                     oMap.clear();
                     oMap.put("javax.xml.ws.service.endpoint.address", "http://www.someurlold.com");
                     return oMap;
                 }
 
                 @Override
-                protected SamlTokenCreator getSamlTokenCreator()
-                {
+                protected SamlTokenCreator getSamlTokenCreator() {
                     return mockTokenCreator;
                 }
 
                 @Override
-                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction)
-                {
+                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction) {
                     HashMap<String, Object> oMap = new HashMap<String, Object>();
                     oMap.put("TestProp1", "TestValue1");
                     oMap.put("TestProp2", "TestValue2");
@@ -845,13 +702,9 @@ public class WebServiceProxyHelperTest
             assertEquals("RequestContext failed to have correct value for key: com.sun.xml.ws.connect.timeout", 5, ((Integer) oMap.get("com.sun.xml.ws.connect.timeout")).intValue());
             assertTrue("RequestContext Failed to have key: com.sun.xml.ws.request.timeout", oMap.containsKey("com.sun.xml.ws.request.timeout"));
             assertEquals("RequestContext failed to have correct value for key: com.sun.xml.ws.request.timeout", 5, ((Integer) oMap.get("com.sun.xml.ws.request.timeout")).intValue());
-        }
-        catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             assertTrue("Incorrect exception: ", e.getMessage().contains("Unable to initialize secure port (serviceAction null)"));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInitializePortWithAssertionEmptyServiceAction test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInitializePortWithAssertionEmptyServiceAction test: " + t.getMessage());
@@ -862,51 +715,41 @@ public class WebServiceProxyHelperTest
      * Test the initializePort with assertion class method with null serviceaction.
      */
     @Test
-    public void testInitializePortWithAssertionNullServiceAction()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInitializePortWithAssertionNullServiceAction() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(1).of(mockLog).info(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "5";
                 }
 
                 @Override
-                protected Map getRequestContextFromPort(BindingProvider port)
-                {
+                protected Map getRequestContextFromPort(BindingProvider port) {
                     oMap.clear();
                     oMap.put("javax.xml.ws.service.endpoint.address", "http://www.someurlold.com");
                     return oMap;
                 }
 
                 @Override
-                protected SamlTokenCreator getSamlTokenCreator()
-                {
+                protected SamlTokenCreator getSamlTokenCreator() {
                     return mockTokenCreator;
                 }
 
                 @Override
-                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction)
-                {
+                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction) {
                     HashMap<String, Object> oMap = new HashMap<String, Object>();
                     oMap.put("TestProp1", "TestValue1");
                     oMap.put("TestProp2", "TestValue2");
@@ -923,13 +766,9 @@ public class WebServiceProxyHelperTest
             assertEquals("RequestContext failed to have correct value for key: com.sun.xml.ws.connect.timeout", 5, ((Integer) oMap.get("com.sun.xml.ws.connect.timeout")).intValue());
             assertTrue("RequestContext Failed to have key: com.sun.xml.ws.request.timeout", oMap.containsKey("com.sun.xml.ws.request.timeout"));
             assertEquals("RequestContext failed to have correct value for key: com.sun.xml.ws.request.timeout", 5, ((Integer) oMap.get("com.sun.xml.ws.request.timeout")).intValue());
-        }
-        catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             assertTrue("Incorrect exception: ", e.getMessage().contains("Unable to initialize secure port (serviceAction null)"));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInitializePortWithAssertionNullServiceAction test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInitializePortWithAssertionNullServiceAction test: " + t.getMessage());
@@ -940,51 +779,41 @@ public class WebServiceProxyHelperTest
      * Test the initializePort with assertion class method with null port.
      */
     @Test
-    public void testInitializePortWithAssertionNullPort()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInitializePortWithAssertionNullPort() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(1).of(mockLog).info(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "5";
                 }
 
                 @Override
-                protected Map getRequestContextFromPort(BindingProvider port)
-                {
+                protected Map getRequestContextFromPort(BindingProvider port) {
                     oMap.clear();
                     oMap.put("javax.xml.ws.service.endpoint.address", "http://www.someurlold.com");
                     return oMap;
                 }
 
                 @Override
-                protected SamlTokenCreator getSamlTokenCreator()
-                {
+                protected SamlTokenCreator getSamlTokenCreator() {
                     return mockTokenCreator;
                 }
 
                 @Override
-                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction)
-                {
+                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction) {
                     HashMap<String, Object> oMap = new HashMap<String, Object>();
                     oMap.put("TestProp1", "TestValue1");
                     oMap.put("TestProp2", "TestValue2");
@@ -995,13 +824,9 @@ public class WebServiceProxyHelperTest
             AssertionType oAssertion = new AssertionType();
             oHelper.initializePort(null, "http://www.someurlnew.com", "service", null, oAssertion);
             fail("We should have had an exception here and we did not.");
-        }
-        catch (RuntimeException re)
-        {
+        } catch (RuntimeException re) {
             assertEquals("Incorrect exception thrown.", "Unable to initialize port (port null)", re.getMessage());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInitializePortWithAssertionNullPort test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInitializePortWithAssertionNullPort test: " + t.getMessage());
@@ -1012,51 +837,41 @@ public class WebServiceProxyHelperTest
      * Test the initializePort with assertion class method with nullish URL.
      */
     @Test
-    public void testInitializePortWithAssertionNullURL()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInitializePortWithAssertionNullURL() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(2).of(mockLog).info(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "5";
                 }
 
                 @Override
-                protected Map getRequestContextFromPort(BindingProvider port)
-                {
+                protected Map getRequestContextFromPort(BindingProvider port) {
                     oMap.clear();
                     oMap.put("javax.xml.ws.service.endpoint.address", "http://www.someurlold.com");
                     return oMap;
                 }
 
                 @Override
-                protected SamlTokenCreator getSamlTokenCreator()
-                {
+                protected SamlTokenCreator getSamlTokenCreator() {
                     return mockTokenCreator;
                 }
 
                 @Override
-                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction)
-                {
+                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction) {
                     HashMap<String, Object> oMap = new HashMap<String, Object>();
                     oMap.put("TestProp1", "TestValue1");
                     oMap.put("TestProp2", "TestValue2");
@@ -1064,31 +879,23 @@ public class WebServiceProxyHelperTest
                 }
             };
 
-            try
-            {
+            try {
                 AssertionType oAssertion = new AssertionType();
                 oHelper.initializePort(mockPort, null, "service", null, oAssertion);
                 fail("We should have had an exception here and we did not.");
-            }
-            catch (RuntimeException re)
-            {
+            } catch (RuntimeException re) {
                 assertEquals("Incorrect exception thrown.", "Unable to initialize port (url null)", re.getMessage());
             }
 
-            try
-            {
+            try {
                 AssertionType oAssertion = new AssertionType();
                 oHelper.initializePort(mockPort, "", "service", null, oAssertion);
                 fail("We should have had an exception here and we did not.");
-            }
-            catch (RuntimeException re)
-            {
+            } catch (RuntimeException re) {
                 assertEquals("Incorrect exception thrown.", "Unable to initialize port (url null)", re.getMessage());
             }
 
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInitializePortWithAssertionNullURL test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInitializePortWithAssertionNullURL test: " + t.getMessage());
@@ -1099,49 +906,39 @@ public class WebServiceProxyHelperTest
      * Test the initializePort with assertion class method with nullish RequestContext.
      */
     @Test
-    public void testInitializePortWithAssertionNullRequestContext()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInitializePortWithAssertionNullRequestContext() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(1).of(mockLog).info(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "5";
                 }
 
                 @Override
-                protected Map getRequestContextFromPort(BindingProvider port)
-                {
+                protected Map getRequestContextFromPort(BindingProvider port) {
                     return null;
                 }
 
                 @Override
-                protected SamlTokenCreator getSamlTokenCreator()
-                {
+                protected SamlTokenCreator getSamlTokenCreator() {
                     return mockTokenCreator;
                 }
 
                 @Override
-                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction)
-                {
+                protected Map createSamlRequestContext(SamlTokenCreator oTokenCreator, AssertionType oAssertion, String sUrl, String sServiceAction) {
                     HashMap<String, Object> oMap = new HashMap<String, Object>();
                     oMap.put("TestProp1", "TestValue1");
                     oMap.put("TestProp2", "TestValue2");
@@ -1149,19 +946,14 @@ public class WebServiceProxyHelperTest
                 }
             };
 
-            try
-            {
+            try {
                 AssertionType oAssertion = new AssertionType();
                 oHelper.initializePort(mockPort, "http://www.someurl.com", "service", null, oAssertion);
                 fail("We should have had an exception here and we did not.");
-            }
-            catch (RuntimeException re)
-            {
+            } catch (RuntimeException re) {
                 assertEquals("Incorrect exception thrown.", "Unable to retrieve request context from the port.", re.getMessage());
             }
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInitializePortWithAssertionNullRequestContext test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInitializePortWithAssertionNullRequestContext test: " + t.getMessage());
@@ -1172,13 +964,9 @@ public class WebServiceProxyHelperTest
      * Test the initializePort no assertion class method with empty request context.
      */
     @Test
-    public void testInitializePortNoAssertionEmptyRequestContext()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInitializePortNoAssertionEmptyRequestContext() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(1).of(mockLog).warn(with(any(String.class)));
@@ -1186,25 +974,21 @@ public class WebServiceProxyHelperTest
                     exactly(3).of(mockLog).debug(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "5";
                 }
 
                 @Override
-                protected Map getRequestContextFromPort(BindingProvider port)
-                {
+                protected Map getRequestContextFromPort(BindingProvider port) {
                     oMap.clear();
                     return oMap;
                 }
@@ -1218,9 +1002,7 @@ public class WebServiceProxyHelperTest
             assertEquals("RequestContext failed to have correct value for key: com.sun.xml.ws.connect.timeout", 5, ((Integer) oMap.get("com.sun.xml.ws.connect.timeout")).intValue());
             assertTrue("RequestContext Failed to have key: com.sun.xml.ws.request.timeout", oMap.containsKey("com.sun.xml.ws.request.timeout"));
             assertEquals("RequestContext failed to have correct value for key: com.sun.xml.ws.request.timeout", 5, ((Integer) oMap.get("com.sun.xml.ws.request.timeout")).intValue());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInitializePortNoAssertionEmptyRequestContext test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInitializePortNoAssertionEmptyRequestContext test: " + t.getMessage());
@@ -1231,13 +1013,9 @@ public class WebServiceProxyHelperTest
      * Test the initializePort no assertion class method with 0 timeout.
      */
     @Test
-    public void testInitializePortNoAssertionZeroTimeout()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInitializePortNoAssertionZeroTimeout() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(3).of(mockLog).info(with(any(String.class)));
@@ -1245,25 +1023,21 @@ public class WebServiceProxyHelperTest
                     exactly(2).of(mockLog).warn(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getGatewayProperty(String sKey)
-                        throws PropertyAccessException
-                {
+                        throws PropertyAccessException {
                     return "0";
                 }
 
                 @Override
-                protected Map getRequestContextFromPort(BindingProvider port)
-                {
+                protected Map getRequestContextFromPort(BindingProvider port) {
                     oMap.clear();
                     return oMap;
                 }
@@ -1273,9 +1047,7 @@ public class WebServiceProxyHelperTest
             assertEquals("Failed to fill map.", 1, oMap.size());
             assertTrue("RequestContext Failed to have key: javax.xml.ws.service.endpoint.address", oMap.containsKey("javax.xml.ws.service.endpoint.address"));
             assertEquals("RequestContext failed to have correct value for key: javax.xml.ws.service.endpoint.address", "http://www.someurlnew.com", (String) oMap.get("javax.xml.ws.service.endpoint.address"));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInitializePortNoAssertionZeroTimeout test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInitializePortNoAssertionZeroTimeout test: " + t.getMessage());
@@ -1286,16 +1058,12 @@ public class WebServiceProxyHelperTest
      * Test the getMethod method.
      */
     @Test
-    public void testGetMethod()
-    {
-        try
-        {
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+    public void testGetMethod() {
+        try {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
             };
@@ -1303,9 +1071,7 @@ public class WebServiceProxyHelperTest
             Method oMethod = oHelper.getMethod(this.getClass(), "helperMethod");
             assertNotNull("getMethod failed", oMethod);
             assertEquals("Incorrect method returned.", "helperMethod", oMethod.getName());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetMethod test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetMethod test: " + t.getMessage());
@@ -1316,48 +1082,38 @@ public class WebServiceProxyHelperTest
      * Test the invokePort method happy path.
      */
     @Test
-    public void testInvokePortHappyPath()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInvokePortHappyPath() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(4).of(mockLog).debug(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                public int getRetryAttempts()
-                {
+                public int getRetryAttempts() {
                     return 3;
                 }
 
                 @Override
-                public int getRetryDelay()
-                {
+                public int getRetryDelay() {
                     return 10;
                 }
 
                 @Override
-                public String getExceptionText()
-                {
+                public String getExceptionText() {
                     return "SocketTimeoutException";
                 }
 
                 @Override
-                protected Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput)
-                {
+                protected Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput) {
                     return new Integer(100);
                 }
             };
@@ -1366,9 +1122,7 @@ public class WebServiceProxyHelperTest
             assertNotNull("invokePort failed to return a value.", oResponse);
             assertTrue("Response was incorrect type.", oResponse instanceof Integer);
             assertEquals("Incorrect value returned.", 100, oResponse.intValue());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInvokePortHappyPath test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInvokePortHappyPath test: " + t.getMessage());
@@ -1379,56 +1133,43 @@ public class WebServiceProxyHelperTest
      * Test the invokePort method illegal argument exception.
      */
     @Test
-    public void testInvokePortIllegalArgumentException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInvokePortIllegalArgumentException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(3).of(mockLog).debug(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(IllegalArgumentException.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                public int getRetryAttempts()
-                {
+                public int getRetryAttempts() {
                     return 3;
                 }
 
                 @Override
-                public int getRetryDelay()
-                {
+                public int getRetryDelay() {
                     return 10;
                 }
 
                 @Override
-                public String getExceptionText()
-                {
+                public String getExceptionText() {
                     return "SocketTimeoutException";
                 }
             };
 
             Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(), "helperMethod2", new Integer(100));
             assertNull("invokePort should have returned a null response.", oResponse);
-        }
-        catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             assertNotNull(e);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInvokePortIllegalArgumentException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInvokePortIllegalArgumentException test: " + t.getMessage());
@@ -1439,50 +1180,40 @@ public class WebServiceProxyHelperTest
      * Test the invokePort method with retry settings with exception.
      */
     @Test
-    public void testInvokePortWithInvocationTargetException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInvokePortWithInvocationTargetException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(2).of(mockLog).debug(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                public int getRetryAttempts()
-                {
+                public int getRetryAttempts() {
                     return 0;
                 }
 
                 @Override
-                public int getRetryDelay()
-                {
+                public int getRetryDelay() {
                     return 0;
                 }
 
                 @Override
-                public String getExceptionText()
-                {
+                public String getExceptionText() {
                     return "SocketTimeoutException";
                 }
 
                 @Override
                 protected Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput)
-                        throws InvocationTargetException
-                {
+                        throws InvocationTargetException {
                     throw new InvocationTargetException(new Throwable(""), "Some bad argument.");
                 }
             };
@@ -1491,13 +1222,9 @@ public class WebServiceProxyHelperTest
             assertNotNull("invokePort failed to return a value.", oResponse);
             assertTrue("Response was incorrect type.", oResponse instanceof Integer);
             assertEquals("Incorrect value returned.", 100, oResponse.intValue());
-        }
-        catch (InvocationTargetException e)
-        {
+        } catch (InvocationTargetException e) {
             assertEquals("Incorrect exception was returned.", "Some bad argument.", e.getMessage());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInvokePortWithInvocationTargetException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInvokePortWithInvocationTargetException test: " + t.getMessage());
@@ -1508,42 +1235,33 @@ public class WebServiceProxyHelperTest
      * Test the invokePort method with retry settings happy path.
      */
     @Test
-    public void testInvokePortRetrySettingsHappyPath()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInvokePortRetrySettingsHappyPath() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(4).of(mockLog).debug(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                public int getRetryAttempts()
-                {
+                public int getRetryAttempts() {
                     return 5;
                 }
 
                 @Override
-                public int getRetryDelay()
-                {
+                public int getRetryDelay() {
                     return 100;
                 }
 
                 @Override
-                public String getExceptionText()
-                {
+                public String getExceptionText() {
                     return "javax.xml.ws.WebServiceException";
                 }
             };
@@ -1552,9 +1270,7 @@ public class WebServiceProxyHelperTest
             assertNotNull("invokePort failed to return a value.", oResponse);
             assertTrue("Response was incorrect type.", oResponse instanceof Integer);
             assertEquals("Incorrect value returned.", 100, oResponse.intValue());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInvokePortHappyPath test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInvokePortHappyPath test: " + t.getMessage());
@@ -1565,13 +1281,9 @@ public class WebServiceProxyHelperTest
      * Test the invokePort method with retry settings with exception.
      */
     @Test
-    public void testInvokePortRetrySettingsWithWebServiceException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInvokePortRetrySettingsWithWebServiceException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(7).of(mockLog).debug(with(any(String.class)));
@@ -1580,36 +1292,30 @@ public class WebServiceProxyHelperTest
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                public int getRetryAttempts()
-                {
+                public int getRetryAttempts() {
                     return 3;
                 }
 
                 @Override
-                public int getRetryDelay()
-                {
+                public int getRetryDelay() {
                     return 10;
                 }
 
                 @Override
-                public String getExceptionText()
-                {
+                public String getExceptionText() {
                     return "SocketTimeoutException";
                 }
 
                 @Override
-                protected Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput)
-                {
+                protected Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput) {
                     throw new WebServiceException("SocketTimeoutException");
                 }
             };
@@ -1618,13 +1324,9 @@ public class WebServiceProxyHelperTest
             assertNotNull("invokePort failed to return a value.", oResponse);
             assertTrue("Response was incorrect type.", oResponse instanceof Integer);
             assertEquals("Incorrect value returned.", 100, oResponse.intValue());
-        }
-        catch (WebServiceException e)
-        {
+        } catch (WebServiceException e) {
             assertEquals("Incorrect exception was returned.", "SocketTimeoutException", e.getMessage());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInvokePortRetrySettingsWithWebServiceException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInvokePortRetrySettingsWithWebServiceException test: " + t.getMessage());
@@ -1635,49 +1337,39 @@ public class WebServiceProxyHelperTest
      * Test the invokePort method with retry settings with exception.
      */
     @Test
-    public void testInvokePortRetrySettingsWithWebServiceExceptionNoTextMatch()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInvokePortRetrySettingsWithWebServiceExceptionNoTextMatch() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(3).of(mockLog).debug(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                public int getRetryAttempts()
-                {
+                public int getRetryAttempts() {
                     return 3;
                 }
 
                 @Override
-                public int getRetryDelay()
-                {
+                public int getRetryDelay() {
                     return 10;
                 }
 
                 @Override
-                public String getExceptionText()
-                {
+                public String getExceptionText() {
                     return "SocketTimeoutException";
                 }
 
                 @Override
-                protected Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput)
-                {
+                protected Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput) {
                     throw new WebServiceException("SomethingElse");
                 }
             };
@@ -1686,13 +1378,9 @@ public class WebServiceProxyHelperTest
             assertNotNull("invokePort failed to return a value.", oResponse);
             assertTrue("Response was incorrect type.", oResponse instanceof Integer);
             assertEquals("Incorrect value returned.", 100, oResponse.intValue());
-        }
-        catch (WebServiceException e)
-        {
+        } catch (WebServiceException e) {
             assertEquals("Incorrect exception was returned.", "SomethingElse", e.getMessage());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInvokePortRetrySettingsWithWebServiceExceptionNoTextMatch test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInvokePortRetrySettingsWithWebServiceExceptionNoTextMatch test: " + t.getMessage());
@@ -1703,49 +1391,39 @@ public class WebServiceProxyHelperTest
      * Test the invokePort method with retry settings with exception.
      */
     @Test
-    public void testInvokePortRetrySettingsWithIllegalArgumentException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInvokePortRetrySettingsWithIllegalArgumentException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(3).of(mockLog).debug(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                public int getRetryAttempts()
-                {
+                public int getRetryAttempts() {
                     return 3;
                 }
 
                 @Override
-                public int getRetryDelay()
-                {
+                public int getRetryDelay() {
                     return 10;
                 }
 
                 @Override
-                public String getExceptionText()
-                {
+                public String getExceptionText() {
                     return "SocketTimeoutException";
                 }
 
                 @Override
-                protected Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput)
-                {
+                protected Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput) {
                     throw new IllegalArgumentException("Some bad argument.");
                 }
             };
@@ -1754,13 +1432,9 @@ public class WebServiceProxyHelperTest
             assertNotNull("invokePort failed to return a value.", oResponse);
             assertTrue("Response was incorrect type.", oResponse instanceof Integer);
             assertEquals("Incorrect value returned.", 100, oResponse.intValue());
-        }
-        catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             assertEquals("Incorrect exception was returned.", "Some bad argument.", e.getMessage());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInvokePortRetrySettingsWithIllegalArgumentException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInvokePortRetrySettingsWithIllegalArgumentException test: " + t.getMessage());
@@ -1771,50 +1445,40 @@ public class WebServiceProxyHelperTest
      * Test the invokePort method with retry settings with exception.
      */
     @Test
-    public void testInvokePortRetrySettingsWithInvocationTargetException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testInvokePortRetrySettingsWithInvocationTargetException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(3).of(mockLog).debug(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                public int getRetryAttempts()
-                {
+                public int getRetryAttempts() {
                     return 3;
                 }
 
                 @Override
-                public int getRetryDelay()
-                {
+                public int getRetryDelay() {
                     return 10;
                 }
 
                 @Override
-                public String getExceptionText()
-                {
+                public String getExceptionText() {
                     return "SocketTimeoutException";
                 }
 
                 @Override
                 protected Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput)
-                        throws InvocationTargetException
-                {
+                        throws InvocationTargetException {
                     throw new InvocationTargetException(new Throwable(""), "Some bad argument.");
                 }
             };
@@ -1823,13 +1487,9 @@ public class WebServiceProxyHelperTest
             assertNotNull("invokePort failed to return a value.", oResponse);
             assertTrue("Response was incorrect type.", oResponse instanceof Integer);
             assertEquals("Incorrect value returned.", 100, oResponse.intValue());
-        }
-        catch (InvocationTargetException e)
-        {
+        } catch (InvocationTargetException e) {
             assertEquals("Incorrect exception was returned.", "Some bad argument.", e.getMessage());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInvokePortRetrySettingsWithInvocationTargetException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInvokePortRetrySettingsWithInvocationTargetException test: " + t.getMessage());
@@ -1840,30 +1500,23 @@ public class WebServiceProxyHelperTest
      * Test the getUrlFromTargetSystem method happy path.
      */
     @Test
-    public void testGetUrlFromTargetSystemHappyPath()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetUrlFromTargetSystemHappyPath() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(3).of(mockLog).info(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName)
-                {
+                protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName) {
                     return "http://www.theurl.com";
                 }
             };
@@ -1873,11 +1526,9 @@ public class WebServiceProxyHelperTest
             oHomeCommunity.setHomeCommunityId("1.1");
             oHomeCommunity.setName("The name");
             oHomeCommunity.setDescription("The name");
-            String sURL = oHelper.getUrlFromTargetSystem(oTargetSystem, NhincConstants.DOC_QUERY_SERVICE_NAME);
+            String sURL = oHelper.getUrlFromTargetSystemByGatewayAPILevel(oTargetSystem, NhincConstants.DOC_QUERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
             assertEquals("URL was incorrect.", "http://www.theurl.com", sURL);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetUrlFromTargetSystemHappyPath test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetUrlFromTargetSystemHappyPath test: " + t.getMessage());
@@ -1888,42 +1539,31 @@ public class WebServiceProxyHelperTest
      * Test the getUrlFromTargetSystem method null target system.
      */
     @Test
-    public void testGetUrlFromTargetSystemNullTargetSystem()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetUrlFromTargetSystemNullTargetSystem() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(1).of(mockLog).error(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName)
-                {
+                protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName) {
                     return "http://www.theurl.com";
                 }
             };
-            String sURL = oHelper.getUrlFromTargetSystem(null, NhincConstants.DOC_QUERY_SERVICE_NAME);
+            String sURL = oHelper.getUrlFromTargetSystemByGatewayAPILevel(null, NhincConstants.DOC_QUERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
             fail("An exception should have been thrown.");
-        }
-        catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             assertEquals("Unexpected exception message.", "Target system passed into the proxy is null", e.getMessage());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetUrlFromTargetSystemNullTargetSystem test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetUrlFromTargetSystemNullTargetSystem test: " + t.getMessage());
@@ -1934,32 +1574,25 @@ public class WebServiceProxyHelperTest
      * Test the getUrlFromTargetSystem method with ConnectionManagerException.
      */
     @Test
-    public void testGetUrlFromTargetSystemConnectionManagerException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetUrlFromTargetSystemConnectionManagerException() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(3).of(mockLog).info(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(Exception.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName)
-                        throws ConnectionManagerException
-                {
+                        throws ConnectionManagerException {
                     throw new ConnectionManagerException("This is a forced exception");
                 }
             };
@@ -1969,15 +1602,11 @@ public class WebServiceProxyHelperTest
             oHomeCommunity.setHomeCommunityId("1.1");
             oHomeCommunity.setName("The name");
             oHomeCommunity.setDescription("The name");
-            String sURL = oHelper.getUrlFromTargetSystem(oTargetSystem, NhincConstants.DOC_QUERY_SERVICE_NAME);
+            String sURL = oHelper.getUrlFromTargetSystemByGatewayAPILevel(oTargetSystem, NhincConstants.DOC_QUERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
             fail("An exception should have been thrown.");
-        }
-        catch (ConnectionManagerException e)
-        {
+        } catch (ConnectionManagerException e) {
             assertEquals("Unexpected exception message.", "This is a forced exception", e.getMessage());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetUrlFromTargetSystemConnectionManagerException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetUrlFromTargetSystemConnectionManagerException test: " + t.getMessage());
@@ -1988,39 +1617,30 @@ public class WebServiceProxyHelperTest
      * Test the getUrlFromHomeCommunity method happy path.
      */
     @Test
-    public void testGetUrlFromHomeCommunity()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
-
+    public void testGetUrlFromHomeCommunity() {
+        try {
+            context.checking(new Expectations() {
 
                 {
                     exactly(1).of(mockLog).info(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
-                {
+                protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName) {
                     return "http://www.theurl.com";
                 }
             };
             String sHomeCommunityId = "1.1";
             String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
             assertEquals("URL was incorrect.", "http://www.theurl.com", sURL);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetUrlFromHomeCommunity test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetUrlFromHomeCommunity test: " + t.getMessage());
@@ -2031,40 +1651,31 @@ public class WebServiceProxyHelperTest
      * Test the getUrlFromHomeCommunity method null homeCommunityId.
      */
     @Test
-    public void testGetUrlFromHomeCommunityNullId()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
+    public void testGetUrlFromHomeCommunityNullId() {
+        try {
+            context.checking(new Expectations() {
+
                 {
                     exactly(1).of(mockLog).error(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
-                {
+                protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName) {
                     return "http://www.theurl.com";
                 }
             };
             String sHomeCommunityId = null;
             String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
-        }
-        catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             assertTrue("Invalid exception message: ", e.getMessage().contains("Home community passed into the WebServiceProxyHelper is null or empty"));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetUrlFromHomeCommunityNullId test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetUrlFromHomeCommunityNullId test: " + t.getMessage());
@@ -2075,40 +1686,31 @@ public class WebServiceProxyHelperTest
      * Test the getUrlFromHomeCommunity method empty homeCommunityId.
      */
     @Test
-    public void testGetUrlFromHomeCommunityEmptyId()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
+    public void testGetUrlFromHomeCommunityEmptyId() {
+        try {
+            context.checking(new Expectations() {
+
                 {
                     exactly(1).of(mockLog).error(with(any(String.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
-                {
+                protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName) {
                     return "http://www.theurl.com";
                 }
             };
             String sHomeCommunityId = "";
             String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
-        }
-        catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             assertTrue("Invalid exception message: ", e.getMessage().contains("Home community passed into the WebServiceProxyHelper is null or empty"));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetUrlFromHomeCommunityEmptyId test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetUrlFromHomeCommunityEmptyId test: " + t.getMessage());
@@ -2119,42 +1721,33 @@ public class WebServiceProxyHelperTest
      * Test the getUrlFromHomeCommunity method ConnectionManagerException.
      */
     @Test
-    public void testGetUrlFromHomeCommunityConnectionManagerException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
+    public void testGetUrlFromHomeCommunityConnectionManagerException() {
+        try {
+            context.checking(new Expectations() {
+
                 {
                     exactly(1).of(mockLog).info(with(any(String.class)));
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(ConnectionManagerException.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
-                    throws ConnectionManagerException
-                {
+                        throws ConnectionManagerException {
                     throw new ConnectionManagerException("Call failed.");
                 }
             };
             String sHomeCommunityId = "1.1";
             String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
-        }
-        catch (ConnectionManagerException e)
-        {
+        } catch (ConnectionManagerException e) {
             assertTrue("Invalid exception message: ", e.getMessage().contains("Call failed."));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetUrlFromHomeCommunityConnectionManagerException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetUrlFromHomeCommunityConnectionManagerException test: " + t.getMessage());
@@ -2165,30 +1758,23 @@ public class WebServiceProxyHelperTest
      * Test the getUrlLocalHomeCommunity method happy path.
      */
     @Test
-    public void testGetUrlLocalHomeCommunity()
-    {
-        try
-        {
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+    public void testGetUrlLocalHomeCommunity() {
+        try {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected String getLocalEndPointFromConnectionManager(String sServiceName)
-                {
+                protected String getLocalEndPointFromConnectionManager(String sServiceName) {
                     return "http://www.theurl.com";
                 }
             };
             String sURL = oHelper.getUrlLocalHomeCommunity(NhincConstants.DOC_QUERY_SERVICE_NAME);
             assertEquals("URL was incorrect.", "http://www.theurl.com", sURL);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetUrlLocalHomeCommunity test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetUrlLocalHomeCommunity test: " + t.getMessage());
@@ -2199,61 +1785,48 @@ public class WebServiceProxyHelperTest
      * Test the getUrlLocalHomeCommunity method ConnectionManagerException.
      */
     @Test
-    public void testGetUrlLocalHomeCommunityConnectionManagerException()
-    {
-        try
-        {
-            context.checking(new Expectations()
-            {
+    public void testGetUrlLocalHomeCommunityConnectionManagerException() {
+        try {
+            context.checking(new Expectations() {
+
                 {
                     exactly(1).of(mockLog).error(with(any(String.class)), with(any(ConnectionManagerException.class)));
                 }
             });
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-            {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
                 protected String getLocalEndPointFromConnectionManager(String sServiceName)
-                    throws ConnectionManagerException
-                {
+                        throws ConnectionManagerException {
                     throw new ConnectionManagerException("Call failed.");
                 }
             };
             String sURL = oHelper.getUrlLocalHomeCommunity(NhincConstants.DOC_QUERY_SERVICE_NAME);
-        }
-        catch (ConnectionManagerException e)
-        {
+        } catch (ConnectionManagerException e) {
             assertTrue("Invalid exception message: ", e.getMessage().contains("Call failed."));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetUrlLocalHomeCommunityConnectionManagerException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetUrlLocalHomeCommunityConnectionManagerException test: " + t.getMessage());
         }
     }
 
-
     /**
      * Tests the getMessageId method - Happy Path
      */
     @Test
-    public void testGetMessageIdHappyPath()
-    {
+    public void testGetMessageIdHappyPath() {
 
         WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
-        AssertionType oAssertion = new AssertionType()
-        {
+        AssertionType oAssertion = new AssertionType() {
 
             @Override
-            public String getMessageId()
-            {
+            public String getMessageId() {
                 return "Test_Message_Id";
             }
         };
@@ -2265,21 +1838,18 @@ public class WebServiceProxyHelperTest
      * Tests the getMessageId method - Null Assertion
      */
     @Test
-    public void testGetMessageIdNullAssertion()
-    {
+    public void testGetMessageIdNullAssertion() {
 
-        context.checking(new Expectations()
-        {
+        context.checking(new Expectations() {
+
             {
                 allowing(mockLog).warn(with(any(String.class)));
             }
         });
-        WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-        {
+        WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
             @Override
-            protected Log createLogger()
-            {
+            protected Log createLogger() {
                 return mockLog;
             }
         };
@@ -2292,21 +1862,18 @@ public class WebServiceProxyHelperTest
      * Tests the getMessageId method - Null AsyncMessageId
      */
     @Test
-    public void testGetMessageIdNullAsyncMessageId()
-    {
+    public void testGetMessageIdNullAsyncMessageId() {
 
-        context.checking(new Expectations()
-        {
+        context.checking(new Expectations() {
+
             {
                 allowing(mockLog).warn(with(any(String.class)));
             }
         });
-        WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-        {
+        WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
             @Override
-            protected Log createLogger()
-            {
+            protected Log createLogger() {
                 return mockLog;
             }
         };
@@ -2321,21 +1888,18 @@ public class WebServiceProxyHelperTest
      * Tests the getMessageId method - Empty AsyncMessageId
      */
     @Test
-    public void testGetMessageIdEmptyAsyncMessageId()
-    {
+    public void testGetMessageIdEmptyAsyncMessageId() {
 
-        context.checking(new Expectations()
-        {
+        context.checking(new Expectations() {
+
             {
                 allowing(mockLog).warn(with(any(String.class)));
             }
         });
-        WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-        {
+        WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
             @Override
-            protected Log createLogger()
-            {
+            protected Log createLogger() {
                 return mockLog;
             }
         };
@@ -2351,8 +1915,7 @@ public class WebServiceProxyHelperTest
      * TODO - this will change with implementation
      */
     @Test
-    public void testGetRelatesTo()
-    {
+    public void testGetRelatesTo() {
 
         WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
         AssertionType oAssertion = new AssertionType();
@@ -2365,28 +1928,22 @@ public class WebServiceProxyHelperTest
      * Tests the getWSAddressing method
      */
     @Test
-    public void testGetWSAddressingHeaders()
-    {
+    public void testGetWSAddressingHeaders() {
 
-        WebServiceProxyHelper oHelper = new WebServiceProxyHelper()
-        {
+        WebServiceProxyHelper oHelper = new WebServiceProxyHelper() {
 
             @Override
-            protected Log createLogger()
-            {
+            protected Log createLogger() {
                 return mockLog;
             }
 
             @Override
-            protected AsyncHeaderCreator getAsyncHeaderCreator()
-            {
-                return new AsyncHeaderCreator()
-                {
+            protected AsyncHeaderCreator getAsyncHeaderCreator() {
+                return new AsyncHeaderCreator() {
 
                     @Override
                     public List createOutboundHeaders(String url, String action,
-                            String messageId, List<String> relatesToIds)
-                    {
+                            String messageId, List<String> relatesToIds) {
 
                         List headers = new ArrayList();
                         headers.add(url);
@@ -2399,14 +1956,12 @@ public class WebServiceProxyHelperTest
             }
 
             @Override
-            protected String getMessageId(AssertionType assertion)
-            {
+            protected String getMessageId(AssertionType assertion) {
                 return "Test_Message_Id";
             }
 
             @Override
-            protected List<String> getRelatesTo(AssertionType assertion)
-            {
+            protected List<String> getRelatesTo(AssertionType assertion) {
                 List<String> allRelatesTo = new ArrayList();
                 allRelatesTo.add("Test_Relates_1");
                 allRelatesTo.add("Test_Relates_2");
@@ -2422,6 +1977,167 @@ public class WebServiceProxyHelperTest
         assertTrue("Test_Message_Id header not found", returnedHeaders.contains("Test_Message_Id"));
         assertTrue("Test_Relates_1 header not found", returnedHeaders.contains("Test_Relates_1"));
         assertTrue("Test_Relates_2 header not found", returnedHeaders.contains("Test_Relates_2"));
+    }
+
+    /**
+     * Test of getEndPointFromConnectionManager method, of class WebServiceProxyHelper.
+     */
+    @Test
+    public void TestGetUrlFromHomeCommunity() throws Exception {
+        /*Mockery mockingContext;
+        final ConnectionManagerCache mockedDependency;
+        mockingContext = new JUnit4Mockery() {
+
+            {
+                setImposteriser(ClassImposteriser.INSTANCE);
+            }
+        };
+        mockedDependency = mockingContext.mock(ConnectionManagerCache.class);
+
+        
+        mockingContext.checking(new Expectations() {
+
+            {
+                one(mockedDependency).getEndpointURLByServiceName(with(any(String.class)), with(any(String.class)));
+                will(returnValue("someurl"));
+            }
+        });*/
+        WebServiceProxyHelper instance = new WebServiceProxyHelper();
+        String expResult = "https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+        String homeCommunityId = "1.1";
+        String sServiceName = "QueryForDocument";
+        String result = instance.getUrlFromHomeCommunity(homeCommunityId, sServiceName);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getLocalEndPointFromConnectionManager method, of class WebServiceProxyHelper.
+     */
+    @Test
+    public void TestGetUrlLocalHomeCommunity() throws Exception {
+        /*Mockery mockingContext;
+        final ConnectionManagerCache mockedDependency;
+        mockingContext = new JUnit4Mockery() {
+
+            {
+                setImposteriser(ClassImposteriser.INSTANCE);
+            }
+        };
+        mockedDependency = mockingContext.mock(ConnectionManagerCache.class);
+
+        String expResult = "someurl";
+        mockingContext.checking(new Expectations() {
+
+            {
+                one(mockedDependency).getLocalEndpointURLByServiceName(with(any(String.class)));
+                will(returnValue("someurl"));
+            }
+        });*/
+        WebServiceProxyHelper instance = new WebServiceProxyHelper();
+        String expResult = "https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+        String sServiceName = "QueryForDocument";
+        String result = instance.getUrlLocalHomeCommunity(sServiceName);
+        assertEquals(expResult, result);    }
+
+    /**
+     * Test of getUrlFromTargetSystem method, of class WebServiceProxyHelper.
+     */
+    /*@Test
+    public void testGetUrlFromTargetSystem() throws Exception {
+        /*Mockery mockingContext;
+        final ConnectionManagerCache mockedDependency;
+        mockingContext = new JUnit4Mockery() {
+
+            {
+                setImposteriser(ClassImposteriser.INSTANCE);
+            }
+        };
+        mockedDependency = mockingContext.mock(ConnectionManagerCache.class);
+
+        String expResult = "someurl";
+        mockingContext.checking(new Expectations() {
+
+            {
+                one(mockedDependency).getEndpontURLFromNhinTarget(with(any(NhinTargetSystemType.class)), with(any(String.class)));
+                will(returnValue("someurl"));
+            }
+        });*/
+        /*WebServiceProxyHelper instance = new WebServiceProxyHelper();
+        String expResult = "https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+        NhinTargetSystemType oTargetSystem = new NhinTargetSystemType();
+        oTargetSystem.setHomeCommunity(new HomeCommunityType());
+        oTargetSystem.getHomeCommunity().setHomeCommunityId("1.1");
+        String sServiceName = "QueryForDocument";
+        String result = instance.getUrlFromTargetSystem(oTargetSystem, sServiceName);
+        assertEquals(expResult, result);
+    }*/
+
+    /**
+     * Test of getUrlFromTargetSystemByGatewayAPILevel method, of class WebServiceProxyHelper.
+     */
+    @Test
+    public void testGetUrlFromTargetSystemByGatewayAPILevel() throws Exception {
+        /*Mockery mockingContext;
+        final ConnectionManagerCache mockedDependency;       
+        mockingContext = new JUnit4Mockery() {
+
+            {
+                setImposteriser(ClassImposteriser.INSTANCE);
+            }
+        };
+        mockedDependency = mockingContext.mock(ConnectionManagerCache.class);
+
+        String expResult = "someurl";
+        mockingContext.checking(new Expectations() {
+
+            {
+                one(mockedDependency).getEndpontURLFromNhinTarget(with(any(NhinTargetSystemType.class)), with(any(String.class)), with(any(GATEWAY_API_LEVEL.class)));
+                will(returnValue("someurl"));
+            }
+        });*/
+        WebServiceProxyHelper instance = new WebServiceProxyHelper();
+        String expResult = "https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+        NhinTargetSystemType oTargetSystem = new NhinTargetSystemType();
+        oTargetSystem.setHomeCommunity(new HomeCommunityType());
+        oTargetSystem.getHomeCommunity().setHomeCommunityId("1.1");
+        String sServiceName = "QueryForDocument";
+        GATEWAY_API_LEVEL level = GATEWAY_API_LEVEL.LEVEL_g0;
+        String result = instance.getEndPointFromConnectionManagerByGatewayAPILevel(oTargetSystem, sServiceName, level);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getUrlFromTargetSystemByAdapterAPILevel method, of class WebServiceProxyHelper.
+     */
+    @Test
+    public void testGetUrlFromTargetSystemByAdapterAPILevel() throws Exception {
+        /*Mockery mockingContext;
+        final ConnectionManagerCache mockedDependency;      
+        mockingContext = new JUnit4Mockery() {
+
+            {
+                setImposteriser(ClassImposteriser.INSTANCE);
+            }
+        };
+        mockedDependency = mockingContext.mock(ConnectionManagerCache.class);
+
+        String expResult = "someurl";
+        mockingContext.checking(new Expectations() {
+
+            {
+                one(mockedDependency).getEndpontURLFromNhinTarget(with(any(NhinTargetSystemType.class)), with(any(String.class)), with(any(ADAPTER_API_LEVEL.class)));
+                will(returnValue("someurl"));
+            }
+        });*/
+        WebServiceProxyHelper instance = new WebServiceProxyHelper();
+        String expResult = "https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+        NhinTargetSystemType oTargetSystem = new NhinTargetSystemType();
+        oTargetSystem.setHomeCommunity(new HomeCommunityType());
+        oTargetSystem.getHomeCommunity().setHomeCommunityId("1.1");
+        String sServiceName = "QueryForDocument";
+        ADAPTER_API_LEVEL level = ADAPTER_API_LEVEL.LEVEL_a0;
+        String result = instance.getEndPointFromConnectionManagerByAdapterAPILevel(oTargetSystem, sServiceName, level);
+        assertEquals(expResult, result);
     }
     // The following commented tests came from ServiceUtilTest.java when the methods
     // from ServiceUtil were moved into the WebServiceProxyHelper.java class.  They

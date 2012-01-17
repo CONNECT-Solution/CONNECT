@@ -18,7 +18,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache2;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -82,9 +85,37 @@ public class WebServiceProxyHelper {
      * @return The endpoint URL.
      * @throws Exception An exception if one occurs.
      */
-    protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName)
+    /*protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName)
             throws ConnectionManagerException {
-        return ConnectionManagerCache.getEndpontURLFromNhinTarget(oTargetSystem, sServiceName);
+        return ConnectionManagerCache2.getEndpontURLFromNhinTarget(oTargetSystem, sServiceName);
+    }*/
+
+    /**
+     * This is a helper class for unit testing purposes only.  It allows me to
+     * mock out the connection manager call in the unit test.
+     *
+     * @param oTargetSystem The target system for the call.
+     * @param sServiceName The name of the service to locate.
+     * @return The endpoint URL.
+     * @throws Exception An exception if one occurs.
+     */
+    protected String getEndPointFromConnectionManagerByGatewayAPILevel(NhinTargetSystemType oTargetSystem, String sServiceName, GATEWAY_API_LEVEL level)
+            throws ConnectionManagerException {
+        return ConnectionManagerCache2.getEndpontURLFromNhinTarget(oTargetSystem, sServiceName, level);
+    }
+
+        /**
+     * This is a helper class for unit testing purposes only.  It allows me to
+     * mock out the connection manager call in the unit test.
+     *
+     * @param oTargetSystem The target system for the call.
+     * @param sServiceName The name of the service to locate.
+     * @return The endpoint URL.
+     * @throws Exception An exception if one occurs.
+     */
+    protected String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level)
+            throws ConnectionManagerException {
+        return ConnectionManagerCache2.getAdapterEndpontURL(sServiceName, level);
     }
 
     /**
@@ -123,7 +154,7 @@ public class WebServiceProxyHelper {
      * @param sServiceName The name of the service for which the endpoint URL is desired.
      * @return The URL retrieved from the connection manager.
      */
-    public String getUrlFromTargetSystem(NhinTargetSystemType oTargetSystem, String sServiceName)
+    /*public String getUrlFromTargetSystem(NhinTargetSystemType oTargetSystem, String sServiceName)
             throws IllegalArgumentException, ConnectionManagerException, Exception {
         String sURL = "";
 
@@ -136,6 +167,76 @@ public class WebServiceProxyHelper {
                     log.info("Target Sys properties Home Comm Name" + oHomeCommunity.getName());
                 }
                 sURL = getEndPointFromConnectionManager(oTargetSystem, sServiceName);
+            } catch (ConnectionManagerException e) {
+                log.error("Error: Failed to retrieve url for service: " + sServiceName + ".  Exception: " + e.getMessage(), e);
+                throw (e);
+            }
+        } else {
+            String sErrorMessage = "Target system passed into the proxy is null";
+            log.error(sErrorMessage);
+            throw new IllegalArgumentException(sErrorMessage);
+        }
+
+        return sURL;
+    }*/
+    
+    /**
+     * This method retrieves the URl from the ConnectionMananager for the
+     * given TargetSystem.
+     *
+     * @param oTargetSystem The target system containing the information needed
+     *                      to retrieve the endpoint URL.
+     * @param sServiceName The name of the service for which the endpoint URL is desired.
+     * @return The URL retrieved from the connection manager.
+     */
+    public String getUrlFromTargetSystemByGatewayAPILevel(NhinTargetSystemType oTargetSystem, String sServiceName, GATEWAY_API_LEVEL level)
+            throws IllegalArgumentException, ConnectionManagerException, Exception {
+        String sURL = "";
+
+        if (oTargetSystem != null) {
+            try {
+                if (oTargetSystem.getHomeCommunity() != null) {
+                    HomeCommunityType oHomeCommunity = oTargetSystem.getHomeCommunity();
+                    log.info("Target Sys properties Home Comm ID:" + oHomeCommunity.getHomeCommunityId());
+                    log.info("Target Sys properties Home Comm Description" + oHomeCommunity.getDescription());
+                    log.info("Target Sys properties Home Comm Name" + oHomeCommunity.getName());
+                }
+                sURL = getEndPointFromConnectionManagerByGatewayAPILevel(oTargetSystem, sServiceName, level);
+            } catch (ConnectionManagerException e) {
+                log.error("Error: Failed to retrieve url for service: " + sServiceName + ".  Exception: " + e.getMessage(), e);
+                throw (e);
+            }
+        } else {
+            String sErrorMessage = "Target system passed into the proxy is null";
+            log.error(sErrorMessage);
+            throw new IllegalArgumentException(sErrorMessage);
+        }
+
+        return sURL;
+    }
+
+        /**
+     * This method retrieves the URl from the ConnectionMananager for the
+     * given TargetSystem.
+     *
+     * @param oTargetSystem The target system containing the information needed
+     *                      to retrieve the endpoint URL.
+     * @param sServiceName The name of the service for which the endpoint URL is desired.
+     * @return The URL retrieved from the connection manager.
+     */
+    public String getUrlFromTargetSystemByAdapterAPILevel(NhinTargetSystemType oTargetSystem, String sServiceName, ADAPTER_API_LEVEL level)
+            throws IllegalArgumentException, ConnectionManagerException, Exception {
+        String sURL = "";
+
+        if (oTargetSystem != null) {
+            try {
+                if (oTargetSystem.getHomeCommunity() != null) {
+                    HomeCommunityType oHomeCommunity = oTargetSystem.getHomeCommunity();
+                    log.info("Target Sys properties Home Comm ID:" + oHomeCommunity.getHomeCommunityId());
+                    log.info("Target Sys properties Home Comm Description" + oHomeCommunity.getDescription());
+                    log.info("Target Sys properties Home Comm Name" + oHomeCommunity.getName());
+                }
+                sURL = getEndPointFromConnectionManagerByAdapterAPILevel(sServiceName, level);
             } catch (ConnectionManagerException e) {
                 log.error("Error: Failed to retrieve url for service: " + sServiceName + ".  Exception: " + e.getMessage(), e);
                 throw (e);

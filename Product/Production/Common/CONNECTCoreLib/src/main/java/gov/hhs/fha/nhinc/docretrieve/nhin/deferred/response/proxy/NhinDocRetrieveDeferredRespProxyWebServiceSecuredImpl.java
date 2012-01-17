@@ -9,6 +9,7 @@ package gov.hhs.fha.nhinc.docretrieve.nhin.deferred.response.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.transform.document.DocRetrieveAckTranforms;
 import ihe.iti.xds_b._2007.RespondingGatewayDeferredResponseRetrievePortType;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -90,7 +91,7 @@ public class NhinDocRetrieveDeferredRespProxyWebServiceSecuredImpl implements Nh
         DocRetrieveAcknowledgementType response = null;
 
         try {
-            String url = getWebServiceProxyHelper().getUrlFromTargetSystem(target, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE);
+            String url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE, GATEWAY_API_LEVEL.LEVEL_g0);
             RespondingGatewayDeferredResponseRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if (body == null) {

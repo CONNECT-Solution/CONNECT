@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ConnectionManagerDAOFileImpl
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionManagerDAOFileImplFactory;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionManagerDAOFileImplFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -1210,5 +1211,9 @@ public class ConnectionManagerCache2 {
         }
 
         return GATEWAY_API_LEVEL.LEVEL_g0;
+    }
+
+    public static String getAdapterEndpontURL(String sServiceName, ADAPTER_API_LEVEL level) {
+        return "https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery";
     }
 }

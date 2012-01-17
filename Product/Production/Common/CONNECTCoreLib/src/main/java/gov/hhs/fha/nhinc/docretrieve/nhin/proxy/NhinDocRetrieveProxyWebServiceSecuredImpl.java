@@ -14,14 +14,15 @@ import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docrepository.DocumentProcessHelper;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import javax.xml.ws.Service;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.sql.Timestamp;
 import javax.xml.namespace.QName;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -78,7 +79,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
         try {
             if (request != null) {
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlFromTargetSystem(targetSystem, sServiceName);
+                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, sServiceName, GATEWAY_API_LEVEL.LEVEL_g0);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
@@ -122,6 +123,10 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
             registryError.setCodeContext("Processing Adapter Doc Query document retrieve");
             registryError.setErrorCode("XDSRepostoryError");
             registryError.setSeverity("Error");
+            if (regResp.getRegistryErrorList() == null)
+            {
+                regResp.setRegistryErrorList(new RegistryErrorList());
+            }
             regResp.getRegistryErrorList().getRegistryError().add(registryError);
             response.setRegistryResponse(regResp);
         }

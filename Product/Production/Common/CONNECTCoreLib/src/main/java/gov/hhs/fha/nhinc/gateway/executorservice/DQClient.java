@@ -21,6 +21,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.transform.document.DocumentQueryTransform;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
@@ -165,7 +166,7 @@ public class DQClient<Target extends QualifiedSubjectIdentifierType, Request ext
                 DocQueryAuditLog auditLog = new DocQueryAuditLog();
                 AcknowledgementType ack = auditLog.auditDQRequest(adhocQueryRequest, oAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
-                String serviceAddress = oProxyHelper.getUrlFromTargetSystem(targetSystem, NhincConstants.DOC_QUERY_SERVICE_NAME);
+                String serviceAddress = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, NhincConstants.DOC_QUERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
                 RespondingGatewayQueryPortType servicePort = getWebServiceInstance().getRespondingGatewayQueryPortSoap();
                 Map requestContext = ((BindingProvider) servicePort).getRequestContext();
                 requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, serviceAddress);

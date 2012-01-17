@@ -9,6 +9,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
@@ -60,7 +61,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
         try {
             if (request != null && target != null) {
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlFromTargetSystem(target, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
                 log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
