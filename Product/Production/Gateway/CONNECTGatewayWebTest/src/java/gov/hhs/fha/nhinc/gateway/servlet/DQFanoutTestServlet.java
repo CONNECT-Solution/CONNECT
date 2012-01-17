@@ -18,6 +18,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.AssigningAuthorityHomeCommunityMappingHelper;
 
+import java.io.StringWriter;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -27,6 +28,9 @@ import java.util.UUID;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import javax.xml.bind.JAXBContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,6 +50,8 @@ import org.apache.commons.logging.LogFactory;
 public class DQFanoutTestServlet extends HttpServlet{
 
     private Log log = LogFactory.getLog(getClass());
+
+    private static final String DQContextPath = "oasis.names.tc.ebxml_regrep.xsd.query._3";
 
     private long startTimeMillis = 0;
     private long endTimeMillis = 0;
@@ -100,7 +106,7 @@ public class DQFanoutTestServlet extends HttpServlet{
                 String transactionId = (UUID.randomUUID()).toString();
                 AdhocQueryResponse r = null;
                 AssertionType assertion = (new AssertionCreator()).createAssertion();
-                EntityDocQueryOrchImplTest orchestrator = new EntityDocQueryOrchImplTest(
+                EntityDocQueryOrchImplTest orchestratorTest = new EntityDocQueryOrchImplTest(
                         InitServlet.getExecutorService(), InitServlet.getLargeJobExecutorService());
 
                 // inbound request from adapter will have associated adhocqueryrequest
@@ -111,21 +117,30 @@ public class DQFanoutTestServlet extends HttpServlet{
                             1, patientid, localhcid, localaaid);
 
                     // setting requestCount sets flag for isTest
-                    orchestrator.setTest(requestCount, targethcid);
-                    r = orchestrator.respondingGatewayCrossGatewayQuery(dq, assertion, null);
+                    orchestratorTest.setTest(requestCount, localaaid);
+                    r = orchestratorTest.respondingGatewayCrossGatewayQuery(dq, assertion, null);
                 }else{
                     AdhocQueryRequest dq = (new AdhocQueryRequestGenerator()).generateTestRequest(1, 
                             patientid, localhcid, localaaid);
-                    r = orchestrator.respondingGatewayCrossGatewayQuery(dq, assertion, null);
+                    r = orchestratorTest.respondingGatewayCrossGatewayQuery(dq, assertion, null);
                 }
                 endTimeMillis = System.currentTimeMillis();
                 long transTimeMillis = endTimeMillis - startTimeMillis;
 
-                log.debug("DQFanoutTestServlet taskexecutor done and received response - transTimeMillis="
+                log.debug("DQFanoutTestServlet task done and received response - transTimeMillis="
                         + transTimeMillis);
                 if(r != null){
-                    response.getWriter().write("<html><body><p>DQ Transaction took "
-                                    + transTimeMillis + " milliseconds</p></body></html>");
+                    // marshall response object to string to output to web page
+                    JAXBContextHandler oHandler = new JAXBContextHandler();
+                    JAXBContext jc = oHandler.getJAXBContext(DQContextPath);
+                    javax.xml.bind.Marshaller marshaller = jc.createMarshaller();
+                    StringWriter stringWriter = new StringWriter();
+                    marshaller.marshal(r, stringWriter);
+                    String responsexml = stringWriter.toString();
+                    System.out.println("DQFanoutTestServlet has response=" + responsexml);
+                    response.getWriter().write("<html><body>" +
+                            "<p>" + responsexml + "</p>" +
+                            "<p>DQ Transaction took " + transTimeMillis + " milliseconds</p></body></html>");
                 }else{
                     response.getWriter().write("<html><body>Null Response!!!......this should never happen</body></html>");
                 }

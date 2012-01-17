@@ -1,17 +1,12 @@
 package gov.hhs.fha.nhinc.docquery.entity.test;
 
-import gov.hhs.fha.nhinc.gateway.executorservice.DQProcessor;
-import gov.hhs.fha.nhinc.gateway.executorservice.DQClient;
-import gov.hhs.fha.nhinc.gateway.executorservice.ResponseWrapper;
-import gov.hhs.fha.nhinc.gateway.executorservice.TaskExecutor;
-
-import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
+import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
+import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImplRuntimeTest;
 import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryHelper;
-import gov.hhs.fha.nhinc.docquery.entity.DocQuerySender;
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -23,7 +18,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
-import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -84,7 +78,7 @@ public class EntityDocQueryOrchImplTest{
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
-        log.debug("Entering EntityDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
+        log.debug("Entering EntityDocQueryOrchImplTest.respondingGatewayCrossGatewayQuery...");
 
         AdhocQueryResponse response = null;
         CMUrlInfos urlInfoList = null;
@@ -117,64 +111,35 @@ public class EntityDocQueryOrchImplTest{
                 List<SlotType1> slotList = adhocQueryRequest.getAdhocQuery().getSlot();
                 String localAA = new EntityDocQueryHelper().getLocalAssigningAuthority(slotList);
                 String uniquePatientId = new EntityDocQueryHelper().getUniquePatientId(slotList);
-                log.debug("respondingGatewayCrossGatewayQuery EntityDocQueryHelper uniquePatientId: " + uniquePatientId
+                log.debug("EntityDocQueryOrchImplTest uniquePatientId: " + uniquePatientId
                         + " and localAA=" + localAA);
+
+
+
 
                 // for test we generate the correlationsResult rather than using
                 // the list from patient correlations in db
-                List<QualifiedSubjectIdentifierType> correlationsResult = new ArrayList<QualifiedSubjectIdentifierType>();
+                List<QualifiedSubjectIdentifierType> testList = new ArrayList<QualifiedSubjectIdentifierType>();
                 if(isTest){
-                    log.debug("EntityDocQueryOrchImpl running test");
+                    log.debug("EntityDocQueryOrchImplTest running test");
                     for(int i = 0; i < requestCount; i++){
                         QualifiedSubjectIdentifierType subject = new QualifiedSubjectIdentifierType();
-                        subject.setAssigningAuthorityIdentifier(localAA);
+                        subject.setAssigningAuthorityIdentifier(testAAId);
                         subject.setSubjectIdentifier(uniquePatientId);
-                        correlationsResult.add(subject);
+                        testList.add(subject);
                     }
+                    EntityDocQueryOrchImplRuntimeTest orchestrator =
+                            new EntityDocQueryOrchImplRuntimeTest(regularExecutor, largejobExecutor);
+                    response = orchestrator.entityDocQueryOrchImplFanoutTest(
+                            adhocQueryRequest, assertion, testList);
                 }else{
-                    correlationsResult = new EntityDocQueryHelper().retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted, getLocalHomeCommunityId());
+                    // just do normal test
+                    EntityDocQueryOrchImpl orchestrator = new EntityDocQueryOrchImpl(
+                            regularExecutor, largejobExecutor);
+                    response = orchestrator.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
                 }
+                log.debug("EntityDocQueryOrchImplTest received response");
 
-                // Make sure the valid results back
-                if(NullChecker.isNotNullish(correlationsResult)){
-
-                    /************************************************************************
-                     * We replace the current code here with the concurrent fanout impl
-                     *
-                    QualifiedSubjectIdentifiersType subjectIds = new QualifiedSubjectIdentifiersType();
-                    for(QualifiedSubjectIdentifierType subjectId : correlationsResult){
-                        if(subjectId != null){
-                            subjectIds.getQualifiedSubjectIdentifier().add(subjectId);
-                        }
-                    }
-                    String transactionId = startTransaction(aggregator, subjectIds);
-                    sendQueryMessages(transactionId, correlationsResult, adhocQueryRequest, assertion, localAA, uniquePatientId);
-                    response = retrieveDocQueryResults(aggregator, transactionId);
-                    ***********************************************************************/
-
-                    String transactionId = (UUID.randomUUID()).toString();
-                    DQProcessor<QualifiedSubjectIdentifierType, AdhocQueryRequest, AdhocQueryResponse, AdhocQueryResponse> dqprocessor =
-                            new DQProcessor<QualifiedSubjectIdentifierType, AdhocQueryRequest, AdhocQueryResponse, AdhocQueryResponse>();
-
-                    DQClient<QualifiedSubjectIdentifierType, AdhocQueryRequest, ResponseWrapper> dqclient =
-                        new DQClient<QualifiedSubjectIdentifierType, AdhocQueryRequest, ResponseWrapper>(
-                            transactionId, assertion, adhocQueryRequest, localAA, uniquePatientId);
-
-                    @SuppressWarnings("static-access")
-                    TaskExecutor<QualifiedSubjectIdentifierType, AdhocQueryRequest, AdhocQueryResponse> dqexecutor =
-                            new TaskExecutor<QualifiedSubjectIdentifierType, AdhocQueryRequest, AdhocQueryResponse>(
-                                ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor : regularExecutor ,
-                                dqprocessor, dqclient, correlationsResult,
-                                adhocQueryRequest, transactionId);
-
-                    dqexecutor.executeTask();
-                    response = dqexecutor.getFinalResponse();
-                    log.debug("EntityDocQueryOrchImpl taskexecutor done and received response");
-
-                }else{
-                    log.error("No patient correlations found.");
-                    response = createErrorResponse("No patient correlations found.");
-                }
             }else{
                 log.error("Incomplete doc query message");
                 response = createErrorResponse("Incomplete/empty adhocquery message");
@@ -185,7 +150,7 @@ public class EntityDocQueryOrchImplTest{
                     + " exception=" + e.getMessage());
         }
         auditDocQueryResponse(response, assertion, auditLog, targetHomeCommunityId);
-        log.debug("Exiting EntityDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
+        log.debug("Exiting EntityDocQueryOrchImplTest.respondingGatewayCrossGatewayQuery...");
         return response;
     }
 

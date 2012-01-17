@@ -2,22 +2,20 @@ package gov.hhs.fha.nhinc.gateway.servlet;
 
 import gov.hhs.fha.nhinc.patientdiscovery.entity.test.EntityPatientDiscoveryOrchImplTest;
 
-import gov.hhs.fha.nhinc.gateway.executorservice.TaskExecutor;
-import gov.hhs.fha.nhinc.gateway.executorservice.PDClient;
-import gov.hhs.fha.nhinc.gateway.executorservice.ResponseWrapper;
-import gov.hhs.fha.nhinc.gateway.executorservice.PDProcessor;
-
 import gov.hhs.fha.nhinc.gateway.util.PatientDiscoveryRequestGenerator;
 import gov.hhs.fha.nhinc.gateway.util.ExceptionDump;
 import gov.hhs.fha.nhinc.gateway.util.AssertionCreator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import javax.xml.bind.JAXBContext;
+
+import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -27,13 +25,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.AssigningAuthorityHomeCommunityMappingHelper;
 
+import java.io.StringWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 
 
 /**
@@ -51,6 +50,8 @@ import org.apache.commons.logging.LogFactory;
 public class PDFanoutTestServlet extends HttpServlet{
 
     private Log log = LogFactory.getLog(getClass());
+
+    private static final String PDContextPath = "org.hl7.v3";
 
     private long startTimeMillis = 0;
     private long endTimeMillis = 0;
@@ -153,9 +154,23 @@ public class PDFanoutTestServlet extends HttpServlet{
 
                 log.debug("PDFanoutTestServlet taskexecutor done and received response - transTimeMillis="
                         + transTimeMillis);
+
                 if(r != null){
-                    response.getWriter().write("<html><body><p>PD Transaction took "
-                                    + transTimeMillis + " milliseconds</p></body></html>");
+                    List<CommunityPRPAIN201306UV02ResponseType> responseList = r.getCommunityResponse();
+                    String responsexml = "";
+                    for(CommunityPRPAIN201306UV02ResponseType c : responseList){
+                        // marshall response object to string to output to web page
+                        JAXBContextHandler oHandler = new JAXBContextHandler();
+                        JAXBContext jc = oHandler.getJAXBContext(PDContextPath);
+                        javax.xml.bind.Marshaller marshaller = jc.createMarshaller();
+                        StringWriter stringWriter = new StringWriter();
+                        marshaller.marshal(c.getPRPAIN201306UV02(), stringWriter);
+                        responsexml += "<p>" + stringWriter.toString() + "</p>";
+                    }
+                    System.out.println("PDFanoutTestServlet has response=" + responsexml);
+                    response.getWriter().write("<html><body>" +
+                            "<p>" + responsexml + "</p>" +
+                            "<p>PD Transaction took " + transTimeMillis + " milliseconds</p></body></html>");
                 }else{
                     response.getWriter().write("<html><body>Null Response!!!......this should never happen</body></html>");
                 }
@@ -182,42 +197,42 @@ public class PDFanoutTestServlet extends HttpServlet{
     }
 
 
-    @SuppressWarnings("static-access")
-    private void runGenericTest(int requestCount){
-        try{
-            AssertionType assertion = (new AssertionCreator()).createAssertion();
-            String transactionId = (UUID.randomUUID()).toString();
-            RespondingGatewayPRPAIN201305UV02RequestType pd = new RespondingGatewayPRPAIN201305UV02RequestType();
-            pd.setNhinTargetCommunities(null);
-            pd.setAssertion(assertion);
-
-            PDProcessor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201306UV02, RespondingGatewayPRPAIN201306UV02ResponseType> pdprocessor =
-                    new PDProcessor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201306UV02, RespondingGatewayPRPAIN201306UV02ResponseType>(assertion);
-            PDClient<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> pdclient =
-                    new PDClient<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper>(assertion);
-
-            List<CMUrlInfo> pdlist = new ArrayList<CMUrlInfo>();
-            for(int i = 0; i < requestCount; i++){
-                CMUrlInfo urlInfo = new CMUrlInfo();
-                urlInfo.setUrl("https://medvasrv.teambi.com:8181/gatewaysimulator/RespondingGateway_Service");
-                urlInfo.setHcid("1.1." + i);
-                pdlist.add(urlInfo);
-            }
-
-
-            TaskExecutor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, RespondingGatewayPRPAIN201306UV02ResponseType> pdexecutor =
-                    new TaskExecutor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, RespondingGatewayPRPAIN201306UV02ResponseType>(
-                        ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(pdlist.size()) ? 
-                            InitServlet.getLargeJobExecutorService() : InitServlet.getExecutorService(),
-                        pdprocessor, pdclient, pdlist, pd, transactionId);
-
-            pdexecutor.executeTask();
-            RespondingGatewayPRPAIN201306UV02ResponseType response = pdexecutor.getFinalResponse();
-        }catch(Exception e){
-            ExceptionDump.outputCompleteException(e);
-        }
-
-    }
+//    @SuppressWarnings("static-access")
+//    private void runGenericTest(int requestCount){
+//        try{
+//            AssertionType assertion = (new AssertionCreator()).createAssertion();
+//            String transactionId = (UUID.randomUUID()).toString();
+//            RespondingGatewayPRPAIN201305UV02RequestType pd = new RespondingGatewayPRPAIN201305UV02RequestType();
+//            pd.setNhinTargetCommunities(null);
+//            pd.setAssertion(assertion);
+//
+//            PDProcessor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201306UV02, RespondingGatewayPRPAIN201306UV02ResponseType> pdprocessor =
+//                    new PDProcessor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201306UV02, RespondingGatewayPRPAIN201306UV02ResponseType>(assertion);
+//            PDClient<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> pdclient =
+//                    new PDClient<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper>(assertion);
+//
+//            List<CMUrlInfo> pdlist = new ArrayList<CMUrlInfo>();
+//            for(int i = 0; i < requestCount; i++){
+//                CMUrlInfo urlInfo = new CMUrlInfo();
+//                urlInfo.setUrl("https://medvasrv.teambi.com:8181/gatewaysimulator/RespondingGateway_Service");
+//                urlInfo.setHcid("1.1." + i);
+//                pdlist.add(urlInfo);
+//            }
+//
+//
+//            TaskExecutor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, RespondingGatewayPRPAIN201306UV02ResponseType> pdexecutor =
+//                    new TaskExecutor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, RespondingGatewayPRPAIN201306UV02ResponseType>(
+//                        ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(pdlist.size()) ?
+//                            InitServlet.getLargeJobExecutorService() : InitServlet.getExecutorService(),
+//                        pdprocessor, pdclient, pdlist, pd, transactionId);
+//
+//            pdexecutor.executeTask();
+//            RespondingGatewayPRPAIN201306UV02ResponseType response = pdexecutor.getFinalResponse();
+//        }catch(Exception e){
+//            ExceptionDump.outputCompleteException(e);
+//        }
+//
+//    }
 }
 
 
