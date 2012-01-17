@@ -159,7 +159,8 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
             }
         }catch(Exception ex){
             ExecutorServiceHelper.getInstance().outputCompleteException(ex);
-            EntityOrchestratableMessage individual = processErrorResponse(individualResponse, ex.getMessage());
+            EntityOrchestratableMessage individual = processErrorResponse(individualResponse, 
+                    "Exception processing response=" + ex.getMessage());
             return individual;
         }
     }
@@ -282,8 +283,10 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
                 null, request.getResponseProcessor(), null, null, request.getAssertion(),
                 request.getServiceName(), request.getTarget(), request.getRequest());
 
+        String errStr = "Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId();
+        errStr += "  The error received was " + error;
         PRPAIN201306UV02 pdErrorResponse =
-            (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(request.getRequest(), error);
+            (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(request.getRequest(), errStr);
         response.setResponse(pdErrorResponse);
         return response;
     }
