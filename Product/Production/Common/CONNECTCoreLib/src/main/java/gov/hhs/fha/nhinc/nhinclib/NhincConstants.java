@@ -22,7 +22,7 @@ public class NhincConstants {
     public static enum ADAPTER_API_LEVEL {LEVEL_a0, LEVEL_a1}
     public static enum UDDI_SPEC_VERSION {
     	SPEC_1_0 ("1.0"), 
-    	SPEC_2_0 ("1.0");
+    	SPEC_2_0 ("2.0");
     	
     	private String value = null;
     	

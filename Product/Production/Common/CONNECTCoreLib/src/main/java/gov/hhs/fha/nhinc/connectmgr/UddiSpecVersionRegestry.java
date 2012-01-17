@@ -3,6 +3,7 @@ package gov.hhs.fha.nhinc.connectmgr;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 
@@ -26,6 +27,9 @@ public class UddiSpecVersionRegestry {
 	}
 	
 	static boolean isSupported (GATEWAY_API_LEVEL apiLevel, String specVersion) {
+		if (apiLevel == null && NullChecker.isNullish(specVersion)) {
+			return true;
+		}
 		ArrayList<UDDI_SPEC_VERSION> specs = map.get(apiLevel);
 		for (UDDI_SPEC_VERSION spec : specs) {
 			if (spec.toString().equals(specVersion)) {
