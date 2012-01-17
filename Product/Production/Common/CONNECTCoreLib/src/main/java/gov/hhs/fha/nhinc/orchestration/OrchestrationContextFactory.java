@@ -6,6 +6,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryFactory;
 import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 public class OrchestrationContextFactory {
@@ -21,7 +22,7 @@ public class OrchestrationContextFactory {
 
     public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType, String serviceName) {
         NhincConstants.GATEWAY_API_LEVEL apiLevel = ConnectionManagerCache.getApiVersionForNhinTarget(
-                    homeCommunityType.getHomeCommunityId(), serviceName);
+                homeCommunityType.getHomeCommunityId(), serviceName);
         return getBuilder(apiLevel, serviceName);
     }
     
@@ -40,6 +41,8 @@ public class OrchestrationContextFactory {
         }else if(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME.equalsIgnoreCase(serviceName)){
             return EntityPatientDiscoveryFactory.getInstance().
                     createOrchestrationContextBuilder(apiLevel);
+        } else if (NhincConstants.DOC_SUBMISSION_SERVICE_PROP.equals(serviceName)) {
+            return EntityDocSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         }
         return null;
     }

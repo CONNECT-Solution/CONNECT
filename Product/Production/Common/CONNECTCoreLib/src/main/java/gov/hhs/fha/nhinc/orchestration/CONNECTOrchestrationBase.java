@@ -29,115 +29,99 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
     private static final Log logger = LogFactory.getLog(CONNECTOrchestrationBase.class);
 
-    
     public void process(Orchestratable message) {
-		getLogger().debug(
-				"Entering CONNECTNhinOrchestrator for "
-						+ message.getServiceName());
-		if (message != null) {
-			processNotNullMessage(message);
-		}
-		getLogger().debug(
-					"Returning from CONNECTNhinOrchestrator for "
-							+ message.getServiceName());
-		
-	}
-	
-	public void processNotNullMessage(Orchestratable message) {
+        getLogger().debug(
+                "Entering CONNECTNhinOrchestrator for " + message.getServiceName());
+        if (message != null) {
+            processNotNullMessage(message);
+        }
+        getLogger().debug(
+                "Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
 
-			// audit
-			getLogger().debug("Calling audit for " + message.getServiceName());
-			auditRequest(message);
+    }
 
-			if (message.isEnabled()) {
-				processEnabledMessage(message);
-			} else {
-				getLogger()
-						.debug(message.getServiceName()
-								+ " is not enabled. returning a error response");
-				createErrorResponse((NhinOrchestratable) message,
-						message.getServiceName() + " is not enabled.");
-			}
-			// audit again
-			getLogger().debug(
-					"Calling audit response for " + message.getServiceName());
-			auditResponse(message);
-			getLogger().debug(
-					"Returning from CONNECTNhinOrchestrator for "
-							+ message.getServiceName());
-	}
+    public void processNotNullMessage(Orchestratable message) {
 
-	public void processEnabledMessage(Orchestratable message) {
-		getLogger().debug(
-				message.getServiceName()
-						+ " service is enabled. Procesing message...");
-		if (message.isPassthru()) {
-			processPassThruMessage(message);
-		} else {
-			getLogger()
-					.debug(message.getServiceName()
-							+ "is not in passthrough mode. Calling internal processing");
-			processIfPolicyIsOk(message);
-		}
-	}
+        // audit
+        getLogger().debug("Calling audit for " + message.getServiceName());
+        auditRequest(message);
 
-	protected abstract void processIfPolicyIsOk(Orchestratable message);
+        if (message.isEnabled()) {
+            processEnabledMessage(message);
+        } else {
+            getLogger().debug(message.getServiceName() + " is not enabled. returning a error response");
+            createErrorResponse((NhinOrchestratable) message,
+                    message.getServiceName() + " is not enabled.");
+        }
+        // audit again
+        getLogger().debug(
+                "Calling audit response for " + message.getServiceName());
+        auditResponse(message);
+        getLogger().debug(
+                "Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
+    }
 
-	public void processPassThruMessage(Orchestratable message) {
-		getLogger()
-				.debug(message.getServiceName()
-						+ " is in passthrough mode. Sending directly to adapter");
-		delegate(message);
-	}
+    public void processEnabledMessage(Orchestratable message) {
+        getLogger().debug(
+                message.getServiceName() + " service is enabled. Procesing message...");
+        if (message.isPassthru()) {
+            processPassThruMessage(message);
+        } else {
+            getLogger().debug(message.getServiceName() + "is not in passthrough mode. Calling internal processing");
+            processIfPolicyIsOk(message);
+        }
+    }
 
-	public void processInboundIfPolicyIsOk(Orchestratable message) {
+    protected abstract void processIfPolicyIsOk(Orchestratable message);
 
-		if (isPolicyOk(message, PolicyTransformer.Direction.INBOUND)) {
-			// if true, sent to adapter
-			delegate(message);
-		} else {
-			handleFailedPolicyCheck(message);
-		}
-	}
-	
-	public void processOutboundIfPolicyIsOk(Orchestratable message) {
+    public void processPassThruMessage(Orchestratable message) {
+        getLogger().debug(message.getServiceName() + " is in passthrough mode. Sending directly to adapter");
+        delegate(message);
+    }
 
-		if (isPolicyOk(message, PolicyTransformer.Direction.OUTBOUND)) {
-			// if true, sent to adapter
-			delegate(message);
-		} else {
-			handleFailedPolicyCheck(message);
-		}
-	}
+    public void processInboundIfPolicyIsOk(Orchestratable message) {
 
-	private void handleFailedPolicyCheck(Orchestratable message) {
-		getLogger().debug(
-				message.getServiceName()
-						+ " failed policy check. Returning a error response");
-		createErrorResponse((NhinOrchestratable) message,
-				message.getServiceName() + " failed policy check.");
-	}
+        if (isPolicyOk(message, PolicyTransformer.Direction.INBOUND)) {
+            // if true, sent to adapter
+            delegate(message);
+        } else {
+            handleFailedPolicyCheck(message);
+        }
+    }
 
-	protected Log getLogger() {
-		return logger;
-	}
+    public void processOutboundIfPolicyIsOk(Orchestratable message) {
 
-	/*
-	 * Begin Delegate Methods
-	 */
+        if (isPolicyOk(message, PolicyTransformer.Direction.OUTBOUND)) {
+            // if true, sent to adapter
+            delegate(message);
+        } else {
+            handleFailedPolicyCheck(message);
+        }
+    }
 
-	protected void createErrorResponse(NhinOrchestratable message, String error) {
-		if (message != null && message.getAdapterDelegate() != null) {
-			AdapterDelegate delegate = message.getAdapterDelegate();
-			delegate.createErrorResponse(message, error);
-		}
-	}
-	/*
-	 * End Delegate Methods
-	 */
-    
-    
-    
+    private void handleFailedPolicyCheck(Orchestratable message) {
+        getLogger().debug(
+                message.getServiceName() + " failed policy check. Returning a error response");
+        createErrorResponse((NhinOrchestratable) message,
+                message.getServiceName() + " failed policy check.");
+    }
+
+    protected Log getLogger() {
+        return logger;
+    }
+
+    /*
+     * Begin Delegate Methods
+     */
+    protected void createErrorResponse(NhinOrchestratable message, String error) {
+        if (message != null && message.getAdapterDelegate() != null) {
+            AdapterDelegate delegate = message.getAdapterDelegate();
+            delegate.createErrorResponse(message, error);
+        }
+    }
+    /*
+     * End Delegate Methods
+     */
 
     /*
      * Begin Audit Methods
@@ -145,7 +129,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     protected AcknowledgementType auditRequest(Orchestratable message) {
         AcknowledgementType resp = null;
 
-        if (message != null && message.getAuditTransformer()!= null) {
+        if (message != null && message.getAuditTransformer() != null) {
             AuditTransformer transformer = message.getAuditTransformer();
             LogEventRequestType auditLogMsg = transformer.transformRequest(message);
             resp = audit(auditLogMsg, message.getAssertion());
@@ -233,22 +217,20 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     /*
      * End Policy Methods
      */
-    
+
     /*
-	 * Begin Delegate Methods
-	 */
-	protected Orchestratable delegate(Orchestratable message) {
-		Orchestratable resp = null;
-		getLogger().debug(
-				"Entering CONNECTNhinOrchestrator.delegateToNhin(...)");
-		Delegate p = message.getDelegate();
-		resp = p.process(message);
-		getLogger()
-				.debug("Exiting CONNECTNhinOrchestrator.delegateToNhin(...)");
-		return resp;
-	}
-	/*
-	 * End Delegate Methods
-	 */
-	
+     * Begin Delegate Methods
+     */
+    protected Orchestratable delegate(Orchestratable message) {
+        Orchestratable resp = null;
+        getLogger().debug(
+                "Entering CONNECTNhinOrchestrator.delegateToNhin(...)");
+        Delegate p = message.getDelegate();
+        resp = p.process(message);
+        getLogger().debug("Exiting CONNECTNhinOrchestrator.delegateToNhin(...)");
+        return resp;
+    }
+    /*
+     * End Delegate Methods
+     */
 }
