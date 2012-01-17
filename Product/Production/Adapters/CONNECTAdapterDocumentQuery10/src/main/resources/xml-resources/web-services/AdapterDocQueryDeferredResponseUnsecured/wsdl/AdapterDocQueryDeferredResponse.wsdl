@@ -26,7 +26,6 @@
 	<binding name="AdapterDocQueryDeferredResponseBindingSoap" type="tns:AdapterDocQueryDeferredResponsePortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="RespondingGateway_CrossGatewayQuery">
-			<soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
 			<input name="RespondingGateway_CrossGatewayQueryRequest">
 				<soap:body use="literal"/>
 			</input>

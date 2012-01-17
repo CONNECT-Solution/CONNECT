@@ -29,7 +29,6 @@
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_SoapPolicy"/>
 		<operation name="ProvideAndRegisterDocumentSet-bAsyncRequest">
-			<soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bAsyncRequest"/>
 			<input>
 				<soap:body use="literal"/>
 				<wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_Soap_Input_Policy"/>

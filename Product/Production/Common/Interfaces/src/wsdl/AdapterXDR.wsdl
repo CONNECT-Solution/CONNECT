@@ -37,7 +37,6 @@
 	<binding name="AdapterXDR_Binding" type="tns:AdapterXDR_PortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="ProvideAndRegisterDocumentSetb">
-			<soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-b"/>
 			<input>
 				<soap:body use="literal"/>
 			</input>

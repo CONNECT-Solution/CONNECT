@@ -8,6 +8,7 @@
    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    xmlns:ihe="urn:ihe:iti:xds-b:2007"
    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+   xmlns:wsaws="http://www.w3.org/2005/08/addressing"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
    xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
@@ -44,9 +45,11 @@
     <portType name="EntityDocRetrieveDeferredRequestSecuredPortType">
         <operation name="CrossGatewayRetrieveRequest">
             <input name="CrossGatewayRetrieveRequestMessage"
-                   message="tns:CrossGatewayRetrieveRequestMessage" />
+                   message="tns:CrossGatewayRetrieveRequestMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocretrievesecured:CrossGatewayRetrieveRequestMessage"/>
             <output name="CrossGatewayRetrieveAcknowledgementMessage"
-                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
+                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"
+                    wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocretrievesecured:CrossGatewayRetrieveAcknowledgementMessage"/>
         </operation>
     </portType>
 
@@ -55,7 +58,6 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
         <operation name="CrossGatewayRetrieveRequest">
-            <soap:operation soapAction="urn:CrossGatewayRetrieveRequest"/>
             <input name="CrossGatewayRetrieveRequestMessage">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_Soap_Input_Policy"/>
@@ -79,7 +81,6 @@
     <wsp:ExactlyOne>
       <wsp:All>
         <wsoma:OptimizedMimeSerialization/>
-
         <sc:KeyStore wspp:visibility="private"
                      aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
                      callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
@@ -144,5 +145,4 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
 </definitions>
-
 

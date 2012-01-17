@@ -40,7 +40,6 @@
 	<binding name="AdapterDocRetrieveDeferredRequestBinding" type="tns:AdapterComponentDocRetrieveDeferredReqPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="RetrieveDocumentSetRequest">
-			<soap:operation soapAction="urn:ihe:iti:2007:RetrieveDocumentSetRequest"/>
 			<input>
 				<soap:body use="literal"/>
 			</input>

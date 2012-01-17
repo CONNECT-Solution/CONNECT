@@ -48,7 +48,6 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_SoapPolicy"/>
         <operation name="ProvideAndRegisterDocumentSet-bAsyncResponse">
-            <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bAsyncResponse"/>
             <input>
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_Soap_Input_Policy"/>
@@ -68,7 +67,6 @@
         <wsp:ExactlyOne>
             <wsp:All>
                 <wsoma:OptimizedMimeSerialization/>
-                <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
                 <sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
                 <sc:TrustStore wspp:visibility="private" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
                 <sp:TransportBinding>

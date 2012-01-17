@@ -31,7 +31,6 @@ name="EntityDocQueryDeferredResponseSecured" targetNamespace="urn:gov:hhs:fha:nh
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
         <operation name="CrossGatewayQueryResponse">
-            <soap:operation soapAction="urn:CrossGatewayQueryResponse"/>
             <input name="CrossGatewayQueryResponseMessage">
                 <soap:body use="literal"/>
             </input>

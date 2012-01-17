@@ -12,6 +12,7 @@
    xmlns:dr="http://www.hhs.gov/healthit/nhin"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
    xmlns:nccommondr="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
    name="EntityDocRetrieveDeferredRequest"
    targetNamespace="urn:gov:hhs:fha:nhinc:entitydocretrieve">
     <documentation>Entity document retrieve deferred request</documentation>
@@ -37,9 +38,11 @@
     <portType name="EntityDocRetrieveDeferredRequestPortType">
         <operation name="CrossGatewayRetrieveRequest">
             <input name="CrossGatewayRetrieveRequestMessage"
-                   message="tns:CrossGatewayRetrieveRequestMessage" />
+                   message="tns:CrossGatewayRetrieveRequestMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocretrieve:CrossGatewayRetrieveRequestMessage" />
             <output name="CrossGatewayRetrieveAcknowledgement"
-                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
+                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"
+                    wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocretrieve:CrossGatewayRetrieveAcknowledgementMessage"/>
         </operation>
     </portType>
 
@@ -48,7 +51,6 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#EntityDocRetrievePolicy"/>
         <operation name="CrossGatewayRetrieveRequest">
-            <soap:operation soapAction="urn:CrossGatewayRetrieveRequest"/>
             <input name="CrossGatewayRetrieveRequestMessage">
                 <soap:body use="literal"/>
             </input>

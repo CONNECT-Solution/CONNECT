@@ -14,7 +14,7 @@
     >
 
     <documentation>
-     WSDL for Adapter interface of Retrieve Documents Deferred Req Queue Process
+     WSDL for Entity interface of Retrieve Documents Deferred Req Queue Process
     </documentation>
 
     <types>
@@ -41,7 +41,6 @@
     <binding name="AdapterDocRetrieveDeferredReqQueueProcessBindingSoap" type="tns:AdapterDocRetrieveDeferredReqQueueProcessPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="ProcessDocRetrieveDeferredReqQueue">
-            <soap:operation soapAction="urn:ProcessDocRetrieveDeferredReqQueue"/>
             <input name="ProcessDocRetrieveDeferredReqQueueRequest">
                 <soap:body use="literal"/>
             </input>

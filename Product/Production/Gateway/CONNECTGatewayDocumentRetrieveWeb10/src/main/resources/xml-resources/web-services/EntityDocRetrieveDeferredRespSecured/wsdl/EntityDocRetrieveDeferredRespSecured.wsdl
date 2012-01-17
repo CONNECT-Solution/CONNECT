@@ -44,9 +44,11 @@
     <portType name="EntityDocRetrieveDeferredResponseSecuredPortType">
         <operation name="CrossGatewayRetrieveResponse">
             <input name="CrossGatewayRetrieveResponseMessage"
-                   message="tns:CrossGatewayRetrieveResponseMessage" />
+                   message="tns:CrossGatewayRetrieveResponseMessage"
+                   wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocretrievesecured:CrossGatewayRetrieveResponseMessage" />
             <output name="CrossGatewayRetrieveAcknowledgementMessage"
-                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"/>
+                    message="tns:CrossGatewayRetrieveAcknowledgementMessage"
+                    wsaw:Action="urn:gov:hhs:fha:nhinc:entitydocretrievesecured:CrossGatewayRetrieveAcknowledgementMessage" />
         </operation>
     </portType>
 
@@ -55,7 +57,6 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
         <operation name="CrossGatewayRetrieveResponse">
-            <soap:operation soapAction="urn:CrossGatewayRetrieveResponse"/>
             <input name="CrossGatewayRetrieveResponseMessage">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_Soap_Input_Policy"/>
@@ -78,7 +79,6 @@
         <wsp:ExactlyOne>
             <wsp:All>
                 <wsoma:OptimizedMimeSerialization/>
-
                 <sc:KeyStore wspp:visibility="private"
                      aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
                      callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>

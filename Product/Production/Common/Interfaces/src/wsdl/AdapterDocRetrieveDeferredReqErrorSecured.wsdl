@@ -28,7 +28,6 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
         <operation name="CrossGatewayRetrieveRequestError">
-            <soap:operation soapAction="urn:CrossGatewayRetrieveRequestError"/>
             <input name="CrossGatewayRetrieveRequestErrorMessage">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_Soap_Input_Policy"/>

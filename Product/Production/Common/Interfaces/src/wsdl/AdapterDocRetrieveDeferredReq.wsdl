@@ -49,7 +49,6 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#AdapterDocRetrievePolicy"/>
         <operation name="CrossGatewayRetrieveRequest">
-            <soap:operation soapAction="urn:RespondingGateway_CrossGatewayRetrieve"/>
             <input name="CrossGatewayRetrieveRequestMessage">
                 <soap:body use="literal"/>
             </input>

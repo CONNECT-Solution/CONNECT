@@ -28,7 +28,6 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
         <operation name="RespondingGatewayDeferredRequest_CrossGatewayRetrieve">
-            <soap:operation soapAction="urn:ihe:iti:2007:CrossGatewayRetrieveDeferredRequest"/>
             <input>
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_Soap_Input_Policy"/>

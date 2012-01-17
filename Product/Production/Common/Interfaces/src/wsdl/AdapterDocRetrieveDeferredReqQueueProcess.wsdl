@@ -41,7 +41,6 @@
     <binding name="AdapterDocRetrieveDeferredReqQueueProcessBindingSoap" type="tns:AdapterDocRetrieveDeferredReqQueueProcessPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="ProcessDocRetrieveDeferredReqQueue">
-            <soap:operation soapAction="urn:ProcessDocRetrieveDeferredReqQueue"/>
             <input name="ProcessDocRetrieveDeferredReqQueueRequest">
                 <soap:body use="literal"/>
             </input>

@@ -38,7 +38,6 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#AdapterComponentXDRPolicy"/>
         <operation name="ProvideAndRegisterDocumentSetb">
-            <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-b"/>
             <input>
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#AdapterComponentXDRPolicy_Input_Policy"/>

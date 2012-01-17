@@ -50,7 +50,6 @@
              type="tns:NhincProxyDocQueryDeferredRequestPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="CrossGatewayQueryRequest">
-      <soap:operation soapAction="urn:CrossGatewayQueryRequest"/>
       <input name="CrossGatewayQueryRequest">
         <soap:body use="literal"/>
       </input>

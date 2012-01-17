@@ -51,7 +51,6 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#EntityDocRetrievePolicy"/>
         <operation name="CrossGatewayRetrieveRequest">
-            <soap:operation soapAction="urn:CrossGatewayRetrieveRequest"/>
             <input name="CrossGatewayRetrieveRequestMessage">
                 <soap:body use="literal"/>
             </input>

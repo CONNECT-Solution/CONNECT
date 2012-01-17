@@ -24,7 +24,6 @@
 	<wsdl:binding name="AdapterPatientDiscoveryAsyncReqBindingSoap" type="tns:AdapterPatientDiscoveryAsyncReqPortType">
 		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<wsdl:operation name="ProcessPatientDiscoveryAsyncReq">
-			<soap12:operation soapAction="urn:ProcessPatientDiscoveryAsyncReq"/>
 			<wsdl:input name="ProcessPatientDiscoveryAsyncReqAsyncRequest">
 				<soap12:body use="literal"/>
 			</wsdl:input>

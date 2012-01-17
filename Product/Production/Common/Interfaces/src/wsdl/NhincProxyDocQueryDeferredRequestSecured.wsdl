@@ -52,7 +52,6 @@
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
     <operation name="CrossGatewayQueryRequest">
-      <soap:operation soapAction="urn:CrossGatewayQueryRequest"/>
       <input name="CrossGatewayQueryRequest">
         <soap:body use="literal"/>
         <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_Soap_Input_Policy"/>

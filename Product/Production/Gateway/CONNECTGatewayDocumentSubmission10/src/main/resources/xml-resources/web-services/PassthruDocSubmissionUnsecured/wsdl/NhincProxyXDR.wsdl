@@ -37,7 +37,6 @@
 	<binding name="ProxyXDR_Binding" type="tns:ProxyXDR_PortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="ProvideAndRegisterDocumentSet-b">
-			<soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-b"/>
 			<input>
 				<soap:body use="literal"/>
 			</input>

@@ -53,7 +53,6 @@
     <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_QueryDeferredRequest_Binding_SoapPolicy"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
-      <soap12:operation soapAction="urn:ihe:iti:2007:CrossGatewayQuery"/>
       <input>
         <soap12:body use="literal"/>
         <wsp:PolicyReference URI="#RespondingGateway_QueryDeferredRequest_Binding_Soap_Input_Policy"/>

@@ -28,7 +28,6 @@
 	<binding name="ProxyXDRAsyncRequest_Binding" type="tns:ProxyXDRAsyncRequest_PortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="ProvideAndRegisterDocumentSet-bAsyncRequest">
-			<soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bAsyncRequest"/>
 			<input>
 				<soap:body use="literal"/>
 			</input>
@@ -39,7 +38,7 @@
 	</binding>
 	<service name="ProxyXDRAsyncRequest_Service">
 		<port name="ProxyXDRAsyncRequest_Port" binding="tns:ProxyXDRAsyncRequest_Binding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/EntityService/ProxyXDRAsyncRequest_Service"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRAsyncRequest"/>
 		</port>
 	</service>
 </definitions>

@@ -47,7 +47,6 @@
              type="tns:EntityDocQueryDeferredResponsePortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="CrossGatewayQueryResponse">
-      <soap:operation soapAction="urn:CrossGatewayQueryResponse"/>
       <input name="CrossGatewayDocQueryDeferredResponseMessage">
         <soap:body use="literal"/>
       </input>

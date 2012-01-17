@@ -29,7 +29,6 @@
         <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Binding_SoapPolicy"/>
         <wsdl:operation name="RespondingGateway_Deferred_PRPA_IN201305UV02">
-            <soap12:operation soapAction="urn:hl7-org:v3:PRPA_IN201305UV02:Deferred:CrossGatewayPatientDiscovery"/>
             <wsdl:input>
                 <soap12:body use="literal"/>
             </wsdl:input>

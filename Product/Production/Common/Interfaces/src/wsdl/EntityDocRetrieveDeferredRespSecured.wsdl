@@ -57,7 +57,6 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
         <operation name="CrossGatewayRetrieveResponse">
-            <soap:operation soapAction="urn:CrossGatewayRetrieveResponse"/>
             <input name="CrossGatewayRetrieveResponseMessage">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_Soap_Input_Policy"/>

@@ -38,7 +38,6 @@
         <!-- <wsaws:UsingAddressing/> -->
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="ProvideAndRegisterDocumentSet-bResponse">
-            <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bResponse"/>
             <input>
                 <soap:body use="literal"/>
             </input>

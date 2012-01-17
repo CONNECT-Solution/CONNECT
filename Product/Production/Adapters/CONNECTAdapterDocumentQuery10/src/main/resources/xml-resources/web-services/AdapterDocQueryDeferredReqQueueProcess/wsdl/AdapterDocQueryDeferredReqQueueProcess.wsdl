@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Adapter Query For Documents Deferred Req Queue Process WSDL
+  Adapter Patient Discovery Async Req Queue Process WSDL
   -->
 <definitions name="AdapterDocQueryDeferredReqQueueProcess"
     targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocqueryreqqueueprocess"
@@ -41,7 +41,6 @@
     <binding name="AdapterDocQueryDeferredReqQueueProcessBindingSoap" type="tns:AdapterDocQueryDeferredReqQueueProcessPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="ProcessDocQueryDeferredReqQueue">
-            <soap:operation soapAction="urn:ProcessDocQueryDeferredReqQueue"/>
             <input name="ProcessDocQueryDeferredReqQueueRequest">
                 <soap:body use="literal"/>
             </input>
@@ -53,7 +52,7 @@
 
     <service name="AdapterDocQueryDeferredReqQueueProcess">
         <port name="AdapterDocQueryDeferredReqQueueProcessPort" binding="tns:AdapterDocQueryDeferredReqQueueProcessBindingSoap">
-            <soap:address location="http://localhost:${NhincHttpPort}/CONNECTAdapter/AdapterDocQueryDeferredReqQueueProcess"/>
+            <soap:address location="http://localhost:${NhincHttpPort}/CONNECTGateway/AdapterDocQueryDeferredReqQueueProcess"/>
         </port>
     </service>
 

@@ -25,7 +25,6 @@
 	<binding name="AdapterDocRetrieveDeferredRequestErrorBinding" type="tns:AdapterDocRetrieveDeferredRequestErrorPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="CrossGatewayRetrieveRequestError">
-			<soap:operation soapAction="tns:CrossGatewayRetrieveRequestError"/>
 			<input>
 				<soap:body use="literal"/>
 			</input>

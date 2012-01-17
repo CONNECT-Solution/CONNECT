@@ -28,7 +28,6 @@
 	<binding name="EntityXDRAsyncResponse_Binding" type="tns:EntityXDRAsyncResponse_PortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="ProvideAndRegisterDocumentSet-bAsyncResponse">
-			<soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bAsyncResponse"/>
 			<input>
 				<soap:body use="literal"/>
 			</input>
