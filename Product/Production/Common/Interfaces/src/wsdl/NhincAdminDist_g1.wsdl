@@ -14,6 +14,7 @@
 	xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
 	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+        xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
 	xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
 	name="NhincAdministrativeDistribution">
     <documentation>NHIN Administrative Distribution wsdl</documentation>
@@ -35,6 +36,7 @@
     </portType>
     <binding name="NhincAdminDist_Binding_Soap12" type="tns:NhincAdminDist_PortType">
         <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#Nhin_AdminDist_SoapPolicy"/>
         <operation name="SendAlertMessage">
             <soap12:operation soapAction="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage"/>
             <input>
@@ -48,6 +50,13 @@
         </port>
     </service>
     
+    <wsp:Policy wsu:Id="Nhin_AdminDist_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsoma:OptimizedMimeSerialization/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
 
 </definitions>
 
