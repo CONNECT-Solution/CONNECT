@@ -18,22 +18,10 @@ import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributio
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
-import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxy;
-import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyObjectFactory;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 
 /**
  *
@@ -59,19 +47,11 @@ public class NhinAdminDistributionOrchImpl {
         //setups. Please refer to the CONNECT 3.1 Release Notes for more information. 
         this.checkSleep();
         
-        AcknowledgementType ack = getLogger().auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-        if (ack != null)
-        {
-            log.debug("ack: " + ack.getMessage());
-        }
+        auditMessage(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         if(isServiceEnabled())
         {
-            if(this.isInPassThroughMode())
-            {
-                sendToAgency(body, assertion);
-            }
-            else if(checkPolicy(body, assertion))
+            if(this.isInPassThroughMode() || checkPolicy(body, assertion))
             {
                 sendToAgency(body, assertion);
             }
@@ -94,6 +74,7 @@ public class NhinAdminDistributionOrchImpl {
     }
     protected void sendToAgency(EDXLDistribution body, AssertionType assertion)
     {
+        auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         log.debug("begin send to agency");
         this.getAdapterAdminDistProxy().sendAlertMessage(body, assertion);
 
@@ -164,5 +145,13 @@ public class NhinAdminDistributionOrchImpl {
             log.warn(ex);
         }
         return Long.parseLong(result);
+    }
+
+    protected void auditMessage(EDXLDistribution body,AssertionType assertion, String direction){
+        AcknowledgementType ack = getLogger().auditNhinAdminDist(body, assertion, direction);
+        if (ack != null)
+        {
+            log.debug("ack: " + ack.getMessage());
+        }
     }
 }
