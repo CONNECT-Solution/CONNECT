@@ -22,7 +22,7 @@ import org.uddi.api_v3.ObjectFactory;
  */
 public class ConnectionManagerDAOFileImpl implements ConnectionManagerDAO {
 
-	private static final int NUMBER_OF_ATTEMPTS = 10;
+	private static final int NUMBER_OF_ATTEMPTS = 20;
 	private static final long REATTEMPT_DELAY = 100;
 	private static final String CONTEXT_PATH = "org.uddi.api_v3";
 	private String fileName = null;
