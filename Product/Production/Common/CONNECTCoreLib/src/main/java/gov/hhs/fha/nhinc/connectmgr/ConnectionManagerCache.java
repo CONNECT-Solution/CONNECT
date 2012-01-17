@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBindingDescriptions;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -1438,4 +1439,13 @@ public class ConnectionManagerCache {
 
         return GATEWAY_API_LEVEL.LEVEL_g0;
     }
+
+    public static String getAdapterEndpontURL(String sServiceName, ADAPTER_API_LEVEL aDAPTER_API_LEVEL) throws ConnectionManagerException {
+        return getLocalEndpointURLByServiceName(sServiceName);
+    }
+
+    public static String getEndpontURLFromNhinTarget(NhinTargetSystemType oTargetSystem, String sServiceName, GATEWAY_API_LEVEL gATEWAY_API_LEVEL) throws ConnectionManagerException {
+        return getEndpontURLFromNhinTarget(oTargetSystem, sServiceName);
+    }
+
 }
