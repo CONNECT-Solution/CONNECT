@@ -51,6 +51,15 @@ public class EntityDocRetrieveAuditTransformer_a0Test {
     public void tearDown() {
     }
 
+    private LogEventRequestType mockLogEventRequestType()
+    {
+        LogEventRequestType req = new LogEventRequestType();
+        req.setDirection("Inbound");
+        req.setInterface("Nhin");
+
+        return req;
+    }
+
     /**
      * Test of transformRequest method, of class EntityDocRetrieveAuditTransformer_a0.
      */
@@ -65,7 +74,7 @@ public class EntityDocRetrieveAuditTransformer_a0Test {
                 one
                 (mockedDependency).logDocRetrieve(with(any(DocRetrieveMessageType.class)), with(any(String.class)), with(any(String.class)), with(any(String.class)));
                 will
-                (returnValue(null));
+                (returnValue(mockLogEventRequestType()));
             }
         });
         LogEventRequestType result = instance.transformRequest(message);
@@ -87,7 +96,7 @@ public class EntityDocRetrieveAuditTransformer_a0Test {
                 one
                 (mockedDependency).logDocRetrieve(with(any(DocRetrieveMessageType.class)), with(any(String.class)), with(any(String.class)), with(any(String.class)));
                 will
-                (returnValue(null));
+                (returnValue(mockLogEventRequestType()));
             }
         });
         LogEventRequestType result = instance.transformResponse(message);

@@ -43,11 +43,14 @@ public class NhinDocRetrieveDelegate implements NhinDelegate {
 
             EntityDocRetrieveOrchestrationContextBuilder_g0 contextBuilder = ((EntityDocRetrieveOrchestrationContextBuilder_g0) OrchestrationContextFactory.getInstance().getBuilder(
                     DRMessage.getAssertion().getHomeCommunity(), DRMessage.getServiceName()));
-            contextBuilder.init(DRMessage);
+            contextBuilder.setAssertionType(DRMessage.getAssertion());
+            contextBuilder.setAuditTransformer(DRMessage.getAuditTransformer());
+            contextBuilder.setRetrieveDocumentSetRequestType(DRMessage.getRequest());
+            contextBuilder.setTarget(DRMessage.getTarget());
 
             OrchestrationContext context = contextBuilder.build();
 
-            resp = context.execute();
+            resp = (EntityOrchestratable)context.execute();
         } else {
             getLogger().error("message is not an instance of NhinDocRetrieveOrchestratable!");
         }

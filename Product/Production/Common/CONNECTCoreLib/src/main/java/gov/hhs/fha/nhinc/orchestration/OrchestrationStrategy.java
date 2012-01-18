@@ -11,5 +11,5 @@ package gov.hhs.fha.nhinc.orchestration;
  * @author mweaver
  */
 public interface OrchestrationStrategy {
-    public void execute(EntityOrchestratable message);
+    public void execute(Orchestratable message);
 }

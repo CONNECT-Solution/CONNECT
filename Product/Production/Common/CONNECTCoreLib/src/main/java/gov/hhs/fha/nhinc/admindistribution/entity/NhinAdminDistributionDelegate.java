@@ -40,7 +40,7 @@ public class NhinAdminDistributionDelegate implements NhinDelegate {
             } else  {
                 return null;
             }
-            return contextBuilder.build().execute();
+            return (EntityOrchestratable)contextBuilder.build().execute();
         }
         getLogger().error("message is not an instance of NhinAdminDistributionOrchestratable!");
         return null;

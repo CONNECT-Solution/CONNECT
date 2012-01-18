@@ -13,18 +13,16 @@ import org.apache.commons.logging.LogFactory;
  */
 public class CONNECTEntityOrchestrator extends CONNECTOrchestrationBase {
 
-	private static final Log logger = LogFactory
-			.getLog(CONNECTEntityOrchestrator.class);
+    private static final Log logger = LogFactory.getLog(CONNECTEntityOrchestrator.class);
 
-	@Override
-	protected Log getLogger() {
-		return logger;
-	}
+    @Override
+    protected Log getLogger() {
+        return logger;
+    }
 
-	@Override
-	protected void processIfPolicyIsOk(Orchestratable message) {
-		processOutboundIfPolicyIsOk(message);
+    @Override
+    protected Orchestratable processIfPolicyIsOk(Orchestratable message) {
+        return processOutboundIfPolicyIsOk(message);
 
-	}
-
+    }
 }

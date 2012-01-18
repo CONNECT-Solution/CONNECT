@@ -4,14 +4,14 @@ package gov.hhs.fha.nhinc.orchestration;
 public class OrchestrationContext {
 	
 	 private OrchestrationStrategy strategy;
-	 private EntityOrchestratable message;
+	 private Orchestratable message;
 	 
-     public OrchestrationContext( OrchestrationStrategy strategy, EntityOrchestratable message) {
+     public OrchestrationContext( OrchestrationStrategy strategy, Orchestratable message) {
          this.strategy = strategy;
          this.message = message;
      }
 
-     public EntityOrchestratable execute() {
+     public Orchestratable execute() {
          strategy.execute(message);
          return message;
      }

@@ -27,7 +27,7 @@ public class EntityDocRetrieveOrchestratable implements EntityOrchestratable {
     protected RetrieveDocumentSetRequestType request = null;
     protected NhinTargetSystemType target = null;
     private AssertionType _assertion = null;
-    private final String serviceName = "NhinDocumentRetrieve";
+    private final String serviceName = NhincConstants.DOC_RETRIEVE_SERVICE_NAME;
     private PolicyTransformer _policyTransformer = null;
     private AuditTransformer _auditTransformer = null;
     private NhinDelegate _nhinDelegate = null;

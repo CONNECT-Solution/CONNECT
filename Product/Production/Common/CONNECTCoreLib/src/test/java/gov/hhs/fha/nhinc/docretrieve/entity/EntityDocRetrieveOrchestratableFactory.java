@@ -21,8 +21,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class EntityDocRetrieveOrchestratableFactory {
 
     public EntityDocRetrieveOrchestratableImpl_a0 getEntityDocRetrieveOrchestratableImpl_a0() {        
-        EntityDocRetrieveOrchestratableImpl_a0 impl = new EntityDocRetrieveOrchestratableImpl_a0(getRetrieveDocumentSetRequestType(), getAssertion(), null, null, null, null);
-        impl.setTarget(getNhinTargetSystemType());
+        EntityDocRetrieveOrchestratableImpl_a0 impl = new EntityDocRetrieveOrchestratableImpl_a0(getRetrieveDocumentSetRequestType(), getAssertion(), null, null, null, null, getNhinTargetSystemType());
         return impl;
     }
 

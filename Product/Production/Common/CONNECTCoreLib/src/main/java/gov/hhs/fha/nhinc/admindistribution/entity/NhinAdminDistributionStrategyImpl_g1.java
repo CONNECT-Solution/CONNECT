@@ -7,7 +7,7 @@ package gov.hhs.fha.nhinc.admindistribution.entity;
 import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxy;
 import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,7 +28,7 @@ public class NhinAdminDistributionStrategyImpl_g1 implements OrchestrationStrate
     }
 
     @Override
-    public void execute(EntityOrchestratable message) {
+    public void execute(Orchestratable message) {
         if (message instanceof EntityAdminDistributionOrchestratable) {
             execute((EntityAdminDistributionOrchestratable) message);
         } else {

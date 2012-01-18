@@ -5,7 +5,7 @@
 
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
-import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 
 import org.junit.After;
@@ -57,7 +57,7 @@ public class NhinDocRetrieveStrategyTest {
         }
 
 		@Override
-		public void execute(EntityOrchestratable message) {
+		public void execute(Orchestratable message) {
 			// TODO Auto-generated method stub
 			
 		}

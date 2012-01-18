@@ -180,7 +180,7 @@ public class EntityDocRetrieveOrchestratableTest {
     public void testGetServiceName() {
         System.out.println("getServiceName");
         EntityDocRetrieveOrchestratable instance = new EntityDocRetrieveOrchestratable();
-        String expResult = "NhinDocumentRetrieve";
+        String expResult = "RetrieveDocument";
         String result = instance.getServiceName();
         assertEquals(expResult, result);
     }

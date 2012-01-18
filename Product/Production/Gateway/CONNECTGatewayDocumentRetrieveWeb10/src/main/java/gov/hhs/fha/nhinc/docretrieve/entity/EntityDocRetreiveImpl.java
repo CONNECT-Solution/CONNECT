@@ -55,7 +55,7 @@ public class EntityDocRetreiveImpl {
         AuditTransformer at = new EntityDocRetrieveAuditTransformer_a0();
         NhinDelegate nd = new NhinDocRetrieveDelegate();
         NhinAggregator na = new NhinDocRetrieveAggregator_a0();
-        EntityDocRetrieveOrchestratableImpl_a0 EntityDROrchImpl = new EntityDocRetrieveOrchestratableImpl_a0(body, assertion, pt, at, nd, na);
+        EntityDocRetrieveOrchestratableImpl_a0 EntityDROrchImpl = new EntityDocRetrieveOrchestratableImpl_a0(body, assertion, pt, at, nd, na, null);
         EntityDocRetrieveOrchestratorImpl oOrchestrator = new EntityDocRetrieveOrchestratorImpl();
         oOrchestrator.process(EntityDROrchImpl);
 

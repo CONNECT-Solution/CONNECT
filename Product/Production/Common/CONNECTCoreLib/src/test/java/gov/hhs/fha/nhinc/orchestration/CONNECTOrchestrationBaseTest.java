@@ -103,8 +103,9 @@ public class CONNECTOrchestrationBaseTest {
     public class CONNECTOrchestrationBaseImpl extends CONNECTOrchestrationBase {
 
 		@Override
-		protected void processIfPolicyIsOk(Orchestratable message) {
+		protected Orchestratable processIfPolicyIsOk(Orchestratable message) {
 			// TODO Auto-generated method stub
+                    return null;
 			
 		}
 

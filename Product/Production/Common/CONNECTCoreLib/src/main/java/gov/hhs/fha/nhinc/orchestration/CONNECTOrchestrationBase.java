@@ -61,48 +61,48 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
                 "Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
     }
 
-    public void processEnabledMessage(Orchestratable message) {
+    public Orchestratable processEnabledMessage(Orchestratable message) {
         getLogger().debug(
                 message.getServiceName() + " service is enabled. Procesing message...");
         if (message.isPassthru()) {
-            processPassThruMessage(message);
+            return processPassThruMessage(message);
         } else {
             getLogger().debug(message.getServiceName() + "is not in passthrough mode. Calling internal processing");
-            processIfPolicyIsOk(message);
+            return processIfPolicyIsOk(message);
         }
     }
 
-    protected abstract void processIfPolicyIsOk(Orchestratable message);
+    protected abstract Orchestratable processIfPolicyIsOk(Orchestratable message);
 
-    public void processPassThruMessage(Orchestratable message) {
+    public Orchestratable processPassThruMessage(Orchestratable message) {
         getLogger().debug(message.getServiceName() + " is in passthrough mode. Sending directly to adapter");
-        delegate(message);
+        return delegate(message);
     }
 
-    public void processInboundIfPolicyIsOk(Orchestratable message) {
+    public Orchestratable processInboundIfPolicyIsOk(Orchestratable message) {
 
         if (isPolicyOk(message, PolicyTransformer.Direction.INBOUND)) {
             // if true, sent to adapter
-            delegate(message);
+            return delegate(message);
         } else {
-            handleFailedPolicyCheck(message);
+            return handleFailedPolicyCheck(message);
         }
     }
 
-    public void processOutboundIfPolicyIsOk(Orchestratable message) {
+    public Orchestratable processOutboundIfPolicyIsOk(Orchestratable message) {
 
         if (isPolicyOk(message, PolicyTransformer.Direction.OUTBOUND)) {
             // if true, sent to adapter
-            delegate(message);
+            return delegate(message);
         } else {
-            handleFailedPolicyCheck(message);
+            return handleFailedPolicyCheck(message);
         }
     }
 
-    private void handleFailedPolicyCheck(Orchestratable message) {
+    private Orchestratable handleFailedPolicyCheck(Orchestratable message) {
         getLogger().debug(
                 message.getServiceName() + " failed policy check. Returning a error response");
-        createErrorResponse((NhinOrchestratable) message,
+        return createErrorResponse((NhinOrchestratable) message,
                 message.getServiceName() + " failed policy check.");
     }
 
@@ -113,11 +113,12 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     /*
      * Begin Delegate Methods
      */
-    protected void createErrorResponse(NhinOrchestratable message, String error) {
+    protected Orchestratable createErrorResponse(NhinOrchestratable message, String error) {
         if (message != null && message.getAdapterDelegate() != null) {
             AdapterDelegate delegate = message.getAdapterDelegate();
             delegate.createErrorResponse(message, error);
         }
+        return message;
     }
     /*
      * End Delegate Methods
@@ -166,7 +167,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     }
 
     protected boolean isAuditServiceEnabled() {
-        getLogger().debug("Entering CONNECTNhinOrchestrator.isServiceEnabled(...)");
+        getLogger().debug("Entering CONNECTNhinOrchestrator.isAuditServiceEnabled(...)");
         boolean serviceEnabled = false;
         try {
             serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.AUDIT_LOG_SERVICE_PROPERTY);
@@ -174,7 +175,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
             getLogger().error("Error: Failed to retrieve " + NhincConstants.AUDIT_LOG_SERVICE_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             getLogger().error(ex.getMessage(), ex);
         }
-        getLogger().debug("Exiting CONNECTNhinOrchestrator.isServiceEnabled(...) with value of: " + serviceEnabled);
+        getLogger().debug("Exiting CONNECTNhinOrchestrator.isAuditServiceEnabled(...) with value of: " + serviceEnabled);
         return serviceEnabled;
     }
     /*
