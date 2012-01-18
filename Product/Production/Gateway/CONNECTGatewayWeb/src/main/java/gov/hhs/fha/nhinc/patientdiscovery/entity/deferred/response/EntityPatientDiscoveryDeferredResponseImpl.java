@@ -50,7 +50,7 @@ public class EntityPatientDiscoveryDeferredResponseImpl
             body = request.getPRPAIN201306UV02();
             target = request.getNhinTargetCommunities();
         }
-        response = new EntityPatientDiscoveryDeferredResponseOrchImpl().processPatientDiscoveryAsyncRespOrch(body, assertion, target);
+        response = createEntityPatientDiscoveryDeferredResponseOrchImpl().processPatientDiscoveryAsyncRespOrch(body, assertion, target);
         log.debug("End EntityPatientDiscoveryDeferredResponseImpl.processPatientDiscoveryAsyncResp(secured)");
         return response;
     }
@@ -69,7 +69,7 @@ public class EntityPatientDiscoveryDeferredResponseImpl
             target = request.getNhinTargetCommunities();
         }
         assertion = getAssertion(context, assertion);
-        response = new EntityPatientDiscoveryDeferredResponseOrchImpl().processPatientDiscoveryAsyncRespOrch(body, assertion, target);
+        response = createEntityPatientDiscoveryDeferredResponseOrchImpl().processPatientDiscoveryAsyncRespOrch(body, assertion, target);
         log.debug("End EntityPatientDiscoveryDeferredResponseImpl.processPatientDiscoveryAsyncResp(unsecured)");
         return response;
     }
@@ -97,5 +97,10 @@ public class EntityPatientDiscoveryDeferredResponseImpl
         }
 
         return assertion;
+    }
+
+    protected EntityPatientDiscoveryDeferredResponseOrchImpl createEntityPatientDiscoveryDeferredResponseOrchImpl()
+    {
+        return new EntityPatientDiscoveryDeferredResponseOrchImpl();
     }
 }

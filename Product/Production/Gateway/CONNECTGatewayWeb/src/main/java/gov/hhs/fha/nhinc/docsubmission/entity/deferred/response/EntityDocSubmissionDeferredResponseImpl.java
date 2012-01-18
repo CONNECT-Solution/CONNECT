@@ -26,7 +26,7 @@ public class EntityDocSubmissionDeferredResponseImpl
     {
         AssertionType assertion = extractAssertionFromContext(context, null);
 
-        XDRAcknowledgementType response = new EntityDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetSecuredResponseRequest.getRegistryResponse(), assertion, provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities());
+        XDRAcknowledgementType response = createEntityDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetSecuredResponseRequest.getRegistryResponse(), assertion, provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities());
 
         return response;
     }
@@ -34,7 +34,7 @@ public class EntityDocSubmissionDeferredResponseImpl
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterDocumentSetAsyncRespRequest, WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, provideAndRegisterDocumentSetAsyncRespRequest.getAssertion());
 
-        XDRAcknowledgementType response = new EntityDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetAsyncRespRequest.getRegistryResponse(), assertion, provideAndRegisterDocumentSetAsyncRespRequest.getNhinTargetCommunities());
+        XDRAcknowledgementType response = createEntityDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetAsyncRespRequest.getRegistryResponse(), assertion, provideAndRegisterDocumentSetAsyncRespRequest.getNhinTargetCommunities());
 
         return response;
     }
@@ -57,6 +57,10 @@ public class EntityDocSubmissionDeferredResponseImpl
         }
 
         return assertion;
+    }
+
+    protected EntityDocSubmissionDeferredResponseOrchImpl createEntityDocSubmissionDeferredResponseOrchImpl(){
+        return new EntityDocSubmissionDeferredResponseOrchImpl();
     }
 
     
