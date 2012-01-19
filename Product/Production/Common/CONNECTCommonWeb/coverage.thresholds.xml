@@ -27,7 +27,7 @@
               linesexecuted="0"/>
    <threshold branchcount="328" branchrate="80" branchsexecuted="0.1"
               class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessor"
-              linecount="282"
+              linecount="281"
               linerate="80"
               linesexecuted="0.31"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -47,12 +47,7 @@
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManager"
-              linecount="12"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManager$1"
-              linecount="2"
+              linecount="10"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="20" branchrate="80" branchsexecuted="0"

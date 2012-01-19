@@ -2,9 +2,9 @@
 <thresholds>
    <threshold branchcount="78" branchrate="80" branchsexecuted="0.4"
               class="gov.hhs.fha.nhinc.muralmpi.HL7Parser"
-              linecount="156"
+              linecount="154"
               linerate="80"
-              linesexecuted="1.22"/>
+              linesexecuted="1.19"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.muralmpi.MuralMPI"
               linecount="2"
