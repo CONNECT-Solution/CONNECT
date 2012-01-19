@@ -1,27 +1,31 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  * 
- * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (c) 1997-2010 Oracle and/or its affiliates. All rights reserved.
  * 
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
  * and Distribution License("CDDL") (collectively, the "License").  You
- * may not use this file except in compliance with the License. You can obtain
- * a copy of the License at https://glassfish.dev.java.net/public/CDDL+GPL.html
- * or glassfish/bootstrap/legal/LICENSE.txt.  See the License for the specific
+ * may not use this file except in compliance with the License.  You can
+ * obtain a copy of the License at
+ * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+ * or packager/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
  * 
  * When distributing the software, include this License Header Notice in each
- * file and include the License file at glassfish/bootstrap/legal/LICENSE.txt.
- * Sun designates this particular file as subject to the "Classpath" exception
- * as provided by Sun in the GPL Version 2 section of the License file that
- * accompanied this code.  If applicable, add the following below the License
- * Header, with the fields enclosed by brackets [] replaced by your own
- * identifying information: "Portions Copyrighted [year]
- * [name of copyright owner]"
+ * file and include the License file at packager/legal/LICENSE.txt.
  * 
+ * GPL Classpath Exception:
+ * Oracle designates this particular file as subject to the "Classpath"
+ * exception as provided by Oracle in the GPL Version 2 section of the License
+ * file that accompanied this code.
+ *
+ * Modifications:
+ * If applicable, add the following below the License Header, with the fields
+ * enclosed by brackets [] replaced by your own identifying information:
+ * "Portions Copyright [year] [name of copyright owner]"
+ *
  * Contributor(s):
- * 
  * If you wish your version of this file to be governed by only the CDDL or
  * only the GPL Version 2, indicate your decision by adding "[Contributor]
  * elects to include this software in this distribution under the [CDDL or GPL
@@ -81,6 +85,18 @@ public class WsImportConnect2 extends MatchingTask {
         return xdebug;
     }
 
+    /**
+     * Set to true to perform the endorsed directory override so that
+     * Ant tasks can run on JavaSE 6.
+     * This is used only when fork is true. With fork=false which is default, it is handled way before in the WrapperTask.
+     */
+    private boolean xendorsed = false;
+    public void setXendorsed(boolean xendorsed) {
+        this.xendorsed = xendorsed;
+    }
+    public boolean isXendorsed() {
+        return xendorsed;
+    }
 
     public void setXdebug(boolean xdebug) {
         this.xdebug = xdebug;
@@ -128,6 +144,19 @@ public class WsImportConnect2 extends MatchingTask {
     /** Sets the base directory to output generated class. **/
     public void setDestdir(File base) {
         this.destDir = base;
+    }
+
+    /** -clientjar option. */
+    private String clientjar = null;
+
+    /** Gets the clientjar to output generated artifacts into a jar. **/
+    public String getClientjar() {
+        return this.clientjar;
+    }
+
+    /** Sets the base directory to output generated class. **/
+    public void setClientjar(String clientjar) {
+        this.clientjar = clientjar;
     }
 
     /** wsdllocation - set @WebService.wsdlLocation and @WebServiceClient.wsdlLocation values */
@@ -503,6 +532,7 @@ public class WsImportConnect2 extends MatchingTask {
             cmd.createClasspath(getProject()).append(classpath);
         }
         cmd.setClassname("com.sun.tools.ws.WsImport");
+
         //setupWsimportArgs();
         //cmd.createArgument(true).setLine(forkCmd.toString());
     }
@@ -538,6 +568,10 @@ public class WsImportConnect2 extends MatchingTask {
 
         if(isXadditionalHeaders()){
             cmd.createArgument().setValue("-XadditionalHeaders");
+        }
+
+        if(isXendorsed()){
+            cmd.createArgument().setValue("-Xendorsed");
         }
 
         // keep option
@@ -590,6 +624,12 @@ public class WsImportConnect2 extends MatchingTask {
         if((getPackage() != null) && (getPackage().length() > 0)){
             cmd.createArgument().setValue("-p");
             cmd.createArgument().setValue(getPackage());
+        }
+
+        //clientjar
+        if(getClientjar() != null){
+            cmd.createArgument().setValue("-clientjar");
+            cmd.createArgument().setValue(getClientjar());
         }
 
         for( String a : xjcCmdLine.getArguments() ) {

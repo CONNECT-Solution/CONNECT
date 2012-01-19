@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project basedir="." name="agilex.ant.tasks" default="compile.source">
+<project basedir="." name="agilex.ant.tasks" default="package">
 
 	<property name="source.dir" value="src" />
 	<property name="build.classes.dir" value="build" />
@@ -10,7 +10,7 @@
 	
 	<target name="compile.source">
 		<mkdir dir="${build.classes.dir}" />
-		<javac srcdir="${source.dir}" destdir="${build.classes.dir}" target="1.5" debug="true" debuglevel="lines,vars,source" />
+		<javac srcdir="${source.dir}" destdir="${build.classes.dir}" debug="true" debuglevel="lines,vars,source" />
 		<copy todir="${build.classes.dir}">
 			<fileset dir="${source.dir}">
 				<include name="**/*"/>
