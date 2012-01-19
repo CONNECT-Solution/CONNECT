@@ -39,7 +39,7 @@ public class NhinDocSubmissionDelegate implements NhinDelegate {
 
             OrchestrationContext context = contextBuilder.build();
 
-            response = context.execute();
+            response = (EntityOrchestratable)context.execute();
         } else {
             getLogger().error("message is not an instance of NhinDocRetrieveOrchestratable!");
         }

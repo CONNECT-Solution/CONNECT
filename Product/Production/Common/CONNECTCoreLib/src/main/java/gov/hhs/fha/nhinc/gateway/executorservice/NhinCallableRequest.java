@@ -8,13 +8,12 @@ import gov.hhs.fha.nhinc.orchestration.NhinResponseProcessor;
 
 /**
  * CallableRequest is basically what is executed (i.e. the Runnable)
- * Uses generics for Target (which represents the object that contains url to call)
- * Request (which represents the object to send in the request, such
- * as an AdhocQueryRequest) and Response (which represents object that is returned,
- * such as an AdhocQueryResponse).
+ * Uses generics for Response (which represents object that is returned)
  *
- * Constructs with a ResponseProcessor (abstract base class for response processor to be used),
- * and a WebServiceClient (interface for web service client to be used)
+ * Constructs with a EntityOrchestratableMessage to be used,
+ * which contains the NhinDelegate to execute request and
+ * NhinProcessor to processErrorResponse (in the case of error/exception)
+ * 
  * @author paul.eftis
  */
 public class NhinCallableRequest<Response extends EntityOrchestratableMessage>

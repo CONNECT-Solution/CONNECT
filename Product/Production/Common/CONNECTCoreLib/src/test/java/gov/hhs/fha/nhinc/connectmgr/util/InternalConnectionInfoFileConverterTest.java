@@ -43,10 +43,10 @@ public class InternalConnectionInfoFileConverterTest {
 "\n			<businessService serviceKey=\"uddi:testnhincnode:QueryForDocument\" businessKey=\"uddi:testnhieonenode:1.1\">" +
 "\n				<name xml:lang=\"en\">QueryForDocument</name>" +
 "\n				<bindingTemplates>" +
-"\n					<bindingTemplate bindingKey=\"uddi:testnhincnode:https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery\" serviceKey=\"uddi:testnhincnode:QueryForDocument\">" +
-"\n						<accessPoint useType=\"endPoint\">QueryForDocument</accessPoint>" +
+"\n					<bindingTemplate bindingKey=\"uddi:testnhincnode:QueryForDocument\" serviceKey=\"uddi:testnhincnode:QueryForDocument\">" +
+"\n						<accessPoint useType=\"endPoint\">https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery</accessPoint>" +
 "\n						<categoryBag>" +
-"\n							<keyedReference tModelKey=\"uddi:nhin:versionofservice\" keyName=\"\" keyValue=\"1\"/>" +
+"\n							<keyedReference tModelKey=\"uddi:nhin:versionofservice\" keyName=\"\" keyValue=\"1.0\"/>" +
 "\n						</categoryBag>" +
 "\n					</bindingTemplate>" +
 "\n				</bindingTemplates>" +
@@ -54,18 +54,18 @@ public class InternalConnectionInfoFileConverterTest {
 "\n			<businessService serviceKey=\"uddi:testnhincnode:QueryForDocumentsDeferredRequest\" businessKey=\"uddi:testnhieonenode:1.1\">" +
 "\n				<name xml:lang=\"en\">QueryForDocumentsDeferredRequest</name>" +
 "\n				<bindingTemplates>" +
-"\n					<bindingTemplate bindingKey=\"uddi:testnhincnode:https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/DocQueryDeferredRequestService\" serviceKey=\"uddi:testnhincnode:QueryForDocumentsDeferredRequest\">" +
-"\n						<accessPoint useType=\"endPoint\">QueryForDocumentsDeferredRequest</accessPoint>" +
+"\n					<bindingTemplate bindingKey=\"uddi:testnhincnode:QueryForDocumentsDeferredRequest\" serviceKey=\"uddi:testnhincnode:QueryForDocumentsDeferredRequest\">" +
+"\n						<accessPoint useType=\"endPoint\">https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/DocQueryDeferredRequestService</accessPoint>" +
 "\n						<categoryBag>" +
-"\n							<keyedReference tModelKey=\"uddi:nhin:versionofservice\" keyName=\"\" keyValue=\"1\"/>" +
+"\n							<keyedReference tModelKey=\"uddi:nhin:versionofservice\" keyName=\"\" keyValue=\"1.0\"/>" +
 "\n						</categoryBag>" +
 "\n					</bindingTemplate>" +
 "\n				</bindingTemplates>" +
 "\n			</businessService>" +
 "\n		</businessServices>" +
-"\n		<identityBag>" +
+"\n		<identifierBag>" +
 "\n			<keyedReference tModelKey=\"uddi:nhin:nhie:homecommunityid\" keyName=\"\" keyValue=\"1.1\"/>" +
-"\n		</identityBag>" +
+"\n		</identifierBag>" +
 "\n		<categoryBag>" +
 "\n			<keyedReference tModelKey=\"uddi:uddi.org:ubr:categorization:iso3166\" keyName=\"New York\" keyValue=\"US-NY\"/>" +
 "\n			<keyedReference tModelKey=\"uddi:uddi.org:ubr:categorization:iso3166\" keyName=\"Florida\" keyValue=\"US-FL\"/>" +

@@ -1,47 +1,44 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
-import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
-import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
-
-import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
-import gov.hhs.fha.nhinc.orchestration.NhinResponseProcessor;
-
-import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
+import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
+import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
+import gov.hhs.fha.nhinc.orchestration.NhinResponseProcessor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.transform.document.DocumentQueryTransform;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 
-import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.CS;
+import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.EDExplicit;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01AttentionLine;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.MCCIMT000100UV01RespondTo;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 
 /**
@@ -120,7 +117,31 @@ public class EntityPatientDiscoveryOrchImpl{
     protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
         log.debug("EntityPatientDiscoveryOrchImpl getResponseFromCommunities");
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
+
+        // quick rig for testing to switch between a0 and a1
+        // note that a0 and a1 would be handled by different methods if they were different
         boolean responseIsSpecA0 = true;
+        NhincConstants.GATEWAY_API_LEVEL gatewayLevel =
+                ConnectionManagerCache.getApiVersionForNhinTarget(
+                getLocalHomeCommunityId(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        switch(gatewayLevel){
+            case LEVEL_g0:
+            {
+                responseIsSpecA0 = true;
+                break;
+            }
+            case LEVEL_g1:
+            {
+                responseIsSpecA0 = false;
+                break;
+            }
+            default:
+            {
+                responseIsSpecA0 = true;
+                break;
+            }
+        }
+        log.debug("EntityPatientDiscoveryOrchImpl set responseIsSpecA0=" + responseIsSpecA0);
 
         try{
             CMUrlInfos urlInfoList = getEndpoints(request.getNhinTargetCommunities());
@@ -138,11 +159,10 @@ public class EntityPatientDiscoveryOrchImpl{
                 List<NhinCallableRequest<EntityPatientDiscoveryOrchestratable>> callableList =
                         new ArrayList<NhinCallableRequest<EntityPatientDiscoveryOrchestratable>>();
                 String transactionId = (UUID.randomUUID()).toString();
-                NhinDelegate nd = new NhinPatientDiscoveryDelegate();
-                NhinResponseProcessor np = new EntityPatientDiscoveryProcessor();
 
                 // we hold the error messages for any failed policy checks in policyErrList
-                List policyErrList = new ArrayList();
+                List<CommunityPRPAIN201306UV02ResponseType> policyErrList =
+                        new ArrayList<CommunityPRPAIN201306UV02ResponseType>();
 
                 for(CMUrlInfo cmurlinfo: targetList){
                     NhinTargetSystemType target = new NhinTargetSystemType();
@@ -155,6 +175,14 @@ public class EntityPatientDiscoveryOrchImpl{
                             createNewRequest(request, assertion, cmurlinfo);
 
                     if(checkPolicy(newRequest, assertion)){
+                        NhinDelegate nd = new NhinPatientDiscoveryDelegate();
+                        NhinResponseProcessor np = null;
+                        if(responseIsSpecA0){
+                            np = new EntityPatientDiscoveryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+                        }else{
+                            np = new EntityPatientDiscoveryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
+                        }
+
                         // ensure target hcid is set on request
                         if(newRequest.getPRPAIN201305UV02() != null && newRequest.getPRPAIN201305UV02().getReceiver() != null
                                 && newRequest.getPRPAIN201305UV02().getReceiver().get(0) != null
@@ -174,35 +202,55 @@ public class EntityPatientDiscoveryOrchImpl{
                         log.debug("EntityPatientDiscoveryOrchImpl added NhinCallableRequest"
                                 + " for hcid=" + target.getHomeCommunity().getHomeCommunityId());
                     }else{
-                        log.debug("EntityPatientDiscoveryOrchImpl Policy Check Failed for homeId=" + target.getHomeCommunity().getHomeCommunityId());
+                        log.debug("EntityPatientDiscoveryOrchImpl Policy Check Failed for homeId=" 
+                                + cmurlinfo.getHcid());
+                        CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
+                        NhinTargetCommunityType tc = new NhinTargetCommunityType();
+                        HomeCommunityType home = new HomeCommunityType();
+                        home.setHomeCommunityId(cmurlinfo.getHcid());
+                        tc.setHomeCommunity(home);
+                        communityResponse.setNhinTargetCommunity(tc);
+                        communityResponse.setPRPAIN201306UV02((new HL7PRPA201306Transforms()).createPRPA201306ForErrors(
+                                request.getPRPAIN201305UV02(),
+                                "EntityPatientDiscoveryOrchImpl Policy Check Failed for homeId="
+                                + cmurlinfo.getHcid()));
+                        policyErrList.add(communityResponse);
                     }
                 }
 
-                // note that this impl sets taskexecutor to return EntityPatientDiscoveryOrchestratable_a0
-                // you can change this to EntityPatientDiscoveryOrchestratable_a1 to return new spec response
-                EntityPatientDiscoveryOrchestratable_a0 orchResponse = null;
-//                    EntityPatientDiscoveryOrchestratable_a1 orchResponse = null;
+                // note that if responseIsSpecA0 taskexecutor is set to return EntityPatientDiscoveryOrchestratable_a0
+                // else  taskexecutor set to return EntityPatientDiscoveryOrchestratable_a1
+                EntityPatientDiscoveryOrchestratable_a0 orchResponse_a0 = null;
+                EntityPatientDiscoveryOrchestratable_a1 orchResponse_a1 = null;
                 if(responseIsSpecA0){
-                    @SuppressWarnings("static-access")
+                    log.debug("EntityPatientDiscoveryOrchImpl executing task to return spec a0 cumulative response");
                     NhinTaskExecutor<EntityPatientDiscoveryOrchestratable_a0, EntityPatientDiscoveryOrchestratable> dqexecutor =
                             new NhinTaskExecutor<EntityPatientDiscoveryOrchestratable_a0, EntityPatientDiscoveryOrchestratable>(
                             ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size()) ? largejobExecutor : regularExecutor,
                             callableList, transactionId);
                     dqexecutor.executeTask();
-                    orchResponse = (EntityPatientDiscoveryOrchestratable_a0)dqexecutor.getFinalResponse();
+                    orchResponse_a0 = (EntityPatientDiscoveryOrchestratable_a0)dqexecutor.getFinalResponse();
+                    response = orchResponse_a0.getCumulativeResponse();
+
+                    // add any errors from policyErrList to response
+                    for(CommunityPRPAIN201306UV02ResponseType policyError : policyErrList){
+                        response.getCommunityResponse().add(policyError);
+                    }
                 }else{
-//                    @SuppressWarnings("static-access")
-//                    NhinTaskExecutor<EntityPatientDiscoveryOrchestratable_a0, EntityPatientDiscoveryOrchestratable> dqexecutor =
-//                            new NhinTaskExecutor<EntityPatientDiscoveryOrchestratable_a0, EntityPatientDiscoveryOrchestratable>(
-//                            ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size()) ? largejobExecutor : regularExecutor,
-//                            callableList, transactionId);
-//                    dqexecutor.executeTask();
-//                    orchResponse = (EntityPatientDiscoveryOrchestratable_a0)dqexecutor.getFinalResponse();
+                    log.debug("EntityPatientDiscoveryOrchImpl executing task to return spec a1 cumulative response");
+                    NhinTaskExecutor<EntityPatientDiscoveryOrchestratable_a1, EntityPatientDiscoveryOrchestratable> dqexecutor =
+                            new NhinTaskExecutor<EntityPatientDiscoveryOrchestratable_a1, EntityPatientDiscoveryOrchestratable>(
+                            ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size()) ? largejobExecutor : regularExecutor,
+                            callableList, transactionId);
+                    dqexecutor.executeTask();
+                    orchResponse_a1 = (EntityPatientDiscoveryOrchestratable_a1)dqexecutor.getFinalResponse();
+                    response = orchResponse_a1.getCumulativeResponse();
+
+                    // add any errors from policyErrList to response
+                    for(CommunityPRPAIN201306UV02ResponseType policyError : policyErrList){
+                        response.getCommunityResponse().add(policyError);
+                    }
                 }
-
-                response = orchResponse.getCumulativeResponse();
-
-                // @TODO add any errors from policyErrList to response
 
                 log.debug("EntityPatientDiscoveryOrchImpl taskexecutor done and received response");
             }
@@ -317,6 +365,18 @@ public class EntityPatientDiscoveryOrchImpl{
             log.error("Failed to obtain target URLs", ex);
         }
         return urlInfoList;
+    }
+
+
+    protected String getLocalHomeCommunityId(){
+        String sHomeCommunity = null;
+        try{
+            sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+        }catch(Exception ex){
+            log.error(ex.getMessage());
+        }
+        return sHomeCommunity;
     }
 
 

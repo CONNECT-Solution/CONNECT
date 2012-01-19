@@ -140,36 +140,18 @@ public class ConnectionManagerDAOFileImplTest {
     }
 
     @Test
-    public void readWriteTest() throws IOException {
+    public void readWriteTest() throws IOException, Exception {
         writeFileWithDelay(tempFile.getPath(), 0);
-        ConnectionManagerDAOFileImpl dao = InternalConnectionManagerDAOFileImplFactory.getInstance();
+        InternalConnectionInfoDAOFileImpl dao = InternalConnectionInfoDAOFileImpl.getInstance();
         dao.setFileName(tempFile.getPath());
         dao.saveBusinessDetail(dao.loadBusinessDetail());
         String fileContent = readFile(tempFile.getPath());
         assertEquals(TEST_CONTENT, fileContent);
     }
 
-    @Test
-    public void successfulReadAfterSeveralAttempsTest() throws IOException {
-        writeFileWithDelay(tempFile.getPath(), 0);
-        startWritingThread(2000);
-        ConnectionManagerDAOFileImpl dao = InternalConnectionManagerDAOFileImplFactory.getInstance();
-        dao.setFileName(tempFile.getPath());
-        dao.loadBusinessDetail();
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void failOfExhaustedAttemptsTest() throws IOException {
-        writeFileWithDelay(tempFile.getPath(), 0);
-        startWritingThread(100000);
-        ConnectionManagerDAOFileImpl dao = InternalConnectionManagerDAOFileImplFactory.getInstance();
-        dao.setFileName(tempFile.getPath());
-        dao.loadBusinessDetail();
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void failOfNonexistentFileTest() {
-        ConnectionManagerDAOFileImpl dao = InternalConnectionManagerDAOFileImplFactory.getInstance();
+    @Test(expected = Exception.class)
+    public void failOfNonexistentFileTest() throws Exception {
+        InternalConnectionInfoDAOFileImpl dao = InternalConnectionInfoDAOFileImpl.getInstance();
         dao.setFileName("wrong-file-name");
         dao.loadBusinessDetail();
     }

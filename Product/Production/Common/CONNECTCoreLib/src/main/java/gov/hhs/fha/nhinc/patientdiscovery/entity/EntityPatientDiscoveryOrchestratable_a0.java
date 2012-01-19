@@ -1,6 +1,5 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
-import gov.hhs.fha.nhinc.orchestration.EntityOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
 import gov.hhs.fha.nhinc.orchestration.NhinResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
@@ -16,7 +15,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 
 /**
- * a0 returns the response for the a0 specification
+ * EntityPatientDiscoveryOrchestratable_a0 returns the response for the a0 specification
  * Note that for PatientDiscovery, the individual response is a PRPAIN201306UV02
  * and the cumulative response is the wrapper class RespondingGatewayPRPAIN201306UV02ResponseType
  * @author paul.eftis

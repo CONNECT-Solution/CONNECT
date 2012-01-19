@@ -79,7 +79,7 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
         switch (apiLevel) {
             case LEVEL_g0: service = getService(WSDL_FILE_G0, NAMESPACE_URI, SERVICE_LOCAL_PART);
                 break;
-            case LEVEL_g1: service = getService(WSDL_FILE_G0, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            case LEVEL_g1: service = getService(WSDL_FILE_G1, NAMESPACE_URI, SERVICE_LOCAL_PART);
                 break;
             default: service = null;
         }

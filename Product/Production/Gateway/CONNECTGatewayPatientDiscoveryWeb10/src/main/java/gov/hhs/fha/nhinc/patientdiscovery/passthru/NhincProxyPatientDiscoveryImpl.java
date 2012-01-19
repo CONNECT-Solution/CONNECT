@@ -13,7 +13,11 @@ package gov.hhs.fha.nhinc.patientdiscovery.passthru;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincPatientDiscoveryOrchImpl;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.service.WebServiceHelper;
+
 import javax.xml.ws.WebServiceContext;
 
 import org.hl7.v3.PRPAIN201306UV02;
@@ -24,7 +28,7 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
  *
  * @author jhoppesc
  */
-public class NhincProxyPatientDiscoveryImpl {
+public class NhincProxyPatientDiscoveryImpl extends WebServiceHelper {
 
     private Log log = null;
 
@@ -41,7 +45,8 @@ public class NhincProxyPatientDiscoveryImpl {
     }
 
     protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
-        // TODO: Extract message ID from the web service context for logging.
+    	String messageId = getMessageId(wsContext);
+    	populateAssertionWithMessageId(assertion,  messageId);
     }
 
     public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxyRequestType request, WebServiceContext context) {
@@ -73,6 +78,33 @@ public class NhincProxyPatientDiscoveryImpl {
         }
 
         log.info("Exiting NhincProxyPatientDiscoveryImpl.proxyPRPAIN201305UV");
+        return response;
+    }
+    
+    
+    public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxySecuredRequestType request, WebServiceContext context) {
+        log.debug("Entering NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV...");
+        PRPAIN201306UV02 response = new PRPAIN201306UV02();
+
+        NhincPatientDiscoveryOrchImpl processor = getNhincPatientDiscoveryProcessor();
+        if (processor != null) {
+            try {
+
+                AssertionType assertion = getSamlAssertion(context);
+                loadAssertion(assertion, context);
+
+                response = processor.proxyPRPAIN201305UV(request, assertion);
+            } catch (Exception ex) {
+                String message = "Error occurred calling NhincProxyPatientDiscoveryImpl.proxyPRPAIN201305UV. Error: " +
+                        ex.getMessage();
+                log.error(message, ex);
+                throw new RuntimeException(message, ex);
+            }
+        } else {
+            log.warn("NhincPatientDiscoveryProcessor was null.");
+        }
+
+        log.debug("Exiting NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV...");
         return response;
     }
 }

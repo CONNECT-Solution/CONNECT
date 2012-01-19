@@ -4,6 +4,7 @@ import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.orchestration.NhinResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.EntityOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -39,7 +40,8 @@ public class EntityDocQueryProcessor implements NhinResponseProcessor{
 
     private static Log log = LogFactory.getLog(EntityDocQueryProcessor.class);
 
-    int count = 0;
+    private NhincConstants.GATEWAY_API_LEVEL cumulativeSpecLevel = null;
+    private int count = 0;
 
     private static final QName ExtrinsicObjectQname = new QName(
             "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0",
@@ -48,7 +50,10 @@ public class EntityDocQueryProcessor implements NhinResponseProcessor{
             "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
 
 
-    public EntityDocQueryProcessor(){}
+    public EntityDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL level){
+        cumulativeSpecLevel = level;
+    }
+
 
     /**
      * Handles all processing and aggregation of individual responses
@@ -65,16 +70,30 @@ public class EntityDocQueryProcessor implements NhinResponseProcessor{
         log.debug("EntityDocQueryProcessor::processNhinResponse count=" + count);
 
         EntityOrchestratableMessage response = null;
+
         if(cumulativeResponse == null){
-            if(cumulativeResponse instanceof EntityDocQueryOrchestratable_a0){
-                log.debug("EntityDocQueryProcessor::processNhinResponse createNewCumulativeResponse_a0");
-                cumulativeResponse = EntityDocQueryProcessorHelper.createNewCumulativeResponse_a0(
-                        (EntityDocQueryOrchestratable)individual);
-            }else{
-                log.debug("EntityDocQueryProcessor::processNhinResponse createNewCumulativeResponse_a1");
-                // currently spec_a0 is same as spec_a1
-                cumulativeResponse = EntityDocQueryProcessorHelper.createNewCumulativeResponse_a0(
-                        (EntityDocQueryOrchestratable)individual);
+            switch(cumulativeSpecLevel){
+                case LEVEL_g0:
+                {
+                    log.debug("EntityDocQueryProcessor::processNhinResponse createNewCumulativeResponse_a0");
+                    cumulativeResponse = EntityDocQueryProcessorHelper.createNewCumulativeResponse_a0(
+                            (EntityDocQueryOrchestratable)individual);
+                    break;
+                }
+                case LEVEL_g1:
+                {
+                    log.debug("EntityDocQueryProcessor::processNhinResponse createNewCumulativeResponse_a1");
+                    cumulativeResponse = EntityDocQueryProcessorHelper.createNewCumulativeResponse_a1(
+                            (EntityDocQueryOrchestratable)individual);
+                    break;
+                }
+                default:
+                {
+                    log.debug("EntityDocQueryProcessor::processNhinResponse unknown cumulativeSpecLevel so createNewCumulativeResponse_a1");
+                    cumulativeResponse = EntityDocQueryProcessorHelper.createNewCumulativeResponse_a1(
+                            (EntityDocQueryOrchestratable)individual);
+                    break;
+                }
             }
         }
 
@@ -103,12 +122,21 @@ public class EntityDocQueryProcessor implements NhinResponseProcessor{
             return individualResponse;
         }catch(Exception ex){
             ExecutorServiceHelper.getInstance().outputCompleteException(ex);
-            EntityOrchestratableMessage individual = processErrorResponse(individualResponse, ex.getMessage());
-            return individual;
+            EntityOrchestratableMessage response = processErrorResponse(individualResponse,
+                        "Exception processing response.  Exception message=" + ex.getMessage());
+            return response;
         }
     }
 
 
+    /**
+     * Aggregates an individual DQ response into the cumulative response
+     * Note that all response aggregation exceptions are caught here and handled
+     * by returning a DQ response with the error/exception and hcid for response
+     * @param individual is individual DQ response
+     * @param cumulative is current cumulative DQ response
+     * @return cumulative response with individual added
+     */
     @SuppressWarnings("static-access")
     public EntityOrchestratableMessage aggregateResponse(
             EntityDocQueryOrchestratable individual,
@@ -124,13 +152,16 @@ public class EntityDocQueryProcessor implements NhinResponseProcessor{
                     EntityDocQueryOrchestratable_a0 individualResponse =
                             (EntityDocQueryOrchestratable_a0)individual;
                     aggregateResponse_a0(individualResponse, cumulativeResponse);
-                }else{
+                }else if(individual instanceof EntityDocQueryOrchestratable_a1){
                     // individual is spec_a1 and cumulative is spec_a0
                     // so transform individual to spec_a0 and then aggregate_a0
                     EntityDocQueryOrchestratable_a0 individualResponse =
                             EntityDocQueryProcessorHelper.transformResponse_a0(
-                            (EntityDocQueryOrchestratable_a0)individual);
+                            (EntityDocQueryOrchestratable_a1)individual);
                     aggregateResponse_a0(individualResponse, cumulativeResponse);
+                }else{
+                    log.error("EntityDocQueryProcessor::aggregateResponse individualResponse received was unknown!!!");
+                    throw new Exception("EntityDocQueryProcessor::aggregateResponse individualResponse received was unknown!!!");
                 }
 
                 EntityDocQueryOrchestratable_a0 response = new EntityDocQueryOrchestratable_a0(
@@ -139,30 +170,36 @@ public class EntityDocQueryProcessor implements NhinResponseProcessor{
                     cumulativeResponse.getRequest());
                 response.setCumulativeResponse(cumulativeResponse.getCumulativeResponse());
                 return response;
-            }else{
+            }else if(cumulative instanceof EntityDocQueryOrchestratable_a1){
                 // cumulative is spec_a1
-                // currently spec_a0 is same as spec_a1
-                EntityDocQueryOrchestratable_a0 cumulativeResponse =
-                        (EntityDocQueryOrchestratable_a0)cumulative;
+                EntityDocQueryOrchestratable_a1 cumulativeResponse =
+                        (EntityDocQueryOrchestratable_a1)cumulative;
                 if(individual instanceof EntityDocQueryOrchestratable_a0){
                     // individual is spec_a0 and cumulative is spec_a1
                     // so transform individual to spec_a1 and then aggregate_a1
-                    EntityDocQueryOrchestratable_a0 individualResponse =
+                    EntityDocQueryOrchestratable_a1 individualResponse =
                             EntityDocQueryProcessorHelper.transformResponse_a1(
                             (EntityDocQueryOrchestratable_a0)individual);
                     aggregateResponse_a1(individualResponse, cumulativeResponse);
-                }else{
+                }else if(individual instanceof EntityDocQueryOrchestratable_a1){
                     // individual is spec_a1 and cumulative is spec_a1, so just aggregate_a1
-                    EntityDocQueryOrchestratable_a0 individualResponse =
-                            (EntityDocQueryOrchestratable_a0)individual;
+                    EntityDocQueryOrchestratable_a1 individualResponse =
+                            (EntityDocQueryOrchestratable_a1)individual;
                     aggregateResponse_a1(individualResponse, cumulativeResponse);
+                }else{
+                    log.error("EntityDocQueryProcessor::aggregateResponse individualResponse received was unknown!!!");
+                    throw new Exception("EntityDocQueryProcessor::aggregateResponse individualResponse received was unknown!!!");
                 }
-                EntityDocQueryOrchestratable_a0 response = new EntityDocQueryOrchestratable_a0(
+
+                EntityDocQueryOrchestratable_a1 response = new EntityDocQueryOrchestratable_a1(
                     null, null, null, null, cumulativeResponse.getAssertion(),
                     cumulativeResponse.getServiceName(), cumulativeResponse.getTarget(),
                     cumulativeResponse.getRequest());
                 response.setCumulativeResponse(cumulativeResponse.getCumulativeResponse());
                 return response;
+            }else{
+                log.error("EntityDocQueryProcessor::aggregateResponse cumulativeResponse received was unknown!!!");
+                throw new Exception("EntityDocQueryProcessor::aggregateResponse cumulativeResponse received was unknown!!!");
             }
         }catch(Exception e){
             ExecutorServiceHelper.getInstance().outputCompleteException(e);
@@ -174,32 +211,85 @@ public class EntityDocQueryProcessor implements NhinResponseProcessor{
                     + individual.getTarget().getHomeCommunity().getHomeCommunityId());
             regErr.setSeverity("Error");
             if(cumulative instanceof EntityDocQueryOrchestratable_a0){
-                EntityDocQueryOrchestratable_a0 cumulativeResponse = (EntityDocQueryOrchestratable_a0)cumulative;
-                cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError().add(regErr);
+                EntityDocQueryOrchestratable_a0 cumulativeResponse =
+                        (EntityDocQueryOrchestratable_a0)cumulative;
+                cumulativeResponse.getCumulativeResponse().getRegistryErrorList()
+                        .getRegistryError().add(regErr);
+                return cumulativeResponse;
+            }else if(cumulative instanceof EntityDocQueryOrchestratable_a1){
+                EntityDocQueryOrchestratable_a1 cumulativeResponse =
+                        (EntityDocQueryOrchestratable_a1)cumulative;
+                cumulativeResponse.getCumulativeResponse().getRegistryErrorList().
+                        getRegistryError().add(regErr);
                 return cumulativeResponse;
             }else{
-                EntityDocQueryOrchestratable_a0 cumulativeResponse = (EntityDocQueryOrchestratable_a0)cumulative;
-                cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError().add(regErr);
-                return cumulativeResponse;
+                // can do nothing if we ever get here other than return what was passed in
+                return cumulative;
             }
         }
     }
 
 
+    /**
+     * General error handler that calls appropriate error handler based on request
+     * (i.e. if request is spec a0 will call processError_a0 and if request is
+     * spec a1 will call processError_a1)
+     * @param request is initial request
+     * @param error is String with error message
+     * @return
+     */
     public EntityOrchestratableMessage processErrorResponse(EntityOrchestratableMessage request, String error){
         log.debug("EntityDocQueryProcessor::processErrorResponse error=" + error);
-        EntityDocQueryOrchestratable r = (EntityDocQueryOrchestratable)request;
-        switch(r.getGatewayApiLevel()){
-            case LEVEL_g0: return processError_a0(r, error);
-            //case LEVEL_g1: return processError_a1(r, error);
-            default: return processError_a0(r, error);
+        if(request instanceof EntityDocQueryOrchestratable_a0){
+            return processError_a0((EntityDocQueryOrchestratable)request, error);
+        }else if(request instanceof EntityDocQueryOrchestratable_a1){
+            return processError_a1((EntityDocQueryOrchestratable)request, error);
+        }else{
+            log.error("EntityDocQueryProcessor::processErrorResponse request was unknown!!!");
+            return processError_a1((EntityDocQueryOrchestratable)request, error);
         }
     }
 
 
+    /**
+     * Generates an EntityDocQueryOrchestratable_a0 response with
+     * an error response for spec a0 that contains target hcid that
+     * produced error as well as error string passed in
+     * @param request is initial request
+     * @param error is String with error message
+     * @return EntityDocQueryOrchestratable_a0 with error response
+     */
     public EntityDocQueryOrchestratable_a0 processError_a0(EntityDocQueryOrchestratable request, String error){
         log.debug("EntityDocQueryProcessor::processError_a0 error=" + error);
         EntityDocQueryOrchestratable_a0 response = new EntityDocQueryOrchestratable_a0(
+                null, request.getResponseProcessor(), null, null, request.getAssertion(),
+                request.getServiceName(), request.getTarget(), request.getRequest());
+        AdhocQueryResponse adhocresponse = new AdhocQueryResponse();
+        RegistryErrorList regErrList = new RegistryErrorList();
+        adhocresponse.setStatus(XDS_RESPONSE_STATUS_FAILURE);
+        RegistryError regErr = new RegistryError();
+        regErr.setErrorCode("XDSRepositoryError");
+        regErr.setCodeContext(error);
+        regErr.setValue("Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
+        regErr.setSeverity("Error");
+        regErrList.getRegistryError().add(regErr);
+        adhocresponse.setRegistryErrorList(regErrList);
+        response.setResponse(adhocresponse);
+        return response;
+    }
+
+
+    /**
+     * Generates an EntityDocQueryOrchestratable_a1 response with
+     * an error response for spec a1 that contains target hcid that
+     * produced error as well as error string passed in
+     * @param request is initial request
+     * @param error is String with error message
+     * @return EntityDocQueryOrchestratable_a1 with error response
+     */
+    public EntityDocQueryOrchestratable_a1 processError_a1(EntityDocQueryOrchestratable request, String error){
+        log.debug("EntityDocQueryProcessor::processError_a1 error=" + error);
+        EntityDocQueryOrchestratable_a1 response = new EntityDocQueryOrchestratable_a1(
                 null, request.getResponseProcessor(), null, null, request.getAssertion(),
                 request.getServiceName(), request.getTarget(), request.getRequest());
         AdhocQueryResponse adhocresponse = new AdhocQueryResponse();
@@ -261,21 +351,59 @@ public class EntityDocQueryProcessor implements NhinResponseProcessor{
             log.debug("EntityDocQueryProcessor::aggregateResponse_a0 combine next response done cumulativeResponse count="
                 + cumulativeResponse.getCumulativeResponse().getTotalResultCount().toString());
         }catch(Exception ex){
-            // exception will throw out and
+            // exception will throw out and be caught by aggregateResponse
             ExecutorServiceHelper.getInstance().outputCompleteException(ex);
-
         }
-
     }
 
     
     /**
      * aggregates an a1 spec individualResponse into an a1 spec cumulativeResponse
-     * For DQ, spec a0 is same as a1 currently, so just forward to aggregateResponse_a0
      */
-    private void aggregateResponse_a1(EntityDocQueryOrchestratable_a0 individualResponse,
-            EntityDocQueryOrchestratable_a0 cumulativeResponse){
-        aggregateResponse_a0(individualResponse, cumulativeResponse);
+    @SuppressWarnings("static-access")
+    private void aggregateResponse_a1(EntityDocQueryOrchestratable_a1 individual,
+            EntityDocQueryOrchestratable_a1 cumulativeResponse){
+
+        AdhocQueryResponse current = individual.getResponse();
+        try{
+            // add the responses from registry object list
+            if(current.getRegistryObjectList() != null){
+                List<JAXBElement<? extends IdentifiableType>> IdentifiableList = current.getRegistryObjectList().getIdentifiable();
+                if(IdentifiableList != null){
+                    for(JAXBElement<? extends IdentifiableType> identifiable : IdentifiableList){
+                        ExtrinsicObjectType currentExtrinsicObject = cast(identifiable, ExtrinsicObjectType.class);
+                        JAXBElement<ExtrinsicObjectType> identifiableObj = new JAXBElement<ExtrinsicObjectType>(
+                                ExtrinsicObjectQname,
+                                ExtrinsicObjectType.class,
+                                currentExtrinsicObject);
+                        cumulativeResponse.getCumulativeResponse().getRegistryObjectList().getIdentifiable().add(identifiableObj);
+                    }
+                }
+            }
+
+            // add any registry errors
+            if(current.getRegistryErrorList() != null && current.getRegistryErrorList().getRegistryError() != null
+                    && current.getRegistryErrorList().getRegistryError().size() > 0){
+                for(RegistryError re : current.getRegistryErrorList().getRegistryError()){
+                    cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError().add(re);
+                }
+            }
+
+            // add any slotlist response data
+            if(current.getResponseSlotList() != null && current.getResponseSlotList().getSlot() != null
+                    && current.getResponseSlotList().getSlot().size() > 0){
+                for(SlotType1 slot : current.getResponseSlotList().getSlot()){
+                    cumulativeResponse.getCumulativeResponse().getResponseSlotList().getSlot().add(slot);
+                }
+            }
+            cumulativeResponse.getCumulativeResponse().setTotalResultCount(
+                    cumulativeResponse.getCumulativeResponse().getTotalResultCount().add(BigInteger.ONE));
+            log.debug("EntityDocQueryProcessor::aggregateResponse_a1 combine next response done cumulativeResponse count="
+                + cumulativeResponse.getCumulativeResponse().getTotalResultCount().toString());
+        }catch(Exception ex){
+            // exception will throw out and be caught by aggregateResponse
+            ExecutorServiceHelper.getInstance().outputCompleteException(ex);
+        }
     }
 
 
@@ -287,7 +415,9 @@ public class EntityDocQueryProcessor implements NhinResponseProcessor{
     }
 
 
-    // NOT USED
+    /**
+     * NOT USED
+     */
     public void aggregate(EntityOrchestratable individualResponse,
             EntityOrchestratable cumulativeResponse){
     }

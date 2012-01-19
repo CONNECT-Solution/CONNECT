@@ -4,10 +4,11 @@
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
  *  
  */
-package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request;
+package gov.hhs.fha.nhinc.patientdiscovery.deferred.request;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryDeferredReqOrchImpl;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
@@ -28,8 +29,7 @@ public class NhinPatientDiscoveryAsyncReqImpl {
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
 
         MCCIIN000002UV01 resp = new NhinPatientDiscoveryDeferredReqOrchImpl().respondingGatewayPRPAIN201305UV02(request, assertion);

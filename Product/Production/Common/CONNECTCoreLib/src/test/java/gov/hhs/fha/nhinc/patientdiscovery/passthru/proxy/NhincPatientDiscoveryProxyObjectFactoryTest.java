@@ -45,25 +45,25 @@ public class NhincPatientDiscoveryProxyObjectFactoryTest {
 	 */
 	@Test
 	public void testGetConfigFileName() {
+		final ApplicationContext mockContext = context
+				.mock(ApplicationContext.class);
+		PassthruPatientDiscoveryProxyObjectFactory proxyFactory = new PassthruPatientDiscoveryProxyObjectFactory() {
+			@Override
+			protected Log createLogger() {
+				return mockLog;
+			}
+
+			@Override
+			protected String getConfigFileName() {
+				return "TEST_CONFIG_FILE_NAME";
+			}
+
+			@Override
+			protected ApplicationContext getContext() {
+				return mockContext;
+			}
+		};
 		try {
-			final ApplicationContext mockContext = context
-					.mock(ApplicationContext.class);
-			PassthruPatientDiscoveryProxyObjectFactory proxyFactory = new PassthruPatientDiscoveryProxyObjectFactory() {
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
-
-				@Override
-				protected String getConfigFileName() {
-					return "TEST_CONFIG_FILE_NAME";
-				}
-
-				@Override
-				protected ApplicationContext getContext() {
-					return mockContext;
-				}
-			};
 			assertEquals("Config file name", "TEST_CONFIG_FILE_NAME",
 					proxyFactory.getConfigFileName());
 		} catch (Throwable t) {
@@ -80,19 +80,19 @@ public class NhincPatientDiscoveryProxyObjectFactoryTest {
 	 */
 	@Test
 	public void testGetNhincPatientDiscoveryProxyHappy() {
-		try {
-			PassthruPatientDiscoveryProxyObjectFactory proxyFactory = new PassthruPatientDiscoveryProxyObjectFactory() {
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+		PassthruPatientDiscoveryProxyObjectFactory proxyFactory = new PassthruPatientDiscoveryProxyObjectFactory() {
+			@Override
+			protected Log createLogger() {
+				return mockLog;
+			}
 
-				@Override
-				protected <T extends Object> T getBean(String beanName,
-						Class<T> type) {
-					return type.cast(mockProxy);
-				}
-			};
+			@Override
+			protected <T extends Object> T getBean(String beanName,
+					Class<T> type) {
+				return type.cast(mockProxy);
+			}
+		};
+		try {
 			PassthruPatientDiscoveryProxy proxy = proxyFactory
 					.getNhincPatientDiscoveryProxy();
 			assertNotNull("NhincPatientDiscoveryProxy was null", proxy);

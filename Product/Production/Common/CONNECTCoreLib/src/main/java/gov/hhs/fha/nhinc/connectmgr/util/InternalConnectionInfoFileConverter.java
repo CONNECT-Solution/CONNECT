@@ -6,7 +6,7 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfoState;
 import gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfos;
 import gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfosXML;
-import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionManagerDAOFileImplFactory;
+import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.UtilException;
 
@@ -111,9 +111,9 @@ public class InternalConnectionInfoFileConverter {
 "\n		<businessServices>"+
 "\n%3$s"+
 "\n		</businessServices>"+
-"\n		<identityBag>"+
+"\n		<identifierBag>"+
 "\n			<keyedReference tModelKey=\"uddi:nhin:nhie:homecommunityid\" keyName=\"\" keyValue=\"%1$s\"/>"+
-"\n		</identityBag>"+
+"\n		</identifierBag>"+
 "\n%4$s"+
 "\n	</businessEntity>";
 
@@ -121,8 +121,8 @@ public class InternalConnectionInfoFileConverter {
   "			<businessService serviceKey=\"uddi:testnhincnode:%1$s\" businessKey=\"uddi:testnhieonenode:%2$s\">"+
 "\n				<name xml:lang=\"en\">%3$s</name>"+
 "\n				<bindingTemplates>"+
-"\n					<bindingTemplate bindingKey=\"uddi:testnhincnode:%4$s\" serviceKey=\"uddi:testnhincnode:%1$s\">"+
-"\n						<accessPoint useType=\"endPoint\">%5$s</accessPoint>"+
+"\n					<bindingTemplate bindingKey=\"uddi:testnhincnode:%5$s\" serviceKey=\"uddi:testnhincnode:%1$s\">"+
+"\n						<accessPoint useType=\"endPoint\">%4$s</accessPoint>"+
 "\n						<categoryBag>"+
 "\n							<keyedReference tModelKey=\"uddi:nhin:versionofservice\" keyName=\"\" keyValue=\"%6$s\"/>"+
 "\n						</categoryBag>"+
@@ -158,7 +158,7 @@ public class InternalConnectionInfoFileConverter {
 	
 	
 	private String generateService(CMInternalConnInfoService service, String hcid) {
-		String result = String.format(SERVICE_FORMAT, service.getName(), hcid, service.getName(), service.getEndpointURL(), service.getName(), 1);
+		String result = String.format(SERVICE_FORMAT, service.getName(), hcid, service.getName(), service.getEndpointURL(), service.getName(), "1.0");
 		return result;		
 	}
 
@@ -219,7 +219,7 @@ public class InternalConnectionInfoFileConverter {
 		System.out.println("Converting   to: " + outFileName);
 		try {
 			instance.convert(new File(inFileName), new File(outFileName));
-			InternalConnectionManagerDAOFileImplFactory.getInstance().loadBusinessDetail();
+			InternalConnectionInfoDAOFileImpl.getInstance().loadBusinessDetail();
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();

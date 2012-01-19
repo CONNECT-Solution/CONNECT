@@ -6,7 +6,7 @@ package gov.hhs.fha.nhinc.docsubmission.entity;
 
 import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxy;
 import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxyObjectFactory;
-import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +24,7 @@ class NhinDocSubmissionStrategyImpl_g0 implements OrchestrationStrategy {
     }
 
     @Override
-    public void execute(EntityOrchestratable message) {
+    public void execute(Orchestratable message) {
         if (message instanceof EntityDocSubmissionOrchestratable) {
             execute((EntityDocSubmissionOrchestratable) message);
         }

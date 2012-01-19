@@ -12,7 +12,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 
 /**
- * Builds the DocQuery OrchestrationContext
+ * Builds the DocQuery OrchestrationContext for g0 endpoint
  * @author paul.eftis
  */
 public class EntityDocQueryOrchestrationContextBuilder_g0 implements OrchestrationContextBuilder{

@@ -66,19 +66,20 @@ public class EntityPatientDiscoveryProxyObjectFactoryTest {
 
 	@Test
 	public void testGetEntityPatientDiscoveryProxyHappy() {
-		try {
-			EntityPatientDiscoveryProxyObjectFactory proxyFactory = new EntityPatientDiscoveryProxyObjectFactory() {
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+		EntityPatientDiscoveryProxyObjectFactory proxyFactory = new EntityPatientDiscoveryProxyObjectFactory() {
+			@Override
+			protected Log createLogger() {
+				return mockLog;
+			}
 
-				@Override
-				protected <T extends Object> T getBean(String beanName,
-						Class<T> type) {
-					return type.cast(mockProxy);
-				}
-			};
+			@Override
+			protected <T extends Object> T getBean(String beanName,
+					Class<T> type) {
+				return type.cast(mockProxy);
+			}
+		};
+
+		try {
 			EntityPatientDiscoveryProxy proxy = proxyFactory
 					.getEntityPatientDiscoveryProxy();
 			assertNotNull("EntityPatientDiscoveryProxy was null", proxy);

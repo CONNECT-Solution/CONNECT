@@ -1,9 +1,15 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+
 import java.sql.Timestamp;
+
 import javax.xml.ws.WebServiceContext;
+
 import org.apache.commons.logging.Log;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
@@ -14,7 +20,6 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -41,7 +46,7 @@ public class EntityPatientDiscoverySecuredImplTest
     {
         try
         {
-            EntityPatientDiscoverySecuredImpl pdSecuredImpl = new EntityPatientDiscoverySecuredImpl()
+            EntityPatientDiscoveryImpl pdSecuredImpl = new EntityPatientDiscoveryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -72,7 +77,7 @@ public class EntityPatientDiscoverySecuredImplTest
     {
         try
         {
-            EntityPatientDiscoverySecuredImpl pdSecuredImpl = new EntityPatientDiscoverySecuredImpl()
+            EntityPatientDiscoveryImpl pdSecuredImpl = new EntityPatientDiscoveryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -108,7 +113,7 @@ public class EntityPatientDiscoverySecuredImplTest
     {
         try
         {
-            EntityPatientDiscoverySecuredImpl pdSecuredImpl = new EntityPatientDiscoverySecuredImpl()
+            EntityPatientDiscoveryImpl pdSecuredImpl = new EntityPatientDiscoveryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -138,7 +143,7 @@ public class EntityPatientDiscoverySecuredImplTest
     {
         try
         {
-            EntityPatientDiscoverySecuredImpl pdSecuredImpl = new EntityPatientDiscoverySecuredImpl()
+            EntityPatientDiscoveryImpl pdSecuredImpl = new EntityPatientDiscoveryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -160,6 +165,12 @@ public class EntityPatientDiscoverySecuredImplTest
                 {
                     return mockPerformanceManager;
                 }
+				@Override
+				protected String getLocalHomeCommunityId() {
+					return "1.1";
+				}
+                
+                
             };
             context.checking(new Expectations()
             {
@@ -187,7 +198,7 @@ public class EntityPatientDiscoverySecuredImplTest
     {
         try
         {
-            EntityPatientDiscoverySecuredImpl pdSecuredImpl = new EntityPatientDiscoverySecuredImpl()
+            EntityPatientDiscoveryImpl pdSecuredImpl = new EntityPatientDiscoveryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -204,6 +215,12 @@ public class EntityPatientDiscoverySecuredImplTest
                 {
                     return mockAssertion;
                 }
+				@Override
+				protected String getLocalHomeCommunityId() {
+					return "1.1";
+				}
+                
+                
             };
             context.checking(new Expectations()
             {
@@ -229,7 +246,7 @@ public class EntityPatientDiscoverySecuredImplTest
     {
         try
         {
-            EntityPatientDiscoverySecuredImpl pdSecuredImpl = new EntityPatientDiscoverySecuredImpl()
+            EntityPatientDiscoveryImpl pdSecuredImpl = new EntityPatientDiscoveryImpl()
             {
                 @Override
                 protected Log createLogger()
@@ -271,7 +288,7 @@ public class EntityPatientDiscoverySecuredImplTest
     {
         try
         {
-            EntityPatientDiscoverySecuredImpl pdSecuredImpl = new EntityPatientDiscoverySecuredImpl()
+            EntityPatientDiscoveryImpl pdSecuredImpl = new EntityPatientDiscoveryImpl()
             {
                 @Override
                 protected Log createLogger()

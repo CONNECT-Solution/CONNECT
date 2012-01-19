@@ -9,15 +9,13 @@ import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import org.hl7.v3.PRPAIN201305UV02;
 
 
 
 /**
- * Patient Discovery Orchestratable message
+ * Patient Discovery implementation of EntityOrchestratableMessage
  * @author paul.eftis
  */
 public class EntityPatientDiscoveryOrchestratable
@@ -63,11 +61,6 @@ public class EntityPatientDiscoveryOrchestratable
 
     public NhinResponseProcessor getResponseProcessor(){
         return processor;
-    }
-
-    public NhincConstants.GATEWAY_API_LEVEL getGatewayApiLevel(){
-        return ConnectionManagerCache.getApiVersionForNhinTarget(
-                target.getHomeCommunity().getHomeCommunityId(), serviceName);
     }
 
     public AuditTransformer getAuditTransformer(){

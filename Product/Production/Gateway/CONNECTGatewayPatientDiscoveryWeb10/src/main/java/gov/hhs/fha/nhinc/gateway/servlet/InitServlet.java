@@ -2,8 +2,6 @@ package gov.hhs.fha.nhinc.gateway.servlet;
 
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -32,7 +30,12 @@ import org.apache.commons.logging.LogFactory;
  */
 public class InitServlet extends HttpServlet{
 
-    private Log log = LogFactory.getLog(InitServlet.class);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4229185731377926278L;
+
+	private Log log = LogFactory.getLog(InitServlet.class);
 
     private static ExecutorService executor = null;
     private static ExecutorService largeJobExecutor = null;

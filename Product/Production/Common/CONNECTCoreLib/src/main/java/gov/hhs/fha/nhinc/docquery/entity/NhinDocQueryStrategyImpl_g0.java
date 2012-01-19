@@ -1,7 +1,7 @@
 package gov.hhs.fha.nhinc.docquery.entity;
 
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
 
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 
 
 /**
- * Implements the DocQuery client strategy for spec a0
+ * Implements the DocQuery client strategy for spec g0 endpoint
  *
  * @author paul.eftis
  */
@@ -41,7 +41,7 @@ public class NhinDocQueryStrategyImpl_g0 implements OrchestrationStrategy{
 
 
     @Override
-    public void execute(EntityOrchestratable message){
+    public void execute(Orchestratable message){
         getLogger().debug("NhinDocQueryStrategyImpl_g0::execute");
         if(message == null){
             getLogger().debug("NhinDocQueryStrategyImpl_g0 EntityOrchestratable was null!!!");
@@ -65,11 +65,12 @@ public class NhinDocQueryStrategyImpl_g0 implements OrchestrationStrategy{
     }
 
     
-    public EntityDocQueryOrchestratable_a0 executeStrategy_g0(EntityDocQueryOrchestratable message){
+    public EntityDocQueryOrchestratable_a0 executeStrategy_g0(EntityDocQueryOrchestratable_a0 message){
         getLogger().debug("NhinDocQueryStrategyImpl_g0::executeStrategy_g0");
 
         EntityDocQueryOrchestratable_a0 nhinDQResponse = new EntityDocQueryOrchestratable_a0(
-                null, new EntityDocQueryProcessor(), null, null, message.getAssertion(),
+                null, message.getResponseProcessor(), message.getAuditTransformer(),
+                message.getPolicyTransformer(), message.getAssertion(),
                 message.getServiceName(), message.getTarget(), message.getRequest());
 
         NhinTargetSystemType targetSystem = message.getTarget();

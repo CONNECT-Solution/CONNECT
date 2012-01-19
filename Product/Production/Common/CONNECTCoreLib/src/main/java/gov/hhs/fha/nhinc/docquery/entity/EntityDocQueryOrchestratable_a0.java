@@ -1,8 +1,6 @@
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import gov.hhs.fha.nhinc.orchestration.EntityOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
-import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.NhinResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
@@ -16,7 +14,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 
 /**
- * a0 returns the response for the a0 specification
+ * EntityDocQueryOrchestratable_a0 returns the response for the a0 specification
  * Note that for DocQuery, the individual response is a AdhocQueryResponse
  * and the cumulative response is also a AdhocQueryResponse
  * @author paul.eftis
@@ -39,6 +37,7 @@ public class EntityDocQueryOrchestratable_a0
 
         super(d, p, at, pt, a, name, t, req);
     }
+
 
     // EntityDocQueryOrchestratable objects are run by the nhin delegate
     // so we should override this and return null so that you can't get a circular reference

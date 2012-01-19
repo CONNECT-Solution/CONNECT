@@ -19,20 +19,19 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Main unit of execution
  * Executes a DQ or PD request currently, but could be used to execute
- * any of the Nhin transaction requests (such as DR)
+ * any of the Nhin transaction requests (such as DR or DeferredPD)
  *
- * Uses generics for Target (which represents the object that contains url to call)
- * Request (which represents the object to send in the request, such
- * as an AdhocQueryRequest) and Response (which represents object that is returned,
- * such as an AdhocQueryResponse).
+ * Uses generics for CumulativeResponse (which represents final object that is returned).
+ * Each IndividualResponse returned from executed NhinCallableRequest contains the
+ * NhinResponseProcessor for the IndividualResponse
  *
- * Constructs with the java.util.concurrent.ExecutorService, ResponseProcessor, 
- * WebServiceClient to use and also a list of Target to send the requests
+ * Constructs with the java.util.concurrent.ExecutorService to use to execute the requests
+ * and a List of NhinCallableRequest to be submitted to ExecutorService
  *
  * Uses an ExecutorCompletionService, and executeTask will return only when
  * all CallableRequest have completed/returned.  Once executeTask has returned,
  * call getFinalResponse to get the final cumulative/aggregated/processed response
- * which contains all the responses from the individual CallableRequest
+ * which contains all the responses from the individual NhinCallableRequest
  *
  * @author paul.eftis
  */

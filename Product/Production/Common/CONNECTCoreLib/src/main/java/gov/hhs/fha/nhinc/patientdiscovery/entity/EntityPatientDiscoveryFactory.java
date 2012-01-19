@@ -22,11 +22,11 @@ public class EntityPatientDiscoveryFactory{
 
 
     public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.debug("EntityDocQueryFactory has apiLevel=" + apiLevel.toString());
+        log.debug("EntityPatientDiscoveryFactory has apiLevel=" + apiLevel.toString());
         switch(apiLevel){
             case LEVEL_g0: return new EntityPatientDiscoveryOrchestrationContextBuilder_g0();
-            //case LEVEL_g1: return new EntityDocQueryOrchestrationContextBuilder()_g1();
-            default: return new EntityPatientDiscoveryOrchestrationContextBuilder_g0();
+            case LEVEL_g1: return new EntityPatientDiscoveryOrchestrationContextBuilder_g1();
+            default: return new EntityPatientDiscoveryOrchestrationContextBuilder_g1();
         }
     }
 

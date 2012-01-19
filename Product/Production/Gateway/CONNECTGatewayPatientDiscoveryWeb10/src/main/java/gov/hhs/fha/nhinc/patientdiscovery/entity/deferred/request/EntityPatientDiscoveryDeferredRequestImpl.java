@@ -17,7 +17,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
 
-class EntityPatientDiscoveryDeferredRequestImpl
+public class EntityPatientDiscoveryDeferredRequestImpl
 {
 
     private Log log = null;
@@ -37,7 +37,7 @@ class EntityPatientDiscoveryDeferredRequestImpl
         return new WebServiceHelper();
     }
 
-    MCCIIN000002UV01 processPatientDiscoveryAsyncRequestSecured(RespondingGatewayPRPAIN201305UV02SecuredRequestType request, WebServiceContext context)
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncRequestSecured(RespondingGatewayPRPAIN201305UV02SecuredRequestType request, WebServiceContext context)
     {
         log.info("Begin processPatientDiscoveryAsyncRequestSecured(RespondingGatewayPRPAIN201305UV02SecuredRequestType, WebServiceContext)");
         WebServiceHelper oHelper = createWebServiceHelper();
@@ -63,7 +63,7 @@ class EntityPatientDiscoveryDeferredRequestImpl
         return response;
     }
 
-    MCCIIN000002UV01 processPatientDiscoveryAsyncRequestUnsecured(RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context)
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncRequestUnsecured(RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context)
     {
         log.info("Begin processPatientDiscoveryAsyncRequestUnsecured(RespondingGatewayPRPAIN201305UV02RequestType, WebServiceContext)");
         WebServiceHelper oHelper = createWebServiceHelper();

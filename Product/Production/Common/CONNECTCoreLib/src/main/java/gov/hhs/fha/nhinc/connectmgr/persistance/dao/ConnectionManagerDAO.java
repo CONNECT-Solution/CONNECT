@@ -10,9 +10,8 @@ import org.uddi.api_v3.BusinessDetail;
  *  
  */
 public interface ConnectionManagerDAO {
-	
-	BusinessDetail loadBusinessDetail();
-	
-	void saveBusinessDetail(BusinessDetail businessEntity);
-	
+
+    public BusinessDetail loadBusinessDetail() throws Exception;
+
+    public void saveBusinessDetail(BusinessDetail businessEntity);
 }

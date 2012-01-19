@@ -49,7 +49,7 @@
     </binding>
     <service name="ProxyXDRSecured_Service">
         <port name="ProxyXDRSecured_Port" binding="tns:ProxyXDRSecured_Binding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyXDRSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/CONNECTGatewayDocumentSubmission/1_0/NhincProxyXDRSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_SoapPolicy">

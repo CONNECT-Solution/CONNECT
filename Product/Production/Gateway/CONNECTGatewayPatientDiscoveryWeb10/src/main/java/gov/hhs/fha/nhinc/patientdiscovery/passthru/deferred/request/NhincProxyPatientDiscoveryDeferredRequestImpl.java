@@ -17,8 +17,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 
-class NhincProxyPatientDiscoveryDeferredRequestImpl
-{
+public class NhincProxyPatientDiscoveryDeferredRequestImpl {
 
     private Log log = null;
 
@@ -27,22 +26,22 @@ class NhincProxyPatientDiscoveryDeferredRequestImpl
         log = createLogger();
     }
 
-    protected Log createLogger()
+  public Log createLogger()
     {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected WebServiceHelper createWebServiceHelper()
+  public WebServiceHelper createWebServiceHelper()
     {
         return new WebServiceHelper();
     }
-
-    protected PassthruPatientDiscoveryDeferredRequestOrchImpl createPassthruProxyPatientDiscoveryDeferredRequestOrchImpl()
+    
+	protected PassthruPatientDiscoveryDeferredRequestOrchImpl createPassthruProxyPatientDiscoveryDeferredRequestOrchImpl()
     {
         return new PassthruPatientDiscoveryDeferredRequestOrchImpl();
     }
 
-    MCCIIN000002UV01 processPatientDiscoveryAsyncRequestSecured(ProxyPRPAIN201305UVProxySecuredRequestType request, WebServiceContext context)
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncRequestSecured(ProxyPRPAIN201305UVProxySecuredRequestType request, WebServiceContext context)
     {
         log.info("Begin processPatientDiscoveryAsyncRequestSecured(ProxyPRPAIN201305UVProxySecuredRequestType, WebServiceContext)");
         WebServiceHelper oHelper = createWebServiceHelper();
@@ -68,7 +67,7 @@ class NhincProxyPatientDiscoveryDeferredRequestImpl
         return response;
     }
 
-    MCCIIN000002UV01 processPatientDiscoveryAsyncRequestUnsecured(ProxyPRPAIN201305UVProxyRequestType request, WebServiceContext context)
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncRequestUnsecured(ProxyPRPAIN201305UVProxyRequestType request, WebServiceContext context)
     {
         log.info("Begin processPatientDiscoveryAsyncRequestSecured(ProxyPRPAIN201305UVProxyRequestType, WebServiceContext)");
         WebServiceHelper oHelper = createWebServiceHelper();

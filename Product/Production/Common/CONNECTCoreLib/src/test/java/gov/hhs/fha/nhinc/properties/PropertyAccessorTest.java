@@ -4,12 +4,15 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Properties;
 
 import org.junit.Ignore;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by
@@ -17,7 +20,7 @@ import static org.junit.Assert.assertEquals;
  * Date: Jun 1, 2010
  * Time: 2:57:51 PM
  */
-@Ignore
+
 public class PropertyAccessorTest {
     private static String m_sPropertiesDir = "";
 
@@ -50,9 +53,7 @@ public class PropertyAccessorTest {
     private static final String PROPERTY_VALUE_6 = "TrUe ";
 
 
-    public PropertyAccessorTest()
-    {
-    }
+   
 
     /**
      * This method is used to load up the property object
@@ -87,6 +88,8 @@ public class PropertyAccessorTest {
             removeDirectory = false;
         }
 
+        
+      
         System.setProperty("nhinc.properties.dir", nhinPropertiesDir );
         m_sPropertiesDir = PropertyAccessor.getPropertyFileLocation();
 
@@ -163,6 +166,12 @@ public class PropertyAccessorTest {
             new File(nhinPropertiesDir).delete();
         }
     }
+    
+    @Test
+    public void testConstructor() {
+    	PropertyAccessor pa = new PropertyAccessor(PROPERTY_FILENAME_NEVER);
+    	assertNotNull(pa);
+    }
 
     /**
      * Test to see if the environment variables were set.
@@ -176,26 +185,28 @@ public class PropertyAccessorTest {
     }
 
     /**
-     * Test getting the origianl call.
+     * Test getting the original call.
      */
     @Test
+    @Ignore
     public void  testGetPropertyFileLocation() {
         String      location;
 
-        System.out.println("getPropertyFileLocation");
 
         location = PropertyAccessor.getPropertyFileLocation();
 
+        System.out.println("getPropertyFileLocation ");
         //
-        // PropertyAccessor adds a trailing slash, so we need to accont for that in the test.
+        // PropertyAccessor adds a trailing slash, so we need to acccount for that in the test.
         //
-        assertEquals(location, nhinPropertiesDir + File.separator);
+        assertEquals( nhinPropertiesDir + File.separator, location);
     }
 
     /**
      * Test getting the path.
      */
     @Test
+    @Ignore
     public void  testGetPropertyFileURL() {
         String      location;
 
@@ -204,9 +215,9 @@ public class PropertyAccessorTest {
         location = PropertyAccessor.getPropertyFileURL();
 
         //
-        // PropertyAccessor adds a trailing slash, so we need to accont for that in the test.
+        // PropertyAccessor adds a trailing slash, so we need to account for that in the test.
         //
-        assertEquals(location, "file:///" + nhinPropertiesDir + File.separator);
+        assertEquals("file:///" + nhinPropertiesDir + File.separator, location);
     }
 
     /**
