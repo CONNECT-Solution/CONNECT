@@ -53,8 +53,8 @@
     </fileset>
   </path>
 
-  <taskdef name="WsImportConnect" classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect"/>
-
+  <taskdef name="WsImportConnect" classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect" />
+  
   <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask"/>
 
   <target name="just.clean">
@@ -72,7 +72,6 @@
   
   <target name="-compile.source">
     <echo message="compile.source for ${project.name}" level="info"/>
-
     <call target="generate.proxies.xjc"/>
     <call target="generate.proxies.wsdl"/>
     <call target="copy.util.src"/>
@@ -108,8 +107,7 @@
       </sequential>
     </outofdate>
   </target>
-
-
+  
   <target name="generate.proxies.wsdl">
     <outofdate verbose="true" force="${force.package}">
       <sourcefiles>
@@ -122,21 +120,35 @@
           <sequential>
             <var name="wsdl.file" unset="true"/>
             <basename property="wsdl.file" file="@{wsdl.file.path}" />
-            <WsImportConnect 
-                xendorsed="true" 
-                sourcedestdir="${build.dir}/generated/client" 
-                extension="true"
-                destdir="${build.classes.dir}" 
-                wsdl="@{wsdl.file.path}" 
-                verbose="true"
-                wsdlLocation="${wsdl.file}"
-                xnocompile="true">
-            </WsImportConnect>			
+	    <java classname="gov.hhs.fha.nhinc.tools.ws.WsImportConnect"
+		   fork="true"
+		   failonerror="true">
+		<arg value="-d"/>
+		<arg value="${build.classes.dir}"/>
+		<arg value="-extension"/>
+		<arg value="-Xnocompile"/>
+		<arg value="-keep"/>	
+		<arg value="-s"/>
+		<arg value="${build.dir}/generated/client"/>
+		<arg value="-verbose"/>			
+		<arg value="@{wsdl.file.path}"/>			
+		<arg value="-wsdllocation"/>
+		<arg value="${wsdl.file}"/>
+		<classpath>
+			<pathelement path="${env.ANT_HOME}/lib/webservices-rt.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxb-impl.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxb-xjc.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxws-api.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxws-rt.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxws-tools.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/agilex-ant-tasks.jar"/>
+		</classpath>
+	    </java>
           </sequential>
         </for>  
         <echo file="${build.dir.root}/compilewsdl.flag" append="false"/>
       </sequential>
     </outofdate>
-  </target>
-
+  </target>  
+  
 </project>

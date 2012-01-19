@@ -18,42 +18,51 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMess
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType;
-import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.Map;
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
 
 /**
  *
  * @author dunnek
  */
 public class EntityAdminDistributionProxyWebServiceSecuredImpl {
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entityadmindistribution";
+    private static final String SERVICE_LOCAL_PART = "AdministrativeDistributionSecured_Service";
+    private static final String PORT_LOCAL_PART = "AdministrativeDistributionSecured_PortType";
+    private static final String WSDL_FILE = "EntityAdminDistSecured.wsdl";
+    private static final String WSDL_FILE_G1 = "EntityAdminDistSecured_g1.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entityadmindistribution:SendAlertMessage_Message";
 
     private Log log = null;
-    static AdministrativeDistributionSecuredService service = null;
+    private static Service cachedService = null;
+    private WebServiceProxyHelper proxyHelper = null;
     public EntityAdminDistributionProxyWebServiceSecuredImpl()
     {
         log = createLogger();
-        service = getWebService();
-    }
-    private AdministrativeDistributionSecuredService getWebService()
-    {
-        return new AdministrativeDistributionSecuredService();
+        proxyHelper =  getWebServiceProxyHelper();
     }
     private Log createLogger()
     {
         return LogFactory.getLog(getClass());
     }
-    protected AdministrativeDistributionSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
-        AdministrativeDistributionSecuredPortType port = service.getAdministrativeDistributionSecuredPortType();
+    protected AdministrativeDistributionSecuredPortType getPort(String url, String wsAddressingAction,
+            AssertionType assertion, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        AdministrativeDistributionSecuredPortType port = null;
 
-        log.info("Setting endpoint address to Entity Administrative DIstribution Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        Service service = getService(apiLevel);
+        if (service != null) {
+            log.debug("Obtained service - creating port.");
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdministrativeDistributionSecuredPortType.class);
+            proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
+            log.error("Unable to obtain serivce - no port created.");
+        }
         return port;
     }
 
@@ -61,22 +70,24 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
     {
         return new AdminDistributionHelper();
     }
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target)
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target,
+            NhincConstants.GATEWAY_API_LEVEL apiLevel)
     {
-        log.debug("begin sendAlertMessage Ngoc");
-        AdminDistributionHelper helper = new AdminDistributionHelper();
+        log.debug("begin sendAlertMessage");
+        AdminDistributionHelper helper = getHelper();
         String hcid = helper.getLocalCommunityId();
         String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME);
 
         if (NullChecker.isNotNullish(url))
         {
-            AdministrativeDistributionSecuredPortType port = getPort(url, NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
+            AdministrativeDistributionSecuredPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion, apiLevel);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
 
             WebServiceProxyHelper webServiceHelper = new WebServiceProxyHelper();
-            webServiceHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.ADMIN_DIST_ACTION, WS_ADDRESSING_ACTION, assertion);;
+            webServiceHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.ADMIN_DIST_ACTION,
+                    WS_ADDRESSING_ACTION, assertion);;
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
@@ -95,11 +106,19 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
                         "Exception: " + ex.getMessage(), ex);
             }
         }
-
     }
     protected WebServiceProxyHelper getWebServiceProxyHelper()
     {
         return new WebServiceProxyHelper();
     }
-
+    protected Service getService(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        try {
+            String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0)) ?
+                    WSDL_FILE : WSDL_FILE_G1;
+            return proxyHelper.createService(wsdlFile, NAMESPACE_URI, SERVICE_LOCAL_PART);
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+            return null;
+        }
+    } 
 }

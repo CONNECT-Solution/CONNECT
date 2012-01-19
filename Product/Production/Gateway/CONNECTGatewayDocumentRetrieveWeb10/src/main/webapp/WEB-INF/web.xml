@@ -30,12 +30,12 @@
 	<!-- message proxy -->
 
 	<servlet>
-		<servlet-name>NhincProxyDocRetrieve</servlet-name>
+		<servlet-name>NhincProxyDocRetrieveUnsecured</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveUnsecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>NhincProxyDocRetrieve</servlet-name>
-		<url-pattern>/NhincProxyDocRetrieve</url-pattern>
+		<servlet-name>NhincProxyDocRetrieveUnsecured</servlet-name>
+		<url-pattern>/NhincProxyDocRetrieveUnsecured</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>NhincProxyDocRetrieveSecured</servlet-name>

@@ -29,6 +29,7 @@ import javax.xml.ws.Service;
  */
 public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements PassthruAdminDistributionProxy{
     private Log log = null;
+
     private static Service cachedService = null;
     private WebServiceProxyHelper proxyHelper = null;
 
@@ -42,6 +43,7 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
     public PassthruAdminDistributionProxyWebServiceUnsecuredImpl()
     {
         log = createLogger();
+        //service = getWebService();
         proxyHelper =  getWebServiceProxyHelper();
     }
     protected AdminDistributionHelper getHelper()
@@ -52,6 +54,10 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
     {
         return new WebServiceProxyHelper();
     }
+    /*protected NhincAdminDistService getWebService()
+    {
+        return new NhincAdminDistService();
+    }*/
     protected Log createLogger()
     {
         return LogFactory.getLog(getClass());

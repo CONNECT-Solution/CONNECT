@@ -41,7 +41,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     private static final String WSDL_FILE_G1 = "NhinAdminDist_g1.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage";
 
-    static RespondingGatewayAdministrativeDistribution nhinService = new RespondingGatewayAdministrativeDistribution();
+    //static RespondingGatewayAdministrativeDistribution nhinService = new RespondingGatewayAdministrativeDistribution();
     public NhinAdminDistributionProxyWebServiceSecuredImpl()
     {
         log = createLogger();

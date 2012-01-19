@@ -10,6 +10,7 @@
  */
 
 package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
+
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionSecuredPortType;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionSecured;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageSecuredType;
@@ -35,20 +36,20 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
     private static final String PORT_LOCAL_PART = "Adapter_AdministrativeDistributionSecured_PortType";
     private static final String WSDL_FILE = "AdapterAdminDistSecured.wsdl";
     private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":SendAlertMessageSecured_Message";
-
     private Log log = null;
-    private static AdapterAdministrativeDistributionSecured adapterService = null;
+
+    //private static AdapterAdministrativeDistributionSecured adapterService = null;
     private static Service cachedService = null;
 
     public AdapterAdminDistributionProxyWebServiceSecuredImpl()
     {
         log = createLogger();
-        adapterService = getWebService();
+        //adapterService = getWebService();
     }
-    protected AdapterAdministrativeDistributionSecured getWebService()
+    /*protected AdapterAdministrativeDistributionSecured getWebService()
     {
         return new AdapterAdministrativeDistributionSecured();
-    }
+    }*/
     protected Log createLogger()
     {
         return LogFactory.getLog(getClass());
@@ -79,6 +80,7 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
         }
         return port;
     }
+
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion)
     {
         log.debug("Begin sendAlertMessage");
@@ -97,10 +99,8 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
 
-
             WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
             oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
-
 
             try
             {
@@ -111,8 +111,8 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
                 log.error("Unable to send message: " + ex.getMessage());
             }
         }
-
     }
+
     protected WebServiceProxyHelper getWebServiceProxyHelper()
     {
         return new WebServiceProxyHelper();

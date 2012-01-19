@@ -34,6 +34,7 @@ import javax.xml.ws.Service;
 public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements PassthruAdminDistributionProxy {
     private Log log = null;
     private static Service cachedService = null;
+    private WebServiceProxyHelper proxyHelper = null;
 
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincadmindistribution";
     private static final String SERVICE_LOCAL_PART = "NhincAdminDistSecuredService";
@@ -45,11 +46,17 @@ public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements Pass
     public PassthruAdminDistributionProxyWebServiceSecuredImpl()
     {
         log = createLogger();
+        //service = getWebService();
+        proxyHelper =  getWebServiceProxyHelper();        
     }
     protected WebServiceProxyHelper getWebServiceProxyHelper()
     {
         return new WebServiceProxyHelper();
     }
+    /*protected NhincAdminDistSecuredService getWebService()
+    {
+        return new NhincAdminDistSecuredService();
+    }*/
     protected Log createLogger()
     {
         return LogFactory.getLog(getClass());
@@ -64,7 +71,6 @@ public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements Pass
         {
             try
             {
-                WebServiceProxyHelper proxyHelper = getWebServiceProxyHelper();
                 cachedService = proxyHelper.createService(wsdl, uri, service);
             }
             catch (Throwable t)
@@ -86,7 +92,6 @@ public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements Pass
             log.debug("Obtained service - creating port.");
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincAdminDistSecuredPortType.class);
 
-            WebServiceProxyHelper proxyHelper = getWebServiceProxyHelper();
             proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
         }
         else
@@ -122,8 +127,6 @@ public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements Pass
                 oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
                 ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
-
-                WebServiceProxyHelper proxyHelper = getWebServiceProxyHelper();
                 proxyHelper.invokePort(port, RespondingGatewaySendAlertMessageSecuredType.class, "sendAlertMessage", message);
             }
             catch(Exception ex)

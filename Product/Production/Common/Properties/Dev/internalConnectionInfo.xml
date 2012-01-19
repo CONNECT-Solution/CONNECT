@@ -508,9 +508,9 @@
                 <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveSecured</endpointURL>
             </service>
             <service>
-                <name>nhincproxydocretrieve</name>
+                <name>nhincproxydocretrieveunsecured</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/NhincProxyDocRetrieveUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityauditqueryproxy</name>
@@ -1401,9 +1401,9 @@
                 <endpointURL>https://localhost:8181/CONNECTGatewayDocumentRetrieve/1_0/EntityService/EntityDocRetrieveSecured</endpointURL>
             </service>
             <service>
-                <name>nhincproxydocretrieve</name>
+                <name>nhincproxydocretrieveunsecured</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGatewayDocumentRetrieve/1_0/NhincProxyDocRetrieveUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityauditqueryproxy</name>
@@ -2294,9 +2294,9 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveSecured</endpointURL>
             </service>
             <service>
-                <name>nhincproxydocretrieve</name>
+                <name>nhincproxydocretrieveunsecured</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieveUnsecured</endpointURL>
             </service>
             <service>
                 <name>entityauditqueryproxy</name>
@@ -2738,9 +2738,9 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveSecured</endpointURL>
             </service>
             <service>
-                <name>nhincproxydocretrieve</name>
+                <name>nhincproxydocretrieveunsecured</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieveUnsecured</endpointURL>
             </service>
             <service>
                 <name>adapterauditquery</name>

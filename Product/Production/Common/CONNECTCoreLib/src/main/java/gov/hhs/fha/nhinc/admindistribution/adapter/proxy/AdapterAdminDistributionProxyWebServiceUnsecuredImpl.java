@@ -34,12 +34,12 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
     public AdapterAdminDistributionProxyWebServiceUnsecuredImpl()
     {
         log = createLogger();
-        adapterService = getWebService();
+        //adapterService = getWebService();
     }
-    protected AdapterAdministrativeDistribution getWebService()
+    /*protected AdapterAdministrativeDistribution getWebService()
     {
         return new AdapterAdministrativeDistribution();
-    }
+    }*/
     protected Log createLogger()
     {
         return LogFactory.getLog(getClass());

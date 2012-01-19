@@ -31,10 +31,10 @@
 	<portType name="AdapterComponentXDR_PortType">
 		<operation name="ProvideAndRegisterDocumentSetb">
 			<input message="tns:ProvideAndRegisterDocumentSet-b_Message" wsaw:Action="urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-b"/>
-			<output message="tns:ProvideAndRegisterDocumentSet-bResponse_Message" wsaw:Action="tns:ProvideAndRegisterDocumentSet-bResponse"/>
+			<output message="tns:ProvideAndRegisterDocumentSet-bResponse_Message" wsaw:Action="urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-bResponse"/>
 		</operation>
 	</portType>
-	<binding name="AdapterXDR_Binding" type="tns:AdapterComponentXDR_PortType">
+	<binding name="AdapterComponentXDR_Binding" type="tns:AdapterComponentXDR_PortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="ProvideAndRegisterDocumentSetb">
 			<input>
@@ -46,8 +46,8 @@
 		</operation>
 	</binding>
 	<service name="AdapterComponentXDR_Service">
-		<port name="AdapterComponentXDR_Port" binding="tns:AdapterXDR_Binding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterXDR"/>
+		<port name="AdapterComponentXDR_Port" binding="tns:AdapterComponentXDR_Binding">
+			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterComponentXDR"/>
 		</port>
 	</service>
 </definitions>
