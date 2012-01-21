@@ -983,7 +983,7 @@ public class DocumentManagerImpl {
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0))
             {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, serviceName);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, serviceName);
                 }
                 catch (Exception e) {
                     log.error("Failed to retrieve endpoint URL for service:" + serviceName +

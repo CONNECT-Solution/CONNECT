@@ -22,6 +22,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.uddi.api_v3.BusinessEntity;
 
 /**
  * This class is used to map a home community ID to the
@@ -38,6 +39,10 @@ public class HomeCommunityMap {
 
     private static Log log = LogFactory.getLog(HomeCommunityMap.class);
 
+    protected ConnectionManagerCache getConnectionManagerCache() {
+        return ConnectionManagerCache.getInstance();
+    }
+
     /**
      * This method retrieves the name of the home community baased on the
      * home community Id.
@@ -49,14 +54,16 @@ public class HomeCommunityMap {
         String sHomeCommunityName = "";
 
         try {
-            CMBusinessEntity oEntity = ConnectionManagerCache.getBusinessEntity(sHomeCommunityId);
+            ConnectionManagerCache connectionManagerCache = getConnectionManagerCache();
+
+            BusinessEntity oEntity = connectionManagerCache.getBusinessEntity(sHomeCommunityId);
             if ((oEntity != null) &&
-                    (oEntity.getNames() != null) &&
-                    (oEntity.getNames().getBusinessName() != null) &&
-                    (oEntity.getNames().getBusinessName().size() > 0) &&
-                    (oEntity.getNames().getBusinessName().get(0) != null) &&
-                    (oEntity.getNames().getBusinessName().get(0).length() > 0)) {
-                sHomeCommunityName = oEntity.getNames().getBusinessName().get(0);
+                    (oEntity.getName() != null) &&
+                    (oEntity.getName().size() > 0) &&
+                    (oEntity.getName().get(0) != null) &&
+                    (oEntity.getName().get(0).getValue().length() > 0) &&
+                    (oEntity.getBusinessKey().length() > 0)) {
+            	sHomeCommunityName = connectionManagerCache.getCommunityId(oEntity);
             }
         } catch (Exception e) {
             log.warn("Failed to retrieve textual name for home community ID: " + sHomeCommunityId, e);

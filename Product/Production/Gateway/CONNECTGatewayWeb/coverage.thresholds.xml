@@ -55,104 +55,19 @@
               linecount="45"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionImpl"
-              linecount="40"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionSecured"
-              linecount="8"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionUnsecured"
-              linecount="8"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestImpl"
-              linecount="14"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseImpl"
-              linecount="14"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.gateway.policyenginetransformation.PolicyEngineTransformationService"
               linecount="12"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.genericheaderhandler.SoapHeaderHandler"
-              linecount="11"
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.gateway.servlet.InitServlet"
+              linecount="19"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.lift.GatewayLiftManager"
               linecount="11"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.policydteproxy.IPolicyDteProxy"
-              linecount="0"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.policydteproxy.PolicyDteProxyFactory"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.policydteproxy.PolicyDteWebServiceProxy"
-              linecount="58"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.policyengineproxy.IPolicyEngineProxy"
-              linecount="0"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.policyengineproxy.PolicyEngineProxyFactory"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.policyengineproxy.PolicyEngineWebServiceProxy"
-              linecount="26"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="82" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoveryImpl"
-              linecount="235"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoverySecured"
-              linecount="5"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -175,9 +90,14 @@
               linecount="14"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.gateway.servlet.InitServlet"
-              linecount="20"
+   <threshold branchcount="82" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoveryImpl"
+              linecount="240"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoverySecured"
+              linecount="5"
               linerate="80"
               linesexecuted="0"/>
 </thresholds>

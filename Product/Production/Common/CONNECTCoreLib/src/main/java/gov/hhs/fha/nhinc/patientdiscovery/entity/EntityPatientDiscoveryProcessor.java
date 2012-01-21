@@ -230,7 +230,7 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
                     // individual is spec_a1 and cumulative is spec_a0
                     // so transform individual to spec_a0 and then aggregate_a0
                     EntityPatientDiscoveryOrchestratable_a0 individualResponse =
-                            EntityPatientDiscoveryProcessorHelper.transformResponse_a0((
+                            EntityPatientDiscoveryProcessorHelper.transformResponse_ToA0((
                             EntityPatientDiscoveryOrchestratable_a1)individual);
                     aggregateResponse_a0(individualResponse, cumulativeResponse);
                 }else{
@@ -253,7 +253,7 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
                     // individual is spec_a0 and cumulative is spec_a1
                     // so transform individual to spec_a1 and then aggregate_a1
                     EntityPatientDiscoveryOrchestratable_a1 individualResponse =
-                            EntityPatientDiscoveryProcessorHelper.transformResponse_a1((
+                            EntityPatientDiscoveryProcessorHelper.transformResponse_ToA1((
                             EntityPatientDiscoveryOrchestratable_a0)individual);
                     aggregateResponse_a1(individualResponse, cumulativeResponse);
                 }else if(individual instanceof EntityPatientDiscoveryOrchestratable_a1){

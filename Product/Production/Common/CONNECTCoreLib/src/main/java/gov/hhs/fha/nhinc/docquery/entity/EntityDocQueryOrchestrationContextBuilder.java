@@ -1,6 +1,4 @@
-package gov.hhs.fha.nhinc.patientdiscovery.entity;
-
-import org.hl7.v3.PRPAIN201305UV02;
+package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -11,16 +9,18 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+
 
 /**
  * @author bhumphrey/paul
  *
  */
-public abstract class EntityPatientDiscoveryOrchestrationContextBuilder implements
+public abstract class EntityDocQueryOrchestrationContextBuilder implements
 		OrchestrationContextBuilder{
 
     private NhinTargetSystemType target = null;
-    private PRPAIN201305UV02 request = null;
+    private AdhocQueryRequest request = null;
     private AssertionType assertionType = null;
     private PolicyTransformer policyTransformer = null;
     private AuditTransformer auditTransformer = null;
@@ -28,16 +28,16 @@ public abstract class EntityPatientDiscoveryOrchestrationContextBuilder implemen
     private NhinResponseProcessor nhinProcessor = null;
     private String serviceName = "";
 
-    
+
     @Override
-    public OrchestrationContext build() {
+    public OrchestrationContext build(){
         return new OrchestrationContext(getStrategy(), getOrchestratable());
     }
 
-    abstract protected EntityPatientDiscoveryOrchestratable getOrchestratable();
+    abstract protected EntityDocQueryOrchestratable getOrchestratable();
 
-    abstract protected NhinPatientDiscoveryStrategy getStrategy();
-    
+    abstract protected NhinDocQueryStrategy getStrategy();
+
 
     public void setTarget(NhinTargetSystemType t){
         this.target = t;
@@ -47,11 +47,11 @@ public abstract class EntityPatientDiscoveryOrchestrationContextBuilder implemen
         return this.target;
     }
 
-    public void setRequest(PRPAIN201305UV02 pdRequest){
-        this.request = pdRequest;
+    public void setRequest(AdhocQueryRequest dqRequest){
+        this.request = dqRequest;
     }
 
-    protected PRPAIN201305UV02 getRequest(){
+    protected AdhocQueryRequest getRequest(){
         return this.request;
     }
 

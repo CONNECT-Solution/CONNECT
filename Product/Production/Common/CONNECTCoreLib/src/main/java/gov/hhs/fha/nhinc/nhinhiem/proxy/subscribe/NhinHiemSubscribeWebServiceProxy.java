@@ -69,7 +69,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
         if (target != null) {
             try {
-                url = ConnectionManagerCache.getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
                 log.error(ex.getMessage());

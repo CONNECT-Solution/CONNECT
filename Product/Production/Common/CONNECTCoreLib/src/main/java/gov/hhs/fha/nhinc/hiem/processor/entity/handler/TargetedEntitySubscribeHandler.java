@@ -10,9 +10,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+
+
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
@@ -21,6 +22,8 @@ import org.w3._2005._08.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import java.util.Iterator;
+import java.util.List;
+
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import gov.hhs.fha.nhinc.hiem.configuration.topicconfiguration.TopicConfigurationEntry;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -37,7 +40,7 @@ class TargetedEntitySubscribeHandler extends BaseEntitySubscribeHandler {
 
     public SubscribeResponse handleSubscribe(TopicConfigurationEntry topicConfig, Subscribe subscribe, Element subscribeElement, AssertionType assertion, NhinTargetCommunitiesType targetCommunitites) throws TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault {
         SubscribeResponse response = new SubscribeResponse();
-        CMUrlInfos urlInfoList = null;
+        List<UrlInfo> urlInfoList = null;
 
         EndpointReferenceType parentSubscriptionReference = storeSubscription(subscribe, subscribeElement, assertion, targetCommunitites);
         String parentSubscriptionReferenceXml = null;
@@ -47,16 +50,16 @@ class TargetedEntitySubscribeHandler extends BaseEntitySubscribeHandler {
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunitites, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunitites, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs");
             return null;
         }
 
-        if ((urlInfoList != null) && (NullChecker.isNotNullish(urlInfoList.getUrlInfo()))) {
-            Iterator<CMUrlInfo> targetCommunityIter = urlInfoList.getUrlInfo().iterator();
+        if ((urlInfoList != null) && (NullChecker.isNotNullish(urlInfoList))) {
+            Iterator<UrlInfo> targetCommunityIter = urlInfoList.iterator();
             while (targetCommunityIter.hasNext()) {
-                CMUrlInfo target = targetCommunityIter.next();
+                UrlInfo target = targetCommunityIter.next();
                 //      Update Subscribe
                 updateSubscribeNotificationConsumerEndpointAddress(subscribeElement);
                 //      Policy check - performed in proxy?

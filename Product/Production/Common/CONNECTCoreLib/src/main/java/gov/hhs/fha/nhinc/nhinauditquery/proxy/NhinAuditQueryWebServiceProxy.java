@@ -43,7 +43,7 @@ public class NhinAuditQueryWebServiceProxy implements NhinAuditQueryProxy {
 
         if (request.getNhinTargetSystem() != null) {
             try {
-                url = ConnectionManagerCache.getEndpontURLFromNhinTarget(request.getNhinTargetSystem(), NhincConstants.AUDIT_QUERY_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(request.getNhinTargetSystem(), NhincConstants.AUDIT_QUERY_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.AUDIT_QUERY_SERVICE_NAME);
                 log.error(ex.getMessage());

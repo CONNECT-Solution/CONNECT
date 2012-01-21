@@ -1,5 +1,7 @@
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.io.File;
 
 import javax.xml.bind.JAXBException;
@@ -21,10 +23,11 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
     private Log log = null;
 
     public static InternalConnectionInfoDAOFileImpl getInstance() {
+    	
         if (instance != null) {
             return instance;
         } else {
-            return new InternalConnectionInfoDAOFileImpl("InternalConnectionInfo2.xml");
+            return new InternalConnectionInfoDAOFileImpl(PropertyAccessor.getPropertyFileLocation() + "InternalConnectionInfo.xml");
         }
     }
 

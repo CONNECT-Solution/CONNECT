@@ -619,7 +619,7 @@ public class WebServiceProxyHelperTest extends AbstractWebServiceProxyHelpTest {
 		 * mockedDependency; mockingContext = new JUnit4Mockery() {
 		 * 
 		 * { setImposteriser(ClassImposteriser.INSTANCE); } }; mockedDependency
-		 * = mockingContext.mock(ConnectionManagerCache.class);
+		 * = mockingContext.mock(ConnectionManagerCache.getInstance().class);
 		 * 
 		 * 
 		 * mockingContext.checking(new Expectations() {
@@ -671,7 +671,7 @@ public class WebServiceProxyHelperTest extends AbstractWebServiceProxyHelpTest {
 		 * mockedDependency; mockingContext = new JUnit4Mockery() {
 		 * 
 		 * { setImposteriser(ClassImposteriser.INSTANCE); } }; mockedDependency
-		 * = mockingContext.mock(ConnectionManagerCache.class);
+		 * = mockingContext.mock(ConnectionManagerCache.getInstance().class);
 		 * 
 		 * String expResult = "someurl"; mockingContext.checking(new
 		 * Expectations() {
@@ -696,7 +696,7 @@ public class WebServiceProxyHelperTest extends AbstractWebServiceProxyHelpTest {
 	 * mockingContext = new JUnit4Mockery() {
 	 * 
 	 * { setImposteriser(ClassImposteriser.INSTANCE); } }; mockedDependency =
-	 * mockingContext.mock(ConnectionManagerCache.class);
+	 * mockingContext.mock(ConnectionManagerCache.getInstance().class);
 	 * 
 	 * String expResult = "someurl"; mockingContext.checking(new Expectations()
 	 * {
@@ -729,7 +729,7 @@ public class WebServiceProxyHelperTest extends AbstractWebServiceProxyHelpTest {
 		 * mockedDependency; mockingContext = new JUnit4Mockery() {
 		 * 
 		 * { setImposteriser(ClassImposteriser.INSTANCE); } }; mockedDependency
-		 * = mockingContext.mock(ConnectionManagerCache.class);
+		 * = mockingContext.mock(ConnectionManagerCache.getInstance().class);
 		 * 
 		 * String expResult = "someurl"; mockingContext.checking(new
 		 * Expectations() {
@@ -765,7 +765,7 @@ public class WebServiceProxyHelperTest extends AbstractWebServiceProxyHelpTest {
 		 * mockedDependency; mockingContext = new JUnit4Mockery() {
 		 * 
 		 * { setImposteriser(ClassImposteriser.INSTANCE); } }; mockedDependency
-		 * = mockingContext.mock(ConnectionManagerCache.class);
+		 * = mockingContext.mock(ConnectionManagerCache.getInstance().class);
 		 * 
 		 * String expResult = "someurl"; mockingContext.checking(new
 		 * Expectations() {

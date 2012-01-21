@@ -36,7 +36,7 @@ public class AdapterAuditQueryServiceImpl {
 
         try
         {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_AUDIT_QUERY_SECURED_SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_AUDIT_QUERY_SECURED_SERVICE_NAME);
             AdapterAuditLogQuerySamlPortType port = getPort(url);
 
             AssertionType assertIn = findAuditEventsRequest.getAssertion();

@@ -97,9 +97,9 @@ public class HiemSubscribeAdapterWebServiceDispatch implements HiemSubscribeAdap
 
     private String getUrl(NhinTargetSystemType target, String serviceName) throws ConnectionManagerException {
         String url = null;
-        url = ConnectionManagerCache.getEndpontURLFromNhinTarget(target, serviceName);
+        url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, serviceName);
         if (NullChecker.isNullish(url)) {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(serviceName);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName);
         }
         return url;
     }

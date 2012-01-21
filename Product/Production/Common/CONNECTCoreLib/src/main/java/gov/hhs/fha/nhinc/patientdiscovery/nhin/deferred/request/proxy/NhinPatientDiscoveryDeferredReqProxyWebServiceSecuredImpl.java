@@ -99,24 +99,24 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
         try {
             if (request != null) {
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
-                log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + " is: " + url);
+                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+                log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayDeferredRequestPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
                     response = (MCCIIN000002UV01) oProxyHelper.invokePort(port, RespondingGatewayDeferredRequestPortType.class, "respondingGatewayDeferredPRPAIN201305UV02", request);
                 } else {
-                    ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + ").  The URL is null.";
+                    ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME + ").  The URL is null.";
                     response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
                     log.error(ackMessage);
                 }
             } else {
-                ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + ").  The input parameter is null.";
+                ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME + ").  The input parameter is null.";
                 response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
                 log.error(ackMessage);
             }
         } catch (Exception e) {
-            ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + ").  An unexpected exception occurred.";
+            ackMessage = "Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME + ").  An unexpected exception occurred.";
             response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
             log.error(ackMessage + "  Exception: " + e.getMessage(), e);
         }

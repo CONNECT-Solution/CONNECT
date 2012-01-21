@@ -11,7 +11,7 @@
 package gov.hhs.fha.nhinc.saml.extraction;
 
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
+import org.uddi.api_v3.BusinessEntity;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -51,13 +51,13 @@ public class SamlTokenExtractorHelper {
     public static String getEndpointURL(String homeCommunityId, String service) {
         log.debug("Entering SamlTokenExtractorHelper.getEndpointURL");
 
-        CMBusinessEntity oCMBusinessEntity = new CMBusinessEntity();
+        BusinessEntity oCMBusinessEntity = new BusinessEntity();
         String url = null;
 
         if (NullChecker.isNotNullish(homeCommunityId) &&
                 NullChecker.isNotNullish(service)) {
             try {
-                oCMBusinessEntity = ConnectionManagerCache.getBusinessEntityByServiceName(homeCommunityId, service);
+                oCMBusinessEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(homeCommunityId, service);
             } catch (Throwable t) {
                 log.error("Failed to retrieve business entity.  Error: " + t.getMessage());
             }
@@ -71,8 +71,8 @@ public class SamlTokenExtractorHelper {
                     oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate() != null &&
                     oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().size() > 0 &&
                     oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0) != null &&
-                    NullChecker.isNotNullish(oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getEndpointURL())) {
-                url = oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getEndpointURL();
+                    NullChecker.isNotNullish(oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue())) {
+                url = oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue();
             }
 
             if (NullChecker.isNotNullish(url)) {

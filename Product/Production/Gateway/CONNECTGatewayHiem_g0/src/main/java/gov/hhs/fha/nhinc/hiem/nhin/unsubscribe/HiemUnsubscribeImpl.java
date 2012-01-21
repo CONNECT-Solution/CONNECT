@@ -37,7 +37,7 @@ import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 //import org.xmlsoap.schemas.ws._2004._08.addressing.ReferenceParametersType;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBindingTemplate;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
+import org.uddi.api_v3.BusinessEntity;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessService;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessServices;
 import gov.hhs.fha.nhinc.hiem.configuration.ConfigurationManager;

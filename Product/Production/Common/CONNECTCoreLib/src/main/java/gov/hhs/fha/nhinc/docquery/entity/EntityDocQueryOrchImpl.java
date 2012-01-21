@@ -24,7 +24,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.transform.document.DocumentQueryTransform;
@@ -109,7 +110,7 @@ public class EntityDocQueryOrchImpl{
         // note that a0 and a1 would be handled by different methods if they were different
         boolean responseIsSpecA0 = true;
         NhincConstants.GATEWAY_API_LEVEL gatewayLevel =
-                ConnectionManagerCache.getApiVersionForNhinTarget(
+                ConnectionManagerCache.getInstance().getApiVersionForNhinTarget(
                 getLocalHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
         switch(gatewayLevel){
             case LEVEL_g0:
@@ -130,7 +131,7 @@ public class EntityDocQueryOrchImpl{
         }
         log.debug("EntityDocQueryOrchImpl set responseIsSpecA0=" + responseIsSpecA0);
 
-        CMUrlInfos urlInfoList = null;
+        List<UrlInfo> urlInfoList = null;
         boolean isTargeted = false;
 
         // audit initial request
@@ -153,7 +154,7 @@ public class EntityDocQueryOrchImpl{
 
             // Obtain all the URLs for the targets being sent to
             try{
-                urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
+                urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
             }catch(Exception ex){
                 log.error("EntityDocQueryOrchImpl Failed to obtain target URLs", ex);
             }

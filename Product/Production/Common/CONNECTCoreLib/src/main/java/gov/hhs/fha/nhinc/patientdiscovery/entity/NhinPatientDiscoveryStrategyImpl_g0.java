@@ -13,7 +13,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author paul.eftis
  */
-public class NhinPatientDiscoveryStrategyImpl_g0 extends NhinPatientDiscoveryStrategy {
+public class NhinPatientDiscoveryStrategyImpl_g0 extends NhinPatientDiscoveryStrategy{
 
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryStrategyImpl_g0.class);
     
@@ -21,28 +21,28 @@ public class NhinPatientDiscoveryStrategyImpl_g0 extends NhinPatientDiscoveryStr
         
     }
 
-    private Log getLogger()
-    {
+    private Log getLogger(){
         return log;
     }
 
-	/**
-	 * @param message
-	 */
-	public void execute(EntityPatientDiscoveryOrchestratable message) {
-		if(message instanceof EntityPatientDiscoveryOrchestratable_a0){
-		  
-			EntityPatientDiscoveryOrchestratable_a0 response = execute((EntityPatientDiscoveryOrchestratable_a0)message);
-		}else{
-		    // shouldn't get here
-		    getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0 EntityOrchestratable was not an EntityDocQueryOrchestratable_a0!!!");
-		    // throw new Exception("NhinDocQueryStrategyImpl_g0 EntityOrchestratable was not an EntityDocQueryOrchestratable_a0!!!");
-		}
-	}
+
+    /**
+     * @param message contains request message to execute
+     */
+    @Override
+    public void execute(EntityPatientDiscoveryOrchestratable message){
+        if(message instanceof EntityPatientDiscoveryOrchestratable_a0){
+            executeStrategy((EntityPatientDiscoveryOrchestratable_a0)message);
+        }else{
+            // shouldn't get here
+            getLogger().error("NhinPatientDiscoveryStrategyImpl_g0 EntityPatientDiscoveryOrchestratable was not an EntityPatientDiscoveryOrchestratable_a0!!!");
+            // throw new Exception("NhinPatientDiscoveryStrategyImpl_g0 EntityPatientDiscoveryOrchestratable was not an EntityPatientDiscoveryOrchestratable_a0!!!");
+        }
+    }
     
     
-    public EntityPatientDiscoveryOrchestratable_a0 execute(EntityPatientDiscoveryOrchestratable_a0 message){
-        getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy_g0");
+    public void executeStrategy(EntityPatientDiscoveryOrchestratable_a0 message){
+        getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy");
 
         EntityPatientDiscoveryOrchestratable_a0 nhinPDResponse = new EntityPatientDiscoveryOrchestratable_a0(
                 null, message.getResponseProcessor(), message.getAuditTransformer(),
@@ -55,19 +55,17 @@ public class NhinPatientDiscoveryStrategyImpl_g0 extends NhinPatientDiscoveryStr
         auditRequestMessage(message.getRequest(), message.getAssertion(), requestCommunityID);
 
         NhinPatientDiscoveryProxy proxy = new NhinPatientDiscoveryProxyObjectFactory().getNhinPatientDiscoveryProxy();
-        getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy_g0 sending nhin patient discovery request to "
+        getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy sending nhin patient discovery request to "
                 + " target hcid=" + requestCommunityID);
 
         nhinPDResponse.setResponse(proxy.respondingGatewayPRPAIN201305UV02(
                 message.getRequest(), message.getAssertion(), targetSystem));
 
         auditResponseMessage(nhinPDResponse.getResponse(), nhinPDResponse.getAssertion(), requestCommunityID);
-
-        getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy_g0 returning response");
         
         message.setResponse(nhinPDResponse.getResponse());
-        return nhinPDResponse;
-    }
 
+        getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy returning response");
+    }
 
 }

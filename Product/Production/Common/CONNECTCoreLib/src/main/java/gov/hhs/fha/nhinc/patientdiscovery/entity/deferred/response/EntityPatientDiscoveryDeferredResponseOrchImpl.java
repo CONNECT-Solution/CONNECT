@@ -11,9 +11,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
@@ -31,6 +32,8 @@ import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.sql.Timestamp;
+import java.util.List;
+
 import org.hl7.v3.II;
 
 /**
@@ -55,7 +58,7 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl {
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncRespOrch(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType target) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
-        CMUrlInfos urlInfoList = null;
+        List<UrlInfo> urlInfoList = null;
         PatientDiscovery201306Processor pd201306Processor = new PatientDiscovery201306Processor();
         PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
 
@@ -64,8 +67,8 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl {
 
             //loop through the communities and send request if results were not null
             if (urlInfoList != null &&
-                    urlInfoList.getUrlInfo() != null) {
-                for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
+                    urlInfoList != null) {
+                for (UrlInfo urlInfo : urlInfoList) {
 
                     // Log the start of the performance record
                     Timestamp starttime = new Timestamp(System.currentTimeMillis());
@@ -105,14 +108,14 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl {
         return ack;
     }
 
-    protected CMUrlInfos getTargets(NhinTargetCommunitiesType targetCommunities) {
-        CMUrlInfos urlInfoList = null;
+    protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities) {
+        List<UrlInfo> urlInfoList = null;
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            log.error("Failed to obtain target URLs for service " + NhincConstants.PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME);
+            log.error("Failed to obtain target URLs for service " + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
             return null;
         }
 
@@ -124,7 +127,7 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl {
         return new PatientDiscoveryPolicyChecker().check201305Policy(request.getPRPAIN201306UV02(), patientId, request.getAssertion());
     }
 
-    protected MCCIIN000002UV01 sendToProxy(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType target, CMUrlInfo urlInfo) {
+    protected MCCIIN000002UV01 sendToProxy(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType target, UrlInfo urlInfo) {
         RespondingGatewayPRPAIN201306UV02RequestType request = new RespondingGatewayPRPAIN201306UV02RequestType();
 
         request.setAssertion(assertion);
@@ -134,7 +137,7 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl {
         return sendToProxy(request, urlInfo);
     }
 
-    protected MCCIIN000002UV01 sendToProxy(RespondingGatewayPRPAIN201306UV02RequestType request, CMUrlInfo urlInfo) {
+    protected MCCIIN000002UV01 sendToProxy(RespondingGatewayPRPAIN201306UV02RequestType request, UrlInfo urlInfo) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
 
         NhinTargetSystemType oTargetSystemType = new NhinTargetSystemType();

@@ -52,7 +52,7 @@ public class ServiceHelper {
                     e.getMessage(), e);
         }
         try {
-            sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, srvName);
+            sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, srvName);
         } catch (Exception e) {
             log.error("Failed to retrieve endpoint URL for service:" + srvName+
                     " from connection manager.  Error: " + e.getMessage(), e);

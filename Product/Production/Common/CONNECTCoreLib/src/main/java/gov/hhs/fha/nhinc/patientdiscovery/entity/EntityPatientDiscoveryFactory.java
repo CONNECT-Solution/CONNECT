@@ -9,7 +9,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Returns the OrchestrationContextBuilder appropriate for the particular apiLevel
- * @author paul
+ * @author paul.eftis
  */
 public class EntityPatientDiscoveryFactory{
 

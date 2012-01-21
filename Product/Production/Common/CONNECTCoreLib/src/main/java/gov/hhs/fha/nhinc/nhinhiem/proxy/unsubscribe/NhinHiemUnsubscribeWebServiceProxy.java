@@ -77,7 +77,7 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
         String url = null;
         if (target != null) {
             try {
-                url = ConnectionManagerCache.getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
                 log.error(ex.getMessage());

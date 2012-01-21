@@ -340,8 +340,8 @@ public class NhincConstants {
     public static final String NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME = "servicePatientDiscoveryAsyncReq";
     public static final String NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME = "servicePatientDiscoveryAsyncResp";
     public static final String PATIENT_DISCOVERY_SERVICE_NAME = "PatientDiscovery";
-    public static final String PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME = "PatientDiscoveryAsyncReq";
-    public static final String PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME = "PatientDiscoveryAsyncResp";
+    public static final String PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME = "PatientDiscoveryDeferredReq";
+    public static final String PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME = "PatientDiscoveryDeferredResp";
     public static final String PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY = "patientDiscoveryPassthrough";
     public static final String PATIENT_DISCOVERY_SERVICE_ASYNC_REQ_PASSTHRU_PROPERTY = "patientDiscoveryAsyncReqPassthrough";
     public static final String PATIENT_DISCOVERY_DISABLED_ACK_MSG = "Patient Discovery Service is not enabled";

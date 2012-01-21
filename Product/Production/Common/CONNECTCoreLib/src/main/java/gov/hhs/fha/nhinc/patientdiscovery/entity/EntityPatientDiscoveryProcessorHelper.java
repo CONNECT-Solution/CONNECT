@@ -68,7 +68,7 @@ public class EntityPatientDiscoveryProcessorHelper{
      * @param original is spec a1
      * @return EntityPatientDiscoveryOrchestratable_a0 with transformed a0 response
      */
-    public static EntityPatientDiscoveryOrchestratable_a0 transformResponse_a0(
+    public static EntityPatientDiscoveryOrchestratable_a0 transformResponse_ToA0(
             EntityPatientDiscoveryOrchestratable original){
 
         // currently a0 is same as a1
@@ -87,7 +87,7 @@ public class EntityPatientDiscoveryProcessorHelper{
      * @param original is spec a0
      * @return EntityPatientDiscoveryOrchestratable_a1 with transformed a1 response
      */
-    public static EntityPatientDiscoveryOrchestratable_a1 transformResponse_a1(
+    public static EntityPatientDiscoveryOrchestratable_a1 transformResponse_ToA1(
             EntityPatientDiscoveryOrchestratable original){
 
         // currently a0 is same as a1

@@ -219,8 +219,8 @@ public class InternalConnectionInfoFileConverter {
 		System.out.println("Converting   to: " + outFileName);
 		try {
 			instance.convert(new File(inFileName), new File(outFileName));
-			InternalConnectionInfoDAOFileImpl.getInstance().loadBusinessDetail();
-			
+			//InternalConnectionInfoDAOFileImpl.getInstance().loadBusinessDetail();
+			System.out.println("Done.");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

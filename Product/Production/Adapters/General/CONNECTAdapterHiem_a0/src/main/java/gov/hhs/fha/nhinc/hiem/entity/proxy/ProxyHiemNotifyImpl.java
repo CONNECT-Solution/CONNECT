@@ -85,7 +85,7 @@ public class ProxyHiemNotifyImpl
 //
 //        try
 //        {
-//            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_PROXY_SERVICE_NAME_SECURED);
+//            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_PROXY_SERVICE_NAME_SECURED);
 //        }
 //        catch (Exception ex)
 //        {

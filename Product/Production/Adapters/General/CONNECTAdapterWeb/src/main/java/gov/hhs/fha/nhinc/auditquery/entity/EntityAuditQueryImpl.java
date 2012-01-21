@@ -35,7 +35,7 @@ public class EntityAuditQueryImpl {
 
         try
         {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ENTITY_AUDIT_QUERY_SECURED_SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ENTITY_AUDIT_QUERY_SECURED_SERVICE_NAME);
 
             EntityAuditLogQuerySamlPortType port = getPort(url);
 

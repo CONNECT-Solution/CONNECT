@@ -131,7 +131,7 @@ public class NhinSubjectDiscoveryWebServiceProxy implements NhinSubjectDiscovery
 
         if (target != null) {
             try {
-                url = ConnectionManagerCache.getEndpontURLFromNhinTarget(target, NhincConstants.SUBJECT_DISCOVERY_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, NhincConstants.SUBJECT_DISCOVERY_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.SUBJECT_DISCOVERY_SERVICE_NAME);
                 log.error(ex.getMessage());

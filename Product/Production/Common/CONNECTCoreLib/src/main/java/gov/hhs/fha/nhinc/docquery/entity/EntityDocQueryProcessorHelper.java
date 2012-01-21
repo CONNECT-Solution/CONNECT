@@ -103,7 +103,7 @@ public class EntityDocQueryProcessorHelper{
      * @param original is spec a1
      * @return EntityDocQueryOrchestratable_a0 with transformed a0 response
      */
-    public static EntityDocQueryOrchestratable_a0 transformResponse_a0(
+    public static EntityDocQueryOrchestratable_a0 transformResponse_ToA0(
             EntityDocQueryOrchestratable original){
 
         EntityDocQueryOrchestratable_a0 response_a0 = new EntityDocQueryOrchestratable_a0();
@@ -119,7 +119,7 @@ public class EntityDocQueryProcessorHelper{
      * @param original is spec a0
      * @return EntityDocQueryOrchestratable_a1 with transformed a1 response
      */
-    public static EntityDocQueryOrchestratable_a1 transformResponse_a1(
+    public static EntityDocQueryOrchestratable_a1 transformResponse_ToA1(
             EntityDocQueryOrchestratable original){
 
         EntityDocQueryOrchestratable_a1 response_a1 = new EntityDocQueryOrchestratable_a1();

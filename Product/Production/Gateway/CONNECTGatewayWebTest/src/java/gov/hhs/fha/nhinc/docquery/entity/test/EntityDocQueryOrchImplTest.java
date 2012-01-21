@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
-import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImplRuntimeTest;
+//import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImplRuntimeTest;
 import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryHelper;
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -17,7 +17,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -81,7 +82,7 @@ public class EntityDocQueryOrchImplTest{
         log.debug("Entering EntityDocQueryOrchImplTest.respondingGatewayCrossGatewayQuery...");
 
         AdhocQueryResponse response = null;
-        CMUrlInfos urlInfoList = null;
+        List<UrlInfo> urlInfoList = null;
         boolean isTargeted = false;
 
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
@@ -99,7 +100,7 @@ public class EntityDocQueryOrchImplTest{
 
             // Obtain all the URLs for the targets being sent to
             try{
-                urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
+                urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
             }catch(Exception ex){
                 log.error("Failed to obtain target URLs", ex);
             }
@@ -128,10 +129,11 @@ public class EntityDocQueryOrchImplTest{
                         subject.setSubjectIdentifier(uniquePatientId);
                         testList.add(subject);
                     }
-                    EntityDocQueryOrchImplRuntimeTest orchestrator =
-                            new EntityDocQueryOrchImplRuntimeTest(regularExecutor, largejobExecutor);
-                    response = orchestrator.entityDocQueryOrchImplFanoutTest(
-                            adhocQueryRequest, assertion, testList);
+//                    EntityDocQueryOrchImplRuntimeTest was removed from core lib
+//                    EntityDocQueryOrchImplRuntimeTest orchestrator =
+//                            new EntityDocQueryOrchImplRuntimeTest(regularExecutor, largejobExecutor);
+//                    response = orchestrator.entityDocQueryOrchImplFanoutTest(
+//                            adhocQueryRequest, assertion, testList);
                 }else{
                     // just do normal test
                     EntityDocQueryOrchImpl orchestrator = new EntityDocQueryOrchImpl(

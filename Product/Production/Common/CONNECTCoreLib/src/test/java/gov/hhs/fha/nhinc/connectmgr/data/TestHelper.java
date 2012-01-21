@@ -71,7 +71,7 @@ public class TestHelper {
         return instance;
     }
 
-     public static boolean assertBusinessEntityEmpty (CMBusinessEntity busEntity) {
+      public static boolean assertBusinessEntityEmpty (CMBusinessEntity busEntity) {
         if (busEntity.getHomeCommunityId().equals("") &&
                 busEntity.getBusinessKey().equals("") &&
                 busEntity.getPublicKey().equals("") &&
@@ -101,5 +101,4 @@ public class TestHelper {
        }
        return false;
     }
-
 }

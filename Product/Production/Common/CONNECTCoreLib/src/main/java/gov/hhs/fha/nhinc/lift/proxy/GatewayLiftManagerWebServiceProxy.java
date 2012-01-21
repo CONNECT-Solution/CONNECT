@@ -45,7 +45,7 @@ public class GatewayLiftManagerWebServiceProxy implements GatewayLiftManagerProx
     public StartLiftTransactionResponseType startLiftTransaction(StartLiftTransactionRequestType startLiftTransactionRequest) {
         String url = null;
         try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.LIFT_MANAGER_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.LIFT_MANAGER_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.LIFT_MANAGER_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());
@@ -59,7 +59,7 @@ public class GatewayLiftManagerWebServiceProxy implements GatewayLiftManagerProx
     public CompleteLiftTransactionResponseType completeLiftTransaction(CompleteLiftTransactionRequestType completeLiftTransactionRequest) {
                 String url = null;
         try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.LIFT_MANAGER_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.LIFT_MANAGER_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.LIFT_MANAGER_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());
@@ -73,7 +73,7 @@ public class GatewayLiftManagerWebServiceProxy implements GatewayLiftManagerProx
     public FailedLiftTransactionResponseType failedLiftTransaction(FailedLiftTransactionRequestType failedLiftTransactionRequest) {
                 String url = null;
         try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.LIFT_MANAGER_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.LIFT_MANAGER_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.LIFT_MANAGER_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());

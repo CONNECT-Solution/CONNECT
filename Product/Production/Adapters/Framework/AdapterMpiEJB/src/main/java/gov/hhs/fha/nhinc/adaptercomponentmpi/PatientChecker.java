@@ -62,7 +62,7 @@ public class PatientChecker {
 
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_COMMON_DATA_LAYER_SERVICE);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_COMMON_DATA_LAYER_SERVICE);
                 }
                 catch (Exception e) {
                     log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_COMMON_DATA_LAYER_SERVICE +

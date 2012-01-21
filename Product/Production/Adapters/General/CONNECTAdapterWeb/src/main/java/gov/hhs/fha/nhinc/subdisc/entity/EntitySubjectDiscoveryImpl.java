@@ -41,7 +41,7 @@ public class EntitySubjectDiscoveryImpl {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
         try {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ENTITY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ENTITY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
 
             EntitySubjectDiscoverySecuredPortType port = getPort(url);
 
@@ -66,7 +66,7 @@ public class EntitySubjectDiscoveryImpl {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
         try {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ENTITY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ENTITY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
 
             EntitySubjectDiscoverySecuredPortType port = getPort(url);
 
@@ -96,7 +96,7 @@ public class EntitySubjectDiscoveryImpl {
         PIXConsumerPRPAIN201309UVResponseType response = new PIXConsumerPRPAIN201309UVResponseType();
 
         try {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ENTITY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ENTITY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
 
             EntitySubjectDiscoverySecuredPortType port = getPort(url);
 

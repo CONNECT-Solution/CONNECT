@@ -40,7 +40,7 @@ public class AdapterSubjectDiscoveryImpl {
 
         try
         {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
             AdapterSubjectDiscoverySecuredPortType port = getPort(url);
 
             AssertionType assertIn = pixConsumerPRPAIN201301UVRequest.getAssertion();
@@ -63,7 +63,7 @@ public class AdapterSubjectDiscoveryImpl {
 
                 try
         {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
             AdapterSubjectDiscoverySecuredPortType port = getPort(url);
 
             AssertionType assertIn = pixConsumerPRPAIN201302UVRequest.getAssertion();
@@ -94,7 +94,7 @@ public class AdapterSubjectDiscoveryImpl {
 
                 try
         {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
             AdapterSubjectDiscoverySecuredPortType port = getPort(url);
 
             AssertionType assertIn = pixConsumerPRPAIN201309UVRequest.getAssertion();

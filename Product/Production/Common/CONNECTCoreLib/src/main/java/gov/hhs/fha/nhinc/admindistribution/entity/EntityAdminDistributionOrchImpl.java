@@ -10,6 +10,8 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.entity;
 
+import java.util.List;
+
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -19,11 +21,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxy;
 import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyObjectFactory;
@@ -46,12 +47,12 @@ public class EntityAdminDistributionOrchImpl {
             NhinTargetCommunitiesType target) {
         logEntityAdminDist(message, assertion);
 
-        CMUrlInfos urlInfoList = getEndpoints(target);
+        List<UrlInfo> urlInfoList = getEndpoints(target);
 
-        if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
+        if ((urlInfoList == null) || (urlInfoList.isEmpty())) {
             log.warn("No targets were found for the Admin Distribution Request");
         } else {
-            for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
+            for (UrlInfo urlInfo : urlInfoList) {
                 //create a new request to send out to each target community
                 log.debug("Target: " + urlInfo.getHcid());
                 //check the policy for the outgoing request to the target community
@@ -68,7 +69,7 @@ public class EntityAdminDistributionOrchImpl {
         }
     }
 
-    private NhinTargetSystemType buildTargetSystem(CMUrlInfo urlInfo) {
+    private NhinTargetSystemType buildTargetSystem(UrlInfo urlInfo) {
         log.debug("Begin buildTargetSystem");
         NhinTargetSystemType result = new NhinTargetSystemType();
         HomeCommunityType hc = new HomeCommunityType();
@@ -114,11 +115,11 @@ public class EntityAdminDistributionOrchImpl {
         log.debug("End logEntityAdminDist()");
     }
 
-    protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities) {
-        CMUrlInfos urlInfoList = null;
+    protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {
+    	List<UrlInfo> urlInfoList = null;
 
         try {
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
                     targetCommunities, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs", ex);

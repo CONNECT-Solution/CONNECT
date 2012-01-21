@@ -87,7 +87,7 @@ public class ConfigurationManager {
     public String getEntityNotificationConsumerAddress() throws ConfigurationException {
         String url = null;
         try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             throw new ConfigurationException("Unable to determine EntityNotificationConsumerAddress", ex);
         }

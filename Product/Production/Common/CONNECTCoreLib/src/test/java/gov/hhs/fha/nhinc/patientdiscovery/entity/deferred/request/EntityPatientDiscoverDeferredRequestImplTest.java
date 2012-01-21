@@ -1,12 +1,14 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.patientdiscovery.testhelper.TestHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
@@ -66,14 +68,14 @@ public class EntityPatientDiscoverDeferredRequestImplTest
         {
 
             @Override
-            protected CMUrlInfos getTargets(NhinTargetCommunitiesType targetCommunities)
+            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities)
             {
-                CMUrlInfos urlInfo = new CMUrlInfos();
+                List<UrlInfo> urlInfo = new ArrayList<UrlInfo>();
 
-                CMUrlInfo target = new CMUrlInfo();
+                UrlInfo target = new UrlInfo();
                 target.setHcid("2.2");
                 target.setUrl("https://test.com:8181/NhinPatientDiscoveryAsync");
-                urlInfo.getUrlInfo().add(target);
+                urlInfo.add(target);
 
                 return urlInfo;
             }
@@ -85,7 +87,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, CMUrlInfo urlInfo)
+            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo)
             {
                 return HL7AckTransforms.createAckFrom201305(request, "Success");
             }
@@ -191,7 +193,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest
         {
 
             @Override
-            protected CMUrlInfos getTargets(NhinTargetCommunitiesType targetCommunities)
+            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities)
             {
                 return null;
             }
@@ -203,7 +205,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, CMUrlInfo urlInfo)
+            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo)
             {
                 return HL7AckTransforms.createAckFrom201305(request, "Success");
             }
@@ -309,14 +311,14 @@ public class EntityPatientDiscoverDeferredRequestImplTest
         {
 
             @Override
-            protected CMUrlInfos getTargets(NhinTargetCommunitiesType targetCommunities)
+            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities)
             {
-                CMUrlInfos urlInfo = new CMUrlInfos();
+                List<UrlInfo> urlInfo = new ArrayList<UrlInfo>();
 
-                CMUrlInfo target = new CMUrlInfo();
+                UrlInfo target = new UrlInfo();
                 target.setHcid("2.2");
                 target.setUrl("https://test.com:8181/NhinPatientDiscoveryAsync");
-                urlInfo.getUrlInfo().add(target);
+                urlInfo.add(target);
 
                 return urlInfo;
             }
@@ -328,7 +330,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, CMUrlInfo urlInfo)
+            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo)
             {
                 return HL7AckTransforms.createAckFrom201305(request, "Success");
             }

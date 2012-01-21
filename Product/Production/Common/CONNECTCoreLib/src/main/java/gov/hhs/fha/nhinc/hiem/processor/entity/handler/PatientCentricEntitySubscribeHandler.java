@@ -25,8 +25,9 @@ import java.util.List;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
@@ -48,7 +49,7 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
     public SubscribeResponse handleSubscribe(TopicConfigurationEntry topicConfig, Subscribe subscribe, Element subscribeElement, AssertionType assertion, NhinTargetCommunitiesType targetCommunitites) throws TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault {
         log.debug("In handleSubscribe - patient id: " + patientIdentifier.getSubjectIdentifier() + ", assigning authority: " + patientIdentifier.getAssigningAuthorityIdentifier());
         SubscribeResponse response = new SubscribeResponse();
-        CMUrlInfos urlInfoList = null;
+        List<UrlInfo> urlInfoList = null;
 
         // Store initial subscription received from agency adapter (the parent subscription)
         EndpointReferenceType parentSubscriptionReference = storeSubscription(subscribe, subscribeElement, assertion, targetCommunitites);
@@ -59,7 +60,7 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunitites, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunitites, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs");
             return null;
@@ -75,7 +76,7 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
             log.debug("Processing correlation #" + correlationCount++);
             AssigningAuthorityHomeCommunityMappingDAO assigningAuthorityDao = new AssigningAuthorityHomeCommunityMappingDAO();
             for (QualifiedSubjectIdentifierType correlation : correlations) {
-                CMUrlInfo community = new CMUrlInfo();
+                UrlInfo community = new UrlInfo();
                 String remoteCommunityId = assigningAuthorityDao.getHomeCommunityId(correlation.getAssigningAuthorityIdentifier());
                 if (log.isDebugEnabled()) {
                     log.debug("Remote assigning authority id: " + correlation.getAssigningAuthorityIdentifier());
@@ -136,13 +137,13 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
         return response;
     }
 
-    private List<QualifiedSubjectIdentifierType> determineTargets(CMUrlInfos targets) {
+    private List<QualifiedSubjectIdentifierType> determineTargets(List<UrlInfo> targets) {
         List<QualifiedSubjectIdentifierType> correlations = new ArrayList<QualifiedSubjectIdentifierType>();
         RetrievePatientCorrelationsRequestType request = new RetrievePatientCorrelationsRequestType();
         request.setQualifiedPatientIdentifier(patientIdentifier);
 
-        if ((targets != null) && (NullChecker.isNotNullish(targets.getUrlInfo()))) {
-            for (CMUrlInfo targetCommunity : targets.getUrlInfo()) {
+        if ((targets != null) && (NullChecker.isNotNullish(targets))) {
+            for (UrlInfo targetCommunity : targets) {
                 request.getTargetHomeCommunity().add(targetCommunity.getHcid());
             }
         }
@@ -172,10 +173,10 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
         return correlations;
     }
 
-    private CMUrlInfo findTarget (String hcid, CMUrlInfos urlInfoList) {
-        CMUrlInfo target = null;
+    private UrlInfo findTarget (String hcid, List<UrlInfo> urlInfoList) {
+        UrlInfo target = null;
 
-        for (CMUrlInfo entry : urlInfoList.getUrlInfo()) {
+        for (UrlInfo entry : urlInfoList) {
             if (entry.getHcid().equalsIgnoreCase(hcid)) {
                 target = entry;
             }

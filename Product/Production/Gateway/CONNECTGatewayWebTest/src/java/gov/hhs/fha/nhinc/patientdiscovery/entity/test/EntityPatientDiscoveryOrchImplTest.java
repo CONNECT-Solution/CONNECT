@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 
 import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImplRuntimeTest;
+//import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImplRuntimeTest;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
@@ -101,23 +102,24 @@ public class EntityPatientDiscoveryOrchImplTest{
         try{
             String transactionId = (UUID.randomUUID()).toString();
 
-            List<CMUrlInfo> pdlist = new ArrayList<CMUrlInfo>();
+            List<UrlInfo> pdlist = new ArrayList<UrlInfo>();
             // for test we generate the pdlist rather than using urlInfoList which
             // is list from internalConnectionInfo.xml config
             if(isTest){
                 log.debug("EntityPatientDiscoveryOrchImplTest running test");
                 for(int i = 0; i < requestCount; i++){
-                    CMUrlInfo urlInfo = new CMUrlInfo();
+                    UrlInfo urlInfo = new UrlInfo();
                     urlInfo.setUrl(testServiceUrl);
                     urlInfo.setHcid(PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                         NhincConstants.HOME_COMMUNITY_ID_PROPERTY));
                     pdlist.add(urlInfo);
                 }
-                EntityPatientDiscoveryOrchImplRuntimeTest orchestrator =
-                        new EntityPatientDiscoveryOrchImplRuntimeTest(
-                        regularExecutor, largejobExecutor);
-                response = orchestrator.entityPatientDiscoveryOrchImplFanoutTest(
-                        request, assertion, pdlist);
+//                EntityPatientDiscoveryOrchImplRuntimeTest was removed from core lib
+//                EntityPatientDiscoveryOrchImplRuntimeTest orchestrator =
+//                        new EntityPatientDiscoveryOrchImplRuntimeTest(
+//                        regularExecutor, largejobExecutor);
+//                response = orchestrator.entityPatientDiscoveryOrchImplFanoutTest(
+//                        request, assertion, pdlist);
             }else{
                 // just do normal test
                 EntityPatientDiscoveryOrchImpl orchestrator = new EntityPatientDiscoveryOrchImpl(
@@ -139,10 +141,10 @@ public class EntityPatientDiscoveryOrchImplTest{
     }
 
 
-    protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities){
-        CMUrlInfos urlInfoList = null;
+    protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities){
+        List<UrlInfo> urlInfoList = null;
         try{
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         }catch (ConnectionManagerException ex){
             log.error("Failed to obtain target URLs", ex);
         }

@@ -53,7 +53,7 @@ public class RetrieveDocumentsDeferredReqQueueClient {
         try {
             String sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
-            String endpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunity, NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME);
+            String endpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunity, NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME);
 
             if (endpointURL != null && !endpointURL.isEmpty()) {
                 AdapterDocRetrieveDeferredReqQueueProcessPortType port = service.getAdapterDocRetrieveDeferredReqQueueProcessPort();

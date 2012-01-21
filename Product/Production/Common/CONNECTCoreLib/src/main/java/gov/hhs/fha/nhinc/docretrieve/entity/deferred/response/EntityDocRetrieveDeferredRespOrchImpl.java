@@ -12,9 +12,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+
+
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredPolicyChecker;
 import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxyObjectFactory;
@@ -26,6 +27,8 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.sql.Timestamp;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -79,7 +82,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
         try {
             if (null != response && (null != assertion) && (null != target)) {
                 auditLog.auditDocRetrieveDeferredResponse(retrieveDocumentSetResponseTypeCopy, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, assertion, homeCommunityId);
-                CMUrlInfos urlInfoList = getEndpoints(target);
+                List<UrlInfo> urlInfoList = getEndpoints(target);
                 NhinTargetSystemType oTargetSystem = null;
 
                 // Log the start of the performance record
@@ -87,7 +90,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
                 Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, "Deferred"+NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
 
                 //loop through the communities and send request if results were not null
-                if ((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())) {
+                if ((urlInfoList == null) || (urlInfoList.isEmpty())) {
                     ackMessage = "No targets were found for the Document retrieve deferred Response service.";
                     log.warn(ackMessage);
                     nhinResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
@@ -98,7 +101,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
                     PassthruDocRetrieveDeferredRespProxyObjectFactory objFactory = new PassthruDocRetrieveDeferredRespProxyObjectFactory();
                     PassthruDocRetrieveDeferredRespProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredRespProxy();
                     DocRetrieveDeferredPolicyChecker policyCheck = new DocRetrieveDeferredPolicyChecker();
-                    for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
+                    for (UrlInfo urlInfo : urlInfoList) {
                         // Call NHIN proxy
                         oTargetSystem = new NhinTargetSystemType();
                         oTargetSystem.setUrl(urlInfo.getUrl());
@@ -141,12 +144,12 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
     /**
      *
      * @param targetCommunities
-     * @return CMUrlInfos
+     * @return List<UrlInfo>
      */
-    protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities) {
-        CMUrlInfos urlInfoList = null;
+    protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {
+        List<UrlInfo> urlInfoList = null;
         try {
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs", ex);
         }

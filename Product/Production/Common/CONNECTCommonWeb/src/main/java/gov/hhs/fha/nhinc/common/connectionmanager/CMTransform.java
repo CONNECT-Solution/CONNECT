@@ -70,12 +70,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.EPRType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CreateEPRRequestType;
 
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.net.URL;
 import java.util.ArrayList;
 
 import javax.xml.namespace.QName;
 
+import org.uddi.api_v3.BusinessEntity;
 import org.xmlsoap.schemas.ws._2004._08.addressing.EndpointReferenceType;
 import org.xmlsoap.schemas.ws._2004._08.addressing.AttributedURI;
 import org.xmlsoap.schemas.ws._2004._08.addressing.ServiceNameType;
@@ -1109,5 +1111,75 @@ public class CMTransform
         }
         return homeCommId;
     }
-    
+
+        /**
+     * Transform the information in a list of CMHomeCommunity objects to the web service representation
+     * of these data types.
+     *
+     * @param oaCMHomeCommunity The POJO home community information.
+     * @return The Web service representation of the information.
+     */
+    public static HomeCommunitiesType transformBusinessEntityListToHomeCommunitiesType(List<BusinessEntity> businessEntities)
+    {
+        HomeCommunitiesType homeCommunities = new HomeCommunitiesType();
+
+        if (businessEntities != null)
+        {
+            for (BusinessEntity businessEntity : businessEntities)
+            {
+
+                HomeCommunityType homeCommunity = transformBusinessEntityToHomeCommunityType(businessEntity);
+
+                if (homeCommunity != null)
+                {
+                    homeCommunities.getHomeCommunity().add(homeCommunity);
+                }
+            }   // for (CMHomeCommunity oCommunity : oaHomeCommunity)
+        }
+
+        if (homeCommunities.getHomeCommunity().size() > 0)
+        {
+            return homeCommunities;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * Transform a POJO representation of a CMHomeCommunity to the web service represenation.
+     *
+     * @param oCMHomeCommunity The POJO representation.
+     * @return The web service representation.
+     */
+    public static HomeCommunityType transformBusinessEntityToHomeCommunityType(BusinessEntity businessEntity)
+    {
+        HomeCommunityType homeCommunity = new HomeCommunityType();
+
+        if (businessEntity == null)
+        {
+            return null;
+        }
+
+        String name = "";
+        if ((businessEntity.getName() != null) &&
+            (businessEntity.getName().size() > 0)) {
+            name = businessEntity.getName().get(0).getValue();
+        }
+
+        String description = "";
+        if ((businessEntity.getDescription() != null) &&
+            (businessEntity.getDescription().size() > 0)) {
+            description = businessEntity.getDescription().get(0).getValue();
+        }
+
+        // TODO: Is the HCID correct?  Do we need to trim it?
+        homeCommunity.setName(name);
+        homeCommunity.setDescription(description);
+        homeCommunity.setHomeCommunityId(ConnectionManagerCache.getInstance().getCommunityId(businessEntity));
+
+        return homeCommunity;
+    }
+
 }

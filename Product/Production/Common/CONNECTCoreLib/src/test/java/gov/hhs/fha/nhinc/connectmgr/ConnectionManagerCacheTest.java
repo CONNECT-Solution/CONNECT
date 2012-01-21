@@ -118,12 +118,12 @@ public class ConnectionManagerCacheTest {
 
         AccessPoint accessPoint = new AccessPoint();
         accessPoint.setValue(ENDPOINT_URL_VALUE);
-        
+
         KeyedReference uddiSpecKey = new KeyedReference();
         uddiSpecKey.setTModelKey("uddi:nhin:versionofservice");
         uddiSpecKey.setKeyName("");
         uddiSpecKey.setKeyValue(UDDI_SPEC_VERSION.SPEC_1_0.toString());
-        
+
         KeyedReference adapterKey = new KeyedReference();
         adapterKey.setTModelKey("apiLevel");
         adapterKey.setKeyName("");
@@ -137,7 +137,7 @@ public class ConnectionManagerCacheTest {
         bindingTemplate.setCategoryBag(versionCategoryBag);
         bindingTemplates.getBindingTemplate().add(bindingTemplate);
         bService.setBindingTemplates(bindingTemplates);
-    
+
         KeyedReference hcidKey = new KeyedReference();
         hcidKey.setTModelKey("uddi:nhin:nhie:homecommunityid");
         hcidKey.setKeyName("");
@@ -152,14 +152,14 @@ public class ConnectionManagerCacheTest {
         CategoryBag stateCategoryBag = new CategoryBag();
         stateCategoryBag.getKeyedReference().add(stateKey);
 
-        
+
         bDetail.getBusinessEntity().add(bEntity);
         bEntity.setBusinessKey("uddi:testnhincnode:1.1");
         bEntity.setBusinessServices(new BusinessServices());
         bEntity.getBusinessServices().getBusinessService().add(bService);
         bEntity.setIdentifierBag(hcidIdentifierBag);
         bEntity.setCategoryBag(stateCategoryBag);
-      
+
         return bDetail;
     }
 
@@ -177,11 +177,11 @@ public class ConnectionManagerCacheTest {
 
         UddiConnectionInfoDAOFileImpl uddiDAO = connectionManager.getUddiConnectionManagerDAO();
         assertNotNull(uddiDAO);
-        
+
         InternalConnectionInfoDAOFileImpl internalDAO = connectionManager.getInternalConnectionManagerDAO();
         assertNotNull(internalDAO);
     }
-    
+
     @Test
     public void testGetAllCommunities_NullBusinessDetail() {
         try {
@@ -298,7 +298,7 @@ public class ConnectionManagerCacheTest {
                     exactly(1).of(mockInternalDAO).getLastModified(); will(returnValue(0L));
                 }
             });
-            
+
             List<BusinessEntity> communities = connectionManager.getAllBusinessEntities();
             assertEquals(0, communities.size(), 0);
 
@@ -397,7 +397,7 @@ public class ConnectionManagerCacheTest {
             fail("Error running testRefreshIfExpired test: " + t.getMessage());
         }
     }
-    
+
     @Test
     public void testGetBusinessEntity() {
         try {
@@ -473,7 +473,7 @@ public class ConnectionManagerCacheTest {
     public void testGetLocalEndpointURLByServiceName() {
         try {
             ConnectionManagerCache2 connectionManager = createConnectionManagerWithExpectations();
-            
+
             String url = connectionManager.getLocalEndpointURLByServiceName(SERVICE_NAME_VALUE);
             assertTrue(url.equals(ENDPOINT_URL_VALUE));
 
@@ -584,5 +584,5 @@ public class ConnectionManagerCacheTest {
         }
 
     }
-    
+
 }

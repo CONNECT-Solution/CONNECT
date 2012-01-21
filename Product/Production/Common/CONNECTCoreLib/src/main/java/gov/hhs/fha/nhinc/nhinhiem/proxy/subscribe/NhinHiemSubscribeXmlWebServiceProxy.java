@@ -154,7 +154,7 @@ public class NhinHiemSubscribeXmlWebServiceProxy implements NhinHiemSubscribePro
         String url = null;
         try
         {
-            url = ConnectionManagerCache.getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
         }
         catch (ConnectionManagerException ex)
         {

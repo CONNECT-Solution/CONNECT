@@ -6,6 +6,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue;
 
+import java.util.List;
+
 import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
@@ -15,8 +17,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxy;
@@ -112,18 +114,18 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
     protected MCCIIN000002UV01 sendToNhin(PRPAIN201306UV02 respMsg, AssertionType assertion, NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-        CMUrlInfos urlInfoList = null;
+        java.util.List<UrlInfo> urlInfoList = null;
 
         if (targets != null) {
             urlInfoList = getTargets(targets);
         }
 
         if (urlInfoList != null &&
-                NullChecker.isNotNullish(urlInfoList.getUrlInfo()) &&
-                urlInfoList.getUrlInfo().get(0) != null &&
-                NullChecker.isNotNullish(urlInfoList.getUrlInfo().get(0).getUrl())) {
+                NullChecker.isNotNullish(urlInfoList) &&
+                urlInfoList.get(0) != null &&
+                NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
 
-            targetSystem.setUrl(urlInfoList.getUrlInfo().get(0).getUrl());
+            targetSystem.setUrl(urlInfoList.get(0).getUrl());
 
             PassthruPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryDeferredRespProxyObjectFactory();
             PassthruPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.getPassthruPatientDiscoveryDeferredRespProxy();
@@ -135,14 +137,15 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         return resp;
     }
 
-    protected CMUrlInfos getTargets(NhinTargetCommunitiesType targetCommunities) {
-        CMUrlInfos urlInfoList = null;
+    protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities) {
+        List<UrlInfo> urlInfoList = null;
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
+
         } catch (ConnectionManagerException ex) {
-            log.error("Failed to obtain target URLs for service " + NhincConstants.PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME);
+            log.error("Failed to obtain target URLs for service " + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
             return null;
         }
 

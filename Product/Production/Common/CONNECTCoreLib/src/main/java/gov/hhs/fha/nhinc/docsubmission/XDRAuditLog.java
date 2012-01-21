@@ -6,14 +6,11 @@
  */
 package gov.hhs.fha.nhinc.docsubmission;
 
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;

@@ -106,7 +106,7 @@ public class AdapterDocRegistry2Soap12Client
             // Get the real endpoint URL for this service.
             //--------------------------------------------
             //Note, set the sEndpointURL to null and comment out the ConnectionMangerCache logic if running outside of GF.
-            String sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(ADAPTER_XDS_REG_SERVICE_NAME);
+            String sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(ADAPTER_XDS_REG_SERVICE_NAME);
 
             if ((sEndpointURL == null) ||
                 (sEndpointURL.length() <= 0))

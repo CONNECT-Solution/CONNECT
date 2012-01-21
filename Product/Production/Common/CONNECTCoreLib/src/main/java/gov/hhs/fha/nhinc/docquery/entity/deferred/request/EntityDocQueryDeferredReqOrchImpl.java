@@ -15,9 +15,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryHelper;
@@ -62,16 +62,15 @@ public class EntityDocQueryDeferredReqOrchImpl {
         DocQueryAcknowledgementType nhincResponse = new DocQueryAcknowledgementType();
         String targetCommunityHcid = "";
         String ackMsg = "";
-        boolean bIsQueueOk = false;
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
 
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
         auditLog.auditDQRequest(message, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         try {
-            CMUrlInfos urlInfoList = getEndpoints(target);
+            List<UrlInfo> urlInfoList = getEndpoints(target);
 
-            if (urlInfoList != null && NullChecker.isNotNullish(urlInfoList.getUrlInfo())) {
+            if (urlInfoList != null && NullChecker.isNotNullish(urlInfoList)) {
 
                 // Log the start of the performance record
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
@@ -81,7 +80,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
                 EntityDocQueryHelper helper = new EntityDocQueryHelper();
                 DocumentQueryTransform transform = new DocumentQueryTransform();
 
-                for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
+                for (UrlInfo urlInfo : urlInfoList) {
                     //create a new request to send out to each target community
                     if (log.isDebugEnabled()) {
                         log.debug(String.format("Target: {0}", urlInfo.getHcid()));
@@ -187,10 +186,10 @@ public class EntityDocQueryDeferredReqOrchImpl {
      * @return Returns the endpoints for given target communities
      * @throws ConnectionManagerException
      */
-    protected CMUrlInfos getEndpoints(final NhinTargetCommunitiesType targetCommunities) throws ConnectionManagerException {
-        CMUrlInfos urlInfoList = null;
+    protected List<UrlInfo> getEndpoints(final NhinTargetCommunitiesType targetCommunities) throws ConnectionManagerException {
+        List<UrlInfo> urlInfoList = null;
 
-        urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(
+        urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
                 targetCommunities, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
 
         return urlInfoList;
@@ -217,7 +216,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
      * @param urlInfo
      * @return NhinTargetSystemType for given urlInfo
      */
-    protected NhinTargetSystemType buildTargetSystem(final CMUrlInfo urlInfo) {
+    protected NhinTargetSystemType buildTargetSystem(final UrlInfo urlInfo) {
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         targetSystem.setUrl(urlInfo.getUrl());
         return targetSystem;

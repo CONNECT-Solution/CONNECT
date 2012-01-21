@@ -125,8 +125,8 @@ public class WebServiceProxyHelper {
 	protected String getEndPointFromConnectionManagerByGatewayAPILevel(
 			NhinTargetSystemType oTargetSystem, String sServiceName,
 			GATEWAY_API_LEVEL level) throws ConnectionManagerException {
-		return ConnectionManagerCache.getEndpontURLFromNhinTarget(
-				oTargetSystem, sServiceName, level);
+		return ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(
+				oTargetSystem, sServiceName);
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class WebServiceProxyHelper {
 	protected String getEndPointFromConnectionManagerByAdapterAPILevel(
 			String sServiceName, ADAPTER_API_LEVEL level)
 			throws ConnectionManagerException {
-		return ConnectionManagerCache.getAdapterEndpontURL(sServiceName, level);
+		return ConnectionManagerCache.getInstance().getAdapterEndpontURL(sServiceName, level);
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class WebServiceProxyHelper {
 	 */
 	protected String getEndPointFromConnectionManager(String sHomeCommunityId,
 			String sServiceName) throws ConnectionManagerException {
-		return ConnectionManagerCache.getEndpointURLByServiceName(
+		return ConnectionManagerCache.getInstance().getEndpointURLByServiceName(
 				sHomeCommunityId, sServiceName);
 	}
 
@@ -177,7 +177,7 @@ public class WebServiceProxyHelper {
 	 */
 	protected String getLocalEndPointFromConnectionManager(String sServiceName)
 			throws ConnectionManagerException {
-		return ConnectionManagerCache
+		return ConnectionManagerCache.getInstance()
 				.getLocalEndpointURLByServiceName(sServiceName);
 	}
 

@@ -114,8 +114,8 @@ public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl implemen
             if (request != null)
             {
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
-                log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME + " is: " + url);
+                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+                log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url))
                 {
@@ -124,17 +124,17 @@ public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl implemen
                 }
                 else
                 {
-                    log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME + ").  The URL is null.");
+                    log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ").  The URL is null.");
                 }
             }
             else
             {
-                log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME + ").  The input parameter is null.");
+                log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ").  The input parameter is null.");
             }
         }
         catch (Exception e)
         {
-            log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME + ").  An unexpected exception occurred.  " +
+            log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ").  An unexpected exception occurred.  " +
                       "Exception: " + e.getMessage(), e);
         }
 

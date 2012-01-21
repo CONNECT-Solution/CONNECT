@@ -13,8 +13,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
@@ -26,6 +27,8 @@ import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.sql.Timestamp;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
@@ -64,7 +67,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion, NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         String ackMsg = "";
-        CMUrlInfos urlInfoList = null;
+        List<UrlInfo> urlInfoList = null;
         PatientDiscovery201305Processor pd201305Processor = getPatientDiscovery201305Processor();
 
         if (message != null &&
@@ -88,7 +91,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
             // loop through the communities and send request if results were not null
             if (urlInfoList != null &&
-                    urlInfoList.getUrlInfo() != null) {
+                    urlInfoList != null) {
 
                 // Log the start of the performance record
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
@@ -103,7 +106,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                 PDDeferredCorrelationDao pdDeferredDao = getPDDeferredCorrelationDao();
                 pdDeferredDao.saveOrUpdate(messageId, patientId);
                 
-                for (CMUrlInfo urlInfo : urlInfoList.getUrlInfo()) {
+                for (UrlInfo urlInfo : urlInfoList) {
 
                     //create a new request to send out to each target community
                     RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
@@ -146,14 +149,14 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         return ack;
     }
 
-    protected CMUrlInfos getTargets(NhinTargetCommunitiesType targetCommunities) {
-        CMUrlInfos urlInfoList = null;
+    protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities) {
+        List<UrlInfo> urlInfoList = null;
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            log.error("Failed to obtain target URLs for service " + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME);
+            log.error("Failed to obtain target URLs for service " + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
             return null;
         }
 
@@ -164,7 +167,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         return new PatientDiscoveryPolicyChecker().checkOutgoingPolicy(request);
     }
 
-    protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, CMUrlInfo urlInfo) {
+    protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
 
         NhinTargetSystemType oTargetSystemType = new NhinTargetSystemType();

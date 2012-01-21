@@ -35,7 +35,7 @@ public class ProxyAuditQueryImpl {
 
         try
         {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHINC_PROXY_AUDIT_QUERY_SECURED_SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.NHINC_PROXY_AUDIT_QUERY_SECURED_SERVICE_NAME);
 
             NhincProxyAuditLogQuerySecuredPortType port = getPort(url);
 

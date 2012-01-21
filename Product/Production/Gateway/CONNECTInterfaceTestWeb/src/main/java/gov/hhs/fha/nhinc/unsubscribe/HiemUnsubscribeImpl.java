@@ -29,7 +29,12 @@ import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBindingTemplate;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
+
+import org.uddi.api_v3.BindingTemplate;
+import org.uddi.api_v3.BusinessEntity;
+import org.uddi.api_v3.BusinessService;
+import org.uddi.api_v3.BusinessServices;
+
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessService;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessServices;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
@@ -136,14 +141,14 @@ public class HiemUnsubscribeImpl {
     private String getEndpointUrl(String homeCommunityId, String serviceName) {
         String endpointUrl = null;
         try {
-            CMBusinessEntity businessEntity = ConnectionManagerCache.getBusinessEntityByServiceName(homeCommunityId, serviceName);
+            BusinessEntity businessEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(homeCommunityId, serviceName);
             if (businessEntity != null) {
-                CMBusinessServices businessServices = businessEntity.getBusinessServices();
+                BusinessServices businessServices = businessEntity.getBusinessServices();
                 if ((businessServices != null) && (businessServices.getBusinessService() != null)) {
-                    for (CMBusinessService businessService : businessServices.getBusinessService()) {
+                    for (BusinessService businessService : businessServices.getBusinessService()) {
                         if ((businessService.getBindingTemplates() != null) && (businessService.getBindingTemplates().getBindingTemplate() != null)) {
-                            for (CMBindingTemplate bindingTemplate : businessService.getBindingTemplates().getBindingTemplate()) {
-                                endpointUrl = bindingTemplate.getEndpointURL();
+                            for (BindingTemplate bindingTemplate : businessService.getBindingTemplates().getBindingTemplate()) {
+                                endpointUrl = bindingTemplate.getAccessPoint().getValue();
                                 break;
                             }
                             break;
@@ -166,7 +171,7 @@ public class HiemUnsubscribeImpl {
         try { // Call Web Service Operation
             log.debug("sending unsubscribe from test helper to adapter");
 
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(SERVICE_NAME);
             log.debug("url=" + url);
 
             log.debug("preparing port");

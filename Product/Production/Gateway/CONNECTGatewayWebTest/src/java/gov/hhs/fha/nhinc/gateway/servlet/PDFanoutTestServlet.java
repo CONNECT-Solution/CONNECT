@@ -20,7 +20,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -193,7 +193,7 @@ public class PDFanoutTestServlet extends HttpServlet{
 
     protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName)
             throws ConnectionManagerException{
-        return ConnectionManagerCache.getEndpontURLFromNhinTarget(oTargetSystem, sServiceName);
+        return ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(oTargetSystem, sServiceName);
     }
 
 
@@ -206,22 +206,22 @@ public class PDFanoutTestServlet extends HttpServlet{
 //            pd.setNhinTargetCommunities(null);
 //            pd.setAssertion(assertion);
 //
-//            PDProcessor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201306UV02, RespondingGatewayPRPAIN201306UV02ResponseType> pdprocessor =
-//                    new PDProcessor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201306UV02, RespondingGatewayPRPAIN201306UV02ResponseType>(assertion);
-//            PDClient<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> pdclient =
-//                    new PDClient<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper>(assertion);
+//            PDProcessor<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201306UV02, RespondingGatewayPRPAIN201306UV02ResponseType> pdprocessor =
+//                    new PDProcessor<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201306UV02, RespondingGatewayPRPAIN201306UV02ResponseType>(assertion);
+//            PDClient<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> pdclient =
+//                    new PDClient<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper>(assertion);
 //
-//            List<CMUrlInfo> pdlist = new ArrayList<CMUrlInfo>();
+//            List<UrlInfo> pdlist = new ArrayList<UrlInfo>();
 //            for(int i = 0; i < requestCount; i++){
-//                CMUrlInfo urlInfo = new CMUrlInfo();
+//                UrlInfo urlInfo = new UrlInfo();
 //                urlInfo.setUrl("https://medvasrv.teambi.com:8181/gatewaysimulator/RespondingGateway_Service");
 //                urlInfo.setHcid("1.1." + i);
 //                pdlist.add(urlInfo);
 //            }
 //
 //
-//            TaskExecutor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, RespondingGatewayPRPAIN201306UV02ResponseType> pdexecutor =
-//                    new TaskExecutor<CMUrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, RespondingGatewayPRPAIN201306UV02ResponseType>(
+//            TaskExecutor<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, RespondingGatewayPRPAIN201306UV02ResponseType> pdexecutor =
+//                    new TaskExecutor<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, RespondingGatewayPRPAIN201306UV02ResponseType>(
 //                        ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(pdlist.size()) ?
 //                            InitServlet.getLargeJobExecutorService() : InitServlet.getExecutorService(),
 //                        pdprocessor, pdclient, pdlist, pd, transactionId);

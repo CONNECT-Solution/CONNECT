@@ -38,7 +38,7 @@ public class NhincProxySubjectDiscoveryImpl {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
         try {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHINC_PROXY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.NHINC_PROXY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
 
             NhincProxySubjectDiscoverySecuredPortType port = getPort(url);
 
@@ -63,7 +63,7 @@ public class NhincProxySubjectDiscoveryImpl {
         PRPAIN201310UV02 response = new PRPAIN201310UV02();
 
         try {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHINC_PROXY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.NHINC_PROXY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
 
             NhincProxySubjectDiscoverySecuredPortType port = getPort(url);
 

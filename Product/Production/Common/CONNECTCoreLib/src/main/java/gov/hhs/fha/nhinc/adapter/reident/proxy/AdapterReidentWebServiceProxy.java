@@ -39,7 +39,7 @@ public class AdapterReidentWebServiceProxy implements AdapterReidentProxy {
         PRPAIN201310UV02 result = new PRPAIN201310UV02();
 
         try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.SUBJECT_DISCOVERY_REIDENT_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.SUBJECT_DISCOVERY_REIDENT_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.SUBJECT_DISCOVERY_REIDENT_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());

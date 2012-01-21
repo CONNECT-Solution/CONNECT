@@ -6,6 +6,8 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter.deferred.request.queue;
 
+import java.util.List;
+
 import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
@@ -16,8 +18,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyJavaImpl;
@@ -88,20 +90,20 @@ public class AdapterDocQueryDeferredReqQueueOrchImpl {
 
         if (bIsQueueOk) {
             try {
-                CMUrlInfos urlInfoList = getEndpoints(targets);
+                List<UrlInfo> urlInfoList = getEndpoints(targets);
 
                 if (urlInfoList != null &&
-                        NullChecker.isNotNullish(urlInfoList.getUrlInfo()) &&
-                        urlInfoList.getUrlInfo().get(0) != null &&
-                        NullChecker.isNotNullish(urlInfoList.getUrlInfo().get(0).getHcid()) &&
-                        NullChecker.isNotNullish(urlInfoList.getUrlInfo().get(0).getUrl())) {
+                        NullChecker.isNotNullish(urlInfoList) &&
+                        urlInfoList.get(0) != null &&
+                        NullChecker.isNotNullish(urlInfoList.get(0).getHcid()) &&
+                        NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
 
                     HomeCommunityType targetHcid = new HomeCommunityType();
-                    targetHcid.setHomeCommunityId(urlInfoList.getUrlInfo().get(0).getHcid());
+                    targetHcid.setHomeCommunityId(urlInfoList.get(0).getHcid());
 
                     if (isPolicyValid(msg, assertion, targetHcid)) {
                         NhinTargetSystemType target = new NhinTargetSystemType();
-                        target.setUrl(urlInfoList.getUrlInfo().get(0).getUrl());
+                        target.setUrl(urlInfoList.get(0).getUrl());
 
                         // Audit the Adhoc Query Request Message sent to the Adapter Interface
                         ack = auditAdhocQueryRequest(respondingGatewayCrossGatewayQueryRequestType, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, homeCommunityId);
@@ -167,13 +169,13 @@ public class AdapterDocQueryDeferredReqQueueOrchImpl {
     /**
      *
      * @param targetCommunities
-     * @return CMUrlInfos
+     * @return List<UrlInfo>
      */
-    private CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities) {
-        CMUrlInfos urlInfoList = null;
+    private List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {
+        List<UrlInfo> urlInfoList = null;
 
         try {
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs", ex);
         }

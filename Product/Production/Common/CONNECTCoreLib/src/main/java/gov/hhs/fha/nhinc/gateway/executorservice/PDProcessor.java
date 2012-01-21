@@ -1,10 +1,11 @@
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
@@ -33,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author paul.eftis, zack melnick
  */
-public class PDProcessor<Target extends CMUrlInfo,
+public class PDProcessor<Target extends UrlInfo,
         Request extends RespondingGatewayPRPAIN201305UV02RequestType,
         Response extends PRPAIN201306UV02,
         CumulativeResponse extends RespondingGatewayPRPAIN201306UV02ResponseType>
@@ -75,7 +76,7 @@ public class PDProcessor<Target extends CMUrlInfo,
      * for the PD web service client call
      * @param individual is the PRPAIN201306UV02 response returned from
      * the CallableRequest
-     * @param t is the CMUrlInfo target that returned the response
+     * @param t is the UrlInfo target that returned the response
      */
     @Override
     public void processResponse(Request request, Response individual, Target t){
@@ -100,7 +101,7 @@ public class PDProcessor<Target extends CMUrlInfo,
      * @param String error (exception message)
      * @param request is the ProxyPRPAIN201305UVProxySecuredRequestType
      * for the PD web service client call
-     * @param Target t is the CMUrlInfo target
+     * @param Target t is the UrlInfo target
      * @return Response PRPAIN201306UV02 object with the error
      */
     @Override
@@ -127,7 +128,7 @@ public class PDProcessor<Target extends CMUrlInfo,
      * @param current is the PRPAIN201306UV02 returned from the CallableRequest
      * @param request is the RespondingGatewayPRPAIN201305UV02RequestType sent by
      * the web service client (needed for response processing)
-     * @param t is the CMUrlInfo target to send the web service request
+     * @param t is the UrlInfo target to send the web service request
      * (needed for response processing)
      * WebServiceClient
      */

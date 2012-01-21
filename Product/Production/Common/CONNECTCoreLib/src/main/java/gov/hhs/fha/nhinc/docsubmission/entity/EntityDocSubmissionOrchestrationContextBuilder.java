@@ -5,26 +5,26 @@
 package gov.hhs.fha.nhinc.docsubmission.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author zmelnick
  */
-public class EntityDocSubmissionOrchestrationContextBuilder_g0 implements OrchestrationContextBuilder {
+public abstract class EntityDocSubmissionOrchestrationContextBuilder implements OrchestrationContextBuilder {
 
-    private static Log log = LogFactory.getLog(EntityDocSubmissionOrchestrationContextBuilder_g0.class);
+    private static Log log;
     private AssertionType assertionType;
     private NhinDelegate nhinDelegate;
+    private ProvideAndRegisterDocumentSetRequestType request;
+    private NhinTargetSystemType target;
 
-    public OrchestrationContext build() {
-        log.debug("begin build");
-        return new OrchestrationContext(new NhinDocSubmissionStrategyImpl_g0(), new EntityDocSubmissionOrchestratableImpl_a0(getAssertionType(), getNhinDelegate()));
-    }
+    public abstract OrchestrationContext build();
 
     public AssertionType getAssertionType() {
         return assertionType;
@@ -37,12 +37,29 @@ public class EntityDocSubmissionOrchestrationContextBuilder_g0 implements Orches
     public static Log getLog() {
         return log;
     }
-    
+
     public NhinDelegate getNhinDelegate() {
         return nhinDelegate;
     }
 
     public void setNhinDelegate(NhinDelegate nhinDelegate) {
         this.nhinDelegate = nhinDelegate;
+    }
+
+
+    public ProvideAndRegisterDocumentSetRequestType getRequest() {
+        return request;
+    }
+
+    public void setRequestType(ProvideAndRegisterDocumentSetRequestType request) {
+        this.request = request;
+    }
+
+    public NhinTargetSystemType getNhinTargetSystemType() {
+        return target;
+    }
+
+    public void setNhinTargetSystemType(NhinTargetSystemType target) {
+        this.target = target;
     }
 }

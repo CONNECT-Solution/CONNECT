@@ -6,9 +6,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
@@ -79,7 +78,7 @@ public class EntityPatientDiscoveryOrchImplRuntimeTest{
     @SuppressWarnings("static-access")
     public RespondingGatewayPRPAIN201306UV02ResponseType entityPatientDiscoveryOrchImplFanoutTest(
             RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion,
-            List<CMUrlInfo> testList){
+            List<UrlInfo> testList){
 
         log.debug("EntityPatientDiscoveryOrchImplRuntimeTest::entityPatientDiscoveryOrchImplFanoutTest");
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
@@ -87,7 +86,7 @@ public class EntityPatientDiscoveryOrchImplRuntimeTest{
         // note that a0 and a1 would be handled by different methods if they were different
         boolean responseIsSpecA0 = true;
         NhincConstants.GATEWAY_API_LEVEL gatewayLevel =
-                ConnectionManagerCache.getApiVersionForNhinTarget(
+                ConnectionManagerCache.getInstance().getApiVersionForNhinTarget(
                 getLocalHomeCommunityId(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         switch(gatewayLevel){
             case LEVEL_g0:
@@ -110,13 +109,13 @@ public class EntityPatientDiscoveryOrchImplRuntimeTest{
 
 
         try{
-            CMUrlInfos urlInfoList = getEndpoints(request.getNhinTargetCommunities());
+            List<UrlInfo> urlInfoList = getEndpoints(request.getNhinTargetCommunities());
             // loop through the communities and send request if results were not null
-            if((urlInfoList == null) || (urlInfoList.getUrlInfo().isEmpty())){
+            if((urlInfoList == null) || (urlInfoList.isEmpty())){
                 log.warn("No targets were found for the Patient Discovery Request");
                 throw new Exception("No Endpoints For Communities Found!!!");
             }else{
-                List<CMUrlInfo> targetList = urlInfoList.getUrlInfo();
+                List<UrlInfo> targetList = urlInfoList;
                 if(testList != null && testList.size() > 0){
                     // this is load test fanout to testList
                     targetList = testList;
@@ -129,15 +128,15 @@ public class EntityPatientDiscoveryOrchImplRuntimeTest{
                 List<CommunityPRPAIN201306UV02ResponseType> policyErrList =
                         new ArrayList<CommunityPRPAIN201306UV02ResponseType>();
 
-                for(CMUrlInfo cmurlinfo: targetList){
+                for(UrlInfo UrlInfo: targetList){
                     NhinTargetSystemType target = new NhinTargetSystemType();
                     HomeCommunityType targetCommunity = new HomeCommunityType();
-                    targetCommunity.setHomeCommunityId(cmurlinfo.getHcid());
+                    targetCommunity.setHomeCommunityId(UrlInfo.getHcid());
                     target.setHomeCommunity(targetCommunity);
 
                     //create a new request to send out to each target community
                     RespondingGatewayPRPAIN201305UV02RequestType newRequest =
-                            createNewRequest(request, assertion, cmurlinfo);
+                            createNewRequest(request, assertion, UrlInfo);
 
                     if(checkPolicy(newRequest, assertion)){
                         NhinDelegate nd = new NhinPatientDiscoveryDelegate();
@@ -156,7 +155,7 @@ public class EntityPatientDiscoveryOrchImplRuntimeTest{
                                 && newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null){
 
                                 newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().
-                                        getId().get(0).setRoot(cmurlinfo.getHcid());
+                                        getId().get(0).setRoot(UrlInfo.getHcid());
                         }
 
                         EntityPatientDiscoveryOrchestratable message = new EntityPatientDiscoveryOrchestratable(
@@ -168,17 +167,17 @@ public class EntityPatientDiscoveryOrchImplRuntimeTest{
                                 + " for hcid=" + target.getHomeCommunity().getHomeCommunityId());
                     }else{
                         log.debug("EntityPatientDiscoveryOrchImplRuntimeTest Policy Check Failed for homeId="
-                                + cmurlinfo.getHcid());
+                                + UrlInfo.getHcid());
                         CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
                         NhinTargetCommunityType tc = new NhinTargetCommunityType();
                         HomeCommunityType home = new HomeCommunityType();
-                        home.setHomeCommunityId(cmurlinfo.getHcid());
+                        home.setHomeCommunityId(UrlInfo.getHcid());
                         tc.setHomeCommunity(home);
                         communityResponse.setNhinTargetCommunity(tc);
                         communityResponse.setPRPAIN201306UV02((new HL7PRPA201306Transforms()).createPRPA201306ForErrors(
                                 request.getPRPAIN201305UV02(),
                                 "EntityPatientDiscoveryOrchImpl Policy Check Failed for homeId="
-                                + cmurlinfo.getHcid()));
+                                + UrlInfo.getHcid()));
                         policyErrList.add(communityResponse);
                     }
                 }
@@ -253,7 +252,7 @@ public class EntityPatientDiscoveryOrchImplRuntimeTest{
      * @return new RespondingGatewayPRPAIN201305UV02RequestType
      */
     protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request,
-            AssertionType assertion, CMUrlInfo urlInfo) {
+            AssertionType assertion, UrlInfo urlInfo) {
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
 
         PRPAIN201305UV02 new201305 = new PatientDiscovery201305Processor().createNewRequest(
@@ -322,10 +321,10 @@ public class EntityPatientDiscoveryOrchImplRuntimeTest{
     }
 
 
-    protected CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities){
-        CMUrlInfos urlInfoList = null;
+    protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities){
+        List<UrlInfo> urlInfoList = null;
         try{
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         }catch (ConnectionManagerException ex){
             log.error("Failed to obtain target URLs", ex);
         }

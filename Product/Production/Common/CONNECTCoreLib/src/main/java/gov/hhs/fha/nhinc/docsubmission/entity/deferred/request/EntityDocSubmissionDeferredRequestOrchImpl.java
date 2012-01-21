@@ -232,7 +232,7 @@ public class EntityDocSubmissionDeferredRequestOrchImpl {
         boolean result = false;
 
         try {
-            result = ConnectionManagerCache.liftProtocolSupportedForHomeCommunity(hcid, "HTTPS", NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
+            result = ConnectionManagerCache.getInstance().liftProtocolSupportedForHomeCommunity(hcid, "HTTPS", NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
         }
         catch (ConnectionManagerException ex) {
             log.error(ex.getMessage());

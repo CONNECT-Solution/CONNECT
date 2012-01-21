@@ -79,9 +79,9 @@ public class PatientConsentManager {
             String xdsHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
             if (xdsHomeCommunityId != null &&
                     !xdsHomeCommunityId.equals("")) {
-                sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(xdsHomeCommunityId, CDAConstants.DOC_REGISTRY_SERVICE_NAME);
+                sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(xdsHomeCommunityId, CDAConstants.DOC_REGISTRY_SERVICE_NAME);
             } else {
-                sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(CDAConstants.DOC_REGISTRY_SERVICE_NAME);
+                sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(CDAConstants.DOC_REGISTRY_SERVICE_NAME);
             }
 
 
@@ -126,9 +126,9 @@ public class PatientConsentManager {
             String xdsHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
             if (xdsHomeCommunityId != null &&
                     !xdsHomeCommunityId.equals("")) {
-                sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(xdsHomeCommunityId, CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
+                sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(xdsHomeCommunityId, CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
             } else {
-                sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
+                sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
             }
 
 

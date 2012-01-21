@@ -106,7 +106,7 @@ public class AdapterSubjectDiscoveryWebServiceProxy
 
         try
         {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
         } catch (ConnectionManagerException ex)
         {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME + " for local home community");

@@ -14,8 +14,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
-import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxy;
-import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
@@ -156,11 +154,15 @@ public class EntityDocSubmissionOrchImpl {
         log.debug("ack: " + ack.getMessage());
 
         // Core Refactor will create these
-        NhinDocSubmissionProxyObjectFactory factory = new NhinDocSubmissionProxyObjectFactory();
-        NhinDocSubmissionProxy proxy = factory.getNhinDocSubmissionProxy();
+      //  NhinDocSubmissionProxyObjectFactory factory = new NhinDocSubmissionProxyObjectFactory();
+        //NhinDocSubmissionProxy proxy = factory.getNhinDocSubmissionProxy();
 
-        log.debug("Invoking " + proxy + ".provideAndRegisterDocumentSetB with " + body.getProvideAndRegisterDocumentSetRequest() + " assertion: " + assertion + " and target " + body.getNhinTargetSystem());
-        response = proxy.provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
+        NhinDocSubmissionDelegate dsDelegate = new NhinDocSubmissionDelegate();
+        EntityDocSubmissionOrchestratable dsOrchestratable = new EntityDocSubmissionOrchestratable(dsDelegate);
+        dsOrchestratable.setAssertion(assertion);
+        dsOrchestratable.setRequest(body.getProvideAndRegisterDocumentSetRequest());
+        dsOrchestratable.setTarget(body.getNhinTargetSystem());
+        response = ((EntityDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
 
         ack = auditLog.auditNhinXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 

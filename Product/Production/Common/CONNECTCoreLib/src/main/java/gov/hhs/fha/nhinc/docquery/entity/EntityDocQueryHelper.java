@@ -13,8 +13,6 @@ package gov.hhs.fha.nhinc.docquery.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
@@ -29,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201309UV02;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -59,7 +58,7 @@ public class EntityDocQueryHelper {
      * @param localHomeCommunity
      * @return subIdList
      */
-    public List<QualifiedSubjectIdentifierType> retreiveCorrelations(List<SlotType1> slotList, CMUrlInfos urlInfoList, AssertionType assertion, boolean isTargeted, String localHomeCommunity) {
+    public List<QualifiedSubjectIdentifierType> retreiveCorrelations(List<SlotType1> slotList, List<UrlInfo> urlInfoList, AssertionType assertion, boolean isTargeted, String localHomeCommunity) {
         log.debug("Begin EntityDocQueryHelper.retreiveCorrelations().....");
         RetrievePatientCorrelationsResponseType results = null;
         RetrievePatientCorrelationsRequestType patientCorrelationReq = new RetrievePatientCorrelationsRequestType();
@@ -99,8 +98,8 @@ public class EntityDocQueryHelper {
 
                 // Save off the target home community ids to use in the patient correlation query
                 if (urlInfoList != null &&
-                        NullChecker.isNotNullish(urlInfoList.getUrlInfo())) {
-                    for (CMUrlInfo target : urlInfoList.getUrlInfo()) {
+                        NullChecker.isNotNullish(urlInfoList)) {
+                    for (UrlInfo target : urlInfoList) {
                         if (NullChecker.isNotNullish(target.getHcid())) {
                             patientCorrelationReq.getTargetHomeCommunity().add(target.getHcid());
 
@@ -158,15 +157,11 @@ public class EntityDocQueryHelper {
             }
             subIdList.add(patientCorrelationReq.getQualifiedPatientIdentifier());
         }
-        if (subIdList != null) {
-            log.debug("retreiveCorrelations subIdList.size(): " + subIdList.size());
-            for (QualifiedSubjectIdentifierType qual : subIdList) {
-                log.info("retreiveCorrelations qual.getSubjectIdentifier: " + qual.getSubjectIdentifier());
-                log.info("retreiveCorrelations qual.getAssigningAuthorityIdentifier: " + qual.getAssigningAuthorityIdentifier());
-            }
-        } else {
-            log.debug("retreiveCorrelations subIdList.size(): null");
-        }
+        log.debug("retreiveCorrelations subIdList.size(): " + subIdList.size());
+		for (QualifiedSubjectIdentifierType qual : subIdList) {
+		    log.info("retreiveCorrelations qual.getSubjectIdentifier: " + qual.getSubjectIdentifier());
+		    log.info("retreiveCorrelations qual.getAssigningAuthorityIdentifier: " + qual.getAssigningAuthorityIdentifier());
+		}
         log.debug("End EntityDocQueryHelper.retreiveCorrelations().....");
         return subIdList;
     }

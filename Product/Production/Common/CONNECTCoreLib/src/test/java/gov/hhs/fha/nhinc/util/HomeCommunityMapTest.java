@@ -12,17 +12,24 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.uddi.api_v3.BusinessEntity;
+import org.uddi.api_v3.Name;
 import static org.junit.Assert.*;
 
 
@@ -32,42 +39,67 @@ import static org.junit.Assert.*;
  */
 public class HomeCommunityMapTest {
 
-    private HomeCommunityMap hMap;
+    Mockery context = new JUnit4Mockery()
+    {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
+    final ConnectionManagerCache mockConnectionManager = context.mock(ConnectionManagerCache.class);
 
     public HomeCommunityMapTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
+    protected BusinessEntity createBusinessEntity() {
+        BusinessEntity bEntity = new BusinessEntity();
 
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
+        bEntity.setBusinessKey("businessKey");
+        Name name = new Name();
+        name.setValue("123");
+        bEntity.getName().add(name);
 
-    @Before
-    public void setUp() {
-        hMap = new HomeCommunityMap();
-    }
-
-    @After
-    public void tearDown() {
+        return bEntity;
     }
 
     @Test
     public void testGetHomeCommunityName() {
 
-        // The id and name are read from the internalconnections.xml file
-        // whose location is defined in the properties variable
-        String homeCommunityId = "1.1";
-        String homeCommunityName = "DoD";
-        
-        String foundName = hMap.getHomeCommunityName(homeCommunityId);
-        assertEquals(homeCommunityName, foundName);
+        try {
+            String homeCommunityId = "1.1";
+            String homeCommunityName = "DoD";
 
-        homeCommunityId = "123456";
-        foundName = hMap.getHomeCommunityName(homeCommunityId);
-        assertEquals("", foundName);
+            HomeCommunityMap homeMap = new HomeCommunityMap() {
+                @Override
+                protected ConnectionManagerCache getConnectionManagerCache() {
+                    return mockConnectionManager;
+                }
+            };
+
+            context.checking(new Expectations()
+            {
+                {
+                    exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class))); will(returnValue( createBusinessEntity() ));
+                    exactly(1).of(mockConnectionManager).getCommunityId(with(any(BusinessEntity.class))); will(returnValue( "DoD" ));
+                }
+            });
+
+            String foundName = homeMap.getHomeCommunityName(homeCommunityId);
+            assertEquals(homeCommunityName, foundName);
+
+            context.checking(new Expectations()
+            {
+                {
+                    exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class))); will(returnValue( null ));
+                }
+            });
+
+            homeCommunityId = "123456";
+            foundName = homeMap.getHomeCommunityName(homeCommunityId);
+            assertEquals("", foundName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Error running testGetHomeCommunityName test: " + e.getMessage());
+        }
     }
 
     @Test

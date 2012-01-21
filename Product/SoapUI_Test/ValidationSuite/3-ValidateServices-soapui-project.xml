@@ -1925,7 +1925,7 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
         </con:property>
         <con:property>
           <con:name>Service88</con:name>
-          <con:value>A|PatientDiscoveryAsyncReq</con:value>
+          <con:value>A|PatientDiscoveryDeferredReq</con:value>
         </con:property>
         <con:property>
           <con:name>Service89</con:name>
@@ -2001,11 +2001,11 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
         </con:property>
         <con:property>
           <con:name>Service107</con:name>
-          <con:value>A|PatientDiscoveryAsyncReq</con:value>
+          <con:value>A|PatientDiscoveryDeferredReq</con:value>
         </con:property>
         <con:property>
           <con:name>Service108</con:name>
-          <con:value>A|PatientDiscoveryAsyncResp</con:value>
+          <con:value>A|PatientDiscoveryDeferredResp</con:value>
         </con:property>
         <con:property>
           <con:name>Service109</con:name>
@@ -2573,15 +2573,15 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
     </con:property>
     <con:property>
       <con:name>Service88</con:name>
-      <con:value>A|PatientDiscoveryAsyncReq</con:value>
+      <con:value>A|PatientDiscoveryDeferredReq</con:value>
     </con:property>
     <con:property>
       <con:name>Service108</con:name>
-      <con:value>A|PatientDiscoveryAsyncResp</con:value>
+      <con:value>A|PatientDiscoveryDeferredResp</con:value>
     </con:property>
     <con:property>
       <con:name>Service107</con:name>
-      <con:value>A|PatientDiscoveryAsyncReq</con:value>
+      <con:value>A|PatientDiscoveryDeferredReq</con:value>
     </con:property>
     <con:property>
       <con:name>Service106</con:name>

@@ -10,6 +10,8 @@
  */
 package gov.hhs.fha.nhinc.auditquery.entity;
 
+import java.util.List;
+
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import gov.hhs.fha.nhinc.auditquery.EntityAuditLog;
@@ -23,9 +25,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEvents
 import gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsSecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinauditquery.proxy.NhinAuditQueryProxy;
 import gov.hhs.fha.nhinc.nhinauditquery.proxy.NhinAuditQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -99,23 +100,23 @@ public class EntityAuditLogImpl {
         }
 
         // For each Target Community perform an Audit Query and aggregate the results
-        CMUrlInfos urlInfoList = null;
+        List<UrlInfo> urlInfoList = null;
         if (NullChecker.isNotNullish(targets.getNhinTargetCommunity())) {
             // Obtain all the URLs for the targets being sent to
             try {
-                urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(request.getNhinTargetCommunities(), NhincConstants.AUDIT_QUERY_SERVICE_NAME);
+                urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(request.getNhinTargetCommunities(), NhincConstants.AUDIT_QUERY_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Failed to obtain target URLs");
                 return null;
             }
 
             if (urlInfoList != null &&
-                    NullChecker.isNotNullish(urlInfoList.getUrlInfo())) {
+                    NullChecker.isNotNullish(urlInfoList)) {
 
                 NhinAuditQueryProxyObjectFactory auditFactory = new NhinAuditQueryProxyObjectFactory();
                 NhinAuditQueryProxy proxy = auditFactory.getNhinAuditQueryProxy();
 
-                for (CMUrlInfo targetComm : urlInfoList.getUrlInfo()) {
+                for (UrlInfo targetComm : urlInfoList) {
 
                     gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType proxyReq = new gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType();
                     proxyReq.setAssertion(request.getAssertion());

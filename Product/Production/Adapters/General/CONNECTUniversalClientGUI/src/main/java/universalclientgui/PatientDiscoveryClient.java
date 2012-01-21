@@ -81,7 +81,7 @@ public class PatientDiscoveryClient {
             // Lookup home community id
             String homeCommunity = getHomeCommunityId();
             // Get endpoint url
-            endpointAddress = ConnectionManagerCache.getEndpointURLByServiceName(homeCommunity, NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME);
+            endpointAddress = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunity, NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME);
             log.debug("Entity Patient Discovery endpoint address: " + endpointAddress);
         } catch (PropertyAccessException pae) {
             log.error("Exception encountered retrieving the local home community: " + pae.getMessage(), pae);

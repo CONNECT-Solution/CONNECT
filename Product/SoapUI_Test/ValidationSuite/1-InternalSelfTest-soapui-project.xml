@@ -9097,14 +9097,14 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0ff296e7-d50a-4917-9f52-e812a4e7e60e" keepSession="false" maxResults="0" name="Patient Discovery Async Req" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0ff296e7-d50a-4917-9f52-e812a4e7e60e" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Patient Discovery Async Req" type="request">
+      <con:testStep name="Patient Discovery Deferred Req" type="request">
         <con:settings/>
         <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyPatientDiscoveryAsyncReqBinding</con:interface>
           <con:operation>Proxy_ProcessPatientDiscoveryAsyncReq</con:operation>
-          <con:request name="Patient Discovery Async Req" useWsAddressing="true">
+          <con:request name="Patient Discovery Deferred Req" useWsAddressing="true">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
@@ -9112,7 +9112,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
             <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
-   <soapenv:Body projectName="InternalSelfTest" testCase="Patient Discovery Async Req">
+   <soapenv:Body projectName="InternalSelfTest" testCase="Patient Discovery Deferred Req">
       <urn:Proxy_PRPA_IN201305UVProxyRequest>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -9656,14 +9656,14 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7" keepSession="false" maxResults="0" name="Patient Discovery Async Resp" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
       <con:settings/>      
-      <con:testStep name="Patient Discovery Async Resp" type="request">
+      <con:testStep name="Patient Discovery Deferred Resp" type="request">
         <con:settings/>
         <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincProxyPatientDiscoveryAsyncRespBinding</con:interface>
           <con:operation>Proxy_ProcessPatientDiscoveryAsyncResp</con:operation>
-          <con:request name="Patient Discovery Async Resp" useWsAddressing="false">
+          <con:request name="Patient Discovery Deferred Resp" useWsAddressing="false">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
@@ -9676,7 +9676,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
       <add:To>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</add:To>
    </soap:Header>
-   <soap:Body projectName="InternalSelfTest" testCase="Patient Discovery Async Resp">
+   <soap:Body projectName="InternalSelfTest" testCase="Patient Discovery Deferred Resp">
       <urn:Proxy_PRPA_IN201306UVProxyRequest>
          <urn:PRPA_IN201306UV02 ITSVersion="XML_1.0">
             <urn:id root="2.2" extension="-5a3e95b1:11d1fa33d45:-8e45"/>

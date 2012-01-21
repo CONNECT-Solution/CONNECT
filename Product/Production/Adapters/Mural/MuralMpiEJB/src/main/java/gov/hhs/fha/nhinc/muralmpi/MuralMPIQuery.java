@@ -144,7 +144,7 @@ public class MuralMPIQuery
         String sEndpointURL = "";
 
          try {
-               sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(localOID, MURAL_SERVICE_NAME);
+               sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(localOID, MURAL_SERVICE_NAME);
            }
            catch (Exception e) {
                log.error("Failed to retrieve endpoint URL for service:" + MURAL_SERVICE_NAME +

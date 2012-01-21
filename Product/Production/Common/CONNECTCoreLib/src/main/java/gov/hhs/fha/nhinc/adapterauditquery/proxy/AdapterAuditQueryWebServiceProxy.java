@@ -34,7 +34,7 @@ public class AdapterAuditQueryWebServiceProxy implements AdapterAuditQueryProxy 
 
         try {
             log.debug("NhincConstants.AUDIT_LOG_ADAPTER_SERVICE_NAME: " + NhincConstants.AUDIT_LOG_ADAPTER_SERVICE_NAME);
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.AUDIT_LOG_ADAPTER_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.AUDIT_LOG_ADAPTER_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.AUDIT_LOG_ADAPTER_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());

@@ -72,7 +72,7 @@ public class ProxyHiemSubscribeImpl
 
         try
         {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.HIEM_SUBSCRIBE_PROXY_SERVICE_NAME_SECURED);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_SUBSCRIBE_PROXY_SERVICE_NAME_SECURED);
         }
         catch (Exception ex)
         {

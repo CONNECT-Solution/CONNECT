@@ -155,7 +155,7 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE);
                 }
                 catch (Exception e) {
                     log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE +
@@ -320,7 +320,7 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
                 }
                 catch (Exception e) {
                     log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +
@@ -378,7 +378,7 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             EntityDocRetrievePortType port = service.getEntityDocRetrievePortSoap11(wsfeaturearray);
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE);
                 }
                 catch (Exception e) {
                     log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE +
@@ -440,7 +440,7 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
                 }
                 catch (Exception e) {
                     log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +
@@ -1011,7 +1011,7 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
                 }
                 catch (Exception e) {
                     log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +
@@ -1136,7 +1136,7 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
                 }
                 catch (Exception e) {
                     log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +

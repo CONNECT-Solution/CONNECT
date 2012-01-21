@@ -12,8 +12,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.passthru.deferred.response.proxy.PassthruDocQueryDeferredResponseProxy;
@@ -24,6 +24,8 @@ import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import java.sql.Timestamp;
+import java.util.List;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
@@ -46,23 +48,23 @@ public class EntityDocQueryDeferredResponseOrchImpl {
         AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityId);
 
         try {
-            CMUrlInfos urlInfoList = getEndpoints(targets);
+            List<UrlInfo> urlInfoList = getEndpoints(targets);
 
             if (urlInfoList != null &&
-                    NullChecker.isNotNullish(urlInfoList.getUrlInfo()) &&
-                    urlInfoList.getUrlInfo().get(0) != null &&
-                    NullChecker.isNotNullish(urlInfoList.getUrlInfo().get(0).getHcid()) &&
-                    NullChecker.isNotNullish(urlInfoList.getUrlInfo().get(0).getUrl())) {
+                    NullChecker.isNotNullish(urlInfoList) &&
+                    urlInfoList.get(0) != null &&
+                    NullChecker.isNotNullish(urlInfoList.get(0).getHcid()) &&
+                    NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
                 // Log the start of the performance record
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
                 Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, "Deferred"+NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, responseCommunityId);
 
                 HomeCommunityType targetHcid = new HomeCommunityType();
-                targetHcid.setHomeCommunityId(urlInfoList.getUrlInfo().get(0).getHcid());
+                targetHcid.setHomeCommunityId(urlInfoList.get(0).getHcid());
 
                 if (isPolicyValid(msg, assertion, targetHcid)) {
                     NhinTargetSystemType target = new NhinTargetSystemType();
-                    target.setUrl(urlInfoList.getUrlInfo().get(0).getUrl());
+                    target.setUrl(urlInfoList.get(0).getUrl());
 
                     PassthruDocQueryDeferredResponseProxyObjectFactory factory = new PassthruDocQueryDeferredResponseProxyObjectFactory();
                     PassthruDocQueryDeferredResponseProxy proxy = factory.getPassthruDocQueryDeferredResponseProxy();
@@ -110,11 +112,11 @@ public class EntityDocQueryDeferredResponseOrchImpl {
         return policyIsValid;
     }
 
-    private CMUrlInfos getEndpoints(NhinTargetCommunitiesType targetCommunities) {
-        CMUrlInfos urlInfoList = null;
+    private List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {
+        List<UrlInfo> urlInfoList = null;
 
         try {
-            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs", ex);
         }

@@ -134,7 +134,7 @@ public class EntitySubscribeServiceImpl
 
         try
         {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.HIEM_SUBSCRIBE_ENTITY_SERVICE_NAME_SECURED);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_SUBSCRIBE_ENTITY_SERVICE_NAME_SECURED);
         }
         catch (Exception ex)
         {

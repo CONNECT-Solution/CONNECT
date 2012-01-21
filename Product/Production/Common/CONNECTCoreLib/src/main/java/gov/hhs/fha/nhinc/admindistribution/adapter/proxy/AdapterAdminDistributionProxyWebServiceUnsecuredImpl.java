@@ -99,7 +99,7 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
         if (target != null) {
             try {
 
-                url = ConnectionManagerCache.getEndpointURLByServiceName(target, NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(target, NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME);
                 log.error(ex.getMessage());

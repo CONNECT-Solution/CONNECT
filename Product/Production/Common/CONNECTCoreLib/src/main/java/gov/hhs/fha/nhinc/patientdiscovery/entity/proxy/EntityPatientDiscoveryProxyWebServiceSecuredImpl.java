@@ -54,7 +54,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
 
     protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException
     {
-        return ConnectionManagerCache.getLocalEndpointURLByServiceName(serviceName);
+        return ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName);
     }
 
     protected String getEndpointURL()

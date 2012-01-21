@@ -95,7 +95,7 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
         String url = "";
         try
         {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
         } 
         catch (ConnectionManagerException ex)
         {

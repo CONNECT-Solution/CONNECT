@@ -1,5 +1,7 @@
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.io.File;
 
 import javax.xml.bind.JAXBException;
@@ -24,7 +26,7 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
         if (instance != null) {
             return instance;
         } else {
-            return new UddiConnectionInfoDAOFileImpl("UDDIConnectionInfo2.xml");
+            return new UddiConnectionInfoDAOFileImpl(PropertyAccessor.getPropertyFileLocation() + "uddiConnectionInfo.xml");
         }
     }
 

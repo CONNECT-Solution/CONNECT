@@ -76,7 +76,7 @@ public class HiemNotifyAdapterWebServiceProxy implements HiemNotifyAdapterProxy 
         String url = null;
 
         try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME + " for local home community");
             log.error(ex.getMessage());

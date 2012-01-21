@@ -46,7 +46,8 @@ import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -135,7 +136,7 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
         storage.storeExternalSubscriptionItem(subscriptionItem);
     }
 
-    protected SubscribeResponse sendSubscribeRequest(Element subscribeElement, AssertionType assertion, CMUrlInfo target)
+    protected SubscribeResponse sendSubscribeRequest(Element subscribeElement, AssertionType assertion, UrlInfo target)
     {
         SubscribeResponse subscribeResponse = null;
         try {

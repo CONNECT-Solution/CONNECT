@@ -48,6 +48,8 @@ import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetHomeCommunityByAssignin
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.StoreAssigningAuthorityToHomeCommunityMappingRequestType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetConnectionInfoEndpontFromNhinTargetType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetUrlSetByServiceNameType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.ServiceConnectionInfoType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.ServiceConnectionInfosType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssigningAuthoritiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssigningAuthorityType;
@@ -56,11 +58,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlSetType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntities;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
-import gov.hhs.fha.nhinc.connectmgr.data.CMHomeCommunity;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.net.URL;
 import java.util.ArrayList;
+import org.uddi.api_v3.BusinessEntity;
+import org.uddi.api_v3.BusinessService;
 
 /**
  * This class is a helper class to the ConnectionManagerService.  It does
@@ -84,16 +88,16 @@ public class CMServiceHelper {
     public static HomeCommunitiesType getAllCommunities(GetAllCommunitiesRequestType part1) {
         HomeCommunitiesType oCommunities = new HomeCommunitiesType();
 
-        List<CMHomeCommunity> oaCMHomeCommunity = null;
+        List<BusinessEntity> communitiesList = null;
 
         try {
-            oaCMHomeCommunity = ConnectionManagerCache.getAllCommunities();
+            communitiesList = ConnectionManagerCache.getInstance().getAllCommunities();
         } catch (Throwable t) {
             String sErrorMessage = "Failed to retrieve home communities.  Error: " + t.getMessage();
             log.error(sErrorMessage, t);
         }
 
-        oCommunities = CMTransform.listCMHomeCommunityToHomeCommunitiesType(oaCMHomeCommunity);
+        oCommunities = CMTransform.transformBusinessEntityListToHomeCommunitiesType(communitiesList);
         return oCommunities;
     }
 
@@ -109,16 +113,16 @@ public class CMServiceHelper {
     public static BusinessEntitiesType getAllBusinessEntities(GetAllBusinessEntitiesRequestType part1) {
         BusinessEntitiesType oBusinessEntities = new BusinessEntitiesType();
 
-        CMBusinessEntities oCMBusinessEntities = null;
+        List<BusinessEntity> businessEntities = null;
 
         try {
-            oCMBusinessEntities = ConnectionManagerCache.getAllBusinessEntities();
+            businessEntities = ConnectionManagerCache.getInstance().getAllBusinessEntities();
         } catch (Throwable t) {
             String sErrorMessage = "Failed to retrieve home business entities.  Error: " + t.getMessage();
             log.error(sErrorMessage, t);
         }
 
-        oBusinessEntities = CMTransform.cmBusinessEntitiesToBusinessEntitiesType(oCMBusinessEntities);
+        //oBusinessEntities = CMTransform.cmBusinessEntitiesToBusinessEntitiesType(oCMBusinessEntities);
         return oBusinessEntities;
     }
 
@@ -156,19 +160,19 @@ public class CMServiceHelper {
 
         // If we have a home community ID, do the retrieve ....
         //------------------------------------------------------
-        if ((sHomeCommunityId != null) &&
-                (sHomeCommunityId.length() > 0)) {
-            CMBusinessEntity oCMBusinessEntity = null;
-
-            try {
-                oCMBusinessEntity = ConnectionManagerCache.getBusinessEntity(sHomeCommunityId);
-            } catch (Throwable t) {
-                String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();
-                log.error(sErrorMessage, t);
-            }
-
-            oBusinessEntity = CMTransform.cmBusinessEntityToBusinessEntityType(oCMBusinessEntity);
-        }
+//        if ((sHomeCommunityId != null) &&
+//                (sHomeCommunityId.length() > 0)) {
+//            CMBusinessEntity oCMBusinessEntity = null;
+//
+//            try {
+//                oCMBusinessEntity = ConnectionManagerCache.getBusinessEntity(sHomeCommunityId);
+//            } catch (Throwable t) {
+//                String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();
+//                log.error(sErrorMessage, t);
+//            }
+//
+//            oBusinessEntity = CMTransform.cmBusinessEntityToBusinessEntityType(oCMBusinessEntity);
+//        }
 
         return oBusinessEntity;
     }
@@ -182,15 +186,15 @@ public class CMServiceHelper {
     private static CMBusinessEntities retrieveBusinessEntitySetFromCache(List<String> saHomeCommunityId) {
         CMBusinessEntities oCMBusinessEntities = null;
 
-        if ((saHomeCommunityId != null) &&
-                (saHomeCommunityId.size() > 0)) {
-            try {
-                oCMBusinessEntities = ConnectionManagerCache.getBusinessEntitySet(saHomeCommunityId);
-            } catch (Throwable t) {
-                String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
-                log.error(sErrorMessage, t);
-            }
-        }
+//        if ((saHomeCommunityId != null) &&
+//                (saHomeCommunityId.size() > 0)) {
+//            try {
+//                oCMBusinessEntities = ConnectionManagerCache.getBusinessEntitySet(saHomeCommunityId);
+//            } catch (Throwable t) {
+//                String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
+//                log.error(sErrorMessage, t);
+//            }
+//        }
 
         return oCMBusinessEntities;
     }
@@ -320,15 +324,15 @@ public class CMServiceHelper {
             String sServiceName) {
         CMBusinessEntities oCMBusinessEntities = null;
 
-        if ((saHomeCommunityId != null) &&
-                (saHomeCommunityId.size() > 0)) {
-            try {
-                oCMBusinessEntities = ConnectionManagerCache.getBusinessEntitySetByServiceName(saHomeCommunityId, sServiceName);
-            } catch (Throwable t) {
-                String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
-                log.error(sErrorMessage, t);
-            }
-        }
+//        if ((saHomeCommunityId != null) &&
+//                (saHomeCommunityId.size() > 0)) {
+//            try {
+//                oCMBusinessEntities = ConnectionManagerCache.getBusinessEntitySetByServiceName(saHomeCommunityId, sServiceName);
+//            } catch (Throwable t) {
+//                String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
+//                log.error(sErrorMessage, t);
+//            }
+//        }
         return oCMBusinessEntities;
     }
 
@@ -502,19 +506,117 @@ public class CMServiceHelper {
             String sServiceName) {
         CMBusinessEntity oCMBusinessEntity = null;
 
-        if ((sHomeCommunityId != null) &&
-                (sHomeCommunityId.length() > 0) &&
-                (sServiceName != null) &&
-                (sServiceName.length() > 0)) {
-            try {
-                oCMBusinessEntity = ConnectionManagerCache.getBusinessEntityByServiceName(sHomeCommunityId, sServiceName);
-            } catch (Throwable t) {
-                String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();
-                log.error(sErrorMessage, t);
-            }
-        }
+//        if ((sHomeCommunityId != null) &&
+//                (sHomeCommunityId.length() > 0) &&
+//                (sServiceName != null) &&
+//                (sServiceName.length() > 0)) {
+//            try {
+//                oCMBusinessEntity = ConnectionManagerCache.getBusinessEntityByServiceName(sHomeCommunityId, sServiceName);
+//            } catch (Throwable t) {
+//                String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();
+//                log.error(sErrorMessage, t);
+//            }
+//        }
 
         return oCMBusinessEntity;
+    }
+
+    private static ServiceConnectionInfoType createServiceConnectionInfoType(String serviceName, String urlString) {
+        ServiceConnectionInfoType oServiceConnectionInfo = new ServiceConnectionInfoType();
+
+        oServiceConnectionInfo.setServiceName(serviceName);
+        oServiceConnectionInfo.setUrl(urlString);
+
+        try
+        {
+            URL oURL = new URL(urlString);
+
+            String sValue = oURL.getFile();
+            if ((sValue != null) && (sValue.length() > 0))
+            {
+                oServiceConnectionInfo.setFile(sValue);
+            }
+            else
+            {
+                oServiceConnectionInfo.setFile("");
+            }
+
+            sValue = oURL.getHost();
+            if ((sValue != null) && (sValue.length() > 0))
+            {
+                oServiceConnectionInfo.setHost(sValue);
+            }
+            else
+            {
+                oServiceConnectionInfo.setHost("");
+            }
+
+            sValue = oURL.getPath();
+            if ((sValue != null) && (sValue.length() > 0))
+            {
+                oServiceConnectionInfo.setPath(sValue);
+            }
+            else
+            {
+                oServiceConnectionInfo.setPath("");
+            }
+
+            sValue = oURL.getPort() + "";
+            if ((sValue != null) && (sValue.length() > 0))
+            {
+                oServiceConnectionInfo.setPort(sValue);
+            }
+            else
+            {
+                oServiceConnectionInfo.setPort("");
+            }
+
+            sValue = oURL.getProtocol();
+            if ((sValue != null) && (sValue.length() > 0))
+            {
+                oServiceConnectionInfo.setProtocol(sValue);
+            }
+            else
+            {
+                oServiceConnectionInfo.setProtocol("");
+            }
+        }
+        catch (Throwable t)
+        {
+            String sErrorMessage = "Failed to decompose URL into its parts. URL='" +
+                                   urlString + "'.  Error: " + t.getMessage();
+            log.error(sErrorMessage, t);
+        }
+
+        return oServiceConnectionInfo;
+    }
+
+    private static ConnectionInfoType getConnectionInfoType(String sHomeCommunityId, String sServiceName) {
+        ConnectionInfoType connectionInfoType = new ConnectionInfoType();
+
+        try {
+            BusinessEntity businessEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(sHomeCommunityId, sServiceName);
+            if (businessEntity == null)
+            {
+                return null;
+            }
+
+            // Get HomeCommunitType from BusinessEntity
+            HomeCommunityType homeCommunityType = CMTransform.transformBusinessEntityToHomeCommunityType(businessEntity);
+
+            String url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, sServiceName);
+            ServiceConnectionInfoType serviceConnectionInfoType = createServiceConnectionInfoType(sServiceName, url);
+
+            connectionInfoType.setHomeCommunity(homeCommunityType);
+            ServiceConnectionInfosType serviceConnectionInfosType = new ServiceConnectionInfosType();
+            serviceConnectionInfosType.getServiceConnectionInfo().add(serviceConnectionInfoType);
+            connectionInfoType.setServiceConnectionInfos(serviceConnectionInfosType);            
+        }
+        catch (ConnectionManagerException e) {
+            log.error("Failed to get connection info from service name", e);
+        }
+
+        return connectionInfoType;
     }
 
     /**
@@ -553,21 +655,7 @@ public class CMServiceHelper {
                 (sServiceName.length() > 0) &&
                 (sHomeCommunityId != null) &&
                 (sHomeCommunityId.length() > 0)) {
-            CMBusinessEntity oCMBusinessEntity = retrieveBusinessEntityByServiceNameFromCache(sHomeCommunityId, sServiceName);
-            if (oCMBusinessEntity != null) {
-                // We already have a routine to transform a CMBusinessEntities - so use it...
-                //---------------------------------------------------------------------------
-                CMBusinessEntities oCMBusinessEntities = new CMBusinessEntities();
-                oCMBusinessEntities.getBusinessEntity().add(oCMBusinessEntity);
-                ConnectionInfosType oConnectionInfos = CMTransform.cmBusinessEntitiesToConnectionInfosType(oCMBusinessEntities);
-                if ((oConnectionInfos != null) &&
-                        (oConnectionInfos.getConnectionInfo() != null) &&
-                        (oConnectionInfos.getConnectionInfo().size() > 0)) {
-                    // We only gave it one so we should only get one back...
-                    //-------------------------------------------------------
-                    oConnectionInfo = oConnectionInfos.getConnectionInfo().get(0);
-                }
-            }
+            oConnectionInfo = getConnectionInfoType(sHomeCommunityId, sServiceName);
         }
         return oConnectionInfo;
     }
@@ -692,15 +780,15 @@ public class CMServiceHelper {
     private static CMBusinessEntities retrieveAllBusinessEntitySetByServiceNameFromCache(String sServiceName) {
         CMBusinessEntities oCMBusinessEntities = null;
 
-        if ((sServiceName != null) &&
-                (sServiceName.length() > 0)) {
-            try {
-                oCMBusinessEntities = ConnectionManagerCache.getAllBusinessEntitySetByServiceName(sServiceName);
-            } catch (Throwable t) {
-                String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
-                log.error(sErrorMessage, t);
-            }
-        }
+//        if ((sServiceName != null) &&
+//                (sServiceName.length() > 0)) {
+//            try {
+//                oCMBusinessEntities = ConnectionManagerCache.getAllBusinessEntitySetByServiceName(sServiceName);
+//            } catch (Throwable t) {
+//                String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
+//                log.error(sErrorMessage, t);
+//            }
+//        }
 
         return oCMBusinessEntities;
     }
@@ -804,15 +892,15 @@ public class CMServiceHelper {
     public static SuccessOrFailType forceRefreshInternalConnectCache(ForceRefreshInternalConnectCacheRequestType part1) {
         SuccessOrFailType oSuccessOrFailType = new SuccessOrFailType();
 
-        try {
-            ConnectionManagerCache.forceRefreshInternalConnectCache();
-            oSuccessOrFailType.setSuccess(true);
-        } catch (Throwable t) {
-            String sErrorMessage = "Failed to call ConnectionManagerCache.forceRefreshInternalConnectionCache()";
-            log.error(sErrorMessage, t);
-            oSuccessOrFailType.setSuccess(false);
-
-        }
+//        try {
+//            ConnectionManagerCache.forceRefreshInternalConnectCache();
+//            oSuccessOrFailType.setSuccess(true);
+//        } catch (Throwable t) {
+//            String sErrorMessage = "Failed to call ConnectionManagerCache.forceRefreshInternalConnectionCache()";
+//            log.error(sErrorMessage, t);
+//            oSuccessOrFailType.setSuccess(false);
+//
+//        }
         return oSuccessOrFailType;
     }
 
@@ -975,19 +1063,19 @@ public class CMServiceHelper {
         UrlSetType urlSet = new UrlSetType();
         log.info("In getUrlSetFromNhinTargetCommunities...");
 
-        try {
-            CMUrlInfos urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(getConnectionInfoEndpontFromNhinTargetRequest.getNhinTargetCommunities(), getConnectionInfoEndpontFromNhinTargetRequest.getService());
-
-            if (urlInfoList != null &&
-                    urlInfoList.getUrlInfo() != null) {
-                for (CMUrlInfo entry : urlInfoList.getUrlInfo()) {
-                    urlSet.getUrl().add(entry.getUrl());
-                }
-            }
-        } catch (ConnectionManagerException ex) {
-            log.error("Failed to retrieve URL Set from Nhin Target Community");
-            return null;
-        }
+//        try {
+//            CMUrlInfos urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(getConnectionInfoEndpontFromNhinTargetRequest.getNhinTargetCommunities(), getConnectionInfoEndpontFromNhinTargetRequest.getService());
+//
+//            if (urlInfoList != null &&
+//                    urlInfoList.getUrlInfo() != null) {
+//                for (CMUrlInfo entry : urlInfoList.getUrlInfo()) {
+//                    urlSet.getUrl().add(entry.getUrl());
+//                }
+//            }
+//        } catch (ConnectionManagerException ex) {
+//            log.error("Failed to retrieve URL Set from Nhin Target Community");
+//            return null;
+//        }
 
         return urlSet;
     }

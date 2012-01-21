@@ -53,6 +53,9 @@ import org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVSecuredRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201310UVRequestType;
 import org.hl7.v3.PRPAIN201310UV02;
+import org.uddi.api_v3.BusinessEntity;
+import org.uddi.api_v3.Description;
+import org.uddi.api_v3.Name;
 
 /**
  *
@@ -68,7 +71,7 @@ public class EntitySubjectDiscoveryImpl {
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
         boolean isTargeted = false;
         List<NhinTargetCommunityType> targets = null;
-        List<CMHomeCommunity> communities = new ArrayList<CMHomeCommunity>();
+        List<BusinessEntity> communities = new ArrayList<BusinessEntity>();
 
         PIXConsumerPRPAIN201301UVRequestType request = new PIXConsumerPRPAIN201301UVRequestType();
         request.setAssertion(SamlTokenExtractor.GetAssertion(context));
@@ -93,10 +96,14 @@ public class EntitySubjectDiscoveryImpl {
             targets = pixConsumerPRPAIN201301UVRequest.getNhinTargetCommunities().getNhinTargetCommunity();
             // Transfer NhinTargetCommunities to List<CMHomeCommunity>
             for (NhinTargetCommunityType t : targets) {
-                CMHomeCommunity newHome = new CMHomeCommunity();
-                newHome.setDescription(t.getHomeCommunity().getDescription());
-                newHome.setHomeCommunityId(t.getHomeCommunity().getHomeCommunityId());
-                newHome.setName(t.getHomeCommunity().getName());
+            	BusinessEntity newHome = new BusinessEntity();
+            	Description desc = new Description();
+            	desc.setValue(t.getHomeCommunity().getDescription());
+            	newHome.getDescription().add(desc);
+            	ConnectionManagerCache.getInstance().setComunityId(newHome, t.getHomeCommunity().getHomeCommunityId());
+                Name name = new Name();
+                name.setValue(t.getHomeCommunity().getName());
+            	newHome.getName().add(name);
                 communities.add(newHome);
             }
             isTargeted = true;
@@ -104,7 +111,7 @@ public class EntitySubjectDiscoveryImpl {
         if (!isTargeted) {
             // Get all the Communities from ConnectionManager
             try {
-                communities = ConnectionManagerCache.getAllCommunities();
+                communities = ConnectionManagerCache.getInstance().getAllCommunities();
             } catch (ConnectionManagerException ex) {
                 log.error(ex.getMessage());
                 return null;
@@ -112,13 +119,14 @@ public class EntitySubjectDiscoveryImpl {
         }
         log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV -- number communities : " + communities.size());
 
-        for (CMHomeCommunity h : communities) {
+        for (BusinessEntity h : communities) {
             boolean patientHasCorrelation = false;
-            if (!h.getHomeCommunityId().equals(localHomeCommunity)) {
-                log.debug(h.getHomeCommunityId() + " != " + localHomeCommunity);
+            String hcid = ConnectionManagerCache.getInstance().getCommunityId(h);
+            if (!hcid.equals(localHomeCommunity)) {
+                log.debug(hcid + " != " + localHomeCommunity);
                 // Use the HCID to get Assigning Authority
                 AssigningAuthorityHomeCommunityMappingDAO dao = new AssigningAuthorityHomeCommunityMappingDAO();
-                List<String> aaResponse = dao.getAssigningAuthoritiesByHomeCommunity(h.getHomeCommunityId());
+                List<String> aaResponse = dao.getAssigningAuthoritiesByHomeCommunity(hcid);
 
                 // For each AA, look for patient correlations
                 if (aaResponse != null && aaResponse.size() > 0) {
@@ -145,14 +153,14 @@ public class EntitySubjectDiscoveryImpl {
                 // If no correlation, then send the request to the community.
                 if (!patientHasCorrelation) {
                     log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV -- No patientCorrelation; send to community : " +
-                            h.getHomeCommunityId());
+                    		hcid);
                     PIXConsumerPRPAIN201301UVProxyRequestType proxyRequest = createProxy201301(request);
 
                     gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType nhinTarget = new gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType();
                     HomeCommunityType homeCommunity = new HomeCommunityType();
-                    homeCommunity.setDescription(h.getDescription());
-                    homeCommunity.setHomeCommunityId(h.getHomeCommunityId());
-                    homeCommunity.setName(h.getName());
+                    homeCommunity.setDescription(hcid);
+                    homeCommunity.setHomeCommunityId(hcid);
+                    homeCommunity.setName(h.getName().get(0).getValue());
                     nhinTarget.setHomeCommunity(homeCommunity);
                     proxyRequest.setNhinTargetSystem(nhinTarget);
                     log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV -- Call to nhinSubjectDiscovery");

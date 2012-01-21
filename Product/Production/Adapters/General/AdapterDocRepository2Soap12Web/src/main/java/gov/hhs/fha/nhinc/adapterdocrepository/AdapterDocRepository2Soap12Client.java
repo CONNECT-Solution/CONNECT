@@ -146,7 +146,7 @@ public class AdapterDocRepository2Soap12Client
             // Get the real endpoint URL for this service.
             //--------------------------------------------
             //Note, set the sEndpointURL to null and comment out the ConnectionMangerCache logic if running outside of GF.
-            String sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_XDS_REP_SERVICE_NAME);
+            String sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_XDS_REP_SERVICE_NAME);
 
             if ((sEndpointURL == null) ||
                 (sEndpointURL.length() <= 0))

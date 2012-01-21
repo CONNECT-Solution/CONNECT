@@ -13,6 +13,7 @@ import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  *
@@ -24,13 +25,17 @@ public class EntityDocSubmissionOrchestratable implements EntityOrchestratable {
     private AssertionType assertion = null;
     private NhinDelegate nhinDelegate = null;
     private ProvideAndRegisterDocumentSetRequestType request = null;
+    private RegistryResponseType response = null;
 
-    public EntityDocSubmissionOrchestratable() {
+    public EntityDocSubmissionOrchestratable(NhinDelegate delegate) {
+        nhinDelegate = delegate;
     }
 
-    public EntityDocSubmissionOrchestratable(AssertionType assertion, NhinDelegate delegate) {
+    public EntityDocSubmissionOrchestratable(AssertionType assertion, NhinDelegate delegate, ProvideAndRegisterDocumentSetRequestType request, NhinTargetSystemType target) {
         this.assertion = assertion;
         this.nhinDelegate = delegate;
+        this.request = request;
+        this.target = target;
     }
 
     @Override
@@ -61,6 +66,14 @@ public class EntityDocSubmissionOrchestratable implements EntityOrchestratable {
 
     public void setRequest(ProvideAndRegisterDocumentSetRequestType request) {
         this.request = request;
+    }
+
+    public RegistryResponseType getResponse() {
+        return response;
+    }
+
+    public void setResponse(RegistryResponseType response) {
+        this.response = response;
     }
 
     public NhinTargetSystemType getTarget() {

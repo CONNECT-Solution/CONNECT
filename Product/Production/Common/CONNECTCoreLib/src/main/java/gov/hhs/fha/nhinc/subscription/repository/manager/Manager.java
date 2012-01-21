@@ -15,7 +15,9 @@ import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionRecordList;
 import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionReference;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
+import org.uddi.api_v3.BusinessEntity;
+import org.uddi.api_v3.BusinessService;
+
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessService;
 import java.util.Iterator;
 import org.apache.commons.logging.Log;
@@ -91,7 +93,7 @@ public class Manager {
      */
     public void addSubscription(SubscriptionRecord subscriptionRecord, SubscriptionRecordList subscriptionRecordList) {
         String subscriptionId = null;
-        CMBusinessEntity oCMBusinessEntity = null;
+        BusinessEntity oCMBusinessEntity = null;
         String url = null;
         String myCommunityId = null;
 
@@ -118,22 +120,22 @@ public class Manager {
                     myCommunityId = PropertyAccessor.getProperty("gateway", "localHomeCommunityId");
                     if (myCommunityId != null) {
                         try {
-                            oCMBusinessEntity = ConnectionManagerCache.getBusinessEntityByServiceName(myCommunityId, CONST_UNSUBSCRIBE_SERVICE_NAME);
+                            oCMBusinessEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(myCommunityId, CONST_UNSUBSCRIBE_SERVICE_NAME);
                             if (oCMBusinessEntity != null &&
                                     oCMBusinessEntity.getBusinessServices() != null &&
                                     oCMBusinessEntity.getBusinessServices().getBusinessService() != null &&
                                     oCMBusinessEntity.getBusinessServices().getBusinessService().size() > 0 &&
                                     oCMBusinessEntity.getBusinessServices().getBusinessService().get(0) != null) {
-                                CMBusinessService busService = oCMBusinessEntity.getBusinessServices().getBusinessService().get(0);
+                                BusinessService busService = oCMBusinessEntity.getBusinessServices().getBusinessService().get(0);
 
                                 if (busService != null &&
                                         busService.getBindingTemplates() != null &&
                                         busService.getBindingTemplates().getBindingTemplate() != null &&
                                         busService.getBindingTemplates().getBindingTemplate().size() > 0 &&
                                         busService.getBindingTemplates().getBindingTemplate().get(0) != null &&
-                                        busService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL() != null &&
-                                        busService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL().length() > 0) {
-                                    url = busService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL();
+                                        busService.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue() != null &&
+                                        busService.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue().length() > 0) {
+                                    url = busService.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue();
                                 }
                             }
                         } catch (Throwable t) {

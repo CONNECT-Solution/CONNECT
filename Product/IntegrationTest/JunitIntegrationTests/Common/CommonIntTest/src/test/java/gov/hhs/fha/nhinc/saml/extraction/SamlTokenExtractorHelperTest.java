@@ -27,7 +27,7 @@ public class SamlTokenExtractorHelperTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        ConnectionManagerCache.overrideFileLocations("uddiConnectionInfo.xml", "internalConnectionInfo.xml");
+        //ConnectionManagerCache.overrideFileLocations("uddiConnectionInfo.xml", "internalConnectionInfo.xml");
     }
 
     @AfterClass

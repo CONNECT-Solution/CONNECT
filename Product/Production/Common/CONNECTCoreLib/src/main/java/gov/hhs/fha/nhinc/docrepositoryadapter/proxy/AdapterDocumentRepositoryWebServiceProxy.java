@@ -41,12 +41,12 @@ public class AdapterDocumentRepositoryWebServiceProxy implements AdapterDocument
             }
             if(NullChecker.isNotNullish(xdsbHomeCommunityId))
             {
-                url = ConnectionManagerCache.getEndpointURLByServiceName(xdsbHomeCommunityId, NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(xdsbHomeCommunityId, NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
             }
 
             if(NullChecker.isNullish(url))
             {
-                url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
                 if(NullChecker.isNotNullish(xdsbHomeCommunityId))
                 {
                     log.warn("The endpoint URL retrieved for " + XDS_HOME_COMMUNITY_ID_PROPERTY + " (" + xdsbHomeCommunityId + ") from the " + ADAPTER_PROPERTY_FILE_NAME + ".properties file was not found. The default local adapter doc repository endpoint will be used: " + url);
@@ -76,11 +76,11 @@ public class AdapterDocumentRepositoryWebServiceProxy implements AdapterDocument
             String xdsbHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE_NAME, XDS_HOME_COMMUNITY_ID_PROPERTY);
             if (xdsbHomeCommunityId != null &&
                     !xdsbHomeCommunityId.equals("")) {
-                url = ConnectionManagerCache.getEndpointURLByServiceName(xdsbHomeCommunityId, NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(xdsbHomeCommunityId, NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
             }
 
             if (url == null) {
-                url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
             }
             DocumentRepositoryPortType port = getPort(url);
 

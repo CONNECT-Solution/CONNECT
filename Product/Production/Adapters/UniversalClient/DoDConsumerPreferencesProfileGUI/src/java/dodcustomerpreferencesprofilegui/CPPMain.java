@@ -31,6 +31,8 @@ import gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.*;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.*;
 import gov.hhs.fha.nhinc.transform.subdisc.*;
 import org.hl7.v3.*;
+
+import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.mpi.proxy.*;
 import gov.hhs.fha.nhinc.nhinclib.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
