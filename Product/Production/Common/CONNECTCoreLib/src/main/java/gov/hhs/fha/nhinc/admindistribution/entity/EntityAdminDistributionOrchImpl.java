@@ -60,6 +60,7 @@ public class EntityAdminDistributionOrchImpl {
 
                 if (bIsPolicyOk) {
                     NhinTargetSystemType targetSystem = buildTargetSystem(urlInfo);
+                    auditMessage(message, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                     sendToNhinProxy(message, assertion, targetSystem);
                 } //if (bIsPolicyOk)
                 else {
@@ -67,6 +68,17 @@ public class EntityAdminDistributionOrchImpl {
                 } //else policy enging did not return a permit response
             }
         }
+    }
+
+    protected void auditMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion, String direction){
+        AcknowledgementType ack = getLogger().auditEntityAdminDist(message, assertion, direction);
+        if (ack != null) {
+            log.debug("ack: " + ack.getMessage());
+        }
+    }
+
+    protected AdminDistributionAuditLogger getLogger() {
+        return new AdminDistributionAuditLogger();
     }
 
     private NhinTargetSystemType buildTargetSystem(UrlInfo urlInfo) {
