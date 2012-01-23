@@ -75,7 +75,7 @@
     </outofdate>
 
     <javac updatedProperty="compile.updated" debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${source.dir}" destdir="${build.classes.dir}" includes="**/*.java">
-      <classpath refid="build.classpath" />
+	    <classpath refid="build.classpath" />
     </javac>
 
     <if>
@@ -96,7 +96,7 @@
         <mkdir dir="${build.unittest.classes.dir}" />
         <javac debug="${compile.debug}" debuglevel="lines,vars,source"
 					srcdir="${unittest.source.dir}" destdir="${build.unittest.classes.dir}"
-					includes="**/*.java" source="1.6" target="1.6">
+					includes="**/*.java">
           <classpath>
             <path refid="build.classpath" />
             <pathelement path="${build.classes.dir}" />
