@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CONNECT Installer" default="install" basedir=".">
+
+	<property file="install.properties"/>
+	<property name="glassfish.zip.file" value="${basedir}/glassfish-2.1.1.mac.zip"/>
+    <property name="temp.dir" value="${basedir}/.installer_temp"/>
+    <property name="glassfish.install.ant.script" value="${glassfish.installation.dir}/setup.xml"/>
+    <property name="metro.zip.file" value="${basedir}/metro-2.1.1.zip"/>
+    <property name="metro.install.ant.script" value="${basedir}/.installer_temp/metro/metro-on-glassfish.xml"/>
+
+	<target name="install">
+		<delete dir="${temp.dir}"/>
+		<delete dir="${glassfish.installation.dir}"/>
+		<mkdir dir="${temp.dir}"/>
+		<unzip src="${glassfish.zip.file}" dest="${temp.dir}"/>
+		<move todir="${glassfish.installation.dir}">
+    		<fileset dir="${temp.dir}/glassfish"/>
+  		</move>
+		<replace file="${glassfish.install.ant.script}">
+			<replacetoken><![CDATA[<contains string="${targeted.java.version}" substring="1.5"/>
+         <contains string="${targeted.java.version}" substring="1.6"/>]]></replacetoken>
+  			<replacevalue><![CDATA[<contains string="${targeted.java.version}" substring="1.7"/>]]></replacevalue>
+		</replace>
+		<replace file="${glassfish.install.ant.script}" token="requires JDK 1.5 or higher" value="requires JDK 1.7"/>
+		<ant antfile="${glassfish.install.ant.script}" dir="${glassfish.installation.dir}"/>
+		<unzip src="${metro.zip.file}" dest="${temp.dir}"/>
+		<ant antfile="${metro.install.ant.script}" dir="${temp.dir}/metro" target="install">
+			<property name="as.home" value="${glassfish.installation.dir}"/>
+			<!--property name="env.AS_HOME" value="${glassfish.installation.dir}"/-->
+		</ant>
+		<delete dir="${temp.dir}"/>
+	</target>
+
+</project>
