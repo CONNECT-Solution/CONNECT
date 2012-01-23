@@ -25,6 +25,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.Passt
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import org.apache.commons.logging.Log;
@@ -53,7 +55,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         unsecureRequest.setPRPAIN201305UV02(request);
 
         // Audit the incoming Nhin 201305 Message
-        PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
+        PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLogger.auditEntityDeferred201305(unsecureRequest, unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_RESPONSE_PROCESS);
 
         // ASYNCMSG PROCESSING - RSPPROCESS
@@ -84,7 +86,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
         // "process" the request and send a response out to the Nhin.
-        PatientDiscovery201305Processor msgProcessor = new PatientDiscovery201305Processor();
+        PatientDiscoveryProcessor msgProcessor = new PatientDiscovery201305Processor();
         PRPAIN201306UV02 resp = msgProcessor.process201305(request.getPRPAIN201305UV02(), request.getAssertion());
 
         // Generate a new response assertion

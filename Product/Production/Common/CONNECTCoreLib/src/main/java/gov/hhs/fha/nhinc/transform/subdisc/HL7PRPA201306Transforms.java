@@ -10,16 +10,43 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
 import java.math.BigInteger;
-//import javax.xml.datatype.XMLGregorianCalendar;
-//import javax.xml.datatype.DatatypeFactory;
-import java.util.List;
+
 import javax.xml.bind.JAXBElement;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.*;
-
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import org.hl7.v3.ActClassControlAct;
+import org.hl7.v3.ActRelationshipMitigates;
+import org.hl7.v3.CD;
+import org.hl7.v3.COCTMT090003UV01AssignedEntity;
+import org.hl7.v3.COCTMT150003UV03Organization;
+import org.hl7.v3.CS;
+import org.hl7.v3.II;
+import org.hl7.v3.INT;
+import org.hl7.v3.MCAIMT900001UV01DetectedIssueEvent;
+import org.hl7.v3.MCAIMT900001UV01DetectedIssueManagement;
+import org.hl7.v3.MCAIMT900001UV01SourceOf;
+import org.hl7.v3.MCCIMT000300UV01Acknowledgement;
+import org.hl7.v3.MFMIMT700711UV01Custodian;
+import org.hl7.v3.MFMIMT700711UV01QueryAck;
+import org.hl7.v3.MFMIMT700711UV01Reason;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject2;
+import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201310UV02Patient;
+import org.hl7.v3.PRPAMT201310UV02QueryMatchObservation;
+import org.hl7.v3.PRPAMT201310UV02Subject;
+import org.hl7.v3.ParticipationTargetSubject;
+import org.hl7.v3.TSExplicit;
+import org.hl7.v3.XActMoodDefEvn;
+import org.hl7.v3.XActMoodIntentEvent;
 
 /**
  *

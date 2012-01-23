@@ -11,6 +11,7 @@
 
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy;
 
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 import org.springframework.context.ApplicationContext;
@@ -41,7 +42,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  *
  * @author Jon Hoppesch, Les Westberg
  */
-public class AdapterPatientDiscoveryProxyObjectFactory extends ComponentProxyObjectFactory
+public class AdapterPatientDiscoveryProxyObjectFactory extends ComponentProxyObjectFactory implements GenericFactory<AdapterPatientDiscoveryProxy>
 {
     private static final String CONFIG_FILE_NAME = "AdapterPatientDiscoveryProxyConfig.xml";
     private static final String BEAN_NAME_MPI = "adapterpatientdiscovery";
@@ -65,5 +66,9 @@ public class AdapterPatientDiscoveryProxyObjectFactory extends ComponentProxyObj
     {
         return getBean(BEAN_NAME_MPI, AdapterPatientDiscoveryProxy.class);
     }
+
+	public AdapterPatientDiscoveryProxy create() {
+		return getBean(BEAN_NAME_MPI, AdapterPatientDiscoveryProxy.class);
+	}
 
 }

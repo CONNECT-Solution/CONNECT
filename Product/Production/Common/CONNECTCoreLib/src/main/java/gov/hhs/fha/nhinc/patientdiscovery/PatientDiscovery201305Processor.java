@@ -42,17 +42,15 @@ import org.hl7.v3.XParticipationAuthorPerformer;
  *
  * @author jhoppesc
  */
-public class PatientDiscovery201305Processor {
+public class PatientDiscovery201305Processor implements PatientDiscoveryProcessor {
 
     private static Log log = LogFactory.getLog(PatientDiscovery201305Processor.class);
 
-    /**
-     * process201305
-     * @param request
-     * @param assertion
-     * @return org.hl7.PRPAIN201306UV02
-     */
-    public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion) {
+    /* (non-Javadoc)
+	 * @see gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor#process201305(org.hl7.v3.PRPAIN201305UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
+	 */
+    @Override
+	public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion) {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
         // Set the sender and receiver OID for the response

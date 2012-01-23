@@ -11,15 +11,17 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
-import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAdapterSender;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.TrustMode;
 import gov.hhs.fha.nhinc.patientdiscovery.response.VerifyMode;
+import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
@@ -34,13 +36,31 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 public class NhinPatientDiscoveryDeferredRespOrchImpl {
 
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryDeferredRespOrchImpl.class);
+    
+    private ServicePropertyAccessor servicePropertyAccessor;
 
-    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02Orch(PRPAIN201306UV02 body, AssertionType assertion) {
+   	private PatientDiscoveryAuditor auditLogger;
+
+   	private GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory;
+
+   	
+   	
+   	
+    public NhinPatientDiscoveryDeferredRespOrchImpl(
+			ServicePropertyAccessor servicePropertyAccessor,
+			PatientDiscoveryAuditor auditLogger,
+			GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory) {
+		super();
+		this.servicePropertyAccessor = servicePropertyAccessor;
+		this.auditLogger = auditLogger;
+		this.proxyFactory = proxyFactory;
+	}
+
+	public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02Orch(PRPAIN201306UV02 body, AssertionType assertion) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
         String ackMsg = "";
 
         // Audit the incoming Nhin 201306 Message
-        PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLogger.auditNhinDeferred201306(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         RespondingGatewayPRPAIN201306UV02RequestType nhinResponse = new RespondingGatewayPRPAIN201306UV02RequestType();
@@ -103,16 +123,17 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
      * @return Returns true if the servicePatientDiscoveryAsyncReq is enabled in the properties file.
      */
     protected boolean isServiceEnabled() {
-        return NhinPatientDiscoveryUtils.isServiceEnabled(NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME);
+    	return servicePropertyAccessor.isServiceEnabled();
     }
 
     protected MCCIIN000002UV01 sendToAdapter(PRPAIN201306UV02 body, AssertionType assertion) {
-        PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLogger.auditAdapterDeferred201306(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
-        PatientDiscoveryAdapterSender adapterSender = new PatientDiscoveryAdapterSender();
+       
+      
+        AdapterPatientDiscoveryDeferredRespProxy proxy = proxyFactory.create();
 
-        MCCIIN000002UV01 resp = adapterSender.sendDeferredRespToAgency(body, assertion);
+        MCCIIN000002UV01 resp = proxy.processPatientDiscoveryAsyncResp(body, assertion);
 
         ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 

@@ -18,6 +18,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -60,7 +61,7 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         List<UrlInfo> urlInfoList = null;
         PatientDiscovery201306Processor pd201306Processor = new PatientDiscovery201306Processor();
-        PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
+        PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
 
         if (body != null && assertion != null) {
             urlInfoList = getTargets(target);

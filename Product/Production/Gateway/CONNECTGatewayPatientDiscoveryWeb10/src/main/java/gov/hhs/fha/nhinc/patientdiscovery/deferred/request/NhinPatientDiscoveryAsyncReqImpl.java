@@ -8,9 +8,11 @@ package gov.hhs.fha.nhinc.patientdiscovery.deferred.request;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryDeferredReqOrchImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryDeferredReqOrchFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+
 import javax.xml.ws.WebServiceContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -32,7 +34,7 @@ public class NhinPatientDiscoveryAsyncReqImpl {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
 
-        MCCIIN000002UV01 resp = new NhinPatientDiscoveryDeferredReqOrchImpl().respondingGatewayPRPAIN201305UV02(request, assertion);
+        MCCIIN000002UV01 resp = NhinPatientDiscoveryDeferredReqOrchFactory.getInstance().create().respondingGatewayPRPAIN201305UV02(request, assertion);
 
         return resp;
     }    

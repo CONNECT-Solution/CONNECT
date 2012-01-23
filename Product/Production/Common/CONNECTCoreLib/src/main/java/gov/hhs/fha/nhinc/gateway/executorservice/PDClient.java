@@ -6,6 +6,7 @@ import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
@@ -108,7 +109,7 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
             boolean bIsPolicyOk = checkPolicy(newRequest, assertion);
             if(bIsPolicyOk){
                 // Audit the patientDiscovery Request Message sent on the Nhin Interface
-                PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
+                PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
                 AcknowledgementType ack = auditLog.auditEntity201305(newRequest, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                 String serviceAddress = t.getUrl();
 

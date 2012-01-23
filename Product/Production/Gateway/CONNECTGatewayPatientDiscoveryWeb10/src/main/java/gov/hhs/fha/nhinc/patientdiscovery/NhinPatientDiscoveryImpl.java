@@ -8,7 +8,9 @@ package gov.hhs.fha.nhinc.patientdiscovery;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchestration;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
@@ -33,14 +35,20 @@ public class NhinPatientDiscoveryImpl extends WebServiceHelper {
 	private Timestamp startTime = null;
 	private Timestamp stopTime = null;
 	private Long logId = null;
+	
+	private GenericFactory<NhinPatientDiscoveryOrchestration> orchestrationFactory;
+	private PatientDiscoveryAuditor auditLogger;
+	
+	public NhinPatientDiscoveryImpl(PatientDiscoveryAuditor auditLogger, GenericFactory<NhinPatientDiscoveryOrchestration> orchestrationFactory) {
+		this.orchestrationFactory = orchestrationFactory;
+		this.auditLogger = auditLogger;
+	}
 
 	public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
 			PRPAIN201305UV02 body, WebServiceContext context) {
 		log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
 
 		AssertionType assertion = getSamlAssertion(context);
-
-		auditIncoming201305Message(body, assertion);
 
 		start(body);
 
@@ -49,7 +57,6 @@ public class NhinPatientDiscoveryImpl extends WebServiceHelper {
 
 		stop();
 
-		auditResponding201306Message(assertion, response);
 
 		// Send response back to the initiating Gateway
 		log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
@@ -57,20 +64,6 @@ public class NhinPatientDiscoveryImpl extends WebServiceHelper {
 
 	}
 
-	private void auditResponding201306Message(AssertionType assertion,
-			PRPAIN201306UV02 response) {
-		// Audit the responding 201306 Message - Response outbound to the NHIN
-		PatientDiscoveryAuditLogger auditLogger = getAuditLogger();
-		auditLogger.auditNhin201306(response, assertion,
-				NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-	}
-
-	private void auditIncoming201305Message(PRPAIN201305UV02 body,
-			AssertionType assertion) {
-		PatientDiscoveryAuditLogger auditLogger = getAuditLogger();
-		auditLogger.auditNhin201305(body, assertion,
-				NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-	}
 
 	private void stop() {
 
@@ -107,20 +100,15 @@ public class NhinPatientDiscoveryImpl extends WebServiceHelper {
 
 	private PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
 			PRPAIN201305UV02 body, AssertionType assertion) {
-		NhinPatientDiscoveryOrchImpl oOrchestrator = getOrchestrator();
+		NhinPatientDiscoveryOrchestration oOrchestrator1 = orchestrationFactory.create();
+		NhinPatientDiscoveryOrchestration oOrchestrator = oOrchestrator1;
 
 		PRPAIN201306UV02 response = oOrchestrator
 				.respondingGatewayPRPAIN201305UV02(body, assertion);
 		return response;
 	}
 
-	protected NhinPatientDiscoveryOrchImpl getOrchestrator() {
-		NhinPatientDiscoveryOrchImpl oOrchestrator = new NhinPatientDiscoveryOrchImpl();
-		return oOrchestrator;
-	}
-
-	protected PatientDiscoveryAuditLogger getAuditLogger() {
-		PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
+	protected PatientDiscoveryAuditor getAuditLogger() {
 		return auditLogger;
 	}
 

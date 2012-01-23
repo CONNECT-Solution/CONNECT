@@ -55,7 +55,7 @@ public class PatientDiscovery201305ProcessorTest {
     public void testProcess201305() {
         System.out.println("testProcess201305");
 
-        PatientDiscovery201305Processor instance = new PatientDiscovery201305Processor() {
+        PatientDiscoveryProcessor instance = new PatientDiscovery201305Processor() {
             @Override
             protected void storeMapping(PRPAIN201305UV02 request) {}
 
@@ -98,7 +98,7 @@ public class PatientDiscovery201305ProcessorTest {
     public void testProcess201305PatientNotFound() {
         System.out.println("testProcess201305PatientNotFound");
 
-        PatientDiscovery201305Processor instance = new PatientDiscovery201305Processor() {
+        PatientDiscoveryProcessor instance = new PatientDiscovery201305Processor() {
             @Override
             protected void storeMapping(PRPAIN201305UV02 request) {}
 
@@ -139,7 +139,7 @@ public class PatientDiscovery201305ProcessorTest {
     public void testProcess201305PolicyCheckFailure() {
         System.out.println("testProcess201305PolicyCheckFailure");
 
-        PatientDiscovery201305Processor instance = new PatientDiscovery201305Processor() {
+        PatientDiscoveryProcessor instance = new PatientDiscovery201305Processor() {
             @Override
             protected void storeMapping(PRPAIN201305UV02 request) {}
 

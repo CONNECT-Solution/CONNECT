@@ -9,6 +9,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxyObjectFactory;
 import org.apache.commons.logging.Log;
@@ -31,7 +32,7 @@ public class PassthruPatientDiscoveryDeferredRequestOrchImpl
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected PatientDiscoveryAuditLogger createAuditLogger()
+    protected PatientDiscoveryAuditor createAuditLogger()
     {
         return new PatientDiscoveryAuditLogger();
     }

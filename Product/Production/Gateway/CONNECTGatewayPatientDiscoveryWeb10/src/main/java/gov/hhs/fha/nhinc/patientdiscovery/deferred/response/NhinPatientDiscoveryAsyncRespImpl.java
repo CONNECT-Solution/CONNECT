@@ -11,6 +11,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.deferred.response;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryDeferredRespOrchFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryDeferredRespOrchImpl;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import java.util.List;
@@ -42,6 +43,6 @@ public class NhinPatientDiscoveryAsyncRespImpl
             }
         }
 
-        return new NhinPatientDiscoveryDeferredRespOrchImpl().respondingGatewayPRPAIN201306UV02Orch(body, assertion);
+        return NhinPatientDiscoveryDeferredRespOrchFactory.getInstance().create().respondingGatewayPRPAIN201306UV02Orch(body, assertion);
     }    
 }

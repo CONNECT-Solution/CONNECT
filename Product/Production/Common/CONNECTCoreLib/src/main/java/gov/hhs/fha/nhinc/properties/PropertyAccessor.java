@@ -6,17 +6,20 @@
  */
 package gov.hhs.fha.nhinc.properties;
 
-import java.io.FileReader;
-import java.io.File;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
+import java.io.File;
+import java.io.FileReader;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
  * This class is a POJO class that is used to access properties within a

@@ -12,6 +12,7 @@ import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
@@ -93,9 +94,9 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected PatientDiscoveryAuditLogger createAuditLogger()
+            protected PatientDiscoveryAuditor createAuditLogger()
             {
-                PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger()
+                PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger()
                 {
 
                     @Override
@@ -211,9 +212,9 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected PatientDiscoveryAuditLogger createAuditLogger()
+            protected PatientDiscoveryAuditor createAuditLogger()
             {
-                PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger()
+                PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger()
                 {
 
                     @Override
@@ -336,9 +337,9 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected PatientDiscoveryAuditLogger createAuditLogger()
+            protected PatientDiscoveryAuditor createAuditLogger()
             {
-                PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger()
+                PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger()
                 {
 
                     @Override

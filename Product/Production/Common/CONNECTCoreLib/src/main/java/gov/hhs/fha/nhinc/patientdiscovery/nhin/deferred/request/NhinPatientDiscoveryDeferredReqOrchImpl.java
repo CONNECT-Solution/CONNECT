@@ -9,19 +9,21 @@ package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAdapterSender;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxy;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory;
-import gov.hhs.fha.nhinc.transform.policy.PatientDiscoveryPolicyTransformHelper;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
+import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  *
@@ -30,15 +32,37 @@ import org.hl7.v3.PRPAIN201305UV02;
 public class NhinPatientDiscoveryDeferredReqOrchImpl {
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryDeferredReqOrchImpl.class);
 
+    
+    private ServicePropertyAccessor servicePropertyAccessor;
+
+	private PatientDiscoveryAuditor auditLogger;
+
+	private GenericFactory<AdapterPatientDiscoveryDeferredReqProxy> proxyFactory;
+     
+	  public NhinPatientDiscoveryDeferredReqOrchImpl(
+				ServicePropertyAccessor servicePropertyAccessor,
+				PatientDiscoveryAuditor auditLogger,
+				GenericFactory<AdapterPatientDiscoveryDeferredReqProxy> proxyFactory) {
+			super();
+			this.servicePropertyAccessor = servicePropertyAccessor;
+			this.auditLogger = auditLogger;
+			this.proxyFactory = proxyFactory;
+		}
+
+    
+	
+	
+	
     protected AsyncMessageProcessHelper createAsyncProcesser() {
         return new AsyncMessageProcessHelper();
     }
+    
+    
 
     public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
 
         // Audit the incoming Nhin 201305 Message
-        PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLogger.auditNhinDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         // Check if the Patient Discovery Async Request Service is enabled
@@ -70,7 +94,8 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl {
      * @return Returns true if the servicePatientDiscoveryAsyncReq is enabled in the properties file.
      */
     protected boolean isServiceEnabled() {
-        return NhinPatientDiscoveryUtils.isServiceEnabled(NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME);
+    	return servicePropertyAccessor.isServiceEnabled();
+        //return NhinPatientDiscoveryUtils.isServiceEnabled(NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME);
     }
 
     /**
@@ -79,7 +104,8 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl {
      * @return Returns true if the patientDiscoveryPassthroughAsyncReq property of the gateway.properties file is true.
      */
     protected boolean isInPassThroughMode() {
-        return NhinPatientDiscoveryUtils.isInPassThroughMode(NhincConstants.PATIENT_DISCOVERY_SERVICE_ASYNC_REQ_PASSTHRU_PROPERTY);
+    	return servicePropertyAccessor.isInPassThroughMode();
+        //return NhinPatientDiscoveryUtils.isInPassThroughMode(NhincConstants.PATIENT_DISCOVERY_SERVICE_ASYNC_REQ_PASSTHRU_PROPERTY);
     }
 
     /**
@@ -119,12 +145,13 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl {
         return response;
     }
 
-    protected MCCIIN000002UV01 sendToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
-        PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
+  
+
+
+	protected MCCIIN000002UV01 sendToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
         AcknowledgementType ack = auditLogger.auditAdapterDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
-        AdapterPatientDiscoveryDeferredReqProxyObjectFactory factory = new AdapterPatientDiscoveryDeferredReqProxyObjectFactory();
-        AdapterPatientDiscoveryDeferredReqProxy proxy = factory.getAdapterPatientDiscoveryDeferredReqProxy();
+        AdapterPatientDiscoveryDeferredReqProxy proxy = proxyFactory.create();
 
         MCCIIN000002UV01 resp = proxy.processPatientDiscoveryAsyncReq(request, assertion);
        
@@ -134,16 +161,21 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl {
     }
 
     protected MCCIIN000002UV01 sendToAgencyError(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
-        PatientDiscoveryAuditLogger auditLogger = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLogger.auditAdapterDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
-        PatientDiscoveryAdapterSender adapterSender = new PatientDiscoveryAdapterSender();
+       
+        
+        AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory factory = new AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory();
+        AdapterPatientDiscoveryDeferredReqErrorProxy proxy = factory.getAdapterPatientDiscoveryDeferredReqErrorProxy();
 
-        MCCIIN000002UV01 resp = adapterSender.sendDeferredReqErrorToAgency(request, assertion, errMsg);
+        PRPAIN201306UV02 response = new HL7PRPA201306Transforms().createPRPA201306ForPatientNotFound(request);
 
-        ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+        MCCIIN000002UV01 adapterResp = proxy.processPatientDiscoveryAsyncReqError(request, response, assertion, errMsg);
+        
+        
+        ack = auditLogger.auditAck(adapterResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
-        return resp;
+        return adapterResp;
     }
 
 }

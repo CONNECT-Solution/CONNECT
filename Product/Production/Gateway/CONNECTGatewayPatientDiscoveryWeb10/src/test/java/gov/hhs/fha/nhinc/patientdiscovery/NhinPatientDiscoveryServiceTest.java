@@ -6,7 +6,10 @@ import java.sql.Timestamp;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchestration;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
 
@@ -35,30 +38,29 @@ public class NhinPatientDiscoveryServiceTest {
     	final PRPAIN201305UV02 request = context.mock(PRPAIN201305UV02.class);
     	final WebServiceContext webServiceContext = context.mock(WebServiceContext.class);
     	final PRPAIN201306UV02 expectedResponse = context.mock(PRPAIN201306UV02.class);
-    	final NhinPatientDiscoveryOrchImpl mockOrchestration = context.mock(NhinPatientDiscoveryOrchImpl.class);
+    	final NhinPatientDiscoveryOrchestration mockOrchestration = context.mock(NhinPatientDiscoveryOrchestration.class);
     	final AssertionType mockAssertion = context.mock(AssertionType.class);
     	final PatientDiscoveryAuditLogger mockAuditLogger = context.mock(PatientDiscoveryAuditLogger.class);
     	final PatientDiscoveryTransforms mockPatientDiscoveryTransforms = context.mock(PatientDiscoveryTransforms.class);
     	final PerformanceManager mockPerformanceManager = context.mock(PerformanceManager.class);
 
-    	
+    	GenericFactory<NhinPatientDiscoveryOrchestration> orchestrationFactory = new GenericFactory<NhinPatientDiscoveryOrchestration>() {
 
-    	NhinPatientDiscoveryImpl service = new NhinPatientDiscoveryImpl() {
-
-			
 			@Override
-			protected NhinPatientDiscoveryOrchImpl getOrchestrator() {
+			public NhinPatientDiscoveryOrchestration create() {
 				return mockOrchestration;
 			}
+		};
+    	
+    
 
+    	NhinPatientDiscoveryImpl service = new NhinPatientDiscoveryImpl(mockAuditLogger, orchestrationFactory) {
+
+			
+			
 			@Override
 			protected AssertionType getSamlAssertion(WebServiceContext context) {
 				return mockAssertion;
-			}
-
-			@Override
-			protected PatientDiscoveryAuditLogger getAuditLogger() {
-				return mockAuditLogger;
 			}
 			
 			@Override

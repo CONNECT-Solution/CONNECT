@@ -15,6 +15,7 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
@@ -37,7 +38,7 @@ public class NhincPatientDiscoveryOrchImpl {
         return LogFactory.getLog(getClass());
     }
 
-    protected PatientDiscoveryAuditLogger getPatientDiscoveryAuditLogger() {
+    protected PatientDiscoveryAuditor getPatientDiscoveryAuditLogger() {
         return new PatientDiscoveryAuditLogger();
     }
 

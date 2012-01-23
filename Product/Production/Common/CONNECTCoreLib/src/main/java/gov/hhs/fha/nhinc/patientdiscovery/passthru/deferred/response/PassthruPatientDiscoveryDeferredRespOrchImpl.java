@@ -12,6 +12,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxyObjectFactory;
 import org.apache.commons.logging.Log;
@@ -40,7 +41,7 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
 
         MCCIIN000002UV01 response = null;
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
-        PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
+        PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
         auditLog.auditNhinDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         NhinPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryDeferredRespProxyObjectFactory();

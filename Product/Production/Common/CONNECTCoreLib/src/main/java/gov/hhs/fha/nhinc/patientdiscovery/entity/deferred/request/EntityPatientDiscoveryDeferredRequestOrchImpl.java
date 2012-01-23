@@ -20,6 +20,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyObjectFactory;
@@ -48,7 +49,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected PatientDiscoveryAuditLogger createAuditLogger() {
+    protected PatientDiscoveryAuditor createAuditLogger() {
         return new PatientDiscoveryAuditLogger();
     }
 
@@ -76,7 +77,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
             AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
 
             // Audit the Patient Discovery Request Message sent on the Entity Interface
-            PatientDiscoveryAuditLogger auditLog = createAuditLogger();
+            PatientDiscoveryAuditor auditLog = createAuditLogger();
 
             RespondingGatewayPRPAIN201305UV02RequestType unsecureRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
             unsecureRequest.setNhinTargetCommunities(targets);
@@ -174,7 +175,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         oTargetSystemType.setUrl(urlInfo.getUrl());
 
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
-        PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
+        PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLog.auditNhinDeferred201305(request, newAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         PassthruPatientDiscoveryDeferredRequestProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryDeferredRequestProxyObjectFactory();
