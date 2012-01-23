@@ -36,6 +36,11 @@
         <dist.type>war</dist.type>
     </project>
     <project>
+        <name>CONNECTGatewayDocumentSubmission20</name>
+        <directory>/Production/Gateway/CONNECTGatewayDocumentSubmission20</directory>
+        <dist.type>war</dist.type>
+    </project>
+    <project>
         <name>CONNECTAdapterDocumentQuery10</name>
         <directory>/Production/Adapters/CONNECTAdapterDocumentQuery10</directory>
         <dist.type>war</dist.type>
