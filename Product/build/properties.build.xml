@@ -17,6 +17,6 @@
 
 	<property name="temp.directory.path" value='${java.io.tmpdir}' />
 	<property name="debug" value="false" />
-	<property name="ant.build.javac.source" value="1.6" />
-	<property name="ant.build.javac.target" value="1.6" />
+	<property name="ant.build.javac.source" value="1.7" />
+	<property name="ant.build.javac.target" value="1.7" />
 </project>
