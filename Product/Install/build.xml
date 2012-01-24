@@ -48,6 +48,7 @@
     </target>
     
     <target name="install.glassfish.with.metro">
+    	<echo message="installing glassfish."/>
         <delete dir="${temp.dir}"/>
         <delete dir="${glassfish.install.dir}"/>
         <mkdir dir="${temp.dir}"/>
@@ -62,11 +63,27 @@
         </replace>
         <replace file="${glassfish.install.ant.script}" token="requires JDK 1.5 or higher" value="requires JDK 1.7"/>
         <ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}"/>
+    	<echo message="installing metro into glassfish."/>
         <unzip src="${metro.zip.file}" dest="${temp.dir}"/>
         <ant antfile="${metro.install.ant.script}" dir="${temp.dir}/metro" target="install">
             <property name="as.home" value="${glassfish.install.dir}"/>
-            <!--property name="env.AS_HOME" value="${glassfish.install.dir}"/-->
         </ant>
+    	<echo message="setting up self-signed certificates and trustores/keystores."/>
+        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-genkey -keyalg RSA -keysize 1024 -keystore gateway.jks -keypass changeit -storepass changeit -validity 365 -alias gateway -dname &quot;cn=localhost&quot;"/>
+        </exec>
+        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-export -rfc -alias gateway -file localhost.cer -keystore gateway.jks -keypass changeit -storepass changeit"/>
+        </exec>
+        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-import -v -trustcacerts -alias localhost -file localhost.cer -keystore cacerts.jks"/>
+        </exec>
+        <copy todir="${glassfish.install.dir}/domains/domain1/config">
+        	<fileset dir="${temp.dir}">
+      			<include name="gateway.jks"/>
+      			<include name="cacerts.jks"/>
+    		</fileset>
+        </copy>
     </target>
     
     <target name="install.databases">
