@@ -69,23 +69,23 @@
     </target>
     
     <target name="install.databases">
-        <exec executable="mysql" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/dropall.sql">
+        <exec failonerror="true" executable="mysql" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/dropall.sql">
             <arg value="-v" />
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
         </exec>
-        <exec executable="mysql" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/nhincdb.sql">
+        <exec failonerror="true" executable="mysql" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/nhincdb.sql">
             <arg value="-v" />
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
         </exec>
-        <exec executable="mysql" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/populateTestData.sql">
+        <exec failonerror="true" executable="mysql" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/populateTestData.sql">
             <arg value="-v" />
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
         </exec>
         <echo file="${temp.dir}/show.databases.sql" message="SHOW DATABASES;"/>
-        <exec executable="mysql" dir="${temp.dir}" input="${temp.dir}/show.databases.sql">
+        <exec failonerror="true" executable="mysql" dir="${temp.dir}" input="${temp.dir}/show.databases.sql">
             <arg value="-v" />
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
@@ -94,12 +94,12 @@
 GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
         </echo>
-        <exec executable="mysql" dir="${temp.dir}" input="${temp.dir}/privileges.sql">
+        <exec failonerror="true" executable="mysql" dir="${temp.dir}" input="${temp.dir}/privileges.sql">
             <arg value="-v" />
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
         </exec>
-        <exec executable="mysql" dir="${basedir}">
+        <exec failonerror="true" executable="mysql" dir="${basedir}">
             <arg value="-unhincuser" />
             <arg value="-pnhincpass" />
         </exec>
