@@ -34,14 +34,14 @@
         <property name="glassfish.zip.file" value="${basedir}/glassfish-2.1.1.windows.zip"/>
     </target>
     
-    <target name="backup.glassfish.install.dir" if="glassfish.install.dir.exists">
+    <target name="backup.glassfish.install.dir" if="glassfish.install.dir.exists" unless="skip.backup">
     	<echo message="WARNING: glassfish appears to already be installed at ${glassfish.install.dir}...backing up."/>
         <copy todir="${glassfish.install.dir.root}/.backup.${glassfish.install.dir.name}.${DSTAMP}_${TSTAMP}">
             <fileset dir="${glassfish.install.dir}"/>
         </copy>
     </target>
 
-    <target name="install" depends="determine.os, setup.properties, backup.glassfish.install.dir, install.glassfish.with.metro, install.databases, cleanup"/>
+    <target name="install" depends="determine.os, setup.properties, backup.glassfish.install.dir, install.glassfish.with.metro, install.databases, build.connect, deploy.connect, cleanup"/>
     
     <target name="cleanup">
         <delete dir="${temp.dir}"/>
@@ -130,6 +130,20 @@ FLUSH PRIVILEGES;
             <arg value="-pnhincpass" />
         </exec>
         <echo message="databases are successfully installed."/>
+    </target>
+    
+    <target name="build.connect" unless="skip.build">
+    	<ant antfile="${basedir}/../build.xml" dir="${basedir}/..">
+    		<target name="clean"/>
+    		<target name="package.create"/>
+            <property name="as.home" value="${glassfish.install.dir}"/>
+        </ant>
+    </target>
+    
+    <target name="deploy.connect" unless="skip.deploy">
+    	<ant antfile="${basedir}/../build.xml" dir="${basedir}/.." target="deploy">
+    		<property name="glassfish.home" value="${glassfish.install.dir}"/>
+    	</ant>
     </target>
 
 </project>
