@@ -35,6 +35,7 @@
     </target>
     
     <target name="backup.glassfish.install.dir" if="glassfish.install.dir.exists">
+    	<echo message="WARNING: glassfish appears to already be installed at ${glassfish.install.dir}...backing up."/>
         <copy todir="${glassfish.install.dir.root}/.backup.${glassfish.install.dir.name}.${DSTAMP}_${TSTAMP}">
             <fileset dir="${glassfish.install.dir}"/>
         </copy>
