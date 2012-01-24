@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CONNECT Installer" default="install" basedir=".">
 
-	<property file="install.properties"/>
-	<property name="glassfish.zip.file" value="${basedir}/glassfish-2.1.1.mac.zip"/>
+	<property file="local.install.properties"/>
     <property name="temp.dir" value="${basedir}/.installer_temp"/>
     <property name="glassfish.install.ant.script" value="${glassfish.installation.dir}/setup.xml"/>
     <property name="metro.zip.file" value="${basedir}/metro-2.1.1.zip"/>
     <property name="metro.install.ant.script" value="${basedir}/.installer_temp/metro/metro-on-glassfish.xml"/>
+    
+    <target name="check.assumptions">
+    	<fail unless="glassfish.installation.dir" message="The glassfish.installation.dir property must be set, either in local.install.proeprties, or passed-in via -D property."/>
+    </target>
 
-	<target name="install">
+	<target name="determine.os">
+		<condition property="is.mac">
+            <os family="mac"/>
+        </condition>
+		<condition property="is.windows">
+            <os family="windows"/>
+        </condition>
+	</target>
+	
+	<target name="setup.properties" depends="setup.properties.mac, setup.properties.windows"/>
+	
+	<target name="setup.properties.mac" if="is.mac">
+		<property name="glassfish.zip.file" value="${basedir}/glassfish-2.1.1.mac.zip"/>
+	</target>
+	
+	<target name="setup.properties.windows"  if="is.windows">
+		<property name="glassfish.zip.file" value="${basedir}/glassfish-2.1.1.windows.zip"/>
+	</target>
+
+	<target name="install" depends="check.assumptions, determine.os, setup.properties">
 		<delete dir="${temp.dir}"/>
 		<delete dir="${glassfish.installation.dir}"/>
 		<mkdir dir="${temp.dir}"/>
