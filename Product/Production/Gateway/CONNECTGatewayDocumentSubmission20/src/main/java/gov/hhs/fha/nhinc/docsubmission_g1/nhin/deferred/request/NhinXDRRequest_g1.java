@@ -16,7 +16,7 @@ import javax.xml.ws.soap.Addressing;
  *
  * @author JHOPPESC
  */
-@WebService(serviceName = "XDRDeferredRequest_Service", portName = "XDRDeferredRequest_Port_Soap", endpointInterface = "nhin.deferred.XDRDeferredRequestPortType", targetNamespace = "urn:nhin:Deferred", wsdlLocation = "WEB-INF/wsdl/NhinXDRRequest/NhinXDRDeferredRequest.wsdl")
+@WebService(serviceName = "XDRDeferredRequest_Service", portName = "XDRDeferredRequest_Port_Soap", endpointInterface = "nhin.deferred.XDRDeferredRequestPortType", targetNamespace = "urn:nhin:Deferred", wsdlLocation = "WEB-INF/wsdl/NhinXDRRequest/NhinXDRDeferredRequest_g1.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled=true)
 public class NhinXDRRequest_g1 {
