@@ -165,7 +165,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
     }
 
     protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request) {
-        return new PatientDiscoveryPolicyChecker().checkOutgoingPolicy(request);
+        return PatientDiscoveryPolicyChecker.getInstance().checkOutgoingPolicy(request);
     }
 
     protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo) {

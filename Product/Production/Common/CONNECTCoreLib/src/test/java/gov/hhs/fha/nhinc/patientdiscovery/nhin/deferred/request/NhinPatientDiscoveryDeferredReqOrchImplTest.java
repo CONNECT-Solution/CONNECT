@@ -1,179 +1,240 @@
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request;
 
+import static org.junit.Assert.assertSame;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.patientdiscovery.testhelper.TestHelper;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
-import javax.xml.bind.JAXBElement;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
+import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
+
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAMT201301UV02Patient;
-import org.hl7.v3.PRPAMT201301UV02Person;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
-import org.junit.Ignore;
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
- @Ignore
+@RunWith(JMock.class)
 public class NhinPatientDiscoveryDeferredReqOrchImplTest {
 
-    public NhinPatientDiscoveryDeferredReqOrchImplTest() {
-    }
+	Mockery context = new JUnit4Mockery();
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
+	PatientDiscoveryAuditor auditor = context
+			.mock(PatientDiscoveryAuditor.class);
+	AdapterPatientDiscoveryDeferredReqProxy mockProxy = context
+			.mock(AdapterPatientDiscoveryDeferredReqProxy.class);
+	AdapterPatientDiscoveryDeferredReqErrorProxy mockErrorProxy = context
+			.mock(AdapterPatientDiscoveryDeferredReqErrorProxy.class);
+	
+	@SuppressWarnings("unchecked")
+	PolicyChecker<RespondingGatewayPRPAIN201305UV02RequestType,PRPAIN201305UV02> proxyPolicyChecker = context.mock(PolicyChecker.class);
 
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
+	GenericFactory<AdapterPatientDiscoveryDeferredReqErrorProxy> proxyErrorFactory = new GenericFactory<AdapterPatientDiscoveryDeferredReqErrorProxy>() {
+		@Override
+		public AdapterPatientDiscoveryDeferredReqErrorProxy create() {
+			return mockErrorProxy;
+		}
+	};
 
-    @Before
-    public void setUp() {
-    }
+	GenericFactory<AdapterPatientDiscoveryDeferredReqProxy> proxyFactory = new GenericFactory<AdapterPatientDiscoveryDeferredReqProxy>() {
+		@Override
+		public AdapterPatientDiscoveryDeferredReqProxy create() {
+			return mockProxy;
+		}
+	};
 
-    @After
-    public void tearDown() {
-    }
+	protected NhinPatientDiscoveryDeferredReqOrch buildOrchestrationForTest(
+			final boolean serviceEnabled, final boolean passThrough) {
+		NhinPatientDiscoveryDeferredReqOrch impl = new NhinPatientDiscoveryDeferredReqOrchImpl(
+				new ServicePropertyAccessor() {
 
-    /**
-     * Test of respondingGatewayPRPAIN201305UV02 method, of class NhinPatientDiscoveryAsyncReqImpl.
-     */
-//    @Test
-//    public void testRespondingGatewayPRPAIN201305UV02() {
-//        System.out.println("testRespondingGatewayPRPAIN201305UV02");
-//
-//        NhinPatientDiscoveryDeferredReqOrchImpl instance = 
-//        		new NhinPatientDiscoveryDeferredReqOrchImpl() {
-//
-//            @Override
-//            protected boolean isServiceEnabled() {
-//                return true;
-//            }
-//
-//            @Override
-//            protected boolean isInPassThroughMode() {
-//                return false;
-//            }
-//
-//            @Override
-//            protected MCCIIN000002UV01 sendToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
-//                return HL7AckTransforms.createAckFrom201305(request, "SuccessAgency");
-//            }
-//
-//            @Override
-//            protected MCCIIN000002UV01 sendToAgencyError(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
-//                return HL7AckTransforms.createAckFrom201305(request, errMsg);
-//            }
-//        };
-//
-//        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
-//        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
-//        PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
-//
-//        AssertionType assertion = new AssertionType();
-//
-//        MCCIIN000002UV01 result = instance.respondingGatewayPRPAIN201305UV02(request, assertion);
-//
-//        assertNotNull(result);
-//        TestHelper.assertReceiverEquals("1.1", result);
-//        TestHelper.assertSenderEquals("2.2", result);
-//        TestHelper.assertAckMsgEquals("SuccessQueue", result);
-//    }
+					@Override
+					public boolean isServiceEnabled() {
+						return serviceEnabled;
+					}
 
-    /**
-     * Test of respondingGatewayPRPAIN201305UV02 method, of class NhinPatientDiscoveryAsyncReqImpl.
-     */
-//    @Test
-//    public void testRespondingGatewayPRPAIN201305UV02Passthru() {
-//        System.out.println("testRespondingGatewayPRPAIN201305UV02Passthru");
-//
-//        NhinPatientDiscoveryDeferredReqOrchImpl instance = new NhinPatientDiscoveryDeferredReqOrchImpl() {
-//
-//            @Override
-//            protected boolean isServiceEnabled() {
-//                return true;
-//            }
-//
-//            @Override
-//            protected boolean isInPassThroughMode() {
-//                return true;
-//            }
-//
-//            @Override
-//            protected MCCIIN000002UV01 sendToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
-//                return HL7AckTransforms.createAckFrom201305(request, "SuccessAgency");
-//            }
-//
-//            @Override
-//            protected MCCIIN000002UV01 sendToAgencyError(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
-//                return HL7AckTransforms.createAckFrom201305(request, errMsg);
-//            }
-//        };
-//
-//        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
-//        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
-//        PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
-//
-//        AssertionType assertion = new AssertionType();
-//
-//        MCCIIN000002UV01 result = instance.respondingGatewayPRPAIN201305UV02(request, assertion);
-//
-//        assertNotNull(result);
-//        TestHelper.assertReceiverEquals("1.1", result);
-//        TestHelper.assertSenderEquals("2.2", result);
-//        TestHelper.assertAckMsgEquals("SuccessAgency", result);
-//    }
+					@Override
+					public boolean isInPassThroughMode() {
+						return passThrough;
+					}
+				}, auditor, proxyFactory, proxyErrorFactory, proxyPolicyChecker);
+		return impl;
+	}
 
-        /**
-     * Test of respondingGatewayPRPAIN201305UV02 method, of class NhinPatientDiscoveryAsyncReqImpl.
-     */
-//    @Test
-//    public void testRespondingGatewayPRPAIN201305UV02ServiceEnabled() {
-//        System.out.println("testRespondingGatewayPRPAIN201305UV02ServiceEnabled");
-//
-//        NhinPatientDiscoveryDeferredReqOrchImpl instance = new NhinPatientDiscoveryDeferredReqOrchImpl() {
-//
-//            @Override
-//            protected boolean isServiceEnabled() {
-//                return false;
-//            }
-//
-//            @Override
-//            protected boolean isInPassThroughMode() {
-//                return false;
-//            }
-//
-//            @Override
-//            protected MCCIIN000002UV01 sendToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
-//                return HL7AckTransforms.createAckFrom201305(request, "SuccessAgency");
-//            }
-//
-//            @Override
-//            protected MCCIIN000002UV01 sendToAgencyError(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
-//                return HL7AckTransforms.createAckFrom201305(request, errMsg);
-//            }
-//        };
-//
-//        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
-//        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
-//        PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
-//
-//        AssertionType assertion = new AssertionType();
-//
-//        MCCIIN000002UV01 result = instance.respondingGatewayPRPAIN201305UV02(request, assertion);
-//
-//        assertNotNull(result);
-//        TestHelper.assertReceiverEquals("1.1", result);
-//        TestHelper.assertSenderEquals("2.2", result);
-//        TestHelper.assertAckMsgEquals("Patient Discovery Async Request Service Not Enabled", result);
-//    }
+	@Test
+	public void serviceNotEnabled() {
+		NhinPatientDiscoveryDeferredReqOrch instance = buildOrchestrationForTest(
+				false, false);
+		final AssertionType assertion = null;
+		final MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
+
+		final PRPAIN201305UV02 body = new PRPAIN201305UV02();
+
+		context.checking(new Expectations() {
+			{
+				oneOf(auditor).auditNhinDeferred201305(with(same(body)),
+						with(same(assertion)), with("Inbound"));
+				oneOf(auditor).auditAdapterDeferred201305(with(same(body)),
+						with(same(assertion)), with("Outbound"));
+				
+				oneOf(mockErrorProxy)
+						.processPatientDiscoveryAsyncReqError(
+								with(same(body)),
+								with(any(PRPAIN201306UV02.class)),
+								with(same(assertion)),
+								with("Patient Discovery Deferred Request Service Not Enabled"));
+				will(returnValue(expectedResponse));
+				oneOf(auditor)
+						.auditAck(with(any(MCCIIN000002UV01.class)),
+								with(same(assertion)), with("Inbound"),
+								with("Adapter"));
+				oneOf(auditor).auditAck(with(any(MCCIIN000002UV01.class)),
+						with(same(assertion)), with("Outbound"), with("Nhin"));
+			}
+		});
+
+		MCCIIN000002UV01 actualResponse = instance
+				.respondingGatewayPRPAIN201305UV02(body, assertion);
+
+		assertSame(expectedResponse, actualResponse);
+	}
+
+	@Test
+	public void notPassThroughPolicyCheckPasses() {
+		NhinPatientDiscoveryDeferredReqOrch instance = buildOrchestrationForTest(
+				true, false);
+
+		final AssertionType assertion = null;
+		final MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
+
+		final PRPAIN201305UV02 body = new PRPAIN201305UV02();
+
+		context.checking(new Expectations() {
+			{
+				oneOf(auditor).auditNhinDeferred201305(with(same(body)),
+						with(same(assertion)), with("Inbound"));
+				
+				oneOf(proxyPolicyChecker).checkIncomingPolicy(with(same(body)), with(same(assertion)));
+				will(returnValue(true));
+			
+				
+				oneOf(mockProxy).processPatientDiscoveryAsyncReq(with(same(body)), with(same(assertion)));
+				will(returnValue(expectedResponse));
+						
+				oneOf(auditor).auditAdapterDeferred201305(with(same(body)),
+						with(same(assertion)), with("Outbound"));
+				oneOf(auditor)
+						.auditAck(with(same(expectedResponse)),
+								with(same(assertion)), with("Inbound"),
+								with("Adapter"));
+				oneOf(auditor).auditAck(with(same(expectedResponse)),
+						with(same(assertion)), with("Outbound"), with("Nhin"));
+			}
+		});
+
+		MCCIIN000002UV01 actualResponse = instance
+				.respondingGatewayPRPAIN201305UV02(body, assertion);
+
+		assertSame(expectedResponse, actualResponse);
+
+	}
+	
+	
+	
+	@Test
+	public void notPassThroughPolicyCheckFails() {
+		NhinPatientDiscoveryDeferredReqOrch instance = buildOrchestrationForTest(
+				true, false);
+
+		final AssertionType assertion = null;
+		final MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
+
+		final PRPAIN201305UV02 body = new PRPAIN201305UV02();
+
+		context.checking(new Expectations() {
+			{
+				oneOf(auditor).auditNhinDeferred201305(with(same(body)),
+						with(same(assertion)), with("Inbound"));
+				
+				oneOf(proxyPolicyChecker).checkIncomingPolicy(with(same(body)), with(same(assertion)));
+				will(returnValue(false));
+			
+				oneOf(auditor).auditAdapterDeferred201305(with(same(body)),
+						with(same(assertion)), with("Outbound"));
+			
+						
+				
+				oneOf(mockErrorProxy)
+				.processPatientDiscoveryAsyncReqError(
+						with(same(body)),
+						with(any(PRPAIN201306UV02.class)),
+						with(same(assertion)),
+						with("Policy Check Failed"));
+		will(returnValue(expectedResponse));
+		oneOf(auditor)
+				.auditAck(with(any(MCCIIN000002UV01.class)),
+						with(same(assertion)), with("Inbound"),
+						with("Adapter"));
+		oneOf(auditor).auditAck(with(any(MCCIIN000002UV01.class)),
+				with(same(assertion)), with("Outbound"), with("Nhin"));
+		
+				
+			
+			}
+		});
+
+		MCCIIN000002UV01 actualResponse = instance
+				.respondingGatewayPRPAIN201305UV02(body, assertion);
+
+		assertSame(expectedResponse, actualResponse);
+
+	}
+	
+	
+	@Test
+	public void passThroughPolicy() {
+		NhinPatientDiscoveryDeferredReqOrch instance = buildOrchestrationForTest(
+				true, true);
+
+		final AssertionType assertion = null;
+		final MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
+
+		final PRPAIN201305UV02 body = new PRPAIN201305UV02();
+
+		context.checking(new Expectations() {
+			{
+				oneOf(auditor).auditNhinDeferred201305(with(same(body)),
+						with(same(assertion)), with("Inbound"));
+						
+				oneOf(mockProxy).processPatientDiscoveryAsyncReq(with(same(body)), with(same(assertion)));
+				will(returnValue(expectedResponse));
+						
+				oneOf(auditor).auditAdapterDeferred201305(with(same(body)),
+						with(same(assertion)), with("Outbound"));
+				oneOf(auditor)
+						.auditAck(with(same(expectedResponse)),
+								with(same(assertion)), with("Inbound"),
+								with("Adapter"));
+				oneOf(auditor).auditAck(with(same(expectedResponse)),
+						with(same(assertion)), with("Outbound"), with("Nhin"));
+			}
+		});
+
+		MCCIIN000002UV01 actualResponse = instance
+				.respondingGatewayPRPAIN201305UV02(body, assertion);
+
+		assertSame(expectedResponse, actualResponse);
+
+	}
+
 }

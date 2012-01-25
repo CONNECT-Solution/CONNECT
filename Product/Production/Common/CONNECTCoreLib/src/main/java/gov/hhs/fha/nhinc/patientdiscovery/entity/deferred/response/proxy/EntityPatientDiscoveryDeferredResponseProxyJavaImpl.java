@@ -8,7 +8,11 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseOrch;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseOrchFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseOrchImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
+
 import org.hl7.v3.MCCIIN000002UV01;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,10 +26,14 @@ public class EntityPatientDiscoveryDeferredResponseProxyJavaImpl implements Enti
 {
 
     private static Log log = null;
+    
+    private GenericFactory<EntityPatientDiscoveryDeferredResponseOrch> orchestrationFactory;
 
     public EntityPatientDiscoveryDeferredResponseProxyJavaImpl()
     {
         log = createLogger();
+        orchestrationFactory = new EntityPatientDiscoveryDeferredResponseOrchFactory();
+        
     }
 
     protected Log createLogger()
@@ -41,8 +49,8 @@ public class EntityPatientDiscoveryDeferredResponseProxyJavaImpl implements Enti
 
     }
 
-    protected EntityPatientDiscoveryDeferredResponseOrchImpl getEntityImpl()
+    protected EntityPatientDiscoveryDeferredResponseOrch getEntityImpl()
     {
-        return new EntityPatientDiscoveryDeferredResponseOrchImpl();
+        return orchestrationFactory.create();
     }
 }

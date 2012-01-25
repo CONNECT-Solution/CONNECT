@@ -130,7 +130,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
             targetSystem.setUrl(urlInfoList.get(0).getUrl());
 
             PassthruPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryDeferredRespProxyObjectFactory();
-            PassthruPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.getPassthruPatientDiscoveryDeferredRespProxy();
+            PassthruPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.create();
 
             resp = proxy.proxyProcessPatientDiscoveryAsyncResp(respMsg, assertion, targetSystem);
 

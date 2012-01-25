@@ -238,7 +238,7 @@ public class EntityPatientDiscoveryOrchImplRuntimeTest{
         if(request != null){
             request.setAssertion(assertion);
         }
-        return new PatientDiscoveryPolicyChecker().checkOutgoingPolicy(request);
+        return PatientDiscoveryPolicyChecker.getInstance().checkOutgoingPolicy(request);
     }
 
 

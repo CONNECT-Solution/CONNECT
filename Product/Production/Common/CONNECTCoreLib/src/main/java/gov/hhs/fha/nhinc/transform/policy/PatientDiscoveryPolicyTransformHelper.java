@@ -203,7 +203,7 @@ public class PatientDiscoveryPolicyTransformHelper {
         return senderHomeCommunity;
     }
 
-    protected HomeCommunityType getHomeCommunityFrom201306(PRPAIN201306UV02 event) {
+    protected HomeCommunityType getHomeCommunity(PRPAIN201306UV02 event) {
         HomeCommunityType senderHomeCommunity = new HomeCommunityType();
 
         if (event != null &&
@@ -222,7 +222,7 @@ public class PatientDiscoveryPolicyTransformHelper {
         return senderHomeCommunity;
     }
 
-    protected HomeCommunityType getHomeCommunityFrom201306(PRPAIN201305UV02 event) {
+    protected HomeCommunityType getHomeCommunity(PRPAIN201305UV02 event) {
         HomeCommunityType senderHomeCommunity = new HomeCommunityType();
 
         if (event != null &&
@@ -313,13 +313,13 @@ public class PatientDiscoveryPolicyTransformHelper {
     }
 
     protected void setSubjectToRequestType(PRPAIN201306UV02 event, RequestType request, AssertionType assertion) {
-        HomeCommunityType senderHomeCommunity = getHomeCommunityFrom201306(event);
+        HomeCommunityType senderHomeCommunity = getHomeCommunity(event);
         SubjectType subject = new SubjectHelper().subjectFactory(senderHomeCommunity, assertion);
         request.getSubject().add(subject);
     }
 
     protected void setSubjectToRequestType(PRPAIN201305UV02 event, RequestType request, AssertionType assertion) {
-        HomeCommunityType senderHomeCommunity = getHomeCommunityFrom201306(event);
+        HomeCommunityType senderHomeCommunity = getHomeCommunity(event);
         SubjectType subject = new SubjectHelper().subjectFactory(senderHomeCommunity, assertion);
         request.getSubject().add(subject);
     }

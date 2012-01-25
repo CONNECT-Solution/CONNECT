@@ -14,6 +14,7 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
@@ -42,6 +43,8 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
    	private PatientDiscoveryAuditor auditLogger;
 
    	private GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory;
+   	private PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType,PRPAIN201306UV02> policyChecker;
+    
 
    	
    	
@@ -49,11 +52,13 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
     public NhinPatientDiscoveryDeferredRespOrchImpl(
 			ServicePropertyAccessor servicePropertyAccessor,
 			PatientDiscoveryAuditor auditLogger,
-			GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory) {
+			GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory,
+			PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType,PRPAIN201306UV02> policyChecker) {
 		super();
 		this.servicePropertyAccessor = servicePropertyAccessor;
 		this.auditLogger = auditLogger;
 		this.proxyFactory = proxyFactory;
+		this.policyChecker = policyChecker;
 	}
 
 	public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02Orch(PRPAIN201306UV02 body, AssertionType assertion) {
@@ -70,7 +75,7 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
         // Check if the Patient Discovery Async Response Service is enabled
         if (isServiceEnabled()) {
             // Perform a policy check
-            if (checkPolicy(body, assertion)) {
+            if (checkPolicy(nhinResponse)) {
                 // Obtain the response mode in order to determine how the message is to be processed
                 int respModeType = getResponseMode();
 
@@ -182,27 +187,8 @@ public class NhinPatientDiscoveryDeferredRespOrchImpl {
         }
     }
 
-    protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion) {
-        PatientDiscoveryPolicyChecker policyChecker = new PatientDiscoveryPolicyChecker();
-
-        II patIdOverride = new II();
-
-        if (NullChecker.isNotNullish(response.getControlActProcess().getSubject()) &&
-                response.getControlActProcess().getSubject().get(0) != null &&
-                response.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
-                NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
-                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
-                NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
-                NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
-            patIdOverride.setExtension(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
-            patIdOverride.setRoot(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
-        } else {
-            patIdOverride = null;
-        }
-
-        return policyChecker.check201305Policy(response, patIdOverride, assertion);
+    protected boolean checkPolicy( RespondingGatewayPRPAIN201306UV02RequestType request) {
+        return policyChecker.checkOutgoingPolicy(request);
     }
 
     protected void storeMapping(PRPAIN201306UV02 msg) {

@@ -273,7 +273,7 @@ public class EntityPatientDiscoveryOrchImpl{
         if(request != null){
             request.setAssertion(assertion);
         }
-        return new PatientDiscoveryPolicyChecker().checkOutgoingPolicy(request);
+        return PatientDiscoveryPolicyChecker.getInstance().checkOutgoingPolicy(request);
     }
 
 

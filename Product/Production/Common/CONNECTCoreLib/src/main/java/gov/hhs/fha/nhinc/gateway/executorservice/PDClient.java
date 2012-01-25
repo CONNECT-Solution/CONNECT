@@ -166,7 +166,7 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
         if(request != null){
             request.setAssertion(assertion);
         }
-        return new PatientDiscoveryPolicyChecker().checkOutgoingPolicy(request);
+        return PatientDiscoveryPolicyChecker.getInstance().checkOutgoingPolicy(request);
     }
 
 

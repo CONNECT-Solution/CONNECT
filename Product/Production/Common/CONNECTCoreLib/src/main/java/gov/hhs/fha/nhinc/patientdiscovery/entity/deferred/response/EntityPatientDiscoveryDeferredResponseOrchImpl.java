@@ -19,10 +19,14 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,26 +45,36 @@ import org.hl7.v3.II;
  *
  * @author dunnek
  */
-public class EntityPatientDiscoveryDeferredResponseOrchImpl {
+public class EntityPatientDiscoveryDeferredResponseOrchImpl implements EntityPatientDiscoveryDeferredResponseOrch {
 
-    private static Log log = null;
+    private static Log log = LogFactory.getLog(EntityPatientDiscoveryDeferredResponseOrchImpl.class);
+    
+    private GenericFactory<PassthruPatientDiscoveryDeferredRespProxy> proxyFactory;// = new PassthruPatientDiscoveryDeferredRespProxyObjectFactory();
+    private PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType,PRPAIN201306UV02> policyChecker;
+    private WebServiceProxyHelper webserviceProxyhelper;
+    private PatientDiscovery201306Processor pd201306Processor;
+    
 
-    public EntityPatientDiscoveryDeferredResponseOrchImpl() {
-        log = createLogger();
+    
+    
+    EntityPatientDiscoveryDeferredResponseOrchImpl(GenericFactory<PassthruPatientDiscoveryDeferredRespProxy> proxyFactory, PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType,PRPAIN201306UV02> policyChecker) {
+    	this.proxyFactory = proxyFactory;
+    	this.policyChecker = policyChecker;
+    	
+    	this.webserviceProxyhelper = new WebServiceProxyHelper();
+    	this.pd201306Processor = new PatientDiscovery201306Processor();
     }
 
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    
 
     protected WebServiceProxyHelper getWebServiceProxyHelper() {
-        return new WebServiceProxyHelper();
+        return this.webserviceProxyhelper; 
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncRespOrch(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType target) {
+    @Override
+	public MCCIIN000002UV01 processPatientDiscoveryAsyncRespOrch(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType target) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         List<UrlInfo> urlInfoList = null;
-        PatientDiscovery201306Processor pd201306Processor = new PatientDiscovery201306Processor();
         PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
 
         if (body != null && assertion != null) {
@@ -124,8 +138,7 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl {
     }
 
     protected boolean checkPolicy(RespondingGatewayPRPAIN201306UV02RequestType request) {
-        II patientId = NhinPatientDiscoveryUtils.extractPatientIdFrom201306(request.getPRPAIN201306UV02());
-        return new PatientDiscoveryPolicyChecker().check201305Policy(request.getPRPAIN201306UV02(), patientId, request.getAssertion());
+        return policyChecker.checkOutgoingPolicy(request);       		
     }
 
     protected MCCIIN000002UV01 sendToProxy(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType target, UrlInfo urlInfo) {
@@ -144,8 +157,7 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl {
         NhinTargetSystemType oTargetSystemType = new NhinTargetSystemType();
         oTargetSystemType.setUrl(urlInfo.getUrl());
 
-        PassthruPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryDeferredRespProxyObjectFactory();
-        PassthruPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.getPassthruPatientDiscoveryDeferredRespProxy();
+        PassthruPatientDiscoveryDeferredRespProxy proxy = proxyFactory.create();
 
         resp = proxy.proxyProcessPatientDiscoveryAsyncResp(request.getPRPAIN201306UV02(), request.getAssertion(), oTargetSystemType);
 

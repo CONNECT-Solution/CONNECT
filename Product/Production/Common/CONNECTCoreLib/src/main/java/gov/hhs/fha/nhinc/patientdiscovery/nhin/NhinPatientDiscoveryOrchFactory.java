@@ -21,6 +21,11 @@ final public class NhinPatientDiscoveryOrchFactory implements
 					@Override
 					protected String getServiceName() {
 						return  NhincConstants.NHINC_PATIENT_DISCOVERY_SERVICE_NAME;
+					}
+
+					@Override
+					protected String getPassThruName() {
+						return  NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME;//?
 					} },
 				new PatientDiscoveryAuditLogger(),
 				new PatientDiscovery201305Processor(),

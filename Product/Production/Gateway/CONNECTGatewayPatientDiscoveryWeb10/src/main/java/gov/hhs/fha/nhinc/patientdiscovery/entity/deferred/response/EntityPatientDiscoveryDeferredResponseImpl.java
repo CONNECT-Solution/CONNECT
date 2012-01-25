@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import java.util.List;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
@@ -27,10 +28,13 @@ import org.hl7.v3.PRPAIN201306UV02;
 public class EntityPatientDiscoveryDeferredResponseImpl
 {
     private Log log = null;
+    
+    private GenericFactory<EntityPatientDiscoveryDeferredResponseOrch> orchestrationFactory;
 
     public EntityPatientDiscoveryDeferredResponseImpl()
     {
         log = createLogger();
+        orchestrationFactory =  new EntityPatientDiscoveryDeferredResponseOrchFactory();
     }
 
     protected Log createLogger()
@@ -50,7 +54,7 @@ public class EntityPatientDiscoveryDeferredResponseImpl
             body = request.getPRPAIN201306UV02();
             target = request.getNhinTargetCommunities();
         }
-        response = new EntityPatientDiscoveryDeferredResponseOrchImpl().processPatientDiscoveryAsyncRespOrch(body, assertion, target);
+        response = orchestrationFactory.create().processPatientDiscoveryAsyncRespOrch(body, assertion, target);
         log.debug("End EntityPatientDiscoveryDeferredResponseImpl.processPatientDiscoveryAsyncResp(secured)");
         return response;
     }
@@ -69,7 +73,7 @@ public class EntityPatientDiscoveryDeferredResponseImpl
             target = request.getNhinTargetCommunities();
         }
         assertion = getAssertion(context, assertion);
-        response = new EntityPatientDiscoveryDeferredResponseOrchImpl().processPatientDiscoveryAsyncRespOrch(body, assertion, target);
+        response = orchestrationFactory.create().processPatientDiscoveryAsyncRespOrch(body, assertion, target);
         log.debug("End EntityPatientDiscoveryDeferredResponseImpl.processPatientDiscoveryAsyncResp(unsecured)");
         return response;
     }

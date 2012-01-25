@@ -91,7 +91,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
     protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion) {
         boolean isPermit = false;
         II patId = null;
-        PatientDiscoveryPolicyChecker policyChecker = new PatientDiscoveryPolicyChecker();
+        PatientDiscovery201306PolicyChecker policyChecker = PatientDiscovery201306PolicyChecker.getInstance();
 
         //************************************************************************************************
         List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();

@@ -6,13 +6,14 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.proxy;
 
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  * Adapter policy engine proxy object factory. Used to obtain a proxy object for sending
  * messages to the adapter policy engine service.
  */
-public class PolicyEngineProxyObjectFactory extends ComponentProxyObjectFactory
+public class PolicyEngineProxyObjectFactory extends ComponentProxyObjectFactory implements GenericFactory<PolicyEngineProxy>
 {
     private static final String CONFIG_FILE_NAME = "PolicyEngineProxyConfig.xml";
     private static final String BEAN_NAME_POLICY_ENGINE = "policyengine";
@@ -33,4 +34,11 @@ public class PolicyEngineProxyObjectFactory extends ComponentProxyObjectFactory
     {
         return getBean(BEAN_NAME_POLICY_ENGINE, PolicyEngineProxy.class);
     }
+
+	@Override
+	public PolicyEngineProxy create() {
+		return getBean(BEAN_NAME_POLICY_ENGINE, PolicyEngineProxy.class);
+	}
+    
+    
 }

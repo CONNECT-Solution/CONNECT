@@ -124,10 +124,10 @@ public class NhinPatientDiscoveryOrchImpl implements NhinPatientDiscoveryOrchest
 			AssertionType assertion) {
 		PRPAIN201306UV02 response;
 		// Check if in Pass-Through Mode
-		if (!(isInPassThroughMode())) {
-			response = patientDiscoveryProcessor.process201305(body, assertion);
-		} else {
+		if (isInPassThroughMode()) {
 			response = send201305ToAgency(body, assertion);
+		} else {
+			response = patientDiscoveryProcessor.process201305(body, assertion);
 		}
 		return response;
 	}

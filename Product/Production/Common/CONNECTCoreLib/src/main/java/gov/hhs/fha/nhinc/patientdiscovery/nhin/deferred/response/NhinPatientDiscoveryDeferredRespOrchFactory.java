@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.AbstractServicePropertyAccessor;
@@ -26,8 +27,14 @@ public final class NhinPatientDiscoveryDeferredRespOrchFactory implements
 					protected String getServiceName() {
 						return NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME;
 					}
+
+					@Override
+					protected String getPassThruName() {
+						return  ""; //doesn't make sense
+					}
 				}, new PatientDiscoveryAuditLogger(),
-				new AdapterPatientDiscoveryDeferredRespProxyObjectFactory());
+				new AdapterPatientDiscoveryDeferredRespProxyObjectFactory(),
+				PatientDiscovery201306PolicyChecker.getInstance());
 	}
 	
 	

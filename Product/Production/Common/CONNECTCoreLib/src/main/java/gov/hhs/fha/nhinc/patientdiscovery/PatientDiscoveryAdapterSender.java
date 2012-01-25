@@ -50,7 +50,7 @@ public class PatientDiscoveryAdapterSender {
         AsyncAdapterPatientDiscoveryErrorRequestType adapterReq = new AsyncAdapterPatientDiscoveryErrorRequestType();
 
         AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory factory = new AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory();
-        AdapterPatientDiscoveryDeferredReqErrorProxy proxy = factory.getAdapterPatientDiscoveryDeferredReqErrorProxy();
+        AdapterPatientDiscoveryDeferredReqErrorProxy proxy = factory.create();
 
         adapterReq.setAssertion(assertion);
         adapterReq.setPRPAIN201305UV02(request);

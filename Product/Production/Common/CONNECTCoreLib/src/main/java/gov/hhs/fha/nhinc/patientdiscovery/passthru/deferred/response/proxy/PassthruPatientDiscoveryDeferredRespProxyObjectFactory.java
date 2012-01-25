@@ -6,6 +6,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy;
 
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
@@ -33,7 +34,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  *
  * @author Jon Hoppesch
  */
-public class PassthruPatientDiscoveryDeferredRespProxyObjectFactory extends ComponentProxyObjectFactory
+public class PassthruPatientDiscoveryDeferredRespProxyObjectFactory extends ComponentProxyObjectFactory implements GenericFactory<PassthruPatientDiscoveryDeferredRespProxy>
 {
 
     private static final String CONFIG_FILE_NAME = "PassthruPatientDiscoveryDeferredRespProxyConfig.xml";
@@ -51,8 +52,7 @@ public class PassthruPatientDiscoveryDeferredRespProxyObjectFactory extends Comp
      *
      * @return PassthruPatientDiscoveryAsyncRespProxy instance
      */
-    public PassthruPatientDiscoveryDeferredRespProxy getPassthruPatientDiscoveryDeferredRespProxy()
-    {
-        return getBean(BEAN_NAME, PassthruPatientDiscoveryDeferredRespProxy.class);
-    }
+    public PassthruPatientDiscoveryDeferredRespProxy create() {
+		return getBean(BEAN_NAME, PassthruPatientDiscoveryDeferredRespProxy.class);
+	}
 }
