@@ -73,7 +73,6 @@
       </then>
     </if>
     <runtarget target="delete.common.jars"/>
-    <runtarget target="deploy.thirdparty.jars"/>
     <runtarget target="deploy.shared.libs.to.glassfish"/>
     <runtarget target="deploy.glassfish.start.server"/>
     <runtarget target="deploy.wars.to.glassfish"/>
@@ -102,10 +101,6 @@
         <os family="Windows"/>
       </and>
     </condition>
-  </target>
-  
-  <target name="deploy.thirdparty.jars">
-  	<copy file="${baseidr}/../../ThirdParty/AntExtraLibs/commons-logging-1.1.1.jar" todir="${glassfish.home}/lib"/>
   </target>
 
   <target name="-deploy.glassfish.asadmin">
@@ -292,7 +287,7 @@
         passwordfile="${deploy.glassfish.password.file.path}"
         host="${deployment.glassfish.server}"
         port="${deployment.glassfish.admin.port}"
-        file="${project.CONNECTCommonWeb.dist.file}"
+        file="${deployment.glassfish.war.file.path}"
         asinstalldir="${glassfish.home}"
         />
   </target>
@@ -309,11 +304,11 @@
   </target>
 
   <target name="deploy.shared.lib.to.glassfish">
-    <copy file="${project.CONNECTCommonTypesLib.dist.file}" todir="${glassfish.home}/lib" overwrite="true" />
+    <copy file="${deployment.glassfish.shared.lib.file.path}" todir="${glassfish.home}/lib" overwrite="true" />
   </target>
 
   <target name="undeploy.shared.lib.from.glassfish">
-    <basename property="deployment.glassfish.shared.lib.file.name" file="${project.CONNECTCommonTypesLib.dist.file}"/>
+    <basename property="deployment.glassfish.shared.lib.file.name" file="${deployment.glassfish.shared.lib.file.path}"/>
     <delete file="${glassfish.home}/lib/${deployment.glassfish.shared.lib.file.name}" />
   </target>
 
