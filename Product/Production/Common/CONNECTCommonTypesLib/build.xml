@@ -134,6 +134,7 @@
 		<arg value="@{wsdl.file.path}"/>			
 		<arg value="-wsdllocation"/>
 		<arg value="${wsdl.file}"/>
+		<jvmarg line="-Xmx1024m -Xms1024m"/>
 		<classpath>
 			<pathelement path="${env.ANT_HOME}/lib/webservices-rt.jar"/>
 			<pathelement path="${env.ANT_HOME}/lib/jaxb-impl.jar"/>
