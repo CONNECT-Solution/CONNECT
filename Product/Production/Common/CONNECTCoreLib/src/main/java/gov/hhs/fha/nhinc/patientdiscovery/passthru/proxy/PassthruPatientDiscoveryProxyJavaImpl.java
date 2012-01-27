@@ -36,7 +36,8 @@ public class PassthruPatientDiscoveryProxyJavaImpl implements PassthruPatientDis
     {
         return LogFactory.getLog(getClass());
     }
-    public PRPAIN201306UV02 PRPAIN201305UV(PRPAIN201305UV02 body, AssertionType assertion, NhinTargetSystemType target) {
+    public PRPAIN201306UV02 PRPAIN201305UV(PRPAIN201305UV02 body, AssertionType assertion, 
+            NhinTargetSystemType target) throws Exception{
         log.debug("Entering NhincPatientDiscoveryProxyJavaImpl.PRPAIN201305UV");
 
         ProxyPRPAIN201305UVProxySecuredRequestType secureRequest = new ProxyPRPAIN201305UVProxySecuredRequestType();

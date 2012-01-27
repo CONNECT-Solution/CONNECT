@@ -100,7 +100,8 @@ public class PassthruDocQueryProxyWebServiceUnsecuredImpl implements PassthruDoc
     }
 
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion, NhinTargetSystemType target) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, 
+            AssertionType assertion, NhinTargetSystemType target) throws Exception{
         log.debug("Begin respondingGatewayCrossGatewayQuery");
         AdhocQueryResponse response = null;
 
@@ -138,6 +139,7 @@ public class PassthruDocQueryProxyWebServiceUnsecuredImpl implements PassthruDoc
         catch (Exception ex)
         {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            throw ex;
 
         }
 

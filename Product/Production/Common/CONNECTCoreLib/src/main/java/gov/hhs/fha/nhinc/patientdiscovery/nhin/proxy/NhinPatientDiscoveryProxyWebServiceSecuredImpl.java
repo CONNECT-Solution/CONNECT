@@ -54,7 +54,8 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target)
+                throws Exception{
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
@@ -93,7 +94,8 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
         } catch (Exception e) {
             log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  An unexpected exception occurred.  " +
                     "Exception: " + e.getMessage(), e);
-            response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+            // response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+            throw e;
         }
 
         return response;

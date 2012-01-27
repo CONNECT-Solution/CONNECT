@@ -21,5 +21,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
  * @author mflynn02
  */
 public interface PassthruPatientDiscoveryProxy {
-    public PRPAIN201306UV02 PRPAIN201305UV(PRPAIN201305UV02 body, AssertionType assertion, NhinTargetSystemType target);
+    public PRPAIN201306UV02 PRPAIN201305UV(PRPAIN201305UV02 body, AssertionType assertion, 
+            NhinTargetSystemType target) throws Exception;
 }

@@ -13,22 +13,32 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+
 import java.sql.Timestamp;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author JHOPPESC
+ * @paul.eftis updated exception handling to return DQ error response
+ * with error/exception detail within DQ response.
  */
 public class PassthruDocQueryOrchImpl {
 
     private static Log log = LogFactory.getLog(PassthruDocQueryOrchImpl.class);
+
+    private static final String XDS_RESPONSE_STATUS_FAILURE =
+            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
 
     /**
      *
@@ -37,7 +47,8 @@ public class PassthruDocQueryOrchImpl {
      * @param target
      * @return <code>AdhocQueryResponse</code>
      */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion, NhinTargetSystemType target) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, 
+            AssertionType assertion, NhinTargetSystemType target){
         log.debug("Entering NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         AdhocQueryResponse response = null;
 
@@ -68,16 +79,11 @@ public class PassthruDocQueryOrchImpl {
             // Log the end of the nhin performance record
             Timestamp stoptime = new Timestamp(System.currentTimeMillis());
             PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
-        } catch (Throwable t) {
-            log.error("Error sending NHIN Proxy message: " + t.getMessage(), t);
-            response = new AdhocQueryResponse();
-            response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-
-            RegistryError registryError = new RegistryError();
-            registryError.setCodeContext("Processing NHIN Proxy document retrieve");
-            registryError.setErrorCode("XDSRepositoryError");
-            registryError.setSeverity("Error");
-            response.getRegistryErrorList().getRegistryError().add(registryError);
+        }catch(Exception ex){
+            log.error("PassthruDocQueryOrchImpl Exception", ex);
+            String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, target,
+                    NhincConstants.DOC_QUERY_SERVICE_NAME);
+            response = generateErrorResponse(target, err);
         }
 
         // Audit the Document Query Response Message received on the Nhin Interface
@@ -88,5 +94,20 @@ public class PassthruDocQueryOrchImpl {
 
         log.debug("Leaving NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         return response;
+    }
+
+
+    private AdhocQueryResponse generateErrorResponse(NhinTargetSystemType target, String error){
+        AdhocQueryResponse adhocresponse = new AdhocQueryResponse();
+        RegistryErrorList regErrList = new RegistryErrorList();
+        adhocresponse.setStatus(XDS_RESPONSE_STATUS_FAILURE);
+        RegistryError regErr = new RegistryError();
+        regErr.setErrorCode("XDSRepositoryError");
+        regErr.setCodeContext("Error from target homeId=" + target.getHomeCommunity().getHomeCommunityId());
+        regErr.setValue(error);
+        regErr.setSeverity("Error");
+        regErrList.getRegistryError().add(regErr);
+        adhocresponse.setRegistryErrorList(regErrList);
+        return adhocresponse;
     }
 }

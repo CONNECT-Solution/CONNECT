@@ -21,5 +21,6 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public interface NhinPatientDiscoveryProxy {
 
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target);
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, 
+            AssertionType assertion, NhinTargetSystemType target) throws Exception;
 }

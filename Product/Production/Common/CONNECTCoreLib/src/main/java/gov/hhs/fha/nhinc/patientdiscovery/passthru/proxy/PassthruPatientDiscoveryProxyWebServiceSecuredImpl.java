@@ -49,7 +49,8 @@ public class PassthruPatientDiscoveryProxyWebServiceSecuredImpl implements Passt
         return LogFactory.getLog(getClass());
     }
 
-    public PRPAIN201306UV02 PRPAIN201305UV(PRPAIN201305UV02 body, AssertionType assertion, NhinTargetSystemType target) {
+    public PRPAIN201306UV02 PRPAIN201305UV(PRPAIN201305UV02 body, AssertionType assertion, 
+            NhinTargetSystemType target)  throws Exception{
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         ProxyPRPAIN201305UVProxySecuredRequestType secureRequest = new ProxyPRPAIN201305UVProxySecuredRequestType();
@@ -83,7 +84,9 @@ public class PassthruPatientDiscoveryProxyWebServiceSecuredImpl implements Passt
         {
             log.error("Failed to call the web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SECURED_SERVICE_NAME + ").  An unexpected exception occurred.  " +
                       "Exception: " + e.getMessage(), e);
-            response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(secureRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+            // response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(secureRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+            throw e;
+
         }
 
         return response;

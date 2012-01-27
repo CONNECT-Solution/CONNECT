@@ -21,6 +21,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  * @author JHOPPESC
  */
 public interface PassthruDocQueryProxy {
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion, NhinTargetSystemType target);
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, 
+            AssertionType assertion, NhinTargetSystemType target) throws Exception;
 
 }

@@ -177,9 +177,9 @@ public class EntityPatientDiscoveryOrchImpl{
                         OutboundDelegate nd = new OutboundPatientDiscoveryDelegate();
                         OutboundResponseProcessor np = null;
                         if(responseIsSpecA0){
-                            np = new EntityPatientDiscoveryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+                            np = new OutboundPatientDiscoveryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
                         }else{
-                            np = new EntityPatientDiscoveryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
+                            np = new OutboundPatientDiscoveryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
                         }
 
                         // ensure target hcid is set on request

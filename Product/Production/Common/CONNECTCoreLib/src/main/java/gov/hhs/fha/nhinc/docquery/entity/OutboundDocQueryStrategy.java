@@ -25,29 +25,26 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy{
 	
     private static Log log = LogFactory.getLog(OutboundDocQueryStrategy.class);
 
-     private Log getLogger(){
-         return log;
-     }
+    private Log getLogger(){
+        return log;
+    }
+
 
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy#execute(gov.hhs.fha.nhinc.orchestration.Orchestratable)
      */
     @Override
     public void execute(Orchestratable message){
-         if(message == null){
-            getLogger().debug("NhinDocQueryStrategy EntityOrchestratable was null!!!");
-            // throw new Exception("OutboundDocQueryStrategy input message was null!!!");
-        }
         if(message instanceof OutboundDocQueryOrchestratable){
             execute((OutboundDocQueryOrchestratable)message);
         }else{
             // shouldn't get here
-            getLogger().debug("NhinDocQueryStrategy EntityOrchestratable was not an EntityDocQueryOrchestratable!!!");
-            // throw new Exception("OutboundDocQueryOrchestratable input message was not an OutboundDocQueryOrchestratable!!!");
+            getLogger().debug("OutboundDocQueryStrategy Orchestratable was not an OutboundDocQueryOrchestratable!!!");
+            // throw new Exception("OutboundDocQueryStrategy input message was not an OutboundDocQueryOrchestratable!!!");
         }
     }
 
-    
+
     abstract public void execute(OutboundDocQueryOrchestratable message);
 
 

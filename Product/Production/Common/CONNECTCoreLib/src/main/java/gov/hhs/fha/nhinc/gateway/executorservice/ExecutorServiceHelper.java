@@ -2,6 +2,13 @@ package gov.hhs.fha.nhinc.gateway.executorservice;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+
+
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -183,6 +190,30 @@ public class ExecutorServiceHelper{
         ex.printStackTrace(new PrintWriter(caw));
         err += caw.toString();
         log.error(err);
+    }
+
+
+    /**
+     * Useful util to output exception info in a formatted string
+     * @param ex
+     */
+    public static String getFormattedExceptionInfo(Exception ex, NhinTargetSystemType target,
+            String serviceName){
+        String err = "EXCEPTION: " + ex.getClass().getCanonicalName() + "\r\n";
+        err += "EXCEPTION Cause: " + ex.getCause().getClass().getCanonicalName() + "\r\n";
+        if(ex.getCause() instanceof com.sun.xml.ws.client.ClientTransportException){
+            try{
+                NhincConstants.GATEWAY_API_LEVEL apiLevel =
+                        ConnectionManagerCache.getInstance().getApiVersionForNhinTarget(
+                            target.getHomeCommunity().getHomeCommunityId(),
+                            serviceName);
+                String url = (new WebServiceProxyHelper()).getUrlFromTargetSystemByGatewayAPILevel(
+                        target, serviceName, apiLevel);
+                err += "EXCEPTION Message: Unable to connect to endpoint url=" + url + "\r\n";
+            }catch(Exception e){}
+        }
+        err += "EXCEPTION Cause Message: " + ex.getCause().getMessage();
+        return err;
     }
 
 }

@@ -87,7 +87,8 @@ public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQu
         return cachedService;
     }
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion, NhinTargetSystemType target) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, 
+            AssertionType assertion, NhinTargetSystemType target) throws Exception{
         log.debug("Begin respondingGatewayCrossGatewayQuery");
         AdhocQueryResponse response = null;
 
@@ -111,6 +112,7 @@ public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQu
             }
         } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            throw ex;
         }
 
         log.debug("End respondingGatewayCrossGatewayQuery");

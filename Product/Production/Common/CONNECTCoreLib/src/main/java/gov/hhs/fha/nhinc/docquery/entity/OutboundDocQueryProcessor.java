@@ -269,8 +269,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor{
         adhocresponse.setStatus(XDS_RESPONSE_STATUS_FAILURE);
         RegistryError regErr = new RegistryError();
         regErr.setErrorCode("XDSRepositoryError");
-        regErr.setCodeContext(error);
-        regErr.setValue("Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
+        regErr.setCodeContext("Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
+        regErr.setValue(error);
         regErr.setSeverity("Error");
         regErrList.getRegistryError().add(regErr);
         adhocresponse.setRegistryErrorList(regErrList);
@@ -297,8 +297,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor{
         adhocresponse.setStatus(XDS_RESPONSE_STATUS_FAILURE);
         RegistryError regErr = new RegistryError();
         regErr.setErrorCode("XDSRepositoryError");
-        regErr.setCodeContext(error);
-        regErr.setValue("Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
+        regErr.setCodeContext("Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
+        regErr.setValue(error);
         regErr.setSeverity("Error");
         regErrList.getRegistryError().add(regErr);
         adhocresponse.setRegistryErrorList(regErrList);
@@ -309,13 +309,14 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor{
 
     /**
      * aggregates an a0 spec individualResponse into an a0 spec cumulativeResponse
+     * exception will throw out and be caught by aggregateResponse
      */
     @SuppressWarnings("static-access")
     private void aggregateResponse_a0(OutboundDocQueryOrchestratable_a0 individual,
-            OutboundDocQueryOrchestratable_a0 cumulativeResponse){
+            OutboundDocQueryOrchestratable_a0 cumulativeResponse) throws Exception{
 
         AdhocQueryResponse current = individual.getResponse();
-        try{
+        if(current != null){
             // add the responses from registry object list
             if(current.getRegistryObjectList() != null){
                 List<JAXBElement<? extends IdentifiableType>> IdentifiableList = current.getRegistryObjectList().getIdentifiable();
@@ -350,22 +351,22 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor{
                     cumulativeResponse.getCumulativeResponse().getTotalResultCount().add(BigInteger.ONE));
             log.debug("EntityDocQueryProcessor::aggregateResponse_a0 combine next response done cumulativeResponse count="
                 + cumulativeResponse.getCumulativeResponse().getTotalResultCount().toString());
-        }catch(Exception ex){
-            // exception will throw out and be caught by aggregateResponse
-            ExecutorServiceHelper.getInstance().outputCompleteException(ex);
+        }else{
+            throw new Exception("EntityDocQueryProcessor::aggregateResponse_a0 received a null AdhocQueryResponse response!!!");
         }
     }
 
     
     /**
      * aggregates an a1 spec individualResponse into an a1 spec cumulativeResponse
+     * exception will throw out and be caught by aggregateResponse
      */
     @SuppressWarnings("static-access")
     private void aggregateResponse_a1(OutboundDocQueryOrchestratable_a1 individual,
-            OutboundDocQueryOrchestratable_a1 cumulativeResponse){
+            OutboundDocQueryOrchestratable_a1 cumulativeResponse) throws Exception{
 
         AdhocQueryResponse current = individual.getResponse();
-        try{
+        if(current != null){
             // add the responses from registry object list
             if(current.getRegistryObjectList() != null){
                 List<JAXBElement<? extends IdentifiableType>> IdentifiableList = current.getRegistryObjectList().getIdentifiable();
@@ -400,9 +401,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor{
                     cumulativeResponse.getCumulativeResponse().getTotalResultCount().add(BigInteger.ONE));
             log.debug("EntityDocQueryProcessor::aggregateResponse_a1 combine next response done cumulativeResponse count="
                 + cumulativeResponse.getCumulativeResponse().getTotalResultCount().toString());
-        }catch(Exception ex){
-            // exception will throw out and be caught by aggregateResponse
-            ExecutorServiceHelper.getInstance().outputCompleteException(ex);
+        }else{
+            throw new Exception("EntityDocQueryProcessor::aggregateResponse_a1 received a null AdhocQueryResponse response!!!");
         }
     }
 

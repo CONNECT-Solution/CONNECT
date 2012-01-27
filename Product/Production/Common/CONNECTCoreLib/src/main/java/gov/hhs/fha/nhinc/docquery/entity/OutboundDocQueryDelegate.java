@@ -11,8 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Doc Query implementation of OutboundDelegate
- * Note that all exceptions should just throw out and will be caught
- * by NhinCallableRequest and handled in this exception trap
+ * 
  * @author paul.eftis
  */
 public class OutboundDocQueryDelegate implements OutboundDelegate{
@@ -26,6 +25,10 @@ public class OutboundDocQueryDelegate implements OutboundDelegate{
     @Override
     public Orchestratable process(Orchestratable message){
         getLogger().debug("NhinDocQueryDelegate::process Orchestratable");
+        if(message == null){
+            getLogger().error("NhinDocQueryDelegate Orchestratable was null!!!");
+            return null;
+        }
         if(message instanceof OutboundDocQueryOrchestratable){
             return process((OutboundOrchestratable) message);
         }

@@ -30,23 +30,19 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
     private Log getLogger(){
          return log;
     }
-    
+
 
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy#execute(gov.hhs.fha.nhinc.orchestration.Orchestratable)
      */
     @Override
     public void execute(Orchestratable message){
-         if(message == null){
-            getLogger().error("NhinPatientDiscoveryStrategy Orchestratable was null!!!");
-            // throw new Exception("NhinDocQueryStrategyImpl_g0 input message was null!!!");
-        }
         if(message instanceof OutboundPatientDiscoveryOrchestratable){
             execute((OutboundPatientDiscoveryOrchestratable)message);
         }else{
             // shouldn't get here
-            getLogger().error("NhinPatientDiscoveryStrategy input Orchestratable was not an EntityDocQueryOrchestratable!!!");
-            // throw new Exception("EntityDocQueryOrchestratable input message was not an EntityDocQueryOrchestratable!!!");
+            getLogger().error("NhinPatientDiscoveryStrategy input Orchestratable was not an EntityPatientDiscoveryOrchestratable!!!");
+            // throw new Exception("NhinPatientDiscoveryStrategy input message was not an EntityPatientDiscoveryOrchestratable!!!");
         }
     }
 

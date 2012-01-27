@@ -101,7 +101,8 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
      * @param request The information for the web service.
      * @return The response from the web service.
      */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion, NhinTargetSystemType target) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, 
+            AssertionType assertion, NhinTargetSystemType target) throws Exception{
         AdhocQueryResponse response = new AdhocQueryResponse();
 
         try {
@@ -148,14 +149,15 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             }
         } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
-            RegistryErrorList registryErrorList = new RegistryErrorList();
-
-            RegistryError registryError = new RegistryError();
-            registryError.setCodeContext("Processing Adapter Doc Query document query");
-            registryError.setErrorCode("XDSRepostoryError");
-            registryError.setSeverity("Error");
-            registryErrorList.getRegistryError().add(registryError);
-            response.setRegistryErrorList(registryErrorList);
+            throw ex;
+//            RegistryErrorList registryErrorList = new RegistryErrorList();
+//
+//            RegistryError registryError = new RegistryError();
+//            registryError.setCodeContext("Processing Adapter Doc Query document query");
+//            registryError.setErrorCode("XDSRepostoryError");
+//            registryError.setSeverity("Error");
+//            registryErrorList.getRegistryError().add(registryError);
+//            response.setRegistryErrorList(registryErrorList);
         }
         return response;
     }

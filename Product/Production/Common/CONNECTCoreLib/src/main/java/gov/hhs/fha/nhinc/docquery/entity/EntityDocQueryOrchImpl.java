@@ -154,7 +154,8 @@ public class EntityDocQueryOrchImpl{
 
             // Obtain all the URLs for the targets being sent to
             try{
-                urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
+                urlInfoList = ConnectionManagerCache.getInstance().
+                        getEndpontURLFromNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
             }catch(Exception ex){
                 log.error("EntityDocQueryOrchImpl Failed to obtain target URLs", ex);
             }
@@ -227,8 +228,8 @@ public class EntityDocQueryOrchImpl{
                         }
                     }
 
-                    // note that if responseIsSpecA0 taskexecutor is set to return EntityPatientDiscoveryOrchestratable_a0
-                    // else  taskexecutor set to return EntityPatientDiscoveryOrchestratable_a1
+                    // note that if responseIsSpecA0 taskexecutor is set to return OutboundDocQueryOrchestratable_a0
+                    // else  taskexecutor set to return OutboundDocQueryOrchestratable_a1
                     OutboundDocQueryOrchestratable_a0 orchResponse_g0 = null;
                     OutboundDocQueryOrchestratable_a1 orchResponse_g1 = null;
                     if(responseIsSpecA0){

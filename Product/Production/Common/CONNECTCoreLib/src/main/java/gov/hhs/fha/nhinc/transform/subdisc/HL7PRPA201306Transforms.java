@@ -11,6 +11,7 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import java.math.BigInteger;
 
@@ -20,10 +21,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.ActRelationshipMitigates;
+import org.hl7.v3.BinaryDataEncoding;
 import org.hl7.v3.CD;
 import org.hl7.v3.COCTMT090003UV01AssignedEntity;
 import org.hl7.v3.COCTMT150003UV03Organization;
 import org.hl7.v3.CS;
+import org.hl7.v3.EDExplicit;
 import org.hl7.v3.II;
 import org.hl7.v3.INT;
 import org.hl7.v3.MCAIMT900001UV01DetectedIssueEvent;
@@ -193,6 +196,7 @@ public class HL7PRPA201306Transforms {
 
         addLogDebug("Create the 201306 message header fields");
         result.setITSVersion(HL7Constants.ITS_VERSION);
+
         //extract the receiverOID from the request message - it will become the sender
         String sReceiverOIDFromMessage = getReceiverOIDFromPRPAIN201305UV02Request(oRequest);
         String senderOID = sReceiverOIDFromMessage;
@@ -200,6 +204,7 @@ public class HL7PRPA201306Transforms {
         String sSenderOIDFromMessage = getSenderOIDFromPRPAIN201305UV02Request(oRequest);
         String receiverOID = sSenderOIDFromMessage;
         result.setId(getHL7MessageId(receiverOID));
+
         result.setCreationTime(getHL7CreationTime());
         result.setInteractionId(getHL7InteractionId());
         result.setProcessingCode(getHL7ProcessingCode());
@@ -457,7 +462,9 @@ public class HL7PRPA201306Transforms {
         return assignedEntity;
     }
 
-    private MFMIMT700711UV01Reason createErrorReason(String sErrorCode)
+
+
+    private MFMIMT700711UV01Reason createErrorReason(String sError)
     {
         MFMIMT700711UV01Reason oReason = new MFMIMT700711UV01Reason();
         MCAIMT900001UV01DetectedIssueEvent oDetectedIssueEvent = new MCAIMT900001UV01DetectedIssueEvent();
@@ -466,7 +473,7 @@ public class HL7PRPA201306Transforms {
         oDetectedIssueEvent.getMoodCode().add(HL7Constants.DETECTED_ISSUE_MOODCODE_EVN);
 
         //other errors may look a little differently than the one for responder busy
-        if (NullChecker.isNotNullish(sErrorCode))
+        if (NullChecker.isNotNullish(sError))
         {
             //<code code="ActAdministrativeDetectedIssueCode" codeSystem="2.16.840.1.113883.5.4"/>
             CD oCode = new CD();
@@ -480,15 +487,28 @@ public class HL7PRPA201306Transforms {
             oMCAIMT900001UV01SourceOf.setTypeCode(ActRelationshipMitigates.MITGT);
             MCAIMT900001UV01DetectedIssueManagement oDetectedIssueManagement = new MCAIMT900001UV01DetectedIssueManagement();
 
-            //<DetectedIssueManagement classCode="ACT" moodCode="RQO">
+            //<DetectedIssueManagement classCode="ACT" moodCode="EVN">
             //  <code code="ResponderBusy" codeSystem="1.3.6.1.4.1.19376.1.2.27.3"/>
             //</DetectedIssueManagement>
             CD oDetectedIssuesCode = new CD();
-            oDetectedIssuesCode.setCode(sErrorCode);
+
+            // set the error code element to AnswerNotAvailable
+            // per the 2010 2.1 xcpd spec (only other option is ResponderBusy)
+            oDetectedIssuesCode.setCode(NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+
             oDetectedIssuesCode.setCodeSystem(HL7Constants.DETECTEDISSUEMANAGEMENT_CODESYSTEM);
             oDetectedIssueManagement.setCode(oDetectedIssuesCode);
             oDetectedIssueManagement.getClassCode().add(HL7Constants.DETECTEDISSUEMANAGEMENT_CLASSCODE);
-            oDetectedIssueManagement.setMoodCode(XActMoodDefEvn.EVN); //TODO verify this is correct, exxample from spec not consistant with this value. s/b RQO
+            // verify this is correct, example from spec not consistant with this value. s/b RQO
+            // paul....this incorrect example is in 2.1 spec (IHE_ITI_Suppl_XCPD_Rev2-1_TI_2010-08_10)
+            // 2.3 spec (IHE_ITI_Suppl_XCPD_Rev2-3_TI_2011-08_19) fixed example uses mood code EVN, so this is OK
+            oDetectedIssueManagement.setMoodCode(XActMoodDefEvn.EVN);
+
+            // put the error detail on the DetectedIssueManagement text element
+            EDExplicit ed = new EDExplicit();
+            ed.setRepresentation(BinaryDataEncoding.TXT);
+            ed.getContent().add(sError);
+            oDetectedIssueManagement.setText(ed);
 
             oMCAIMT900001UV01SourceOf.setDetectedIssueManagement(oDetectedIssueManagement);
             oDetectedIssueEvent.getMitigatedBy().add(oMCAIMT900001UV01SourceOf);

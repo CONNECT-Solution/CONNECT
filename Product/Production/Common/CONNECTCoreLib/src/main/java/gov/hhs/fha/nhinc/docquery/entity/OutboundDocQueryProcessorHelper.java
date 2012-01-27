@@ -106,8 +106,12 @@ public class OutboundDocQueryProcessorHelper{
     public static OutboundDocQueryOrchestratable_a0 transformResponse_ToA0(
             OutboundDocQueryOrchestratable original){
 
-        OutboundDocQueryOrchestratable_a0 response_a0 = new OutboundDocQueryOrchestratable_a0();
         // currently a0 is same as a1
+        OutboundDocQueryOrchestratable_a0 response_a0 =
+            new OutboundDocQueryOrchestratable_a0(
+                null, null, null, null, original.getAssertion(),
+                original.getServiceName(), original.getTarget(),
+                original.getRequest());
         OutboundDocQueryOrchestratable_a1 original_a1 = (OutboundDocQueryOrchestratable_a1)original;
         response_a0.setResponse(original_a1.getResponse());
         return response_a0;
@@ -122,8 +126,12 @@ public class OutboundDocQueryProcessorHelper{
     public static OutboundDocQueryOrchestratable_a1 transformResponse_ToA1(
             OutboundDocQueryOrchestratable original){
 
-        OutboundDocQueryOrchestratable_a1 response_a1 = new OutboundDocQueryOrchestratable_a1();
         // currently a0 is same as a1
+        OutboundDocQueryOrchestratable_a1 response_a1 =
+            new OutboundDocQueryOrchestratable_a1(
+                null, null, null, null, original.getAssertion(),
+                original.getServiceName(), original.getTarget(),
+                original.getRequest());
         OutboundDocQueryOrchestratable_a0 original_a0 = (OutboundDocQueryOrchestratable_a0)original;
         response_a1.setResponse(original_a0.getResponse());
         return response_a1;

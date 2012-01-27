@@ -1006,8 +1006,14 @@ public class WebServiceProxyHelper {
 
 		if ((iRetryCount > 0) && (iRetryDelay > 0) && (sExceptionText != null)
 				&& (sExceptionText.length() > 0)) {
-			oResponse = invokePortWithRetry(portObject, portClass,
-					operationInput, iRetryCount, iRetryDelay, oMethod);
+
+                        // @TODO do we really want to retry a web service call when
+                        // an InvocationException is returned, which is what invokePortWithRetry does???
+//			oResponse = invokePortWithRetry(portObject, portClass,
+//					operationInput, iRetryCount, iRetryDelay, oMethod);
+			oResponse = invokePort(portObject, portClass, operationInput,
+					oResponse, oMethod);
+
 		} // if ((iRetryCount > 0) && (iRetryDelay > 0))
 		else {
 			log.debug("Invoking " + portClass.getCanonicalName() + "."
@@ -1046,23 +1052,27 @@ public class WebServiceProxyHelper {
 					+ "Exception: " + e.getMessage();
 			log.error(sErrorMessage, e);
 			throw e;
-		} catch (InvocationTargetException e) {
-			Exception cause = e;
-			Throwable throwable = e.getCause();
-			if (throwable != null && throwable instanceof Exception) {
-				cause = (Exception)throwable;
-			}
-			// As near as we can tell based on the way we are using
-			// this, I do not
-			// believe there is any other exception we will see - but we
-			// want to
-			// log them if we see them.
-			// ---------------------------------------------------------------------
-			String sErrorMessage = "An unexpected exception occurred of type: "
-					+ cause.getClass().getCanonicalName() + ". Exception: "
-					+ cause.getMessage();
-			log.error(sErrorMessage, cause);
-			throw cause;
+                }catch(Exception e){
+                    // just log exception and throw it back out
+                    log.error("WebServiceProxyHelper::invokePort Exception: ", e);
+                    throw e;
+//		} catch (InvocationTargetException e) {
+//			Exception cause = e;
+//			Throwable throwable = e.getCause();
+//			if (throwable != null && throwable instanceof Exception) {
+//				cause = (Exception)throwable;
+//			}
+//			// As near as we can tell based on the way we are using
+//			// this, I do not
+//			// believe there is any other exception we will see - but we
+//			// want to
+//			// log them if we see them.
+//			// ---------------------------------------------------------------------
+//			String sErrorMessage = "An unexpected exception occurred of type: "
+//					+ cause.getClass().getCanonicalName() + ". Exception: "
+//					+ cause.getMessage();
+//			log.error(sErrorMessage, cause);
+//			throw cause;
 		}
 		return oResponse;
 	}
@@ -1096,6 +1106,7 @@ public class WebServiceProxyHelper {
 				log.debug("Invoking " + portClass.getCanonicalName() + "."
 						+ oMethod.getName() + ": Try #" + i);
 
+                                // invokePort will log any exception and throw back out
 				oResponse = invokePort(portObject, portClass, operationInput,
 						oResponse, oMethod);
 				break;

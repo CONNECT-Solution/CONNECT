@@ -3,6 +3,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyObjectFactory;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,31 +43,30 @@ public class OutboundPatientDiscoveryStrategyImpl_g0 extends OutboundPatientDisc
     }
     
     
+    @SuppressWarnings("static-access")
     public void executeStrategy(OutboundPatientDiscoveryOrchestratable_a0 message){
         getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy");
+        auditRequestMessage(message.getRequest(), message.getAssertion(),
+                message.getTarget().getHomeCommunity().getHomeCommunityId());
+        try{
+            NhinPatientDiscoveryProxy proxy = new NhinPatientDiscoveryProxyObjectFactory().getNhinPatientDiscoveryProxy();
+            getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy sending nhin patient discovery request to "
+                    + " target hcid=" + message.getTarget().getHomeCommunity().getHomeCommunityId());
 
-        OutboundPatientDiscoveryOrchestratable_a0 nhinPDResponse = new OutboundPatientDiscoveryOrchestratable_a0(
-                null, message.getResponseProcessor(), message.getAuditTransformer(),
-                message.getPolicyTransformer(), message.getAssertion(),
-                message.getServiceName(), message.getTarget(), message.getRequest());
+            message.setResponse(proxy.respondingGatewayPRPAIN201305UV02(
+                    message.getRequest(), message.getAssertion(), message.getTarget()));
+            getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy returning response");
+        }catch(Exception ex){
+            String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, message.getTarget(),
+                    message.getServiceName());
+            OutboundResponseProcessor processor = message.getResponseProcessor();
+            message.setResponse(((OutboundPatientDiscoveryOrchestratable_a0)processor.
+                    processErrorResponse(message, err)).getResponse());
+            getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy returning error response");
+        }
+        auditResponseMessage(message.getResponse(), message.getAssertion(),
+                message.getTarget().getHomeCommunity().getHomeCommunityId());
 
-        NhinTargetSystemType targetSystem = message.getTarget();
-        String requestCommunityID = targetSystem.getHomeCommunity().getHomeCommunityId();
-
-        auditRequestMessage(message.getRequest(), message.getAssertion(), requestCommunityID);
-
-        NhinPatientDiscoveryProxy proxy = new NhinPatientDiscoveryProxyObjectFactory().getNhinPatientDiscoveryProxy();
-        getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy sending nhin patient discovery request to "
-                + " target hcid=" + requestCommunityID);
-
-        nhinPDResponse.setResponse(proxy.respondingGatewayPRPAIN201305UV02(
-                message.getRequest(), message.getAssertion(), targetSystem));
-
-        auditResponseMessage(nhinPDResponse.getResponse(), nhinPDResponse.getAssertion(), requestCommunityID);
-        
-        message.setResponse(nhinPDResponse.getResponse());
-
-        getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy returning response");
     }
 
 }

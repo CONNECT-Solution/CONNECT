@@ -28,6 +28,10 @@ public class OutboundPatientDiscoveryDelegate implements OutboundDelegate{
     @Override
     public Orchestratable process(Orchestratable message){
         getLogger().debug("NhinPatientDiscoveryDelegate::process Orchestratable");
+        if(message == null){
+            getLogger().error("NhinPatientDiscoveryDelegate Orchestratable was null!!!");
+            return null;
+        }
         if(message instanceof OutboundPatientDiscoveryOrchestratable){
             return process((OutboundOrchestratable) message);
         }

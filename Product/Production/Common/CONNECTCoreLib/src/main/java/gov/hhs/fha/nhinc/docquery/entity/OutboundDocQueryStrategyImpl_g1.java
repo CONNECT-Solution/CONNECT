@@ -4,6 +4,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,35 +45,33 @@ public class OutboundDocQueryStrategyImpl_g1 extends OutboundDocQueryStrategy{
     }
 
 
+    @SuppressWarnings("static-access")
     public void executeStrategy(OutboundDocQueryOrchestratable_a1 message){
         getLogger().debug("NhinDocQueryStrategyImpl_g1::executeStrategy");
 
-        OutboundDocQueryOrchestratable_a1 nhinDQResponse = new OutboundDocQueryOrchestratable_a1(
-                null, message.getResponseProcessor(), message.getAuditTransformer(),
-                message.getPolicyTransformer(), message.getAssertion(),
-                message.getServiceName(), message.getTarget(), message.getRequest());
-
-        NhinTargetSystemType targetSystem = message.getTarget();
-        String requestCommunityID = targetSystem.getHomeCommunity().getHomeCommunityId();
-
         auditRequestMessage(message.getRequest(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, message.getAssertion(),
+                message.getTarget().getHomeCommunity().getHomeCommunityId());
+        try{
+            NhinDocQueryProxy proxy = new NhinDocQueryProxyObjectFactory().getNhinDocQueryProxy();
+            getLogger().debug("NhinDocQueryStrategyImpl_g1::executeStrategy sending nhin doc query request to "
+                    + " target hcid=" + message.getTarget().getHomeCommunity().getHomeCommunityId()
+                    + " at url=" + message.getTarget().getUrl());
+
+            message.setResponse(proxy.respondingGatewayCrossGatewayQuery(
+                    message.getRequest(), message.getAssertion(), message.getTarget()));
+
+            getLogger().debug("NhinDocQueryStrategyImpl_g1::executeStrategy returning response");
+        }catch(Exception ex){
+            String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, message.getTarget(),
+                    message.getServiceName());
+            OutboundResponseProcessor processor = message.getResponseProcessor();
+            message.setResponse(((OutboundDocQueryOrchestratable_a1)processor.
+                    processErrorResponse(message, err)).getResponse());
+            getLogger().debug("NhinDocQueryStrategyImpl_g1::executeStrategy returning error response");
+        }
+        auditResponseMessage(message.getResponse(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                message.getAssertion(), requestCommunityID);
-
-        NhinDocQueryProxy proxy = new NhinDocQueryProxyObjectFactory().getNhinDocQueryProxy();
-        getLogger().debug("NhinDocQueryStrategyImpl_g1::executeStrategy sending nhin doc query request to "
-                + " target hcid=" + requestCommunityID);
-
-        nhinDQResponse.setResponse(proxy.respondingGatewayCrossGatewayQuery(
-                message.getRequest(), message.getAssertion(), targetSystem));
-
-        auditResponseMessage(nhinDQResponse.getResponse(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                nhinDQResponse.getAssertion(), requestCommunityID);
-
-         message.setResponse(nhinDQResponse.getResponse());
-
-        getLogger().debug("NhinDocQueryStrategyImpl_g1::executeStrategy returning response");
+                message.getAssertion(), message.getTarget().getHomeCommunity().getHomeCommunityId());
     }
-
 }

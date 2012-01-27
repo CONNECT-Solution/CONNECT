@@ -26,5 +26,6 @@ public interface NhinDocQueryProxy {
      * @param request Document Query Request.
      * @return List of Documents that match the search criteria.
      */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion, NhinTargetSystemType target);
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, 
+            AssertionType assertion, NhinTargetSystemType target) throws Exception;
 }
