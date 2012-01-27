@@ -18,15 +18,15 @@ public class EntityPatientDiscoveryProcessorHelper{
 
 
     /**
-     * constructs a new EntityPatientDiscoveryOrchestratable_a0 object with
+     * constructs a new OutboundPatientDiscoveryOrchestratable_a0 object with
      * associated new cumulativeResponse
      * @param request
-     * @return EntityPatientDiscoveryOrchestratable_a0
+     * @return OutboundPatientDiscoveryOrchestratable_a0
      */
-    public static EntityPatientDiscoveryOrchestratable_a0 createNewCumulativeResponse_a0(
-            EntityPatientDiscoveryOrchestratable request){
+    public static OutboundPatientDiscoveryOrchestratable_a0 createNewCumulativeResponse_a0(
+            OutboundPatientDiscoveryOrchestratable request){
 
-        EntityPatientDiscoveryOrchestratable_a0 cumulativeResponse = new EntityPatientDiscoveryOrchestratable_a0(
+        OutboundPatientDiscoveryOrchestratable_a0 cumulativeResponse = new OutboundPatientDiscoveryOrchestratable_a0(
             null, null, null, null, request.getAssertion(),
             request.getServiceName(), request.getTarget(),
             request.getRequest());
@@ -41,15 +41,15 @@ public class EntityPatientDiscoveryProcessorHelper{
 
 
     /**
-     * constructs a new EntityPatientDiscoveryOrchestratable_a1 object with
+     * constructs a new OutboundPatientDiscoveryOrchestratable_a1 object with
      * associated new cumulativeResponse
      * @param request
-     * @return EntityPatientDiscoveryOrchestratable_a1
+     * @return OutboundPatientDiscoveryOrchestratable_a1
      */
-    public static EntityPatientDiscoveryOrchestratable_a1 createNewCumulativeResponse_a1(
-            EntityPatientDiscoveryOrchestratable request){
+    public static OutboundPatientDiscoveryOrchestratable_a1 createNewCumulativeResponse_a1(
+            OutboundPatientDiscoveryOrchestratable request){
 
-        EntityPatientDiscoveryOrchestratable_a1 cumulativeResponse = new EntityPatientDiscoveryOrchestratable_a1(
+        OutboundPatientDiscoveryOrchestratable_a1 cumulativeResponse = new OutboundPatientDiscoveryOrchestratable_a1(
             null, null, null, null, request.getAssertion(),
             request.getServiceName(), request.getTarget(),
             request.getRequest());
@@ -66,16 +66,16 @@ public class EntityPatientDiscoveryProcessorHelper{
     /**
      * takes a response spec a1 and converts to response spec a0
      * @param original is spec a1
-     * @return EntityPatientDiscoveryOrchestratable_a0 with transformed a0 response
+     * @return OutboundPatientDiscoveryOrchestratable_a0 with transformed a0 response
      */
-    public static EntityPatientDiscoveryOrchestratable_a0 transformResponse_ToA0(
-            EntityPatientDiscoveryOrchestratable original){
+    public static OutboundPatientDiscoveryOrchestratable_a0 transformResponse_ToA0(
+            OutboundPatientDiscoveryOrchestratable original){
 
         // currently a0 is same as a1
-        EntityPatientDiscoveryOrchestratable_a0 response_a0 =
-                new EntityPatientDiscoveryOrchestratable_a0();
-        EntityPatientDiscoveryOrchestratable_a1 original_a1 =
-                (EntityPatientDiscoveryOrchestratable_a1)original;
+        OutboundPatientDiscoveryOrchestratable_a0 response_a0 =
+                new OutboundPatientDiscoveryOrchestratable_a0();
+        OutboundPatientDiscoveryOrchestratable_a1 original_a1 =
+                (OutboundPatientDiscoveryOrchestratable_a1)original;
         response_a0.setResponse(original_a1.getResponse());
         return response_a0;
     }
@@ -85,16 +85,16 @@ public class EntityPatientDiscoveryProcessorHelper{
      * takes a response spec a0 and converts to response spec a1
      * Currently PD response is same for both specs
      * @param original is spec a0
-     * @return EntityPatientDiscoveryOrchestratable_a1 with transformed a1 response
+     * @return OutboundPatientDiscoveryOrchestratable_a1 with transformed a1 response
      */
-    public static EntityPatientDiscoveryOrchestratable_a1 transformResponse_ToA1(
-            EntityPatientDiscoveryOrchestratable original){
+    public static OutboundPatientDiscoveryOrchestratable_a1 transformResponse_ToA1(
+            OutboundPatientDiscoveryOrchestratable original){
 
         // currently a0 is same as a1
-        EntityPatientDiscoveryOrchestratable_a1 response_a1 =
-                new EntityPatientDiscoveryOrchestratable_a1();
-        EntityPatientDiscoveryOrchestratable_a0 original_a0 =
-                (EntityPatientDiscoveryOrchestratable_a0)original;
+        OutboundPatientDiscoveryOrchestratable_a1 response_a1 =
+                new OutboundPatientDiscoveryOrchestratable_a1();
+        OutboundPatientDiscoveryOrchestratable_a0 original_a0 =
+                (OutboundPatientDiscoveryOrchestratable_a0)original;
         response_a1.setResponse(original_a0.getResponse());
         return response_a1;
     }

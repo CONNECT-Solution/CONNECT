@@ -38,29 +38,29 @@ public class AdapterDelegateTest {
     }
 
     /**
-     * Test of process method, of class AdapterDelegate.
+     * Test of process method, of class InboundDelegate.
      */
     @Test
     public void testProcessInterface() {
-        NhinOrchestratable message = null;
-        AdapterDelegate instance = new AdapterDelegateImpl();
+        InboundOrchestratable message = null;
+        InboundDelegate instance = new AdapterDelegateImpl();
         instance.process(message);
     }
 
     @Test
     public void testCreateErrorResponseInterface() {
-        NhinOrchestratable message = null;
-        AdapterDelegate instance = new AdapterDelegateImpl();
+        InboundOrchestratable message = null;
+        InboundDelegate instance = new AdapterDelegateImpl();
         instance.createErrorResponse(message, null);
     }
 
-    public class AdapterDelegateImpl implements AdapterDelegate {
+    public class AdapterDelegateImpl implements InboundDelegate {
 
-        public NhinOrchestratable process(NhinOrchestratable message) {
+        public InboundOrchestratable process(InboundOrchestratable message) {
         	return null;
         }
 
-        public void createErrorResponse(NhinOrchestratable message, String error) {
+        public void createErrorResponse(InboundOrchestratable message, String error) {
         }
 
 		@Override

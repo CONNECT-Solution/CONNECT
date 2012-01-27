@@ -5,7 +5,7 @@
 
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import gov.hhs.fha.nhinc.orchestration.NhinOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,10 +43,10 @@ public class AdapterDocRetrieveDelegateTest {
      */
     @Test
     public void testProcess() {
-        NhinOrchestratable message = null;
+        InboundOrchestratable message = null;
         //AdapterDocRetrieveDelegate instance = new AdapterDocRetrieveDelegate();
         //instance.process(message);
-        // TODO: update this test once we can mock NhinOrchestratable
+        // TODO: update this test once we can mock InboundOrchestratable
     }
 
     /**
@@ -54,11 +54,11 @@ public class AdapterDocRetrieveDelegateTest {
      */
     @Test
     public void testCreateErrorResponse() {
-        NhinOrchestratable message = null;
+        InboundOrchestratable message = null;
         String error = "";
         //AdapterDocRetrieveDelegate instance = new AdapterDocRetrieveDelegate();
         //instance.createErrorResponse(message, error);
-        // TODO: update this test once we can mock NhinOrchestratable
+        // TODO: update this test once we can mock InboundOrchestratable
     }
 
 }

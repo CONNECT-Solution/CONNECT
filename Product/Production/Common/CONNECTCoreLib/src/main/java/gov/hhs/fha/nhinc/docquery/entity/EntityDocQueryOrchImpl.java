@@ -3,8 +3,8 @@ package gov.hhs.fha.nhinc.docquery.entity;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
 
-import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
-import gov.hhs.fha.nhinc.orchestration.NhinResponseProcessor;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 
 import java.util.UUID;
 import java.util.ArrayList;
@@ -176,10 +176,10 @@ public class EntityDocQueryOrchImpl{
                 if(NullChecker.isNotNullish(correlationsResult)){
                     /************************************************************************
                      * We replaced the 3.2.1 connect code here with the new 3.3 concurrent fanout impl
-                     * Note that all response processing is done in the NhinResponseProcessor
+                     * Note that all response processing is done in the OutboundResponseProcessor
                     ***********************************************************************/
-                    List<NhinCallableRequest<EntityDocQueryOrchestratable>> callableList =
-                            new ArrayList<NhinCallableRequest<EntityDocQueryOrchestratable>>();
+                    List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList =
+                            new ArrayList<NhinCallableRequest<OutboundDocQueryOrchestratable>>();
                     String transactionId = (UUID.randomUUID()).toString();
 
                     // we hold the error messages for any failed policy checks in policyErrList
@@ -195,12 +195,12 @@ public class EntityDocQueryOrchImpl{
                         }
 
                         if(isValidPolicy(adhocQueryRequest, assertion, targetCommunity)){
-                            NhinDelegate nd = new NhinDocQueryDelegate();
-                            NhinResponseProcessor np = null;
+                            OutboundDelegate nd = new OutboundDocQueryDelegate();
+                            OutboundResponseProcessor np = null;
                             if(responseIsSpecA0){
-                                np = new EntityDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+                                np = new OutboundDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
                             }else{
-                                np = new EntityDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
+                                np = new OutboundDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
                             }
                             // Replace the patient id in the document query message
                             // and clone the original adhocQueryRequest
@@ -210,10 +210,10 @@ public class EntityDocQueryOrchImpl{
                                     identifier.getAssigningAuthorityIdentifier(),
                                     identifier.getSubjectIdentifier());
 
-                            EntityDocQueryOrchestratable message = new EntityDocQueryOrchestratable(
+                            OutboundDocQueryOrchestratable message = new OutboundDocQueryOrchestratable(
                                         nd, np, null, null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME,
                                         target, clonedQueryRequest);
-                            callableList.add(new NhinCallableRequest<EntityDocQueryOrchestratable>(message));
+                            callableList.add(new NhinCallableRequest<OutboundDocQueryOrchestratable>(message));
 
                             log.debug("EntityDocQueryOrchImpl added NhinCallableRequest"
                                     + " for hcid=" + target.getHomeCommunity().getHomeCommunityId());
@@ -229,15 +229,15 @@ public class EntityDocQueryOrchImpl{
 
                     // note that if responseIsSpecA0 taskexecutor is set to return EntityPatientDiscoveryOrchestratable_a0
                     // else  taskexecutor set to return EntityPatientDiscoveryOrchestratable_a1
-                    EntityDocQueryOrchestratable_a0 orchResponse_g0 = null;
-                    EntityDocQueryOrchestratable_a1 orchResponse_g1 = null;
+                    OutboundDocQueryOrchestratable_a0 orchResponse_g0 = null;
+                    OutboundDocQueryOrchestratable_a1 orchResponse_g1 = null;
                     if(responseIsSpecA0){
-                        NhinTaskExecutor<EntityDocQueryOrchestratable_a0, EntityDocQueryOrchestratable> dqexecutor =
-                                new NhinTaskExecutor<EntityDocQueryOrchestratable_a0, EntityDocQueryOrchestratable>(
+                        NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable> dqexecutor =
+                                new NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable>(
                                 ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor : regularExecutor,
                                 callableList, transactionId);
                         dqexecutor.executeTask();
-                        orchResponse_g0 = (EntityDocQueryOrchestratable_a0)dqexecutor.getFinalResponse();
+                        orchResponse_g0 = (OutboundDocQueryOrchestratable_a0)dqexecutor.getFinalResponse();
                         response = orchResponse_g0.getCumulativeResponse();
 
                         // add any errors from policyErrList to response
@@ -248,12 +248,12 @@ public class EntityDocQueryOrchImpl{
                             }
                         }
                     }else{
-                        NhinTaskExecutor<EntityDocQueryOrchestratable_a1, EntityDocQueryOrchestratable> dqexecutor =
-                                new NhinTaskExecutor<EntityDocQueryOrchestratable_a1, EntityDocQueryOrchestratable>(
+                        NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable> dqexecutor =
+                                new NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable>(
                                 ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor : regularExecutor,
                                 callableList, transactionId);
                         dqexecutor.executeTask();
-                        orchResponse_g1 = (EntityDocQueryOrchestratable_a1)dqexecutor.getFinalResponse();
+                        orchResponse_g1 = (OutboundDocQueryOrchestratable_a1)dqexecutor.getFinalResponse();
                         response = orchResponse_g1.getCumulativeResponse();
 
                         // add any errors from policyErrList to response

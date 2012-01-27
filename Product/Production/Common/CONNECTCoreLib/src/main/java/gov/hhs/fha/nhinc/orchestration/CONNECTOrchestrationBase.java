@@ -50,7 +50,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
             processEnabledMessage(message);
         } else {
             getLogger().debug(message.getServiceName() + " is not enabled. returning a error response");
-            createErrorResponse((NhinOrchestratable) message,
+            createErrorResponse((InboundOrchestratable) message,
                     message.getServiceName() + " is not enabled.");
         }
         // audit again
@@ -102,7 +102,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     private Orchestratable handleFailedPolicyCheck(Orchestratable message) {
         getLogger().debug(
                 message.getServiceName() + " failed policy check. Returning a error response");
-        return createErrorResponse((NhinOrchestratable) message,
+        return createErrorResponse((InboundOrchestratable) message,
                 message.getServiceName() + " failed policy check.");
     }
 
@@ -113,9 +113,9 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     /*
      * Begin Delegate Methods
      */
-    protected Orchestratable createErrorResponse(NhinOrchestratable message, String error) {
+    protected Orchestratable createErrorResponse(InboundOrchestratable message, String error) {
         if (message != null && message.getAdapterDelegate() != null) {
-            AdapterDelegate delegate = message.getAdapterDelegate();
+            InboundDelegate delegate = message.getAdapterDelegate();
             delegate.createErrorResponse(message, error);
         }
         return message;

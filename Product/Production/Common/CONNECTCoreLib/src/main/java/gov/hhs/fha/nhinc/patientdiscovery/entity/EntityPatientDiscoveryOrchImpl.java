@@ -12,8 +12,8 @@ import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
-import gov.hhs.fha.nhinc.orchestration.NhinResponseProcessor;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
@@ -155,8 +155,8 @@ public class EntityPatientDiscoveryOrchImpl{
                  * and all response processing is done in the PDProcessor
                 ***********************************************************************/
                 List<UrlInfo> targetList = urlInfoList;
-                List<NhinCallableRequest<EntityPatientDiscoveryOrchestratable>> callableList =
-                        new ArrayList<NhinCallableRequest<EntityPatientDiscoveryOrchestratable>>();
+                List<NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>> callableList =
+                        new ArrayList<NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>>();
                 String transactionId = (UUID.randomUUID()).toString();
 
                 // we hold the error messages for any failed policy checks in policyErrList
@@ -174,8 +174,8 @@ public class EntityPatientDiscoveryOrchImpl{
                             createNewRequest(request, assertion, UrlInfo);
 
                     if(checkPolicy(newRequest, assertion)){
-                        NhinDelegate nd = new NhinPatientDiscoveryDelegate();
-                        NhinResponseProcessor np = null;
+                        OutboundDelegate nd = new OutboundPatientDiscoveryDelegate();
+                        OutboundResponseProcessor np = null;
                         if(responseIsSpecA0){
                             np = new EntityPatientDiscoveryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
                         }else{
@@ -193,10 +193,10 @@ public class EntityPatientDiscoveryOrchImpl{
                                         getId().get(0).setRoot(UrlInfo.getHcid());
                         }
 
-                        EntityPatientDiscoveryOrchestratable message = new EntityPatientDiscoveryOrchestratable(
+                        OutboundPatientDiscoveryOrchestratable message = new OutboundPatientDiscoveryOrchestratable(
                                     nd, np, null, null, assertion, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,
                                     target, newRequest.getPRPAIN201305UV02());
-                        callableList.add(new NhinCallableRequest<EntityPatientDiscoveryOrchestratable>(message));
+                        callableList.add(new NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>(message));
 
                         log.debug("EntityPatientDiscoveryOrchImpl added NhinCallableRequest"
                                 + " for hcid=" + target.getHomeCommunity().getHomeCommunityId());
@@ -217,18 +217,18 @@ public class EntityPatientDiscoveryOrchImpl{
                     }
                 }
 
-                // note that if responseIsSpecA0 taskexecutor is set to return EntityPatientDiscoveryOrchestratable_a0
-                // else  taskexecutor set to return EntityPatientDiscoveryOrchestratable_a1
-                EntityPatientDiscoveryOrchestratable_a0 orchResponse_a0 = null;
-                EntityPatientDiscoveryOrchestratable_a1 orchResponse_a1 = null;
+                // note that if responseIsSpecA0 taskexecutor is set to return OutboundPatientDiscoveryOrchestratable_a0
+                // else  taskexecutor set to return OutboundPatientDiscoveryOrchestratable_a1
+                OutboundPatientDiscoveryOrchestratable_a0 orchResponse_a0 = null;
+                OutboundPatientDiscoveryOrchestratable_a1 orchResponse_a1 = null;
                 if(responseIsSpecA0){
                     log.debug("EntityPatientDiscoveryOrchImpl executing task to return spec a0 cumulative response");
-                    NhinTaskExecutor<EntityPatientDiscoveryOrchestratable_a0, EntityPatientDiscoveryOrchestratable> dqexecutor =
-                            new NhinTaskExecutor<EntityPatientDiscoveryOrchestratable_a0, EntityPatientDiscoveryOrchestratable>(
+                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable_a0, OutboundPatientDiscoveryOrchestratable> dqexecutor =
+                            new NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable_a0, OutboundPatientDiscoveryOrchestratable>(
                             ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size()) ? largejobExecutor : regularExecutor,
                             callableList, transactionId);
                     dqexecutor.executeTask();
-                    orchResponse_a0 = (EntityPatientDiscoveryOrchestratable_a0)dqexecutor.getFinalResponse();
+                    orchResponse_a0 = (OutboundPatientDiscoveryOrchestratable_a0)dqexecutor.getFinalResponse();
                     response = orchResponse_a0.getCumulativeResponse();
 
                     // add any errors from policyErrList to response
@@ -237,12 +237,12 @@ public class EntityPatientDiscoveryOrchImpl{
                     }
                 }else{
                     log.debug("EntityPatientDiscoveryOrchImpl executing task to return spec a1 cumulative response");
-                    NhinTaskExecutor<EntityPatientDiscoveryOrchestratable_a1, EntityPatientDiscoveryOrchestratable> dqexecutor =
-                            new NhinTaskExecutor<EntityPatientDiscoveryOrchestratable_a1, EntityPatientDiscoveryOrchestratable>(
+                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable_a1, OutboundPatientDiscoveryOrchestratable> dqexecutor =
+                            new NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable_a1, OutboundPatientDiscoveryOrchestratable>(
                             ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size()) ? largejobExecutor : regularExecutor,
                             callableList, transactionId);
                     dqexecutor.executeTask();
-                    orchResponse_a1 = (EntityPatientDiscoveryOrchestratable_a1)dqexecutor.getFinalResponse();
+                    orchResponse_a1 = (OutboundPatientDiscoveryOrchestratable_a1)dqexecutor.getFinalResponse();
                     response = orchResponse_a1.getCumulativeResponse();
 
                     // add any errors from policyErrList to response

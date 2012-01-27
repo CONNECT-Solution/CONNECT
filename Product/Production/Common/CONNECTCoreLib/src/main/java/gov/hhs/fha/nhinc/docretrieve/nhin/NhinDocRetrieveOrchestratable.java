@@ -7,10 +7,10 @@ package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.AdapterDelegate;
+import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.Delegate;
-import gov.hhs.fha.nhinc.orchestration.NhinOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -21,13 +21,13 @@ import java.util.logging.Logger;
  *
  * @author mweaver
  */
-public abstract class NhinDocRetrieveOrchestratable implements NhinOrchestratable {
+public abstract class NhinDocRetrieveOrchestratable implements InboundOrchestratable {
 
     private AssertionType _assertion = null;
     private final String serviceName = "NhinDocumentRetrieve";
     private PolicyTransformer _policyTransformer = null;
     private AuditTransformer _auditTransformer = null;
-    private AdapterDelegate _adapterDelegate = null;
+    private InboundDelegate _adapterDelegate = null;
 
 
     public void setAssertion(AssertionType _assertion) {
@@ -46,14 +46,14 @@ public abstract class NhinDocRetrieveOrchestratable implements NhinOrchestratabl
 		return getAdapterDelegate();
 	}
 
-	public NhinDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, AdapterDelegate ad)
+	public NhinDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad)
     {
         _policyTransformer = pt;
         _auditTransformer = at;
         _adapterDelegate = ad;
     }
 
-    public AdapterDelegate getAdapterDelegate() {
+    public InboundDelegate getAdapterDelegate() {
         return _adapterDelegate;
     }
 

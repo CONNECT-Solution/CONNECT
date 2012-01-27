@@ -5,12 +5,12 @@
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.orchestration.AdapterDelegate;
+import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.AdapterDelegateTest;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformerTest;
-import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
-import gov.hhs.fha.nhinc.orchestration.NhinAggregatorTest;
+import gov.hhs.fha.nhinc.orchestration.InboundAggregator;
+import gov.hhs.fha.nhinc.orchestration.InboundAggregatorTest;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformerTest;
 import org.junit.After;
@@ -61,9 +61,9 @@ public class NhinDocRetrieveOrchestratableTest {
     @Test
     public void testGetAdapterDelegate() {
         AdapterDelegateTest t = new AdapterDelegateTest();
-        AdapterDelegate expResult = t.new AdapterDelegateImpl();
+        InboundDelegate expResult = t.new AdapterDelegateImpl();
         NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(null, null, expResult, null);
-        AdapterDelegate result = instance.getAdapterDelegate();
+        InboundDelegate result = instance.getAdapterDelegate();
         assertEquals(expResult, result);
     }
 
@@ -143,7 +143,7 @@ public class NhinDocRetrieveOrchestratableTest {
 
         }
 
-        public NhinDocRetrieveOrchestratableImpl(PolicyTransformer pt, AuditTransformer at, AdapterDelegate ad, NhinAggregator na) {
+        public NhinDocRetrieveOrchestratableImpl(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad, InboundAggregator na) {
             super(pt, at, ad);
         }
     }

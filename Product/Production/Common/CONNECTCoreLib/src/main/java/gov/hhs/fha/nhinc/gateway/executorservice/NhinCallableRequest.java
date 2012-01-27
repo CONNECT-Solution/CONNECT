@@ -1,31 +1,31 @@
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
 import java.util.concurrent.Callable;
-import gov.hhs.fha.nhinc.orchestration.EntityOrchestratableMessage;
-import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
-import gov.hhs.fha.nhinc.orchestration.NhinResponseProcessor;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 
 
 /**
  * CallableRequest is basically what is executed (i.e. the Runnable)
  * Uses generics for Response (which represents object that is returned)
  *
- * Constructs with a EntityOrchestratableMessage to be used,
- * which contains the NhinDelegate to execute request and
+ * Constructs with a OutboundOrchestratableMessage to be used,
+ * which contains the OutboundDelegate to execute request and
  * NhinProcessor to processErrorResponse (in the case of error/exception)
  * 
  * @author paul.eftis
  */
-public class NhinCallableRequest<Response extends EntityOrchestratableMessage>
+public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
         implements Callable<Response>{
 
 
-    private NhinDelegate client = null;
-    private NhinResponseProcessor processor = null;
-    private EntityOrchestratableMessage entityRequest = null;
+    private OutboundDelegate client = null;
+    private OutboundResponseProcessor processor = null;
+    private OutboundOrchestratableMessage entityRequest = null;
 
 
-    public NhinCallableRequest(EntityOrchestratableMessage orch){
+    public NhinCallableRequest(OutboundOrchestratableMessage orch){
         this.client = orch.getDelegate();
         this.processor = orch.getResponseProcessor();
         this.entityRequest = orch;

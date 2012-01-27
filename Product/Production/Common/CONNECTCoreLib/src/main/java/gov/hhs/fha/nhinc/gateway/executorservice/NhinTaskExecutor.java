@@ -8,8 +8,8 @@ import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import gov.hhs.fha.nhinc.orchestration.NhinResponseProcessor;
-import gov.hhs.fha.nhinc.orchestration.EntityOrchestratableMessage;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * Uses generics for CumulativeResponse (which represents final object that is returned).
  * Each IndividualResponse returned from executed NhinCallableRequest contains the
- * NhinResponseProcessor for the IndividualResponse
+ * OutboundResponseProcessor for the IndividualResponse
  *
  * Constructs with the java.util.concurrent.ExecutorService to use to execute the requests
  * and a List of NhinCallableRequest to be submitted to ExecutorService
@@ -35,8 +35,8 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author paul.eftis
  */
-public class NhinTaskExecutor<CumulativeResponse extends EntityOrchestratableMessage,
-        IndividualResponse extends EntityOrchestratableMessage>{
+public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableMessage,
+        IndividualResponse extends OutboundOrchestratableMessage>{
 
     private Log log = LogFactory.getLog(getClass());
 
@@ -96,7 +96,7 @@ public class NhinTaskExecutor<CumulativeResponse extends EntityOrchestratableMes
                         IndividualResponse r = (IndividualResponse)future.get();
                         if(r != null){
                             // process response
-                            NhinResponseProcessor processor = r.getResponseProcessor();
+                            OutboundResponseProcessor processor = r.getResponseProcessor();
                             cumulativeResponse = (CumulativeResponse)processor.processNhinResponse(
                                     r, cumulativeResponse);
                         }else{

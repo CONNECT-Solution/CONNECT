@@ -157,12 +157,12 @@ public class EntityDocSubmissionOrchImpl {
       //  NhinDocSubmissionProxyObjectFactory factory = new NhinDocSubmissionProxyObjectFactory();
         //NhinDocSubmissionProxy proxy = factory.getNhinDocSubmissionProxy();
 
-        NhinDocSubmissionDelegate dsDelegate = new NhinDocSubmissionDelegate();
-        EntityDocSubmissionOrchestratable dsOrchestratable = new EntityDocSubmissionOrchestratable(dsDelegate);
+        OutboundDocSubmissionDelegate dsDelegate = new OutboundDocSubmissionDelegate();
+        OutboundDocSubmissionOrchestratable dsOrchestratable = new OutboundDocSubmissionOrchestratable(dsDelegate);
         dsOrchestratable.setAssertion(assertion);
         dsOrchestratable.setRequest(body.getProvideAndRegisterDocumentSetRequest());
         dsOrchestratable.setTarget(body.getNhinTargetSystem());
-        response = ((EntityDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
+        response = ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
 
         ack = auditLog.auditNhinXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 

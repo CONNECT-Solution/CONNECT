@@ -4,7 +4,7 @@ public final class BaseOrchestrationContextBuilder implements OrchestrationConte
 
 	private OrchestrationStrategy strategy;
 	
-	private EntityOrchestratable message;
+	private OutboundOrchestratable message;
 	
 	public OrchestrationContextBuilder setStrategy(OrchestrationStrategy strategy) {
 		this.strategy = strategy;
@@ -16,12 +16,12 @@ public final class BaseOrchestrationContextBuilder implements OrchestrationConte
 	}
 
 	
-	public OrchestrationContextBuilder setMessage(EntityOrchestratable message) {
+	public OrchestrationContextBuilder setMessage(OutboundOrchestratable message) {
 		this.message = message;
 		return this;
 	}
 	
-	public EntityOrchestratable getMessage() {
+	public OutboundOrchestratable getMessage() {
 		return message;
 	}
 

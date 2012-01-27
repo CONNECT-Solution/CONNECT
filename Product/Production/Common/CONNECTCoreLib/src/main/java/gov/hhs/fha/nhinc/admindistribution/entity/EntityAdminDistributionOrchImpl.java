@@ -152,9 +152,9 @@ public class EntityAdminDistributionOrchImpl {
     protected void sendToNhinProxy(RespondingGatewaySendAlertMessageType newRequest,
             AssertionType assertion, NhinTargetSystemType target) {
         log.debug("begin sendToNhinProxy");
-        NhinAdminDistributionDelegate adDelegate = new NhinAdminDistributionDelegate();
-        EntityAdminDistributionOrchestratable orchestratable =
-                new EntityAdminDistributionOrchestratable(adDelegate);
+        OutboundAdminDistributionDelegate adDelegate = new OutboundAdminDistributionDelegate();
+        OutboundAdminDistributionOrchestratable orchestratable =
+                new OutboundAdminDistributionOrchestratable(adDelegate);
         orchestratable.setRequest(newRequest);
         orchestratable.setAssertion(assertion);
         orchestratable.setTarget(target);

@@ -4,8 +4,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import gov.hhs.fha.nhinc.orchestration.AdapterDelegate;
-import gov.hhs.fha.nhinc.orchestration.NhinOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -18,7 +18,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author mweaver
  */
-public class AdapterDocRetrieveDelegate implements AdapterDelegate {
+public class AdapterDocRetrieveDelegate implements InboundDelegate {
 
     private static Log log = LogFactory.getLog(AdapterDocRetrieveDelegate.class);
 
@@ -28,7 +28,7 @@ public class AdapterDocRetrieveDelegate implements AdapterDelegate {
     @Override
 	public Orchestratable process(Orchestratable message) {
     	if (message instanceof NhinDocRetrieveOrchestratable) {
-    		process((NhinOrchestratable) message);
+    		process((InboundOrchestratable) message);
     	  } else {
               getLogger().error("message is not an instance of NhinDocRetrieveOrchestratable!");
           }
@@ -36,7 +36,7 @@ public class AdapterDocRetrieveDelegate implements AdapterDelegate {
 	}
     
     
-    public NhinOrchestratable process(NhinOrchestratable message) {
+    public InboundOrchestratable process(InboundOrchestratable message) {
    
             // TODO: check connection manager for which endpoint to use
 
@@ -51,7 +51,7 @@ public class AdapterDocRetrieveDelegate implements AdapterDelegate {
             return null;
     }
 
-    public void createErrorResponse(NhinOrchestratable message, String error) {
+    public void createErrorResponse(InboundOrchestratable message, String error) {
         if (message == null) {
             getLogger().debug("NhinOrchestratable was null");
             return;

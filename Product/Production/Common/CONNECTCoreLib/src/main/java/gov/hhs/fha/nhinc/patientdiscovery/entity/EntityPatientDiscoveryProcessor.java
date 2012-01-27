@@ -1,9 +1,9 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import gov.hhs.fha.nhinc.orchestration.NhinResponseProcessor;
-import gov.hhs.fha.nhinc.orchestration.EntityOrchestratableMessage;
-import gov.hhs.fha.nhinc.orchestration.EntityOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
@@ -32,7 +32,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author paul.eftis
  */
-public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
+public class EntityPatientDiscoveryProcessor implements OutboundResponseProcessor{
 
     private static Log log = LogFactory.getLog(EntityPatientDiscoveryProcessor.class);
 
@@ -51,35 +51,35 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
      * @param cumulativeResponse
      */
     @SuppressWarnings("static-access")
-    public EntityOrchestratableMessage processNhinResponse(
-            EntityOrchestratableMessage individual,
-            EntityOrchestratableMessage cumulativeResponse){
+    public OutboundOrchestratableMessage processNhinResponse(
+            OutboundOrchestratableMessage individual,
+            OutboundOrchestratableMessage cumulativeResponse){
 
         count++;
         log.debug("EntityPatientDiscoveryProcessor::processNhinResponse count=" + count);
 
-        EntityOrchestratableMessage response = null;
+        OutboundOrchestratableMessage response = null;
         if(cumulativeResponse == null){
             switch(cumulativeSpecLevel){
                 case LEVEL_g0:
                 {
                     log.debug("EntityPatientDiscoveryProcessor::processNhinResponse createNewCumulativeResponse_a0");
                     cumulativeResponse = EntityPatientDiscoveryProcessorHelper.createNewCumulativeResponse_a0(
-                            (EntityPatientDiscoveryOrchestratable)individual);
+                            (OutboundPatientDiscoveryOrchestratable)individual);
                     break;
                 }
                 case LEVEL_g1:
                 {
                     log.debug("EntityPatientDiscoveryProcessor::processNhinResponse createNewCumulativeResponse_a1");
                     cumulativeResponse = EntityPatientDiscoveryProcessorHelper.createNewCumulativeResponse_a1(
-                            (EntityPatientDiscoveryOrchestratable)individual);
+                            (OutboundPatientDiscoveryOrchestratable)individual);
                     break;
                 }
                 default:
                 {
                     log.debug("EntityPatientDiscoveryProcessor::processNhinResponse unknown cumulativeSpecLevel so createNewCumulativeResponse_a1");
                     cumulativeResponse = EntityPatientDiscoveryProcessorHelper.createNewCumulativeResponse_a1(
-                            (EntityPatientDiscoveryOrchestratable)individual);
+                            (OutboundPatientDiscoveryOrchestratable)individual);
                     break;
                 }
             }
@@ -91,8 +91,8 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
             log.error("EntityPatientDiscoveryProcessor::handleNhinResponse individual received was null!!!");
             response = cumulativeResponse;
         }else{
-            EntityOrchestratableMessage individualResponse = processResponse(individual);
-            response = aggregateResponse((EntityPatientDiscoveryOrchestratable)individualResponse, cumulativeResponse);
+            OutboundOrchestratableMessage individualResponse = processResponse(individual);
+            response = aggregateResponse((OutboundPatientDiscoveryOrchestratable)individualResponse, cumulativeResponse);
         }
 
         return response;
@@ -109,14 +109,14 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
      * @param individualResponse
      */
     @SuppressWarnings("static-access")
-    public EntityOrchestratableMessage processResponse(EntityOrchestratableMessage individualResponse){
+    public OutboundOrchestratableMessage processResponse(OutboundOrchestratableMessage individualResponse){
         try{
-            if(individualResponse instanceof EntityPatientDiscoveryOrchestratable_a0){
+            if(individualResponse instanceof OutboundPatientDiscoveryOrchestratable_a0){
                 log.debug("EntityPatientDiscoveryProcessor::processResponse for a0 start count=" + count);
                 // process spec_a0 response
-                EntityPatientDiscoveryOrchestratable_a0 individual =
-                        (EntityPatientDiscoveryOrchestratable_a0)individualResponse;
-                EntityPatientDiscoveryOrchestratable_a0 response = new EntityPatientDiscoveryOrchestratable_a0(
+                OutboundPatientDiscoveryOrchestratable_a0 individual =
+                        (OutboundPatientDiscoveryOrchestratable_a0)individualResponse;
+                OutboundPatientDiscoveryOrchestratable_a0 response = new OutboundPatientDiscoveryOrchestratable_a0(
                         null, individual.getResponseProcessor(), null, null, 
                         individual.getAssertion(), individual.getServiceName(),
                         individual.getTarget(), individual.getRequest());
@@ -143,14 +143,14 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
                 new PatientDiscovery201306Processor().storeMapping(response.getResponse());
                 log.debug("EntityPatientDiscoveryProcessor::processResponse a0 done count=" + count);
                 return response;
-            }else if(individualResponse instanceof EntityPatientDiscoveryOrchestratable_a1){
+            }else if(individualResponse instanceof OutboundPatientDiscoveryOrchestratable_a1){
                 // process spec_a1 response
                 // currently a0 and a1 are the same for patient discovery
                 log.debug("EntityPatientDiscoveryProcessor::processResponse for a1 start count=" + count);
                 // process spec_a1 response
-                EntityPatientDiscoveryOrchestratable_a1 individual =
-                        (EntityPatientDiscoveryOrchestratable_a1)individualResponse;
-                EntityPatientDiscoveryOrchestratable_a1 response = new EntityPatientDiscoveryOrchestratable_a1(
+                OutboundPatientDiscoveryOrchestratable_a1 individual =
+                        (OutboundPatientDiscoveryOrchestratable_a1)individualResponse;
+                OutboundPatientDiscoveryOrchestratable_a1 response = new OutboundPatientDiscoveryOrchestratable_a1(
                         null, individual.getResponseProcessor(), null, null,
                         individual.getAssertion(), individual.getServiceName(),
                         individual.getTarget(), individual.getRequest());
@@ -183,16 +183,16 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
             }
         }catch(Exception ex){
             ExecutorServiceHelper.getInstance().outputCompleteException(ex);
-            if(individualResponse instanceof EntityPatientDiscoveryOrchestratable_a0){
-                EntityPatientDiscoveryOrchestratable_a0 individual =
-                        (EntityPatientDiscoveryOrchestratable_a0)individualResponse;
-                EntityOrchestratableMessage response = processErrorResponse(individual,
+            if(individualResponse instanceof OutboundPatientDiscoveryOrchestratable_a0){
+                OutboundPatientDiscoveryOrchestratable_a0 individual =
+                        (OutboundPatientDiscoveryOrchestratable_a0)individualResponse;
+                OutboundOrchestratableMessage response = processErrorResponse(individual,
                         "Exception processing response.  Exception message=" + ex.getMessage());
                 return response;
-            }else if(individualResponse instanceof EntityPatientDiscoveryOrchestratable_a1){
-                EntityPatientDiscoveryOrchestratable_a1 individual =
-                        (EntityPatientDiscoveryOrchestratable_a1)individualResponse;
-                EntityOrchestratableMessage response = processErrorResponse(individual,
+            }else if(individualResponse instanceof OutboundPatientDiscoveryOrchestratable_a1){
+                OutboundPatientDiscoveryOrchestratable_a1 individual =
+                        (OutboundPatientDiscoveryOrchestratable_a1)individualResponse;
+                OutboundOrchestratableMessage response = processErrorResponse(individual,
                         "Exception processing response.  Exception message=" + ex.getMessage());
                 return response;
             }else{
@@ -212,61 +212,61 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
      * @return cumulative response with individual added
      */
     @SuppressWarnings("static-access")
-    public EntityOrchestratableMessage aggregateResponse(
-            EntityPatientDiscoveryOrchestratable individual,
-            EntityOrchestratableMessage cumulative){
+    public OutboundOrchestratableMessage aggregateResponse(
+            OutboundPatientDiscoveryOrchestratable individual,
+            OutboundOrchestratableMessage cumulative){
 
         try{
-            if(cumulative instanceof EntityPatientDiscoveryOrchestratable_a0){
+            if(cumulative instanceof OutboundPatientDiscoveryOrchestratable_a0){
                 // cumulative is spec_a0
-                EntityPatientDiscoveryOrchestratable_a0 cumulativeResponse =
-                        (EntityPatientDiscoveryOrchestratable_a0)cumulative;
-                if(individual instanceof EntityPatientDiscoveryOrchestratable_a0){
+                OutboundPatientDiscoveryOrchestratable_a0 cumulativeResponse =
+                        (OutboundPatientDiscoveryOrchestratable_a0)cumulative;
+                if(individual instanceof OutboundPatientDiscoveryOrchestratable_a0){
                     // individual is spec_a0 and cumulative is spec_a0, so just aggregate_a0
-                    EntityPatientDiscoveryOrchestratable_a0 individualResponse =
-                            (EntityPatientDiscoveryOrchestratable_a0)individual;
+                    OutboundPatientDiscoveryOrchestratable_a0 individualResponse =
+                            (OutboundPatientDiscoveryOrchestratable_a0)individual;
                     aggregateResponse_a0(individualResponse, cumulativeResponse);
-                }else if(individual instanceof EntityPatientDiscoveryOrchestratable_a1){
+                }else if(individual instanceof OutboundPatientDiscoveryOrchestratable_a1){
                     // individual is spec_a1 and cumulative is spec_a0
                     // so transform individual to spec_a0 and then aggregate_a0
-                    EntityPatientDiscoveryOrchestratable_a0 individualResponse =
+                    OutboundPatientDiscoveryOrchestratable_a0 individualResponse =
                             EntityPatientDiscoveryProcessorHelper.transformResponse_ToA0((
-                            EntityPatientDiscoveryOrchestratable_a1)individual);
+                            OutboundPatientDiscoveryOrchestratable_a1)individual);
                     aggregateResponse_a0(individualResponse, cumulativeResponse);
                 }else{
                     log.error("EntityPatientDiscoveryProcessor::aggregateResponse individualResponse received was unknown!!!");
                     throw new Exception("EntityPatientDiscoveryProcessor::aggregateResponse individualResponse received was unknown!!!");
                 }
 
-                EntityPatientDiscoveryOrchestratable_a0 response = new EntityPatientDiscoveryOrchestratable_a0(
+                OutboundPatientDiscoveryOrchestratable_a0 response = new OutboundPatientDiscoveryOrchestratable_a0(
                     null, null, null, null, cumulativeResponse.getAssertion(),
                     cumulativeResponse.getServiceName(), cumulativeResponse.getTarget(),
                     cumulativeResponse.getRequest());
                 response.setCumulativeResponse(cumulativeResponse.getCumulativeResponse());
                 return response;
-            }else if(cumulative instanceof EntityPatientDiscoveryOrchestratable_a1){
+            }else if(cumulative instanceof OutboundPatientDiscoveryOrchestratable_a1){
                 // cumulative is spec_a1
                 // currently spec_a0 is same as spec_a1
-                EntityPatientDiscoveryOrchestratable_a1 cumulativeResponse =
-                        (EntityPatientDiscoveryOrchestratable_a1)cumulative;
-                if(individual instanceof EntityPatientDiscoveryOrchestratable_a0){
+                OutboundPatientDiscoveryOrchestratable_a1 cumulativeResponse =
+                        (OutboundPatientDiscoveryOrchestratable_a1)cumulative;
+                if(individual instanceof OutboundPatientDiscoveryOrchestratable_a0){
                     // individual is spec_a0 and cumulative is spec_a1
                     // so transform individual to spec_a1 and then aggregate_a1
-                    EntityPatientDiscoveryOrchestratable_a1 individualResponse =
+                    OutboundPatientDiscoveryOrchestratable_a1 individualResponse =
                             EntityPatientDiscoveryProcessorHelper.transformResponse_ToA1((
-                            EntityPatientDiscoveryOrchestratable_a0)individual);
+                            OutboundPatientDiscoveryOrchestratable_a0)individual);
                     aggregateResponse_a1(individualResponse, cumulativeResponse);
-                }else if(individual instanceof EntityPatientDiscoveryOrchestratable_a1){
+                }else if(individual instanceof OutboundPatientDiscoveryOrchestratable_a1){
                     // individual is spec_a1 and cumulative is spec_a1, so just aggregate_a1
-                    EntityPatientDiscoveryOrchestratable_a1 individualResponse =
-                            (EntityPatientDiscoveryOrchestratable_a1)individual;
+                    OutboundPatientDiscoveryOrchestratable_a1 individualResponse =
+                            (OutboundPatientDiscoveryOrchestratable_a1)individual;
                     aggregateResponse_a1(individualResponse, cumulativeResponse);
                 }else{
                     log.error("EntityPatientDiscoveryProcessor::aggregateResponse individualResponse received was unknown!!!");
                     throw new Exception("EntityPatientDiscoveryProcessor::aggregateResponse individualResponse received was unknown!!!");
                 }
 
-                EntityPatientDiscoveryOrchestratable_a1 response = new EntityPatientDiscoveryOrchestratable_a1(
+                OutboundPatientDiscoveryOrchestratable_a1 response = new OutboundPatientDiscoveryOrchestratable_a1(
                     null, null, null, null, cumulativeResponse.getAssertion(),
                     cumulativeResponse.getServiceName(), cumulativeResponse.getTarget(),
                     cumulativeResponse.getRequest());
@@ -279,9 +279,9 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
         }catch(Exception e){
             ExecutorServiceHelper.getInstance().outputCompleteException(e);
             // add error response for exception to cumulativeResponse
-            if(cumulative instanceof EntityPatientDiscoveryOrchestratable_a0){
-                EntityPatientDiscoveryOrchestratable_a0 cumulativeResponse =
-                        (EntityPatientDiscoveryOrchestratable_a0)cumulative;
+            if(cumulative instanceof OutboundPatientDiscoveryOrchestratable_a0){
+                OutboundPatientDiscoveryOrchestratable_a0 cumulativeResponse =
+                        (OutboundPatientDiscoveryOrchestratable_a0)cumulative;
 
                 CommunityPRPAIN201306UV02ResponseType communityResponse =
                         new CommunityPRPAIN201306UV02ResponseType();
@@ -298,9 +298,9 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
                 communityResponse.setPRPAIN201306UV02(pdErrorResponse);
                 cumulativeResponse.getCumulativeResponse().getCommunityResponse().add(communityResponse);
                 return cumulativeResponse;
-            }else if(cumulative instanceof EntityPatientDiscoveryOrchestratable_a0){
-                EntityPatientDiscoveryOrchestratable_a1 cumulativeResponse =
-                        (EntityPatientDiscoveryOrchestratable_a1)cumulative;
+            }else if(cumulative instanceof OutboundPatientDiscoveryOrchestratable_a0){
+                OutboundPatientDiscoveryOrchestratable_a1 cumulativeResponse =
+                        (OutboundPatientDiscoveryOrchestratable_a1)cumulative;
 
                 CommunityPRPAIN201306UV02ResponseType communityResponse =
                         new CommunityPRPAIN201306UV02ResponseType();
@@ -333,31 +333,31 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
      * @param error is String with error message
      * @return
      */
-    public EntityOrchestratableMessage processErrorResponse(EntityOrchestratableMessage request, String error){
+    public OutboundOrchestratableMessage processErrorResponse(OutboundOrchestratableMessage request, String error){
         log.debug("EntityPatientDiscoveryProcessor::processErrorResponse error=" + error);
-        if(request instanceof EntityPatientDiscoveryOrchestratable_a0){
-            return processError_a0((EntityPatientDiscoveryOrchestratable)request, error);
-        }else if(request instanceof EntityPatientDiscoveryOrchestratable_a1){
-            return processError_a1((EntityPatientDiscoveryOrchestratable)request, error);
+        if(request instanceof OutboundPatientDiscoveryOrchestratable_a0){
+            return processError_a0((OutboundPatientDiscoveryOrchestratable)request, error);
+        }else if(request instanceof OutboundPatientDiscoveryOrchestratable_a1){
+            return processError_a1((OutboundPatientDiscoveryOrchestratable)request, error);
         }else{
             log.error("EntityPatientDiscoveryProcessor::processErrorResponse request was unknown!!!");
-            return processError_a1((EntityPatientDiscoveryOrchestratable)request, error);
+            return processError_a1((OutboundPatientDiscoveryOrchestratable)request, error);
         }
     }
 
 
     /**
-     * Generates an EntityPatientDiscoveryOrchestratable_a0 response with
+     * Generates an OutboundPatientDiscoveryOrchestratable_a0 response with
      * an error response for spec a0 that contains target hcid that
      * produced error as well as error string passed in
      * @param request is initial request
      * @param error is String with error message
-     * @return EntityPatientDiscoveryOrchestratable_a0 with error response
+     * @return OutboundPatientDiscoveryOrchestratable_a0 with error response
      */
-    public EntityPatientDiscoveryOrchestratable_a0 processError_a0(
-            EntityPatientDiscoveryOrchestratable request, String error){
+    public OutboundPatientDiscoveryOrchestratable_a0 processError_a0(
+            OutboundPatientDiscoveryOrchestratable request, String error){
         log.debug("EntityPatientDiscoveryProcessor::processError_a0 error=" + error);
-        EntityPatientDiscoveryOrchestratable_a0 response = new EntityPatientDiscoveryOrchestratable_a0(
+        OutboundPatientDiscoveryOrchestratable_a0 response = new OutboundPatientDiscoveryOrchestratable_a0(
                 null, request.getResponseProcessor(), null, null, request.getAssertion(),
                 request.getServiceName(), request.getTarget(), request.getRequest());
 
@@ -371,17 +371,17 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
 
 
     /**
-     * Generates an EntityPatientDiscoveryOrchestratable_a1 response with
+     * Generates an OutboundPatientDiscoveryOrchestratable_a1 response with
      * an error response for spec a0 that contains target hcid that
      * produced error as well as error string passed in
      * @param request is initial request
      * @param error is String with error message
-     * @return EntityPatientDiscoveryOrchestratable_a1 with error response
+     * @return OutboundPatientDiscoveryOrchestratable_a1 with error response
      */
-    public EntityPatientDiscoveryOrchestratable_a1 processError_a1(
-            EntityPatientDiscoveryOrchestratable request, String error){
+    public OutboundPatientDiscoveryOrchestratable_a1 processError_a1(
+            OutboundPatientDiscoveryOrchestratable request, String error){
         log.debug("EntityPatientDiscoveryProcessor::processError_a1 error=" + error);
-        EntityPatientDiscoveryOrchestratable_a1 response = new EntityPatientDiscoveryOrchestratable_a1(
+        OutboundPatientDiscoveryOrchestratable_a1 response = new OutboundPatientDiscoveryOrchestratable_a1(
                 null, request.getResponseProcessor(), null, null, request.getAssertion(),
                 request.getServiceName(), request.getTarget(), request.getRequest());
 
@@ -398,8 +398,8 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
      * aggregates an a0 spec individualResponse into an a0 spec cumulativeResponse
      */
     @SuppressWarnings("static-access")
-    private void aggregateResponse_a0(EntityPatientDiscoveryOrchestratable_a0 individual,
-            EntityPatientDiscoveryOrchestratable_a0 cumulativeResponse){
+    private void aggregateResponse_a0(OutboundPatientDiscoveryOrchestratable_a0 individual,
+            OutboundPatientDiscoveryOrchestratable_a0 cumulativeResponse){
 
         PRPAIN201306UV02 current = individual.getResponse();
         try{
@@ -427,8 +427,8 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
      * aggregates an a1 spec individualResponse into an a1 spec cumulativeResponse
      */
     @SuppressWarnings("static-access")
-    private void aggregateResponse_a1(EntityPatientDiscoveryOrchestratable_a1 individual,
-            EntityPatientDiscoveryOrchestratable_a1 cumulativeResponse){
+    private void aggregateResponse_a1(OutboundPatientDiscoveryOrchestratable_a1 individual,
+            OutboundPatientDiscoveryOrchestratable_a1 cumulativeResponse){
 
         PRPAIN201306UV02 current = individual.getResponse();
         try{
@@ -455,7 +455,7 @@ public class EntityPatientDiscoveryProcessor implements NhinResponseProcessor{
     /**
      * NOT USED
      */
-    public void aggregate(EntityOrchestratable individualResponse,
-            EntityOrchestratable cumulativeResponse){
+    public void aggregate(OutboundOrchestratable individualResponse,
+            OutboundOrchestratable cumulativeResponse){
     }
 }

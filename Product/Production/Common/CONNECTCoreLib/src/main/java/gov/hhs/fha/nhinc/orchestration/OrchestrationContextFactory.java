@@ -1,12 +1,12 @@
 package gov.hhs.fha.nhinc.orchestration;
 
-import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionFactory;
-import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryFactory;
-import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveFactory;
+import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionFactory;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionFactory;
+import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 public class OrchestrationContextFactory {
@@ -30,19 +30,19 @@ public class OrchestrationContextFactory {
             NhincConstants.GATEWAY_API_LEVEL apiLevel, String serviceName){
 
         if(NhincConstants.DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)){
-            return EntityDocRetrieveFactory.getInstance().
+            return OutboundDocRetrieveFactory.getInstance().
                     createOrchestrationContextBuilder(apiLevel);
         }else if(NhincConstants.ADMIN_DIST_SERVICE_NAME.equals(serviceName)){
-            return EntityAdminDistributionFactory.getInstance().
+            return OutboundAdminDistributionFactory.getInstance().
                     createOrchestrationContextBuilder(apiLevel);
         }else if(NhincConstants.DOC_QUERY_SERVICE_NAME.equalsIgnoreCase(serviceName)){
-            return EntityDocQueryFactory.getInstance().
+            return OutboundDocQueryFactory.getInstance().
                     createOrchestrationContextBuilder(apiLevel);
         }else if(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME.equalsIgnoreCase(serviceName)){
-            return EntityPatientDiscoveryFactory.getInstance().
+            return OutboundPatientDiscoveryFactory.getInstance().
                     createOrchestrationContextBuilder(apiLevel);
         } else if (NhincConstants.DOC_SUBMISSION_SERVICE_PROP.equals(serviceName)) {
-            return EntityDocSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+            return OutboundDocSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         }
         return null;
 	}
