@@ -12,7 +12,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMess
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.InboundAggregator;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 
@@ -84,7 +84,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public InboundAggregator getAggregator() {
+    public NhinAggregator getAggregator() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

@@ -2,7 +2,7 @@ package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.InboundAggregator;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
@@ -55,7 +55,7 @@ public class OutboundDocQueryOrchestratable
     }
 
     // NOT USED.......use getResponseProcessor instead
-    public InboundAggregator getAggregator(){
+    public NhinAggregator getAggregator(){
         return null;
     }
 

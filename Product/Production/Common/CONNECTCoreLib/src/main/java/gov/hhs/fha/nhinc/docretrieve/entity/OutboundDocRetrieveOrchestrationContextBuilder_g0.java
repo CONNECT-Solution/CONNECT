@@ -12,7 +12,7 @@ public class OutboundDocRetrieveOrchestrationContextBuilder_g0 implements Orches
     private PolicyTransformer policyTransformer;
     private AuditTransformer auditTransformer;
     private OutboundDelegate nhinDelegate;
-    private InboundAggregator nhinAggregator;
+    private NhinAggregator nhinAggregator;
     private NhinTargetSystemType nhinTarget;
 
     public RetrieveDocumentSetRequestType getRetrieveDocumentSetRequestType() {
@@ -58,11 +58,11 @@ public class OutboundDocRetrieveOrchestrationContextBuilder_g0 implements Orches
         return this;
     }
 
-    public InboundAggregator getNhinAggregator() {
+    public NhinAggregator getNhinAggregator() {
         return nhinAggregator;
     }
 
-    public void setNhinAggregator(InboundAggregator nhinAggregator) {
+    public void setNhinAggregator(NhinAggregator nhinAggregator) {
         this.nhinAggregator = nhinAggregator;
     }
 

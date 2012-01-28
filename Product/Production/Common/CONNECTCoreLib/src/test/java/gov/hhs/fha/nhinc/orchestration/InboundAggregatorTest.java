@@ -10,7 +10,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -38,18 +37,18 @@ public class InboundAggregatorTest {
     }
 
     /**
-     * Test of aggregate method, of class InboundAggregator.
+     * Test of aggregate method, of class OutboundAggregator.
      */
     @Test
     public void testAggregate() {
         System.out.println("aggregate");
         OutboundOrchestratable to = null;
         OutboundOrchestratable from = null;
-        InboundAggregator instance = new NhinAggregatorImpl();
+        NhinAggregator instance = new NhinAggregatorImpl();
         instance.aggregate(to, from);
     }
 
-    public class NhinAggregatorImpl implements InboundAggregator {
+    public class NhinAggregatorImpl implements NhinAggregator {
 
         public void aggregate(OutboundOrchestratable to, OutboundOrchestratable from) {
         }

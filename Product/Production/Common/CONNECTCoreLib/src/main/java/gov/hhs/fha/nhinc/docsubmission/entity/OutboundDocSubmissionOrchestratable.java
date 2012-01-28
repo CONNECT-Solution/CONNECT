@@ -10,7 +10,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.InboundAggregator;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -48,7 +48,7 @@ public class OutboundDocSubmissionOrchestratable implements OutboundOrchestratab
     }
 
     @Override
-    public InboundAggregator getAggregator() {
+    public NhinAggregator getAggregator() {
         throw new UnsupportedOperationException("Document Submission does not support aggregation.");
     }
 

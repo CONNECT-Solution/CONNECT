@@ -11,7 +11,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
-import gov.hhs.fha.nhinc.orchestration.NhinDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
@@ -51,12 +51,12 @@ public class EntityDocRetreiveImpl {
         Timestamp starttime = new Timestamp(System.currentTimeMillis());
         Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
 
-        PolicyTransformer pt = new EntityDocRetrievePolicyTransformer_a0();
-        AuditTransformer at = new EntityDocRetrieveAuditTransformer_a0();
-        NhinDelegate nd = new NhinDocRetrieveDelegate();
-        NhinAggregator na = new NhinDocRetrieveAggregator_a0();
+        PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
+        AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
+        OutboundDelegate nd = new OutboundDocRetrieveDelegate();
+        NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
         EntityDocRetrieveOrchestratableImpl_a0 EntityDROrchImpl = new EntityDocRetrieveOrchestratableImpl_a0(body, assertion, pt, at, nd, na, null);
-        EntityDocRetrieveOrchestratorImpl oOrchestrator = new EntityDocRetrieveOrchestratorImpl();
+        OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
         oOrchestrator.process(EntityDROrchImpl);
 
         // Log the end of the performance record

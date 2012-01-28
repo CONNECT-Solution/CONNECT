@@ -9,6 +9,6 @@ package gov.hhs.fha.nhinc.orchestration;
  *
  * @author mweaver
  */
-public interface InboundAggregator {
+public interface NhinAggregator {
     public void aggregate(OutboundOrchestratable to, OutboundOrchestratable from);
 }

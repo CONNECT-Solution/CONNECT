@@ -52,8 +52,8 @@ public class OutboundOrchestratableTest {
     @Test
     public void testGetAggregator() {
         OutboundOrchestratable instance = new EntityOrchestratableImpl();
-        InboundAggregator expResult = null;
-        InboundAggregator result = instance.getAggregator();
+        NhinAggregator expResult = null;
+        NhinAggregator result = instance.getAggregator();
         assertEquals(expResult, result);
     }
 
@@ -88,7 +88,7 @@ public class OutboundOrchestratableTest {
             return "";
         }
 
-        public InboundAggregator getAggregator() {
+        public NhinAggregator getAggregator() {
             return null;
         }
 

@@ -9,7 +9,7 @@ import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.AdapterDelegateTest;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformerTest;
-import gov.hhs.fha.nhinc.orchestration.InboundAggregator;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.InboundAggregatorTest;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformerTest;
@@ -143,7 +143,7 @@ public class NhinDocRetrieveOrchestratableTest {
 
         }
 
-        public NhinDocRetrieveOrchestratableImpl(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad, InboundAggregator na) {
+        public NhinDocRetrieveOrchestratableImpl(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad, NhinAggregator na) {
             super(pt, at, ad);
         }
     }

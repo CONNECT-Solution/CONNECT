@@ -8,7 +8,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.InboundAggregator;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -21,7 +21,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 public class EntityDocRetrieveOrchestratableImpl_a0 extends OutboundDocRetrieveOrchestratable {
     private RetrieveDocumentSetResponseType response;
 
-    public EntityDocRetrieveOrchestratableImpl_a0(RetrieveDocumentSetRequestType body, AssertionType assertion,PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd, InboundAggregator na, NhinTargetSystemType target)
+    public EntityDocRetrieveOrchestratableImpl_a0(RetrieveDocumentSetRequestType body, AssertionType assertion,PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd, NhinAggregator na, NhinTargetSystemType target)
     {
         super(pt, at, nd, na);
         super.setRequest(body);

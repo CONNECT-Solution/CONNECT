@@ -10,7 +10,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.InboundAggregator;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -31,7 +31,7 @@ public class OutboundDocRetrieveOrchestratable implements OutboundOrchestratable
     private PolicyTransformer _policyTransformer = null;
     private AuditTransformer _auditTransformer = null;
     private OutboundDelegate _nhinDelegate = null;
-    private InboundAggregator _nhinAggregator = null;
+    private NhinAggregator _nhinAggregator = null;
     
 
     public NhinTargetSystemType getTarget() {
@@ -51,7 +51,7 @@ public class OutboundDocRetrieveOrchestratable implements OutboundOrchestratable
 
     }
 
-    public OutboundDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, OutboundDelegate ad, InboundAggregator na)
+    public OutboundDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, OutboundDelegate ad, NhinAggregator na)
     {
         _policyTransformer = pt;
         _auditTransformer = at;
@@ -107,7 +107,7 @@ public class OutboundDocRetrieveOrchestratable implements OutboundOrchestratable
         return serviceName;
     }
 
-    public InboundAggregator getAggregator() {
+    public NhinAggregator getAggregator() {
         return _nhinAggregator;
     }
 

@@ -40,23 +40,23 @@ public class CONNECTOutboundOrchestratorTest {
     }
 
     /**
-     * Test of process method, of class CONNECTOutboundOrchestrator.
+     * Test of process method, of class CONNECTInboundOrchestrator.
      */
     @Test
     public void testProcess() {
         Orchestratable message = new EntityOrchestratableImpl();
-        CONNECTOutboundOrchestrator instance = new CONNECTOutboundOrchestrator();
+        CONNECTInboundOrchestrator instance = new CONNECTInboundOrchestrator();
         instance.process(message);
         // there was no error, so success
         // TODO: make a better test
     }
 
     /**
-     * Test of getLogger method, of class CONNECTOutboundOrchestrator.
+     * Test of getLogger method, of class CONNECTInboundOrchestrator.
      */
     @Test
     public void testGetLogger() {
-        CONNECTOutboundOrchestrator instance = new CONNECTOutboundOrchestrator();
+        CONNECTInboundOrchestrator instance = new CONNECTInboundOrchestrator();
         Log result = instance.getLogger();
         try {
             result.info("testing CONNECTEntityOrchestrator getLogger()");
@@ -68,12 +68,12 @@ public class CONNECTOutboundOrchestratorTest {
     }
 
     /**
-     * Test of delegateToNhin method, of class CONNECTOutboundOrchestrator.
+     * Test of delegateToNhin method, of class CONNECTInboundOrchestrator.
      */
     @Test
     public void testDelegateToNhin() {
         OutboundOrchestratable message = new EntityOrchestratableImpl();
-        CONNECTOutboundOrchestrator instance = new CONNECTOutboundOrchestrator();
+        CONNECTInboundOrchestrator instance = new CONNECTInboundOrchestrator();
         instance.delegate(message);
         // there was no error, so success
         // TODO: make a better test
@@ -107,7 +107,7 @@ public class CONNECTOutboundOrchestratorTest {
             return null;
         }
 
-        public InboundAggregator getAggregator() {
+        public NhinAggregator getAggregator() {
             return null;
         }
 
