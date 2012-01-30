@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 public class EntityAdminDistributionOrchImpl {
 
     private Log log = null;
+    private AdminDistributionAuditLogger adLogger = null;
 
     public EntityAdminDistributionOrchImpl() {
         log = LogFactory.getLog(getClass());
@@ -45,7 +46,7 @@ public class EntityAdminDistributionOrchImpl {
 
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion,
             NhinTargetCommunitiesType target) {
-        logEntityAdminDist(message, assertion);
+        auditMessage(message, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         List<UrlInfo> urlInfoList = getEndpoints(target);
 
@@ -78,7 +79,7 @@ public class EntityAdminDistributionOrchImpl {
     }
 
     protected AdminDistributionAuditLogger getLogger() {
-        return new AdminDistributionAuditLogger();
+        return (adLogger != null) ? adLogger : new AdminDistributionAuditLogger();
     }
 
     private NhinTargetSystemType buildTargetSystem(UrlInfo urlInfo) {
@@ -113,18 +114,6 @@ public class EntityAdminDistributionOrchImpl {
 
         this.sendAlertMessage(unsecured, assertion, target);
 
-    }
-
-    private void logEntityAdminDist(RespondingGatewaySendAlertMessageType request,
-            AssertionType assertion) {
-        // Audit the XDR Request Message sent on the Nhin Interface
-        AcknowledgementType ack = new AdminDistributionAuditLogger().auditEntityAdminDist(
-                request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-
-        if (ack != null) {
-            log.debug("ack: " + ack.getMessage());
-        }
-        log.debug("End logEntityAdminDist()");
     }
 
     protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {

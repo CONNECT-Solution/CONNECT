@@ -70,7 +70,7 @@ public class NhincAdminDistSecuredWebserviceImplTest {
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockService).getNhincAdminDistSecuredPortType();
                 allowing(mockHelper).getLocalCommunityId();
-                allowing(mockHelper).getUrl(with(any(String.class)), with(any(String.class)));
+                allowing(mockHelper).getUrl(with(any(String.class)), with(any(String.class)), with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
                 will(returnValue(null));
             }
         });

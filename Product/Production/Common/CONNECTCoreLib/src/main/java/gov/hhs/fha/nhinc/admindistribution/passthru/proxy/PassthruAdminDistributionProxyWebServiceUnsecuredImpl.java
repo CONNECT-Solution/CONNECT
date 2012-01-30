@@ -8,8 +8,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.admindistribution.passthru.proxy;
+
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -23,16 +23,16 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+
 /**
  *
  * @author dunnek
  */
-public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements PassthruAdminDistributionProxy{
+public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements PassthruAdminDistributionProxy {
+
     private Log log = null;
-
     private static Service cachedService = null;
-    private WebServiceProxyHelper proxyHelper = null;
-
+    private WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincadmindistribution";
     private static final String SERVICE_LOCAL_PART = "NhincAdminDistService";
     private static final String PORT_LOCAL_PART = "NhincAdminDist_PortType";
@@ -40,90 +40,62 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
     private static final String WSDL_FILE_G1 = "NhincAdminDist_g1.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincadmindistribution:SendAlertMessage_Message";
 
-    public PassthruAdminDistributionProxyWebServiceUnsecuredImpl()
-    {
+    public PassthruAdminDistributionProxyWebServiceUnsecuredImpl() {
         log = createLogger();
-        //service = getWebService();
-        proxyHelper =  getWebServiceProxyHelper();
     }
-    protected AdminDistributionHelper getHelper()
-    {
+
+    protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
-    protected WebServiceProxyHelper getWebServiceProxyHelper()
-    {
-        return new WebServiceProxyHelper();
-    }
-    /*protected NhincAdminDistService getWebService()
-    {
-        return new NhincAdminDistService();
-    }*/
-    protected Log createLogger()
-    {
+
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
-    protected Service getService(String wsdl, String uri, String service)
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+
+    protected Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
                 cachedService = proxyHelper.createService(wsdl, uri, service);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
+
     protected NhincAdminDistPortType getPort(String url, String wsAddressingAction, AssertionType assertion,
-            NhincConstants.GATEWAY_API_LEVEL apiLevel)
-    {
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         NhincAdminDistPortType port = null;
-        Service service;
-        switch (apiLevel) {
-            case LEVEL_g0: service = getService(WSDL_FILE_G0, NAMESPACE_URI, SERVICE_LOCAL_PART);
-                break;
-            case LEVEL_g1: service = getService(WSDL_FILE_G1, NAMESPACE_URI, SERVICE_LOCAL_PART);
-                break;
-            default: service = null;
-        }
-        if (service != null)
-        {
+        String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0))
+                ? WSDL_FILE_G0 : WSDL_FILE_G1;
+        Service service = getService(wsdlFile, NAMESPACE_URI, SERVICE_LOCAL_PART);
+        if (service != null) {
             log.debug("Obtained service - creating port.");
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincAdminDistPortType.class);
             proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
     }
 
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
-            NhincConstants.GATEWAY_API_LEVEL apiLevel)
-    {
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.debug("begin sendAlertMessage");
 
         AdminDistributionHelper helper = getHelper();
         String hcid = helper.getLocalCommunityId();
-        String url = helper.getUrl(hcid, NhincConstants.NHINC_ADMIN_DIST_SERVICE_NAME);
+        String url = helper.getUrl(hcid, NhincConstants.NHINC_ADMIN_DIST_SERVICE_NAME, apiLevel);
 
-        if (NullChecker.isNotNullish(url))
-        {
+        if (NullChecker.isNotNullish(url)) {
             NhincAdminDistPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion, apiLevel);
             RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
             message.setAssertion(assertion);
             message.setEDXLDistribution(body);
             message.setNhinTargetSystem(target);
-            try
-            {
+            try {
                 proxyHelper.invokePort(port, NhincAdminDistPortType.class, "sendAlertMessage", message);
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
                 log.error("Unable to send message: " + ex.getMessage());
             }
         }

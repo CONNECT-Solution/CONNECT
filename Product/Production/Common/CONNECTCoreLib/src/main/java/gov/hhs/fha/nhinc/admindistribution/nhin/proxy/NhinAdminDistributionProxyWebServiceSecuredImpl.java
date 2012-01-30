@@ -14,7 +14,6 @@ import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistribution;
 import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -59,7 +58,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     {
         log.debug("begin sendAlertMessage");
         AdminDistributionHelper helper = getHelper();
-        String url = helper.getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+        String url = helper.getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, apiLevel);
 
         if (NullChecker.isNotNullish(url))
         {

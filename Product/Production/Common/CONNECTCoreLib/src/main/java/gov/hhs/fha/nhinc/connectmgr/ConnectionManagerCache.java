@@ -722,6 +722,7 @@ public class ConnectionManagerCache {
      *         If the service is not found, then null is returned.
      * @throws ConnectionManagerException
      */
+    @Deprecated
     public String getEndpointURLByServiceName(String sHomeCommunityId,
             String sUniformServiceName)
             throws ConnectionManagerException {

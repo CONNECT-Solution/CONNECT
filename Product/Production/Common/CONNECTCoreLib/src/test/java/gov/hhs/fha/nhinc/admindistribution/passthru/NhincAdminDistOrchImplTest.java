@@ -6,6 +6,8 @@
 package gov.hhs.fha.nhinc.admindistribution.passthru;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
+import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionOrchestratable;
+import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionDelegate;
 import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -44,12 +46,12 @@ public class NhincAdminDistOrchImplTest {
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
-        final NhinAdminDistributionProxy mockNhin = context.mock(NhinAdminDistributionProxy.class);
+        final OutboundAdminDistributionDelegate mockDelegate = context.mock(OutboundAdminDistributionDelegate.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
         
-        final EDXLDistribution body = null;
-        final AssertionType assertion = null;
-        final NhinTargetSystemType target = null;
+        final EDXLDistribution body = new EDXLDistribution();
+        final AssertionType assertion = new AssertionType();
+        final NhinTargetSystemType target = new NhinTargetSystemType();
         Exception unsupported = null;
 
         PassthruAdminDistributionOrchImpl instance = new PassthruAdminDistributionOrchImpl()
@@ -65,9 +67,7 @@ public class NhincAdminDistOrchImplTest {
                 return mockAuditLogger;
             }
             @Override
-            protected NhinAdminDistributionProxy getNhinProxy()
-            {
-                return mockNhin;
+            protected void execute(OutboundAdminDistributionDelegate adDelegate, OutboundAdminDistributionOrchestratable orchestratable) {
             }
          };
         context.checking(new Expectations() {
@@ -76,7 +76,6 @@ public class NhincAdminDistOrchImplTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockAuditLogger).auditNhincAdminDist(body, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-                allowing(mockNhin).sendAlertMessage(body, assertion, target, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
                 will(returnValue(null));
             }
         });

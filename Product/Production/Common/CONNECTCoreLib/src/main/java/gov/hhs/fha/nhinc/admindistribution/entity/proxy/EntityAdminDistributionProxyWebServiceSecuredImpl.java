@@ -76,7 +76,7 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
         log.debug("begin sendAlertMessage");
         AdminDistributionHelper helper = getHelper();
         String hcid = helper.getLocalCommunityId();
-        String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME);
+        String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME, apiLevel);
 
         if (NullChecker.isNotNullish(url))
         {

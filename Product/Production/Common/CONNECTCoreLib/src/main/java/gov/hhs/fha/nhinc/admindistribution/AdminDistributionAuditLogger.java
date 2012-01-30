@@ -18,12 +18,10 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 
 /**
  *
@@ -49,9 +47,8 @@ public class AdminDistributionAuditLogger {
         return proxy.auditLog(auditLogMsg, assertion);
     }
 
-
     public AcknowledgementType auditEntityAdminDist (RespondingGatewaySendAlertMessageType request, AssertionType assertion, String direction) {
-        log.debug("begin auditEntityAdminDist()");
+        log.debug("begin auditEntityAdminDist() " + direction);
         AcknowledgementType ack = new AcknowledgementType ();
 
         // Set up the audit logging request message
@@ -61,12 +58,13 @@ public class AdminDistributionAuditLogger {
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);
         }
-
+        log.debug("end auditEntityAdminDist() " + direction);
         return ack;
     }
+    
     public AcknowledgementType auditNhincAdminDist(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target, String direction)
     {
-        log.debug("begin auditNhincAdminDist()");
+        log.debug("begin auditNhincAdminDist() " + direction);
         AcknowledgementType ack = null;
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
@@ -82,11 +80,12 @@ public class AdminDistributionAuditLogger {
         {
             log.warn("Ack was null");
         }
+        log.debug("end auditNhincAdminDist() " + direction);
         return ack;
     }
     public AcknowledgementType auditNhinAdminDist(EDXLDistribution body, AssertionType assertion, String direction)
     {
-        log.debug("begin auditNhinAdminDist()");
+        log.debug("begin auditNhinAdminDist() " + direction);
         AcknowledgementType ack = null;
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
@@ -102,6 +101,7 @@ public class AdminDistributionAuditLogger {
         {
             log.warn("Ack was null");
         }
+        log.debug("end auditNhinAdminDist() " + direction);
         return ack;
     }
  

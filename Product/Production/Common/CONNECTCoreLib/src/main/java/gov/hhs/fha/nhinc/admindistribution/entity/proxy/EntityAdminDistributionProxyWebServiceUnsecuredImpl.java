@@ -61,7 +61,7 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
 
         AdminDistributionHelper helper = getHelper();
         String hcid = helper.getLocalCommunityId();
-        String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SERVICE_NAME);
+        String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SERVICE_NAME, apiLevel);
 
         if (NullChecker.isNotNullish(url)) {
             AdministrativeDistributionPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion, apiLevel);

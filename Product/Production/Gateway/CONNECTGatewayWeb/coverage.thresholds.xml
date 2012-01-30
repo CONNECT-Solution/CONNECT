@@ -27,7 +27,7 @@
               linesexecuted="0"/>
    <threshold branchcount="26" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogImpl"
-              linecount="54"
+              linecount="56"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

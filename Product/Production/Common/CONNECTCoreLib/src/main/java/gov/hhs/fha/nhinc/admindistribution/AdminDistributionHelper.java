@@ -8,79 +8,75 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.admindistribution;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.ws.Service;
+
 /**
  *
  * @author dunnek
  */
 public class AdminDistributionHelper {
+
     private Log log = null;
 
-    public AdminDistributionHelper()
-    {
+    public AdminDistributionHelper() {
         log = createLogger();
     }
-    protected Log createLogger()
-    {
+
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
-    public NhinTargetSystemType createNhinTargetSystemType(String homeCommunityId)
-    {
-        HomeCommunityType hc = new HomeCommunityType();
 
-        hc.setHomeCommunityId(homeCommunityId);
+    public NhinTargetSystemType createNhinTargetSystemType(String targetHCID) {
 
-        return createNhinTargetSystemType(hc);
+        if (NullChecker.isNotNullish(targetHCID)) {
+            HomeCommunityType hc = new HomeCommunityType();
+            hc.setHomeCommunityId(targetHCID);
+            return createNhinTargetSystemType(hc);
+        } else {
+            log.error("Target ID is null");
+        }
+        return null;
     }
-    public NhinTargetSystemType createNhinTargetSystemType(HomeCommunityType hc)
-    {
+
+    public NhinTargetSystemType createNhinTargetSystemType(HomeCommunityType hc) {
         NhinTargetSystemType result = new NhinTargetSystemType();
         result.setHomeCommunity(hc);
 
         return result;
     }
-    public String getLocalCommunityId()
-    {
+
+    public String getLocalCommunityId() {
         return readStringGatewayProperty(NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
     }
-    public String getUrl(String targetHCID, String targetSystem) {
+
+    public String getUrl(String targetHCID, String targetSystem, GATEWAY_API_LEVEL apiLevel) {
         log.debug("begin getUrl targetHCID/targetSystem: " + targetHCID + " / " + targetSystem);
-        String url = null;
 
-        if (targetHCID != null) {
-            try {
-
-                NhinTargetSystemType ts = this.createNhinTargetSystemType(targetHCID);
-
-                url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(ts, targetSystem, GATEWAY_API_LEVEL.LEVEL_g0);
-            } catch (Exception ex) {
-                log.error("Error: Failed to retrieve url for service: " + targetSystem);
-                log.error(ex.getMessage());
-            }
-        } else {
-            log.error("Target system passed into the proxy is null");
-        }
-
-        return url;
+        NhinTargetSystemType ts = createNhinTargetSystemType(targetHCID);
+        return getUrl(ts, targetSystem, apiLevel);
     }
-    public String getUrl(NhinTargetSystemType target, String targetSystem) {
+
+    public String getUrl(NhinTargetSystemType target, String targetSystem, GATEWAY_API_LEVEL apiLevel) {
         log.debug("begin getUrl target/targetSystem: " + target + " / " + targetSystem);
         String url = null;
 
         if (target != null) {
             try {
-                url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(target, targetSystem, GATEWAY_API_LEVEL.LEVEL_g0);
+                url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(target, targetSystem, apiLevel);
 
             } catch (Exception ex) {
                 log.error("Error: Failed to retrieve url for service: " + targetSystem);
@@ -92,21 +88,41 @@ public class AdminDistributionHelper {
 
         return url;
     }
-    protected WebServiceProxyHelper getWebServiceProxyHelper()
-    {
+
+    public String getAdapterUrl(String adapterServcice, NhincConstants.ADAPTER_API_LEVEL adapterApiLevel) {
+        try {
+            return ConnectionManagerCache.getInstance().getAdapterEndpontURL(adapterServcice, adapterApiLevel);
+        } catch (ConnectionManagerException ex) {
+            log.error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME);
+            log.error(ex.getMessage());
+        }
+
+        return null;
+    }
+    
+    public Service getService(String wsdl, String uri, String service) {
+        try {
+            WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
+            return proxyHelper.createService(wsdl, uri, service);
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+        }
+        return null;
+    }
+
+    public WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
-    public boolean isInPassThroughMode()
-    {
+    public boolean isInPassThroughMode() {
         return readBooleanGatewayProperty(NhincConstants.NHIN_ADMIN_DIST_SERVICE_PASSTHRU_PROPERTY);
     }
-    public boolean isServiceEnabled()
-    {
+
+    public boolean isServiceEnabled() {
         return readBooleanGatewayProperty(NhincConstants.NHIN_ADMIN_DIST_SERVICE_ENABLED);
     }
-    public boolean readBooleanGatewayProperty(String propertyName)
-    {
+
+    public boolean readBooleanGatewayProperty(String propertyName) {
         boolean result = false;
         try {
             result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
@@ -116,12 +132,12 @@ public class AdminDistributionHelper {
         }
         return result;
     }
+
     public String readStringGatewayProperty(String propertyName) {
         String result = "";
         try {
             result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
             log.error("Unable to retrieve " + propertyName + " from Gateway.properties");
             log.error(ex);
         }
@@ -135,9 +151,5 @@ public class AdminDistributionHelper {
         homeCommunity.setHomeCommunityId(homeCommunityId);
         nhinTargetSystem.setHomeCommunity(homeCommunity);
         return nhinTargetSystem;
-    }
-    // TODO: Hack the api version for testing 
-    public String getApiVersion() {
-        return readStringGatewayProperty("ad-api-version");
     }
 }
