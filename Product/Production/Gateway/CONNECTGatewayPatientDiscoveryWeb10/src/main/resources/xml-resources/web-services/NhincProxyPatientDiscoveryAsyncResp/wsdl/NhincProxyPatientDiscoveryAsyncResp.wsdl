@@ -44,7 +44,7 @@
   <wsdl:binding name="NhincProxyPatientDiscoveryAsyncRespBinding"
                 type="tns:NhincProxyPatientDiscoveryAsyncRespPortType">
     <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <!--<wsaws:UsingAddressing/>-->
+    <wsaws:UsingAddressing/>
     <wsdl:operation name="Proxy_ProcessPatientDiscoveryAsyncResp">
       <wsdl:input name="Proxy_ProcessPatientDiscoveryAsyncRespRequest" >
         <soap12:body use="literal"/>
