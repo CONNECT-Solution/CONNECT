@@ -2656,11 +2656,11 @@
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
+   <soap:Header xmlns:add="SoapUI_Test/ValidationSuite/2-EndToEndSelfTest-soapui-project.xml">
       <add:Action>urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp:ProcessPatientDiscoveryAsyncRespAsyncRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscoveryAsyncResp</add:To>
+      <add:To>${#Project#Endpoint-PatientDiscoveryAsyncResp}</add:To>
    </soap:Header>
    <soap:Body projectName="EndToEndSelfTest" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
