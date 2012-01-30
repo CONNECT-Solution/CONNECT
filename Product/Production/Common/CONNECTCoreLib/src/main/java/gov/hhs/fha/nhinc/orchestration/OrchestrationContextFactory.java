@@ -21,7 +21,7 @@ public class OrchestrationContextFactory {
     }
 
     public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType, String serviceName) {
-        NhincConstants.GATEWAY_API_LEVEL apiLevel = ConnectionManagerCache.getInstance().getApiVersionForNhinTarget(
+        NhincConstants.GATEWAY_API_LEVEL apiLevel = ConnectionManagerCache.getInstance().getApiVersion(
                 homeCommunityType.getHomeCommunityId(), serviceName);
         return getBuilder(apiLevel, serviceName);
     }

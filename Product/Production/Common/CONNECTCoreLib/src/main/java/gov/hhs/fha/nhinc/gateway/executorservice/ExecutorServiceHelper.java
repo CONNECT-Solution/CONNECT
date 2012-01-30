@@ -204,7 +204,7 @@ public class ExecutorServiceHelper{
         if(ex.getCause() instanceof com.sun.xml.ws.client.ClientTransportException){
             try{
                 NhincConstants.GATEWAY_API_LEVEL apiLevel =
-                        ConnectionManagerCache.getInstance().getApiVersionForNhinTarget(
+                        ConnectionManagerCache.getInstance().getApiVersion(
                             target.getHomeCommunity().getHomeCommunityId(),
                             serviceName);
                 String url = (new WebServiceProxyHelper()).getUrlFromTargetSystemByGatewayAPILevel(

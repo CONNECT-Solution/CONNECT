@@ -100,7 +100,7 @@ public class EntitySubjectDiscoveryImpl {
             	Description desc = new Description();
             	desc.setValue(t.getHomeCommunity().getDescription());
             	newHome.getDescription().add(desc);
-            	ConnectionManagerCache.getInstance().setComunityId(newHome, t.getHomeCommunity().getHomeCommunityId());
+            	ConnectionManagerCache.getInstance().setCommunityId(newHome, t.getHomeCommunity().getHomeCommunityId());
                 Name name = new Name();
                 name.setValue(t.getHomeCommunity().getName());
             	newHome.getName().add(name);

@@ -36,7 +36,6 @@ import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.KeyedReference;
-import org.uddi.api_v3.Name;
 
 /**
  * This class is used to manage the Connection Manager's cache.  It handles
@@ -48,7 +47,6 @@ import org.uddi.api_v3.Name;
  */
 public class ConnectionManagerCache {
 
-	
     private static Log log = LogFactory.getLog(ConnectionManagerCache.class);
     private static final String HOME_COMMUNITY_PREFIX = "urn:oid:";
     // Hash maps for the UDDI connection information.  This hash map is keyed by home community ID.
@@ -67,10 +65,10 @@ public class ConnectionManagerCache {
     private static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
     private static String UDDI_STATE_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
     private static String UDDI_HOME_COMMUNITY_ID_KEY = "uddi:nhin:nhie:homecommunityid";
-
+    private static String UDD_SERVICE_NAMES_KEY = "uddi:nhin:standard-servicenames";
     private static ConnectionManagerCache connectionManager = null;
-    protected ConnectionManagerCache() {
 
+    protected ConnectionManagerCache() {
     }
 
     public static ConnectionManagerCache getInstance() {
@@ -89,25 +87,13 @@ public class ConnectionManagerCache {
     }
 
     /**
-     * This class is used for testing purposes so that the file locations can be overridden
-     * to point to a controlled location available for unit tests.
-     *
-     * @param sUDDIFileName The path and file name for the UDDI XML file.
-     * @param sInternalConnFileName The path and file name for the Internal Connectil File Name.
-     */
-    /*public static void overrideFileLocations(String sUDDIFileName, String sInternalConnFileName) {
-    	uddiConnectionManagerDAO.setFileName(sUDDIFileName);
-    	internalConnectionManagerDAO.setFileName(sInternalConnFileName);
-    }*/
-
-    /**
      * This method is used to load the UDDI Connection Infomration form the
      * uddiConnectionInfo.xml file.
      */
     private void loadUDDIConnectionInfo()
             throws ConnectionManagerException {
 
-    	BusinessDetail businessDetail = null;
+        BusinessDetail businessDetail = null;
         try {
             businessDetail = getUddiConnectionManagerDAO().loadBusinessDetail();
         } catch (Exception ex) {
@@ -140,11 +126,11 @@ public class ConnectionManagerCache {
     private BusinessEntity mergeBusinessEntityServices(BusinessEntity internalEntity,
             BusinessEntity uddiEntity)
             throws ConnectionManagerException {
-    	if (getCommunityId(internalEntity).equals(getCommunityId(uddiEntity))) {
-    		return internalEntity;
-    	} else {
-    		return uddiEntity;
-    	}
+        if (getCommunityId(internalEntity).equals(getCommunityId(uddiEntity))) {
+            return internalEntity;
+        } else {
+            return uddiEntity;
+        }
     }
 
     /**
@@ -163,57 +149,54 @@ public class ConnectionManagerCache {
             forceRefreshUDDICache();
         }
 
-        // One last check for refreshing...
-        //---------------------------------
         refreshIfExpired();
     }
 
-	public String getCommunityId(BusinessEntity businessEntity) {
-		KeyedReference ref = getCommunityIdReReference(businessEntity);
-		if (ref != null) {
-			return ref.getKeyValue(); 
-		}
-		return null;
-	}
-	
-	public KeyedReference getCommunityIdReReference(BusinessEntity businessEntity) {
-		if (businessEntity.getIdentifierBag() == null) {
-			return null;
-		}
-		for(KeyedReference reference : businessEntity.getIdentifierBag().getKeyedReference()) {
-			if (reference.getTModelKey().equals(UDDI_HOME_COMMUNITY_ID_KEY)) {
-				return reference;
-			}
-		}
-		return null;
-	}
-	
-	public void setComunityId(BusinessEntity businessEntity, String newId) {
-		KeyedReference ref = getCommunityIdReReference(businessEntity);
-		if (ref != null) {
-			ref.setKeyValue(newId);
-		}
-		ref = new KeyedReference();
-		ref.setKeyValue(newId);
-		businessEntity.getIdentifierBag().getKeyedReference().add(ref);
-	}
-    
-	private List<String> getStates(BusinessEntity businessEntity) {
-		List<String> result = new ArrayList<String>();
-		for(KeyedReference reference : businessEntity.getCategoryBag().getKeyedReference()) {
-			String key = reference.getTModelKey();
-			String value = reference.getKeyValue();
-			if (UDDI_STATE_KEY.equals(key)) {
-				result.add(value);
-			}
-		}
-		if (result.size() <= 0) {
-			result = null;
-		}
-		return result;
-	}
+    public String getCommunityId(BusinessEntity businessEntity) {
+        KeyedReference ref = getCommunityIdKeyReference(businessEntity);
+        if (ref != null) {
+            return ref.getKeyValue();
+        }
+        return null;
+    }
 
-	
+    public KeyedReference getCommunityIdKeyReference(BusinessEntity businessEntity) {
+        if (businessEntity.getIdentifierBag() == null) {
+            return null;
+        }
+        for (KeyedReference reference : businessEntity.getIdentifierBag().getKeyedReference()) {
+            if (reference.getTModelKey().equals(UDDI_HOME_COMMUNITY_ID_KEY)) {
+                return reference;
+            }
+        }
+        return null;
+    }
+
+    public void setCommunityId(BusinessEntity businessEntity, String newId) {
+        KeyedReference ref = getCommunityIdKeyReference(businessEntity);
+        if (ref != null) {
+            ref.setKeyValue(newId);
+        }
+        ref = new KeyedReference();
+        ref.setKeyValue(newId);
+        businessEntity.getIdentifierBag().getKeyedReference().add(ref);
+    }
+
+    private List<String> getStates(BusinessEntity businessEntity) {
+        List<String> result = new ArrayList<String>();
+        for (KeyedReference reference : businessEntity.getCategoryBag().getKeyedReference()) {
+            String key = reference.getTModelKey();
+            String value = reference.getKeyValue();
+            if (UDDI_STATE_KEY.equals(key)) {
+                result.add(value);
+            }
+        }
+        if (result.size() <= 0) {
+            result = null;
+        }
+        return result;
+    }
+
     /**
      * This method is used to load the UDDI Connection Infomration form the
      * uddiConnectionInfo.xml file.
@@ -221,14 +204,14 @@ public class ConnectionManagerCache {
     private void loadInternalConnectionInfo()
             throws ConnectionManagerException {
 
-    	BusinessDetail businessDetail = null;
+        BusinessDetail businessDetail = null;
         try {
             businessDetail = getInternalConnectionManagerDAO().loadBusinessDetail();
         } catch (Exception ex) {
             Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
+
         if (businessDetail != null) {
             synchronized (m_hInternalConnectInfo) {
                 m_hInternalConnectInfo.clear();
@@ -236,7 +219,7 @@ public class ConnectionManagerCache {
                 if ((businessDetail.getBusinessEntity() != null) &&
                         (businessDetail.getBusinessEntity().size() > 0)) {
                     for (BusinessEntity businessEntity : businessDetail.getBusinessEntity()) {
-                    	
+
                         String sHomeCommunityId = getCommunityId(businessEntity);
                         if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                             m_hInternalConnectInfo.put(sHomeCommunityId, businessEntity);
@@ -288,13 +271,13 @@ public class ConnectionManagerCache {
         try {
             lUDDILastModified = getUddiConnectionManagerDAO().getLastModified();
             lInternalLastModified = getInternalConnectionManagerDAO().getLastModified();
-       } catch (Exception e) {
-        // Assume a refresh is required...  But log a message.
-        //----------------------------------------------------
-        String sErrorMessage = "Failed to retrieve last modified dates on the connection manager XML files." +
-                "Error: " + e.getMessage();
-        log.warn(sErrorMessage, e);
-    }
+        } catch (Exception e) {
+            // Assume a refresh is required...  But log a message.
+            //----------------------------------------------------
+            String sErrorMessage = "Failed to retrieve last modified dates on the connection manager XML files." +
+                    "Error: " + e.getMessage();
+            log.warn(sErrorMessage, e);
+        }
 
         // If we need to refresh the UDDI cache information.
         //--------------------------------------------------
@@ -317,7 +300,7 @@ public class ConnectionManagerCache {
      * @return The HomeCommunity information.
      */
     private BusinessEntity homeCommunityFromInternalConnectionInfo(BusinessEntity businessEntity) {
-    	return businessEntity;
+        return businessEntity;
     }
 
     /**
@@ -338,8 +321,8 @@ public class ConnectionManagerCache {
         //---------------------------------------------------------
         Collection<BusinessEntity> businessEntities = m_hInternalConnectInfo.values();
         for (BusinessEntity businessEntity : businessEntities) {
-        	BusinessEntity oComm = homeCommunityFromInternalConnectionInfo(businessEntity);
-        	String homeComunityId = getCommunityId(businessEntity);
+            BusinessEntity oComm = homeCommunityFromInternalConnectionInfo(businessEntity);
+            String homeComunityId = getCommunityId(businessEntity);
             if ((homeComunityId != null) && (homeComunityId.length() > 0)) {
                 hHomeCommunities.add(homeComunityId);
                 oaHomeCommunities.add(oComm);
@@ -351,7 +334,7 @@ public class ConnectionManagerCache {
         //-----------------------------------------------------------------------------------
         Collection<BusinessEntity> colEntity = m_hUDDIConnectInfo.values();
         for (BusinessEntity oEntity : colEntity) {
-        	String homeCommunityId = getCommunityId(oEntity);
+            String homeCommunityId = getCommunityId(oEntity);
             if ((homeCommunityId != null) &&
                     (homeCommunityId.length() > 0) &&
                     (!hHomeCommunities.contains(homeCommunityId))) // make sure it is not alrady in the list
@@ -382,7 +365,7 @@ public class ConnectionManagerCache {
         }
 
         for (BusinessEntity oEntity : oEntities) {
-        	String homeCommunityId = getCommunityId(oEntity);
+            String homeCommunityId = getCommunityId(oEntity);
             if ((homeCommunityId != null) &&
                     (homeCommunityId.equals(sHomeCommunityId))) {
                 return oEntity;
@@ -448,7 +431,7 @@ public class ConnectionManagerCache {
         //---------------------------------------------------------
         Collection<BusinessEntity> colInternConn = m_hInternalConnectInfo.values();
         for (BusinessEntity oEntity : colInternConn) {
-        	String homeComunityId = getCommunityId(oEntity);
+            String homeComunityId = getCommunityId(oEntity);
             if ((homeComunityId != null) && (homeComunityId.length() > 0)) {
                 hEntities.add(homeComunityId);
                 oEntities.add(oEntity);
@@ -461,7 +444,7 @@ public class ConnectionManagerCache {
         //-----------------------------------------------------------------------------------
         Collection<BusinessEntity> colEntity = m_hUDDIConnectInfo.values();
         for (BusinessEntity oEntity : colEntity) {
-        	String homeCommunityId = getCommunityId(oEntity);
+            String homeCommunityId = getCommunityId(oEntity);
             if ((homeCommunityId != null) &&
                     (homeCommunityId.length() > 0)) {
                 if (hEntities.contains(homeCommunityId)) {
@@ -533,7 +516,7 @@ public class ConnectionManagerCache {
      */
     public Set<BusinessEntity> getBusinessEntitySet(List<String> saHomeCommunityId)
             throws ConnectionManagerException {
-    	Set<BusinessEntity> oEntities = new HashSet<BusinessEntity>();
+        Set<BusinessEntity> oEntities = new HashSet<BusinessEntity>();
 
         checkLoaded();
 
@@ -556,47 +539,104 @@ public class ConnectionManagerCache {
             return null;
         }
     }
-    
+
     private BindingTemplate findMostCompatibleBindingTemplate(BusinessEntity businessEntity, String serviceName, GATEWAY_API_LEVEL apiLevel) {
-    	if (businessEntity != null && businessEntity.getBusinessServices() != null && businessEntity.getBusinessKey() != null) {
-	    	Map<String, BindingTemplate> templatesBySpecVersion = new HashMap<String, BindingTemplate>();
-        	for(BusinessService service : businessEntity.getBusinessServices().getBusinessService()) {
-        		String name = null;
-        		for(Name nameElement : service.getName()) {
-        			String nameStr = nameElement.getValue();
-        			if (serviceName.equals(nameStr)) {
-        				name = nameStr;
-        				break;
-        			}
-        		}
-        		if (name!=null && service.getBindingTemplates() != null && service.getBindingTemplates().getBindingTemplate() != null) {
-        			for(BindingTemplate template : service.getBindingTemplates().getBindingTemplate()) {
-                		if (template.getCategoryBag() != null && template.getCategoryBag().getKeyedReference() != null) {
-                			for(KeyedReference reference : template.getCategoryBag().getKeyedReference()) {
-                				String keyName = reference.getTModelKey();
-                				String keyValue = reference.getKeyValue();
-                				if (keyName.equals(UDDI_SPEC_VERSION_KEY)) {
-                					templatesBySpecVersion.put(keyValue, template); //Collect templates with respective spec versions
-                				}
-                			}
-               		} else {
-                			return template; // no version specified, assuming it support all versions
-                		}
-        			}
-        		}
-        	}
-    		// Searching for highest spec version supported by api level
-		   	ArrayList<UDDI_SPEC_VERSION> supportedSpecs = UddiSpecVersionRegestry.getSupportedSpecs(apiLevel);
-	    	for(UDDI_SPEC_VERSION supportedSpec : supportedSpecs) {
-	    		BindingTemplate template = templatesBySpecVersion.get(supportedSpec.toString());
-	    		if (template != null) {
-	    			return template;
-	    		}
-	    	}
-    	}
-    	return null; // no matching bindings
+        BindingTemplate bindingTemplate = null;
+        if (businessEntity != null && 
+                businessEntity.getBusinessServices() != null &&
+                businessEntity.getBusinessKey() != null) {
+            Map<String, BindingTemplate> templatesBySpecVersion = getSpecVersionToBindingTemplateMap(businessEntity, serviceName);
+            // 1.0, bindintemplate
+            // 2.0, bindingtemplate
+            bindingTemplate = getHighestSpecVersionSupported(apiLevel, templatesBySpecVersion);
+        }
+        return bindingTemplate;
     }
-    
+
+    private Map<String, BindingTemplate> getSpecVersionToBindingTemplateMap(BusinessEntity businessEntity, String serviceName) {
+        Map<String, BindingTemplate> specVersionToTemplateMap = new HashMap<String, BindingTemplate>();
+        if (businessEntity == null) {
+            return specVersionToTemplateMap;
+        }
+
+        List<String> specVersionList = null;
+        for (BusinessService service : businessEntity.getBusinessServices().getBusinessService()) {
+            if (!isServiceNameEquals(service, serviceName)) {
+                continue;
+            }
+            if (service.getBindingTemplates() != null && service.getBindingTemplates().getBindingTemplate() != null) {
+                for (BindingTemplate template : service.getBindingTemplates().getBindingTemplate()) {
+                    specVersionList = getSpecVersions(template);
+                    for (String specVersion : specVersionList) {
+                        specVersionToTemplateMap.put(specVersion, template);
+                    }
+                }
+            }
+        }
+
+        return specVersionToTemplateMap;
+    }
+
+    private boolean isServiceNameEquals(BusinessService service, String serviceName) {
+        List<String> snameList = getServiceNames(service);
+        for (String sname: snameList) {
+            if (sname.equalsIgnoreCase(serviceName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<String> getServiceNames(BusinessService service) {
+        List<String> serviceNameList = new ArrayList<String>();
+
+        if (service.getCategoryBag() != null && service.getCategoryBag().getKeyedReference() != null) {
+            for (KeyedReference reference : service.getCategoryBag().getKeyedReference()) {
+                String keyName = reference.getTModelKey();
+                String keyValue = reference.getKeyValue();
+                if (keyName.equals(UDD_SERVICE_NAMES_KEY)) {
+                    serviceNameList.add(keyValue);
+                }
+            }
+        }
+        return serviceNameList;
+    }
+
+    private List<String> getSpecVersions(BindingTemplate bindingTemplate) {
+        List<String> specVersionList = new ArrayList<String>();
+        if (bindingTemplate.getCategoryBag() != null && bindingTemplate.getCategoryBag().getKeyedReference() != null) {
+            for (KeyedReference reference : bindingTemplate.getCategoryBag().getKeyedReference()) {
+                String keyName = reference.getTModelKey();
+                String specVersionValue = reference.getKeyValue();
+                if (keyName.equals(UDDI_SPEC_VERSION_KEY)) {
+                    specVersionList.add(specVersionValue);
+                }
+            }
+        }
+
+        return specVersionList;
+    }
+
+    // if api level is g0  ==> spec 1
+    // if api level is g1 ==> spec 1, spec 2
+    private BindingTemplate getHighestSpecVersionSupported(GATEWAY_API_LEVEL apiLevel, Map<String, BindingTemplate> specVersionToTemplateMap) {
+        ArrayList<UDDI_SPEC_VERSION> supportedSpecs = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(apiLevel);
+        UDDI_SPEC_VERSION highestSpec = null;
+        for (UDDI_SPEC_VERSION supportedSpec : supportedSpecs) {
+            if (specVersionToTemplateMap.containsKey(supportedSpec.toString())) {
+                if (highestSpec == null || supportedSpec.ordinal() > highestSpec.ordinal()) {
+                    highestSpec = supportedSpec;
+                }
+            }
+        }
+
+        if (highestSpec != null) {
+            return specVersionToTemplateMap.get(highestSpec.toString());
+        }
+
+        return null;
+    }
+
     /**
      * This method retrieves the business entity information and service information
      * for the specific home community and service name.  Note:   This will only return
@@ -635,7 +675,6 @@ public class ConnectionManagerCache {
         // load internal connections
         if (m_hInternalConnectInfo.containsKey(sHomeCommunityId)) {
             BusinessEntity businessEntity = m_hInternalConnectInfo.get(sHomeCommunityId);
-            //internalBusinessEntity = businessEntityFromInternalConnectionInfo(businessEntity);
             internalBusinessEntity = businessEntity;
         }
 
@@ -658,8 +697,8 @@ public class ConnectionManagerCache {
 
         // Now lets see if it has the service we are looking for.
         //--------------------------------------------------------
-        if(findMostCompatibleBindingTemplate(oCombinedEntity, sUniformServiceName, getApiVersionForNhinTarget(sHomeCommunityId, sUniformServiceName)) != null){
-        	return oCombinedEntity;
+        if (findMostCompatibleBindingTemplate(oCombinedEntity, sUniformServiceName, getApiVersion(sHomeCommunityId, sUniformServiceName)) != null) {
+            return oCombinedEntity;
         }
         return null;
     }
@@ -686,13 +725,11 @@ public class ConnectionManagerCache {
     public String getEndpointURLByServiceName(String sHomeCommunityId,
             String sUniformServiceName)
             throws ConnectionManagerException {
-    	
-    	GATEWAY_API_LEVEL apiLevel = getApiVersionForNhinTarget(sHomeCommunityId, sUniformServiceName);
-    	
-        String sEndpointURL = "";
 
+        GATEWAY_API_LEVEL apiLevel = getApiVersion(sHomeCommunityId, sUniformServiceName);
+
+        String sEndpointURL = "";
         BusinessEntity oEntity = getBusinessEntityByServiceName(sHomeCommunityId, sUniformServiceName);
-        
         BindingTemplate bindingTemplate = findMostCompatibleBindingTemplate(oEntity, sUniformServiceName, apiLevel);
         if (bindingTemplate != null) {
             sEndpointURL = bindingTemplate.getAccessPoint().getValue();
@@ -823,7 +860,7 @@ public class ConnectionManagerCache {
 
                 if (target.getRegion() != null) {
                     log.info("Looking up URL by region");
-                    filterByRegion(endpointUrlList, target.getRegion(), serviceName, getApiVersionForNhinTarget(target.getHomeCommunity().getHomeCommunityId(), serviceName));
+                    filterByRegion(endpointUrlList, target.getRegion(), serviceName);
                 }
 
                 if (target.getList() != null) {
@@ -858,7 +895,7 @@ public class ConnectionManagerCache {
      * @return void.
      * @throws ConnectionManagerException
      */
-    private void filterByRegion(List<UrlInfo> urlList, String region, String serviceName, GATEWAY_API_LEVEL apiLevel)
+    private void filterByRegion(List<UrlInfo> urlList, String region, String serviceName)
             throws ConnectionManagerException {
         Set<BusinessEntity> entities = getAllBusinessEntitySetByServiceName(serviceName);
 
@@ -926,7 +963,7 @@ public class ConnectionManagerCache {
     }
 
     private String getHcid(BusinessEntity entity) {
-		String homeCommunityId = getCommunityId(entity);
+        String homeCommunityId = getCommunityId(entity);
         if (entity != null &&
                 NullChecker.isNotNullish(homeCommunityId)) {
             return homeCommunityId.trim();
@@ -1017,7 +1054,7 @@ public class ConnectionManagerCache {
      */
     public Set<BusinessEntity> getBusinessEntitySetByServiceName(List<String> saHomeCommunityId, String sUniformServiceName)
             throws ConnectionManagerException {
-    	Set<BusinessEntity> oEntities = new HashSet<BusinessEntity>();
+        Set<BusinessEntity> oEntities = new HashSet<BusinessEntity>();
 
         checkLoaded();
 
@@ -1084,64 +1121,106 @@ public class ConnectionManagerCache {
         return false;
     }
 
-    public GATEWAY_API_LEVEL getApiVersionForNhinTarget(String homeCommunityId, String service)
-    {
-    	GATEWAY_API_LEVEL result = null;
+    public GATEWAY_API_LEVEL getApiVersion(String homeCommunityId, String serviceName) {
+        GATEWAY_API_LEVEL result = null;
         try {
-        	result = GATEWAY_API_LEVEL.valueOf(PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, "GATEWAY_API_LEVEL"));
+            Set<String> specVersions = getSpecVersions(homeCommunityId, serviceName);            
+            result = getHighestGatewayApiLevelSupportedBySpec(specVersions);
         } catch (Exception ex) {
             Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (result == null) 
-        {
-       	 result = GATEWAY_API_LEVEL.LEVEL_g0;
+
+        if (result == null) {
+            result = GATEWAY_API_LEVEL.LEVEL_g1;
         }
         return result;
     }
 
+    private Set<String> getSpecVersions(String homeCommunityId, String serviceName) {
+        Set<String> specVersions = new HashSet<String>();
+
+        try {
+            BusinessEntity businessEntity = getBusinessEntity(homeCommunityId);
+            Map<String, BindingTemplate> templatesBySpecVersion = getSpecVersionToBindingTemplateMap(businessEntity, serviceName);
+            specVersions = templatesBySpecVersion.keySet();
+
+        } catch (Exception ex) {
+            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return specVersions;
+    }
+
+    private GATEWAY_API_LEVEL getHighestGatewayApiLevelSupportedBySpec(Set<String> specVersions) {
+        GATEWAY_API_LEVEL highestApiLevel = null;
+        GATEWAY_API_LEVEL apiLevel = null;
+        UddiSpecVersionRegistry specRegistry = UddiSpecVersionRegistry.getInstance();
+
+        try {
+            for (String specVersion : specVersions) {
+                apiLevel = specRegistry.getSupportedGatewayAPI(UDDI_SPEC_VERSION.fromString(specVersion));
+                if (highestApiLevel == null || apiLevel.ordinal() > highestApiLevel.ordinal()) {
+                    highestApiLevel = apiLevel;
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return highestApiLevel;
+    }
+
     public String getAdapterEndpontURL(String sServiceName, ADAPTER_API_LEVEL level) throws ConnectionManagerException {
-        
-    	String sHomeCommunityId = null;
-    	try {
-			sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-		} catch (PropertyAccessException ex) {
+
+        String endpointUrl = null;
+        String sHomeCommunityId = null;
+        try {
+            sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+        } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE, ex);
-		}
+        }
         BusinessEntity oEntity = getBusinessEntityByServiceName(sHomeCommunityId, sServiceName);
         BindingTemplate template = findBindingTemplateByCategoryBagNameValue(oEntity, sServiceName, INTERNAL_CONNECTION_API_LEVEL_KEY, level.toString());
-        return template.getAccessPoint().getValue();
+        if (template != null) {
+            endpointUrl = template.getAccessPoint().getValue();
+        }
+        return endpointUrl;
+    }
 
-    }
-    
     private BindingTemplate findBindingTemplateByCategoryBagNameValue(BusinessEntity businessEntity, String serviceName, String key, String value) {
-    	if (businessEntity != null && businessEntity.getBusinessServices() != null && businessEntity.getBusinessKey() != null) {
-        	for(BusinessService service : businessEntity.getBusinessServices().getBusinessService()) {
-        		String name = null;
-        		for(Name nameElement : service.getName()) {
-        			String nameStr = nameElement.getValue();
-        			if (serviceName.equals(nameStr)) {
-        				name = nameStr;
-        				break;
-        			}
-        		}
-        		if (name == null) {
-        			return null; // service with specified name not found 
-        		}
-        		if (service.getBindingTemplates() != null && service.getBindingTemplates().getBindingTemplate() != null) {
-        			for(BindingTemplate template : service.getBindingTemplates().getBindingTemplate()) {
-                		if (template.getCategoryBag() != null && template.getCategoryBag().getKeyedReference() != null) {
-                			for(KeyedReference reference : template.getCategoryBag().getKeyedReference()) {
-                				String keyName = reference.getTModelKey();
-                				String keyValue = reference.getKeyValue();
-                				if (key.equals(keyName) && value.equals(keyValue)) {
-                					return template; // Found it
-                				}
-                			}
-                		} 
-        			}
-        		}
-        	}
-    	}
-    	return null; // no matching bindings
+        BindingTemplate bindingTemplate = null;
+        if (businessEntity != null && businessEntity.getBusinessServices() != null && businessEntity.getBusinessKey() != null) {
+            for (BusinessService service : businessEntity.getBusinessServices().getBusinessService()) {
+                if (!isServiceNameEquals(service, serviceName)) {
+                    continue;
+                }
+                bindingTemplate = findBindingTemplateByKey(service, key, value);
+                if (bindingTemplate != null) {
+                    return bindingTemplate;
+                }
+            }
+        }
+        return null; 
     }
+
+    private BindingTemplate findBindingTemplateByKey(BusinessService service, String keyRefName, String keyRefValue) {
+        BindingTemplate bindingTemplate = null;
+        if (service.getBindingTemplates() != null && service.getBindingTemplates().getBindingTemplate() != null) {
+            for (BindingTemplate template : service.getBindingTemplates().getBindingTemplate()) {
+                if (template.getCategoryBag() != null && template.getCategoryBag().getKeyedReference() != null) {
+                    for (KeyedReference reference : template.getCategoryBag().getKeyedReference()) {
+                        String keyName = reference.getTModelKey();
+                        String keyValue = reference.getKeyValue();
+                        if (keyRefName.equals(keyName) && keyRefValue.equals(keyValue)) {
+                            return template;
+                        }
+                    }
+                }
+            }
+        }
+
+        return bindingTemplate;
+    }
+
+
 }

@@ -110,7 +110,7 @@ public class EntityDocQueryOrchImpl{
         // note that a0 and a1 would be handled by different methods if they were different
         boolean responseIsSpecA0 = true;
         NhincConstants.GATEWAY_API_LEVEL gatewayLevel =
-                ConnectionManagerCache.getInstance().getApiVersionForNhinTarget(
+                ConnectionManagerCache.getInstance().getApiVersion(
                 getLocalHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
         switch(gatewayLevel){
             case LEVEL_g0:

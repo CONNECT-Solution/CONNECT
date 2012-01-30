@@ -21,20 +21,31 @@ public class NhincConstants {
     public static enum GATEWAY_API_LEVEL {LEVEL_g0, LEVEL_g1}
     public static enum ADAPTER_API_LEVEL {LEVEL_a0, LEVEL_a1}
     public static enum UDDI_SPEC_VERSION {
-    	SPEC_1_0 ("1.0"), 
-    	SPEC_2_0 ("2.0");
-    	
-    	private String value = null;
-    	
-    	UDDI_SPEC_VERSION(String value) {
-    		this.value = value;
-    	}
 
-		@Override
-		public String toString() {
-			return value;
-		}
-    	
+        SPEC_1_0("1.0"),
+        SPEC_2_0("2.0");
+        private String value = null;
+
+        UDDI_SPEC_VERSION(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+
+        public static UDDI_SPEC_VERSION fromString(String valueString) {
+            if (valueString != null) {
+                for (UDDI_SPEC_VERSION enumValue : UDDI_SPEC_VERSION.values()) {
+                    if (valueString.equals(enumValue.toString())) {
+                        return enumValue;
+                    }
+                }
+            }
+            throw new IllegalArgumentException("No enum constant " + valueString);
+  }
+
     };
     // Property File Constants
 
@@ -250,7 +261,7 @@ public class NhincConstants {
     public static final String NHINC_DOCUMENT_QUERY_SERVICE_NAME = "serviceDocumentQuery";
     public static final String DOC_QUERY_SELF_PROPERTY_NAME = "documentQueryQuerySelf";
     public static final String NHINC_DOCUMENT_QUERY_SERVICE_PASSTHRU_PROPERTY = "documentQueryPassthrough";
-    public static final String DOC_QUERY_SERVICE_NAME = "QueryForDocument";
+    public static final String DOC_QUERY_SERVICE_NAME = "QueryForDocuments";
     public static final String ENTITY_DOC_QUERY_PROXY_SERVICE_NAME = "entitydocqueryproxy";
     public static final String ENTITY_DOC_QUERY_SECURED_SERVICE_NAME = "entitydocquerysecured";
     public static final String NHINC_ADHOC_QUERY_SUCCESS_RESPONSE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
@@ -305,7 +316,7 @@ public class NhincConstants {
     public static final String ENTITY_DOC_RETRIEVE_SERVICE_NAME = "entitydocretrieve";
     public static final String NHINC_PROXY_DOC_RETRIEVE_SERVICE_NAME = "nhincproxydocretrieve";
     public static final String NHINC_PROXY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "nhincproxydocretrievesecured";
-    public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocument";
+    public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocuments";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY = "serviceDocumentRetrieve";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME = "adapterdocretrievedeferredreqqueueprocess";
@@ -393,7 +404,7 @@ public class NhincConstants {
     public static final String ADAPTER_XDR_SECURED_SERVICE_NAME = "adapterxdrsecured";
     public static final String ADAPTER_COMPONENT_XDR_SERVICE_NAME = "adaptercomponentxdr";
     public static final String ADAPTER_COMPONENT_XDR_SECURED_SERVICE_NAME = "adaptercomponentxdrsecured";
-    public static final String NHINC_XDR_SERVICE_NAME = "serviceXDR";
+    public static final String NHINC_XDR_SERVICE_NAME = "DocSubmission";
     public static final String ENTITY_XDR_REQUEST_SERVICE_NAME = "entityxdrrequest";
     public static final String ENTITY_XDR_REQUEST_SECURED_SERVICE_NAME = "entityxdrrequestsecured";
     public static final String NHINC_PROXY_XDR_REQUEST_SERVICE_NAME = "nhincproxyxdrrequest";
@@ -401,14 +412,14 @@ public class NhincConstants {
     public static final String ADAPTER_XDR_REQUEST_SERVICE_NAME = "adapterxdrrequest";
     public static final String ADAPTER_COMPONENT_XDR_REQUEST_SERVICE_NAME = "adaptercomponentxdrrequest";
     public static final String ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME = "adapterxdrrequestsecured";
-    public static final String NHINC_XDR_REQUEST_SERVICE_NAME = "xdrrequest";
+    public static final String NHINC_XDR_REQUEST_SERVICE_NAME = "DocSubmissionDeferredReq";
     public static final String ENTITY_XDR_RESPONSE_SERVICE_NAME = "entityxdrresponse";
     public static final String ENTITY_XDR_RESPONSE_SECURED_SERVICE_NAME = "entityxdrresponsesecured";
     public static final String NHINC_PROXY_XDR_RESPONSE_SERVICE_NAME = "nhincproxyxdrresponse";
     public static final String NHINC_PROXY_XDR_RESPONSE_SECURED_SERVICE_NAME = "nhincproxyxdrresponsesecured";
     public static final String ADAPTER_XDR_RESPONSE_SERVICE_NAME = "adapterxdrresponse";
     public static final String ADAPTER_XDR_RESPONSE_SECURED_SERVICE_NAME = "adapterxdrresponsesecured";
-    public static final String NHINC_XDR_RESPONSE_SERVICE_NAME = "xdrresponse";
+    public static final String NHINC_XDR_RESPONSE_SERVICE_NAME = "DocSubmissionDeferredResp";
     public static final String ADAPTER_XDR_ASYNC_REQ_ERROR_SERVICE_NAME = "adapterxdrrequesterror";
     public static final String ADAPTER_XDR_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME = "adapterxdrsecuredasyncreqerror";
     public static final String ADAPTER_COMPONENT_XDR_RESPONSE_SERVICE_NAME = "adaptercomponentxdrresponse";
@@ -425,7 +436,7 @@ public class NhincConstants {
 
     //Administrative Distribution Constants
     public static final String ADMIN_DIST_SERVICE_NAME = "admindist";
-    public static final String NHIN_ADMIN_DIST_SERVICE_NAME = "nhinadmindist";
+    public static final String NHIN_ADMIN_DIST_SERVICE_NAME = "AdminDistribution";
     public static final String ENTITY_ADMIN_DIST_SERVICE_NAME = "entityadmindist";
     public static final String ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME = "entityadmindistsecured";
     public static final String ADAPTER_ADMIN_DIST_SERVICE_NAME = "adapteradmindist";

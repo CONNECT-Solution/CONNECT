@@ -7,6 +7,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -180,7 +181,7 @@ public class OutboundDocRetrieveOrchestratableTest {
     public void testGetServiceName() {
         System.out.println("getServiceName");
         OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
-        String expResult = "RetrieveDocument";
+        String expResult = NhincConstants.DOC_RETRIEVE_SERVICE_NAME;
         String result = instance.getServiceName();
         assertEquals(expResult, result);
     }

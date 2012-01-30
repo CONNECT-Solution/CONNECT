@@ -11,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -140,6 +141,7 @@ public class ConnectionManagerDAOFileImplTest {
     }
 
     @Test
+    @Ignore
     public void readWriteTest() throws IOException, Exception {
         writeFileWithDelay(tempFile.getPath(), 0);
         InternalConnectionInfoDAOFileImpl dao = InternalConnectionInfoDAOFileImpl.getInstance();
