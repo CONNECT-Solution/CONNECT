@@ -6,9 +6,12 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.gateway.ws;
 
+import gov.hhs.fha.nhinc.hiem.processor.faults.SoapFaultFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 
 import javax.jws.WebService;
+import javax.xml.soap.SOAPFactory;
 import javax.xml.ws.BindingType;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
@@ -36,8 +39,12 @@ public class NhinPatientDiscovery extends PatientDiscoveryBase {
 
 	public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
 			org.hl7.v3.PRPAIN201305UV02 body) {
-		return getNhinPatientDiscoveryService()
-				.respondingGatewayPRPAIN201305UV02(body, context);
+		try {
+			return getNhinPatientDiscoveryService()
+					.respondingGatewayPRPAIN201305UV02(body, context);
+		} catch (PatientDiscoveryException e) {
+			throw new RuntimeException(e.getMessage(), e.fillInStackTrace());
+		}
 	}
 
 	protected NhinPatientDiscoveryImpl getNhinPatientDiscoveryService() {

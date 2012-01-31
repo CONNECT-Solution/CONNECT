@@ -33,7 +33,7 @@ public class NhinPatientDiscoveryServiceTest {
     };
     
     @Test
-    public void testHappyPath() {
+    public void testHappyPath() throws PatientDiscoveryException {
     	
     	final PRPAIN201305UV02 request = context.mock(PRPAIN201305UV02.class);
     	final WebServiceContext webServiceContext = context.mock(WebServiceContext.class);

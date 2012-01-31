@@ -12,6 +12,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAdapterSender;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
@@ -56,7 +57,7 @@ public class NhinPatientDiscoveryOrchImpl implements NhinPatientDiscoveryOrchest
 	 */
 	@Override
 	public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
-			PRPAIN201305UV02 body, AssertionType assertion) {
+			PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
 		log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
 
 		PRPAIN201306UV02 response = new PRPAIN201306UV02();
@@ -78,9 +79,10 @@ public class NhinPatientDiscoveryOrchImpl implements NhinPatientDiscoveryOrchest
 	 * @param assertion
 	 * @param auditLogger
 	 * @return
+	 * @throws PatientDiscoveryException 
 	 */
 	protected PRPAIN201306UV02 auditAndProcess(PRPAIN201305UV02 body,
-			AssertionType assertion, PatientDiscoveryAuditor auditLogger) {
+			AssertionType assertion, PatientDiscoveryAuditor auditLogger) throws PatientDiscoveryException {
 		PRPAIN201306UV02 response;
 		AcknowledgementType ack;
 		// Audit the outgoing Adapter 201305 Message
@@ -119,9 +121,10 @@ public class NhinPatientDiscoveryOrchImpl implements NhinPatientDiscoveryOrchest
 	 * @param body
 	 * @param assertion
 	 * @return
+	 * @throws PatientDiscoveryException 
 	 */
 	protected PRPAIN201306UV02 process(PRPAIN201305UV02 body,
-			AssertionType assertion) {
+			AssertionType assertion) throws PatientDiscoveryException {
 		PRPAIN201306UV02 response;
 		// Check if in Pass-Through Mode
 		if (isInPassThroughMode()) {
@@ -135,7 +138,7 @@ public class NhinPatientDiscoveryOrchImpl implements NhinPatientDiscoveryOrchest
 	
 	
 	
-	protected PRPAIN201306UV02 send201305ToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
+	protected PRPAIN201306UV02 send201305ToAgency(PRPAIN201305UV02 request, AssertionType assertion) throws PatientDiscoveryException {
         AdapterPatientDiscoveryProxy proxy = proxyFactory.create();
         PRPAIN201306UV02 adapterResp = proxy.respondingGatewayPRPAIN201305UV02(request, assertion);
         return adapterResp;

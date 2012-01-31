@@ -14,6 +14,8 @@ import gov.hhs.fha.nhinc.adapterpatientdiscovery.AdapterPatientDiscoveryPortType
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -61,8 +63,9 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
      * @param body The message to be sent to the web service.
      * @param assertion The assertion information to go with the message.
      * @return The response from the web service.
+     * @throws PatientDiscoveryException 
      */
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion)
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException
     {
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
@@ -100,6 +103,7 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
         {
             log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  " +
                     "Exception: " + e.getMessage(), e);
+            throw new PatientDiscoveryException(e.fillInStackTrace());
         }
 
         return response;

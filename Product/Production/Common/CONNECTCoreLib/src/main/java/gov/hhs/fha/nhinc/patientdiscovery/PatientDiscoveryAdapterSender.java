@@ -33,7 +33,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
  */
 public class PatientDiscoveryAdapterSender {
 
-    public PRPAIN201306UV02 send201305ToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
+    public PRPAIN201306UV02 send201305ToAgency(PRPAIN201305UV02 request, AssertionType assertion) throws PatientDiscoveryException {
         RespondingGatewayPRPAIN201305UV02RequestType adapterReq = new RespondingGatewayPRPAIN201305UV02RequestType();
 
         AdapterPatientDiscoveryProxyObjectFactory factory = new AdapterPatientDiscoveryProxyObjectFactory();

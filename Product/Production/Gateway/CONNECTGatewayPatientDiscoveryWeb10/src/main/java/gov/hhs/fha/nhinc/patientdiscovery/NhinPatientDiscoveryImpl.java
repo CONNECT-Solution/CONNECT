@@ -45,16 +45,17 @@ public class NhinPatientDiscoveryImpl extends WebServiceHelper {
 	}
 
 	public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
-			PRPAIN201305UV02 body, WebServiceContext context) {
+			PRPAIN201305UV02 body, WebServiceContext context) throws PatientDiscoveryException {
 		log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
 
 		AssertionType assertion = getSamlAssertion(context);
 
 		start(body);
 
-		PRPAIN201306UV02 response = respondingGatewayPRPAIN201305UV02(body,
-				assertion);
-
+		PRPAIN201306UV02 response;
+			response = respondingGatewayPRPAIN201305UV02(body,
+					assertion);
+		
 		stop();
 
 
@@ -99,7 +100,7 @@ public class NhinPatientDiscoveryImpl extends WebServiceHelper {
 	}
 
 	private PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
-			PRPAIN201305UV02 body, AssertionType assertion) {
+			PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
 		NhinPatientDiscoveryOrchestration oOrchestrator1 = orchestrationFactory.create();
 		NhinPatientDiscoveryOrchestration oOrchestrator = oOrchestrator1;
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
@@ -37,7 +38,7 @@ public class NhinPatientDiscoveryOrchImplTest {
 	};
 
 	@Test
-	public void serviceNotEnabled() {
+	public void serviceNotEnabled() throws PatientDiscoveryException {
 
 		NhinPatientDiscoveryOrchestration impl =buildOrchestrationForTest(false, false);
 		PRPAIN201305UV02 body = null;
@@ -48,7 +49,7 @@ public class NhinPatientDiscoveryOrchImplTest {
 	}
 
 	@Test
-	public void notPassThrough() {
+	public void notPassThrough() throws PatientDiscoveryException {
 		final PRPAIN201305UV02 body = new PRPAIN201305UV02();
 		final AssertionType assertion = new AssertionType();
 		final PRPAIN201306UV02 expectedResponse = new PRPAIN201306UV02();
@@ -74,7 +75,7 @@ public class NhinPatientDiscoveryOrchImplTest {
 	}
 	
 	@Test
-	public void passThrough() {
+	public void passThrough() throws PatientDiscoveryException {
 		final PRPAIN201305UV02 body = new PRPAIN201305UV02();
 		final AssertionType assertion = new AssertionType();
 		final PRPAIN201306UV02 expectedResponse = new PRPAIN201306UV02();

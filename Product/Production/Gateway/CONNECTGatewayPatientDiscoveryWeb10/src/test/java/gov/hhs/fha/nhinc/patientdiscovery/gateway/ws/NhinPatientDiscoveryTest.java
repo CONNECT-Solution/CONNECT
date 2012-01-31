@@ -3,6 +3,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.gateway.ws;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -30,7 +31,7 @@ public class NhinPatientDiscoveryTest {
     }
 	
 	@Test
-	public void testMockService() {
+	public void testMockService() throws PatientDiscoveryException {
 		
 		final PRPAIN201305UV02 mockBody = context.mock(PRPAIN201305UV02.class);
 		final PRPAIN201306UV02 expectedResponse = context.mock(PRPAIN201306UV02.class);

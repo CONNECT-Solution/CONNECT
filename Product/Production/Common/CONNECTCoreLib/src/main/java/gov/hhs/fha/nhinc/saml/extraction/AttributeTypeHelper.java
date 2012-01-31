@@ -4,35 +4,22 @@
  */
 package gov.hhs.fha.nhinc.saml.extraction;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
+import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import java.util.ArrayList;
-import org.apache.xerces.dom.ElementNSImpl;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.AttributeStatementType;
+import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
 import com.sun.xml.wss.saml.internal.saml20.jaxb20.AttributeType;
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.ConditionsType;
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.EvidenceType;
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.AuthnStatementType;
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.AuthzDecisionStatementType;
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.NameIDType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 
 /**
  *
