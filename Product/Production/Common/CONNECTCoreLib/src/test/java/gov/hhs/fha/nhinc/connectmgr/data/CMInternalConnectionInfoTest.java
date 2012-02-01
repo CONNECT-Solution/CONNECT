@@ -182,38 +182,6 @@ public class CMInternalConnectionInfoTest {
 
     /**
      * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are equal except for the Community Description
-     */
-    @Test
-    public void testNotEqualsSupportLiftFlag() {
-        System.out.println("testNotEqualsSupportLiftFlag");
-
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", false, "HTTPS");
-
-        boolean result = instance.equals(oCompare);
-
-        assertEquals(false, result);
-    }
-
-    /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are equal except for the Community Description
-     */
-    @Test
-    public void testNotEqualsLiftProtocols() {
-        System.out.println("testNotEqualsLiftProtocols");
-
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "FTP");
-
-        boolean result = instance.equals(oCompare);
-
-        assertEquals(false, result);
-    }
-
-    /**
-     * Test of equals method, of class CMInternalConnectionInfo.
      *    Test that two objects are equal except for the Service Description
      */
     @Test

@@ -75,12 +75,6 @@
 				<name>xdrrequest</name>
 				<description>NHIN XDR Request</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</endpointURL>
-				<supportsLIFT>false</supportsLIFT>
-				<liftProtocols>
-					<liftProtocol>
-						<name>HTTPS</name>
-					</liftProtocol>
-				</liftProtocols>
 			</service>
 			<service>
 				<name>xdrresponse</name>
@@ -674,11 +668,6 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
 			</service>
 			<service>
-				<name>nhincliftmanager</name>
-				<description>NHIN Component Lift Manager</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/GatewayLiftManager</endpointURL>
-			</service>
-			<service>
 				<name>nhincproxyxdrrequest</name>
 				<description>NHIN Proxy XDR Request</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</endpointURL>
@@ -893,12 +882,6 @@
 				<name>xdrrequest</name>
 				<description>NHIN XDR Request</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</endpointURL>
-				<supportsLIFT>false</supportsLIFT>
-				<liftProtocols>
-					<liftProtocol>
-						<name>HTTPS</name>
-					</liftProtocol>
-				</liftProtocols>
 			</service>
 			<service>
 				<name>xdrresponse</name>
@@ -1492,11 +1475,6 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
 			</service>
 			<service>
-				<name>nhincliftmanager</name>
-				<description>NHIN Component Lift Manager</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/GatewayLiftManager</endpointURL>
-			</service>
-			<service>
 				<name>nhincproxyxdrrequest</name>
 				<description>NHIN Proxy XDR Request</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</endpointURL>
@@ -1714,12 +1692,6 @@
 				<name>xdrrequest</name>
 				<description>NHIN XDR Request</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</endpointURL>
-				<supportsLIFT>false</supportsLIFT>
-				<liftProtocols>
-					<liftProtocol>
-						<name>HTTPS</name>
-					</liftProtocol>
-				</liftProtocols>
 			</service>
 			<service>
 				<name>xdrresponse</name>
@@ -2258,11 +2230,6 @@
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
 			</service>
 			<service>
-				<name>nhincliftmanager</name>
-				<description>NHIN Component Lift Manager</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/GatewayLiftManager</endpointURL>
-			</service>
-			<service>
 				<name>nhincproxyxdrrequest</name>
 				<description>NHIN Proxy XDR Request</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</endpointURL>
@@ -2579,12 +2546,6 @@
 				<name>xdrrequest</name>
 				<description>NHIN XDR Request</description>
 				<endpointURL>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/XDRRequest_Service</endpointURL>
-				<supportsLIFT>false</supportsLIFT>
-				<liftProtocols>
-					<liftProtocol>
-						<name>HTTPS</name>
-					</liftProtocol>
-				</liftProtocols>
 			</service>
 			<service>
 				<name>xdrresponse</name>
@@ -3100,11 +3061,6 @@
 				<name>adapterxdrrequesterror</name>
 				<description>Adapter Component XDR RequestError</description>
 				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterService/AdapterDocSubmissionDeferredRequestError</endpointURL>
-			</service>
-			<service>
-				<name>nhincliftmanager</name>
-				<description>NHIN Component Lift Manager</description>
-				<endpointURL>http://localhost:8080/CONNECTGateway/GatewayService/GatewayLiftManager</endpointURL>
 			</service>
 			<service>
 				<name>nhincproxyxdrrequest</name>

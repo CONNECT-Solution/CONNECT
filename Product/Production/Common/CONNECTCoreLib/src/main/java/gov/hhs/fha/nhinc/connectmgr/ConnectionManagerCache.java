@@ -1118,10 +1118,6 @@ public class ConnectionManagerCache {
         }
     }
 
-    public boolean liftProtocolSupportedForHomeCommunity(String homeCommunityId, String protocol, String service) throws ConnectionManagerException {
-        return false;
-    }
-
     public GATEWAY_API_LEVEL getApiVersion(String homeCommunityId, String serviceName) {
         GATEWAY_API_LEVEL result = null;
         try {

@@ -33,7 +33,7 @@ public class AdapterDocSubmissionDeferredRequestOrchImpl
         return LogFactory.getLog(this.getClass());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, String liftURL, AssertionType assertion)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, String url, AssertionType assertion)
     {
         log.debug("Begin AdapterDocSubmissionDeferredRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
 
@@ -41,7 +41,7 @@ public class AdapterDocSubmissionDeferredRequestOrchImpl
 
         AdapterComponentDocSubmissionRequestProxyObjectFactory oFactory = new AdapterComponentDocSubmissionRequestProxyObjectFactory();
         AdapterComponentDocSubmissionRequestProxy oProxy = oFactory.getAdapterComponentDocSubmissionRequestProxy();
-        ack = oProxy.provideAndRegisterDocumentSetBRequest(body, assertion, liftURL);
+        ack = oProxy.provideAndRegisterDocumentSetBRequest(body, assertion, url);
 
         log.debug("End AdapterDocSubmissionDeferredRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
         return ack;

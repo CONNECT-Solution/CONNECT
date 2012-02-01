@@ -73,7 +73,7 @@ class RegistryObjectDAO extends IdentifiableDAO {
         super.prepareToInsert(object);
         RegistryObjectType ro = (RegistryObjectType) object;
 
-        //Need to distinguish between Created and Versioned events 
+        //Need to distinguish between Created and Versioned events
         //An original object (Create) has either no versionName or
         //versionName of "1.1"
 
@@ -84,7 +84,7 @@ class RegistryObjectDAO extends IdentifiableDAO {
         }
 
         if (!(ro instanceof AuditableEventType)) {
-            //Careful not to include event as affected by itself            
+            //Careful not to include event as affected by itself
             AuditableEventType ae = null;
             if ((versionName != null) && (!versionName.equals("1.1"))) {
                 //Add to affectedObjects of versionEvent
@@ -249,7 +249,7 @@ class RegistryObjectDAO extends IdentifiableDAO {
     }
 
     /* ADDED (HIEOS/BHT) -> To deal with major MySQL issue with view performance */
-    /* Some code lifted from getSQLStatementFragment() below */
+    /* Some code pasted from getSQLStatementFragment() below */
     public String getSQLStatementFragmentForMirrorImage(Object object)
             throws RegistryException {
         String stmtFragment = null;
@@ -697,7 +697,7 @@ class RegistryObjectDAO extends IdentifiableDAO {
 
         if (startIndex > 0) {
             // calling rs.next() is a workaround for some drivers, such
-            // as Derby's, that do not set the cursor during call to 
+            // as Derby's, that do not set the cursor during call to
             // rs.relative(...)
             rs.next();
             boolean onRow = rs.relative(startIndex - 1);
@@ -888,7 +888,7 @@ class RegistryObjectDAO extends IdentifiableDAO {
     /**
      * Gets the List of binding objects for specified ResultSet.
      * This method return leaf object types while the base class
-     * version returns RegistryObjects. 
+     * version returns RegistryObjects.
      *
      */
     public List getObjectsHetero(ResultSet rs,

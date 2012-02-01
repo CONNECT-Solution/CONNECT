@@ -30,8 +30,6 @@ public class CMInternalConnectionInfosXML
         oXStream.alias("InternalConnectionInfos", CMInternalConnectionInfos.class);
         oXStream.addImplicitCollection(CMInternalConnectionInfos.class, "internalConnectionInfoList");
         oXStream.alias("internalConnectionInfo", CMInternalConnectionInfo.class);
-        oXStream.addImplicitCollection(CMInternalConnectionInfoLiftProtocols.class, "protocolList");
-        oXStream.alias("liftProtocol", CMInternalConnectionInfoLiftProtocol.class);
         oXStream.addImplicitCollection(CMInternalConnInfoServices.class, "serviceList");
         oXStream.alias("service", CMInternalConnInfoService.class);
         oXStream.addImplicitCollection(CMInternalConnectionInfoStates.class, "stateList");
@@ -57,8 +55,6 @@ public class CMInternalConnectionInfosXML
         oXStream.alias("InternalConnectionInfos", CMInternalConnectionInfos.class);
         oXStream.addImplicitCollection(CMInternalConnectionInfos.class, "internalConnectionInfoList");
         oXStream.alias("internalConnectionInfo", CMInternalConnectionInfo.class);
-        oXStream.addImplicitCollection(CMInternalConnectionInfoLiftProtocols.class, "protocolList");
-        oXStream.alias("liftProtocol", CMInternalConnectionInfoLiftProtocol.class);
         oXStream.addImplicitCollection(CMInternalConnInfoServices.class, "serviceList");
         oXStream.alias("service", CMInternalConnInfoService.class);
         oXStream.addImplicitCollection(CMInternalConnectionInfoStates.class, "stateList");

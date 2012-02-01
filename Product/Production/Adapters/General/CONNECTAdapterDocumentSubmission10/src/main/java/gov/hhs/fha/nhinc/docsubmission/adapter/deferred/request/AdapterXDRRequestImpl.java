@@ -40,17 +40,17 @@ public class AdapterXDRRequestImpl
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
-        String liftURL = null;
+        String url = null;
         AssertionType assertion = null;
         if (body != null)
         {
             request = body.getProvideAndRegisterDocumentSetRequest();
-            liftURL = body.getUrl();
+            url = body.getUrl();
             assertion = body.getAssertion();
         }
         assertion = getAssertion(context, assertion);
 
-        response = provideAndRegisterDocumentSetBRequest(request, liftURL, assertion);
+        response = provideAndRegisterDocumentSetBRequest(request, url, assertion);
         log.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(unsecure)");
         return response;
     }
@@ -61,16 +61,16 @@ public class AdapterXDRRequestImpl
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
-        String liftURL = null;
+        String url = null;
         AssertionType assertion = null;
         if (body != null)
         {
             request = body.getProvideAndRegisterDocumentSetRequest();
-            liftURL = body.getUrl();
+            url = body.getUrl();
         }
         assertion = getAssertion(context, assertion);
 
-        response = provideAndRegisterDocumentSetBRequest(request, liftURL, assertion);
+        response = provideAndRegisterDocumentSetBRequest(request, url, assertion);
         log.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(secure)");
         return response;
     }
@@ -95,8 +95,8 @@ public class AdapterXDRRequestImpl
         return assertion;
     }
 
-    protected XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, String liftURL, AssertionType assertion)
+    protected XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion)
     {
-        return new AdapterDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request, liftURL, assertion);
+        return new AdapterDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request, url, assertion);
     }
 }

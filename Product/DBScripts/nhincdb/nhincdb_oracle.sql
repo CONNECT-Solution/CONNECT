@@ -110,22 +110,6 @@ CREATE TABLE nhincuser.eventcode (
 
 CREATE SEQUENCE nhincuser.hibernate_sequence;
 
-CREATE TABLE nhincuser.gateway_lift_message
-(
-    id number NOT NULL,
-    initialEntryTimestamp DATE NOT NULL,
-    messageState varchar2(32) NOT NULL,
-    processingStartTimestamp DATE,
-    producerProxyAddress varchar2(500) NOT NULL,
-    producerProxyPort number(5) NOT NULL,
-    fileNameToRetrieve varchar2(200) NOT NULL,
-    requestKeyGuid varchar2(64) NOT NULL,
-    messageType varchar2(100) NOT NULL,
-    message BLOB,
-    assertion BLOB,
-    PRIMARY KEY (id)
-);
-
 CREATE TABLE nhincuser.transfer_data
 (
     id number NOT NULL,

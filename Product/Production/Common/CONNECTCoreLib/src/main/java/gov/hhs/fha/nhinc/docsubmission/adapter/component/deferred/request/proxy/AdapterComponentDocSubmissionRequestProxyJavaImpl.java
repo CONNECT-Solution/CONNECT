@@ -47,7 +47,7 @@ public class AdapterComponentDocSubmissionRequestProxyJavaImpl implements Adapte
      *
      * @param body The doc submission message.
      * @param assertion The assertion information.
-     * @param url The URL if using LiFT.
+     * @param url The URL
      * @return The ACK
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, String url)

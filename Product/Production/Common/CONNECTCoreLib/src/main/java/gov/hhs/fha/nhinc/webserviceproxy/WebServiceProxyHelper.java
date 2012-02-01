@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 /*
  * To change this template, choose Tools | Templates
@@ -50,7 +50,7 @@ import com.sun.xml.ws.developer.WSBindingProvider;
  * This class is used as a helper in each of the Web Service Proxies. Since the
  * bulk of the work being done in each web service proxy is the same, it is
  * encapsulated in this helper class.
- * 
+ *
  * @author Jason Ray, Sai Valluripalli, Les Westberg
  */
 public class WebServiceProxyHelper {
@@ -73,7 +73,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * DI constructor.
-	 * 
+	 *
 	 * @param log
 	 * @param propertyAccessor
 	 */
@@ -84,7 +84,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Create a logger object.
-	 * 
+	 *
 	 * @return The logger object.
 	 */
 	protected Log createLogger() {
@@ -94,7 +94,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This is a helper class for unit testing purposes only. It allows me to
 	 * mock out the connection manager call in the unit test.
-	 * 
+	 *
 	 * @param oTargetSystem
 	 *            The target system for the call.
 	 * @param sServiceName
@@ -113,7 +113,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This is a helper class for unit testing purposes only. It allows me to
 	 * mock out the connection manager call in the unit test.
-	 * 
+	 *
 	 * @param oTargetSystem
 	 *            The target system for the call.
 	 * @param sServiceName
@@ -125,14 +125,16 @@ public class WebServiceProxyHelper {
 	protected String getEndPointFromConnectionManagerByGatewayAPILevel(
 			NhinTargetSystemType oTargetSystem, String sServiceName,
 			GATEWAY_API_LEVEL level) throws ConnectionManagerException {
-		return ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(
+
+            String url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(
 				oTargetSystem, sServiceName);
+            return url;
 	}
 
 	/**
 	 * This is a helper class for unit testing purposes only. It allows me to
 	 * mock out the connection manager call in the unit test.
-	 * 
+	 *
 	 * @param oTargetSystem
 	 *            The target system for the call.
 	 * @param sServiceName
@@ -144,13 +146,14 @@ public class WebServiceProxyHelper {
 	protected String getEndPointFromConnectionManagerByAdapterAPILevel(
 			String sServiceName, ADAPTER_API_LEVEL level)
 			throws ConnectionManagerException {
-		return ConnectionManagerCache.getInstance().getAdapterEndpontURL(sServiceName, level);
+	    String url = ConnectionManagerCache.getInstance().getAdapterEndpontURL(sServiceName, level);
+            return url;
 	}
 
 	/**
 	 * This is a helper class for unit testing purposes only. It allows me to
 	 * mock out the connection manager call in the unit test.
-	 * 
+	 *
 	 * @param sHomeCommunityId
 	 *            The home community Id for the target system.
 	 * @param sServiceName
@@ -161,14 +164,15 @@ public class WebServiceProxyHelper {
 	 */
 	protected String getEndPointFromConnectionManager(String sHomeCommunityId,
 			String sServiceName) throws ConnectionManagerException {
-		return ConnectionManagerCache.getInstance().getEndpointURLByServiceName(
+	    String url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(
 				sHomeCommunityId, sServiceName);
+            return url;
 	}
 
 	/**
 	 * This is a helper class for unit testing purposes only. It allows me to
 	 * mock out the connection manager call in the unit test. This
-	 * 
+	 *
 	 * @param sServiceName
 	 *            The name of the service to locate.
 	 * @return The endpoint URL.
@@ -177,14 +181,15 @@ public class WebServiceProxyHelper {
 	 */
 	protected String getLocalEndPointFromConnectionManager(String sServiceName)
 			throws ConnectionManagerException {
-		return ConnectionManagerCache.getInstance()
+		String url = ConnectionManagerCache.getInstance()
 				.getLocalEndpointURLByServiceName(sServiceName);
+                return url;
 	}
 
 	/**
 	 * This method retrieves the URl from the ConnectionMananager for the given
 	 * TargetSystem.
-	 * 
+	 *
 	 * @param oTargetSystem
 	 *            The target system containing the information needed to
 	 *            retrieve the endpoint URL.
@@ -196,7 +201,7 @@ public class WebServiceProxyHelper {
 	 * public String getUrlFromTargetSystem(NhinTargetSystemType oTargetSystem,
 	 * String sServiceName) throws IllegalArgumentException,
 	 * ConnectionManagerException, Exception { String sURL = "";
-	 * 
+	 *
 	 * if (oTargetSystem != null) { try { if (oTargetSystem.getHomeCommunity()
 	 * != null) { HomeCommunityType oHomeCommunity =
 	 * oTargetSystem.getHomeCommunity();
@@ -213,14 +218,14 @@ public class WebServiceProxyHelper {
 	 * sErrorMessage = "Target system passed into the proxy is null";
 	 * log.error(sErrorMessage); throw new
 	 * IllegalArgumentException(sErrorMessage); }
-	 * 
+	 *
 	 * return sURL; }
 	 */
 
 	/**
 	 * This method retrieves the URl from the ConnectionMananager for the given
 	 * TargetSystem.
-	 * 
+	 *
 	 * @param oTargetSystem
 	 *            The target system containing the information needed to
 	 *            retrieve the endpoint URL.
@@ -239,11 +244,11 @@ public class WebServiceProxyHelper {
 				if (oTargetSystem.getHomeCommunity() != null) {
 					HomeCommunityType oHomeCommunity = oTargetSystem
 							.getHomeCommunity();
-					log.info("Target Sys properties Home Comm ID:"
+					log.info("Target Sys properties Home Comm ID: "
 							+ oHomeCommunity.getHomeCommunityId());
-					log.info("Target Sys properties Home Comm Description"
+					log.info("Target Sys properties Home Comm Description: "
 							+ oHomeCommunity.getDescription());
-					log.info("Target Sys properties Home Comm Name"
+					log.info("Target Sys properties Home Comm Name: "
 							+ oHomeCommunity.getName());
 				}
 				sURL = getEndPointFromConnectionManagerByGatewayAPILevel(
@@ -265,7 +270,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method retrieves the URl from the ConnectionMananager for the given
 	 * TargetSystem.
-	 * 
+	 *
 	 * @param oTargetSystem
 	 *            The target system containing the information needed to
 	 *            retrieve the endpoint URL.
@@ -310,7 +315,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method retrieves the URl from the ConnectionMananager for the given
 	 * home community ID.
-	 * 
+	 *
 	 * @param sHomeCommunityId
 	 *            The home community id needed to retrieve the endpoint URL.
 	 * @param sServiceName
@@ -344,7 +349,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method retrieves the URl from the ConnectionMananager for the given
 	 * home community ID.
-	 * 
+	 *
 	 * @param sHomeCommunity
 	 *            The home community id needed to retrieve the endpoint URL.
 	 * @param sServiceName
@@ -369,7 +374,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * This method returns the given property from the gateway properties file.
-	 * 
+	 *
 	 * @param sKey
 	 *            The name of the property to retrieve.
 	 * @return The value of the property.
@@ -385,7 +390,7 @@ public class WebServiceProxyHelper {
 	 * This retrieves the text to scan for in the exception. This allows the
 	 * exceptions to be considered for retry to be configured in the
 	 * gateway.properties file.
-	 * 
+	 *
 	 * @return String The string of exception text. This is a comma delimited
 	 *         list of text strings to look for in the exception. If any one of
 	 *         the strings are
@@ -409,7 +414,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * Retrieve the value for the number of retry attempts from the properties
 	 * file.
-	 * 
+	 *
 	 * @return The number of retry attemps that should be done.
 	 */
 	public int getRetryAttempts() {
@@ -439,7 +444,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Retrieve the retry delay setting from the properties file.
-	 * 
+	 *
 	 * @return The retry delay setting.
 	 */
 	public int getRetryDelay() {
@@ -469,7 +474,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Retrieve the timeout value from the properties file.
-	 * 
+	 *
 	 * @return
 	 */
 	public int getTimeout() {
@@ -499,7 +504,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method returns the request context from the port. It is here mainly
 	 * to facilitate mock unit testing.
-	 * 
+	 *
 	 * @param port
 	 *            The port containing the request context.
 	 * @return The request context.
@@ -511,7 +516,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method returns an instance of the SamlTokenCreator class. This
 	 * method is here to facilitate mock unit testing.
-	 * 
+	 *
 	 * @return instance of the SamlTokenCreator
 	 */
 	protected SamlTokenCreator getSamlTokenCreator() {
@@ -521,7 +526,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method returns the the request context with the information
 	 * extracted from the assertion class and the URL and service action.
-	 * 
+	 *
 	 * @param oTokenCreator
 	 *            The SamlTokenCreator object that will create the request
 	 *            context.
@@ -542,7 +547,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method returns an instance of the AsyncHeaderCreator class. This
 	 * method is here to facilitate mock unit testing.
-	 * 
+	 *
 	 * @return instance of the AsyncHeaderCreator
 	 */
 	protected AsyncHeaderCreator getAsyncHeaderCreator() {
@@ -553,7 +558,7 @@ public class WebServiceProxyHelper {
 	 * This method retrieves the message identifier stored in the assertion If
 	 * the message ID is null or empty, this method will generate a new UUID to
 	 * use for the message ID.
-	 * 
+	 *
 	 * @param assertion
 	 *            The assertion information containing the SAML assertion to be
 	 *            assigned to the message.
@@ -578,7 +583,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method retrieves the list of relatesTo identifiers stored in the
 	 * assertion.
-	 * 
+	 *
 	 * @param assertion
 	 *            The assertion information containing the SAML assertion to be
 	 *            assigned to the message.
@@ -595,7 +600,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * This method gset the WS-Addressing headers to be initialized on the port
-	 * 
+	 *
 	 * @param url
 	 *            The endpoint url defining <To>
 	 * @param wsAddressingAction
@@ -620,7 +625,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method sets the provided WS-Addressing headers to the outbound
 	 * headers on the port
-	 * 
+	 *
 	 * @param port
 	 *            The port to be initialized
 	 * @param createdHeaders
@@ -636,7 +641,7 @@ public class WebServiceProxyHelper {
 	 * required for processing - like timeout, URL, etc. This should not be used
 	 * in any new code it was only placed here as a stop gap during refactor for
 	 * old code. After the refactor this should not be used at all.
-	 * 
+	 *
 	 * @param port
 	 *            The port to be initialized.
 	 * @param url
@@ -650,7 +655,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method initializes the port for an unsecure interface call and sets
 	 * various values that are required for processing - like timeout, URL, etc.
-	 * 
+	 *
 	 * @param port
 	 *            The port to be initialized.
 	 * @param url
@@ -670,7 +675,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method initializes the port for an secure interface call and sets
 	 * various values that are required for processing - like timeout, URL, etc.
-	 * 
+	 *
 	 * @param port
 	 *            The port to be initialized.
 	 * @param url
@@ -694,7 +699,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method initializes the port and sets various values that are
 	 * required for processing - like timeout, URL, etc.
-	 * 
+	 *
 	 * @param port
 	 *            The port to be initialized.
 	 * @param url
@@ -725,7 +730,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method initializes the port and sets various values that are
 	 * required for processing - like timeout, URL, etc.
-	 * 
+	 *
 	 * @param isSecure
 	 *            If TRUE set this up as a secure call.
 	 * @param port
@@ -896,7 +901,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method will return the reflection method object for the given class
 	 * and methodName.
-	 * 
+	 *
 	 * @param portClass
 	 *            The class containing the method.
 	 * @param methodName
@@ -926,7 +931,7 @@ public class WebServiceProxyHelper {
 	 * This method is used to invoke a method using reflection. This method's
 	 * primary purpose is to allow us to override this for unit testing purposes
 	 * and simulate an exception to test that code.
-	 * 
+	 *
 	 * @param oMethod
 	 *            The reflection method object.
 	 * @param portObject
@@ -947,7 +952,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Return the list of parameters.
-	 * 
+	 *
 	 * @param parameterTypes
 	 *            The parameter class list
 	 * @return An array listing the parameters.
@@ -967,11 +972,11 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Method to invoke an operation on a port using reflection.
-	 * 
+	 *
 	 * Information found at:
 	 * http://download.oracle.com/docs/cd/E17409_01/javase/
 	 * tutorial/reflect/member/methodInvocation.html
-	 * 
+	 *
 	 * @param portObject
 	 *            Concrete port object.
 	 * @param portClass
@@ -1185,7 +1190,7 @@ public class WebServiceProxyHelper {
 	 * @param sExceptionText
 	 * @param eCatchExp
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	private void handleInvokePortRetryFailure(Class portClass, int iRetryDelay,
 			int i, String sExceptionText, Exception eCatchExp) throws Exception {
@@ -1211,7 +1216,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Retrieve the path for where the WSDL files are located.
-	 * 
+	 *
 	 * @return The path where the WSDL files are located.
 	 */
 	protected String getWsdlPath() {
@@ -1220,7 +1225,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Create the service object.
-	 * 
+	 *
 	 * @param wsdlURL
 	 *            The URL for the WSDL.
 	 * @param namespaceURI
@@ -1240,7 +1245,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Create the service.
-	 * 
+	 *
 	 * @param wsdlFile
 	 *            The URL for the WSDL.
 	 * @param namespaceURI

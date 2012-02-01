@@ -33,7 +33,7 @@ public class AdapterDocSubmissionDeferredRequestProxyNoOpImpl implements Adapter
         return LogFactory.getLog(this.getClass());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, String liftURL, AssertionType assertion)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, String url, AssertionType assertion)
     {
         log.debug("Begin AdapterDocSubmissionDeferredRequestProxyNoOpImpl.provideAndRegisterDocumentSetBRequest");
 

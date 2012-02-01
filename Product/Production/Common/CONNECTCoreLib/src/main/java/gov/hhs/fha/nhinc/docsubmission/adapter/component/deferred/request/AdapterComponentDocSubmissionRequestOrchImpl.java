@@ -29,10 +29,11 @@ public class AdapterComponentDocSubmissionRequestOrchImpl
      * This method recieves the document information
      * @param body The XDR request message
      * @param assertion The assertion information.
-     * @param url The URL if using LiFT.
+     * @param url
      * @return The ACK
      */
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, String url)
+   //This is a dummy adapter - ignoring the URL parameter in interest of not updating the interface
+   public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, String url)
     {
         log.debug("Entering AdapterComponentXDRRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
         XDRAcknowledgementType response = new XDRAcknowledgementType();

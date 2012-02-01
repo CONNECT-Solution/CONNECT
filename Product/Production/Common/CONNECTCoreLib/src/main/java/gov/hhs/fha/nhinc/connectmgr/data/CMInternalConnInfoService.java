@@ -15,8 +15,6 @@ public class CMInternalConnInfoService
 {
     private String name;
     private String description;
-    private boolean supportsLIFT;
-    private CMInternalConnectionInfoLiftProtocols liftProtocols;
     private String endpointURL;
     private boolean externalService;
 
@@ -35,8 +33,6 @@ public class CMInternalConnInfoService
     {
         name = "";
         description = "";
-        supportsLIFT = false;
-        liftProtocols = null;
         endpointURL = "";
         externalService = false;
     }
@@ -50,10 +46,7 @@ public class CMInternalConnInfoService
      */
     public boolean equals(CMInternalConnInfoService oCompare)
     {
-        boolean supportLiftMatch = false;
-        boolean protocolMatch = false;
         boolean headerMatch = false;
-        boolean resultMatch = false;
 
         if ((this.name.equalsIgnoreCase(oCompare.name)) &&
             (this.description.equalsIgnoreCase(oCompare.description)) &&
@@ -63,36 +56,8 @@ public class CMInternalConnInfoService
             headerMatch = true;
         }
 
-        // Compare the supportsLIFT flag
-        if (oCompare.supportsLIFT == this.supportsLIFT) {
-            supportLiftMatch = true;
-        }
-        else {
-            supportLiftMatch = false;
-        }
-
-        // Compare the protocols
-        if (oCompare.liftProtocols == null && this.liftProtocols == null) {
-            protocolMatch = true;
-        }
-        else if (oCompare.liftProtocols == null || this.liftProtocols == null) {
-            protocolMatch = false;
-        }
-        else {
-            if (this.liftProtocols.equals(oCompare.liftProtocols)) {
-                protocolMatch = true;
-            }
-        }
-
-        if (protocolMatch == true && supportLiftMatch == true && headerMatch == true) {
-            resultMatch = true;
-        }
-        
-        // If we got here then everything is the same...
-        //----------------------------------------------
-        return resultMatch;
+        return headerMatch;
     }
-    
     
     
     /**
@@ -174,46 +139,6 @@ public class CMInternalConnInfoService
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    /**
-     * Return the value of the supportsLIFT flag.
-     *
-     * @return The value of the supportsLIFT flag.
-     */
-    public boolean getSupportsLIFTFlag()
-    {
-        return supportsLIFT;
-    }
-
-    /**
-     * Sets the supportsLIFT flag .
-     *
-     * @param flag The value of the supportsLIFT flag.
-     */
-    public void setSupportsLIFTFlag(boolean flag)
-    {
-        this.supportsLIFT = flag;
-    }
-
-    /**
-     * Return the LIFT protocols associated with this home community.
-     *
-     * @return The LIFT protocols associated with this home community.
-     */
-    public CMInternalConnectionInfoLiftProtocols getLiftProtocols()
-    {
-        return liftProtocols;
-    }
-
-    /**
-     * Sets the LIFT protocols associated with this home community.
-     *
-     * @param services The LIFT protocols associated with this home community.
-     */
-    public void setLiftProtocols(CMInternalConnectionInfoLiftProtocols liftProtocols)
-    {
-        this.liftProtocols = liftProtocols;
     }
 
 }

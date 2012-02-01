@@ -453,40 +453,10 @@ public class NhincConstants {
     public static final String HIBERNATE_PATIENT_CORRELATION = "CorrelatedIdentifers.hibernate.cfg.xml";
     public static final String HIBERNATE_DOCUMENT_REPOSITORY = "docrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_ASYNCMSGS_REPOSITORY = "AsyncMsgs.hibernate.cfg.xml";
-    public static final String HIBERNATE_LIFTMESSAGE_REPOSITORY = "GatewayLiftMsg.hibernate.cfg.xml";
     public static final String HIBERNATE_PATIENTDB_REPOSITORY = "patientdb.hibernate.cfg.xml";
     public static final String HIBERNATE_PERFREPO_REPOSITORY = "perfrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_HIEMSUBREP_REPOSITORY = "HiemSubRepHibernate.cfg.xml";
     public static final String HIBERNATE_AGGREGATOR_REPOSITORY = "aggregator.cfg.xml";
-
-    //LiFT Constants
-    public static final String LIFT_MANAGER_SERVICE_NAME = "nhincliftmanager";
-    public static final String LIFT_ENABLED_PROPERTY_NAME = "liftEnabled";
-    public static final String LIFT_TRANSPORT_SERVICE_SLOT_NAME = "transportService";
-    public static final String LIFT_TRANSPORT_SERVICE_SLOT_VALUE = "LIFT";
-    public static final String LIFT_TRANSPORT_SERVICE_PROTOCOL_SLOT_NAME = "transportServiceProtocol";
-    public static final String LIFT_TRANSPORT_SERVICE_PROTOCOL_SLOT_VALUE = "HTTPS";
-    public static final String LIFT_CLIENT_IP = "ClientManagerControllerIP";
-    public static final String LIFT_CLIENT_PORT = "ClientManagerControllerPort";
-    public static final String LIFT_KEYSTORE = "LiftKeyStore";
-    public static final String LIFT_KEYSTOREPASS = "LiftKeyStorePass";
-    public static final String LIFT_KEYALIAS = "LiftKeyAlias";
-    public static final String LIFT_TRUSTSTORE = "LiftTrustStore";
-    public static final String LIFT_TRUSTSTOREPASS = "LiftTrustStorePass";
-    public static final String LIFT_FILEDROP = "DefaultFileDest";
-    public static final String LIFT_PROXY_ADDRESS = "ProxyAddress";
-    public static final String LIFT_PROXY_PORT = "ProxyPort";
-    public static final String LIFT_FILESERVER_IP = "FileServerIP";
-    public static final String LIFT_FILESERVER_PORT = "FileServerPort";
-    public static final String LIFT_BASE_FILE_SERVER_DIR_PROP_NAME = "BaseOutboundDir";
-    public static final String LIFT_CIPHER_SUITES = "CipherSuites";
-    public static final String LIFT_SERVER_NSS_CONFIG = "LiftServerNSSConfig";
-    public static final String LIFT_CLIENT_NSS_CONFIG = "LiftClientNSSConfig";
-    public static final String LIFT_TRANSFER_DB_STATE_ENTERED = "ENTERED";
-    public static final String LIFT_TRANSFER_DB_STATE_PROCESSING = "PROCESSING";
-    public static final String LIFT_GATEWAY_MESSAGE_DB_STATE_ENTERED = "ENTERED";
-    public static final String LIFT_GATEWAY_MESSAGE_DB_STATE_PROCESSING = "PROCESSING";
-    public static final String LIFT_GATEWAY_MESSAGE_DB_TYPE_DOC_SUB = "DEFERRED_DOCUMENT_SUBMISSION";
 
     public static final String AGGREGATOR_LARGE_RESP_DIR_PROP = "aggregatorLargeResponseDir";
     public static final String AGGREGATOR_LARGE_RESP_SIZE_PROP = "aggregatorMaxDbResponseSize";

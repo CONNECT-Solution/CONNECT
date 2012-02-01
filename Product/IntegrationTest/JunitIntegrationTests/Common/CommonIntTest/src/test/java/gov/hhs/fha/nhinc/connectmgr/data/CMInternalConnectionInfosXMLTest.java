@@ -66,18 +66,12 @@ public class CMInternalConnectionInfosXMLTest
         oService.setName("Service 1 Name");
         oService.setEndpointURL("http://www.service1.com");
         oService.setExternalService(true);
-        CMInternalConnectionInfoLiftProtocols protocols = new CMInternalConnectionInfoLiftProtocols();
-        CMInternalConnectionInfoLiftProtocol protocol = new CMInternalConnectionInfoLiftProtocol();
-        protocol.setLiftProtocol("HTTPS");
-        protocols.getProtocol().add(protocol);
-        oService.setLiftProtocols(protocols);
         oService = new CMInternalConnInfoService();
         oServices.getService().add(oService);
         oService.setDescription("Service 2 Description");
         oService.setName("Service 2 Name");
         oService.setEndpointURL("http://www.service2.com");
         oService.setExternalService(false);
-        oService.setSupportsLIFTFlag(true);
         
         oConnInfo = new CMInternalConnectionInfo();
         oConnInfos.getInternalConnectionInfo().add(oConnInfo);

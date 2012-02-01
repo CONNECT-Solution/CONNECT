@@ -45,11 +45,6 @@
               linecount="7"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.lift.GatewayLiftManager"
-              linecount="11"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="102" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.subscription.repository.BaseSubscriptionRepositoryHelper"
               linecount="243"

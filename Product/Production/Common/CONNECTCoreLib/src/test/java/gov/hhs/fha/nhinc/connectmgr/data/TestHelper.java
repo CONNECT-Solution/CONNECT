@@ -35,16 +35,11 @@ public class TestHelper {
        return false;
     }
 
-    public static CMInternalConnectionInfo createConnInfo (String commId, String commName, String desc, String servDesc, String url, String servName, String stateName, boolean supportsLift, String protocolName) {
+    public static CMInternalConnectionInfo createConnInfo (String commId, String commName, String desc, String servDesc,
+            String url, String servName, String stateName, boolean supportsLift, String protocolName) {
         String hcid = commId;
         String name = commName;
         String description = desc;
-        boolean flag = supportsLift;
-
-        CMInternalConnectionInfoLiftProtocols protocols = new CMInternalConnectionInfoLiftProtocols();
-        CMInternalConnectionInfoLiftProtocol protocol = new CMInternalConnectionInfoLiftProtocol();
-        protocols.getProtocol().add(protocol);
-        protocol.setLiftProtocol(protocolName);
 
         CMInternalConnInfoServices services = new CMInternalConnInfoServices();
         CMInternalConnInfoService service = new CMInternalConnInfoService();
@@ -53,8 +48,6 @@ public class TestHelper {
         service.setEndpointURL(url);
         service.setExternalService(false);
         service.setName(servName);
-        service.setSupportsLIFTFlag(flag);
-        service.setLiftProtocols(protocols);
 
         CMInternalConnectionInfoStates states = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state = new CMInternalConnectionInfoState();

@@ -11,6 +11,7 @@
   </condition>
 
   <target name="ci" depends="clean, dist, unittest.run, checkstyle.style"/>
+  <target name="devci" depends="package.create, unittest.run, checkstyle.style"/>
 
   <target name="coverage.bless" description="Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.">
     <var name="do-to-target" value="coverage.bless" />

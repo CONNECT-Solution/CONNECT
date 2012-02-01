@@ -86,7 +86,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl imple
         return port;
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, String liftURL, AssertionType assertion)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion)
     {
         log.debug("Begin AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetBRequest");
         XDRAcknowledgementType response = null;
@@ -94,19 +94,19 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl imple
 
         try
         {
-            log.debug("Before target system URL look up.");
-            String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
+            log.debug("Before target system destination URL look up.");
+            String destURL = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
             if (log.isDebugEnabled())
             {
-                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + destURL);
             }
 
-            if (NullChecker.isNotNullish(url))
+            if (NullChecker.isNotNullish(destURL))
             {
                 AdapterProvideAndRegisterDocumentSetSecuredRequestType wsRequest = new AdapterProvideAndRegisterDocumentSetSecuredRequestType();
                 wsRequest.setProvideAndRegisterDocumentSetRequest(request);
-                wsRequest.setUrl(liftURL);
-                AdapterXDRRequestSecuredPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+                wsRequest.setUrl(url);
+                AdapterXDRRequestSecuredPortType port = getPort(destURL, WS_ADDRESSING_ACTION, assertion);
                 response = (XDRAcknowledgementType) oProxyHelper.invokePort(port, AdapterXDRRequestSecuredPortType.class, "provideAndRegisterDocumentSetBRequest", wsRequest);
             }
             else

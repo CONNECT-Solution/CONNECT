@@ -1655,20 +1655,6 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterxdrrequesterror" keyValue="adapterxdrrequesterror"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:nhincliftmanager" businessKey="uddi:testnhieonenode:1.1">
-                <name xml:lang="en">nhincliftmanager</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:testnhincnode:nhincliftmanager" serviceKey="uddi:testnhincnode:nhincliftmanager">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTGateway/GatewayService/GatewayLiftManager</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincliftmanager" keyValue="nhincliftmanager"/>
-                </categoryBag>
-            </businessService>
             <businessService serviceKey="uddi:testnhincnode:nhincproxyxdrrequest" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">nhincproxyxdrrequest</name>
                 <bindingTemplates>
@@ -4072,20 +4058,6 @@
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterxdrrequesterror" keyValue="adapterxdrrequesterror"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:testnhincnode:nhincliftmanager" businessKey="uddi:testnhieonenode:2.2">
-                <name xml:lang="en">nhincliftmanager</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:testnhincnode:nhincliftmanager" serviceKey="uddi:testnhincnode:nhincliftmanager">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTGateway/GatewayService/GatewayLiftManager</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincliftmanager" keyValue="nhincliftmanager"/>
                 </categoryBag>
             </businessService>
             <businessService serviceKey="uddi:testnhincnode:nhincproxyxdrrequest" businessKey="uddi:testnhieonenode:2.2">
@@ -6492,20 +6464,6 @@
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterxdrrequesterror" keyValue="adapterxdrrequesterror"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:testnhincnode:nhincliftmanager" businessKey="uddi:testnhieonenode:3.3">
-                <name xml:lang="en">nhincliftmanager</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:testnhincnode:nhincliftmanager" serviceKey="uddi:testnhincnode:nhincliftmanager">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTGateway/GatewayService/GatewayLiftManager</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincliftmanager" keyValue="nhincliftmanager"/>
                 </categoryBag>
             </businessService>
             <businessService serviceKey="uddi:testnhincnode:nhincproxyxdrrequest" businessKey="uddi:testnhieonenode:3.3">

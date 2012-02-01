@@ -8,7 +8,6 @@
     <call target="Build.PublishZip.SoapUI.Validation.Tests"/>
     <call target="Build.PublishZip.Release.Properties"/>
     <call target="Build.PublishZip.AdapterPEPWS"/>
-    <call target="Build.PublishZip.LiFT.ManualTest"/>
   </target>
 
   <target name="Build.PublishZip.Release.Installer">
@@ -200,35 +199,6 @@
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
     <call target="Publish.Link" />
-
-  </target>
-
-  <target name="Build.PublishZip.LiFT.ManualTest">
-    <property name="LiFt.Zip.FileName" value="${ProjectFullName}_LiFT_Test_${CCNetLabel}.zip"/>
-    <property name="LiFt.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${LiFt.Zip.FileName}"/>
-
-    <zip zipfile="${LiFt.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Product.Path}\SoapUI_Test\ManualSuite\" prefix="LiFtWSTest" failonempty="true">
-        <include name="EntityXDRLiFTAsyncRequestTests-soapui-project.xml"/>
-        <include name="EntityXDRLiFTAsyncRequestTests-soapui-project.properties"/>
-        <include name="LiFTEnabled_internalConnectionInfo.xml"/>
-        <include name="LiFTDisabled_internalConnectionInfo.xml"/>
-        <include name="LiftDocument.jpg"/>
-      </fileset>
-      <fileset basedir="${Common.Directory.Product.Path}\IntegrationTest\scripts\" prefix="LiFtWSScripts" failonempty="true">
-        <include name="DBFunctions.groovy"/>
-        <include name="FileUtils.groovy"/>
-        <include name="GlassFishUtils.groovy"/>
-        <include name="PropertyReader.groovy"/>
-      </fileset>
-    </zip>
-
-    <property name="Publish.Web.File.Name" value="${LiFt.Zip.FileName}"/>
-    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
-
-    
-    <call target="Publish.Link" />
-    
 
   </target>
   

@@ -116,16 +116,6 @@
         <dist.type>war</dist.type>
     </project>
     <project>
-        <name>CONNECTLiFTClientApp</name>
-        <directory>/Production/Gateway/CONNECTLiFTClientApp</directory>
-        <dist.type>jar</dist.type>
-    </project> 
-    <project>
-        <name>CONNECTLiFTServerApp</name>
-        <directory>/Production/Gateway/CONNECTLiFTServerApp</directory>
-        <dist.type>jar</dist.type>
-    </project>
-    <project>
         <name>FTAConfigManager</name>
         <directory>/Production/Adapters/GenericFileTransfer/FTAConfigManager</directory>
         <dist.type>jar</dist.type>

@@ -90,7 +90,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl imp
         return port;
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, String liftURL, AssertionType assertion)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion)
     {
         log.debug("Begin AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetBRequest");
         XDRAcknowledgementType response = null;
@@ -99,19 +99,19 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl imp
         try
         {
             log.debug("Before target system URL look up.");
-            String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
+            String destURL = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
             if (log.isDebugEnabled())
             {
-                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + destURL);
             }
 
-            if (NullChecker.isNotNullish(url))
+            if (NullChecker.isNotNullish(destURL))
             {
                 AdapterProvideAndRegisterDocumentSetRequestType wsRequest = new AdapterProvideAndRegisterDocumentSetRequestType();
                 wsRequest.setProvideAndRegisterDocumentSetRequest(request);
-                wsRequest.setUrl(liftURL);
+                wsRequest.setUrl(url);
                 wsRequest.setAssertion(assertion);
-                AdapterXDRRequestPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+                AdapterXDRRequestPortType port = getPort(destURL, WS_ADDRESSING_ACTION, assertion);
                 response = (XDRAcknowledgementType) oProxyHelper.invokePort(port, AdapterXDRRequestPortType.class, "provideAndRegisterDocumentSetBRequest", wsRequest);
             }
             else

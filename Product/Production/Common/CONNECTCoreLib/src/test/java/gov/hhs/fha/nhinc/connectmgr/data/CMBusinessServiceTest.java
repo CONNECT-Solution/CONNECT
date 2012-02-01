@@ -122,54 +122,6 @@ public class CMBusinessServiceTest {
     }
 
     /**
-     * Test of getLiftSupported method, of class CMBusinessEntity.
-     */
-    @Test
-    public void testSetGetLiftSupportedFalse() {
-        System.out.println("testSetGetLiftSupportedFalse");
-        CMBusinessService instance = new CMBusinessService();
-        instance.setLiftSupported(false);
-
-        boolean expResult = false;
-
-        boolean result = instance.getLiftSupported();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setLiftSupported method, of class CMBusinessEntity.
-     */
-    @Test
-    public void testSetGetLiftSupportedTrue() {
-        System.out.println("testSetGetLiftSupportedTrue");
-        CMBusinessService instance = new CMBusinessService();
-        instance.setLiftSupported(true);
-
-        boolean expResult = true;
-
-        boolean result = instance.getLiftSupported();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getLiftProtocols method, of class CMBusinessEntity.
-     */
-    @Test
-    public void testSetGetLiftProtocols() {
-        System.out.println("getLiftProtocols");
-        CMBusinessService instance = new CMBusinessService();
-        CMLiftProtocols protocols = new CMLiftProtocols();
-        String protocol = new String();
-        protocol = "HTTPS";
-        protocols.getProtocol().add(protocol);
-        instance.setLiftProtocols(protocols);
-
-        CMLiftProtocols result = instance.getLiftProtocols();
-
-        assertEquals("HTTPS", result.getProtocol().get(0));
-    }
-
-    /**
      * Test of createCopy method, of class CMBusinessService.
      */
     @Test
@@ -229,19 +181,6 @@ public class CMBusinessServiceTest {
     }
 
     /**
-     * Create a generic CMLiftProtocols filled with test data
-     *
-     * @return The test CMLiftProtocols
-     */
-    private CMLiftProtocols generateTestCMLiftProtocols() {
-        CMLiftProtocols testLiftProtocols = new CMLiftProtocols();
-        List<String> liftProtocols = new ArrayList<String>();
-        liftProtocols.add("testLiftProtocol");
-        testLiftProtocols.setProtocol(liftProtocols);
-        return testLiftProtocols;
-    }
-
-    /**
      * Create a generic CMBusiness Service filled with test data
      *
      * @return The test CMBusiness Service
@@ -264,11 +203,6 @@ public class CMBusinessServiceTest {
         testBusinessService.setServiceKey("testServiceKey");
 
         testBusinessService.setUniformServiceName("testUniformServiceName");
-
-        CMLiftProtocols testLiftProtocols = generateTestCMLiftProtocols();
-        testBusinessService.setLiftProtocols(testLiftProtocols);
-
-        testBusinessService.setLiftSupported(false);
 
         return testBusinessService;
     }
