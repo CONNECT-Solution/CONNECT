@@ -6,11 +6,10 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
+import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import org.apache.commons.logging.Log;
@@ -20,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author mweaver
  */
-public class OutboundDocRetrieveOrchestratorImpl extends CONNECTInboundOrchestrator {
+public class OutboundDocRetrieveOrchestratorImpl extends CONNECTOutboundOrchestrator {
 
     private static final Log logger = LogFactory.getLog(OutboundDocRetrieveOrchestratorImpl.class);
 
@@ -35,9 +34,10 @@ public class OutboundDocRetrieveOrchestratorImpl extends CONNECTInboundOrchestra
             ((OutboundDocRetrieveOrchestratable) impl).setAssertion(message.getAssertion());
             ((OutboundDocRetrieveOrchestratable) impl).setTarget(buildHomeCommunity(docRequest.getHomeCommunityId()));
 
+            // Process and aggregate
             NhinAggregator agg = EntityDROrchMessage.getAggregator();
             agg.aggregate((OutboundOrchestratable)message, (OutboundOrchestratable)super.processEnabledMessage(impl));
-        }// TODO Auto-generated method stub
+        }
         return message;
     }
 

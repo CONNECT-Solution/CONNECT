@@ -9,6 +9,8 @@ package gov.hhs.fha.nhinc.docretrieve.passthru;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog;
+import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchestratableImpl_a0;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyObjectFactory;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -40,18 +42,15 @@ public class NhincProxyDocRetrieveOrchImpl {
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin NhincProxyDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve(...)");
         RetrieveDocumentSetResponseType response = null;
-        String responseCommunityId = HomeCommunityMap.getCommunityIdForRDRequest(request);
-        // Audit request message
-        DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();
-        auditLog.auditDocRetrieveRequest(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
+        // Note: auditing occurs in the orchestrator strategy.  
         try {
-            log.debug("Creating NHIN doc retrieve proxy");
-            NhinDocRetrieveProxyObjectFactory objFactory = new NhinDocRetrieveProxyObjectFactory();
-            NhinDocRetrieveProxy docRetrieveProxy = objFactory.getNhinDocRetrieveProxy();
+            OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
+            EntityDocRetrieveOrchestratableImpl_a0 message = new EntityDocRetrieveOrchestratableImpl_a0(request, assertion, null, null, delegate, null, targetSystem);           
+            OutboundPassthruDocRetrieveOrchestratorImpl orchestrator = new OutboundPassthruDocRetrieveOrchestratorImpl();
 
-            log.debug("Calling doc retrieve proxy");
-            response = docRetrieveProxy.respondingGatewayCrossGatewayRetrieve(request, assertion, targetSystem);
+            orchestrator.process(message);
+            response = message.getResponse();
         } catch (Throwable t) {
             log.error("Error occured sending doc query to NHIN target: " + t.getMessage(), t);
             response = new RetrieveDocumentSetResponseType();
@@ -66,9 +65,6 @@ public class NhincProxyDocRetrieveOrchImpl {
             regErr.setErrorCode("XDSRepositoryError");
             regErr.setSeverity("Error");
         }
-
-        // Audit response message
-        auditLog.auditResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
         log.debug("End NhincProxyDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve(...)");
         return response;
