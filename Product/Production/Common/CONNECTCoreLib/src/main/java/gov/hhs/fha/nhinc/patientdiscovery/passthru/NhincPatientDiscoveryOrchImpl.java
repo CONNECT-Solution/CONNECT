@@ -7,8 +7,16 @@
 package gov.hhs.fha.nhinc.patientdiscovery.passthru;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryDelegate;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable_a0;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
@@ -58,10 +66,11 @@ public class NhincPatientDiscoveryOrchImpl {
 
     protected PRPAIN201306UV02 sendToNhinProxy(PRPAIN201305UV02 request, AssertionType assertion, 
             NhinTargetSystemType target){
-        NhinPatientDiscoveryProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryProxyObjectFactory();
-        NhinPatientDiscoveryProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryProxy();
         try{
-            return proxy.respondingGatewayPRPAIN201305UV02(request, assertion, target);
+            OutboundPatientDiscoveryDelegate delegate = new OutboundPatientDiscoveryDelegate();
+            OutboundPatientDiscoveryOrchestratable_a0 inMessage = new OutboundPatientDiscoveryOrchestratable_a0(delegate, null, null, null, assertion, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, request);
+            OutboundPatientDiscoveryOrchestratable_a0 outMessage = (OutboundPatientDiscoveryOrchestratable_a0)delegate.process(inMessage);
+            return outMessage.getResponse();
         }catch(Exception ex){
             log.error("Passthru NhinpatientDiscoveryOrchImpl Exception", ex);
             String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, target,
