@@ -116,6 +116,7 @@ public class ConnectionManagerCache {
                 }   // if ((oConnInfo.getBusinessEntities() != null) && ...
 
                 m_bUDDILoaded = true;
+                m_lUDDIFileLastModified = getUddiConnectionManagerDAO().getLastModified();
             }   // synchronized (m_ohUDDIConnectInfo)
         } // if (oConnInfo != null)
         else {
@@ -228,6 +229,7 @@ public class ConnectionManagerCache {
                 }   // if ((oConnInfos.getInternalConnectionInfo() != null) &&...
 
                 m_bInternalLoaded = true;
+                m_lInternalFileLastModified = getInternalConnectionManagerDAO().getLastModified();
 
             }   // synchronized (m_hInternalConnectInfo)
         } // if (oConnInfos != null)
