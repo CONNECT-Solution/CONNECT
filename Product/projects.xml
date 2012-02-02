@@ -115,11 +115,6 @@
         <dist.type>jar</dist.type>
     </project>    
     <project>
-        <name>MuralMpiEJB</name>
-        <directory>/Production/Adapters/Mural/MuralMpiEJB</directory>
-        <dist.type>jar</dist.type>
-    </project>
-    <project>
         <name>CONNECTAdapterPDPOpenSSO</name>
         <directory>/Production/Adapters/General/CONNECTAdapterPDPOpenSSO</directory>
         <dist.type>jar</dist.type>
