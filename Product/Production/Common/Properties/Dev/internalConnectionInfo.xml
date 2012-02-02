@@ -1281,7 +1281,7 @@
                 <name xml:lang="en">entitydocqueryproxy</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitydocqueryproxy" serviceKey="uddi:testnhincnode:entitydocqueryproxy">
-                        <accessPoint useType="endPoint">https://localhost:8181/GatewayDocumentQuery/1_0/EntityService/EntityDocQueryUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/GatewayDocumentQuery/1_0/EntityService/EntityDocQueryUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                         </categoryBag>
