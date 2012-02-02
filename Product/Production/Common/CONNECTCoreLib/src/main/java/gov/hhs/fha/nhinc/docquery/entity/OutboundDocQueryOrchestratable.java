@@ -11,6 +11,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 
 
@@ -31,9 +32,14 @@ public class OutboundDocQueryOrchestratable
     private NhinTargetSystemType target = null;
     private AdhocQueryRequest request = null;
 
+    private AdhocQueryResponse response = null;
+
 
     public OutboundDocQueryOrchestratable(){}
 
+    public OutboundDocQueryOrchestratable(OutboundDelegate delegate){
+        this.delegate = delegate;
+    }
 
     public OutboundDocQueryOrchestratable(OutboundDelegate d, OutboundResponseProcessor p,
             AuditTransformer at, PolicyTransformer pt, AssertionType a, String name,
@@ -48,6 +54,26 @@ public class OutboundDocQueryOrchestratable
 
         this.target = t;
         this.request = r;
+    }
+
+    public void setAssertion(AssertionType assertion) {
+        this.assertion = assertion;
+    }
+
+    public void setRequest(AdhocQueryRequest request) {
+        this.request = request;
+    }
+
+    public void setTarget(NhinTargetSystemType target) {
+        this.target = target;
+    }
+
+    public AdhocQueryResponse getResponse(){
+        return response;
+    }
+
+    public void setResponse(AdhocQueryResponse r){
+        response = r;
     }
 
     public OutboundDelegate getDelegate(){

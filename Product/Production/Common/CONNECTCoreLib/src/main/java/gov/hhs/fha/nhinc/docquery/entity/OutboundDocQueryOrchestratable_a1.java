@@ -23,7 +23,6 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 public class OutboundDocQueryOrchestratable_a1
         extends OutboundDocQueryOrchestratable{
 
-    private AdhocQueryResponse response = null;
     private AdhocQueryResponse cumulativeResponse = null;
 
 
@@ -45,14 +44,6 @@ public class OutboundDocQueryOrchestratable_a1
     @Override
     public OutboundDelegate getDelegate(){
         return null;
-    }
-
-    public AdhocQueryResponse getResponse(){
-        return response;
-    }
-
-    public void setResponse(AdhocQueryResponse r){
-        response = r;
     }
 
     public AdhocQueryResponse getCumulativeResponse(){

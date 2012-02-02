@@ -11,6 +11,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
@@ -65,16 +67,15 @@ public class PassthruDocQueryOrchImpl {
 
         try {
             log.debug("Creating NhinDocQueryProxy");
-            NhinDocQueryProxyObjectFactory docQueryFactory = new NhinDocQueryProxyObjectFactory();
-            NhinDocQueryProxy proxy = docQueryFactory.getNhinDocQueryProxy();
-
-            log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
 
             // Log the start of the nhin performance record
             Timestamp starttime = new Timestamp(System.currentTimeMillis());
             Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, responseCommunityID);
 
-            response = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
+            OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
+            OutboundDocQueryOrchestratable orchestratable = 
+                    new OutboundDocQueryOrchestratable(delegate, null, null, null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, body);
+            response = ((OutboundDocQueryOrchestratable) delegate.process(orchestratable)).getResponse();
 
             // Log the end of the nhin performance record
             Timestamp stoptime = new Timestamp(System.currentTimeMillis());
