@@ -89,7 +89,7 @@ public class EntityPatientDiscoveryProxyJavaImplTest
         }
     }
 
-    @Ignore
+    //@Ignore
     @Test
     public void testRespondingGatewayPRPAIN201305UV02Happy()
     {
@@ -126,7 +126,7 @@ public class EntityPatientDiscoveryProxyJavaImplTest
         }
     }
 
-    @Ignore
+    //@Ignore
     @Test
     public void testRespondingGatewayPRPAIN201305UV02NullProcessor()
     {
