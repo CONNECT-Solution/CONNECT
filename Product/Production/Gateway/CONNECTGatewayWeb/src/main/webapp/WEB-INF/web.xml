@@ -6,23 +6,9 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <servlet>
-        <servlet-name>AdapterAuditQueryService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapterauditquery.AdapterAuditQueryService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterAuditQueryService</servlet-name>
-        <url-pattern>/AdapterProxyService/AdapterAuditQuery</url-pattern>
-    </servlet-mapping>
+    
+   
 
-    <servlet>
-        <servlet-name>EntityAuditLogQuery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogQuery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityAuditLogQuery</servlet-name>
-        <url-pattern>/EntityService/EntityAuditLogQuerySecured</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>AdapterSubjectDiscovery</servlet-name>
@@ -88,14 +74,6 @@
     </servlet-mapping>
 
     <security-constraint>
-         <web-resource-collection>
-            <web-resource-name>EntityAuditLogQuery</web-resource-name>
-            <url-pattern>/EntityService/EntityAuditLogQuerySecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntitySubjectDiscoverySecured</web-resource-name>
-            <url-pattern>/EntityService/EntitySubjectDiscoverySecured</url-pattern>
-        </web-resource-collection>
     <!-- Start: XDR Request and Response services-->
     <!-- End: XDR Request and Response services-->
         <web-resource-collection>
