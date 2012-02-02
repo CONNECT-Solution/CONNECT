@@ -61,17 +61,6 @@
         <dist.type>war</dist.type>
     </project>
     <project>
-        <name>CONNECTNhinServicesWeb</name>
-        <directory>/Production/Gateway/CONNECTNhinServicesWeb</directory>
-        <dist.type>war</dist.type>
-    </project>    
-    <project>
-        <name>CONNECTMsgProxyWeb</name>
-        <directory>/Production/Gateway/CONNECTMsgProxyWeb</directory>
-        <dist.type>war</dist.type>
-    </project>     
-
-    <project>
         <name>CONNECTGatewayAdminDistribution_g0</name>
         <directory>/Production/Gateway/CONNECTGatewayAdminDistribution_g0</directory>
         <dist.type>war</dist.type>
