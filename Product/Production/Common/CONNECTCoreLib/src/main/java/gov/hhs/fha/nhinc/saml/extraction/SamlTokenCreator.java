@@ -36,7 +36,7 @@ public class SamlTokenCreator {
     public Map CreateRequestContext(AssertionType assertion, String url, String action) {
         log.debug("Entering SamlTokenCreator.CreateRequestContext...");
 
-        Map requestContext = new HashMap();
+        Map<String, String> requestContext = new HashMap<String, String>();
 
         
         
