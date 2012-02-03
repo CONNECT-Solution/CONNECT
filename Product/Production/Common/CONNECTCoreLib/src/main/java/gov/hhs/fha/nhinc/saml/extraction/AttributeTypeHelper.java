@@ -18,7 +18,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
+import org.apache.xerces.dom.ElementNSImpl;
 import com.sun.xml.wss.saml.internal.saml20.jaxb20.AttributeType;
 
 /**
