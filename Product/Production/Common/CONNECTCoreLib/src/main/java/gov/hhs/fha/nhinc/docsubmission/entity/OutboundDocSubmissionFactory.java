@@ -23,10 +23,10 @@ public class OutboundDocSubmissionFactory {
        switch (apiLevel) {
             case LEVEL_g0:
                 return new OutboundDocSubmissionOrchestrationContextBuilder_g0();
-           case LEVEL_g1:
+            case LEVEL_g1:
                return new OutboundDocSubmissionOrchestrationContextBuilder_g1();
             default:
-                return new OutboundDocSubmissionOrchestrationContextBuilder_g1();
+                return new OutboundDocSubmissionOrchestrationContextBuilder_g0();
        }
     }
 
