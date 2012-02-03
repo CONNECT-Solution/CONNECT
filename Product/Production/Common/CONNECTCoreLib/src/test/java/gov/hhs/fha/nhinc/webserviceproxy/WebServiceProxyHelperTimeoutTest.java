@@ -5,6 +5,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JMock;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -12,21 +13,34 @@ import org.junit.runner.RunWith;
 public class WebServiceProxyHelperTimeoutTest extends
 		AbstractWebServiceProxyHelpTest {
 
+
+	WebServiceProxyHelperProperties oHelper;
+
+	@Before
+	public void before() throws PropertyAccessException {
+
+			retryAttemptsExpectation(mockPropertyAccessor,
+				Expectations.returnValue("5"));
+
+		exceptionExpectation(mockPropertyAccessor,
+				Expectations.returnValue("PropertyAccessException"));
+		retryDelayExpectation(mockPropertyAccessor,
+	
+				Expectations.returnValue("300"));
+
+	}
+	
 	/**
 	 * Test the GetTimeout method happy path.
 	 * @throws PropertyAccessException 
 	 */
 	@Test
 	public void testGetTimeoutHappyPath() throws PropertyAccessException {
-		context.checking(new Expectations() {
+		
+		timeoutExpectation(mockPropertyAccessor,
+				Expectations.returnValue("300"));
 
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_TIMEOUT);
-				will(returnValue("300"));
-			}
-		});
+		oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
 
 		int iTimeout = oHelper.getTimeout();
 		assertEquals("Timeout failed.", 300, iTimeout);
@@ -38,18 +52,13 @@ public class WebServiceProxyHelperTimeoutTest extends
 	 */
 	@Test
 	public void testGetTimeoutPropertyException() throws PropertyAccessException {
-		context.checking(new Expectations() {
-
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
-				ignoring(mockLog).warn(with(any(String.class)));
-				
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_TIMEOUT);
-				will(throwException(new PropertyAccessException(
+	
+		timeoutExpectation(mockPropertyAccessor,
+				Expectations.throwException(new PropertyAccessException(
 						"Failed to retrieve property.")));
-			}
-		});
+
+		oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
+
 
 		int iTimeout = oHelper.getTimeout();
 		assertEquals("getTimeout failed: ", 0, iTimeout);
@@ -62,18 +71,13 @@ public class WebServiceProxyHelperTimeoutTest extends
 	 */
 	@Test
 	public void testGetTimeoutNumberFormatException() throws PropertyAccessException {
-		context.checking(new Expectations() {
+	
+		timeoutExpectation(mockPropertyAccessor,
+				Expectations.returnValue("NotANumber"));
 
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
-				ignoring(mockLog).warn(with(any(String.class)));
-				
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_TIMEOUT);
-				will(returnValue("NotANumber"));
-			}
-		});
+		oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
 
+		
 		int iTimeout = oHelper.getTimeout();
 		assertEquals("getTimeout failed: ", 0, iTimeout);
 

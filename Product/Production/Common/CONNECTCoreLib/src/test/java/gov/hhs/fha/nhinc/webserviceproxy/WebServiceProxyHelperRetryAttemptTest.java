@@ -5,29 +5,41 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JMock;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
 @RunWith(JMock.class)
-public class WebServiceProxyHelperRetryAttemptTest extends AbstractWebServiceProxyHelpTest{
+public class WebServiceProxyHelperRetryAttemptTest extends
+		AbstractWebServiceProxyHelpTest {
 
-	
+	WebServiceProxyHelperProperties oHelper;
+
+	@Before
+	public void before() throws PropertyAccessException {
+		retryDelayExpectation(mockPropertyAccessor,
+				Expectations.returnValue("1"));
+
+		timeoutExpectation(mockPropertyAccessor,
+				Expectations.returnValue("300"));
+
+		exceptionExpectation(mockPropertyAccessor,
+				Expectations.returnValue("PropertyAccessException"));
+
+	}
+
 	/**
 	 * Test the GetRetryAttempts method happy path.
-	 * @throws PropertyAccessException 
+	 * 
+	 * @throws PropertyAccessException
 	 */
 	@Test
 	public void testGetRetryAttemptsHappyPath() throws PropertyAccessException {
-		context.checking(new Expectations() {
 
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("5"));
-			}
-		});
+		retryAttemptsExpectation(mockPropertyAccessor,
+				Expectations.returnValue("5"));
+
+		oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
 
 		int iRetryAttempts = oHelper.getRetryAttempts();
 		assertEquals("RetryAttempts failed.", 5, iRetryAttempts);
@@ -36,51 +48,40 @@ public class WebServiceProxyHelperRetryAttemptTest extends AbstractWebServicePro
 
 	/**
 	 * Test the GetRetryAttempts method with PropertyAccessException.
-	 * @throws PropertyAccessException 
+	 * 
+	 * @throws PropertyAccessException
 	 */
 	@Test
-	public void testGetRetryAttemptsPropertyException() throws PropertyAccessException {
-			context.checking(new Expectations() {
+	public void testGetRetryAttemptsPropertyException()
+			throws PropertyAccessException {
 
-				{
-					ignoring(mockLog).debug(with(any(String.class)));
-					ignoring(mockLog).warn(with(any(String.class)));
-					
-					oneOf(mockPropertyAccessor).getProperty(
-							WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-					will(throwException(new PropertyAccessException(
-							"Failed to retrieve property.")));
-				}
-			});
-		
+		retryAttemptsExpectation(mockPropertyAccessor,
+				Expectations.throwException(new PropertyAccessException(
+						"Failed to retrieve property.")));
 
-			int iRetryAttempts = oHelper.getRetryAttempts();
-			assertEquals("getRetryAttempts failed: ", 0, iRetryAttempts);
-		
+		oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
+
+		int iRetryAttempts = oHelper.getRetryAttempts();
+		assertEquals("getRetryAttempts failed: ", 0, iRetryAttempts);
+
 	}
 
 	/**
 	 * Test the GetRetryAttempts method with NumberFormatException.
-	 * @throws PropertyAccessException 
+	 * 
+	 * @throws PropertyAccessException
 	 */
 	@Test
-	public void testGetRetryAttemptsNumberFormatException() throws PropertyAccessException {
-			context.checking(new Expectations() {
-
-				{
-					ignoring(mockLog).debug(with(any(String.class)));
-					ignoring(mockLog).warn(with(any(String.class)));
-					
-					oneOf(mockPropertyAccessor).getProperty(
-							WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-					will(returnValue("NotANumber"));
-				}
-			});
-			
-
-			int iRetryAttempts = oHelper.getRetryAttempts();
-			assertEquals("getRetryAttempts failed: ", 0, iRetryAttempts);
+	public void testGetRetryAttemptsNumberFormatException()
+			throws PropertyAccessException {
+		retryAttemptsExpectation(mockPropertyAccessor,
+				Expectations.returnValue("NotANumber"));
 		
+		oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
+
+		int iRetryAttempts = oHelper.getRetryAttempts();
+		assertEquals("getRetryAttempts failed: ", 0, iRetryAttempts);
+
 	}
 
 }

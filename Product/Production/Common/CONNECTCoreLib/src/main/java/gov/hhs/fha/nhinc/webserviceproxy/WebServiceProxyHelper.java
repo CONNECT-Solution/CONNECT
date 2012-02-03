@@ -55,20 +55,16 @@ import com.sun.xml.ws.developer.WSBindingProvider;
  */
 public class WebServiceProxyHelper {
 
-	public static final String CONFIG_FILE = "gateway";
-	public static final String CONFIG_KEY_TIMEOUT = "webserviceproxy.timeout";
-	public static final String CONFIG_KEY_RETRYATTEMPTS = "webserviceproxy.retryattempts";
-	public static final String CONFIG_KEY_RETRYDELAY = "webserviceproxy.retrydelay";
-	public static final String CONFIG_KEY_EXCEPTION = "webserviceproxy.exceptionstext";
 	public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
 	public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
 	public static final String KEY_URL = javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
 	private Log log = null;
-	private IPropertyAcessor propertyAccessor;
+	private WebServiceProxyHelperProperties properties;
+	private SamlTokenCreator samlTokenCreator =  new SamlTokenCreator();
 
 	public WebServiceProxyHelper() {
 		log = createLogger();
-		propertyAccessor = new PropertyAccessor(CONFIG_FILE);
+		properties = WebServiceProxyHelperProperties.getInstance();
 	}
 
 	/**
@@ -79,7 +75,7 @@ public class WebServiceProxyHelper {
 	 */
 	public WebServiceProxyHelper(Log log, IPropertyAcessor propertyAccessor) {
 		this.log = log;
-		this.propertyAccessor = propertyAccessor;
+		properties = new WebServiceProxyHelperProperties(propertyAccessor);
 	}
 
 	/**
@@ -372,19 +368,7 @@ public class WebServiceProxyHelper {
 		return sURL;
 	}
 
-	/**
-	 * This method returns the given property from the gateway properties file.
-	 *
-	 * @param sKey
-	 *            The name of the property to retrieve.
-	 * @return The value of the property.
-	 * @throws PropertyAccessException
-	 *             The exception if one occurs.
-	 */
-	protected String getGatewayProperty(String sKey)
-			throws PropertyAccessException {
-		return propertyAccessor.getProperty(sKey);
-	}
+	
 
 	/**
 	 * This retrieves the text to scan for in the exception. This allows the
@@ -396,50 +380,17 @@ public class WebServiceProxyHelper {
 	 *         the strings are
 	 */
 	public String getExceptionText() {
-		String configValue = "";
-		try {
-			configValue = getGatewayProperty(CONFIG_KEY_EXCEPTION);
-			log.debug("Retrieved from config file (" + CONFIG_FILE
-					+ ".properties) " + CONFIG_KEY_EXCEPTION + "='"
-					+ configValue + "')");
-		} catch (PropertyAccessException ex) {
-			log.warn("Error occurred reading retry attempts value from config file ("
-					+ CONFIG_FILE
-					+ ".properties).  Exception = "
-					+ ex.toString());
-		}
-		return configValue;
+		return properties.getExceptionText();
 	}
 
 	/**
 	 * Retrieve the value for the number of retry attempts from the properties
 	 * file.
 	 *
-	 * @return The number of retry attemps that should be done.
+	 * @return The number of retry attempts that should be done.
 	 */
 	public int getRetryAttempts() {
-		int retryAttempts = 0;
-		try {
-			String sValue = getGatewayProperty(CONFIG_KEY_RETRYATTEMPTS);
-			log.debug("Retrieved from config file (" + CONFIG_FILE
-					+ ".properties) " + CONFIG_KEY_RETRYATTEMPTS + "='"
-					+ sValue + "')");
-			if (NullChecker.isNotNullish(sValue)) {
-				retryAttempts = Integer.parseInt(sValue);
-			}
-		} catch (PropertyAccessException ex) {
-			log.warn("Error occurred reading property: "
-					+ CONFIG_KEY_RETRYATTEMPTS + " value from config file ("
-					+ CONFIG_FILE + ".properties).  Exception: "
-					+ ex.toString());
-		} catch (NumberFormatException nfe) {
-			log.warn("Error occurred converting property: "
-					+ CONFIG_KEY_RETRYATTEMPTS
-					+ " value to integer from config file (" + CONFIG_FILE
-					+ ".properties).  Exception: " + nfe.toString());
-		}
-
-		return retryAttempts;
+		return properties.getRetryAttempts();
 	}
 
 	/**
@@ -448,28 +399,7 @@ public class WebServiceProxyHelper {
 	 * @return The retry delay setting.
 	 */
 	public int getRetryDelay() {
-		int retryDelay = 0;
-		try {
-			String sValue = getGatewayProperty(CONFIG_KEY_RETRYDELAY);
-			log.debug("Retrieved from config file (" + CONFIG_FILE
-					+ ".properties) " + CONFIG_KEY_RETRYDELAY + "='" + sValue
-					+ "')");
-			if (NullChecker.isNotNullish(sValue)) {
-				retryDelay = Integer.parseInt(sValue);
-			}
-		} catch (PropertyAccessException ex) {
-			log.warn("Error occurred reading property: "
-					+ CONFIG_KEY_RETRYDELAY + " value from config file ("
-					+ CONFIG_FILE + ".properties).  Exception: "
-					+ ex.toString());
-		} catch (NumberFormatException nfe) {
-			log.warn("Error occurred converting property: "
-					+ CONFIG_KEY_RETRYDELAY
-					+ " value to integer from config file (" + CONFIG_FILE
-					+ ".properties).  Exception: " + nfe.toString());
-		}
-
-		return retryDelay;
+		return properties.getRetryDelay();
 	}
 
 	/**
@@ -478,27 +408,8 @@ public class WebServiceProxyHelper {
 	 * @return
 	 */
 	public int getTimeout() {
-		int timeout = 0;
-		try {
-			String sValue = getGatewayProperty(CONFIG_KEY_TIMEOUT);
-			log.debug("Retrieved from config file (" + CONFIG_FILE
-					+ ".properties) " + CONFIG_KEY_TIMEOUT + "='" + sValue
-					+ "')");
-			if (NullChecker.isNotNullish(sValue)) {
-				timeout = Integer.parseInt(sValue);
-			}
-		} catch (PropertyAccessException ex) {
-			log.warn("Error occurred reading property: " + CONFIG_KEY_TIMEOUT
-					+ " value from config file (" + CONFIG_FILE
-					+ ".properties).  Exception: " + ex.toString());
-		} catch (NumberFormatException nfe) {
-			log.warn("Error occurred converting property: "
-					+ CONFIG_KEY_TIMEOUT
-					+ " value to integer from config file (" + CONFIG_FILE
-					+ ".properties).  Exception: " + nfe.toString());
-		}
-
-		return timeout;
+		
+		return properties.getTimeout();
 	}
 
 	/**
@@ -520,7 +431,7 @@ public class WebServiceProxyHelper {
 	 * @return instance of the SamlTokenCreator
 	 */
 	protected SamlTokenCreator getSamlTokenCreator() {
-		return new SamlTokenCreator();
+		return samlTokenCreator;
 	}
 
 	/**
@@ -1014,10 +925,10 @@ public class WebServiceProxyHelper {
 
                         // @TODO do we really want to retry a web service call when
                         // an InvocationException is returned, which is what invokePortWithRetry does???
-//			oResponse = invokePortWithRetry(portObject, portClass,
-//					operationInput, iRetryCount, iRetryDelay, oMethod);
-			oResponse = invokePort(portObject, portClass, operationInput,
-					oResponse, oMethod);
+			oResponse = invokePortWithRetry(portObject, portClass,
+					operationInput, iRetryCount, iRetryDelay, oMethod);
+//			oResponse = invokePort(portObject, portClass, operationInput,
+//					oResponse, oMethod);
 
 		} // if ((iRetryCount > 0) && (iRetryDelay > 0))
 		else {

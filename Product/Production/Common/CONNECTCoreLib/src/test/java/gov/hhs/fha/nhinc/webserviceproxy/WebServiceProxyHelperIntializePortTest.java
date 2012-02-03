@@ -6,7 +6,9 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.sun.xml.ws.developer.WSBindingProvider;
@@ -17,7 +19,19 @@ public class WebServiceProxyHelperIntializePortTest extends
 	final WSBindingProvider mockPort = context.mock(WSBindingProvider.class);
 	@SuppressWarnings("unchecked")
 	final Map<String, Object> mockRequestContext = context.mock(Map.class);
+	final Log mockLog = context.mock(Log.class);
 
+	WebServiceProxyHelper oHelper;
+	
+	
+
+	@Before
+	public void before() throws PropertyAccessException {
+		initializationExpectations();	
+	oHelper = new WebServiceProxyHelper(mockLog,
+			mockPropertyAccessor);
+	}
+	
 	
 	/**
 	 * Test the initializePort no assertion class method happy path.
@@ -27,10 +41,8 @@ public class WebServiceProxyHelperIntializePortTest extends
 	@Test
 	public void testInitializePortNoAssertionHappyPath()
 			throws PropertyAccessException {
-
-		WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog,
-				mockPropertyAccessor);
-
+		
+	
 		context.checking(new Expectations() {
 
 			{
@@ -51,17 +63,11 @@ public class WebServiceProxyHelperIntializePortTest extends
 				allowing(mockRequestContext).containsKey(
 						WebServiceProxyHelper.KEY_URL);
 				will(returnValue(true));
-
-				allowing(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("5"));
-
-				allowing(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_TIMEOUT);
-				will(returnValue("300"));
-
 			}
-		});
+			});
+		
+	
+	
 
 		oHelper.initializeUnsecurePort(mockPort, "http://www.someurlnew.com",
 				null, null);
@@ -76,6 +82,9 @@ public class WebServiceProxyHelperIntializePortTest extends
 	@Test
 	public void testInitializePortWithAssertionHappyPath()
 			throws PropertyAccessException {
+		
+		
+		
 		context.checking(new Expectations() {
 
 			{
@@ -98,14 +107,6 @@ public class WebServiceProxyHelperIntializePortTest extends
 				allowing(mockRequestContext).containsKey(
 						WebServiceProxyHelper.KEY_URL);
 				will(returnValue(true));
-
-				allowing(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("5"));
-
-				allowing(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_TIMEOUT);
-				will(returnValue("300"));
 
 				oneOf(mockPort).setOutboundHeaders(with(any(List.class)));
 
@@ -303,9 +304,7 @@ public class WebServiceProxyHelperIntializePortTest extends
 					ignoring(mockLog).isInfoEnabled();
 					allowing(mockPort).getRequestContext();
 					
-					oneOf(mockPropertyAccessor).getProperty(
-							WebServiceProxyHelper.CONFIG_KEY_TIMEOUT);
-					will(returnValue("0"));
+				
 				}
 			});
 

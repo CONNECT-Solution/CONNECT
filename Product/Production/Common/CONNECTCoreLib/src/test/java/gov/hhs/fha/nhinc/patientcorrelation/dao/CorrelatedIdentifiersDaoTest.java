@@ -6,6 +6,7 @@
 package gov.hhs.fha.nhinc.patientcorrelation.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.CorrelatedIdentifiersDao;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.CorrelatedIdentifiersDaoImpl;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import java.util.Date;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class CorrelatedIdentifiersDaoTest {
 
      @Test
      public void testAddPatientCorrelation() {
-        CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDao(){
+        CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDaoImpl(){
             public void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
                 
             }

@@ -200,8 +200,10 @@ public class ExecutorServiceHelper{
     public static String getFormattedExceptionInfo(Exception ex, NhinTargetSystemType target,
             String serviceName){
         String err = "EXCEPTION: " + ex.getClass().getCanonicalName() + "\r\n";
-        err += "EXCEPTION Cause: " + ex.getCause().getClass().getCanonicalName() + "\r\n";
-        if(ex.getCause() instanceof com.sun.xml.ws.client.ClientTransportException){
+        Throwable cause = ex.getCause();
+        if ( cause != null) {
+		err += "EXCEPTION Cause: " + cause.getClass().getCanonicalName() + "\r\n";
+        if(cause instanceof com.sun.xml.ws.client.ClientTransportException){
             try{
                 NhincConstants.GATEWAY_API_LEVEL apiLevel =
                         ConnectionManagerCache.getInstance().getApiVersion(
@@ -212,7 +214,8 @@ public class ExecutorServiceHelper{
                 err += "EXCEPTION Message: Unable to connect to endpoint url=" + url + "\r\n";
             }catch(Exception e){}
         }
-        err += "EXCEPTION Cause Message: " + ex.getCause().getMessage();
+        err += "EXCEPTION Cause Message: " + cause.getMessage();
+        }
         return err;
     }
 

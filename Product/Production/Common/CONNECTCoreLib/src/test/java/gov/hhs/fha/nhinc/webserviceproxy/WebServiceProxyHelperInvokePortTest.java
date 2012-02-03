@@ -16,10 +16,15 @@ import javax.xml.ws.WebServiceException;
 
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
+import org.junit.Before;
 import org.junit.Test;
 
 public class WebServiceProxyHelperInvokePortTest extends
 		AbstractWebServiceProxyHelpTest {
+
+	final Log mockLog = context.mock(Log.class);
+
+	WebServiceProxyHelper oHelper;
 
 	/**
 	 * This method is used to test out some of the dynamic invocaton methods.
@@ -55,6 +60,35 @@ public class WebServiceProxyHelperInvokePortTest extends
 		throw new WebServiceException("WebServiceExpcetion");
 	}
 
+	@Before
+	public void before() throws PropertyAccessException {
+		context.checking(new Expectations() {
+			{
+				oneOf(mockPropertyAccessor)
+				.getProperty(
+						WebServiceProxyHelperProperties.CONFIG_KEY_TIMEOUT);
+		will(returnValue("0"));
+
+				
+				oneOf(mockPropertyAccessor)
+						.getProperty(
+								WebServiceProxyHelperProperties.CONFIG_KEY_RETRYATTEMPTS);
+				will(returnValue("0"));
+
+				oneOf(mockPropertyAccessor).getProperty(
+						WebServiceProxyHelperProperties.CONFIG_KEY_RETRYDELAY);
+				will(returnValue("10"));
+
+				exactly(3).of(mockPropertyAccessor).getProperty(
+						WebServiceProxyHelperProperties.CONFIG_KEY_EXCEPTION);
+				will(returnValue("SocketTimeoutException"));
+
+			}
+		});
+
+		oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor);
+	}
+
 	/**
 	 * Test the getMethod method.
 	 */
@@ -78,18 +112,6 @@ public class WebServiceProxyHelperInvokePortTest extends
 
 			{
 				ignoring(mockLog).debug(with(any(String.class)));
-
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("0"));
-
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYDELAY);
-				will(returnValue("0"));
-
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_EXCEPTION);
-				will(returnValue("SocketTimeoutException"));
 
 			}
 		});
@@ -116,23 +138,12 @@ public class WebServiceProxyHelperInvokePortTest extends
 				oneOf(mockLog).error(with(any(String.class)),
 						with(any(WebServiceException.class)));
 
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("0"));
-
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYDELAY);
-				will(returnValue("10"));
-
-				exactly(3).of(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_EXCEPTION);
-				will(returnValue("SocketTimeoutException"));
 
 			}
 		});
 
-		oHelper.invokePort(this, this.getClass(),
-				"helperMethod2", new Integer(100));
+		oHelper.invokePort(this, this.getClass(), "helperMethod2", new Integer(
+				100));
 
 	}
 
@@ -151,23 +162,12 @@ public class WebServiceProxyHelperInvokePortTest extends
 				oneOf(mockLog).error(with(any(String.class)),
 						with(any(SocketTimeoutException.class)));
 
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("0"));
-
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYDELAY);
-				will(returnValue("0"));
-
-				exactly(3).of(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_EXCEPTION);
-				will(returnValue("SocketTimeoutException"));
+			
 
 			}
 		});
 
-		 oHelper.invokePort(this, this.getClass(),
-				"exceptionalMethod", 100);
+		oHelper.invokePort(this, this.getClass(), "exceptionalMethod", 100);
 
 	}
 
@@ -185,17 +185,7 @@ public class WebServiceProxyHelperInvokePortTest extends
 				oneOf(mockLog).error(with(any(String.class)),
 						with(any(WebServiceException.class)));
 
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("3"));
-
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYDELAY);
-				will(returnValue("10"));
-
-				exactly(3).of(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_EXCEPTION);
-				will(returnValue("javax.xml.ws.WebServiceException"));
+		
 
 			}
 		});
@@ -223,17 +213,7 @@ public class WebServiceProxyHelperInvokePortTest extends
 				exactly(3).of(mockLog).error(with(any(String.class)),
 						with(any(WebServiceException.class)));
 
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("3"));
-
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYDELAY);
-				will(returnValue("10"));
-
-				exactly(3).of(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_EXCEPTION);
-				will(returnValue("javax.xml.ws.WebServiceException"));
+		
 
 			}
 		});
@@ -258,17 +238,6 @@ public class WebServiceProxyHelperInvokePortTest extends
 				oneOf(mockLog).error(with(any(String.class)),
 						with(any(WebServiceException.class)));
 
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("3"));
-
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYDELAY);
-				will(returnValue("10"));
-
-				exactly(3).of(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_EXCEPTION);
-				will(returnValue("javax.xml.ws.WebServiceException"));
 			}
 		});
 
@@ -292,17 +261,7 @@ public class WebServiceProxyHelperInvokePortTest extends
 				oneOf(mockLog).error(with(any(String.class)),
 						with(any(WebServiceException.class)));
 
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("3"));
-
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYDELAY);
-				will(returnValue("10"));
-
-				exactly(3).of(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_EXCEPTION);
-				will(returnValue("javax.xml.ws.WebServiceException"));
+	
 			}
 		});
 
@@ -325,23 +284,10 @@ public class WebServiceProxyHelperInvokePortTest extends
 				exactly(3).of(mockLog).error(with(any(String.class)),
 						with(any(WebServiceException.class)));
 
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("3"));
-
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_RETRYDELAY);
-				will(returnValue("10"));
-
-				exactly(3).of(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelper.CONFIG_KEY_EXCEPTION);
-				will(returnValue("javax.xml.ws.WebServiceException"));
-
 			}
 		});
 
-		oHelper.invokePort(this, this.getClass(),
-				"exceptionalWSMethod", 100);
+		oHelper.invokePort(this, this.getClass(), "exceptionalWSMethod", 100);
 	}
 
 }

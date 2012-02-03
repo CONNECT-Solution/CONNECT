@@ -41,10 +41,16 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
  *
  * @author jhoppesc
  */
-public class PatientCorrelationOrchImpl {
+public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PatientCorrelationOrchImpl.class);
-
-    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion) {
+    private  CorrelatedIdentifiersDao dao;
+    
+    public PatientCorrelationOrchImpl(CorrelatedIdentifiersDao dao) {
+    	this.dao = dao;
+    }
+    
+    @Override
+	public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion) {
         PRPAMT201307UV02PatientIdentifier patIdentifier = PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message(retrievePatientCorrelationsRequest);
         if (patIdentifier == null) {
             return null;
@@ -64,7 +70,6 @@ public class PatientCorrelationOrchImpl {
         List<String> dataSourceList = extractDataSourceList(retrievePatientCorrelationsRequest);
 
 
-        CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDao();
         QualifiedPatientIdentifier inputQualifiedPatientIdentifier = QualifiedPatientIdentifierFactory(inputPatientId);
 
         //only non-expired patient correlation records will be returned
@@ -80,7 +85,8 @@ public class PatientCorrelationOrchImpl {
         return result;
     }
 
-    public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 addPatientCorrelationRequest, AssertionType assertion) {
+    @Override
+	public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 addPatientCorrelationRequest, AssertionType assertion) {
 
 
         PRPAMT201301UV02Patient patient = PRPAIN201301UVParser.ParseHL7PatientPersonFrom201301Message(addPatientCorrelationRequest);
@@ -142,7 +148,6 @@ public class PatientCorrelationOrchImpl {
         correlatedIdentifers.setPatientId(patientId);
         correlatedIdentifers.setPatientAssigningAuthorityId(patientAssigningAuthId);
         correlatedIdentifers.setCorrelationExpirationDate(newExpirationDate);
-        CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDao();
         dao.addPatientCorrelation(correlatedIdentifers);
 
 

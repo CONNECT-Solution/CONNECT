@@ -20,23 +20,14 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author svalluripalli
  */
-public class CorrelatedIdentifiersDao {
+public interface CorrelatedIdentifiersDao {
 
-    Log log = LogFactory.getLog(CorrelatedIdentifiersDao.class);
 
-    public void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
-        Storer.addPatientCorrelation(correlatedIdentifers);
-    }
+    public void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers);
 
-    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {
-        return Retriever.retrievePatientCorrelation(qualifiedPatientIdentifier, includeOnlyAssigningAuthorities);
-    }
+    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities);
 
-    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(QualifiedPatientIdentifier qualifiedPatientIdentifier) {
-        return Retriever.retrievePatientCorrelation(qualifiedPatientIdentifier);
-    }
+    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(QualifiedPatientIdentifier qualifiedPatientIdentifier);
 
-    public void removePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
-        Storer.removePatientCorrelation(correlatedIdentifers);
-    }
+    public void removePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers);
 }
