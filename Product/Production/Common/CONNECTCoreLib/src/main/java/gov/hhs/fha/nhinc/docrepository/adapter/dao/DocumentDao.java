@@ -18,7 +18,10 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * Data access object class for Document data
@@ -325,23 +328,69 @@ public class DocumentDao
 
                     if ((classCodes != null) && (!classCodes.isEmpty()))
                     {
-                        if (log.isDebugEnabled())
+                        /**************************************************************
+                         * The class code and class code scheme combination can come
+                         * in two different formats:
+                         *
+                         * <ns7:Slot name="$XDSDocumentEntryClassCode">
+                         *    <ns7:ValueList>
+                         *       <ns7:Value>34133-9</ns7:Value>
+                         *    </ns7:ValueList>
+                         * </ns7:Slot>
+                         * <ns7:Slot name="$XDSDocumentEntryClassCodeScheme">
+                         *   <ns7:ValueList>
+                         *    <ns7:Value>2.16.840.1.113883.6.1</ns7:Value>
+                         *   </ns7:ValueList>
+                         * </ns7:Slot>
+                         *
+                         * or
+                         *
+                         * <ns7:Slot name="$XDSDocumentEntryClassCode">
+                         *   <ns7:ValueList>
+                         *       <ns7:Value>('34133-9^^2.16.840.1.113883.6.1')</ns7:Value>
+                         *   </ns7:ValueList>
+                         *   </ns7:Slot>
+                         *
+                         * The code below can deal with both formats.
+                         *
+                         *************************************************************/
+                        Criterion  criterion = null;
+                        for (String classCode : classCodes)
                         {
-                            for (String classCode : classCodes)
+                            if (log.isDebugEnabled())
                             {
-                            log.debug("Document query - class code: " + classCode);
+                              log.debug("Document query - class code: " + classCode);
+                            }
+                            String newClassCode = null;
+                            String newCodeScheme = null;
+
+                            if (classCode.contains("^^"))
+                            {
+                                int index = classCode.indexOf("^^");
+                                newClassCode = classCode.substring(0,index);
+                                newCodeScheme = classCode.substring(index+2);
+                            }
+                            else
+                            {
+                                newClassCode = classCode;
+                                newCodeScheme = classCodeScheme;
+                            }
+
+                            Criterion andCrit = Expression.eq("classCode", newClassCode);
+                            if (newCodeScheme != null && !newCodeScheme.isEmpty())
+                            {
+                                andCrit = Restrictions.and(andCrit, Expression.eq("classCodeScheme", newCodeScheme) );
+                            }
+                            if (criterion == null)
+                            {
+                                criterion = andCrit;
+                            }
+                            else
+                            {
+                                criterion = Restrictions.or(criterion, andCrit);
                             }
                         }
-                        criteria.add(Expression.in("classCode", classCodes));
-                    }
-
-                    if (classCodeScheme != null)
-                    {
-                        if (log.isDebugEnabled())
-                        {
-                            log.debug("Document query - class code scheme: " + classCodeScheme);
-                        }
-                        criteria.add(Expression.eq("classCodeScheme", classCodeScheme));
+                        criteria.add(criterion);
                     }
 
                     if (creationTimeFrom != null)
