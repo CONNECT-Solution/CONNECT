@@ -18,7 +18,7 @@ public class OutboundAdminDistributionFactory {
         switch (apiLevel) {
             case LEVEL_g0: return new OutboundAdminDistributionOrchestrationContextBuilder_g0();
             case LEVEL_g1: return new OutboundAdminDistributionOrchestrationContextBuilder_g1();
-            default: return null;
+            default: return new OutboundAdminDistributionOrchestrationContextBuilder_g1();
         }
     }
 

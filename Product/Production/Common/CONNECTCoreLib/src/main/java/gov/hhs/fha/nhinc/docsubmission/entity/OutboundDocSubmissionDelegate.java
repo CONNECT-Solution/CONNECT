@@ -7,6 +7,7 @@ package gov.hhs.fha.nhinc.docsubmission.entity;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,16 +20,6 @@ public class OutboundDocSubmissionDelegate implements OutboundDelegate {
 
     private static Log log = LogFactory.getLog(OutboundDocSubmissionDelegate.class);
 
-    @Override
-    public OutboundOrchestratable process(OutboundOrchestratable message) {
-        getLogger().debug("begin process");
-        if (message instanceof OutboundDocSubmissionOrchestratable) {
-            return process((OutboundDocSubmissionOrchestratable) message);
-        }
-        getLogger().error("message is not an instance of NhinDocSubmissionOrchestratable!");
-        return null;
-    }
-
     public Orchestratable process(Orchestratable message) {
         if (message instanceof OutboundOrchestratable) {
             return process((OutboundOrchestratable) message);
@@ -36,21 +27,30 @@ public class OutboundDocSubmissionDelegate implements OutboundDelegate {
         return null;
     }
 
-    private Log getLogger() {
-        return log;
-    }
+    @Override
+    public OutboundOrchestratable process(OutboundOrchestratable message) {
+        getLogger().debug("begin process");
+        if (message instanceof OutboundDocSubmissionOrchestratable) {
+            getLogger().debug("processing DS orchestratable ");
+            OutboundDocSubmissionOrchestratable dsMessage = (OutboundDocSubmissionOrchestratable) message;
 
-    private OutboundDocSubmissionOrchestratable process(OutboundDocSubmissionOrchestratable dsMessage) {
-        getLogger().debug("processing of Document Submission orchestratable has begun");
-
-        OutboundDocSubmissionOrchestrationContextBuilder contextBuilder = (OutboundDocSubmissionOrchestrationContextBuilder) OrchestrationContextFactory.getInstance().getBuilder(
+            OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
                 dsMessage.getAssertion().getHomeCommunity(), dsMessage.getServiceName());
 
-        contextBuilder.setAssertionType(dsMessage.getAssertion());
-        contextBuilder.setNhinDelegate(dsMessage.getNhinDelegate());
-        contextBuilder.setNhinTargetSystemType(dsMessage.getTarget());
-        contextBuilder.setRequestType(dsMessage.getRequest());
+            if (contextBuilder instanceof OutboundDocSubmissionOrchestrationContextBuilder_g0) {
+                ((OutboundDocSubmissionOrchestrationContextBuilder_g0) contextBuilder).init(message);
+            } else if (contextBuilder instanceof OutboundDocSubmissionOrchestrationContextBuilder_g1) {
+                ((OutboundDocSubmissionOrchestrationContextBuilder_g1) contextBuilder).init(message);
+            } else  {
+                return null;
+            }
+            return (OutboundOrchestratable)contextBuilder.build().execute();
+        }
+        getLogger().error("message is not an instance of OutboundDocSubmissionOrchestratable!");
+        return null;
+    }
 
-        return (OutboundDocSubmissionOrchestratable) contextBuilder.build().execute();
+    private Log getLogger() {
+        return log;
     }
 }

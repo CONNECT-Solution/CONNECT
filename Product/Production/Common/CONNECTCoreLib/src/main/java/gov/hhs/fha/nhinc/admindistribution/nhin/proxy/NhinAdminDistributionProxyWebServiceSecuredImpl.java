@@ -87,7 +87,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     protected RespondingGatewayAdministrativeDistributionPortType getPort(String url, AssertionType assertion,
             NhincConstants.GATEWAY_API_LEVEL apiLevel)
     {
-        WebServiceProxyHelper proxyHelper =getWebServiceProxyHelper();
+        WebServiceProxyHelper proxyHelper = getWebServiceProxyHelper();
 
         RespondingGatewayAdministrativeDistributionPortType port = null;
         Service service;
@@ -114,6 +114,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     {
         return new WebServiceProxyHelper();
     }
+    
     protected Service getService(String wsdl, String uri, String service)
     {
         if (cachedService == null)

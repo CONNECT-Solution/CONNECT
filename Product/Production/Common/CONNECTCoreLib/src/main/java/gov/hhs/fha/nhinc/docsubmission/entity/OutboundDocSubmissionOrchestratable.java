@@ -28,12 +28,12 @@ public class OutboundDocSubmissionOrchestratable implements OutboundOrchestratab
     private RegistryResponseType response = null;
 
     public OutboundDocSubmissionOrchestratable(OutboundDelegate delegate) {
-        nhinDelegate = delegate;
+        this.nhinDelegate = delegate;
     }
 
-    public OutboundDocSubmissionOrchestratable(AssertionType assertion, OutboundDelegate delegate, ProvideAndRegisterDocumentSetRequestType request, NhinTargetSystemType target) {
+    public OutboundDocSubmissionOrchestratable(OutboundDelegate delegate, ProvideAndRegisterDocumentSetRequestType request, NhinTargetSystemType target, AssertionType assertion) {
+        this(delegate);
         this.assertion = assertion;
-        this.nhinDelegate = delegate;
         this.request = request;
         this.target = target;
     }

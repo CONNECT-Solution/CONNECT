@@ -9,6 +9,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 
@@ -26,6 +27,13 @@ public abstract class OutboundDocSubmissionOrchestrationContextBuilder implement
 
     public abstract OrchestrationContext build();
 
+    public void init(OutboundOrchestratable message) {
+        setAssertionType(message.getAssertion());
+        setRequest(((OutboundDocSubmissionOrchestratable) message).getRequest());
+        setTarget(((OutboundDocSubmissionOrchestratable) message).getTarget());
+        setNhinDelegate(((OutboundDocSubmissionOrchestratable) message).getNhinDelegate());
+    }
+
     public AssertionType getAssertionType() {
         return assertionType;
     }
@@ -34,7 +42,7 @@ public abstract class OutboundDocSubmissionOrchestrationContextBuilder implement
         this.assertionType = assertionType;
     }
 
-    public static Log getLog() {
+    public Log getLog() {
         return log;
     }
 
@@ -51,15 +59,15 @@ public abstract class OutboundDocSubmissionOrchestrationContextBuilder implement
         return request;
     }
 
-    public void setRequestType(ProvideAndRegisterDocumentSetRequestType request) {
+    public void setRequest(ProvideAndRegisterDocumentSetRequestType request) {
         this.request = request;
     }
 
-    public NhinTargetSystemType getNhinTargetSystemType() {
+    public NhinTargetSystemType getTarget() {
         return target;
     }
 
-    public void setNhinTargetSystemType(NhinTargetSystemType target) {
+    public void setTarget(NhinTargetSystemType target) {
         this.target = target;
     }
 }

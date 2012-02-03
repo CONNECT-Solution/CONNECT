@@ -31,6 +31,15 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
         nhinDelegate = delegate;
     }
 
+    public OutboundAdminDistributionOrchestratable( OutboundDelegate delegate, RespondingGatewaySendAlertMessageType request,
+            NhinTargetSystemType targetSystem, AssertionType assertion)
+    {
+        this(delegate);
+        setRequest(request);
+        setAssertion(assertion);
+        setTarget(targetSystem);
+    }
+
     public RespondingGatewaySendAlertMessageType getRequest() {
         return request;
     }

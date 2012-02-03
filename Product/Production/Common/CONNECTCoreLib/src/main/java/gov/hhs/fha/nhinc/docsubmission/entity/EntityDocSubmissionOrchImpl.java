@@ -153,10 +153,6 @@ public class EntityDocSubmissionOrchImpl {
         AcknowledgementType ack = auditLog.auditXDR(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         log.debug("ack: " + ack.getMessage());
 
-        // Core Refactor will create these
-      //  NhinDocSubmissionProxyObjectFactory factory = new NhinDocSubmissionProxyObjectFactory();
-        //NhinDocSubmissionProxy proxy = factory.getNhinDocSubmissionProxy();
-
         OutboundDocSubmissionDelegate dsDelegate = new OutboundDocSubmissionDelegate();
         OutboundDocSubmissionOrchestratable dsOrchestratable = new OutboundDocSubmissionOrchestratable(dsDelegate);
         dsOrchestratable.setAssertion(assertion);

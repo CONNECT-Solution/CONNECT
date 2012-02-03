@@ -43,13 +43,14 @@ public class OutboundAdminDistributionStrategyImpl_g0 implements OrchestrationSt
             return;
         }
 
-        if (message instanceof OutboundAdminDistributionOrchestratableImpl_a0) {
+
+        if (message instanceof OutboundAdminDistributionOrchestratable) {
             
             NhinAdminDistributionProxy nhincAdminDist = new NhinAdminDistributionProxyObjectFactory().getNhinAdminDistProxy();
             nhincAdminDist.sendAlertMessage(message.getRequest().getEDXLDistribution(),
                     message.getRequest().getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
         } else {
-            getLogger().error("NhinAdminDistributionImpl_g0 AdapterDelegateImpl_a0.process recieved a message " +
+            getLogger().error("NhinAdminDistributionImpl_g0 AdapterDelegateImpl.process received a message " +
                     "which was not of type NhinAdminDistributionOrchestratableImpl_g0.");
         }
         getLogger().debug("End NhinAdminDistributionOrchestratableImpl_g0.process");
