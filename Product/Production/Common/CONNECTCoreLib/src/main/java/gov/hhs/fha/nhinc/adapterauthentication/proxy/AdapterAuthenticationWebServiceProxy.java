@@ -6,24 +6,30 @@
  */
 package gov.hhs.fha.nhinc.adapterauthentication.proxy;
 
-import gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthentication;
 import gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 
 /**
  * This is the concrete implementation for the Web based call to the
  * AdapterAuthentication.
  */
-public class AdapterAuthenticationWebServiceProxy {
+public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticationProxy {
 
     private static Log log = LogFactory.getLog(AdapterAuthenticationWebServiceProxy.class);
-    private static AdapterAuthentication authService = null;
     private static String ADAPTER_AUTH_SERVICE_NAME = "adapterauthentication";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterauthentication";
+    private static final String SERVICE_LOCAL_PART = "AdapterAuthentication_Service";
+    private static final String PORT_LOCAL_PART = "AdapterAuthentication_Port";
+    private static final String WSDL_FILE = "AdapterAuthentication.wsdl";
+    private static Service cachedService = null;
+    private WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
 
     /**
      * Given a request to authenticate a user, this service will determine if
@@ -35,21 +41,20 @@ public class AdapterAuthenticationWebServiceProxy {
      */
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
 
+        log.debug("Begin authenticateUser");
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
 
-        try
-        {
+        try {
             AdapterAuthenticationPortType authPort = getAdapterAuthenticationPort();
             authResp = authPort.authenticateUser(authenticateUserRequest);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             String message = "Error occurred calling AdapterAuthenticationWebServiceProxy.authenticateUser.  Error: " +
-                                   ex.getMessage();
+                    ex.getMessage();
             log.error(message, ex);
             throw new RuntimeException(message, ex);
         }
 
+        log.debug("End authenticateUser");
         return authResp;
     }
 
@@ -59,40 +64,48 @@ public class AdapterAuthenticationWebServiceProxy {
      * @return The handle to the Adapter Authentication port web service.
      */
     private AdapterAuthenticationPortType getAdapterAuthenticationPort()
-        throws AdapterAuthenticationException
-    {
-        AdapterAuthenticationPortType authPort = null;
+            throws AdapterAuthenticationException {
+        AdapterAuthenticationPortType port = null;
+        Service service = getService();
+        if (service != null) {
+            log.debug("Obtained service - creating port.");
 
-        try
-        {
-            if (authService == null)
-            {
-                authService = new AdapterAuthentication();
-            }
+            String url = getUrl(ADAPTER_AUTH_SERVICE_NAME);
 
-            authPort = authService.getAdapterAuthenticationPortSoap();
-
-            // Get the real endpoint URL for this service.
-            String endpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(ADAPTER_AUTH_SERVICE_NAME);
-
-            if ((endpointURL == null) ||
-                (endpointURL.length() <= 0))
-            {
-                String message = "Failed to retrieve the Endpoint URL for service: '" +
-                                       ADAPTER_AUTH_SERVICE_NAME + "'.  " +
-                                       "Setting this to: '" + endpointURL + "'";
-                log.warn(message);
-            }
-            ((javax.xml.ws.BindingProvider)authPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
-        }
-        catch (Exception ex)
-        {
-            String message = "Failed to retrieve a handle to the Adapter PIP web service.  Error: " +
-                                   ex.getMessage();
-            log.error(message, ex);
-            throw new AdapterAuthenticationException(message, ex);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterAuthenticationPortType.class);
+            proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, null, null);
+        } else {
+            log.error("Unable to obtain serivce - no port created.");
         }
 
-        return authPort;
+        return port;
+    }
+
+    /**
+     * Retrieve the service class for this web service.
+     *
+     * @return The service class for this web service.
+     */
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
+                cachedService = proxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            } catch (Throwable t) {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
+    }
+
+    protected String getUrl(String serviceName) {
+        String result = "";
+        try {
+            result = proxyHelper.getUrlLocalHomeCommunity(serviceName);
+        } catch (Exception ex) {
+            log.warn("Unable to retreive url for service: " + serviceName);
+            log.warn("Error: " + ex.getMessage(), ex);
+        }
+
+        return result;
     }
 }
