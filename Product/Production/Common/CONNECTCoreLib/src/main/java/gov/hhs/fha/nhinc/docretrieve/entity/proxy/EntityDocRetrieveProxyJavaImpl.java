@@ -28,7 +28,16 @@ package gov.hhs.fha.nhinc.docretrieve.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAggregator_a0;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAuditTransformer_a0;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratableImpl;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratorImpl;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrievePolicyTransformer_a0;
+import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -44,16 +53,21 @@ public class EntityDocRetrieveProxyJavaImpl implements EntityDocRetrieveProxy{
     {
         log = createLogger();
     }
+
     protected Log createLogger()
     {
         return LogFactory.getLog(getClass());
     }
+    
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetCommunitiesType targets) {
-        return getEntityImpl().respondingGatewayCrossGatewayRetrieve(body, assertion);
-    }
-    protected EntityDocRetrieveOrchImpl getEntityImpl()
-    {
-        return new EntityDocRetrieveOrchImpl();
+        PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
+        AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
+        OutboundDelegate nd = new OutboundDocRetrieveDelegate();
+        NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
+        OutboundDocRetrieveOrchestratableImpl EntityDROrchImpl = new OutboundDocRetrieveOrchestratableImpl(body, assertion, pt, at, nd, na, null);
+        OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
+        oOrchestrator.process(EntityDROrchImpl);
+        return EntityDROrchImpl.getResponse();
     }
 
 }

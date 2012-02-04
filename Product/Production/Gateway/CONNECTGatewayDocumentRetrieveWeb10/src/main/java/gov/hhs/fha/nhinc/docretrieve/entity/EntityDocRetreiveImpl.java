@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.ResponseScrubber;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
@@ -75,7 +76,7 @@ public class EntityDocRetreiveImpl {
         AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
         OutboundDelegate nd = new OutboundDocRetrieveDelegate();
         NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-        EntityDocRetrieveOrchestratableImpl_a0 EntityDROrchImpl = new EntityDocRetrieveOrchestratableImpl_a0(body, assertion, pt, at, nd, na, null);
+        OutboundDocRetrieveOrchestratableImpl EntityDROrchImpl = new OutboundDocRetrieveOrchestratableImpl(body, assertion, pt, at, nd, na, null);
         OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
         oOrchestrator.process(EntityDROrchImpl);
 
@@ -83,11 +84,8 @@ public class EntityDocRetreiveImpl {
         Timestamp stoptime = new Timestamp(System.currentTimeMillis());
         PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
 
-        return EntityDROrchImpl.getResponse();
-    }
-
-    protected EntityDocRetrieveOrchImpl getEntityOrchImpl() {
-        return new EntityDocRetrieveOrchImpl();
+        ResponseScrubber rs = new ResponseScrubber();
+        return rs.Scrub(EntityDROrchImpl.getResponse());
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {

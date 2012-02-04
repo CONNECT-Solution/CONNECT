@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import java.util.Set;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
@@ -48,10 +47,10 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
         return logger;
     }
     public void aggregate(OutboundOrchestratable to, OutboundOrchestratable from) {
-        if (to instanceof EntityDocRetrieveOrchestratableImpl_a0) {
-            if (from instanceof EntityDocRetrieveOrchestratableImpl_a0) {
-                EntityDocRetrieveOrchestratableImpl_a0 to_a0 = (EntityDocRetrieveOrchestratableImpl_a0)to;
-                EntityDocRetrieveOrchestratableImpl_a0 from_a0 = (EntityDocRetrieveOrchestratableImpl_a0)from;
+        if (to instanceof OutboundDocRetrieveOrchestratableImpl) {
+            if (from instanceof OutboundDocRetrieveOrchestratableImpl) {
+                OutboundDocRetrieveOrchestratableImpl to_a0 = (OutboundDocRetrieveOrchestratableImpl)to;
+                OutboundDocRetrieveOrchestratableImpl from_a0 = (OutboundDocRetrieveOrchestratableImpl)from;
                 if (to_a0.getResponse() == null)
                 {
                     to_a0.setResponse(new RetrieveDocumentSetResponseType());

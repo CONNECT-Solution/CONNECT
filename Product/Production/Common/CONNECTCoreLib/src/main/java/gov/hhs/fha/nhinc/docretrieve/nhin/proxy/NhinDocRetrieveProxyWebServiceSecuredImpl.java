@@ -91,7 +91,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      * @param targetSystem The target system where the message is being sent to.
      * @return The document(s) that were retrieved.
      */
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem, GATEWAY_API_LEVEL level) {
         String url = null;
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         String sServiceName = NhincConstants.DOC_RETRIEVE_SERVICE_NAME;
@@ -99,7 +99,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
         try {
             if (request != null) {
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, sServiceName, GATEWAY_API_LEVEL.LEVEL_g0);
+                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, sServiceName, level);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
@@ -111,17 +111,6 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                     Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetHomeCommunityId);
 
                     response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port, RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
-
-                    // Check for Demo Mode
-                    if (DocumentProcessHelper.isDemoOperationModeEnabled()) {
-                        log.debug("CONNECT Demo Operation Mode Enabled");
-                        DocumentProcessHelper documentProcessHelper = getDocumentProcessHelper();
-
-                    // Demo mode enabled, process RetrieveDocumentSetRequestType to save document content to the CONNECT default document repository
-                    documentProcessHelper.documentRepositoryProvideAndRegisterDocumentSet(response);
-                    } else {
-                        log.debug("CONNECT Demo Operation Mode Disabled");
-                    }
 
                     // Log the end of the performance record
                     Timestamp stoptime = new Timestamp(System.currentTimeMillis());

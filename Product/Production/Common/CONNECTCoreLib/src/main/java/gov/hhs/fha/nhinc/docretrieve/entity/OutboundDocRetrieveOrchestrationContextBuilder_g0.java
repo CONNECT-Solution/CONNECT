@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.*;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
-public class OutboundDocRetrieveOrchestrationContextBuilder_g0 implements OrchestrationContextBuilder {
+public class OutboundDocRetrieveOrchestrationContextBuilder_g0 implements OrchestrationContextBuilder, OutboundDocRetrieveContextBuilder {
 
     private RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
     private AssertionType assertionType;
@@ -75,11 +75,11 @@ public class OutboundDocRetrieveOrchestrationContextBuilder_g0 implements Orches
         this.auditTransformer = auditTransformer;
     }
 
-    public OutboundDelegate getNhinDelegate() {
+    public OutboundDelegate getOutboundDelegate() {
         return nhinDelegate;
     }
 
-    public OutboundDocRetrieveOrchestrationContextBuilder_g0 setNhinDelegate(OutboundDelegate nhinDelegate) {
+    public OutboundDocRetrieveOrchestrationContextBuilder_g0 setOutboundDelegate(OutboundDelegate nhinDelegate) {
         this.nhinDelegate = nhinDelegate;
         return this;
     }
@@ -103,8 +103,24 @@ public class OutboundDocRetrieveOrchestrationContextBuilder_g0 implements Orches
 
     @Override
     public OrchestrationContext build() {
-        return new OrchestrationContext(new OutboundDocRetrieveStrategyImpl_g0(), new EntityDocRetrieveOrchestratableImpl_a0(getRetrieveDocumentSetRequestType(), getAssertionType(), getPolicyTransformer(), getAuditTransformer(), getNhinDelegate(), getNhinAggregator(), getTarget()));
+        return new OrchestrationContext(new OutboundDocRetrieveStrategyImpl_g0(), new OutboundDocRetrieveOrchestratableImpl(getRetrieveDocumentSetRequestType(), getAssertionType(), getPolicyTransformer(), getAuditTransformer(), getOutboundDelegate(), getNhinAggregator(), getTarget()));
     }
 
+    @Override
+    public void setContextMessage(OutboundOrchestratable message) {
+        if (message instanceof OutboundDocRetrieveOrchestratable)
+        {
+            setContextMessage((OutboundDocRetrieveOrchestratable)message);
+        }
+    }
 
+    public void setContextMessage(OutboundDocRetrieveOrchestratable message) {
+        setAssertionType(message.getAssertion());
+        setAuditTransformer(message.getAuditTransformer());
+        setNhinAggregator(message.getAggregator());
+        setPolicyTransformer(message.getPolicyTransformer());
+        setTarget(message.getTarget());
+        setRetrieveDocumentSetRequestType(message.getRequest());
+        setOutboundDelegate(message.getNhinDelegate());
+    }
 }

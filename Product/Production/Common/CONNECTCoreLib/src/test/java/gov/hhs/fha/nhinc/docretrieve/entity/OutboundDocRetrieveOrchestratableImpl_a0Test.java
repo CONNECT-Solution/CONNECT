@@ -65,7 +65,7 @@ public class OutboundDocRetrieveOrchestratableImpl_a0Test {
     @Test
     public void testResponse() {
         OutboundDocRetrieveOrchestratableFactory factory = new OutboundDocRetrieveOrchestratableFactory();
-        EntityDocRetrieveOrchestratableImpl_a0 instance = factory.getEntityDocRetrieveOrchestratableImpl_a0();
+        OutboundDocRetrieveOrchestratableImpl instance = factory.getEntityDocRetrieveOrchestratableImpl_a0();
         RetrieveDocumentSetResponseType expResult = factory.getRetrieveDocumentSetResponseType();
         instance.setResponse(expResult);
         RetrieveDocumentSetResponseType result = instance.getResponse();

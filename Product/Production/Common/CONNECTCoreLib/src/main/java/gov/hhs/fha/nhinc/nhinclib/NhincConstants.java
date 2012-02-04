@@ -34,7 +34,8 @@ import java.math.BigInteger;
  */
 public class NhincConstants {
 
-    public static enum GATEWAY_API_LEVEL {LEVEL_g0, LEVEL_g1}
+    public static enum GATEWAY_API_LEVEL {LEVEL_g0, LEVEL_g1}    public static final String HCID_PREFIX = "urn:oid:";
+
     public static enum ADAPTER_API_LEVEL {LEVEL_a0, LEVEL_a1}
     public static enum UDDI_SPEC_VERSION {
 

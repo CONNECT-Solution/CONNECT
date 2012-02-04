@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
 /**
  *
@@ -48,7 +49,8 @@ public class NhinDocRetrieveProxyNoOpImpl implements NhinDocRetrieveProxy
      */
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request,
                                                                                  AssertionType assertion,
-                                                                                 NhinTargetSystemType targetSystem)
+                                                                                 NhinTargetSystemType targetSystem,
+                                                                                 GATEWAY_API_LEVEL level)
     {
         return new RetrieveDocumentSetResponseType();
     }

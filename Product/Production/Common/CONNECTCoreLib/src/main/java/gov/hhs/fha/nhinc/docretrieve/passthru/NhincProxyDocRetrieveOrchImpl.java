@@ -28,13 +28,8 @@ package gov.hhs.fha.nhinc.docretrieve.passthru;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog;
-import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchestratableImpl_a0;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratableImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
-import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyObjectFactory;
-import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxy;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -66,11 +61,11 @@ public class NhincProxyDocRetrieveOrchImpl {
         // Note: auditing occurs in the orchestrator strategy.  
         try {
             OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
-            EntityDocRetrieveOrchestratableImpl_a0 message = new EntityDocRetrieveOrchestratableImpl_a0(request, assertion, null, null, delegate, null, targetSystem);           
+            OutboundDocRetrieveOrchestratableImpl message = new OutboundDocRetrieveOrchestratableImpl(request, assertion, null, null, delegate, null, targetSystem);
             OutboundPassthruDocRetrieveOrchestratorImpl orchestrator = new OutboundPassthruDocRetrieveOrchestratorImpl();
 
-            orchestrator.process(message);
-            response = message.getResponse();
+            OutboundDocRetrieveOrchestratableImpl orchResponse = (OutboundDocRetrieveOrchestratableImpl)orchestrator.process(message);
+            response = orchResponse.getResponse();
         } catch (Throwable t) {
             log.error("Error occured sending doc query to NHIN target: " + t.getMessage(), t);
             response = new RetrieveDocumentSetResponseType();

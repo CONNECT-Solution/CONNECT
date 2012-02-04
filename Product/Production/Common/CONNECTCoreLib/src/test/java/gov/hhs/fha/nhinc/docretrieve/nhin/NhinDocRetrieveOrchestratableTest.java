@@ -73,7 +73,7 @@ public class NhinDocRetrieveOrchestratableTest {
     @Test
     public void testSetAssertion() {
         AssertionType _assertion = new AssertionType();
-        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl();
+        InboundDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl();
         instance.setAssertion(_assertion);
     }
 
@@ -84,7 +84,7 @@ public class NhinDocRetrieveOrchestratableTest {
     public void testGetAdapterDelegate() {
         AdapterDelegateTest t = new AdapterDelegateTest();
         InboundDelegate expResult = t.new AdapterDelegateImpl();
-        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(null, null, expResult, null);
+        InboundDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(null, null, expResult, null);
         InboundDelegate result = instance.getAdapterDelegate();
         assertEquals(expResult, result);
     }
@@ -94,7 +94,7 @@ public class NhinDocRetrieveOrchestratableTest {
      */
     @Test
     public void testIsEnabled() {
-        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl();
+        InboundDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl();
         boolean expResult = true;
         boolean result = instance.isEnabled();
         assertEquals(expResult, result);
@@ -105,7 +105,7 @@ public class NhinDocRetrieveOrchestratableTest {
      */
     @Test
     public void testIsPassthru() {
-        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl();
+        InboundDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl();
         boolean expResult = false;
         boolean result = instance.isPassthru();
         assertEquals(expResult, result);
@@ -118,7 +118,7 @@ public class NhinDocRetrieveOrchestratableTest {
     public void testGetAuditTransformer() {
         AuditTransformerTest t = new AuditTransformerTest();
         AuditTransformer expResult = t.new AuditTransformerImpl();
-        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(null, expResult, null, null);
+        InboundDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(null, expResult, null, null);
         AuditTransformer result = instance.getAuditTransformer();
         assertEquals(expResult, result);
     }
@@ -130,7 +130,7 @@ public class NhinDocRetrieveOrchestratableTest {
     public void testGetPolicyTransformer() {
         PolicyTransformerTest t = new PolicyTransformerTest();
         PolicyTransformer expResult = t.new PolicyTransformerImpl();
-        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(expResult, null, null, null);
+        InboundDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl(expResult, null, null, null);
         PolicyTransformer result = instance.getPolicyTransformer();
         assertEquals(expResult, result);
     }
@@ -140,7 +140,7 @@ public class NhinDocRetrieveOrchestratableTest {
      */
     @Test
     public void testGetAssertion() {
-        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl();
+        InboundDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl();
         AssertionType expResult = new AssertionType();
         instance.setAssertion(expResult);
         AssertionType result = instance.getAssertion();
@@ -152,13 +152,13 @@ public class NhinDocRetrieveOrchestratableTest {
      */
     @Test
     public void testGetServiceName() {
-        NhinDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl();
+        InboundDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl();
         String expResult = "NhinDocumentRetrieve";
         String result = instance.getServiceName();
         assertEquals(expResult, result);
     }
 
-    public class NhinDocRetrieveOrchestratableImpl extends NhinDocRetrieveOrchestratable {
+    public class NhinDocRetrieveOrchestratableImpl extends InboundDocRetrieveOrchestratable {
 
         public NhinDocRetrieveOrchestratableImpl()
         {

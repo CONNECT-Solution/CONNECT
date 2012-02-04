@@ -70,7 +70,8 @@ public class CONNECTOrchestratorTest {
 
     public class CONNECTOrchestratorImpl implements CONNECTOrchestrator {
 
-        public void process(Orchestratable message) {
+        public Orchestratable process(Orchestratable message) {
+            return null;
         }
     }
 

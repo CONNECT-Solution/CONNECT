@@ -51,28 +51,29 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
     private static final Log logger = LogFactory.getLog(CONNECTOrchestrationBase.class);
 
-    public void process(Orchestratable message) {
+    public Orchestratable process(Orchestratable message) {
+        Orchestratable resp = null;
         getLogger().debug(
                 "Entering CONNECTNhinOrchestrator for " + message.getServiceName());
         if (message != null) {
-            processNotNullMessage(message);
+            resp = processNotNullMessage(message);
         }
         getLogger().debug(
                 "Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
-
+        return resp;
     }
 
-    public void processNotNullMessage(Orchestratable message) {
-
+    public Orchestratable processNotNullMessage(Orchestratable message) {
+        Orchestratable resp = null;
         // audit
         getLogger().debug("Calling audit for " + message.getServiceName());
         auditRequest(message);
 
         if (message.isEnabled()) {
-            processEnabledMessage(message);
+            resp = processEnabledMessage(message);
         } else {
             getLogger().debug(message.getServiceName() + " is not enabled. returning a error response");
-            createErrorResponse((InboundOrchestratable) message,
+            resp = createErrorResponse((InboundOrchestratable) message,
                     message.getServiceName() + " is not enabled.");
         }
         // audit again
@@ -81,6 +82,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
         auditResponse(message);
         getLogger().debug(
                 "Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
+        return resp;
     }
 
     public Orchestratable processEnabledMessage(Orchestratable message) {

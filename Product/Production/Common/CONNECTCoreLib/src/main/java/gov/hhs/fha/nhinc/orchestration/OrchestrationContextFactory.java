@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
@@ -57,6 +58,9 @@ public class OrchestrationContextFactory {
 
         if(NhincConstants.DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)){
             return OutboundDocRetrieveFactory.getInstance().
+                    createOrchestrationContextBuilder(apiLevel);
+        }else if(NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)){
+            return InboundDocRetrieveFactory.getInstance().
                     createOrchestrationContextBuilder(apiLevel);
         }else if(NhincConstants.ADMIN_DIST_SERVICE_NAME.equals(serviceName)){
             return OutboundAdminDistributionFactory.getInstance().

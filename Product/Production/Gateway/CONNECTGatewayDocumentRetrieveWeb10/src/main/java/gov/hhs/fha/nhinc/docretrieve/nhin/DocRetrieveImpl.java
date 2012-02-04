@@ -58,13 +58,13 @@ class DocRetrieveImpl {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
 
-        PolicyTransformer pt = new NhinDocRetrievePolicyTransformer_g0();
-        AuditTransformer at = new NhinDocRetrieveAuditTransformer_g0();
-        InboundDelegate ad = new AdapterDocRetrieveDelegate();
-        NhinDocRetrieveOrchestratableImpl_g0 NhinDROrchImpl = new NhinDocRetrieveOrchestratableImpl_g0(body, assertion, pt, at, ad);
+        PolicyTransformer pt = new InboundDocRetrievePolicyTransformer_g0();
+        AuditTransformer at = new InboundDocRetrieveAuditTransformer_g0();
+        InboundDelegate ad = new InboundDocRetrieveDelegate();
+        InboundDocRetrieveOrchestratableImpl NhinDROrchImpl = new InboundDocRetrieveOrchestratableImpl(body, assertion, pt, at, ad);
         CONNECTInboundOrchestrator oOrchestrator = new CONNECTInboundOrchestrator();
-        oOrchestrator.process(NhinDROrchImpl);
-        RetrieveDocumentSetResponseType response = NhinDROrchImpl.getResponse();
+        InboundDocRetrieveOrchestratableImpl OrchResponse = (InboundDocRetrieveOrchestratableImpl)oOrchestrator.process(NhinDROrchImpl);
+        RetrieveDocumentSetResponseType response = OrchResponse.getResponse();
 
         // Send response back to the initiating Gateway
         log.debug("Exiting DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");

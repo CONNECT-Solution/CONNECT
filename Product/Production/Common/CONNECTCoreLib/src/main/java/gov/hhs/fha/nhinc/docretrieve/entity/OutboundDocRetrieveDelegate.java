@@ -26,10 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -63,14 +65,11 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
             OutboundDocRetrieveOrchestratable DRMessage = (OutboundDocRetrieveOrchestratable) message;
             // TODO: check connection manager for which endpoint to use
 
-            OutboundDocRetrieveOrchestrationContextBuilder_g0 contextBuilder = ((OutboundDocRetrieveOrchestrationContextBuilder_g0) OrchestrationContextFactory.getInstance().getBuilder(
-                    DRMessage.getAssertion().getHomeCommunity(), DRMessage.getServiceName()));
-            contextBuilder.setAssertionType(DRMessage.getAssertion());
-            contextBuilder.setAuditTransformer(DRMessage.getAuditTransformer());
-            contextBuilder.setRetrieveDocumentSetRequestType(DRMessage.getRequest());
-            contextBuilder.setTarget(DRMessage.getTarget());
+            OutboundDocRetrieveContextBuilder contextBuilder = (OutboundDocRetrieveContextBuilder)OrchestrationContextFactory.getInstance().getBuilder(
+                    DRMessage.getTarget().getHomeCommunity(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
-            OrchestrationContext context = contextBuilder.build();
+            contextBuilder.setContextMessage(message);
+            OrchestrationContext context = ((OrchestrationContextBuilder)contextBuilder).build();
 
             resp = (OutboundOrchestratable)context.execute();
         } else {
@@ -85,7 +84,7 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
             return;
         }
 
-        if (message instanceof EntityDocRetrieveOrchestratableImpl_a0) {
+        if (message instanceof OutboundDocRetrieveOrchestratableImpl) {
             RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
             RegistryResponseType responseType = new RegistryResponseType();
             response.setRegistryResponse(responseType);
@@ -97,7 +96,7 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
             regErr.setCodeContext(error);
             regErr.setErrorCode("XDSRepositoryError");
             regErr.setSeverity("Error");
-            ((EntityDocRetrieveOrchestratableImpl_a0) message).setResponse(response);
+            ((OutboundDocRetrieveOrchestratableImpl) message).setResponse(response);
         } else /*
          * if(message instanceof NhinDocRetrieveOrchestratableImpl_g1)
          */ {

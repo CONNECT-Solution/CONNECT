@@ -63,14 +63,14 @@ public class AdapterDocRetrieveStrategyTest {
      */
     @Test
     public void testExecute() {
-        NhinDocRetrieveOrchestratable message = null;
-        AdapterDocRetrieveStrategy instance = new AdapterDocRetrieveStrategyImpl();
+        InboundDocRetrieveOrchestratable message = null;
+        InboundDocRetrieveStrategy instance = new AdapterDocRetrieveStrategyImpl();
         instance.execute(message);
     }
 
-    public class AdapterDocRetrieveStrategyImpl implements AdapterDocRetrieveStrategy {
+    public class AdapterDocRetrieveStrategyImpl implements InboundDocRetrieveStrategy {
 
-        public void execute(NhinDocRetrieveOrchestratable message) {
+        public void execute(InboundDocRetrieveOrchestratable message) {
         }
     }
 

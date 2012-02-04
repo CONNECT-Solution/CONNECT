@@ -63,8 +63,8 @@ public class AdapterDocRetrieveStrategyImpl_a0Test {
      */
     @Test
     public void testExecute() {
-        NhinDocRetrieveOrchestratable message = null;
-        AdapterDocRetrieveStrategyImpl_a0 instance = new AdapterDocRetrieveStrategyImpl_a0();
+        InboundDocRetrieveOrchestratable message = null;
+        InboundDocRetrieveStrategyImpl instance = new InboundDocRetrieveStrategyImpl();
         instance.execute(message);
         // TODO: update this test once we can mock NhinDocRetrieveOrchestratable
     }

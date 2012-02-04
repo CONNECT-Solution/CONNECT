@@ -41,10 +41,15 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
  */
 public class OutboundDocRetrieveAuditTransformer_a0 implements AuditTransformer {
 
+    protected AuditRepositoryLogger getAuditRepositoryLogger()
+    {
+        return new AuditRepositoryLogger();
+    }
+
     public LogEventRequestType transformRequest(Orchestratable message) {
         LogEventRequestType auditLogMsg = null;
-        if (message instanceof EntityDocRetrieveOrchestratableImpl_a0) {
-            EntityDocRetrieveOrchestratableImpl_a0 EntityDROrchImp_g0Message = (EntityDocRetrieveOrchestratableImpl_a0) message;
+        if (message instanceof OutboundDocRetrieveOrchestratableImpl) {
+            OutboundDocRetrieveOrchestratableImpl EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratableImpl) message;
 
             DocRetrieveMessageType DRAuditTransformerMessage = new DocRetrieveMessageType();
             DRAuditTransformerMessage.setRetrieveDocumentSetRequest(EntityDROrchImp_g0Message.getRequest());
@@ -52,7 +57,7 @@ public class OutboundDocRetrieveAuditTransformer_a0 implements AuditTransformer 
 
             String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(EntityDROrchImp_g0Message.getRequest());
 
-            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+            AuditRepositoryLogger auditLogger = getAuditRepositoryLogger();
             auditLogMsg = auditLogger.logDocRetrieve(DRAuditTransformerMessage, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
         }
         return auditLogMsg;
@@ -60,8 +65,8 @@ public class OutboundDocRetrieveAuditTransformer_a0 implements AuditTransformer 
 
     public LogEventRequestType transformResponse(Orchestratable message) {
         LogEventRequestType auditLogMsg = null;
-        if (message instanceof EntityDocRetrieveOrchestratableImpl_a0) {
-            EntityDocRetrieveOrchestratableImpl_a0 EntityDROrchImp_g0Message = (EntityDocRetrieveOrchestratableImpl_a0) message;
+        if (message instanceof OutboundDocRetrieveOrchestratableImpl) {
+            OutboundDocRetrieveOrchestratableImpl EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratableImpl) message;
 
             DocRetrieveResponseMessageType DRAuditTransformerMessage = new DocRetrieveResponseMessageType();
             DRAuditTransformerMessage.setRetrieveDocumentSetResponse(EntityDROrchImp_g0Message.getResponse());
@@ -69,7 +74,7 @@ public class OutboundDocRetrieveAuditTransformer_a0 implements AuditTransformer 
 
             String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(EntityDROrchImp_g0Message.getRequest());
 
-            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+            AuditRepositoryLogger auditLogger = getAuditRepositoryLogger();
             auditLogMsg = auditLogger.logDocRetrieveResult(DRAuditTransformerMessage, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
         }
         return auditLogMsg;

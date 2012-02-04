@@ -31,6 +31,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.fha.nhinc.docretrieve.ResponseScrubber;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
@@ -56,7 +57,8 @@ public class NhincProxyDocRetrieveImpl {
             response = orchImpl.respondingGatewayCrossGatewayRetrieve(body.getRetrieveDocumentSetRequest(), assertion, body.getNhinTargetSystem());
         }
 
-        return response;
+        ResponseScrubber rs = new ResponseScrubber();
+        return rs.Scrub(response);
     }
 
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RespondingGatewayCrossGatewayRetrieveRequestType body, WebServiceContext context) {
@@ -69,7 +71,8 @@ public class NhincProxyDocRetrieveImpl {
             NhincProxyDocRetrieveOrchImpl orchImpl = new NhincProxyDocRetrieveOrchImpl();
             response = orchImpl.respondingGatewayCrossGatewayRetrieve(body.getRetrieveDocumentSetRequest(), assertion, body.getNhinTargetSystem());
         }
-        return response;
+        ResponseScrubber rs = new ResponseScrubber();
+        return rs.Scrub(response);
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {

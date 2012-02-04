@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
+import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import org.jmock.Expectations;
@@ -73,6 +74,17 @@ public class OutboundDocRetrieveAuditTransformer_a0Test {
     public void tearDown() {
     }
 
+    private OutboundDocRetrieveAuditTransformer_a0 createOutboundDocRetrieveAuditTransformer_a0()
+    {
+        return new OutboundDocRetrieveAuditTransformer_a0() {
+            @Override
+            protected AuditRepositoryLogger getAuditRepositoryLogger()
+            {
+                return mockedDependency;
+            }
+        };
+    }
+
     private LogEventRequestType mockLogEventRequestType()
     {
         LogEventRequestType req = new LogEventRequestType();
@@ -89,7 +101,7 @@ public class OutboundDocRetrieveAuditTransformer_a0Test {
     public void testTransformRequest() {
         OutboundDocRetrieveOrchestratableFactory factory = new OutboundDocRetrieveOrchestratableFactory();
         Orchestratable message = factory.getEntityDocRetrieveOrchestratableImpl_a0();
-        OutboundDocRetrieveAuditTransformer_a0 instance = new OutboundDocRetrieveAuditTransformer_a0();
+        OutboundDocRetrieveAuditTransformer_a0 instance = createOutboundDocRetrieveAuditTransformer_a0();
         
         mockingContext.checking(new Expectations() {
             {
@@ -111,18 +123,18 @@ public class OutboundDocRetrieveAuditTransformer_a0Test {
     public void testTransformResponse() {
         OutboundDocRetrieveOrchestratableFactory factory = new OutboundDocRetrieveOrchestratableFactory();
         Orchestratable message = factory.getEntityDocRetrieveOrchestratableImpl_a0();
-        OutboundDocRetrieveAuditTransformer_a0 instance = new OutboundDocRetrieveAuditTransformer_a0();
+        OutboundDocRetrieveAuditTransformer_a0 instance = createOutboundDocRetrieveAuditTransformer_a0();
 
         mockingContext.checking(new Expectations() {
             {
                 one
-                (mockedDependency).logDocRetrieve(with(any(DocRetrieveMessageType.class)), with(any(String.class)), with(any(String.class)), with(any(String.class)));
+                (mockedDependency).logDocRetrieveResult(with(any(DocRetrieveResponseMessageType.class)), with(any(String.class)), with(any(String.class)), with(any(String.class)));
                 will
                 (returnValue(mockLogEventRequestType()));
             }
         });
         LogEventRequestType result = instance.transformResponse(message);
-        assertEquals("Outbound", result.getDirection());
+        assertEquals("Inbound", result.getDirection());
         assertEquals("Nhin", result.getInterface());
     }
 }
