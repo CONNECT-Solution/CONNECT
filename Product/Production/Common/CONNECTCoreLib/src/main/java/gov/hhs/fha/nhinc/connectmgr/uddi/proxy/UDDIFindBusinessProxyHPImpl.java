@@ -36,7 +36,7 @@ import org.uddi.api_v3.FindBusiness;
  *
  * @author richard.ettema
  */
-public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxy {
+public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
 
     private static Log log = LogFactory.getLog(UDDIFindBusinessProxyHPImpl.class);
 
@@ -60,8 +60,9 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxy {
             //-----------------
             FindBusiness oSearchParams = new FindBusiness();
             oSearchParams.setMaxRows(100);
-            oBusinessList = oPort.findBusiness(oSearchParams);
 
+            oBusinessList = (BusinessList) getWebServiceProxyHelper().invokePort
+                    (oPort, UDDIInquiryPortType.class, "findBusiness", oSearchParams);
         } catch (Exception e) {
             String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: " +
                     e.getMessage();
@@ -71,5 +72,4 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxy {
 
         return oBusinessList;
     }
-
 }

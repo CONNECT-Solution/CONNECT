@@ -34,7 +34,7 @@ import org.uddi.api_v3.BusinessList;
  *
  * @author richard.ettema
  */
-public class UDDIFindBusinessProxyNoOpImpl extends UDDIFindBusinessProxy {
+public class UDDIFindBusinessProxyNoOpImpl extends UDDIFindBusinessProxyBase {
 
     private static Log log = LogFactory.getLog(UDDIFindBusinessProxyNoOpImpl.class);
 

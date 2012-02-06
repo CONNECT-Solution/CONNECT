@@ -936,16 +936,12 @@ public class WebServiceProxyHelper {
 					+ " not found for class " + portClass.getCanonicalName());
 		}
 
+                // @TODO do we really want to retry a web service call when
+                // an InvocationException is returned, which is what invokePortWithRetry does???
 		if ((iRetryCount > 0) && (iRetryDelay > 0) && (sExceptionText != null)
 				&& (sExceptionText.length() > 0)) {
-
-                        // @TODO do we really want to retry a web service call when
-                        // an InvocationException is returned, which is what invokePortWithRetry does???
-			oResponse = invokePortWithRetry(portObject, portClass,
+                        oResponse = invokePortWithRetry(portObject, portClass,
 					operationInput, iRetryCount, iRetryDelay, oMethod);
-//			oResponse = invokePort(portObject, portClass, operationInput,
-//					oResponse, oMethod);
-
 		} // if ((iRetryCount > 0) && (iRetryDelay > 0))
 		else {
 			log.debug("Invoking " + portClass.getCanonicalName() + "."

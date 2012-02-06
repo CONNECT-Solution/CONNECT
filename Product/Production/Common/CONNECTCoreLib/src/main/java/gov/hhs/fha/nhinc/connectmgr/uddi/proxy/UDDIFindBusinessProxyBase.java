@@ -30,7 +30,10 @@ import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
 import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIService;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.uddi.api_v3.BusinessList;
@@ -39,14 +42,21 @@ import org.uddi.api_v3.BusinessList;
  *
  * @author richard.ettema
  */
-public abstract class UDDIFindBusinessProxy {
+public abstract class UDDIFindBusinessProxyBase {
 
-    private static Log log = LogFactory.getLog(UDDIFindBusinessProxy.class);
+    private static Log log = LogFactory.getLog(UDDIFindBusinessProxyBase.class);
 
     // URL for the UDDI Server.
     protected String m_sUDDIInquiryEndpointURL = "";
     protected static String GATEWAY_PROPFILE_NAME = "gateway";
     protected static String UDDI_INQUIRY_ENDPOINT_URL = "UDDIInquiryEndpointURL";
+
+    private static Service cachedService = null;
+    private static WebServiceProxyHelper oProxyHelper = null;
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhin_uddi_api_v3";
+    private static final String SERVICE_LOCAL_PART = "UDDI_Service";
+    private static final String PORT_LOCAL_PART = "UDDI_Inquiry_Port";
+    private static final String WSDL_FILE = "NhinUddiAPIV3.wsdl";
 
     /**
      * Override in implementation class
@@ -83,19 +93,50 @@ public abstract class UDDIFindBusinessProxy {
         UDDIInquiryPortType oPort = null;
 
         try {
-            UDDIService oService = new UDDIService();
-            oPort = oService.getUDDIInquiryPort();
+            Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-            // Need to load in the correct UDDI endpoint URL address.
-            //--------------------------------------------------------
-            ((BindingProvider) oPort).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, m_sUDDIInquiryEndpointURL);
+            if (oService != null)
+            {
+                log.debug("getUDDIInquiryWebService() Obtained UDDI service - creating port.");
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), UDDIInquiryPortType.class);
+
+                // Load in the correct UDDI endpoint URL address.
+                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, m_sUDDIInquiryEndpointURL, null, null);
+             }
+            else
+            {
+                log.error("Unable to obtain serivce - no port created.");
+            }
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve the UDDI Inquiry Web Service port.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw new UDDIFindBusinessException(sErrorMessage, e);
         }
-
         return oPort;
     }
 
+    protected WebServiceProxyHelper getWebServiceProxyHelper()
+    {
+        if (oProxyHelper == null)
+        {
+            oProxyHelper = new WebServiceProxyHelper();
+        }
+        return oProxyHelper;
+    }
+
+    protected Service getService(String wsdl, String uri, String service)
+    {
+        if (cachedService == null)
+        {
+            try
+            {
+                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
+            }
+            catch (Throwable t)
+            {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
+    }
 }

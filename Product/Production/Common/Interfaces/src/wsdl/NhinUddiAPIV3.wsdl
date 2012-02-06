@@ -196,7 +196,6 @@ targetNamespace="urn:gov:hhs:fha:nhinc:nhin_uddi_api_v3">
     </portType>
     <binding name="UDDI_Inquiry_SoapBinding" type="tns:UDDI_Inquiry_PortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsp:PolicyReference URI="#UDDI_API_Binding_SoapPolicy"/>
         <operation name="find_binding">
             <soap:operation soapAction="find_binding"/>
             <input>
@@ -323,34 +322,4 @@ targetNamespace="urn:gov:hhs:fha:nhinc:nhin_uddi_api_v3">
             <soap:address location="https://localhost/uddi/inquiry/"/>
         </port>
     </service>
-    <wsp:Policy wsu:Id="UDDI_API_Binding_SoapPolicy">
-        <wsp:ExactlyOne>
-            <wsp:All>
-                <sp:TransportBinding>
-                    <wsp:Policy>
-                        <sp:TransportToken>
-                            <wsp:Policy>
-                                <sp:HttpsToken>
-                                    <wsp:Policy>
-                                        <sp:RequireClientCertificate/>
-                                    </wsp:Policy>
-                                </sp:HttpsToken>
-                            </wsp:Policy>
-                        </sp:TransportToken>
-                        <sp:Layout>
-                            <wsp:Policy>
-                                <sp:Strict/>
-                            </wsp:Policy>
-                        </sp:Layout>
-                        <sp:IncludeTimestamp/>
-                        <sp:AlgorithmSuite>
-                            <wsp:Policy>
-                                <sp:Basic256/>
-                            </wsp:Policy>
-                        </sp:AlgorithmSuite>
-                    </wsp:Policy>
-                </sp:TransportBinding>
-            </wsp:All>
-        </wsp:ExactlyOne>
-    </wsp:Policy>
 </definitions>

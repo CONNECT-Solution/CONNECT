@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBindingDescriptions;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntities;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
@@ -41,16 +42,21 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfoXML;
 
 import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyObjectFactory;
-import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxy;
+import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyBase;
 
+import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 
+import javax.xml.ws.Service;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.BusinessInfo;
 import org.uddi.api_v3.BusinessService;
@@ -64,7 +70,6 @@ import org.uddi.api_v3.Description;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.KeyedReference;
 import org.uddi.api_v3.BindingTemplate;
-import org.uddi.v3_service.UDDIService;
 import org.uddi.v3_service.UDDIInquiryPortType;
 
 import org.apache.commons.logging.Log;
@@ -78,6 +83,9 @@ import org.apache.commons.logging.LogFactory;
 public class UDDIAccessor {
 
     private Log log = null;
+    private static Service cachedService = null;
+    private static WebServiceProxyHelper oProxyHelper = null;
+
     private static String GATEWAY_PROPFILE_NAME = "gateway";
     private static String UDDI_INQUIRY_ENDPOINT_URL = "UDDIInquiryEndpointURL";
     private static String UDDI_BUSINESSES_TO_IGNORE = "UDDIBusinessesToIgnore";
@@ -86,6 +94,12 @@ public class UDDIAccessor {
     private static String STATE_NAME_ID_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
     private static String UNIFORM_SERVICE_NAME_KEY = "uddi:nhin:standard-servicenames";
     private static String SERVICE_VERSION_KEY = "uddi:nhin:versionofservice";
+
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhin_uddi_api_v3";
+    private static final String SERVICE_LOCAL_PART = "UDDI_Service";
+    private static final String PORT_LOCAL_PART = "UDDI_Inquiry_Port";
+    private static final String WSDL_FILE = "NhinUddiAPIV3.wsdl";
+
     // URL for the UDDI Server.
     private String m_sUDDIInquiryEndpointURL = "";
     // These are business entities that the UDDI will send us that we should ignore.
@@ -154,19 +168,51 @@ public class UDDIAccessor {
         UDDIInquiryPortType oPort = null;
 
         try {
-            UDDIService oService = new UDDIService();
-            oPort = oService.getUDDIInquiryPort();
+            Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-            // Need to load in the correct UDDI endpoint URL address.
-            //--------------------------------------------------------
-            ((BindingProvider) oPort).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, m_sUDDIInquiryEndpointURL);
+            if (oService != null)
+            {
+                log.debug("Obtained UDDI service - creating port.");
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), UDDIInquiryPortType.class);
+
+                // Load in the correct UDDI endpoint URL address.
+                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, m_sUDDIInquiryEndpointURL, null, null);
+             }
+            else
+            {
+                log.error("Unable to obtain serivce - no port created.");
+            }
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve the UDDI Inquiry Web Service port.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }
-
         return oPort;
+    }
+
+    protected WebServiceProxyHelper getWebServiceProxyHelper()
+    {
+        if (oProxyHelper == null)
+        {
+            oProxyHelper = new WebServiceProxyHelper();
+        }
+        return oProxyHelper;
+    }
+
+    protected Service getService(String wsdl, String uri, String service)
+    {
+        if (cachedService == null)
+        {
+            try
+            {
+                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
+            }
+            catch (Throwable t)
+            {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
     }
 
     /**
@@ -300,7 +346,7 @@ public class UDDIAccessor {
             // Use the UDDI Find Business Proxy...
             //------------------------------------
             UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
-            UDDIFindBusinessProxy uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
+            UDDIFindBusinessProxyBase uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
             oBusinessList = uddiProxy.findBusinessesFromUDDI();
         } catch (Exception e) {
             String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: " +
@@ -474,7 +520,8 @@ public class UDDIAccessor {
             }   // for (CMBusinessEntity oEntity : oEntities.getBusinessEntity())
 
             UDDIInquiryPortType oPort = getUDDIInquiryWebService();
-            oResult = oPort.getBusinessDetail(oSearchParams);
+            oResult = (BusinessDetail) getWebServiceProxyHelper().invokePort
+                    (oPort, UDDIInquiryPortType.class, "getBusinessDetail", oSearchParams);
         } catch (Exception e) {
             String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
@@ -590,7 +637,8 @@ public class UDDIAccessor {
             }   // for (CMBusinessEntity oEntity : oEntities.getBusinessEntity())
 
             UDDIInquiryPortType oPort = getUDDIInquiryWebService();
-            oResult = oPort.getServiceDetail(oSearchParams);
+            oResult = (ServiceDetail) getWebServiceProxyHelper().invokePort
+                    (oPort, UDDIInquiryPortType.class, "getServiceDetail", oSearchParams);
         } catch (Exception e) {
             String sErrorMessage = "Failed to call UDDI web service get_serviceDetail method.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);

@@ -43,10 +43,10 @@ public class UDDIFindBusinessProxyObjectFactory extends ComponentProxyObjectFact
 
     /**
      *
-     * @return instance of <code>UDDIFindBusinessProxy</code>
+     * @return instance of <code>UDDIFindBusinessProxyBase</code>
      */
-    public UDDIFindBusinessProxy getUDDIBusinessInfoProxy() {
-        return getBean(BEAN_NAME, UDDIFindBusinessProxy.class);
+    public UDDIFindBusinessProxyBase getUDDIBusinessInfoProxy() {
+        return getBean(BEAN_NAME, UDDIFindBusinessProxyBase.class);
     }
 
 }
