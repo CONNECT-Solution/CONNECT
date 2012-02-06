@@ -51,6 +51,11 @@
         <dist.type>war</dist.type>
     </project>
     <project>
+	    <name>CONNECTGatewayDocumentRetrieveWeb20</name>
+        <directory>/Production/Gateway/CONNECTGatewayDocumentRetrieveWeb20</directory>
+        <dist.type>war</dist.type>
+    </project>
+    <project>
 	<name>CONENCTAdapterDocumentRetrieve10</name>
         <directory>/Production/Adapters/CONNECTAdapterDocumentRetrieve10</directory>
         <dist.type>war</dist.type>
