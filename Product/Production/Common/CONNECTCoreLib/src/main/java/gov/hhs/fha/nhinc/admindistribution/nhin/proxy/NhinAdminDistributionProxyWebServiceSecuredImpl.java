@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import java.util.HashMap;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.namespace.QName;
@@ -47,7 +48,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdminDistributionProxy{
     private Log log = null;
-    private static Service cachedService = null;
+    private static HashMap<String, Service> cachedServiceMap = new HashMap<String, Service>();
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhinadmindistribution";
     private static final String SERVICE_LOCAL_PART = "RespondingGateway_AdministrativeDistribution";
     private static final String PORT_LOCAL_PART = "RespondingGateway_AdministrativeDistribution_PortType";
@@ -55,19 +56,21 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     private static final String WSDL_FILE_G1 = "NhinAdminDist_g1.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage";
 
-    //static RespondingGatewayAdministrativeDistribution nhinService = new RespondingGatewayAdministrativeDistribution();
     public NhinAdminDistributionProxyWebServiceSecuredImpl()
     {
         log = createLogger();
     }
+
     private Log createLogger()
     {
         return LogFactory.getLog(getClass());
     }
+
     private AdminDistributionHelper getHelper()
     {
         return new AdminDistributionHelper();
     }
+
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel)
     {
@@ -95,8 +98,6 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
                         "Exception: " + ex.getMessage(), ex);
             }
         }
-
-
     }
 
     protected RespondingGatewayAdministrativeDistributionPortType getPort(String url, AssertionType assertion,
@@ -125,6 +126,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         }
         return port;
     }
+    
     protected WebServiceProxyHelper getWebServiceProxyHelper()
     {
         return new WebServiceProxyHelper();
@@ -132,12 +134,14 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     
     protected Service getService(String wsdl, String uri, String service)
     {
+        Service cachedService = cachedServiceMap.get(wsdl);
         if (cachedService == null)
         {
             try
             {
                 WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
                 cachedService = proxyHelper.createService(wsdl, uri, service);
+                cachedServiceMap.put(wsdl, cachedService);
             }
             catch (Throwable t)
             {
