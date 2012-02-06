@@ -30,6 +30,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy.NhinDocSubmissionDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy.NhinDocSubmissionDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -54,21 +56,20 @@ public class PassthruDocSubmissionDeferredResponseOrchImpl {
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
-        XDRAcknowledgementType response = new XDRAcknowledgementType();
-        RegistryResponseType regResp = new RegistryResponseType();
-        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-        response.setMessage(regResp);
-
+        
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
         provideAndRegisterResponseRequest.setNhinTargetSystem(targetSystem);
         provideAndRegisterResponseRequest.setRegistryResponse(request);
 
         logRequest(provideAndRegisterResponseRequest, assertion);
 
-        NhinDocSubmissionDeferredResponseProxy proxy = createNhinProxy();
-
-        log.debug("Calling NHIN Proxy");
-        response = proxy.provideAndRegisterDocumentSetBDeferredResponse(provideAndRegisterResponseRequest.getRegistryResponse(), assertion, provideAndRegisterResponseRequest.getNhinTargetSystem());
+        log.debug("Calling delegate");
+        OutboundDocSubmissionDeferredResponseDelegate dsDelegate = new OutboundDocSubmissionDeferredResponseDelegate();
+        OutboundDocSubmissionDeferredResponseOrchestratable dsOrchestratable = new OutboundDocSubmissionDeferredResponseOrchestratable(dsDelegate);
+        dsOrchestratable.setAssertion(assertion);
+        dsOrchestratable.setRequest(provideAndRegisterResponseRequest.getRegistryResponse());
+        dsOrchestratable.setTarget(provideAndRegisterResponseRequest.getNhinTargetSystem());
+        XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredResponseOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
 
         logResponse(response, assertion);
 

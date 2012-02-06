@@ -34,6 +34,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionFactory;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestFactory;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 public class OrchestrationContextFactory {
@@ -71,8 +73,12 @@ public class OrchestrationContextFactory {
         }else if(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME.equalsIgnoreCase(serviceName)){
             return OutboundPatientDiscoveryFactory.getInstance().
                     createOrchestrationContextBuilder(apiLevel);
-        } else if (NhincConstants.DOC_SUBMISSION_SERVICE_PROP.equals(serviceName)) {
+        } else if (NhincConstants.NHINC_XDR_SERVICE_NAME.equals(serviceName)) {
             return OutboundDocSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        } else if (NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME.equals(serviceName)) {
+            return OutboundDocSubmissionDeferredRequestFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        } else if (NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME.equals(serviceName)) {
+            return OutboundDocSubmissionDeferredResponseFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         }
         return null;
 	}

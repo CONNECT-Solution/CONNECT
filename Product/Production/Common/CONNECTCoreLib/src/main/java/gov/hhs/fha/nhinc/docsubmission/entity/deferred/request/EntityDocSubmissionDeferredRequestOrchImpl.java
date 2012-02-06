@@ -24,6 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
+
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -31,21 +32,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy.PassthruDocSubmissionDeferredRequestProxy;
 import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy.PassthruDocSubmissionDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import java.util.ArrayList;
-import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -114,15 +109,18 @@ public class EntityDocSubmissionDeferredRequestOrchImpl {
 
     protected XDRAcknowledgementType callNhinXDRRequestProxy(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
     {
-        log.debug("Begin provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
+        log.debug("Begin callNhinXDRRequestProxy");
 
-        PassthruDocSubmissionDeferredRequestProxyObjectFactory factory = new PassthruDocSubmissionDeferredRequestProxyObjectFactory();
-        PassthruDocSubmissionDeferredRequestProxy proxy = factory.getPassthruDocSubmissionDeferredRequestProxy();
+        XDRAcknowledgementType response = null;
 
-        log.debug("Calling NHIN proxy");
-        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
+        OutboundDocSubmissionDeferredRequestDelegate dsDelegate = new OutboundDocSubmissionDeferredRequestDelegate();
+        OutboundDocSubmissionDeferredRequestOrchestratable dsOrchestratable = new OutboundDocSubmissionDeferredRequestOrchestratable(dsDelegate);
+        dsOrchestratable.setAssertion(assertion);
+        dsOrchestratable.setRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest());
+        dsOrchestratable.setTarget(provideAndRegisterRequestRequest.getNhinTargetSystem());
+        response = ((OutboundDocSubmissionDeferredRequestOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
 
-        log.debug("End provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
+        log.debug("End callNhinXDRRequestProxy");
         return response;
     }
 

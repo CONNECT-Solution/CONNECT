@@ -39,7 +39,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class NhinDocSubmissionDeferredResponseProxyNoOpImpl implements NhinDocSubmissionDeferredResponseProxy {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NhinDocSubmissionDeferredResponseProxyNoOpImpl.class);
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(RegistryResponseType body, AssertionType assertion, NhinTargetSystemType target) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(RegistryResponseType body, AssertionType assertion, NhinTargetSystemType target, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.debug("Using NoOp Implementation for Nhin Doc Submission Deferred Response Service");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

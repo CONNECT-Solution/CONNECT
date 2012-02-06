@@ -30,6 +30,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestDelegate;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy.NhinDocSubmissionDeferredRequestProxy;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy.NhinDocSubmissionDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -61,11 +63,14 @@ public class PassthruDocSubmissionDeferredRequestOrchImpl {
         
         logRequest(provideAndRegisterRequestRequest, assertion);
 
-        NhinDocSubmissionDeferredRequestProxy proxy = createNhinProxy();
-
-        log.debug("Calling NHIN proxy");
-        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
-
+        log.debug("Calling delegate");
+        OutboundDocSubmissionDeferredRequestDelegate dsDelegate = new OutboundDocSubmissionDeferredRequestDelegate();
+        OutboundDocSubmissionDeferredRequestOrchestratable dsOrchestratable = new OutboundDocSubmissionDeferredRequestOrchestratable(dsDelegate);
+        dsOrchestratable.setAssertion(assertion);
+        dsOrchestratable.setRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest());
+        dsOrchestratable.setTarget(provideAndRegisterRequestRequest.getNhinTargetSystem());
+        XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredRequestOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
+        
         logResponse(response, assertion);
 
         log.debug("End provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");

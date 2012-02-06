@@ -107,7 +107,7 @@ public class OutboundDocSubmissionOrchestratable implements OutboundOrchestratab
     }
 
     public String getServiceName() {
-        return NhincConstants.DOC_SUBMISSION_SERVICE_PROP;
+        return NhincConstants.NHINC_XDR_SERVICE_NAME;
     }
 
     public boolean isEnabled() {

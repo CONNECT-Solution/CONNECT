@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -36,6 +37,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  * @author JHOPPESC
  */
 public interface NhinDocSubmissionDeferredResponseProxy {
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(RegistryResponseType body, AssertionType assertion, NhinTargetSystemType target);
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(RegistryResponseType body, AssertionType assertion, NhinTargetSystemType target, NhincConstants.GATEWAY_API_LEVEL apiLevel);
 
 }
