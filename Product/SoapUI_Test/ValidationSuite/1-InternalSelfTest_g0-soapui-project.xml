@@ -10167,6 +10167,16 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
                      <urn2:Value>${#Project#DQPatientID}^^^&amp;${#Project#LocalAA}&amp;ISO</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
+	       <urn2:Slot name="$XDSDocumentEntryClassCode">
+                  <urn2:ValueList>
+                     <urn2:Value>34133-9</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+               <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
+                  <urn2:ValueList>
+                     <urn2:Value>2.16.840.1.113883.6.1</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
