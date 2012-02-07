@@ -135,7 +135,7 @@ public abstract class ComponentProxyObjectFactory
 
         if(appContextInfo == null)
         {
-            log.debug("ApplicationContext for: " + getConfigFileName() + ".xml was null - creating.");
+            log.debug("ApplicationContext for: " + getConfigFileName() + " was null - creating.");
             appContextInfo = new LocalApplicationContextInfo();
             appContextInfo.setApplicationContext(createApplicationContext(configFilePath));
             appContextInfo.setConfigLastModified(getLastModified(configFilePath));
@@ -144,7 +144,7 @@ public abstract class ComponentProxyObjectFactory
         }
         else
         {
-            log.debug("ApplicationContext for: " + getConfigFileName() + ".xml was not null - checking to see if it is stale.");
+            log.debug("ApplicationContext for: " + getConfigFileName() + " was not null - checking to see if it is stale.");
             long lastModified = getLastModified(configFilePath);
             if(appContextInfo.getConfigLastModified() != lastModified)
             {

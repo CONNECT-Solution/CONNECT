@@ -295,6 +295,12 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         }
                     }
 
+                    // On-Demand document
+                    if (doc.isOnDemand()) {
+                        oDocResponse.setNewDocumentUniqueId(doc.getNewDocumentUniqueId());
+                        oDocResponse.setNewRepositoryUniqueId(doc.getNewRepositoryUniqueId());
+                    }
+
                     if (bHasData) {
                         olDocResponse.add(oDocResponse);
                         responseStatus = XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS;

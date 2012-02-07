@@ -53,6 +53,9 @@
     <property column="TypeCodeDisplayName" length="64" name="typeCodeDisplayName" not-null="false" type="string"/>
     <property column="DocumentUri" length="128" name="documentUri" not-null="false" type="string"/>
     <property column="RawData" name="rawData" not-null="false" type="binary"/>
+    <property column="OnDemand" name="onDemand" not-null="true" type="boolean"/>
+    <property column="NewDocumentUniqueId" length="128" name="NewDocumentUniqueId" not-null="false" type="string"/>
+    <property column="NewRepositoryUniqueId" length="128" name="NewRepositoryUniqueId" not-null="false" type="string"/>
     <property column="Persistent" name="persistentCode" not-null="true" type="int"/>
     <set cascade="all-delete-orphan" inverse="true" lazy="false" name="eventCodes">
       <key column="documentid"/>

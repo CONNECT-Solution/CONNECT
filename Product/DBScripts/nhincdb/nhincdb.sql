@@ -116,6 +116,9 @@ CREATE TABLE docrepository.document (
   DocumentUri varchar(128) default NULL COMMENT 'May derive this value',
   RawData longblob,
   Persistent int(11) NOT NULL,
+  OnDemand tinyint(1) NOT NULL default 0 COMMENT 'Indicate whether document is dynamic (true or 1) or static (false or 0).',
+  NewDocumentUniqueId varchar(128) default NULL,
+  NewRepositoryUniqueId varchar(128) default NULL,
   PRIMARY KEY  (documentid)
 );
 

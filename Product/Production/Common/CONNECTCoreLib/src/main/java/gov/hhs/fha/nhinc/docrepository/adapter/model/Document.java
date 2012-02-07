@@ -85,6 +85,9 @@ public class Document
     private String typeCodeDisplayName;
     private String documentUri;
     private byte[] rawData;
+    private boolean onDemand;
+    private String NewDocumentUniqueId;
+    private String NewRepositoryUniqueId;
     private boolean persistent;
     private Set<EventCode> eventCodes;
 
@@ -581,6 +584,30 @@ public class Document
     public void setRawData(byte[] rawData)
     {
         this.rawData = rawData;
+    }
+
+    public boolean isOnDemand() {
+        return onDemand;
+    }
+
+    public void setOnDemand(boolean onDemand) {
+        this.onDemand = onDemand;
+    }
+
+    public String getNewDocumentUniqueId() {
+        return NewDocumentUniqueId;
+    }
+
+    public void setNewDocumentUniqueId(String NewDocumentUniqueId) {
+        this.NewDocumentUniqueId = NewDocumentUniqueId;
+    }
+
+    public String getNewRepositoryUniqueId() {
+        return NewRepositoryUniqueId;
+    }
+
+    public void setNewRepositoryUniqueId(String NewRepositoryUniqueId) {
+        this.NewRepositoryUniqueId = NewRepositoryUniqueId;
     }
 
     public boolean isPersistent()
