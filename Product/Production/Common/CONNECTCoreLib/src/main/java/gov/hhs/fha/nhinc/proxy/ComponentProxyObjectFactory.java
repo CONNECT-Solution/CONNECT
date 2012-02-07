@@ -148,7 +148,7 @@ public abstract class ComponentProxyObjectFactory
             long lastModified = getLastModified(configFilePath);
             if(appContextInfo.getConfigLastModified() != lastModified)
             {
-                log.debug("Refreshing the Spring application context for: " + getConfigFileName() + ".xml");
+                log.debug("Refreshing the Spring application context for: " + getConfigFileName());
                 refreshConfigurationContext(appContextInfo.getApplicationContext());
                 appContextInfo.setConfigLastModified(lastModified);
             }

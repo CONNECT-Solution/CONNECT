@@ -313,7 +313,7 @@ public class ComponentProxyObjectFactoryTest
                 @Override
                 protected String getConfigFileName()
                 {
-                    return "TestFile";
+                    return "TestFile.xml";
                 }
 
                 @Override
@@ -369,7 +369,7 @@ public class ComponentProxyObjectFactoryTest
                 @Override
                 protected String getConfigFileName()
                 {
-                    return "TestFile";
+                    return "TestFile.xml";
                 }
 
                 @Override
