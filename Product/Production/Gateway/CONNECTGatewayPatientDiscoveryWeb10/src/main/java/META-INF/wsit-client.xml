@@ -12,12 +12,10 @@
     <import location="AdapterAuditLogQuerySaml.xml" namespace="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml"/>
     <import location="NhinAuditLogQuery.xml" namespace="http://services.nhin.com/wsdl/auditlogquery"/>
     <import location="NhinSubscription.xml" namespace="http://docs.oasis-open.org/wsn/bw-2"/>
-    <import location="AdapterSubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured"/>
     <import location="NhinPatientDiscovery.xml" namespace="urn:ihe:iti:xcpd:2009"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
     <import location="AdapterComponentSecuredMpi.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"/>
     <import location="AdapterMpiSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptermpi"/>
-    <import location="NhinSubjectDiscovery.xml" namespace="urn:ihe:iti:pixv3:2007"/>
     <import location="NhinXDR.xml" namespace="urn:ihe:iti:xdr:2007"/>
     <import location="NhinXDRDeferredRequest.xml" namespace="urn:ihe:iti:xdr:2007"/>
     <import location="NhinXDRDeferredResponse.xml" namespace="urn:ihe:iti:xdr:2007"/>

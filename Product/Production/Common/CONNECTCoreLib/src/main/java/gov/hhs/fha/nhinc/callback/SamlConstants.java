@@ -75,7 +75,6 @@ public class SamlConstants
     public static final String UNSUBSCRIBE_ACTION = "unsubscribe";
     public static final String DOC_QUERY_ACTION = "queryDocuments";
     public static final String DOC_RETRIEVE_ACTION = "retrieveDocuments";
-    public static final String SUBJECT_DISCOVERY_ACTION = "subjectDiscovery";
     public static final String PATIENT_DISCOVERY_ACTION = "patientDiscovery";
     public static final String ADAPTER_XDR_ACTION = "adapterXDRSecured";
     public static final String ADAPTER_XDRREQUEST_SECURED_ACTION = "adapterXDRRequestSecured";

@@ -100,15 +100,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AdapterSubjectDiscoverySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscoverySecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterSubjectDiscoverySecured</servlet-name>
-        <url-pattern>/AdapterSubjectDiscoverySecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>DeferredQueueManager</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapter.deferred.queue.DeferredQueueManager</servlet-class>
         <load-on-startup>1</load-on-startup>
@@ -145,24 +136,6 @@
         <url-pattern>/NhincProxyAuditQuery</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>EntitySubjectDiscovery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.subdisc.entity.EntitySubjectDiscovery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntitySubjectDiscovery</servlet-name>
-        <url-pattern>/EntitySubjectDiscovery</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>NhincProxySubjectDiscovery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.subdisc.proxy.NhincProxySubjectDiscovery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxySubjectDiscovery</servlet-name>
-        <url-pattern>/NhincProxySubjectDiscovery</url-pattern>
-    </servlet-mapping>
-
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AdapterPolicyEngineSecured</web-resource-name>
@@ -179,10 +152,6 @@
         <web-resource-collection>
             <web-resource-name>AdapterComponentMpiSecured</web-resource-name>
             <url-pattern>/AdapterComponentMpiSecuredService</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>AdapterSubjectDiscoverySecured</web-resource-name>
-            <url-pattern>/AdapterSubjectDiscoverySecured</url-pattern>
         </web-resource-collection>
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>

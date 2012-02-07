@@ -8,8 +8,6 @@
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     <import location="EntityAuditLogQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entityauditlogquerysaml"/>
     <import location="NhincProxyAuditLogQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured"/>
-    <import location="EntitySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"/>
-    <import location="NhincProxySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
 </definitions>
 

@@ -128,25 +128,6 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xcpd/_2009"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
     </target>
-    <target name="wsimport-service-SubjectDiscovery" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-        <copy todir="${build.web.dir}/WEB-INF/wsdl/SubjectDiscovery">
-            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-SubjectDiscovery" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/pixv3/_2007"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery"/>
-    </target>
     <target name="wsimport-service-HiemSubscription" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/HiemSubscription"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/HiemSubscription" destdir="${build.generated.dir}/jax-wsCache/service/HiemSubscription" wsdl="${basedir}/${conf-dir}xml-resources/web-services/HiemSubscription/wsdl/NhinSubscription.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -280,5 +261,5 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/_2007"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-AdapterMpiSecured, wsimport-service-AuditQuery, wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemNotify, wsimport-service-NhinPatientDiscovery, wsimport-service-SubjectDiscovery, wsimport-service-HiemSubscription, wsimport-service-HiemUnsubscribe, wsimport-service-NhinXDR, wsimport-service-NhinXDRRequest, wsimport-service-NhinPatientDiscoveryAsyncReq, wsimport-service-NhinPatientDiscoveryAsyncResp, wsimport-service-NhinXDRResponse"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-AdapterMpiSecured, wsimport-service-AuditQuery, wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemNotify, wsimport-service-NhinPatientDiscovery, wsimport-service-HiemSubscription, wsimport-service-HiemUnsubscribe, wsimport-service-NhinXDR, wsimport-service-NhinXDRRequest, wsimport-service-NhinPatientDiscoveryAsyncReq, wsimport-service-NhinPatientDiscoveryAsyncResp, wsimport-service-NhinXDRResponse"/>
 </project>

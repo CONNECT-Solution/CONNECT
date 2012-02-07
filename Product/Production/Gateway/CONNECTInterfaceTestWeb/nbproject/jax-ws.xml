@@ -145,30 +145,6 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="SubjectDiscovery">
-      <implementation-class>gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscovery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl</wsdl-url>
-      <local-wsdl-file>NhinSubjectDiscovery.wsdl</local-wsdl-file>
-      <service-name>PIXConsumer_Service</service-name>
-      <port-name>PIXConsumer_Port_Soap</port-name>
-      <package-name>ihe.iti.pixv3._2007</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
     <service name="HiemSubscription">
       <implementation-class>gov.hhs.fha.nhinc.subscription.HiemSubscription</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl</wsdl-url>

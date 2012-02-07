@@ -6,8 +6,6 @@
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig"
  >
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
-    <import location="EntitySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"/>
-    <import location="NhincProxySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured"/>
     <import location="EntityNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"/>
     <import location="NhincProxyNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured"/>
     <import location="NhincProxySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement"/>

@@ -171,10 +171,6 @@
             <url-pattern>/EntityService/EntityPatientDiscoveryDeferredRequestSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>EntitySubjectDiscoverySecured</web-resource-name>
-            <url-pattern>/EntityService/EntitySubjectDiscoverySecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
             <web-resource-name>EntityDocSubmissionSecured</web-resource-name>
             <url-pattern>/EntityService/EntityDocSubmissionSecured</url-pattern>
         </web-resource-collection>

@@ -41,7 +41,6 @@ import org.apache.commons.logging.LogFactory;
 public class SamlTokenExtractorHelper {
 
     private static Log log = LogFactory.getLog(SamlTokenExtractorHelper.class);
-    public static final String INTERNAL_SUBJECT_DISCOVERY = "nhincsubjectdiscovery";
     public static final String INTERNAL_DOC_QUERY = "nhincdocumentquery";
     public static final String INTERNAL_DOC_RETRIEVE = "nhincdocumentretrieve";
     public static final String INTERNAL_AUDIT_QUERY = "nhincauditquery";

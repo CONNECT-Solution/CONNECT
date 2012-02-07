@@ -55,45 +55,9 @@ public class PolicyEngineChecker {
      * @param request Policy check request message for the subject discovery announce
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
-    public CheckPolicyRequestType checkPolicySubjectAdded(SubjectAddedEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
-        return policyTransformer.transformSubjectAddedToCheckPolicy(request);
-    }
-
-    /**
-     * This method will create the generic Policy Check Request Message from
-     * a subject discovery announce request
-     *
-     * @param request Policy check request message for the subject discovery announce
-     * @return A generic policy check request message that can be passed to the Policy Engine
-     */
     public CheckPolicyRequestType checkPolicyPatDiscRequest(PatDiscReqEventType request) {
         PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformPatDiscReqToCheckPolicy(request);
-    }
-
-    /**
-     * This method will create the generic Policy Check Request Message from
-     * a subject discovery revised request
-     *
-     * @param request Policy check request message for the subject discovery revised
-     * @return A generic policy check request message that can be passed to the Policy Engine
-     */
-    public CheckPolicyRequestType checkPolicySubjectRevised(SubjectRevisedEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
-        return policyTransformer.transformSubjectRevisedToCheckPolicy(request);
-    }
-
-    /**
-     * This method will create the generic Policy Check Request Message from
-     * a subject discovery reidentification request
-     *
-     * @param request Policy check request message for the subject discovery reidentification
-     * @return A generic policy check request message that can be passed to the Policy Engine
-     */
-    public CheckPolicyRequestType checkPolicySubjectReidentification(SubjectReidentificationEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
-        return policyTransformer.transformSubjectReidentificationToCheckPolicy(request);
     }
 
     /**

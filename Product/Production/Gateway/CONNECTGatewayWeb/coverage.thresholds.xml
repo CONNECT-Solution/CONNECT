@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscovery"
-              linecount="5"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscoveryImpl"
-              linecount="47"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapterauditquery.AdapterAuditQueryService"
               linecount="2"
               linerate="80"
@@ -83,16 +73,6 @@
    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecuredImpl"
               linecount="14"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="82" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoveryImpl"
-              linecount="240"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoverySecured"
-              linecount="5"
               linerate="80"
               linesexecuted="0"/>
 </thresholds>

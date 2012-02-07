@@ -39,16 +39,6 @@ import gov.hhs.fha.nhinc.common.auditlog.LogDocRetrieveResultRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogFindAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogFindAuditEventsResultRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.LogNhinSubjectDiscoveryAckRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.LogSubjectAddedRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.LogSubjectReidentificationRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.LogSubjectReidentificationResponseType;
-import gov.hhs.fha.nhinc.common.auditlog.LogSubjectRevisedRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.NhinSubjectDiscoveryAckMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.SubjectAddedMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.SubjectReidentificationRequestMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.SubjectReidentificationResponseMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.SubjectRevisedMessageType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.EntityCdcNotifyRequestMessageType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.EntityCdcSubscribeRequestMessageType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.EntityDocumentNotifyRequestMessageType;
@@ -84,7 +74,6 @@ import gov.hhs.fha.nhinc.transform.audit.DocumentRetrieveTransforms;
 import gov.hhs.fha.nhinc.transform.audit.FindAuditEventsTransforms;
 import gov.hhs.fha.nhinc.transform.audit.NotifyTransforms;
 import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
-import gov.hhs.fha.nhinc.transform.audit.SubjectDiscoveryTransforms;
 import gov.hhs.fha.nhinc.transform.audit.SubscribeTransforms;
 import gov.hhs.fha.nhinc.transform.audit.UnsubscribeTransforms;
 import gov.hhs.fha.nhinc.transform.audit.XDRTransforms;
@@ -93,16 +82,17 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
  *
@@ -111,32 +101,6 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 public class AuditRepositoryLogger {
 
     private static Log log = LogFactory.getLog(AuditRepositoryLogger.class);
-
-    /**
-     * This method will create the generic Audit Log Message from an subject discovery announce request
-     *
-     * @param message The Audit Query Request message to be audit logged.
-     * @param direction  The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logSubjectAdded(SubjectAddedMessageType message, String direction, String _interface) {
-        log.debug("Entering AuditRepositoryLogger.logSubjectAdded(...)");
-        LogEventRequestType auditMsg = null;
-
-
-        if (isServiceEnabled()) {
-            LogSubjectAddedRequestType logReqMsg = new LogSubjectAddedRequestType();
-            logReqMsg.setDirection(direction);
-            logReqMsg.setInterface(_interface);
-            logReqMsg.setMessage(message);
-
-            auditMsg = SubjectDiscoveryTransforms.transformPRPA2013012AuditMsg(logReqMsg);
-        }
-        log.debug("Exiting AuditRepositoryLogger.logSubjectAdded(...)");
-
-        return auditMsg;
-    }
 
     /**
      * This method will create the generic Audit Log Message from a NHIN Patient Discovery Request
@@ -395,55 +359,6 @@ public class AuditRepositoryLogger {
     }
 
     /**
-     * This method will create the generic Audit Log Message from a subject discovery revised request
-     *
-     * @param message The Subject Discovery Revised Request message to be audit logged.
-     * @param direction  The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logSubjectRevised(SubjectRevisedMessageType message, String direction, String _interface) {
-        log.debug("Entering AuditRepositoryLogger.logSubjectRevised(...)");
-        LogEventRequestType auditMsg = null;
-
-        if (isServiceEnabled()) {
-            LogSubjectRevisedRequestType logReqMsg = new LogSubjectRevisedRequestType();
-            logReqMsg.setDirection(direction);
-            logReqMsg.setInterface(_interface);
-            logReqMsg.setMessage(message);
-
-            auditMsg = SubjectDiscoveryTransforms.transformPRPA2013022AuditMsg(logReqMsg);
-        }
-        log.debug("Exiting AuditRepositoryLogger.logSubjectRevised(...)");
-
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from a subject discovery acknowledgement
-     *
-     * @param message The Subject Discovery Ack message to be audit logged.
-     * @param direction  The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logNhinSubjectDiscoveryAck(NhinSubjectDiscoveryAckMessageType message, String direction, String _interface) {
-        log.debug("Entering AuditRepositoryLogger.logNhinSubjectDiscoveryAck(...)");
-        LogEventRequestType auditMsg = null;
-
-        if (isServiceEnabled()) {
-            LogNhinSubjectDiscoveryAckRequestType logReqMsg = new LogNhinSubjectDiscoveryAckRequestType();
-            logReqMsg.setDirection(direction);
-            logReqMsg.setInterface(_interface);
-            logReqMsg.setMessage(message);
-            auditMsg = SubjectDiscoveryTransforms.transformAck2AuditMsg(logReqMsg);
-        }
-        log.debug("Exiting AuditRepositoryLogger.logNhinSubjectDiscoveryAck(...)");
-
-        return auditMsg;
-    }
-
-    /**
      * This method will create the generic Audit Log Message from a document query response
      *
      * @param message The Document Query Response message to be audit logged.
@@ -639,56 +554,6 @@ public class AuditRepositoryLogger {
             log.warn("logFindAuditEventsResult method is not implemented");
         }
         log.debug("Exiting AuditRepositoryLogger.logFindAuditEventsResult(...)");
-
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from a subject discovery reidentification request
-     *
-     * @param message The Subject Discovery Reidentification Request message to be audit logged.
-     * @param direction  The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logSubjectReident(SubjectReidentificationRequestMessageType message, String direction, String _interface) {
-        log.debug("Entering AuditRepositoryLogger.logSubjectReident(...)");
-        LogEventRequestType auditMsg = null;
-
-        if (isServiceEnabled()) {
-            LogSubjectReidentificationRequestType logReqMsg = new LogSubjectReidentificationRequestType();
-            logReqMsg.setDirection(direction);
-            logReqMsg.setInterface(_interface);
-            logReqMsg.setMessage(message);
-
-            auditMsg = SubjectDiscoveryTransforms.transformPRPA2013092AuditMsg(logReqMsg);
-        }
-        log.debug("Exiting AuditRepositoryLogger.logSubjectReident(...)");
-
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from a subject discovery reidentification response
-     *
-     * @param message The Subject Discovery Reidentification Response message to be audit logged.
-     * @param direction  The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logSubjectReidentResult(SubjectReidentificationResponseMessageType message, String direction, String _interface) {
-        log.debug("Entering AuditRepositoryLogger.logSubjectReidentResult(...)");
-        LogEventRequestType auditMsg = null;
-
-        if (isServiceEnabled()) {
-            LogSubjectReidentificationResponseType logReqMsg = new LogSubjectReidentificationResponseType();
-            logReqMsg.setDirection(direction);
-            logReqMsg.setInterface(_interface);
-            logReqMsg.setMessage(message);
-
-            auditMsg = SubjectDiscoveryTransforms.transformPRPA2013102AuditMsg(logReqMsg);
-        }
-        log.debug("Exiting AuditRepositoryLogger.logSubjectReidentResult(...)");
 
         return auditMsg;
     }

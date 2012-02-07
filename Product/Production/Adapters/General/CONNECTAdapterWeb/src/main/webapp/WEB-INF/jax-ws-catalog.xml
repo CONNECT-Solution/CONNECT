@@ -4,8 +4,6 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl" uri="wsdl/NhincProxyAuditLogQuerySecured.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl" uri="wsdl/AdapterMpiSecured.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationSecured.wsdl" uri="wsdl/NhincComponentPatientCorrelationSecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl" uri="wsdl/EntitySubjectDiscoverySecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl" uri="wsdl/NhincProxySubjectDiscoverySecured.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecured.wsdl" uri="wsdl/EntityPatientDiscoverySecured.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecured.wsdl" uri="wsdl/NhincProxyPatientDiscoverySecured.wsdl"/>
     <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecured.wsdl" uri="wsdl/NhincProxyXDRSecured.wsdl"/>

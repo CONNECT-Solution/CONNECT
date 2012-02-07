@@ -73,7 +73,6 @@ public class UDDIUpdateHandler
             "<businessServices><businessService serviceKey=\"\">" +
             "<names><name>Subject Discovery Service</name></names><descriptions>" +
             "<description>Service to perform subject discovery over NHIN</description>" +
-            "</descriptions><uniformServiceName>subjectdiscovery</uniformServiceName>" +
             "<serviceVersion>2.0</serviceVersion><internalWebService>false</internalWebService>" +
             "<bindingTemplates><bindingTemplate bindingKey=\"\"><endpointURL>";
     private final static String busEntStrPart3 = "</endpointURL>" +

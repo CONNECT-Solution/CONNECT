@@ -34,8 +34,6 @@
             uri="wsdl/AdapterComponentMpiSecured/AdapterComponentSecuredMpi.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl"
             uri="wsdl/AdapterPatientDiscoverySecured/AdapterPatientDiscoverySecured.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl"
-            uri="wsdl/AdapterSubjectDiscoverySecured/AdapterSubjectDiscoverySecured.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl"
             uri="wsdl/EntityAuditQuery/EntityAuditLogQuery.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl"
@@ -58,10 +56,6 @@
                 uri="wsdl/ProxyHiemSubscribe/NhincProxySubscriptionManagement.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl"
                 uri="wsdl/ProxyHiemUnsubscribe/NhincProxySubscriptionManagement.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl"
-                uri="wsdl/EntitySubjectDiscovery/EntitySubjectDiscovery.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl"
-                uri="wsdl/NhincProxySubjectDiscovery/NhincProxySubjectDiscovery.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRRequest.wsdl"
                 uri="wsdl/NhincProxyXDRRequest/NhincProxyXDRRequest.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRResponse.wsdl"

@@ -169,30 +169,6 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="AdapterSubjectDiscovery">
-      <implementation-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscovery</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscovery.wsdl</wsdl-url>
-      <local-wsdl-file>AdapterSubjectDiscovery.wsdl</local-wsdl-file>
-      <service-name>AdapterSubjectDiscovery</service-name>
-      <port-name>AdapterSubjectDiscoveryPortSoap</port-name>
-      <package-name>gov.hhs.fha.nhinc.adaptersubjectdiscovery</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
     <service name="EntityPatientDiscoverySecured">
       <implementation-class>gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoverySecured</implementation-class>
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecured.wsdl</wsdl-url>
@@ -224,54 +200,6 @@
       <service-name>NhincProxyPatientDiscoverySecured</service-name>
       <port-name>NhincProxyPatientDiscoverySecuredPort</port-name>
       <package-name>gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecured</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="EntitySubjectDiscoverySecured">
-      <implementation-class>gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoverySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl</wsdl-url>
-      <local-wsdl-file>EntitySubjectDiscoverySecured.wsdl</local-wsdl-file>
-      <service-name>EntitySubjectDiscoverySecured</service-name>
-      <port-name>EntitySubjectDiscoverySecuredPortSoap</port-name>
-      <package-name>gov.hhs.fha.nhinc.entitysubjectdiscoverysecured</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <use-provider>false</use-provider>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </service>
-    <service name="NhincSubjectDiscoverySecured">
-      <implementation-class>gov.hhs.fha.nhinc.subjectdiscovery.proxy.NhincSubjectDiscoverySecured</implementation-class>
-      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxySubjectDiscoverySecured.wsdl</local-wsdl-file>
-      <service-name>NhincProxySubjectDiscoverySecured</service-name>
-      <port-name>NhincProxySubjectDiscoverySecuredPortSoap</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxysubjectdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>

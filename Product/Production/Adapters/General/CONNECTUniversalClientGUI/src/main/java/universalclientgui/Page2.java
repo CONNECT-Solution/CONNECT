@@ -148,15 +148,7 @@ public class Page2 extends AbstractPageBean {
     public void setPatientSearchTab(Tab t) {
         this.patientSearchTab = t;
     }
-    private Tab subjectDiscoveryTab = new Tab();
 
-    public Tab getSubjectDiscoveryTab() {
-        return subjectDiscoveryTab;
-    }
-
-    public void setSubjectDiscoveryTab(Tab t) {
-        this.subjectDiscoveryTab = t;
-    }
     private Tab documentTab = new Tab();
 
     public Tab getDocumentTab() {
@@ -214,16 +206,7 @@ public class Page2 extends AbstractPageBean {
     public void setSelectedDocumentID(Hyperlink selectedDocumentID) {
         this.selectedDocumentID = selectedDocumentID;
     }
-    // Subject Discovery Tab Bindings
-    private StaticText subjectDiscoveryResultsInfo = new StaticText();
 
-    public StaticText getSubjectDiscoveryResultsInfo() {
-        return subjectDiscoveryResultsInfo;
-    }
-
-    public void setSubjectDiscoveryResultsInfo(StaticText st) {
-        this.subjectDiscoveryResultsInfo = st;
-    }
     private List<PatientCorrelationData> patientCorrelationList;
 
     public List<PatientCorrelationData> getPatientCorrelationList() {
@@ -441,7 +424,6 @@ public class Page2 extends AbstractPageBean {
         this.getPatientSearchDataList().clear();
         this.patientInfo.setText("");
         getSessionBean1().setFoundPatient(null);
-        deactivateSubjectDiscoveryTab();
         deactivateDocumentTab();
 
         String firstName = (String) firstNameField.getText();
@@ -636,10 +618,7 @@ public class Page2 extends AbstractPageBean {
                 }
                 this.patientInfo.setText(discoverInfoBuf.toString());
 
-                activateSubjectDiscoveryTab();
-                initializeSubjectDiscoveryTab();
                 activateDocumentTab();
-                this.getClientTabSet().setSelected("subjectDiscoveryTab");
 
                 //We found it - leave the loop
                 break;
@@ -655,39 +634,6 @@ public class Page2 extends AbstractPageBean {
         //searchData.setAssigningAuthorityID(foundPatient.getAssigningAuthorityID());
 
         return null;
-    }
-
-    // Subject Discovery Tab Methods
-    public String subjectDiscoveryTab_action() {
-        this.errorMessage.setText("");
-        return null;
-    }
-
-    private void activateSubjectDiscoveryTab() {
-        this.getSubjectDiscoveryTab().setDisabled(false);
-        String tabLabelStyle = this.getSubjectDiscoveryTab().getStyle();
-        if (tabLabelStyle.contains("color: gray; ")) {
-            String newStyle = tabLabelStyle.replace("color: gray; ", "");
-            this.getSubjectDiscoveryTab().setStyle(newStyle);
-        }
-    }
-
-    private void deactivateSubjectDiscoveryTab() {
-        String tabLabelStyle = this.getSubjectDiscoveryTab().getStyle();
-        if (!tabLabelStyle.contains("color: gray; ")) {
-            StringBuffer newStyle = new StringBuffer(tabLabelStyle);
-            newStyle.insert(0, "color: gray; ");
-            this.getSubjectDiscoveryTab().setStyle(newStyle.toString());
-        }
-        this.getSubjectDiscoveryTab().setDisabled(true);
-    }
-
-    private void initializeSubjectDiscoveryTab() {
-        this.getSubjectDiscoveryResultsInfo().setText("Patient Discovery Results (Existing Correlations)");
-        this.getBroadcastInfo().setText("Click to Discover New Correlations.");
-        this.getBroadcastInfo2().setText("Warning: This may take several minutes.");
-
-        performPatientCorrelation();
     }
 
     private void performPatientCorrelation() {
@@ -766,67 +712,6 @@ public class Page2 extends AbstractPageBean {
         this.getDocumentTab().setDisabled(true);
     }
 
-    public String broadcastSubjectDiscoveryButton_action() {
-
-//        try {
-
-//            EntitySubjectDiscoveryProxyObjectFactory sdFactory = new EntitySubjectDiscoveryProxyObjectFactory();
-//            EntitySubjectDiscoveryProxy sdProxy = sdFactory.getEntitySubjectDiscoveryProxy();
-//
-//            PIXConsumerPRPAIN201301UVRequestType request = new PIXConsumerPRPAIN201301UVRequestType();
-//            request.setAssertion(getSessionBean1().getAssertionInfo());
-//
-//            String localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_LOCAL_DEVICE);
-//            String orgId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
-//
-              PatientSearchData foundPatient = getSessionBean1().getFoundPatient();
-             
-//            JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn());
-//            //HL7PatientTransforms.create201302PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn(), null);
-//            PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, foundPatient.getPatientId(), localDeviceId);
-//            PRPAIN201301UV02 prpain201301 = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, orgId, orgId);
-//            request.setPRPAIN201301UV02(prpain201301);
-//
-//            MCCIIN000002UV01 sdAck = sdProxy.pixConsumerPRPAIN201301UV(request);
-//
-//            if (sdAck != null) {
-
-        
-	   SearchData searchData = (SearchData) getBean("SearchData");
-
-        PatientSearchData currentPatient = null;
-        
-        for (PatientSearchData testPatient : getPatientSearchDataList()) {
-            if (testPatient.getPatientId().equals(searchData.getPatientID())) {
-                currentPatient = testPatient; 
-                AssertionType assertion = getSessionBean1().getAssertionInfo();
-                PatientDiscoveryClient patientDiscoveryClient = new PatientDiscoveryClient();
-                patientDiscoveryClient.broadcastPatientDiscovery(assertion, currentPatient);
-                performPatientCorrelation();
-                this.getSubjectDiscoveryResultsInfo().setText("Broadcast Patient Discovery Results");
-            }
-        }
-
-
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.setTimeZone(TimeZone.getTimeZone("GMT"));
-        cal.setTimeInMillis(System.currentTimeMillis());
-
-        this.getBroadcastInfo().setText("Broadcast sent: " + (cal.get(java.util.Calendar.MONTH) + 1) + "/" + cal.get(java.util.Calendar.DAY_OF_MONTH) + "/" + cal.get(java.util.Calendar.YEAR) + " " + cal.get(java.util.Calendar.HOUR_OF_DAY) + ":" + cal.get(java.util.Calendar.MINUTE) + ":" + cal.get(java.util.Calendar.SECOND) + " GMT");
-        this.getBroadcastInfo2().setText("");
-
-//            } else {
-//                this.getBroadcastInfo().setText("Error in broadcast subject discovery");
-//            }
-
-//              return null;
-//        } catch (PropertyAccessException ex) {
-//            Logger.getLogger(Page2.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
-
-        return null;
-    }
 
     /**
      *

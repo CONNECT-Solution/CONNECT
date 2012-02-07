@@ -74,15 +74,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>SubjectDiscovery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscovery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SubjectDiscovery</servlet-name>
-        <url-pattern>/SubjectDiscoveryTestHelper</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>HiemSubscription</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.subscription.HiemSubscription</servlet-class>
     </servlet>
@@ -146,10 +137,6 @@
         <web-resource-collection>
             <web-resource-name>NhinPatientDiscoveryAsyncResp</web-resource-name>
             <url-pattern>/NhinPatientDiscoveryAsyncRespTestHelper</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>SubjectDiscovery</web-resource-name>
-            <url-pattern>/SubjectDiscoveryTestHelper</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>HiemSubscription</web-resource-name>

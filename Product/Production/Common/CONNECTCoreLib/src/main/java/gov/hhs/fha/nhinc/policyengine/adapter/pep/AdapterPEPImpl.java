@@ -125,8 +125,6 @@ public class AdapterPEPImpl {
         "HIEMSubscriptionCancelOut",
         "HIEMNotifyIn",
         "HIEMNotifyOut",
-        "SubjectDiscoveryReidentificationIn",
-        "SubjectDiscoveryReidentificationOut",
         "XDRIn",
         "XDROut"};
     // These define the xspa actions corresponding to the xacml definitions
@@ -354,19 +352,9 @@ public class AdapterPEPImpl {
                 resourceAttrList.addAll(resourceHomeCommunityList);
 
                 if (!extractedResourceIds.isEmpty() && !extractedCommunityIds.isEmpty()) {
-                    // The policy for the Subject Discovery Reidentification is based on the
-                    // user role code = "307969004" and the purpose for use = "PUBLICHEALTH"
-                    // The patient identifiers passed in are the Pseudonyms not the real ones.
-                    if (extractedServices.contains("SubjectDiscoveryReidentificationIn") ||
-                            extractedServices.contains("SubjectDiscoveryReidentificationOut")) {
-                        if (!extractedUserRoles.isEmpty() && !extractedPurpose.isEmpty()) {
-                            resourcePatientOptInList.addAll(createReidentOptStatusAttrs(extractedUserRoles, extractedPurpose));
-                        }
-                    } else {
-                        // The existance of a patient identifier in the request indicates that
-                        // the policy engine needs to check the patient opt-in status (Yes or No)
-                        resourcePatientOptInList.addAll(createPatientOptStatusAttrs(extractedResourceIds, extractedCommunityIds, assertion));
-                    }
+                    // The existance of a patient identifier in the request indicates that
+                    // the policy engine needs to check the patient opt-in status (Yes or No)
+                    resourcePatientOptInList.addAll(createPatientOptStatusAttrs(extractedResourceIds, extractedCommunityIds, assertion));
                     // Patient Opt-In or Opt-Out is optional - assume opt-out (No) if missing
                     if (resourcePatientOptInList.isEmpty()) {
                         log.debug("Create a default " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-Out");

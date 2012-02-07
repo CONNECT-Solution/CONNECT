@@ -121,21 +121,3 @@
         }
 
 
-#form1\:clientTabSet\:subjectDiscoveryTab\:subjectDiscoveryLayoutPanel\:broadcastInfo2 {
-	font-family: Arial, Helvetica !important;
-	top: 125px !important;
-	left: 20px !important;
-	width: 300px !important;
-	font-weight: bold;
-	}
-
-#form1\:clientTabSet\:subjectDiscoveryTab\:subjectDiscoveryLayoutPanel\:subjectDiscoveryCoorelationTable {
-	left: 0 !important;
-	width: 320px !important;
-	margin-top: 10px !important;
-	top: 140px !important;
-	}	
-
-#form1\:clientTabSet\:subjectDiscoveryTab\:subjectDiscoveryLayoutPanel\:subjectDiscoveryCoorelationTable div {
-        width: 320px !important;
-        }

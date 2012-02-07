@@ -86,16 +86,6 @@
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscovery"
-              linecount="5"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="48" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscoveryImpl"
-              linecount="45"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.subscription.HiemSubscription"
               linecount="2"
               linerate="80"

@@ -33,9 +33,7 @@ import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveResultEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.PatDiscReqEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
@@ -49,16 +47,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
  */
 public class PolicyEngineTransformer {
 
-    public CheckPolicyRequestType transformSubjectAddedToCheckPolicy(SubjectAddedEventType transformSubjectAddedToCheckPolicyRequest) {
-        return SubjectAddedTransformHelper.transformSubjectAddedToCheckPolicy(transformSubjectAddedToCheckPolicyRequest);
-    }
-
     public CheckPolicyRequestType transformPatDiscReqToCheckPolicy(PatDiscReqEventType transformPatDiscReqToCheckPolicyRequest) {
         return new PatientDiscoveryPolicyTransformHelper().transformPatientDiscoveryNhincToCheckPolicy(transformPatDiscReqToCheckPolicyRequest);
-    }
-
-    public CheckPolicyRequestType transformSubjectRevisedToCheckPolicy(SubjectRevisedEventType transformSubjectRevisedToCheckPolicyRequest) {
-        return SubjectRevisedTransformHelper.transformSubjectRevisedToCheckPolicy(transformSubjectRevisedToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformAdhocQueryToCheckPolicy(AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
@@ -80,10 +70,6 @@ public class PolicyEngineTransformer {
 
     public CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
         return FindAuditEventsTransformHelper.transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
-    }
-
-    public CheckPolicyRequestType transformSubjectReidentificationToCheckPolicy(SubjectReidentificationEventType transformSubjectReidentificationToCheckPolicyRequest) {
-        return SubjectReidentificationTransformHelper.transformSubjectReidentificationToCheckPolicy(transformSubjectReidentificationToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformSubscribeToCheckPolicy(SubscribeEventType transformSubscribeToCheckPolicyRequest) {

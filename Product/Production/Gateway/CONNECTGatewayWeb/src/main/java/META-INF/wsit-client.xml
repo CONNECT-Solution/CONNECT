@@ -9,7 +9,5 @@
     <import location="AdapterPolicyEngineSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured"/>
     <import location="AdapterAuditLogQuerySaml.xml" namespace="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml"/>
     <import location="NhinAuditLogQuery.xml" namespace="http://services.nhin.com/wsdl/auditlogquery"/>
-    <import location="AdapterSubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
-    <import location="NhinSubjectDiscovery.xml" namespace="urn:ihe:iti:pixv3:2007"/>
 </definitions>
