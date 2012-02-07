@@ -41,21 +41,6 @@ public class SamlTokenExtractorHelperTest {
     @After
     public void tearDown() {
     }
-
-    /**
-     * Test of GetEndpointURL method, of class SamlTokenExtractorHelper.
-     */
-    @Test
-    public void testGetSDEndpointURL() {
-        log.debug("testGetSDEndpointURL");
-        
-        String homeCommunityId = "2.16.840.1.113883.3.200";
-        String service = SamlTokenExtractorHelper.INTERNAL_SUBJECT_DISCOVERY;
-        String expResult = "http://localhost:9080/NhinConnect/NhincSubjectDiscovery";
-        String result = SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, service);
-        assertEquals(expResult, result);
-        
-    }
     
     /**
      * Test of GetEndpointURL method, of class SamlTokenExtractorHelper.
