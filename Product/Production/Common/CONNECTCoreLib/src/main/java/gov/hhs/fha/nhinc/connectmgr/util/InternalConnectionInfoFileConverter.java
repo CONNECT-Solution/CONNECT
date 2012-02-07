@@ -266,6 +266,13 @@ public class InternalConnectionInfoFileConverter {
         }
     }
 
+    /**
+     * To run this from the command line, use:
+     * 
+     * java -cp "C:\Sun\AppServer\lib\CONNECTCoreLib.jar;C:\Sun\AppServer\lib\*" gov.hhs.fha.nhinc.connectmgr.util.InternalConnectionInfoFileConverter [fromFile] [toFile]
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         if (args.length == 0) {
             System.out.println("Usage:");

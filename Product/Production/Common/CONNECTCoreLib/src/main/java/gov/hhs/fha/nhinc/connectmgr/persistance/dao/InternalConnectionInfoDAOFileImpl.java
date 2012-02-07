@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.io.File;
@@ -47,22 +48,49 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
     private static InternalConnectionInfoDAOFileImpl instance = null;
     private File file = null;
     private Log log = null;
+    private static String fileLocation = null;
+    private static final String INTERNAL_XML_FILE_NAME = "internalConnectionInfo.xml";
+    private static boolean failedToLoadEnvVar = false;
 
-    public static InternalConnectionInfoDAOFileImpl getInstance() {
-    	
-        if (instance != null) {
-            return instance;
-        } else {
-            return new InternalConnectionInfoDAOFileImpl(PropertyAccessor.getPropertyFileLocation() + "InternalConnectionInfo.xml");
-        }
+    public static InternalConnectionInfoDAOFileImpl getInstance() {    	
+        if (instance == null) {
+            instance = new InternalConnectionInfoDAOFileImpl();
+        } 
+
+        return instance;
     }
 
-    InternalConnectionInfoDAOFileImpl(String fileName) {
+    InternalConnectionInfoDAOFileImpl() {
+        log = getLogger();
+
+        String fileName = getInternalConnectionFileLocation();
+        log.debug("Reading InternalConnectionInfo from file: " + fileName);
         file = new File(fileName);
+    }
+
+    protected String getInternalConnectionFileLocation() {
+        if (fileLocation == null) {
+            String sValue = PropertyAccessor.getPropertyFileLocation();
+            if ((sValue != null) && (sValue.length() > 0)) {
+                if (sValue.endsWith(File.separator)) {
+                    fileLocation = sValue + INTERNAL_XML_FILE_NAME;
+                } else {
+                    fileLocation = sValue + File.separator + INTERNAL_XML_FILE_NAME;
+                }
+            } else {
+                failedToLoadEnvVar = true;
+            }
+        }
+
+        return fileLocation;
     }
 
     @Override
     public BusinessDetail loadBusinessDetail() throws Exception {
+        if (failedToLoadEnvVar) {
+            throw new ConnectionManagerException("Unable to access system variable: nhinc.properties.dir.");
+        }
+        
         BusinessDetail resp = null;
         try {
             resp = super.loadBusinessDetail(file);
