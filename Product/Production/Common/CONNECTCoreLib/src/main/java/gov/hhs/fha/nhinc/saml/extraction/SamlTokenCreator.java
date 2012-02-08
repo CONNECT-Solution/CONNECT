@@ -1,4 +1,5 @@
 /*
+
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
@@ -23,6 +24,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+
  */
 package gov.hhs.fha.nhinc.saml.extraction;
 
@@ -56,11 +58,7 @@ public class SamlTokenCreator {
     public Map CreateRequestContext(AssertionType assertion, String url, String action) {
         log.debug("Entering SamlTokenCreator.CreateRequestContext...");
 
-        Map<String, String> requestContext = new HashMap<String, String>();
-
-        
-        
-        
+        Map<String, Object> requestContext = new HashMap<String, Object>();
 
         if (assertion != null) {
             if (assertion.getUserInfo() != null) {
@@ -192,10 +190,10 @@ public class SamlTokenCreator {
                     if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat())) {
                         requestContext.put(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat());
                     }
-                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy())) {
+                    if (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().isEmpty()) {
                         requestContext.put(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy());
                     }
-                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy())) {
+                    if (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().isEmpty()) {
                         requestContext.put(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy());
                     }
                     if (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() != null) {

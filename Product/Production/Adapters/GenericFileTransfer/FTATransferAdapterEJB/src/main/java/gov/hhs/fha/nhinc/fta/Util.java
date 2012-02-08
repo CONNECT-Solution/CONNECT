@@ -196,7 +196,7 @@ public class Util {
 
         result.setSSN("123456789");
         result.setPurposeOfDisclosureCoded(createPurposeCode());
-        result.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy("Ref-Clm-123");
+        result.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().add("Ref-Clm-123");
         return result;
     }
 

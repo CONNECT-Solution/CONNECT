@@ -285,8 +285,8 @@ public class AssertionHelperTest {
         samlAuthzDecisionStatementAssertion.setIssueInstant(TEST_EV_INSTANCE_VAL);
         samlAuthzDecisionStatementAssertion.setVersion(TEST_EV_VERSION_VAL);
         samlAuthzDecisionStatementAssertion.setIssuer(TEST_EV_ISSUER_VAL);
-        samlAuthzDecisionStatementAssertion.setAccessConsentPolicy(TEST_EV_ACCESS_CONSENT_VAL);
-        samlAuthzDecisionStatementAssertion.setInstanceAccessConsentPolicy(TEST_EV_INST_ACCESS_CONSENT_VAL);
+        samlAuthzDecisionStatementAssertion.getAccessConsentPolicy().add(TEST_EV_ACCESS_CONSENT_VAL);
+        samlAuthzDecisionStatementAssertion.getInstanceAccessConsentPolicy().add(TEST_EV_INST_ACCESS_CONSENT_VAL);
 
         samlAuthzDecisionStatementAssertion.setConditions(samlAuthzDecisionStatementEvidenceConditions);
         samlAuthzDecisionStatementEvidenceConditions.setNotBefore(TEST_EV_COND_BEFORE_VAL);
@@ -1229,48 +1229,59 @@ public class AssertionHelperTest {
     @Test
     public void AssertionSamlAuthzDecisionStatementEvidenceAssertionAccessConsentFromAssertionToXacml() {
         AssertionType assertion = createTestAssertion();
-        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy();
-        assertFalse(sourceValue.contentEquals(""));
+        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().get(0);
+        assertFalse(sourceValue.isEmpty());
         executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
 
     @Test
     public void AssertionSamlAuthzDecisionStatementEvidenceAssertionAccessConsentFromAssertionToXacmlWithBlankValue() {
         AssertionType assertion = createTestAssertion();
-        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy("");
-        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy();
+        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().clear();
+        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().add("");
+        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().get(0);
         executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
 
     @Test
     public void AssertionSamlAuthzDecisionStatementEvidenceAssertionAccessConsentFromAssertionToXacmlWithNullValue() {
         AssertionType assertion = createTestAssertion();
-        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy(null);
-        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy();
+        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().clear();
+        String sourceValue = null;
+        try{
+            sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().get(0);
+        }catch(Exception e){}
         executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
 
     @Test
     public void AssertionSamlAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentFromAssertionToXacml() {
         AssertionType assertion = createTestAssertion();
-        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy();
-        assertFalse(sourceValue.contentEquals(""));
+        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().get(0);
+        assertFalse(sourceValue.isEmpty());
         executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
 
     @Test
     public void AssertionSamlAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentFromAssertionToXacmlWithBlankValue() {
         AssertionType assertion = createTestAssertion();
-        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy("");
-        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy();
+        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().clear();
+        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().add("");
+        String sourceValue = null;
+        try{
+            sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().get(0);
+        }catch(Exception e){}
         executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
 
     @Test
     public void AssertionSamlAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentFromAssertionToXacmlWithNullValue() {
         AssertionType assertion = createTestAssertion();
-        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy(null);
-        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy();
+        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().clear();
+        String sourceValue = null;
+        try{
+            sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().get(0);
+        }catch(Exception e){}
         executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
 

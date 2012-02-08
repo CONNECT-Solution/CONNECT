@@ -213,7 +213,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             //Per GATEWAY-847 the id attribute should not be allowed to start with a number (UUIDs can). Direction given from 2011 specification set was to prepend with and underscore.
             String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
             log.debug("Assertion ID: " + aID);
-            
+
             // name id of the issuer - For now just use default
             NameID issueId = create509NameID(factory, DEFAULT_NAME);
 
@@ -254,7 +254,7 @@ public class SamlCallbackHandler implements CallbackHandler {
         Assertion assertion = null;
         try {
             SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
-            
+
             // create the assertion id
             //Per GATEWAY-847 the id attribute should not be allowed to start with a number (UUIDs can). Direction given from 2011 specification set was to prepend with and underscore.
             String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
@@ -925,28 +925,34 @@ public class SamlCallbackHandler implements CallbackHandler {
         if (tokenVals.containsKey(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP) &&
                 tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP) != null) {
             log.debug("Setting Evidence Access Consent to: " + tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP).toString());
-            attributeValues1.add(tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP).toString());
+            attributeValues1.addAll((List<String>)tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP));
         } else {
             log.debug("No Access Consent found for Evidence");
         }
 
-        attributes.add(factory.createAttribute("AccessConsentPolicy", NHIN_NS, attributeValues1));
+        if(!attributeValues1.isEmpty())
+            attributes.add(factory.createAttribute("AccessConsentPolicy", NHIN_NS, attributeValues1));
+
 
         // Set the Instance Access Consent
         List attributeValues2 = new ArrayList();
         if (tokenVals.containsKey(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) &&
                 tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) != null) {
             log.debug("Setting Evidence Instance Access Consent to: " + tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
-            attributeValues2.add(tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
+            attributeValues2.addAll((List<String>)tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP));
         } else {
             log.debug("No Instance Access Consent found for Evidence");
         }
 
-        attributes.add(factory.createAttribute("InstanceAccessConsentPolicy", NHIN_NS, attributeValues2));
+        if(!attributeValues2.isEmpty())
+            attributes.add(factory.createAttribute("InstanceAccessConsentPolicy", NHIN_NS, attributeValues2));
+
 
         if (!attributes.isEmpty()) {
             statements.add(factory.createAttributeStatement(attributes));
-        }
+        }else
+            throw new SAMLException("At least one AccessConsentPolicy or InstanceAccessConsentPolicy must be provided in the AuthorizationDecisionStatement:Evidence:AttributeStatement");
+
 
         log.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
         return statements;

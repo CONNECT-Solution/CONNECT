@@ -35,6 +35,7 @@ import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -900,9 +901,11 @@ public class AssertionHelper {
         return xmlDate;
     }
 
-    private String extractAuthzDecisionStatementEvidenceAssertionAccessConsentPolicy(AssertionType assertion) {
-        String value = null;
-        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)) {
+    private List<String> extractAuthzDecisionStatementEvidenceAssertionAccessConsentPolicy(AssertionType assertion) {
+        List<String> value = null;
+        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) 
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)
+                && (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().isEmpty())) {
             log.debug("Extracting AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy");
             value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy();
             log.debug("Extracted AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy value=" + value);
@@ -918,15 +921,17 @@ public class AssertionHelper {
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy;
         String dataType = Constants.DataTypeAnyURI;
-        String attributeValue = extractAuthzDecisionStatementEvidenceAssertionAccessConsentPolicy(assertion);
+        List<String> attributeValue = extractAuthzDecisionStatementEvidenceAssertionAccessConsentPolicy(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
         attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy");
     }
 
-    private String extractAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(AssertionType assertion) {
-        String value = null;
-        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)) {
+    private List<String> extractAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(AssertionType assertion) {
+        List<String> value = null;
+        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) 
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)
+                && (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().isEmpty())) {
             log.debug("Extracting AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy");
             value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy();
             log.debug("Extracted AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy value=" + value);
@@ -942,7 +947,7 @@ public class AssertionHelper {
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy;
         String dataType = Constants.DataTypeAnyURI;
-        String attributeValue = extractAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(assertion);
+        List<String> attributeValue = extractAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
         attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy");

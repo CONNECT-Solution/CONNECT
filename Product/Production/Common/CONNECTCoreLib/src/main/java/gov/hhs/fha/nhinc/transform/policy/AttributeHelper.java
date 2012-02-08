@@ -71,6 +71,8 @@ public class AttributeHelper {
         AttributeValueType atttibuteValue = new AttributeValueType();
         if (value instanceof String) {
             atttibuteValue.getContent().add(value);
+        } else if (value instanceof List) {
+            atttibuteValue.getContent().addAll((List<String>) value);
         } else if (value instanceof byte[]) {
             String sValue = new String((byte[]) value);     // Note that JAXB already decoded this.  We need to re-encode it.
             String sEncodedValue = Base64Coder.encodeString(sValue);

@@ -245,10 +245,10 @@ public class SamlTokenExtractor {
 		samlAuthzDecisionStatementAssertion.setIssueInstant(EMPTY_STRING);
 		samlAuthzDecisionStatementAssertion.setVersion(EMPTY_STRING);
 		samlAuthzDecisionStatementAssertion.setIssuer(EMPTY_STRING);
-		samlAuthzDecisionStatementAssertion
-				.setAccessConsentPolicy(EMPTY_STRING);
-		samlAuthzDecisionStatementAssertion
-				.setInstanceAccessConsentPolicy(EMPTY_STRING);
+		//samlAuthzDecisionStatementAssertion
+		//		.setAccessConsentPolicy(EMPTY_STRING);
+		//samlAuthzDecisionStatementAssertion
+		//		.setInstanceAccessConsentPolicy(EMPTY_STRING);
 
 		samlAuthzDecisionStatementAssertion
 				.setConditions(samlAuthzDecisionStatementEvidenceConditions);
@@ -441,22 +441,20 @@ public class SamlTokenExtractor {
 									+ sPatientId);
 						} else if (nameAttr
 								.equals(NhincConstants.ACCESS_CONSENT_ATTR)) {
-							String sAccessConsentId = AttributeTypeHelper
-									.extractAttributeValueString(attrib);
+							List sAccessConsentId = attrib.getAttributeValue();
 							assertOut.getSamlAuthzDecisionStatement()
 									.getEvidence().getAssertion()
-									.setAccessConsentPolicy(sAccessConsentId);
+									.getAccessConsentPolicy().addAll(sAccessConsentId);
 							log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = "
 									+ sAccessConsentId);
 						} else if (nameAttr
 								.equals(NhincConstants.INST_ACCESS_CONSENT_ATTR)) {
-							String sInstAccessConsentId = AttributeTypeHelper
-									.extractAttributeValueString(attrib);
+							List sInstAccessConsentId = attrib.getAttributeValue();
 							assertOut
 									.getSamlAuthzDecisionStatement()
 									.getEvidence()
 									.getAssertion()
-									.setInstanceAccessConsentPolicy(
+									.getInstanceAccessConsentPolicy().addAll(
 											sInstAccessConsentId);
 							log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = "
 									+ sInstAccessConsentId);

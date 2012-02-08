@@ -350,20 +350,22 @@ public class AdapterPIPImpl {
             svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.ACCESS_POLICY_CONSENT);
             if (null != svalue && svalue.length() > 0)
             {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy(svalue.trim());
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().add(svalue.trim());
             }
             else
             {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy("");
+                //Do not add empty string to AccessConsentPolicy (Can occur 0 times)
+                //assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().add("");
             }
             svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.INSTANCE_ACCESS_POLICY_CONSENT);
             if (null != svalue && svalue.length() > 0)
             {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy(svalue.trim());
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().add(svalue.trim());
             }
             else
             {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy("");
+                //Do not add empty string to InstanceAccessConsentPolicy (Can occur 0 times)
+                //assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().add("");
             }
         }
         catch (PropertyAccessException propExp)
