@@ -58,7 +58,7 @@ public class OutboundDocSubmissionDeferredRequestDelegate implements OutboundDel
             OutboundDocSubmissionDeferredRequestOrchestratable dsMessage = (OutboundDocSubmissionDeferredRequestOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
-                dsMessage.getAssertion().getHomeCommunity(), dsMessage.getServiceName());
+                dsMessage.getTarget().getHomeCommunity(), dsMessage.getServiceName());
 
             if (contextBuilder instanceof OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g0) {
                 ((OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g0) contextBuilder).init(message);
