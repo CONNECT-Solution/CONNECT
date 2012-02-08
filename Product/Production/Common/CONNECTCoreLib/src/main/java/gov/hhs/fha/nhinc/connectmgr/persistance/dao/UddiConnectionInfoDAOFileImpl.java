@@ -67,7 +67,7 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
         file = new File(fileName);
     }
 
-    protected String getUddiConnectionFileLocation() {
+    public String getUddiConnectionFileLocation() {
         if (fileLocation == null) {
             String sValue = PropertyAccessor.getPropertyFileLocation();
             if ((sValue != null) && (sValue.length() > 0)) {

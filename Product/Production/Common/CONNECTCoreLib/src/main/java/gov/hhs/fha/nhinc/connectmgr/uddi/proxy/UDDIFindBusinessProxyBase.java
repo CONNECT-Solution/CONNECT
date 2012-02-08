@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
 import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
-import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIService;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -36,7 +35,9 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessList;
+import org.uddi.api_v3.GetBusinessDetail;
 
 /**
  *
@@ -64,6 +65,8 @@ public abstract class UDDIFindBusinessProxyBase {
      * @throws UDDIFindBusinessException
      */
     public abstract BusinessList findBusinessesFromUDDI() throws UDDIFindBusinessException;
+
+    public abstract BusinessDetail getBusinessDetail(GetBusinessDetail searchParams) throws UDDIFindBusinessException;
 
     /**
      * This method loads information from the gateway.properties file that are

@@ -68,7 +68,7 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
         file = new File(fileName);
     }
 
-    protected String getInternalConnectionFileLocation() {
+    public String getInternalConnectionFileLocation() {
         if (fileLocation == null) {
             String sValue = PropertyAccessor.getPropertyFileLocation();
             if ((sValue != null) && (sValue.length() > 0)) {

@@ -29,9 +29,11 @@ package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.FindBusiness;
 import org.uddi.api_v3.FindQualifiers;
+import org.uddi.api_v3.GetBusinessDetail;
 import org.uddi.api_v3.Name;
 
 /**
@@ -79,6 +81,27 @@ public class UDDIFindBusinessProxyJuddiV3Impl extends UDDIFindBusinessProxyBase 
         }
 
         return oBusinessList;
+    }
+
+    @Override
+    public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams) throws UDDIFindBusinessException {
+
+        BusinessDetail businessDetail = null;
+        try {
+            loadProperties();
+            UDDIInquiryPortType port = getUDDIInquiryWebService();
+
+            businessDetail = (BusinessDetail) getWebServiceProxyHelper().invokePort
+                    (port, UDDIInquiryPortType.class, "getBusinessDetail", searchParams);
+
+        } catch (Exception e) {
+            String sErrorMessage = "Failed to call 'getBusinessDetail' web service on the NHIN UDDI server.  Error: " +
+                    e.getMessage();
+            log.error(sErrorMessage, e);
+            throw new UDDIFindBusinessException(sErrorMessage, e);
+        }
+
+        return businessDetail;
     }
 
 }

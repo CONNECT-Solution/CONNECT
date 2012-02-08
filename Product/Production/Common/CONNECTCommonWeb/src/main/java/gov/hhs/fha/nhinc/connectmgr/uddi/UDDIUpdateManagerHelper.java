@@ -29,17 +29,16 @@ package gov.hhs.fha.nhinc.connectmgr.uddi;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.SuccessOrFailType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshRequestType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshResponseType;
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntities;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfo;
-import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfoXML;
 
+import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
-import java.io.FileWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.uddi.api_v3.BusinessDetail;
 
 /**
  * Helper class for the web service.
@@ -51,37 +50,21 @@ public class UDDIUpdateManagerHelper {
     private static Log log = LogFactory.getLog(UDDIUpdateManagerHelper.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_REFRESH_KEEP_BACKUPS_PROPERTY = "UDDIRefreshKeepBackups";
-    private static final String UDDI_CONNECTION_INFO_FILENAME = "uddiConnectionInfo.xml";
+    private static final String UDDI_MAX_NUM_BACKUPS_PROPERTY = "UDDIMaxNumBackups";
+    private static final int MAX_NUM_BACKUP = 10;
+    private static ArrayList<String> backupFileList = new ArrayList<String>();
 
     /**
-     * This method retrieves the data from the UDDI server and transforms it into
-     * and XML string and returns it.
-     * 
-     * @return The XML representation of the data retrieved from UDDI.
+     * This method retrieves the BusinessDetail data from the UDDI server.  The BusinessDetail
+     * contains the list of BusinessEntity that contains all the necessary information for each
+     * services.
+     *
+     * @return The BusinessDetail data retrieved from UDDI.
      */
-    private static String retrieveDataFromUDDI()
+    private static BusinessDetail retrieveDataFromUDDI()
             throws UDDIAccessorException {
-        String sXML = "";
-
         UDDIAccessor oUDDIAccessor = new UDDIAccessor();
-        CMBusinessEntities oEntities = oUDDIAccessor.retrieveFromUDDIServer();
-
-        if ((oEntities != null) &&
-                (oEntities.getBusinessEntity() != null) &&
-                (oEntities.getBusinessEntity().size() > 0)) {
-            CMUDDIConnectionInfo oUDDIConnectionInfo = new CMUDDIConnectionInfo();
-            oUDDIConnectionInfo.setBusinessEntities(oEntities);
-            try {
-                sXML = CMUDDIConnectionInfoXML.serialize(oUDDIConnectionInfo);
-            } catch (Exception e) {
-                String sErrorMessage = "Failed to serialize information from UDDI into valid XML message.  Error: " +
-                        e.getMessage();
-                log.error(sErrorMessage, e);
-                throw new UDDIAccessorException(sErrorMessage, e);
-            }
-        }
-
-        return sXML;
+        return oUDDIAccessor.retrieveFromUDDIServer();
     }
 
     /**
@@ -96,90 +79,95 @@ public class UDDIUpdateManagerHelper {
             log.debug("Start: UDDIUpdateManagerHelper.forceRefreshUDDIFile method - loading from UDDI server.");
         }
 
-        String sXML = "";
-        Boolean bCreateBackups = true;
-        String sXMLFileLocation = "";
-
         try {
-            sXML = retrieveDataFromUDDI();
+            BusinessDetail businessDetail = retrieveDataFromUDDI();
+            if (businessDetail != null) {
+                createUddiFileBackupByRenaming();
+                saveUddiResultsToFile(businessDetail);
+            }
+
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve data from UDDI.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }
 
-        if ((sXML != null) && (sXML.length() > 0)) {
-            try {
-                bCreateBackups = PropertyAccessor.getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_REFRESH_KEEP_BACKUPS_PROPERTY);
-            } catch (Exception e) {
-                bCreateBackups = true;
-                String sErrorMessage = "Failed to retrieve property: " + UDDI_REFRESH_KEEP_BACKUPS_PROPERTY +
-                        " from " + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to creating backups. " +
-                        "Error: " + e.getMessage();
-                log.warn(sErrorMessage, e);
-            }
-
-            sXMLFileLocation = PropertyAccessor.getPropertyFileLocation() + UDDI_CONNECTION_INFO_FILENAME;
-            File fCurrentFile = new File(sXMLFileLocation);
-
-            Calendar oNow = Calendar.getInstance();
-            SimpleDateFormat oFormat = new SimpleDateFormat("MM-dd-yyyy_HH-mm-ss");
-            String sXMLFileLocationNewName = sXMLFileLocation + "." + oFormat.format(oNow.getTime());
-            File fNewFileName = new File(sXMLFileLocationNewName);
-
-            if (fCurrentFile.exists()) {
-
-                try {
-                    fCurrentFile.renameTo(fNewFileName);
-                } catch (Exception e) {
-                    String sErrorMessage = "Failed to rename the current file: " + sXMLFileLocation +
-                            " to: " + sXMLFileLocationNewName + ".  Aborting changes to " +
-                            "uddi connection information.  Error: " + e.getMessage();
-                    log.error(sErrorMessage, e);
-                    throw new UDDIAccessorException(sErrorMessage, e);
-                }
-            }   // if (fCurrentFile.exists())
-
-            // Create the file with the new information.
-            //-------------------------------------------
-            FileWriter fwCurrentFile = null;
-            try {
-                fwCurrentFile = new FileWriter(fCurrentFile);
-                fwCurrentFile.write(sXML);
-            } catch (Exception e) {
-                String sErrorMessage = "Failed to write file: " + sXMLFileLocation +
-                        ". Error: " + e.getMessage();
-                log.error(sErrorMessage, e);
-                throw new UDDIAccessorException(sErrorMessage, e);
-            } finally {
-                if (fwCurrentFile != null) {
-                    try {
-                        fwCurrentFile.close();
-                    } catch (Exception e) {
-                        String sErrorMessage = "Failed to close file: " + sXMLFileLocation +
-                                ". Error: " + e.getMessage();
-                        log.error(sErrorMessage, e);
-                        throw new UDDIAccessorException(sErrorMessage, e);
-                    }
-                }
-            }
-
-            // if we are not creating backups...  Then we need to delete our temproary one.  
-            //------------------------------------------------------------------------------
-            if (!bCreateBackups) {
-                try {
-                    fNewFileName.delete();
-                } catch (Exception e) {
-                    String sErrorMessage = "Failed to delete the temporary backup file: " + sXMLFileLocationNewName +
-                            "Error: " + e.getMessage();
-                    log.error(sErrorMessage, e);
-                    throw new UDDIAccessorException(sErrorMessage, e);
-                }
-            }
-        }   // if ((sXML != null) && (sXML.length() > 0))
-
         if (log.isDebugEnabled()) {
             log.debug("Done: UDDIUpdateManagerHelper.forceRefreshUDDIFile method - loading from UDDI server.");
+        }
+    }
+
+    /**
+     * This method creates the uddi backup file if enabled by the configuration.  The backup is created
+     * by renaming the current Uddi file to a newly generated filename.
+     */
+    private void createUddiFileBackupByRenaming() {
+        boolean createBackups = true;
+        try {
+            createBackups = PropertyAccessor.getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_REFRESH_KEEP_BACKUPS_PROPERTY);
+        } catch (Exception e) {
+            String sErrorMessage = "Failed to retrieve property: " + UDDI_REFRESH_KEEP_BACKUPS_PROPERTY +
+                    " from " + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to creating backups. ";
+            log.warn(sErrorMessage, e);
+        }
+
+        if (createBackups) {       
+            String uddiFileLocation = UddiConnectionInfoDAOFileImpl.getInstance().getUddiConnectionFileLocation();
+            String backupUddiFileLocation = generateUniqueFilename(uddiFileLocation);
+
+            try {
+                File currentFile = new File(uddiFileLocation);
+                File newBackupFile = new File(backupUddiFileLocation);
+
+                if (currentFile.exists()) {
+                    currentFile.renameTo(newBackupFile);
+
+                    addToBackupList(backupUddiFileLocation);
+                }
+            } catch (Exception e) {
+                String errorMessage = "Failed to rename the current file: " + uddiFileLocation +
+                        " to: " + backupUddiFileLocation;
+                log.error(errorMessage, e);
+            }           
+        }   
+    }
+
+    private String generateUniqueFilename(String fileLocation) {
+        Calendar currentTime = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy_HH-mm-ss");
+        return fileLocation + "." + dateFormat.format(currentTime.getTime());
+    }
+
+    private void saveUddiResultsToFile(BusinessDetail businessDetail) {
+        UddiConnectionInfoDAOFileImpl uddiDao = UddiConnectionInfoDAOFileImpl.getInstance();
+        uddiDao.saveBusinessDetail(businessDetail);
+    }
+
+    private void addToBackupList(String latestFilename) {
+        int maxNumBackup = MAX_NUM_BACKUP;
+        try {
+            maxNumBackup = (int) PropertyAccessor.getPropertyLong(GATEWAY_PROPERTY_FILE, UDDI_MAX_NUM_BACKUPS_PROPERTY);
+        } catch (Exception e) {
+            String sErrorMessage = "Failed to retrieve property: " + UDDI_MAX_NUM_BACKUPS_PROPERTY +
+                    " from " + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to " + MAX_NUM_BACKUP;
+            log.warn(sErrorMessage, e);
+        }
+
+        String filenameToDelete = null;
+        if (backupFileList.size() >= maxNumBackup) {
+            filenameToDelete = backupFileList.remove(0);
+        }
+        backupFileList.add(latestFilename);
+
+        if (filenameToDelete != null) {
+            try {
+                File fileToDelete = new File(filenameToDelete);
+                if (fileToDelete.exists()) {
+                    fileToDelete.delete();
+                }
+            } catch (Exception e) {
+                log.warn("Failed to delete backup file: " + filenameToDelete);
+            }
         }
     }
 

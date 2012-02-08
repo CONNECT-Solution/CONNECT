@@ -53,6 +53,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.util.Iterator;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 
@@ -74,6 +75,7 @@ import org.uddi.v3_service.UDDIInquiryPortType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.uddi.api_v3.BusinessInfos;
 
 /**
  * This class is used to retrieve the connection information from the UDDI server.
@@ -83,8 +85,6 @@ import org.apache.commons.logging.LogFactory;
 public class UDDIAccessor {
 
     private Log log = null;
-    private static Service cachedService = null;
-    private static WebServiceProxyHelper oProxyHelper = null;
 
     private static String GATEWAY_PROPFILE_NAME = "gateway";
     private static String UDDI_INQUIRY_ENDPOINT_URL = "UDDIInquiryEndpointURL";
@@ -95,13 +95,6 @@ public class UDDIAccessor {
     private static String UNIFORM_SERVICE_NAME_KEY = "uddi:nhin:standard-servicenames";
     private static String SERVICE_VERSION_KEY = "uddi:nhin:versionofservice";
 
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhin_uddi_api_v3";
-    private static final String SERVICE_LOCAL_PART = "UDDI_Service";
-    private static final String PORT_LOCAL_PART = "UDDI_Inquiry_Port";
-    private static final String WSDL_FILE = "NhinUddiAPIV3.wsdl";
-
-    // URL for the UDDI Server.
-    private String m_sUDDIInquiryEndpointURL = "";
     // These are business entities that the UDDI will send us that we should ignore.
     // These are configured in the gateway.properties file and will be used to eliminate
     // some of the entries we get back from the UDDI server.
@@ -125,12 +118,7 @@ public class UDDIAccessor {
             throws UDDIAccessorException {
         if (!m_bPropsLoaded) {
             try {
-                String sValue = PropertyAccessor.getProperty(GATEWAY_PROPFILE_NAME, UDDI_INQUIRY_ENDPOINT_URL);
-                if ((sValue != null) && (sValue.length() > 0)) {
-                    m_sUDDIInquiryEndpointURL = sValue;
-                }
-
-                sValue = PropertyAccessor.getProperty(GATEWAY_PROPFILE_NAME, UDDI_BUSINESSES_TO_IGNORE);
+                String sValue = PropertyAccessor.getProperty(GATEWAY_PROPFILE_NAME, UDDI_BUSINESSES_TO_IGNORE);
                 if ((sValue != null) && (sValue.length() > 0)) {
                     String saBusiness[] = sValue.split(";");
                     if ((saBusiness != null) && (saBusiness.length > 0)) {
@@ -148,71 +136,7 @@ public class UDDIAccessor {
                 log.error(sErrorMessage, e);
                 throw new UDDIAccessorException(sErrorMessage, e);
             }
-
-            // If we do not have the endpoint URL, then we have a problem.
-            //-------------------------------------------------------------
-            if ((m_sUDDIInquiryEndpointURL == null) || (m_sUDDIInquiryEndpointURL.length() <= 0)) {
-                log.error("Failed to retrieve property: '" + UDDI_INQUIRY_ENDPOINT_URL + "' from " +
-                        GATEWAY_PROPFILE_NAME + ".properties file.   UDDI server cannot be accessed.");
-            }
         }
-    }
-
-    /**
-     * This method retrieves the port for the UDDI server with the correct endpoint.
-     * 
-     * @return 
-     */
-    private UDDIInquiryPortType getUDDIInquiryWebService()
-            throws UDDIAccessorException {
-        UDDIInquiryPortType oPort = null;
-
-        try {
-            Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-
-            if (oService != null)
-            {
-                log.debug("Obtained UDDI service - creating port.");
-                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), UDDIInquiryPortType.class);
-
-                // Load in the correct UDDI endpoint URL address.
-                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, m_sUDDIInquiryEndpointURL, null, null);
-             }
-            else
-            {
-                log.error("Unable to obtain serivce - no port created.");
-            }
-        } catch (Exception e) {
-            String sErrorMessage = "Failed to retrieve the UDDI Inquiry Web Service port.  Error: " + e.getMessage();
-            log.error(sErrorMessage, e);
-            throw new UDDIAccessorException(sErrorMessage, e);
-        }
-        return oPort;
-    }
-
-    protected WebServiceProxyHelper getWebServiceProxyHelper()
-    {
-        if (oProxyHelper == null)
-        {
-            oProxyHelper = new WebServiceProxyHelper();
-        }
-        return oProxyHelper;
-    }
-
-    protected Service getService(String wsdl, String uri, String service)
-    {
-        if (cachedService == null)
-        {
-            try
-            {
-                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
-            }
-            catch (Throwable t)
-            {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
     }
 
     /**
@@ -324,59 +248,22 @@ public class UDDIAccessor {
 
     }
 
-    /**
-     * This method retrieves the business entities from the UDDI server.
-     * It does not retrieve the services or bindings.  They are retrieved
-     * on other calls.  This only retrieves the business information.
-     * 
-     * @return the BusinessEntities retrieved from the UDDI server.
-     * @throws UDDIAccessorException
-     */
-    private CMBusinessEntities retrieveBusinessesInfoFromUDDI()
-            throws UDDIAccessorException {
-        CMBusinessEntities oEntities = new CMBusinessEntities();
-
-        if (log.isDebugEnabled()) {
-            log.debug("Retrieving business entities from UDDI using find_business web service call.");
-        }
-
-        BusinessList oBusinessList = null;
-
-        try {
-            // Use the UDDI Find Business Proxy...
-            //------------------------------------
-            UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
-            UDDIFindBusinessProxyBase uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
-            oBusinessList = uddiProxy.findBusinessesFromUDDI();
-        } catch (Exception e) {
-            String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: " +
-                    e.getMessage();
-            log.error(sErrorMessage, e);
-            throw new UDDIAccessorException(sErrorMessage, e);
-        }
-
-        // Now lets go through what we have...
-        //------------------------------------
-        if ((oBusinessList != null) &&
-                (oBusinessList.getBusinessInfos() != null) &&
-                (oBusinessList.getBusinessInfos().getBusinessInfo() != null) &&
-                (oBusinessList.getBusinessInfos().getBusinessInfo().size() > 0)) {
-            for (BusinessInfo oBusInfo : oBusinessList.getBusinessInfos().getBusinessInfo()) {
+    private void removeIgnoredBusinesses(BusinessList businessList) {        
+        ArrayList<String> ignoredKeyList = new ArrayList<String>();
+        if ((businessList != null) &&
+                (businessList.getBusinessInfos() != null) &&
+                (businessList.getBusinessInfos().getBusinessInfo() != null) &&
+                (businessList.getBusinessInfos().getBusinessInfo().size() > 0)) {
+            for (BusinessInfo oBusInfo : businessList.getBusinessInfos().getBusinessInfo()) {
                 String sKey = extractBusinessKey(oBusInfo);
-
-                if (!m_hBusinessToIgnore.contains(sKey)) {
-                    // Make sure this is not one of the ones we need to filter out...
-                    //----------------------------------------------------------------
-                    CMBusinessEntity oEntity = null;
-                    oEntity = businessEntityFromBusinesInfo(oBusInfo);
-                    if (oEntity != null) {
-                        oEntities.getBusinessEntity().add(oEntity);
-                    }
+                
+                if (m_hBusinessToIgnore.contains(sKey)) {
+                    ignoredKeyList.add(sKey);
                 }
             }
-        }
 
-        return oEntities;
+            businessList.getBusinessInfos().getBusinessInfo().removeAll(ignoredKeyList);
+        }
     }
 
     /**
@@ -490,271 +377,6 @@ public class UDDIAccessor {
     }
 
     /**
-     * This method loops through the business entities and fills in any pertinent
-     * detailed information by calling the UDDI server get_businessDetail function.  Note
-     * that this information was not available in the find_business.  In order to get it
-     * we have to do separate call.
-     * 
-     * @param oEntities The businesses to retrieve the detail and the object where the
-     *                  details will be placed.
-     */
-    private void retrieveDetailedBusinessInfoFromUDDI(CMBusinessEntities oEntities)
-            throws UDDIAccessorException {
-        if ((oEntities == null) ||
-                (oEntities.getBusinessEntity() == null) ||
-                (oEntities.getBusinessEntity().size() <= 0)) {
-            return;         // we are done  there is nothing to retrieve.
-        }
-
-        BusinessDetail oResult = null;
-
-        try {
-            GetBusinessDetail oSearchParams = new GetBusinessDetail();
-
-            // Load up the list of keys to retrieve the details of...
-            //--------------------------------------------------------
-            for (CMBusinessEntity oEntity : oEntities.getBusinessEntity()) {
-                if ((oEntity.getBusinessKey() != null) && (oEntity.getBusinessKey().length() > 0)) {
-                    oSearchParams.getBusinessKey().add(oEntity.getBusinessKey());
-                }
-            }   // for (CMBusinessEntity oEntity : oEntities.getBusinessEntity())
-
-            UDDIInquiryPortType oPort = getUDDIInquiryWebService();
-            oResult = (BusinessDetail) getWebServiceProxyHelper().invokePort
-                    (oPort, UDDIInquiryPortType.class, "getBusinessDetail", oSearchParams);
-        } catch (Exception e) {
-            String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: " + e.getMessage();
-            log.error(sErrorMessage, e);
-            throw new UDDIAccessorException(sErrorMessage, e);
-        }
-
-        // Now let's process the results...
-        //---------------------------------
-        if ((oResult != null) &&
-                (oResult.getBusinessEntity() != null) &&
-                (oResult.getBusinessEntity().size() > 0)) {
-            // Now put the returned information back into our structure.
-            //-----------------------------------------------------------
-            for (BusinessEntity oUDDIEntity : oResult.getBusinessEntity()) {
-                if ((oUDDIEntity.getBusinessKey() != null) && (oUDDIEntity.getBusinessKey().length() > 0)) {
-                    CMBusinessEntity oEntity = findSpecificBusiness(oEntities.getBusinessEntity(), oUDDIEntity.getBusinessKey());
-
-                    if (oEntity != null) {
-                        // Home community ID
-                        //------------------
-                        if ((oUDDIEntity.getIdentifierBag() != null) &&
-                                (oUDDIEntity.getIdentifierBag().getKeyedReference() != null) &&
-                                (oUDDIEntity.getIdentifierBag().getKeyedReference().size() > 0)) {
-                            List<String> oValues = findAndGetValueFromKeyedReference(oUDDIEntity.getIdentifierBag().getKeyedReference(),
-                                    HOME_COMMUNITY_ID_KEY);
-                            if (oValues != null && oValues.size() == 1) {
-                                for (String sValue : oValues) {
-                                    if ((sValue != null) && (sValue.length() > 0)) {
-                                        if (sValue.startsWith("urn:oid:")) {
-                                            sValue = sValue.substring("urn:oid:".length());
-                                        }
-                                        oEntity.setHomeCommunityId(sValue);
-                                    }
-                                }
-                            } else {
-                                log.debug("A single Home Community value is NOT detected for UDDI Entity " + oUDDIEntity.getBusinessKey());
-                            }
-                        }   // if ((oUDDIEntity.getIdentifierBag() != null) && ...
-
-                        if ((oUDDIEntity.getCategoryBag() != null) &&
-                                (oUDDIEntity.getCategoryBag().getKeyedReference() != null) &&
-                                (oUDDIEntity.getCategoryBag().getKeyedReference().size() > 0)) {
-                            // Public Key
-                            //-----------
-                            List<String> oPublicKeys = findAndGetValueFromKeyedReference(oUDDIEntity.getCategoryBag().getKeyedReference(),
-                                    PUBLIC_KEY_ID_KEY);
-                            if (oPublicKeys != null && oPublicKeys.size() == 1) {
-                                for (String sValue : oPublicKeys) {
-                                    if ((sValue != null) && (sValue.length() > 0)) {
-                                        oEntity.setPublicKey(sValue);
-                                    }
-                                }
-                            } else {
-                                log.debug("A single Public Key value is NOT detected for UDDI Entity " + oUDDIEntity.getBusinessKey());
-                            }
-                            // State names
-                            //------------
-                            List<String> oStateNames = findAndGetValueFromKeyedReference(oUDDIEntity.getCategoryBag().getKeyedReference(),
-                                    STATE_NAME_ID_KEY);
-                            if (oStateNames != null && oStateNames.size() > 0) {
-                                CMStates oStates = new CMStates();
-                                List<String> oStatesList = oStates.getState();
-                                for (String sValue : oStateNames) {
-                                    if ((sValue != null) && (sValue.length() > 0)) {
-                                        oStatesList.add(sValue);
-                                    }
-                                }
-                                oEntity.setStates(oStates);
-                            } else {
-                                log.debug("No State name is detected for UDDI Entity " + oUDDIEntity.getBusinessKey());
-                            }
-                        }
-                    }   // if (oEntity != nulll)
-                }   // if ((oUDDIEntity.getBusinessKey() != null) && (oUDDIEntity.getBusinessKey().length() > 0))
-            }   // for (BusinessEntity oUDDIEntity : oResult.getBusinessEntity())
-
-        }   // if ((oResult != null) &&
-    }
-
-    /**
-     * This method retrieves the service information from the UDDI server for 
-     * each of the business entities.
-     * 
-     * @param oEntities The business entities for which services should be retrieved. The
-     *                  information is placed in the appropriate location in this object.
-     * @throws UDDIAccessorException
-     */
-    private void retrieveDetailedServiceInfoFromUDDI(CMBusinessEntities oEntities)
-            throws UDDIAccessorException {
-        if ((oEntities == null) ||
-                (oEntities.getBusinessEntity() == null) ||
-                (oEntities.getBusinessEntity().size() <= 0)) {
-            return;         // we are done  there is nothing to retrieve.
-        }
-
-        ServiceDetail oResult = null;
-
-        try {
-            GetServiceDetail oSearchParams = new GetServiceDetail();
-
-            // Load up the list of service keys to retrieve the details of...
-            //--------------------------------------------------------
-            for (CMBusinessEntity oEntity : oEntities.getBusinessEntity()) {
-                if ((oEntity.getBusinessServices() != null) &&
-                        (oEntity.getBusinessServices().getBusinessService() != null) &&
-                        (oEntity.getBusinessServices().getBusinessService().size() > 0)) {
-                    for (CMBusinessService oService : oEntity.getBusinessServices().getBusinessService()) {
-                        if ((oService.getServiceKey() != null) && (oService.getServiceKey().length() > 0)) {
-                            oSearchParams.getServiceKey().add(oService.getServiceKey());
-                        }
-                    }   // for (CMBusinessService oService : oEntity.getBusinessServices().getBusinessService())
-                }   // if ((oEntity.getBusinessServices() != null) && ...
-            }   // for (CMBusinessEntity oEntity : oEntities.getBusinessEntity())
-
-            UDDIInquiryPortType oPort = getUDDIInquiryWebService();
-            oResult = (ServiceDetail) getWebServiceProxyHelper().invokePort
-                    (oPort, UDDIInquiryPortType.class, "getServiceDetail", oSearchParams);
-        } catch (Exception e) {
-            String sErrorMessage = "Failed to call UDDI web service get_serviceDetail method.  Error: " + e.getMessage();
-            log.error(sErrorMessage, e);
-            throw new UDDIAccessorException(sErrorMessage, e);
-        }
-
-        // Now let's process the results...
-        //---------------------------------
-        if ((oResult != null) &&
-                (oResult.getBusinessService() != null) &&
-                (oResult.getBusinessService().size() > 0)) {
-            // Now put the returned information back into our structure.
-            //-----------------------------------------------------------
-            for (BusinessService oUDDIService : oResult.getBusinessService()) {
-                if ((oUDDIService.getServiceKey() != null) &&
-                        (oUDDIService.getServiceKey().length() > 0) &&
-                        (oUDDIService.getBusinessKey() != null) &&
-                        (oUDDIService.getBusinessKey().length() > 0)) {
-                    CMBusinessService oService = findSpecificService(oEntities.getBusinessEntity(),
-                            oUDDIService.getBusinessKey(),
-                            oUDDIService.getServiceKey());
-
-                    if (oService != null) {
-                        // Binding Service Name
-                        //----------------------
-                        if ((oUDDIService.getName() != null) &&
-                                (oUDDIService.getName().size() > 0)) {
-                            CMBindingNames oNames = new CMBindingNames();
-                            oService.setNames(oNames);
-
-                            for (Name oUDDIName : oUDDIService.getName()) {
-                                if ((oUDDIName.getValue() != null) && (oUDDIName.getValue().length() > 0)) {
-                                    oService.getNames().getName().add(oUDDIName.getValue());
-                                }
-                            }
-                        }   // if ((oUDDIService.getName() != null) &&
-
-                        // Binding Descriptions
-                        //---------------------
-                        if ((oUDDIService.getDescription() != null) &&
-                                (oUDDIService.getDescription().size() > 0)) {
-                            CMBindingDescriptions oDescripts = new CMBindingDescriptions();
-                            oService.setDescriptions(oDescripts);
-
-                            for (Description oUDDIDescript : oUDDIService.getDescription()) {
-                                if ((oUDDIDescript.getValue() != null) && (oUDDIDescript.getValue().length() > 0)) {
-                                    oService.getDescriptions().getDescription().add(oUDDIDescript.getValue());
-                                }
-                            }
-                        }   // if ((oUDDIService.getDescription() != null) && ...
-
-                        // Binding Template Information
-                        //-----------------------------
-                        if ((oUDDIService.getBindingTemplates() != null) &&
-                                (oUDDIService.getBindingTemplates().getBindingTemplate() != null) &&
-                                (oUDDIService.getBindingTemplates().getBindingTemplate().size() > 0)) {
-                            CMBindingTemplates oTemplates = new CMBindingTemplates();
-                            for (BindingTemplate oUDDITemplate : oUDDIService.getBindingTemplates().getBindingTemplate()) {
-                                CMBindingTemplate oTemplate = new CMBindingTemplate();
-                                boolean bHaveData = false;
-
-                                // Endpoint URL
-                                //--------------
-                                if ((oUDDITemplate.getAccessPoint() != null) &&
-                                        (oUDDITemplate.getAccessPoint().getValue() != null) &&
-                                        (oUDDITemplate.getAccessPoint().getValue().length() > 0)) {
-                                    oTemplate.setEndpointURL(oUDDITemplate.getAccessPoint().getValue());
-                                    bHaveData = true;
-                                }
-
-                                //Service Version
-                                //---------------
-                                if ((oUDDITemplate.getCategoryBag() != null) &&
-                                        (oUDDITemplate.getCategoryBag().getKeyedReference() != null) &&
-                                        (oUDDITemplate.getCategoryBag().getKeyedReference().size() > 0)) {
-
-                                    List<String> oServiceVersions = findAndGetValueFromKeyedReference(oUDDITemplate.getCategoryBag().getKeyedReference(),
-                                            SERVICE_VERSION_KEY);
-                                    if (oServiceVersions != null && oServiceVersions.size() == 1) {
-                                        for (String sValue : oServiceVersions) {
-                                            if ((sValue != null) && (sValue.length() > 0)) {
-                                                oTemplate.setServiceVersion(sValue);
-                                                bHaveData = true;
-                                            }
-                                        }
-                                    } else {
-                                        log.debug("A single Service Version is NOT detected for UDDI Service " + oUDDIService.getBusinessKey() + " - " + oUDDIService.getServiceKey());
-                                    }
-                                }
-                                if (bHaveData) {
-                                    oTemplates.getBindingTemplate().add(oTemplate);
-                                }
-                            }
-
-                            if ((oTemplates.getBindingTemplate() != null) &&
-                                    (oTemplates.getBindingTemplate().size() > 0)) {
-                                oService.setBindingTemplates(oTemplates);
-                            }
-                        }
-
-                        // Uniform Service Name
-                        //
-                        // Multiple Uniform Service Names will result in the
-                        // creation of oService copies so this should be the last
-                        // population to be performed.
-                        //----------------------------------------
-                        populateUniformServiceNameAndReplicateService(oUDDIService, oEntities, oService);
-
-                    }   // if (oService != null)
-                }   // if ((oUDDIService.getServiceKey() != null) &&  ...
-            }   // for (BusinessService oUDDIService : oResult.getBusinessService())
-
-        }   // if ((oResult != null) &&
-    }
-
-    /**
      * This method is used to populate the Business Service with the retrieved
      * uniform service information. If there is a single service name, the
      * service passed in will be populated with that name.  If there are
@@ -813,65 +435,82 @@ public class UDDIAccessor {
      * @return The Business Entities that were retrieved from the UDDI server.
      * 
      */
-    public CMBusinessEntities retrieveFromUDDIServer()
-            throws UDDIAccessorException {
-        CMBusinessEntities oEntities = new CMBusinessEntities();
-
+    public BusinessDetail retrieveFromUDDIServer()
+            throws UDDIAccessorException {        
         loadProperties();
 
+        BusinessList businessList = retrieveBusinessesListFromUDDI();
+        BusinessDetail businessDetail = retrieveBusinessDetail(businessList);
 
-        // If we are failing to load the properties or if we do not
-        // have the endpoint URL - there is nothing to do...
-        //-----------------------------------------------------------
-        if ((!m_bPropsLoaded) || (m_sUDDIInquiryEndpointURL == null) ||
-                (m_sUDDIInquiryEndpointURL.length() <= 0)) {
-            return null;
-        }
-
-        // First step is to retrieve the high level business information...
-        //------------------------------------------------------------------
-        oEntities = retrieveBusinessesInfoFromUDDI();
-
-        // Now lets retrieve the detailed business & service information for 
-        // these businesses.
-        //--------------------------------------------------------------------------
-        if (oEntities != null) {
-            retrieveDetailedBusinessInfoFromUDDI(oEntities);
-            retrieveDetailedServiceInfoFromUDDI(oEntities);
-        }
-
-
-        return oEntities;
+        return businessDetail;
     }
 
     /**
-     * Main method.
+     * This method retrieves the business entities from the UDDI server.
+     * It does not retrieve the services or bindings.  They are retrieved
+     * on other calls.  This only retrieves the business information.
      *
-     * @param args
+     * @return the BusinessEntities retrieved from the UDDI server.
+     * @throws UDDIAccessorException
      */
-    public static void main(String args[]) {
-        UDDIAccessor oAccessor = new UDDIAccessor();
+    private BusinessList retrieveBusinessesListFromUDDI()
+            throws UDDIAccessorException {
 
-        CMBusinessEntities oEntities = null;
-
-        try {
-            oEntities = oAccessor.retrieveFromUDDIServer();
-
-            if (oEntities != null) {
-                CMUDDIConnectionInfo oUDDIConnectionInfo = new CMUDDIConnectionInfo();
-                oUDDIConnectionInfo.setBusinessEntities(oEntities);
-
-                String sXML = CMUDDIConnectionInfoXML.serialize(oUDDIConnectionInfo);
-                System.out.println(sXML);
-            }
-        } catch (Exception e) {
-            System.out.println("An unexpected exception occurred: " + e.getMessage());
-            e.printStackTrace();
+        if (log.isDebugEnabled()) {
+            log.debug("Retrieving business entities from UDDI using find_business web service call.");
         }
 
+        BusinessList businessList = null;
+        try {
+            UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
+            UDDIFindBusinessProxyBase uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
+            businessList = uddiProxy.findBusinessesFromUDDI();
 
+            removeIgnoredBusinesses(businessList);
+        } catch (Exception e) {
+            String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: " +
+                    e.getMessage();
+            log.error(sErrorMessage, e);
+            throw new UDDIAccessorException(sErrorMessage, e);
+        }
 
-        System.out.println("");
-        System.out.println("We are done.");
+        return businessList;
     }
+    
+    private BusinessDetail retrieveBusinessDetail(BusinessList businessList)
+            throws UDDIAccessorException {
+
+        if (businessList == null) {
+            return null;
+        }
+
+        BusinessDetail businessDetail = null;
+        BusinessInfos businessInfos = businessList.getBusinessInfos();
+        try {
+            GetBusinessDetail searchParams = createSearchParamsFromBusinessKeys(businessInfos);
+
+            UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
+            UDDIFindBusinessProxyBase uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
+            businessDetail = uddiProxy.getBusinessDetail(searchParams);            
+        }
+        catch (Exception e) {
+            String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: " + e.getMessage();
+            log.error(sErrorMessage, e);
+            throw new UDDIAccessorException(sErrorMessage, e);
+        }
+
+        return businessDetail;
+    }
+
+    private GetBusinessDetail createSearchParamsFromBusinessKeys(BusinessInfos businessInfos) {
+        GetBusinessDetail searchParams = new GetBusinessDetail();
+        for (BusinessInfo businessInfo : businessInfos.getBusinessInfo()) {
+            if ((businessInfo.getBusinessKey() != null) && (businessInfo.getBusinessKey().length() > 0)) {
+                searchParams.getBusinessKey().add(businessInfo.getBusinessKey());
+            }
+        }
+
+        return searchParams;
+    }
+
 }
