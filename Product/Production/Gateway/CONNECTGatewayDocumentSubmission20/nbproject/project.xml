@@ -18,6 +18,10 @@
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
+                <library>
+                    <file>${file.reference.log4j-1.2.15.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>

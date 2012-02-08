@@ -7,31 +7,45 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
-                    <file>${file.reference.openssoclientsdk.jar}</file>
+                    <file>${reference.CONNECTCommonTypesLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.log4j.jar}</file>
+                    <file>${reference.CONNECTCoreLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.webservices-rt.jar}</file>
+                    <file>${file.reference.log4j-1.2.15.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.spring.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.commons-logging.jar}</file>
+                    <file>${file.reference.commons-logging-1.1.1.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
-                <root id="src.dir" name="Source Packages"/>
+                <root id="src.dir"/>
             </source-roots>
             <test-roots/>
         </data>
+        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
+            <reference>
+                <foreign-project>CONNECTCommonTypesLib</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>CONNECTCoreLib</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+        </references>
     </configuration>
 </project>

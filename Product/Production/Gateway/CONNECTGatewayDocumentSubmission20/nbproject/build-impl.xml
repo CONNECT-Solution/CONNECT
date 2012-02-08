@@ -533,15 +533,17 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.CONNECTCoreLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.CONNECTCoreLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.CONNECTCommonTypesLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.CONNECTCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.log4j-1.2.15.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.CONNECTCoreLib.jar} ${manifest.reference.CONNECTCommonTypesLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.CONNECTCoreLib.jar} ${manifest.reference.CONNECTCommonTypesLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
         <copyfiles files="${reference.CONNECTCoreLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.CONNECTCommonTypesLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>
