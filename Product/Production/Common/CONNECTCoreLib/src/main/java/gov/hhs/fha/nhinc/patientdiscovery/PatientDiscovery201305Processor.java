@@ -83,22 +83,29 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         // Check to see if the a valid response was returned from the local MPI
         if (response != null && response.getControlActProcess() != null) {
 
-            // Check to make sure the policy is valid
-            if (checkPolicy(response, assertion)) {
-                // Store Assigning Authority to Home Community Id Mapping
-                storeMapping(request);
+            if (!checkEmptySubject(response))
+            {
+                // Make sure patients are found and then
+                // check to make sure the policy is valid
+                if (checkPolicy(response, assertion)) {
+                    // Store Assigning Authority to Home Community Id Mapping
+                    storeMapping(request);
 
-                II requestPatId = providedPatientId(request);
-                if (requestPatId != null) {
-                    // Create a patient correlation
-                    //createPatientCorrelation(response, patIdOverride, assertion, request);
-                    createPatientCorrelation(response, assertion, request);
+                    II requestPatId = providedPatientId(request);
+                    if (requestPatId != null) {
+                        // Create a patient correlation
+                        //createPatientCorrelation(response, patIdOverride, assertion, request);
+                        createPatientCorrelation(response, assertion, request);
+                    }
+                    response = addAuthorOrPerformer(response);
+                } else {
+                    // Policy check on all matching patient ids has failed
+                    log.warn("Policy Check Failed");
+                    response = addPolicyDenyReasonOf(response);
                 }
-                response = addAuthorOrPerformer(response);
-            } else {
-                // Policy check on all matching patient ids has failed
-                log.warn("Policy Check Failed");
-                response = addPolicyDenyReasonOf(response);
+            }
+            else {
+                log.warn("No match is found by local MPI");
             }
         } else {
             log.warn("Response from local MPI is null; generating empty response");
@@ -170,6 +177,21 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         return isPermit;
     }
 
+    protected boolean checkEmptySubject(PRPAIN201306UV02 response) {
+        boolean isSubjectEmpty = true;
+    
+        //************************************************************************************************
+        if (response != null &&
+                response.getControlActProcess() != null &&
+                 NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
+            isSubjectEmpty = false;
+            log.debug("checkEmptySubject - Check-response/subjects is not null");
+        } else {
+            log.debug("checkEmptySubject - Check-response/subjects is null");
+        }
+        return isSubjectEmpty;
+    }
+    
     protected PRPAIN201306UV02 createEmpty201306(String senderOID, String receiverOID, PRPAIN201305UV02 request) {
         // Switch the sender and receiver OIDs before calling the transformation method because the response is going in the opposite direction.
         return HL7PRPA201306Transforms.createPRPA201306(null, receiverOID, null, senderOID, null, request);
