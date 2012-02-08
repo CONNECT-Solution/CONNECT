@@ -24,46 +24,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docretrieve.nhin;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.Delegate;
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 
-/**
- *
- * @author mweaver
- */
-public class NhinDocRetrieveOrchestratableImpl_g0 extends NhinDocRetrieveOrchestratable {
-    private RetrieveDocumentSetRequestType request = null;
-    private RetrieveDocumentSetResponseType response = null;
-    private final String serviceName = "NhinDocumentRetrieve_g0";
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
-    public NhinDocRetrieveOrchestratableImpl_g0(RetrieveDocumentSetRequestType body, AssertionType assertion, PolicyTransformer pt, AuditTransformer at, InboundDelegate ad) {
-        super(pt, at, ad);
-        request = body;
-        setAssertion(assertion);
-    }
-    public RetrieveDocumentSetRequestType getRequest() {
-        return request;
-    }
+public interface InboundPatientDiscoveryOrchestration {
 
-    public RetrieveDocumentSetResponseType getResponse() {
-        return response;
-    }
+	public abstract PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
+			PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException;
 
-    public void setResponse(RetrieveDocumentSetResponseType response) {
-        this.response = response;
-    }
-
-    @Override
-    public String getServiceName()
-    {
-        return serviceName;
-    }
-	
 }

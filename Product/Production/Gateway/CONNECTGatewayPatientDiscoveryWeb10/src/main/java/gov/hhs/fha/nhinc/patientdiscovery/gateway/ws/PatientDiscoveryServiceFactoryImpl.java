@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.deferred.response.NhinPatientDiscovery
 import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseImpl;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincProxyPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
@@ -43,7 +43,7 @@ public class PatientDiscoveryServiceFactoryImpl implements
 
 	@Override
 	public NhinPatientDiscoveryImpl getNhinPatientDiscoveryService() {
-		return new NhinPatientDiscoveryImpl(new PatientDiscoveryAuditLogger(), NhinPatientDiscoveryOrchFactory.getInstance());
+		return new NhinPatientDiscoveryImpl(new PatientDiscoveryAuditLogger(), InboundPatientDiscoveryOrchFactory.getInstance());
 	}
 
 	@Override

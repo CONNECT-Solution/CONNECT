@@ -24,12 +24,42 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docretrieve.nhin;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin;
 
-/**
- *
- * @author mweaver
- */
-public interface AdapterDocRetrieveStrategy {
-    public void execute(NhinDocRetrieveOrchestratable message);
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
+
+final public class InboundPatientDiscoveryOrchFactory implements
+		GenericFactory<InboundPatientDiscoveryOrchestration> {
+
+	private static InboundPatientDiscoveryOrchFactory INSTANCE = new InboundPatientDiscoveryOrchFactory();
+
+	InboundPatientDiscoveryOrchFactory() {
+	}
+
+	@Override
+	public InboundPatientDiscoveryOrchestration create() {
+		return new NhinPatientDiscoveryOrchImpl(
+				new AbstractServicePropertyAccessor() {
+
+					@Override
+					protected String getServiceName() {
+						return  NhincConstants.NHINC_PATIENT_DISCOVERY_SERVICE_NAME;
+					}
+
+					@Override
+					protected String getPassThruName() {
+						return  NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME;//?
+					} },
+				new PatientDiscoveryAuditLogger(),
+				new PatientDiscovery201305Processor(),
+				new AdapterPatientDiscoveryProxyObjectFactory()
+		);
+	}
+
+	public static InboundPatientDiscoveryOrchFactory getInstance() {
+		return INSTANCE;
+	}
 }

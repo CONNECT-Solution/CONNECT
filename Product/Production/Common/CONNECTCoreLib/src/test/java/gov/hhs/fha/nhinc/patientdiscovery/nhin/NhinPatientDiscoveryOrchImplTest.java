@@ -66,7 +66,7 @@ public class NhinPatientDiscoveryOrchImplTest {
 	@Test
 	public void serviceNotEnabled() throws PatientDiscoveryException {
 
-		NhinPatientDiscoveryOrchestration impl =buildOrchestrationForTest(false, false);
+		InboundPatientDiscoveryOrchestration impl =buildOrchestrationForTest(false, false);
 		PRPAIN201305UV02 body = null;
 		AssertionType assertion = null;
 		PRPAIN201306UV02 response = impl.respondingGatewayPRPAIN201305UV02(
@@ -80,7 +80,7 @@ public class NhinPatientDiscoveryOrchImplTest {
 		final AssertionType assertion = new AssertionType();
 		final PRPAIN201306UV02 expectedResponse = new PRPAIN201306UV02();
 
-		NhinPatientDiscoveryOrchestration impl = buildOrchestrationForTest(true, false);
+		InboundPatientDiscoveryOrchestration impl = buildOrchestrationForTest(true, false);
 
 		context.checking(new Expectations() {
 			{
@@ -106,7 +106,7 @@ public class NhinPatientDiscoveryOrchImplTest {
 		final AssertionType assertion = new AssertionType();
 		final PRPAIN201306UV02 expectedResponse = new PRPAIN201306UV02();
 
-		NhinPatientDiscoveryOrchestration impl = buildOrchestrationForTest(true, true);
+		InboundPatientDiscoveryOrchestration impl = buildOrchestrationForTest(true, true);
 
 		context.checking(new Expectations() {
 			{
@@ -126,8 +126,8 @@ public class NhinPatientDiscoveryOrchImplTest {
 		assertSame(expectedResponse, actualResponse);
 	}
 
-	protected NhinPatientDiscoveryOrchestration buildOrchestrationForTest(final boolean serviceEnabled, final boolean passThrough) {
-		NhinPatientDiscoveryOrchestration impl = new NhinPatientDiscoveryOrchImpl(
+	protected InboundPatientDiscoveryOrchestration buildOrchestrationForTest(final boolean serviceEnabled, final boolean passThrough) {
+		InboundPatientDiscoveryOrchestration impl = new NhinPatientDiscoveryOrchImpl(
 				new ServicePropertyAccessor() {
 
 					@Override

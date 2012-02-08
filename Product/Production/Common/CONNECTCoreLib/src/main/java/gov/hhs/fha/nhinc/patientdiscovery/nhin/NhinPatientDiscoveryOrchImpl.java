@@ -52,7 +52,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  * 
  * @author westberg
  */
-public class NhinPatientDiscoveryOrchImpl implements NhinPatientDiscoveryOrchestration {
+public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrchestration {
 
 	private static Log log = LogFactory
 			.getLog(NhinPatientDiscoveryOrchImpl.class);
@@ -73,7 +73,7 @@ public class NhinPatientDiscoveryOrchImpl implements NhinPatientDiscoveryOrchest
 	}
 
 	/* (non-Javadoc)
-	 * @see gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchestration#respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
+	 * @see gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration#respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
 	 */
 	@Override
 	public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(

@@ -33,9 +33,9 @@ import java.sql.Timestamp;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchImpl;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchestration;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
 
@@ -64,16 +64,16 @@ public class NhinPatientDiscoveryServiceTest {
     	final PRPAIN201305UV02 request = context.mock(PRPAIN201305UV02.class);
     	final WebServiceContext webServiceContext = context.mock(WebServiceContext.class);
     	final PRPAIN201306UV02 expectedResponse = context.mock(PRPAIN201306UV02.class);
-    	final NhinPatientDiscoveryOrchestration mockOrchestration = context.mock(NhinPatientDiscoveryOrchestration.class);
+    	final InboundPatientDiscoveryOrchestration mockOrchestration = context.mock(InboundPatientDiscoveryOrchestration.class);
     	final AssertionType mockAssertion = context.mock(AssertionType.class);
     	final PatientDiscoveryAuditLogger mockAuditLogger = context.mock(PatientDiscoveryAuditLogger.class);
     	final PatientDiscoveryTransforms mockPatientDiscoveryTransforms = context.mock(PatientDiscoveryTransforms.class);
     	final PerformanceManager mockPerformanceManager = context.mock(PerformanceManager.class);
 
-    	GenericFactory<NhinPatientDiscoveryOrchestration> orchestrationFactory = new GenericFactory<NhinPatientDiscoveryOrchestration>() {
+    	GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory = new GenericFactory<InboundPatientDiscoveryOrchestration>() {
 
 			@Override
-			public NhinPatientDiscoveryOrchestration create() {
+			public InboundPatientDiscoveryOrchestration create() {
 				return mockOrchestration;
 			}
 		};

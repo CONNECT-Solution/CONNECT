@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchImpl;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchestration;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
@@ -56,10 +56,10 @@ public class NhinPatientDiscoveryImpl extends WebServiceHelper {
 	private Timestamp stopTime = null;
 	private Long logId = null;
 	
-	private GenericFactory<NhinPatientDiscoveryOrchestration> orchestrationFactory;
+	private GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory;
 	private PatientDiscoveryAuditor auditLogger;
 	
-	public NhinPatientDiscoveryImpl(PatientDiscoveryAuditor auditLogger, GenericFactory<NhinPatientDiscoveryOrchestration> orchestrationFactory) {
+	public NhinPatientDiscoveryImpl(PatientDiscoveryAuditor auditLogger, GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory) {
 		this.orchestrationFactory = orchestrationFactory;
 		this.auditLogger = auditLogger;
 	}
@@ -121,8 +121,8 @@ public class NhinPatientDiscoveryImpl extends WebServiceHelper {
 
 	private PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
 			PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
-		NhinPatientDiscoveryOrchestration oOrchestrator1 = orchestrationFactory.create();
-		NhinPatientDiscoveryOrchestration oOrchestrator = oOrchestrator1;
+		InboundPatientDiscoveryOrchestration oOrchestrator1 = orchestrationFactory.create();
+		InboundPatientDiscoveryOrchestration oOrchestrator = oOrchestrator1;
 
 		PRPAIN201306UV02 response = oOrchestrator
 				.respondingGatewayPRPAIN201305UV02(body, assertion);
