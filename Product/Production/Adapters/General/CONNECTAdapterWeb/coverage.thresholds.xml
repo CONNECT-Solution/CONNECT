@@ -36,16 +36,6 @@
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.reidentification.AdapterReidentification"
-              linecount="3"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="58" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.reidentification.AdapterReidentificationImpl"
-              linecount="72"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapterauditquery.AdapterSecuredAuditLogQuery"
               linecount="2"
               linerate="80"

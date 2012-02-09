@@ -392,11 +392,6 @@
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentMpiSecuredService</endpointURL>
 			</service>
 			<service>
-				<name>adapterreidentificationservice</name>
-				<description>adapterreidentificationservice</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterReidentification</endpointURL>
-			</service>
-			<service>
 				<name>adapternotificationproducersecured</name>
 				<description>Adapter HIEM Subscribe</description>
 				<endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationProducer</endpointURL>
@@ -1169,11 +1164,6 @@
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentMpiSecuredService</endpointURL>
 			</service>
 			<service>
-				<name>adapterreidentificationservice</name>
-				<description>adapterreidentificationservice</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterReidentification</endpointURL>
-			</service>
-			<service>
 				<name>adapternotificationproducersecured</name>
 				<description>Adapter HIEM Subscribe</description>
 				<endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationProducer</endpointURL>
@@ -1892,11 +1882,6 @@
 				<name>adaptercomponentmpisecuredservice</name>
 				<description>Master Patient Index Component</description>
 				<endpointURL>https://localhost:8181/CONNECTAdapter/AdapterComponentMpiSecuredService</endpointURL>
-			</service>
-			<service>
-				<name>adapterreidentificationservice</name>
-				<description>adapterreidentificationservice</description>
-				<endpointURL>http://localhost:8080/CONNECTAdapter/AdapterReidentification</endpointURL>
 			</service>
 			<service>
 				<name>adapternotificationproducersecured</name>
@@ -2705,11 +2690,6 @@
 				<name>adaptercomponentmpisecuredservice</name>
 				<description>Master Patient Index Component</description>
 				<endpointURL>https://localhost:8181/AdapterService/AdapterComponentMpiSecuredService</endpointURL>
-			</service>
-			<service>
-				<name>adapterreidentificationservice</name>
-				<description>adapterreidentificationservice</description>
-				<endpointURL>http://localhost:8080/AdapterService/AdapterReidentification</endpointURL>
 			</service>
 			<service>
 				<name>adapternotificationproducersecured</name>

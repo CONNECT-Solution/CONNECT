@@ -119,7 +119,6 @@
       </zipfileset>
       <zipfileset dir="${production.dir}/Common/Properties/Dev" prefix="ThirdParty/ValidationSuite">
         <include name="mpi.xml"/>
-        <include name="reidentification.xml"/>
       </zipfileset>
       <zipfileset dir="${dbscripts.dir}/nhincdb" prefix="ThirdParty/ValidationSuite">
         <include name="populateTestData.sql"/>
@@ -138,7 +137,6 @@
       </zipfileset>
       <zipfileset dir="${production.dir}/Common/Properties/Dev" prefix="ValidationSuite">
         <include name="mpi.xml"/>
-        <include name="reidentification.xml"/>
       </zipfileset>
       <zipfileset dir="${dbscripts.dir}/nhincdb" prefix="ValidationSuite">
         <include name="populateTestData.sql"/>

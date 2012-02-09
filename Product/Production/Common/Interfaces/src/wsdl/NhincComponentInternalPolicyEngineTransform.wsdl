@@ -30,9 +30,6 @@
 	<message name="TransformFindAuditEventsToCheckPolicyRequestMessage">
 		<part name="TransformFindAuditEventsToCheckPolicyRequest" element="pdte:TransformFindAuditEventsToCheckPolicyRequest"/>
 	</message>
-	<message name="TransformSubjectReidentificationToCheckPolicyRequestMessage">
-		<part name="TransformSubjectReidentificationToCheckPolicyRequest" element="pdte:TransformSubjectReidentificationToCheckPolicyRequest"/>
-	</message>
 	<message name="TransformSubscribeToCheckPolicyRequestMessage">
 		<part name="TransformSubscribeToCheckPolicyRequest" element="pdte:TransformSubscribeToCheckPolicyRequest"/>
 	</message>
@@ -74,10 +71,6 @@
 		<operation name="TransformFindAuditEventsToCheckPolicy">
 			<input name="TransformFindAuditEventsToCheckPolicyRequest" message="tns:TransformFindAuditEventsToCheckPolicyRequestMessage"/>
 			<output name="TransformFindAuditEventsToCheckPolicyResponse" message="tns:TransformResponseMessage"/>
-		</operation>
-		<operation name="TransformSubjectReidentificationToCheckPolicy">
-			<input name="TransformSubjectReidentificationToCheckPolicyRequest" message="tns:TransformSubjectReidentificationToCheckPolicyRequestMessage"/>
-			<output name="TransformSubjectReidentificationToCheckPolicyResponse" message="tns:TransformResponseMessage"/>
 		</operation>
 		<operation name="TransformSubscribeToCheckPolicy">
 			<input name="TransformSubscribeToCheckPolicyRequest" message="tns:TransformSubscribeToCheckPolicyRequestMessage"/>
@@ -163,15 +156,6 @@
 				<soap:body use="literal"/>
 			</input>
 			<output name="TransformFindAuditEventsToCheckPolicyResponse">
-				<soap:body use="literal"/>
-			</output>
-		</operation>
-		<operation name="TransformSubjectReidentificationToCheckPolicy">
-			<soap:operation soapAction="urn:TransformSubjectReidentificationToCheckPolicy"/>
-			<input name="TransformSubjectReidentificationToCheckPolicyRequest">
-				<soap:body use="literal"/>
-			</input>
-			<output name="TransformSubjectReidentificationToCheckPolicyResponse">
 				<soap:body use="literal"/>
 			</output>
 		</operation>

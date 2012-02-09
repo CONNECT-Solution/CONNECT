@@ -137,7 +137,6 @@
       </fileset>
       <fileset basedir="${Common.Directory.Product.Path}\Production\Common\Properties\Dev" prefix="ValidationSuite" failonempty="true">
         <include name="mpi.xml"/>
-        <include name="reidentification.xml"/>
       </fileset>
       <fileset basedir="${Common.Directory.Product.Path}\DBScripts\nhincdb" prefix="ValidationSuite" failonempty="true">
         <include name="populateTestData.sql"/>

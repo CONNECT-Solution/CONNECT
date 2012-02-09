@@ -38,7 +38,6 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessService;
 
-import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessService;
 import java.util.Iterator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

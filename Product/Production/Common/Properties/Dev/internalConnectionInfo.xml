@@ -955,20 +955,6 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adaptercomponentmpisecuredservice" keyValue="adaptercomponentmpisecuredservice"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:adapterreidentificationservice" businessKey="uddi:testnhieonenode:1.1">
-                <name xml:lang="en">adapterreidentificationservice</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:testnhincnode:adapterreidentificationservice" serviceKey="uddi:testnhincnode:adapterreidentificationservice">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapter/AdapterReidentification</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterreidentificationservice" keyValue="adapterreidentificationservice"/>
-                </categoryBag>
-            </businessService>
             <businessService serviceKey="uddi:testnhincnode:adapternotificationproducersecured" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">adapternotificationproducersecured</name>
                 <bindingTemplates>
@@ -3274,20 +3260,6 @@
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adaptercomponentmpisecuredservice" keyValue="adaptercomponentmpisecuredservice"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:testnhincnode:adapterreidentificationservice" businessKey="uddi:testnhieonenode:2.2">
-                <name xml:lang="en">adapterreidentificationservice</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:testnhincnode:adapterreidentificationservice" serviceKey="uddi:testnhincnode:adapterreidentificationservice">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapter/AdapterReidentification</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterreidentificationservice" keyValue="adapterreidentificationservice"/>
                 </categoryBag>
             </businessService>
             <businessService serviceKey="uddi:testnhincnode:adapternotificationproducersecured" businessKey="uddi:testnhieonenode:2.2">
@@ -5596,20 +5568,6 @@
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adaptercomponentmpisecuredservice" keyValue="adaptercomponentmpisecuredservice"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:testnhincnode:adapterreidentificationservice" businessKey="uddi:testnhieonenode:3.3">
-                <name xml:lang="en">adapterreidentificationservice</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:testnhincnode:adapterreidentificationservice" serviceKey="uddi:testnhincnode:adapterreidentificationservice">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapter/AdapterReidentification</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterreidentificationservice" keyValue="adapterreidentificationservice"/>
                 </categoryBag>
             </businessService>
             <businessService serviceKey="uddi:testnhincnode:adapternotificationproducersecured" businessKey="uddi:testnhieonenode:3.3">

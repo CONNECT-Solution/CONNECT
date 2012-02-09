@@ -91,15 +91,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AdapterReidentification</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapter.reidentification.AdapterReidentification</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterReidentification</servlet-name>
-        <url-pattern>/AdapterReidentification</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>DeferredQueueManager</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adapter.deferred.queue.DeferredQueueManager</servlet-class>
         <load-on-startup>1</load-on-startup>

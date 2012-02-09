@@ -165,39 +165,4 @@
 	</xsd:complexType>
 	<xsd:element name="LogEventSecureRequest" type="auditlog:LogEventSecureRequestType"/>
 	<!-- end generic log message -->
-	<!-- begin subject reidentification request -->
-	<xsd:complexType name="SubjectReidentificationRequestMessageType">
-		<xsd:complexContent>
-			<xsd:extension base="hl7:PIXConsumer_PRPA_IN201309UVRequestType">
-				<xsd:sequence/>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="LogSubjectReidentificationRequestType">
-		<xsd:sequence>
-			<xsd:element name="message" type="auditlog:SubjectReidentificationRequestMessageType"/>
-			<xsd:element ref="auditlog:direction"/>
-			<xsd:element ref="auditlog:interface"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	<xsd:element name="LogSubjectReidentificationRequest" type="auditlog:LogSubjectReidentificationRequestType"/>
-	<!-- end subject reidentification request -->
-	<!-- begin subject reidentification request -->
-	<xsd:complexType name="SubjectReidentificationResponseMessageType">
-		<xsd:complexContent>
-			<xsd:extension base="hl7:PIXConsumer_PRPA_IN201309UVResponseType">
-				<xsd:sequence/>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="LogSubjectReidentificationResponseType">
-		<xsd:sequence>
-			<xsd:element name="message" type="auditlog:SubjectReidentificationResponseMessageType"/>
-			<xsd:element name="assertion" type="nccommon:AssertionType"/>
-			<xsd:element ref="auditlog:direction"/>
-			<xsd:element ref="auditlog:interface"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	<xsd:element name="LogSubjectReidentificationResponse" type="auditlog:LogSubjectReidentificationResponseType"/>
-	<!-- end subject reidentification response -->
 </xsd:schema>

@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveResultEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.PatDiscReqEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;

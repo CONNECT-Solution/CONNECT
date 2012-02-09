@@ -1,46 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.reident.proxy.AdapterReidentProxy"
-              linecount="0"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.reident.proxy.AdapterReidentProxyNoOpImpl"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.reident.proxy.AdapterReidentProxyObjectFactory"
-              linecount="8"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.reident.proxy.AdapterReidentWebServiceProxy"
-              linecount="24"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="48" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.reidentification.PseudonymMapManager"
-              linecount="96"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.reidentification.data.PseudonymMap"
-              linecount="19"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.reidentification.data.PseudonymMaps"
-              linecount="5"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.reidentification.data.PseudonymMapsXML"
-              linecount="13"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapterauditquery.proxy.AdapterAuditQueryNoOpImpl"
               linecount="2"
               linerate="80"
@@ -4975,11 +4935,6 @@
               linecount="18"
               linerate="80"
               linesexecuted="0.13"/>
-   <threshold branchcount="26" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.transform.policy.SubjectReidentificationTransformHelper"
-              linecount="47"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.transform.policy.SubjectRevisedTransformHelper"
               linecount="32"
