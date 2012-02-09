@@ -176,6 +176,7 @@ public abstract class ComponentProxyObjectFactory
     protected void refreshConfigurationContext(ApplicationContext appContext)
     {
         ((ConfigurableApplicationContext)appContext).refresh();
+        
     }
 
     /**
