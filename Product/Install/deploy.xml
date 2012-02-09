@@ -610,7 +610,6 @@
 				<file name="internalConnectionInfo.xml" />
 				<file name="hiemTopicConfiguration.xml" />
 				<file name="XDSUniqueIds.properties" />
-				<file name="uddiConnectionInfo.xml" />
 			</filelist>
 		</copy>
 		<java jar="${basedir}/Install/@{jarfile}" fork="true"/>
