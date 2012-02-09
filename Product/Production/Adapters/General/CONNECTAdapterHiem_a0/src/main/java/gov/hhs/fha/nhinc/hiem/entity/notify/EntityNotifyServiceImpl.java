@@ -34,71 +34,93 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import java.util.Map;
 import javax.xml.ws.BindingProvider;
-import gov.hhs.fha.nhinc.entitynotificationconsumersecured.EntityNotificationConsumerSecured;
 import gov.hhs.fha.nhinc.entitynotificationconsumersecured.EntityNotificationConsumerSecuredPortType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 
 /**
  *
  * @author dunnek
  */
-public class EntityNotifyServiceImpl
-{
+public class EntityNotifyServiceImpl {
 
     private static Log log = LogFactory.getLog(EntityNotifyServiceImpl.class);
-    private static EntityNotificationConsumerSecured service = new EntityNotificationConsumerSecured();
+    private static Service cachedService = null;
+    private static WebServiceProxyHelper oProxyHelper = null;
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured";
+    private static final String SERVICE_LOCAL_PART = "EntityNotificationConsumerSecured";
+    private static final String PORT_LOCAL_PART = "EntityNotificationConsumerSecuredPortSoap";
+    private static final String WSDL_FILE = "EntityNotificationConsumerSecured.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:Notify";
 
-    public AcknowledgementType notify(NotifyRequestType notifyRequest, WebServiceContext context)
-    {
+    public AcknowledgementType notify(NotifyRequestType notifyRequest, WebServiceContext context) {
         log.debug("begin notify");
         AcknowledgementType result = null;
 
-        try
-        {
-            String url = getURL();
-            EntityNotificationConsumerSecuredPortType port = getPort(url);
-
+        try {
             AssertionType assertIn = notifyRequest.getAssertion();
 
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            String url = getURL();
+            EntityNotificationConsumerSecuredPortType port = getPort(url, assertIn);
 
+            //The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
             result = port.notify(notifyRequest.getNotify());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
         }
 
         return result;
     }
 
-    private String getURL()
-    {
+    private String getURL() {
         String url = "";
 
-        try
-        {
+        try {
             url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
         }
 
         return url;
     }
 
-    private EntityNotificationConsumerSecuredPortType getPort(String url)
-    {
-        EntityNotificationConsumerSecuredPortType port = service.getEntityNotificationConsumerSecuredPortSoap();
+    protected EntityNotificationConsumerSecuredPortType getPort(String url, AssertionType assertIn) {
+        EntityNotificationConsumerSecuredPortType oPort = null;
+        try {
+            Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-        log.info("Setting endpoint address to Entity Notification Secured Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+            if (oService != null) {
+                log.debug("EntityNotifyServiceImpl Obtained service - creating port.");
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityNotificationConsumerSecuredPortType.class);
 
-        return port;
+                // Initialize secured port
+                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url, NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED, WS_ADDRESSING_ACTION, assertIn);
+            } else {
+                log.error("Unable to obtain service - no port created.");
+            }
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+        }
+        return oPort;
+    }
+
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
+            oProxyHelper = new WebServiceProxyHelper();
+        }
+        return oProxyHelper;
+    }
+
+    private Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
+                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
+            } catch (Throwable t) {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
     }
 }

@@ -45,10 +45,11 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import java.util.Map;
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.InvalidFilterFault;
@@ -78,7 +79,13 @@ import org.w3c.dom.Element;
 public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy {
 
     private static Log log = LogFactory.getLog(NhinHiemSubscribeWebServiceProxy.class);
-    static NotificationProducerService nhinService = new NotificationProducerService();
+
+    private static Service cachedService = null;
+    private static WebServiceProxyHelper oProxyHelper = null;
+    private static final String NAMESPACE_URI = "http://docs.oasis-open.org/wsn/bw-2";
+    private static final String SERVICE_LOCAL_PART = "NotificationProducerService";
+    private static final String PORT_LOCAL_PART = "NotificationProducerPort";
+    private static final String WSDL_FILE = "NhinSubscription.wsdl";
 
     public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
         Element responseElement = null;
@@ -99,11 +106,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         }
 
         if (NullChecker.isNotNullish(url)) {
-            NotificationProducer port = getPort(url);
-
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.SUBSCRIBE_ACTION);
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            NotificationProducer port = getPort(url, assertion);
 
             WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
             Subscribe subscribe = subscribeMarshaller.unmarshalUnsubscribeRequest(subscribeElement);
@@ -111,7 +114,8 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
             if(checkPolicy(subscribe, assertion))
             {
                 auditInputMessage(subscribe, assertion);
-                response = port.subscribe(subscribe);
+                //The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
+				response = port.subscribe(subscribe);
                 auditResponseMessage(response, assertion);
             }
             else
@@ -211,12 +215,55 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         }
     }
 
-    private NotificationProducer getPort(String url) {
-        NotificationProducer port = nhinService.getNotificationProducerPort();
+    protected NotificationProducer getPort(String url, AssertionType assertIn)
+    {
+        NotificationProducer oPort = null;
+        try {
+            Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-        log.info("Setting endpoint address to Nhin Hiem Subscribe Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+            if (oService != null)
+            {
+                log.debug("subscribe() Obtained service - creating port.");
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                            NotificationProducer.class);
 
-        return port;
+                // Initialize secured port
+                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort,
+                        url, NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
+             }
+            else
+            {
+                log.error("Unable to obtain service - no port created.");
+            }
+        } catch (Throwable t)
+            {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        return oPort;
+    }
+
+    private WebServiceProxyHelper getWebServiceProxyHelper()
+    {
+        if (oProxyHelper == null)
+        {
+            oProxyHelper = new WebServiceProxyHelper();
+        }
+        return oProxyHelper;
+    }
+
+    private Service getService(String wsdl, String uri, String service)
+    {
+        if (cachedService == null)
+        {
+            try
+            {
+                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
+            }
+            catch (Throwable t)
+            {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
     }
 }

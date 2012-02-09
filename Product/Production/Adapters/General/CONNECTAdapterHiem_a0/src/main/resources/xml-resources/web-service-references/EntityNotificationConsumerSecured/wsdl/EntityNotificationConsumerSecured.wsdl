@@ -101,7 +101,7 @@
         </wsdl:operation>
     </wsdl:portType>
     
-    <wsdl:binding name="EntityNotificationConsumerSecuredBindingSoap12" 
+    <wsdl:binding name="EntityNotificationConsumerSecuredBindingSoap" 
                 type="tns:EntityNotificationConsumerSecuredPortType">
         <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -131,8 +131,8 @@
     </wsdl:binding>
     
     <wsdl:service name="EntityNotificationConsumerSecured">
-        <wsdl:port name="EntityNotificationConsumerSecuredPortSoap12" 
-               binding="tns:EntityNotificationConsumerSecuredBindingSoap12">
+        <wsdl:port name="EntityNotificationConsumerSecuredPortSoap" 
+               binding="tns:EntityNotificationConsumerSecuredBindingSoap">
             <soap:address 
          location=
             "https://localhost:${HttpsDefaultPort}/NhinConnect/EntityNotificationConsumerSecured"/>
@@ -153,7 +153,7 @@
   <wsp:Policy wsu:Id="EntityNotificationConsumerSecuredPortType_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
+                <!-- <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/> -->
                 
                 <sc:KeyStore wspp:visibility="private"
                      aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" 

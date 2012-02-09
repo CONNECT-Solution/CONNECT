@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.hiemadapter.proxy.notify;
 
-import gov.hhs.fha.nhinc.adapternotificationconsumer.AdapterNotificationConsumer;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -34,6 +33,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import java.io.ByteArrayOutputStream;
 import javax.xml.namespace.QName;
@@ -57,9 +57,13 @@ import javax.xml.ws.Service;
 public class HiemNotifyAdapterWebServiceDispatch implements HiemNotifyAdapterProxy {
 
     private static Log log = LogFactory.getLog(HiemNotifyAdapterWebServiceDispatch.class);
-    static AdapterNotificationConsumer adapterNotifyService = new AdapterNotificationConsumer();
+    private static Service cachedService = null;
+    private static WebServiceProxyHelper oProxyHelper = null;
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapternotificationconsumer";
+    private static final String SERVICE_LOCAL_PART = "AdapterNotificationConsumer";
+    private static final String WSDL_FILE = "AdapterNotificationConsumer.wsdl";
 
-    public Element notify(Element notify,ReferenceParametersElements referenceParametersElements, AssertionType assertion, NhinTargetSystemType target) throws Exception {
+    public Element notify(Element notify, ReferenceParametersElements referenceParametersElements, AssertionType assertion, NhinTargetSystemType target) throws Exception {
         Document notifyRequestDocument = buildNotifyRequestMessage(notify, assertion);
 
         Dispatch<Source> dispatch = getAdapterNotificationConsumerDispatch(target);
@@ -102,6 +106,7 @@ public class HiemNotifyAdapterWebServiceDispatch implements HiemNotifyAdapterPro
 
     private Dispatch<Source> getAdapterNotificationConsumerDispatch(NhinTargetSystemType target) throws ConnectionManagerException {
         QName portQName = new QName("urn:gov:hhs:fha:nhinc:adapternotificationconsumer", "AdapterNotificationConsumerPortSoap11");
+        Service adapterNotifyService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
         Dispatch<Source> dispatch = getGenericDispatch(adapterNotifyService, portQName, NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME, target);
         return dispatch;
     }
@@ -122,5 +127,23 @@ public class HiemNotifyAdapterWebServiceDispatch implements HiemNotifyAdapterPro
             url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName);
         }
         return url;
+    }
+
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
+            oProxyHelper = new WebServiceProxyHelper();
+        }
+        return oProxyHelper;
+    }
+
+    private Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
+                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
+            } catch (Throwable t) {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
     }
 }

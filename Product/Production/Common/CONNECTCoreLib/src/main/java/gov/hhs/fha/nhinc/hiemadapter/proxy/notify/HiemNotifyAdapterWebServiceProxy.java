@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.hiemadapter.proxy.notify;
 
 import com.sun.xml.ws.developer.WSBindingProvider;
-import gov.hhs.fha.nhinc.adapternotificationconsumer.AdapterNotificationConsumer;
 import gov.hhs.fha.nhinc.adapternotificationconsumer.AdapterNotificationConsumerPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -38,13 +37,16 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.NhincCommonAcknowledgementMarshaller;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Notify;
 import org.w3c.dom.*;
+import javax.xml.ws.Service;
 
 /**
  *
@@ -53,12 +55,27 @@ import org.w3c.dom.*;
 public class HiemNotifyAdapterWebServiceProxy implements HiemNotifyAdapterProxy {
 
     private static Log log = LogFactory.getLog(HiemNotifyAdapterWebServiceProxy.class);
-    static AdapterNotificationConsumer adapterNotifyService = new AdapterNotificationConsumer();
+    private static Service cachedService = null;
+    private static WebServiceProxyHelper oProxyHelper = null;
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapternotificationconsumer";
+    private static final String SERVICE_LOCAL_PART = "AdapterNotificationConsumer";
+    private static final String PORT_LOCAL_PART = "AdapterNotificationConsumerPortType";
+    private static final String WSDL_FILE = "AdapterNotificationConsumer.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:Notify";
 
     public Element notify(Element notifyElement, ReferenceParametersElements referenceParametersElements, AssertionType assertion, NhinTargetSystemType target) throws Exception {
         Element responseElement = null;
         AcknowledgementType response = null;
-        AdapterNotificationConsumerPortType port = getPort();
+        String url = null;
+        
+        try {
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
+        } catch (ConnectionManagerException ex) {
+            log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME + " for local home community");
+            log.error(ex.getMessage());
+        }
+
+        AdapterNotificationConsumerPortType port = getPort(url, assertion);
 
         WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
         Notify notify = subscribeMarshaller.unmarshalNotifyRequest(notifyElement);
@@ -71,6 +88,7 @@ public class HiemNotifyAdapterWebServiceProxy implements HiemNotifyAdapterProxy 
         SoapUtil soapUtil = new SoapUtil();
         soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
 
+        //The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
         response = port.notify(adapternotifyRequest);
 
         NhincCommonAcknowledgementMarshaller acknowledgementMarshaller = new NhincCommonAcknowledgementMarshaller();
@@ -87,20 +105,42 @@ public class HiemNotifyAdapterWebServiceProxy implements HiemNotifyAdapterProxy 
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    private AdapterNotificationConsumerPortType getPort() {
-        AdapterNotificationConsumerPortType port = adapterNotifyService.getAdapterNotificationConsumerPortSoap();
-        String url = null;
-
+    private AdapterNotificationConsumerPortType getPort(String url, AssertionType assertIn) {
+        AdapterNotificationConsumerPortType oPort = null;
         try {
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME + " for local home community");
-            log.error(ex.getMessage());
+            Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
+
+            if (oService != null) {
+                log.debug("subscribe() Obtained service - creating port.");
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                        AdapterNotificationConsumerPortType.class);
+
+                // Initialize unsecured port
+                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, WS_ADDRESSING_ACTION, assertIn);
+            } else {
+                log.error("Unable to obtain service - no port created.");
+            }
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
         }
+        return oPort;
+    }
 
-        log.info("Setting endpoint address to Adapter Hiem Notify Service to " + url);
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
+            oProxyHelper = new WebServiceProxyHelper();
+        }
+        return oProxyHelper;
+    }
 
-        return port;
+    private Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
+                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
+            } catch (Throwable t) {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
     }
 }

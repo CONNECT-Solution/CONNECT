@@ -59,10 +59,10 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="RetrieveDocuments" keyValue="RetrieveDocuments"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:HIEM" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:notificationproducer" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">HIEM</name>
                 <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:testnhincnode:HIEM" serviceKey="uddi:testnhincnode:HIEM">
+                    <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
                         <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
@@ -70,7 +70,7 @@
                     </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="HIEM" keyValue="HIEM"/>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationproducer" keyValue="notificationproducer"/>
                 </categoryBag>
             </businessService>
             <businessService serviceKey="uddi:testnhincnode:notificationconsumer" businessKey="uddi:testnhieonenode:1.1">
@@ -2366,10 +2366,10 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="RetrieveDocuments" keyValue="RetrieveDocuments"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:HIEM" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:notificationproducer" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">HIEM</name>
                 <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:testnhincnode:HIEM" serviceKey="uddi:testnhincnode:HIEM">
+                    <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
                         <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
@@ -2377,7 +2377,7 @@
                     </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="HIEM" keyValue="HIEM"/>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationproducer" keyValue="notificationproducer"/>
                 </categoryBag>
             </businessService>
             <businessService serviceKey="uddi:testnhincnode:notificationconsumer" businessKey="uddi:testnhieonenode:2.2">

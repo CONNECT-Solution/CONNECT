@@ -35,9 +35,6 @@ import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
@@ -47,15 +44,12 @@ import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Element;
-import org.oasis_open.docs.wsn.bw_2.SubscriptionManagerService;
-import com.sun.xml.ws.api.message.Headers;
-import com.sun.xml.ws.api.message.Header;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
+import gov.hhs.fha.nhinc.nhincsubscription.NotificationProducer;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
 
 /**
  *
@@ -64,8 +58,14 @@ import javax.xml.namespace.QName;
 public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribeProxy {
 
     private static Log log = LogFactory.getLog(NhinHiemUnsubscribeWebServiceProxy.class);
-    static SubscriptionManagerService nhinService = new SubscriptionManagerService();
 
+    private static Service cachedService = null;
+    private static WebServiceProxyHelper oProxyHelper = null;
+    private static final String NAMESPACE_URI = "http://docs.oasis-open.org/wsn/bw-2";
+    private static final String SERVICE_LOCAL_PART = "SubscriptionManagerService";
+    private static final String PORT_LOCAL_PART = "SubscriptionManagerPort";
+    private static final String WSDL_FILE = "NhinSubscription.wsdl";
+    
     public Element unsubscribe(Element unsubscribeElement, ReferenceParametersElements referenceParametersElements, AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault, UnableToDestroySubscriptionFault {
         SubscriptionManager port = getPort(target, assertion);
         Element responseElement = null;
@@ -80,7 +80,8 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
             Unsubscribe unsubscribe = marshaller.unmarshal(unsubscribeElement);
 
             log.debug("invoking unsubscribe port");
-            UnsubscribeResponse response = port.unsubscribe(unsubscribe);
+            //The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
+			UnsubscribeResponse response = port.unsubscribe(unsubscribe);
 
             log.debug("marshalling unsubscribe response");
             WsntUnsubscribeResponseMarshaller responseMarshaller = new WsntUnsubscribeResponseMarshaller();
@@ -104,18 +105,56 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
         return getPort(url, assertion);
     }
 
-    private SubscriptionManager getPort(String url, AssertionType assertion) {
-        SubscriptionManager port = null;
-        if (NullChecker.isNotNullish(url)) {
-            port = nhinService.getSubscriptionManagerPort();
+    protected SubscriptionManager getPort(String url, AssertionType assertIn)
+    {
+        SubscriptionManager oPort = null;
+        try {
+            Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-            WebServiceProxyHelper oHelper = new WebServiceProxyHelper();
-            oHelper.initializePort((javax.xml.ws.BindingProvider) port, url);
+            if (oService != null)
+            {
+                log.debug("subscribe() Obtained service - creating port.");
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                            SubscriptionManager.class);
 
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.UNSUBSCRIBE_ACTION);
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
-        }
-        return port;
+                // Initialize secured port
+                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort,
+                        url, NhincConstants.UNSUBSCRIBE_ACTION, null, assertIn);
+             }
+            else
+            {
+                log.error("Unable to obtain service - no port created.");
+            }
+        } catch (Throwable t)
+            {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        return oPort;
     }
+
+    private WebServiceProxyHelper getWebServiceProxyHelper()
+    {
+        if (oProxyHelper == null)
+        {
+            oProxyHelper = new WebServiceProxyHelper();
+        }
+        return oProxyHelper;
+    }
+
+    private Service getService(String wsdl, String uri, String service)
+    {
+        if (cachedService == null)
+        {
+            try
+            {
+                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
+            }
+            catch (Throwable t)
+            {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
+    }
+    
 }

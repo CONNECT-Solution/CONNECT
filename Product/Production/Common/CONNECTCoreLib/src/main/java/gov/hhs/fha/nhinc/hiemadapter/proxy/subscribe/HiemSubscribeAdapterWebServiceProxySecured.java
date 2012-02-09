@@ -26,18 +26,11 @@
  */
 package gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe;
 
-import com.sun.xml.ws.api.message.Headers;
-import com.sun.xml.ws.api.message.Header;
-import com.sun.xml.ws.developer.WSBindingProvider;
+
 import javax.xml.namespace.QName;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterProxy;
-
-import gov.hhs.fha.nhinc.adaptersubscriptionmanagementsecured.AdapterNotificationProducerSecured;
 import gov.hhs.fha.nhinc.adaptersubscriptionmanagementsecured.AdapterNotificationProducerPortSecuredType;
-
-import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterSubscriptionManager;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
@@ -49,10 +42,9 @@ import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.w3c.dom.Element;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
-
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import java.util.Map;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
 
 
 /**
@@ -60,11 +52,16 @@ import javax.xml.ws.BindingProvider;
  * @author Jon Hoppesch
  */
 public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribeAdapterProxy {
-    //TODO: consider how to handle the exceptions.  Is there a better choice than relying on "runtime exception"
-
+    
     private static Log log = LogFactory.getLog(HiemSubscribeAdapterWebServiceProxy.class);
-    static AdapterNotificationProducerSecured adapterSubscribeService = new AdapterNotificationProducerSecured();
-    static AdapterSubscriptionManager adapterUnsubscribeService = new AdapterSubscriptionManager();
+
+    private static Service cachedService = null;
+    private static WebServiceProxyHelper oProxyHelper = null;
+    
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagementsecured";
+    private static final String SERVICE_LOCAL_PART = "AdapterNotificationProducerSecured";
+    private static final String PORT_LOCAL_PART = "AdapterNotificationProducerPortSecuredSoap";
+    private static final String WSDL_FILE = "AdapterSubscriptionManagementSecured.wsdl";
 
     public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target) throws Exception {
         Element responseElement = null;
@@ -73,16 +70,12 @@ public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribe
         log.debug("start secured subscribe");
 
         String url = getUrl(target, NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME);
-        AdapterNotificationProducerPortSecuredType port = getPort(url);
+        AdapterNotificationProducerPortSecuredType port = getPort(url, assertion);
 
         WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
         Subscribe subscribe = subscribeMarshaller.unmarshalUnsubscribeRequest(subscribeElement);
 
-
-        SamlTokenCreator tokenCreator = new SamlTokenCreator();
-        Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
-        ((BindingProvider) port).getRequestContext().putAll(requestContext);
-
+        //The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
         response = port.subscribe(subscribe);
 
         SubscribeResponseMarshaller subscribeResponseMarshaller = new SubscribeResponseMarshaller();
@@ -93,25 +86,6 @@ public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribe
         return responseElement;
     }
 
-    private AdapterNotificationProducerPortSecuredType getPort(NhinTargetSystemType target) throws ConnectionManagerException {
-        String serviceName = NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME;
-        String url = getUrl(target, serviceName);
-        return getPort(url);
-    }
-
-    private AdapterNotificationProducerPortSecuredType getPort(String url) {
-        AdapterNotificationProducerPortSecuredType port = adapterSubscribeService.getAdapterNotificationProducerPortSecuredSoap();
-
-        log.info("Setting endpoint address to Nhin Hiem Subscribe Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
-        WSBindingProvider bp = (WSBindingProvider) port;
-
-//        bp.setOutboundHeaders(Headers.create(new QName("urn:test", "testheader", "myprefix"), "sampleValue"));
-
-        return port;
-    }
-
     private String getUrl(NhinTargetSystemType target, String serviceName) throws ConnectionManagerException {
         String url = null;
         url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, serviceName);
@@ -120,4 +94,57 @@ public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribe
         }
         return url;
     }
+    
+    protected AdapterNotificationProducerPortSecuredType getPort(String url, AssertionType assertIn)
+    {
+        AdapterNotificationProducerPortSecuredType oPort = null;
+        try {
+            Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
+
+            if (oService != null)
+            {
+                log.debug("subscribe() Obtained service - creating port.");
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                            AdapterNotificationProducerPortSecuredType.class);
+
+                // Initialize secured port
+                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort,
+                        url, NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED, null, assertIn);
+             }
+            else
+            {
+                log.error("Unable to obtain service - no port created.");
+            }
+        } catch (Throwable t)
+            {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        return oPort;
+    }
+
+    private WebServiceProxyHelper getWebServiceProxyHelper()
+    {
+        if (oProxyHelper == null)
+        {
+            oProxyHelper = new WebServiceProxyHelper();
+        }
+        return oProxyHelper;
+    }
+
+    private Service getService(String wsdl, String uri, String service)
+    {
+        if (cachedService == null)
+        {
+            try
+            {
+                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
+            }
+            catch (Throwable t)
+            {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
+    }
+
 }
