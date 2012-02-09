@@ -268,10 +268,11 @@ public class EntityDocQueryOrchImpl{
                         response = orchResponse_g0.getCumulativeResponse();
 
                         // add any errors from policyErrList to response
-                        if(response != null && response.getRegistryErrorList() != null
-                                && response.getRegistryErrorList().getRegistryError() != null){
-                            for(RegistryError re : policyErrList.getRegistryError()){
-                                response.getRegistryErrorList().getRegistryError().add(re);
+                        if (response != null && policyErrList.getRegistryError() != null && !policyErrList.getRegistryError().isEmpty()) {
+                            if (response.getRegistryErrorList() == null) {
+                                response.setRegistryErrorList(policyErrList);
+                            } else if (response.getRegistryErrorList().getRegistryError() != null) {
+                                response.getRegistryErrorList().getRegistryError().addAll(policyErrList.getRegistryError());
                             }
                         }
                     }else{
@@ -284,10 +285,11 @@ public class EntityDocQueryOrchImpl{
                         response = orchResponse_g1.getCumulativeResponse();
 
                         // add any errors from policyErrList to response
-                        if(response != null && response.getRegistryErrorList() != null
-                                && response.getRegistryErrorList().getRegistryError() != null){
-                            for(RegistryError re : policyErrList.getRegistryError()){
-                                response.getRegistryErrorList().getRegistryError().add(re);
+                        if (response != null && policyErrList.getRegistryError() != null && !policyErrList.getRegistryError().isEmpty()) {
+                            if (response.getRegistryErrorList() == null) {
+                                response.setRegistryErrorList(policyErrList);
+                            } else if (response.getRegistryErrorList().getRegistryError() != null) {
+                                response.getRegistryErrorList().getRegistryError().addAll(policyErrList.getRegistryError());
                             }
                         }
                     }

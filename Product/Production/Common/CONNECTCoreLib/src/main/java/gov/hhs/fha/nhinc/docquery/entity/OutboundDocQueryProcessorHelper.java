@@ -84,8 +84,6 @@ public class OutboundDocQueryProcessorHelper{
         newResponse.setRegistryObjectList(regObj);
         SlotListType slots = new SlotListType();
         newResponse.setResponseSlotList(slots);
-        RegistryErrorList regErr = new RegistryErrorList();
-        newResponse.setRegistryErrorList(regErr);
         cumulativeResponse.setCumulativeResponse(newResponse);
         log.debug("EntityDocQueryProcessorHelper constructed initial a0 cumulativeResponse");
         return cumulativeResponse;
@@ -116,8 +114,6 @@ public class OutboundDocQueryProcessorHelper{
         newResponse.setRegistryObjectList(regObj);
         SlotListType slots = new SlotListType();
         newResponse.setResponseSlotList(slots);
-        RegistryErrorList regErr = new RegistryErrorList();
-        newResponse.setRegistryErrorList(regErr);
         cumulativeResponse.setCumulativeResponse(newResponse);
         log.debug("EntityDocQueryProcessorHelper constructed initial a1 cumulativeResponse");
         return cumulativeResponse;

@@ -239,12 +239,18 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor{
             if(cumulative instanceof OutboundDocQueryOrchestratable_a0){
                 OutboundDocQueryOrchestratable_a0 cumulativeResponse =
                         (OutboundDocQueryOrchestratable_a0)cumulative;
+                if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null) {
+                    cumulativeResponse.getCumulativeResponse().setRegistryErrorList(new RegistryErrorList());
+                }
                 cumulativeResponse.getCumulativeResponse().getRegistryErrorList()
                         .getRegistryError().add(regErr);
                 return cumulativeResponse;
             }else if(cumulative instanceof OutboundDocQueryOrchestratable_a1){
                 OutboundDocQueryOrchestratable_a1 cumulativeResponse =
                         (OutboundDocQueryOrchestratable_a1)cumulative;
+                if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null) {
+                    cumulativeResponse.getCumulativeResponse().setRegistryErrorList(new RegistryErrorList());
+                }
                 cumulativeResponse.getCumulativeResponse().getRegistryErrorList().
                         getRegistryError().add(regErr);
                 return cumulativeResponse;
@@ -361,8 +367,12 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor{
             // add any registry errors
             if(current.getRegistryErrorList() != null && current.getRegistryErrorList().getRegistryError() != null
                     && current.getRegistryErrorList().getRegistryError().size() > 0){
-                for(RegistryError re : current.getRegistryErrorList().getRegistryError()){
-                    cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError().add(re);
+                if (cumulativeResponse.getCumulativeResponse() != null ) {
+                    if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null ||
+                        cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError() == null) {
+                        cumulativeResponse.getCumulativeResponse().setRegistryErrorList(new RegistryErrorList());
+                    }
+                    cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError().addAll(current.getRegistryErrorList().getRegistryError());
                 }
             }
 
@@ -411,8 +421,12 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor{
             // add any registry errors
             if(current.getRegistryErrorList() != null && current.getRegistryErrorList().getRegistryError() != null
                     && current.getRegistryErrorList().getRegistryError().size() > 0){
-                for(RegistryError re : current.getRegistryErrorList().getRegistryError()){
-                    cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError().add(re);
+                if (cumulativeResponse.getCumulativeResponse() != null ) {
+                    if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null ||
+                        cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError() == null) {
+                        cumulativeResponse.getCumulativeResponse().setRegistryErrorList(new RegistryErrorList());
+                    }
+                    cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError().addAll(current.getRegistryErrorList().getRegistryError());
                 }
             }
 
