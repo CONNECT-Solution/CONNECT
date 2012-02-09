@@ -78,7 +78,7 @@ public class OutboundDocQueryDelegate implements OutboundDelegate{
         OutboundDocQueryOrchestrationContextBuilder contextBuilder =
                 (OutboundDocQueryOrchestrationContextBuilder) OrchestrationContextFactory
                 .getInstance().getBuilder(
-                    message.getAssertion().getHomeCommunity(),
+                    message.getTarget().getHomeCommunity(),
                     message.getServiceName());
 
         contextBuilder.setAssertionType(message.getAssertion());

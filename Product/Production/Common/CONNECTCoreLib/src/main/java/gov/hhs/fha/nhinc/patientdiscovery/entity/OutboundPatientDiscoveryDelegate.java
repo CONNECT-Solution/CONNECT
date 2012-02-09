@@ -81,7 +81,7 @@ public class OutboundPatientDiscoveryDelegate implements OutboundDelegate{
         OutboundPatientDiscoveryOrchestrationContextBuilder contextBuilder =
                 (OutboundPatientDiscoveryOrchestrationContextBuilder) OrchestrationContextFactory
                 .getInstance().getBuilder(
-                    message.getAssertion().getHomeCommunity(),
+                    message.getTarget().getHomeCommunity(),
                     message.getServiceName());
 
         contextBuilder.setAssertionType(message.getAssertion());
