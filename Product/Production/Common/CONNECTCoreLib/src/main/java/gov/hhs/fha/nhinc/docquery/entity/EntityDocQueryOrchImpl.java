@@ -217,8 +217,10 @@ public class EntityDocQueryOrchImpl{
 
                         HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(
                                 identifier.getAssigningAuthorityIdentifier(), localAA, getLocalHomeCommunityId());
+                        String sTargetHomeCommunityId = null;
                         if(targetCommunity != null){
                             target.setHomeCommunity(targetCommunity);
+                            sTargetHomeCommunityId = targetCommunity.getHomeCommunityId();
                         }
 
                         if(isValidPolicy(adhocQueryRequest, assertion, targetCommunity)){
@@ -233,7 +235,7 @@ public class EntityDocQueryOrchImpl{
                             // and clone the original adhocQueryRequest
                             DocumentQueryTransform transform = new DocumentQueryTransform();
                             AdhocQueryRequest clonedQueryRequest = transform.replaceAdhocQueryPatientId(
-                                    cloneRequest(adhocQueryRequest), getLocalHomeCommunityId(),
+                                    cloneRequest(adhocQueryRequest), sTargetHomeCommunityId,
                                     identifier.getAssigningAuthorityIdentifier(),
                                     identifier.getSubjectIdentifier());
 
