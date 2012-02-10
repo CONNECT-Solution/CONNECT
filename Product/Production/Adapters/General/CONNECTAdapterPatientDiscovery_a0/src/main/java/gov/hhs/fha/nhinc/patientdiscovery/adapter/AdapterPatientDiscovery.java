@@ -38,6 +38,7 @@ import javax.xml.ws.WebServiceContext;
  * @author Les Westberg
  */
 @WebService(serviceName = "AdapterPatientDiscovery", portName = "AdapterPatientDiscoveryPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpatientdiscovery.AdapterPatientDiscoveryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpatientdiscovery", wsdlLocation = "WEB-INF/wsdl/AdapterPatientDiscovery/AdapterPatientDiscovery.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterPatientDiscovery
 {
     @Resource
