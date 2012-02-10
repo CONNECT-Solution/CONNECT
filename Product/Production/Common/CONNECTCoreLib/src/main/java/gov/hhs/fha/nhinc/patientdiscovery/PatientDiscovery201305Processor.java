@@ -28,20 +28,23 @@ package gov.hhs.fha.nhinc.patientdiscovery;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxy;
-import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.JAXBElement;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.COCTMT090300UV01AssignedDevice;
@@ -254,16 +257,17 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
         if (query != null) {
             // Query the MPI to see if the patient is found
-            AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
-            AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
+        	AdapterPatientDiscoveryProxyObjectFactory factory = new AdapterPatientDiscoveryProxyObjectFactory();
+        	AdapterPatientDiscoveryProxy proxy = factory.getAdapterPatientDiscoveryProxy();
             log.info("Sending query to the Secured MPI");
-            queryResults =
-                    mpiProxy.findCandidates(query, assertion);
-
+            try {
+				queryResults = proxy.respondingGatewayPRPAIN201305UV02(query, assertion);
+			} catch (PatientDiscoveryException e) {
+				log.error("Failure during MPI query", e);
+			}
         } else {
             log.error("MPI Request is null");
-            queryResults =
-                    null;
+            queryResults = null;
         }
 
         return queryResults;
