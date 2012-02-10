@@ -46,6 +46,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.Passth
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.sql.Timestamp;
 import java.util.List;
@@ -55,6 +56,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 public class EntityPatientDiscoveryDeferredRequestOrchImpl {
@@ -116,8 +118,8 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
                 // Log the start of the performance record
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, "Deferred"+NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-         
+                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, "Deferred" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
+
                 String messageId = "";
                 if (assertion.getMessageId() != null && assertion.getMessageId().length() > 0) {
                     messageId = assertion.getMessageId();
@@ -126,12 +128,24 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
                 PDDeferredCorrelationDao pdDeferredDao = getPDDeferredCorrelationDao();
                 pdDeferredDao.saveOrUpdate(messageId, patientId);
-                
+
                 for (UrlInfo urlInfo : urlInfoList) {
 
                     //create a new request to send out to each target community
                     RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
                     PRPAIN201305UV02 new201305 = pd201305Processor.createNewRequest(message, urlInfo.getHcid());
+                    
+                    //Make sure the response modality and response priority codes are set as per the spec
+                    if (new201305.getControlActProcess() != null &&
+                            new201305.getControlActProcess().getQueryByParameter() != null) {
+                        PRPAMT201306UV02QueryByParameter queryParams = new201305.getControlActProcess().getQueryByParameter().getValue();
+                        if (queryParams.getResponseModalityCode() == null) {
+                            queryParams.setResponseModalityCode(HL7DataTransformHelper.CSFactory("R"));
+                        }
+                        if (queryParams.getResponsePriorityCode() == null) {
+                            queryParams.setResponsePriorityCode(HL7DataTransformHelper.CSFactory("I"));
+                        }
+                    }
 
                     AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);
                     newRequest.setAssertion(newAssertion);
@@ -209,5 +223,4 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
         return resp;
     }
-
 }

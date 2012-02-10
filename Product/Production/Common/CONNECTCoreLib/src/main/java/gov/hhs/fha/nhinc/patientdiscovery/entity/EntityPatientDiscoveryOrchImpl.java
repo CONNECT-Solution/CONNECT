@@ -44,6 +44,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.CS;
@@ -62,6 +64,7 @@ import org.hl7.v3.MCCIMT000100UV01AttentionLine;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.MCCIMT000100UV01RespondTo;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
@@ -318,6 +321,17 @@ public class EntityPatientDiscoveryOrchImpl{
 
         PRPAIN201305UV02 new201305 = new PatientDiscovery201305Processor().createNewRequest(
                 cloneRequest(request.getPRPAIN201305UV02()), urlInfo.getHcid());
+        
+        //Make sure the response modality and response priority codes are set as per the spec
+        if(new201305.getControlActProcess()!= null &&
+                new201305.getControlActProcess().getQueryByParameter() != null)
+        {
+            PRPAMT201306UV02QueryByParameter queryParams = new201305.getControlActProcess().getQueryByParameter().getValue();
+            if(queryParams.getResponseModalityCode() == null)
+                queryParams.setResponseModalityCode(HL7DataTransformHelper.CSFactory("R"));
+            if(queryParams.getResponsePriorityCode() == null)
+                queryParams.setResponsePriorityCode(HL7DataTransformHelper.CSFactory("I"));
+        }
 
         newRequest.setAssertion(assertion);
         newRequest.setPRPAIN201305UV02(new201305);
