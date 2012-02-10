@@ -66,28 +66,14 @@ public class SamlTokenExtractorHelper {
     public static String getEndpointURL(String homeCommunityId, String service) {
         log.debug("Entering SamlTokenExtractorHelper.getEndpointURL");
 
-        BusinessEntity oCMBusinessEntity = new BusinessEntity();
         String url = null;
 
         if (NullChecker.isNotNullish(homeCommunityId) &&
                 NullChecker.isNotNullish(service)) {
             try {
-                oCMBusinessEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(homeCommunityId, service);
+                url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunityId, service);
             } catch (Throwable t) {
-                log.error("Failed to retrieve business entity.  Error: " + t.getMessage());
-            }
-
-            if (oCMBusinessEntity != null &&
-                    oCMBusinessEntity.getBusinessServices() != null &&
-                    oCMBusinessEntity.getBusinessServices().getBusinessService() != null &&
-                    oCMBusinessEntity.getBusinessServices().getBusinessService().size() > 0 &&
-                    oCMBusinessEntity.getBusinessServices().getBusinessService().get(0) != null &&
-                    oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates() != null &&
-                    oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate() != null &&
-                    oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().size() > 0 &&
-                    oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0) != null &&
-                    NullChecker.isNotNullish(oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue())) {
-                url = oCMBusinessEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue();
+                log.error("Failed to retrieve url.  Error: " + t.getMessage());
             }
 
             if (NullChecker.isNotNullish(url)) {

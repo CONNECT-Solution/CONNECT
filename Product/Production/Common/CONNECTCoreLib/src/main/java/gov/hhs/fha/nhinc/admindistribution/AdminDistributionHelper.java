@@ -101,6 +101,7 @@ public class AdminDistributionHelper {
         } else {
             log.error("Target system passed into the proxy is null");
         }
+        log.debug("end getUrl target/targetSystem url= " + url);
 
         return url;
     }

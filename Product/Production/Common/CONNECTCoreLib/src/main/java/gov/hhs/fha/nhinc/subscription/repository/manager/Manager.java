@@ -139,24 +139,7 @@ public class Manager {
                     myCommunityId = PropertyAccessor.getProperty("gateway", "localHomeCommunityId");
                     if (myCommunityId != null) {
                         try {
-                            oCMBusinessEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(myCommunityId, CONST_UNSUBSCRIBE_SERVICE_NAME);
-                            if (oCMBusinessEntity != null &&
-                                    oCMBusinessEntity.getBusinessServices() != null &&
-                                    oCMBusinessEntity.getBusinessServices().getBusinessService() != null &&
-                                    oCMBusinessEntity.getBusinessServices().getBusinessService().size() > 0 &&
-                                    oCMBusinessEntity.getBusinessServices().getBusinessService().get(0) != null) {
-                                BusinessService busService = oCMBusinessEntity.getBusinessServices().getBusinessService().get(0);
-
-                                if (busService != null &&
-                                        busService.getBindingTemplates() != null &&
-                                        busService.getBindingTemplates().getBindingTemplate() != null &&
-                                        busService.getBindingTemplates().getBindingTemplate().size() > 0 &&
-                                        busService.getBindingTemplates().getBindingTemplate().get(0) != null &&
-                                        busService.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue() != null &&
-                                        busService.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue().length() > 0) {
-                                    url = busService.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue();
-                                }
-                            }
+                            url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(myCommunityId, CONST_UNSUBSCRIBE_SERVICE_NAME);
                         } catch (Throwable t) {
                             String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();
                             log.error(sErrorMessage, t);

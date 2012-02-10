@@ -176,7 +176,7 @@ public class ConnectionManagerCache {
     public String getCommunityId(BusinessEntity businessEntity) {
         KeyedReference ref = getCommunityIdKeyReference(businessEntity);
         if (ref != null) {
-            return ref.getKeyValue();
+            return ref.getKeyValue().trim();
         }
         return null;
     }
@@ -660,9 +660,8 @@ public class ConnectionManagerCache {
     }
 
     /**
-     * This method retrieves the business entity information and service information
-     * for the specific home community and service name.  Note:   This will only return
-     * the information for the specified service.  It will not return all services.
+     * This method retrieves the business entity that containts the
+     * specific home community and service name.
      * Also note: This currently does not deal with version.  If there are multiple
      * versions of the same serviec, this will return the first one it sees in the list
      * of services.  As always, it will always first look in the InternalConnectionInfo
@@ -726,17 +725,7 @@ public class ConnectionManagerCache {
     }
 
     /**
-     * This method retrieves the business entity information and service information
-     * for the specific home community and service name.  Note:   This will only return
-     * the information for the specified service.  It will not return all services.
-     * Also note: This currently does not deal with version.  If there are multiple
-     * versions of the same service, this will return the first one it sees in the list
-     * of services.  As always, it will always first look in the InternalConnectionInfo
-     * cache for the business entity.  If it finds the business entity there, it will not
-     * look in the UDDI cache.  This means that if the internal cache contains the
-     * given business entity, but it does not contain the requested service, it will
-     * behave as if the service does not exist - regardless of whether it is in the
-     * UDDI cache or not.
+     * This method returns url for a specified service and home community id .
      *
      * @param sHomeCommunityId The home community ID of the gateway that is being looked up.
      * @param sUniformServiceName The name of the service to locate.
@@ -748,6 +737,7 @@ public class ConnectionManagerCache {
             String sUniformServiceName)
             throws ConnectionManagerException {
 
+        log.debug("begin getEndpointURLByServiceName: " + sHomeCommunityId + " / " + sUniformServiceName);
         GATEWAY_API_LEVEL apiLevel = getApiVersion(sHomeCommunityId, sUniformServiceName);
 
         String sEndpointURL = "";
@@ -760,22 +750,12 @@ public class ConnectionManagerCache {
         if (log.isInfoEnabled()) {
             log.info("getEndpointURLByServiceName for home community (" + sHomeCommunityId + ") and service name (" + sUniformServiceName + ") returned endpoint address: " + sEndpointURL);
         }
-
+        log.debug("end getEndpointURLByServiceName url = " + sEndpointURL);
         return sEndpointURL;
     }
 
     /**
-     * This method retrieves the business entity information and service information
-     * for the local home community and service name.  Note:   This will only return
-     * the information for the specified service.  It will not return all services.
-     * Also note: This currently does not deal with version.  If there are multiple
-     * versions of the same service, this will return the first one it sees in the list
-     * of services.  As always, it will always first look in the InternalConnectionInfo
-     * cache for the business entity.  If it finds the business entity there, it will not
-     * look in the UDDI cache.  This means that if the internal cache contains the
-     * given business entity, but it does not contain the requested service, it will
-     * behave as if the service does not exist - regardless of whether it is in the
-     * UDDI cache or not.
+     * This method returns a local url for a specified service.
      *
      * @param sUniformServiceName The name of the service to locate.
      * @return The URL for only the requested service at the local home community.
@@ -892,10 +872,17 @@ public class ConnectionManagerCache {
             }
         } else {
             // This is the broadcast scenario so retrieve the entire list of URLs for the specified service
-            Set<BusinessEntity> entities = getAllBusinessEntitySetByServiceName(serviceName);
+            for (BusinessEntity entity : getAllBusinessEntitySetByServiceName(serviceName)) {
+                String hcid = getCommunityId(entity);
+                String endpt = getEndpointURLByServiceName(hcid, serviceName);
 
-            if (entities != null) {
-                endpointUrlList = getUrlInfoFromBusinessEntities(new ArrayList<BusinessEntity>(entities));
+                if (NullChecker.isNotNullish(endpt)) {
+                    UrlInfo entry = new UrlInfo();
+                    entry.setHcid(hcid);
+                    entry.setUrl(endpt);
+                    endpointUrlList.add(entry);
+                }
+
             }
         }
 
@@ -924,14 +911,13 @@ public class ConnectionManagerCache {
         if ((entities != null)) {
             for (BusinessEntity entity : entities) {
                 if (getStates(entity) != null &&
-                        NullChecker.isNotNullish(getStates(entity))) {
+                    NullChecker.isNotNullish(getStates(entity))) {
                     for (String state : getStates(entity)) {
                         if (state.equalsIgnoreCase(region)) {
-                            String url = getUrl(entity);
-                            String hcid = getHcid(entity);
-
+                            String hcid = getCommunityId(entity);
+                            String url = getEndpointURLByServiceName(hcid, serviceName);
                             if (NullChecker.isNotNullish(url) &&
-                                    NullChecker.isNotNullish(hcid)) {
+                                NullChecker.isNotNullish(hcid)) {
                                 UrlInfo entry = new UrlInfo();
                                 entry.setHcid(hcid);
                                 entry.setUrl(url);
@@ -942,55 +928,7 @@ public class ConnectionManagerCache {
                 }
             }
         }
-
         return;
-    }
-
-    private List<UrlInfo> getUrlInfoFromBusinessEntities(List<BusinessEntity> businessEntityList) {
-        List<UrlInfo> urlList = new ArrayList<UrlInfo>();
-
-        if (NullChecker.isNotNullish(businessEntityList)) {
-            for (BusinessEntity entity : businessEntityList) {
-                String url = getUrl(entity);
-                String hcid = getHcid(entity);
-
-                if (NullChecker.isNotNullish(url) &&
-                        NullChecker.isNotNullish(hcid)) {
-                    UrlInfo entry = new UrlInfo();
-                    entry.setUrl(url);
-                    entry.setHcid(hcid);
-                    urlList.add(entry);
-                }
-            }
-        }
-
-        return urlList;
-    }
-
-    private String getUrl(BusinessEntity entity) {
-        if (entity != null &&
-                (entity.getBusinessServices().getBusinessService() != null) &&
-                (entity.getBusinessServices().getBusinessService().size() > 0) &&
-                (entity.getBusinessServices().getBusinessService().get(0) != null) &&
-                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates() != null) &&
-                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate() != null) &&
-                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().size() > 0) &&
-                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0) != null) &&
-                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue() != null) &&
-                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue().trim().length() > 0)) {
-            return entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getAccessPoint().getValue().trim();
-        }
-
-        return null;
-    }
-
-    private String getHcid(BusinessEntity entity) {
-        String homeCommunityId = getCommunityId(entity);
-        if (entity != null &&
-                NullChecker.isNotNullish(homeCommunityId)) {
-            return homeCommunityId.trim();
-        }
-        return null;
     }
 
     /**
@@ -1055,9 +993,8 @@ public class ConnectionManagerCache {
     }
 
     /**
-     * This method retrieves the business entity information and service information
-     * for the set of home communities and service name.  Note:   This will only return
-     * the information for the specified service.  It will not return all services.
+     * This method retrieves a set of business entity that containts
+     * the set of home communities and service name.
      * Also note: This currently does not deal with version.  If there are multiple
      * versions of the same service, this will return the first one it sees in the list
      * of services.  As always, it will always first look in the InternalConnectionInfo
@@ -1091,12 +1028,7 @@ public class ConnectionManagerCache {
                 oEntities.add(oEntity);
             }
         }
-
-        if (oEntities.size() > 0) {
-            return oEntities;
-        } else {
-            return null;
-        }
+        return (oEntities.size() > 0) ? oEntities : null;
     }
 
     /**
@@ -1132,11 +1064,7 @@ public class ConnectionManagerCache {
         ArrayList<String> saHomeCommunityIds = new ArrayList<String>(hKeys);
         oEntities = getBusinessEntitySetByServiceName(saHomeCommunityIds, sUniformServiceName);
 
-        if ((oEntities != null) && (oEntities.size() > 0)) {
-            return oEntities;
-        } else {
-            return null;
-        }
+        return ((oEntities != null) && (oEntities.size() > 0)) ? oEntities : null;
     }
 
     public GATEWAY_API_LEVEL getApiVersion(String homeCommunityId, String serviceName) {
@@ -1148,10 +1076,7 @@ public class ConnectionManagerCache {
             Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if (result == null) {
-            result = GATEWAY_API_LEVEL.LEVEL_g1;
-        }
-        return result;
+        return (result == null) ? GATEWAY_API_LEVEL.LEVEL_g1 : result;
     }
 
     private Set<String> getSpecVersions(String homeCommunityId, String serviceName) {
