@@ -53,12 +53,12 @@ public final class NhinPatientDiscoveryDeferredReqOrchFactory implements
 				new AbstractServicePropertyAccessor() {
 
 					@Override
-					protected String getServiceName() {
+					protected String getServiceEnabledPropertyName() {
 						return  NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME;
 					}
 
 					@Override
-					protected String getPassThruName() {
+					protected String getPassThruEnabledPropertyName() {
 						return  NhincConstants.PATIENT_DISCOVERY_SERVICE_ASYNC_REQ_PASSTHRU_PROPERTY;
 					} },
 				new PatientDiscoveryAuditLogger(),

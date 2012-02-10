@@ -45,13 +45,13 @@ final public class InboundPatientDiscoveryOrchFactory implements
 				new AbstractServicePropertyAccessor() {
 
 					@Override
-					protected String getServiceName() {
+					protected String getServiceEnabledPropertyName() {
 						return  NhincConstants.NHINC_PATIENT_DISCOVERY_SERVICE_NAME;
 					}
 
 					@Override
-					protected String getPassThruName() {
-						return  NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME;//?
+					protected String getPassThruEnabledPropertyName() {
+						return  NhincConstants.PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY;
 					} },
 				new PatientDiscoveryAuditLogger(),
 				new PatientDiscovery201305Processor(),

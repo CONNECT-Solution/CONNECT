@@ -45,18 +45,18 @@ public final class NhinPatientDiscoveryDeferredRespOrchFactory implements
 
 	@Override
 	public NhinPatientDiscoveryDeferredRespOrchImpl create() {
-		// TODO Auto-generated method stub
+
 		return new NhinPatientDiscoveryDeferredRespOrchImpl(
 				new AbstractServicePropertyAccessor() {
 
 					@Override
-					protected String getServiceName() {
+					protected String getServiceEnabledPropertyName() {
 						return NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME;
 					}
 
 					@Override
-					protected String getPassThruName() {
-						return  ""; //doesn't make sense
+					protected String getPassThruEnabledPropertyName() {
+						return  ""; // deferred response passthru doesn't make sense/not supported
 					}
 				}, new PatientDiscoveryAuditLogger(),
 				new AdapterPatientDiscoveryDeferredRespProxyObjectFactory(),
