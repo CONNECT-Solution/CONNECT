@@ -10,6 +10,8 @@
   <target name="compile.clean">
     <delete dir="${build.dir.root}" failonerror="true" />
   </target>
+  
+  <target name="-quick.compile.source" depends="-compile.source"/>
 
   <target name="-compile.source">
     <echo message="compile.source for ${project.name}" level="info"/>

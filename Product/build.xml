@@ -11,7 +11,7 @@
   </condition>
 
   <target name="ci" depends="clean, dist, unittest.run, checkstyle.style"/>
-  <target name="devci" depends="package.create, unittest.run, checkstyle.style"/>
+  <target name="dev.ci" depends="quick.clean, quick.package.create, unittest.run, checkstyle.style"/>
 
   <target name="coverage.bless" description="Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.">
     <var name="do-to-target" value="coverage.bless" />
@@ -23,18 +23,40 @@
     <antcall target="do-to-projects" />
   </target>
 
+  <target name="quick.source.compile">
+    <var name="do-to-target" value="just.quick.source.compile" />
+    <antcall target="do-to-projects" />
+  </target>
+
   <target name="package.create" description="Create the jar|war|ear for all projects: run ant help for more info...">
     <var name="do-to-target" value="just.package.create" />
     <antcall target="do-to-projects" />
   </target>
+  
+  <target name="quick.package.create">
+    <var name="do-to-target" value="just.quick.package.create" />
+    <antcall target="do-to-projects" />
+  </target>
 
-  <target name="clean" description="Clean all projects: run ant help for more info...">
-    <call target="ivy.clean.project.cache" />
+  <target name="clean" description="Clean all projects: run ant help for more info..." depends="clean.ivy.cache, quick.clean">
     <call target="junit.clean" />
     <call target="coverage.clean" />
     <call target="checkstyle.clean" />
     <var name="do-to-target" value="just.clean" />
     <antcall target="do-to-projects" />
+  </target>
+  
+  <target name="quick.clean">
+    <property name="skip.ivy.clean" value="true"/>
+    <call target="junit.clean" />
+    <call target="coverage.clean" />
+    <call target="checkstyle.clean" />
+    <var name="do-to-target" value="just.quick.clean" />
+    <antcall target="do-to-projects" />
+  </target>
+
+  <target name="clean.ivy.cache" unless="skip.ivy.clean">
+    <call target="ivy.clean.project.cache" />
   </target>
 
   <target name="just.clean"  description="please call clean, at the Product level clean now works like just.clean worked...">

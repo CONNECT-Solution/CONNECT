@@ -125,8 +125,13 @@ layer of abstraction
     <call target="just.clean"/>
   </target>
 
-  <target name="just.clean" description="Clean the project, does not call dependent targets...">
+  <target name="do.ivy.clean" unless="skip.ivy.clean">
     <call target="ivy.clean"/>
+    </target>
+
+  <target name="just.clean" description="Clean the project, does not call dependent targets..." depends="do.ivy.clean, just.quick.clean"/>
+
+  <target name="just.quick.clean" description="Clean the project, does not call dependent targets...">
     <call target="compile.clean"/>
     <call target="package.clean"/>
     <call target="junit.clean"/>
@@ -139,9 +144,19 @@ layer of abstraction
     <call target="just.source.compile"/>
   </target>
 
+  <target name="quick.source.compile">
+    <dependcalls target="quick.source.compile" />
+    <call target="just.quick.source.compile"/>
+  </target>
+
   <target name="just.source.compile" description="Compile the project, does not call dependent targets...">
     <call target="ivy.resolve"/>
     <call target="-compile.source"/>
+    <call target="coverage.instrument.classes" />
+  </target>
+
+  <target name="just.quick.source.compile">
+    <call target="-quick.compile.source"/>
     <call target="coverage.instrument.classes" />
   </target>
 
@@ -209,8 +224,19 @@ layer of abstraction
     <call target="just.package.create"/>
   </target>
 
+  <target name="quick.package.create" depends="quick.source.compile">
+    <dependcalls target="quick.package.create"/>
+    <call target="just.quick.package.create"/>
+  </target>
+
   <target name="just.package.create" description="Create the jar|war|ear for the project, does not call any dependent targets...">
     <call target="just.source.compile" once="true"/>
+    <call target="-package.create"/>
+    <call target="coverage.instrument.package"/>
+  </target>
+
+  <target name="just.quick.package.create">
+    <call target="just.quick.source.compile" once="true"/>
     <call target="-package.create"/>
     <call target="coverage.instrument.package"/>
   </target>
@@ -220,16 +246,6 @@ layer of abstraction
   </target>
 
   <target name="scratch.files">
-    <!--    
-        <copy file="${project.dir}/build.xml" overwrite="true" verbose="${debug}">
-             <fileset dir="${project.dir}">
-                 <include name="build_new.xml" />
-             </fileset>
-        </copy>
-        <exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
-          <arg line='/C svn add ${project.dir}/coverage.thresholds.xml'/>
-        </exec>
-    --> 
       <exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
         <arg line='/C svn move ${project.dir}/build_new.xml ${project.dir}/build.xml'/>
       </exec>

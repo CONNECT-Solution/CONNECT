@@ -6,6 +6,8 @@
   <property name="unittest.hasTests" value="false" />
   <property name="deploy.type" value="shared" />
   <property name="deploy.isDeployable" value="true"/>
+  <property name="build.generated.dir" value="build.generated"/>
+  <property name="build.wsdl.output.dir" value="build.wsdl.output.dir"/>
 
   <!-- Please make sure that this goes up to the correct directory -->
   <import file="../../../build/build.targets.xml" />
@@ -56,30 +58,52 @@
   <taskdef name="WsImportConnect" classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect" />
   
   <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask"/>
-
-  <target name="just.clean">
+  
+  <target name="just.quick.clean">
     <if>
       <not>
         <isset property="delete.commontypes.lib" />
       </not>
       <then>
           <delete dir="${build.dir.root}" failonerror="true" />
-          <delete dir="${lib.dir}" failonerror="true" />
           <delete dir="${dist.root.dir}" failonerror="true" />
       </then>
     </if>
   </target>
-  
+
+  <target name="just.clean" depends="just.quick.clean">
+    <if>
+      <not>
+        <isset property="delete.commontypes.lib" />
+      </not>
+      <then>
+          <delete dir="${lib.dir}" failonerror="true" />
+          <delete dir="${build.generated.dir}" failonerror="true" />
+          <delete dir="${build.wsdl.output.dir}" failonerror="true"/>
+      </then>
+    </if>
+  </target>
+
   <target name="-compile.source">
     <echo message="compile.source for ${project.name}" level="info"/>
+    <mkdir dir="${build.classes.dir}" />
+    <mkdir dir="${build.generated.dir}/generated/client"/>
+    <mkdir dir="${build.wsdl.output.dir}"/>
     <call target="generate.proxies.xjc"/>
     <call target="generate.proxies.wsdl"/>
     <call target="copy.util.src"/>
-    <javac srcdir="${build.dir}/generated/client" destdir="${build.classes.dir}"/>
+    <javac srcdir="${build.generated.dir}/generated/client" destdir="${build.classes.dir}"/>
+  </target>
+
+  <target name="-quick.compile.source">
+    <echo message="quick compile.source for ${project.name}" level="info"/>
+    <mkdir dir="${build.classes.dir}" />
+    <call target="copy.util.src"/>
+    <javac srcdir="${build.generated.dir}/generated/client" destdir="${build.classes.dir}"/>
   </target>
 
   <target name="copy.util.src">
-    <copy todir="${build.dir}/generated/client">
+    <copy todir="${build.generated.dir}/generated/client" overwrite="true">
       <fileset dir="src/main/java">
         <include name="**/*.java"/>
       </fileset>
@@ -87,8 +111,6 @@
   </target>
 
   <target name="generate.proxies.xjc">
-    <mkdir dir="${build.classes.dir}" />
-    <mkdir dir="${build.dir}/generated/client"/>
     <outofdate verbose="true" force="${force.package}">
       <sourcefiles >
         <fileset dir="../Interfaces/src/schemas" >
@@ -97,7 +119,7 @@
       </sourcefiles>
       <targetfiles path="${build.dir.root}/compilexjc.flag"/>
       <sequential>
-        <xjc destdir="${build.dir}/generated/client" >
+        <xjc destdir="${build.generated.dir}/generated/client" >
           <arg value="-xmlschema"/>
           <schema dir="../Interfaces/src/schemas">
             <patternset refid="schema.list"/>
@@ -124,12 +146,12 @@
 		   fork="true"
 		   failonerror="true">
 		<arg value="-d"/>
-		<arg value="${build.classes.dir}"/>
+		<arg value="${build.wsdl.output.dir}"/>
 		<arg value="-extension"/>
 		<arg value="-Xnocompile"/>
 		<arg value="-keep"/>	
 		<arg value="-s"/>
-		<arg value="${build.dir}/generated/client"/>
+		<arg value="${build.generated.dir}/generated/client"/>
 		<arg value="-verbose"/>			
 		<arg value="@{wsdl.file.path}"/>			
 		<arg value="-wsdllocation"/>
