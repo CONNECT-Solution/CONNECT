@@ -11,15 +11,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AuditQuery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.auditquery.AuditQuery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AuditQuery</servlet-name>
-        <url-pattern>/AuditQueryTestHelper</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>DocQuery</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery.DocQuery</servlet-class>
     </servlet>
@@ -109,10 +100,6 @@
         <web-resource-collection>
             <web-resource-name>AdapterMpiSecured</web-resource-name>
             <url-pattern>/AdapterMpiSecuredTestHelper</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>AuditQuery</web-resource-name>
-            <url-pattern>/AuditQueryTestHelper</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>DocQuery</web-resource-name>
