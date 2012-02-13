@@ -26,20 +26,19 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.passthru.proxy;
 
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
+import gov.hhs.fha.nhinc.admindistribution.PassthruAdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistService;
+import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.Ignore;
-import org.apache.commons.logging.Log;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -53,6 +52,7 @@ public class NhincAdminDistUnsecuredWebserviceImplTest {
 
     @Before
     public void setup() {
+    	
         context = new Mockery() {
 
             {
@@ -63,52 +63,40 @@ public class NhincAdminDistUnsecuredWebserviceImplTest {
 
 
     @Test
-    @Ignore
-    public void testSendAlertMessage() {
-        System.out.println("sendAlertMessage");
-        final Log mockLogger = context.mock(Log.class);
-        final AdminDistributionHelper mockHelper = context.mock(AdminDistributionHelper.class);
-        final NhincAdminDistService mockService = context.mock(NhincAdminDistService.class);
+
+    public void testSendAlertMessage() throws Exception {
+      final PassthruAdminDistributionHelper mockHelper = context
+				.mock(PassthruAdminDistributionHelper.class);
+
+	
+		final WebServiceProxyHelper mockWebServiceProxyHelper = context
+				.mock(WebServiceProxyHelper.class);
+
         
         EDXLDistribution body = null;
         AssertionType assertion = null;
         NhinTargetSystemType target = null;
-        Exception unsupported = null;
-
-        PassthruAdminDistributionProxyWebServiceUnsecuredImpl instance = new PassthruAdminDistributionProxyWebServiceUnsecuredImpl() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-            @Override
-            protected AdminDistributionHelper getHelper() {
-                return mockHelper;
-            }
-        };
+   
+        PassthruAdminDistributionProxyWebServiceUnsecuredImpl instance = new PassthruAdminDistributionProxyWebServiceUnsecuredImpl(mockWebServiceProxyHelper, mockHelper);
+        
         context.checking(new Expectations() {
 
             {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockService).getNhincAdminDistPortType();
-                allowing(mockHelper).getLocalCommunityId();
-                allowing(mockHelper).getUrl(with(any(String.class)), with(any(String.class)), with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
+  
+            	allowing(mockHelper).getLocalCommunityId();
+				allowing(mockHelper).getUrl(with(any(String.class)),
+						with(any(String.class)),
+						with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
+				will(returnValue("http://someurl/"));
+				
+				allowing(mockHelper).getUnsecuredPort(with(any(String.class)), with(any(String.class)), with(any(AssertionType.class)), with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
+				
+				allowing(mockWebServiceProxyHelper).invokePort(with(any(Object.class)), with(NhincAdminDistPortType.class), with("sendAlertMessage"), with(any(String.class)));
 
-                will(returnValue(null));
             }
         });
 
-        try
-        {
             instance.sendAlertMessage(body, assertion, target, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
-        }
-        catch(Exception ex)
-        {
-            unsupported = ex;
-        }
-
-        context.assertIsSatisfied();
 
     }
 

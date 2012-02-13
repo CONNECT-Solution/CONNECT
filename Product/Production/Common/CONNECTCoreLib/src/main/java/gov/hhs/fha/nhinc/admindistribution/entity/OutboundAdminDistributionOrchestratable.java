@@ -46,10 +46,13 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     private AssertionType assertion = null;
     private OutboundDelegate nhinDelegate = null;
     private RespondingGatewaySendAlertMessageType request = null;
+	private AdminDistributionHelper adminDistributionHelper;
 
     public OutboundAdminDistributionOrchestratable( OutboundDelegate delegate)
     {
         nhinDelegate = delegate;
+        this.adminDistributionHelper = new AdminDistributionHelper();
+        
     }
 
     public OutboundAdminDistributionOrchestratable( OutboundDelegate delegate, RespondingGatewaySendAlertMessageType request,
@@ -59,6 +62,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
         setRequest(request);
         setAssertion(assertion);
         setTarget(targetSystem);
+        this.adminDistributionHelper = new AdminDistributionHelper();
     }
 
     public RespondingGatewaySendAlertMessageType getRequest() {
@@ -86,7 +90,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     }
 
     public boolean isEnabled() {
-        return new AdminDistributionHelper().isServiceEnabled();
+        return adminDistributionHelper.isServiceEnabled();
     }
 
     public AssertionType getAssertion() {

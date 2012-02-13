@@ -57,9 +57,11 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
     private Log log = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     private static Service cachedService = null;
+    private AdminDistributionHelper adminDistributionHelper;
 
     public AdapterAdminDistributionProxyWebServiceSecuredImpl() {
         log = createLogger();
+        adminDistributionHelper = new AdminDistributionHelper(oProxyHelper);
     }
     /*
      * protected AdapterAdministrativeDistributionSecured getWebService() {
@@ -72,9 +74,21 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
     }
 
     protected AdminDistributionHelper getHelper() {
-        return new AdminDistributionHelper();
+        return adminDistributionHelper;
     }
 
+    protected Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
+                cachedService = oProxyHelper.createService(wsdl, uri, service);
+            } catch (Throwable t) {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
+    }
+    
+    
     protected AdapterAdministrativeDistributionSecuredPortType getPort(String url, AssertionType assertion) {
 
         AdapterAdministrativeDistributionSecuredPortType port = null;
@@ -92,7 +106,7 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
 
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.debug("Begin sendAlertMessage");
-        String url = new AdminDistributionHelper().getAdapterUrl(
+        String url =adminDistributionHelper.getAdapterUrl(
                 NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
 
         if (NullChecker.isNotNullish(url)) {
@@ -119,14 +133,5 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
         return new WebServiceProxyHelper();
     }
 
-    protected Service getService(String wsdl, String uri, String service) {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(wsdl, uri, service);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
-    }
+   
 }

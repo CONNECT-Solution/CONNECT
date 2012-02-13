@@ -26,10 +26,13 @@
  */
 package gov.hhs.fha.nhinc.admindistribution;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistPortType;
+import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -38,6 +41,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
@@ -46,14 +51,23 @@ import javax.xml.ws.Service;
  */
 public class AdminDistributionHelper {
 
-    private Log log = null;
+    private Log log = LogFactory.getLog(AdminDistributionHelper.class);
+	private WebServiceProxyHelper webServiceProxyHelper;
 
+     
+    
     public AdminDistributionHelper() {
-        log = createLogger();
+    	this.webServiceProxyHelper = new WebServiceProxyHelper();
+    }
+    
+    public AdminDistributionHelper(WebServiceProxyHelper webServiceProxyHelper) {
+    	this.webServiceProxyHelper = webServiceProxyHelper;
     }
 
+   
+
     protected Log createLogger() {
-        return LogFactory.getLog(getClass());
+        return log;
     }
 
     public NhinTargetSystemType createNhinTargetSystemType(String targetHCID) {
@@ -92,7 +106,7 @@ public class AdminDistributionHelper {
 
         if (target != null) {
             try {
-                url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(target, targetSystem, apiLevel);
+                url = webServiceProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, targetSystem, apiLevel);
 
             } catch (Exception ex) {
                 log.error("Error: Failed to retrieve url for service: " + targetSystem);
@@ -117,20 +131,8 @@ public class AdminDistributionHelper {
         return null;
     }
     
-    public Service getService(String wsdl, String uri, String service) {
-        try {
-            WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
-            return proxyHelper.createService(wsdl, uri, service);
-        } catch (Throwable t) {
-            log.error("Error creating service: " + t.getMessage(), t);
-        }
-        return null;
-    }
-
-    public WebServiceProxyHelper getWebServiceProxyHelper() {
-        return new WebServiceProxyHelper();
-    }
-
+    
+  
     public boolean isInPassThroughMode() {
         return readBooleanGatewayProperty(NhincConstants.NHIN_ADMIN_DIST_SERVICE_PASSTHRU_PROPERTY);
     }
@@ -169,4 +171,6 @@ public class AdminDistributionHelper {
         nhinTargetSystem.setHomeCommunity(homeCommunity);
         return nhinTargetSystem;
     }
+
+	
 }

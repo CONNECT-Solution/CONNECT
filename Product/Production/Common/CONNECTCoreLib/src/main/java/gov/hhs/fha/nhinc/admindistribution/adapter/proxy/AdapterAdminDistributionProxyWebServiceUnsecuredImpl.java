@@ -54,24 +54,20 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
     private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":SendAlertMessage_Message";
     private Log log = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+    private AdminDistributionHelper adminDistributionHelper;
 
     public AdapterAdminDistributionProxyWebServiceUnsecuredImpl() {
         log = createLogger();
-        //adapterService = getWebService();
+        adminDistributionHelper = new AdminDistributionHelper(oProxyHelper);
     }
-    /*
-     * protected AdapterAdministrativeDistribution getWebService() { return new
-     * AdapterAdministrativeDistribution();
-    }
-     */
-
+    
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.debug("Begin sendAlertMessage");
-        String url = new AdminDistributionHelper().getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+        String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
 
         if (NullChecker.isNotNullish(url)) {
             
@@ -108,7 +104,7 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
     }
 
     protected AdminDistributionHelper getHelper() {
-        return new AdminDistributionHelper();
+        return adminDistributionHelper;
     }
 
     /**
