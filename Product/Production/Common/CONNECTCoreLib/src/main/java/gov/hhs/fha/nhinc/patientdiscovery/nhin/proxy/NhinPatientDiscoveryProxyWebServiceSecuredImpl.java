@@ -154,6 +154,8 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayPortType.class);
             oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.setPortTimeoutByService((javax.xml.ws.BindingProvider)port,
+                    NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }

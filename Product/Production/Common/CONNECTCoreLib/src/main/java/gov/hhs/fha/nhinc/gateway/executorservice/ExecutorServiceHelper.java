@@ -33,8 +33,6 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-
-
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -53,16 +51,16 @@ import org.apache.commons.logging.LogFactory;
  * fanout to a list of n targets, then the task is a large job if
  * n >= largejobSizePercent * concurrentPoolSize
  *
- * - timeoutValues Map
- * URLConnection offers setConnectTimeout() and setReadTimeout() methods
- * to set the web service urlconnection timeouts.
- * Connect timeout is time to establish the http/https urlconnection in millis
- * Request timeout is the read timeout for the http/https urlconnection
- * (after urlconnection established) in millis
- *
- * Note that the timeout settings are metro based
- * CONNECT_TIMEOUT_NAME = "com.sun.xml.ws.connect.timeout"
- * REQUEST_TIMEOUT_NAME = "com.sun.xml.ws.request.timeout"
+// * - timeoutValues Map
+// * URLConnection offers setConnectTimeout() and setReadTimeout() methods
+// * to set the web service urlconnection timeouts.
+// * Connect timeout is time to establish the http/https urlconnection in millis
+// * Request timeout is the read timeout for the http/https urlconnection
+// * (after urlconnection established) in millis
+// *
+// * Note that the timeout settings are metro based
+// * CONNECT_TIMEOUT_NAME = "com.sun.xml.ws.connect.timeout"
+// * REQUEST_TIMEOUT_NAME = "com.sun.xml.ws.request.timeout"
  * 
  * @author paul.eftis
  */
@@ -79,6 +77,8 @@ public class ExecutorServiceHelper{
     private static int largejobPoolSize;
     // default large job size percent is 75%
     private static double largejobSizePercent;
+
+    // timeoutValues no longer used (timeouts set in WebServiceProxyHelper)
     // timeoutValues Map contains web service client timeouts
     private static Map timeoutValues = new HashMap();
 
@@ -101,27 +101,6 @@ public class ExecutorServiceHelper{
                     NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.LARGEJOB_SIZE_PERCENT);
             largejobSizePercent = Double.parseDouble(largejobSizePercentStr);
-            // get web service client timeouts
-            String PDConnectTimeoutStr = PropertyAccessor.getProperty(
-                    NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.PATIENT_DISCOVERY_CONNECT_TIMEOUT);
-            timeoutValues.put(NhincConstants.PATIENT_DISCOVERY_CONNECT_TIMEOUT,
-                    new Integer(PDConnectTimeoutStr));
-            String PDRequestTimeoutStr = PropertyAccessor.getProperty(
-                    NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.PATIENT_DISCOVERY_REQUEST_TIMEOUT);
-            timeoutValues.put(NhincConstants.PATIENT_DISCOVERY_REQUEST_TIMEOUT,
-                    new Integer(PDRequestTimeoutStr));
-            String DQConnectTimeoutStr = PropertyAccessor.getProperty(
-                    NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.DOC_QUERY_CONNECT_TIMEOUT);
-            timeoutValues.put(NhincConstants.DOC_QUERY_CONNECT_TIMEOUT,
-                    new Integer(DQConnectTimeoutStr));
-            String DQRequestTimeoutStr = PropertyAccessor.getProperty(
-                    NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.DOC_QUERY_REQUEST_TIMEOUT);
-            timeoutValues.put(NhincConstants.DOC_QUERY_REQUEST_TIMEOUT,
-                    new Integer(DQRequestTimeoutStr));
         }catch(Exception e){
             log.error("ExecutorServiceHelper exception loading config properties so using default values");
             outputCompleteException(e);
@@ -131,21 +110,12 @@ public class ExecutorServiceHelper{
             largejobPoolSize = 200;
             // set default large job size percent to 75%
             largejobSizePercent = .75;
-            // set to default timeouts in this case
-            timeoutValues.put(NhincConstants.PATIENT_DISCOVERY_CONNECT_TIMEOUT, new Integer(30000));
-            timeoutValues.put(NhincConstants.PATIENT_DISCOVERY_REQUEST_TIMEOUT, new Integer(30000));
-            timeoutValues.put(NhincConstants.DOC_QUERY_CONNECT_TIMEOUT, new Integer(30000));
-            timeoutValues.put(NhincConstants.DOC_QUERY_REQUEST_TIMEOUT, new Integer(60000));
         }
         log.debug("ExecutorServiceHelper created singleton instance and " +
                 "set executor service configuration parameters: "
                 + "concurrentPoolSize=" + concurrentPoolSize
                 + " largejobPoolSize=" + largejobPoolSize
                 + " largejobSizePercent=" + largejobSizePercent
-                + " PDConnectTimeout=" + timeoutValues.get(NhincConstants.PATIENT_DISCOVERY_CONNECT_TIMEOUT)
-                + " PDRequestTimeout=" + timeoutValues.get(NhincConstants.PATIENT_DISCOVERY_REQUEST_TIMEOUT)
-                + " DQConnectTimeout=" + timeoutValues.get(NhincConstants.DOC_QUERY_CONNECT_TIMEOUT)
-                + " DQRequestTimeout=" + timeoutValues.get(NhincConstants.DOC_QUERY_REQUEST_TIMEOUT)
                 );
     }
 

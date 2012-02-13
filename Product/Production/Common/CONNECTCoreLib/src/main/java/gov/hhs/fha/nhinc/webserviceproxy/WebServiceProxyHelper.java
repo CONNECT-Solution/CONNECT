@@ -71,16 +71,24 @@ import com.sun.xml.ws.developer.WSBindingProvider;
  */
 public class WebServiceProxyHelper {
 
+	public static final String CONFIG_FILE = "gateway";
+	public static final String CONFIG_KEY_TIMEOUT = "webserviceproxy.timeout";
+	public static final String CONFIG_KEY_REQUESTTIMEOUT = "webserviceproxy.request.timeout";
+	public static final String CONFIG_KEY_RETRYATTEMPTS = "webserviceproxy.retryattempts";
+	public static final String CONFIG_KEY_RETRYDELAY = "webserviceproxy.retrydelay";
+	public static final String CONFIG_KEY_EXCEPTION = "webserviceproxy.exceptionstext";
 	public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
 	public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
 	public static final String KEY_URL = javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
 	private Log log = null;
+        private IPropertyAcessor propertyAccessor;
 	private WebServiceProxyHelperProperties properties;
 	private SamlTokenCreator samlTokenCreator =  new SamlTokenCreator();
 
 	public WebServiceProxyHelper() {
 		log = createLogger();
 		properties = WebServiceProxyHelperProperties.getInstance();
+                propertyAccessor = new PropertyAccessor(CONFIG_FILE);
 	}
 
 	/**
@@ -92,6 +100,7 @@ public class WebServiceProxyHelper {
 	public WebServiceProxyHelper(Log log, IPropertyAcessor propertyAccessor) {
 		this.log = log;
 		properties = new WebServiceProxyHelperProperties(propertyAccessor);
+                this.propertyAccessor = propertyAccessor;
 	}
 
 	/**
@@ -384,6 +393,20 @@ public class WebServiceProxyHelper {
 		return sURL;
 	}
 
+
+	/**
+	 * This method returns the given property from the gateway properties file.
+	 *
+	 * @param sKey
+	 *            The name of the property to retrieve.
+	 * @return The value of the property.
+	 * @throws PropertyAccessException
+	 *             The exception if one occurs.
+	 */
+	protected String getGatewayProperty(String sKey)
+			throws PropertyAccessException {
+		return propertyAccessor.getProperty(sKey);
+	}
 	
 
 	/**
@@ -748,7 +771,89 @@ public class WebServiceProxyHelper {
 		requestContext.putAll(samlRequestContext);
 	}
 
+
+        /**
+         * Sets the webservice port request timeout for the given serviceName
+         * webservice request timeouts are set in gateway.properties as
+         * ServiceName.webserviceproxy.request.timeout=xxxxx
+         * where ServiceName is specified in NhincConstants
+         * @param port
+         * @param serviceName
+         */
+        public void setPortTimeoutByService(BindingProvider port, String serviceName){
+            setPortRequestTimeout(port, getServiceRequestTimeout(serviceName));
+        }
+
+
+        /**
+         * Gets the webservice request timeout property for serviceName
+         * (ServiceName.webserviceproxy.request.timeout=xxxxx) from gateway.properties
+         * Will return 0 if there is no request timeout for serviceName
+         * in gateway.properties
+         *
+         * @param serviceName
+         * @return timeout in milliseconds
+         */
+        private int getServiceRequestTimeout(String serviceName){
+            int timeout = 0;
+            String propertyName = "";
+            try{
+                propertyName = serviceName + "." + CONFIG_KEY_REQUESTTIMEOUT;
+                String sValue = getGatewayProperty(propertyName);
+                log.debug("WebServiceProxyHelper::getServiceRequestTimeout Retrieved from config file ("
+                        + CONFIG_FILE + ".properties) " + propertyName + "='" + sValue
+                        + "')");
+                if(NullChecker.isNotNullish(sValue)){
+                    timeout = Integer.parseInt(sValue);
+                }
+            }catch(PropertyAccessException ex){
+                log.warn("Error occurred reading property: " + propertyName
+                        + " value from config file (" + CONFIG_FILE
+                        + ".properties).  Exception: " + ex.toString());
+            }catch(NumberFormatException nfe){
+                log.warn("Error occurred converting property: " + serviceName
+                        + " value to integer from config file (" + CONFIG_FILE
+                        + ".properties).  Exception: " + nfe.toString());
+            }
+            return timeout;
+        }
+
+
+
+        /**
+         * The com.sun.xml.ws.request.timeout corresponds to the socket
+         * read timeout, and so is the amount of time the client will wait
+         * for an http response to be written to the socket.
+         *
+         * This timeout is best used to handle the case of a "hung server"
+         * where server accepts socket and http request stream but never writes
+         * the http response to the response stream (it just hangs indefinitely).
+         * In this case, the client will terminate the socket connection after the
+         * requestTimeout has elapsed.
+         *
+         * @param port
+         * @param requestTimeout
+         */
+        private void setPortRequestTimeout(BindingProvider port, int requestTimeout){
+            if(requestTimeout > 0){
+                Map<String, Object> requestContext = getRequestContextFromPort(port);
+                requestContext.put(KEY_REQUEST_TIMEOUT, requestTimeout);
+                log.debug("WebServiceProxyHelper::setPortRequestTimeout set requestTimeout=" + requestTimeout);
+            }
+        }
+
+
+
 	/**
+         * The com.sun.xml.ws.request.timeout corresponds to the socket
+         * read timeout, and so is the amount of time the client will wait
+         * for an http response to be written to the socket
+         *
+         * The com.sun.xml.ws.connect.timeout corresponds to the time the
+         * client/server will wait for the http request to be completely written to
+         * the socket.  This can generally be around 10 seconds except for xdr, which
+         * may require a large connect timeout to send/push a large doc in http request
+         *
 	 * @param port
 	 * @param url
 	 * @param requestContext
@@ -766,6 +871,9 @@ public class WebServiceProxyHelper {
 
 		if (timeout > 0) {
 			log.debug("setting timeout " + timeout);
+                        // @TODO fix this. Currently we set both the request and connect timeouts
+                        // by default to the same timeout value (webserviceproxy.timeout in gateway.properties)
+                        // these are very different timeouts and should be set seperately
 			requestContext.put(KEY_CONNECT_TIMEOUT, timeout);
 			requestContext.put(KEY_REQUEST_TIMEOUT, timeout);
 		} else {

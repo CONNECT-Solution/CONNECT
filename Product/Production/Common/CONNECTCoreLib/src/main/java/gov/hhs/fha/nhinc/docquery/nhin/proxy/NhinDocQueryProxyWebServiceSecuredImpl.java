@@ -93,6 +93,8 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayQueryPortType.class);
             oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.setPortTimeoutByService((javax.xml.ws.BindingProvider)port,
+                    NhincConstants.DOC_QUERY_SERVICE_NAME);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }

@@ -143,12 +143,12 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
                 Map requestContext = ((BindingProvider) servicePort).getRequestContext();
                 requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, serviceAddress);
                 // set the urlconnection timeout and read timeout for the web service call
-                requestContext.put(NhincConstants.CONNECT_TIMEOUT_NAME,
-                        ExecutorServiceHelper.getInstance().getTimeoutValues().
-                        get(NhincConstants.PATIENT_DISCOVERY_CONNECT_TIMEOUT));
-                requestContext.put(NhincConstants.REQUEST_TIMEOUT_NAME,
-                        ExecutorServiceHelper.getInstance().getTimeoutValues().
-                        get(NhincConstants.PATIENT_DISCOVERY_REQUEST_TIMEOUT));
+//                requestContext.put(NhincConstants.CONNECT_TIMEOUT_NAME,
+//                        ExecutorServiceHelper.getInstance().getTimeoutValues().
+//                        get(NhincConstants.PATIENT_DISCOVERY_CONNECT_TIMEOUT));
+//                requestContext.put(NhincConstants.REQUEST_TIMEOUT_NAME,
+//                        ExecutorServiceHelper.getInstance().getTimeoutValues().
+//                        get(NhincConstants.PATIENT_DISCOVERY_REQUEST_TIMEOUT));
                  // set saml assertion on requestContext
                 Map samlMap = (new SamlTokenCreator()).CreateRequestContext(assertion, serviceAddress,
                         NhincConstants.PATIENT_DISCOVERY_ACTION);

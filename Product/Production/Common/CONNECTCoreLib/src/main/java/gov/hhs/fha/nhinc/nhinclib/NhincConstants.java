@@ -89,12 +89,16 @@ public class NhincConstants {
     public static final String CONCURRENT_POOL_SIZE = "ConcurrentPoolSize";
     public static final String LARGEJOB_POOL_SIZE = "LargeJobPoolSize";
     public static final String LARGEJOB_SIZE_PERCENT = "LargeJobSizePercent";
+
+    // these 6 not used anymore
     public static final String PATIENT_DISCOVERY_CONNECT_TIMEOUT = "PDConnectTimeout";
     public static final String PATIENT_DISCOVERY_REQUEST_TIMEOUT = "PDRequestTimeout";
     public static final String DOC_QUERY_CONNECT_TIMEOUT = "DQConnectTimeout";
     public static final String DOC_QUERY_REQUEST_TIMEOUT = "DQRequestTimeout";
     public static final String CONNECT_TIMEOUT_NAME = "com.sun.xml.ws.connect.timeout";
     public static final String REQUEST_TIMEOUT_NAME = "com.sun.xml.ws.request.timeout";
+
+
     // SAML Constants
     public static final String ACTION_PROP = "action";
     public static final String RESOURCE_PROP = "resource";
@@ -482,4 +486,3 @@ public class NhincConstants {
     private NhincConstants() {
     }
 }
-
