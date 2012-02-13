@@ -67,6 +67,9 @@ import org.hl7.v3.TSExplicit;
 import org.hl7.v3.XActMoodDefEvn;
 import org.hl7.v3.XActMoodIntentEvent;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+
 /**
  *
  * @author dunnek
@@ -216,6 +219,21 @@ public class HL7PRPA201306Transforms {
         //extract the receiverOID from the request message - it will become the sender
         String sReceiverOIDFromMessage = getReceiverOIDFromPRPAIN201305UV02Request(oRequest);
         String senderOID = sReceiverOIDFromMessage;
+
+        //Update 3.1.1: use the current home community id as defined in gateway.properties
+        //If message fails to leave local community then senderid and receiverid will match
+        try {
+            log.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            String sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            log.info("Retrieve local home community id: " + sHomeCommunityId);
+            //If the property is set, then use this instead of from sending request
+            if(!sHomeCommunityId.isEmpty() && sHomeCommunityId != null)
+                senderOID = sHomeCommunityId;
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+        }
+
         //extract the senderOID from the request - it will become the receiver
         String sSenderOIDFromMessage = getSenderOIDFromPRPAIN201305UV02Request(oRequest);
         String receiverOID = sSenderOIDFromMessage;
