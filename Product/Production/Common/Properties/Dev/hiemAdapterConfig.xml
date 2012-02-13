@@ -29,7 +29,7 @@
   	<!-- ******************************************************************** -->
 
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.notify.HiemNotifyAdapterNoOpImpl" id="hiemnotifyadapternoop" name="hiemnotifyadapternoop"> 
+	<bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.notify.HiemNotifyAdapterNoOpImpl" id="hiemnotifyadapter" name="hiemnotifyadapternoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
@@ -39,7 +39,7 @@
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.notify.HiemNotifyAdapterWebServiceProxy" id="hiemnotifyadapter" name="hiemnotifyadapterwsunsecured"> 
+	<bean class="gov.hhs.fha.nhinc.hiemadapter.proxy.notify.HiemNotifyAdapterWebServiceProxy" id="hiemnotifyadapterwsunsecured" name="hiemnotifyadapterwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 		<meta key="default" value="true"/>
 	</bean> 
