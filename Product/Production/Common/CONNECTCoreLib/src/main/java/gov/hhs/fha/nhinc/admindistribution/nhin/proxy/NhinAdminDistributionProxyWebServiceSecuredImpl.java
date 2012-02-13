@@ -98,6 +98,9 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
                         "Exception: " + ex.getMessage(), ex);
             }
         }
+        else {
+            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME + ").  The URL is null.");
+        }
     }
 
     protected RespondingGatewayAdministrativeDistributionPortType getPort(String url, AssertionType assertion,

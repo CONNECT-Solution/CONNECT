@@ -41,6 +41,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.Map;
 import javax.xml.ws.Service;
 import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
@@ -101,12 +102,16 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
             message.setEDXLDistribution(body);
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             try {
                 getWebServiceProxyHelper().invokePort(port, AdapterAdministrativeDistributionSecuredPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {
                 log.error("Unable to send message: " + ex.getMessage());
             }
+        }
+        else {
+            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME + ").  The URL is null.");
         }
     }
 

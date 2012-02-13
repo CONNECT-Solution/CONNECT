@@ -121,6 +121,9 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
                         "Exception: " + ex.getMessage(), ex);
             }
         }
+        else {
+            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME + ").  The URL is null.");
+        }
     }
     protected WebServiceProxyHelper getWebServiceProxyHelper()
     {

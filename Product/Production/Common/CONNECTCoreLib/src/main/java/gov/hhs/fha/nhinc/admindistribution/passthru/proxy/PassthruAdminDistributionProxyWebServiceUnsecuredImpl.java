@@ -115,5 +115,8 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
                 log.error("Unable to send message: " + ex.getMessage());
             }
         }
+        else {
+            log.error("Failed to call the web service (" + NhincConstants.NHINC_ADMIN_DIST_SERVICE_NAME + ").  The URL is null.");
+        }
     }
 }

@@ -124,5 +124,8 @@ public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements Pass
                 log.error("Unable to send message: " + ex.getMessage());
             }
         }
+        else {
+            log.error("Failed to call the web service (" + NhincConstants.NHINC_ADMIN_DIST_SECURED_SERVICE_NAME + ").  The URL is null.");
+        }
     }
 }
