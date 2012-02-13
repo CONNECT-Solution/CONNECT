@@ -26,4 +26,4 @@ unzip target/CONNECT_Validation*.zip -d /nhin/
 echo "AS_ADMIN_PASSWORD=adminadmin" > $PASSWORD_FILE_TMP_DIR/password.txt
 
 cp $NHINC_DIR/Install/SetValidationSuiteWsdlPath.jar /nhin/NHINC/ThirdParty/ValidationSuite
-java -jar /nhin/NHINC/ThirdParty/ValidationSuite/SetValidationSuiteWsdlPath.jar /nhin/SUNWappserver/domains/domain1/config/nhin/wsdl
+java -jar /nhin/NHINC/ThirdParty/ValidationSuite/SetValidationSuiteWsdlPath.jar
