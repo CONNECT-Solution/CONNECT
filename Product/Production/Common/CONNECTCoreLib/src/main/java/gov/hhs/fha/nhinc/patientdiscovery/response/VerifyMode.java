@@ -26,24 +26,21 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.response;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxy;
+import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
+import java.util.ArrayList;
+import java.util.List;
+import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
@@ -308,14 +305,12 @@ public class VerifyMode implements ResponseMode {
 
         if (query != null) {
             // Query the MPI to see if the patient is found
-        	AdapterPatientDiscoveryProxyObjectFactory factory = new AdapterPatientDiscoveryProxyObjectFactory();
-        	AdapterPatientDiscoveryProxy proxy = factory.getAdapterPatientDiscoveryProxy();
+            AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
+            AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
             log.info("Sending query to the Secured MPI");
-            try {
-				queryResults = proxy.respondingGatewayPRPAIN201305UV02(query, assertion);
-			} catch (PatientDiscoveryException e) {
-				log.error("Failure during MPI query", e);
-			}
+            queryResults =
+                    mpiProxy.findCandidates(query, assertion);
+
         } else {
             log.error("MPI Request is null");
             queryResults = null;
