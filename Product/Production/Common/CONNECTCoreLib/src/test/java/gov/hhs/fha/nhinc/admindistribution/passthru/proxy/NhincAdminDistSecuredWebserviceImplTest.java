@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -61,6 +62,7 @@ public class NhincAdminDistSecuredWebserviceImplTest {
 
 
     @Test
+    @Ignore
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
         final Log mockLogger = context.mock(Log.class);
