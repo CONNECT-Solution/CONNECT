@@ -36,8 +36,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.tools.ws.processor.generator.ServicePropertyLoader;
 
@@ -54,7 +52,6 @@ import java.util.UUID;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -66,46 +63,38 @@ import com.sun.xml.ws.developer.WSBindingProvider;
  * This class is used as a helper in each of the Web Service Proxies. Since the
  * bulk of the work being done in each web service proxy is the same, it is
  * encapsulated in this helper class.
- *
+ * 
  * @author Jason Ray, Sai Valluripalli, Les Westberg
  */
 public class WebServiceProxyHelper {
 
-	public static final String CONFIG_FILE = "gateway";
-	public static final String CONFIG_KEY_TIMEOUT = "webserviceproxy.timeout";
-	public static final String CONFIG_KEY_REQUESTTIMEOUT = "webserviceproxy.request.timeout";
-	public static final String CONFIG_KEY_RETRYATTEMPTS = "webserviceproxy.retryattempts";
-	public static final String CONFIG_KEY_RETRYDELAY = "webserviceproxy.retrydelay";
-	public static final String CONFIG_KEY_EXCEPTION = "webserviceproxy.exceptionstext";
 	public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
 	public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
 	public static final String KEY_URL = javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
 	private Log log = null;
-        private IPropertyAcessor propertyAccessor;
 	private WebServiceProxyHelperProperties properties;
-	private SamlTokenCreator samlTokenCreator =  new SamlTokenCreator();
+	private SamlTokenCreator samlTokenCreator = new SamlTokenCreator();
 
 	public WebServiceProxyHelper() {
 		log = createLogger();
 		properties = WebServiceProxyHelperProperties.getInstance();
-                propertyAccessor = new PropertyAccessor(CONFIG_FILE);
+
 	}
 
 	/**
 	 * DI constructor.
-	 *
+	 * 
 	 * @param log
 	 * @param propertyAccessor
 	 */
 	public WebServiceProxyHelper(Log log, IPropertyAcessor propertyAccessor) {
 		this.log = log;
 		properties = new WebServiceProxyHelperProperties(propertyAccessor);
-                this.propertyAccessor = propertyAccessor;
 	}
 
 	/**
 	 * Create a logger object.
-	 *
+	 * 
 	 * @return The logger object.
 	 */
 	protected Log createLogger() {
@@ -115,7 +104,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This is a helper class for unit testing purposes only. It allows me to
 	 * mock out the connection manager call in the unit test.
-	 *
+	 * 
 	 * @param oTargetSystem
 	 *            The target system for the call.
 	 * @param sServiceName
@@ -124,17 +113,11 @@ public class WebServiceProxyHelper {
 	 * @throws Exception
 	 *             An exception if one occurs.
 	 */
-	/*
-	 * protected String getEndPointFromConnectionManager(NhinTargetSystemType
-	 * oTargetSystem, String sServiceName) throws ConnectionManagerException {
-	 * return ConnectionManagerCache2.getEndpontURLFromNhinTarget(oTargetSystem,
-	 * sServiceName); }
-	 */
 
 	/**
 	 * This is a helper class for unit testing purposes only. It allows me to
 	 * mock out the connection manager call in the unit test.
-	 *
+	 * 
 	 * @param oTargetSystem
 	 *            The target system for the call.
 	 * @param sServiceName
@@ -147,15 +130,15 @@ public class WebServiceProxyHelper {
 			NhinTargetSystemType oTargetSystem, String sServiceName,
 			GATEWAY_API_LEVEL level) throws ConnectionManagerException {
 
-            String url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(
-				oTargetSystem, sServiceName);
-            return url;
+		String url = ConnectionManagerCache.getInstance()
+				.getEndpontURLFromNhinTarget(oTargetSystem, sServiceName);
+		return url;
 	}
 
 	/**
 	 * This is a helper class for unit testing purposes only. It allows me to
 	 * mock out the connection manager call in the unit test.
-	 *
+	 * 
 	 * @param oTargetSystem
 	 *            The target system for the call.
 	 * @param sServiceName
@@ -167,14 +150,15 @@ public class WebServiceProxyHelper {
 	protected String getEndPointFromConnectionManagerByAdapterAPILevel(
 			String sServiceName, ADAPTER_API_LEVEL level)
 			throws ConnectionManagerException {
-	    String url = ConnectionManagerCache.getInstance().getAdapterEndpontURL(sServiceName, level);
-            return url;
+		String url = ConnectionManagerCache.getInstance().getAdapterEndpontURL(
+				sServiceName, level);
+		return url;
 	}
 
 	/**
 	 * This is a helper class for unit testing purposes only. It allows me to
 	 * mock out the connection manager call in the unit test.
-	 *
+	 * 
 	 * @param sHomeCommunityId
 	 *            The home community Id for the target system.
 	 * @param sServiceName
@@ -185,15 +169,15 @@ public class WebServiceProxyHelper {
 	 */
 	protected String getEndPointFromConnectionManager(String sHomeCommunityId,
 			String sServiceName) throws ConnectionManagerException {
-	    String url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(
-				sHomeCommunityId, sServiceName);
-            return url;
+		String url = ConnectionManagerCache.getInstance()
+				.getEndpointURLByServiceName(sHomeCommunityId, sServiceName);
+		return url;
 	}
 
 	/**
 	 * This is a helper class for unit testing purposes only. It allows me to
 	 * mock out the connection manager call in the unit test. This
-	 *
+	 * 
 	 * @param sServiceName
 	 *            The name of the service to locate.
 	 * @return The endpoint URL.
@@ -204,49 +188,13 @@ public class WebServiceProxyHelper {
 			throws ConnectionManagerException {
 		String url = ConnectionManagerCache.getInstance()
 				.getLocalEndpointURLByServiceName(sServiceName);
-                return url;
+		return url;
 	}
 
 	/**
 	 * This method retrieves the URl from the ConnectionMananager for the given
 	 * TargetSystem.
-	 *
-	 * @param oTargetSystem
-	 *            The target system containing the information needed to
-	 *            retrieve the endpoint URL.
-	 * @param sServiceName
-	 *            The name of the service for which the endpoint URL is desired.
-	 * @return The URL retrieved from the connection manager.
-	 */
-	/*
-	 * public String getUrlFromTargetSystem(NhinTargetSystemType oTargetSystem,
-	 * String sServiceName) throws IllegalArgumentException,
-	 * ConnectionManagerException, Exception { String sURL = "";
-	 *
-	 * if (oTargetSystem != null) { try { if (oTargetSystem.getHomeCommunity()
-	 * != null) { HomeCommunityType oHomeCommunity =
-	 * oTargetSystem.getHomeCommunity();
-	 * log.info("Target Sys properties Home Comm ID:" +
-	 * oHomeCommunity.getHomeCommunityId());
-	 * log.info("Target Sys properties Home Comm Description" +
-	 * oHomeCommunity.getDescription());
-	 * log.info("Target Sys properties Home Comm Name" +
-	 * oHomeCommunity.getName()); } sURL =
-	 * getEndPointFromConnectionManager(oTargetSystem, sServiceName); } catch
-	 * (ConnectionManagerException e) {
-	 * log.error("Error: Failed to retrieve url for service: " + sServiceName +
-	 * ".  Exception: " + e.getMessage(), e); throw (e); } } else { String
-	 * sErrorMessage = "Target system passed into the proxy is null";
-	 * log.error(sErrorMessage); throw new
-	 * IllegalArgumentException(sErrorMessage); }
-	 *
-	 * return sURL; }
-	 */
-
-	/**
-	 * This method retrieves the URl from the ConnectionMananager for the given
-	 * TargetSystem.
-	 *
+	 * 
 	 * @param oTargetSystem
 	 *            The target system containing the information needed to
 	 *            retrieve the endpoint URL.
@@ -291,7 +239,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method retrieves the URl from the ConnectionMananager for the given
 	 * TargetSystem.
-	 *
+	 * 
 	 * @param oTargetSystem
 	 *            The target system containing the information needed to
 	 *            retrieve the endpoint URL.
@@ -336,7 +284,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method retrieves the URl from the ConnectionMananager for the given
 	 * home community ID.
-	 *
+	 * 
 	 * @param sHomeCommunityId
 	 *            The home community id needed to retrieve the endpoint URL.
 	 * @param sServiceName
@@ -370,7 +318,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method retrieves the URl from the ConnectionMananager for the given
 	 * home community ID.
-	 *
+	 * 
 	 * @param sHomeCommunity
 	 *            The home community id needed to retrieve the endpoint URL.
 	 * @param sServiceName
@@ -393,27 +341,11 @@ public class WebServiceProxyHelper {
 		return sURL;
 	}
 
-
-	/**
-	 * This method returns the given property from the gateway properties file.
-	 *
-	 * @param sKey
-	 *            The name of the property to retrieve.
-	 * @return The value of the property.
-	 * @throws PropertyAccessException
-	 *             The exception if one occurs.
-	 */
-	protected String getGatewayProperty(String sKey)
-			throws PropertyAccessException {
-		return propertyAccessor.getProperty(sKey);
-	}
-	
-
 	/**
 	 * This retrieves the text to scan for in the exception. This allows the
 	 * exceptions to be considered for retry to be configured in the
 	 * gateway.properties file.
-	 *
+	 * 
 	 * @return String The string of exception text. This is a comma delimited
 	 *         list of text strings to look for in the exception. If any one of
 	 *         the strings are
@@ -425,7 +357,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * Retrieve the value for the number of retry attempts from the properties
 	 * file.
-	 *
+	 * 
 	 * @return The number of retry attempts that should be done.
 	 */
 	public int getRetryAttempts() {
@@ -434,7 +366,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Retrieve the retry delay setting from the properties file.
-	 *
+	 * 
 	 * @return The retry delay setting.
 	 */
 	public int getRetryDelay() {
@@ -443,18 +375,18 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Retrieve the timeout value from the properties file.
-	 *
+	 * 
 	 * @return
 	 */
 	public int getTimeout() {
-		
+
 		return properties.getTimeout();
 	}
 
 	/**
 	 * This method returns the request context from the port. It is here mainly
 	 * to facilitate mock unit testing.
-	 *
+	 * 
 	 * @param port
 	 *            The port containing the request context.
 	 * @return The request context.
@@ -466,7 +398,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method returns an instance of the SamlTokenCreator class. This
 	 * method is here to facilitate mock unit testing.
-	 *
+	 * 
 	 * @return instance of the SamlTokenCreator
 	 */
 	protected SamlTokenCreator getSamlTokenCreator() {
@@ -476,7 +408,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method returns the the request context with the information
 	 * extracted from the assertion class and the URL and service action.
-	 *
+	 * 
 	 * @param oTokenCreator
 	 *            The SamlTokenCreator object that will create the request
 	 *            context.
@@ -497,7 +429,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method returns an instance of the AsyncHeaderCreator class. This
 	 * method is here to facilitate mock unit testing.
-	 *
+	 * 
 	 * @return instance of the AsyncHeaderCreator
 	 */
 	protected AsyncHeaderCreator getAsyncHeaderCreator() {
@@ -508,7 +440,7 @@ public class WebServiceProxyHelper {
 	 * This method retrieves the message identifier stored in the assertion If
 	 * the message ID is null or empty, this method will generate a new UUID to
 	 * use for the message ID.
-	 *
+	 * 
 	 * @param assertion
 	 *            The assertion information containing the SAML assertion to be
 	 *            assigned to the message.
@@ -533,7 +465,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method retrieves the list of relatesTo identifiers stored in the
 	 * assertion.
-	 *
+	 * 
 	 * @param assertion
 	 *            The assertion information containing the SAML assertion to be
 	 *            assigned to the message.
@@ -550,7 +482,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * This method gset the WS-Addressing headers to be initialized on the port
-	 *
+	 * 
 	 * @param url
 	 *            The endpoint url defining <To>
 	 * @param wsAddressingAction
@@ -575,7 +507,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method sets the provided WS-Addressing headers to the outbound
 	 * headers on the port
-	 *
+	 * 
 	 * @param port
 	 *            The port to be initialized
 	 * @param createdHeaders
@@ -591,7 +523,7 @@ public class WebServiceProxyHelper {
 	 * required for processing - like timeout, URL, etc. This should not be used
 	 * in any new code it was only placed here as a stop gap during refactor for
 	 * old code. After the refactor this should not be used at all.
-	 *
+	 * 
 	 * @param port
 	 *            The port to be initialized.
 	 * @param url
@@ -605,7 +537,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method initializes the port for an unsecure interface call and sets
 	 * various values that are required for processing - like timeout, URL, etc.
-	 *
+	 * 
 	 * @param port
 	 *            The port to be initialized.
 	 * @param url
@@ -625,7 +557,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method initializes the port for an secure interface call and sets
 	 * various values that are required for processing - like timeout, URL, etc.
-	 *
+	 * 
 	 * @param port
 	 *            The port to be initialized.
 	 * @param url
@@ -649,7 +581,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method initializes the port and sets various values that are
 	 * required for processing - like timeout, URL, etc.
-	 *
+	 * 
 	 * @param port
 	 *            The port to be initialized.
 	 * @param url
@@ -680,7 +612,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method initializes the port and sets various values that are
 	 * required for processing - like timeout, URL, etc.
-	 *
+	 * 
 	 * @param isSecure
 	 *            If TRUE set this up as a secure call.
 	 * @param port
@@ -771,89 +703,53 @@ public class WebServiceProxyHelper {
 		requestContext.putAll(samlRequestContext);
 	}
 
-
-        /**
-         * Sets the webservice port request timeout for the given serviceName
-         * webservice request timeouts are set in gateway.properties as
-         * ServiceName.webserviceproxy.request.timeout=xxxxx
-         * where ServiceName is specified in NhincConstants
-         * @param port
-         * @param serviceName
-         */
-        public void setPortTimeoutByService(BindingProvider port, String serviceName){
-            setPortRequestTimeout(port, getServiceRequestTimeout(serviceName));
-        }
-
-
-        /**
-         * Gets the webservice request timeout property for serviceName
-         * (ServiceName.webserviceproxy.request.timeout=xxxxx) from gateway.properties
-         * Will return 0 if there is no request timeout for serviceName
-         * in gateway.properties
-         *
-         * @param serviceName
-         * @return timeout in milliseconds
-         */
-        private int getServiceRequestTimeout(String serviceName){
-            int timeout = 0;
-            String propertyName = "";
-            try{
-                propertyName = serviceName + "." + CONFIG_KEY_REQUESTTIMEOUT;
-                String sValue = getGatewayProperty(propertyName);
-                log.debug("WebServiceProxyHelper::getServiceRequestTimeout Retrieved from config file ("
-                        + CONFIG_FILE + ".properties) " + propertyName + "='" + sValue
-                        + "')");
-                if(NullChecker.isNotNullish(sValue)){
-                    timeout = Integer.parseInt(sValue);
-                }
-            }catch(PropertyAccessException ex){
-                log.warn("Error occurred reading property: " + propertyName
-                        + " value from config file (" + CONFIG_FILE
-                        + ".properties).  Exception: " + ex.toString());
-            }catch(NumberFormatException nfe){
-                log.warn("Error occurred converting property: " + serviceName
-                        + " value to integer from config file (" + CONFIG_FILE
-                        + ".properties).  Exception: " + nfe.toString());
-            }
-            return timeout;
-        }
-
-
-
-        /**
-         * The com.sun.xml.ws.request.timeout corresponds to the socket
-         * read timeout, and so is the amount of time the client will wait
-         * for an http response to be written to the socket.
-         *
-         * This timeout is best used to handle the case of a "hung server"
-         * where server accepts socket and http request stream but never writes
-         * the http response to the response stream (it just hangs indefinitely).
-         * In this case, the client will terminate the socket connection after the
-         * requestTimeout has elapsed.
-         *
-         * @param port
-         * @param requestTimeout
-         */
-        private void setPortRequestTimeout(BindingProvider port, int requestTimeout){
-            if(requestTimeout > 0){
-                Map<String, Object> requestContext = getRequestContextFromPort(port);
-                requestContext.put(KEY_REQUEST_TIMEOUT, requestTimeout);
-                log.debug("WebServiceProxyHelper::setPortRequestTimeout set requestTimeout=" + requestTimeout);
-            }
-        }
-
-
+	/**
+	 * Sets the webservice port request timeout for the given serviceName
+	 * webservice request timeouts are set in gateway.properties as
+	 * ServiceName.webserviceproxy.request.timeout=xxxxx where ServiceName is
+	 * specified in NhincConstants
+	 * 
+	 * @param port
+	 * @param serviceName
+	 */
+	public void setPortTimeoutByService(BindingProvider port, String serviceName) {
+		setPortRequestTimeout(port,
+				properties.getTimeoutFromConfig(serviceName));
+	}
 
 	/**
-         * The com.sun.xml.ws.request.timeout corresponds to the socket
-         * read timeout, and so is the amount of time the client will wait
-         * for an http response to be written to the socket
-         *
-         * The com.sun.xml.ws.connect.timeout corresponds to the time the
-         * client/server will wait for the http request to be completely written to
-         * the socket.  This can generally be around 10 seconds except for xdr, which
-         * may require a large connect timeout to send/push a large doc in http request
-         *
+	 * The com.sun.xml.ws.request.timeout corresponds to the socket read
+	 * timeout, and so is the amount of time the client will wait for an http
+	 * response to be written to the socket.
+	 * 
+	 * This timeout is best used to handle the case of a "hung server" where
+	 * server accepts socket and http request stream but never writes the http
+	 * response to the response stream (it just hangs indefinitely). In this
+	 * case, the client will terminate the socket connection after the
+	 * requestTimeout has elapsed.
+	 * 
+	 * @param port
+	 * @param requestTimeout
+	 */
+	private void setPortRequestTimeout(BindingProvider port, int requestTimeout) {
+		if (requestTimeout > 0) {
+			Map<String, Object> requestContext = getRequestContextFromPort(port);
+			requestContext.put(KEY_REQUEST_TIMEOUT, requestTimeout);
+			log.debug("set requestTimeout=" + requestTimeout);
+		}
+	}
+
+	/**
+	 * The com.sun.xml.ws.request.timeout corresponds to the socket read
+	 * timeout, and so is the amount of time the client will wait for an http
+	 * response to be written to the socket
+	 * 
+	 * The com.sun.xml.ws.connect.timeout corresponds to the time the
+	 * client/server will wait for the http request to be completely written to
+	 * the socket. This can generally be around 10 seconds except for xdr, which
+	 * may require a large connect timeout to send/push a large doc in http
+	 * request
+	 * 
 	 * @param port
 	 * @param url
 	 * @param requestContext
@@ -871,9 +767,6 @@ public class WebServiceProxyHelper {
 
 		if (timeout > 0) {
 			log.debug("setting timeout " + timeout);
-                        // @TODO fix this. Currently we set both the request and connect timeouts
-                        // by default to the same timeout value (webserviceproxy.timeout in gateway.properties)
-                        // these are very different timeouts and should be set seperately
 			requestContext.put(KEY_CONNECT_TIMEOUT, timeout);
 			requestContext.put(KEY_REQUEST_TIMEOUT, timeout);
 		} else {
@@ -936,7 +829,7 @@ public class WebServiceProxyHelper {
 	/**
 	 * This method will return the reflection method object for the given class
 	 * and methodName.
-	 *
+	 * 
 	 * @param portClass
 	 *            The class containing the method.
 	 * @param methodName
@@ -966,7 +859,7 @@ public class WebServiceProxyHelper {
 	 * This method is used to invoke a method using reflection. This method's
 	 * primary purpose is to allow us to override this for unit testing purposes
 	 * and simulate an exception to test that code.
-	 *
+	 * 
 	 * @param oMethod
 	 *            The reflection method object.
 	 * @param portObject
@@ -987,7 +880,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Return the list of parameters.
-	 *
+	 * 
 	 * @param parameterTypes
 	 *            The parameter class list
 	 * @return An array listing the parameters.
@@ -1007,11 +900,11 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Method to invoke an operation on a port using reflection.
-	 *
+	 * 
 	 * Information found at:
 	 * http://download.oracle.com/docs/cd/E17409_01/javase/
 	 * tutorial/reflect/member/methodInvocation.html
-	 *
+	 * 
 	 * @param portObject
 	 *            Concrete port object.
 	 * @param portClass
@@ -1044,11 +937,12 @@ public class WebServiceProxyHelper {
 					+ " not found for class " + portClass.getCanonicalName());
 		}
 
-                // @TODO do we really want to retry a web service call when
-                // an InvocationException is returned, which is what invokePortWithRetry does???
+		// @TODO do we really want to retry a web service call when
+		// an InvocationException is returned, which is what invokePortWithRetry
+		// does???
 		if ((iRetryCount > 0) && (iRetryDelay > 0) && (sExceptionText != null)
 				&& (sExceptionText.length() > 0)) {
-                        oResponse = invokePortWithRetry(portObject, portClass,
+			oResponse = invokePortWithRetry(portObject, portClass,
 					operationInput, iRetryCount, iRetryDelay, oMethod);
 		} // if ((iRetryCount > 0) && (iRetryDelay > 0))
 		else {
@@ -1092,23 +986,18 @@ public class WebServiceProxyHelper {
 			Exception cause = e;
 			Throwable throwable = e.getCause();
 			if (throwable != null && throwable instanceof Exception) {
-				cause = (Exception)throwable;
+				cause = (Exception) throwable;
 			}
-			// As near as we can tell based on the way we are using
-			// this, I do not
-			// believe there is any other exception we will see - but we
-			// want to
-			// log them if we see them.
-			// ---------------------------------------------------------------------
+	
 			String sErrorMessage = "An unexpected exception occurred of type: "
 					+ cause.getClass().getCanonicalName() + ". Exception: "
 					+ cause.getMessage();
 			log.error(sErrorMessage, cause);
 			throw cause;
-                }catch(Exception e){
-                    // just log exception and throw it back out
-                    log.error("WebServiceProxyHelper::invokePort Exception: ", e);
-                    throw e;
+		} catch (Exception e) {
+			// just log exception and throw it back out
+			log.error("WebServiceProxyHelper::invokePort Exception: ", e);
+			throw e;
 		}
 		return oResponse;
 	}
@@ -1142,14 +1031,14 @@ public class WebServiceProxyHelper {
 				log.debug("Invoking " + portClass.getCanonicalName() + "."
 						+ oMethod.getName() + ": Try #" + i);
 
-                                // invokePort will log any exception and throw back out
+				// invokePort will log any exception and throw back out
 				oResponse = invokePort(portObject, portClass, operationInput,
 						oResponse, oMethod);
 				break;
 			} catch (InvocationTargetException e) {
 				Throwable throwable = e.getCause();
 				if (throwable != null && throwable instanceof Exception) {
-					eCatchExp = (Exception)throwable;
+					eCatchExp = (Exception) throwable;
 				}
 
 				// If we have tried our maximum number of times, then let's get
@@ -1228,18 +1117,20 @@ public class WebServiceProxyHelper {
 		boolean bFlag = false;
 		StringTokenizer st = new StringTokenizer(sExceptionText, ",");
 		while (st.hasMoreTokens()) {
-			if ( eCatchExp.getMessage().contains(st.nextToken())) {
+			if (eCatchExp.getMessage().contains(st.nextToken())) {
 				bFlag = true;
 			}
 		}
 		if (bFlag) {
-			log.warn("Exception calling ... web service: " + eCatchExp.getMessage());
+			log.warn("Exception calling ... web service: "
+					+ eCatchExp.getMessage());
 			log.info("Retrying attempt [ " + i + " ] the connection after [ "
 					+ iRetryDelay + " ] seconds");
 
 		} else {
 			log.error("Unable to call " + portClass.getCanonicalName()
-					+ " Webservice due to  : " + eCatchExp.getMessage(), eCatchExp);
+					+ " Webservice due to  : " + eCatchExp.getMessage(),
+					eCatchExp);
 			throw eCatchExp;
 		}
 
@@ -1247,7 +1138,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Retrieve the path for where the WSDL files are located.
-	 *
+	 * 
 	 * @return The path where the WSDL files are located.
 	 */
 	protected String getWsdlPath() {
@@ -1256,7 +1147,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Create the service object.
-	 *
+	 * 
 	 * @param wsdlURL
 	 *            The URL for the WSDL.
 	 * @param namespaceURI
@@ -1276,7 +1167,7 @@ public class WebServiceProxyHelper {
 
 	/**
 	 * Create the service.
-	 *
+	 * 
 	 * @param wsdlFile
 	 *            The URL for the WSDL.
 	 * @param namespaceURI

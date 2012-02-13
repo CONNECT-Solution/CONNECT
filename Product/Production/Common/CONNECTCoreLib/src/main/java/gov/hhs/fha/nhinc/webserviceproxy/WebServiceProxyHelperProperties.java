@@ -40,6 +40,7 @@ public class WebServiceProxyHelperProperties {
 	public static final String CONFIG_KEY_RETRYATTEMPTS = "webserviceproxy.retryattempts";
 	public static final String CONFIG_KEY_RETRYDELAY = "webserviceproxy.retrydelay";
 	public static final String CONFIG_KEY_EXCEPTION = "webserviceproxy.exceptionstext";
+	public static final String CONFIG_KEY_REQUESTTIMEOUT = "webserviceproxy.request.timeout";
 	
 	private Log log = LogFactory.getLog(WebServiceProxyHelperProperties.class);
 
@@ -226,5 +227,42 @@ public class WebServiceProxyHelperProperties {
 		}
 		return timeout;
 	}
+	
+
+
+    /**
+     * Gets the webservice request timeout property for serviceName
+     * (ServiceName.webserviceproxy.request.timeout=xxxxx) from gateway.properties
+     * Will return 0 if there is no request timeout for serviceName
+     * in gateway.properties
+     *
+     * @param serviceName
+     * @return timeout in milliseconds
+     */
+    public int getTimeoutFromConfig(String serviceName){
+        int timeout = this.timeout;
+        String propertyName = "";
+        try{
+            propertyName = serviceName + "." + CONFIG_KEY_REQUESTTIMEOUT;
+            String sValue = propertyAccessor.getProperty(propertyName);
+            log.debug("Retrieved from config file ("
+                    + CONFIG_FILE + ".properties) " + propertyName + "='" + sValue
+                    + "')");
+            if(NullChecker.isNotNullish(sValue)){
+                timeout = Integer.parseInt(sValue);
+            }
+        }catch(PropertyAccessException ex){
+            log.warn("Error occurred reading property: " + propertyName
+                    + " value from config file (" + CONFIG_FILE
+                    + ".properties).  Exception: " + ex.toString());
+        }catch(NumberFormatException nfe){
+            log.warn("Error occurred converting property: " + propertyName
+                    + " value to integer from config file (" + CONFIG_FILE
+                    + ".properties).  Exception: " + nfe.toString());
+        }
+        return timeout;
+    }
+
+
 
 }

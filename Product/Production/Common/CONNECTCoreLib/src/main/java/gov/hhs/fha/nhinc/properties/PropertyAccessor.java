@@ -339,7 +339,7 @@ public class PropertyAccessor implements IPropertyAcessor{
 			}
 		} else if (oInfo == null) {
 			loadPropertyFile(sPropertyFile, oInfo); // This means that this is
-													// the firat time property
+													// the first time property
 													// file has been accessed
 		}
 	}
