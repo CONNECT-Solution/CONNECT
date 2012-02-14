@@ -4,170 +4,236 @@
         <name>CONNECTCommonTypesLib</name>
         <directory>/Production/Common/CONNECTCommonTypesLib</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTCoreLib</name>
         <directory>/Production/Common/CONNECTCoreLib</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTCommonWeb</name>
         <directory>/Production/Common/CONNECTCommonWeb</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTGatewayWeb</name>
         <directory>/Production/Gateway/CONNECTGatewayWeb</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>    
     <project>
-	<name>CONNECTGatewayPatientDiscoveryWeb10</name>
-	<directory>/Production/Gateway/CONNECTGatewayPatientDiscoveryWeb10</directory>
-	<dist.type>war</dist.type>
+	    <name>CONNECTGatewayPatientDiscoveryWeb10</name>
+	    <directory>/Production/Gateway/CONNECTGatewayPatientDiscoveryWeb10</directory>
+	    <dist.type>war</dist.type>
+	    <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTGatewayDocumentQuery10</name>
         <directory>/Production/Gateway/CONNECTGatewayDocumentQuery10</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTGatewayDocumentSubmission10</name>
         <directory>/Production/Gateway/CONNECTGatewayDocumentSubmission10</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTGatewayDocumentSubmission20</name>
         <directory>/Production/Gateway/CONNECTGatewayDocumentSubmission20</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTAdapterDocumentQuery10</name>
         <directory>/Production/Adapters/CONNECTAdapterDocumentQuery10</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
 	    <name>CONNECTGatewayDocumentRetrieveWeb10</name>
         <directory>/Production/Gateway/CONNECTGatewayDocumentRetrieveWeb10</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
 	    <name>CONNECTGatewayDocumentRetrieveWeb20</name>
         <directory>/Production/Gateway/CONNECTGatewayDocumentRetrieveWeb20</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
-	<name>CONENCTAdapterDocumentRetrieve10</name>
+	<name>CONNECTAdapterDocumentRetrieve10</name>
         <directory>/Production/Adapters/CONNECTAdapterDocumentRetrieve10</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>CONENCTAdapterDocumentSubmission10</name>
+        <name>CONNECTAdapterDocumentSubmission10</name>
         <directory>/Production/Adapters/General/CONNECTAdapterDocumentSubmission10</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTGatewayAdminDistribution_g0</name>
         <directory>/Production/Gateway/CONNECTGatewayAdminDistribution_g0</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>    
 
     <project>
         <name>CONNECTGatewayAdminDistribution_g1</name>
         <directory>/Production/Gateway/CONNECTGatewayAdminDistribution_g1</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>    
 
     <project>
         <name>CONNECTAdapterAdminDistribution_a0</name>
         <directory>/Production/Adapters/General/CONNECTAdapterAdminDistribution_a0/</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>    
  
     <project>
         <name>CONNECTGatewayHiem_g0</name>
         <directory>/Production/Gateway/CONNECTGatewayHiem_g0/</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>    
     <project>
         <name>CONNECTAdapterHiem_a0</name>
         <directory>/Production/Adapters/General/CONNECTAdapterHiem_a0/</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>    
 
     <project>
         <name>CONNECTAdapterWeb</name>
         <directory>/Production/Adapters/General/CONNECTAdapterWeb</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
 	<project>
         <name>CONNECTAdapterPatientDiscovery_a0</name>
         <directory>/Production/Adapters/General/CONNECTAdapterPatientDiscovery_a0</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project> 	    
     <project>
         <name>CONNECTInterfaceTestWeb</name>
         <directory>/Production/Gateway/CONNECTInterfaceTestWeb</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>FTAConfigManager</name>
         <directory>/Production/Adapters/GenericFileTransfer/FTAConfigManager</directory>
         <dist.type>jar</dist.type>
-    </project>    
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
+    </project>
     <project>
         <name>FTATransferAdapterEJB</name>
         <directory>/Production/Adapters/GenericFileTransfer/FTATransferAdapterEJB</directory>
         <dist.type>jar</dist.type>
-    </project>    
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
+]    </project>    
     <project>
         <name>CONNECTAdapterPDPOpenSSO</name>
         <directory>/Production/Adapters/General/CONNECTAdapterPDPOpenSSO</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTConsumerPreferencesProfileGUI</name>
         <directory>/Production/Adapters/General/CONNECTConsumerPreferencesProfileGUI</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTDeferredQueueManagerGUI</name>
         <directory>/Production/Adapters/General/CONNECTDeferredQueueManagerGUI</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTUniversalClientGUI</name>
         <directory>/Production/Adapters/General/CONNECTUniversalClientGUI</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTUDDIModifierGUI</name>
         <directory>/Production/Common/CONNECTUDDIModifierGUI</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>AdapterDocRepository2Soap12Web</name>
         <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Web</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>AdapterDocRegistry2Soap12Web</name>
         <directory>/Production/Adapters/General/AdapterDocRegistry2Soap12Web</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>FileTrasnferTimer</name>
         <directory>/Production/Adapters/GenericFileTransfer/FileTrasnferTimer</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>FileTransferAdapterEJB</name>
         <directory>/Production/Adapters/GenericFileTransfer/FileTransferAdapterEJB</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>FileTransferAdapterGUI</name>
         <directory>/Production/Adapters/GenericFileTransfer/FileTransferAdapterGUI</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     
     <!-- BEGIN Dynamic Document Generation Projects -->
@@ -175,46 +241,64 @@
         <name>AdapterCommonDataLayerEJB</name>
         <directory>/Production/Adapters/Framework/AdapterCommonDataLayerEJB</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>TemplateManager</name>
         <directory>/Production/Adapters/Framework/TemplateManager</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>    
     <project>
         <name>DocumentAssemblyManagerEJB</name>
         <directory>/Production/Adapters/Framework/DocumentAssemblyManagerEJB</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>AdapterDocumentAssemblyProxyEJB</name>
         <directory>/Production/Adapters/Framework/AdapterDocumentAssemblyProxyEJB</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>AdapterDocumentRepository</name>
         <directory>/Production/Adapters/Framework/AdapterDocumentRepository</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>AdapterDocumentRepositoryEJB</name>
         <directory>/Production/Adapters/Framework/AdapterDocumentRepositoryEJB</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentManagerEJB</name>
         <directory>/Production/Adapters/Framework/DocumentManagerEJB</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>AdapterMpiEJB</name>
         <directory>/Production/Adapters/Framework/AdapterMpiEJB</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>NHINAdapterServiceEJB</name>
         <directory>/Production/Adapters/Framework/NHINAdapterServiceEJB</directory>
         <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
 
   <!--Integration Test-->
@@ -222,31 +306,43 @@
       <name>AdapterFrameworkIntTest</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterFrameworkIntTest</directory>
       <dist.type>jar</dist.type>
+      <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
       <name>AdapterGeneralIntTest</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/AdapterGeneralIntTest</directory>
       <dist.type>jar</dist.type>
+      <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
       <name>CommonIntTest</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Common/CommonIntTest</directory>
       <dist.type>jar</dist.type>
+      <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
       <name>GatewayIntTest</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Gateway/GatewayIntTest</directory>
       <dist.type>jar</dist.type>
+      <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
       <name>HiemSubscriptionRepositoryIntegrationTest</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Gateway/HiemSubscriptionRepositoryIntegrationTest</directory>
       <dist.type>jar</dist.type>
+      <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>  
     <project>
       <name>LoadTest</name>
       <directory>/IntegrationTest/JunitIntegrationTests/Gateway/LoadTest</directory>
       <dist.type>jar</dist.type>
+      <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project> 
     
 </projects>

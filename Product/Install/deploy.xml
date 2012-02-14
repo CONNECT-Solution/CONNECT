@@ -155,17 +155,30 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/ejbs/ejb">
         <param name="ejb.name" path="name/text()" />
+		<param name="should.deploy" path="should.deploy/text()" />
         <actions>
-          <if>
-            <not>
-              <isset property="deploy.exclude.ejb.@{ejb.name}"/>
-            </not>
-            <then>
-              <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/@{ejb.name}.jar"/>
-              <var name="deployment.glassfish.ejb.name" value="@{ejb.name}"/>
-              <runtarget target="${target}"/>
-            </then>
-          </if>
+            <if>
+				<istrue value="@{should.deploy}" />
+				<then>
+				  <if>
+					<not>
+					  <isset property="deploy.exclude.ejb.@{ejb.name}"/>
+					</not>
+					<then>
+				      <echo message="ejb '@{ejb.name}' will be deployed."/>
+					  <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/@{ejb.name}.jar"/>
+					  <var name="deployment.glassfish.ejb.name" value="@{ejb.name}"/>
+					  <runtarget target="${target}"/>
+					</then>
+					<else>
+				      <echo message="ejb '@{ejb.name}' will not be deployed."/>
+					</else>
+				  </if>
+				</then>
+				<else>
+				  <echo message="ejb '@{ejb.name}' will not be deployed."/>
+				</else>
+			</if>
         </actions>
       </call>
     </xmltask>
@@ -185,17 +198,30 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/wars/war">
         <param name="war.name" path="name/text()" />
+		<param name="should.deploy" path="should.deploy/text()" />
         <actions>
-          <if>
-            <not>
-              <isset property="deploy.exclude.war.@{war.name}"/>
-            </not>
-            <then>
-              <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war"/>
-              <var name="deployment.glassfish.war.name" value="@{war.name}"/>
-              <runtarget target="${target}"/>
-            </then>
-          </if>
+            <if>
+				<istrue value="@{should.deploy}" />
+				<then>
+				  <if>
+					  <not>
+					      <isset property="deploy.exclude.war.@{war.name}"/>
+					  </not>
+					  <then>
+				         <echo message="war '@{war.name}' will be deployed."/>
+					     <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war"/>
+					     <var name="deployment.glassfish.war.name" value="@{war.name}"/>
+					     <runtarget target="${target}"/>
+					  </then>
+					  <else>
+					    <echo message="war '@{war.name}' will not be deployed."/>
+					  </else>
+				    </if>
+			    </then>
+			    <else>
+				  <echo message="war '@{war.name}' will not be deployed."/>
+			    </else>
+            </if>
         </actions>
       </call>
     </xmltask>
@@ -215,16 +241,29 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/shared/lib">
         <param name="shared.name" path="name/text()" />
+		<param name="should.deploy" path="should.deploy/text()" />
         <actions>
-          <if>
-            <not>
-              <isset property="deploy.exclude.lib.@{shared.name}"/>
-            </not>
-            <then>
-              <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
-              <runtarget target="${target}"/>
-            </then>
-          </if>
+            <if>
+				<istrue value="@{should.deploy}" />
+				<then>
+				  <if>
+					<not>
+					  <isset property="deploy.exclude.lib.@{shared.name}"/>
+					</not>
+					<then>
+				  	  <echo message="shared lib '@{shared.name}' will be deployed."/>
+					  <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
+					  <runtarget target="${target}"/>
+					</then>
+					<else>
+					  <echo message="shared lib '@{shared.name}' will not be deployed."/>
+					</else>
+				  </if>
+				</then>
+			    <else>
+				  <echo message="shared lib '@{shared.name}' will not be deployed."/>
+			    </else>
+			</if>
         </actions>
       </call>
     </xmltask>
@@ -239,16 +278,29 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/execs/executable">
         <param name="shared.name" path="name/text()" />
+		<param name="should.deploy" path="should.deploy/text()" />
         <actions>
-          <if>
-            <not>
-              <isset property="deploy.exclude.lib.@{shared.name}"/>
-            </not>
-            <then>
-              <var name="deployment.executable.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
-              <runtarget target="${target}"/>
-            </then>
-          </if>
+            <if>
+				<istrue value="@{should.deploy}" />
+				<then>
+				  <if>
+					<not>
+					  <isset property="deploy.exclude.lib.@{shared.name}"/>
+					</not>
+					<then>
+					  <echo message="executable '@{shared.name}' will be deployed."/>
+					  <var name="deployment.executable.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
+					  <runtarget target="${target}"/>
+					</then>
+					<else>
+					  <echo message="executable '@{shared.name}' will not be deployed."/>
+					</else>
+				  </if>
+				</then>
+				<else>
+				  <echo message="executable '@{shared.name}' will not be deployed."/>
+				</else>
+			</if>
         </actions>
       </call>
     </xmltask>
