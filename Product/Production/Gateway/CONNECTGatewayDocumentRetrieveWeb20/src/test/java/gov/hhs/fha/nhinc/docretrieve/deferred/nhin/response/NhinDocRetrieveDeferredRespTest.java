@@ -11,10 +11,7 @@ import org.junit.*;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by
- * User: ralph
- * Date: Jul 29, 2010
- * Time: 2:45:00 PM
+ * Created by User: ralph Date: Jul 29, 2010 Time: 2:45:00 PM
  */
 public class NhinDocRetrieveDeferredRespTest {
     private Mockery context;
@@ -43,61 +40,61 @@ public class NhinDocRetrieveDeferredRespTest {
     public void tearDown() {
     }
 
-     @Test
-     public void testRespondingGatewayDeferredResponse_CrossGatewayRetrieve() {
-         //
-         // Define mock objects
-         //
-         final NhinDocRetrieveDeferredResponse                                  mockNhinDocRetrieveDeferredResp;
-         final RetrieveDocumentSetResponseType                              mockRetrieveDocumentSetResponseType;
-         final DocRetrieveAcknowledgementType                               mockAck;
+    @Test
+    public void testRespondingGatewayDeferredResponse_CrossGatewayRetrieve() {
+        //
+        // Define mock objects
+        //
+        final NhinDocRetrieveDeferredResponse mockNhinDocRetrieveDeferredResp;
+        final RetrieveDocumentSetResponseType mockRetrieveDocumentSetResponseType;
+        final DocRetrieveAcknowledgementType mockAck;
 
-         //
-         // Define the class to be tested and it's inputs and outputs.
-         //
-         RetrieveDocumentSetResponseType                                    retrieveDocumentSetResponseType;
-         DocRetrieveAcknowledgementType                                     ack;
+        //
+        // Define the class to be tested and it's inputs and outputs.
+        //
+        RetrieveDocumentSetResponseType retrieveDocumentSetResponseType;
+        DocRetrieveAcknowledgementType ack;
 
-         //
-         // Instantiate the mock objects.
-         //
-         mockNhinDocRetrieveDeferredResp = context.mock(NhinDocRetrieveDeferredResponse.class);
-         mockRetrieveDocumentSetResponseType = context.mock(RetrieveDocumentSetResponseType.class);
-         mockAck = context.mock(DocRetrieveAcknowledgementType.class);
+        //
+        // Instantiate the mock objects.
+        //
+        mockNhinDocRetrieveDeferredResp = context.mock(NhinDocRetrieveDeferredResponse.class);
+        mockRetrieveDocumentSetResponseType = context.mock(RetrieveDocumentSetResponseType.class);
+        mockAck = context.mock(DocRetrieveAcknowledgementType.class);
 
-         //
-         // Set up the expectations using the instantiated mock objects.
-         //
-         context.checking(new Expectations() {
-             {
-                 allowing(mockNhinDocRetrieveDeferredResp).respondingGatewayDeferredResponseCrossGatewayRetrieve(mockRetrieveDocumentSetResponseType);
-                 will(returnValue(mockAck));
-             }
-         });
+        //
+        // Set up the expectations using the instantiated mock objects.
+        //
+        context.checking(new Expectations() {
+            {
+                allowing(mockNhinDocRetrieveDeferredResp).respondingGatewayDeferredResponseCrossGatewayRetrieve(
+                        mockRetrieveDocumentSetResponseType);
+                will(returnValue(mockAck));
+            }
+        });
 
-         //
-         // Instantiate the object to be tested and it's inputs.
-         //
-         retrieveDocumentSetResponseType = new RetrieveDocumentSetResponseType();
+        //
+        // Instantiate the object to be tested and it's inputs.
+        //
+        retrieveDocumentSetResponseType = new RetrieveDocumentSetResponseType();
 
-         NhinDocRetrieveDeferredResponse testSubject = new NhinDocRetrieveDeferredResponse()
-         {
-             @Override
-             public DocRetrieveAcknowledgementType respondingGatewayDeferredResponseCrossGatewayRetrieve(RetrieveDocumentSetResponseType req)
-             {
-                 return mockAck;
-             }
-         };
+        NhinDocRetrieveDeferredResponse testSubject = new NhinDocRetrieveDeferredResponse() {
+            @Override
+            public DocRetrieveAcknowledgementType respondingGatewayDeferredResponseCrossGatewayRetrieve(
+                    RetrieveDocumentSetResponseType req) {
+                return mockAck;
+            }
+        };
 
-         //
-         // Run the test.
-         //
-         ack = testSubject.respondingGatewayDeferredResponseCrossGatewayRetrieve(retrieveDocumentSetResponseType);
+        //
+        // Run the test.
+        //
+        ack = testSubject.respondingGatewayDeferredResponseCrossGatewayRetrieve(retrieveDocumentSetResponseType);
 
-         //
-         // Check the results.
-         //
-         assertNotNull("Ack was null", ack);
-         context.assertIsSatisfied();
-     }
+        //
+        // Check the results.
+        //
+        assertNotNull("Ack was null", ack);
+        context.assertIsSatisfied();
+    }
 }

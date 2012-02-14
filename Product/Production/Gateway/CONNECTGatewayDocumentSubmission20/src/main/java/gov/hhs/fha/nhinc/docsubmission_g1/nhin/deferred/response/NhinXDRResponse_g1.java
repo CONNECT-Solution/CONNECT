@@ -33,17 +33,18 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "XDRDeferredResponse_Service", portName = "XDRDeferredResponse_Port_Soap", endpointInterface = "ihe.iti.xdr._2007.XDRDeferredResponsePortType", targetNamespace = "urn:ihe:iti:xdr:2007", wsdlLocation = "WEB-INF/wsdl/NhinXDRResponse_g1/NhinXDRDeferredResponse_g1.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class NhinXDRResponse_g1 {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
+    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(
+            oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
         return new NhinDocSubmissionDeferredResponseImpl_g1().provideAndRegisterDocumentSetBResponse(body, context);
     }
 

@@ -38,8 +38,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
 public class AdapterComponentDocSubmissionProxyWebServiceSecuredImpl implements AdapterComponentDocSubmissionProxy {
@@ -68,18 +68,20 @@ public class AdapterComponentDocSubmissionProxyWebServiceSecuredImpl implements 
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterComponentXDRSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected AdapterComponentXDRSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         AdapterComponentXDRSecuredPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterComponentXDRSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -88,7 +90,7 @@ public class AdapterComponentDocSubmissionProxyWebServiceSecuredImpl implements 
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -102,19 +104,23 @@ public class AdapterComponentDocSubmissionProxyWebServiceSecuredImpl implements 
         return cachedService;
     }
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion) {
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
+            AssertionType assertion) {
         RegistryResponseType response = null;
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_COMPONENT_XDR_SECURED_SERVICE_NAME);
-            AdapterComponentXDRSecuredPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper
+                    .getUrlLocalHomeCommunity(NhincConstants.ADAPTER_COMPONENT_XDR_SECURED_SERVICE_NAME);
+            AdapterComponentXDRSecuredPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION,
+                    assertion);
 
             if (msg == null) {
                 log.error("Message was null");
             } else if (port == null) {
                 log.error("port was null");
             } else {
-                response = (RegistryResponseType) oProxyHelper.invokePort(port, AdapterComponentXDRSecuredPortType.class, "provideAndRegisterDocumentSetb", msg);
+                response = (RegistryResponseType) oProxyHelper.invokePort(port,
+                        AdapterComponentXDRSecuredPortType.class, "provideAndRegisterDocumentSetb", msg);
             }
         } catch (Exception ex) {
             log.error("Error sending Adapter Component Doc Submission Secured message: " + ex.getMessage(), ex);

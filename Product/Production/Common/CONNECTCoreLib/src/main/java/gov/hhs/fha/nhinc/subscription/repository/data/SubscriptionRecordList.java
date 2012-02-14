@@ -33,7 +33,6 @@ import java.util.ArrayList;
  * 
  * @author Neil Webb
  */
-public class SubscriptionRecordList extends ArrayList<SubscriptionRecord>
-{
+public class SubscriptionRecordList extends ArrayList<SubscriptionRecord> {
     private static final long serialVersionUID = 5477372647688967641L;
 }

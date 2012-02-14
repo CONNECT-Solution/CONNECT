@@ -40,11 +40,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
-{
+public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured";
@@ -55,36 +54,30 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
 
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public PolicyEngineProxyWebServiceSecuredImpl()
-    {
+    public PolicyEngineProxyWebServiceSecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
-    private AdapterPolicyEngineSecuredPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-    {
+    private AdapterPolicyEngineSecuredPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
         AdapterPolicyEngineSecuredPortType port = null;
 
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterPolicyEngineSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.POLICY_ENGINE_ACTION, wsAddressingAction, assertion);
-        }
-        else
-        {
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,
+                    NhincConstants.POLICY_ENGINE_ACTION, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -92,58 +85,46 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
 
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
-    {
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         log.debug("Begin PolicyEngineWebServiceProxySecuredImpl.checkPolicy");
         CheckPolicyResponseType response = null;
         String serviceName = NhincConstants.POLICYENGINE_SERVICE_SECURED_NAME;
 
-        try
-        {
+        try {
             log.debug("Before target system URL look up.");
             String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
-            if(log.isDebugEnabled())
-            {
+            if (log.isDebugEnabled()) {
                 log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
             }
 
-            if (NullChecker.isNotNullish(url))
-            {
+            if (NullChecker.isNotNullish(url)) {
                 CheckPolicyRequestSecuredType securedRequest = new CheckPolicyRequestSecuredType();
-                if(checkPolicyRequest != null)
-                {
+                if (checkPolicyRequest != null) {
                     securedRequest.setRequest(checkPolicyRequest.getRequest());
                 }
                 AdapterPolicyEngineSecuredPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-                response = (CheckPolicyResponseType)oProxyHelper.invokePort(port, AdapterPolicyEngineSecuredPortType.class, "checkPolicy", securedRequest);
-            }
-            else
-            {
+                response = (CheckPolicyResponseType) oProxyHelper.invokePort(port,
+                        AdapterPolicyEngineSecuredPortType.class, "checkPolicy", securedRequest);
+            } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
-        }
-        catch (Exception ex)
-        {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.POLICYENGINE_SERVICE_NAME + " for local home community");
+        } catch (Exception ex) {
+            log.error("Error: Failed to retrieve url for service: " + NhincConstants.POLICYENGINE_SERVICE_NAME
+                    + " for local home community");
             log.error(ex.getMessage());
         }
 

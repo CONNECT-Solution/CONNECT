@@ -54,7 +54,7 @@ import org.oasis_open.docs.wsn.b_2.Notify;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class HiemNotifyImpl {
@@ -65,19 +65,17 @@ public class HiemNotifyImpl {
         log.debug("Entering HiemNotifyImpl.notify");
 
         SoapUtil contextHelper = new SoapUtil();
-        Element soapMessage = contextHelper.extractSoapMessageElement(context, NhincConstants.HIEM_NOTIFY_SOAP_HDR_ATTR_TAG);
+        Element soapMessage = contextHelper.extractSoapMessageElement(context,
+                NhincConstants.HIEM_NOTIFY_SOAP_HDR_ATTR_TAG);
 
         try {
-            //String rawSoapMessage = extractSoapMessage(context, "notifySoapMessage");
+            // String rawSoapMessage = extractSoapMessage(context, "notifySoapMessage");
             NhinNotifyProcessor notifyProcessor = new NhinNotifyProcessor();
             AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
             auditInputMessage(notifyRequest, assertion);
-            if(checkPolicy(notifyRequest, assertion))
-            {
+            if (checkPolicy(notifyRequest, assertion)) {
                 notifyProcessor.processNhinNotify(soapMessage, assertion);
-            }
-            else
-            {
+            } else {
                 log.error("Failed policy check on notify message");
             }
         } catch (Throwable t) {
@@ -92,25 +90,22 @@ public class HiemNotifyImpl {
     private static void auditInputMessage(Notify notifyRequest, AssertionType assertion) {
         log.debug("In HiemNotifyImpl.auditInputMessage");
         AcknowledgementType ack = null;
-        try
-        {
+        try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
             gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType();
             message.setAssertion(assertion);
             message.setNotify(notifyRequest);
 
-            LogEventRequestType auditLogMsg = auditLogger.logNhinNotifyRequest(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            LogEventRequestType auditLogMsg = auditLogger.logNhinNotifyRequest(message,
+                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
-            if(auditLogMsg != null)
-            {
+            if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
                 ack = proxy.auditLog(auditLogMsg, assertion);
             }
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Failed to log notify message: " + t.getMessage(), t);
         }
     }
@@ -132,9 +127,8 @@ public class HiemNotifyImpl {
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             policyIsValid = true;
         }
 
@@ -142,33 +136,26 @@ public class HiemNotifyImpl {
         return policyIsValid;
     }
 
-    private static String extractSoapMessage(WebServiceContext context, String attributeName)
-    {
+    private static String extractSoapMessage(WebServiceContext context, String attributeName) {
         String extractedMessage = null;
         @SuppressWarnings("unchecked")
         MessageContext msgContext = context.getMessageContext();
-        if(msgContext != null)
-        {
-            javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest)msgContext.get(MessageContext.SERVLET_REQUEST);
-            SOAPMessage soapMessage = (SOAPMessage)servletRequest.getAttribute(attributeName);
-            if(soapMessage != null)
-            {
+        if (msgContext != null) {
+            javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest) msgContext
+                    .get(MessageContext.SERVLET_REQUEST);
+            SOAPMessage soapMessage = (SOAPMessage) servletRequest.getAttribute(attributeName);
+            if (soapMessage != null) {
                 log.debug("******** Attempting to write out SOAP message *************");
-                try
-                {
+                try {
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     soapMessage.writeTo(bos);
                     extractedMessage = new String(bos.toByteArray());
                     log.debug("Extracted soap message: " + extractedMessage);
-                }
-                catch (Throwable t)
-                {
+                } catch (Throwable t) {
                     log.debug("Exception writing out the message");
                     t.printStackTrace();
                 }
-            }
-            else
-            {
+            } else {
                 log.debug("SOAPMessage was null");
             }
         }

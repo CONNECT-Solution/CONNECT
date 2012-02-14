@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy;
 
 /**
- *
+ * 
  * @author Mastan.Ketha
  */
 public class AdapterPDPConstants {

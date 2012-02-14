@@ -24,26 +24,39 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.assemblymanager.builder;
-
-/**
- *
- * @author kim
- */
-public class DocumentBuilderException extends Exception {
-
-   /**
-    * Creates a new instance of <code>DocumentBuilderException</code> without detail message.
-    */
-   public DocumentBuilderException() {
-      super();
-   }
-
-   /**
-    * Constructs an instance of <code>DocumentBuilderException</code> with the specified detail message.
-    * @param msg the detail message.
-    */
-   public DocumentBuilderException(String msg) {
-      super(msg);
-   }
-}
+package gov.hhs.fha.nhinc.assemblymanager.builder;
+
+/**
+ * 
+ * 
+ * 
+ * @author kim
+ */
+
+public class DocumentBuilderException extends Exception {
+
+    /**
+     * 
+     * Creates a new instance of <code>DocumentBuilderException</code> without detail message.
+     */
+
+    public DocumentBuilderException() {
+
+        super();
+
+    }
+
+    /**
+     * 
+     * Constructs an instance of <code>DocumentBuilderException</code> with the specified detail message.
+     * 
+     * @param msg the detail message.
+     */
+
+    public DocumentBuilderException(String msg) {
+
+        super(msg);
+
+    }
+
+}

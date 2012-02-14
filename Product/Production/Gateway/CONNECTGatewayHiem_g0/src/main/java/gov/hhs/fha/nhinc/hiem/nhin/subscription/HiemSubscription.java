@@ -45,19 +45,22 @@ import javax.xml.ws.WebServiceContext;
 import javax.jws.HandlerChain;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @WebService(serviceName = "NotificationProducerService", portName = "NotificationProducerPort", endpointInterface = "org.oasis_open.docs.wsn.bw_2.NotificationProducer", targetNamespace = "http://docs.oasis-open.org/wsn/bw-2", wsdlLocation = "WEB-INF/wsdl/HiemNotify/NhinSubscription.wsdl")
 @HandlerChain(file = "SubscribeSoapHeaderHandler.xml")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class HiemSubscription
-{
+public class HiemSubscription {
     @Resource
     private WebServiceContext context;
 
-    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(org.oasis_open.docs.wsn.b_2.Subscribe subscribeRequest) throws InvalidProducerPropertiesExpressionFault, TopicExpressionDialectUnknownFault, SubscribeCreationFailedFault, InvalidMessageContentExpressionFault, UnacceptableInitialTerminationTimeFault, InvalidFilterFault, UnrecognizedPolicyRequestFault, NotifyMessageNotSupportedFault, UnsupportedPolicyRequestFault, InvalidTopicExpressionFault, TopicNotSupportedFault, ResourceUnknownFault
-    {
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
+            org.oasis_open.docs.wsn.b_2.Subscribe subscribeRequest) throws InvalidProducerPropertiesExpressionFault,
+            TopicExpressionDialectUnknownFault, SubscribeCreationFailedFault, InvalidMessageContentExpressionFault,
+            UnacceptableInitialTerminationTimeFault, InvalidFilterFault, UnrecognizedPolicyRequestFault,
+            NotifyMessageNotSupportedFault, UnsupportedPolicyRequestFault, InvalidTopicExpressionFault,
+            TopicNotSupportedFault, ResourceUnknownFault {
         return new HiemSubscriptionImpl().subscribe(subscribeRequest, context);
     }
 

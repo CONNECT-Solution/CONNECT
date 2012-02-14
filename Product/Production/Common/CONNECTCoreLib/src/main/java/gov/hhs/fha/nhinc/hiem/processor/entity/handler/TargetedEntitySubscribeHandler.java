@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 
-
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
@@ -51,18 +50,21 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
- * Entity subscribe message handler for messages that are not patient centric.
- * One or more NHIN target system entries are required for this handler.
- *
+ * Entity subscribe message handler for messages that are not patient centric. One or more NHIN target system entries
+ * are required for this handler.
+ * 
  * @author Neil Webb
  */
 class TargetedEntitySubscribeHandler extends BaseEntitySubscribeHandler {
 
-    public SubscribeResponse handleSubscribe(TopicConfigurationEntry topicConfig, Subscribe subscribe, Element subscribeElement, AssertionType assertion, NhinTargetCommunitiesType targetCommunitites) throws TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault {
+    public SubscribeResponse handleSubscribe(TopicConfigurationEntry topicConfig, Subscribe subscribe,
+            Element subscribeElement, AssertionType assertion, NhinTargetCommunitiesType targetCommunitites)
+            throws TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault {
         SubscribeResponse response = new SubscribeResponse();
         List<UrlInfo> urlInfoList = null;
 
-        EndpointReferenceType parentSubscriptionReference = storeSubscription(subscribe, subscribeElement, assertion, targetCommunitites);
+        EndpointReferenceType parentSubscriptionReference = storeSubscription(subscribe, subscribeElement, assertion,
+                targetCommunitites);
         String parentSubscriptionReferenceXml = null;
         if (parentSubscriptionReference != null) {
             parentSubscriptionReferenceXml = serializeEndpointReferenceType(parentSubscriptionReference);
@@ -70,7 +72,8 @@ class TargetedEntitySubscribeHandler extends BaseEntitySubscribeHandler {
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunitites, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
+                    targetCommunitites, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs");
             return null;
@@ -80,15 +83,15 @@ class TargetedEntitySubscribeHandler extends BaseEntitySubscribeHandler {
             Iterator<UrlInfo> targetCommunityIter = urlInfoList.iterator();
             while (targetCommunityIter.hasNext()) {
                 UrlInfo target = targetCommunityIter.next();
-                //      Update Subscribe
+                // Update Subscribe
                 updateSubscribeNotificationConsumerEndpointAddress(subscribeElement);
-                //      Policy check - performed in proxy?
-                //      Audit Event - performed in proxy?
-                //      Send Subscribe
+                // Policy check - performed in proxy?
+                // Audit Event - performed in proxy?
+                // Send Subscribe
                 Element childSubscribeElement = subscribeElement;
                 SubscribeResponse subscribeResponse = sendSubscribeRequest(childSubscribeElement, assertion, target);
 
-                //      Store subscription
+                // Store subscription
                 if (subscribeResponse != null) {
                     String childSubscriptionReference = null;
 
@@ -109,7 +112,8 @@ class TargetedEntitySubscribeHandler extends BaseEntitySubscribeHandler {
                             log.error("failed to process subscribe xml", ex);
                             childSubscribeXml = null;
                         }
-                        storeChildSubscription(childSubscribeXml, childSubscriptionReference, parentSubscriptionReferenceXml);
+                        storeChildSubscription(childSubscribeXml, childSubscriptionReference,
+                                parentSubscriptionReferenceXml);
                     } else {
                         log.error("Subscription reference was null");
                     }

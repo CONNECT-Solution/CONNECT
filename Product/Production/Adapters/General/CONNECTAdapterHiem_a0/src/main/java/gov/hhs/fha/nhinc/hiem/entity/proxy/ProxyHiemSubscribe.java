@@ -42,14 +42,19 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "NhincProxyNotificationProducer", portName = "NhincProxyNotificationProducerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxyNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/ProxyHiemSubscribe/NhincProxySubscriptionManagement.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class ProxyHiemSubscribe {
 
-    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestType subscribeRequest) throws UnsupportedPolicyRequestFault, UnrecognizedPolicyRequestFault, TopicExpressionDialectUnknownFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicNotSupportedFault, InvalidProducerPropertiesExpressionFault, UnacceptableInitialTerminationTimeFault, InvalidFilterFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, InvalidMessageContentExpressionFault {
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestType subscribeRequest)
+            throws UnsupportedPolicyRequestFault, UnrecognizedPolicyRequestFault, TopicExpressionDialectUnknownFault,
+            ResourceUnknownFault, SubscribeCreationFailedFault, TopicNotSupportedFault,
+            InvalidProducerPropertiesExpressionFault, UnacceptableInitialTerminationTimeFault, InvalidFilterFault,
+            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, InvalidMessageContentExpressionFault {
         return new ProxyHiemSubscribeImpl().subscribe(subscribeRequest);
     }
 

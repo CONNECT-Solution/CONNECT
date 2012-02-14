@@ -38,14 +38,12 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 
 import org.hl7.v3.PRPAIN201305UV02;
 
-
-
 /**
  * Patient Discovery implementation of OutboundOrchestratableMessage
+ * 
  * @author paul.eftis
  */
-public class OutboundPatientDiscoveryOrchestratable
-        implements OutboundOrchestratableMessage{
+public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestratableMessage {
 
     private OutboundDelegate delegate = null;
     private OutboundResponseProcessor processor = null;
@@ -57,13 +55,11 @@ public class OutboundPatientDiscoveryOrchestratable
     private NhinTargetSystemType target = null;
     private PRPAIN201305UV02 request = null;
 
+    public OutboundPatientDiscoveryOrchestratable() {
+    }
 
-    public OutboundPatientDiscoveryOrchestratable(){}
-
-
-    public OutboundPatientDiscoveryOrchestratable(OutboundDelegate d, OutboundResponseProcessor p,
-            AuditTransformer at, PolicyTransformer pt, AssertionType a, String name,
-            NhinTargetSystemType t, PRPAIN201305UV02 r){
+    public OutboundPatientDiscoveryOrchestratable(OutboundDelegate d, OutboundResponseProcessor p, AuditTransformer at,
+            PolicyTransformer pt, AssertionType a, String name, NhinTargetSystemType t, PRPAIN201305UV02 r) {
 
         this.delegate = d;
         this.processor = p;
@@ -76,48 +72,48 @@ public class OutboundPatientDiscoveryOrchestratable
         this.request = r;
     }
 
-    public OutboundDelegate getDelegate(){
+    public OutboundDelegate getDelegate() {
         return delegate;
     }
 
     // NOT USED.......use getResponseProcessor instead
-    public NhinAggregator getAggregator(){
+    public NhinAggregator getAggregator() {
         return null;
     }
 
-    public OutboundResponseProcessor getResponseProcessor(){
+    public OutboundResponseProcessor getResponseProcessor() {
         return processor;
     }
 
-    public AuditTransformer getAuditTransformer(){
+    public AuditTransformer getAuditTransformer() {
         return auditTransformer;
     }
-    
-    public PolicyTransformer getPolicyTransformer(){
+
+    public PolicyTransformer getPolicyTransformer() {
         return policyTransformer;
     }
-    
-    public AssertionType getAssertion(){
+
+    public AssertionType getAssertion() {
         return assertion;
     }
-    
-    public String getServiceName(){
+
+    public String getServiceName() {
         return serviceName;
     }
 
-    public NhinTargetSystemType getTarget(){
+    public NhinTargetSystemType getTarget() {
         return target;
     }
 
-    public PRPAIN201305UV02 getRequest(){
+    public PRPAIN201305UV02 getRequest() {
         return request;
     }
 
-    public boolean isEnabled(){
+    public boolean isEnabled() {
         return true;
     }
 
-    public boolean isPassthru(){
+    public boolean isPassthru() {
         return false;
     }
 

@@ -40,7 +40,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class NhinDocRetrievePolicyTransformer_g0Test {
@@ -69,20 +69,18 @@ public class NhinDocRetrievePolicyTransformer_g0Test {
      */
     @Test
     public void testTranform() {
-        /*NhinDocRetrievePolicyTransformer_g0 instance = new NhinDocRetrievePolicyTransformer_g0();
-
-        RetrieveDocumentSetRequestType req = new RetrieveDocumentSetRequestType();
-        DocumentRequest dreq = new DocumentRequest();
-        dreq.setDocumentUniqueId("1");
-        dreq.setHomeCommunityId("1");
-        dreq.setRepositoryUniqueId("1");
-        req.getDocumentRequest().add(dreq);
-        Orchestratable message = new NhinDocRetrieveOrchestratableImpl_g0(req, null, instance, null, null);
-        Direction direction = PolicyTransformer.Direction.INBOUND;
-        CheckPolicyRequestType expResult = null;
-        CheckPolicyRequestType result = instance.tranform(message, direction);
-        assertEquals(expResult, result);*/
-        // TODO: this test requires mocking of the CheckPolicyRequestType and NhinDocRetrieveOrchestratableImpl_g0 classes.
+        /*
+         * NhinDocRetrievePolicyTransformer_g0 instance = new NhinDocRetrievePolicyTransformer_g0();
+         * 
+         * RetrieveDocumentSetRequestType req = new RetrieveDocumentSetRequestType(); DocumentRequest dreq = new
+         * DocumentRequest(); dreq.setDocumentUniqueId("1"); dreq.setHomeCommunityId("1");
+         * dreq.setRepositoryUniqueId("1"); req.getDocumentRequest().add(dreq); Orchestratable message = new
+         * NhinDocRetrieveOrchestratableImpl_g0(req, null, instance, null, null); Direction direction =
+         * PolicyTransformer.Direction.INBOUND; CheckPolicyRequestType expResult = null; CheckPolicyRequestType result =
+         * instance.tranform(message, direction); assertEquals(expResult, result);
+         */
+        // TODO: this test requires mocking of the CheckPolicyRequestType and NhinDocRetrieveOrchestratableImpl_g0
+        // classes.
     }
 
 }

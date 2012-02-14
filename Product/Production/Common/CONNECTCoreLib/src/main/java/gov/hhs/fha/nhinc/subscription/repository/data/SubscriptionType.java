@@ -31,8 +31,6 @@ package gov.hhs.fha.nhinc.subscription.repository.data;
  * 
  * @author Neil Webb
  */
-public enum SubscriptionType
-{
-    SUBSCRIPTION,
-    SUBSCRIPTION_REFERENCE;
+public enum SubscriptionType {
+    SUBSCRIPTION, SUBSCRIPTION_REFERENCE;
 }

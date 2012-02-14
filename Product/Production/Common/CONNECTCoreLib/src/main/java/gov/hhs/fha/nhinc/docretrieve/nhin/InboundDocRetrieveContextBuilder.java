@@ -8,7 +8,7 @@ package gov.hhs.fha.nhinc.docretrieve.nhin;
 import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public interface InboundDocRetrieveContextBuilder {

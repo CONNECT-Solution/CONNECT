@@ -35,33 +35,32 @@ import javax.xml.ws.soap.Addressing;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @WebService(serviceName = "EntityPatientDiscoveryAsyncResp", portName = "EntityPatientDiscoveryAsyncRespPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitypatientdiscoveryasyncresp.EntityPatientDiscoveryAsyncRespPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryDeferredResponseUnsecured/EntityPatientDiscoveryAsyncResp.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
-public class EntityPatientDiscoveryDeferredResponseUnsecured extends PatientDiscoveryBase
-{
+@Addressing(enabled = true)
+public class EntityPatientDiscoveryDeferredResponseUnsecured extends PatientDiscoveryBase {
     @Resource
     private WebServiceContext context;
 
     public EntityPatientDiscoveryDeferredResponseUnsecured() {
-		super();
-	}
-
-	public EntityPatientDiscoveryDeferredResponseUnsecured(
-			PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
-
-	public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02RequestType processPatientDiscoveryAsyncRespAsyncRequest)
-    {
-        return getServiceFactory().getEntityPatientDiscoveryDeferredResponseImpl().processPatientDiscoveryAsyncResp(processPatientDiscoveryAsyncRespAsyncRequest, getWebServiceContext());
+        super();
     }
 
-	protected WebServiceContext getWebServiceContext() {
-		return context;
-	}
+    public EntityPatientDiscoveryDeferredResponseUnsecured(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
+
+    public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncResp(
+            RespondingGatewayPRPAIN201306UV02RequestType processPatientDiscoveryAsyncRespAsyncRequest) {
+        return getServiceFactory().getEntityPatientDiscoveryDeferredResponseImpl().processPatientDiscoveryAsyncResp(
+                processPatientDiscoveryAsyncRespAsyncRequest, getWebServiceContext());
+    }
+
+    protected WebServiceContext getWebServiceContext() {
+        return context;
+    }
 
 }

@@ -33,14 +33,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class NhinDocSubmissionUtils {
     private static Log log = LogFactory.getLog(NhinDocSubmissionUtils.class);
+
     /**
      * Checks the gateway.properties file to see if a specified Patient Discovery Service is enabled.
-     *
+     * 
      * @return Returns true if a specified Patient Discovery Service is enabled in the properties file.
      */
     public static boolean isServiceEnabled(String serviceName) {
@@ -48,7 +49,8 @@ public class NhinDocSubmissionUtils {
         try {
             serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, serviceName);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + serviceName + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to retrieve " + serviceName + " from property file: "
+                    + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
 
@@ -56,16 +58,19 @@ public class NhinDocSubmissionUtils {
     }
 
     /**
-     * Checks to see if the query should  be handled internally or passed through to an adapter.
-     *
-     * @return Returns true if the pass through property for a specified Patient Discovery Service in the gateway.properties file is true.
+     * Checks to see if the query should be handled internally or passed through to an adapter.
+     * 
+     * @return Returns true if the pass through property for a specified Patient Discovery Service in the
+     *         gateway.properties file is true.
      */
     public static boolean isInPassThroughMode(String passThruProperty) {
         boolean passThroughModeEnabled = false;
         try {
-            passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, passThruProperty);
+            passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    passThruProperty);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + passThruProperty + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to retrieve " + passThruProperty + " from property file: "
+                    + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
         return passThroughModeEnabled;

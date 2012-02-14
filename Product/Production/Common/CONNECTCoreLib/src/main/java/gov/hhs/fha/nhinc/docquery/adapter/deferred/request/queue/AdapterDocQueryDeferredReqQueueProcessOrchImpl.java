@@ -61,24 +61,24 @@ public class AdapterDocQueryDeferredReqQueueProcessOrchImpl {
 
     /**
      * processDocQueryAsyncReqQueue Orchestration method for processing request queues on responding gateway
+     * 
      * @param messageId
      * @return DocQueryAcknowledgementType
      */
     public DocQueryAcknowledgementType processDocQueryAsyncReqQueue(String messageId) {
         log.info("Begin AdapterDocQueryDeferredReqQueueProcessOrchImpl.processDocQueryAsyncReqQueue()....");
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
-      
+
         try {
             RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequestType = new RespondingGatewayCrossGatewayQueryRequestType();
-            //Extract the Request from the DB for the given msgid.
+            // Extract the Request from the DB for the given msgid.
             AsyncMsgRecord asyncMsgRecord = new AsyncMsgRecord();
             AsyncMsgRecordDao asyncDao = new AsyncMsgRecordDao();
             log.info("messageId: " + messageId);
             if ((messageId != null)) {
                 List<AsyncMsgRecord> msgList = new ArrayList<AsyncMsgRecord>();
                 msgList = asyncDao.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
-                if ((msgList != null) &&
-                        (msgList.size() > 0)) {
+                if ((msgList != null) && (msgList.size() > 0)) {
                     log.info("msgList: " + msgList.size());
                     asyncMsgRecord = msgList.get(0);
 
@@ -93,26 +93,27 @@ public class AdapterDocQueryDeferredReqQueueProcessOrchImpl {
                 log.info("messageId: is null");
             }
 
-
             log.info("AsyncMsgRecord - messageId: " + asyncMsgRecord.getMessageId());
             log.info("AsyncMsgRecord - serviceName: " + asyncMsgRecord.getServiceName());
             log.info("AsyncMsgRecord - creationTime: " + asyncMsgRecord.getCreationTime());
 
             AdapterDocQueryDeferredRequestQueueProxyJavaImpl adapterDocQueryDeferredReqQueueProxyJavaImpl = new AdapterDocQueryDeferredRequestQueueProxyJavaImpl();
-           
+
             if (asyncMsgRecord.getMsgData() != null) {
-                respondingGatewayCrossGatewayQueryRequestType = extractRespondingGatewayQueryRequestType(asyncMsgRecord.getMsgData());
+                respondingGatewayCrossGatewayQueryRequestType = extractRespondingGatewayQueryRequestType(asyncMsgRecord
+                        .getMsgData());
             }
             if (respondingGatewayCrossGatewayQueryRequestType != null) {
-                log.info("AsyncMsgRecord - messageId: " + respondingGatewayCrossGatewayQueryRequestType.getAdhocQueryRequest().getId());
+                log.info("AsyncMsgRecord - messageId: "
+                        + respondingGatewayCrossGatewayQueryRequestType.getAdhocQueryRequest().getId());
 
                 AdhocQueryRequest adhocQueryRequest = null;
                 adhocQueryRequest = respondingGatewayCrossGatewayQueryRequestType.getAdhocQueryRequest();
 
-                //Extract the SenderOID from the request which we got from db.
+                // Extract the SenderOID from the request which we got from db.
                 String senderTargetCommunityId = extractSenderOID(adhocQueryRequest);
 
-                //Set the Sender HomeCommunity Id in the NHINTargetCommunity to serve the Deferred Request.
+                // Set the Sender HomeCommunity Id in the NHINTargetCommunity to serve the Deferred Request.
                 if (senderTargetCommunityId != null) {
                     log.info("SenderTargetCommunityId: " + senderTargetCommunityId);
                     NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
@@ -125,7 +126,8 @@ public class AdapterDocQueryDeferredReqQueueProcessOrchImpl {
                     // Generate new request queue assertion from original request message assertion
                     AssertionType assertion = respondingGatewayCrossGatewayQueryRequestType.getAssertion();
 
-                    ack = adapterDocQueryDeferredReqQueueProxyJavaImpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targetCommunities);
+                    ack = adapterDocQueryDeferredReqQueueProxyJavaImpl.respondingGatewayCrossGatewayQuery(
+                            adhocQueryRequest, assertion, targetCommunities);
 
                 } else {
                     log.error("Sender home is null - Unable to extract target community hcid from sender home");
@@ -139,7 +141,7 @@ public class AdapterDocQueryDeferredReqQueueProcessOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param msgData
      * @return RespondingGatewayCrossGatewayQueryRequestType
      */
@@ -153,7 +155,8 @@ public class AdapterDocQueryDeferredReqQueueProcessOrchImpl {
                 ByteArrayInputStream xmlContentBytes = new ByteArrayInputStream(msgBytes);
                 JAXBContext context = JAXBContext.newInstance("gov.hhs.fha.nhinc.common.nhinccommonentity");
                 Unmarshaller u = context.createUnmarshaller();
-                JAXBElement<RespondingGatewayCrossGatewayQueryRequestType> root = (JAXBElement<RespondingGatewayCrossGatewayQueryRequestType>) u.unmarshal(xmlContentBytes);
+                JAXBElement<RespondingGatewayCrossGatewayQueryRequestType> root = (JAXBElement<RespondingGatewayCrossGatewayQueryRequestType>) u
+                        .unmarshal(xmlContentBytes);
                 respondingGatewayCrossGatewayQueryRequestType = root.getValue();
                 log.debug("End AdapterDocQueryDeferredReqQueueProcessOrchImpl.extractRespondingGatewayQueryRequestType()..");
             }
@@ -166,7 +169,7 @@ public class AdapterDocQueryDeferredReqQueueProcessOrchImpl {
 
     /**
      * Extracts the home community id of the request.
-     *
+     * 
      * @param request
      * @return String
      */

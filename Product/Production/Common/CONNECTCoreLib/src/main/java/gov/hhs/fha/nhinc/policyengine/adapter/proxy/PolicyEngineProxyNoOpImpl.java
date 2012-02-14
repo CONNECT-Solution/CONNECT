@@ -36,26 +36,21 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
-public class PolicyEngineProxyNoOpImpl implements PolicyEngineProxy
-{
+public class PolicyEngineProxyNoOpImpl implements PolicyEngineProxy {
     private Log log = null;
 
-    public PolicyEngineProxyNoOpImpl()
-    {
+    public PolicyEngineProxyNoOpImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
-    {
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         log.debug("Begin PolicyEngineNoOpImpl.checkPolicy");
         CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();
         ResponseType response = new ResponseType();

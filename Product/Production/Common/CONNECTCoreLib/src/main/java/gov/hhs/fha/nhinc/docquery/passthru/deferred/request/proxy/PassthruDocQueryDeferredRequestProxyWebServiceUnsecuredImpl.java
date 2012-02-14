@@ -41,12 +41,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author patlollav
  */
-public class PassthruDocQueryDeferredRequestProxyWebServiceUnsecuredImpl implements PassthruDocQueryDeferredRequestProxy {
-    //Logger
-    private static final Log logger = LogFactory.getLog(PassthruDocQueryDeferredRequestProxyWebServiceUnsecuredImpl.class);
+public class PassthruDocQueryDeferredRequestProxyWebServiceUnsecuredImpl implements
+        PassthruDocQueryDeferredRequestProxy {
+    // Logger
+    private static final Log logger = LogFactory
+            .getLog(PassthruDocQueryDeferredRequestProxyWebServiceUnsecuredImpl.class);
 
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest";
@@ -55,104 +57,86 @@ public class PassthruDocQueryDeferredRequestProxyWebServiceUnsecuredImpl impleme
     private static final String WSDL_FILE = "NhincProxyDocQueryDeferredRequest.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest:CrossGatewayQueryRequest";
     private static final String METHOD_NAME = "crossGatewayQueryRequest";
-    
+
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-
-    protected Log getLogger()
-    {
+    protected Log getLogger() {
         return logger;
     }
 
-    protected WebServiceProxyHelper getWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return oProxyHelper;
     }
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected NhincProxyDocQueryDeferredRequestPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-    {
+    protected NhincProxyDocQueryDeferredRequestPortType getPort(String url, String wsAddressingAction,
+            AssertionType assertion) {
         NhincProxyDocQueryDeferredRequestPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             getLogger().debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyDocQueryDeferredRequestPortType.class);
-            getWebServiceProxyHelper().initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    NhincProxyDocQueryDeferredRequestPortType.class);
+            getWebServiceProxyHelper().initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url,
+                    wsAddressingAction, assertion);
+        } else {
             getLogger().error("Unable to obtain serivce - no port created.");
         }
-        
+
         return port;
     }
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = getWebServiceProxyHelper().createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 getLogger().error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
 
-    public DocQueryAcknowledgementType crossGatewayQueryRequest(AdhocQueryRequest msg, AssertionType assertion, NhinTargetSystemType target) {
+    public DocQueryAcknowledgementType crossGatewayQueryRequest(AdhocQueryRequest msg, AssertionType assertion,
+            NhinTargetSystemType target) {
         getLogger().debug("Begin respondingGatewayCrossGatewayQuery");
         DocQueryAcknowledgementType response = null;
 
-        try
-        {
-            String url = getWebServiceProxyHelper().getUrlLocalHomeCommunity(NhincConstants.PASSTHRU_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
-            
+        try {
+            String url = getWebServiceProxyHelper().getUrlLocalHomeCommunity(
+                    NhincConstants.PASSTHRU_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
+
             NhincProxyDocQueryDeferredRequestPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
-            if(msg == null)
-            {
+            if (msg == null) {
                 getLogger().error("Message is null");
-            }
-            else if(assertion == null)
-            {
+            } else if (assertion == null) {
                 getLogger().error("AssertionType is null");
-            }
-            else if(target == null)
-            {
+            } else if (target == null) {
                 getLogger().error("target is null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 getLogger().error("port was null");
-            }
-            else
-            {
+            } else {
                 RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
                 request.setAdhocQueryRequest(msg);
                 request.setAssertion(assertion);
                 request.setNhinTargetSystem(target);
 
-                response = (DocQueryAcknowledgementType)getWebServiceProxyHelper().invokePort(port, NhincProxyDocQueryDeferredRequestPortType.class, METHOD_NAME, request);
+                response = (DocQueryAcknowledgementType) getWebServiceProxyHelper().invokePort(port,
+                        NhincProxyDocQueryDeferredRequestPortType.class, METHOD_NAME, request);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             getLogger().error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
             response = new DocQueryAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();

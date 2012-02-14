@@ -38,27 +38,24 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
- *
+ * 
  * @author Ralph Saunders
  */
 public class AdapterDocRetrieveDeferredRespOrchImpl {
     private Log log = null;
 
-    public AdapterDocRetrieveDeferredRespOrchImpl()
-    {
+    public AdapterDocRetrieveDeferredRespOrchImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetResponseType body, AssertionType assertion)
-    {
-        DocRetrieveAcknowledgementType      result = null;
+    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetResponseType body,
+            AssertionType assertion) {
+        DocRetrieveAcknowledgementType result = null;
 
         log.debug("Enter AdapterDocRetrieveDeferredRespOrchImpl.respondingGatewayCrossGatewayRetrieve()");
         AdapterComponentDocRetrieveDeferredRespProxyObjectFactory factory = new AdapterComponentDocRetrieveDeferredRespProxyObjectFactory();

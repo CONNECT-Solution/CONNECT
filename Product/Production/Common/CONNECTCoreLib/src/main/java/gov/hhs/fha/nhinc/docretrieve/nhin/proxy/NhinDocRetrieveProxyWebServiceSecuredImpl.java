@@ -48,8 +48,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
 public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetrieveProxy {
@@ -73,7 +73,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
     protected Log createLogger() {
@@ -86,12 +86,14 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
 
     /**
      * Retrieve the document(s) specified in the request.
-     *
+     * 
      * @param request The identifier(s) of the document(s) to be retrieved.
      * @param targetSystem The target system where the message is being sent to.
      * @return The document(s) that were retrieved.
      */
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem, GATEWAY_API_LEVEL level) {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
+            RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem,
+            GATEWAY_API_LEVEL level) {
         String url = null;
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         String sServiceName = NhincConstants.DOC_RETRIEVE_SERVICE_NAME;
@@ -103,14 +105,18 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    RespondingGatewayRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION, WS_ADDRESSING_ACTION, assertion);
+                    RespondingGatewayRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION,
+                            WS_ADDRESSING_ACTION, assertion);
 
                     // Log the start of the performance record
                     String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetSystem(targetSystem);
                     Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                    Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetHomeCommunityId);
+                    Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                            NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetHomeCommunityId);
 
-                    response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port, RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
+                    response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port,
+                            RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
 
                     // Log the end of the performance record
                     Timestamp stoptime = new Timestamp(System.currentTimeMillis());
@@ -122,8 +128,8 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                 log.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
         } catch (Exception e) {
-            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  " +
-                    "Exception: " + e.getMessage(), e);
+            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
+                    + "Exception: " + e.getMessage(), e);
             RegistryResponseType regResp = new RegistryResponseType();
 
             regResp.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
@@ -132,8 +138,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
             registryError.setCodeContext("Processing Adapter Doc Query document retrieve");
             registryError.setErrorCode("XDSRepostoryError");
             registryError.setSeverity("Error");
-            if (regResp.getRegistryErrorList() == null)
-            {
+            if (regResp.getRegistryErrorList() == null) {
                 regResp.setRegistryErrorList(new RegistryErrorList());
             }
             regResp.getRegistryErrorList().getRegistryError().add(registryError);
@@ -145,7 +150,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -161,21 +166,23 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @param serviceAction The action for the web service.
      * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected RespondingGatewayRetrievePortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected RespondingGatewayRetrievePortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         RespondingGatewayRetrievePortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayRetrievePortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }

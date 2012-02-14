@@ -34,10 +34,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class AdapterComponentDocQueryDeferredRequestProxyJavaImpl implements AdapterComponentDocQueryDeferredRequestProxy {
+public class AdapterComponentDocQueryDeferredRequestProxyJavaImpl implements
+        AdapterComponentDocQueryDeferredRequestProxy {
     private static Log log = LogFactory.getLog(AdapterComponentDocQueryDeferredRequestProxyJavaImpl.class);
 
     public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {

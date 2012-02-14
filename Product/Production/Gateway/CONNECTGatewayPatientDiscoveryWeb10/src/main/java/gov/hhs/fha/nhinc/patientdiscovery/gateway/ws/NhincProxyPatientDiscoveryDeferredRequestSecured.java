@@ -38,38 +38,32 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 
 @WebService(serviceName = "NhincProxyPatientDiscoverySecuredAsyncReq", portName = "NhincProxyPatientDiscoverySecuredAsyncReqPortType", endpointInterface = "gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncreq.NhincProxyPatientDiscoverySecuredAsyncReqPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncreq", wsdlLocation = "WEB-INF/wsdl/NhincProxyPatientDiscoveryDeferredRequestSecured/NhincProxyPatientDiscoverySecuredAsyncReq.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
-public class NhincProxyPatientDiscoveryDeferredRequestSecured extends PatientDiscoveryBase
-{
+@Addressing(enabled = true)
+public class NhincProxyPatientDiscoveryDeferredRequestSecured extends PatientDiscoveryBase {
 
     @Resource
     private WebServiceContext context;
 
-    
-    
     public NhincProxyPatientDiscoveryDeferredRequestSecured() {
-		super();
-	}
+        super();
+    }
 
-	public NhincProxyPatientDiscoveryDeferredRequestSecured(
-			PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
+    public NhincProxyPatientDiscoveryDeferredRequestSecured(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
 
-	public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncReq(ProxyPRPAIN201305UVProxySecuredRequestType request)
-    {
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncReq(ProxyPRPAIN201305UVProxySecuredRequestType request) {
         MCCIIN000002UV01 response = null;
 
-        NhincProxyPatientDiscoveryDeferredRequestImpl serviceImpl = getServiceFactory().getNhincProxyPatientDiscoveryDeferredRequestImpl();
-        if (serviceImpl != null)
-        {
+        NhincProxyPatientDiscoveryDeferredRequestImpl serviceImpl = getServiceFactory()
+                .getNhincProxyPatientDiscoveryDeferredRequestImpl();
+        if (serviceImpl != null) {
             response = serviceImpl.processPatientDiscoveryAsyncRequestSecured(request, getWebServiceContext());
         }
         return response;
     }
 
-    protected WebServiceContext getWebServiceContext()
-    {
+    protected WebServiceContext getWebServiceContext() {
         return context;
     }
 }

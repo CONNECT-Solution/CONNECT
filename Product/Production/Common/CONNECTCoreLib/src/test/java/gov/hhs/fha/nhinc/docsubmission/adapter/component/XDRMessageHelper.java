@@ -32,66 +32,59 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class XDRMessageHelper {
     private static final String XML_FILENAME = "ProvideAndRegisterDocumentSet-bRequest.xml";
 
-    public ProvideAndRegisterDocumentSetRequestType getSampleMessage()
-    {
-       return getSampleMessage(XML_FILENAME);
+    public ProvideAndRegisterDocumentSetRequestType getSampleMessage() {
+        return getSampleMessage(XML_FILENAME);
     }
-    public ProvideAndRegisterDocumentSetRequestType getSampleMessage(String fileName)
-    {
+
+    public ProvideAndRegisterDocumentSetRequestType getSampleMessage(String fileName) {
         ProvideAndRegisterDocumentSetRequestType result = null;
         Object o = null;
 
-        try
-        {
-           //JAXBContext jc = JAXBContext.newInstance( "oasis.names.tc.ebxml_regrep.xsd.rim._3" );
-           JAXBContext jc = JAXBContext.newInstance(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.class);
+        try {
+            // JAXBContext jc = JAXBContext.newInstance( "oasis.names.tc.ebxml_regrep.xsd.rim._3" );
+            JAXBContext jc = JAXBContext
+                    .newInstance(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.class);
 
-           javax.xml.bind.Marshaller m = jc.createMarshaller();
+            javax.xml.bind.Marshaller m = jc.createMarshaller();
 
-           Unmarshaller u = jc.createUnmarshaller();
+            Unmarshaller u = jc.createUnmarshaller();
 
-           JAXBElement<ProvideAndRegisterDocumentSetRequestType> element = u.unmarshal(new StreamSource( fileName), ProvideAndRegisterDocumentSetRequestType.class);
-           result = element.getValue();
+            JAXBElement<ProvideAndRegisterDocumentSetRequestType> element = u.unmarshal(new StreamSource(fileName),
+                    ProvideAndRegisterDocumentSetRequestType.class);
+            result = element.getValue();
 
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
 
-
-       return result;
+        return result;
 
     }
 
-    public void saveSampleMessage(ProvideAndRegisterDocumentSetRequestType msg)
-    {
-        try
-        {
-           //JAXBContext jc = JAXBContext.newInstance( "oasis.names.tc.ebxml_regrep.xsd.rim._3" );
-           JAXBContext jc = JAXBContext.newInstance(msg.getClass());
+    public void saveSampleMessage(ProvideAndRegisterDocumentSetRequestType msg) {
+        try {
+            // JAXBContext jc = JAXBContext.newInstance( "oasis.names.tc.ebxml_regrep.xsd.rim._3" );
+            JAXBContext jc = JAXBContext.newInstance(msg.getClass());
 
-           javax.xml.bind.Marshaller m = jc.createMarshaller();
+            javax.xml.bind.Marshaller m = jc.createMarshaller();
 
-           
+            Unmarshaller u = jc.createUnmarshaller();
+            JAXBElement<ProvideAndRegisterDocumentSetRequestType> element = u.unmarshal(new StreamSource(XML_FILENAME),
+                    ProvideAndRegisterDocumentSetRequestType.class);
 
-           Unmarshaller u = jc.createUnmarshaller();
-           JAXBElement<ProvideAndRegisterDocumentSetRequestType> element = u.unmarshal(new StreamSource( XML_FILENAME), ProvideAndRegisterDocumentSetRequestType.class);
+            element.setValue(msg);
+            m.marshal(element, new FileWriter("C:\\temp\\test2.xml"));
 
-           element.setValue(msg);
-           m.marshal(element,new FileWriter("C:\\temp\\test2.xml"));
-
-           System.out.println("all good");
-        }
-        catch(Exception ex)
-        {
+            System.out.println("all good");
+        } catch (Exception ex) {
 
         }
 

@@ -40,8 +40,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocSubmissionProxy
-{
+public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocSubmissionProxy {
 
     private Log log = null;
     private static Service cachedService = null;
@@ -52,40 +51,36 @@ public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocS
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:ProvideAndRegisterDocumentSet-b";
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public EntityDocSubmissionProxyWebServiceSecuredImpl()
-    {
+    public EntityDocSubmissionProxyWebServiceSecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected EntityXDRSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-    {
+    protected EntityXDRSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         EntityXDRSecuredPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityXDRSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
-        } else
-        {
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -93,18 +88,14 @@ public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocS
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
@@ -112,29 +103,25 @@ public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocS
     }
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType message,
-            AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo)
-    {
+            AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         log.debug("Begin EntityDocSubmissionProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetB");
         RegistryResponseType response = new RegistryResponseType();
 
-        try
-        {
-                String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_SECURED_SERVICE_NAME);
-                EntityXDRSecuredPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
+        try {
+            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_SECURED_SERVICE_NAME);
+            EntityXDRSecuredPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
 
-                if (port != null)
-                {
-                    RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType securedRequest = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-                    securedRequest.setNhinTargetCommunities(targets);
-                    securedRequest.setProvideAndRegisterDocumentSetRequest(message);
-                    securedRequest.setUrl(urlInfo);
-                    response = (RegistryResponseType) oProxyHelper.invokePort(port, EntityXDRSecuredPortType.class, "provideAndRegisterDocumentSetB", securedRequest);
-                } else
-                {
-                    log.error("EntityXDRSecuredPortType is null");
-                }
-        } catch (Exception ex)
-        {
+            if (port != null) {
+                RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType securedRequest = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+                securedRequest.setNhinTargetCommunities(targets);
+                securedRequest.setProvideAndRegisterDocumentSetRequest(message);
+                securedRequest.setUrl(urlInfo);
+                response = (RegistryResponseType) oProxyHelper.invokePort(port, EntityXDRSecuredPortType.class,
+                        "provideAndRegisterDocumentSetB", securedRequest);
+            } else {
+                log.error("EntityXDRSecuredPortType is null");
+            }
+        } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
         }
 

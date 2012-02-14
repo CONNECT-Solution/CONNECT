@@ -62,7 +62,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterComponentDocRegistryOrchImpl {
@@ -70,8 +70,8 @@ public class AdapterComponentDocRegistryOrchImpl {
     private UTCDateUtil utcDateUtil = null;
 
     /*
-     * The following constants are the parameters defined by IHE for FindDocuments in
-     * section 3.16.4.1.4.1 of the ITI TF-2a specification (revision 6.0 dated August 10, 2009)
+     * The following constants are the parameters defined by IHE for FindDocuments in section 3.16.4.1.4.1 of the ITI
+     * TF-2a specification (revision 6.0 dated August 10, 2009)
      */
     private static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
     private static final String EBXML_DOCENTRY_CLASS_CODE = "$XDSDocumentEntryClassCode";
@@ -99,11 +99,10 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final String EBXML_DOCENTRY_STATUS = "$XDSDocumentEntryStatus";
     // -- End IHE defined FindDocuments parameters --
 
-
     // We need to be able to do a search using AdhocQueryRequest parameters, but
     // XDS.b does not have a search parameter slot name defined for repository ID
-    // and document ID.  So we had to create our own custom ones.
-    //----------------------------------------------------------------------------
+    // and document ID. So we had to create our own custom ones.
+    // ----------------------------------------------------------------------------
     private static final String NHINC_CUSTOM_REPOSITORY_ID = "$XDSRepositoryUniqueId";
     private static final String NHINC_CUSTOM_DOCUMENT_ID = "$XDSDocumentEntryUniqueId";
 
@@ -150,19 +149,16 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
 
-    public AdapterComponentDocRegistryOrchImpl()
-    {
+    public AdapterComponentDocRegistryOrchImpl() {
         log = createLogger();
         utcDateUtil = createDateUtil();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected UTCDateUtil createDateUtil()
-    {
+    protected UTCDateUtil createDateUtil() {
         return ((utcDateUtil != null) ? utcDateUtil : new UTCDateUtil());
     }
 
@@ -188,12 +184,10 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<String> eventCodeValues = null;
         List<String> eventCodeSchemeValues = null;
 
-        if(request != null)
-        {
+        if (request != null) {
             AdhocQueryType adhocQuery = request.getAdhocQuery();
             List<SlotType1> slots = null;
-            if(adhocQuery != null)
-            {
+            if (adhocQuery != null) {
                 slots = adhocQuery.getSlot();
             }
 
@@ -211,7 +205,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
             // We really do not do much with the repository ID - Since
             // we are not supporting multiple repositories...
-            //---------------------------------------------------------
+            // ---------------------------------------------------------
             sRepositoryId = extractRepositoryId(slots);
 
             eventCodeValues = extractEventCodeList(slots);
@@ -235,9 +229,9 @@ public class AdapterComponentDocRegistryOrchImpl {
         DocumentService service = getDocumentService();
         List<Document> docs = service.documentQuery(params);
 
-        if(docs != null){
+        if (docs != null) {
             log.debug("registryStoredQuery- docs.size: " + docs.size());
-        }else{
+        } else {
             log.debug("registryStoredQuery- docs.size: is null");
         }
 
@@ -248,25 +242,22 @@ public class AdapterComponentDocRegistryOrchImpl {
         return response;
     }
 
-    protected DocumentService getDocumentService()
-    {
+    protected DocumentService getDocumentService() {
         return new DocumentService();
     }
 
-    private List<EventCodeParam> createEventCodeParameters(List<String> eventCodeValues, List<String> eventCodeSchemeValues)
-    {
+    private List<EventCodeParam> createEventCodeParameters(List<String> eventCodeValues,
+            List<String> eventCodeSchemeValues) {
         List<EventCodeParam> eventCodeParams = null;
-        if(NullChecker.isNotNullish(eventCodeValues))
-        {
+        if (NullChecker.isNotNullish(eventCodeValues)) {
             eventCodeParams = new ArrayList<EventCodeParam>();
-            boolean hasMatchingSchemes = (NullChecker.isNotNullish(eventCodeSchemeValues) && (eventCodeValues.size() == eventCodeSchemeValues.size()));
-            for(int i = 0; i < eventCodeValues.size(); i++)
-            {
+            boolean hasMatchingSchemes = (NullChecker.isNotNullish(eventCodeSchemeValues) && (eventCodeValues.size() == eventCodeSchemeValues
+                    .size()));
+            for (int i = 0; i < eventCodeValues.size(); i++) {
                 String eventCode = eventCodeValues.get(i);
                 EventCodeParam eventCodeParam = new EventCodeParam();
                 eventCodeParam.setEventCode(eventCode);
-                if(hasMatchingSchemes)
-                {
+                if (hasMatchingSchemes) {
                     String eventCodeScheme = eventCodeSchemeValues.get(i);
                     eventCodeParam.setEventCodeScheme(eventCodeScheme);
                 }
@@ -277,121 +268,99 @@ public class AdapterComponentDocRegistryOrchImpl {
         return eventCodeParams;
     }
 
-    private String extractPatientIdentifier(List<SlotType1> slots)
-    {
+    private String extractPatientIdentifier(List<SlotType1> slots) {
         String patientId = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             String formattedPatientId = slotValues.get(0);
-            //patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
+            // patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
             patientId = PatientIdFormatUtil.stripQuotesFromPatientId(formattedPatientId);
             log.debug("extractPatientIdentifier - patientId: " + patientId);
         }
         return patientId;
     }
 
-    private List<String> extractClassCodes(List<SlotType1> slots)
-    {
+    private List<String> extractClassCodes(List<SlotType1> slots) {
         List<String> classCodes = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CLASS_CODE);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             classCodes = new ArrayList<String>();
-            for(String slotValue : slotValues)
-            {
+            for (String slotValue : slotValues) {
                 parseParamFormattedString(slotValue, classCodes);
             }
         }
         return classCodes;
     }
 
-    private String extractClassCodeScheme(List<SlotType1> slots)
-    {
+    private String extractClassCodeScheme(List<SlotType1> slots) {
         String classCodeScheme = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CLASS_CODE_SCHEME);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             classCodeScheme = slotValues.get(0);
         }
         return classCodeScheme;
     }
 
-    private Date extractCreationTimeFrom(List<SlotType1> slots)
-    {
+    private Date extractCreationTimeFrom(List<SlotType1> slots) {
         Date creationTimeFrom = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CREATION_TIME_FROM);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             creationTimeFrom = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return creationTimeFrom;
     }
 
-    private Date extractCreationTimeTo(List<SlotType1> slots)
-    {
+    private Date extractCreationTimeTo(List<SlotType1> slots) {
         Date creationTimeTo = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CREATION_TIME_TO);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             creationTimeTo = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return creationTimeTo;
     }
 
-    private Date extractServiceStartTimeFrom(List<SlotType1> slots)
-    {
+    private Date extractServiceStartTimeFrom(List<SlotType1> slots) {
         Date serviceStartTimeFrom = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_START_TIME_FROM);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             serviceStartTimeFrom = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return serviceStartTimeFrom;
     }
 
-    private Date extractServiceStartTimeTo(List<SlotType1> slots)
-    {
+    private Date extractServiceStartTimeTo(List<SlotType1> slots) {
         Date serviceStartTimeTo = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_START_TIME_TO);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             serviceStartTimeTo = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return serviceStartTimeTo;
     }
 
-    private Date extractServiceStopTimeFrom(List<SlotType1> slots)
-    {
+    private Date extractServiceStopTimeFrom(List<SlotType1> slots) {
         Date serviceStopTimeFrom = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_STOP_TIME_FROM);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             serviceStopTimeFrom = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return serviceStopTimeFrom;
     }
 
-    private Date extractServiceStopTimeTo(List<SlotType1> slots)
-    {
+    private Date extractServiceStopTimeTo(List<SlotType1> slots) {
         Date serviceStopTimeTo = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_STOP_TIME_TO);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             serviceStopTimeTo = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return serviceStopTimeTo;
     }
 
-    private List<String> extractStatuses(List<SlotType1> slots)
-    {
+    private List<String> extractStatuses(List<SlotType1> slots) {
         List<String> statuses = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_STATUS);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             statuses = new ArrayList<String>();
-            for(String slotValue : slotValues)
-            {
+            for (String slotValue : slotValues) {
                 parseParamFormattedString(slotValue, statuses);
             }
         }
@@ -399,21 +368,18 @@ public class AdapterComponentDocRegistryOrchImpl {
     }
 
     /**
-     * Extract the document ID from the slots, if it exists and put it into
-     * the array.
-     *
+     * Extract the document ID from the slots, if it exists and put it into the array.
+     * 
      * @param slots The slots to be searched.
      * @return The document ID in a list if it is found.
      */
-    private List<String> extractDocumentId(List<SlotType1> slots)
-    {
+    private List<String> extractDocumentId(List<SlotType1> slots) {
         List<String> documentIds = null;
         String docId = "";
         List<String> slotValues = extractSlotValues(slots, NHINC_CUSTOM_DOCUMENT_ID);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             // We should only have one - so use the first one.
-            //-------------------------------------------------
+            // -------------------------------------------------
             documentIds = new ArrayList<String>();
             docId = StringUtil.extractStringFromTokens(slotValues.get(0).trim(), "'()");
             documentIds.add(docId);
@@ -423,66 +389,55 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * Extract the repository ID from the slots
-     *
+     * 
      * @param slots The slots to be searched.
      * @return The repository Id.
      */
-    private String extractRepositoryId(List<SlotType1> slots)
-    {
+    private String extractRepositoryId(List<SlotType1> slots) {
         String repositoryId = null;
         List<String> slotValues = extractSlotValues(slots, NHINC_CUSTOM_REPOSITORY_ID);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             // We should only have one - so use the first one.
-            //-------------------------------------------------
+            // -------------------------------------------------
             repositoryId = slotValues.get(0).trim();
             repositoryId = StringUtil.extractStringFromTokens(repositoryId, "'()");
         }
         return repositoryId;
     }
 
-    private List<String> extractEventCodeList(List<SlotType1> slots)
-    {
+    private List<String> extractEventCodeList(List<SlotType1> slots) {
         List<String> classCodes = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_EVENT_CODE_LIST);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             classCodes = new ArrayList<String>();
-            for(String slotValue : slotValues)
-            {
+            for (String slotValue : slotValues) {
                 parseParamFormattedString(slotValue, classCodes);
             }
         }
         return classCodes;
     }
 
-    private List<String> extractEventCodeListSchemes(List<SlotType1> slots)
-    {
+    private List<String> extractEventCodeListSchemes(List<SlotType1> slots) {
         List<String> classCodes = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_EVENT_CODE_LIST_SCHEME);
-        if((slotValues != null) && (!slotValues.isEmpty()))
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
             classCodes = new ArrayList<String>();
-            for(String slotValue : slotValues)
-            {
+            for (String slotValue : slotValues) {
                 parseParamFormattedString(slotValue, classCodes);
             }
         }
         return classCodes;
     }
 
-    public void loadResponseMessage(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response, List<Document> docs)
-    {
+    public void loadResponseMessage(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response,
+            List<Document> docs) {
         RegistryObjectListType regObjList = new RegistryObjectListType();
         response.setRegistryObjectList(regObjList);
 
-        if(NullChecker.isNullish(docs))
-        {
+        if (NullChecker.isNullish(docs)) {
             log.debug("loadResponseMessage - docs size: null");
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
-        }
-        else
-        {
+        } else {
             log.debug("loadResponseMessage - docs size: " + docs.size());
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
 
@@ -494,12 +449,11 @@ public class AdapterComponentDocRegistryOrchImpl {
             List<JAXBElement<? extends IdentifiableType>> olRegObjs = regObjList.getIdentifiable();
 
             // Save these so that theyu can be added in later after all of the other items..
-            //------------------------------------------------------------------------------
+            // ------------------------------------------------------------------------------
             ArrayList<JAXBElement<? extends IdentifiableType>> olObjRef = new ArrayList<JAXBElement<? extends IdentifiableType>>();
             ArrayList<JAXBElement<? extends IdentifiableType>> olAssoc = new ArrayList<JAXBElement<? extends IdentifiableType>>();
 
-            for(Document doc : docs)
-            {
+            for (Document doc : docs) {
                 ExtrinsicObjectType oExtObj = new ExtrinsicObjectType();
                 JAXBElement<? extends IdentifiableType> oJAXBExtObj = oRimObjectFactory.createExtrinsicObject(oExtObj);
                 List<SlotType1> olSlot = oExtObj.getSlot();
@@ -514,11 +468,10 @@ public class AdapterComponentDocRegistryOrchImpl {
                 String sDocumentUUID = "urn:uuid:" + oDocumentUUID.toString();
                 oExtObj.setId(sDocumentUUID);
 
-                //Document Unique ID
-                //------------------
-                String sDocumentId = "";        // need to keep a handle to this to be used later...
-                if(NullChecker.isNotNullish(doc.getDocumentUniqueId()))
-                {
+                // Document Unique ID
+                // ------------------
+                String sDocumentId = ""; // need to keep a handle to this to be used later...
+                if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
                     sDocumentId = doc.getDocumentUniqueId();
                     ExternalIdentifierType oExtId = new ExternalIdentifierType();
                     oExtId.setId("");
@@ -541,110 +494,98 @@ public class AdapterComponentDocRegistryOrchImpl {
                 List<SlotType1> olClassificationSlot = oClassification.getSlot();
 
                 // AuthorPerson
-                //-------------
-                if(NullChecker.isNotNullish(doc.getAuthorPerson()))
-                {
+                // -------------
+                if (NullChecker.isNotNullish(doc.getAuthorPerson())) {
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_PERSON_SLOTNAME,
-                        doc.getAuthorPerson());
+                            doc.getAuthorPerson());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
                 }
                 // AuthorInstitution
-                //------------------
-                if(NullChecker.isNotNullish(doc.getAuthorInstitution()))
-                {
+                // ------------------
+                if (NullChecker.isNotNullish(doc.getAuthorInstitution())) {
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_INSTITUTION_SLOTNAME,
-                        doc.getAuthorInstitution());
+                            doc.getAuthorInstitution());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
                 }
 
                 // AuthorRole
-                //------------
-                if(NullChecker.isNotNullish(doc.getAuthorRole()))
-                {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_ROLE_SLOTNAME,
-                        doc.getAuthorRole());
+                // ------------
+                if (NullChecker.isNotNullish(doc.getAuthorRole())) {
+                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_ROLE_SLOTNAME, doc.getAuthorRole());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
                 }
 
                 // AuthorSpecialty
-                //----------------
-                if(NullChecker.isNotNullish(doc.getAuthorSpecialty()))
-                {
+                // ----------------
+                if (NullChecker.isNotNullish(doc.getAuthorSpecialty())) {
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_SPECIALTY_SLOTNAME,
-                        doc.getAuthorSpecialty());
+                            doc.getAuthorSpecialty());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
                 }
 
-                if (bHasAuthorData)
-                {
+                if (bHasAuthorData) {
                     olClassifications.add(oClassification);
                     bHaveData = true;
                 }
 
                 // Availability Status
-                //---------------------
-                if(NullChecker.isNotNullish(doc.getAvailablityStatus()))
-                {
+                // ---------------------
+                if (NullChecker.isNotNullish(doc.getAvailablityStatus())) {
                     oExtObj.setStatus(doc.getAvailablityStatus());
                     bHaveData = true;
                 }
 
                 // Class Code
-                //------------
-                ClassificationType classCodeClassification = createClassificationFromCodedData(doc.getClassCode(), doc.getClassCodeScheme(), doc.getClassCodeDisplayName(),
-                    EBXML_RESPONSE_CLASSCODE_CLASS_SCHEME,
-                    sDocumentUUID);
-                if (classCodeClassification != null)
-                {
+                // ------------
+                ClassificationType classCodeClassification = createClassificationFromCodedData(doc.getClassCode(),
+                        doc.getClassCodeScheme(), doc.getClassCodeDisplayName(), EBXML_RESPONSE_CLASSCODE_CLASS_SCHEME,
+                        sDocumentUUID);
+                if (classCodeClassification != null) {
                     olClassifications.add(classCodeClassification);
                     bHaveData = true;
                 }
 
                 // Comments
-                //---------
-                if(NullChecker.isNotNullish(doc.getComments()))
-                {
+                // ---------
+                if (NullChecker.isNotNullish(doc.getComments())) {
                     InternationalStringType oComments = CreateSingleValueInternationalStringType(doc.getComments());
                     oExtObj.setDescription(oComments);
                     bHaveData = true;
                 }
 
                 // Confidentiality Code
-                //---------------------
-                ClassificationType confidentialityCodeClassification = createClassificationFromCodedData(doc.getConfidentialityCode(), doc.getConfidentialityCodeScheme(), doc.getConfidentialityCodeDisplayName(),
-                    EBXML_RESPONSE_CONFIDENTIALITYCODE_CLASS_SCHEME,
-                    sDocumentUUID);
-                if (confidentialityCodeClassification != null)
-                {
+                // ---------------------
+                ClassificationType confidentialityCodeClassification = createClassificationFromCodedData(
+                        doc.getConfidentialityCode(), doc.getConfidentialityCodeScheme(),
+                        doc.getConfidentialityCodeDisplayName(), EBXML_RESPONSE_CONFIDENTIALITYCODE_CLASS_SCHEME,
+                        sDocumentUUID);
+                if (confidentialityCodeClassification != null) {
                     olClassifications.add(confidentialityCodeClassification);
                     bHaveData = true;
                 }
 
                 // Creation Time
-                //--------------
-                if(doc.getCreationTime() != null)
-                {
+                // --------------
+                if (doc.getCreationTime() != null) {
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_CREATIONTIME_SLOTNAME,
-                        utcDateUtil.formatUTCDate(doc.getCreationTime()));
+                            utcDateUtil.formatUTCDate(doc.getCreationTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
 
                 // Event Code List
-                //----------------
-                if((doc.getEventCodes() != null) && (!doc.getEventCodes().isEmpty()))
-                {
-                    for(EventCode eventCode : doc.getEventCodes())
-                    {
-                        ClassificationType eventCodeClassification = createClassificationFromCodedData(eventCode.getEventCode(), eventCode.getEventCodeScheme(), eventCode.getEventCodeDisplayName(),
-                            EBXML_RESPONSE_EVENTCODE_CLASS_SCHEME,
-                            sDocumentUUID);
-                        if (eventCodeClassification != null)
-                        {
+                // ----------------
+                if ((doc.getEventCodes() != null) && (!doc.getEventCodes().isEmpty())) {
+                    for (EventCode eventCode : doc.getEventCodes()) {
+                        ClassificationType eventCodeClassification = createClassificationFromCodedData(
+                                eventCode.getEventCode(), eventCode.getEventCodeScheme(),
+                                eventCode.getEventCodeDisplayName(), EBXML_RESPONSE_EVENTCODE_CLASS_SCHEME,
+                                sDocumentUUID);
+                        if (eventCodeClassification != null) {
                             olClassifications.add(eventCodeClassification);
                             bHaveData = true;
                         }
@@ -652,91 +593,81 @@ public class AdapterComponentDocRegistryOrchImpl {
                 }
 
                 // Format Code
-                //-------------
-                ClassificationType formatCodeClassification = createClassificationFromCodedData(doc.getFormatCode(), doc.getFormatCodeScheme(), doc.getFormatCodeDisplayName(),
-                    EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME,
-                    sDocumentUUID);
-                if (formatCodeClassification != null)
-                {
+                // -------------
+                ClassificationType formatCodeClassification = createClassificationFromCodedData(doc.getFormatCode(),
+                        doc.getFormatCodeScheme(), doc.getFormatCodeDisplayName(),
+                        EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME, sDocumentUUID);
+                if (formatCodeClassification != null) {
                     olClassifications.add(formatCodeClassification);
                     bHaveData = true;
                 }
 
                 // Hash Code
-                //----------
-                if(NullChecker.isNotNullish(doc.getHash()))
-                {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_HASH_SLOTNAME,
-                        doc.getHash());
+                // ----------
+                if (NullChecker.isNotNullish(doc.getHash())) {
+                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_HASH_SLOTNAME, doc.getHash());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
 
                 // Healthcare Facility Type Code
-                //------------------------------
-                ClassificationType healthcareFacilityTypeCodeClassification = createClassificationFromCodedData(doc.getFacilityCode(), doc.getFacilityCodeScheme(), doc.getFacilityCodeDisplayName(),
-                    EBXML_RESPONSE_HEALTHCAREFACILITYTYPE_CLASS_SCHEME,
-                    sDocumentUUID);
-                if (healthcareFacilityTypeCodeClassification != null)
-                {
+                // ------------------------------
+                ClassificationType healthcareFacilityTypeCodeClassification = createClassificationFromCodedData(
+                        doc.getFacilityCode(), doc.getFacilityCodeScheme(), doc.getFacilityCodeDisplayName(),
+                        EBXML_RESPONSE_HEALTHCAREFACILITYTYPE_CLASS_SCHEME, sDocumentUUID);
+                if (healthcareFacilityTypeCodeClassification != null) {
                     olClassifications.add(healthcareFacilityTypeCodeClassification);
                     bHaveData = true;
                 }
 
                 // Intended Recipients
-                //--------------------
+                // --------------------
                 List<String> intendedRecipients = new ArrayList<String>();
-                if(NullChecker.isNotNullish(doc.getIntendedRecipientPerson()))
-                {
+                if (NullChecker.isNotNullish(doc.getIntendedRecipientPerson())) {
                     intendedRecipients.add(doc.getIntendedRecipientPerson());
-                }
-                else if(NullChecker.isNotNullish(doc.getIntendedRecipientOrganization()))
-                {
+                } else if (NullChecker.isNotNullish(doc.getIntendedRecipientOrganization())) {
                     intendedRecipients.add(doc.getIntendedRecipientOrganization());
                 }
 
-                if(!intendedRecipients.isEmpty())
-                {
+                if (!intendedRecipients.isEmpty()) {
                     String[] intendedRecipientArray = intendedRecipients.toArray(new String[intendedRecipients.size()]);
-                    SlotType1 oSlot = CreateMultiValueSlot(EBXML_RESPONSE_INTENDEDRECIPIENTS_SLOTNAME, intendedRecipientArray);
+                    SlotType1 oSlot = CreateMultiValueSlot(EBXML_RESPONSE_INTENDEDRECIPIENTS_SLOTNAME,
+                            intendedRecipientArray);
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
 
                 // Language Code
-                //---------------
-                if(NullChecker.isNotNullish(doc.getLanguageCode()))
-                {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_LANGUAGECODE_SLOTNAME,
-                        doc.getLanguageCode());
+                // ---------------
+                if (NullChecker.isNotNullish(doc.getLanguageCode())) {
+                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_LANGUAGECODE_SLOTNAME, doc.getLanguageCode());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
 
                 // LegalAuthenticator Code
-                //------------------------
-                if(NullChecker.isNotNullish(doc.getLegalAuthenticator()))
-                {
+                // ------------------------
+                if (NullChecker.isNotNullish(doc.getLegalAuthenticator())) {
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_LEGALAUTHENTICATOR_SLOTNAME,
-                        doc.getLegalAuthenticator());
+                            doc.getLegalAuthenticator());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
 
                 // Mime Type
-                //----------
-                if(NullChecker.isNotNullish(doc.getMimeType()))
-                {
+                // ----------
+                if (NullChecker.isNotNullish(doc.getMimeType())) {
                     oExtObj.setMimeType(doc.getMimeType());
                     bHaveData = true;
                 }
 
                 // Patient ID
-                //-----------
-                if(NullChecker.isNotNullish(doc.getPatientId()))
-                {
-                    //Commented call to apply HL7 Encoding to the patient id as Doc Repo now stores the patient id in HL7 Encoded format
-                    //String formattedPatientId = PatientIdFormatUtil.hl7EncodePatientId(doc.getPatientId(), homeCommunityId);
+                // -----------
+                if (NullChecker.isNotNullish(doc.getPatientId())) {
+                    // Commented call to apply HL7 Encoding to the patient id as Doc Repo now stores the patient id in
+                    // HL7 Encoded format
+                    // String formattedPatientId = PatientIdFormatUtil.hl7EncodePatientId(doc.getPatientId(),
+                    // homeCommunityId);
                     String formattedPatientId = doc.getPatientId();
                     ExternalIdentifierType oExtId = new ExternalIdentifierType();
                     oExtId.setId("");
@@ -750,171 +681,145 @@ public class AdapterComponentDocRegistryOrchImpl {
                 }
 
                 // Practice Setting Code
-                //----------------------
-                ClassificationType practiceSettingCodeClassification = createClassificationFromCodedData(doc.getPracticeSetting(), doc.getPracticeSettingScheme(), doc.getPracticeSettingDisplayName(),
-                    EBXML_RESPONSE_PRACTICESETTING_CLASS_SCHEME,
-                    sDocumentUUID);
-                if (practiceSettingCodeClassification != null)
-                {
+                // ----------------------
+                ClassificationType practiceSettingCodeClassification = createClassificationFromCodedData(
+                        doc.getPracticeSetting(), doc.getPracticeSettingScheme(), doc.getPracticeSettingDisplayName(),
+                        EBXML_RESPONSE_PRACTICESETTING_CLASS_SCHEME, sDocumentUUID);
+                if (practiceSettingCodeClassification != null) {
                     olClassifications.add(practiceSettingCodeClassification);
                     bHaveData = true;
                 }
 
                 // Service Start Time
-                //-------------------
-                if(doc.getServiceStartTime() != null)
-                {
+                // -------------------
+                if (doc.getServiceStartTime() != null) {
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SERVICESTARTTIME_SLOTNAME,
-                        utcDateUtil.formatUTCDate(doc.getServiceStartTime()));
+                            utcDateUtil.formatUTCDate(doc.getServiceStartTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
 
                 // Service Stop Time
-                //------------------
-                if(doc.getServiceStopTime() != null)
-                {
+                // ------------------
+                if (doc.getServiceStopTime() != null) {
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SERVICESTOPTIME_SLOTNAME,
-                        utcDateUtil.formatUTCDate(doc.getServiceStopTime()));
+                            utcDateUtil.formatUTCDate(doc.getServiceStopTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
 
                 // Size
-                //-----
-                if((doc.getSize() != null) && (doc.getSize().intValue() > 0))
-                {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SIZE_SLOTNAME,
-                        doc.getSize().toString());
+                // -----
+                if ((doc.getSize() != null) && (doc.getSize().intValue() > 0)) {
+                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SIZE_SLOTNAME, doc.getSize().toString());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
 
                 // Source Patient Id
-                //------------------
-                if(NullChecker.isNotNullish(doc.getSourcePatientId()))
-                {
+                // ------------------
+                if (NullChecker.isNotNullish(doc.getSourcePatientId())) {
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SOURCEPATIENTID_SLOTNAME,
-                        doc.getSourcePatientId());
+                            doc.getSourcePatientId());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
 
                 // Source Patient Info
-                //--------------------
+                // --------------------
                 List<String> sourcePatientInfoValues = new ArrayList<String>();
-                if(NullChecker.isNotNullish(doc.getPid3()))
-                {
+                if (NullChecker.isNotNullish(doc.getPid3())) {
                     sourcePatientInfoValues.add("PID-3|" + doc.getPid3());
                 }
-                if(NullChecker.isNotNullish(doc.getPid5()))
-                {
+                if (NullChecker.isNotNullish(doc.getPid5())) {
                     sourcePatientInfoValues.add("PID-5|" + doc.getPid5());
                 }
-                if(NullChecker.isNotNullish(doc.getPid7()))
-                {
+                if (NullChecker.isNotNullish(doc.getPid7())) {
                     sourcePatientInfoValues.add("PID-7|" + doc.getPid7());
                 }
-                if(NullChecker.isNotNullish(doc.getPid8()))
-                {
+                if (NullChecker.isNotNullish(doc.getPid8())) {
                     sourcePatientInfoValues.add("PID-8|" + doc.getPid8());
                 }
-                if(NullChecker.isNotNullish(doc.getPid11()))
-                {
+                if (NullChecker.isNotNullish(doc.getPid11())) {
                     sourcePatientInfoValues.add("PID-11|" + doc.getPid11());
                 }
 
-                if(!sourcePatientInfoValues.isEmpty())
-                {
-                    String[] sourcePatientInfoValuesArray = sourcePatientInfoValues.toArray(new String[sourcePatientInfoValues.size()]);
+                if (!sourcePatientInfoValues.isEmpty()) {
+                    String[] sourcePatientInfoValuesArray = sourcePatientInfoValues
+                            .toArray(new String[sourcePatientInfoValues.size()]);
                     SlotType1 oSlot = CreateMultiValueSlot(EBXML_RESPONSE_SOURCEPATIENTINFO_SLOTNAME,
-                        sourcePatientInfoValuesArray);
+                            sourcePatientInfoValuesArray);
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
 
                 // Title
-                //-------
-                if(NullChecker.isNotNullish(doc.getDocumentTitle()))
-                {
+                // -------
+                if (NullChecker.isNotNullish(doc.getDocumentTitle())) {
                     InternationalStringType oTitle = CreateSingleValueInternationalStringType(doc.getDocumentTitle());
                     oExtObj.setName(oTitle);
                     bHaveData = true;
                 }
 
                 // Type Code
-                //----------
-                ClassificationType typeCodeClassification = createClassificationFromCodedData(doc.getTypeCode(), doc.getTypeCodeScheme(), doc.getTypeCodeDisplayName(),
-                    EBXML_RESPONSE_TYPECODE_CLASS_SCHEME,
-                    sDocumentUUID);
-                if (typeCodeClassification != null)
-                {
+                // ----------
+                ClassificationType typeCodeClassification = createClassificationFromCodedData(doc.getTypeCode(),
+                        doc.getTypeCodeScheme(), doc.getTypeCodeDisplayName(), EBXML_RESPONSE_TYPECODE_CLASS_SCHEME,
+                        sDocumentUUID);
+                if (typeCodeClassification != null) {
                     olClassifications.add(typeCodeClassification);
                     bHaveData = true;
                 }
 
                 // URI
-                //----
-                if(NullChecker.isNotNullish(doc.getDocumentUri()))
-                {
+                // ----
+                if (NullChecker.isNotNullish(doc.getDocumentUri())) {
                     SlotType1 oSlot = null;
                     String documentUri = doc.getDocumentUri();
-                    if (documentUri.length() <= EBXML_RESPONSE_URI_LINE_LENGTH)
-                    {
+                    if (documentUri.length() <= EBXML_RESPONSE_URI_LINE_LENGTH) {
                         oSlot = CreateSingleValueSlot(EBXML_RESPONSE_URI_SLOTNAME, documentUri);
-                    }
-                    else
-                    {
+                    } else {
                         int iStart = 0;
                         String sURI = documentUri;
                         int iTotalLen = sURI.length();
                         int iIndex = 1;
                         String saURIPart[] = null;
 
-                        if ((iTotalLen % EBXML_RESPONSE_URI_LINE_LENGTH) == 0)
-                        {
+                        if ((iTotalLen % EBXML_RESPONSE_URI_LINE_LENGTH) == 0) {
                             saURIPart = new String[iTotalLen / EBXML_RESPONSE_URI_LINE_LENGTH];
-                        }
-                        else
-                        {
+                        } else {
                             saURIPart = new String[iTotalLen / EBXML_RESPONSE_URI_LINE_LENGTH + 1];
                         }
-                        while (iStart < iTotalLen)
-                        {
-                            if ((iStart + EBXML_RESPONSE_URI_LINE_LENGTH) > iTotalLen)
-                            {
+                        while (iStart < iTotalLen) {
+                            if ((iStart + EBXML_RESPONSE_URI_LINE_LENGTH) > iTotalLen) {
                                 saURIPart[iIndex - 1] = iIndex + "|" + sURI.substring(iStart, iTotalLen);
                                 iStart = iTotalLen;
-                            }
-                            else
-                            {
-                                saURIPart[iIndex - 1] = iIndex + "|" + sURI.substring(iStart, iStart + EBXML_RESPONSE_URI_LINE_LENGTH);
+                            } else {
+                                saURIPart[iIndex - 1] = iIndex + "|"
+                                        + sURI.substring(iStart, iStart + EBXML_RESPONSE_URI_LINE_LENGTH);
                                 iStart += EBXML_RESPONSE_URI_LINE_LENGTH;
                             }
                             iIndex++;
                         }
 
-                        oSlot = CreateMultiValueSlot(EBXML_RESPONSE_URI_SLOTNAME,
-                            saURIPart);
-                    }   // else
+                        oSlot = CreateMultiValueSlot(EBXML_RESPONSE_URI_SLOTNAME, saURIPart);
+                    } // else
 
-                    if (oSlot != null)
-                    {
+                    if (oSlot != null) {
                         olSlot.add(oSlot);
                         bHaveData = true;
                     }
                 }
 
-                if(bHaveData)
-                {
+                if (bHaveData) {
                     // Home community ID
-                    //------------------
+                    // ------------------
                     oExtObj.setHome(homeCommunityId);
 
                     // Repository Unique ID
-                    //---------------------
+                    // ---------------------
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME,
-                        REPOSITORY_UNIQUE_ID);
+                            REPOSITORY_UNIQUE_ID);
                     olSlot.add(oSlot);
 
                     olRegObjs.add(oJAXBExtObj);
@@ -922,16 +827,14 @@ public class AdapterComponentDocRegistryOrchImpl {
                 }
             }
             // if we have any Object References, add them in now.
-            //---------------------------------------------------
-            if (olObjRef.size() > 0)
-            {
+            // ---------------------------------------------------
+            if (olObjRef.size() > 0) {
                 olRegObjs.addAll(olObjRef);
             }
 
             // if we have any associations, add them in now.
-            //---------------------------------------------------
-            if (olAssoc.size() > 0)
-            {
+            // ---------------------------------------------------
+            if (olAssoc.size() > 0) {
                 olRegObjs.addAll(olAssoc);
             }
 
@@ -941,14 +844,14 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * This method creates a classification from a coded item.
-     *
+     * 
      * @param oCoded The coded to be transformed.
      * @param sClassificationScheme The classification scheme value.
      * @param sDocumentId The document ID for the document associated with this classificaation.
      * @return The classification created based on the information in the coded.
      */
-    private ClassificationType createClassificationFromCodedData(String code, String codeScheme, String codeDisplayName, String sClassificationScheme, String sDocumentId)
-    {
+    private ClassificationType createClassificationFromCodedData(String code, String codeScheme,
+            String codeDisplayName, String sClassificationScheme, String sDocumentId) {
         log.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- Begin");
         ClassificationType oClassification = new ClassificationType();
         oClassification.setId("");
@@ -959,77 +862,59 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<SlotType1> olClassificationSlot = oClassification.getSlot();
 
         // Code
-        //-----
-        if (NullChecker.isNotNullish(code))
-        {
+        // -----
+        if (NullChecker.isNotNullish(code)) {
             oClassification.setNodeRepresentation(code);
             bHasCode = true;
         }
 
         // Code System
-        //------------
-        if (NullChecker.isNotNullish(codeScheme))
-        {
-            SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME,
-                codeScheme);
+        // ------------
+        if (NullChecker.isNotNullish(codeScheme)) {
+            SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME, codeScheme);
             olClassificationSlot.add(oSlot);
             bHasCode = true;
         }
 
         // DisplayName
-        //------------
-        if (NullChecker.isNotNullish(codeDisplayName))
-        {
+        // ------------
+        if (NullChecker.isNotNullish(codeDisplayName)) {
             InternationalStringType oDisplayName = CreateSingleValueInternationalStringType(codeDisplayName);
             oClassification.setName(oDisplayName);
             bHasCode = true;
         }
 
-        if (bHasCode)
-        {
+        if (bHasCode) {
             return oClassification;
-        }
-        else
-        {
+        } else {
             log.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- End");
             return null;
         }
     }
-    private String retrieveHomeCommunityId()
-    {
+
+    private String retrieveHomeCommunityId() {
         String homeCommunityId = null;
-        try
-        {
-            homeCommunityId = "urn:oid:" + PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
-        }
-        catch(Throwable t)
-        {
+        try {
+            homeCommunityId = "urn:oid:"
+                    + PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
+        } catch (Throwable t) {
             log.error("Error retrieving the home community id: " + t.getMessage(), t);
         }
         return homeCommunityId;
     }
 
-    private List<String> extractSlotValues(List<SlotType1> slots, String slotName)
-    {
+    private List<String> extractSlotValues(List<SlotType1> slots, String slotName) {
         List<String> returnValues = null;
-        if(slots != null)
-        {
-            for(SlotType1 slot : slots)
-            {
-                if ((slot.getName() != null) &&
-                    (slot.getName().length() > 0) &&
-                    (slot.getValueList() != null) &&
-                    (slot.getValueList().getValue() != null) &&
-                    (slot.getValueList().getValue().size() > 0))
-                {
+        if (slots != null) {
+            for (SlotType1 slot : slots) {
+                if ((slot.getName() != null) && (slot.getName().length() > 0) && (slot.getValueList() != null)
+                        && (slot.getValueList().getValue() != null) && (slot.getValueList().getValue().size() > 0)) {
 
-                    if(slot.getName().equals(slotName))
-                    {
+                    if (slot.getName().equals(slotName)) {
                         ValueListType valueListType = slot.getValueList();
                         List<String> slotValues = valueListType.getValue();
                         returnValues = new ArrayList<String>();
-                        for(String slotValue : slotValues)
-                        {
+                        for (String slotValue : slotValues) {
                             returnValues.add(slotValue);
                         }
                     }
@@ -1040,50 +925,37 @@ public class AdapterComponentDocRegistryOrchImpl {
         return returnValues;
     }
 
-    public void parseParamFormattedString(String paramFormattedString, List<String> resultCollection)
-    {
-        if((paramFormattedString != null) && (resultCollection != null))
-        {
-            if(paramFormattedString.startsWith("("))
-            {
+    public void parseParamFormattedString(String paramFormattedString, List<String> resultCollection) {
+        if ((paramFormattedString != null) && (resultCollection != null)) {
+            if (paramFormattedString.startsWith("(")) {
                 String working = paramFormattedString.substring(1);
                 int endIndex = working.indexOf(")");
-                if(endIndex != -1)
-                {
+                if (endIndex != -1) {
                     working = working.substring(0, endIndex);
                 }
                 String[] multiValueString = working.split(",");
-                if(multiValueString != null)
-                {
-                    for(int i = 0; i < multiValueString.length; i++)
-                    {
+                if (multiValueString != null) {
+                    for (int i = 0; i < multiValueString.length; i++) {
                         String singleValue = multiValueString[i];
-                        if(singleValue != null)
-                        {
+                        if (singleValue != null) {
                             singleValue = singleValue.trim();
                         }
-                        if(singleValue.startsWith("'"))
-                        {
+                        if (singleValue.startsWith("'")) {
                             singleValue = singleValue.substring(1);
                             int endTickIndex = singleValue.indexOf("'");
-                            if(endTickIndex != -1)
-                            {
+                            if (endTickIndex != -1) {
                                 singleValue = singleValue.substring(0, endTickIndex);
                             }
                         }
                         resultCollection.add(singleValue);
-                        if(log.isDebugEnabled())
-                        {
+                        if (log.isDebugEnabled()) {
                             log.debug("Added single value: " + singleValue + " to query parameters");
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 resultCollection.add(paramFormattedString);
-                if(log.isDebugEnabled())
-                {
+                if (log.isDebugEnabled()) {
                     log.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
                 }
             }
@@ -1092,13 +964,12 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * This method creates a Slot containing a single value.
-     *
+     * 
      * @param sSlotName The name of the slot.
      * @param sSlotValue The value for the slot.
      * @return The SlotType1 object containing the data passed in.
      */
-    private SlotType1 CreateSingleValueSlot(String sSlotName, String sSlotValue)
-    {
+    private SlotType1 CreateSingleValueSlot(String sSlotName, String sSlotValue) {
         log.debug("DocumentRegistryHelper.CreateSingleValueSlot() -- Begin");
         String saSlotValue[] = new String[1];
         saSlotValue[0] = sSlotValue;
@@ -1108,21 +979,19 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * This method creates a Slot containing a single value.
-     *
+     * 
      * @param sSlotName The name of the slot.
      * @param saSlotValue The array of values for the slot.
      * @return The SlotType1 object containing the data passed in.
      */
-    private SlotType1 CreateMultiValueSlot(String sSlotName, String[] saSlotValue)
-    {
+    private SlotType1 CreateMultiValueSlot(String sSlotName, String[] saSlotValue) {
         log.debug("DocumentRegistryHelper.CreateMultiValueSlot() -- Begin");
         SlotType1 oSlot = new SlotType1();
         oSlot.setName(sSlotName);
         ValueListType oValueList = new ValueListType();
         oSlot.setValueList(oValueList);
         List<String> olValue = oValueList.getValue();
-        for (int i = 0; i < saSlotValue.length; i++)
-        {
+        for (int i = 0; i < saSlotValue.length; i++) {
             olValue.add(saSlotValue[i]);
         }
         log.debug("DocumentRegistryHelper.CreateMultiValueSlot() -- End");
@@ -1131,12 +1000,11 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * This method creates an InternationalStringType with a single value.
-     *
+     * 
      * @param sLocStrValue The value to be placed in the string.
      * @return The InternationStringType that is being returned.
      */
-    private InternationalStringType CreateSingleValueInternationalStringType(String sLocStrValue)
-    {
+    private InternationalStringType CreateSingleValueInternationalStringType(String sLocStrValue) {
         log.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- Begin");
         InternationalStringType oName = new InternationalStringType();
         List<LocalizedStringType> olLocStr = oName.getLocalizedString();
@@ -1146,6 +1014,5 @@ public class AdapterComponentDocRegistryOrchImpl {
         log.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- End");
         return oName;
     }
-
 
 }

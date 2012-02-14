@@ -40,7 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocSubmissionProxyWebServiceUnsecuredImpl implements PassthruDocSubmissionProxy {
@@ -53,41 +53,35 @@ public class PassthruDocSubmissionProxyWebServiceUnsecuredImpl implements Passth
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxyxdr:ProvideAndRegisterDocumentSet-b";
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public PassthruDocSubmissionProxyWebServiceUnsecuredImpl()
-    {
+    public PassthruDocSubmissionProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected ProxyXDRPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-    {
+    protected ProxyXDRPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
         ProxyXDRPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), ProxyXDRPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -95,63 +89,47 @@ public class PassthruDocSubmissionProxyWebServiceUnsecuredImpl implements Passth
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
 
-
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Begin provideAndRegisterDocumentSetB");
         RegistryResponseType response = null;
 
-        try
-        {
+        try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.NHINC_PROXY_XDR_SERVICE_NAME);
             ProxyXDRPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
-            if(body == null)
-            {
+            if (body == null) {
                 log.error("Message was null");
-            }
-            else if(assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("AssertionType was null");
-            }
-            else if (target == null) {
+            } else if (target == null) {
                 log.error("target was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 RespondingGatewayProvideAndRegisterDocumentSetRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetRequestType();
                 request.setProvideAndRegisterDocumentSetRequest(body);
                 request.setAssertion(assertion);
                 request.setNhinTargetSystem(target);
-                
 
-                response = (RegistryResponseType)oProxyHelper.invokePort(port, ProxyXDRPortType.class, "provideAndRegisterDocumentSetB", request);
+                response = (RegistryResponseType) oProxyHelper.invokePort(port, ProxyXDRPortType.class,
+                        "provideAndRegisterDocumentSetB", request);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
 
         }

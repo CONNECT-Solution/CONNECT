@@ -33,17 +33,18 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "AdapterXDRSecured_Service", portName = "AdapterXDRSecured_Port", endpointInterface = "gov.hhs.fha.nhinc.adapterxdrsecured.AdapterXDRSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterxdrsecured", wsdlLocation = "WEB-INF/wsdl/AdapterDocSubmissionSecured/AdapterXDRSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class AdapterDocSubmissionSecured {
     @Resource
     private WebServiceContext context;
 
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetb(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetb(
+            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new AdapterDocSubmissionImpl().provideAndRegisterDocumentSetb(body, context);
     }
 

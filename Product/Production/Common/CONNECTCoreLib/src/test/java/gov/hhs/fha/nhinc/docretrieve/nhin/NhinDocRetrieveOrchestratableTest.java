@@ -43,7 +43,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class NhinDocRetrieveOrchestratableTest {
@@ -160,12 +160,12 @@ public class NhinDocRetrieveOrchestratableTest {
 
     public class NhinDocRetrieveOrchestratableImpl extends InboundDocRetrieveOrchestratable {
 
-        public NhinDocRetrieveOrchestratableImpl()
-        {
+        public NhinDocRetrieveOrchestratableImpl() {
 
         }
 
-        public NhinDocRetrieveOrchestratableImpl(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad, NhinAggregator na) {
+        public NhinDocRetrieveOrchestratableImpl(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad,
+                NhinAggregator na) {
             super(pt, at, ad);
         }
     }

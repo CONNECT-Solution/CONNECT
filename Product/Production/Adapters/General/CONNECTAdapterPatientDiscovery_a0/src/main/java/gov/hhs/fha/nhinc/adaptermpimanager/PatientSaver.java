@@ -37,7 +37,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 
 /**
- *
+ * 
  * @author mflynn02
  */
 public class PatientSaver {
@@ -46,7 +46,6 @@ public class PatientSaver {
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
-
     public static org.hl7.v3.MCCIIN000002UV01 SavePatient(org.hl7.v3.PRPAIN201301UV02 message) {
         MCCIIN000002UV01 result = new MCCIIN000002UV01();
         result = PatientSaver.SaveAnnouncePatient(message, true, true, true, false);
@@ -54,7 +53,9 @@ public class PatientSaver {
         return result;
     }
 
-    private static org.hl7.v3.MCCIIN000002UV01 SaveAnnouncePatient(PRPAIN201301UV02 message, boolean AllowSearchByDemographics, boolean CreatePatientIfDoesNotExist, boolean UpdateDemographicsIfNeeded, boolean ConfirmDemographicMatchPriorToUpdatingCorrelation) {
+    private static org.hl7.v3.MCCIIN000002UV01 SaveAnnouncePatient(PRPAIN201301UV02 message,
+            boolean AllowSearchByDemographics, boolean CreatePatientIfDoesNotExist, boolean UpdateDemographicsIfNeeded,
+            boolean ConfirmDemographicMatchPriorToUpdatingCorrelation) {
         log.info("in SaveAnnouncePatient (PRPAIN201301UV)");
         MCCIIN000002UV01 result = new MCCIIN000002UV01();
         String senderOID = null;
@@ -64,26 +65,23 @@ public class PatientSaver {
         String localDeviceId = HL7Constants.DEFAULT_LOCAL_DEVICE_ID;
 
         // Set the senderOID in the Ack message
-        if (NullChecker.isNotNullish(message.getReceiver()) &&
-                message.getReceiver().get(0).getDevice() != null &&
-                NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getId()) &&
-                NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
+        if (NullChecker.isNotNullish(message.getReceiver()) && message.getReceiver().get(0).getDevice() != null
+                && NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getId())
+                && NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
             senderOID = message.getReceiver().get(0).getDevice().getId().get(0).getRoot();
         }
 
         // Set the receiverOID in the Ack Message
-        if (message.getSender() != null &&
-                message.getSender().getDevice() != null &&
-                NullChecker.isNotNullish(message.getSender().getDevice().getId()) &&
-                NullChecker.isNotNullish(message.getSender().getDevice().getId().get(0).getRoot())) {
+        if (message.getSender() != null && message.getSender().getDevice() != null
+                && NullChecker.isNotNullish(message.getSender().getDevice().getId())
+                && NullChecker.isNotNullish(message.getSender().getDevice().getId().get(0).getRoot())) {
             receiverOID = message.getSender().getDevice().getId().get(0).getRoot();
         }
 
         // Set the localDeviceId in the Ack Message
         try {
-           localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME);
-        }
-        catch (Exception e) {
+            localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME);
+        } catch (Exception e) {
             localDeviceId = HL7Constants.DEFAULT_LOCAL_DEVICE_ID;
         }
 
@@ -128,7 +126,8 @@ public class PatientSaver {
             }
         }
 
-        result = HL7AckTransforms.createAckMessage(localDeviceId, message.getId(), ackTypeCode, msgText, senderOID, receiverOID);
+        result = HL7AckTransforms.createAckMessage(localDeviceId, message.getId(), ackTypeCode, msgText, senderOID,
+                receiverOID);
 
         return result;
     }

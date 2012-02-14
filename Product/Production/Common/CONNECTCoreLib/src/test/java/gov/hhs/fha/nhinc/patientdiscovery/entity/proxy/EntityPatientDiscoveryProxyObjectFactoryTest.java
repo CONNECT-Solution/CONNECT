@@ -43,80 +43,71 @@ import static org.junit.Assert.*;
  */
 @RunWith(JMock.class)
 public class EntityPatientDiscoveryProxyObjectFactoryTest {
-	Mockery context = new JUnit4Mockery() {
-		{
-			setImposteriser(ClassImposteriser.INSTANCE);
-		}
-	};
+    Mockery context = new JUnit4Mockery() {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
 
-	final Log mockLog = context.mock(Log.class);
-	final EntityPatientDiscoveryProxy mockProxy = context
-			.mock(EntityPatientDiscoveryProxy.class);
-	final ApplicationContext appContext = new FileSystemXmlApplicationContext() {
-		@Override
-		public Object getBean(String beanName) {
-			return mockProxy;
-		}
-	};
+    final Log mockLog = context.mock(Log.class);
+    final EntityPatientDiscoveryProxy mockProxy = context.mock(EntityPatientDiscoveryProxy.class);
+    final ApplicationContext appContext = new FileSystemXmlApplicationContext() {
+        @Override
+        public Object getBean(String beanName) {
+            return mockProxy;
+        }
+    };
 
-	@Test
-	public void testGetConfigFileName() {
-		try {
-			final ApplicationContext mockContext = context
-					.mock(ApplicationContext.class);
-			EntityPatientDiscoveryProxyObjectFactory proxyFactory = new EntityPatientDiscoveryProxyObjectFactory() {
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+    @Test
+    public void testGetConfigFileName() {
+        try {
+            final ApplicationContext mockContext = context.mock(ApplicationContext.class);
+            EntityPatientDiscoveryProxyObjectFactory proxyFactory = new EntityPatientDiscoveryProxyObjectFactory() {
+                @Override
+                protected Log createLogger() {
+                    return mockLog;
+                }
 
-				@Override
-				protected String getConfigFileName() {
-					return "TEST_CONFIG_FILE_NAME";
-				}
+                @Override
+                protected String getConfigFileName() {
+                    return "TEST_CONFIG_FILE_NAME";
+                }
 
-				@Override
-				protected ApplicationContext getContext() {
-					return mockContext;
-				}
-			};
-			assertEquals("Config file name", "TEST_CONFIG_FILE_NAME",
-					proxyFactory.getConfigFileName());
-		} catch (Throwable t) {
-			System.out.println("Error running testGetConfigFileName test: "
-					+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testGetConfigFileName test: " + t.getMessage());
-		}
-	}
+                @Override
+                protected ApplicationContext getContext() {
+                    return mockContext;
+                }
+            };
+            assertEquals("Config file name", "TEST_CONFIG_FILE_NAME", proxyFactory.getConfigFileName());
+        } catch (Throwable t) {
+            System.out.println("Error running testGetConfigFileName test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetConfigFileName test: " + t.getMessage());
+        }
+    }
 
-	@Test
-	public void testGetEntityPatientDiscoveryProxyHappy() {
-		EntityPatientDiscoveryProxyObjectFactory proxyFactory = new EntityPatientDiscoveryProxyObjectFactory() {
-			@Override
-			protected Log createLogger() {
-				return mockLog;
-			}
+    @Test
+    public void testGetEntityPatientDiscoveryProxyHappy() {
+        EntityPatientDiscoveryProxyObjectFactory proxyFactory = new EntityPatientDiscoveryProxyObjectFactory() {
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
 
-			@Override
-			protected <T extends Object> T getBean(String beanName,
-					Class<T> type) {
-				return type.cast(mockProxy);
-			}
-		};
+            @Override
+            protected <T extends Object> T getBean(String beanName, Class<T> type) {
+                return type.cast(mockProxy);
+            }
+        };
 
-		try {
-			EntityPatientDiscoveryProxy proxy = proxyFactory
-					.getEntityPatientDiscoveryProxy();
-			assertNotNull("EntityPatientDiscoveryProxy was null", proxy);
-		} catch (Throwable t) {
-			System.out
-					.println("Error running testGetEntityPatientDiscoveryProxyHappy test: "
-							+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testGetEntityPatientDiscoveryProxyHappy test: "
-					+ t.getMessage());
-		}
-	}
+        try {
+            EntityPatientDiscoveryProxy proxy = proxyFactory.getEntityPatientDiscoveryProxy();
+            assertNotNull("EntityPatientDiscoveryProxy was null", proxy);
+        } catch (Throwable t) {
+            System.out.println("Error running testGetEntityPatientDiscoveryProxyHappy test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetEntityPatientDiscoveryProxyHappy test: " + t.getMessage());
+        }
+    }
 
 }

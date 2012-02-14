@@ -59,20 +59,21 @@ abstract class BaseSubscriptionHandler implements SubscriptionHandler {
         log.debug("Constructor called");
     }
 
-    abstract public SubscribeResponse handleSubscribe(Element subscribe ) throws SubscribeCreationFailedFault;
+    abstract public SubscribeResponse handleSubscribe(Element subscribe) throws SubscribeCreationFailedFault;
 
     protected EndpointReferenceType storeSubscriptionItem(HiemSubscriptionItem subscriptionItem) {
         log.debug("In storeSubscriptionItem");
         return subscriptionStorage.storeSubscriptionItem(subscriptionItem);
     }
 
-    protected HiemSubscriptionItem createSubscriptionItem(Element subscribe, String producer, String consumer) throws  SubscribeCreationFailedFault {
-        
+    protected HiemSubscriptionItem createSubscriptionItem(Element subscribe, String producer, String consumer)
+            throws SubscribeCreationFailedFault {
+
         String rawSubscribe;
         try {
             rawSubscribe = XmlUtility.serializeElement(subscribe);
         } catch (Exception ex) {
-            throw new SoapFaultFactory().getMalformedSubscribe("Unable to serialize subscribe element", ex) ;
+            throw new SoapFaultFactory().getMalformedSubscribe("Unable to serialize subscribe element", ex);
         }
 
         HiemSubscriptionItem subscription = null;

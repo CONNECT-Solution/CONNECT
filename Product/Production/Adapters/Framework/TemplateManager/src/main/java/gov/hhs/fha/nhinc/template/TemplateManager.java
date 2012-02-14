@@ -30,17 +30,16 @@ import gov.hhs.fha.nhinc.template.model.CdaTemplate;
 import java.util.List;
 
 /**
- *
+ * 
  * @author kim
  */
 public interface TemplateManager {
 
-   public List<CdaTemplate> getSectionTemplatesForDocument(String loincCode, boolean active);
+    public List<CdaTemplate> getSectionTemplatesForDocument(String loincCode, boolean active);
 
-   public List<CdaTemplate> getModuleTemplatesForSection(int id, boolean active);
+    public List<CdaTemplate> getModuleTemplatesForSection(int id, boolean active);
 
-   public CdaTemplate getTemplateForDocument(String loincCode);
+    public CdaTemplate getTemplateForDocument(String loincCode);
 
-   public List<CdaTemplate> getTemplates();
+    public List<CdaTemplate> getTemplates();
 }
-

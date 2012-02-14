@@ -35,30 +35,31 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author dunnek
  */
 @WebService(serviceName = "AdministrativeDistributionSecured_Service", portName = "AdministrativeDistributionSecured_PortType", endpointInterface = "gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entityadmindistribution", wsdlLocation = "WEB-INF/wsdl/EntityAdministrativeDistributionSecured/EntityAdminDistSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class EntityAdministrativeDistributionSecured {
     @Resource
     private WebServiceContext context;
-    
-    public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType body) {
-        //TODO implement this method
+
+    public void sendAlertMessage(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType body) {
+        // TODO implement this method
 
         AssertionType assertion = extractAssertion(context);
 
-        //TODO implement this method
+        // TODO implement this method
         getEntityImpl().sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
     }
-    protected AssertionType extractAssertion(WebServiceContext context)
-    {
+
+    protected AssertionType extractAssertion(WebServiceContext context) {
         return SamlTokenExtractor.GetAssertion(context);
     }
-    protected EntityAdminDistributionOrchImpl getEntityImpl()
-    {
+
+    protected EntityAdminDistributionOrchImpl getEntityImpl() {
         return new EntityAdminDistributionOrchImpl();
     }
 }

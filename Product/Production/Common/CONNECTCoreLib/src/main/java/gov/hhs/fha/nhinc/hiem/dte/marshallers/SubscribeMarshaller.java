@@ -30,7 +30,7 @@ import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class SubscribeMarshaller {

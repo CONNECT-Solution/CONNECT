@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 /**
  * @author Jon Hoppesch
  */
-public class AdapterPatientDiscoveryDeferredRespProxyObjectFactory extends ComponentProxyObjectFactory implements GenericFactory<AdapterPatientDiscoveryDeferredRespProxy>{
+public class AdapterPatientDiscoveryDeferredRespProxyObjectFactory extends ComponentProxyObjectFactory implements
+        GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> {
     private static final String CONFIG_FILE_NAME = "AdapterPatientDiscoveryAsyncRespProxyConfig.xml";
     private static final String BEAN_NAME = "adapterpatientdiscoveryasyncresp";
 
@@ -44,8 +45,8 @@ public class AdapterPatientDiscoveryDeferredRespProxyObjectFactory extends Compo
         return getBean(BEAN_NAME, AdapterPatientDiscoveryDeferredRespProxy.class);
     }
 
-	@Override
-	public AdapterPatientDiscoveryDeferredRespProxy create() {
-		return getBean(BEAN_NAME, AdapterPatientDiscoveryDeferredRespProxy.class);
-	}
+    @Override
+    public AdapterPatientDiscoveryDeferredRespProxy create() {
+        return getBean(BEAN_NAME, AdapterPatientDiscoveryDeferredRespProxy.class);
+    }
 }

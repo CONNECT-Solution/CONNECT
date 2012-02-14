@@ -33,7 +33,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author rayj
  */
 @Ignore
@@ -54,18 +54,23 @@ public class removeNamespaceHelperTest {
     public void removeNamespaceHolderSimple() {
         assertEquals("value", RootTopicExtractorHelper.removeNamespaceHolder("{namespace}value"));
     }
+
     @Test
     public void removeNamespaceHolderPreData() {
         assertEquals("xxvalue", RootTopicExtractorHelper.removeNamespaceHolder("xx{namespace}value"));
     }
+
     @Test
     public void removeNamespaceHolderMultipleParts() {
-        assertEquals("value/value2", RootTopicExtractorHelper.removeNamespaceHolder("{namespace}value/{namespace2}value2"));
+        assertEquals("value/value2",
+                RootTopicExtractorHelper.removeNamespaceHolder("{namespace}value/{namespace2}value2"));
     }
+
     @Test
     public void removeNamespaceHolderEmptyNamespace() {
         assertEquals("value", RootTopicExtractorHelper.removeNamespaceHolder("{}value"));
     }
+
     @Test
     public void removeNamespaceHolderNoNamespace() {
         assertEquals("value", RootTopicExtractorHelper.removeNamespaceHolder("value"));

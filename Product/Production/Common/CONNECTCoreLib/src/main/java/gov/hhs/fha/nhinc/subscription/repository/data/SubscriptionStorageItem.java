@@ -33,8 +33,7 @@ import java.util.Date;
  * 
  * @author Neil Webb
  */
-public class SubscriptionStorageItem
-{
+public class SubscriptionStorageItem {
     private String recordId;
     private String subscriptionId;
     private String subscribeXML;
@@ -49,148 +48,120 @@ public class SubscriptionStorageItem
     private String targets;
     private Date creationDate;
 
-    public String getRecordId()
-    {
+    public String getRecordId() {
         return recordId;
     }
 
-    public void setRecordId(String recordId)
-    {
+    public void setRecordId(String recordId) {
         this.recordId = recordId;
     }
 
-    public String getSubscriptionId()
-    {
+    public String getSubscriptionId() {
         return subscriptionId;
     }
 
-    public void setSubscriptionId(String subscriptionId)
-    {
+    public void setSubscriptionId(String subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
 
-    public String getSubscribeXML()
-    {
+    public String getSubscribeXML() {
         return subscribeXML;
     }
 
-    public void setSubscribeXML(String subscribeXML)
-    {
+    public void setSubscribeXML(String subscribeXML) {
         this.subscribeXML = subscribeXML;
     }
 
-    public String getSubscriptionReferenceXML()
-    {
+    public String getSubscriptionReferenceXML() {
         return subscriptionReferenceXML;
     }
 
-    public void setSubscriptionReferenceXML(String subscriptionReferenceXML)
-    {
+    public void setSubscriptionReferenceXML(String subscriptionReferenceXML) {
         this.subscriptionReferenceXML = subscriptionReferenceXML;
     }
 
-    public String getRootTopic()
-    {
+    public String getRootTopic() {
         return rootTopic;
     }
 
-    public void setRootTopic(String rootTopic)
-    {
+    public void setRootTopic(String rootTopic) {
         this.rootTopic = rootTopic;
     }
 
-    public String getParentSubscriptionId()
-    {
+    public String getParentSubscriptionId() {
         return parentSubscriptionId;
     }
 
-    public void setParentSubscriptionId(String parentSubscriptionId)
-    {
+    public void setParentSubscriptionId(String parentSubscriptionId) {
         this.parentSubscriptionId = parentSubscriptionId;
     }
 
-    public String getParentSubscriptionReferenceXML()
-    {
+    public String getParentSubscriptionReferenceXML() {
         return parentSubscriptionReferenceXML;
     }
 
-    public void setParentSubscriptionReferenceXML(String parentSubscriptionReferenceXML)
-    {
+    public void setParentSubscriptionReferenceXML(String parentSubscriptionReferenceXML) {
         this.parentSubscriptionReferenceXML = parentSubscriptionReferenceXML;
     }
 
-    public String getConsumer()
-    {
+    public String getConsumer() {
         return consumer;
     }
 
-    public void setConsumer(String consumer)
-    {
+    public void setConsumer(String consumer) {
         this.consumer = consumer;
     }
 
-    public String getProducer()
-    {
+    public String getProducer() {
         return producer;
     }
 
-    public void setProducer(String producer)
-    {
+    public void setProducer(String producer) {
         this.producer = producer;
     }
 
-    public String getPatientId()
-    {
+    public String getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(String patientId)
-    {
+    public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 
-    public String getPatientAssigningAuthority()
-    {
+    public String getPatientAssigningAuthority() {
         return patientAssigningAuthority;
     }
 
-    public void setPatientAssigningAuthority(String patientAssigningAuthority)
-    {
+    public void setPatientAssigningAuthority(String patientAssigningAuthority) {
         this.patientAssigningAuthority = patientAssigningAuthority;
     }
 
-    public String getTargets()
-    {
+    public String getTargets() {
         return targets;
     }
 
-    public void setTargets(String targets)
-    {
+    public void setTargets(String targets) {
         this.targets = targets;
     }
 
-    public Date getCreationDate()
-    {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate)
-    {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         // TODO: Potential null condition
         return subscriptionId.hashCode();
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        return ((obj == this) || ((obj instanceof SubscriptionStorageItem) && subscriptionId.equals(((SubscriptionStorageItem)obj).getSubscriptionId())));
+    public boolean equals(Object obj) {
+        return ((obj == this) || ((obj instanceof SubscriptionStorageItem) && subscriptionId
+                .equals(((SubscriptionStorageItem) obj).getSubscriptionId())));
     }
-    
 
 }

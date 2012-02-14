@@ -38,14 +38,11 @@ import org.junit.Ignore;
  * @author Neil Webb
  */
 @Ignore
-public class PatientTest
-{
+public class PatientTest {
     @Test
-    public void testGettersAndSetters()
-    {
+    public void testGettersAndSetters() {
         System.out.println("Begin testGettersAndSetters");
-        try
-        {
+        try {
             String patientId = "PatientId";
             String communityId = "CommunityId";
             String communityName = "CommunityName";
@@ -64,9 +61,7 @@ public class PatientTest
             assertEquals("Community id", communityId, pat.getAssigningAuthority().getCommunityId());
             assertEquals("Community name", communityName, pat.getAssigningAuthority().getCommunityName());
 
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail(t.getMessage());
         }
@@ -74,11 +69,9 @@ public class PatientTest
     }
 
     @Test
-    public void testEquals()
-    {
+    public void testEquals() {
         System.out.println("Begin testEquals");
-        try
-        {
+        try {
             // Equals - patient id and community
             Community comm = new Community();
             comm.setCommunityId("CommunityId");
@@ -191,9 +184,7 @@ public class PatientTest
             pat2.setAssigningAuthority(comm);
             assertFalse("Not equal - patient 2 full, only community on first", pat1.equals(pat2));
 
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail(t.getMessage());
         }

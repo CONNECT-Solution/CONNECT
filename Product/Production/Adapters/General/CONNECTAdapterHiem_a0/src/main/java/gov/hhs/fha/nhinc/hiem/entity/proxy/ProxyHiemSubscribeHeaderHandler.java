@@ -35,32 +35,28 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
-public class ProxyHiemSubscribeHeaderHandler implements SOAPHandler<SOAPMessageContext>
-{
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(ProxyHiemSubscribeHeaderHandler.class);
-    
+public class ProxyHiemSubscribeHeaderHandler implements SOAPHandler<SOAPMessageContext> {
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(ProxyHiemSubscribeHeaderHandler.class);
+
     @SuppressWarnings("unchecked")
-    public Set<QName> getHeaders()
-    {
+    public Set<QName> getHeaders() {
         return Collections.EMPTY_SET;
     }
 
-    public boolean handleMessage(SOAPMessageContext context)
-    {
+    public boolean handleMessage(SOAPMessageContext context) {
         new SoapUtil().extractReferenceParameters(context, "subscribeSoapMessage");
         return true;
     }
 
-    public boolean handleFault(SOAPMessageContext context)
-    {
+    public boolean handleFault(SOAPMessageContext context) {
         return true;
     }
 
-    public void close(MessageContext context)
-    {
+    public void close(MessageContext context) {
     }
 }

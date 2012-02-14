@@ -40,53 +40,47 @@ import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
  * @author svalluripalli
  */
 public class PatientCorrelationServiceSecuredServiceImpl
-		implements
-		PatientCorrelationService<RetrievePatientCorrelationsSecuredRequestType, RetrievePatientCorrelationsSecuredResponseType, AddPatientCorrelationSecuredRequestType, AddPatientCorrelationSecuredResponseType>
+        implements
+        PatientCorrelationService<RetrievePatientCorrelationsSecuredRequestType, RetrievePatientCorrelationsSecuredResponseType, AddPatientCorrelationSecuredRequestType, AddPatientCorrelationSecuredResponseType>
 
 {
 
-	private PatientCorrelationOrch orchestration;
+    private PatientCorrelationOrch orchestration;
 
-	private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-			.getLog(PatientCorrelationServiceSecuredServiceImpl.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(PatientCorrelationServiceSecuredServiceImpl.class);
 
-	 PatientCorrelationServiceSecuredServiceImpl(
-			PatientCorrelationOrch orchestration) {
-		this.orchestration = orchestration;
-	}
+    PatientCorrelationServiceSecuredServiceImpl(PatientCorrelationOrch orchestration) {
+        this.orchestration = orchestration;
+    }
 
-	public RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(
-			RetrievePatientCorrelationsSecuredRequestType request,
-			AssertionType assertion) {
-		RetrievePatientCorrelationsSecuredResponseType response = new RetrievePatientCorrelationsSecuredResponseType();
+    public RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(
+            RetrievePatientCorrelationsSecuredRequestType request, AssertionType assertion) {
+        RetrievePatientCorrelationsSecuredResponseType response = new RetrievePatientCorrelationsSecuredResponseType();
 
-		log.info("Calling the Patient Correlation Retrieve Correlations Orch Impl");
-		RetrievePatientCorrelationsResponseType unsecureResp = orchestration
-				.retrievePatientCorrelations(request
-						.getPRPAIN201309UV02(), assertion);
+        log.info("Calling the Patient Correlation Retrieve Correlations Orch Impl");
+        RetrievePatientCorrelationsResponseType unsecureResp = orchestration.retrievePatientCorrelations(
+                request.getPRPAIN201309UV02(), assertion);
 
-		if (unsecureResp != null && unsecureResp.getPRPAIN201310UV02() != null) {
-			response.setPRPAIN201310UV02(unsecureResp.getPRPAIN201310UV02());
-		}
-		return response;
-	}
+        if (unsecureResp != null && unsecureResp.getPRPAIN201310UV02() != null) {
+            response.setPRPAIN201310UV02(unsecureResp.getPRPAIN201310UV02());
+        }
+        return response;
+    }
 
-	public AddPatientCorrelationSecuredResponseType addPatientCorrelation(
-			AddPatientCorrelationSecuredRequestType request,
-			AssertionType assertion) {
-		AddPatientCorrelationSecuredResponseType response = new AddPatientCorrelationSecuredResponseType();
+    public AddPatientCorrelationSecuredResponseType addPatientCorrelation(
+            AddPatientCorrelationSecuredRequestType request, AssertionType assertion) {
+        AddPatientCorrelationSecuredResponseType response = new AddPatientCorrelationSecuredResponseType();
 
-		log.info("Calling the Patient Correlation Add Correlations Orch Impl");
-		AddPatientCorrelationResponseType unsecureResp = orchestration
-				.addPatientCorrelation(
-						request.getPRPAIN201301UV02(),
-						assertion);
+        log.info("Calling the Patient Correlation Add Correlations Orch Impl");
+        AddPatientCorrelationResponseType unsecureResp = orchestration.addPatientCorrelation(
+                request.getPRPAIN201301UV02(), assertion);
 
-		if (unsecureResp != null && unsecureResp.getMCCIIN000002UV01() != null) {
-			response.setMCCIIN000002UV01(unsecureResp.getMCCIIN000002UV01());
-		}
+        if (unsecureResp != null && unsecureResp.getMCCIIN000002UV01() != null) {
+            response.setMCCIIN000002UV01(unsecureResp.getMCCIIN000002UV01());
+        }
 
-		return response;
-	}
+        return response;
+    }
 
 }

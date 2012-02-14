@@ -42,7 +42,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements PassthruAdminDistributionProxy {
@@ -50,7 +50,7 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
     private Log log = LogFactory.getLog(getClass());
     private WebServiceProxyHelper proxyHelper;
     private PassthruAdminDistributionHelper adminDistributionHelper;
-    
+
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincadmindistribution";
     private static final String SERVICE_LOCAL_PART = "NhincAdminDistService";
     private static final String PORT_LOCAL_PART = "NhincAdminDist_PortType";
@@ -59,16 +59,17 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincadmindistribution:SendAlertMessage_Message";
 
     public PassthruAdminDistributionProxyWebServiceUnsecuredImpl() {
-    	this.proxyHelper = new WebServiceProxyHelper();
-    	this.adminDistributionHelper = new PassthruAdminDistributionHelper(proxyHelper, WSDL_FILE_G0, WSDL_FILE_G1, NAMESPACE_URI, SERVICE_LOCAL_PART, PORT_LOCAL_PART, WS_ADDRESSING_ACTION);
+        this.proxyHelper = new WebServiceProxyHelper();
+        this.adminDistributionHelper = new PassthruAdminDistributionHelper(proxyHelper, WSDL_FILE_G0, WSDL_FILE_G1,
+                NAMESPACE_URI, SERVICE_LOCAL_PART, PORT_LOCAL_PART, WS_ADDRESSING_ACTION);
     }
 
-    public PassthruAdminDistributionProxyWebServiceUnsecuredImpl(WebServiceProxyHelper proxyHelper, PassthruAdminDistributionHelper adminDistributionHelper) {
-    	this.proxyHelper = proxyHelper;
-    	this.adminDistributionHelper = adminDistributionHelper;
+    public PassthruAdminDistributionProxyWebServiceUnsecuredImpl(WebServiceProxyHelper proxyHelper,
+            PassthruAdminDistributionHelper adminDistributionHelper) {
+        this.proxyHelper = proxyHelper;
+        this.adminDistributionHelper = adminDistributionHelper;
     }
-    
-   
+
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.debug("begin sendAlertMessage");
@@ -77,7 +78,8 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
         String url = adminDistributionHelper.getUrl(hcid, NhincConstants.NHINC_ADMIN_DIST_SERVICE_NAME, apiLevel);
 
         if (NullChecker.isNotNullish(url)) {
-            NhincAdminDistPortType port = adminDistributionHelper.getUnsecuredPort(url, WS_ADDRESSING_ACTION, assertion, apiLevel);
+            NhincAdminDistPortType port = adminDistributionHelper.getUnsecuredPort(url, WS_ADDRESSING_ACTION,
+                    assertion, apiLevel);
             RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
             message.setAssertion(assertion);
             message.setEDXLDistribution(body);
@@ -87,9 +89,9 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
             } catch (Exception ex) {
                 log.error("Unable to send message: " + ex.getMessage());
             }
-        }
-        else {
-            log.error("Failed to call the web service (" + NhincConstants.NHINC_ADMIN_DIST_SERVICE_NAME + ").  The URL is null.");
+        } else {
+            log.error("Failed to call the web service (" + NhincConstants.NHINC_ADMIN_DIST_SERVICE_NAME
+                    + ").  The URL is null.");
         }
     }
 }

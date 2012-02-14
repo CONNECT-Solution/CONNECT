@@ -34,43 +34,39 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class is the java implementation of the AdapterPatientDiscovery
- * component proxy.
- *
+ * This class is the java implementation of the AdapterPatientDiscovery component proxy.
+ * 
  * @author Les westberg
  */
-public class AdapterComponentDocSubmissionResponseProxyJavaImpl implements AdapterComponentDocSubmissionResponseProxy
-{
+public class AdapterComponentDocSubmissionResponseProxyJavaImpl implements AdapterComponentDocSubmissionResponseProxy {
 
     private Log log = null;
 
     /**
      * Default constructor.
      */
-    public AdapterComponentDocSubmissionResponseProxyJavaImpl()
-    {
+    public AdapterComponentDocSubmissionResponseProxyJavaImpl() {
         log = createLogger();
     }
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**
      * Receive document deferred document submission response.
-     *
+     * 
      * @param body The doc submission response message.
      * @param assertion The assertion information.
      * @return The ACK
      */
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, AssertionType assertion)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
+            AssertionType assertion) {
         log.debug("Entering AdapterComponentDocSubmissionResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");
         AdapterComponentDocSubmissionResponseOrchImpl oOrchestrator = new AdapterComponentDocSubmissionResponseOrchImpl();
         log.debug("Leaving AdapterComponentDocSubmissionResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");

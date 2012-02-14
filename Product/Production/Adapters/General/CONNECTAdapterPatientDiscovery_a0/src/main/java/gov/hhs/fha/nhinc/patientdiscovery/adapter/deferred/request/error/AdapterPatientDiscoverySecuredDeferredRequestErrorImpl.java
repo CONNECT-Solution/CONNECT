@@ -35,22 +35,26 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterPatientDiscoverySecuredDeferredRequestErrorImpl {
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response, String errMsg, WebServiceContext context) {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response,
+            String errMsg, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        MCCIIN000002UV01 ack = new AdapterPatientDiscoveryDeferredReqErrorOrchImpl().processPatientDiscoveryAsyncReqError(request, response, assertion, errMsg);
+        MCCIIN000002UV01 ack = new AdapterPatientDiscoveryDeferredReqErrorOrchImpl()
+                .processPatientDiscoveryAsyncReqError(request, response, assertion, errMsg);
 
         return ack;
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response, AssertionType assertion, String errMsg, WebServiceContext context) {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response,
+            AssertionType assertion, String errMsg, WebServiceContext context) {
         AssertionType assertType = getAssertion(context, assertion);
 
-        MCCIIN000002UV01 ack = new AdapterPatientDiscoveryDeferredReqErrorOrchImpl().processPatientDiscoveryAsyncReqError(request, response, assertType, errMsg);
+        MCCIIN000002UV01 ack = new AdapterPatientDiscoveryDeferredReqErrorOrchImpl()
+                .processPatientDiscoveryAsyncReqError(request, response, assertType, errMsg);
 
         return ack;
     }

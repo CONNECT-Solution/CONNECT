@@ -47,13 +47,13 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class HiemSubscribeAdapterWebServiceProxy implements HiemSubscribeAdapterProxy {
 
     private static Log log = LogFactory.getLog(HiemSubscribeAdapterWebServiceProxy.class);
-    
+
     private static Service cachedService = null;
     private static WebServiceProxyHelper oProxyHelper = null;
 
@@ -62,7 +62,8 @@ public class HiemSubscribeAdapterWebServiceProxy implements HiemSubscribeAdapter
     private static final String PORT_LOCAL_PART = "AdapterNotificationProducerPortSoap";
     private static final String WSDL_FILE = "AdapterSubscriptionManagement.wsdl";
 
-    public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target) throws Exception {
+    public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target)
+            throws Exception {
         Element responseElement = null;
         SubscribeResponse response = null;
 
@@ -76,7 +77,7 @@ public class HiemSubscribeAdapterWebServiceProxy implements HiemSubscribeAdapter
         adapterSubcribeRequest.setSubscribe(subscribe);
         adapterSubcribeRequest.setAssertion(assertion);
 
-        //The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
+        // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
         response = port.subscribe(adapterSubcribeRequest);
 
         SubscribeResponseMarshaller subscribeResponseMarshaller = new SubscribeResponseMarshaller();
@@ -94,55 +95,42 @@ public class HiemSubscribeAdapterWebServiceProxy implements HiemSubscribeAdapter
         return url;
     }
 
-    private AdapterNotificationProducerPortType getPort(String url, AssertionType assertIn)
-    {
+    private AdapterNotificationProducerPortType getPort(String url, AssertionType assertIn) {
         AdapterNotificationProducerPortType oPort = null;
         try {
             Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-            if (oService != null)
-            {
+            if (oService != null) {
                 log.debug("subscribe() Obtained service - creating port.");
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-                            AdapterNotificationProducerPortType.class);
+                        AdapterNotificationProducerPortType.class);
 
-                //Initialize secured port
-                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort,
-                        url, null, assertIn);
-             }
-            else
-            {
+                // Initialize secured port
+                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, null, assertIn);
+            } else {
                 log.error("Unable to obtain service - no port created.");
             }
-        } catch (Throwable t)
-            {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+        }
         return oPort;
     }
 
-    private WebServiceProxyHelper getWebServiceProxyHelper()
-    {
-        if (oProxyHelper == null)
-        {
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
             oProxyHelper = new WebServiceProxyHelper();
         }
         return oProxyHelper;
     }
 
-    private Service getService(String wsdl, String uri, String service)
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    private Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
                 cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
-    }    
+    }
 }

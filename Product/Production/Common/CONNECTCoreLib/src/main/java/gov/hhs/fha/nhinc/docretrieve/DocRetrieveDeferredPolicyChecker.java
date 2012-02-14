@@ -43,7 +43,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class DocRetrieveDeferredPolicyChecker {
@@ -60,7 +60,7 @@ public class DocRetrieveDeferredPolicyChecker {
     }
 
     /**
-     *
+     * 
      * @return Log
      */
     protected Log createLogger() {
@@ -97,7 +97,8 @@ public class DocRetrieveDeferredPolicyChecker {
         HomeCommunityType remoteHC = new HomeCommunityType();
         remoteHC.setHomeCommunityId(target);
         eventRequest.setReceivingHomeCommunity(remoteHC);
-        CheckPolicyRequestType checkPolicyRequest = policyHelper.transformDocRetrieveDeferredRespToCheckPolicy(eventRequest);
+        CheckPolicyRequestType checkPolicyRequest = policyHelper
+                .transformDocRetrieveDeferredRespToCheckPolicy(eventRequest);
         if (debugEnabled) {
             log.debug("-- End DocRetrieveDeferredPolicyChecker.checkOutgoingPolicy() --");
         }
@@ -135,7 +136,8 @@ public class DocRetrieveDeferredPolicyChecker {
             remoteHC.setHomeCommunityId(request.getDocumentResponse().get(0).getHomeCommunityId());
             eventRequest.setReceivingHomeCommunity(remoteHC);
         }
-        CheckPolicyRequestType checkPolicyRequest = policyHelper.transformDocRetrieveDeferredRespToCheckPolicy(eventRequest);
+        CheckPolicyRequestType checkPolicyRequest = policyHelper
+                .transformDocRetrieveDeferredRespToCheckPolicy(eventRequest);
         if (debugEnabled) {
             log.debug("-- End DocRetrieveDeferredPolicyChecker.checkIncomingPolicy() --");
         }
@@ -159,16 +161,14 @@ public class DocRetrieveDeferredPolicyChecker {
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         AssertionType assertion = null;
-        if(policyCheckReq != null)
-        {
+        if (policyCheckReq != null) {
             assertion = policyCheckReq.getAssertion();
         }
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyCheckReq, assertion);
 
         /* if response='permit' */
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             if (debugEnabled) {
                 log.debug("Policy engine check returned permit.");
             }

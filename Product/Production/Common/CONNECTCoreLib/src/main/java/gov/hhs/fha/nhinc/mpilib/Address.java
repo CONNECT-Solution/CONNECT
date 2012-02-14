@@ -30,11 +30,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class Address 
-{
+public class Address {
     private static Log log = LogFactory.getLog(Address.class);
     private String street1 = "";
     private String street2 = "";
@@ -42,45 +41,43 @@ public class Address
     private String state = "";
     private String zip = "";
 
-    public String getStreet1()
-    {
+    public String getStreet1() {
         return street1;
     }
-    public void setStreet1(String value)
-    {
+
+    public void setStreet1(String value) {
         street1 = value;
     }
-    public void setStreet2(String value)
-    {
+
+    public void setStreet2(String value) {
         street2 = value;
     }
-    
-    public String getStreet2()
-    {
+
+    public String getStreet2() {
         return street2;
     }
-    public void setCity(String value)
-    {
+
+    public void setCity(String value) {
         city = value;
     }
-    public String getCity()
-    {
+
+    public String getCity() {
         return city;
     }
-    public void setState(String value)
-    {
+
+    public void setState(String value) {
         state = value;
     }
-    public String getState()
-    {
+
+    public String getState() {
         return state;
     }
-    public void setZip(String value)
-    {
+
+    public void setZip(String value) {
         zip = value;
     }
-    public String getZip()
-    {
+
+    public String getZip() {
         return zip;
     }
 }

@@ -34,13 +34,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterComponentDocRepositoryProxyJavaImpl implements AdapterComponentDocRepositoryProxy {
     private static Log log = LogFactory.getLog(AdapterComponentDocRepositoryProxyJavaImpl.class);
 
-    public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request, AssertionType assertion) {
+    public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
+            AssertionType assertion) {
         log.debug("Using Java Implementation for Adapter Component Doc Repository Service");
         return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryRetrieveDocumentSet(request);
     }

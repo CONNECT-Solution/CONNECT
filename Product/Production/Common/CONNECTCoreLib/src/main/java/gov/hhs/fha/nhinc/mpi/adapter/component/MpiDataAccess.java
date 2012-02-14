@@ -33,11 +33,12 @@ import gov.hhs.fha.nhinc.mpilib.*;
 import org.hl7.v3.*;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class MpiDataAccess {
     private static Log log = LogFactory.getLog(MpiDataAccess.class);
+
     public static Patients LookupPatients(PRPAMT201306UV02ParameterList queryParams) {
         return LookupPatients(queryParams, true);
     }
@@ -47,10 +48,11 @@ public class MpiDataAccess {
     }
 
     public static Patients LookupPatients(Patient searchParams) {
-        return LookupPatients(searchParams,true);
+        return LookupPatients(searchParams, true);
     }
+
     public static Patients LookupPatients(Patient searchParams, boolean AllowSearchByDemographics) {
         MiniMpi mpi = MiniMpi.GetMpiInstance();
-        return mpi.Search(searchParams,AllowSearchByDemographics);
+        return mpi.Search(searchParams, AllowSearchByDemographics);
     }
 }

@@ -33,13 +33,15 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public interface AdapterRedactionEngineProxy
-{
-    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse, AssertionType assertion);
+public interface AdapterRedactionEngineProxy {
+    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
+            AdhocQueryResponse adhocQueryResponse, AssertionType assertion);
 
-    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion);
+    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
+            RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
+            RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion);
 
 }

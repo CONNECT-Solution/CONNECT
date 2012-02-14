@@ -31,12 +31,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class DocumentClassCodeParser {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(DocumentClassCodeParser.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(DocumentClassCodeParser.class);
 
     public static List<String> parseFormattedParameter(List<String> rawList) {
         List<String> normalizedList = new ArrayList<String>();

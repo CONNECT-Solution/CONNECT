@@ -21,7 +21,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "AdapterComponentDocRetrieveResponseService", portName = "AdapterComponentDocRetrieveResponsePortSoap", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentdocretrievedeferredresp.AdapterComponentDocRetrieveDeferredRespPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredresp", wsdlLocation = "WEB-INF/wsdl/AdapterComponentDocRetrieveDeferredResponse/AdapterComponentDocumentRetrieveDeferredResponse.wsdl")
@@ -30,8 +30,10 @@ public class AdapterComponentDocRetrieveDeferredResponse {
     @Resource
     private WebServiceContext context;
 
-    public DocRetrieveAcknowledgementType retrieveDocumentSetResponse(RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse) {
-        return new AdapterComponentDocRetrieveDeferredResponseImpl().crossGatewayRetrieveResponse(crossGatewayRetrieveResponse, context);
+    public DocRetrieveAcknowledgementType retrieveDocumentSetResponse(
+            RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse) {
+        return new AdapterComponentDocRetrieveDeferredResponseImpl().crossGatewayRetrieveResponse(
+                crossGatewayRetrieveResponse, context);
     }
 
 }

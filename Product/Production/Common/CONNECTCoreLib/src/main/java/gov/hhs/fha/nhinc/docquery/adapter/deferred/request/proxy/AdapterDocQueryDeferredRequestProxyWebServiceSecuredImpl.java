@@ -40,7 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements AdapterDocQueryDeferredRequestProxy {
@@ -69,18 +69,21 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterDocQueryDeferredRequestSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected AdapterDocQueryDeferredRequestSecuredPortType getPort(String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion) {
         AdapterDocQueryDeferredRequestSecuredPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocQueryDeferredRequestSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    AdapterDocQueryDeferredRequestSecuredPortType.class);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -89,7 +92,7 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -108,8 +111,10 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
         DocQueryAcknowledgementType response = null;
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME);
-            AdapterDocQueryDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper
+                    .getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME);
+            AdapterDocQueryDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION,
+                    WS_ADDRESSING_ACTION, assertion);
 
             if (msg == null) {
                 log.error("Message was null");
@@ -121,7 +126,9 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
                 RespondingGatewayCrossGatewayQuerySecureRequestType request = new RespondingGatewayCrossGatewayQuerySecureRequestType();
                 request.setAdhocQueryRequest(msg);
 
-                response = (DocQueryAcknowledgementType) oProxyHelper.invokePort(port, AdapterDocQueryDeferredRequestSecuredPortType.class, "respondingGatewayCrossGatewayQuery", request);
+                response = (DocQueryAcknowledgementType) oProxyHelper.invokePort(port,
+                        AdapterDocQueryDeferredRequestSecuredPortType.class, "respondingGatewayCrossGatewayQuery",
+                        request);
             }
         } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);

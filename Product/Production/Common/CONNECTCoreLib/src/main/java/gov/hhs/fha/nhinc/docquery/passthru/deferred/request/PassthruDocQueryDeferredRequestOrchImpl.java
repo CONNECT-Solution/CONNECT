@@ -37,17 +37,17 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 /**
  * This implementation class contains the flow
- *
+ * 
  * @author patlollav
  */
 public class PassthruDocQueryDeferredRequestOrchImpl {
 
-    //Logger
+    // Logger
     private static final Log log = LogFactory.getLog(PassthruDocQueryDeferredRequestOrchImpl.class);
 
     /**
      * Pass the processing on to the NHIN layer
-     *
+     * 
      * @param adhocQueryRequest
      * @param assertion
      * @param target
@@ -60,7 +60,7 @@ public class PassthruDocQueryDeferredRequestOrchImpl {
 
         DocQueryAcknowledgementType docQueryAcknowledgement = null;
 
-        //Call Nhin component proxy
+        // Call Nhin component proxy
         NhinDocQueryDeferredRequestProxyObjectFactory factory = new NhinDocQueryDeferredRequestProxyObjectFactory();
         NhinDocQueryDeferredRequestProxy proxy = factory.getNhinDocQueryDeferredRequestProxy();
         docQueryAcknowledgement = proxy.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, target);

@@ -36,7 +36,7 @@ import org.hl7.v3.PRPAIN201305UV02;
  * 
  * @author JHOPPESC, Les westberg
  */
-public interface AdapterPatientDiscoveryAsyncReqQueueProxy
-{
-    public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetCommunitiesType targets);
+public interface AdapterPatientDiscoveryAsyncReqQueueProxy {
+    public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
+            NhinTargetCommunitiesType targets);
 }

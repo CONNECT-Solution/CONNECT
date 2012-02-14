@@ -55,16 +55,14 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @RunWith(JMock.class)
 public class PatientDiscoveryPolicyCheckerTest {
-	
-	Mockery context = new JUnit4Mockery();
-	final PolicyEngineProxy mockPolicyEngineProxy = context.mock(PolicyEngineProxy.class);
 
-	
+    Mockery context = new JUnit4Mockery();
+    final PolicyEngineProxy mockPolicyEngineProxy = context.mock(PolicyEngineProxy.class);
 
     /**
      * Test of check201305Policy method, of class PatientDiscoveryPolicyChecker.
@@ -75,67 +73,66 @@ public class PatientDiscoveryPolicyCheckerTest {
         PRPAIN201306UV02 message = new PRPAIN201306UV02();
         II patIdOverride = new II();
         final AssertionType assertion = new AssertionType();
-        
-        
+
         GenericFactory<PolicyEngineProxy> policyEngineProxyFactory = new GenericFactory<PolicyEngineProxy>() {
 
-			@Override
-			public PolicyEngineProxy create() {
-				return mockPolicyEngineProxy;
-			}
-        	
+            @Override
+            public PolicyEngineProxy create() {
+                return mockPolicyEngineProxy;
+            }
+
         };
-        final  CheckPolicyResponseType response = new CheckPolicyResponseType();
-		createPermitPolicy(response);
-        
-        context.checking(new Expectations() {{
-            oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)), with(any(AssertionType.class)));
-            will(returnValue(response));
-        }});
-        
+        final CheckPolicyResponseType response = new CheckPolicyResponseType();
+        createPermitPolicy(response);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)),
+                        with(any(AssertionType.class)));
+                will(returnValue(response));
+            }
+        });
+
         PatientDiscovery201306PolicyChecker instance = new PatientDiscovery201306PolicyChecker(policyEngineProxyFactory);
 
         boolean result = instance.check201305Policy(message, patIdOverride, assertion);
-        
-        
-        
 
         assertEquals(true, result);
     }
 
-	protected void  createPermitPolicy(CheckPolicyResponseType response) {
-		    ResponseType value = new ResponseType();
-		    ResultType resultType = new ResultType();
-		    resultType.setDecision(DecisionType.PERMIT);
-			value.getResult().add(resultType);
-			response.setResponse(value);
-		
-	}
-	
-	protected void  createDenyPolicy(CheckPolicyResponseType response) {
-	    ResponseType value = new ResponseType();
-	    ResultType resultType = new ResultType();
-	    resultType.setDecision(DecisionType.DENY);
-		value.getResult().add(resultType);
-		response.setResponse(value);
-	}
-	
-	protected void  creatIndeterminatePolicy(CheckPolicyResponseType response) {
-	    ResponseType value = new ResponseType();
-	    ResultType resultType = new ResultType();
-	    resultType.setDecision(DecisionType.INDETERMINATE);
-		value.getResult().add(resultType);
-		response.setResponse(value);
-	}
+    protected void createPermitPolicy(CheckPolicyResponseType response) {
+        ResponseType value = new ResponseType();
+        ResultType resultType = new ResultType();
+        resultType.setDecision(DecisionType.PERMIT);
+        value.getResult().add(resultType);
+        response.setResponse(value);
 
-	protected void  creatNotApplicablePolicy(CheckPolicyResponseType response) {
-	    ResponseType value = new ResponseType();
-	    ResultType resultType = new ResultType();
-	    resultType.setDecision(DecisionType.NOT_APPLICABLE);
-		value.getResult().add(resultType);
-		response.setResponse(value);
-	}
-	
+    }
+
+    protected void createDenyPolicy(CheckPolicyResponseType response) {
+        ResponseType value = new ResponseType();
+        ResultType resultType = new ResultType();
+        resultType.setDecision(DecisionType.DENY);
+        value.getResult().add(resultType);
+        response.setResponse(value);
+    }
+
+    protected void creatIndeterminatePolicy(CheckPolicyResponseType response) {
+        ResponseType value = new ResponseType();
+        ResultType resultType = new ResultType();
+        resultType.setDecision(DecisionType.INDETERMINATE);
+        value.getResult().add(resultType);
+        response.setResponse(value);
+    }
+
+    protected void creatNotApplicablePolicy(CheckPolicyResponseType response) {
+        ResponseType value = new ResponseType();
+        ResultType resultType = new ResultType();
+        resultType.setDecision(DecisionType.NOT_APPLICABLE);
+        value.getResult().add(resultType);
+        response.setResponse(value);
+    }
+
     /**
      * Test of check201305Policy method, of class PatientDiscoveryPolicyChecker.
      */
@@ -145,26 +142,27 @@ public class PatientDiscoveryPolicyCheckerTest {
         PRPAIN201306UV02 message = new PRPAIN201306UV02();
         II patIdOverride = new II();
         final AssertionType assertion = new AssertionType();
-        
-        
+
         GenericFactory<PolicyEngineProxy> policyEngineProxyFactory = new GenericFactory<PolicyEngineProxy>() {
 
-			@Override
-			public PolicyEngineProxy create() {
-				return mockPolicyEngineProxy;
-			}
-        	
-        };
-        final  CheckPolicyResponseType response = new CheckPolicyResponseType();
-		createDenyPolicy(response);
-        
-        context.checking(new Expectations() {{
-            oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)), with(any(AssertionType.class)));
-            will(returnValue(response));
-        }});
-        
-        PatientDiscovery201306PolicyChecker instance = new PatientDiscovery201306PolicyChecker(policyEngineProxyFactory);
+            @Override
+            public PolicyEngineProxy create() {
+                return mockPolicyEngineProxy;
+            }
 
+        };
+        final CheckPolicyResponseType response = new CheckPolicyResponseType();
+        createDenyPolicy(response);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)),
+                        with(any(AssertionType.class)));
+                will(returnValue(response));
+            }
+        });
+
+        PatientDiscovery201306PolicyChecker instance = new PatientDiscovery201306PolicyChecker(policyEngineProxyFactory);
 
         boolean result = instance.check201305Policy(message, patIdOverride, assertion);
 
@@ -179,25 +177,26 @@ public class PatientDiscoveryPolicyCheckerTest {
         System.out.println("testCheckOutgoingPolicy");
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
 
-        
         GenericFactory<PolicyEngineProxy> policyEngineProxyFactory = new GenericFactory<PolicyEngineProxy>() {
 
-			@Override
-			public PolicyEngineProxy create() {
-				return mockPolicyEngineProxy;
-			}
-        	
-        };
-        final  CheckPolicyResponseType response = new CheckPolicyResponseType();
-		createPermitPolicy(response);
-        
-        context.checking(new Expectations() {{
-            oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)), with(any(AssertionType.class)));
-            will(returnValue(response));
-        }});
-        
-        PatientDiscoveryPolicyChecker instance = new PatientDiscoveryPolicyChecker(policyEngineProxyFactory);
+            @Override
+            public PolicyEngineProxy create() {
+                return mockPolicyEngineProxy;
+            }
 
+        };
+        final CheckPolicyResponseType response = new CheckPolicyResponseType();
+        createPermitPolicy(response);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)),
+                        with(any(AssertionType.class)));
+                will(returnValue(response));
+            }
+        });
+
+        PatientDiscoveryPolicyChecker instance = new PatientDiscoveryPolicyChecker(policyEngineProxyFactory);
 
         boolean result = instance.checkOutgoingPolicy(request);
 
@@ -212,25 +211,26 @@ public class PatientDiscoveryPolicyCheckerTest {
         System.out.println("testCheckOutgoingPolicyFails");
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
 
-        
         GenericFactory<PolicyEngineProxy> policyEngineProxyFactory = new GenericFactory<PolicyEngineProxy>() {
 
-			@Override
-			public PolicyEngineProxy create() {
-				return mockPolicyEngineProxy;
-			}
-        	
-        };
-        final  CheckPolicyResponseType response = new CheckPolicyResponseType();
-		createDenyPolicy(response);
-        
-        context.checking(new Expectations() {{
-            oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)), with(any(AssertionType.class)));
-            will(returnValue(response));
-        }});
-        
-        PatientDiscoveryPolicyChecker instance = new PatientDiscoveryPolicyChecker(policyEngineProxyFactory);
+            @Override
+            public PolicyEngineProxy create() {
+                return mockPolicyEngineProxy;
+            }
 
+        };
+        final CheckPolicyResponseType response = new CheckPolicyResponseType();
+        createDenyPolicy(response);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)),
+                        with(any(AssertionType.class)));
+                will(returnValue(response));
+            }
+        });
+
+        PatientDiscoveryPolicyChecker instance = new PatientDiscoveryPolicyChecker(policyEngineProxyFactory);
 
         boolean result = instance.checkOutgoingPolicy(request);
 

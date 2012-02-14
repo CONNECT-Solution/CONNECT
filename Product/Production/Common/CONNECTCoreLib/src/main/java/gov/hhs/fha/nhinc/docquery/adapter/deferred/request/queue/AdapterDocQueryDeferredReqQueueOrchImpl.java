@@ -56,7 +56,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author narendra.reddy
  */
 public class AdapterDocQueryDeferredReqQueueOrchImpl {
@@ -68,13 +68,14 @@ public class AdapterDocQueryDeferredReqQueueOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param msg
      * @param assertion
      * @param targets
      * @return DocQueryAcknowledgementType
      */
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("Begin AdapterDocQueryDeferredReqQueueOrchImpl.respondingGatewayCrossGatewayQuery");
 
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
@@ -88,7 +89,8 @@ public class AdapterDocQueryDeferredReqQueueOrchImpl {
 
         // Audit the incoming doc query request Message
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLogger.auditDQRequest(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
+        AcknowledgementType ack = auditLogger.auditDQRequest(msg, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         // ASYNCMSG PROCESSING - RSPPROCESS
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
@@ -112,11 +114,9 @@ public class AdapterDocQueryDeferredReqQueueOrchImpl {
             try {
                 List<UrlInfo> urlInfoList = getEndpoints(targets);
 
-                if (urlInfoList != null &&
-                        NullChecker.isNotNullish(urlInfoList) &&
-                        urlInfoList.get(0) != null &&
-                        NullChecker.isNotNullish(urlInfoList.get(0).getHcid()) &&
-                        NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
+                if (urlInfoList != null && NullChecker.isNotNullish(urlInfoList) && urlInfoList.get(0) != null
+                        && NullChecker.isNotNullish(urlInfoList.get(0).getHcid())
+                        && NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
 
                     HomeCommunityType targetHcid = new HomeCommunityType();
                     targetHcid.setHomeCommunityId(urlInfoList.get(0).getHcid());
@@ -126,55 +126,75 @@ public class AdapterDocQueryDeferredReqQueueOrchImpl {
                         target.setUrl(urlInfoList.get(0).getUrl());
 
                         // Audit the Adhoc Query Request Message sent to the Adapter Interface
-                        ack = auditAdhocQueryRequest(respondingGatewayCrossGatewayQueryRequestType, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, homeCommunityId);
+                        ack = auditAdhocQueryRequest(respondingGatewayCrossGatewayQueryRequestType,
+                                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, homeCommunityId);
 
                         // Get the AdhocQueryResponse by passing the request to this agency's adapter doc query service
                         AdapterDocQueryProxyJavaImpl orchImpl = new AdapterDocQueryProxyJavaImpl();
-                        AdhocQueryResponse response = orchImpl.respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequestType.getAdhocQueryRequest(), responseAssertion);
+                        AdhocQueryResponse response = orchImpl
+                                .respondingGatewayCrossGatewayQuery(
+                                        respondingGatewayCrossGatewayQueryRequestType.getAdhocQueryRequest(),
+                                        responseAssertion);
 
                         // Audit the Adhoc Query Response Message sent to the Adapter Interface
-                        ack = auditAdhocQueryResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, homeCommunityId);
+                        ack = auditAdhocQueryResponse(response, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, assertion, homeCommunityId);
 
                         PassthruDocQueryDeferredResponseProxyObjectFactory factory = new PassthruDocQueryDeferredResponseProxyObjectFactory();
-                        PassthruDocQueryDeferredResponseProxy proxy = factory.getPassthruDocQueryDeferredResponseProxy();
+                        PassthruDocQueryDeferredResponseProxy proxy = factory
+                                .getPassthruDocQueryDeferredResponseProxy();
 
                         respAck = proxy.respondingGatewayCrossGatewayQuery(response, responseAssertion, target);
 
-                        asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
+                        asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK,
+                                AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
                     } else {
                         ackMsg = "Outgoing Policy Check Failed";
                         log.error(ackMsg);
-                        respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
-                        asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
+                        respAck = DocQueryAckTranforms.createAckMessage(
+                                NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG,
+                                NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
+                        asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR,
+                                AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
                     }
                 } else {
                     ackMsg = "Failed to obtain target URL from connection manager";
                     log.error(ackMsg);
-                    respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
-                    asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
+                    respAck = DocQueryAckTranforms.createAckMessage(
+                            NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG,
+                            NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+                    asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR,
+                            AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
                 }
             } catch (Exception e) {
                 ackMsg = "Exception processing Deferred Query For Documents: " + e.getMessage();
                 log.error(ackMsg, e);
-                respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
-                asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
+                respAck = DocQueryAckTranforms.createAckMessage(
+                        NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG,
+                        NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+                asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR,
+                        AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, respAck);
             }
         } else {
             ackMsg = "Deferred Query For Documents response processing halted; deferred queue repository error encountered";
 
             // Set the error acknowledgement status
             // fatal error with deferred queue repository
-            respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+            respAck = DocQueryAckTranforms.createAckMessage(
+                    NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG,
+                    NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
 
         // Audit the responding Acknowledgement Message
-        ack = auditLogger.logDocQueryAck(respAck, responseAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
+        ack = auditLogger.logDocQueryAck(respAck, responseAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         return respAck;
     }
 
     /**
-     *
+     * 
      * @param message
      * @param assertion
      * @param target
@@ -187,7 +207,7 @@ public class AdapterDocQueryDeferredReqQueueOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param targetCommunities
      * @return List<UrlInfo>
      */
@@ -195,7 +215,8 @@ public class AdapterDocQueryDeferredReqQueueOrchImpl {
         List<UrlInfo> urlInfoList = null;
 
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
+                    targetCommunities, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs", ex);
         }
@@ -205,29 +226,35 @@ public class AdapterDocQueryDeferredReqQueueOrchImpl {
 
     /**
      * Creates an audit log for an AdhocQueryRequest.
+     * 
      * @param crossGatewayDocQueryRequest AdhocQueryRequest message to log
      * @param direction Indicates whether the message is going out or comming in
      * @param _interface Indicates which interface component is being logged??
      * @return Returns an acknowledgement object indicating whether the audit was successfully completed.
      */
-    private AcknowledgementType auditAdhocQueryRequest(RespondingGatewayCrossGatewayQueryRequestType msg, String direction, String _interface, String requestCommunityID) {
+    private AcknowledgementType auditAdhocQueryRequest(RespondingGatewayCrossGatewayQueryRequestType msg,
+            String direction, String _interface, String requestCommunityID) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLogger.auditDQRequest(msg.getAdhocQueryRequest(), msg.getAssertion(), direction, _interface, requestCommunityID);
+        AcknowledgementType ack = auditLogger.auditDQRequest(msg.getAdhocQueryRequest(), msg.getAssertion(), direction,
+                _interface, requestCommunityID);
 
         return ack;
     }
 
     /**
      * Creates an audit log for an AdhocQueryResponse.
+     * 
      * @param crossGatewayDocQueryResponse AdhocQueryResponse message to log
      * @param direction Indicates whether the message is going out or comming in
      * @param _interface Indicates which interface component is being logged??
      * @param requestCommunityID
      * @return Returns an acknowledgement object indicating whether the audit was successfully completed.
      */
-    private AcknowledgementType auditAdhocQueryResponse(AdhocQueryResponse msg, String direction, String _interface, AssertionType assertion, String requestCommunityID) {
+    private AcknowledgementType auditAdhocQueryResponse(AdhocQueryResponse msg, String direction, String _interface,
+            AssertionType assertion, String requestCommunityID) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, direction, _interface, requestCommunityID);
+        AcknowledgementType ack = auditLogger
+                .auditDQResponse(msg, assertion, direction, _interface, requestCommunityID);
 
         return ack;
     }

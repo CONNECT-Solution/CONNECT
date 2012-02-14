@@ -34,26 +34,23 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
-public class PassthruPatientDiscoveryDeferredRespProxyNoOpImpl implements PassthruPatientDiscoveryDeferredRespProxy
-{
+public class PassthruPatientDiscoveryDeferredRespProxyNoOpImpl implements PassthruPatientDiscoveryDeferredRespProxy {
 
     private Log log = null;
 
-    public PassthruPatientDiscoveryDeferredRespProxyNoOpImpl()
-    {
+    public PassthruPatientDiscoveryDeferredRespProxyNoOpImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetSystemType targetSystem)
-    {
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
+            NhinTargetSystemType targetSystem) {
         log.debug("Begin PassthruPatientDiscoveryDeferredRespProxyNoOpImpl.proxyProcessPatientDiscoveryAsyncResp(...)");
         return new MCCIIN000002UV01();
     }

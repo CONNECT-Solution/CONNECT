@@ -35,15 +35,18 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class AdapterPatientDiscoveryDeferredReqErrorProxyJavaImpl implements AdapterPatientDiscoveryDeferredReqErrorProxy {
+public class AdapterPatientDiscoveryDeferredReqErrorProxyJavaImpl implements
+        AdapterPatientDiscoveryDeferredReqErrorProxy {
     private static Log log = LogFactory.getLog(AdapterPatientDiscoveryDeferredReqErrorProxyJavaImpl.class);
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response, AssertionType assertion, String errMsg) {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response,
+            AssertionType assertion, String errMsg) {
         log.debug("Using Java Implementation for Adapter Patient Discovery Deferred Request Error Service");
-        return new AdapterPatientDiscoveryDeferredReqErrorOrchImpl().processPatientDiscoveryAsyncReqError(request, response, assertion, errMsg);
+        return new AdapterPatientDiscoveryDeferredReqErrorOrchImpl().processPatientDiscoveryAsyncReqError(request,
+                response, assertion, errMsg);
     }
 
 }

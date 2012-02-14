@@ -17,7 +17,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 @WebService(serviceName = "AdapterDocQuery", portName = "AdapterDocQueryPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterdocquery", wsdlLocation = "WEB-INF/wsdl/AdapterDocQueryUnsecured/AdapterDocQuery.wsdl")
@@ -26,8 +26,10 @@ public class AdapterDocQueryUnsecured {
     @Resource
     private WebServiceContext context;
 
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest) {
-        return new AdapterDocQueryImpl().respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest, context);
+    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest) {
+        return new AdapterDocQueryImpl().respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest,
+                context);
     }
 
 }

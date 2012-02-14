@@ -39,18 +39,18 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Neil Webb
  */
-public class AdapterRedactionEngineProxyNoOpImpl implements AdapterRedactionEngineProxy
-{
+public class AdapterRedactionEngineProxyNoOpImpl implements AdapterRedactionEngineProxy {
     private static Log log = LogFactory.getLog(AdapterRedactionEngineProxyNoOpImpl.class);
 
-    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse, AssertionType assertion)
-    {
+    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
+            AdhocQueryResponse adhocQueryResponse, AssertionType assertion) {
         log.debug("Using NoOp Implementation for Adapter Redaction Engine Service");
         return adhocQueryResponse;
     }
 
-    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion)
-    {
+    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
+            RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
+            RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion) {
         log.debug("Using NoOp Implementation for Adapter Redaction Engine Service");
         return retrieveDocumentSetResponse;
     }

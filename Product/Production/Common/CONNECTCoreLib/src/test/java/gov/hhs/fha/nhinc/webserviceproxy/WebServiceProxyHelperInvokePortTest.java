@@ -45,275 +45,238 @@ import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
 
-public class WebServiceProxyHelperInvokePortTest extends
-		AbstractWebServiceProxyHelpTest {
+public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxyHelpTest {
 
-	final Log mockLog = context.mock(Log.class);
+    final Log mockLog = context.mock(Log.class);
 
-	WebServiceProxyHelper oHelper;
+    WebServiceProxyHelper oHelper;
 
-	/**
-	 * This method is used to test out some of the dynamic invocaton methods.
-	 * 
-	 * @param x
-	 *            an integer.
-	 * @param y
-	 *            an integer.
-	 * @param a
-	 *            result.
-	 */
-	public Integer helperMethod2(Integer x, Integer y) {
-		return x;
-	}
+    /**
+     * This method is used to test out some of the dynamic invocaton methods.
+     * 
+     * @param x an integer.
+     * @param y an integer.
+     * @param a result.
+     */
+    public Integer helperMethod2(Integer x, Integer y) {
+        return x;
+    }
 
-	/**
-	 * This method is used to test out some of the dynamic invocaton methods.
-	 * 
-	 * @param x
-	 *            an integer.
-	 * @param a
-	 *            result.
-	 */
-	public Integer helperMethod(Integer x) {
-		return x;
-	}
+    /**
+     * This method is used to test out some of the dynamic invocaton methods.
+     * 
+     * @param x an integer.
+     * @param a result.
+     */
+    public Integer helperMethod(Integer x) {
+        return x;
+    }
 
-	public Integer exceptionalMethod(Integer x) throws Exception {
-		throw new SocketTimeoutException("SocketTimeoutException");
-	}
+    public Integer exceptionalMethod(Integer x) throws Exception {
+        throw new SocketTimeoutException("SocketTimeoutException");
+    }
 
-	public Integer exceptionalWSMethod(Integer x) throws Exception {
-		throw new WebServiceException("WebServiceExpcetion");
-	}
+    public Integer exceptionalWSMethod(Integer x) throws Exception {
+        throw new WebServiceException("WebServiceExpcetion");
+    }
 
-	@Before
-	public void before() throws PropertyAccessException {
-		context.checking(new Expectations() {
-			{
-				oneOf(mockPropertyAccessor)
-				.getProperty(
-						WebServiceProxyHelperProperties.CONFIG_KEY_TIMEOUT);
-		will(returnValue("0"));
+    @Before
+    public void before() throws PropertyAccessException {
+        context.checking(new Expectations() {
+            {
+                oneOf(mockPropertyAccessor).getProperty(WebServiceProxyHelperProperties.CONFIG_KEY_TIMEOUT);
+                will(returnValue("0"));
 
-				
-				oneOf(mockPropertyAccessor)
-						.getProperty(
-								WebServiceProxyHelperProperties.CONFIG_KEY_RETRYATTEMPTS);
-				will(returnValue("0"));
+                oneOf(mockPropertyAccessor).getProperty(WebServiceProxyHelperProperties.CONFIG_KEY_RETRYATTEMPTS);
+                will(returnValue("0"));
 
-				oneOf(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelperProperties.CONFIG_KEY_RETRYDELAY);
-				will(returnValue("10"));
+                oneOf(mockPropertyAccessor).getProperty(WebServiceProxyHelperProperties.CONFIG_KEY_RETRYDELAY);
+                will(returnValue("10"));
 
-				exactly(3).of(mockPropertyAccessor).getProperty(
-						WebServiceProxyHelperProperties.CONFIG_KEY_EXCEPTION);
-				will(returnValue("SocketTimeoutException"));
+                exactly(3).of(mockPropertyAccessor).getProperty(WebServiceProxyHelperProperties.CONFIG_KEY_EXCEPTION);
+                will(returnValue("SocketTimeoutException"));
 
-			}
-		});
+            }
+        });
 
-		oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor);
-	}
+        oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor);
+    }
 
-	/**
-	 * Test the getMethod method.
-	 */
-	@Test
-	public void testGetMethod() {
-		Method oMethod = oHelper.getMethod(this.getClass(), "helperMethod");
-		assertNotNull("getMethod failed", oMethod);
-		assertEquals("Incorrect method returned.", "helperMethod",
-				oMethod.getName());
+    /**
+     * Test the getMethod method.
+     */
+    @Test
+    public void testGetMethod() {
+        Method oMethod = oHelper.getMethod(this.getClass(), "helperMethod");
+        assertNotNull("getMethod failed", oMethod);
+        assertEquals("Incorrect method returned.", "helperMethod", oMethod.getName());
 
-	}
+    }
 
-	/**
-	 * Test the invokePort method happy path.
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void testInvokePortHappyPath() throws Exception {
-		context.checking(new Expectations() {
+    /**
+     * Test the invokePort method happy path.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testInvokePortHappyPath() throws Exception {
+        context.checking(new Expectations() {
 
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
+            {
+                ignoring(mockLog).debug(with(any(String.class)));
 
-			}
-		});
+            }
+        });
 
-		Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(),
-				"helperMethod", new Integer(100));
-		assertNotNull("invokePort failed to return a value.", oResponse);
-		assertTrue("Response was incorrect type.", oResponse instanceof Integer);
-		assertEquals("Incorrect value returned.", 100, oResponse.intValue());
+        Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(), "helperMethod", new Integer(100));
+        assertNotNull("invokePort failed to return a value.", oResponse);
+        assertTrue("Response was incorrect type.", oResponse instanceof Integer);
+        assertEquals("Incorrect value returned.", 100, oResponse.intValue());
 
-	}
+    }
 
-	/**
-	 * Test the invokePort method illegal argument exception.
-	 * 
-	 * @throws Exception
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testInvokePortIllegalArgumentException() throws Exception {
-		context.checking(new Expectations() {
+    /**
+     * Test the invokePort method illegal argument exception.
+     * 
+     * @throws Exception
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvokePortIllegalArgumentException() throws Exception {
+        context.checking(new Expectations() {
 
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
-				oneOf(mockLog).error(with(any(String.class)),
-						with(any(WebServiceException.class)));
+            {
+                ignoring(mockLog).debug(with(any(String.class)));
+                oneOf(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
 
+            }
+        });
 
-			}
-		});
+        oHelper.invokePort(this, this.getClass(), "helperMethod2", new Integer(100));
 
-		oHelper.invokePort(this, this.getClass(), "helperMethod2", new Integer(
-				100));
+    }
 
-	}
+    /**
+     * Test the invokePort method with retry settings with exception.
+     * 
+     * @throws Exception
+     */
+    @Test(expected = SocketTimeoutException.class)
+    public void testInvokePortWithInvocationTargetException() throws Exception {
 
-	/**
-	 * Test the invokePort method with retry settings with exception.
-	 * 
-	 * @throws Exception
-	 */
-	@Test(expected = SocketTimeoutException.class)
-	public void testInvokePortWithInvocationTargetException() throws Exception {
+        context.checking(new Expectations() {
 
-		context.checking(new Expectations() {
+            {
+                ignoring(mockLog).debug(with(any(String.class)));
+                oneOf(mockLog).error(with(any(String.class)), with(any(SocketTimeoutException.class)));
 
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
-				oneOf(mockLog).error(with(any(String.class)),
-						with(any(SocketTimeoutException.class)));
+            }
+        });
 
-			
+        oHelper.invokePort(this, this.getClass(), "exceptionalMethod", 100);
 
-			}
-		});
+    }
 
-		oHelper.invokePort(this, this.getClass(), "exceptionalMethod", 100);
+    /**
+     * Test the invokePort method with retry settings happy path.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testInvokePortRetrySettingsHappyPath() throws Exception {
+        context.checking(new Expectations() {
 
-	}
+            {
+                ignoring(mockLog).debug(with(any(String.class)));
+                oneOf(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
 
-	/**
-	 * Test the invokePort method with retry settings happy path.
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void testInvokePortRetrySettingsHappyPath() throws Exception {
-		context.checking(new Expectations() {
+            }
+        });
 
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
-				oneOf(mockLog).error(with(any(String.class)),
-						with(any(WebServiceException.class)));
+        Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(), "helperMethod", new Integer(100));
+        assertNotNull("invokePort failed to return a value.", oResponse);
+        assertTrue("Response was incorrect type.", oResponse instanceof Integer);
 
-		
+    }
 
-			}
-		});
+    /**
+     * Test the invokePort method with retry settings with exception.
+     * 
+     * @throws Exception
+     */
+    @Test(expected = WebServiceException.class)
+    public void testInvokePortRetrySettingsWithWebServiceException() throws Exception {
+        context.checking(new Expectations() {
 
-		Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(),
-				"helperMethod", new Integer(100));
-		assertNotNull("invokePort failed to return a value.", oResponse);
-		assertTrue("Response was incorrect type.", oResponse instanceof Integer);
+            {
+                ignoring(mockLog).debug(with(any(String.class)));
 
-	}
+                exactly(3).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
 
-	/**
-	 * Test the invokePort method with retry settings with exception.
-	 * 
-	 * @throws Exception
-	 */
-	@Test(expected = WebServiceException.class)
-	public void testInvokePortRetrySettingsWithWebServiceException()
-			throws Exception {
-		context.checking(new Expectations() {
+            }
+        });
 
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
+        Integer oResponse = (Integer) oHelper
+                .invokePort(this, this.getClass(), "exceptionalWSMethod", new Integer(100));
 
-				exactly(3).of(mockLog).error(with(any(String.class)),
-						with(any(WebServiceException.class)));
+    }
 
-		
+    /**
+     * Test the invokePort method with retry settings with exception.
+     * 
+     * @throws Exception
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvokePortRetrySettingsWithWebServiceExceptionNoTextMatch() throws Exception {
+        context.checking(new Expectations() {
 
-			}
-		});
+            {
+                ignoring(mockLog).debug(with(any(String.class)));
+                oneOf(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
 
-		Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(),
-				"exceptionalWSMethod", new Integer(100));
+            }
+        });
 
-	}
+        oHelper.invokePort(this, this.getClass(), "badMethodName", new Integer(100));
 
-	/**
-	 * Test the invokePort method with retry settings with exception.
-	 * 
-	 * @throws Exception
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testInvokePortRetrySettingsWithWebServiceExceptionNoTextMatch()
-			throws Exception {
-		context.checking(new Expectations() {
+    }
 
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
-				oneOf(mockLog).error(with(any(String.class)),
-						with(any(WebServiceException.class)));
+    /**
+     * Test the invokePort method with retry settings with exception.
+     * 
+     * @throws Exception
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvokePortRetrySettingsWithIllegalArgumentException() throws Exception {
+        context.checking(new Expectations() {
 
-			}
-		});
+            {
+                ignoring(mockLog).debug(with(any(String.class)));
+                oneOf(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
 
-		oHelper.invokePort(this, this.getClass(), "badMethodName", new Integer(
-				100));
+            }
+        });
 
-	}
+        oHelper.invokePort(this, this.getClass(), "exceptionalMethod", "100");
+    }
 
-	/**
-	 * Test the invokePort method with retry settings with exception.
-	 * 
-	 * @throws Exception
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testInvokePortRetrySettingsWithIllegalArgumentException()
-			throws Exception {
-		context.checking(new Expectations() {
+    /**
+     * Test the invokePort method with retry settings with exception.
+     * 
+     * @throws Exception
+     */
+    @Test(expected = WebServiceException.class)
+    public void testInvokePortRetrySettingsWithInvocationTargetException() throws Exception {
 
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
-				oneOf(mockLog).error(with(any(String.class)),
-						with(any(WebServiceException.class)));
+        context.checking(new Expectations() {
 
-	
-			}
-		});
+            {
+                ignoring(mockLog).debug(with(any(String.class)));
+                exactly(3).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
 
-		oHelper.invokePort(this, this.getClass(), "exceptionalMethod", "100");
-	}
+            }
+        });
 
-	/**
-	 * Test the invokePort method with retry settings with exception.
-	 * 
-	 * @throws Exception
-	 */
-	@Test(expected = WebServiceException.class)
-	public void testInvokePortRetrySettingsWithInvocationTargetException()
-			throws Exception {
-
-		context.checking(new Expectations() {
-
-			{
-				ignoring(mockLog).debug(with(any(String.class)));
-				exactly(3).of(mockLog).error(with(any(String.class)),
-						with(any(WebServiceException.class)));
-
-			}
-		});
-
-		oHelper.invokePort(this, this.getClass(), "exceptionalWSMethod", 100);
-	}
+        oHelper.invokePort(this, this.getClass(), "exceptionalWSMethod", 100);
+    }
 
 }

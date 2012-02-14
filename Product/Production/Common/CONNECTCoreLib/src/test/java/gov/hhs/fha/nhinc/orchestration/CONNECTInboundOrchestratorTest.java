@@ -36,7 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class CONNECTInboundOrchestratorTest {
@@ -82,9 +82,7 @@ public class CONNECTInboundOrchestratorTest {
         Log result = instance.getLogger();
         try {
             result.info("testing CONNECTNhinOrchestrator getLogger()");
-        }
-        catch (Exception exc)
-        {
+        } catch (Exception exc) {
             fail("The test case is a prototype.");
         }
     }
@@ -100,10 +98,10 @@ public class CONNECTInboundOrchestratorTest {
         // there was no error, so success
         // TODO: make a better test
     }
+
     public class NhinOrchestratableImpl implements InboundOrchestratable {
 
-        public NhinOrchestratableImpl()
-        {
+        public NhinOrchestratableImpl() {
 
         }
 
@@ -136,9 +134,9 @@ public class CONNECTInboundOrchestratorTest {
             return "";
         }
 
-		@Override
-		public Delegate getDelegate() {
-			return getAdapterDelegate();
-		}
+        @Override
+        public Delegate getDelegate() {
+            return getAdapterDelegate();
+        }
     }
 }

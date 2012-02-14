@@ -32,36 +32,33 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author dunnek
  * 
- * Notes:http://forums.java.net/jive/thread.jspa?messageID=265679
- * Glassfish does not currently send notification that undeploy has occurred. 
- * thread will continue to run. 
+ *         Notes:http://forums.java.net/jive/thread.jspa?messageID=265679 Glassfish does not currently send notification
+ *         that undeploy has occurred. thread will continue to run.
  */
 public class CDCTimer extends Thread {
 
     private static Log log = LogFactory.getLog(CDCTimer.class);
     private static CDCTimer m_oTheOneAndOnlyTimer = null;
     private static boolean m_bRunnable = false;
-    //private static final String GATEWAY_PROPERTY_FILE = "gateway";
+    // private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String ADAPTER_PROPERTY_FILE = "adapter";
     private static final String CDC_REFRESH_DURATION_PROPERTY = "CDCRefreshDuration";
-    private static final int CDC_REFRESH_DURATION_DEFAULT = 1800;  //(30 minutes)
-    // private Timer m_oTimer = new Timer(true);           // Timer thread - set up as a daemon.
+    private static final int CDC_REFRESH_DURATION_DEFAULT = 1800; // (30 minutes)
+    // private Timer m_oTimer = new Timer(true); // Timer thread - set up as a daemon.
     private int m_iDurationSeconds = CDC_REFRESH_DURATION_DEFAULT;
     private String monitorDir = "";
 
     /**
-     * This method is used to crete an instance of the UDDITimer.  There should only be exactly
-     * one instance of this running at any time.  If it exists, it simply returns the one that
-     * exists.  If it does not exist, then it will create it, start the timer, and return a handle to
-     * it.  
+     * This method is used to crete an instance of the UDDITimer. There should only be exactly one instance of this
+     * running at any time. If it exists, it simply returns the one that exists. If it does not exist, then it will
+     * create it, start the timer, and return a handle to it.
      * 
      * @throws UDDIAccessorException
      */
-    public static void startTimer()
-            throws CDCTimerException {
+    public static void startTimer() throws CDCTimerException {
         m_bRunnable = true;
 
         if (m_oTheOneAndOnlyTimer == null) {
@@ -90,12 +87,11 @@ public class CDCTimer extends Thread {
     }
 
     /**
-     *
+     * 
      * @throws gov.hhs.fha.nhinc.cdc.CDCTimerException
      * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
-    private void initialize()
-            throws CDCTimerException, PropertyAccessException {
+    private void initialize() throws CDCTimerException, PropertyAccessException {
         String refreshDuration = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, CDC_REFRESH_DURATION_PROPERTY);
         if (refreshDuration != null && !refreshDuration.equals("")) {
             m_iDurationSeconds = Integer.parseInt(refreshDuration);
@@ -120,7 +116,7 @@ public class CDCTimer extends Thread {
     }
 
     /**
-     *
+     * 
      * @return String
      */
     protected String getMonitorDirectory() {

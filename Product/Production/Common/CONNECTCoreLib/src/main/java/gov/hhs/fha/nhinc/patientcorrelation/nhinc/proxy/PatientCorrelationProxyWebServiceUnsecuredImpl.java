@@ -43,7 +43,7 @@ import org.hl7.v3.RetrievePatientCorrelationsRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCorrelationProxy {
@@ -57,41 +57,36 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
     private static final String WS_ADDRESSING_ACTION_ADD = "urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation:AddPatientCorrelationRequestMessage";
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public PatientCorrelationProxyWebServiceUnsecuredImpl()
-    {
+    public PatientCorrelationProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected PatientCorrelationPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-    {
+    protected PatientCorrelationPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         PatientCorrelationPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), PatientCorrelationPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -99,58 +94,45 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
 
-
-    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg, AssertionType assertion) {
+    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg,
+            AssertionType assertion) {
         log.debug("Begin retrievePatientCorrelations");
         RetrievePatientCorrelationsResponseType response = null;
 
-        try
-        {
+        try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SERVICE_NAME);
-            PatientCorrelationPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION_RETRIEVE, assertion);
+            PatientCorrelationPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION,
+                    WS_ADDRESSING_ACTION_RETRIEVE, assertion);
 
-            if(msg == null)
-            {
+            if (msg == null) {
                 log.error("Message was null");
-            }
-            else if(assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("assertion was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 RetrievePatientCorrelationsRequestType request = new RetrievePatientCorrelationsRequestType();
                 request.setPRPAIN201309UV02(msg);
                 request.setAssertion(assertion);
 
-                response = (RetrievePatientCorrelationsResponseType)oProxyHelper.invokePort(port, PatientCorrelationPortType.class, "retrievePatientCorrelations", request);
+                response = (RetrievePatientCorrelationsResponseType) oProxyHelper.invokePort(port,
+                        PatientCorrelationPortType.class, "retrievePatientCorrelations", request);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling retrievePatientCorrelations: " + ex.getMessage(), ex);
         }
 
@@ -162,34 +144,26 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
         log.debug("Begin addPatientCorrelation");
         AddPatientCorrelationResponseType response = null;
 
-        try
-        {
+        try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SERVICE_NAME);
-            PatientCorrelationPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION_ADD, assertion);
+            PatientCorrelationPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION_ADD,
+                    assertion);
 
-            if(msg == null)
-            {
+            if (msg == null) {
                 log.error("Message was null");
-            }
-            else if(assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("assertion was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 AddPatientCorrelationRequestType request = new AddPatientCorrelationRequestType();
                 request.setPRPAIN201301UV02(msg);
                 request.setAssertion(assertion);
 
-                response = (AddPatientCorrelationResponseType)oProxyHelper.invokePort(port, PatientCorrelationPortType.class, "addPatientCorrelation", request);
+                response = (AddPatientCorrelationResponseType) oProxyHelper.invokePort(port,
+                        PatientCorrelationPortType.class, "addPatientCorrelation", request);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling addPatientCorrelation: " + ex.getMessage(), ex);
         }
 

@@ -36,7 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class CMUrlInfosTest {
@@ -61,13 +61,12 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of clear method, of class CMUrlInfos.
-     *    This tests the clear method with a single entry in the list.
+     * Test of clear method, of class CMUrlInfos. This tests the clear method with a single entry in the list.
      */
     @Test
     public void testClearWithSingle() {
         System.out.println("testClearWithSingle");
-        
+
         CMUrlInfos instance = new CMUrlInfos();
         CMUrlInfo urlInfo = new CMUrlInfo();
         urlInfo.setHcid("1.1");
@@ -84,8 +83,7 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of clear method, of class CMUrlInfos.
-     *    This tests the clear method with a multiple entries in the list.
+     * Test of clear method, of class CMUrlInfos. This tests the clear method with a multiple entries in the list.
      */
     @Test
     public void testClearWithMultiple() {
@@ -120,8 +118,7 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of clear method, of class CMUrlInfos.
-     *    This tests the clear method when there is no entries in the list.
+     * Test of clear method, of class CMUrlInfos. This tests the clear method when there is no entries in the list.
      */
     @Test
     public void testClearWithNoEntries() {
@@ -135,8 +132,7 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of equals method, of class CMUrlInfos.
-     *    Test that two empty objects are equal
+     * Test of equals method, of class CMUrlInfos. Test that two empty objects are equal
      */
     @Test
     public void testEqualsEmptyObjects() {
@@ -151,8 +147,8 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with single entries are equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with single entries are
+     * equal
      */
     @Test
     public void testEqualsSingleEntries() {
@@ -176,8 +172,8 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with multiple entries are equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with multiple entries are
+     * equal
      */
     @Test
     public void testEqualsMultipleEntries() {
@@ -217,8 +213,8 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with multiple entries of different cases are equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with multiple entries of
+     * different cases are equal
      */
     @Test
     public void testEqualsDifferentCases() {
@@ -258,8 +254,8 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with single entries are not equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with single entries are not
+     * equal
      */
     @Test
     public void testNotEqualsSingleEntries() {
@@ -283,8 +279,8 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with multiple entries are not equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with multiple entries are
+     * not equal
      */
     @Test
     public void testNotEqualsMultipleEntriesOneMismatch() {
@@ -324,8 +320,8 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with multiple entries are not equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with multiple entries are
+     * not equal
      */
     @Test
     public void testNotEqualsMultipleEntriesTwoMismatch() {
@@ -365,8 +361,8 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with multiple entries are not equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with multiple entries are
+     * not equal
      */
     @Test
     public void testNotEqualsMultipleEntriesAllMismatch() {
@@ -406,8 +402,8 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with different sizes are not equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with different sizes are
+     * not equal
      */
     @Test
     public void testNotEqualsDifferentSizes() {
@@ -444,8 +440,8 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with single entries are not equal if one is empty
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with single entries are not
+     * equal if one is empty
      */
     @Test
     public void testNotEqualsSingleEntriesOneNull() {
@@ -465,8 +461,7 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of getUrlInfo method, of class CMUrlInfos.
-     *    Test retreiving url information from an empty list
+     * Test of getUrlInfo method, of class CMUrlInfos. Test retreiving url information from an empty list
      */
     @Test
     public void testSetGetUrlInfoNone() {
@@ -482,8 +477,7 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of getState method, of class CMInternalConnectionInfoStates.
-     *    Test retreiving url infos with a single entry
+     * Test of getState method, of class CMInternalConnectionInfoStates. Test retreiving url infos with a single entry
      */
     @Test
     public void testSetGetUrlInfoOne() {
@@ -502,8 +496,7 @@ public class CMUrlInfosTest {
     }
 
     /**
-     * Test of getState method, of class CMInternalConnectionInfoStates.
-     *    Test retreiving url infos with multiple entries
+     * Test of getState method, of class CMInternalConnectionInfoStates. Test retreiving url infos with multiple entries
      */
     @Test
     public void testSetGetUrlInfoMultiple() {

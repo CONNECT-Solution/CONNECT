@@ -44,131 +44,136 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class DocQueryPolicyChecker {
 
-  /**
-   * Checks to see if the security policy will permit the query to be executed.
-   * @param message The AdhocQuery request message.
-   * @return Returns true if the security policy permits the query; false if denied.
-   */
-  public boolean checkIncomingPolicy(AdhocQueryRequest message, AssertionType assertion) {
-    //convert the request message to an object recognized by the policy engine
-    AdhocQueryRequestMessageType request = new AdhocQueryRequestMessageType();
-    request.setAssertion(assertion);
-    request.setAdhocQueryRequest(message);
+    /**
+     * Checks to see if the security policy will permit the query to be executed.
+     * 
+     * @param message The AdhocQuery request message.
+     * @return Returns true if the security policy permits the query; false if denied.
+     */
+    public boolean checkIncomingPolicy(AdhocQueryRequest message, AssertionType assertion) {
+        // convert the request message to an object recognized by the policy engine
+        AdhocQueryRequestMessageType request = new AdhocQueryRequestMessageType();
+        request.setAssertion(assertion);
+        request.setAdhocQueryRequest(message);
 
-    AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
-    policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
-    policyCheckReq.setMessage(request);
+        AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
+        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+        policyCheckReq.setMessage(request);
 
-    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
+        CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
 
-    return checkPolicy(policyReq, assertion);
-  }
+        return checkPolicy(policyReq, assertion);
+    }
 
-  public boolean checkOutgoingPolicy(AdhocQueryRequest message, AssertionType assertion) {
-    //convert the request message to an object recognized by the policy engine
-    AdhocQueryRequestMessageType request = new AdhocQueryRequestMessageType();
-    request.setAssertion(assertion);
-    request.setAdhocQueryRequest(message);
+    public boolean checkOutgoingPolicy(AdhocQueryRequest message, AssertionType assertion) {
+        // convert the request message to an object recognized by the policy engine
+        AdhocQueryRequestMessageType request = new AdhocQueryRequestMessageType();
+        request.setAssertion(assertion);
+        request.setAdhocQueryRequest(message);
 
-    AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
-    policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
-    policyCheckReq.setMessage(request);
+        AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
+        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
+        policyCheckReq.setMessage(request);
 
-    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
+        CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
 
-    return checkPolicy(policyReq, assertion);
-  }
+        return checkPolicy(policyReq, assertion);
+    }
 
-  public boolean checkIncomingResponsePolicy(AdhocQueryResponse message, AssertionType assertion) {
-    //convert the request message to an object recognized by the policy engine
-    AdhocQueryResponseMessageType request = new AdhocQueryResponseMessageType();
-    request.setAssertion(assertion);
-    request.setAdhocQueryResponse(message);
+    public boolean checkIncomingResponsePolicy(AdhocQueryResponse message, AssertionType assertion) {
+        // convert the request message to an object recognized by the policy engine
+        AdhocQueryResponseMessageType request = new AdhocQueryResponseMessageType();
+        request.setAssertion(assertion);
+        request.setAdhocQueryResponse(message);
 
-    AdhocQueryResultEventType policyCheckReq = new AdhocQueryResultEventType();
-    policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
-    policyCheckReq.setMessage(request);
+        AdhocQueryResultEventType policyCheckReq = new AdhocQueryResultEventType();
+        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+        policyCheckReq.setMessage(request);
 
-    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
+        CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
 
-    return checkPolicy(policyReq, assertion);
-  }
+        return checkPolicy(policyReq, assertion);
+    }
 
-  public boolean checkOutgoingResponsePolicy(AdhocQueryResponse message, AssertionType assertion, HomeCommunityType receiverHcid) {
-    //convert the request message to an object recognized by the policy engine
-    AdhocQueryResponseMessageType request = new AdhocQueryResponseMessageType();
-    request.setAssertion(assertion);
-    request.setAdhocQueryResponse(message);
+    public boolean checkOutgoingResponsePolicy(AdhocQueryResponse message, AssertionType assertion,
+            HomeCommunityType receiverHcid) {
+        // convert the request message to an object recognized by the policy engine
+        AdhocQueryResponseMessageType request = new AdhocQueryResponseMessageType();
+        request.setAssertion(assertion);
+        request.setAdhocQueryResponse(message);
 
-    AdhocQueryResultEventType policyCheckReq = new AdhocQueryResultEventType();
-    policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
-    policyCheckReq.setMessage(request);
-    policyCheckReq.setReceivingHomeCommunity(receiverHcid);
+        AdhocQueryResultEventType policyCheckReq = new AdhocQueryResultEventType();
+        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
+        policyCheckReq.setMessage(request);
+        policyCheckReq.setReceivingHomeCommunity(receiverHcid);
 
-    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
+        CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
 
-    //call the policy engine to check the permission on the request
-    return checkPolicy(policyReq, assertion);
-  }
+        // call the policy engine to check the permission on the request
+        return checkPolicy(policyReq, assertion);
+    }
 
-  public boolean checkOutgoingRequestPolicy(AdhocQueryRequest message, AssertionType assertion, HomeCommunityType receiverHcid) {
-    //convert the request message to an object recognized by the policy engine
-    AdhocQueryRequestMessageType request = new AdhocQueryRequestMessageType();
-    request.setAssertion(assertion);
-    request.setAdhocQueryRequest(message);
+    public boolean checkOutgoingRequestPolicy(AdhocQueryRequest message, AssertionType assertion,
+            HomeCommunityType receiverHcid) {
+        // convert the request message to an object recognized by the policy engine
+        AdhocQueryRequestMessageType request = new AdhocQueryRequestMessageType();
+        request.setAssertion(assertion);
+        request.setAdhocQueryRequest(message);
 
-    AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
-    policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
-    policyCheckReq.setMessage(request);
-    policyCheckReq.setReceivingHomeCommunity(receiverHcid);
+        AdhocQueryRequestEventType policyCheckReq = new AdhocQueryRequestEventType();
+        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
+        policyCheckReq.setMessage(request);
+        policyCheckReq.setReceivingHomeCommunity(receiverHcid);
 
-    CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
-    
-    //call the policy engine to check the permission on the request
-    return checkPolicy(policyReq, assertion);
-  }
+        CheckPolicyRequestType policyReq = buildPolicyRequest(policyCheckReq, assertion);
 
-  protected CheckPolicyRequestType buildPolicyRequest(AdhocQueryRequestEventType policyCheckReq, AssertionType assertion) {
-    //call the policy engine to check the permission on the request
-    CheckPolicyRequestType policyReq = getPolicyChecker().checkPolicyAdhocQuery(policyCheckReq);
-    policyReq.setAssertion(assertion);
-    return policyReq;
-  }
+        // call the policy engine to check the permission on the request
+        return checkPolicy(policyReq, assertion);
+    }
 
-  protected CheckPolicyRequestType buildPolicyRequest(AdhocQueryResultEventType policyCheckResult, AssertionType assertion) {
-    //call the policy engine to check the permission on the request
-    CheckPolicyRequestType policyReq = getPolicyChecker().checkPolicyAdhocQueryResponse(policyCheckResult);
-    policyReq.setAssertion(assertion);
-    return policyReq;
-  }
+    protected CheckPolicyRequestType buildPolicyRequest(AdhocQueryRequestEventType policyCheckReq,
+            AssertionType assertion) {
+        // call the policy engine to check the permission on the request
+        CheckPolicyRequestType policyReq = getPolicyChecker().checkPolicyAdhocQuery(policyCheckReq);
+        policyReq.setAssertion(assertion);
+        return policyReq;
+    }
 
-  /**
-   * check the policy engine's response, return true if response = permit
-   * @param policyCheckReq
-   * @param assertion
-   * @return return true if response = permit
-   */
-  protected boolean checkPolicy(CheckPolicyRequestType policyReq, AssertionType assertion) {
-    CheckPolicyResponseType policyResp = getPolicyEngine().checkPolicy(policyReq, assertion);
-    return validatePolicyResponse(policyResp);
-  }
+    protected CheckPolicyRequestType buildPolicyRequest(AdhocQueryResultEventType policyCheckResult,
+            AssertionType assertion) {
+        // call the policy engine to check the permission on the request
+        CheckPolicyRequestType policyReq = getPolicyChecker().checkPolicyAdhocQueryResponse(policyCheckResult);
+        policyReq.setAssertion(assertion);
+        return policyReq;
+    }
 
-  protected PolicyEngineChecker getPolicyChecker() {
-    return new PolicyEngineChecker();
-  }
+    /**
+     * check the policy engine's response, return true if response = permit
+     * 
+     * @param policyCheckReq
+     * @param assertion
+     * @return return true if response = permit
+     */
+    protected boolean checkPolicy(CheckPolicyRequestType policyReq, AssertionType assertion) {
+        CheckPolicyResponseType policyResp = getPolicyEngine().checkPolicy(policyReq, assertion);
+        return validatePolicyResponse(policyResp);
+    }
 
-  protected PolicyEngineProxy getPolicyEngine() {
-    return (new PolicyEngineProxyObjectFactory()).getPolicyEngineProxy();
-  }
+    protected PolicyEngineChecker getPolicyChecker() {
+        return new PolicyEngineChecker();
+    }
 
-  protected boolean validatePolicyResponse(CheckPolicyResponseType policyResp) {
-    return policyResp.getResponse() != null 
-            && NullChecker.isNotNullish(policyResp.getResponse().getResult())
-            && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT;
-  }
+    protected PolicyEngineProxy getPolicyEngine() {
+        return (new PolicyEngineProxyObjectFactory()).getPolicyEngineProxy();
+    }
+
+    protected boolean validatePolicyResponse(CheckPolicyResponseType policyResp) {
+        return policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT;
+    }
 }

@@ -33,35 +33,28 @@ import java.util.Date;
 import static org.junit.Assert.*;
 
 /**
- * Created by
- * User: ralph
- * Date: May 17, 2010
- * Time: 4:12:00 PM
+ * Created by User: ralph Date: May 17, 2010 Time: 4:12:00 PM
  */
 public class AggMessageResultTest {
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() throws Exception {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() throws Exception {
     }
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
     }
 
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
     }
 
     @Test
     public void testMessageId() {
-        AggMessageResult        messageResult;
+        AggMessageResult messageResult;
 
         messageResult = new AggMessageResult();
 
@@ -72,7 +65,7 @@ public class AggMessageResultTest {
 
     @Test
     public void testMessageKey() {
-        AggMessageResult        messageResult;
+        AggMessageResult messageResult;
 
         messageResult = new AggMessageResult();
 
@@ -81,11 +74,10 @@ public class AggMessageResultTest {
         assertEquals(messageResult.getMessageKey(), "yyy456");
     }
 
-
     @Test
     public void testMessageOutTime() {
-        AggMessageResult        messageResult;
-        Date                    date;
+        AggMessageResult messageResult;
+        Date date;
 
         messageResult = new AggMessageResult();
         date = new Date();
@@ -97,8 +89,8 @@ public class AggMessageResultTest {
 
     @Test
     public void testResponseReceivedTime() {
-        AggMessageResult        messageResult;
-        Date                    date;
+        AggMessageResult messageResult;
+        Date date;
 
         messageResult = new AggMessageResult();
         date = new Date();
@@ -110,8 +102,8 @@ public class AggMessageResultTest {
 
     @Test
     public void testResponseMessageType() {
-        AggMessageResult        messageResult;
-        String                  responseType = "Response Type 1";
+        AggMessageResult messageResult;
+        String responseType = "Response Type 1";
 
         messageResult = new AggMessageResult();
 
@@ -122,8 +114,8 @@ public class AggMessageResultTest {
 
     @Test
     public void testResponseMessage() {
-        AggMessageResult        messageResult;
-        String                  message = "A simulated ResponseMessage";
+        AggMessageResult messageResult;
+        String message = "A simulated ResponseMessage";
 
         messageResult = new AggMessageResult();
 
@@ -134,8 +126,8 @@ public class AggMessageResultTest {
 
     @Test
     public void testResponseMessageAsBytes() {
-        AggMessageResult        messageResult;
-        byte[]                  message = "A simulated ResponseMessage".getBytes();
+        AggMessageResult messageResult;
+        byte[] message = "A simulated ResponseMessage".getBytes();
 
         messageResult = new AggMessageResult();
 
@@ -146,8 +138,8 @@ public class AggMessageResultTest {
 
     @Test
     public void testAggTransaction() {
-        AggMessageResult        messageResult;
-        AggTransaction          aggTrans;
+        AggMessageResult messageResult;
+        AggTransaction aggTrans;
 
         messageResult = new AggMessageResult();
         aggTrans = new AggTransaction();
@@ -158,4 +150,3 @@ public class AggMessageResultTest {
     }
 
 }
-

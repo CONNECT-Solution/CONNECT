@@ -34,7 +34,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 @WebService(serviceName = "AdapterPatientDiscoveryDeferredReqQueueProcess", portName = "AdapterPatientDiscoveryDeferredReqQueueProcessPort", endpointInterface = "gov.hhs.fha.nhinc.adapterpatientdiscoveryreqqueueprocess.AdapterPatientDiscoveryDeferredReqQueueProcessPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryreqqueueprocess", wsdlLocation = "WEB-INF/wsdl/AdapterPatientDiscoveryDeferredReqQueueProcess/AdapterPatientDiscoveryDeferredReqQueueProcess.wsdl")
@@ -50,11 +50,14 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcess {
 
     /**
      * processPatientDiscoveryDeferredReqQueue WebMethod for processing request queues on reponding gateway
+     * 
      * @param request
      * @return response
      */
-    public PatientDiscoveryDeferredReqQueueProcessResponseType processPatientDiscoveryDeferredReqQueue(PatientDiscoveryDeferredReqQueueProcessRequestType request) {
-        return getAdapterPatientDiscoveryDeferredReqQueueProcessImpl().processPatientDiscoveryDeferredReqQueue(request, context);
+    public PatientDiscoveryDeferredReqQueueProcessResponseType processPatientDiscoveryDeferredReqQueue(
+            PatientDiscoveryDeferredReqQueueProcessRequestType request) {
+        return getAdapterPatientDiscoveryDeferredReqQueueProcessImpl().processPatientDiscoveryDeferredReqQueue(request,
+                context);
     }
 
 }

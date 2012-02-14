@@ -44,41 +44,38 @@ import org.springframework.context.ApplicationContext;
  */
 @RunWith(JMock.class)
 public class NhinPatientDiscoveryProxyObjectFactoryTest {
-	Mockery context = new JUnit4Mockery();
+    Mockery context = new JUnit4Mockery();
 
-	final Log mockLog = context.mock(Log.class);
-	final NhinPatientDiscoveryProxy mockProxy = context
-			.mock(NhinPatientDiscoveryProxy.class);
-	
-	@Test
-	public void testGetNhinPatientDiscoveryProxyHappy() {
-		final ApplicationContext mockContext = context
-				.mock(ApplicationContext.class);
-		NhinPatientDiscoveryProxyObjectFactory proxyFactory = new NhinPatientDiscoveryProxyObjectFactory() {
-			@Override
-			protected Log createLogger() {
-				return mockLog;
-			}
+    final Log mockLog = context.mock(Log.class);
+    final NhinPatientDiscoveryProxy mockProxy = context.mock(NhinPatientDiscoveryProxy.class);
 
-			@Override
-			protected ApplicationContext getContext() {
-				return mockContext;
-			}
-		};
+    @Test
+    public void testGetNhinPatientDiscoveryProxyHappy() {
+        final ApplicationContext mockContext = context.mock(ApplicationContext.class);
+        NhinPatientDiscoveryProxyObjectFactory proxyFactory = new NhinPatientDiscoveryProxyObjectFactory() {
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
 
-		context.checking(new Expectations() {
-			{
-				oneOf(mockContext).getBean("nhinpatientdiscovery");
-				will(returnValue(mockProxy));
+            @Override
+            protected ApplicationContext getContext() {
+                return mockContext;
+            }
+        };
 
-			}
-		});
-		
-		NhinPatientDiscoveryProxy actualProxy = proxyFactory
-				.getNhinPatientDiscoveryProxy();
-		assertNotNull("NhinPatientDiscoveryProxy was null", actualProxy);
-		assertSame(mockProxy, actualProxy);
-		
-	}
-	
+        context.checking(new Expectations() {
+            {
+                oneOf(mockContext).getBean("nhinpatientdiscovery");
+                will(returnValue(mockProxy));
+
+            }
+        });
+
+        NhinPatientDiscoveryProxy actualProxy = proxyFactory.getNhinPatientDiscoveryProxy();
+        assertNotNull("NhinPatientDiscoveryProxy was null", actualProxy);
+        assertSame(mockProxy, actualProxy);
+
+    }
+
 }

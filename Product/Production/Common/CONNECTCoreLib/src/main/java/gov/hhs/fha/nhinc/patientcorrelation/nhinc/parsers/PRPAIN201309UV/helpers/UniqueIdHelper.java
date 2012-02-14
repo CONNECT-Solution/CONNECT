@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helper
 import org.hl7.v3.II;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class UniqueIdHelper {
@@ -39,7 +39,7 @@ public class UniqueIdHelper {
         String value;
 
         value = generateUID();
-        uniqueId.setRoot(root);  //todo: refactor
+        uniqueId.setRoot(root); // todo: refactor
         uniqueId.setExtension(value);
 
         return uniqueId;

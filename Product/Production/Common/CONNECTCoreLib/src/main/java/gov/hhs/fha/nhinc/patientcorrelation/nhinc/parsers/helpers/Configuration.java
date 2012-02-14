@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class Configuration {

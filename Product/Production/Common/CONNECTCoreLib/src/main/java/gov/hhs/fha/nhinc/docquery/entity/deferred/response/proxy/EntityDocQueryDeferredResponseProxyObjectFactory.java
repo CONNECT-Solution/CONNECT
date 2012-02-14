@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docquery.entity.deferred.response.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class EntityDocQueryDeferredResponseProxyObjectFactory extends ComponentProxyObjectFactory {

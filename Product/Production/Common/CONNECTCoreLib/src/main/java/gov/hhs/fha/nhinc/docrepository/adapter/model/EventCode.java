@@ -33,8 +33,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  * 
  * @author Neil Webb
  */
-public class EventCode
-{
+public class EventCode {
 
     private Long eventCodeId;
     private String eventCode;
@@ -42,69 +41,54 @@ public class EventCode
     private String eventCodeDisplayName;
     private Document document;
 
-    public String getEventCode()
-    {
+    public String getEventCode() {
         return eventCode;
     }
 
-    public void setEventCode(String eventCode)
-    {
+    public void setEventCode(String eventCode) {
         this.eventCode = eventCode;
     }
 
-    public String getEventCodeDisplayName()
-    {
+    public String getEventCodeDisplayName() {
         return eventCodeDisplayName;
     }
 
-    public void setEventCodeDisplayName(String eventCodeDisplayName)
-    {
+    public void setEventCodeDisplayName(String eventCodeDisplayName) {
         this.eventCodeDisplayName = eventCodeDisplayName;
     }
 
-    public Long getEventCodeId()
-    {
+    public Long getEventCodeId() {
         return eventCodeId;
     }
 
-    public void setEventCodeId(Long eventCodeId)
-    {
+    public void setEventCodeId(Long eventCodeId) {
         this.eventCodeId = eventCodeId;
     }
 
-    public String getEventCodeScheme()
-    {
+    public String getEventCodeScheme() {
         return eventCodeScheme;
     }
 
-    public void setEventCodeScheme(String eventCodeScheme)
-    {
+    public void setEventCodeScheme(String eventCodeScheme) {
         this.eventCodeScheme = eventCodeScheme;
     }
 
-    public Document getDocument()
-    {
+    public Document getDocument() {
         return document;
     }
 
-    public void setDocument(Document document)
-    {
+    public void setDocument(Document document) {
         this.document = document;
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int hashCode = 0;
-        if(eventCodeId != null)
-        {
+        if (eventCodeId != null) {
             hashCode = eventCodeId.hashCode();
-        }
-        else if(NullChecker.isNotNullish(eventCode))
-        {
+        } else if (NullChecker.isNotNullish(eventCode)) {
             hashCode = eventCode.hashCode();
-            if(NullChecker.isNotNullish(eventCodeScheme))
-            {
+            if (NullChecker.isNotNullish(eventCodeScheme)) {
                 hashCode += eventCodeScheme.hashCode();
             }
         }
@@ -112,52 +96,40 @@ public class EventCode
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null) return false;
-        if (!this.getClass().equals(obj.getClass()))
-        {
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!this.getClass().equals(obj.getClass())) {
             return false;
         }
-        EventCode toCheck = (EventCode)obj;
+        EventCode toCheck = (EventCode) obj;
 
-        if((this.getEventCodeId() == null) && (toCheck.getEventCodeId() != null))
-        {
+        if ((this.getEventCodeId() == null) && (toCheck.getEventCodeId() != null)) {
             return false;
-        }
-        else if((this.getEventCodeId() != null) && (!this.getEventCodeId().equals(toCheck.getEventCodeId())))
-        {
+        } else if ((this.getEventCodeId() != null) && (!this.getEventCodeId().equals(toCheck.getEventCodeId()))) {
             return false;
         }
 
-        if((this.getEventCode() == null) && (toCheck.getEventCode() != null))
-        {
+        if ((this.getEventCode() == null) && (toCheck.getEventCode() != null)) {
             return false;
-        }
-        else if((this.getEventCode() != null) && (!this.getEventCode().equals(toCheck.getEventCode())))
-        {
+        } else if ((this.getEventCode() != null) && (!this.getEventCode().equals(toCheck.getEventCode()))) {
             return false;
         }
 
-        if((this.getEventCodeScheme() == null) && (toCheck.getEventCodeScheme() != null))
-        {
+        if ((this.getEventCodeScheme() == null) && (toCheck.getEventCodeScheme() != null)) {
             return false;
-        }
-        else if((this.getEventCodeScheme() != null) && (!this.getEventCodeScheme().equals(toCheck.getEventCodeScheme())))
-        {
+        } else if ((this.getEventCodeScheme() != null)
+                && (!this.getEventCodeScheme().equals(toCheck.getEventCodeScheme()))) {
             return false;
         }
 
-        if((this.getEventCodeDisplayName() == null) && (toCheck.getEventCodeDisplayName() != null))
-        {
+        if ((this.getEventCodeDisplayName() == null) && (toCheck.getEventCodeDisplayName() != null)) {
             return false;
-        }
-        else if((this.getEventCodeDisplayName() != null) && (!this.getEventCodeDisplayName().equals(toCheck.getEventCodeDisplayName())))
-        {
+        } else if ((this.getEventCodeDisplayName() != null)
+                && (!this.getEventCodeDisplayName().equals(toCheck.getEventCodeDisplayName()))) {
             return false;
         }
         return true;
     }
-
 
 }

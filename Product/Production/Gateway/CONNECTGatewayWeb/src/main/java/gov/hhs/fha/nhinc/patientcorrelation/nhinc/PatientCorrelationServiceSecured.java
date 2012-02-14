@@ -49,44 +49,41 @@ import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class PatientCorrelationServiceSecured {
 
-	@Resource
-	private WebServiceContext context;
-	
-	private PatientCorrelationService<RetrievePatientCorrelationsSecuredRequestType, RetrievePatientCorrelationsSecuredResponseType, AddPatientCorrelationSecuredRequestType, AddPatientCorrelationSecuredResponseType> service;
+    @Resource
+    private WebServiceContext context;
 
-	public PatientCorrelationServiceSecured() {
-		this(PatientCorrelationServiceSecuredFactory.getInstance());
-	}
+    private PatientCorrelationService<RetrievePatientCorrelationsSecuredRequestType, RetrievePatientCorrelationsSecuredResponseType, AddPatientCorrelationSecuredRequestType, AddPatientCorrelationSecuredResponseType> service;
 
-	public PatientCorrelationServiceSecured(
-			PatientCorrelationServiceFactory<RetrievePatientCorrelationsSecuredRequestType, RetrievePatientCorrelationsSecuredResponseType, AddPatientCorrelationSecuredRequestType, AddPatientCorrelationSecuredResponseType> factory) {
-		service = factory.createPatientCorrelationService();
-	}
+    public PatientCorrelationServiceSecured() {
+        this(PatientCorrelationServiceSecuredFactory.getInstance());
+    }
 
-	public RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(
-			RetrievePatientCorrelationsSecuredRequestType request) {
-		AssertionType assertion = createAssertion(context);
-		return service.retrievePatientCorrelations(
-				request, assertion);
-	}
+    public PatientCorrelationServiceSecured(
+            PatientCorrelationServiceFactory<RetrievePatientCorrelationsSecuredRequestType, RetrievePatientCorrelationsSecuredResponseType, AddPatientCorrelationSecuredRequestType, AddPatientCorrelationSecuredResponseType> factory) {
+        service = factory.createPatientCorrelationService();
+    }
 
-	public AddPatientCorrelationSecuredResponseType addPatientCorrelation(
-			AddPatientCorrelationSecuredRequestType request) {
-		AssertionType assertion = createAssertion(context);
-		return service.addPatientCorrelation(request,
-				assertion);
-	}
+    public RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(
+            RetrievePatientCorrelationsSecuredRequestType request) {
+        AssertionType assertion = createAssertion(context);
+        return service.retrievePatientCorrelations(request, assertion);
+    }
 
-	private AssertionType createAssertion(WebServiceContext context) {
-		AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+    public AddPatientCorrelationSecuredResponseType addPatientCorrelation(
+            AddPatientCorrelationSecuredRequestType request) {
+        AssertionType assertion = createAssertion(context);
+        return service.addPatientCorrelation(request, assertion);
+    }
 
-		// Extract the message id value from the WS-Addressing Header and place
-		// it in the Assertion Class
-		if (assertion != null) {
-			assertion.setMessageId(AsyncMessageIdExtractor
-					.GetAsyncMessageId(context));
-		}
+    private AssertionType createAssertion(WebServiceContext context) {
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
-		return assertion;
-	}
+        // Extract the message id value from the WS-Addressing Header and place
+        // it in the Assertion Class
+        if (assertion != null) {
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+        }
+
+        return assertion;
+    }
 }

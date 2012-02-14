@@ -44,7 +44,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "EntityNotificationProducer", portName = "EntityNotificationProducerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntityNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl")
@@ -54,15 +54,22 @@ public class EntitySubscribeService {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentResponseType subscribeDocument(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentRequestType subscribeDocumentRequest) {
+    public gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentResponseType subscribeDocument(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentRequestType subscribeDocumentRequest) {
         return new EntitySubscribeServiceImpl().subscribeDocument(subscribeDocumentRequest);
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeCdcBioPackageResponseType subscribeCdcBioPackage(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeCdcBioPackageRequestType subscribeCdcBioPackageRequest) {
+    public gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeCdcBioPackageResponseType subscribeCdcBioPackage(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeCdcBioPackageRequestType subscribeCdcBioPackageRequest) {
         return new EntitySubscribeServiceImpl().subscribeCdcBioPackage(subscribeCdcBioPackageRequest);
     }
 
-    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestType subscribeRequest) throws UnrecognizedPolicyRequestFault, InvalidMessageContentExpressionFault, UnsupportedPolicyRequestFault, TopicNotSupportedFault, ResourceUnknownFault, NotifyMessageNotSupportedFault, InvalidTopicExpressionFault, InvalidFilterFault, SubscribeCreationFailedFault, InvalidProducerPropertiesExpressionFault, TopicExpressionDialectUnknownFault, UnacceptableInitialTerminationTimeFault {
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestType subscribeRequest)
+            throws UnrecognizedPolicyRequestFault, InvalidMessageContentExpressionFault, UnsupportedPolicyRequestFault,
+            TopicNotSupportedFault, ResourceUnknownFault, NotifyMessageNotSupportedFault, InvalidTopicExpressionFault,
+            InvalidFilterFault, SubscribeCreationFailedFault, InvalidProducerPropertiesExpressionFault,
+            TopicExpressionDialectUnknownFault, UnacceptableInitialTerminationTimeFault {
         return new EntitySubscribeServiceImpl().subscribe(subscribeRequest, context);
     }
 

@@ -33,15 +33,18 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocSubmissionDeferredResponseProxyJavaImpl implements PassthruDocSubmissionDeferredResponseProxy {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PassthruDocSubmissionDeferredResponseProxyJavaImpl.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(PassthruDocSubmissionDeferredResponseProxyJavaImpl.class);
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request,
+            AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Using Java Implementation for Passthru Doc Submission Deferred Response Service");
-        return new PassthruDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(request, assertion, targetSystem);
+        return new PassthruDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(request,
+                assertion, targetSystem);
     }
 
 }

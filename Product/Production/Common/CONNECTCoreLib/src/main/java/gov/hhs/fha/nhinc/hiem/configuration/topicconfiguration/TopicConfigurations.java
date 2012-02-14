@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class TopicConfigurations {
@@ -39,7 +39,7 @@ public class TopicConfigurations {
     /**
      * Default Constructor.
      */
-    public TopicConfigurations () {
+    public TopicConfigurations() {
         clear();
     }
 
@@ -52,11 +52,10 @@ public class TopicConfigurations {
 
     /**
      * This returns a list of TopicConfiguration objects.
-     *
+     * 
      * @return The list of topic configuration objects.
      */
-    public List<TopicConfigurationEntry> getTopicConfigurations()
-    {
+    public List<TopicConfigurationEntry> getTopicConfigurations() {
         return topicConfigurations;
     }
 }

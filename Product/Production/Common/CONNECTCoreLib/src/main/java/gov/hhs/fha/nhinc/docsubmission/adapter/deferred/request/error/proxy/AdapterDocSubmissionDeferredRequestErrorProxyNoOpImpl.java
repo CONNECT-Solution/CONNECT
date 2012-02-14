@@ -35,25 +35,23 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
-public class AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl implements AdapterDocSubmissionDeferredRequestErrorProxy
-{
+public class AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl implements
+        AdapterDocSubmissionDeferredRequestErrorProxy {
     private Log log = null;
 
-    public AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl()
-    {
+    public AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
+            ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.provideAndRegisterDocumentSetBRequestError");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

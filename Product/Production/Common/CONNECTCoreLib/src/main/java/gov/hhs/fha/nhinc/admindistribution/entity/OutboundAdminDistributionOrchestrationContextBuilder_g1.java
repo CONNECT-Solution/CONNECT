@@ -31,10 +31,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author nnguyen
  */
-public class OutboundAdminDistributionOrchestrationContextBuilder_g1 extends OutboundAdminDistributionOrchestrationContextBuilder {
+public class OutboundAdminDistributionOrchestrationContextBuilder_g1 extends
+        OutboundAdminDistributionOrchestrationContextBuilder {
 
     private static Log log = LogFactory.getLog(OutboundAdminDistributionOrchestrationContextBuilder_g1.class);
 
@@ -42,7 +43,8 @@ public class OutboundAdminDistributionOrchestrationContextBuilder_g1 extends Out
     public OrchestrationContext build() {
         getLog().debug("begin build");
         return new OrchestrationContext(new OutboundAdminDistributionStrategyImpl_g1(),
-                new OutboundAdminDistributionOrchestratable( getNhinDelegate(), getRequest(), getTargetSystem(), getAssertionType()));
+                new OutboundAdminDistributionOrchestratable(getNhinDelegate(), getRequest(), getTargetSystem(),
+                        getAssertionType()));
     }
 
     @Override

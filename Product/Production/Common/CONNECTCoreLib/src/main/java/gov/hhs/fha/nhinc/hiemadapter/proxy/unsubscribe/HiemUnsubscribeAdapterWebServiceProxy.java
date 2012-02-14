@@ -50,7 +50,7 @@ import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class HiemUnsubscribeAdapterWebServiceProxy implements HiemUnsubscribeAdapterProxy {
@@ -65,7 +65,8 @@ public class HiemUnsubscribeAdapterWebServiceProxy implements HiemUnsubscribeAda
     private static final String PORT_LOCAL_PART = "AdapterSubscriptionManagerPortSoap";
     private static final String WSDL_FILE = "AdapterSubscriptionManagement.wsdl";
 
-    public Element unsubscribe(Element unsubscribeElement, ReferenceParametersElements referenceParametersElements, AssertionType assertion, NhinTargetSystemType target) {
+    public Element unsubscribe(Element unsubscribeElement, ReferenceParametersElements referenceParametersElements,
+            AssertionType assertion, NhinTargetSystemType target) {
         Element responseElement = null;
 
         String url = getUrl(target, NhincConstants.HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_NAME);
@@ -86,7 +87,8 @@ public class HiemUnsubscribeAdapterWebServiceProxy implements HiemUnsubscribeAda
             adapterUnsubscribeRequest.setAssertion(assertion);
 
             log.debug("invoking unsubscribe port");
-	        //The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
+            // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method
+            // invocation
             UnsubscribeResponse response = port.unsubscribe(adapterUnsubscribeRequest);
 
             log.debug("building response");
@@ -109,58 +111,46 @@ public class HiemUnsubscribeAdapterWebServiceProxy implements HiemUnsubscribeAda
             try {
                 url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName);
             } catch (ConnectionManagerException ex) {
-                log.warn("exception occurred accessing url from connection manager (getLocalEndpointURLByServiceName)", ex);
+                log.warn("exception occurred accessing url from connection manager (getLocalEndpointURLByServiceName)",
+                        ex);
             }
         }
         return url;
     }
 
-    private AdapterSubscriptionManagerPortType getPort(String url, AssertionType assertIn)
-    {
+    private AdapterSubscriptionManagerPortType getPort(String url, AssertionType assertIn) {
         AdapterSubscriptionManagerPortType oPort = null;
         try {
             Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-            if (oService != null)
-            {
+            if (oService != null) {
                 log.debug("subscribe() Obtained service - creating port.");
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-                            AdapterSubscriptionManagerPortType.class);
+                        AdapterSubscriptionManagerPortType.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort,
-                        url, null, assertIn);
-             }
-            else
-            {
+                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, null, assertIn);
+            } else {
                 log.error("Unable to obtain service - no port created.");
             }
-        } catch (Throwable t)
-            {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+        }
         return oPort;
     }
 
-    private WebServiceProxyHelper getWebServiceProxyHelper()
-    {
-        if (oProxyHelper == null)
-        {
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
             oProxyHelper = new WebServiceProxyHelper();
         }
         return oProxyHelper;
     }
 
-    private Service getService(String wsdl, String uri, String service)
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    private Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
                 cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }

@@ -39,11 +39,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This is the concrete implementation for the Web based call to the
- * AdapterPEP.
+ * This is the concrete implementation for the Web based call to the AdapterPEP.
  */
-public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy
-{
+public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpep";
@@ -54,43 +52,37 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy
 
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public AdapterPEPProxyWebServiceUnsecuredImpl()
-    {
+    public AdapterPEPProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected AdapterPEPPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-    {
+    protected AdapterPEPPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
         AdapterPEPPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterPEPPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -98,19 +90,14 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
@@ -118,40 +105,34 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy
     }
 
     /**
-     * Given a request to check the access policy, this service will interface
-     * with the PDP to determine if access is to be granted or denied.
+     * Given a request to check the access policy, this service will interface with the PDP to determine if access is to
+     * be granted or denied.
+     * 
      * @param request The xacml request to check defined policy
      * @return The xacml response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType request, AssertionType assertion)
-    {
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType request, AssertionType assertion) {
         log.debug("Begin AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy");
         CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();
         String serviceName = NhincConstants.ADAPTER_PEP_SERVICE_NAME;
 
-        try
-        {
+        try {
             log.debug("Before target system URL look up.");
             String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
-            if(log.isDebugEnabled())
-            {
+            if (log.isDebugEnabled()) {
                 log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
             }
 
-            if (NullChecker.isNotNullish(url))
-            {
+            if (NullChecker.isNotNullish(url)) {
                 AdapterPEPPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-                checkPolicyResponse = (CheckPolicyResponseType)oProxyHelper.invokePort(port, AdapterPEPPortType.class, "checkPolicy", request);
-            }
-            else
-            {
+                checkPolicyResponse = (CheckPolicyResponseType) oProxyHelper.invokePort(port, AdapterPEPPortType.class,
+                        "checkPolicy", request);
+            } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
-        }
-        catch (Exception ex)
-        {
-            String message = "Error occurred calling AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy.  Error: " +
-                                   ex.getMessage();
+        } catch (Exception ex) {
+            String message = "Error occurred calling AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy.  Error: "
+                    + ex.getMessage();
             log.error(message, ex);
             throw new RuntimeException(message, ex);
         }

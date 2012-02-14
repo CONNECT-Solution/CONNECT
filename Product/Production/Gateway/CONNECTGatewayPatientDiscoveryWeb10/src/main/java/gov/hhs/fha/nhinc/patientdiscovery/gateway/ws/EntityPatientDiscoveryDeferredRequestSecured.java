@@ -40,35 +40,31 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
 @WebService(serviceName = "EntityPatientDiscoverySecuredAsyncReq", portName = "EntityPatientDiscoverySecuredAsyncReqPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitypatientdiscoverysecuredasyncreq.EntityPatientDiscoverySecuredAsyncReqPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryDeferredRequestSecured/EntityPatientDiscoverySecuredAsyncReq.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityPatientDiscoveryDeferredRequestSecured extends
-		PatientDiscoveryBase {
+public class EntityPatientDiscoveryDeferredRequestSecured extends PatientDiscoveryBase {
 
-	@Resource
-	private WebServiceContext context;
+    @Resource
+    private WebServiceContext context;
 
-	public EntityPatientDiscoveryDeferredRequestSecured() {
-		super();
-	}
+    public EntityPatientDiscoveryDeferredRequestSecured() {
+        super();
+    }
 
-	public EntityPatientDiscoveryDeferredRequestSecured(
-			PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
+    public EntityPatientDiscoveryDeferredRequestSecured(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
 
-	public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(
-			RespondingGatewayPRPAIN201305UV02SecuredRequestType request) {
-		MCCIIN000002UV01 response = null;
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02SecuredRequestType request) {
+        MCCIIN000002UV01 response = null;
 
-		EntityPatientDiscoveryDeferredRequestImpl serviceImpl = getServiceFactory()
-		.getEntityPatientDiscoveryDeferredRequestImpl();
-		if (serviceImpl != null) {
-			response = serviceImpl.processPatientDiscoveryAsyncRequestSecured(
-					request, getWebServiceContext());
-		}
-		return response;
-	}
+        EntityPatientDiscoveryDeferredRequestImpl serviceImpl = getServiceFactory()
+                .getEntityPatientDiscoveryDeferredRequestImpl();
+        if (serviceImpl != null) {
+            response = serviceImpl.processPatientDiscoveryAsyncRequestSecured(request, getWebServiceContext());
+        }
+        return response;
+    }
 
-	protected WebServiceContext getWebServiceContext() {
-		return context;
-	}
+    protected WebServiceContext getWebServiceContext() {
+        return context;
+    }
 }

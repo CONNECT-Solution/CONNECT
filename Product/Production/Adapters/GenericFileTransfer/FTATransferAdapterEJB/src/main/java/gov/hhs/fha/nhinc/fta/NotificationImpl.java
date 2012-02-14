@@ -44,57 +44,46 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class NotificationImpl
-{
+public class NotificationImpl {
     private static Log log = LogFactory.getLog(NotificationImpl.class);
 
-        public static AcknowledgementType processNotify(Notify request)
-        {
+    public static AcknowledgementType processNotify(Notify request) {
         AcknowledgementType result = new AcknowledgementType();
 
-        try
-        {
-            for(NotificationMessageHolderType msgHolder : request.getNotificationMessage())
-            {
+        try {
+            for (NotificationMessageHolderType msgHolder : request.getNotificationMessage()) {
                 result = processNotifyMsg(msgHolder);
             }
-        }
-        catch(Exception ex)
-        {
-            log.error(ex.getMessage(), ex);
-            result.setMessage("Unable to process: " + ex.getMessage());
-        }
-
-        return result;
-        }
-    public static AcknowledgementType processNotify(NotifyRequestType notifyRequest)
-    {
-        AcknowledgementType result = new AcknowledgementType();
-
-        try
-        {
-            for(NotificationMessageHolderType msgHolder :notifyRequest.getNotify().getNotificationMessage())
-            {
-                result = processNotifyMsg(msgHolder);
-            }
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             result.setMessage("Unable to process: " + ex.getMessage());
         }
 
         return result;
     }
-    private static AcknowledgementType processNotifyMsg(NotificationMessageHolderType msgHolder )
-    {
+
+    public static AcknowledgementType processNotify(NotifyRequestType notifyRequest) {
+        AcknowledgementType result = new AcknowledgementType();
+
+        try {
+            for (NotificationMessageHolderType msgHolder : notifyRequest.getNotify().getNotificationMessage()) {
+                result = processNotifyMsg(msgHolder);
+            }
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+            result.setMessage("Unable to process: " + ex.getMessage());
+        }
+
+        return result;
+    }
+
+    private static AcknowledgementType processNotifyMsg(NotificationMessageHolderType msgHolder) {
         AcknowledgementType result = new AcknowledgementType();
         String topic = null;
-        if((msgHolder != null) && (msgHolder.getTopic() != null))
-        {
+        if ((msgHolder != null) && (msgHolder.getTopic() != null)) {
             topic = (String) msgHolder.getTopic().getContent().get(0);
         }
 
@@ -102,52 +91,44 @@ public class NotificationImpl
 
         FTAChannel channel = Util.getChannelByTopic(config.getOutboundChannels(), topic);
 
-        if (channel == null)
-        {
+        if (channel == null) {
             result.setMessage("Topic: " + topic + " not defined. ");
-        }
-        else
-        {
+        } else {
             result = processChannel(channel, msgHolder.getMessage());
         }
 
         return result;
     }
-    private static AcknowledgementType processChannel(FTAChannel channel, Message msg)
-    {
+
+    private static AcknowledgementType processChannel(FTAChannel channel, Message msg) {
         AcknowledgementType result = new AcknowledgementType();
 
         org.w3c.dom.Element element = (org.w3c.dom.Element) msg.getAny();
         String contents = Util.unmarshalPayload(element);
-        try
-        {
+        try {
             saveFile(contents, channel.getLocation());
             result.setMessage("Success");
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             result.setMessage("unable to create text file: " + ex.getMessage());
         }
         return result;
     }
-    public static void saveFile(String fileContents, String dirName) throws Exception
-    {
-        String fileName = generateUID().replaceAll("[-:<>*?\\/]", "") + ".txt";
-        
-        File f = new File(dirName, fileName);
 
+    public static void saveFile(String fileContents, String dirName) throws Exception {
+        String fileName = generateUID().replaceAll("[-:<>*?\\/]", "") + ".txt";
+
+        File f = new File(dirName, fileName);
 
         Writer output = null;
         f.createNewFile();
         output = new BufferedWriter(new FileWriter(f));
-        output.write( fileContents );
+        output.write(fileContents);
         output.close();
 
-
     }
-    private static String generateUID()
-    {
+
+    private static String generateUID() {
         java.rmi.server.UID uid = new java.rmi.server.UID();
         return uid.toString();
     }

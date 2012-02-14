@@ -31,8 +31,7 @@ package gov.hhs.fha.nhinc.connectmgr.data;
  * 
  * @author Les Westberg
  */
-public class CMHomeCommunity
-{
+public class CMHomeCommunity {
     private String homeCommunityId = "";
     private String name = "";
     private String description = "";
@@ -40,45 +39,38 @@ public class CMHomeCommunity
     /**
      * Default constructor.
      */
-    public CMHomeCommunity()
-    {
+    public CMHomeCommunity() {
         clear();
     }
-    
+
     /**
      * Set this object to its default state.
      */
-    public void clear()
-    {
+    public void clear() {
         homeCommunityId = "";
         name = "";
         description = "";
     }
-    
+
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
+     * Returns true of the contents of the object are the same as the one passed in.
      * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMHomeCommunity oCompare)
-    {
-        if (!this.homeCommunityId.equals(oCompare.homeCommunityId))
-        {
-            return false;
-        }
-        
-        if (!this.name.equals(oCompare.name))
-        {
+    public boolean equals(CMHomeCommunity oCompare) {
+        if (!this.homeCommunityId.equals(oCompare.homeCommunityId)) {
             return false;
         }
 
-        if (!this.description.equals(oCompare.description))
-        {
+        if (!this.name.equals(oCompare.name)) {
             return false;
         }
-        
+
+        if (!this.description.equals(oCompare.description)) {
+            return false;
+        }
+
         return true;
     }
 
@@ -87,8 +79,7 @@ public class CMHomeCommunity
      * 
      * @return The description of the home community.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
@@ -97,8 +88,7 @@ public class CMHomeCommunity
      * 
      * @param description The description of the home community.
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -107,8 +97,7 @@ public class CMHomeCommunity
      * 
      * @return The home community Id for this home community.
      */
-    public String getHomeCommunityId()
-    {
+    public String getHomeCommunityId() {
         return homeCommunityId;
     }
 
@@ -117,8 +106,7 @@ public class CMHomeCommunity
      * 
      * @param homeCommunityId The home community Id for this home community.
      */
-    public void setHomeCommunityId(String homeCommunityId)
-    {
+    public void setHomeCommunityId(String homeCommunityId) {
         this.homeCommunityId = homeCommunityId;
     }
 
@@ -127,8 +115,7 @@ public class CMHomeCommunity
      * 
      * @return The name of this home community.
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -137,9 +124,8 @@ public class CMHomeCommunity
      * 
      * @param name The name of this home community.
      */
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
-    
+
 }

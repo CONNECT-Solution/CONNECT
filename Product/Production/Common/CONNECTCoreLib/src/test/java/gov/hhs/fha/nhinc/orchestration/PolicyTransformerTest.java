@@ -35,7 +35,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class PolicyTransformerTest {
@@ -72,8 +72,8 @@ public class PolicyTransformerTest {
     }
 
     public class PolicyTransformerImpl implements PolicyTransformer {
-        public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transform(Orchestratable message, Direction direction)
-        {
+        public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transform(Orchestratable message,
+                Direction direction) {
             return null;
         }
     }

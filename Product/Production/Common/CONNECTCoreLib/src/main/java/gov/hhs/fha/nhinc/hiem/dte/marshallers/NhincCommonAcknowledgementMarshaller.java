@@ -31,7 +31,7 @@ import javax.xml.bind.JAXBElement;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class NhincCommonAcknowledgementMarshaller {
@@ -39,7 +39,7 @@ public class NhincCommonAcknowledgementMarshaller {
     private static final String ContextPath = "gov.hhs.fha.nhinc.common.nhinccommon";
 
     public Element marshal(AcknowledgementType object) {
-//        return new Marshaller().marshal(object, NhincCommonAcknowledgementContextPath);
+        // return new Marshaller().marshal(object, NhincCommonAcknowledgementContextPath);
 
         gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory objectFactory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
         JAXBElement<AcknowledgementType> jaxb = objectFactory.createAcknowledgement(object);
@@ -49,7 +49,7 @@ public class NhincCommonAcknowledgementMarshaller {
     }
 
     public AcknowledgementType unmarshal(Element element) {
-        //return (AcknowledgementType) new Marshaller().unmarshal(element, NhincCommonAcknowledgementContextPath);
+        // return (AcknowledgementType) new Marshaller().unmarshal(element, NhincCommonAcknowledgementContextPath);
         return (AcknowledgementType) new Marshaller().unmarshallJaxbElement(element, ContextPath);
     }
 }

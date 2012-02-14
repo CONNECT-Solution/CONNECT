@@ -39,10 +39,7 @@ import org.junit.*;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by
- * User: ralph
- * Date: Jul 29, 2010
- * Time: 4:00:08 PM
+ * Created by User: ralph Date: Jul 29, 2010 Time: 4:00:08 PM
  */
 public class AdapterDocRetrieveDeferredRespNoOpImplTest {
     private Mockery context;
@@ -71,63 +68,62 @@ public class AdapterDocRetrieveDeferredRespNoOpImplTest {
     public void tearDown() {
     }
 
-     @Test
-     public void testReceiveFromAdapter() {
-         //
-         // Define mock objects
-         //
-         final AdapterDocRetrieveDeferredRespProxyNoOpImpl                        mockAdapterDocRetrieveDeferredRespNoOpImpl;
-         final RetrieveDocumentSetResponseType     mockRetrieveDocumentSetResponseType;
-         final AssertionType                                                mockAssertionType;
-         final DocRetrieveAcknowledgementType                               mockAck;
+    @Test
+    public void testReceiveFromAdapter() {
+        //
+        // Define mock objects
+        //
+        final AdapterDocRetrieveDeferredRespProxyNoOpImpl mockAdapterDocRetrieveDeferredRespNoOpImpl;
+        final RetrieveDocumentSetResponseType mockRetrieveDocumentSetResponseType;
+        final AssertionType mockAssertionType;
+        final DocRetrieveAcknowledgementType mockAck;
 
-         //
-         // Define the class to be tested and it's inputs and outputs.
-         //
-         AdapterDocRetrieveDeferredRespProxyNoOpImpl                              docRetrieve;
-         RespondingGatewayCrossGatewayRetrieveSecuredResponseType           req;
-         AssertionType                                                      assertionType;
-         RetrieveDocumentSetResponseType                                    retrieveDocumentSetResponseType;
-         DocRetrieveAcknowledgementType                                     ack;
+        //
+        // Define the class to be tested and it's inputs and outputs.
+        //
+        AdapterDocRetrieveDeferredRespProxyNoOpImpl docRetrieve;
+        RespondingGatewayCrossGatewayRetrieveSecuredResponseType req;
+        AssertionType assertionType;
+        RetrieveDocumentSetResponseType retrieveDocumentSetResponseType;
+        DocRetrieveAcknowledgementType ack;
 
-         //
-         // Instantiate the mock objects.
-         //
-         mockAdapterDocRetrieveDeferredRespNoOpImpl = context.mock(AdapterDocRetrieveDeferredRespProxyNoOpImpl.class);
-         mockRetrieveDocumentSetResponseType = context.mock(RetrieveDocumentSetResponseType.class);
-         mockAssertionType = context.mock(AssertionType.class);
-         mockAck = context.mock(DocRetrieveAcknowledgementType.class);
+        //
+        // Instantiate the mock objects.
+        //
+        mockAdapterDocRetrieveDeferredRespNoOpImpl = context.mock(AdapterDocRetrieveDeferredRespProxyNoOpImpl.class);
+        mockRetrieveDocumentSetResponseType = context.mock(RetrieveDocumentSetResponseType.class);
+        mockAssertionType = context.mock(AssertionType.class);
+        mockAck = context.mock(DocRetrieveAcknowledgementType.class);
 
-         //
-         // Set up the expectations using the instantiated mock objects.
-         //
-         context.checking(new Expectations() {
-             {
-                 allowing(mockAdapterDocRetrieveDeferredRespNoOpImpl).sendToAdapter(mockRetrieveDocumentSetResponseType,
-                                                                             mockAssertionType);
-                 will(returnValue(mockAck));
-             }
-         });
+        //
+        // Set up the expectations using the instantiated mock objects.
+        //
+        context.checking(new Expectations() {
+            {
+                allowing(mockAdapterDocRetrieveDeferredRespNoOpImpl).sendToAdapter(mockRetrieveDocumentSetResponseType,
+                        mockAssertionType);
+                will(returnValue(mockAck));
+            }
+        });
 
-         //
-         // Instantiate the object to be tested and it's inputs.
-         //
-         docRetrieve = new AdapterDocRetrieveDeferredRespProxyNoOpImpl();
-         assertionType = new AssertionType();
-         retrieveDocumentSetResponseType = new RetrieveDocumentSetResponseType();
-         req = new RespondingGatewayCrossGatewayRetrieveSecuredResponseType();
-         req.setRetrieveDocumentSetResponse(retrieveDocumentSetResponseType);
+        //
+        // Instantiate the object to be tested and it's inputs.
+        //
+        docRetrieve = new AdapterDocRetrieveDeferredRespProxyNoOpImpl();
+        assertionType = new AssertionType();
+        retrieveDocumentSetResponseType = new RetrieveDocumentSetResponseType();
+        req = new RespondingGatewayCrossGatewayRetrieveSecuredResponseType();
+        req.setRetrieveDocumentSetResponse(retrieveDocumentSetResponseType);
 
-         //
-         // Run the test.
-         //
-         ack = docRetrieve.sendToAdapter(retrieveDocumentSetResponseType, assertionType);
+        //
+        // Run the test.
+        //
+        ack = docRetrieve.sendToAdapter(retrieveDocumentSetResponseType, assertionType);
 
-         //
-         // Check the results.
-         //
-         assertNotNull("Ack was null", ack);
-         context.assertIsSatisfied();
-     }
+        //
+        // Check the results.
+        //
+        assertNotNull("Ack was null", ack);
+        context.assertIsSatisfied();
+    }
 }
-

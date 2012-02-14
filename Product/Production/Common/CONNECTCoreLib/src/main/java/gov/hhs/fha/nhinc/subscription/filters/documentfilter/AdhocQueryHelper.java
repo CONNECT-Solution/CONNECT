@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.subscription.filters.documentfilter;
+
 //import gov.hhs.fha.nhinc.NHINCLib.NullChecker;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
@@ -35,19 +36,19 @@ import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class AdhocQueryHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(AdhocQueryHelper.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(AdhocQueryHelper.class);
 
     public static AdhocQueryType getAdhocQuery(Subscribe nhinSubscribe) {
         AdhocQueryType adhocQuery = null;
         log.info("begin getAdhocQuery");
         List<Object> any = nhinSubscribe.getAny();
         log.info("found " + any.size() + " any item(s)");
-
 
         for (Object anyItem : any) {
             log.info("anyItem=" + anyItem);
@@ -60,7 +61,7 @@ public class AdhocQueryHelper {
 
                 Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) nhinSubscribe.getAny();
 
-            //  Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
+                // Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
             }
             if (anyItem instanceof JAXBElement) {
                 log.info("jaxbelement.getValue=" + ((JAXBElement) anyItem).getValue());
@@ -117,7 +118,8 @@ public class AdhocQueryHelper {
         return matchingSlotValues;
     }
 
-    public static String findSlotValue(Subscribe nhinSubscribe, String slotName) throws MultipleSlotValuesFoundException {
+    public static String findSlotValue(Subscribe nhinSubscribe, String slotName)
+            throws MultipleSlotValuesFoundException {
         List<String> slotValues = findSlotValues(nhinSubscribe, slotName);
         return findSingleSlotValue(slotValues);
     }

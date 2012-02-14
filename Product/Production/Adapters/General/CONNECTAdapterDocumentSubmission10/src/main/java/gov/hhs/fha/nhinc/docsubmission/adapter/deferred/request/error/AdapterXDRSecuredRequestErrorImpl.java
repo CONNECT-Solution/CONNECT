@@ -38,33 +38,29 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
-public class AdapterXDRSecuredRequestErrorImpl
-{
+public class AdapterXDRSecuredRequestErrorImpl {
     private Log log = null;
 
-    public AdapterXDRSecuredRequestErrorImpl()
-    {
+    public AdapterXDRSecuredRequestErrorImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(AdapterProvideAndRegisterDocumentSetRequestErrorSecuredType body, WebServiceContext context)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
+            AdapterProvideAndRegisterDocumentSetRequestErrorSecuredType body, WebServiceContext context) {
         log.debug("Begin AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(secured)");
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
         String errorMessage = null;
         AssertionType assertion = null;
-        if (body != null)
-        {
+        if (body != null) {
             request = body.getProvideAndRegisterDocumentSetRequest();
             errorMessage = body.getErrorMsg();
         }
@@ -75,16 +71,15 @@ public class AdapterXDRSecuredRequestErrorImpl
         return response;
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(AdapterProvideAndRegisterDocumentSetRequestErrorType body, WebServiceContext context)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
+            AdapterProvideAndRegisterDocumentSetRequestErrorType body, WebServiceContext context) {
         log.debug("Begin AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(unsecured)");
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
         String errorMessage = null;
         AssertionType assertion = null;
-        if (body != null)
-        {
+        if (body != null) {
             request = body.getProvideAndRegisterDocumentSetRequest();
             errorMessage = body.getErrorMsg();
             assertion = body.getAssertion();
@@ -96,28 +91,24 @@ public class AdapterXDRSecuredRequestErrorImpl
         return response;
     }
 
-    protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn)
-    {
+    protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
-        if (oAssertionIn == null)
-        {
+        if (oAssertionIn == null) {
             assertion = SamlTokenExtractor.GetAssertion(context);
-        }
-        else
-        {
+        } else {
             assertion = oAssertionIn;
         }
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null)
-        {
+        if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
 
         return assertion;
     }
 
-    protected XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion)
-    {
-        return new AdapterDocSubmissionDeferredRequestErrorOrchImpl().provideAndRegisterDocumentSetBRequestError(request, errorMessage, assertion);
+    protected XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
+            ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
+        return new AdapterDocSubmissionDeferredRequestErrorOrchImpl().provideAndRegisterDocumentSetBRequestError(
+                request, errorMessage, assertion);
     }
 }

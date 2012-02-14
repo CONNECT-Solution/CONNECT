@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.xmlCommon;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class XmlUtfHelper {
@@ -53,14 +53,14 @@ public class XmlUtfHelper {
     }
 
     public static String convertToUtf8(String xml) {
-        return convertToUtf(xml, XMLHEADER_UTF8) ;
+        return convertToUtf(xml, XMLHEADER_UTF8);
     }
 
     public static String convertToUtf16(String xml) {
-        return convertToUtf(xml, XMLHEADER_UTF16) ;
+        return convertToUtf(xml, XMLHEADER_UTF16);
     }
 
-    public static String convertToUtf(String xml ,String utf) {
+    public static String convertToUtf(String xml, String utf) {
         return utf + xml.substring(xml.indexOf("?>") + 2);
     }
 }

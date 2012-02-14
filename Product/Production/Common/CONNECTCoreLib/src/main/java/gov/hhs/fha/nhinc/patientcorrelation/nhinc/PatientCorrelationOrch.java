@@ -35,8 +35,10 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
 public interface PatientCorrelationOrch {
 
-	public abstract AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 addPatientCorrelationRequest, AssertionType assertion);
+    public abstract AddPatientCorrelationResponseType addPatientCorrelation(
+            PRPAIN201301UV02 addPatientCorrelationRequest, AssertionType assertion);
 
-	public abstract RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion);
+    public abstract RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
+            PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion);
 
 }

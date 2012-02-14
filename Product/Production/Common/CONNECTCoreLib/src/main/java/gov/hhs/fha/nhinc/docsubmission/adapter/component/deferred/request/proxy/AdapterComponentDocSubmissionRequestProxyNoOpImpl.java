@@ -33,42 +33,39 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class AdapterComponentDocSubmissionRequestProxyNoOpImpl implements AdapterComponentDocSubmissionRequestProxy
-{
+public class AdapterComponentDocSubmissionRequestProxyNoOpImpl implements AdapterComponentDocSubmissionRequestProxy {
 
     private Log log = null;
 
     /**
      * Default constructor.
      */
-    public AdapterComponentDocSubmissionRequestProxyNoOpImpl()
-    {
+    public AdapterComponentDocSubmissionRequestProxyNoOpImpl() {
         log = createLogger();
     }
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**
      * Receive document deferred document submission request.
-     *
+     * 
      * @param body The doc submission message.
      * @param assertion The assertion information.
-     * @param url The URL 
+     * @param url The URL
      * @return The ACK
      */
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, String url)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion, String url) {
 
         log.debug("Entering AdapterComponentDocSubmissionRequestProxyNoOpImpl.provideAndRegisterDocumentSetBRequest");
         return new XDRAcknowledgementType();

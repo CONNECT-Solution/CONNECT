@@ -45,14 +45,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class AdapterPEPServiceImplTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class AdapterPEPServiceImplTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -62,24 +60,18 @@ public class AdapterPEPServiceImplTest
     final AdapterPEPImpl mockAdapterPEPImpl = context.mock(AdapterPEPImpl.class);
 
     @Test
-    public void testCreateLogger()
-    {
-        try
-        {
-            AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl()
-            {
+    public void testCreateLogger() {
+        try {
+            AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
             };
 
             Log log = sut.createLogger();
             assertNotNull("Log was null", log);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger: " + t.getMessage());
@@ -87,29 +79,23 @@ public class AdapterPEPServiceImplTest
     }
 
     @Test
-    public void testGetAdapterPEPImpl()
-    {
-        try
-        {
-            AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl()
-            {
+    public void testGetAdapterPEPImpl() {
+        try {
+            AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected AdapterPEPImpl getAdapterPEPImpl()
-                {
+                protected AdapterPEPImpl getAdapterPEPImpl() {
                     return mockAdapterPEPImpl;
                 }
             };
 
             AdapterPEPImpl pepImpl = sut.getAdapterPEPImpl();
             assertNotNull("AdapterPEPImpl was null", pepImpl);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetAdapterPEPImpl: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetAdapterPEPImpl: " + t.getMessage());
@@ -117,29 +103,23 @@ public class AdapterPEPServiceImplTest
     }
 
     @Test
-    public void testLoadAssertion()
-    {
-        try
-        {
-            AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl()
-            {
+    public void testLoadAssertion() {
+        try {
+            AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
-                {
+                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                 }
             };
 
             final AssertionType mockAssertion = context.mock(AssertionType.class);
             sut.loadAssertion(mockAssertion, mockWebServiceContext);
             assertTrue("Passed loadAssertion", true);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testLoadAssertion: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testLoadAssertion: " + t.getMessage());
@@ -147,32 +127,28 @@ public class AdapterPEPServiceImplTest
     }
 
     @Test
-    public void testCheckPolicyHappy()
-    {
-        try
-        {
-            AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl()
-            {
+    public void testCheckPolicyHappy() {
+        try {
+            AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected AdapterPEPImpl getAdapterPEPImpl()
-                {
+                protected AdapterPEPImpl getAdapterPEPImpl() {
                     return mockAdapterPEPImpl;
                 }
+
                 @Override
-                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
-                {
+                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockAdapterPEPImpl).checkPolicy(with(aNonNull(CheckPolicyRequestType.class)), with(aNonNull(AssertionType.class)));
+                    oneOf(mockAdapterPEPImpl).checkPolicy(with(aNonNull(CheckPolicyRequestType.class)),
+                            with(aNonNull(AssertionType.class)));
                 }
             });
 
@@ -181,9 +157,7 @@ public class AdapterPEPServiceImplTest
             request.setAssertion(assertion);
             CheckPolicyResponseType response = sut.checkPolicy(request, mockWebServiceContext);
             assertNotNull("CheckPolicyResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCheckPolicyHappy: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCheckPolicyHappy: " + t.getMessage());
@@ -191,30 +165,25 @@ public class AdapterPEPServiceImplTest
     }
 
     @Test
-    public void testCheckPolicyException()
-    {
-        try
-        {
-            AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl()
-            {
+    public void testCheckPolicyException() {
+        try {
+            AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected AdapterPEPImpl getAdapterPEPImpl()
-                {
+                protected AdapterPEPImpl getAdapterPEPImpl() {
                     return mockAdapterPEPImpl;
                 }
+
                 @Override
-                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
-                {
+                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                     throw new IllegalArgumentException("Forced error.");
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(IllegalArgumentException.class)));
@@ -225,13 +194,10 @@ public class AdapterPEPServiceImplTest
 
             sut.checkPolicy(request, mockWebServiceContext);
             fail("Should have had exception.");
-        }
-        catch(RuntimeException e)
-        {
-            assertEquals("Exception message", "Error occurred calling AdapterPEPImpl.checkPolicy.  Error: Forced error.", e.getMessage());
-        }
-        catch(Throwable t)
-        {
+        } catch (RuntimeException e) {
+            assertEquals("Exception message",
+                    "Error occurred calling AdapterPEPImpl.checkPolicy.  Error: Forced error.", e.getMessage());
+        } catch (Throwable t) {
             System.out.println("Error running testCheckPolicyException: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCheckPolicyException: " + t.getMessage());

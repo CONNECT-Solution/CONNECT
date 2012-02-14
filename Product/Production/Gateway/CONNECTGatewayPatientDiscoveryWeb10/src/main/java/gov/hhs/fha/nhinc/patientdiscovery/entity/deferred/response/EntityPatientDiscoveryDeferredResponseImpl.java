@@ -42,35 +42,31 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class EntityPatientDiscoveryDeferredResponseImpl
-{
+public class EntityPatientDiscoveryDeferredResponseImpl {
     private Log log = null;
-    
+
     private GenericFactory<EntityPatientDiscoveryDeferredResponseOrch> orchestrationFactory;
 
-    public EntityPatientDiscoveryDeferredResponseImpl()
-    {
+    public EntityPatientDiscoveryDeferredResponseImpl() {
         log = createLogger();
-        orchestrationFactory =  new EntityPatientDiscoveryDeferredResponseOrchFactory();
+        orchestrationFactory = new EntityPatientDiscoveryDeferredResponseOrchFactory();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02SecuredRequestType request, WebServiceContext context)
-    {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(
+            RespondingGatewayPRPAIN201306UV02SecuredRequestType request, WebServiceContext context) {
         log.debug("Begin EntityPatientDiscoveryDeferredResponseImpl.processPatientDiscoveryAsyncResp(secured)");
         MCCIIN000002UV01 response = null;
         AssertionType assertion = getAssertion(context, null);
         PRPAIN201306UV02 body = null;
         NhinTargetCommunitiesType target = null;
-        if(request != null)
-        {
+        if (request != null) {
             body = request.getPRPAIN201306UV02();
             target = request.getNhinTargetCommunities();
         }
@@ -79,15 +75,14 @@ public class EntityPatientDiscoveryDeferredResponseImpl
         return response;
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02RequestType request, WebServiceContext context)
-    {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02RequestType request,
+            WebServiceContext context) {
         log.debug("Begin EntityPatientDiscoveryDeferredResponseImpl.processPatientDiscoveryAsyncResp(unsecured)");
         MCCIIN000002UV01 response = null;
         AssertionType assertion = null;
         PRPAIN201306UV02 body = null;
         NhinTargetCommunitiesType target = null;
-        if(request != null)
-        {
+        if (request != null) {
             body = request.getPRPAIN201306UV02();
             assertion = request.getAssertion();
             target = request.getNhinTargetCommunities();
@@ -98,21 +93,16 @@ public class EntityPatientDiscoveryDeferredResponseImpl
         return response;
     }
 
-    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn)
-    {
+    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
-        if (oAssertionIn == null)
-        {
+        if (oAssertionIn == null) {
             assertion = SamlTokenExtractor.GetAssertion(context);
-        }
-        else
-        {
+        } else {
             assertion = oAssertionIn;
         }
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null)
-        {
+        if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {

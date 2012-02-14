@@ -29,21 +29,19 @@ package gov.hhs.fha.nhinc.docquery.adapter.deferred.response.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterDocQueryDeferredResponseProxyObjectFactory extends ComponentProxyObjectFactory {
     private static final String CONFIG_FILE_NAME = "DocumentQueryDeferredProxyConfig.xml";
     private static final String BEAN_NAME = "adapterdocquerydeferredresponse";
 
-    protected String getConfigFileName()
-    {
+    protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }
 
-    public AdapterDocQueryDeferredResponseProxy getAdapterDocQueryDeferredResponseProxy()
-    {
+    public AdapterDocQueryDeferredResponseProxy getAdapterDocQueryDeferredResponseProxy() {
         return getBean(BEAN_NAME, AdapterDocQueryDeferredResponseProxy.class);
-   }
+    }
 
 }

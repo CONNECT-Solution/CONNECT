@@ -32,10 +32,11 @@ import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 /**
- *
+ * 
  * @author narendra.reddy
  */
 public interface AdapterDocQueryDeferredRequestQueueProxy {
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets);
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
+            AssertionType assertion, NhinTargetCommunitiesType targets);
 }

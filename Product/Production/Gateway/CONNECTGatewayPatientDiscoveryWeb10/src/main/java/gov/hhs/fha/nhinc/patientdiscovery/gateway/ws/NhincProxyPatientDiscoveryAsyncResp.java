@@ -42,28 +42,25 @@ import javax.xml.ws.soap.Addressing;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhincProxyPatientDiscoveryAsyncResp extends PatientDiscoveryBase {
-	@Resource
-	private WebServiceContext context;
+    @Resource
+    private WebServiceContext context;
 
-	public NhincProxyPatientDiscoveryAsyncResp() {
-		super();
-	}
+    public NhincProxyPatientDiscoveryAsyncResp() {
+        super();
+    }
 
-	public NhincProxyPatientDiscoveryAsyncResp(
-			PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
-	
-	public org.hl7.v3.MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(
-			org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType proxyProcessPatientDiscoveryAsyncRespRequest) {
-		return getServiceFactory().getNhincProxyPatientDiscoveryAsyncRespImpl()
-				.proxyProcessPatientDiscoveryAsyncResp(
-						proxyProcessPatientDiscoveryAsyncRespRequest,
-						getWebServiceContext());
-		}
+    public NhincProxyPatientDiscoveryAsyncResp(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
 
-	protected WebServiceContext getWebServiceContext() {
-		return context;
-	}
+    public org.hl7.v3.MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(
+            org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType proxyProcessPatientDiscoveryAsyncRespRequest) {
+        return getServiceFactory().getNhincProxyPatientDiscoveryAsyncRespImpl().proxyProcessPatientDiscoveryAsyncResp(
+                proxyProcessPatientDiscoveryAsyncRespRequest, getWebServiceContext());
+    }
+
+    protected WebServiceContext getWebServiceContext() {
+        return context;
+    }
 
 }

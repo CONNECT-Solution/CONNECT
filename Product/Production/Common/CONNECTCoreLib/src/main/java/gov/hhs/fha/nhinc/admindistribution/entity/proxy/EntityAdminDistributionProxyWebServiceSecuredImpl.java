@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.admindistribution.entity.proxy;
+
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -43,7 +44,7 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class EntityAdminDistributionProxyWebServiceSecuredImpl {
@@ -57,15 +58,16 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
     private Log log = null;
     private static Service cachedService = null;
     private WebServiceProxyHelper proxyHelper = null;
-    public EntityAdminDistributionProxyWebServiceSecuredImpl()
-    {
+
+    public EntityAdminDistributionProxyWebServiceSecuredImpl() {
         log = createLogger();
-        proxyHelper =  getWebServiceProxyHelper();
+        proxyHelper = getWebServiceProxyHelper();
     }
-    private Log createLogger()
-    {
+
+    private Log createLogger() {
         return LogFactory.getLog(getClass());
     }
+
     protected AdministrativeDistributionSecuredPortType getPort(String url, String wsAddressingAction,
             AssertionType assertion, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         AdministrativeDistributionSecuredPortType port = null;
@@ -73,7 +75,8 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
         Service service = getService(apiLevel);
         if (service != null) {
             log.debug("Obtained service - creating port.");
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdministrativeDistributionSecuredPortType.class);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    AdministrativeDistributionSecuredPortType.class);
             proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
@@ -81,28 +84,27 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
         return port;
     }
 
-    protected AdminDistributionHelper getHelper()
-    {
+    protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
+
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target,
-            NhincConstants.GATEWAY_API_LEVEL apiLevel)
-    {
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.debug("begin sendAlertMessage");
         AdminDistributionHelper helper = getHelper();
         String hcid = helper.getLocalCommunityId();
         String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME, apiLevel);
 
-        if (NullChecker.isNotNullish(url))
-        {
+        if (NullChecker.isNotNullish(url)) {
             AdministrativeDistributionSecuredPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion, apiLevel);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
 
             WebServiceProxyHelper webServiceHelper = new WebServiceProxyHelper();
-            webServiceHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.ADMIN_DIST_ACTION,
-                    WS_ADDRESSING_ACTION, assertion);;
+            webServiceHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,
+                    NhincConstants.ADMIN_DIST_ACTION, WS_ADDRESSING_ACTION, assertion);
+            ;
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
@@ -110,33 +112,31 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
             message.setEDXLDistribution(body);
             message.setNhinTargetCommunities(target);
 
-            try
-            {
+            try {
                 log.debug("invoke port");
-                getWebServiceProxyHelper().invokePort(port, AdministrativeDistributionSecuredPortType.class, "sendAlertMessage", body);
+                getWebServiceProxyHelper().invokePort(port, AdministrativeDistributionSecuredPortType.class,
+                        "sendAlertMessage", body);
+            } catch (Exception ex) {
+                log.error("Failed to call the web service (" + NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME
+                        + ").  An unexpected exception occurred.  " + "Exception: " + ex.getMessage(), ex);
             }
-            catch(Exception ex)
-            {
-                log.error("Failed to call the web service (" + NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME + ").  An unexpected exception occurred.  " +
-                        "Exception: " + ex.getMessage(), ex);
-            }
-        }
-        else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME + ").  The URL is null.");
+        } else {
+            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME
+                    + ").  The URL is null.");
         }
     }
-    protected WebServiceProxyHelper getWebServiceProxyHelper()
-    {
+
+    protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
+
     protected Service getService(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         try {
-            String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0)) ?
-                    WSDL_FILE : WSDL_FILE_G1;
+            String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0)) ? WSDL_FILE : WSDL_FILE_G1;
             return proxyHelper.createService(wsdlFile, NAMESPACE_URI, SERVICE_LOCAL_PART);
         } catch (Throwable t) {
             log.error("Error creating service: " + t.getMessage(), t);
             return null;
         }
-    } 
+    }
 }

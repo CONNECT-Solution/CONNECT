@@ -34,15 +34,15 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class PassthruDocSubmissionDeferredRequestProxyNoOpImpl implements PassthruDocSubmissionDeferredRequestProxy
-{
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PassthruDocSubmissionDeferredRequestProxyNoOpImpl.class);
+public class PassthruDocSubmissionDeferredRequestProxyNoOpImpl implements PassthruDocSubmissionDeferredRequestProxy {
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(PassthruDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Using NoOp Implementation for Passthru Doc Submission Deferred Request Service");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

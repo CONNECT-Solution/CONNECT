@@ -27,11 +27,10 @@
 package gov.hhs.fha.nhinc.adapter.cppgui;
 
 /**
- *
+ * 
  * @author patlollav
  */
-public class ConsumerPreferencesSearchCriteria
-{
+public class ConsumerPreferencesSearchCriteria {
     private String patientID;
     private String assigningAuthorityID;
 
@@ -50,6 +49,5 @@ public class ConsumerPreferencesSearchCriteria
     public void setPatientID(String patientID) {
         this.patientID = patientID;
     }
-    
 
 }

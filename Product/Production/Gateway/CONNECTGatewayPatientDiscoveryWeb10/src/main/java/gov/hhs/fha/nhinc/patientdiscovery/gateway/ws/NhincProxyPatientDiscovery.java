@@ -39,26 +39,25 @@ import javax.xml.ws.WebServiceContext;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincProxyPatientDiscovery extends PatientDiscoveryBase {
 
-	@Resource
-	private WebServiceContext context;
+    @Resource
+    private WebServiceContext context;
 
-	public NhincProxyPatientDiscovery() {
-		super();
-	}
+    public NhincProxyPatientDiscovery() {
+        super();
+    }
 
-	public NhincProxyPatientDiscovery(
-			PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
+    public NhincProxyPatientDiscovery(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
 
-	public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(
-			org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType proxyPRPAIN201305UVProxyRequest) {
+    public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(
+            org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType proxyPRPAIN201305UVProxyRequest) {
 
-		return getServiceFactory().getNhincProxyPatientDiscoveryImpl().proxyPRPAIN201305UV(
-				proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
-	}
+        return getServiceFactory().getNhincProxyPatientDiscoveryImpl().proxyPRPAIN201305UV(
+                proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
+    }
 
-	protected WebServiceContext getWebServiceContext() {
-		return context;
-	}
+    protected WebServiceContext getWebServiceContext() {
+        return context;
+    }
 }

@@ -36,32 +36,27 @@ import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
-public class ProxyHiemNotifyHeaderHandler implements SOAPHandler<SOAPMessageContext>
-{
+public class ProxyHiemNotifyHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
     @SuppressWarnings("unchecked")
-    public Set<QName> getHeaders()
-    {
+    public Set<QName> getHeaders() {
         return Collections.EMPTY_SET;
     }
 
-    public boolean handleMessage(SOAPMessageContext context)
-    {
+    public boolean handleMessage(SOAPMessageContext context) {
         new SoapUtil().extractReferenceParameters(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
         return true;
     }
 
-    public boolean handleFault(SOAPMessageContext context)
-    {
+    public boolean handleFault(SOAPMessageContext context) {
         return true;
     }
 
-    public void close(MessageContext context)
-    {
+    public void close(MessageContext context) {
     }
-    
+
 }

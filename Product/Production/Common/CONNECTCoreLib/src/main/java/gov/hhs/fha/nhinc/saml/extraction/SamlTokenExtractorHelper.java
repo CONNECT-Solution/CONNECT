@@ -35,7 +35,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class SamlTokenExtractorHelper {
@@ -48,7 +48,7 @@ public class SamlTokenExtractorHelper {
     public static final String INTERNAL_HIEM_UNSUBSCRIBE = "nhincsubscriptionmanager";
     public static final String INTERNAL_HIEM_NOTIFY = "nhincnotificationconsumer";
 
-    public static String getHomeCommunityId(){
+    public static String getHomeCommunityId() {
         log.debug("Entering SamlTokenExtractorHelper.getHomeCommunityId");
         String propFile = "gateway";
         String propName = "localHomeCommunityId";
@@ -58,18 +58,17 @@ public class SamlTokenExtractorHelper {
         } catch (PropertyAccessException ex) {
             log.error("SamlTokenExtractorHelper.getHomeCommunityId failed to access property: " + ex.getMessage());
         }
-        
+
         log.debug("Exiting SamlTokenExtractorHelper.getHomeCommunityId: " + homeCommunityId);
         return homeCommunityId;
     }
-    
+
     public static String getEndpointURL(String homeCommunityId, String service) {
         log.debug("Entering SamlTokenExtractorHelper.getEndpointURL");
 
         String url = null;
 
-        if (NullChecker.isNotNullish(homeCommunityId) &&
-                NullChecker.isNotNullish(service)) {
+        if (NullChecker.isNotNullish(homeCommunityId) && NullChecker.isNotNullish(service)) {
             try {
                 url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunityId, service);
             } catch (Throwable t) {
@@ -81,8 +80,7 @@ public class SamlTokenExtractorHelper {
             } else {
                 log.error("Did not find a URL for home community id: " + homeCommunityId + " and service: " + service);
             }
-        }
-        else {
+        } else {
             log.error("A Null input parameter was passed to this method");
         }
 

@@ -27,11 +27,10 @@
 package gov.hhs.fha.nhinc.callback;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class SamlConstants
-{
+public class SamlConstants {
     // SAML Constants
     public static final String ACTION_PROP = "action";
     public static final String RESOURCE_PROP = "resource";

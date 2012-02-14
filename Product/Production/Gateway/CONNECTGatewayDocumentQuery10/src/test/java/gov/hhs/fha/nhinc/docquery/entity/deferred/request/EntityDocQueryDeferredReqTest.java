@@ -41,40 +41,41 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author goldmanm
  */
 public class EntityDocQueryDeferredReqTest {
 
-  Mockery mockery;
+    Mockery mockery;
 
-  @Before
-  public void setup() {
-    mockery = new Mockery() {
+    @Before
+    public void setup() {
+        mockery = new Mockery() {
 
-      {
-        setImposteriser(ClassImposteriser.INSTANCE);
-      }
-    };
-  }
+            {
+                setImposteriser(ClassImposteriser.INSTANCE);
+            }
+        };
+    }
 
-  /**
-   * Test of respondingGatewayCrossGatewayQuery method, of class EntityDocQueryDeferredReq.
-   */
-  @Test
-  public void testRespondingGatewayCrossGatewayQuery() {
-    final DocQueryAcknowledgementType expected = new DocQueryAcknowledgementType();
+    /**
+     * Test of respondingGatewayCrossGatewayQuery method, of class EntityDocQueryDeferredReq.
+     */
+    @Test
+    public void testRespondingGatewayCrossGatewayQuery() {
+        final DocQueryAcknowledgementType expected = new DocQueryAcknowledgementType();
 
-    EntityDocQueryDeferredReq testSubject = new EntityDocQueryDeferredReq() {
+        EntityDocQueryDeferredReq testSubject = new EntityDocQueryDeferredReq() {
 
-      @Override
-      protected DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
-          final RespondingGatewayCrossGatewayQueryRequestType body, final WebServiceContext context) {
-        return expected;
-      }
-    };
+            @Override
+            protected DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
+                    final RespondingGatewayCrossGatewayQueryRequestType body, final WebServiceContext context) {
+                return expected;
+            }
+        };
 
-    DocQueryAcknowledgementType result = testSubject.respondingGatewayCrossGatewayQuery(new RespondingGatewayCrossGatewayQueryRequestType());
-    assertSame(result, expected);
-  }
+        DocQueryAcknowledgementType result = testSubject
+                .respondingGatewayCrossGatewayQuery(new RespondingGatewayCrossGatewayQueryRequestType());
+        assertSame(result, expected);
+    }
 }

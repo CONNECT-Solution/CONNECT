@@ -215,7 +215,6 @@ public class InternalConnectionInfoFileConverter {
             businessServices.getBusinessService().add(businessService);
         }
 
-
         businessEntity.setBusinessServices(businessServices);
 
         IdentifierBag identifierBag = new IdentifierBag();
@@ -248,7 +247,8 @@ public class InternalConnectionInfoFileConverter {
 
         try {
             String inputXmlContent = StringUtil.readTextFile(inFile.getAbsolutePath());
-            CMInternalConnectionInfos internalConnectionInfos = CMInternalConnectionInfosXML.deserialize(inputXmlContent);
+            CMInternalConnectionInfos internalConnectionInfos = CMInternalConnectionInfosXML
+                    .deserialize(inputXmlContent);
 
             BusinessDetail businessDetail = new BusinessDetail();
             for (CMInternalConnectionInfo internalConnectionInfo : internalConnectionInfos.getInternalConnectionInfo()) {
@@ -267,9 +267,10 @@ public class InternalConnectionInfoFileConverter {
 
     /**
      * To run this from the command line, use:
-     *
-     * java -cp "C:\Sun\AppServer\lib\CONNECTCoreLib.jar;C:\Sun\AppServer\lib\*" gov.hhs.fha.nhinc.connectmgr.util.InternalConnectionInfoFileConverter [fromFile] [toFile]
-     *
+     * 
+     * java -cp "C:\Sun\AppServer\lib\CONNECTCoreLib.jar;C:\Sun\AppServer\lib\*"
+     * gov.hhs.fha.nhinc.connectmgr.util.InternalConnectionInfoFileConverter [fromFile] [toFile]
+     * 
      * @param args
      */
     public static void main(String[] args) {

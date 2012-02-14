@@ -34,7 +34,7 @@ import org.w3._2005._08.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class EndpointReferenceMarshaller {

@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.model;
 import java.util.Date;
 
 /**
- *
+ * 
  * @author akong
  */
 public class PDDeferredCorrelation {
@@ -40,19 +40,19 @@ public class PDDeferredCorrelation {
     private String PatientId = null;
     private Date CreationTime = null;
 
-    public Long getId () {
+    public Long getId() {
         return Id;
     }
 
-    public void setId (Long Id) {
+    public void setId(Long Id) {
         this.Id = Id;
     }
 
-    public String getMessageId () {
+    public String getMessageId() {
         return MessageId;
     }
 
-    public void setMessageId (String messageId) {
+    public void setMessageId(String messageId) {
         this.MessageId = messageId;
     }
 
@@ -72,13 +72,12 @@ public class PDDeferredCorrelation {
         this.PatientId = patientId;
     }
 
-    public Date getCreationTime () {
+    public Date getCreationTime() {
         return CreationTime;
     }
 
-    public void setCreationTime (Date creationTime) {
+    public void setCreationTime(Date creationTime) {
         this.CreationTime = creationTime;
     }
-
 
 }

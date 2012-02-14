@@ -25,11 +25,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.config;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class ExpirationConfiguration {
@@ -37,28 +38,27 @@ public class ExpirationConfiguration {
     private String defUnits;
     private List<Expiration> expirationList;
 
-    public ExpirationConfiguration()
-    {
+    public ExpirationConfiguration() {
         defUnits = "";
         defExpiration = -1;
         expirationList = new ArrayList<Expiration>();
     }
-    public ExpirationConfiguration(int defaultExpiration, String defaultUnits)
-    {
-       defExpiration = defaultExpiration;
-       defUnits = defaultUnits;
-       expirationList = new ArrayList<Expiration>();
+
+    public ExpirationConfiguration(int defaultExpiration, String defaultUnits) {
+        defExpiration = defaultExpiration;
+        defUnits = defaultUnits;
+        expirationList = new ArrayList<Expiration>();
     }
-    public List<Expiration> getExpirations()
-    {
+
+    public List<Expiration> getExpirations() {
         return expirationList;
     }
-    public int getDefaultDuration()
-    {
+
+    public int getDefaultDuration() {
         return defExpiration;
     }
-    public String getDefaultUnits()
-    {
+
+    public String getDefaultUnits() {
         return defUnits;
     }
 

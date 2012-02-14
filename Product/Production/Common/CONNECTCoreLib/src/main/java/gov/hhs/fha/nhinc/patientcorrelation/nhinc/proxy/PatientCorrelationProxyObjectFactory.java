@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- 
- *
+ * 
+ * 
  * @author Jon Hoppesch
  */
 public class PatientCorrelationProxyObjectFactory extends ComponentProxyObjectFactory {

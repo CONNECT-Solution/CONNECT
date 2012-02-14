@@ -34,13 +34,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocSubmissionProxyNoOpImpl implements PassthruDocSubmissionProxy {
     private static Log log = LogFactory.getLog(PassthruDocSubmissionProxyNoOpImpl.class);
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
+            AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Using NoOp Implementation for Passthru Doc Submission Service");
         return new RegistryResponseType();
     }

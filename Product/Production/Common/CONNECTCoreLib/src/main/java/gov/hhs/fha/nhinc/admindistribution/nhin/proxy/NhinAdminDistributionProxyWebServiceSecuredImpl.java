@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
+
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -43,10 +44,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdminDistributionProxy{
+public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdminDistributionProxy {
     private Log log = null;
     private static HashMap<String, Service> cachedServiceMap = new HashMap<String, Service>();
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhinadmindistribution";
@@ -56,30 +57,25 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     private static final String WSDL_FILE_G1 = "NhinAdminDist_g1.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage";
 
-    public NhinAdminDistributionProxyWebServiceSecuredImpl()
-    {
+    public NhinAdminDistributionProxyWebServiceSecuredImpl() {
         log = createLogger();
     }
 
-    private Log createLogger()
-    {
+    private Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    private AdminDistributionHelper getHelper()
-    {
+    private AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
 
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
-            NhincConstants.GATEWAY_API_LEVEL apiLevel)
-    {
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.debug("begin sendAlertMessage");
         AdminDistributionHelper helper = getHelper();
         String url = helper.getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, apiLevel);
 
-        if (NullChecker.isNotNullish(url))
-        {
+        if (NullChecker.isNotNullish(url)) {
             RespondingGatewayAdministrativeDistributionPortType port = getPort(url, assertion, apiLevel);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
@@ -87,67 +83,60 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
-            try
-            {
+            try {
                 log.debug("invoke port");
-                getWebServiceProxyHelper().invokePort(port, RespondingGatewayAdministrativeDistributionPortType.class, "sendAlertMessage", body);
+                getWebServiceProxyHelper().invokePort(port, RespondingGatewayAdministrativeDistributionPortType.class,
+                        "sendAlertMessage", body);
+            } catch (Exception ex) {
+                log.error("Failed to call the web service (" + NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME
+                        + ").  An unexpected exception occurred.  " + "Exception: " + ex.getMessage(), ex);
             }
-            catch(Exception ex)
-            {
-                log.error("Failed to call the web service (" + NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME + ").  An unexpected exception occurred.  " +
-                        "Exception: " + ex.getMessage(), ex);
-            }
-        }
-        else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME + ").  The URL is null.");
+        } else {
+            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
+                    + ").  The URL is null.");
         }
     }
 
     protected RespondingGatewayAdministrativeDistributionPortType getPort(String url, AssertionType assertion,
-            NhincConstants.GATEWAY_API_LEVEL apiLevel)
-    {
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         WebServiceProxyHelper proxyHelper = getWebServiceProxyHelper();
 
         RespondingGatewayAdministrativeDistributionPortType port = null;
         Service service;
         switch (apiLevel) {
-            case LEVEL_g0: service = getService(WSDL_FILE_G0, NAMESPACE_URI, SERVICE_LOCAL_PART);
-                break;
-            case LEVEL_g1: service = getService(WSDL_FILE_G1, NAMESPACE_URI, SERVICE_LOCAL_PART);
-                break;
-            default: service = null;
+        case LEVEL_g0:
+            service = getService(WSDL_FILE_G0, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            break;
+        case LEVEL_g1:
+            service = getService(WSDL_FILE_G1, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            break;
+        default:
+            service = null;
         }
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayAdministrativeDistributionPortType.class);
-            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
-         }
-        else
-        {
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    RespondingGatewayAdministrativeDistributionPortType.class);
+            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,
+                    NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
     }
-    
-    protected WebServiceProxyHelper getWebServiceProxyHelper()
-    {
+
+    protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
-    
-    protected Service getService(String wsdl, String uri, String service)
-    {
+
+    protected Service getService(String wsdl, String uri, String service) {
         Service cachedService = cachedServiceMap.get(wsdl);
-        if (cachedService == null)
-        {
-            try
-            {
+        if (cachedService == null) {
+            try {
                 WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
                 cachedService = proxyHelper.createService(wsdl, uri, service);
                 cachedServiceMap.put(wsdl, cachedService);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }

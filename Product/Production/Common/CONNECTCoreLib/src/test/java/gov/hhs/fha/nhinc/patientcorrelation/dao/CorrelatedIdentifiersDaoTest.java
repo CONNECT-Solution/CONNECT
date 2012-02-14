@@ -33,7 +33,7 @@ import java.util.Date;
 import org.junit.Test;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public class CorrelatedIdentifiersDaoTest {
@@ -41,11 +41,11 @@ public class CorrelatedIdentifiersDaoTest {
     public CorrelatedIdentifiersDaoTest() {
     }
 
-     @Test
-     public void testAddPatientCorrelation() {
-        CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDaoImpl(){
+    @Test
+    public void testAddPatientCorrelation() {
+        CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDaoImpl() {
             public void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
-                
+
             }
         };
 
@@ -69,7 +69,8 @@ public class CorrelatedIdentifiersDaoTest {
         ci2.setPatientAssigningAuthorityId("2.16.840.1.113883.3.192");
         ci2.setPatientId("1018");
         ci2.setCorrelationExpirationDate(new Date());
-        dao.addPatientCorrelation(ci2);        CorrelatedIdentifiers ci3 = new CorrelatedIdentifiers();
+        dao.addPatientCorrelation(ci2);
+        CorrelatedIdentifiers ci3 = new CorrelatedIdentifiers();
         ci3.setCorrelatedPatientAssigningAuthorityId("2.16.840.1.113883.4.1");
         ci3.setCorrelatedPatientId("123456789");
         ci3.setPatientAssigningAuthorityId("2.16.840.1.113883.3.200");
@@ -82,8 +83,7 @@ public class CorrelatedIdentifiersDaoTest {
         ci4.setPatientAssigningAuthorityId("2.16.840.1.113883.4.1");
         ci4.setPatientId("123456789");
         ci4.setCorrelationExpirationDate(new Date());
-        dao.addPatientCorrelation(ci4 );
+        dao.addPatientCorrelation(ci4);
     }
-     
-     
+
 }

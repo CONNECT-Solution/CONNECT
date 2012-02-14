@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.transform.audit;
 
 /**
- *
+ * 
  * @author mflynn02
  */
 public class AuditData {
@@ -52,6 +52,7 @@ public class AuditData {
     public void setSenderHomeCommunityId(String senderHomeCommunityId) {
         this.senderHomeCommunityId = senderHomeCommunityId;
     }
+
     private String senderHomeCommunityId;
 
     public String getMessageType() {
@@ -77,5 +78,5 @@ public class AuditData {
     public void setSenderPatientId(String senderPatientId) {
         this.senderPatientId = senderPatientId;
     }
-    
+
 }

@@ -37,7 +37,7 @@ import org.hl7.v3.MCCIMT000300UV01Receiver;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PatientDiscovery201306Processor {
@@ -54,6 +54,7 @@ public class PatientDiscovery201306Processor {
 
     /**
      * createNewRequest
+     * 
      * @param request
      * @param targetCommunityId
      * @return
@@ -62,10 +63,10 @@ public class PatientDiscovery201306Processor {
         PRPAIN201306UV02 newRequest = new PRPAIN201306UV02();
         newRequest = request;
 
-        if (request != null &&
-                NullChecker.isNotNullish(targetCommunityId)) {
+        if (request != null && NullChecker.isNotNullish(targetCommunityId)) {
             newRequest.getReceiver().clear();
-            MCCIMT000300UV01Receiver oNewReceiver = HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(targetCommunityId);
+            MCCIMT000300UV01Receiver oNewReceiver = HL7ReceiverTransforms
+                    .createMCCIMT000300UV01Receiver(targetCommunityId);
             newRequest.getReceiver().add(oNewReceiver);
             log.debug("Created a new request for target communityId: " + targetCommunityId);
         } else {
@@ -78,6 +79,7 @@ public class PatientDiscovery201306Processor {
 
     /**
      * storeMapping Method to store AA and HCID mappings
+     * 
      * @param request
      * @return
      */
@@ -87,7 +89,7 @@ public class PatientDiscovery201306Processor {
         log.debug("Begin storeMapping: hcid" + hcid);
         List<String> assigningAuthorityIds = new ArrayList<String>();
         assigningAuthorityIds = extractAAListFrom201306(request);
-        //String assigningAuthority = extractAAFrom201306(request);
+        // String assigningAuthority = extractAAFrom201306(request);
         for (String assigningAuthority : assigningAuthorityIds) {
             log.debug("storeMapping: assigningAuthority" + assigningAuthority);
             if (NullChecker.isNullish(hcid)) {
@@ -101,7 +103,7 @@ public class PatientDiscovery201306Processor {
                     log.warn("AssigningAuthorityHomeCommunityMappingDAO was null. Mapping was not stored.");
                 } else {
                     if (!mappingDao.storeMapping(hcid, assigningAuthority)) {
-                        log.warn("Failed to store home community - assigning authority mapping" );
+                        log.warn("Failed to store home community - assigning authority mapping");
                     }
                 }
             }
@@ -113,17 +115,21 @@ public class PatientDiscovery201306Processor {
     protected String getHcid(PRPAIN201306UV02 request) {
         String hcid = null;
 
-        if ((request != null) &&
-                (request.getSender() != null) &&
-                (request.getSender().getDevice() != null) &&
-                (request.getSender().getDevice().getAsAgent() != null) &&
-                (request.getSender().getDevice().getAsAgent().getValue() != null) &&
-                (request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null) &&
-                (request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null) &&
-                (NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId())) &&
-                (request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null) &&
-                (NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot()))) {
-            hcid = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        if ((request != null)
+                && (request.getSender() != null)
+                && (request.getSender().getDevice() != null)
+                && (request.getSender().getDevice().getAsAgent() != null)
+                && (request.getSender().getDevice().getAsAgent().getValue() != null)
+                && (request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null)
+                && (request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null)
+                && (NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId()))
+                && (request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                        .getId().get(0) != null)
+                && (NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot()))) {
+            hcid = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                    .getId().get(0).getRoot();
         }
         return hcid;
     }
@@ -131,16 +137,20 @@ public class PatientDiscovery201306Processor {
     protected String getAssigningAuthority(PRPAIN201306UV02 request) {
         String assigningAuthority = null;
 
-        if ((request != null) &&
-                (request.getControlActProcess() != null) &&
-                (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer())) &&
-                (request.getControlActProcess().getAuthorOrPerformer().get(0) != null) &&
-                (request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null) &&
-                (request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null) &&
-                (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId())) &&
-                (request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null) &&
-                (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot()))) {
-            assigningAuthority = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
+        if ((request != null)
+                && (request.getControlActProcess() != null)
+                && (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer()))
+                && (request.getControlActProcess().getAuthorOrPerformer().get(0) != null)
+                && (request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null)
+                && (request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null)
+                && (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0)
+                        .getAssignedDevice().getValue().getId()))
+                && (request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()
+                        .get(0) != null)
+                && (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0)
+                        .getAssignedDevice().getValue().getId().get(0).getRoot()))) {
+            assigningAuthority = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice()
+                    .getValue().getId().get(0).getRoot();
         }
         return assigningAuthority;
     }
@@ -149,18 +159,23 @@ public class PatientDiscovery201306Processor {
         log.debug("Begin extractAAFrom201306");
         String assigningAuthority = null;
 
-        if (msg != null &&
-                msg.getControlActProcess() != null &&
-                NullChecker.isNotNullish(msg.getControlActProcess().getSubject()) &&
-                msg.getControlActProcess().getSubject().get(0) != null &&
-                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
-                NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
-                msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
-                NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
-                NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
-            assigningAuthority = msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot();
+        if (msg != null
+                && msg.getControlActProcess() != null
+                && NullChecker.isNotNullish(msg.getControlActProcess().getSubject())
+                && msg.getControlActProcess().getSubject().get(0) != null
+                && msg.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
+                && msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
+                && msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null
+                && NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                        .getSubject1().getPatient().getId())
+                && msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
+                        .getId().get(0) != null
+                && NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                        .getSubject1().getPatient().getId().get(0).getExtension())
+                && NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                        .getSubject1().getPatient().getId().get(0).getRoot())) {
+            assigningAuthority = msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
+                    .getPatient().getId().get(0).getRoot();
             log.debug("extractAAFrom201306 - assigningAuthority: " + assigningAuthority);
         }
         return assigningAuthority;
@@ -172,27 +187,31 @@ public class PatientDiscovery201306Processor {
         String assigningAuthority = null;
         int subjCount = 0;
 
-        if (msg != null &&
-                msg.getControlActProcess() != null &&
-                NullChecker.isNotNullish(msg.getControlActProcess().getSubject())) {
+        if (msg != null && msg.getControlActProcess() != null
+                && NullChecker.isNotNullish(msg.getControlActProcess().getSubject())) {
             subjCount = msg.getControlActProcess().getSubject().size();
         }
         log.debug("storeMapping - Subject Count: " + subjCount);
 
         for (int i = 0; i < subjCount; i++) {
             assigningAuthority = null;
-            if (msg != null &&
-                    msg.getControlActProcess() != null &&
-                    NullChecker.isNotNullish(msg.getControlActProcess().getSubject()) &&
-                    msg.getControlActProcess().getSubject().get(i) != null &&
-                    msg.getControlActProcess().getSubject().get(i).getRegistrationEvent() != null &&
-                    msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1() != null &&
-                    msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient() != null &&
-                    NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId()) &&
-                    msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
-                    NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
-                    NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
-                assigningAuthority = msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot();
+            if (msg != null
+                    && msg.getControlActProcess() != null
+                    && NullChecker.isNotNullish(msg.getControlActProcess().getSubject())
+                    && msg.getControlActProcess().getSubject().get(i) != null
+                    && msg.getControlActProcess().getSubject().get(i).getRegistrationEvent() != null
+                    && msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1() != null
+                    && msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient() != null
+                    && NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(i).getRegistrationEvent()
+                            .getSubject1().getPatient().getId())
+                    && msg.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient()
+                            .getId().get(0) != null
+                    && NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(i).getRegistrationEvent()
+                            .getSubject1().getPatient().getId().get(0).getExtension())
+                    && NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(i).getRegistrationEvent()
+                            .getSubject1().getPatient().getId().get(0).getRoot())) {
+                assigningAuthority = msg.getControlActProcess().getSubject().get(i).getRegistrationEvent()
+                        .getSubject1().getPatient().getId().get(0).getRoot();
                 log.debug("extractAAFrom201306 - assigningAuthority" + i + " :" + assigningAuthority);
                 assigningAuthorityIds.add(assigningAuthority);
             }

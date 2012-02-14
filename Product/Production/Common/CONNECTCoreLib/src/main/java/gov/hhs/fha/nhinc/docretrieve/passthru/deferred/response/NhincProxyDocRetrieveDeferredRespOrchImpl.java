@@ -42,7 +42,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class NhincProxyDocRetrieveDeferredRespOrchImpl {
@@ -50,13 +50,15 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
     private static final Log log = LogFactory.getLog(NhincProxyDocRetrieveDeferredRespOrchImpl.class);
 
     /**
-     *
+     * 
      * @param retrieveDocumentSetResponse
      * @param assertion
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion, NhinTargetSystemType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetRequestType request,
+            RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion,
+            NhinTargetSystemType target) {
         log.debug("Begin NhincProxyDocRetrieveDeferredRespOrchImpl.processCrossGatewayRetrieveResponse(...)");
 
         DocRetrieveAcknowledgementType respAck = new DocRetrieveAcknowledgementType();
@@ -66,7 +68,9 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
 
         // Audit request message
         DocRetrieveDeferredAuditLogger auditLog = new DocRetrieveDeferredAuditLogger();
-        auditLog.auditDocRetrieveDeferredResponse(retrieveDocumentSetResponse, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion, responseCommunityId);
+        auditLog.auditDocRetrieveDeferredResponse(retrieveDocumentSetResponse,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, assertion,
+                responseCommunityId);
 
         // Call the NHIN Interface
         NhinDocRetrieveDeferredRespProxyObjectFactory objFactory = new NhinDocRetrieveDeferredRespProxyObjectFactory();
@@ -84,7 +88,9 @@ public class NhincProxyDocRetrieveDeferredRespOrchImpl {
         respAck = docRetrieveProxy.sendToRespondingGateway(retrieveDocumentSetResponse, assertion, target);
 
         // Audit response message
-        auditLog.auditDocRetrieveDeferredAckResponse(respAck.getMessage(), request, retrieveDocumentSetResponse, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
+        auditLog.auditDocRetrieveDeferredAckResponse(respAck.getMessage(), request, retrieveDocumentSetResponse,
+                assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                responseCommunityId);
 
         log.debug("End NhincProxyDocRetrieveDeferredRespOrchImpl.processCrossGatewayRetrieveResponse(...)");
 

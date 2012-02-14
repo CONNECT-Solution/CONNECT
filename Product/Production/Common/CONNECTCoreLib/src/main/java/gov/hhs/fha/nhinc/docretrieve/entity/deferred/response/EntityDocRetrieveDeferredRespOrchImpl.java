@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 
-
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveDeferredPolicyChecker;
 import gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy.PassthruDocRetrieveDeferredRespProxyObjectFactory;
@@ -53,7 +52,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class EntityDocRetrieveDeferredRespOrchImpl {
@@ -70,7 +69,7 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
     }
 
     /**
-     *
+     * 
      * @return Log
      */
     protected Log createLogger() {
@@ -83,16 +82,19 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
 
     /**
      * Document Retrieve Deferred Response implementation method
+     * 
      * @param response
      * @param assertion
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType response, AssertionType assertion, NhinTargetCommunitiesType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType response,
+            AssertionType assertion, NhinTargetCommunitiesType target) {
         log.debug("Begin EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");
 
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-        RetrieveDocumentSetResponseType retrieveDocumentSetResponseTypeCopy = asyncProcess.copyRetrieveDocumentSetResponseTypeObject(response);
+        RetrieveDocumentSetResponseType retrieveDocumentSetResponseTypeCopy = asyncProcess
+                .copyRetrieveDocumentSetResponseTypeObject(response);
 
         String ackMessage = null;
         DocRetrieveAcknowledgementType nhinResponse = null;
@@ -101,25 +103,33 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
 
         try {
             if (null != response && (null != assertion) && (null != target)) {
-                auditLog.auditDocRetrieveDeferredResponse(retrieveDocumentSetResponseTypeCopy, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, assertion, homeCommunityId);
+                auditLog.auditDocRetrieveDeferredResponse(retrieveDocumentSetResponseTypeCopy,
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+                        assertion, homeCommunityId);
                 List<UrlInfo> urlInfoList = getEndpoints(target);
                 NhinTargetSystemType oTargetSystem = null;
 
                 // Log the start of the performance record
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, "Deferred"+NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
+                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                        "Deferred" + NhincConstants.DOC_RETRIEVE_SERVICE_NAME,
+                        NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                        homeCommunityId);
 
-                //loop through the communities and send request if results were not null
+                // loop through the communities and send request if results were not null
                 if ((urlInfoList == null) || (urlInfoList.isEmpty())) {
                     ackMessage = "No targets were found for the Document retrieve deferred Response service.";
                     log.warn(ackMessage);
-                    nhinResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
+                    nhinResponse = DocRetrieveAckTranforms.createAckMessage(
+                            NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG,
+                            NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
                 } else {
                     if (debugEnabled) {
                         log.debug("Creating NHIN doc retrieve proxy");
                     }
                     PassthruDocRetrieveDeferredRespProxyObjectFactory objFactory = new PassthruDocRetrieveDeferredRespProxyObjectFactory();
-                    PassthruDocRetrieveDeferredRespProxy docRetrieveProxy = objFactory.getNhincProxyDocRetrieveDeferredRespProxy();
+                    PassthruDocRetrieveDeferredRespProxy docRetrieveProxy = objFactory
+                            .getNhincProxyDocRetrieveDeferredRespProxy();
                     DocRetrieveDeferredPolicyChecker policyCheck = new DocRetrieveDeferredPolicyChecker();
                     for (UrlInfo urlInfo : urlInfoList) {
                         // Call NHIN proxy
@@ -132,10 +142,13 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
 
                         if (policyCheck.checkOutgoingPolicy(response, assertion, homeCommunityId)) {
                             // Call NHIN proxy
-                            nhinResponse = docRetrieveProxy.crossGatewayRetrieveResponse(null, response, assertion, oTargetSystem);
+                            nhinResponse = docRetrieveProxy.crossGatewayRetrieveResponse(null, response, assertion,
+                                    oTargetSystem);
                         } else {
                             ackMessage = "Policy check failed.";
-                            nhinResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMessage);
+                            nhinResponse = DocRetrieveAckTranforms.createAckMessage(
+                                    NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG,
+                                    NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMessage);
                         }
 
                     }
@@ -147,13 +160,18 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
             }
         } catch (Exception ex) {
             log.error(ex);
-            ackMessage = "Fault encountered processing internal document retrieve deferred response for community " + homeCommunityId;
-            nhinResponse = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
+            ackMessage = "Fault encountered processing internal document retrieve deferred response for community "
+                    + homeCommunityId;
+            nhinResponse = DocRetrieveAckTranforms.createAckMessage(
+                    NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG,
+                    NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMessage);
             log.error(ackMessage);
         }
 
         // Audit log - response
-        auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), null, retrieveDocumentSetResponseTypeCopy, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
+        auditLog.auditDocRetrieveDeferredAckResponse(nhinResponse.getMessage(), null,
+                retrieveDocumentSetResponseTypeCopy, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         if (debugEnabled) {
             log.debug("End EntityDocRetrieveDeferredRespOrchImpl.crossGatewayRetrieveResponse");
@@ -162,14 +180,15 @@ public class EntityDocRetrieveDeferredRespOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param targetCommunities
      * @return List<UrlInfo>
      */
     protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {
         List<UrlInfo> urlInfoList = null;
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
+                    targetCommunities, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs", ex);
         }

@@ -44,7 +44,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements AdapterAdminDistributionProxy {
@@ -63,10 +63,10 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
         log = createLogger();
         adminDistributionHelper = new AdminDistributionHelper(oProxyHelper);
     }
+
     /*
-     * protected AdapterAdministrativeDistributionSecured getWebService() {
-     * return new AdapterAdministrativeDistributionSecured();
-    }
+     * protected AdapterAdministrativeDistributionSecured getWebService() { return new
+     * AdapterAdministrativeDistributionSecured(); }
      */
 
     protected Log createLogger() {
@@ -87,17 +87,17 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
         }
         return cachedService;
     }
-    
-    
+
     protected AdapterAdministrativeDistributionSecuredPortType getPort(String url, AssertionType assertion) {
 
         AdapterAdministrativeDistributionSecuredPortType port = null;
         Service cacheService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
         if (cacheService != null) {
             log.debug("Obtained service - creating port.");
-            port = cacheService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterAdministrativeDistributionSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME,
-                    WS_ADDRESSING_ACTION, assertion);
+            port = cacheService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    AdapterAdministrativeDistributionSecuredPortType.class);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,
+                    NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -106,8 +106,8 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
 
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.debug("Begin sendAlertMessage");
-        String url =adminDistributionHelper.getAdapterUrl(
-                NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+        String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME,
+                ADAPTER_API_LEVEL.LEVEL_a0);
 
         if (NullChecker.isNotNullish(url)) {
             AdapterAdministrativeDistributionSecuredPortType port = getPort(url, assertion);
@@ -119,13 +119,14 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             try {
-                getWebServiceProxyHelper().invokePort(port, AdapterAdministrativeDistributionSecuredPortType.class, "sendAlertMessage", message);
+                getWebServiceProxyHelper().invokePort(port, AdapterAdministrativeDistributionSecuredPortType.class,
+                        "sendAlertMessage", message);
             } catch (Exception ex) {
                 log.error("Unable to send message: " + ex.getMessage());
             }
-        }
-        else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME + ").  The URL is null.");
+        } else {
+            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME
+                    + ").  The URL is null.");
         }
     }
 
@@ -133,5 +134,4 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
         return new WebServiceProxyHelper();
     }
 
-   
 }

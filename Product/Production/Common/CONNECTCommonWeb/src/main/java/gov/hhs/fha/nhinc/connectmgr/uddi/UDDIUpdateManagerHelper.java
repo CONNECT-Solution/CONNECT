@@ -55,26 +55,23 @@ public class UDDIUpdateManagerHelper {
     private static ArrayList<String> backupFileList = new ArrayList<String>();
 
     /**
-     * This method retrieves the BusinessDetail data from the UDDI server.  The BusinessDetail
-     * contains the list of BusinessEntity that contains all the necessary information for each
-     * services.
-     *
+     * This method retrieves the BusinessDetail data from the UDDI server. The BusinessDetail contains the list of
+     * BusinessEntity that contains all the necessary information for each services.
+     * 
      * @return The BusinessDetail data retrieved from UDDI.
      */
-    private static BusinessDetail retrieveDataFromUDDI()
-            throws UDDIAccessorException {
+    private static BusinessDetail retrieveDataFromUDDI() throws UDDIAccessorException {
         UDDIAccessor oUDDIAccessor = new UDDIAccessor();
         return oUDDIAccessor.retrieveFromUDDIServer();
     }
 
     /**
-     * This method is called to force a refresh of the uddiConnectionInfo.xml file.  
-     * It will retrieve the data from the UDDI server and update the local XML file.
+     * This method is called to force a refresh of the uddiConnectionInfo.xml file. It will retrieve the data from the
+     * UDDI server and update the local XML file.
      * 
-     * @throws UDDIAccessorException 
+     * @throws UDDIAccessorException
      */
-    public void forceRefreshUDDIFile()
-            throws UDDIAccessorException {
+    public void forceRefreshUDDIFile() throws UDDIAccessorException {
         if (log.isDebugEnabled()) {
             log.debug("Start: UDDIUpdateManagerHelper.forceRefreshUDDIFile method - loading from UDDI server.");
         }
@@ -98,20 +95,21 @@ public class UDDIUpdateManagerHelper {
     }
 
     /**
-     * This method creates the uddi backup file if enabled by the configuration.  The backup is created
-     * by renaming the current Uddi file to a newly generated filename.
+     * This method creates the uddi backup file if enabled by the configuration. The backup is created by renaming the
+     * current Uddi file to a newly generated filename.
      */
     private void createUddiFileBackupByRenaming() {
         boolean createBackups = true;
         try {
-            createBackups = PropertyAccessor.getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_REFRESH_KEEP_BACKUPS_PROPERTY);
+            createBackups = PropertyAccessor.getPropertyBoolean(GATEWAY_PROPERTY_FILE,
+                    UDDI_REFRESH_KEEP_BACKUPS_PROPERTY);
         } catch (Exception e) {
-            String sErrorMessage = "Failed to retrieve property: " + UDDI_REFRESH_KEEP_BACKUPS_PROPERTY +
-                    " from " + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to creating backups. ";
+            String sErrorMessage = "Failed to retrieve property: " + UDDI_REFRESH_KEEP_BACKUPS_PROPERTY + " from "
+                    + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to creating backups. ";
             log.warn(sErrorMessage, e);
         }
 
-        if (createBackups) {       
+        if (createBackups) {
             String uddiFileLocation = UddiConnectionInfoDAOFileImpl.getInstance().getUddiConnectionFileLocation();
             String backupUddiFileLocation = generateUniqueFilename(uddiFileLocation);
 
@@ -125,11 +123,11 @@ public class UDDIUpdateManagerHelper {
                     addToBackupList(backupUddiFileLocation);
                 }
             } catch (Exception e) {
-                String errorMessage = "Failed to rename the current file: " + uddiFileLocation +
-                        " to: " + backupUddiFileLocation;
+                String errorMessage = "Failed to rename the current file: " + uddiFileLocation + " to: "
+                        + backupUddiFileLocation;
                 log.error(errorMessage, e);
-            }           
-        }   
+            }
+        }
     }
 
     private String generateUniqueFilename(String fileLocation) {
@@ -148,8 +146,8 @@ public class UDDIUpdateManagerHelper {
         try {
             maxNumBackup = (int) PropertyAccessor.getPropertyLong(GATEWAY_PROPERTY_FILE, UDDI_MAX_NUM_BACKUPS_PROPERTY);
         } catch (Exception e) {
-            String sErrorMessage = "Failed to retrieve property: " + UDDI_MAX_NUM_BACKUPS_PROPERTY +
-                    " from " + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to " + MAX_NUM_BACKUP;
+            String sErrorMessage = "Failed to retrieve property: " + UDDI_MAX_NUM_BACKUPS_PROPERTY + " from "
+                    + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to " + MAX_NUM_BACKUP;
             log.warn(sErrorMessage, e);
         }
 
@@ -172,20 +170,21 @@ public class UDDIUpdateManagerHelper {
     }
 
     /**
-     * This method forces a refresh of the uddiConnectionInfo.xml file by retrieving the
-     * information from the UDDI NHIN server.
-     *
+     * This method forces a refresh of the uddiConnectionInfo.xml file by retrieving the information from the UDDI NHIN
+     * server.
+     * 
      * @param part1 No real data - just a way to keep the document unique.
      * @return True if the file was loaded false if it was not.
      */
-    public UDDIUpdateManagerForceRefreshResponseType forceRefreshFileFromUDDIServer(UDDIUpdateManagerForceRefreshRequestType part1) {
+    public UDDIUpdateManagerForceRefreshResponseType forceRefreshFileFromUDDIServer(
+            UDDIUpdateManagerForceRefreshRequestType part1) {
         UDDIUpdateManagerForceRefreshResponseType oResponse = new UDDIUpdateManagerForceRefreshResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
 
         try {
             forceRefreshUDDIFile();
-            oResponse.getSuccessOrFail().setSuccess(true);      // If we got here - we succeeded.
+            oResponse.getSuccessOrFail().setSuccess(true); // If we got here - we succeeded.
         } catch (Exception e) {
             String sErrorMessage = "Failed to refresh the file from the UDDI server.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
@@ -195,9 +194,10 @@ public class UDDIUpdateManagerHelper {
     }
 
     /**
-     * Main method to test this class.   Since this is relys on an external UDDI server,
-     * we do not want it part of our unit tests to stop the build if the server is
-     * down or not accessible.  This is a main method used for debugging....
+     * Main method to test this class. Since this is relys on an external UDDI server, we do not want it part of our
+     * unit tests to stop the build if the server is down or not accessible. This is a main method used for
+     * debugging....
+     * 
      * @param args
      */
     public static void main(String args[]) {

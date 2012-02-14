@@ -37,69 +37,61 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterComponentDocSubmissionOrchImpl {
     private static Log log = null;
-    public AdapterComponentDocSubmissionOrchImpl()
-    {
+
+    public AdapterComponentDocSubmissionOrchImpl() {
         log = createLogger();
     }
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion) {
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
+            AssertionType assertion) {
         log.debug("Begin provideAndRegisterDocumentSetb()");
         XDRHelper helper = new XDRHelper();
         RegistryErrorList errorList = helper.validateDocumentMetaData(msg);
 
         RegistryResponseType result = null;
 
-        if(errorList.getHighestSeverity().equals(helper.XDS_ERROR_SEVERITY_ERROR))
-        {
+        if (errorList.getHighestSeverity().equals(helper.XDS_ERROR_SEVERITY_ERROR)) {
             result = helper.createErrorResponse(errorList);
-        }
-        else
-        {
+        } else {
             log.info(" Request contained " + msg.getDocument().size() + " documents.");
             log.info(" Request Id: " + msg.getSubmitObjectsRequest().getId());
 
             List<String> recips = helper.getIntendedRecepients(msg);
 
-            if(recips != null)
-            {
-                List<String>  xdrBeans = helper.getRoutingBeans(recips);
+            if (recips != null) {
+                List<String> xdrBeans = helper.getRoutingBeans(recips);
                 RoutingObjectFactory factory = new RoutingObjectFactory();
 
-                for(String bean : xdrBeans)
-                {
+                for (String bean : xdrBeans) {
                     log.debug("Bean name = " + bean);
                     XDRRouting proxy = factory.getNhinXDRRouting(bean);
                     result = proxy.provideAndRegisterDocumentSetB(msg, assertion);
                 }
-            }
-            else
-            {
+            } else {
                 log.debug("No beans to forward the message to");
                 result = helper.createPositiveAck();
             }
-
 
         }
         return result;
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
-    private String getRoutingBeanName(List<String> recips)
-    {
+
+    private String getRoutingBeanName(List<String> recips) {
         String result = "";
 
         return RoutingObjectFactory.BEAN_REFERENCE_IMPLEMENTATION;
     }
-    private XDRRouting getRoutingBean(String beanName)
-    {
+
+    private XDRRouting getRoutingBean(String beanName) {
         XDRRouting result = null;
 
         result = new RoutingObjectFactory().getNhinXDRRouting(beanName);

@@ -34,12 +34,13 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class NhinDocQueryDeferredResponseProxyNoOpImpl implements NhinDocQueryDeferredResponseProxy{
+public class NhinDocQueryDeferredResponseProxyNoOpImpl implements NhinDocQueryDeferredResponseProxy {
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse body, AssertionType assertion, NhinTargetSystemType target) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse body,
+            AssertionType assertion, NhinTargetSystemType target) {
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG);

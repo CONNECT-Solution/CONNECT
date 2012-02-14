@@ -61,7 +61,7 @@ import javax.xml.ws.Service;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
@@ -75,14 +75,17 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
     private static final String PORT_LOCAL_PART = "NotificationConsumerPort";
     private static final String WSDL_FILE = "NhinSubscription.wsdl";
 
-   public void notify(Element notifyElement, ReferenceParametersElements referenceParametersElements,AssertionType assertion, NhinTargetSystemType target) {
+    public void notify(Element notifyElement, ReferenceParametersElements referenceParametersElements,
+            AssertionType assertion, NhinTargetSystemType target) {
         String url = null;
 
-        log.debug("Notify element received in NhinHiemNotifyWebServiceProxy: " + XmlUtility.serializeElementIgnoreFaults(notifyElement));
+        log.debug("Notify element received in NhinHiemNotifyWebServiceProxy: "
+                + XmlUtility.serializeElementIgnoreFaults(notifyElement));
 
         if (target != null) {
             try {
-                url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_NOTIFY_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target,
+                        NhincConstants.HIEM_NOTIFY_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_SERVICE_NAME);
                 log.error(ex.getMessage());
@@ -91,8 +94,7 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
             log.error("Target system passed into the proxy is null");
         }
 
-        try
-        {
+        try {
             if (NullChecker.isNotNullish(url)) {
 
                 log.debug("unmarshaling notify message");
@@ -101,8 +103,7 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
 
                 // Policy check
                 log.debug("Calling checkPolicy");
-                if(checkPolicy(notify, assertion))
-                {
+                if (checkPolicy(notify, assertion)) {
                     auditInputMessage(notify, assertion);
                     NotificationConsumer port = getPort(url, assertion);
 
@@ -112,57 +113,47 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
 
                     try {
                         log.debug("Calling notification consumer port in NhinHiemWebServiceProxy.");
-        				//The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
+                        // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default
+                        // method invocation
                         port.notify(notify);
                     } catch (Exception ex) {
                         log.error("Error occurred while trying to invoke notify", ex);
                     }
 
-                    ((Closeable)port).close();
-                }
-                else
-                {
+                    ((Closeable) port).close();
+                } else {
                     log.error("Failed policy check on send NHIN notify message");
                 }
             } else {
                 log.error("The URL for service: " + NhincConstants.HIEM_NOTIFY_SERVICE_NAME + " is null");
             }
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             // TODO: Figure out what to do with the exception
             log.error("Error sending notify to remote gateway: " + t.getMessage(), t);
         }
 
     }
 
-    protected NotificationConsumer getPort(String url, AssertionType assertIn)
-    {
+    protected NotificationConsumer getPort(String url, AssertionType assertIn) {
         NotificationConsumer oPort = null;
         try {
             Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-            if (oService != null)
-            {
+            if (oService != null) {
                 log.debug("subscribe() Obtained service - creating port.");
-                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-                            NotificationConsumer.class);
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NotificationConsumer.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort,
-                        url, NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
-             }
-            else
-            {
+                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+                        NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
+            } else {
                 log.error("Unable to obtain service - no port created.");
             }
-        } catch (Throwable t)
-            {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+        }
         return oPort;
     }
-
 
     private boolean checkPolicy(Notify notify, AssertionType assertion) {
         log.debug("In NhinHiemNotifyWebServiceProxy.checkPolicy");
@@ -183,9 +174,8 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
 
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             policyIsValid = true;
         }
 
@@ -196,48 +186,38 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
     private void auditInputMessage(Notify notify, AssertionType assertion) {
         log.debug("In NhinHiemNotifyWebServiceProxy.auditInputMessage");
         AcknowledgementType ack = null;
-        try
-        {
+        try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
             gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType();
             message.setAssertion(assertion);
             message.setNotify(notify);
 
-            LogEventRequestType auditLogMsg = auditLogger.logNhinNotifyRequest(message, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            LogEventRequestType auditLogMsg = auditLogger.logNhinNotifyRequest(message,
+                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
-            if(auditLogMsg != null)
-            {
+            if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
                 ack = proxy.auditLog(auditLogMsg, assertion);
             }
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error logging subscribe message: " + t.getMessage(), t);
         }
     }
 
-    private WebServiceProxyHelper getWebServiceProxyHelper()
-    {
-        if (oProxyHelper == null)
-        {
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
             oProxyHelper = new WebServiceProxyHelper();
         }
         return oProxyHelper;
     }
 
-    private Service getService(String wsdl, String uri, String service)
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    private Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
                 cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }

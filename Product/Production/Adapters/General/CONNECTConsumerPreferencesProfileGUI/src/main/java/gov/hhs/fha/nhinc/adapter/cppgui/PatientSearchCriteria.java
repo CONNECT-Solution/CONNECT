@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.adapter.cppgui;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class PatientSearchCriteria {
@@ -76,6 +76,5 @@ public class PatientSearchCriteria {
     public void setOrganizationID(String organizationID) {
         this.organizationID = organizationID;
     }
-    
 
 }

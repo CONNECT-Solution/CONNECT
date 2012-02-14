@@ -38,22 +38,22 @@ import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.NhincProxyP
 
 public interface PatientDiscoveryServiceFactory {
 
-	public abstract NhinPatientDiscoveryAsyncReqImpl getNhinPatientDiscoveryAsyncReqImpl();
+    public abstract NhinPatientDiscoveryAsyncReqImpl getNhinPatientDiscoveryAsyncReqImpl();
 
-	public abstract NhinPatientDiscoveryImpl getNhinPatientDiscoveryService();
+    public abstract NhinPatientDiscoveryImpl getNhinPatientDiscoveryService();
 
-	public abstract NhinPatientDiscoveryAsyncRespImpl getNhinPatientDiscoveryAsyncRespImpl();
+    public abstract NhinPatientDiscoveryAsyncRespImpl getNhinPatientDiscoveryAsyncRespImpl();
 
-	public abstract NhincProxyPatientDiscoveryAsyncRespImpl getNhincProxyPatientDiscoveryAsyncRespImpl();
+    public abstract NhincProxyPatientDiscoveryAsyncRespImpl getNhincProxyPatientDiscoveryAsyncRespImpl();
 
-	public abstract NhincProxyPatientDiscoveryDeferredRequestImpl getNhincProxyPatientDiscoveryDeferredRequestImpl();
+    public abstract NhincProxyPatientDiscoveryDeferredRequestImpl getNhincProxyPatientDiscoveryDeferredRequestImpl();
 
-	public abstract NhincProxyPatientDiscoveryImpl getNhincProxyPatientDiscoveryImpl();
+    public abstract NhincProxyPatientDiscoveryImpl getNhincProxyPatientDiscoveryImpl();
 
-	public abstract EntityPatientDiscoveryDeferredResponseImpl getEntityPatientDiscoveryDeferredResponseImpl();
+    public abstract EntityPatientDiscoveryDeferredResponseImpl getEntityPatientDiscoveryDeferredResponseImpl();
 
-	public abstract EntityPatientDiscoveryDeferredRequestImpl getEntityPatientDiscoveryDeferredRequestImpl();
+    public abstract EntityPatientDiscoveryDeferredRequestImpl getEntityPatientDiscoveryDeferredRequestImpl();
 
-	public abstract EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl();
+    public abstract EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl();
 
 }

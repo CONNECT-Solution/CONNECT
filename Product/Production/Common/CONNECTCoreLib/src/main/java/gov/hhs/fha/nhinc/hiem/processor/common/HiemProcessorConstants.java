@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.hiem.processor.common;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class HiemProcessorConstants {

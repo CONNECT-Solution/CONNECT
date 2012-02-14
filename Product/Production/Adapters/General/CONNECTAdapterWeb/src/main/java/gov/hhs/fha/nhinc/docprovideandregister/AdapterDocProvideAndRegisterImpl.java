@@ -33,19 +33,18 @@ import gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryPro
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public class AdapterDocProvideAndRegisterImpl {
-    public RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestResponseType adapterDocProvideAndRegisterOperation(RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType part1)
-    {
-        RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestResponseType res =
-                    new RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestResponseType();
-        if(part1 != null)
-        {
+    public RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestResponseType adapterDocProvideAndRegisterOperation(
+            RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType part1) {
+        RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestResponseType res = new RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestResponseType();
+        if (part1 != null) {
             AdapterDocumentRepositoryProxyObjectFactory objFactory = new AdapterDocumentRepositoryProxyObjectFactory();
             AdapterDocumentRepositoryProxy registryProxy = objFactory.getAdapterDocumentRepositoryProxy();
-            RegistryResponseType response = registryProxy.provideAndRegisterDocumentSet(part1.getProvideAndRegisterDocumentSetRequest());
+            RegistryResponseType response = registryProxy.provideAndRegisterDocumentSet(part1
+                    .getProvideAndRegisterDocumentSetRequest());
             res.setRegistryResponse(response);
         }
         return res;

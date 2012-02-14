@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy ;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -39,40 +39,34 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class EntityPatientDiscoveryProxyNoOpImplTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class EntityPatientDiscoveryProxyNoOpImplTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
 
     @Test
-    public void testRespondingGatewayPRPAIN201305UV02()
-    {
-        try
-        {
+    public void testRespondingGatewayPRPAIN201305UV02() {
+        try {
             EntityPatientDiscoveryProxyNoOpImpl noOpImpl = new EntityPatientDiscoveryProxyNoOpImpl();
 
             PRPAIN201305UV02 mockPdRequest = context.mock(PRPAIN201305UV02.class);
             AssertionType mockAssertion = context.mock(AssertionType.class);
             NhinTargetCommunitiesType mockTargetCommunities = context.mock(NhinTargetCommunitiesType.class);
 
-            RespondingGatewayPRPAIN201306UV02ResponseType response = noOpImpl.respondingGatewayPRPAIN201305UV02(mockPdRequest, mockAssertion, mockTargetCommunities);
+            RespondingGatewayPRPAIN201306UV02ResponseType response = noOpImpl.respondingGatewayPRPAIN201305UV02(
+                    mockPdRequest, mockAssertion, mockTargetCommunities);
             assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayPRPAIN201305UV02: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02: " + t.getMessage());
         }
     }
-
 
 }

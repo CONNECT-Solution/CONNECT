@@ -39,7 +39,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterComponentDocQueryDeferredRequestOrchImpl {
@@ -59,7 +59,7 @@ public class AdapterComponentDocQueryDeferredRequestOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param msg
      * @param assertion
      * @return <code>DocQueryAcknowledgementType</code>
@@ -78,24 +78,29 @@ public class AdapterComponentDocQueryDeferredRequestOrchImpl {
             requestCommunityID = HomeCommunityMap.getCommunityIdForDeferredQDRequest(msg.getAdhocQuery());
         }
         // Add a new inbound QD request entry to the local deferred queue
-        boolean bIsQueueOk = asyncProcess.addQueryForDocumentsRequest(respondingGatewayCrossGatewayQueryRequest, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND, requestCommunityID);
+        boolean bIsQueueOk = asyncProcess.addQueryForDocumentsRequest(respondingGatewayCrossGatewayQueryRequest,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND, requestCommunityID);
 
         // check for valid queue entry
         if (bIsQueueOk) {
-            bIsQueueOk = asyncProcess.processMessageStatus(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVD);
+            bIsQueueOk = asyncProcess.processMessageStatus(assertion.getMessageId(),
+                    AsyncMsgRecordDao.QUEUE_STATUS_REQRCVD);
         }
 
         // check for valid queue entry/update
         if (bIsQueueOk) {
             // Set the ack success status of the deferred queue entry
-            ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG, null, null);
-            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK, AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
+            ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG, null,
+                    null);
+            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK,
+                    AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
         } else {
             String ackMsg = "Deferred Query For Documents processing halted; deferred queue repository error encountered";
 
             // Set the error acknowledgement status
             // fatal error with deferred queue repository
-            ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+            ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG,
+                    NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
 
         return ack;

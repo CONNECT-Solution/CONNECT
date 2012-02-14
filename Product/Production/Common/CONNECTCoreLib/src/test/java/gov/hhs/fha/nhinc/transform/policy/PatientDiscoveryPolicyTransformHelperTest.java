@@ -55,7 +55,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public class PatientDiscoveryPolicyTransformHelperTest {
@@ -101,7 +101,7 @@ public class PatientDiscoveryPolicyTransformHelperTest {
 
             {
                 exactly(1).of(mockLogger).debug(with(any(String.class)));
-                //Input Request Object can not be null
+                // Input Request Object can not be null
                 exactly(1).of(mockLogger).error("Request is null.");
                 will(returnValue(with(any(CheckPolicyRequestType.class))));
             }
@@ -119,7 +119,8 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         II patId = new II();
         patId.setExtension("1234");
         patId.setRoot("1.1.1");
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", "0101195", "123456789");
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", "0101195", "123456789");
         patient = HL7PatientTransforms.create201301Patient(person, patId);
         PRPAIN201305UV02 msg = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
         event.setPRPAIN201305UV02(msg);
@@ -158,7 +159,8 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         RespondingGatewayPRPAIN201305UV02RequestType event = new RespondingGatewayPRPAIN201305UV02RequestType();
         PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         II patId = null;
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", "0101195", null);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", "0101195", null);
         patient = HL7PatientTransforms.create201301Patient(person, patId);
         PRPAIN201305UV02 msg = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
         event.setPRPAIN201305UV02(msg);
@@ -231,7 +233,8 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         repOrgVal.getId().add(e);
 
         org.hl7.v3.ObjectFactory oJaxbObjectFactory = new org.hl7.v3.ObjectFactory();
-        JAXBElement<MCCIMT000100UV01Organization> repOrg = oJaxbObjectFactory.createMCCIMT000100UV01AgentRepresentedOrganization(repOrgVal);
+        JAXBElement<MCCIMT000100UV01Organization> repOrg = oJaxbObjectFactory
+                .createMCCIMT000100UV01AgentRepresentedOrganization(repOrgVal);
         repOrg.setValue(repOrgVal);
         agentVal.setRepresentedOrganization(repOrg);
 
@@ -279,7 +282,8 @@ public class PatientDiscoveryPolicyTransformHelperTest {
 
         for (AttributeType attr : result.getRequest().getResource().get(0).getAttribute()) {
             if (attr.getAttributeId().equalsIgnoreCase(Constants.ResourceIdAttributeId)) {
-                if (((String) attr.getAttributeValue().get(0).getContent().get(0)).equalsIgnoreCase(patId.getExtension())) {
+                if (((String) attr.getAttributeValue().get(0).getContent().get(0)).equalsIgnoreCase(patId
+                        .getExtension())) {
                     patIdMatch = true;
                     break;
                 }

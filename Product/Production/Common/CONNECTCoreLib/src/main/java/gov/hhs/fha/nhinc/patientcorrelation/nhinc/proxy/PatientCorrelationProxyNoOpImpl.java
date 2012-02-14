@@ -33,12 +33,13 @@ import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class PatientCorrelationProxyNoOpImpl implements PatientCorrelationProxy {
 
-    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request, AssertionType assertion) {
+    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request,
+            AssertionType assertion) {
         RetrievePatientCorrelationsResponseType resp = new RetrievePatientCorrelationsResponseType();
 
         return resp;

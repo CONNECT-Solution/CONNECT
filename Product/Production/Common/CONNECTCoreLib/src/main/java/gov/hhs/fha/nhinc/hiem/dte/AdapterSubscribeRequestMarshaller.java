@@ -30,7 +30,7 @@ import org.w3c.dom.Element;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeRequestType;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class AdapterSubscribeRequestMarshaller {

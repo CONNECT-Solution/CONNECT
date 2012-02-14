@@ -61,14 +61,16 @@ import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import org.oasis_open.docs.wsn.b_2.SubscribeCreationFailedFaultType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class HiemSubscriptionImpl {
 
     private static Log log = LogFactory.getLog(HiemSubscriptionImpl.class);
 
-    public SubscribeResponse subscribe(Subscribe subscribeRequest, WebServiceContext context) throws NotifyMessageNotSupportedFault, SubscribeCreationFailedFault, TopicNotSupportedFault, InvalidTopicExpressionFault, ResourceUnknownFault  {
+    public SubscribeResponse subscribe(Subscribe subscribeRequest, WebServiceContext context)
+            throws NotifyMessageNotSupportedFault, SubscribeCreationFailedFault, TopicNotSupportedFault,
+            InvalidTopicExpressionFault, ResourceUnknownFault {
         log.debug("Entering HiemSubscriptionImpl.subscribe");
 
         WebServiceContextHelper contextHelper = new WebServiceContextHelper();
@@ -81,12 +83,9 @@ public class HiemSubscriptionImpl {
         auditInputMessage(subscribeRequest, assertion);
 
         SubscribeResponse response = null;
-        if(checkPolicy(subscribeRequest, assertion))
-        {
+        if (checkPolicy(subscribeRequest, assertion)) {
             response = subscribeProcessor.processNhinSubscribe(soapMessage, assertion);
-        }
-        else
-        {
+        } else {
             SubscribeCreationFailedFaultType faultInfo = null;
             throw new SubscribeCreationFailedFault("Policy check failed", faultInfo);
         }
@@ -101,25 +100,22 @@ public class HiemSubscriptionImpl {
     private void auditInputMessage(Subscribe subscribe, AssertionType assertion) {
         log.debug("In HiemSubscriptionImpl.auditInputMessage");
         AcknowledgementType ack = null;
-        try
-        {
+        try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
             gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType();
             message.setAssertion(assertion);
             message.setSubscribe(subscribe);
 
-            LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
+                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
-            if(auditLogMsg != null)
-            {
+            if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
                 ack = proxy.auditLog(auditLogMsg, assertion);
             }
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error logging subscribe message: " + t.getMessage(), t);
         }
     }
@@ -127,25 +123,22 @@ public class HiemSubscriptionImpl {
     private void auditResponseMessage(SubscribeResponse response, AssertionType assertion) {
         log.debug("In HiemSubscriptionImpl.auditResponseMessage");
         AcknowledgementType ack = null;
-        try
-        {
+        try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
             gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType message = new gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType();
             message.setAssertion(assertion);
             message.setSubscribeResponse(response);
 
-            LogEventRequestType auditLogMsg = auditLogger.logSubscribeResponse(message, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            LogEventRequestType auditLogMsg = auditLogger.logSubscribeResponse(message,
+                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
-            if(auditLogMsg != null)
-            {
+            if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
                 ack = proxy.auditLog(auditLogMsg, assertion);
             }
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error loging subscription response: " + t.getMessage(), t);
         }
     }
@@ -167,9 +160,8 @@ public class HiemSubscriptionImpl {
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             policyIsValid = true;
         }
 
@@ -177,33 +169,27 @@ public class HiemSubscriptionImpl {
         return policyIsValid;
     }
 
-    private static String extractSoapMessage(WebServiceContext context)
-    {
+    private static String extractSoapMessage(WebServiceContext context) {
         String extractedMessage = null;
         @SuppressWarnings("unchecked")
         MessageContext msgContext = context.getMessageContext();
-        if(msgContext != null)
-        {
-            javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest)msgContext.get(MessageContext.SERVLET_REQUEST);
-            SOAPMessage soapMessage = (SOAPMessage)servletRequest.getAttribute(NhincConstants.HIEM_SUBSCRIBE_SOAP_HDR_ATTR_TAG);
-            if(soapMessage != null)
-            {
+        if (msgContext != null) {
+            javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest) msgContext
+                    .get(MessageContext.SERVLET_REQUEST);
+            SOAPMessage soapMessage = (SOAPMessage) servletRequest
+                    .getAttribute(NhincConstants.HIEM_SUBSCRIBE_SOAP_HDR_ATTR_TAG);
+            if (soapMessage != null) {
                 log.debug("******** Attempting to write out SOAP message *************");
-                try
-                {
+                try {
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     soapMessage.writeTo(bos);
                     extractedMessage = new String(bos.toByteArray());
                     log.debug("Extracted soap message: " + extractedMessage);
-                }
-                catch (Throwable t)
-                {
+                } catch (Throwable t) {
                     log.debug("Exception writing out the message");
                     t.printStackTrace();
                 }
-            }
-            else
-            {
+            } else {
                 log.debug("SOAPMessage was null");
             }
         }

@@ -33,17 +33,18 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "AdapterComponentXDRResponse_Service", portName = "AdapterComponentXDRResponse_Port", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentxdrresponse.AdapterComponentXDRResponsePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse", wsdlLocation = "WEB-INF/wsdl/AdapterComponentXDRResponse/AdapterComponentXDRResponse.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class AdapterComponentXDRResponse {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType body) {
+    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType body) {
         return new AdapterComponentXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);
     }
 

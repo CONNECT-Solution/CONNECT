@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.faults;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class ConfigurationException extends Exception {

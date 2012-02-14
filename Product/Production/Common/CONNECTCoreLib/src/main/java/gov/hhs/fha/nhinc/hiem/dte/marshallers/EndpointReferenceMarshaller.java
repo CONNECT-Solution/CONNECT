@@ -34,7 +34,7 @@ import org.w3._2005._08.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class EndpointReferenceMarshaller {
@@ -66,7 +66,7 @@ public class EndpointReferenceMarshaller {
     }
 
     public EndpointReferenceType unmarshal(String xml, String contextPath) {
-                Element element = null;
+        Element element = null;
         try {
             element = XmlUtility.convertXmlToElement(xml);
         } catch (Exception ex) {
@@ -75,8 +75,7 @@ public class EndpointReferenceMarshaller {
         return unmarshal(element, contextPath);
     }
 
-
     public EndpointReferenceType unmarshal(Element element) {
-      return unmarshal(element, EndpointReferenceContextPath);
+        return unmarshal(element, EndpointReferenceContextPath);
     }
 }

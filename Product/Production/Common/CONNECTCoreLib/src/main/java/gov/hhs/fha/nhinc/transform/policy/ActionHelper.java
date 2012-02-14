@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.transform.policy;
 import oasis.names.tc.xacml._2_0.context.schema.os.ActionType;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class ActionHelper {
@@ -46,7 +46,8 @@ public class ActionHelper {
             action = new ActionType();
         }
         AttributeHelper attrHelper = new AttributeHelper();
-        action.getAttribute().add(attrHelper.attributeFactory(ActionAttributeId, Constants.DataTypeString, (Object) actionValue));
+        action.getAttribute().add(
+                attrHelper.attributeFactory(ActionAttributeId, Constants.DataTypeString, (Object) actionValue));
         return action;
     }
 }

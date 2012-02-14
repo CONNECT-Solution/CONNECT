@@ -35,7 +35,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Ralph Saunders
  */
 public class AdapterDocRetrieveDeferredReqOrchImpl {
@@ -50,7 +50,8 @@ public class AdapterDocRetrieveDeferredReqOrchImpl {
         return LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion) {
+    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+            AssertionType assertion) {
         DocRetrieveAcknowledgementType result = null;
 
         log.debug("Enter AdapterDocRetrieveDeferredReqOrchImpl.respondingGatewayCrossGatewayRetrieve()");

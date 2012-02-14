@@ -34,13 +34,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocQueryProxyNoOpImpl implements PassthruDocQueryProxy {
     private static Log log = LogFactory.getLog(PassthruDocQueryProxyNoOpImpl.class);
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion, NhinTargetSystemType target) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion,
+            NhinTargetSystemType target) {
         log.debug("Using NoOp Implementation for Passthru Doc Query Service");
         return new AdhocQueryResponse();
     }

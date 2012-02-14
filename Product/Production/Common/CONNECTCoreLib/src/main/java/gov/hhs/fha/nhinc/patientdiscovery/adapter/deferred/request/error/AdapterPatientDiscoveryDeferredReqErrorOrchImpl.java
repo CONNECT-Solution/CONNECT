@@ -37,7 +37,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterPatientDiscoveryDeferredReqErrorOrchImpl {
@@ -56,19 +56,23 @@ public class AdapterPatientDiscoveryDeferredReqErrorOrchImpl {
         return new AsyncMessageProcessHelper();
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response, AssertionType assertion, String errMsg) {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response,
+            AssertionType assertion, String errMsg) {
         MCCIIN000002UV01 ack = HL7AckTransforms.createAckErrorFrom201305(request, errMsg);
 
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
 
         // Add a new inbound PD request entry to the local deferred queue
-        boolean bIsQueueOk = asyncProcess.addPatientDiscoveryRequest(request, assertion, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        boolean bIsQueueOk = asyncProcess.addPatientDiscoveryRequest(request, assertion,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
 
         // check for valid queue entry
         if (bIsQueueOk) {
-            bIsQueueOk = asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
+            bIsQueueOk = asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR,
+                    AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
         } else {
-            String ackMsg = "Deferred Patient Discovery processing halted; deferred queue repository error encountered; " + errMsg;
+            String ackMsg = "Deferred Patient Discovery processing halted; deferred queue repository error encountered; "
+                    + errMsg;
 
             // Set the error acknowledgement status
             // fatal error with deferred queue repository

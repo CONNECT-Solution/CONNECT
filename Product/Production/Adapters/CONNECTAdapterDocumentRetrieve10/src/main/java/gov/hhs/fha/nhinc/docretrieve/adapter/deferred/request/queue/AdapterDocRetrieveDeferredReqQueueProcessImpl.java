@@ -16,7 +16,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class AdapterDocRetrieveDeferredReqQueueProcessImpl {
@@ -29,11 +29,13 @@ public class AdapterDocRetrieveDeferredReqQueueProcessImpl {
 
     /**
      * processDocRetrieveDeferredReqQueue Implementation method for processing request queues on reponding gateway
+     * 
      * @param request
      * @param context
      * @return DocRetrieveDeferredReqQueueProcessResponseType
      */
-    public DocRetrieveDeferredReqQueueProcessResponseType processDocRetrieveDeferredReqQueue(DocRetrieveDeferredReqQueueProcessRequestType request, WebServiceContext context) {
+    public DocRetrieveDeferredReqQueueProcessResponseType processDocRetrieveDeferredReqQueue(
+            DocRetrieveDeferredReqQueueProcessRequestType request, WebServiceContext context) {
 
         DocRetrieveDeferredReqQueueProcessResponseType response = new DocRetrieveDeferredReqQueueProcessResponseType();
         SuccessOrFailType sof = new SuccessOrFailType();
@@ -42,12 +44,14 @@ public class AdapterDocRetrieveDeferredReqQueueProcessImpl {
 
         DocRetrieveAcknowledgementType docRetrieveAck = new DocRetrieveAcknowledgementType();
         AdapterDocRetrieveDeferredReqQueueProcessOrchImpl adapterDocRetrieveDeferredReqQueueProcessOrchImpl = getAdapterDocRetrieveDeferredReqQueueProcessOrchImpl();
-        docRetrieveAck = adapterDocRetrieveDeferredReqQueueProcessOrchImpl.processDocRetrieveDeferredReqQueue(request.getMessageId());
+        docRetrieveAck = adapterDocRetrieveDeferredReqQueueProcessOrchImpl.processDocRetrieveDeferredReqQueue(request
+                .getMessageId());
 
-        if (docRetrieveAck != null &&
-                docRetrieveAck.getMessage() != null &&
-                docRetrieveAck.getMessage().getStatus() != null &&
-                docRetrieveAck.getMessage().getStatus().equals(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG)) {
+        if (docRetrieveAck != null
+                && docRetrieveAck.getMessage() != null
+                && docRetrieveAck.getMessage().getStatus() != null
+                && docRetrieveAck.getMessage().getStatus()
+                        .equals(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG)) {
             sof.setSuccess(Boolean.TRUE);
         }
 

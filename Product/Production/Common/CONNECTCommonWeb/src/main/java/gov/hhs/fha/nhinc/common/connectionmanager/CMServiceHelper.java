@@ -87,9 +87,8 @@ import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessService;
 
 /**
- * This class is a helper class to the ConnectionManagerService.  It does
- * most of the java level work so that it can be unit tested outside of
- * the web service container.
+ * This class is a helper class to the ConnectionManagerService. It does most of the java level work so that it can be
+ * unit tested outside of the web service container.
  * 
  * @author Les Westberg
  */
@@ -100,10 +99,9 @@ public class CMServiceHelper {
     /**
      * This method returns a list of all communities that are known.
      * 
-     * @param part1 The only purpose for this parameter is so that the 
-     *              web service has a unique document that identifies this 
-     *              operation.  The values themselves are not used.
-     * @return List of all communities. 
+     * @param part1 The only purpose for this parameter is so that the web service has a unique document that identifies
+     *            this operation. The values themselves are not used.
+     * @return List of all communities.
      */
     public static HomeCommunitiesType getAllCommunities(GetAllCommunitiesRequestType part1) {
         HomeCommunitiesType oCommunities = new HomeCommunitiesType();
@@ -122,13 +120,11 @@ public class CMServiceHelper {
     }
 
     /**
-     * This method returns a list of all communities along with their demongraphic
-     * information that are known.
+     * This method returns a list of all communities along with their demongraphic information that are known.
      * 
-     * @param part1 The only purpose for this parameter is so that the 
-     *              web service has a unique document that identifies this 
-     *              operation.  The values themselves are not used.
-     * @return List of all communities. 
+     * @param part1 The only purpose for this parameter is so that the web service has a unique document that identifies
+     *            this operation. The values themselves are not used.
+     * @return List of all communities.
      */
     public static BusinessEntitiesType getAllBusinessEntities(GetAllBusinessEntitiesRequestType part1) {
         BusinessEntitiesType oBusinessEntities = new BusinessEntitiesType();
@@ -142,7 +138,7 @@ public class CMServiceHelper {
             log.error(sErrorMessage, t);
         }
 
-        //oBusinessEntities = CMTransform.cmBusinessEntitiesToBusinessEntitiesType(oCMBusinessEntities);
+        // oBusinessEntities = CMTransform.cmBusinessEntitiesToBusinessEntitiesType(oCMBusinessEntities);
         return oBusinessEntities;
     }
 
@@ -155,44 +151,41 @@ public class CMServiceHelper {
     public static BusinessEntityType getBusinessEntity(GetBusinessEntityRequestType part1) {
         BusinessEntityType oBusinessEntity = null;
         String sHomeCommunityId = "";
-        if ((part1 != null) &&
-                (part1.getHomeCommunity() != null) &&
-                (part1.getHomeCommunity().getHomeCommunityId() != null) &&
-                (part1.getHomeCommunity().getHomeCommunityId().length() > 0) &&
-                (part1.getAssigningAuthority() != null) &&
-                (part1.getAssigningAuthority().getAssigningAuthorityId() != null) &&
-                (part1.getAssigningAuthority().getAssigningAuthorityId().length() > 0)) {
+        if ((part1 != null) && (part1.getHomeCommunity() != null)
+                && (part1.getHomeCommunity().getHomeCommunityId() != null)
+                && (part1.getHomeCommunity().getHomeCommunityId().length() > 0)
+                && (part1.getAssigningAuthority() != null)
+                && (part1.getAssigningAuthority().getAssigningAuthorityId() != null)
+                && (part1.getAssigningAuthority().getAssigningAuthorityId().length() > 0)) {
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
             sHomeCommunityId = CMTransform.formatHomeCommunityId(part1.getHomeCommunity().getHomeCommunityId());
             mappingDao.storeMapping(sHomeCommunityId, part1.getAssigningAuthority().getAssigningAuthorityId());
-        } else if ((part1 != null) &&
-                (part1.getHomeCommunity() != null) &&
-                (part1.getHomeCommunity().getHomeCommunityId() != null) &&
-                (part1.getHomeCommunity().getHomeCommunityId().length() > 0)) {
+        } else if ((part1 != null) && (part1.getHomeCommunity() != null)
+                && (part1.getHomeCommunity().getHomeCommunityId() != null)
+                && (part1.getHomeCommunity().getHomeCommunityId().length() > 0)) {
             sHomeCommunityId = CMTransform.formatHomeCommunityId(part1.getHomeCommunity().getHomeCommunityId());
-        } else if ((part1 != null) &&
-                (part1.getAssigningAuthority() != null) &&
-                (part1.getAssigningAuthority().getAssigningAuthorityId().length() > 0)) {
+        } else if ((part1 != null) && (part1.getAssigningAuthority() != null)
+                && (part1.getAssigningAuthority().getAssigningAuthorityId().length() > 0)) {
             String assigningAuthId = part1.getAssigningAuthority().getAssigningAuthorityId();
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
             sHomeCommunityId = mappingDao.getHomeCommunityId(assigningAuthId);
         }
 
         // If we have a home community ID, do the retrieve ....
-        //------------------------------------------------------
-//        if ((sHomeCommunityId != null) &&
-//                (sHomeCommunityId.length() > 0)) {
-//            CMBusinessEntity oCMBusinessEntity = null;
-//
-//            try {
-//                oCMBusinessEntity = ConnectionManagerCache.getBusinessEntity(sHomeCommunityId);
-//            } catch (Throwable t) {
-//                String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();
-//                log.error(sErrorMessage, t);
-//            }
-//
-//            oBusinessEntity = CMTransform.cmBusinessEntityToBusinessEntityType(oCMBusinessEntity);
-//        }
+        // ------------------------------------------------------
+        // if ((sHomeCommunityId != null) &&
+        // (sHomeCommunityId.length() > 0)) {
+        // CMBusinessEntity oCMBusinessEntity = null;
+        //
+        // try {
+        // oCMBusinessEntity = ConnectionManagerCache.getBusinessEntity(sHomeCommunityId);
+        // } catch (Throwable t) {
+        // String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();
+        // log.error(sErrorMessage, t);
+        // }
+        //
+        // oBusinessEntity = CMTransform.cmBusinessEntityToBusinessEntityType(oCMBusinessEntity);
+        // }
 
         return oBusinessEntity;
     }
@@ -206,15 +199,15 @@ public class CMServiceHelper {
     private static CMBusinessEntities retrieveBusinessEntitySetFromCache(List<String> saHomeCommunityId) {
         CMBusinessEntities oCMBusinessEntities = null;
 
-//        if ((saHomeCommunityId != null) &&
-//                (saHomeCommunityId.size() > 0)) {
-//            try {
-//                oCMBusinessEntities = ConnectionManagerCache.getBusinessEntitySet(saHomeCommunityId);
-//            } catch (Throwable t) {
-//                String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
-//                log.error(sErrorMessage, t);
-//            }
-//        }
+        // if ((saHomeCommunityId != null) &&
+        // (saHomeCommunityId.size() > 0)) {
+        // try {
+        // oCMBusinessEntities = ConnectionManagerCache.getBusinessEntitySet(saHomeCommunityId);
+        // } catch (Throwable t) {
+        // String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
+        // log.error(sErrorMessage, t);
+        // }
+        // }
 
         return oCMBusinessEntities;
     }
@@ -222,45 +215,42 @@ public class CMServiceHelper {
     /**
      * This method returns the connection information for the set of home communities that were passed in.
      * 
-     * @param part1  The set of home communities for which the connection information is needed.
+     * @param part1 The set of home communities for which the connection information is needed.
      * @return The connection info for the home communities.
      */
     public static ConnectionInfosType getConnectionInfoSet(HomeCommunitiesType part1) {
         ConnectionInfosType oConnectionInfos = null;
 
-        if ((part1 != null) &&
-                (part1.getHomeCommunity() != null) &&
-                (part1.getHomeCommunity().size() > 0)) {
+        if ((part1 != null) && (part1.getHomeCommunity() != null) && (part1.getHomeCommunity().size() > 0)) {
 
-            List<String> saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(part1.getHomeCommunity());
+            List<String> saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(part1
+                    .getHomeCommunity());
             CMBusinessEntities oCMBusinessEntities = retrieveBusinessEntitySetFromCache(saHomeCommunityId);
             oConnectionInfos = CMTransform.cmBusinessEntitiesToConnectionInfosType(oCMBusinessEntities);
 
-        }   // if ((part1 != null) &&
+        } // if ((part1 != null) &&
 
         return oConnectionInfos;
     }
 
     /**
-     * This method returns the connection endpoint information for the set of home communities 
-     * that were passed in.
+     * This method returns the connection endpoint information for the set of home communities that were passed in.
      * 
-     * @param part1  The set of home communities for which the connection information is needed.
+     * @param part1 The set of home communities for which the connection information is needed.
      * @return The connection endpoint info for the home communities.
      */
     public static ConnectionInfoEndpointsType getConnectionInfoEndpointSet(GetConnectionInfoEndpointSetRequestType part1) {
         ConnectionInfoEndpointsType oConnectionInfoEndpoints = null;
         List<String> saHomeCommunityId = null;
 
-        if ((part1 != null) &&
-                (part1.getHomeCommunities() != null) &&
-                (part1.getHomeCommunities().getHomeCommunity() != null) &&
-                (part1.getHomeCommunities().getHomeCommunity().size() > 0)) {
-            saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(part1.getHomeCommunities().getHomeCommunity());
-        } else if ((part1 != null) &&
-                (part1.getAssigningAuthorities() != null) &&
-                (part1.getAssigningAuthorities().getAssigningAuthority() != null) &&
-                (part1.getAssigningAuthorities().getAssigningAuthority().size() > 0)) {
+        if ((part1 != null) && (part1.getHomeCommunities() != null)
+                && (part1.getHomeCommunities().getHomeCommunity() != null)
+                && (part1.getHomeCommunities().getHomeCommunity().size() > 0)) {
+            saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(part1.getHomeCommunities()
+                    .getHomeCommunity());
+        } else if ((part1 != null) && (part1.getAssigningAuthorities() != null)
+                && (part1.getAssigningAuthorities().getAssigningAuthority() != null)
+                && (part1.getAssigningAuthorities().getAssigningAuthority().size() > 0)) {
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
             int size = part1.getAssigningAuthorities().getAssigningAuthority().size();
             List<AssigningAuthorityType> assignIdList = part1.getAssigningAuthorities().getAssigningAuthority();
@@ -277,10 +267,10 @@ public class CMServiceHelper {
     }
 
     /**
-     * This method returns the business information along with their connection information 
-     * for the set of home communities that were passed in.
+     * This method returns the business information along with their connection information for the set of home
+     * communities that were passed in.
      * 
-     * @param part1  The set of home communities for which the connection information is needed.
+     * @param part1 The set of home communities for which the connection information is needed.
      * @return The connection and business info for the home communities.
      */
     public static BusinessEntitiesType getBusinessEntitySet(GetBusinessEntitySetRequestType part1) {
@@ -288,13 +278,12 @@ public class CMServiceHelper {
         CMBusinessEntities oCMBusinessEntities = null;
         List<String> saHomeCommunityId = null;
 
-        if ((part1 != null) &&
-                (part1.getHomeCommunities() != null) &&
-                (part1.getHomeCommunities().getHomeCommunity() != null) &&
-                (part1.getHomeCommunities().getHomeCommunity().size() > 0) &&
-                (part1.getAssigningAuthorities() != null) &&
-                (part1.getAssigningAuthorities().getAssigningAuthority() != null) &&
-                (part1.getAssigningAuthorities().getAssigningAuthority().size() > 0)) {
+        if ((part1 != null) && (part1.getHomeCommunities() != null)
+                && (part1.getHomeCommunities().getHomeCommunity() != null)
+                && (part1.getHomeCommunities().getHomeCommunity().size() > 0)
+                && (part1.getAssigningAuthorities() != null)
+                && (part1.getAssigningAuthorities().getAssigningAuthority() != null)
+                && (part1.getAssigningAuthorities().getAssigningAuthority().size() > 0)) {
             String sHomeCommId = "";
             String sAssigningAuthId = "";
             int hSize = part1.getHomeCommunities().getHomeCommunity().size();
@@ -302,29 +291,31 @@ public class CMServiceHelper {
             List<HomeCommunityType> homeCommunityTypeList = part1.getHomeCommunities().getHomeCommunity();
             for (int i = 0; i < hSize; i++) {
                 sHomeCommId = CMTransform.formatHomeCommunityId(homeCommunityTypeList.get(i).getHomeCommunityId());
-                sAssigningAuthId = part1.getAssigningAuthorities().getAssigningAuthority().get(i).getAssigningAuthorityId();
+                sAssigningAuthId = part1.getAssigningAuthorities().getAssigningAuthority().get(i)
+                        .getAssigningAuthorityId();
                 mappingDao.storeMapping(sHomeCommId, sAssigningAuthId);
             }
-            saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(part1.getHomeCommunities().getHomeCommunity());
+            saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(part1.getHomeCommunities()
+                    .getHomeCommunity());
             oCMBusinessEntities = retrieveBusinessEntitySetFromCache(saHomeCommunityId);
             oBusinessEntities = CMTransform.cmBusinessEntitiesToBusinessEntitiesType(oCMBusinessEntities);
-        } else if ((part1 != null) &&
-                (part1.getHomeCommunities() != null) &&
-                (part1.getHomeCommunities().getHomeCommunity() != null) &&
-                (part1.getHomeCommunities().getHomeCommunity().size() > 0)) {
-            saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(part1.getHomeCommunities().getHomeCommunity());
+        } else if ((part1 != null) && (part1.getHomeCommunities() != null)
+                && (part1.getHomeCommunities().getHomeCommunity() != null)
+                && (part1.getHomeCommunities().getHomeCommunity().size() > 0)) {
+            saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(part1.getHomeCommunities()
+                    .getHomeCommunity());
             oCMBusinessEntities = retrieveBusinessEntitySetFromCache(saHomeCommunityId);
             oBusinessEntities = CMTransform.cmBusinessEntitiesToBusinessEntitiesType(oCMBusinessEntities);
-        } else if ((part1 != null) &&
-                (part1.getAssigningAuthorities() != null) &&
-                (part1.getAssigningAuthorities().getAssigningAuthority() != null) &&
-                (part1.getAssigningAuthorities().getAssigningAuthority().size() > 0)) {
+        } else if ((part1 != null) && (part1.getAssigningAuthorities() != null)
+                && (part1.getAssigningAuthorities().getAssigningAuthority() != null)
+                && (part1.getAssigningAuthorities().getAssigningAuthority().size() > 0)) {
             int size = part1.getAssigningAuthorities().getAssigningAuthority().size();
             saHomeCommunityId = new ArrayList();
             String assigningAuthId = "";
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
             for (int i = 0; i < size; i++) {
-                assigningAuthId = part1.getAssigningAuthorities().getAssigningAuthority().get(i).getAssigningAuthorityId();
+                assigningAuthId = part1.getAssigningAuthorities().getAssigningAuthority().get(i)
+                        .getAssigningAuthorityId();
                 saHomeCommunityId.add(mappingDao.getHomeCommunityId(assigningAuthId));
             }
             oCMBusinessEntities = retrieveBusinessEntitySetFromCache(saHomeCommunityId);
@@ -344,24 +335,24 @@ public class CMServiceHelper {
             String sServiceName) {
         CMBusinessEntities oCMBusinessEntities = null;
 
-//        if ((saHomeCommunityId != null) &&
-//                (saHomeCommunityId.size() > 0)) {
-//            try {
-//                oCMBusinessEntities = ConnectionManagerCache.getBusinessEntitySetByServiceName(saHomeCommunityId, sServiceName);
-//            } catch (Throwable t) {
-//                String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
-//                log.error(sErrorMessage, t);
-//            }
-//        }
+        // if ((saHomeCommunityId != null) &&
+        // (saHomeCommunityId.size() > 0)) {
+        // try {
+        // oCMBusinessEntities = ConnectionManagerCache.getBusinessEntitySetByServiceName(saHomeCommunityId,
+        // sServiceName);
+        // } catch (Throwable t) {
+        // String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
+        // log.error(sErrorMessage, t);
+        // }
+        // }
         return oCMBusinessEntities;
     }
 
     /**
-     * This method retrieves the ConnectionInformation for a specific service at a 
-     * specific set of home communities
+     * This method retrieves the ConnectionInformation for a specific service at a specific set of home communities
      * 
-     * @param part1 This contains the home communities identification and the name of the service that the 
-     *              connection info is desired.
+     * @param part1 This contains the home communities identification and the name of the service that the connection
+     *            info is desired.
      * @return The connection information for the service at the specified home community.
      */
     public static ConnectionInfosType getConnectionInfoSetByServiceName(HomeCommunitiesWithServiceNameType part1) {
@@ -369,20 +360,17 @@ public class CMServiceHelper {
         List<String> saHomeCommunityId = null;
         String sServiceName = "";
 
-        if ((part1 != null) &&
-                (part1.getHomeCommunities() != null) &&
-                (part1.getHomeCommunities().getHomeCommunity() != null) &&
-                (part1.getHomeCommunities().getHomeCommunity().size() > 0) &&
-                (part1.getServiceName() != null) &&
-                (part1.getServiceName().length() > 0)) {
+        if ((part1 != null) && (part1.getHomeCommunities() != null)
+                && (part1.getHomeCommunities().getHomeCommunity() != null)
+                && (part1.getHomeCommunities().getHomeCommunity().size() > 0) && (part1.getServiceName() != null)
+                && (part1.getServiceName().length() > 0)) {
             sServiceName = part1.getServiceName();
-            saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(part1.getHomeCommunities().getHomeCommunity());
-        } else if ((part1 != null) &&
-                (part1.getAssigningAuthorities() != null) &&
-                (part1.getAssigningAuthorities().getAssigningAuthority() != null) &&
-                (part1.getAssigningAuthorities().getAssigningAuthority().size() > 0) &&
-                (part1.getServiceName() != null) &&
-                (part1.getServiceName().length() > 0)) {
+            saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(part1.getHomeCommunities()
+                    .getHomeCommunity());
+        } else if ((part1 != null) && (part1.getAssigningAuthorities() != null)
+                && (part1.getAssigningAuthorities().getAssigningAuthority() != null)
+                && (part1.getAssigningAuthorities().getAssigningAuthority().size() > 0)
+                && (part1.getServiceName() != null) && (part1.getServiceName().length() > 0)) {
             sServiceName = part1.getServiceName();
             int size = part1.getAssigningAuthorities().getAssigningAuthority().size();
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
@@ -394,83 +382,91 @@ public class CMServiceHelper {
                 saHomeCommunityId.add(mappingDao.getHomeCommunityId(assigningAuthId));
             }
         }
-        CMBusinessEntities oCMBusinessEntities = retrieveBusinessEntitySetByServiceNameFromCache(saHomeCommunityId, sServiceName);
+        CMBusinessEntities oCMBusinessEntities = retrieveBusinessEntitySetByServiceNameFromCache(saHomeCommunityId,
+                sServiceName);
         oConnectionInfos = CMTransform.cmBusinessEntitiesToConnectionInfosType(oCMBusinessEntities);
         return oConnectionInfos;
     }
 
     /**
-     * This method retrieves the Endpoint Connection Information for a specific service at a 
-     * specific set of home communities
+     * This method retrieves the Endpoint Connection Information for a specific service at a specific set of home
+     * communities
      * 
-     * @param part1 This contains the home communities identification and the name of the service that the 
-     *              connection info is desired.
+     * @param part1 This contains the home communities identification and the name of the service that the connection
+     *            info is desired.
      * @return The endpoint connection information for the service at the specified home community.
      */
-    public static ConnectionInfoEndpointsType getConnectionInfoEndpointSetByServiceName(GetConnectionInfoEndpointSetByServiceNameRequestType part1) {
+    public static ConnectionInfoEndpointsType getConnectionInfoEndpointSetByServiceName(
+            GetConnectionInfoEndpointSetByServiceNameRequestType part1) {
         ConnectionInfoEndpointsType oConnectionInfoEndpoints = null;
         List<String> saHomeCommunityId = null;
         String sServiceName = "";
-        if ((part1 != null) &&
-                (part1.getHomeCommunitiesWithServiceName() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getHomeCommunities() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity().size() > 0) &&
-                (part1.getHomeCommunitiesWithServiceName().getServiceName() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getServiceName().length() > 0)) {
+        if ((part1 != null) && (part1.getHomeCommunitiesWithServiceName() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getHomeCommunities() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity().size() > 0)
+                && (part1.getHomeCommunitiesWithServiceName().getServiceName() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getServiceName().length() > 0)) {
             sServiceName = part1.getHomeCommunitiesWithServiceName().getServiceName();
-            List<HomeCommunityType> oaHomeCommunity = part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity();
+            List<HomeCommunityType> oaHomeCommunity = part1.getHomeCommunitiesWithServiceName().getHomeCommunities()
+                    .getHomeCommunity();
             saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(oaHomeCommunity);
-        } else if ((part1 != null) &&
-                (part1.getHomeCommunitiesWithServiceName() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority().size() > 0) &&
-                (part1.getHomeCommunitiesWithServiceName().getServiceName() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getServiceName().length() > 0)) {
+        } else if ((part1 != null)
+                && (part1.getHomeCommunitiesWithServiceName() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority().size() > 0)
+                && (part1.getHomeCommunitiesWithServiceName().getServiceName() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getServiceName().length() > 0)) {
             sServiceName = part1.getHomeCommunitiesWithServiceName().getServiceName();
-            List<AssigningAuthorityType> assignList = part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority();
+            List<AssigningAuthorityType> assignList = part1.getHomeCommunitiesWithServiceName()
+                    .getAssigningAuthorities().getAssigningAuthority();
             String tempHomeCommId = "";
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
-            int size = part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority().size();
+            int size = part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority()
+                    .size();
             saHomeCommunityId = new ArrayList();
             for (int i = 0; i < size; i++) {
                 tempHomeCommId = mappingDao.getHomeCommunityId(assignList.get(i).getAssigningAuthorityId());
                 saHomeCommunityId.add(tempHomeCommId);
             }
         }
-        CMBusinessEntities oCMBusinessEntities = retrieveBusinessEntitySetByServiceNameFromCache(saHomeCommunityId, sServiceName);
+        CMBusinessEntities oCMBusinessEntities = retrieveBusinessEntitySetByServiceNameFromCache(saHomeCommunityId,
+                sServiceName);
         oConnectionInfoEndpoints = CMTransform.cmBusinessEntitiesToConnectionInfoEndpointsType(oCMBusinessEntities);
         return oConnectionInfoEndpoints;
     }
 
     /**
-     * This method retrieves the business entity and Connection Information for a specific service at a 
-     * specific set of home communities
+     * This method retrieves the business entity and Connection Information for a specific service at a specific set of
+     * home communities
      * 
-     * @param part1 This contains the home communities identification and the name of the service that the 
-     *              connection info is desired.
+     * @param part1 This contains the home communities identification and the name of the service that the connection
+     *            info is desired.
      * @return The endpoint connection information for the service at the specified home community.
      */
-    public static BusinessEntitiesType getBusinessEntitySetByServiceName(GetBusinessEntitySetByServiceNameRequestType part1) {
+    public static BusinessEntitiesType getBusinessEntitySetByServiceName(
+            GetBusinessEntitySetByServiceNameRequestType part1) {
         BusinessEntitiesType oBusinessEntities = null;
         List<String> saHomeCommunityId = null;
         String sServiceName = "";
 
-        if ((part1 != null) &&
-                (part1.getHomeCommunitiesWithServiceName() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getHomeCommunities() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity().size() > 0) &&
-                (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority().size() > 0)) {
+        if ((part1 != null)
+                && (part1.getHomeCommunitiesWithServiceName() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getHomeCommunities() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity().size() > 0)
+                && (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority().size() > 0)) {
             int size = part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity().size();
             String sHCommId = "";
             String sAssAuthId = "";
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
-            List<HomeCommunityType> homeCommList = part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity();
-            List<AssigningAuthorityType> assignAuthList = part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority();
+            List<HomeCommunityType> homeCommList = part1.getHomeCommunitiesWithServiceName().getHomeCommunities()
+                    .getHomeCommunity();
+            List<AssigningAuthorityType> assignAuthList = part1.getHomeCommunitiesWithServiceName()
+                    .getAssigningAuthorities().getAssigningAuthority();
             for (int i = 0; i < size; i++) {
                 sHCommId = CMTransform.formatHomeCommunityId(homeCommList.get(i).getHomeCommunityId());
                 sAssAuthId = assignAuthList.get(i).getAssigningAuthorityId();
@@ -480,27 +476,29 @@ public class CMServiceHelper {
             }
         }
 
-        if ((part1 != null) &&
-                (part1.getHomeCommunitiesWithServiceName() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getHomeCommunities() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity().size() > 0) &&
-                (part1.getHomeCommunitiesWithServiceName().getServiceName() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getServiceName().length() > 0)) {
+        if ((part1 != null) && (part1.getHomeCommunitiesWithServiceName() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getHomeCommunities() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity().size() > 0)
+                && (part1.getHomeCommunitiesWithServiceName().getServiceName() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getServiceName().length() > 0)) {
             sServiceName = part1.getHomeCommunitiesWithServiceName().getServiceName();
-            List<HomeCommunityType> oaHomeCommunity = part1.getHomeCommunitiesWithServiceName().getHomeCommunities().getHomeCommunity();
+            List<HomeCommunityType> oaHomeCommunity = part1.getHomeCommunitiesWithServiceName().getHomeCommunities()
+                    .getHomeCommunity();
             saHomeCommunityId = CMTransform.listHomeCommunityToListHomeCommunityId(oaHomeCommunity);
-        } else if ((part1 != null) &&
-                (part1.getHomeCommunitiesWithServiceName() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority().size() > 0) &&
-                (part1.getHomeCommunitiesWithServiceName().getServiceName() != null) &&
-                (part1.getHomeCommunitiesWithServiceName().getServiceName().length() > 0)) {
+        } else if ((part1 != null)
+                && (part1.getHomeCommunitiesWithServiceName() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority().size() > 0)
+                && (part1.getHomeCommunitiesWithServiceName().getServiceName() != null)
+                && (part1.getHomeCommunitiesWithServiceName().getServiceName().length() > 0)) {
             sServiceName = part1.getHomeCommunitiesWithServiceName().getServiceName();
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
-            int size = part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority().size();
-            List<AssigningAuthorityType> assignList = part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority();
+            int size = part1.getHomeCommunitiesWithServiceName().getAssigningAuthorities().getAssigningAuthority()
+                    .size();
+            List<AssigningAuthorityType> assignList = part1.getHomeCommunitiesWithServiceName()
+                    .getAssigningAuthorities().getAssigningAuthority();
             String sAssigningAuthorityId = "";
             String tempHomeCommunityId = "";
             saHomeCommunityId = new ArrayList();
@@ -510,7 +508,8 @@ public class CMServiceHelper {
                 saHomeCommunityId.add(tempHomeCommunityId);
             }
         }
-        CMBusinessEntities oCMBusinessEntities = retrieveBusinessEntitySetByServiceNameFromCache(saHomeCommunityId, sServiceName);
+        CMBusinessEntities oCMBusinessEntities = retrieveBusinessEntitySetByServiceNameFromCache(saHomeCommunityId,
+                sServiceName);
         oBusinessEntities = CMTransform.cmBusinessEntitiesToBusinessEntitiesType(oCMBusinessEntities);
         return oBusinessEntities;
     }
@@ -526,17 +525,17 @@ public class CMServiceHelper {
             String sServiceName) {
         CMBusinessEntity oCMBusinessEntity = null;
 
-//        if ((sHomeCommunityId != null) &&
-//                (sHomeCommunityId.length() > 0) &&
-//                (sServiceName != null) &&
-//                (sServiceName.length() > 0)) {
-//            try {
-//                oCMBusinessEntity = ConnectionManagerCache.getBusinessEntityByServiceName(sHomeCommunityId, sServiceName);
-//            } catch (Throwable t) {
-//                String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();
-//                log.error(sErrorMessage, t);
-//            }
-//        }
+        // if ((sHomeCommunityId != null) &&
+        // (sHomeCommunityId.length() > 0) &&
+        // (sServiceName != null) &&
+        // (sServiceName.length() > 0)) {
+        // try {
+        // oCMBusinessEntity = ConnectionManagerCache.getBusinessEntityByServiceName(sHomeCommunityId, sServiceName);
+        // } catch (Throwable t) {
+        // String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();
+        // log.error(sErrorMessage, t);
+        // }
+        // }
 
         return oCMBusinessEntity;
     }
@@ -547,64 +546,46 @@ public class CMServiceHelper {
         oServiceConnectionInfo.setServiceName(serviceName);
         oServiceConnectionInfo.setUrl(urlString);
 
-        try
-        {
+        try {
             URL oURL = new URL(urlString);
 
             String sValue = oURL.getFile();
-            if ((sValue != null) && (sValue.length() > 0))
-            {
+            if ((sValue != null) && (sValue.length() > 0)) {
                 oServiceConnectionInfo.setFile(sValue);
-            }
-            else
-            {
+            } else {
                 oServiceConnectionInfo.setFile("");
             }
 
             sValue = oURL.getHost();
-            if ((sValue != null) && (sValue.length() > 0))
-            {
+            if ((sValue != null) && (sValue.length() > 0)) {
                 oServiceConnectionInfo.setHost(sValue);
-            }
-            else
-            {
+            } else {
                 oServiceConnectionInfo.setHost("");
             }
 
             sValue = oURL.getPath();
-            if ((sValue != null) && (sValue.length() > 0))
-            {
+            if ((sValue != null) && (sValue.length() > 0)) {
                 oServiceConnectionInfo.setPath(sValue);
-            }
-            else
-            {
+            } else {
                 oServiceConnectionInfo.setPath("");
             }
 
             sValue = oURL.getPort() + "";
-            if ((sValue != null) && (sValue.length() > 0))
-            {
+            if ((sValue != null) && (sValue.length() > 0)) {
                 oServiceConnectionInfo.setPort(sValue);
-            }
-            else
-            {
+            } else {
                 oServiceConnectionInfo.setPort("");
             }
 
             sValue = oURL.getProtocol();
-            if ((sValue != null) && (sValue.length() > 0))
-            {
+            if ((sValue != null) && (sValue.length() > 0)) {
                 oServiceConnectionInfo.setProtocol(sValue);
-            }
-            else
-            {
+            } else {
                 oServiceConnectionInfo.setProtocol("");
             }
-        }
-        catch (Throwable t)
-        {
-            String sErrorMessage = "Failed to decompose URL into its parts. URL='" +
-                                   urlString + "'.  Error: " + t.getMessage();
+        } catch (Throwable t) {
+            String sErrorMessage = "Failed to decompose URL into its parts. URL='" + urlString + "'.  Error: "
+                    + t.getMessage();
             log.error(sErrorMessage, t);
         }
 
@@ -615,24 +596,25 @@ public class CMServiceHelper {
         ConnectionInfoType connectionInfoType = new ConnectionInfoType();
 
         try {
-            BusinessEntity businessEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(sHomeCommunityId, sServiceName);
-            if (businessEntity == null)
-            {
+            BusinessEntity businessEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(
+                    sHomeCommunityId, sServiceName);
+            if (businessEntity == null) {
                 return null;
             }
 
             // Get HomeCommunitType from BusinessEntity
-            HomeCommunityType homeCommunityType = CMTransform.transformBusinessEntityToHomeCommunityType(businessEntity);
+            HomeCommunityType homeCommunityType = CMTransform
+                    .transformBusinessEntityToHomeCommunityType(businessEntity);
 
-            String url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, sServiceName);
+            String url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId,
+                    sServiceName);
             ServiceConnectionInfoType serviceConnectionInfoType = createServiceConnectionInfoType(sServiceName, url);
 
             connectionInfoType.setHomeCommunity(homeCommunityType);
             ServiceConnectionInfosType serviceConnectionInfosType = new ServiceConnectionInfosType();
             serviceConnectionInfosType.getServiceConnectionInfo().add(serviceConnectionInfoType);
-            connectionInfoType.setServiceConnectionInfos(serviceConnectionInfosType);            
-        }
-        catch (ConnectionManagerException e) {
+            connectionInfoType.setServiceConnectionInfos(serviceConnectionInfosType);
+        } catch (ConnectionManagerException e) {
             log.error("Failed to get connection info from service name", e);
         }
 
@@ -642,8 +624,8 @@ public class CMServiceHelper {
     /**
      * This method retrieves the ConnectionInformation for a specific service at a specific home community.
      * 
-     * @param part1 This contains the home community identification and the name of the service that the 
-     *              connection info is desired.
+     * @param part1 This contains the home community identification and the name of the service that the connection info
+     *            is desired.
      * @return The connection information for the service at the specified home community.
      */
     public static ConnectionInfoType getConnectionInfoByServiceName(HomeCommunityWithServiceNameType part1) {
@@ -651,84 +633,82 @@ public class CMServiceHelper {
         String sServiceName = "";
         String sHomeCommunityId = "";
 
-        if ((part1 != null) &&
-                (part1.getHomeCommunity() != null) &&
-                (part1.getHomeCommunity().getHomeCommunityId() != null) &&
-                (part1.getHomeCommunity().getHomeCommunityId().length() > 0) &&
-                (part1.getServiceName() != null) &&
-                (part1.getServiceName().length() > 0)) {
+        if ((part1 != null) && (part1.getHomeCommunity() != null)
+                && (part1.getHomeCommunity().getHomeCommunityId() != null)
+                && (part1.getHomeCommunity().getHomeCommunityId().length() > 0) && (part1.getServiceName() != null)
+                && (part1.getServiceName().length() > 0)) {
             sServiceName = part1.getServiceName();
             sHomeCommunityId = CMTransform.formatHomeCommunityId(part1.getHomeCommunity().getHomeCommunityId());
-        } else if ((part1 != null) &&
-                (part1.getAssigningAuthority() != null) &&
-                (part1.getAssigningAuthority().getAssigningAuthorityId() != null) &&
-                (part1.getAssigningAuthority().getAssigningAuthorityId().length() > 0) &&
-                (part1.getServiceName() != null) &&
-                (part1.getServiceName().length() > 0)) {
+        } else if ((part1 != null) && (part1.getAssigningAuthority() != null)
+                && (part1.getAssigningAuthority().getAssigningAuthorityId() != null)
+                && (part1.getAssigningAuthority().getAssigningAuthorityId().length() > 0)
+                && (part1.getServiceName() != null) && (part1.getServiceName().length() > 0)) {
             sServiceName = part1.getServiceName();
             String assigningAuthId = part1.getAssigningAuthority().getAssigningAuthorityId();
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
             sHomeCommunityId = mappingDao.getHomeCommunityId(assigningAuthId);
         }
 
-        if ((sServiceName != null) &&
-                (sServiceName.length() > 0) &&
-                (sHomeCommunityId != null) &&
-                (sHomeCommunityId.length() > 0)) {
+        if ((sServiceName != null) && (sServiceName.length() > 0) && (sHomeCommunityId != null)
+                && (sHomeCommunityId.length() > 0)) {
             oConnectionInfo = getConnectionInfoType(sHomeCommunityId, sServiceName);
         }
         return oConnectionInfo;
     }
 
     /**
-     * This method retrieves the endpoint Connection Information for a specific service at a 
-     * specific home community.
+     * This method retrieves the endpoint Connection Information for a specific service at a specific home community.
      * 
-     * @param part1 This contains the home community identification and the name of the service that the 
-     *              connection info is desired.
+     * @param part1 This contains the home community identification and the name of the service that the connection info
+     *            is desired.
      * @return The endpoint connection information for the service at the specified home community.
      */
-    public static ConnectionInfoEndpointType getConnectionInfoEndpointByServiceName(GetConnectionInfoEndpointByServiceNameRequestType part1) {
+    public static ConnectionInfoEndpointType getConnectionInfoEndpointByServiceName(
+            GetConnectionInfoEndpointByServiceNameRequestType part1) {
         ConnectionInfoEndpointType oConnectionInfoEndpoint = null;
         String sServiceName = "";
         String sHomeCommunityId = "";
 
-        if ((part1 != null) &&
-                (part1.getHomeCommunityWithServiceName() != null) &&
-                (part1.getHomeCommunityWithServiceName().getHomeCommunity() != null) &&
-                (part1.getHomeCommunityWithServiceName().getHomeCommunity().getHomeCommunityId() != null) &&
-                (part1.getHomeCommunityWithServiceName().getHomeCommunity().getHomeCommunityId().length() > 0) &&
-                (part1.getHomeCommunityWithServiceName().getServiceName() != null) &&
-                (part1.getHomeCommunityWithServiceName().getServiceName().length() > 0)) {
+        if ((part1 != null) && (part1.getHomeCommunityWithServiceName() != null)
+                && (part1.getHomeCommunityWithServiceName().getHomeCommunity() != null)
+                && (part1.getHomeCommunityWithServiceName().getHomeCommunity().getHomeCommunityId() != null)
+                && (part1.getHomeCommunityWithServiceName().getHomeCommunity().getHomeCommunityId().length() > 0)
+                && (part1.getHomeCommunityWithServiceName().getServiceName() != null)
+                && (part1.getHomeCommunityWithServiceName().getServiceName().length() > 0)) {
             sServiceName = part1.getHomeCommunityWithServiceName().getServiceName();
-            sHomeCommunityId = CMTransform.formatHomeCommunityId(part1.getHomeCommunityWithServiceName().getHomeCommunity().getHomeCommunityId());
+            sHomeCommunityId = CMTransform.formatHomeCommunityId(part1.getHomeCommunityWithServiceName()
+                    .getHomeCommunity().getHomeCommunityId());
 
-        } else if ((part1 != null) &&
-                (part1.getHomeCommunityWithServiceName() != null) &&
-                (part1.getHomeCommunityWithServiceName().getAssigningAuthority() != null) &&
-                (part1.getHomeCommunityWithServiceName().getAssigningAuthority().getAssigningAuthorityId() != null) &&
-                (part1.getHomeCommunityWithServiceName().getAssigningAuthority().getAssigningAuthorityId().length() > 0) &&
-                (part1.getHomeCommunityWithServiceName().getServiceName() != null) &&
-                (part1.getHomeCommunityWithServiceName().getServiceName().length() > 0)) {
-            String assigningAuthId = part1.getHomeCommunityWithServiceName().getAssigningAuthority().getAssigningAuthorityId();
+        } else if ((part1 != null)
+                && (part1.getHomeCommunityWithServiceName() != null)
+                && (part1.getHomeCommunityWithServiceName().getAssigningAuthority() != null)
+                && (part1.getHomeCommunityWithServiceName().getAssigningAuthority().getAssigningAuthorityId() != null)
+                && (part1.getHomeCommunityWithServiceName().getAssigningAuthority().getAssigningAuthorityId().length() > 0)
+                && (part1.getHomeCommunityWithServiceName().getServiceName() != null)
+                && (part1.getHomeCommunityWithServiceName().getServiceName().length() > 0)) {
+            String assigningAuthId = part1.getHomeCommunityWithServiceName().getAssigningAuthority()
+                    .getAssigningAuthorityId();
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
             sHomeCommunityId = mappingDao.getHomeCommunityId(assigningAuthId);
             sServiceName = part1.getHomeCommunityWithServiceName().getServiceName();
         }
 
-        if (sServiceName != null && sServiceName.length() > 0 && sHomeCommunityId != null && sHomeCommunityId.length() > 0) {
-            CMBusinessEntity oCMBusinessEntity = retrieveBusinessEntityByServiceNameFromCache(sHomeCommunityId, sServiceName);
+        if (sServiceName != null && sServiceName.length() > 0 && sHomeCommunityId != null
+                && sHomeCommunityId.length() > 0) {
+            CMBusinessEntity oCMBusinessEntity = retrieveBusinessEntityByServiceNameFromCache(sHomeCommunityId,
+                    sServiceName);
             if (oCMBusinessEntity != null) {
                 // We already have a routine to transform a CMBusinessEntities - so use it...
-                //---------------------------------------------------------------------------
+                // ---------------------------------------------------------------------------
                 CMBusinessEntities oCMBusinessEntities = new CMBusinessEntities();
                 oCMBusinessEntities.getBusinessEntity().add(oCMBusinessEntity);
-                ConnectionInfoEndpointsType oConnectionInfoEndpoints = CMTransform.cmBusinessEntitiesToConnectionInfoEndpointsType(oCMBusinessEntities);
-                if ((oConnectionInfoEndpoints != null) &&
-                        (oConnectionInfoEndpoints.getConnectionInfoEndpoint() != null) &&
-                        (oConnectionInfoEndpoints.getConnectionInfoEndpoint().size() > 0)) {
+                ConnectionInfoEndpointsType oConnectionInfoEndpoints = CMTransform
+                        .cmBusinessEntitiesToConnectionInfoEndpointsType(oCMBusinessEntities);
+                if ((oConnectionInfoEndpoints != null)
+                        && (oConnectionInfoEndpoints.getConnectionInfoEndpoint() != null)
+                        && (oConnectionInfoEndpoints.getConnectionInfoEndpoint().size() > 0)) {
                     // We only gave it one so we should only get one back...
-                    //-------------------------------------------------------
+                    // -------------------------------------------------------
                     oConnectionInfoEndpoint = oConnectionInfoEndpoints.getConnectionInfoEndpoint().get(0);
                 }
             }
@@ -737,11 +717,11 @@ public class CMServiceHelper {
     }
 
     /**
-     * This method retrieves the business entity and Connection Information for a specific service 
-     * at a specific home community.
+     * This method retrieves the business entity and Connection Information for a specific service at a specific home
+     * community.
      * 
-     * @param part1 This contains the home community identification and the name of the service that the 
-     *              connection info is desired.
+     * @param part1 This contains the home community identification and the name of the service that the connection info
+     *            is desired.
      * @return The connection information for the service at the specified home community.
      */
     public static BusinessEntityType getBusinessEntityByServiceName(GetBusinessEntityByServiceNameRequestType part1) {
@@ -749,41 +729,44 @@ public class CMServiceHelper {
         String sServiceName = "";
         String sHomeCommunityId = "";
         String sAssigningAuthorityId = "";
-        if ((part1 != null) &&
-                (part1.getHomeCommunityWithServiceName() != null) &&
-                (part1.getHomeCommunityWithServiceName().getHomeCommunity() != null) &&
-                (part1.getHomeCommunityWithServiceName().getHomeCommunity().getHomeCommunityId() != null) &&
-                (part1.getHomeCommunityWithServiceName().getHomeCommunity().getHomeCommunityId().length() > 0) &&
-                (part1.getHomeCommunityWithServiceName().getServiceName() != null) &&
-                (part1.getHomeCommunityWithServiceName().getServiceName().length() > 0)) {
+        if ((part1 != null) && (part1.getHomeCommunityWithServiceName() != null)
+                && (part1.getHomeCommunityWithServiceName().getHomeCommunity() != null)
+                && (part1.getHomeCommunityWithServiceName().getHomeCommunity().getHomeCommunityId() != null)
+                && (part1.getHomeCommunityWithServiceName().getHomeCommunity().getHomeCommunityId().length() > 0)
+                && (part1.getHomeCommunityWithServiceName().getServiceName() != null)
+                && (part1.getHomeCommunityWithServiceName().getServiceName().length() > 0)) {
             sServiceName = part1.getHomeCommunityWithServiceName().getServiceName();
-            sHomeCommunityId = CMTransform.formatHomeCommunityId(part1.getHomeCommunityWithServiceName().getHomeCommunity().getHomeCommunityId());
-        } else if ((part1 != null) &&
-                (part1.getHomeCommunityWithServiceName() != null) &&
-                (part1.getHomeCommunityWithServiceName().getAssigningAuthority() != null) &&
-                (part1.getHomeCommunityWithServiceName().getAssigningAuthority().getAssigningAuthorityId() != null) &&
-                (part1.getHomeCommunityWithServiceName().getAssigningAuthority().getAssigningAuthorityId().length() > 0) &&
-                (part1.getHomeCommunityWithServiceName().getServiceName() != null) &&
-                (part1.getHomeCommunityWithServiceName().getServiceName().length() > 0)) {
+            sHomeCommunityId = CMTransform.formatHomeCommunityId(part1.getHomeCommunityWithServiceName()
+                    .getHomeCommunity().getHomeCommunityId());
+        } else if ((part1 != null)
+                && (part1.getHomeCommunityWithServiceName() != null)
+                && (part1.getHomeCommunityWithServiceName().getAssigningAuthority() != null)
+                && (part1.getHomeCommunityWithServiceName().getAssigningAuthority().getAssigningAuthorityId() != null)
+                && (part1.getHomeCommunityWithServiceName().getAssigningAuthority().getAssigningAuthorityId().length() > 0)
+                && (part1.getHomeCommunityWithServiceName().getServiceName() != null)
+                && (part1.getHomeCommunityWithServiceName().getServiceName().length() > 0)) {
             sServiceName = part1.getHomeCommunityWithServiceName().getServiceName();
-            sAssigningAuthorityId = part1.getHomeCommunityWithServiceName().getAssigningAuthority().getAssigningAuthorityId();
+            sAssigningAuthorityId = part1.getHomeCommunityWithServiceName().getAssigningAuthority()
+                    .getAssigningAuthorityId();
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
             sHomeCommunityId = mappingDao.getHomeCommunityId(sAssigningAuthorityId);
         }
 
-        if (sHomeCommunityId != null && sHomeCommunityId.length() > 0 && sServiceName != null && sServiceName.length() > 0) {
-            CMBusinessEntity oCMBusinessEntity = retrieveBusinessEntityByServiceNameFromCache(sHomeCommunityId, sServiceName);
+        if (sHomeCommunityId != null && sHomeCommunityId.length() > 0 && sServiceName != null
+                && sServiceName.length() > 0) {
+            CMBusinessEntity oCMBusinessEntity = retrieveBusinessEntityByServiceNameFromCache(sHomeCommunityId,
+                    sServiceName);
             if (oCMBusinessEntity != null) {
                 // We already have a routine to transform a CMBusinessEntities - so use it...
-                //---------------------------------------------------------------------------
+                // ---------------------------------------------------------------------------
                 CMBusinessEntities oCMBusinessEntities = new CMBusinessEntities();
                 oCMBusinessEntities.getBusinessEntity().add(oCMBusinessEntity);
-                BusinessEntitiesType oBusinessEntities = CMTransform.cmBusinessEntitiesToBusinessEntitiesType(oCMBusinessEntities);
-                if ((oBusinessEntities != null) &&
-                        (oBusinessEntities.getBusinessEntity() != null) &&
-                        (oBusinessEntities.getBusinessEntity().size() > 0)) {
+                BusinessEntitiesType oBusinessEntities = CMTransform
+                        .cmBusinessEntitiesToBusinessEntitiesType(oCMBusinessEntities);
+                if ((oBusinessEntities != null) && (oBusinessEntities.getBusinessEntity() != null)
+                        && (oBusinessEntities.getBusinessEntity().size() > 0)) {
                     // We only gave it one so we should only get one back...
-                    //-------------------------------------------------------
+                    // -------------------------------------------------------
                     oBusinessEntity = oBusinessEntities.getBusinessEntity().get(0);
                 }
             }
@@ -800,99 +783,92 @@ public class CMServiceHelper {
     private static CMBusinessEntities retrieveAllBusinessEntitySetByServiceNameFromCache(String sServiceName) {
         CMBusinessEntities oCMBusinessEntities = null;
 
-//        if ((sServiceName != null) &&
-//                (sServiceName.length() > 0)) {
-//            try {
-//                oCMBusinessEntities = ConnectionManagerCache.getAllBusinessEntitySetByServiceName(sServiceName);
-//            } catch (Throwable t) {
-//                String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
-//                log.error(sErrorMessage, t);
-//            }
-//        }
+        // if ((sServiceName != null) &&
+        // (sServiceName.length() > 0)) {
+        // try {
+        // oCMBusinessEntities = ConnectionManagerCache.getAllBusinessEntitySetByServiceName(sServiceName);
+        // } catch (Throwable t) {
+        // String sErrorMessage = "Failed to retrieve business entities.  Error: " + t.getMessage();
+        // log.error(sErrorMessage, t);
+        // }
+        // }
 
         return oCMBusinessEntities;
     }
 
     /**
-     * This method returns the connection information for all known home communities that support the specified
-     * service.
+     * This method returns the connection information for all known home communities that support the specified service.
      * 
      * @param part1 The name of the service that is desired.
      * @return The connection information for each known home community that supports the specified service.
      */
-    public static ConnectionInfosType getAllConnectionInfoSetByServiceName(GetAllConnectionInfoSetByServiceNameRequestType part1) {
+    public static ConnectionInfosType getAllConnectionInfoSetByServiceName(
+            GetAllConnectionInfoSetByServiceNameRequestType part1) {
         ConnectionInfosType oConnectionInfos = null;
 
-        if ((part1 != null) &&
-                (part1.getServiceName() != null) &&
-                (part1.getServiceName().length() > 0)) {
+        if ((part1 != null) && (part1.getServiceName() != null) && (part1.getServiceName().length() > 0)) {
             String sServiceName = part1.getServiceName();
 
             CMBusinessEntities oCMBusinessEntities = retrieveAllBusinessEntitySetByServiceNameFromCache(sServiceName);
             oConnectionInfos = CMTransform.cmBusinessEntitiesToConnectionInfosType(oCMBusinessEntities);
 
-        }   // if ((part1 != null) &&
+        } // if ((part1 != null) &&
 
         return oConnectionInfos;
     }
 
     /**
-     * This method returns the endpoint connection information for all known home communities that 
-     * support the specified service.
+     * This method returns the endpoint connection information for all known home communities that support the specified
+     * service.
      * 
      * @param part1 The name of the service that is desired.
-     * @return The endpoint connection information for each known home community that 
-     *         supports the specified service.
+     * @return The endpoint connection information for each known home community that supports the specified service.
      */
-    public static ConnectionInfoEndpointsType getAllConnectionInfoEndpointSetByServiceName(GetAllConnectionInfoEndpointSetByServiceNameRequestType part1) {
+    public static ConnectionInfoEndpointsType getAllConnectionInfoEndpointSetByServiceName(
+            GetAllConnectionInfoEndpointSetByServiceNameRequestType part1) {
         ConnectionInfoEndpointsType oConnectionInfoEndpoints = null;
 
-        if ((part1 != null) &&
-                (part1.getServiceName() != null) &&
-                (part1.getServiceName().length() > 0)) {
+        if ((part1 != null) && (part1.getServiceName() != null) && (part1.getServiceName().length() > 0)) {
             String sServiceName = part1.getServiceName();
 
             CMBusinessEntities oCMBusinessEntities = retrieveAllBusinessEntitySetByServiceNameFromCache(sServiceName);
             oConnectionInfoEndpoints = CMTransform.cmBusinessEntitiesToConnectionInfoEndpointsType(oCMBusinessEntities);
 
-        }   // if ((part1 != null) &&
+        } // if ((part1 != null) &&
 
         return oConnectionInfoEndpoints;
     }
 
     /**
-     * This method returns the business entity and service connection information for all known 
-     * home communities that support the specified service.
+     * This method returns the business entity and service connection information for all known home communities that
+     * support the specified service.
      * 
      * @param part1 The name of the service that is desired.
-     * @return The business entity and service connection information for each known 
-     *         home community that supports the specified service.
+     * @return The business entity and service connection information for each known home community that supports the
+     *         specified service.
      */
-    public static BusinessEntitiesType getAllBusinessEntitySetByServiceName(GetAllBusinessEntitySetByServiceNameRequestType part1) {
+    public static BusinessEntitiesType getAllBusinessEntitySetByServiceName(
+            GetAllBusinessEntitySetByServiceNameRequestType part1) {
         BusinessEntitiesType oBusinessEntities = null;
 
-        if ((part1 != null) &&
-                (part1.getServiceName() != null) &&
-                (part1.getServiceName().length() > 0)) {
+        if ((part1 != null) && (part1.getServiceName() != null) && (part1.getServiceName().length() > 0)) {
             String sServiceName = part1.getServiceName();
 
             CMBusinessEntities oCMBusinessEntities = retrieveAllBusinessEntitySetByServiceNameFromCache(sServiceName);
             oBusinessEntities = CMTransform.cmBusinessEntitiesToBusinessEntitiesType(oCMBusinessEntities);
 
-        }   // if ((part1 != null) &&
+        } // if ((part1 != null) &&
 
         return oBusinessEntities;
     }
 
     /**
-     * This method does nothing.   The issue here is that refreshing the
-     * cache now is dependent on the timestamp of the uddiConnectionInfo.xml
-     * file changing.   So anytime that timestamp changes, it will automatically
-     * flush.  so this method is no longer needed.
+     * This method does nothing. The issue here is that refreshing the cache now is dependent on the timestamp of the
+     * uddiConnectionInfo.xml file changing. So anytime that timestamp changes, it will automatically flush. so this
+     * method is no longer needed.
      * 
-     * @param part1 The only purpose for this parameter is so that the 
-     *              web service has a unique document that identifies this 
-     *              operation.  The values themselves are not used.
+     * @param part1 The only purpose for this parameter is so that the web service has a unique document that identifies
+     *            this operation. The values themselves are not used.
      * @return Whether this succeeded or failed.
      */
     public static SuccessOrFailType forceRefreshUDDICache(ForceRefreshUDDICacheRequestType part1) {
@@ -904,27 +880,27 @@ public class CMServiceHelper {
     /**
      * This method causes the Internal Connection service information to be refreshed.
      * 
-     * @param part1 The only purpose for this parameter is so that the 
-     *              web service has a unique document that identifies this 
-     *              operation.  The values themselves are not used.
+     * @param part1 The only purpose for this parameter is so that the web service has a unique document that identifies
+     *            this operation. The values themselves are not used.
      * @return Whether this succeeded or failed.
      */
     public static SuccessOrFailType forceRefreshInternalConnectCache(ForceRefreshInternalConnectCacheRequestType part1) {
         SuccessOrFailType oSuccessOrFailType = new SuccessOrFailType();
 
-//        try {
-//            ConnectionManagerCache.forceRefreshInternalConnectCache();
-//            oSuccessOrFailType.setSuccess(true);
-//        } catch (Throwable t) {
-//            String sErrorMessage = "Failed to call ConnectionManagerCache.forceRefreshInternalConnectionCache()";
-//            log.error(sErrorMessage, t);
-//            oSuccessOrFailType.setSuccess(false);
-//
-//        }
+        // try {
+        // ConnectionManagerCache.forceRefreshInternalConnectCache();
+        // oSuccessOrFailType.setSuccess(true);
+        // } catch (Throwable t) {
+        // String sErrorMessage = "Failed to call ConnectionManagerCache.forceRefreshInternalConnectionCache()";
+        // log.error(sErrorMessage, t);
+        // oSuccessOrFailType.setSuccess(false);
+        //
+        // }
         return oSuccessOrFailType;
     }
 
-    public static AcknowledgementType storeAssigningAuthorityToHomeCommunityMapping(StoreAssigningAuthorityToHomeCommunityMappingRequestType storeAssigningAuthorityToHomeCommunityMappingRequest) {
+    public static AcknowledgementType storeAssigningAuthorityToHomeCommunityMapping(
+            StoreAssigningAuthorityToHomeCommunityMappingRequestType storeAssigningAuthorityToHomeCommunityMappingRequest) {
         log.debug("--Begin CMServiceHelper.storeAssigningAuthorityToHomeCommunityMapping() --");
         String success = "";
         AcknowledgementType ack = new AcknowledgementType();
@@ -946,7 +922,8 @@ public class CMServiceHelper {
             return ack;
         }
 
-        String assigningAuthId = storeAssigningAuthorityToHomeCommunityMappingRequest.getAssigningAuthority().getAssigningAuthorityId();
+        String assigningAuthId = storeAssigningAuthorityToHomeCommunityMappingRequest.getAssigningAuthority()
+                .getAssigningAuthorityId();
 
         if (storeAssigningAuthorityToHomeCommunityMappingRequest.getHomeCommunity() == null) {
             ack.setMessage("Unable to store mapping, Set home community properly");
@@ -959,7 +936,8 @@ public class CMServiceHelper {
             log.error("--Unable to store mapping, Set proper Home Community Id --");
             return ack;
         }
-        String homeCommId = CMTransform.formatHomeCommunityId(storeAssigningAuthorityToHomeCommunityMappingRequest.getHomeCommunity().getHomeCommunityId());
+        String homeCommId = CMTransform.formatHomeCommunityId(storeAssigningAuthorityToHomeCommunityMappingRequest
+                .getHomeCommunity().getHomeCommunityId());
         AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
         boolean result = mappingDao.storeMapping(homeCommId, assigningAuthId);
         if (result) {
@@ -974,7 +952,8 @@ public class CMServiceHelper {
         return ack;
     }
 
-    public static GetAssigningAuthoritiesByHomeCommunityResponseType getAssigningAuthoritiesByHomeCommunity(GetAssigningAuthoritiesByHomeCommunityRequestType requestType) {
+    public static GetAssigningAuthoritiesByHomeCommunityResponseType getAssigningAuthoritiesByHomeCommunity(
+            GetAssigningAuthoritiesByHomeCommunityRequestType requestType) {
         log.debug("-- Begin CMServiceHelper.getAssigningAuthoritiesByHomeCommunity() --");
         GetAssigningAuthoritiesByHomeCommunityResponseType responseType = null;
         if (requestType == null) {
@@ -990,15 +969,13 @@ public class CMServiceHelper {
             responseType = new GetAssigningAuthoritiesByHomeCommunityResponseType();
             AssigningAuthoritiesType aaType = new AssigningAuthoritiesType();
             List<String> aaList = mappingDao.getAssigningAuthoritiesByHomeCommunity(hcId);
-            if(aaList!=null && aaList.size()>0)
-            {
-                AssigningAuthorityType aayType = null;   
-                for(String sAA : aaList)
-                {
+            if (aaList != null && aaList.size() > 0) {
+                AssigningAuthorityType aayType = null;
+                for (String sAA : aaList) {
                     log.debug("Assiging Authorities for ");
                     aayType = new AssigningAuthorityType();
                     aayType.setAssigningAuthorityId(sAA);
-                    aaType.getAssigningAuthority().add(aayType);    
+                    aaType.getAssigningAuthority().add(aayType);
                 }
             }
             responseType.setAssigningAuthoritiesId(aaType);
@@ -1012,7 +989,8 @@ public class CMServiceHelper {
      * @param requestType
      * @return GetHomeCommunityByAssigningAuthorityResponseType
      */
-    public static GetHomeCommunityByAssigningAuthorityResponseType getHomeCommunityByAssigningAuthority(GetHomeCommunityByAssigningAuthorityRequestType requestType) {
+    public static GetHomeCommunityByAssigningAuthorityResponseType getHomeCommunityByAssigningAuthority(
+            GetHomeCommunityByAssigningAuthorityRequestType requestType) {
         if (requestType == null) {
             return null;
         }
@@ -1042,34 +1020,38 @@ public class CMServiceHelper {
         ConnectionInfoEndpointType oConnectionInfoEndpoint = null;
         EPRType endPtRef = null;
 
-        if (message != null &&
-                message.getNhinTargetSystem() != null) {
+        if (message != null && message.getNhinTargetSystem() != null) {
             if (message.getNhinTargetSystem().getEpr() != null) {
                 // Just echo back the Endpoint Reference that was sent into this method
                 endPtRef = message.getNhinTargetSystem().getEpr();
-            } else if (NullChecker.isNotNullish(message.getNhinTargetSystem().getUrl()) &&
-                    NullChecker.isNotNullish(message.getServiceName())) {
+            } else if (NullChecker.isNotNullish(message.getNhinTargetSystem().getUrl())
+                    && NullChecker.isNotNullish(message.getServiceName())) {
                 // Get the Endpoint Reference based on URL and Service Name
                 endPtRef = CMTransform.createEPR(message.getServiceName(), message.getNhinTargetSystem().getUrl());
-            } else if (message.getNhinTargetSystem().getHomeCommunity() != null &&
-                    NullChecker.isNotNullish(message.getNhinTargetSystem().getHomeCommunity().getHomeCommunityId()) &&
-                    NullChecker.isNotNullish(message.getServiceName())) {
+            } else if (message.getNhinTargetSystem().getHomeCommunity() != null
+                    && NullChecker.isNotNullish(message.getNhinTargetSystem().getHomeCommunity().getHomeCommunityId())
+                    && NullChecker.isNotNullish(message.getServiceName())) {
                 // Get the Endpoint Reference based on Home Community Id and Service Name
-                CMBusinessEntity oCMBusinessEntity = retrieveBusinessEntityByServiceNameFromCache(message.getNhinTargetSystem().getHomeCommunity().getHomeCommunityId(), message.getServiceName());
-                
+                CMBusinessEntity oCMBusinessEntity = retrieveBusinessEntityByServiceNameFromCache(message
+                        .getNhinTargetSystem().getHomeCommunity().getHomeCommunityId(), message.getServiceName());
+
                 if (oCMBusinessEntity != null) {
                     CMBusinessEntities oCMBusinessEntities = new CMBusinessEntities();
                     oCMBusinessEntities.getBusinessEntity().add(oCMBusinessEntity);
-                    ConnectionInfoEndpointsType oConnectionInfoEndpoints = CMTransform.cmBusinessEntitiesToConnectionInfoEndpointsType(oCMBusinessEntities);
-                    
-                    if ((oConnectionInfoEndpoints != null) &&
-                            NullChecker.isNotNullish(oConnectionInfoEndpoints.getConnectionInfoEndpoint())) {
+                    ConnectionInfoEndpointsType oConnectionInfoEndpoints = CMTransform
+                            .cmBusinessEntitiesToConnectionInfoEndpointsType(oCMBusinessEntities);
+
+                    if ((oConnectionInfoEndpoints != null)
+                            && NullChecker.isNotNullish(oConnectionInfoEndpoints.getConnectionInfoEndpoint())) {
                         oConnectionInfoEndpoint = oConnectionInfoEndpoints.getConnectionInfoEndpoint().get(0);
-                        
-                        if (oConnectionInfoEndpoint.getServiceConnectionInfoEndpoints() != null &&
-                                NullChecker.isNotNullish(oConnectionInfoEndpoint.getServiceConnectionInfoEndpoints().getServiceConnectionInfoEndpoint()) &&
-                                oConnectionInfoEndpoint.getServiceConnectionInfoEndpoints().getServiceConnectionInfoEndpoint().get(0).getEPR() != null) {
-                            endPtRef = oConnectionInfoEndpoint.getServiceConnectionInfoEndpoints().getServiceConnectionInfoEndpoint().get(0).getEPR();
+
+                        if (oConnectionInfoEndpoint.getServiceConnectionInfoEndpoints() != null
+                                && NullChecker.isNotNullish(oConnectionInfoEndpoint.getServiceConnectionInfoEndpoints()
+                                        .getServiceConnectionInfoEndpoint())
+                                && oConnectionInfoEndpoint.getServiceConnectionInfoEndpoints()
+                                        .getServiceConnectionInfoEndpoint().get(0).getEPR() != null) {
+                            endPtRef = oConnectionInfoEndpoint.getServiceConnectionInfoEndpoints()
+                                    .getServiceConnectionInfoEndpoint().get(0).getEPR();
                         }
                     }
                 }
@@ -1079,23 +1061,26 @@ public class CMServiceHelper {
         return endPtRef;
     }
 
-    public static UrlSetType getUrlSetFromNhinTargetCommunities(GetUrlSetByServiceNameType getConnectionInfoEndpontFromNhinTargetRequest) {
+    public static UrlSetType getUrlSetFromNhinTargetCommunities(
+            GetUrlSetByServiceNameType getConnectionInfoEndpontFromNhinTargetRequest) {
         UrlSetType urlSet = new UrlSetType();
         log.info("In getUrlSetFromNhinTargetCommunities...");
 
-//        try {
-//            CMUrlInfos urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(getConnectionInfoEndpontFromNhinTargetRequest.getNhinTargetCommunities(), getConnectionInfoEndpontFromNhinTargetRequest.getService());
-//
-//            if (urlInfoList != null &&
-//                    urlInfoList.getUrlInfo() != null) {
-//                for (CMUrlInfo entry : urlInfoList.getUrlInfo()) {
-//                    urlSet.getUrl().add(entry.getUrl());
-//                }
-//            }
-//        } catch (ConnectionManagerException ex) {
-//            log.error("Failed to retrieve URL Set from Nhin Target Community");
-//            return null;
-//        }
+        // try {
+        // CMUrlInfos urlInfoList =
+        // ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(getConnectionInfoEndpontFromNhinTargetRequest.getNhinTargetCommunities(),
+        // getConnectionInfoEndpontFromNhinTargetRequest.getService());
+        //
+        // if (urlInfoList != null &&
+        // urlInfoList.getUrlInfo() != null) {
+        // for (CMUrlInfo entry : urlInfoList.getUrlInfo()) {
+        // urlSet.getUrl().add(entry.getUrl());
+        // }
+        // }
+        // } catch (ConnectionManagerException ex) {
+        // log.error("Failed to retrieve URL Set from Nhin Target Community");
+        // return null;
+        // }
 
         return urlSet;
     }

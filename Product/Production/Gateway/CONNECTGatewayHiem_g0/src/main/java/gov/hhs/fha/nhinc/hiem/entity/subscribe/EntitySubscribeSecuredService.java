@@ -45,25 +45,28 @@ import javax.jws.HandlerChain;
 import javax.xml.ws.BindingType;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "EntityNotificationProducerSecured", portName = "EntityNotificationProducerSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.EntityNotificationProducerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured", wsdlLocation = "WEB-INF/wsdl/EntitySubscribeSecuredService/EntitySubscriptionManagementSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @HandlerChain(file = "EntitySubscribeSoapHeaderHandler.xml")
-public class EntitySubscribeSecuredService
-{
+public class EntitySubscribeSecuredService {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentResponseType subscribeDocument(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentRequestSecuredType subscribeDocumentRequestSecured)
-    {
+    public gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentResponseType subscribeDocument(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentRequestSecuredType subscribeDocumentRequestSecured) {
         throw new UnsupportedOperationException("Not implemented.");
     }
 
-    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestSecuredType subscribeRequestSecured) throws UnrecognizedPolicyRequestFault, InvalidProducerPropertiesExpressionFault, ResourceUnknownFault, NotifyMessageNotSupportedFault, TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault, UnsupportedPolicyRequestFault, UnacceptableInitialTerminationTimeFault, InvalidMessageContentExpressionFault, InvalidFilterFault, TopicExpressionDialectUnknownFault
-    {
-		return new EntitySubscribeServiceImpl().subscribe(subscribeRequestSecured, context);
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestSecuredType subscribeRequestSecured)
+            throws UnrecognizedPolicyRequestFault, InvalidProducerPropertiesExpressionFault, ResourceUnknownFault,
+            NotifyMessageNotSupportedFault, TopicNotSupportedFault, InvalidTopicExpressionFault,
+            SubscribeCreationFailedFault, UnsupportedPolicyRequestFault, UnacceptableInitialTerminationTimeFault,
+            InvalidMessageContentExpressionFault, InvalidFilterFault, TopicExpressionDialectUnknownFault {
+        return new EntitySubscribeServiceImpl().subscribe(subscribeRequestSecured, context);
     }
 
 }

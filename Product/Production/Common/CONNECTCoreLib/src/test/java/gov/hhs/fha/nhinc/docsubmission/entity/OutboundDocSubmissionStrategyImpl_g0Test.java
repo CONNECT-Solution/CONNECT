@@ -29,13 +29,13 @@ package gov.hhs.fha.nhinc.docsubmission.entity;
 import org.junit.Test;
 
 /**
- *
+ * 
  * @author zmelnick
  */
 public class OutboundDocSubmissionStrategyImpl_g0Test {
     public OutboundDocSubmissionStrategyImpl_g0Test() {
     }
-    
+
     @Test
     public void testExecute() {
         System.out.println("execute");

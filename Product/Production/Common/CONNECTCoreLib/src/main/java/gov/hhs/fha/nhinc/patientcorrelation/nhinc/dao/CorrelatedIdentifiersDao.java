@@ -33,17 +33,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public interface CorrelatedIdentifiersDao {
 
-
     public void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers);
 
-    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities);
+    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(
+            QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities);
 
-    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(QualifiedPatientIdentifier qualifiedPatientIdentifier);
+    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(
+            QualifiedPatientIdentifier qualifiedPatientIdentifier);
 
     public void removePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers);
 }

@@ -33,19 +33,17 @@ import javax.jws.HandlerChain;
 import javax.xml.ws.BindingType;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "NhincProxyNotificationConsumerSecured", portName = "NhincProxyNotificationConsumerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxynotificationconsumersecured.NhincProxyNotificationConsumerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured", wsdlLocation = "WEB-INF/wsdl/ProxyHiemNotifySecured/NhincProxyNotificationConsumerSecured.wsdl")
 @HandlerChain(file = "ProxyHiemNotifyHeaderHandler.xml")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class ProxyHiemNotifySecured
-{
+public class ProxyHiemNotifySecured {
     @Resource
     private WebServiceContext context;
 
-    public void notify(gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestSecuredType notifyRequestSecured)
-    {
+    public void notify(gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestSecuredType notifyRequestSecured) {
         new ProxyHiemNotifyImpl().notify(notifyRequestSecured, context);
     }
 

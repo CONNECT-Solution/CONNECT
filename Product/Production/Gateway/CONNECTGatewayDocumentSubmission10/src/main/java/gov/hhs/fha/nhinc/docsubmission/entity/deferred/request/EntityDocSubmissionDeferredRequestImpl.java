@@ -34,28 +34,40 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 public class EntityDocSubmissionDeferredRequestImpl {
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, WebServiceContext context) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest,
+            WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, null);
 
-        XDRAcknowledgementType response = new EntityDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBAsyncRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetCommunities(), provideAndRegisterRequestRequest.getUrl());
-        
+        XDRAcknowledgementType response = new EntityDocSubmissionDeferredRequestOrchImpl()
+                .provideAndRegisterDocumentSetBAsyncRequest(
+                        provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
+                        provideAndRegisterRequestRequest.getNhinTargetCommunities(),
+                        provideAndRegisterRequestRequest.getUrl());
+
         return response;
     }
 
-    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest, WebServiceContext context) {
+    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest,
+            WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, provideAndRegisterAsyncReqRequest.getAssertion());
 
-        XDRAcknowledgementType response = new EntityDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBAsyncRequest(provideAndRegisterAsyncReqRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterAsyncReqRequest.getNhinTargetCommunities(), provideAndRegisterAsyncReqRequest.getUrl());
+        XDRAcknowledgementType response = new EntityDocSubmissionDeferredRequestOrchImpl()
+                .provideAndRegisterDocumentSetBAsyncRequest(
+                        provideAndRegisterAsyncReqRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
+                        provideAndRegisterAsyncReqRequest.getNhinTargetCommunities(),
+                        provideAndRegisterAsyncReqRequest.getUrl());
 
         return response;
     }
 
-   protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
+    protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
             assertion = SamlTokenExtractor.GetAssertion(context);

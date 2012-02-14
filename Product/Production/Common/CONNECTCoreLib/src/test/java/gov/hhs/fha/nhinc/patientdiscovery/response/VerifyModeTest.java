@@ -53,13 +53,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author kongar
  */
 public class VerifyModeTest {
 
-    Mockery context = new JUnit4Mockery()
-    {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -89,8 +88,9 @@ public class VerifyModeTest {
     @Test
     public void testProcessResponse_ResponseParams() {
 
-        //first name, last name, gender, birthTime, ssn
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        // first name, last name, gender, birthTime, ssn
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", null, null);
 
         // person, patientId, aauthority
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
@@ -102,10 +102,11 @@ public class VerifyModeTest {
         prpainRequest.setNhinTargetSystem(null);
 
         // patient, senderOID, receiverAAID, receiverOID, localDeviceId, query
-        PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2", request);
+        PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2",
+                request);
 
         AssertionType assertion = new AssertionType();
-        
+
         ResponseParams params = new ResponseParams();
         params.origRequest = prpainRequest;
         params.assertion = assertion;
@@ -113,7 +114,8 @@ public class VerifyModeTest {
 
         VerifyMode verifyMode = new VerifyMode() {
             @Override
-            protected II patientExistsLocally(List<II> localPatientIds, AssertionType assertion, PRPAIN201306UV02 response) {
+            protected II patientExistsLocally(List<II> localPatientIds, AssertionType assertion,
+                    PRPAIN201306UV02 response) {
                 return null;
             }
         };
@@ -123,7 +125,8 @@ public class VerifyModeTest {
 
         verifyMode = new VerifyMode() {
             @Override
-            protected II patientExistsLocally(List<II> localPatientIds, AssertionType assertion, PRPAIN201306UV02 response) {
+            protected II patientExistsLocally(List<II> localPatientIds, AssertionType assertion,
+                    PRPAIN201306UV02 response) {
                 II ii = new II();
                 ii.setExtension("extension");
                 ii.setRoot("root");
@@ -140,11 +143,11 @@ public class VerifyModeTest {
                 return mockLog;
             }
         };
-           
-        context.checking(new Expectations()
-        {
+
+        context.checking(new Expectations() {
             {
-                exactly(1).of(mockTrustMode).processResponse(with(any(PRPAIN201306UV02.class)), with(any(AssertionType.class)), with(any(II.class)));
+                exactly(1).of(mockTrustMode).processResponse(with(any(PRPAIN201306UV02.class)),
+                        with(any(AssertionType.class)), with(any(II.class)));
                 allowing(mockLog).debug(with(any(String.class)));
                 allowing(mockLog).warn(with(any(String.class)));
             }
@@ -162,7 +165,8 @@ public class VerifyModeTest {
 
         VerifyMode verifyMode = new VerifyMode() {
             @Override
-            protected II patientExistsLocally(List<II> localPatientIds, AssertionType assertion, PRPAIN201306UV02 response) {
+            protected II patientExistsLocally(List<II> localPatientIds, AssertionType assertion,
+                    PRPAIN201306UV02 response) {
                 II ii = new II();
                 ii.setExtension("extension");
                 ii.setRoot("root");
@@ -180,25 +184,27 @@ public class VerifyModeTest {
             }
         };
 
-        context.checking(new Expectations()
-        {
+        context.checking(new Expectations() {
             {
-                exactly(1).of(mockTrustMode).processResponse(with(any(PRPAIN201306UV02.class)), with(any(AssertionType.class)), with(any(II.class)));
+                exactly(1).of(mockTrustMode).processResponse(with(any(PRPAIN201306UV02.class)),
+                        with(any(AssertionType.class)), with(any(II.class)));
                 allowing(mockLog).debug(with(any(String.class)));
                 allowing(mockLog).warn(with(any(String.class)));
             }
         });
-        
+
         PRPAIN201306UV02 result = verifyMode.processResponse(localPatId, response, assertion);
         assertEquals(null, result);
     }
 
     @Test
     public void testGetLocalHomeCommunityId() {
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
-        PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");        
-        PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2", request);
+        PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
+        PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2",
+                request);
 
         VerifyMode verifyMode = new VerifyMode();
         String senderCommunityId = verifyMode.getSenderCommunityId(response);
@@ -219,11 +225,11 @@ public class VerifyModeTest {
         assertNotNull(trustMode);
     }
 
-
     @Test
     public void testGetSenderCommunityId() {
-        //first name, last name, gender, birthTime, ssn
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        // first name, last name, gender, birthTime, ssn
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", null, null);
 
         // person, patientId, aauthority
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
@@ -232,7 +238,8 @@ public class VerifyModeTest {
         PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
 
         // patient, senderOID, receiverAAID, receiverOID, localDeviceId, query
-        PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2", request);
+        PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2",
+                request);
 
         VerifyMode verifyMode = new VerifyMode();
         String senderId = verifyMode.getSenderCommunityId(response);
@@ -241,25 +248,29 @@ public class VerifyModeTest {
 
     @Test
     public void testExtractPatient() {
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
         PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
-        PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2", request);
+        PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2",
+                request);
 
         VerifyMode verifyMode = new VerifyMode();
         PRPAMT201301UV02Patient patientResult = verifyMode.extractPatient(response);
         assertEquals("1234", patientResult.getId().get(0).getExtension());
     }
-    
+
     /**
      * Test of convert201306to201305 method, of class VerifyMode.
      */
     @Test
     public void testConvert201306to201305() {
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
         PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
-        PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2", request);
+        PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2",
+                request);
 
         VerifyMode verifyMode = new VerifyMode() {
             @Override
@@ -274,7 +285,8 @@ public class VerifyModeTest {
         };
 
         PRPAIN201305UV02 result = verifyMode.convert201306to201305(response);
-        assertEquals("1234", result.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId().get(0).getValue().get(0).getExtension());
+        assertEquals("1234", result.getControlActProcess().getQueryByParameter().getValue().getParameterList()
+                .getLivingSubjectId().get(0).getValue().get(0).getExtension());
     }
 
     @Test
@@ -305,18 +317,20 @@ public class VerifyModeTest {
 
             @Override
             protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) {
-                JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+                JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe",
+                        "Smith", "M", null, null);
                 PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
                 PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
-                PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2", request);
+                PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1",
+                        "2.2.2", request);
                 return response;
             }
         };
 
-        context.checking(new Expectations()
-        {
+        context.checking(new Expectations() {
             {
-                exactly(1).of(mockTrustMode).processResponse(with(any(PRPAIN201306UV02.class)), with(any(AssertionType.class)), with(any(II.class)));
+                exactly(1).of(mockTrustMode).processResponse(with(any(PRPAIN201306UV02.class)),
+                        with(any(AssertionType.class)), with(any(II.class)));
                 allowing(mockLog).debug(with(any(String.class)));
                 allowing(mockLog).error(with(any(String.class)));
             }
@@ -347,8 +361,7 @@ public class VerifyModeTest {
             }
         };
 
-        context.checking(new Expectations()
-        {
+        context.checking(new Expectations() {
             {
                 allowing(mockLog).debug(with(any(String.class)));
             }
@@ -383,8 +396,7 @@ public class VerifyModeTest {
             }
         };
 
-        context.checking(new Expectations()
-        {
+        context.checking(new Expectations() {
             {
                 allowing(mockLog).debug(with(any(String.class)));
             }

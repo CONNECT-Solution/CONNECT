@@ -40,11 +40,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
-public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements AdapterComponentDocRegistryProxy
-{
+public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements AdapterComponentDocRegistryProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:ihe:iti:xds-b:2007";
@@ -54,41 +53,35 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
     private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:RegistryStoredQuery";
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl()
-    {
+    public AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected DocumentRegistryPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-    {
+    protected DocumentRegistryPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
         DocumentRegistryPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), DocumentRegistryPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -96,25 +89,19 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
-    
 
     /**
      * 
@@ -125,27 +112,22 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
         log.debug("Begin registryStoredQuery");
         AdhocQueryResponse response = null;
 
-        try
-        {
-            String xdsbHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, NhincConstants.XDS_HOME_COMMUNITY_ID_PROPERTY);
-            String url = oProxyHelper.getUrlFromHomeCommunity(xdsbHomeCommunityId, NhincConstants.ADAPTER_DOC_REGISTRY_SERVICE_NAME);
+        try {
+            String xdsbHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
+                    NhincConstants.XDS_HOME_COMMUNITY_ID_PROPERTY);
+            String url = oProxyHelper.getUrlFromHomeCommunity(xdsbHomeCommunityId,
+                    NhincConstants.ADAPTER_DOC_REGISTRY_SERVICE_NAME);
             DocumentRegistryPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
-            if(msg == null)
-            {
+            if (msg == null) {
                 log.error("Message was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
+            } else {
+                response = (AdhocQueryResponse) oProxyHelper.invokePort(port, DocumentRegistryPortType.class,
+                        "documentRegistryRegistryStoredQuery", msg);
             }
-            else
-            {
-                response = (AdhocQueryResponse)oProxyHelper.invokePort(port, DocumentRegistryPortType.class, "documentRegistryRegistryStoredQuery", msg);
-            }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error sending Adapter Component Doc Registry Unsecured message: " + ex.getMessage(), ex);
             response = new AdhocQueryResponse();
             response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");

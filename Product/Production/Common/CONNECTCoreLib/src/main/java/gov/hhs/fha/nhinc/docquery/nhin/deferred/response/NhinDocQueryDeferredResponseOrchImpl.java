@@ -45,7 +45,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class NhinDocQueryDeferredResponseOrchImpl {
@@ -53,12 +53,13 @@ public class NhinDocQueryDeferredResponseOrchImpl {
     private static Log log = LogFactory.getLog(NhinDocQueryDeferredResponseOrchImpl.class);
 
     /**
-     *
+     * 
      * @param msg
      * @param assertion
      * @return <code>DocQueryAcknowledgementType</code>
      */
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg,
+            AssertionType assertion) {
         log.debug("Begin - .NhinDocQueryDeferredResponseOrchImplrespondingGatewayCrossGatewayQuery");
 
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
@@ -70,7 +71,8 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         String ackMsg = "";
 
         // Audit the incoming NHIN Message
-        AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
+        AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
         RespondingGatewayCrossGatewayQueryResponseType nhinResponse = new RespondingGatewayCrossGatewayQueryResponseType();
         nhinResponse.setAdhocQueryResponse(msg);
@@ -89,7 +91,9 @@ public class NhinDocQueryDeferredResponseOrchImpl {
                     log.warn(ackMsg);
 
                     // Set the error acknowledgement status
-                    respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
+                    respAck = DocQueryAckTranforms.createAckMessage(
+                            NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG,
+                            NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
                 }
             } else {
                 // Send the deferred response to the Adapter Interface
@@ -101,11 +105,14 @@ public class NhinDocQueryDeferredResponseOrchImpl {
             log.warn(ackMsg);
 
             // Set the error acknowledgement status
-            respAck = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+            respAck = DocQueryAckTranforms.createAckMessage(
+                    NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG,
+                    NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
 
         // Audit the outgoing NHIN Message
-        ack = auditAck(respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
+        ack = auditAck(respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityId);
 
         log.debug("End - NhinDocQueryDeferredResponseOrchImpl.respondingGatewayCrossGatewayQuery");
 
@@ -116,9 +123,11 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         boolean serviceEnabled = false;
 
         try {
-            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
+            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to retrieve " + NhincConstants.NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME
+                    + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
 
@@ -128,19 +137,24 @@ public class NhinDocQueryDeferredResponseOrchImpl {
     private boolean isInPassThroughMode() {
         boolean passThroughModeEnabled = false;
         try {
-            passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_PASSTHRU_PROPERTY);
+            passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_PASSTHRU_PROPERTY);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_PASSTHRU_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to retrieve "
+                    + NhincConstants.NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_PASSTHRU_PROPERTY
+                    + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
         return passThroughModeEnabled;
     }
 
-    private DocQueryAcknowledgementType sendToAgency(AdhocQueryResponse request, AssertionType assertion, String responseHomeCommunityId) {
+    private DocQueryAcknowledgementType sendToAgency(AdhocQueryResponse request, AssertionType assertion,
+            String responseHomeCommunityId) {
         log.debug("Sending Response to Adapter Interface");
 
         // Audit the Adapter Response Message
-        AcknowledgementType ack = auditResponse(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, responseHomeCommunityId);
+        AcknowledgementType ack = auditResponse(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, responseHomeCommunityId);
 
         AdapterDocQueryDeferredResponseProxyObjectFactory factory = new AdapterDocQueryDeferredResponseProxyObjectFactory();
         AdapterDocQueryDeferredResponseProxy proxy = factory.getAdapterDocQueryDeferredResponseProxy();
@@ -148,21 +162,26 @@ public class NhinDocQueryDeferredResponseOrchImpl {
         DocQueryAcknowledgementType ackResp = proxy.respondingGatewayCrossGatewayQuery(request, assertion);
 
         // Audit the incoming Adapter Message
-        ack = auditAck(ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, responseHomeCommunityId);
+        ack = auditAck(ackResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, responseHomeCommunityId);
 
         return ackResp;
     }
 
-    private AcknowledgementType auditResponse(AdhocQueryResponse msg, AssertionType assertion, String direction, String _interface, String responseHomeCommunityId) {
+    private AcknowledgementType auditResponse(AdhocQueryResponse msg, AssertionType assertion, String direction,
+            String _interface, String responseHomeCommunityId) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, direction, _interface, responseHomeCommunityId);
+        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, direction, _interface,
+                responseHomeCommunityId);
 
         return ack;
     }
 
-    private AcknowledgementType auditAck(DocQueryAcknowledgementType msg, AssertionType assertion, String direction, String _interface, String responseHomeCommunityId) {
+    private AcknowledgementType auditAck(DocQueryAcknowledgementType msg, AssertionType assertion, String direction,
+            String _interface, String responseHomeCommunityId) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLogger.logDocQueryAck(msg, assertion, direction, _interface, responseHomeCommunityId);
+        AcknowledgementType ack = auditLogger.logDocQueryAck(msg, assertion, direction, _interface,
+                responseHomeCommunityId);
 
         return ack;
     }

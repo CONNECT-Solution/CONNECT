@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.subscription.filters.documentfilter;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class MultipleSlotValuesFoundException extends Exception {
@@ -41,6 +41,7 @@ public class MultipleSlotValuesFoundException extends Exception {
 
     /**
      * Constructs an instance of <code>MultipleSlotValuesFound</code> with the specified detail message.
+     * 
      * @param msg the detail message.
      */
     public MultipleSlotValuesFoundException(String msg) {

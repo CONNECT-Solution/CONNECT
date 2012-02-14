@@ -37,29 +37,30 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Passthru Proxy Orchestration Request implementation class
- *
+ * 
  * @author Sai Valluripalli
  * @author richard.ettema
  */
 public class NhincProxyDocRetrieveDeferredReqOrchImpl {
 
-    //Logger
+    // Logger
     private static final Log log = LogFactory.getLog(NhincProxyDocRetrieveDeferredReqOrchImpl.class);
 
     /**
      * Pass the processing on to the NHIN layer
-     *
+     * 
      * @param request
      * @param assertion
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType request,
+            AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Begin NhincProxyDocRetrieveDeferredReqOrchImpl.crossGatewayRetrieveRequest(...)");
 
         DocRetrieveAcknowledgementType ack = null;
 
-        //Call Nhin component proxy
+        // Call Nhin component proxy
         NhinDocRetrieveDeferredReqProxyObjectFactory objFactory = new NhinDocRetrieveDeferredReqProxyObjectFactory();
         NhinDocRetrieveDeferredReqProxy docRetrieveProxy = objFactory.getNhinDocRetrieveDeferredRequestProxy();
         ack = docRetrieveProxy.sendToRespondingGateway(request, assertion, target);

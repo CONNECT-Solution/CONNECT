@@ -46,7 +46,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class DocumentRetrieveClient {
@@ -55,40 +55,36 @@ public class DocumentRetrieveClient {
     private static Log log = LogFactory.getLog(DocumentRetrieveClient.class);
     private static EntityDocRetrieve service = new EntityDocRetrieve();
 
-    public String retriveDocument(DocumentInformation documentInformation){
+    public String retriveDocument(DocumentInformation documentInformation) {
 
         EntityDocRetrievePortType port = getPort(getEntityDocumentRetrieveProxyAddress());
 
         RespondingGatewayCrossGatewayRetrieveRequestType request = createCrossGatewayRetrieveRequest(documentInformation);
-
 
         RetrieveDocumentSetResponseType response = port.respondingGatewayCrossGatewayRetrieve(request);
 
         return extractDocument(response);
     }
 
-    private String extractDocument(RetrieveDocumentSetResponseType response){
+    private String extractDocument(RetrieveDocumentSetResponseType response) {
         String documentInXmlFormat = null;
 
-        if (response == null)
-        {
+        if (response == null) {
             return null;
         }
         List<DocumentResponse> documentResponseList = response.getDocumentResponse();
 
-        if (documentResponseList != null && documentResponseList.size() > 0)
-        {
+        if (documentResponseList != null && documentResponseList.size() > 0) {
             DocumentResponse documentResponse = documentResponseList.get(0);
 
-            if (documentResponse != null && documentResponse.getDocument() != null)
-            {
+            if (documentResponse != null && documentResponse.getDocument() != null) {
                 documentInXmlFormat = new String(documentResponse.getDocument());
             }
         }
-        
-        //log.debug("Document: " + documentInXmlFormat);
 
-        //convertXMLToHTML(documentInXmlFormat, null);
+        // log.debug("Document: " + documentInXmlFormat);
+
+        // convertXMLToHTML(documentInXmlFormat, null);
 
         return documentInXmlFormat;
     }
@@ -97,15 +93,16 @@ public class DocumentRetrieveClient {
      * 
      * @return
      */
-    private RespondingGatewayCrossGatewayRetrieveRequestType createCrossGatewayRetrieveRequest(DocumentInformation documentInformation){
-        
+    private RespondingGatewayCrossGatewayRetrieveRequestType createCrossGatewayRetrieveRequest(
+            DocumentInformation documentInformation) {
+
         RespondingGatewayCrossGatewayRetrieveRequestType request = new RespondingGatewayCrossGatewayRetrieveRequestType();
 
         RetrieveDocumentSetRequestType retrieveDocumentSetRequest = new RetrieveDocumentSetRequestType();
 
         DocumentRequest docRequest = new DocumentRequest();
-        //docRequest.setHomeCommunityId("urn:oid:2.2");
-        //docRequest.setRepositoryUniqueId("1");
+        // docRequest.setHomeCommunityId("urn:oid:2.2");
+        // docRequest.setRepositoryUniqueId("1");
         docRequest.setHomeCommunityId(documentInformation.getHomeCommunityID());
         docRequest.setRepositoryUniqueId(documentInformation.getRepositoryUniqueID());
         docRequest.setDocumentUniqueId(documentInformation.getDocumentID());
@@ -122,8 +119,7 @@ public class DocumentRetrieveClient {
         return request;
     }
 
-    private NhinTargetCommunitiesType createTargetCommunities(String homeCommunityId)
-    {
+    private NhinTargetCommunitiesType createTargetCommunities(String homeCommunityId) {
         NhinTargetCommunitiesType result = new NhinTargetCommunitiesType();
         NhinTargetCommunityType community = new NhinTargetCommunityType();
 
@@ -137,8 +133,9 @@ public class DocumentRetrieveClient {
         return result;
 
     }
+
     /**
-     *
+     * 
      * @return
      */
     private String getEntityDocumentRetrieveProxyAddress() {
@@ -148,18 +145,21 @@ public class DocumentRetrieveClient {
             // Lookup home community id
             String homeCommunity = getHomeCommunityId();
             // Get endpoint url
-            endpointAddress = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunity, NhincConstants.ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME);
+            endpointAddress = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunity,
+                    NhincConstants.ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME);
             log.debug("Doc Retrive endpoint address: " + endpointAddress);
         } catch (PropertyAccessException pae) {
             log.error("Exception encountered retrieving the local home community: " + pae.getMessage(), pae);
         } catch (ConnectionManagerException cme) {
-            log.error("Exception encountered retrieving the entity doc query connection endpoint address: " + cme.getMessage(), cme);
+            log.error(
+                    "Exception encountered retrieving the entity doc query connection endpoint address: "
+                            + cme.getMessage(), cme);
         }
         return endpointAddress;
     }
 
     /**
-     *
+     * 
      * @param url
      * @return
      */
@@ -170,21 +170,20 @@ public class DocumentRetrieveClient {
 
         EntityDocRetrievePortType port = service.getEntityDocRetrievePortSoap();
 
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
         return port;
     }
 
     /**
      * Retrieve the local home community id
-     *
+     * 
      * @return Local home community id
      * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     private String getHomeCommunityId() throws PropertyAccessException {
         return PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_LOCAL_HOME_COMMUNITY);
     }
-
-
 
 }

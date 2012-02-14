@@ -34,37 +34,33 @@ import gov.hhs.fha.nhinc.patientdiscovery.nhin.AbstractServicePropertyAccessor;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 
 public final class NhinPatientDiscoveryDeferredRespOrchFactory implements
-		GenericFactory<NhinPatientDiscoveryDeferredRespOrchImpl> {
-	
-	
-	private static NhinPatientDiscoveryDeferredRespOrchFactory INSTANCE = new NhinPatientDiscoveryDeferredRespOrchFactory();
-	
-	NhinPatientDiscoveryDeferredRespOrchFactory() {
-		
-	}
+        GenericFactory<NhinPatientDiscoveryDeferredRespOrchImpl> {
 
-	@Override
-	public NhinPatientDiscoveryDeferredRespOrchImpl create() {
+    private static NhinPatientDiscoveryDeferredRespOrchFactory INSTANCE = new NhinPatientDiscoveryDeferredRespOrchFactory();
 
-		return new NhinPatientDiscoveryDeferredRespOrchImpl(
-				new AbstractServicePropertyAccessor() {
+    NhinPatientDiscoveryDeferredRespOrchFactory() {
 
-					@Override
-					protected String getServiceEnabledPropertyName() {
-						return NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME;
-					}
+    }
 
-					@Override
-					protected String getPassThruEnabledPropertyName() {
-						return  ""; // deferred response passthru doesn't make sense/not supported
-					}
-				}, new PatientDiscoveryAuditLogger(),
-				new AdapterPatientDiscoveryDeferredRespProxyObjectFactory(),
-				PatientDiscovery201306PolicyChecker.getInstance());
-	}
-	
-	
-	public static NhinPatientDiscoveryDeferredRespOrchFactory getInstance() {
-		return INSTANCE;
-	}
+    @Override
+    public NhinPatientDiscoveryDeferredRespOrchImpl create() {
+
+        return new NhinPatientDiscoveryDeferredRespOrchImpl(new AbstractServicePropertyAccessor() {
+
+            @Override
+            protected String getServiceEnabledPropertyName() {
+                return NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME;
+            }
+
+            @Override
+            protected String getPassThruEnabledPropertyName() {
+                return ""; // deferred response passthru doesn't make sense/not supported
+            }
+        }, new PatientDiscoveryAuditLogger(), new AdapterPatientDiscoveryDeferredRespProxyObjectFactory(),
+                PatientDiscovery201306PolicyChecker.getInstance());
+    }
+
+    public static NhinPatientDiscoveryDeferredRespOrchFactory getInstance() {
+        return INSTANCE;
+    }
 }

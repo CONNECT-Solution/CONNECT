@@ -40,37 +40,32 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class XDRAuditLogger {
     private static Log log = null;
 
-    public XDRAuditLogger()
-    {
-        log= createLogger();
+    public XDRAuditLogger() {
+        log = createLogger();
     }
-    public AcknowledgementType auditNhinXDR (ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, String direction) {
-        AcknowledgementType ack = new AcknowledgementType ();
+
+    public AcknowledgementType auditNhinXDR(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+            String direction) {
+        AcknowledgementType ack = new AcknowledgementType();
 
         log.debug("begin auditNhinXDR()");
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logXDRReq(request, assertion, direction);
 
-        if(auditLogMsg != null)
-        {
-            if(auditLogMsg.getAuditMessage() != null)
-            {
+        if (auditLogMsg != null) {
+            if (auditLogMsg.getAuditMessage() != null) {
                 audit(auditLogMsg, assertion);
-            }
-            else
-            {
+            } else {
                 log.error("auditLogMsg.getAuditMessage() is null");
             }
-        }
-        else
-        {
+        } else {
             log.error("auditLogMsg is null");
         }
 
@@ -78,18 +73,18 @@ public class XDRAuditLogger {
         log.debug("Ack message = " + ack.getMessage());
         return ack;
     }
-    public AcknowledgementType auditXDR(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion, String direction)
-    {
-        AcknowledgementType ack = new AcknowledgementType ();
+
+    public AcknowledgementType auditXDR(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+            AssertionType assertion, String direction) {
+        AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logXDRReq(request, assertion, direction);
 
-        if(auditLogMsg != null)
-        {
-            if(auditLogMsg.getAuditMessage() != null)
-            {
+        if (auditLogMsg != null) {
+            if (auditLogMsg.getAuditMessage() != null) {
                 audit(auditLogMsg, assertion);
             }
 
@@ -97,8 +92,9 @@ public class XDRAuditLogger {
         return ack;
     }
 
-    public AcknowledgementType auditEntityXDR(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion, String direction) {
-        AcknowledgementType ack = new AcknowledgementType ();
+    public AcknowledgementType auditEntityXDR(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+            AssertionType assertion, String direction) {
+        AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -112,80 +108,77 @@ public class XDRAuditLogger {
         return ack;
     }
 
-    public AcknowledgementType auditEntityXDRResponse(RegistryResponseType response, AssertionType assertion, String direction) {
-        AcknowledgementType ack = new AcknowledgementType ();
+    public AcknowledgementType auditEntityXDRResponse(RegistryResponseType response, AssertionType assertion,
+            String direction) {
+        AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logEntityXDRResponse(response, assertion, direction);
 
-        if(auditLogMsg != null)
-        {
-            if(auditLogMsg.getAuditMessage() != null)
-            {
+        if (auditLogMsg != null) {
+            if (auditLogMsg.getAuditMessage() != null) {
                 audit(auditLogMsg, assertion);
             }
         }
         return ack;
     }
 
-    public AcknowledgementType auditEntityXDRResponseRequest(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType response, AssertionType assertion, String direction) {
-        AcknowledgementType ack = new AcknowledgementType ();
+    public AcknowledgementType auditEntityXDRResponseRequest(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType response,
+            AssertionType assertion, String direction) {
+        AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logEntityXDRResponseRequest(response, assertion, direction);
 
-        if(auditLogMsg != null)
-        {
-            if(auditLogMsg.getAuditMessage() != null)
-            {
+        if (auditLogMsg != null) {
+            if (auditLogMsg.getAuditMessage() != null) {
                 audit(auditLogMsg, assertion);
             }
         }
         return ack;
     }
 
-    public AcknowledgementType auditNhinXDRResponse (RegistryResponseType Response, AssertionType assertion, String direction) {
-        AcknowledgementType ack = new AcknowledgementType ();
+    public AcknowledgementType auditNhinXDRResponse(RegistryResponseType Response, AssertionType assertion,
+            String direction) {
+        AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logNhinXDRResponse(Response, assertion, direction);
 
-        if(auditLogMsg != null)
-        {
-            if(auditLogMsg.getAuditMessage() != null)
-            {
+        if (auditLogMsg != null) {
+            if (auditLogMsg.getAuditMessage() != null) {
                 audit(auditLogMsg, assertion);
             }
         }
         return ack;
     }
 
-    public AcknowledgementType auditNhinXDRResponseRequest (gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion, String direction) {
-        AcknowledgementType ack = new AcknowledgementType ();
+    public AcknowledgementType auditNhinXDRResponseRequest(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
+            AssertionType assertion, String direction) {
+        AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logNhinXDRResponseRequest(request, assertion, direction);
 
-        if(auditLogMsg != null)
-        {
-            if(auditLogMsg.getAuditMessage() != null)
-            {
+        if (auditLogMsg != null) {
+            if (auditLogMsg.getAuditMessage() != null) {
                 audit(auditLogMsg, assertion);
             }
         }
         return ack;
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
-    private AcknowledgementType audit(LogEventRequestType auditLogMsg, AssertionType assertion)
-    {
+
+    private AcknowledgementType audit(LogEventRequestType auditLogMsg, AssertionType assertion) {
         AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
         AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
 
@@ -194,14 +187,15 @@ public class XDRAuditLogger {
 
     /**
      * This method logs the acknowledgement returned from XDR Request and Response services
-     *
+     * 
      * @param acknowledgement
      * @param assertion
      * @param direction
      * @param action
      * @return
      */
-    public AcknowledgementType auditAcknowledgement (XDRAcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
+    public AcknowledgementType auditAcknowledgement(XDRAcknowledgementType acknowledgement, AssertionType assertion,
+            String direction, String action) {
 
         createLogger().debug("Start auditAcknowledgement for " + action);
         AcknowledgementType ack = new AcknowledgementType();
@@ -210,28 +204,27 @@ public class XDRAuditLogger {
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAcknowledgement(acknowledgement, assertion, direction, action);
 
-        if(auditLogMsg != null)
-        {
-            if(auditLogMsg.getAuditMessage() != null)
-            {
+        if (auditLogMsg != null) {
+            if (auditLogMsg.getAuditMessage() != null) {
                 audit(auditLogMsg, assertion);
             }
         }
         return ack;
     }
-    public AcknowledgementType auditEntityAcknowledgement (XDRAcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
+
+    public AcknowledgementType auditEntityAcknowledgement(XDRAcknowledgementType acknowledgement,
+            AssertionType assertion, String direction, String action) {
 
         createLogger().debug("Start auditAcknowledgement for " + action);
         AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logEntityAcknowledgement(acknowledgement, assertion, direction, action);
+        LogEventRequestType auditLogMsg = auditLogger.logEntityAcknowledgement(acknowledgement, assertion, direction,
+                action);
 
-        if(auditLogMsg != null)
-        {
-            if(auditLogMsg.getAuditMessage() != null)
-            {
+        if (auditLogMsg != null) {
+            if (auditLogMsg.getAuditMessage() != null) {
                 audit(auditLogMsg, assertion);
             }
         }

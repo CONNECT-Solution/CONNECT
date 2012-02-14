@@ -40,15 +40,14 @@ import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class PolicyEngineChecker {
 
     /**
-     * This method will create the generic Policy Check Request Message from
-     * a subject discovery announce request
-     *
+     * This method will create the generic Policy Check Request Message from a subject discovery announce request
+     * 
      * @param request Policy check request message for the subject discovery announce
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
@@ -58,9 +57,8 @@ public class PolicyEngineChecker {
     }
 
     /**
-     * This method will create the generic Policy Check Request Message from
-     * a document query request
-     *
+     * This method will create the generic Policy Check Request Message from a document query request
+     * 
      * @param request Policy check request message for the document query
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
@@ -75,9 +73,8 @@ public class PolicyEngineChecker {
     }
 
     /**
-     * This method will create the generic Policy Check Request Message from
-     * a document retrieve request
-     *
+     * This method will create the generic Policy Check Request Message from a document retrieve request
+     * 
      * @param request Policy check request message for the document retrieve
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
@@ -87,9 +84,8 @@ public class PolicyEngineChecker {
     }
 
     /**
-     * This method will create the generic Policy Check Request Message from
-     * an audit query request
-     *
+     * This method will create the generic Policy Check Request Message from an audit query request
+     * 
      * @param request Policy check request message for the audit query
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
@@ -99,9 +95,8 @@ public class PolicyEngineChecker {
     }
 
     /**
-     * This method will create the generic Policy Check Request Message from
-     * a subscribe request
-     *
+     * This method will create the generic Policy Check Request Message from a subscribe request
+     * 
      * @param request Policy check request message for the subscribe
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
@@ -111,9 +106,8 @@ public class PolicyEngineChecker {
     }
 
     /**
-     * This method will create the generic Policy Check Request Message from
-     * an unsubscribe request.
-     *
+     * This method will create the generic Policy Check Request Message from an unsubscribe request.
+     * 
      * @param request Policy check request message for the unsubscribe
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
@@ -123,9 +117,8 @@ public class PolicyEngineChecker {
     }
 
     /**
-     * This method will create the generic Policy Check Request Message from
-     * a notify request
-     *
+     * This method will create the generic Policy Check Request Message from a notify request
+     * 
      * @param request Policy check request message for the notify request
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
@@ -133,6 +126,7 @@ public class PolicyEngineChecker {
         PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformNotifyToCheckPolicy(request);
     }
+
     public CheckPolicyRequestType checkPolicyXDRRequest(XDREventType request) {
         PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformXDRRequestToCheckPolicy(request);

@@ -44,7 +44,7 @@ import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSParser;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class XmlUtility {
@@ -62,7 +62,8 @@ public class XmlUtility {
         return value;
     }
 
-    public static String serializeElement(Element element) throws LSException, IllegalAccessException, DOMException, InstantiationException, ClassNotFoundException, ClassCastException {
+    public static String serializeElement(Element element) throws LSException, IllegalAccessException, DOMException,
+            InstantiationException, ClassNotFoundException, ClassCastException {
         String serializedElement = null;
         if (element != null) {
             System.setProperty(DOMImplementationRegistry.PROPERTY, "org.apache.xerces.dom.DOMImplementationSourceImpl");
@@ -104,7 +105,8 @@ public class XmlUtility {
 
     }
 
-    public static String serializeNode(Node node) throws LSException, IllegalAccessException, DOMException, InstantiationException, ClassNotFoundException, ClassCastException {
+    public static String serializeNode(Node node) throws LSException, IllegalAccessException, DOMException,
+            InstantiationException, ClassNotFoundException, ClassCastException {
         String serializedElement = null;
         if (node != null) {
             System.setProperty(DOMImplementationRegistry.PROPERTY, "org.apache.xerces.dom.DOMImplementationSourceImpl");
@@ -148,7 +150,8 @@ public class XmlUtility {
      * @throws javax.xml.xpath.XPathExpressionException
      */
     @Deprecated
-    public static Node performXpathQuery(String sourceXml, String xpathQuery, NamespaceContext namespaceContext) throws XPathExpressionException {
+    public static Node performXpathQuery(String sourceXml, String xpathQuery, NamespaceContext namespaceContext)
+            throws XPathExpressionException {
         return XpathHelper.performXpathQuery(sourceXml, xpathQuery, namespaceContext);
     }
 
@@ -171,7 +174,8 @@ public class XmlUtility {
      * @return
      * @throws javax.xml.xpath.XPathExpressionException
      */
-    public static Node performXpathQuery(Element sourceElement, String xpathQuery, NamespaceContext namespaceContext) throws XPathExpressionException {
+    public static Node performXpathQuery(Element sourceElement, String xpathQuery, NamespaceContext namespaceContext)
+            throws XPathExpressionException {
         return XpathHelper.performXpathQuery(sourceElement, xpathQuery, namespaceContext);
     }
 

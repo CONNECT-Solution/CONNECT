@@ -23,7 +23,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class NhinPatientDiscoveryAsyncRespImpl {
@@ -35,22 +35,27 @@ public class NhinPatientDiscoveryAsyncRespImpl {
         MCCIIN000002UV01 response = null;
         ProxyPRPAIN201306UVProxyRequestType request = new ProxyPRPAIN201306UVProxyRequestType();
 
-         request.setPRPAIN201306UV02(body);
+        request.setPRPAIN201306UV02(body);
         request.setAssertion(SamlTokenExtractor.GetAssertion(context));
 
         String homeCommunityId = null;
-        if (body != null &&
-                NullChecker.isNotNullish(body.getReceiver()) &&
-                body.getReceiver().get(0) != null &&
-                body.getReceiver().get(0).getDevice() != null &&
-                body.getReceiver().get(0).getDevice().getAsAgent() != null &&
-                body.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
-                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-            homeCommunityId = body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        if (body != null
+                && NullChecker.isNotNullish(body.getReceiver())
+                && body.getReceiver().get(0) != null
+                && body.getReceiver().get(0).getDevice() != null
+                && body.getReceiver().get(0).getDevice().getAsAgent() != null
+                && body.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
+                && body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                && body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue() != null
+                && NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId())
+                && body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue().getId().get(0) != null
+                && NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            homeCommunityId = body.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                    .getRepresentedOrganization().getValue().getId().get(0).getRoot();
         } else {
             homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
         }
@@ -58,7 +63,9 @@ public class NhinPatientDiscoveryAsyncRespImpl {
         if (NullChecker.isNotNullish(homeCommunityId)) {
             NhincProxyPatientDiscoveryAsyncResp service = new NhincProxyPatientDiscoveryAsyncResp();
             NhincProxyPatientDiscoveryAsyncRespPortType port = service.getNhincProxyPatientDiscoveryAsyncRespPortType();
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
+            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                    javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                    SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
             response = port.proxyProcessPatientDiscoveryAsyncResp(request);
         } else {
             response = null;

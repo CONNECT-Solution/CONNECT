@@ -31,8 +31,8 @@ import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.w3c.dom.Element;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
 public class SubscribeResponseMarshaller {
@@ -50,8 +50,7 @@ public class SubscribeResponseMarshaller {
 
     public Element marshalNotifyRequest(AcknowledgementType object) {
         Element result = null;
-        if(object != null)
-        {
+        if (object != null) {
             gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory nccommonObjFact = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
             Object jaxbObj = nccommonObjFact.createAcknowledgement(object);
             result = new MarshallerHelper().marshal(jaxbObj, NotifyRespContextPath);

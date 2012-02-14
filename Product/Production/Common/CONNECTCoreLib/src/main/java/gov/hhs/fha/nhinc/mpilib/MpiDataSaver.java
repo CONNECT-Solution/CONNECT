@@ -63,14 +63,13 @@ public class MpiDataSaver {
         try {
             fos = createFileOutputStream(file);
             writePatientList(fos, patientList);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new UnableToInitializeMpi("Failed to save MPI.", e);
         } finally {
             closeFileOutputStream(fos);
         }
-        
-        log.info("Save complete");        
+
+        log.info("Save complete");
     }
 
     public Patients loadMpi() {
@@ -79,7 +78,7 @@ public class MpiDataSaver {
 
     public Patients loadMpi(String file) {
         log.info("Loading patients from " + file);
-        
+
         openOrCreateMpiFile(file);
 
         Patients patientList = new Patients();
@@ -94,7 +93,7 @@ public class MpiDataSaver {
         }
 
         log.info("Loaded " + patientList.size() + " patient(s)");
-        return patientList;        
+        return patientList;
     }
 
     protected Log createLogger() {
@@ -106,8 +105,8 @@ public class MpiDataSaver {
     }
 
     protected String getDefaultMpiFilename() {
-        return ((defaultMpiFilename != null) ? defaultMpiFilename : 
-            PropertyAccessor.getPropertyFileLocation() + File.separator + "mpi.xml");
+        return ((defaultMpiFilename != null) ? defaultMpiFilename : PropertyAccessor.getPropertyFileLocation()
+                + File.separator + "mpi.xml");
     }
 
     protected FileOutputStream createFileOutputStream(String file) {
@@ -149,7 +148,7 @@ public class MpiDataSaver {
         try {
             xenc.writeObject(patientList);
             xenc.flush();
-        } catch(Exception e) {
+        } catch (Exception e) {
             logException(e);
             throw new UnableToInitializeMpi("Error writing patient list to xml.", e);
         } finally {
@@ -163,7 +162,7 @@ public class MpiDataSaver {
         try {
             Object o = xdec.readObject();
             patientList = (Patients) o;
-        } catch(Exception e) {
+        } catch (Exception e) {
             logException(e);
             throw new UnableToInitializeMpi("Error reading patient list.", e);
         } finally {

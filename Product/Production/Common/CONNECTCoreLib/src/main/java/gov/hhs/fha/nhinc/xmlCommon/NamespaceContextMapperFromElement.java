@@ -31,7 +31,7 @@ import javax.xml.namespace.NamespaceContext;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class NamespaceContextMapperFromElement implements NamespaceContext {

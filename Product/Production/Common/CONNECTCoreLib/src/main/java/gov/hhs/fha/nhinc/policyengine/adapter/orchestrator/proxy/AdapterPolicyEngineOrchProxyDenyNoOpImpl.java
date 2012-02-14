@@ -35,36 +35,29 @@ import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
- * This is a concrete implementation of the AdapterPolicyEngineOrchestrator interface
- * that always returns a deny.
- *
+ * This is a concrete implementation of the AdapterPolicyEngineOrchestrator interface that always returns a deny.
+ * 
  * @author Les Westberg
  */
-public class AdapterPolicyEngineOrchProxyDenyNoOpImpl implements AdapterPolicyEngineOrchProxy
-{
+public class AdapterPolicyEngineOrchProxyDenyNoOpImpl implements AdapterPolicyEngineOrchProxy {
     private Log log = null;
 
-    public AdapterPolicyEngineOrchProxyDenyNoOpImpl()
-    {
+    public AdapterPolicyEngineOrchProxyDenyNoOpImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
     /**
-     * Given a request to check the access policy, this service will always
-     * return a deny response.
-     *
+     * Given a request to check the access policy, this service will always return a deny response.
+     * 
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
-    {
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         log.debug("Begin AdapterPolicyEngineOrchProxyDenyNoOpImpl.checkPolicy");
         CheckPolicyResponseType oPolicyResponse = new CheckPolicyResponseType();
         ResponseType oResponse = new ResponseType();

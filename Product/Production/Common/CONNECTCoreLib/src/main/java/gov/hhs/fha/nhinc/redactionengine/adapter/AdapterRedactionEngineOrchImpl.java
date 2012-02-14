@@ -34,55 +34,48 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterRedactionEngineOrchImpl {
     private Log log = null;
 
-    public AdapterRedactionEngineOrchImpl()
-    {
+    public AdapterRedactionEngineOrchImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected RedactionEngine getRedactionEngine()
-    {
+    protected RedactionEngine getRedactionEngine() {
         return new RedactionEngine();
     }
 
-    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse)
-    {
+    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
+            AdhocQueryResponse adhocQueryResponse) {
         log.debug("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
         RedactionEngine redactionEngine = getRedactionEngine();
-        if(redactionEngine != null)
-        {
+        if (redactionEngine != null) {
             response = redactionEngine.filterAdhocQueryResults(adhocQueryRequest, adhocQueryResponse);
-        }
-        else
-        {
+        } else {
             log.warn("RedactionEngine was null");
         }
         log.debug("End filterAdhocQueryResults");
         return response;
     }
 
-    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse)
-    {
+    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
+            RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
+            RetrieveDocumentSetResponseType retrieveDocumentSetResponse) {
         log.debug("Begin filterRetrieveDocumentSetResults");
         RetrieveDocumentSetResponseType response = null;
         RedactionEngine redactionEngine = getRedactionEngine();
-        if(redactionEngine != null)
-        {
-            response = redactionEngine.filterRetrieveDocumentSetResults(retrieveDocumentSetRequest, retrieveDocumentSetResponse);
-        }
-        else
-        {
+        if (redactionEngine != null) {
+            response = redactionEngine.filterRetrieveDocumentSetResults(retrieveDocumentSetRequest,
+                    retrieveDocumentSetResponse);
+        } else {
             log.warn("RedactionEngine was null");
         }
         log.debug("Begin filterRetrieveDocumentSetResults");

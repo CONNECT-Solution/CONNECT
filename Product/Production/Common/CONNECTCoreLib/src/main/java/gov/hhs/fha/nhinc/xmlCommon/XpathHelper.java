@@ -43,7 +43,7 @@ import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSParser;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class XpathHelper {
@@ -54,7 +54,8 @@ public class XpathHelper {
         return performXpathQuery(sourceXml, xpathQuery, null);
     }
 
-    public static Node performXpathQuery(String sourceXml, String xpathQuery, NamespaceContext namespaceContext) throws XPathExpressionException {
+    public static Node performXpathQuery(String sourceXml, String xpathQuery, NamespaceContext namespaceContext)
+            throws XPathExpressionException {
         javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
         javax.xml.xpath.XPath xpath = factory.newXPath();
 
@@ -87,7 +88,8 @@ public class XpathHelper {
         return performXpathQuery(sourceElement, xpathQuery, null);
     }
 
-    public static Node performXpathQuery(Element sourceElement, String xpathQuery, NamespaceContext namespaceContext) throws XPathExpressionException {
+    public static Node performXpathQuery(Element sourceElement, String xpathQuery, NamespaceContext namespaceContext)
+            throws XPathExpressionException {
         javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
         javax.xml.xpath.XPath xpath = factory.newXPath();
 

@@ -34,27 +34,25 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class AdapterDocSubmissionDeferredRequestProxyJavaImpl implements AdapterDocSubmissionDeferredRequestProxy
-{
+public class AdapterDocSubmissionDeferredRequestProxyJavaImpl implements AdapterDocSubmissionDeferredRequestProxy {
     private Log log = null;
 
-    public AdapterDocSubmissionDeferredRequestProxyJavaImpl()
-    {
+    public AdapterDocSubmissionDeferredRequestProxyJavaImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(this.getClass());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
-        XDRAcknowledgementType response = new AdapterDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request, url, assertion);
+        XDRAcknowledgementType response = new AdapterDocSubmissionDeferredRequestOrchImpl()
+                .provideAndRegisterDocumentSetBRequest(request, url, assertion);
 
         log.debug("End AdapterDocSubmissionDeferredRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
         return response;

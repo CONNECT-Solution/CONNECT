@@ -53,15 +53,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class DocumentFilterStrategy {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(DocumentFilterStrategy.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(DocumentFilterStrategy.class);
 
     public static boolean IsDocumentCentric(Node subscriptionTopicExpression) {
-        //find better way to handle this, maybe just share code
+        // find better way to handle this, maybe just share code
         boolean result = false;
         String value = XmlUtility.getNodeValue(subscriptionTopicExpression);
         if (NullChecker.isNotNullish(value)) {
@@ -73,8 +74,8 @@ public class DocumentFilterStrategy {
     }
 
     public boolean MeetsCriteria(Element subscribeElement, Element notificationMessageElement) {
-        //todo: modify to only to the retrieve of metadata one time
-        
+        // todo: modify to only to the retrieve of metadata one time
+
         if (subscribeElement == null) {
             return false;
         }
@@ -86,14 +87,14 @@ public class DocumentFilterStrategy {
             log.error("Failed to find document metadata", ex);
         }
 
-        boolean match ;
+        boolean match;
         if (documentMetadata != null) {
-            //match=adhoc query and doc meta data are match
+            // match=adhoc query and doc meta data are match
             AdhocQueryType adhocQuery = extractAdhocQueryAsObject(subscribeElement);
-            match= meetsCriteria(documentMetadata, adhocQuery);
+            match = meetsCriteria(documentMetadata, adhocQuery);
         } else {
             log.warn("Document meta data could not be accessed, so assumed to not be a match");
-            match=false;
+            match = false;
         }
         return match;
     }
@@ -103,7 +104,8 @@ public class DocumentFilterStrategy {
 
         for (SlotType1 slot : adhocQuery.getSlot()) {
             boolean slotMatch = true;
-            log.debug("Checking if the slot [name='" + slot.getName() + "'] from the subscribe is meet by the document metadata from notify");
+            log.debug("Checking if the slot [name='" + slot.getName()
+                    + "'] from the subscribe is meet by the document metadata from notify");
             String slotValue = null;
             if (slot.getValueList().getValue().size() == 0) {
                 log.warn("there are no slot values - assume that this will not result in no match");
@@ -119,8 +121,12 @@ public class DocumentFilterStrategy {
 
                 if (slot.getName().contentEquals(Constants.PatientIdSlotName)) {
                     QualifiedSubjectIdentifierType patientId = DocumentMetadataHelper.getPatient(documentMetadata);
-                    log.debug("extracted patient id from the metadata " + patientId.getSubjectIdentifier() + ";" + patientId.getAssigningAuthorityIdentifier());
-                    slotMatch = patientId.getSubjectIdentifier().contentEquals(PatientIdFormatUtil.parsePatientId(slotValue)) && patientId.getAssigningAuthorityIdentifier().contentEquals(PatientIdFormatUtil.parseCommunityId(slotValue));
+                    log.debug("extracted patient id from the metadata " + patientId.getSubjectIdentifier() + ";"
+                            + patientId.getAssigningAuthorityIdentifier());
+                    slotMatch = patientId.getSubjectIdentifier().contentEquals(
+                            PatientIdFormatUtil.parsePatientId(slotValue))
+                            && patientId.getAssigningAuthorityIdentifier().contentEquals(
+                                    PatientIdFormatUtil.parseCommunityId(slotValue));
                 } else if (slot.getName().contentEquals(Constants.DocumentClassCodeSlotName)) {
                     String metadataValue = DocumentMetadataHelper.getDocumentClassCode(documentMetadata);
                     log.debug("correspond value(s) from metadata=" + metadataValue);
@@ -136,7 +142,8 @@ public class DocumentFilterStrategy {
                     log.warn("the current implementation of the document filter does not support this slot type - assume this does not affect the filtering");
                     slotMatch = true;
                 }
-                log.debug("slot match?=" + slotMatch + "[slot name='" + slot.getName() + "'][slot value='" + slotValue + "']");
+                log.debug("slot match?=" + slotMatch + "[slot name='" + slot.getName() + "'][slot value='" + slotValue
+                        + "']");
             }
             match = match && slotMatch;
         }
@@ -182,10 +189,12 @@ public class DocumentFilterStrategy {
     private DocumentRequest extractDocumentIdentifiersAsObject(Element element) {
         log.info("extract retrieve document set from:" + XmlUtility.serializeElementIgnoreFaults(element));
         Element retrieveDocumentSetRequestElement = extractRetrieveDocumentSetRequestAsElement(element);
-        log.info("extracted retrieveDocumentSetRequestElement:" + XmlUtility.serializeElementIgnoreFaults(retrieveDocumentSetRequestElement));
+        log.info("extracted retrieveDocumentSetRequestElement:"
+                + XmlUtility.serializeElementIgnoreFaults(retrieveDocumentSetRequestElement));
 
         RetrieveDocumentSetRequestMarshaller marshaller = new RetrieveDocumentSetRequestMarshaller();
-        RetrieveDocumentSetRequestType retrieveDocumentSetRequestType = marshaller.unmarshal(retrieveDocumentSetRequestElement);
+        RetrieveDocumentSetRequestType retrieveDocumentSetRequestType = marshaller
+                .unmarshal(retrieveDocumentSetRequestElement);
         DocumentRequest documentIdentifier = retrieveDocumentSetRequestType.getDocumentRequest().get(0);
         return documentIdentifier;
     }
@@ -199,8 +208,9 @@ public class DocumentFilterStrategy {
         AdhocQueryRequest adhocQuery = buildAdhocQueryToQueryByDocumentIdentifiers(documentIdentifier);
         AdhocQueryResponse response = proxy.registryStoredQuery(adhocQuery, assertion);
 
-        //todo: a little defensive programming needed here
-        ExtrinsicObjectType metadata = (ExtrinsicObjectType) response.getRegistryObjectList().getIdentifiable().get(0).getValue();
+        // todo: a little defensive programming needed here
+        ExtrinsicObjectType metadata = (ExtrinsicObjectType) response.getRegistryObjectList().getIdentifiable().get(0)
+                .getValue();
         return metadata;
     }
 

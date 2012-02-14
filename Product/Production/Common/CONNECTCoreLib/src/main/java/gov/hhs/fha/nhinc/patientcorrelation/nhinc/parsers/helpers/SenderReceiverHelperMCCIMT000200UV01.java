@@ -34,13 +34,14 @@ import org.hl7.v3.MCCIMT000200UV01Receiver;
 import org.hl7.v3.MCCIMT000200UV01Sender;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class SenderReceiverHelperMCCIMT000200UV01 {
 
     /**
      * Generate sender element
+     * 
      * @param senderDeviceId
      * @return sender
      */
@@ -53,6 +54,7 @@ public class SenderReceiverHelperMCCIMT000200UV01 {
 
     /**
      * Generate empty sender element
+     * 
      * @param senderDeviceId
      * @return sender
      */
@@ -62,6 +64,7 @@ public class SenderReceiverHelperMCCIMT000200UV01 {
 
     /**
      * Generate receiver element
+     * 
      * @param receiverDeviceId
      * @return receiver
      */
@@ -74,6 +77,7 @@ public class SenderReceiverHelperMCCIMT000200UV01 {
 
     /**
      * Generate empty receiver element
+     * 
      * @param receiverDeviceId
      * @return receiver
      */

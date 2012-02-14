@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.connectmgr.data;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class CMUrlInfo {
@@ -52,9 +52,8 @@ public class CMUrlInfo {
     }
 
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
-     *
+     * Returns true of the contents of the object are the same as the one passed in.
+     * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
@@ -64,30 +63,22 @@ public class CMUrlInfo {
         boolean result = false;
 
         // Check whether the home community ids are equal
-        if (NullChecker.isNullish(oCompare.homeCommunityId) &&
-                NullChecker.isNullish(this.homeCommunityId)) {
+        if (NullChecker.isNullish(oCompare.homeCommunityId) && NullChecker.isNullish(this.homeCommunityId)) {
             hcidResult = true;
-        }
-        else if (NullChecker.isNullish(oCompare.homeCommunityId) ||
-                NullChecker.isNullish(this.homeCommunityId)) {
+        } else if (NullChecker.isNullish(oCompare.homeCommunityId) || NullChecker.isNullish(this.homeCommunityId)) {
             hcidResult = false;
-        }
-        else {
+        } else {
             if (this.homeCommunityId.equalsIgnoreCase(oCompare.homeCommunityId)) {
                 hcidResult = true;
             }
         }
 
         // Check whether the urls are equal
-        if (NullChecker.isNullish(oCompare.url) &&
-                NullChecker.isNullish(this.url)) {
+        if (NullChecker.isNullish(oCompare.url) && NullChecker.isNullish(this.url)) {
             urlResult = true;
-        }
-        else if (NullChecker.isNullish(oCompare.url) ||
-                NullChecker.isNullish(this.url)) {
+        } else if (NullChecker.isNullish(oCompare.url) || NullChecker.isNullish(this.url)) {
             urlResult = false;
-        }
-        else {
+        } else {
             if (this.url.equalsIgnoreCase(oCompare.url)) {
                 urlResult = true;
             }
@@ -103,7 +94,7 @@ public class CMUrlInfo {
 
     /**
      * Return the url of this servie.
-     *
+     * 
      * @return The url of this service.
      */
     public String getUrl() {
@@ -112,7 +103,7 @@ public class CMUrlInfo {
 
     /**
      * Set the url of this service.
-     *
+     * 
      * @param The url of this service.
      */
     public void setUrl(String url) {
@@ -121,7 +112,7 @@ public class CMUrlInfo {
 
     /**
      * Return the homeCommunityId of this servie.
-     *
+     * 
      * @return The homeCommunityId of this service.
      */
     public String getHcid() {
@@ -130,7 +121,7 @@ public class CMUrlInfo {
 
     /**
      * Set the homeCommunityId of this service.
-     *
+     * 
      * @param The homeCommunityId of this service.
      */
     public void setHcid(String homeCommunityId) {

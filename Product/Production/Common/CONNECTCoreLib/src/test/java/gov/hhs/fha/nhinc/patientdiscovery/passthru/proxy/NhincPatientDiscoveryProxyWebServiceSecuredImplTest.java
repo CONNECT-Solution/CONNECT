@@ -43,16 +43,14 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mflynn02
  */
 public class NhincPatientDiscoveryProxyWebServiceSecuredImplTest {
-   Mockery context = new JUnit4Mockery()
-    {
-
+    Mockery context = new JUnit4Mockery() {
 
         {
-             setImposteriser(ClassImposteriser.INSTANCE);
+            setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
     final Log mockLog = context.mock(Log.class);
@@ -63,54 +61,43 @@ public class NhincPatientDiscoveryProxyWebServiceSecuredImplTest {
      */
     @Test
     public void testCreateLogger() {
-        try
-        {
-            PassthruPatientDiscoveryProxyWebServiceSecuredImpl sut = new PassthruPatientDiscoveryProxyWebServiceSecuredImpl()
-            {
+        try {
+            PassthruPatientDiscoveryProxyWebServiceSecuredImpl sut = new PassthruPatientDiscoveryProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
             };
             Log log = sut.createLogger();
             assertNotNull("Log was null", log);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger test: " + t.getMessage());
         }
     }
 
-
     /**
      * Test of getService method, of class NhincPatientDiscoveryProxyWebServiceSecuredImpl.
      */
     @Test
     public void testGetService() {
-        try
-        {
-            PassthruPatientDiscoveryProxyWebServiceSecuredImpl sut = new PassthruPatientDiscoveryProxyWebServiceSecuredImpl()
-            {
+        try {
+            PassthruPatientDiscoveryProxyWebServiceSecuredImpl sut = new PassthruPatientDiscoveryProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected Service getService()
-                {
+                protected Service getService() {
                     return mockService;
                 }
             };
             Service service = sut.getService();
             assertNotNull("Service was null", service);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetService test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetService test: " + t.getMessage());
@@ -121,25 +108,20 @@ public class NhincPatientDiscoveryProxyWebServiceSecuredImplTest {
      * Test of getPort method, of class NhincPatientDiscoveryProxyWebServiceSecuredImpl.
      */
     @Test
-    public void testGetPortNullService()
-    {
-        try
-        {
-            PassthruPatientDiscoveryProxyWebServiceSecuredImpl sut = new PassthruPatientDiscoveryProxyWebServiceSecuredImpl()
-            {
+    public void testGetPortNullService() {
+        try {
+            PassthruPatientDiscoveryProxyWebServiceSecuredImpl sut = new PassthruPatientDiscoveryProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected Service getService()
-                {
+                protected Service getService() {
                     return null;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockLog).error("Unable to obtain serivce - no port created.");
@@ -148,14 +130,11 @@ public class NhincPatientDiscoveryProxyWebServiceSecuredImplTest {
             String url = "url";
             NhincProxyPatientDiscoverySecuredPortType port = sut.getPort(url, "", "", null);
             assertNull("Port was not null", port);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetPortNullService test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetPortNullService test: " + t.getMessage());
         }
     }
-
 
 }

@@ -56,6 +56,7 @@ public class HibernateUtil {
 
     /**
      * Method returns an instance of Hibernate SessionFactory
+     * 
      * @return SessionFactory
      */
     public static SessionFactory getSessionFactory() {

@@ -36,23 +36,23 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
 
     private static final Log logger = LogFactory.getLog(OutboundDocRetrieveAggregator_a0.class);
-    
+
     private Log getLogger() {
         return logger;
     }
+
     public void aggregate(OutboundOrchestratable to, OutboundOrchestratable from) {
         if (to instanceof OutboundDocRetrieveOrchestratableImpl) {
             if (from instanceof OutboundDocRetrieveOrchestratableImpl) {
-                OutboundDocRetrieveOrchestratableImpl to_a0 = (OutboundDocRetrieveOrchestratableImpl)to;
-                OutboundDocRetrieveOrchestratableImpl from_a0 = (OutboundDocRetrieveOrchestratableImpl)from;
-                if (to_a0.getResponse() == null)
-                {
+                OutboundDocRetrieveOrchestratableImpl to_a0 = (OutboundDocRetrieveOrchestratableImpl) to;
+                OutboundDocRetrieveOrchestratableImpl from_a0 = (OutboundDocRetrieveOrchestratableImpl) from;
+                if (to_a0.getResponse() == null) {
                     to_a0.setResponse(new RetrieveDocumentSetResponseType());
                 }
 
@@ -61,26 +61,35 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
                     to_a0.getResponse().setRegistryResponse(rrt);
                 }
 
-                if (from_a0.getResponse() == null ||
-                        from_a0.getResponse().getRegistryResponse() == null ||
-                        NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE.equalsIgnoreCase(from_a0.getResponse().getRegistryResponse().getStatus()))
-                {
-                    to_a0.getResponse().getRegistryResponse().setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
-                } else if ("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure".equalsIgnoreCase(from_a0.getResponse().getRegistryResponse().getStatus()) ||
-                        !from_a0.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError().isEmpty()) {
-                    to_a0.getResponse().getRegistryResponse().setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-                    if (to_a0.getResponse().getRegistryResponse().getRegistryErrorList() == null)
-                    {
+                if (from_a0.getResponse() == null
+                        || from_a0.getResponse().getRegistryResponse() == null
+                        || NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE.equalsIgnoreCase(from_a0.getResponse()
+                                .getRegistryResponse().getStatus())) {
+                    to_a0.getResponse().getRegistryResponse()
+                            .setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
+                } else if ("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure".equalsIgnoreCase(from_a0
+                        .getResponse().getRegistryResponse().getStatus())
+                        || !from_a0.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError()
+                                .isEmpty()) {
+                    to_a0.getResponse().getRegistryResponse()
+                            .setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+                    if (to_a0.getResponse().getRegistryResponse().getRegistryErrorList() == null) {
                         to_a0.getResponse().getRegistryResponse().setRegistryErrorList(new RegistryErrorList());
                     }
-                    to_a0.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError().addAll(from_a0.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError());
+                    to_a0.getResponse()
+                            .getRegistryResponse()
+                            .getRegistryErrorList()
+                            .getRegistryError()
+                            .addAll(from_a0.getResponse().getRegistryResponse().getRegistryErrorList()
+                                    .getRegistryError());
                 }
 
                 to_a0.getResponse().getDocumentResponse().addAll(from_a0.getResponse().getDocumentResponse());
-            } /*else if (from instanceof EntityDocRetrieveOrchestratableImpl_a1)
-            {
-
-            }*/
+            } /*
+               * else if (from instanceof EntityDocRetrieveOrchestratableImpl_a1) {
+               * 
+               * }
+               */
         } else {
             // throw error, this aggregator does not handle this case
             getLogger().error("This aggregator only aggregates to EntityDocRetrieveOrchestratableImpl_a0.");

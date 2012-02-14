@@ -34,44 +34,40 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class is the java implementation of the AdapterPatientDiscovery
- * component proxy.
- *
+ * This class is the java implementation of the AdapterPatientDiscovery component proxy.
+ * 
  * @author Les westberg
  */
-public class AdapterComponentDocSubmissionRequestProxyJavaImpl implements AdapterComponentDocSubmissionRequestProxy
-{
+public class AdapterComponentDocSubmissionRequestProxyJavaImpl implements AdapterComponentDocSubmissionRequestProxy {
 
     private Log log = null;
 
     /**
      * Default constructor.
      */
-    public AdapterComponentDocSubmissionRequestProxyJavaImpl()
-    {
+    public AdapterComponentDocSubmissionRequestProxyJavaImpl() {
         log = createLogger();
     }
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**
      * Receive document deferred document submission request.
-     *
+     * 
      * @param body The doc submission message.
      * @param assertion The assertion information.
      * @param url The URL
      * @return The ACK
      */
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, String url)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion, String url) {
         log.debug("Entering AdapterComponentDocSubmissionRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
         AdapterComponentDocSubmissionRequestOrchImpl oOrchestrator = new AdapterComponentDocSubmissionRequestOrchImpl();
         log.debug("Leaving AdapterComponentDocSubmissionRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");

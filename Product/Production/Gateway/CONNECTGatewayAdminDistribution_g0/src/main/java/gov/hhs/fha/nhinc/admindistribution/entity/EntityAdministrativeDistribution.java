@@ -31,20 +31,20 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author dunnek
  */
 @WebService(serviceName = "AdministrativeDistribution_Service", portName = "AdministrativeDistribution_PortType", endpointInterface = "gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entityadmindistribution", wsdlLocation = "WEB-INF/wsdl/EntityAdministrativeDistribution/EntityAdminDist.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class EntityAdministrativeDistribution {
 
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
-        //TODO implement this method
+        // TODO implement this method
         getEntityImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
     }
-    protected EntityAdminDistributionOrchImpl getEntityImpl()
-    {
+
+    protected EntityAdminDistributionOrchImpl getEntityImpl() {
         return new EntityAdminDistributionOrchImpl();
     }
 }

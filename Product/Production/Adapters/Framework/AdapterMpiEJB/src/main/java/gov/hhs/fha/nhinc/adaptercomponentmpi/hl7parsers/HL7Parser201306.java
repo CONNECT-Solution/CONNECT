@@ -39,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class HL7Parser201306 {
@@ -58,11 +58,13 @@ public class HL7Parser201306 {
 
         II id = new II();
         try {
-           id.setRoot(PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME));
+            id.setRoot(PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME));
         } catch (PropertyAccessException e) {
-            log.error("PropertyAccessException - Default Assigning Authority property not defined in adapter.properties", e);
+            log.error(
+                    "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
+                    e);
             // CONNECT environment corrupt; return error response
-            //return BuildMessageForError(<ERROR_CODE>, query);
+            // return BuildMessageForError(<ERROR_CODE>, query);
         }
         id.setExtension(MessageIdGenerator.GenerateMessageId());
         msg.setId(id);
@@ -72,12 +74,12 @@ public class HL7Parser201306 {
         try {
             GregorianCalendar today = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
 
-            timestamp = String.valueOf(today.get(GregorianCalendar.YEAR)) +
-                        String.valueOf(today.get(GregorianCalendar.MONTH)+1) +
-                        String.valueOf(today.get(GregorianCalendar.DAY_OF_MONTH)) +
-                        String.valueOf(today.get(GregorianCalendar.HOUR_OF_DAY)) +
-                        String.valueOf(today.get(GregorianCalendar.MINUTE)) +
-                        String.valueOf(today.get(GregorianCalendar.SECOND));
+            timestamp = String.valueOf(today.get(GregorianCalendar.YEAR))
+                    + String.valueOf(today.get(GregorianCalendar.MONTH) + 1)
+                    + String.valueOf(today.get(GregorianCalendar.DAY_OF_MONTH))
+                    + String.valueOf(today.get(GregorianCalendar.HOUR_OF_DAY))
+                    + String.valueOf(today.get(GregorianCalendar.MINUTE))
+                    + String.valueOf(today.get(GregorianCalendar.SECOND));
         } catch (Exception e) {
             log.error("Exception when creating XMLGregorian Date");
             log.error(" message: " + e.getMessage());
@@ -116,7 +118,8 @@ public class HL7Parser201306 {
         return msg;
     }
 
-    private static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createControlActProcess(PRPAMT201310UV02Patient patient, PRPAIN201305UV02 query) {
+    private static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createControlActProcess(
+            PRPAMT201310UV02Patient patient, PRPAIN201305UV02 query) {
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
@@ -137,35 +140,35 @@ public class HL7Parser201306 {
     }
 
     private static MFMIMT700711UV01QueryAck createQueryAck(PRPAIN201305UV02 query) {
-        MFMIMT700711UV01QueryAck  result = new MFMIMT700711UV01QueryAck();
+        MFMIMT700711UV01QueryAck result = new MFMIMT700711UV01QueryAck();
 
-        if (query.getControlActProcess() != null &&
-                query.getControlActProcess().getQueryByParameter() != null &&
-                query.getControlActProcess().getQueryByParameter().getValue() != null &&
-                query.getControlActProcess().getQueryByParameter().getValue().getQueryId() != null) {
-           result.setQueryId(query.getControlActProcess().getQueryByParameter().getValue().getQueryId());
+        if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
+                && query.getControlActProcess().getQueryByParameter().getValue() != null
+                && query.getControlActProcess().getQueryByParameter().getValue().getQueryId() != null) {
+            result.setQueryId(query.getControlActProcess().getQueryByParameter().getValue().getQueryId());
         }
 
         CS respCode = new CS();
         respCode.setCode("OK");
         result.setQueryResponseCode(respCode);
 
-//        INT totalQuanity = new INT();
-//        totalQuanity.setValue(BigInteger.valueOf(1));
-//        result.setResultTotalQuantity(totalQuanity);
+        // INT totalQuanity = new INT();
+        // totalQuanity.setValue(BigInteger.valueOf(1));
+        // result.setResultTotalQuantity(totalQuanity);
 
-//        INT currQuanity = new INT();
-//        currQuanity.setValue(BigInteger.valueOf(1));
-//        result.setResultCurrentQuantity(currQuanity);
+        // INT currQuanity = new INT();
+        // currQuanity.setValue(BigInteger.valueOf(1));
+        // result.setResultCurrentQuantity(currQuanity);
 
-//        INT remainQuanity = new INT();
-//        remainQuanity.setValue(BigInteger.valueOf(0));
-//        result.setResultRemainingQuantity(remainQuanity);
+        // INT remainQuanity = new INT();
+        // remainQuanity.setValue(BigInteger.valueOf(0));
+        // result.setResultRemainingQuantity(remainQuanity);
 
         return result;
     }
 
-    private static PRPAIN201306UV02MFMIMT700711UV01Subject1 createSubject(PRPAMT201310UV02Patient patient, PRPAIN201305UV02 query) {
+    private static PRPAIN201306UV02MFMIMT700711UV01Subject1 createSubject(PRPAMT201310UV02Patient patient,
+            PRPAIN201305UV02 query) {
         PRPAIN201306UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject1();
 
         subject.getTypeCode().add("SUBJ");
@@ -175,7 +178,8 @@ public class HL7Parser201306 {
         return subject;
     }
 
-    private static PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent createRegEvent(PRPAMT201310UV02Patient patient, PRPAIN201305UV02 query) {
+    private static PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent createRegEvent(PRPAMT201310UV02Patient patient,
+            PRPAIN201305UV02 query) {
         PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
 
         II id = new II();
@@ -194,7 +198,7 @@ public class HL7Parser201306 {
         return regEvent;
     }
 
-    private static MFMIMT700711UV01Custodian createCustodian (PRPAMT201310UV02Patient patient) {
+    private static MFMIMT700711UV01Custodian createCustodian(PRPAMT201310UV02Patient patient) {
         MFMIMT700711UV01Custodian result = new MFMIMT700711UV01Custodian();
 
         result.setAssignedEntity(createAssignEntity(patient));
@@ -216,7 +220,8 @@ public class HL7Parser201306 {
         return assignedEntity;
     }
 
-    private static PRPAIN201306UV02MFMIMT700711UV01Subject2 createSubject1(PRPAMT201310UV02Patient patient, PRPAIN201305UV02 query) {
+    private static PRPAIN201306UV02MFMIMT700711UV01Subject2 createSubject1(PRPAMT201310UV02Patient patient,
+            PRPAIN201305UV02 query) {
         PRPAIN201306UV02MFMIMT700711UV01Subject2 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
 
         // Add in patient
@@ -246,10 +251,8 @@ public class HL7Parser201306 {
         device.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
         device.setClassCode(EntityClassDevice.DEV);
 
-        if (querySender.getDevice() != null &&
-                querySender.getDevice().getId() != null &&
-                querySender.getDevice().getId().size() > 0 &&
-                querySender.getDevice().getId().get(0) != null) {
+        if (querySender.getDevice() != null && querySender.getDevice().getId() != null
+                && querySender.getDevice().getId().size() > 0 && querySender.getDevice().getId().get(0) != null) {
             device.getId().add(querySender.getDevice().getId().get(0));
         }
 
@@ -267,10 +270,8 @@ public class HL7Parser201306 {
         device.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
         device.setClassCode(EntityClassDevice.DEV);
 
-        if (queryReceiver.getDevice() != null &&
-                queryReceiver.getDevice().getId() != null &&
-                queryReceiver.getDevice().getId().size() > 0 &&
-                queryReceiver.getDevice().getId().get(0) != null) {
+        if (queryReceiver.getDevice() != null && queryReceiver.getDevice().getId() != null
+                && queryReceiver.getDevice().getId().size() > 0 && queryReceiver.getDevice().getId().get(0) != null) {
             device.getId().add(queryReceiver.getDevice().getId().get(0));
         }
 

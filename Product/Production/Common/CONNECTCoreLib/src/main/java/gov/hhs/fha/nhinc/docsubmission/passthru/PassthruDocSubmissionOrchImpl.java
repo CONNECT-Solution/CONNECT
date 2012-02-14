@@ -40,7 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocSubmissionOrchImpl {
@@ -50,12 +50,13 @@ public class PassthruDocSubmissionOrchImpl {
         log = createLogger();
     }
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
+            AssertionType assertion, NhinTargetSystemType targetSystem) {
         RegistryResponseType response = null;
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
         body.setNhinTargetSystem(targetSystem);
         body.setProvideAndRegisterDocumentSetRequest(request);
-        
+
         XDRAuditLogger auditLog = getAuditLogger();
         AcknowledgementType ack = auditLog.auditXDR(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         log.debug("ack: " + ack.getMessage());
@@ -69,7 +70,7 @@ public class PassthruDocSubmissionOrchImpl {
 
         ack = auditLog.auditNhinXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
         log.debug("ack: " + ack.getMessage());
-        
+
         return response;
     }
 

@@ -44,7 +44,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class HL7AckTransformsTest {
@@ -75,7 +75,8 @@ public class HL7AckTransformsTest {
     public void testCreateAckFrom201305() {
         System.out.println("testCreateAckFrom201305");
 
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
         PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", null);
         String ackMsgText = "Success";
@@ -98,13 +99,16 @@ public class HL7AckTransformsTest {
     public void testCreateAckFrom201306() {
         System.out.println("testCreateAckFrom201306");
 
-        JAXBElement<PRPAMT201301UV02Person> queryPerson = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        JAXBElement<PRPAMT201301UV02Person> queryPerson = HL7PatientTransforms.create201301PatientPerson("Joe",
+                "Smith", "M", null, null);
         PRPAMT201301UV02Patient queryPatient = HL7PatientTransforms.create201301Patient(queryPerson, "1234", "1.1.1");
         PRPAIN201305UV02 query = HL7PRPA201305Transforms.createPRPA201305(queryPatient, "1.1", "2.2", "1.1.1");
 
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, null, null);
-        PRPAIN201306UV02 request = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2", query);
+        PRPAIN201306UV02 request = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1", "2.2.2",
+                query);
         String ackMsgText = "Success";
 
         II origMsgId = request.getId();
@@ -132,7 +136,8 @@ public class HL7AckTransformsTest {
         String senderOID = "3.3";
         String receiverOID = "3.3";
 
-        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, "CA", msgText, senderOID, receiverOID);
+        MCCIIN000002UV01 result = HL7AckTransforms.createAckMessage(localDeviceId, origMsgId, "CA", msgText, senderOID,
+                receiverOID);
 
         assertNotNull(result);
         TestHelper.assertReceiverIdEquals(receiverOID, result);

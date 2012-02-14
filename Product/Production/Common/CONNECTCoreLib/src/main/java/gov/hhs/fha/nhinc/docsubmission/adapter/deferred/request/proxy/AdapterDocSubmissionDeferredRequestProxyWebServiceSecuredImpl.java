@@ -40,12 +40,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
- *
+ * 
+ * 
  * @author Visu Patlolla
  */
-public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implements AdapterDocSubmissionDeferredRequestProxy
-{
+public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implements
+        AdapterDocSubmissionDeferredRequestProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterxdrrequestsecured";
@@ -55,87 +55,70 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl imple
     private static final String WS_ADDRESSING_ACTION = "tns:XDRRequestInput";
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl()
-    {
+    public AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(this.getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
 
-    protected AdapterXDRRequestSecuredPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-    {
+    protected AdapterXDRRequestSecuredPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
         AdapterXDRRequestSecuredPortType port = null;
 
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterXDRRequestSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.XDR_REQUEST_ACTION, wsAddressingAction, assertion);
-        }
-        else
-        {
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,
+                    NhincConstants.XDR_REQUEST_ACTION, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetBRequest");
         XDRAcknowledgementType response = null;
         String serviceName = NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME;
 
-        try
-        {
+        try {
             log.debug("Before target system destination URL look up.");
             String destURL = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
-            if (log.isDebugEnabled())
-            {
+            if (log.isDebugEnabled()) {
                 log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + destURL);
             }
 
-            if (NullChecker.isNotNullish(destURL))
-            {
+            if (NullChecker.isNotNullish(destURL)) {
                 AdapterProvideAndRegisterDocumentSetSecuredRequestType wsRequest = new AdapterProvideAndRegisterDocumentSetSecuredRequestType();
                 wsRequest.setProvideAndRegisterDocumentSetRequest(request);
                 wsRequest.setUrl(url);
                 AdapterXDRRequestSecuredPortType port = getPort(destURL, WS_ADDRESSING_ACTION, assertion);
-                response = (XDRAcknowledgementType) oProxyHelper.invokePort(port, AdapterXDRRequestSecuredPortType.class, "provideAndRegisterDocumentSetBRequest", wsRequest);
-            }
-            else
-            {
+                response = (XDRAcknowledgementType) oProxyHelper.invokePort(port,
+                        AdapterXDRRequestSecuredPortType.class, "provideAndRegisterDocumentSetBRequest", wsRequest);
+            } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error: Failed to retrieve url for service: " + serviceName + " for local home community");
             log.error(ex.getMessage(), ex);
         }

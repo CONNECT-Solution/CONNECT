@@ -34,26 +34,31 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class NhinDocQueryDeferredResponseImpl {
 
     private static final Log log = LogFactory.getLog(NhinDocQueryDeferredResponseImpl.class);
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse body, WebServiceContext context) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse body,
+            WebServiceContext context) {
         DocQueryAcknowledgementType response = null;
         WebServiceHelper oHelper = new WebServiceHelper();
         NhinDocQueryDeferredResponseOrchImpl proxy = new NhinDocQueryDeferredResponseOrchImpl();
         try {
             if (body != null) {
-                response = (DocQueryAcknowledgementType) oHelper.invokeSecureDeferredResponseWebService(proxy, proxy.getClass(), "respondingGatewayCrossGatewayQuery", body, context);
+                response = (DocQueryAcknowledgementType) oHelper.invokeSecureDeferredResponseWebService(proxy,
+                        proxy.getClass(), "respondingGatewayCrossGatewayQuery", body, context);
             } else {
-                log.error("Failed to call the web orchestration (" + proxy.getClass() + ".respondingGatewayCrossGatewayQuery).  The input parameter is null.");
+                log.error("Failed to call the web orchestration (" + proxy.getClass()
+                        + ".respondingGatewayCrossGatewayQuery).  The input parameter is null.");
             }
         } catch (Exception e) {
-            log.error("Failed to call the web orchestration (" + proxy.getClass() + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  " +
-                    "Exception: " + e.getMessage(), e);
+            log.error(
+                    "Failed to call the web orchestration (" + proxy.getClass()
+                            + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  "
+                            + "Exception: " + e.getMessage(), e);
         }
 
         return response;

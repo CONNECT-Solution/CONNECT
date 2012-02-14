@@ -27,14 +27,13 @@
 package gov.hhs.fha.nhinc.connectmgr.data;
 
 /**
- * This class represents Endpoint Reference (EPR) Information 
+ * This class represents Endpoint Reference (EPR) Information
  * 
  * @author Les Westberg
  */
-public class CMEprInfo
-{
+public class CMEprInfo {
     // Member variables
-    //------------------
+    // ------------------
     private String uniformServiceName = "";
     private String namespacePrefix = "";
     private String namespaceURI = "";
@@ -42,36 +41,30 @@ public class CMEprInfo
     private String serviceName = "";
 
     /**
-     * Returns the uniform service name for this EPR.  This is the key by which
-     * this service is known in the UDDI.
+     * Returns the uniform service name for this EPR. This is the key by which this service is known in the UDDI.
      * 
      * @return The uniform service name for this EPR.
      */
-    public String getUniformServiceName()
-    {
+    public String getUniformServiceName() {
         return uniformServiceName;
     }
 
     /**
-     * Sets the uniform service name for this EPR.  This is the key by which
-     * this service is known in the UDDI.
+     * Sets the uniform service name for this EPR. This is the key by which this service is known in the UDDI.
      * 
      * @param uniformServiceName The uniform service name for this EPR.
      * 
      */
-    public void setUniformServiceName(String uniformServiceName)
-    {
+    public void setUniformServiceName(String uniformServiceName) {
         this.uniformServiceName = uniformServiceName;
     }
 
-    
     /**
      * Return the namespace prefix.
      * 
      * @return The namespace prefix.
      */
-    public String getNamespacePrefix()
-    {
+    public String getNamespacePrefix() {
         return namespacePrefix;
     }
 
@@ -80,8 +73,7 @@ public class CMEprInfo
      * 
      * @param namespacePrefix The namespace prefix.
      */
-    public void setNamespacePrefix(String namespacePrefix)
-    {
+    public void setNamespacePrefix(String namespacePrefix) {
         this.namespacePrefix = namespacePrefix;
     }
 
@@ -90,8 +82,7 @@ public class CMEprInfo
      * 
      * @return Returns the namespace URI for the endpoint.
      */
-    public String getNamespaceURI()
-    {
+    public String getNamespaceURI() {
         return namespaceURI;
     }
 
@@ -100,8 +91,7 @@ public class CMEprInfo
      * 
      * @param namespaceURI The namespace URI for the endpoint.
      */
-    public void setNamespaceURI(String namespaceURI)
-    {
+    public void setNamespaceURI(String namespaceURI) {
         this.namespaceURI = namespaceURI;
     }
 
@@ -110,8 +100,7 @@ public class CMEprInfo
      * 
      * @return The port name for this endpoint.
      */
-    public String getPortName()
-    {
+    public String getPortName() {
         return portName;
     }
 
@@ -120,8 +109,7 @@ public class CMEprInfo
      * 
      * @param portName The port name for the endpoint.
      */
-    public void setPortName(String portName)
-    {
+    public void setPortName(String portName) {
         this.portName = portName;
     }
 
@@ -130,8 +118,7 @@ public class CMEprInfo
      * 
      * @return The service name for the endpoint.
      */
-    public String getServiceName()
-    {
+    public String getServiceName() {
         return serviceName;
     }
 
@@ -140,10 +127,8 @@ public class CMEprInfo
      * 
      * @param serviceName The service name for the endpoint.
      */
-    public void setServiceName(String serviceName)
-    {
+    public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
-    
-    
+
 }

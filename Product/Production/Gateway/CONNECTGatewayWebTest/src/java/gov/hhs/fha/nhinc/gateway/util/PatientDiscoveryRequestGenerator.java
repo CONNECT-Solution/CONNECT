@@ -7,13 +7,12 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
 
-
 /**
  * Generates a PD request for testing
+ * 
  * @author paul.eftis
  */
-public class PatientDiscoveryRequestGenerator{
-
+public class PatientDiscoveryRequestGenerator {
 
     /**
      * @param patientId
@@ -27,27 +26,19 @@ public class PatientDiscoveryRequestGenerator{
      * @param receiverOID
      * @return PRPAIN201305UV02 PD object
      */
-    public static PRPAIN201305UV02 create201305(String patientId,
-            String aaId,
-            String fname,
-            String lname,
-            String gender,
-            String dob,
-            String ssn,
-            String senderOid,
-            String receiverOid){
+    public static PRPAIN201305UV02 create201305(String patientId, String aaId, String fname, String lname,
+            String gender, String dob, String ssn, String senderOid, String receiverOid) {
 
         PRPAIN201305UV02 resp = new PRPAIN201305UV02();
 
         String localDeviceId = senderOid;
 
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(
-                fname, lname, gender,dob, ssn);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(fname, lname,
+                gender, dob, ssn);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, patientId, localDeviceId);
 
         resp = HL7PRPA201305Transforms.createPRPA201305(patient, senderOid, receiverOid, localDeviceId);
         return resp;
     }
-
 
 }

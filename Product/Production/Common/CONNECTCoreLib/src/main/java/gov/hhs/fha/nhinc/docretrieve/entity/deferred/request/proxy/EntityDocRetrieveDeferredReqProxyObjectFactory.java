@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class EntityDocRetrieveDeferredReqProxyObjectFactory extends ComponentProxyObjectFactory {
@@ -38,10 +38,9 @@ public class EntityDocRetrieveDeferredReqProxyObjectFactory extends ComponentPro
     private static final String BEAN_NAME_ENTITY_DOCRETRIEVE_DEFERRED_REQUEST = "entitydocretrievedeferredreq";
 
     /**
-     * Retrieve an Entity Document Retrieve Deferred Request implementation
-     * using the IOC framework.
-     * This method retrieves the object from the framework that has an
-     * identifier of "entitydocretrievedeferredreq".
+     * Retrieve an Entity Document Retrieve Deferred Request implementation using the IOC framework. This method
+     * retrieves the object from the framework that has an identifier of "entitydocretrievedeferredreq".
+     * 
      * @return EntityDocRetrieveDeferredReqProxy
      */
     public EntityDocRetrieveDeferredReqProxy getEntityDocRetrieveDeferredReqProxy() {

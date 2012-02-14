@@ -59,6 +59,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Implementation class for Entity Document Query Deferred request message
+ * 
  * @author Mark Goldman
  */
 public class EntityDocQueryDeferredReqOrchImpl {
@@ -70,13 +71,14 @@ public class EntityDocQueryDeferredReqOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param message
      * @param assertion
      * @param target
      * @return <code>DocQueryAcknowledgementType</code>
      */
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest message, AssertionType assertion, NhinTargetCommunitiesType target) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest message,
+            AssertionType assertion, NhinTargetCommunitiesType target) {
         log.debug("start respondingGatewayCrossGatewayQuery(AdhocQueryRequest message, AssertionType assertion, NhinTargetCommunitiesType target)");
 
         DocQueryAcknowledgementType nhincResponse = new DocQueryAcknowledgementType();
@@ -85,7 +87,8 @@ public class EntityDocQueryDeferredReqOrchImpl {
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
 
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
-        auditLog.auditDQRequest(message, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
+        auditLog.auditDQRequest(message, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         try {
             List<UrlInfo> urlInfoList = getEndpoints(target);
@@ -94,20 +97,23 @@ public class EntityDocQueryDeferredReqOrchImpl {
 
                 // Log the start of the performance record
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, "Deferred"+NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
+                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                        "Deferred" + NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
 
                 AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
                 EntityDocQueryHelper helper = new EntityDocQueryHelper();
                 DocumentQueryTransform transform = new DocumentQueryTransform();
 
                 for (UrlInfo urlInfo : urlInfoList) {
-                    //create a new request to send out to each target community
+                    // create a new request to send out to each target community
                     if (log.isDebugEnabled()) {
                         log.debug(String.format("Target: {0}", urlInfo.getHcid()));
                     }
                     List<SlotType1> slotList = message.getAdhocQuery().getSlot();
 
-                    List<QualifiedSubjectIdentifierType> correlationsResult = helper.retreiveCorrelations(slotList, urlInfoList, assertion, true, HomeCommunityMap.getLocalHomeCommunityId());
+                    List<QualifiedSubjectIdentifierType> correlationsResult = helper.retreiveCorrelations(slotList,
+                            urlInfoList, assertion, true, HomeCommunityMap.getLocalHomeCommunityId());
 
                     // Make sure valid correlation results are returned
                     if (NullChecker.isNotNullish(correlationsResult)) {
@@ -116,11 +122,16 @@ public class EntityDocQueryDeferredReqOrchImpl {
 
                             if (subjectId != null) {
 
-                                HomeCommunityType targetCommunity = helper.lookupHomeCommunityId(subjectId.getAssigningAuthorityIdentifier(), helper.getLocalAssigningAuthority(slotList), HomeCommunityMap.getLocalHomeCommunityId());
+                                HomeCommunityType targetCommunity = helper.lookupHomeCommunityId(
+                                        subjectId.getAssigningAuthorityIdentifier(),
+                                        helper.getLocalAssigningAuthority(slotList),
+                                        HomeCommunityMap.getLocalHomeCommunityId());
 
                                 // Create new request; add new deferred queue record
                                 RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest = new RespondingGatewayCrossGatewayQueryRequestType();
-                                AdhocQueryRequest newRequest = transform.replaceAdhocQueryPatientId(message, HomeCommunityMap.getLocalHomeCommunityId(), subjectId.getAssigningAuthorityIdentifier(), subjectId.getSubjectIdentifier());
+                                AdhocQueryRequest newRequest = transform.replaceAdhocQueryPatientId(message,
+                                        HomeCommunityMap.getLocalHomeCommunityId(),
+                                        subjectId.getAssigningAuthorityIdentifier(), subjectId.getSubjectIdentifier());
                                 respondingGatewayCrossGatewayQueryRequest.setAdhocQueryRequest(newRequest);
 
                                 AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(assertion);
@@ -132,30 +143,37 @@ public class EntityDocQueryDeferredReqOrchImpl {
                                 newTarget.setHomeCommunity(targetCommunity);
                                 newTargets.getNhinTargetCommunity().add(newTarget);
                                 respondingGatewayCrossGatewayQueryRequest.setNhinTargetCommunities(newTargets);
-                                if (targetCommunity != null && NullChecker.isNotNullish(targetCommunity.getHomeCommunityId())) {
+                                if (targetCommunity != null
+                                        && NullChecker.isNotNullish(targetCommunity.getHomeCommunityId())) {
                                     targetCommunityHcid = targetCommunity.getHomeCommunityId();
                                 }
 
-                                //check the policy for the outgoing request to the target community
-                                if (targetCommunity != null && NullChecker.isNotNullish(targetCommunity.getHomeCommunityId())) {
+                                // check the policy for the outgoing request to the target community
+                                if (targetCommunity != null
+                                        && NullChecker.isNotNullish(targetCommunity.getHomeCommunityId())) {
 
                                     if (checkPolicy(message, newAssertion, targetCommunity.getHomeCommunityId())) {
 
                                         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
                                         targetSystem.setHomeCommunity(targetCommunity);
 
-                                        nhincResponse = getProxy().crossGatewayQueryRequest(newRequest, newAssertion, targetSystem);
+                                        nhincResponse = getProxy().crossGatewayQueryRequest(newRequest, newAssertion,
+                                                targetSystem);
                                     } else {
                                         ackMsg = "Policy Failed";
 
                                         // Set the error acknowledgement status of the deferred queue entry
-                                        nhincResponse = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
+                                        nhincResponse = DocQueryAckTranforms.createAckMessage(
+                                                NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG,
+                                                NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION, ackMsg);
                                     }
                                 } else {
                                     ackMsg = "Invalid target community";
 
                                     // Set the error acknowledgement status of the deferred queue entry
-                                    nhincResponse = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+                                    nhincResponse = DocQueryAckTranforms.createAckMessage(
+                                            NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG,
+                                            NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
                                 }
 
                             } else {
@@ -165,7 +183,9 @@ public class EntityDocQueryDeferredReqOrchImpl {
                     } else {
                         ackMsg = "No correlations were found";
                         log.error(ackMsg);
-                        nhincResponse = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+                        nhincResponse = DocQueryAckTranforms.createAckMessage(
+                                NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG,
+                                NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
                     }
                 }
 
@@ -175,23 +195,25 @@ public class EntityDocQueryDeferredReqOrchImpl {
             } else {
                 ackMsg = "Failed to obtain target URL from connection manager";
                 log.error(ackMsg);
-                nhincResponse = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+                nhincResponse = DocQueryAckTranforms.createAckMessage(
+                        NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG,
+                        NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
             }
         } catch (Exception e) {
             log.error("Exception processing Deferred Query For Documents: ", e);
-            nhincResponse = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, e.getMessage());
+            nhincResponse = DocQueryAckTranforms.createAckMessage(
+                    NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG,
+                    NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, e.getMessage());
         }
 
-        auditLog.logDocQueryAck(nhincResponse,
-                assertion,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+        auditLog.logDocQueryAck(nhincResponse, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         return nhincResponse;
     }
 
     /**
-     *
+     * 
      * @return PassthruDocQueryDeferredRequestProxy
      */
     protected PassthruDocQueryDeferredRequestProxy getProxy() {
@@ -201,22 +223,23 @@ public class EntityDocQueryDeferredReqOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param targetCommunities
      * @return Returns the endpoints for given target communities
      * @throws ConnectionManagerException
      */
-    protected List<UrlInfo> getEndpoints(final NhinTargetCommunitiesType targetCommunities) throws ConnectionManagerException {
+    protected List<UrlInfo> getEndpoints(final NhinTargetCommunitiesType targetCommunities)
+            throws ConnectionManagerException {
         List<UrlInfo> urlInfoList = null;
 
-        urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
-                targetCommunities, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
+        urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities,
+                NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
 
         return urlInfoList;
     }
 
     /**
-     *
+     * 
      * @param message
      * @param assertion
      * @param hcid
@@ -226,13 +249,14 @@ public class EntityDocQueryDeferredReqOrchImpl {
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId(hcid);
 
-        boolean policyIsValid = new DocQueryPolicyChecker().checkOutgoingRequestPolicy(message, assertion, homeCommunity);
+        boolean policyIsValid = new DocQueryPolicyChecker().checkOutgoingRequestPolicy(message, assertion,
+                homeCommunity);
 
         return policyIsValid;
     }
 
     /**
-     *
+     * 
      * @param urlInfo
      * @return NhinTargetSystemType for given urlInfo
      */

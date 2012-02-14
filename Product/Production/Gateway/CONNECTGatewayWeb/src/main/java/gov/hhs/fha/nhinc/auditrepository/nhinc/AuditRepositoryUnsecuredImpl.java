@@ -37,8 +37,9 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
+
 /**
- *
+ * 
  * @author mflynn02
  */
 public class AuditRepositoryUnsecuredImpl {
@@ -59,6 +60,7 @@ public class AuditRepositoryUnsecuredImpl {
     protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
         // TODO: Extract message ID from the web service context for logging.
     }
+
     public AcknowledgementType logEvent(LogEventRequestType logEventRequest, WebServiceContext context) {
         log.info("Entering AuditRepositoryUnsecuredImpl.logAudit");
         AcknowledgementType response = null;
@@ -79,8 +81,7 @@ public class AuditRepositoryUnsecuredImpl {
 
                     response = processor.logAudit(secureRequest, assertion);
                 } catch (Exception ex) {
-                    String message = "Error occurred calling AuditRepositoryImpl.logAudit. Error: " +
-                            ex.getMessage();
+                    String message = "Error occurred calling AuditRepositoryImpl.logAudit. Error: " + ex.getMessage();
                     log.error(message, ex);
                     throw new RuntimeException(message, ex);
                 }
@@ -92,7 +93,9 @@ public class AuditRepositoryUnsecuredImpl {
         log.info("Exiting AuditRepositoryUnsecuredImpl.logAudit");
         return response;
     }
-    public FindCommunitiesAndAuditEventsResponseType queryAuditEvents(FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest, WebServiceContext context) {
+
+    public FindCommunitiesAndAuditEventsResponseType queryAuditEvents(
+            FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest, WebServiceContext context) {
         log.info("Entering AuditRepositoryUnsecuredImpl.queryAuditEvents");
         FindCommunitiesAndAuditEventsResponseType response = null;
 
@@ -107,8 +110,8 @@ public class AuditRepositoryUnsecuredImpl {
 
                     response = processor.findAudit(queryAuditEventsRequest.getFindAuditEvents(), assertion);
                 } catch (Exception ex) {
-                    String message = "Error occurred calling AuditRepositoryUnsecuredImpl.queryAuditEvents. Error: " +
-                            ex.getMessage();
+                    String message = "Error occurred calling AuditRepositoryUnsecuredImpl.queryAuditEvents. Error: "
+                            + ex.getMessage();
                     log.error(message, ex);
                     throw new RuntimeException(message, ex);
                 }

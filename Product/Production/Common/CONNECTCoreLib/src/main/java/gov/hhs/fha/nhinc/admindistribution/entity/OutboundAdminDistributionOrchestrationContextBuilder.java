@@ -37,7 +37,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author nnguyen
  */
 public abstract class OutboundAdminDistributionOrchestrationContextBuilder implements OrchestrationContextBuilder {
@@ -48,9 +48,9 @@ public abstract class OutboundAdminDistributionOrchestrationContextBuilder imple
     private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;
     private NhinTargetSystemType targetSystem;
-    
+
     public abstract OrchestrationContext build();
-    
+
     public AssertionType getAssertionType() {
         return assertionType;
     }
@@ -82,7 +82,7 @@ public abstract class OutboundAdminDistributionOrchestrationContextBuilder imple
     public void setTargetSystem(NhinTargetSystemType targetSystem) {
         this.targetSystem = targetSystem;
     }
-    
+
     public Log getLog() {
         return log;
     }

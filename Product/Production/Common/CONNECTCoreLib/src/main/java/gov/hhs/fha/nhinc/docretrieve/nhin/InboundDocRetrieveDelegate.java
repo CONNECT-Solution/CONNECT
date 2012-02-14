@@ -22,7 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class InboundDocRetrieveDelegate implements InboundDelegate {
@@ -46,12 +46,13 @@ public class InboundDocRetrieveDelegate implements InboundDelegate {
 
         HomeCommunityType hcid = new HomeCommunityType();
         try {
-            hcid.setHomeCommunityId(PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY));
+            hcid.setHomeCommunityId(PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY));
         } catch (PropertyAccessException ex) {
             ex.printStackTrace();
         }
-        InboundDocRetrieveContextBuilder contextBuilder = (InboundDocRetrieveContextBuilder) OrchestrationContextFactory.getInstance().getBuilder(
-                hcid, NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME);
+        InboundDocRetrieveContextBuilder contextBuilder = (InboundDocRetrieveContextBuilder) OrchestrationContextFactory
+                .getInstance().getBuilder(hcid, NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME);
 
         contextBuilder.setContextMessage(message);
         OrchestrationContext context = ((OrchestrationContextBuilder) contextBuilder).build();

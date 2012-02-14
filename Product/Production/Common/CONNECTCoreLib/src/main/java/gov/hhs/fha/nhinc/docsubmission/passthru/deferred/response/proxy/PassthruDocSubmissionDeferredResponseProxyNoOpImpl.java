@@ -33,15 +33,15 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class PassthruDocSubmissionDeferredResponseProxyNoOpImpl implements PassthruDocSubmissionDeferredResponseProxy
-{
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PassthruDocSubmissionDeferredResponseProxyNoOpImpl.class);
+public class PassthruDocSubmissionDeferredResponseProxyNoOpImpl implements PassthruDocSubmissionDeferredResponseProxy {
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(PassthruDocSubmissionDeferredResponseProxyNoOpImpl.class);
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request, AssertionType assertion, NhinTargetSystemType targetSystem)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request,
+            AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Using NoOp Implementation for Passthru Doc Submission Deferred Response Service");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

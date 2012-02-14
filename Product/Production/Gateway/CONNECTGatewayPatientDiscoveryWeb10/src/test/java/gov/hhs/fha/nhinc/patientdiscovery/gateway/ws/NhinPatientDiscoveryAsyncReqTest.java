@@ -41,43 +41,44 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
 public class NhinPatientDiscoveryAsyncReqTest {
-	//NhinPatientDiscoveryAsyncReq
+    // NhinPatientDiscoveryAsyncReq
 
-	
-	Mockery context = new JUnit4Mockery()
-    {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    
-    @Test 
+
+    @Test
     public void testDefaultConstructor() {
-    	NhinPatientDiscoveryAsyncReq patientDiscovery =  new NhinPatientDiscoveryAsyncReq();
-    	assertNotNull(patientDiscovery);
+        NhinPatientDiscoveryAsyncReq patientDiscovery = new NhinPatientDiscoveryAsyncReq();
+        assertNotNull(patientDiscovery);
     }
-	
-	@Test
-	public void testMockService() {
-		
-		final PRPAIN201305UV02 mockBody = context.mock(PRPAIN201305UV02.class);
-		final MCCIIN000002UV01 expectedResponse = context.mock(MCCIIN000002UV01.class);
-		final NhinPatientDiscoveryAsyncReqImpl mockService = context.mock(NhinPatientDiscoveryAsyncReqImpl.class);
-		final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
-		
-		NhinPatientDiscoveryAsyncReq patientDiscovery =  new NhinPatientDiscoveryAsyncReq(mockFactory);
-		
-		context.checking(new Expectations() {{
-	        oneOf(mockService).respondingGatewayPRPAIN201305UV02(with(same(mockBody)), with(any(WebServiceContext.class)));
-	        will(returnValue(expectedResponse));
-	        
-	        oneOf(mockFactory).getNhinPatientDiscoveryAsyncReqImpl();
-	        will(returnValue(mockService));
-	    }});
-		
-		MCCIIN000002UV01 actualResponse = patientDiscovery.respondingGatewayDeferredPRPAIN201305UV02(mockBody);
-		
-		assertSame(expectedResponse, actualResponse);
-	
-	}
+
+    @Test
+    public void testMockService() {
+
+        final PRPAIN201305UV02 mockBody = context.mock(PRPAIN201305UV02.class);
+        final MCCIIN000002UV01 expectedResponse = context.mock(MCCIIN000002UV01.class);
+        final NhinPatientDiscoveryAsyncReqImpl mockService = context.mock(NhinPatientDiscoveryAsyncReqImpl.class);
+        final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
+
+        NhinPatientDiscoveryAsyncReq patientDiscovery = new NhinPatientDiscoveryAsyncReq(mockFactory);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(mockService).respondingGatewayPRPAIN201305UV02(with(same(mockBody)),
+                        with(any(WebServiceContext.class)));
+                will(returnValue(expectedResponse));
+
+                oneOf(mockFactory).getNhinPatientDiscoveryAsyncReqImpl();
+                will(returnValue(mockService));
+            }
+        });
+
+        MCCIIN000002UV01 actualResponse = patientDiscovery.respondingGatewayDeferredPRPAIN201305UV02(mockBody);
+
+        assertSame(expectedResponse, actualResponse);
+
+    }
 }

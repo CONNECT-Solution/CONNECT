@@ -39,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class PatientDbChecker implements AdapterComponentMpiChecker {
@@ -66,12 +66,12 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
 
                 List<String> dupOrgIds = new ArrayList<String>();
                 for (Patient patient : patientList) {
-                    if ((patient.getIdentifiers() != null) &&
-                            (patient.getIdentifiers().size() > 0) &&
-                            (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
+                    if ((patient.getIdentifiers() != null) && (patient.getIdentifiers().size() > 0)
+                            && (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
 
                         for (Patient tempPatient : filteredPatients) {
-                            if ((tempPatient.getIdentifiers().get(0).getOrganizationId()).equalsIgnoreCase(patient.getIdentifiers().get(0).getOrganizationId())) {
+                            if ((tempPatient.getIdentifiers().get(0).getOrganizationId()).equalsIgnoreCase(patient
+                                    .getIdentifiers().get(0).getOrganizationId())) {
                                 dupOrgIds.add(patient.getIdentifiers().get(0).getOrganizationId());
                             }
                         }
@@ -79,17 +79,16 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
                     }
                 }
 
-                if ((dupOrgIds != null) &&
-                        (dupOrgIds.size() > 0)) {
+                if ((dupOrgIds != null) && (dupOrgIds.size() > 0)) {
                     HashSet hashSet = new HashSet(dupOrgIds);
                     dupOrgIds = new ArrayList(hashSet);
-                    log.debug("More than one matching patient found in some organizations. dupOrgIds.size(): " + dupOrgIds.size());
+                    log.debug("More than one matching patient found in some organizations. dupOrgIds.size(): "
+                            + dupOrgIds.size());
                 }
 
                 for (Patient patient : patientList) {
-                    if ((patient.getIdentifiers() != null) &&
-                            (patient.getIdentifiers().size() > 0) &&
-                            (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
+                    if ((patient.getIdentifiers() != null) && (patient.getIdentifiers().size() > 0)
+                            && (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
 
                         for (String str : dupOrgIds) {
                             if ((patient.getIdentifiers().get(0).getOrganizationId()).equalsIgnoreCase(str)) {
@@ -118,7 +117,7 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
     }
 
     /**
-     *
+     * 
      * @param query
      * @return true - minimum params found; false - not found
      */
@@ -128,14 +127,11 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
         PRPAMT201306UV02ParameterList queryParams = HL7DbParser201305.ExtractHL7QueryParamsFromMessage(query);
         Patient sourcePatient = HL7DbParser201305.ExtractMpiPatientFromQueryParams(queryParams);
 
-        if (sourcePatient != null &&
-                sourcePatient.getPersonnames() != null &&
-                sourcePatient.getPersonnames().size() > 0 &&
-                sourcePatient.getPersonnames().get(0) != null &&
-                NullChecker.isNotNullish(sourcePatient.getPersonnames().get(0).getFirstName()) &&
-                NullChecker.isNotNullish(sourcePatient.getPersonnames().get(0).getLastName()) &&
-                NullChecker.isNotNullish(sourcePatient.getGender()) &&
-                sourcePatient.getDateOfBirth() != null) {
+        if (sourcePatient != null && sourcePatient.getPersonnames() != null
+                && sourcePatient.getPersonnames().size() > 0 && sourcePatient.getPersonnames().get(0) != null
+                && NullChecker.isNotNullish(sourcePatient.getPersonnames().get(0).getFirstName())
+                && NullChecker.isNotNullish(sourcePatient.getPersonnames().get(0).getLastName())
+                && NullChecker.isNotNullish(sourcePatient.getGender()) && sourcePatient.getDateOfBirth() != null) {
             result = true;
         }
 

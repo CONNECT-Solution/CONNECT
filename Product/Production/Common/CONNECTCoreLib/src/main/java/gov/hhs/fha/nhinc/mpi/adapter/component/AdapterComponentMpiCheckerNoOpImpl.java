@@ -30,7 +30,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class AdapterComponentMpiCheckerNoOpImpl implements AdapterComponentMpiChecker {

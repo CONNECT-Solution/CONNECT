@@ -34,26 +34,23 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class EntityPatientDiscoveryDeferredResponseProxyNoOpImpl implements EntityPatientDiscoveryDeferredResponseProxy
-{
+public class EntityPatientDiscoveryDeferredResponseProxyNoOpImpl implements EntityPatientDiscoveryDeferredResponseProxy {
 
     private static Log log = null;
 
-    public EntityPatientDiscoveryDeferredResponseProxyNoOpImpl()
-    {
+    public EntityPatientDiscoveryDeferredResponseProxyNoOpImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType target)
-    {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 body, AssertionType assertion,
+            NhinTargetCommunitiesType target) {
         log.debug("Begin EntityPatientDiscoveryDeferredResponseProxyNoOpImpl.processPatientDiscoveryAsyncResp(...)");
         return new MCCIIN000002UV01();
     }

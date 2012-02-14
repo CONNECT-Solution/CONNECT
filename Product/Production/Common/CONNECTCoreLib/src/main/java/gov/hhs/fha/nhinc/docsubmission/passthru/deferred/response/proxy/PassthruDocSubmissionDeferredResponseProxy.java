@@ -32,10 +32,10 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public interface PassthruDocSubmissionDeferredResponseProxy
-{
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request, AssertionType assertion, NhinTargetSystemType targetSystem);
+public interface PassthruDocSubmissionDeferredResponseProxy {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request,
+            AssertionType assertion, NhinTargetSystemType targetSystem);
 }

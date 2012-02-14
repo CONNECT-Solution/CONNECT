@@ -52,15 +52,13 @@ import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.Name;
 import static org.junit.Assert.*;
 
-
 /**
- *
+ * 
  * @author Arthur Kong
  */
 public class HomeCommunityMapTest {
 
-    Mockery context = new JUnit4Mockery()
-    {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -95,21 +93,22 @@ public class HomeCommunityMapTest {
                 }
             };
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
-                    exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class))); will(returnValue( createBusinessEntity() ));
-                    exactly(1).of(mockConnectionManager).getCommunityId(with(any(BusinessEntity.class))); will(returnValue( "DoD" ));
+                    exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class)));
+                    will(returnValue(createBusinessEntity()));
+                    exactly(1).of(mockConnectionManager).getCommunityId(with(any(BusinessEntity.class)));
+                    will(returnValue("DoD"));
                 }
             });
 
             String foundName = homeMap.getHomeCommunityName(homeCommunityId);
             assertEquals(homeCommunityName, foundName);
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
-                    exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class))); will(returnValue( null ));
+                    exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class)));
+                    will(returnValue(null));
                 }
             });
 
@@ -180,7 +179,7 @@ public class HomeCommunityMapTest {
         assertion.getUserInfo().setOrg(org);
         communityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         assertEquals(null, communityId);
-        
+
         assertion.getUserInfo().getOrg().setHomeCommunityId("");
         communityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         assertEquals(null, communityId);
@@ -264,7 +263,7 @@ public class HomeCommunityMapTest {
         doc.getDocumentResponse().add(docResponse);
 
         String communityId = HomeCommunityMap.getCommunityIdForDeferredRDResponse(doc);
-        assertEquals("1.1",  communityId);
+        assertEquals("1.1", communityId);
 
         docResponse.setHomeCommunityId("urn:oid:1.1");
         communityId = HomeCommunityMap.getCommunityIdForDeferredRDResponse(doc);

@@ -43,62 +43,68 @@ import org.junit.Test;
 
 public class NhincProxyPatientDiscoveryDeferredRequestSecuredTest {
 
-	
-	Mockery context = new JUnit4Mockery()
-    {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    
+
     @Test
     public void testDefaultConstructor() {
-    	NhincProxyPatientDiscoveryDeferredRequestSecured ws = new NhincProxyPatientDiscoveryDeferredRequestSecured();
-    	assertNotNull(ws);
+        NhincProxyPatientDiscoveryDeferredRequestSecured ws = new NhincProxyPatientDiscoveryDeferredRequestSecured();
+        assertNotNull(ws);
     }
-    
+
     @Test
     public void testMockService() {
-    	final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
-    	final ProxyPRPAIN201305UVProxySecuredRequestType mockRequest = context.mock(ProxyPRPAIN201305UVProxySecuredRequestType.class);
-		final MCCIIN000002UV01 expectedResponse = context.mock(MCCIIN000002UV01.class);
-		
-		final NhincProxyPatientDiscoveryDeferredRequestImpl mockService = context.mock(NhincProxyPatientDiscoveryDeferredRequestImpl.class);
-		
-		context.checking(new Expectations() {{
-	        oneOf(mockService).processPatientDiscoveryAsyncRequestSecured(with(same(mockRequest)), with(any(WebServiceContext.class)));
-	        will(returnValue(expectedResponse));
-	        
-	        oneOf(mockFactory).getNhincProxyPatientDiscoveryDeferredRequestImpl();
-	        will(returnValue(mockService));
-	    }});
-    	
-    	
-		NhincProxyPatientDiscoveryDeferredRequestSecured ws = new NhincProxyPatientDiscoveryDeferredRequestSecured(mockFactory);
-    	
-		MCCIIN000002UV01 actualResponse = ws.proxyProcessPatientDiscoveryAsyncReq(mockRequest);
-		
-		assertSame(expectedResponse, actualResponse);
+        final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
+        final ProxyPRPAIN201305UVProxySecuredRequestType mockRequest = context
+                .mock(ProxyPRPAIN201305UVProxySecuredRequestType.class);
+        final MCCIIN000002UV01 expectedResponse = context.mock(MCCIIN000002UV01.class);
+
+        final NhincProxyPatientDiscoveryDeferredRequestImpl mockService = context
+                .mock(NhincProxyPatientDiscoveryDeferredRequestImpl.class);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(mockService).processPatientDiscoveryAsyncRequestSecured(with(same(mockRequest)),
+                        with(any(WebServiceContext.class)));
+                will(returnValue(expectedResponse));
+
+                oneOf(mockFactory).getNhincProxyPatientDiscoveryDeferredRequestImpl();
+                will(returnValue(mockService));
+            }
+        });
+
+        NhincProxyPatientDiscoveryDeferredRequestSecured ws = new NhincProxyPatientDiscoveryDeferredRequestSecured(
+                mockFactory);
+
+        MCCIIN000002UV01 actualResponse = ws.proxyProcessPatientDiscoveryAsyncReq(mockRequest);
+
+        assertSame(expectedResponse, actualResponse);
     }
-    
+
     @Test
     public void testNullService() {
-    	final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
-    	final ProxyPRPAIN201305UVProxySecuredRequestType mockRequest = context.mock(ProxyPRPAIN201305UVProxySecuredRequestType.class);
-		
-		context.checking(new Expectations() {{
-	        
-	        oneOf(mockFactory).getNhincProxyPatientDiscoveryDeferredRequestImpl();
-	        will(returnValue(null));
+        final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
+        final ProxyPRPAIN201305UVProxySecuredRequestType mockRequest = context
+                .mock(ProxyPRPAIN201305UVProxySecuredRequestType.class);
 
-	    }});
-    	
-    	
-		NhincProxyPatientDiscoveryDeferredRequestSecured ws = new NhincProxyPatientDiscoveryDeferredRequestSecured(mockFactory);
-    	
-		MCCIIN000002UV01 actualResponse = ws.proxyProcessPatientDiscoveryAsyncReq(mockRequest);
-		
-		assertNull( actualResponse);
-    	
+        context.checking(new Expectations() {
+            {
+
+                oneOf(mockFactory).getNhincProxyPatientDiscoveryDeferredRequestImpl();
+                will(returnValue(null));
+
+            }
+        });
+
+        NhincProxyPatientDiscoveryDeferredRequestSecured ws = new NhincProxyPatientDiscoveryDeferredRequestSecured(
+                mockFactory);
+
+        MCCIIN000002UV01 actualResponse = ws.proxyProcessPatientDiscoveryAsyncReq(mockRequest);
+
+        assertNull(actualResponse);
+
     }
 }

@@ -17,7 +17,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 @WebService(serviceName = "AdapterDocQueryDeferredRequestSecured", portName = "AdapterDocQueryDeferredRequestSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterdocquerydeferredrequestsecured.AdapterDocQueryDeferredRequestSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequestsecured", wsdlLocation = "WEB-INF/wsdl/AdapterDocQueryDeferredRequestSecured/AdapterDocQueryDeferredRequestSecured.wsdl")
@@ -26,7 +26,8 @@ public class AdapterDocQueryDeferredRequestSecured {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType body) {
+    public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType body) {
         return new AdapterDocQueryDeferredRequestSecuredImpl().respondingGatewayCrossGatewayQuery(body, context);
     }
 

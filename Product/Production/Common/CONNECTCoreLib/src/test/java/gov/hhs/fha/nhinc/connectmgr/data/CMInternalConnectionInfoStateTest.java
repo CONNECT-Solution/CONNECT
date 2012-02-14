@@ -34,7 +34,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class CMInternalConnectionInfoStateTest {
@@ -59,13 +59,13 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of clear method, of class CMInternalConnectionInfoState.
-     *   This tests the clear method when there is data already in the field.
+     * Test of clear method, of class CMInternalConnectionInfoState. This tests the clear method when there is data
+     * already in the field.
      */
     @Test
     public void testClearWithData() {
         System.out.println("testClearWithData");
-        
+
         CMInternalConnectionInfoState instance = new CMInternalConnectionInfoState();
         instance.setName("IL");
 
@@ -77,8 +77,8 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of clear method, of class CMInternalConnectionInfoState.
-     *   This tests the clear method when there is not data already in the field.
+     * Test of clear method, of class CMInternalConnectionInfoState. This tests the clear method when there is not data
+     * already in the field.
      */
     @Test
     public void testClearWithNoData() {
@@ -92,24 +92,23 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoState.
-     *   Test that two empty objects are equal
+     * Test of equals method, of class CMInternalConnectionInfoState. Test that two empty objects are equal
      */
     @Test
     public void testEqualsEmptyObjects() {
         System.out.println("testEqualsEmptyObjects");
 
         CMInternalConnectionInfoState oCompare = new CMInternalConnectionInfoState();
-        CMInternalConnectionInfoState instance = new CMInternalConnectionInfoState();   
+        CMInternalConnectionInfoState instance = new CMInternalConnectionInfoState();
 
         boolean result = instance.equals(oCompare);
-        
+
         assertEquals(true, result);
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoState.
-     *   Test that two empty objects are not equal if one is empty
+     * Test of equals method, of class CMInternalConnectionInfoState. Test that two empty objects are not equal if one
+     * is empty
      */
     @Test
     public void testNotEqualsOneEmpty() {
@@ -125,8 +124,8 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoState.
-     *   Test that two empty objects are equal if both have the same value
+     * Test of equals method, of class CMInternalConnectionInfoState. Test that two empty objects are equal if both have
+     * the same value
      */
     @Test
     public void testEquals() {
@@ -143,8 +142,8 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoState.
-     *   Test that two empty objects are not equal if values do not match
+     * Test of equals method, of class CMInternalConnectionInfoState. Test that two empty objects are not equal if
+     * values do not match
      */
     @Test
     public void testNotEquals() {
@@ -161,9 +160,8 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoState.
-     *   Test that two objects are equal if both have the same value, but
-     *   one is lower case
+     * Test of equals method, of class CMInternalConnectionInfoState. Test that two objects are equal if both have the
+     * same value, but one is lower case
      */
     @Test
     public void testEqualsOneLower() {
@@ -180,9 +178,8 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoState.
-     *   Test that two objects are equal if both have the same value, but
-     *   one is mixed case
+     * Test of equals method, of class CMInternalConnectionInfoState. Test that two objects are equal if both have the
+     * same value, but one is mixed case
      */
     @Test
     public void testEqualsOneMixed() {
@@ -199,8 +196,7 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoState.
-     *   Test that two objects are equal if both are null
+     * Test of equals method, of class CMInternalConnectionInfoState. Test that two objects are equal if both are null
      */
     @Test
     public void testEqualsBothNull() {
@@ -217,8 +213,8 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoState.
-     *   Test that two objects are not equal if one is null and one is not
+     * Test of equals method, of class CMInternalConnectionInfoState. Test that two objects are not equal if one is null
+     * and one is not
      */
     @Test
     public void testNotEqualsOneNull() {
@@ -235,23 +231,21 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of getName method, of class CMInternalConnectionInfoState.
-     *    Test empty case for Set/Get
+     * Test of getName method, of class CMInternalConnectionInfoState. Test empty case for Set/Get
      */
     @Test
     public void testSetGetNameEmpty() {
         System.out.println("testGetNameEmpty");
 
         CMInternalConnectionInfoState instance = new CMInternalConnectionInfoState();
-        
+
         String result = instance.getName();
 
         assertEquals("", result);
     }
 
     /**
-     * Test of getName method, of class CMInternalConnectionInfoState.
-     *    Test case for Set/Get with a value (all upper)
+     * Test of getName method, of class CMInternalConnectionInfoState. Test case for Set/Get with a value (all upper)
      */
     @Test
     public void testSetGetNameUpper() {
@@ -266,8 +260,7 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of getName method, of class CMInternalConnectionInfoState.
-     *    Test case for Set/Get with a value (all lower)
+     * Test of getName method, of class CMInternalConnectionInfoState. Test case for Set/Get with a value (all lower)
      */
     @Test
     public void testSetGetNameLower() {
@@ -282,8 +275,7 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of getName method, of class CMInternalConnectionInfoState.
-     *    Test case for Set/Get with a value (mixed)
+     * Test of getName method, of class CMInternalConnectionInfoState. Test case for Set/Get with a value (mixed)
      */
     @Test
     public void testSetGetNameMixed() {
@@ -298,8 +290,7 @@ public class CMInternalConnectionInfoStateTest {
     }
 
     /**
-     * Test of getName method, of class CMInternalConnectionInfoState.
-     *    Test case for Set/Get with a null value
+     * Test of getName method, of class CMInternalConnectionInfoState. Test case for Set/Get with a null value
      */
     @Test
     public void testSetGetNameNull() {

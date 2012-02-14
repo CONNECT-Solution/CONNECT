@@ -47,7 +47,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AsyncMsgRecordDao {
@@ -80,8 +80,8 @@ public class AsyncMsgRecordDao {
     public static final String QUEUE_STATUS_RSPSENTERR = "RSPSENTERR";
 
     /**
-     * Query by Message Id.  This should return only one record.
-     *
+     * Query by Message Id. This should return only one record.
+     * 
      * @param messageId
      * @return matching records
      */
@@ -109,7 +109,8 @@ public class AsyncMsgRecordDao {
             }
 
             if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by message id. Results found: " + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                log.debug("Completed database record retrieve by message id. Results found: "
+                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
@@ -125,14 +126,15 @@ public class AsyncMsgRecordDao {
     }
 
     /**
-     * Query by Message Id and Service Name.  This should return only one record.
-     *
+     * Query by Message Id and Service Name. This should return only one record.
+     * 
      * @param messageId
      * @param serviceName
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByMessageIdAndServiceName(String messageId, String serviceName) {
-        log.debug("Performing database record retrieve using message id: " + messageId + "and service name: " + serviceName);
+        log.debug("Performing database record retrieve using message id: " + messageId + "and service name: "
+                + serviceName);
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
         Session sess = null;
@@ -154,7 +156,8 @@ public class AsyncMsgRecordDao {
             }
 
             if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by message id and service name. Results found: " + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                log.debug("Completed database record retrieve by message id and service name. Results found: "
+                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
@@ -171,7 +174,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query for Creation Time less than passed timestamp.
-     *
+     * 
      * @param timestamp
      * @return matching records
      */
@@ -197,7 +200,8 @@ public class AsyncMsgRecordDao {
             }
 
             if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by timestamp. Results found: " + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                log.debug("Completed database record retrieve by timestamp. Results found: "
+                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
@@ -213,9 +217,9 @@ public class AsyncMsgRecordDao {
     }
 
     /**
-     * Query for Creation Time less than passed timestamp and status equal to
-     * Request Receieved Acknowledged [REQRCVDACK]
-     *
+     * Query for Creation Time less than passed timestamp and status equal to Request Receieved Acknowledged
+     * [REQRCVDACK]
+     * 
      * @param timestamp
      * @return matching records
      */
@@ -232,8 +236,7 @@ public class AsyncMsgRecordDao {
                 if (sess != null) {
                     Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
                     criteria.add(Restrictions.lt("CreationTime", timestamp));
-                    criteria.add(Restrictions.or(
-                            Restrictions.eq("Status", QUEUE_STATUS_REQRCVD),
+                    criteria.add(Restrictions.or(Restrictions.eq("Status", QUEUE_STATUS_REQRCVD),
                             Restrictions.eq("Status", QUEUE_STATUS_REQRCVDACK)));
                     asyncMsgRecs = criteria.list();
                 } else {
@@ -244,7 +247,8 @@ public class AsyncMsgRecordDao {
             }
 
             if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by timestamp. Results found: " + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                log.debug("Completed database record retrieve by timestamp. Results found: "
+                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
@@ -261,7 +265,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query for all records to be processed by the Deferred Queue Manager.
-     *
+     * 
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForDeferredQueueProcessing() {
@@ -288,7 +292,8 @@ public class AsyncMsgRecordDao {
             }
 
             if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve for deferred queue manager processing. Results found: " + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                log.debug("Completed database record retrieve for deferred queue manager processing. Results found: "
+                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
@@ -304,9 +309,9 @@ public class AsyncMsgRecordDao {
     }
 
     /**
-     * Query for all records that are already selected.  This will occur if a prior
-     * process was interrupted before all selected records processing was complete.
-     *
+     * Query for all records that are already selected. This will occur if a prior process was interrupted before all
+     * selected records processing was complete.
+     * 
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForDeferredQueueSelected() {
@@ -333,7 +338,8 @@ public class AsyncMsgRecordDao {
             }
 
             if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve for deferred queue manager selected. Results found: " + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                log.debug("Completed database record retrieve for deferred queue manager selected. Results found: "
+                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
@@ -349,8 +355,8 @@ public class AsyncMsgRecordDao {
     }
 
     /**
-     * Query by Message Id and Service Name.  This should return only one record.
-     *
+     * Query by Message Id and Service Name. This should return only one record.
+     * 
      * @param messageId
      * @param serviceName
      * @return matching records
@@ -425,7 +431,8 @@ public class AsyncMsgRecordDao {
             }
 
             if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by criteria. Results found: " + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                log.debug("Completed database record retrieve by criteria. Results found: "
+                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
@@ -442,7 +449,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Insert list of records
-     *
+     * 
      * @param asyncMsgRecs
      * @return true - success; false - failure
      */
@@ -491,7 +498,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Save a record to the database. Insert if pk is null. Update otherwise.
-     *
+     * 
      * @param object to save.
      */
     public void save(AsyncMsgRecord asyncMsgRecord) {
@@ -534,7 +541,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Save records to the database. Insert if pk is null. Update otherwise.
-     *
+     * 
      * @param asyncMsgRecs
      */
     public void save(List<AsyncMsgRecord> asyncMsgRecs) {
@@ -588,7 +595,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Delete the specified record.
-     *
+     * 
      * @param asyncMsgRecord
      */
     public void delete(AsyncMsgRecord asyncMsgRecord) {
@@ -629,9 +636,8 @@ public class AsyncMsgRecordDao {
     }
 
     /**
-     * Examine all asyncmsgrepo records to determine if their creation time has
-     * expired based on the gateway async expiration settings.  All expired
-     * records will be updated with an expired status.
+     * Examine all asyncmsgrepo records to determine if their creation time has expired based on the gateway async
+     * expiration settings. All expired records will be updated with an expired status.
      */
     public void checkExpiration() {
         log.debug("AsyncMsgRecordDao.checkExpiration() - Begin");
@@ -641,16 +647,20 @@ public class AsyncMsgRecordDao {
         String units = null;
 
         try {
-            value = PropertyAccessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP);
+            value = PropertyAccessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP + " from property file: "
+                    + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
 
         try {
-            units = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP);
+            units = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP
+                    + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
 

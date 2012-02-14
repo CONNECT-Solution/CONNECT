@@ -44,75 +44,66 @@ import org.hibernate.SessionFactory;
 
 /**
  * Unit test for the save method of the EventCodeDao class
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class EventCodeDaoSaveTest
-{
+public class EventCodeDaoSaveTest {
     Mockery context = new JUnit4Mockery();
 
-    public EventCodeDaoSaveTest()
-    {
+    public EventCodeDaoSaveTest() {
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() throws Exception {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() throws Exception {
     }
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
     }
 
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
     }
 
     @Test
-    public void testSaveMethodWithComponentsAvailable()
-    { 
+    public void testSaveMethodWithComponentsAvailable() {
         // Create mock objects
         final Log log = context.mock(Log.class);
         final SessionFactory sessionFactory = context.mock(SessionFactory.class);
         final Session session = context.mock(Session.class);
-        
+
         // Build test object and prepare the test
         final EventCode eventCode = new EventCode();
-        EventCodeDao dao = new EventCodeDao()
-        {
+        EventCodeDao dao = new EventCodeDao() {
             @Override
-            protected Log getLogger()
-            {
+            protected Log getLogger() {
                 return log;
             }
 
             @Override
-            protected SessionFactory getSessionFactory()
-            {
+            protected SessionFactory getSessionFactory() {
                 return sessionFactory;
             }
 
             @Override
-            protected Session getSession(SessionFactory sessionFactory)
-            {
+            protected Session getSession(SessionFactory sessionFactory) {
                 return session;
             }
         };
 
         // Set expectations
-        context.checking(new Expectations(){{
-            one (session).beginTransaction();
-            one (session).saveOrUpdate(eventCode);
-            one (session).close();
-        }});
+        context.checking(new Expectations() {
+            {
+                one(session).beginTransaction();
+                one(session).saveOrUpdate(eventCode);
+                one(session).close();
+            }
+        });
 
         // Execute the test
         dao.save(eventCode);

@@ -33,7 +33,6 @@ import org.hl7.v3.PRPAIN201305UV02;
 
 public interface NhinPatientDiscoveryDeferredReqOrch {
 
-	public abstract MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request,
-			AssertionType assertion);
+    public abstract MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion);
 
 }

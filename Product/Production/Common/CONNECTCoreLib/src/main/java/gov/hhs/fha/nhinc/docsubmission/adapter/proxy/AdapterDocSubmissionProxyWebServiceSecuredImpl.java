@@ -38,8 +38,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
 public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDocSubmissionProxy {
@@ -68,18 +68,20 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDo
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterXDRSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected AdapterXDRSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         AdapterXDRSecuredPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterXDRSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -88,7 +90,7 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDo
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -102,7 +104,8 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDo
         return cachedService;
     }
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion) {
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
+            AssertionType assertion) {
         RegistryResponseType response = null;
 
         try {
@@ -114,7 +117,8 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDo
             } else if (port == null) {
                 log.error("port was null");
             } else {
-                response = (RegistryResponseType) oProxyHelper.invokePort(port, AdapterXDRSecuredPortType.class, "provideAndRegisterDocumentSetb", msg);
+                response = (RegistryResponseType) oProxyHelper.invokePort(port, AdapterXDRSecuredPortType.class,
+                        "provideAndRegisterDocumentSetb", msg);
             }
         } catch (Exception ex) {
             log.error("Error sending Adapter Doc Submission Secured message: " + ex.getMessage(), ex);

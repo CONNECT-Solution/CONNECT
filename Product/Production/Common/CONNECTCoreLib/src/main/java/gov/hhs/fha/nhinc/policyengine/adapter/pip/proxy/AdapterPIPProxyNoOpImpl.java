@@ -38,58 +38,44 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This is a "NoOp" implementation of the AdapterPIPProxy interface.
- * It will return empty response objects.
- *
+ * This is a "NoOp" implementation of the AdapterPIPProxy interface. It will return empty response objects.
+ * 
  * @author Les Westberg
  */
-public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy
-{
+public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy {
     private Log log = null;
 
-    public AdapterPIPProxyNoOpImpl()
-    {
+    public AdapterPIPProxyNoOpImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
     /**
-     * NO-OP implementation of the RetrievePtConsentByPtId operation.
-     * It will return a message with the same assigning authority
-     * and patient Id that was passed and return an OptIn of false.
-     *
+     * NO-OP implementation of the RetrievePtConsentByPtId operation. It will return a message with the same assigning
+     * authority and patient Id that was passed and return an OptIn of false.
+     * 
      * @param request The assigning authority and patient ID of the patient.
-     * @return A response containing the given assigning authority and patient
-     *         ID along with OptIn set to false.
+     * @return A response containing the given assigning authority and patient ID along with OptIn set to false.
      */
-    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request, AssertionType assertion)
-    {
+    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request,
+            AssertionType assertion) {
         log.debug("Begin AdapterPIPProxyNoOpImpl.retrievePtConsentByPtId");
         RetrievePtConsentByPtIdResponseType oResponse = new RetrievePtConsentByPtIdResponseType();
         PatientPreferencesType oPref = new PatientPreferencesType();
         oResponse.setPatientPreferences(oPref);
 
-        if ((request != null) &&
-            (request.getAssigningAuthority() != null))
-        {
+        if ((request != null) && (request.getAssigningAuthority() != null)) {
             oPref.setAssigningAuthority(request.getAssigningAuthority());
-        }
-        else
-        {
+        } else {
             oPref.setAssigningAuthority("");
         }
 
-        if ((request != null) &&
-            (request.getPatientId() != null))
-        {
+        if ((request != null) && (request.getPatientId() != null)) {
             oPref.setPatientId(request.getPatientId());
-        }
-        else
-        {
+        } else {
             oPref.setPatientId("");
         }
 
@@ -100,14 +86,14 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy
     }
 
     /**
-     * NO-Op implementation of the RetrievePtConsentByDocId operation.
-     * It will return an empty message with the OptIn set to false.
-     *
+     * NO-Op implementation of the RetrievePtConsentByDocId operation. It will return an empty message with the OptIn
+     * set to false.
+     * 
      * @param request The patient doc ID information for the patient.
      * @return An empty message with the OptIn set to false.
      */
-    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion)
-    {
+    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
+            RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion) {
         log.debug("Begin AdapterPIPProxyNoOpImpl.retrievePtConsentByPtDocId");
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
         PatientPreferencesType oPref = new PatientPreferencesType();
@@ -119,16 +105,13 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy
         return oResponse;
     }
 
-
     /**
-     * NOOP implememtation of the storePtConsent operation.  This does nothing
-     * but still returns "SUCCESS".
-     *
+     * NOOP implememtation of the storePtConsent operation. This does nothing but still returns "SUCCESS".
+     * 
      * @param request Patient consent preferenes to be stored.
      * @return Always returns "SUCCESS".
      */
-    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion)
-    {
+    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion) {
         log.debug("Begin AdapterPIPProxyNoOpImpl.storePtConsent");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
         oResponse.setStatus("SUCCESS");

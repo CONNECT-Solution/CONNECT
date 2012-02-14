@@ -25,27 +25,28 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.admindistribution.adapter;
+
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class AdapterAdminDistributionOrchImpl {
     private Log log = null;
 
-    public AdapterAdminDistributionOrchImpl()
-    {
+    public AdapterAdminDistributionOrchImpl() {
         log = createLogger();
     }
-    protected Log createLogger()
-    {
+
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion)
-    {
+
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.debug("Begin sendAlertMessage");
 
         log.info("Recieved Alert Message");

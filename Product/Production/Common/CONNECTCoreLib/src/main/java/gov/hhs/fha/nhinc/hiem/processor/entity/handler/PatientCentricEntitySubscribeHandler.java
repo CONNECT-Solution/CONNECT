@@ -47,7 +47,6 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 
-
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
@@ -58,21 +57,24 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetr
 import java.util.ArrayList;
 
 /**
- * Entity subscribe processor for subscribe messages that are patient related.
- * A patient identifier is expected in the subscribe message at the location
- * specified by the topic configuration.
- *
+ * Entity subscribe processor for subscribe messages that are patient related. A patient identifier is expected in the
+ * subscribe message at the location specified by the topic configuration.
+ * 
  * @author Neil Webb
  */
 class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
 
-    public SubscribeResponse handleSubscribe(TopicConfigurationEntry topicConfig, Subscribe subscribe, Element subscribeElement, AssertionType assertion, NhinTargetCommunitiesType targetCommunitites) throws TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault {
-        log.debug("In handleSubscribe - patient id: " + patientIdentifier.getSubjectIdentifier() + ", assigning authority: " + patientIdentifier.getAssigningAuthorityIdentifier());
+    public SubscribeResponse handleSubscribe(TopicConfigurationEntry topicConfig, Subscribe subscribe,
+            Element subscribeElement, AssertionType assertion, NhinTargetCommunitiesType targetCommunitites)
+            throws TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault {
+        log.debug("In handleSubscribe - patient id: " + patientIdentifier.getSubjectIdentifier()
+                + ", assigning authority: " + patientIdentifier.getAssigningAuthorityIdentifier());
         SubscribeResponse response = new SubscribeResponse();
         List<UrlInfo> urlInfoList = null;
 
         // Store initial subscription received from agency adapter (the parent subscription)
-        EndpointReferenceType parentSubscriptionReference = storeSubscription(subscribe, subscribeElement, assertion, targetCommunitites);
+        EndpointReferenceType parentSubscriptionReference = storeSubscription(subscribe, subscribeElement, assertion,
+                targetCommunitites);
         String parentSubscriptionReferenceXml = null;
         if (parentSubscriptionReference != null) {
             parentSubscriptionReferenceXml = serializeEndpointReferenceType(parentSubscriptionReference);
@@ -80,7 +82,8 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunitites, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
+                    targetCommunitites, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs");
             return null;
@@ -97,7 +100,8 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
             AssigningAuthorityHomeCommunityMappingDAO assigningAuthorityDao = new AssigningAuthorityHomeCommunityMappingDAO();
             for (QualifiedSubjectIdentifierType correlation : correlations) {
                 UrlInfo community = new UrlInfo();
-                String remoteCommunityId = assigningAuthorityDao.getHomeCommunityId(correlation.getAssigningAuthorityIdentifier());
+                String remoteCommunityId = assigningAuthorityDao.getHomeCommunityId(correlation
+                        .getAssigningAuthorityIdentifier());
                 if (log.isDebugEnabled()) {
                     log.debug("Remote assigning authority id: " + correlation.getAssigningAuthorityIdentifier());
                     log.debug("Mapped remote community id: " + remoteCommunityId);
@@ -109,18 +113,18 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
                     continue;
                 }
 
-                //      Update Subscribe
+                // Update Subscribe
                 updateSubscribe(subscribeElement, correlation);
                 if (log.isDebugEnabled()) {
                     log.debug("@@@ Updated subscribe: " + XmlUtility.serializeElementIgnoreFaults(subscribeElement));
                 }
-                //      Policy check - performed in proxy?
-                //      Audit Event - performed in proxy?
-                //      Send Subscribe
+                // Policy check - performed in proxy?
+                // Audit Event - performed in proxy?
+                // Send Subscribe
                 Element childSubscribeElement = subscribeElement;
                 SubscribeResponse subscribeResponse = sendSubscribeRequest(childSubscribeElement, assertion, community);
-//
-                //      Store subscription
+                //
+                // Store subscription
                 if (subscribeResponse != null) {
                     String childSubscriptionReference = null;
 
@@ -143,7 +147,8 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
                             childSubscribeXml = null;
                         }
 
-                        storeChildSubscription(childSubscribeXml, childSubscriptionReference, parentSubscriptionReferenceXml);
+                        storeChildSubscription(childSubscribeXml, childSubscriptionReference,
+                                parentSubscriptionReferenceXml);
                     } else {
                         log.error("Subscription reference was null");
                     }
@@ -170,18 +175,23 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
         PRPAIN201309UV02 patCorrelationRequest = PixRetrieveBuilder.createPixRetrieve(request);
 
         PatientCorrelationProxy proxy = new PatientCorrelationProxyObjectFactory().getPatientCorrelationProxy();
-        RetrievePatientCorrelationsResponseType response = proxy.retrievePatientCorrelations(patCorrelationRequest, new AssertionType());
+        RetrievePatientCorrelationsResponseType response = proxy.retrievePatientCorrelations(patCorrelationRequest,
+                new AssertionType());
 
-        if (response != null &&
-                response.getPRPAIN201310UV02() != null &&
-                response.getPRPAIN201310UV02().getControlActProcess() != null &&
-                NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject()) &&
-                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0) != null &&
-                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
-                NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
-            for (II id : response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) {
+        if (response != null
+                && response.getPRPAIN201310UV02() != null
+                && response.getPRPAIN201310UV02().getControlActProcess() != null
+                && NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject())
+                && response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0) != null
+                && response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
+                && response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                        .getSubject1() != null
+                && response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                        .getSubject1().getPatient() != null
+                && NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0)
+                        .getRegistrationEvent().getSubject1().getPatient().getId())) {
+            for (II id : response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0)
+                    .getRegistrationEvent().getSubject1().getPatient().getId()) {
                 QualifiedSubjectIdentifierType subId = new QualifiedSubjectIdentifierType();
                 subId.setAssigningAuthorityIdentifier(id.getRoot());
                 subId.setSubjectIdentifier(id.getExtension());
@@ -193,7 +203,7 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
         return correlations;
     }
 
-    private UrlInfo findTarget (String hcid, List<UrlInfo> urlInfoList) {
+    private UrlInfo findTarget(String hcid, List<UrlInfo> urlInfoList) {
         UrlInfo target = null;
 
         for (UrlInfo entry : urlInfoList) {

@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.subscription.repository.topicfilter;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public interface ITopicComparison {

@@ -18,7 +18,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author akong
  */
 public class AdapterDocQueryDeferredReqQueueProcessImplTest {
@@ -28,13 +28,14 @@ public class AdapterDocQueryDeferredReqQueueProcessImplTest {
         }
     };
 
-    final AdapterDocQueryDeferredReqQueueProcessOrchImpl mockServiceImpl = context.mock(AdapterDocQueryDeferredReqQueueProcessOrchImpl.class);
+    final AdapterDocQueryDeferredReqQueueProcessOrchImpl mockServiceImpl = context
+            .mock(AdapterDocQueryDeferredReqQueueProcessOrchImpl.class);
 
     private DocQueryAcknowledgementType createDocQueryAcknowledgementType() {
         DocQueryAcknowledgementType docQueryAck = new DocQueryAcknowledgementType();
         RegistryResponseType responseType = new RegistryResponseType();
         responseType.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG);
-        docQueryAck.setMessage(responseType);       
+        docQueryAck.setMessage(responseType);
         return docQueryAck;
     }
 
@@ -59,7 +60,8 @@ public class AdapterDocQueryDeferredReqQueueProcessImplTest {
     @Test
     public void testGetAdapterDocQueryDeferredReqQueueProcessOrchImpl() {
         AdapterDocQueryDeferredReqQueueProcessImpl deferredProcessImpl = new AdapterDocQueryDeferredReqQueueProcessImpl();
-        AdapterDocQueryDeferredReqQueueProcessOrchImpl processImpl = deferredProcessImpl.getAdapterDocQueryDeferredReqQueueProcessOrchImpl();
+        AdapterDocQueryDeferredReqQueueProcessOrchImpl processImpl = deferredProcessImpl
+                .getAdapterDocQueryDeferredReqQueueProcessOrchImpl();
         assertNotNull(processImpl);
     }
 
@@ -76,18 +78,15 @@ public class AdapterDocQueryDeferredReqQueueProcessImplTest {
                     return mockServiceImpl;
                 }
             };
-            
+
             context.checking(new Expectations() {
                 {
                     exactly(NUM_CALLS).of(mockServiceImpl).processDocQueryAsyncReqQueue(with(any(String.class)));
-                    will(onConsecutiveCalls(
-                            returnValue(createDocQueryAcknowledgementType()),
+                    will(onConsecutiveCalls(returnValue(createDocQueryAcknowledgementType()),
                             returnValue(createDocQueryAcknowledgementType2()),
                             returnValue(createDocQueryAcknowledgementType3()),
                             returnValue(createDocQueryAcknowledgementType4()),
-                            returnValue(new DocQueryAcknowledgementType()),
-                            returnValue(null)
-                            ));
+                            returnValue(new DocQueryAcknowledgementType()), returnValue(null)));
                 }
             });
 
@@ -95,7 +94,7 @@ public class AdapterDocQueryDeferredReqQueueProcessImplTest {
             for (int i = 0; i < NUM_CALLS; i++) {
                 response = deferredProcessImpl.processDocQueryDeferredReqQueue(request, null);
                 assertNotNull(response);
-            }       
+            }
         } catch (Throwable t) {
             System.out.println("Error running testProcessDocQueryDeferredReqQueue: " + t.getMessage());
             t.printStackTrace();

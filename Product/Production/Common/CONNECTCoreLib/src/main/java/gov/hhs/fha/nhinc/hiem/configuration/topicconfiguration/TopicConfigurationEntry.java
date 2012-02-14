@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.hiem.configuration.topicconfiguration;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class TopicConfigurationEntry {
@@ -43,16 +43,14 @@ public class TopicConfigurationEntry {
     /**
      * Default Constructor.
      */
-    public TopicConfigurationEntry()
-    {
+    public TopicConfigurationEntry() {
         clear();
     }
 
     /**
      * Clear the contents of this and set it to a default state.
      */
-    public void clear()
-    {
+    public void clear() {
         topic = "";
         isSupported = false;
         isPatientCentric = false;

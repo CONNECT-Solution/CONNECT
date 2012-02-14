@@ -41,7 +41,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implements AdapterComponentDocRepositoryProxy {
@@ -55,41 +55,35 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
     private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:RetrieveDocumentSet";
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl()
-    {
+    public AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected DocumentRepositoryPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-    {
+    protected DocumentRepositoryPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
         DocumentRepositoryPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), DocumentRepositoryPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -97,51 +91,40 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
 
-
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType msg, AssertionType assertion) {
         log.debug("Begin retrieveDocument");
         RetrieveDocumentSetResponseType response = null;
 
-        try
-        {
-            String xdsbHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, NhincConstants.XDS_HOME_COMMUNITY_ID_PROPERTY);
-            String url = oProxyHelper.getUrlFromHomeCommunity(xdsbHomeCommunityId, NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
+        try {
+            String xdsbHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
+                    NhincConstants.XDS_HOME_COMMUNITY_ID_PROPERTY);
+            String url = oProxyHelper.getUrlFromHomeCommunity(xdsbHomeCommunityId,
+                    NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
             DocumentRepositoryPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
-            if(msg == null)
-            {
+            if (msg == null) {
                 log.error("Message was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
+            } else {
+                response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port,
+                        DocumentRepositoryPortType.class, "documentRepositoryRetrieveDocumentSet", msg);
             }
-            else
-            {
-                response = (RetrieveDocumentSetResponseType)oProxyHelper.invokePort(port, DocumentRepositoryPortType.class, "documentRepositoryRetrieveDocumentSet", msg);
-            }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error sending Adapter Component Doc Repository Unsecured message: " + ex.getMessage(), ex);
             response = new RetrieveDocumentSetResponseType();
             RegistryResponseType regResp = new RegistryResponseType();

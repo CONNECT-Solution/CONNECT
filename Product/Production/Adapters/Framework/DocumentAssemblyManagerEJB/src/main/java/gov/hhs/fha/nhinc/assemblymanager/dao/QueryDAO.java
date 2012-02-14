@@ -34,22 +34,22 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author kim
  */
 public class QueryDAO {
 
-   protected static Log log = LogFactory.getLog(QueryDAO.class);
+    protected static Log log = LogFactory.getLog(QueryDAO.class);
 
-   //@PersistenceContext(unitName="docassemblyPU")
-   //protected EntityManagerFactory emf;
-   private static PersistentServiceFactory factory = null;
+    // @PersistenceContext(unitName="docassemblyPU")
+    // protected EntityManagerFactory emf;
+    private static PersistentServiceFactory factory = null;
 
-   public QueryDAO() {
-      factory = PersistentServiceFactory.getInstance(AssemblyConstants.DAS_PU_VALUE);
-   }
+    public QueryDAO() {
+        factory = PersistentServiceFactory.getInstance(AssemblyConstants.DAS_PU_VALUE);
+    }
 
-   public PersistentServiceFactory getFactory() {
-      return factory;
-   }
+    public PersistentServiceFactory getFactory() {
+        return factory;
+    }
 }

@@ -32,10 +32,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class AdapterComponentDocSubmissionProxyNoOpImpl implements AdapterComponentDocSubmissionProxy
-{
+public class AdapterComponentDocSubmissionProxyNoOpImpl implements AdapterComponentDocSubmissionProxy {
     private static Log log = LogFactory.getLog(AdapterComponentDocSubmissionProxyNoOpImpl.class);
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion) {
+
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
+            AssertionType assertion) {
         log.debug("Using NoOp Implementation for Adapter Doc Submission Service");
         return new RegistryResponseType();
     }

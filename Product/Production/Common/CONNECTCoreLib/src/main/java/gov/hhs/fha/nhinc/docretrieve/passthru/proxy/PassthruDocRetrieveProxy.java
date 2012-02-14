@@ -32,10 +32,10 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public interface PassthruDocRetrieveProxy
-{
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem);
+public interface PassthruDocRetrieveProxy {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
+            RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem);
 }

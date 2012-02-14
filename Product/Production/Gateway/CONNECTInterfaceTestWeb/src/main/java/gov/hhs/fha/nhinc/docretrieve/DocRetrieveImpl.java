@@ -22,7 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class DocRetrieveImpl {
@@ -30,7 +30,8 @@ public class DocRetrieveImpl {
     private static Log log = LogFactory.getLog(DocRetrieveImpl.class);
     private static final String SERVICE_NAME = "mockdocumentretrieve";
 
-    RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, WebServiceContext context) {
+    RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+            WebServiceContext context) {
         log.debug("Entering DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         RetrieveDocumentSetResponseType resp = new RetrieveDocumentSetResponseType();
@@ -43,7 +44,9 @@ public class DocRetrieveImpl {
 
         NhincDocRetrieveService service = new NhincDocRetrieveService();
         NhincDocRetrievePortType port = service.getNhincDocRetrievePortTypeBindingPort();
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
+        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
 
         resp = port.respondingGatewayCrossGatewayRetrieve(crossGatewayRetrieveRequest);
         log.debug("Exiting DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");

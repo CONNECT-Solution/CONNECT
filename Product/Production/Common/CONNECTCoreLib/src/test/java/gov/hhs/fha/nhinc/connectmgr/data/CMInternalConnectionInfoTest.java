@@ -34,7 +34,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class CMInternalConnectionInfoTest {
@@ -59,14 +59,15 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of clear method, of class CMInternalConnectionInfo.
-     *    This tests the clear method when there is data already in the field.
+     * Test of clear method, of class CMInternalConnectionInfo. This tests the clear method when there is data already
+     * in the field.
      */
     @Test
     public void testClearWithData() {
         System.out.println("testClearWithData");
 
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", false, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", false, "HTTPS");
 
         assertEquals(true, TestHelper.assertConnInfoNotEmpty(instance));
 
@@ -76,8 +77,8 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of clear method, of class CMInternalConnectionInfo.
-     *    This tests the clear method when there is not data already in the field.
+     * Test of clear method, of class CMInternalConnectionInfo. This tests the clear method when there is not data
+     * already in the field.
      */
     @Test
     public void testClearWithNoData() {
@@ -90,8 +91,7 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two empty objects are equal
+     * Test of equals method, of class CMInternalConnectionInfo. Test that two empty objects are equal
      */
     @Test
     public void testEqualsEmptyObjects() {
@@ -106,15 +106,16 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are equal
+     * Test of equals method, of class CMInternalConnectionInfo. Test that two objects are equal
      */
     @Test
     public void testEquals() {
         System.out.println("testEquals");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -122,15 +123,17 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are equal, but with different cases for strings
+     * Test of equals method, of class CMInternalConnectionInfo. Test that two objects are equal, but with different
+     * cases for strings
      */
     @Test
     public void testEqualsCaseDifference() {
         System.out.println("testEqualsCaseDifference");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "Community1", "NHIN Community 1", "Service 1 Description", "https://service1.COM", "Service 1", "fl", true, "Https");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "nhin Community 1", "SerVice 1 Description", "https://service1.com", "SERVICE 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "Community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.COM", "Service 1", "fl", true, "Https");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "nhin Community 1",
+                "SerVice 1 Description", "https://service1.com", "SERVICE 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -138,15 +141,16 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are not equal
+     * Test of equals method, of class CMInternalConnectionInfo. Test that two objects are not equal
      */
     @Test
     public void testNotEquals() {
         System.out.println("testNotEquals");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("2.2", "community2", "NHIN Community 2", "Service 2 Description", "https://service2.com", "Service 2", "AL", true, "HTTPS");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", false, "FTP");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("2.2", "community2", "NHIN Community 2",
+                "Service 2 Description", "https://service2.com", "Service 2", "AL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", false, "FTP");
 
         boolean result = instance.equals(oCompare);
 
@@ -154,15 +158,16 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are equal except for the HCID
+     * Test of equals method, of class CMInternalConnectionInfo. Test that two objects are equal except for the HCID
      */
     @Test
     public void testNotEqualsHcid() {
         System.out.println("testNotEqualsHcid");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("2.2", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("2.2", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -170,15 +175,17 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are equal except for the Community Name
+     * Test of equals method, of class CMInternalConnectionInfo. Test that two objects are equal except for the
+     * Community Name
      */
     @Test
     public void testNotEqualsCommName() {
         System.out.println("testNotEqualsCommName");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community2", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community2", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -186,15 +193,17 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are equal except for the Community Description
+     * Test of equals method, of class CMInternalConnectionInfo. Test that two objects are equal except for the
+     * Community Description
      */
     @Test
     public void testNotEqualsCommDesc() {
         System.out.println("testNotEqualsCommDesc");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 2", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 2",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -202,15 +211,17 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are equal except for the Service Description
+     * Test of equals method, of class CMInternalConnectionInfo. Test that two objects are equal except for the Service
+     * Description
      */
     @Test
     public void testNotEqualsServDesc() {
         System.out.println("testNotEqualsServDesc");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 2 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 2 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -218,15 +229,17 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are equal except for the Service URL
+     * Test of equals method, of class CMInternalConnectionInfo. Test that two objects are equal except for the Service
+     * URL
      */
     @Test
     public void testNotEqualsServUrl() {
         System.out.println("testNotEqualsServUrl");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service2.com", "Service 1", "FL", true, "HTTPS");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service2.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -234,15 +247,17 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are equal except for the Service Name
+     * Test of equals method, of class CMInternalConnectionInfo. Test that two objects are equal except for the Service
+     * Name
      */
     @Test
     public void testNotEqualsServName() {
         System.out.println("testNotEqualsServName");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 2", "FL", true, "HTTPS");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 2", "FL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -250,15 +265,16 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfo.
-     *    Test that two objects are equal except for the State
+     * Test of equals method, of class CMInternalConnectionInfo. Test that two objects are equal except for the State
      */
     @Test
     public void testNotEqualsState() {
         System.out.println("testNotEqualsState");
 
-        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "AL", true, "HTTPS");
-        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1", "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
+        CMInternalConnectionInfo oCompare = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "AL", true, "HTTPS");
+        CMInternalConnectionInfo instance = TestHelper.createConnInfo("1.1", "community1", "NHIN Community 1",
+                "Service 1 Description", "https://service1.com", "Service 1", "FL", true, "HTTPS");
 
         boolean result = instance.equals(oCompare);
 
@@ -266,8 +282,7 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of getDescription method, of class CMInternalConnectionInfo.
-     *    Test getting a null description
+     * Test of getDescription method, of class CMInternalConnectionInfo. Test getting a null description
      */
     @Test
     public void testSetGetDescriptionNull() {
@@ -282,24 +297,23 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of getDescription method, of class CMInternalConnectionInfo.
-     *    Test getting a valid description
+     * Test of getDescription method, of class CMInternalConnectionInfo. Test getting a valid description
      */
     @Test
     public void testSetGetDescription() {
         System.out.println("testSetGetDescription");
-        
+
         CMInternalConnectionInfo instance = new CMInternalConnectionInfo();
         instance.setDescription("NHIN Community 1");
 
         String result = instance.getDescription();
-        
+
         assertEquals("NHIN Community 1", result);
     }
 
     /**
-     * Test of getHomeCommunityId method, of class CMInternalConnectionInfo.
-     *    Test setting/getting a null home community id
+     * Test of getHomeCommunityId method, of class CMInternalConnectionInfo. Test setting/getting a null home community
+     * id
      */
     @Test
     public void testSetGetHomeCommunityIdNull() {
@@ -309,13 +323,13 @@ public class CMInternalConnectionInfoTest {
         instance.setHomeCommunityId(null);
 
         String result = instance.getHomeCommunityId();
-        
+
         assertNull(result);
     }
 
     /**
-     * Test of getHomeCommunityId method, of class CMInternalConnectionInfo.
-     *    Test setting/getting a valid home community id
+     * Test of getHomeCommunityId method, of class CMInternalConnectionInfo. Test setting/getting a valid home community
+     * id
      */
     @Test
     public void testSetGetHomeCommunityId() {
@@ -329,8 +343,7 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of getName method, of class CMInternalConnectionInfo.
-     *    Test setting/getting a null home community name
+     * Test of getName method, of class CMInternalConnectionInfo. Test setting/getting a null home community name
      */
     @Test
     public void testSetGetNameNull() {
@@ -345,8 +358,7 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of getName method, of class CMInternalConnectionInfo.
-     *    Test setting/getting a valid home community name
+     * Test of getName method, of class CMInternalConnectionInfo. Test setting/getting a valid home community name
      */
     @Test
     public void testSetGetName() {
@@ -360,8 +372,7 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of getServices method, of class CMInternalConnectionInfo.
-     *    Test setting/getting a null service
+     * Test of getServices method, of class CMInternalConnectionInfo. Test setting/getting a null service
      */
     @Test
     public void testSetGetServicesNull() {
@@ -377,8 +388,7 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of setServices method, of class CMInternalConnectionInfo.
-     *    Test setting/getting a valid service
+     * Test of setServices method, of class CMInternalConnectionInfo. Test setting/getting a valid service
      */
     @Test
     public void testSetGetServices() {
@@ -400,8 +410,7 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of getState method, of class CMInternalConnectionInfo.
-     *   Test setting/getting a null state
+     * Test of getState method, of class CMInternalConnectionInfo. Test setting/getting a null state
      */
     @Test
     public void testSetGetStateNull() {
@@ -416,8 +425,7 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of setStates method, of class CMInternalConnectionInfo.
-     *    Test ssetting/getting a valid state
+     * Test of setStates method, of class CMInternalConnectionInfo. Test ssetting/getting a valid state
      */
     @Test
     public void testSetGetStates() {
@@ -429,7 +437,7 @@ public class CMInternalConnectionInfoTest {
         state.setName("FL");
         states.getState().add(state);
         instance.setStates(states);
-        
+
         CMInternalConnectionInfoStates result = instance.getStates();
 
         assertEquals(states, result);

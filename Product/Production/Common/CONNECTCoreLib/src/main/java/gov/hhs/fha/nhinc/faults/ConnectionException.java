@@ -27,10 +27,10 @@
 package gov.hhs.fha.nhinc.faults;
 
 /**
- *
+ * 
  * @author rayj
  */
-public class ConnectionException extends Exception{
+public class ConnectionException extends Exception {
     public ConnectionException() {
         super();
     }

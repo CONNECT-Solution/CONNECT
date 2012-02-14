@@ -50,7 +50,7 @@ import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionReposit
 import java.util.List;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class NhinNotifyProcessor {
@@ -59,7 +59,7 @@ public class NhinNotifyProcessor {
 
     /**
      * Perform processing for an NHIN notify message.
-     *
+     * 
      * @param notify NHIN notify message
      * @param assertion Assertion information extracted from the SOAP header
      * @return void
@@ -80,21 +80,23 @@ public class NhinNotifyProcessor {
 
                 log.debug("extracting reference parameters from soap header");
                 ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-                ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElementsFromSoapMessage(soapMessage);
+                ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+                        .createReferenceParameterElementsFromSoapMessage(soapMessage);
                 log.debug("extracted reference parameters from soap header");
 
                 forwardToAgency(notify, referenceParametersElements, assertion);
             } else if (HiemProcessorConstants.HIEM_SERVICE_MODE_NOT_SUPPORTED.equals(serviceMode)) {
                 log.debug("Notfications are not supported");
                 // TODO: Figure out how to create this fault and throw it
-                //throw new NotifyMessageNotSupportedFaultType();
+                // throw new NotifyMessageNotSupportedFaultType();
                 throw new Exception("Notification not supported");
             } else if (HiemProcessorConstants.HIEM_SERVICE_MODE_SUPPORTED.equalsIgnoreCase(serviceMode)) {
                 log.debug("Notifications are supported. Processing notify message");
                 nhinNotify(notify, assertion);
             } else {
                 log.error("Unknown notification service mode: " + serviceMode);
-                throw new Exception("Unsupported notification service mode of \"" + serviceMode + "\" for property: " + HiemProcessorConstants.HIEM_SERVICE_MODE_SUBSCRIPTION_PROPERTY);
+                throw new Exception("Unsupported notification service mode of \"" + serviceMode + "\" for property: "
+                        + HiemProcessorConstants.HIEM_SERVICE_MODE_SUBSCRIPTION_PROPERTY);
             }
         } catch (Throwable t) {
             log.error("Error processing a notify message: " + t.getMessage(), t);
@@ -103,7 +105,7 @@ public class NhinNotifyProcessor {
         }
     }
 
-    private void nhinNotify(Element notify,   AssertionType assertion) throws Exception {
+    private void nhinNotify(Element notify, AssertionType assertion) throws Exception {
         log.debug("In nhinNotify");
 
         NotifyMarshaller marshaller = new NotifyMarshaller();
@@ -125,26 +127,31 @@ public class NhinNotifyProcessor {
                 NotificationMessageMarshaller notificationMessageMarshaller = new NotificationMessageMarshaller();
                 Element notificationMessageElement = notificationMessageMarshaller.marshal(notificationMessage);
                 if (log.isDebugEnabled()) {
-                    log.debug("Notification message: " + XmlUtility.serializeElementIgnoreFaults(notificationMessageElement));
+                    log.debug("Notification message: "
+                            + XmlUtility.serializeElementIgnoreFaults(notificationMessageElement));
                 }
-                List<HiemSubscriptionItem> subscriptionItems = repositoryService.RetrieveByNotificationMessage(notificationMessageElement, HiemProcessorConstants.PRODUCER_GATEWAY);
+                List<HiemSubscriptionItem> subscriptionItems = repositoryService.RetrieveByNotificationMessage(
+                        notificationMessageElement, HiemProcessorConstants.PRODUCER_GATEWAY);
                 if (subscriptionItems != null) {
                     log.debug("Subscription item list count: " + subscriptionItems.size());
                     for (HiemSubscriptionItem subscriptionItem : subscriptionItems) {
                         log.debug("extracting reference parameters from subscribe consumer reference");
                         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-                        ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElementsFromSubscriptionReference(subscriptionItem.getSubscribeXML());
+                        ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+                                .createReferenceParameterElementsFromSubscriptionReference(subscriptionItem
+                                        .getSubscribeXML());
                         log.debug("extracted reference parameters from subscribe consumer reference");
-
 
                         Notify adapterNotify = createAdapterNotify(notificationMessage, assertion, subscriptionItem);
                         Element adapterNotifyElement = marshaller.marshal(adapterNotify);
                         HiemNotifyAdapterProxyObjectFactory adapterFactory = new HiemNotifyAdapterProxyObjectFactory();
                         HiemNotifyAdapterProxy adapterProxy = adapterFactory.getHiemNotifyAdapterProxy();
-                        Element responseElement = adapterProxy.notify(adapterNotifyElement, referenceParametersElements, assertion, null);
+                        Element responseElement = adapterProxy.notify(adapterNotifyElement,
+                                referenceParametersElements, assertion, null);
                         if (responseElement != null) {
                             if (log.isDebugEnabled()) {
-                                log.debug("Adapter notify response: " + XmlUtility.serializeElementIgnoreFaults(responseElement));
+                                log.debug("Adapter notify response: "
+                                        + XmlUtility.serializeElementIgnoreFaults(responseElement));
                             }
                         } else {
                             log.debug("Adapter notify response was null");
@@ -159,7 +166,8 @@ public class NhinNotifyProcessor {
         }
     }
 
-    private Notify createAdapterNotify(NotificationMessageHolderType notificationMessage, AssertionType assertion, HiemSubscriptionItem subscriptionItem) {
+    private Notify createAdapterNotify(NotificationMessageHolderType notificationMessage, AssertionType assertion,
+            HiemSubscriptionItem subscriptionItem) {
         // Create notify from inbound notification message
         Notify adapterNotify = new Notify();
         adapterNotify.getNotificationMessage().add(notificationMessage);
@@ -176,7 +184,8 @@ public class NhinNotifyProcessor {
         // TODO: Call policy check
     }
 
-    private void forwardToAgency(Element notify, ReferenceParametersElements referenceParametersElements, AssertionType assertion) {
+    private void forwardToAgency(Element notify, ReferenceParametersElements referenceParametersElements,
+            AssertionType assertion) {
         HiemNotifyAdapterProxyObjectFactory adapterFactory = new HiemNotifyAdapterProxyObjectFactory();
         HiemNotifyAdapterProxy adapterProxy = adapterFactory.getHiemNotifyAdapterProxy();
 

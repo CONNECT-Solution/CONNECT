@@ -31,11 +31,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
+ * 
  * @author patlollav
  */
-public class DocumentQueryResults
-{
+public class DocumentQueryResults {
     List<DocumentInformation> documents = new ArrayList<DocumentInformation>();
 
     public List<DocumentInformation> getDocuments() {
@@ -45,5 +44,5 @@ public class DocumentQueryResults
     public void setDocuments(List<DocumentInformation> documents) {
         this.documents = documents;
     }
-    
+
 }

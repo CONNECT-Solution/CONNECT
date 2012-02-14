@@ -32,24 +32,20 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "NhincComponentSubscriptionReferenceRepositoryService", portName = "NhincComponentSubscriptionReferenceRepositoryPortTypeBindingPort", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentsubscriptionreferencerepository.NhincComponentSubscriptionReferenceRepositoryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionreferencerepository", wsdlLocation = "WEB-INF/wsdl/GatewaySubscriptionReferenceRepository/NhincComponentSubscriptionReferenceRepository.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class GatewaySubscriptionReferenceRepository
-{
+public class GatewaySubscriptionReferenceRepository {
     private static Log log = LogFactory.getLog(GatewaySubscriptionReferenceRepository.class);
 
-    public gov.hhs.fha.nhinc.common.subscription.SubscriptionReferenceType storeSubscriptionReference(gov.hhs.fha.nhinc.common.subscription.SubscriptionItemType subscriptionItem)
-    {
+    public gov.hhs.fha.nhinc.common.subscription.SubscriptionReferenceType storeSubscriptionReference(
+            gov.hhs.fha.nhinc.common.subscription.SubscriptionItemType subscriptionItem) {
         gov.hhs.fha.nhinc.common.subscription.SubscriptionReferenceType subscriptionReference = null;
-        try
-        {
+        try {
             subscriptionReference = new SubscriptionReferenceRepositoryHelper().storeSubscription(subscriptionItem);
-        }
-        catch (SubscriptionRepositoryException ex)
-        {
+        } catch (SubscriptionRepositoryException ex) {
             log.error(ex.getMessage(), ex);
             // Return empty reference until fault handling is implemented
             subscriptionReference = new gov.hhs.fha.nhinc.common.subscription.SubscriptionReferenceType();
@@ -57,18 +53,15 @@ public class GatewaySubscriptionReferenceRepository
         return subscriptionReference;
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType deleteSubscriptionReference(gov.hhs.fha.nhinc.common.subscription.DeleteSubscriptionMessageRequestType deleteSubscriptionMessage)
-    {
+    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType deleteSubscriptionReference(
+            gov.hhs.fha.nhinc.common.subscription.DeleteSubscriptionMessageRequestType deleteSubscriptionMessage) {
         gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType ack = null;
-        try
-        {
-            if(deleteSubscriptionMessage != null)
-            {
-                ack = new SubscriptionReferenceRepositoryHelper().deleteSubscription(deleteSubscriptionMessage.getSubscriptionReference());
+        try {
+            if (deleteSubscriptionMessage != null) {
+                ack = new SubscriptionReferenceRepositoryHelper().deleteSubscription(deleteSubscriptionMessage
+                        .getSubscriptionReference());
             }
-        }
-        catch (SubscriptionRepositoryException ex)
-        {
+        } catch (SubscriptionRepositoryException ex) {
             log.error(ex.getMessage(), ex);
             // Create an ack here until proper fault handling is established.
             ack = new gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType();
@@ -76,15 +69,12 @@ public class GatewaySubscriptionReferenceRepository
         return ack;
     }
 
-    public gov.hhs.fha.nhinc.common.subscription.SubscriptionItemsType retrieveByCriteria(gov.hhs.fha.nhinc.common.subscription.SubscriptionCriteriaType subscriptionCriteria)
-    {
+    public gov.hhs.fha.nhinc.common.subscription.SubscriptionItemsType retrieveByCriteria(
+            gov.hhs.fha.nhinc.common.subscription.SubscriptionCriteriaType subscriptionCriteria) {
         gov.hhs.fha.nhinc.common.subscription.SubscriptionItemsType subscriptionItems = null;
-        try
-        {
+        try {
             subscriptionItems = new SubscriptionReferenceRepositoryHelper().retrieveByCriteria(subscriptionCriteria);
-        }
-        catch (SubscriptionRepositoryException ex)
-        {
+        } catch (SubscriptionRepositoryException ex) {
             log.error(ex.getMessage(), ex);
             // Create empty response until fault handling is added
             subscriptionItems = new gov.hhs.fha.nhinc.common.subscription.SubscriptionItemsType();
@@ -92,18 +82,16 @@ public class GatewaySubscriptionReferenceRepository
         return subscriptionItems;
     }
 
-    public gov.hhs.fha.nhinc.common.subscription.SubscriptionItemType retrieveBySubscriptionReference(gov.hhs.fha.nhinc.common.subscription.RetrieveBySubscriptionReferenceRequestMessageType retrieveBySubscriptionReferenceMessage)
-    {
+    public gov.hhs.fha.nhinc.common.subscription.SubscriptionItemType retrieveBySubscriptionReference(
+            gov.hhs.fha.nhinc.common.subscription.RetrieveBySubscriptionReferenceRequestMessageType retrieveBySubscriptionReferenceMessage) {
         gov.hhs.fha.nhinc.common.subscription.SubscriptionItemType subscriptionItem = null;
-        try
-        {
-            if(retrieveBySubscriptionReferenceMessage != null)
-            {
-                subscriptionItem = new SubscriptionReferenceRepositoryHelper().retrieveBySubscriptionReference(retrieveBySubscriptionReferenceMessage.getSubscriptionReference());
+        try {
+            if (retrieveBySubscriptionReferenceMessage != null) {
+                subscriptionItem = new SubscriptionReferenceRepositoryHelper()
+                        .retrieveBySubscriptionReference(retrieveBySubscriptionReferenceMessage
+                                .getSubscriptionReference());
             }
-        }
-        catch (SubscriptionRepositoryException ex)
-        {
+        } catch (SubscriptionRepositoryException ex) {
             log.error(ex.getMessage(), ex);
             // Create empty response until fault handling is added
             subscriptionItem = new gov.hhs.fha.nhinc.common.subscription.SubscriptionItemType();
@@ -111,18 +99,16 @@ public class GatewaySubscriptionReferenceRepository
         return subscriptionItem;
     }
 
-    public gov.hhs.fha.nhinc.common.subscription.SubscriptionItemsType retrieveByParentSubscriptionReference(gov.hhs.fha.nhinc.common.subscription.RetrieveByParentSubscriptionReferenceMessageType retrieveByParentSubscriptionReferenceMessage)
-    {
+    public gov.hhs.fha.nhinc.common.subscription.SubscriptionItemsType retrieveByParentSubscriptionReference(
+            gov.hhs.fha.nhinc.common.subscription.RetrieveByParentSubscriptionReferenceMessageType retrieveByParentSubscriptionReferenceMessage) {
         gov.hhs.fha.nhinc.common.subscription.SubscriptionItemsType subscriptionItems = null;
-        try
-        {
-            if(retrieveByParentSubscriptionReferenceMessage != null)
-            {
-                subscriptionItems = new SubscriptionReferenceRepositoryHelper().retrieveByParentSubscriptionReference(retrieveByParentSubscriptionReferenceMessage.getSubscriptionReference());
+        try {
+            if (retrieveByParentSubscriptionReferenceMessage != null) {
+                subscriptionItems = new SubscriptionReferenceRepositoryHelper()
+                        .retrieveByParentSubscriptionReference(retrieveByParentSubscriptionReferenceMessage
+                                .getSubscriptionReference());
             }
-        }
-        catch (SubscriptionRepositoryException ex)
-        {
+        } catch (SubscriptionRepositoryException ex) {
             log.error(ex.getMessage(), ex);
             // Create empty response until fault handling is added
             subscriptionItems = new gov.hhs.fha.nhinc.common.subscription.SubscriptionItemsType();

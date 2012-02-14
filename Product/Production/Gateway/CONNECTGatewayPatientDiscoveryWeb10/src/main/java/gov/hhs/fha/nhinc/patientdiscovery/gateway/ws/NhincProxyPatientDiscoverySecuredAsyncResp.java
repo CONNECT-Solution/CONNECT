@@ -33,30 +33,31 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "NhincProxyPatientDiscoverySecuredAsyncResp", portName = "NhincProxyPatientDiscoverySecuredAsyncRespPortType", endpointInterface = "gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncresp.NhincProxyPatientDiscoverySecuredAsyncRespPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp", wsdlLocation = "WEB-INF/wsdl/NhincProxyPatientDiscoverySecuredAsyncResp/NhincProxyPatientDiscoverySecuredAsyncResp.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class NhincProxyPatientDiscoverySecuredAsyncResp extends PatientDiscoveryBase {
     @Resource
     private WebServiceContext context;
-    
+
     public NhincProxyPatientDiscoverySecuredAsyncResp() {
-	}
-
-	public NhincProxyPatientDiscoverySecuredAsyncResp(
-			PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
-
-	public org.hl7.v3.MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(org.hl7.v3.ProxyPRPAIN201306UVProxySecuredRequestType proxyProcessPatientDiscoveryAsyncRespRequest) {
-        return getServiceFactory().getNhincProxyPatientDiscoveryAsyncRespImpl().proxyProcessPatientDiscoveryAsyncResp(proxyProcessPatientDiscoveryAsyncRespRequest, getWebServiceContext());
     }
 
-	protected WebServiceContext getWebServiceContext() {
-		return context;
-	}
+    public NhincProxyPatientDiscoverySecuredAsyncResp(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
+
+    public org.hl7.v3.MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(
+            org.hl7.v3.ProxyPRPAIN201306UVProxySecuredRequestType proxyProcessPatientDiscoveryAsyncRespRequest) {
+        return getServiceFactory().getNhincProxyPatientDiscoveryAsyncRespImpl().proxyProcessPatientDiscoveryAsyncResp(
+                proxyProcessPatientDiscoveryAsyncRespRequest, getWebServiceContext());
+    }
+
+    protected WebServiceContext getWebServiceContext() {
+        return context;
+    }
 
 }

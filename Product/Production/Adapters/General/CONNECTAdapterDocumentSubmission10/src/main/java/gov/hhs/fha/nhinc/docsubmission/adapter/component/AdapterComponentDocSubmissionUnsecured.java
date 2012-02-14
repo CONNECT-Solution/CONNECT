@@ -34,19 +34,19 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "AdapterComponentXDR_Service", portName = "AdapterComponentXDR_Port", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentxdr.AdapterComponentXDRPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentxdr", wsdlLocation = "WEB-INF/wsdl/AdapterComponentDocSubmissionUnsecured/AdapterComponentXDR.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class AdapterComponentDocSubmissionUnsecured {
     @Resource
     private WebServiceContext context;
 
-    @Action(input="urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-b",
-            output="urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-bResponse")
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetb(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
+    @Action(input = "urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-b", output = "urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-bResponse")
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetb(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
         return new AdapterComponentDocSubmissionImpl().provideAndRegisterDocumentSetb(body, context);
     }
 

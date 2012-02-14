@@ -39,13 +39,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This is the concrete implementation for the web service based call to the
- * AdapterPolicyEngineOrchestrator.
- *
+ * This is the concrete implementation for the web service based call to the AdapterPolicyEngineOrchestrator.
+ * 
  * @author Les Westberg
  */
-public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements AdapterPolicyEngineOrchProxy
-{
+public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements AdapterPolicyEngineOrchProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpolicyengineorchestrator";
@@ -56,43 +54,39 @@ public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements Adap
 
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl()
-    {
+    public AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected AdapterPolicyEngineOrchestratorPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-    {
+    protected AdapterPolicyEngineOrchestratorPortType getPort(String url, String wsAddressingAction,
+            AssertionType assertion) {
         AdapterPolicyEngineOrchestratorPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterPolicyEngineOrchestratorPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    AdapterPolicyEngineOrchestratorPortType.class);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -100,19 +94,14 @@ public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements Adap
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
@@ -120,41 +109,34 @@ public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements Adap
     }
 
     /**
-     * Given a request to check the access policy, this service will interface
-     * with the Adapter PEP to determine if access is to be granted or denied.
-     *
+     * Given a request to check the access policy, this service will interface with the Adapter PEP to determine if
+     * access is to be granted or denied.
+     * 
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
-    {
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         log.debug("Begin AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl.checkPolicy");
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
         String serviceName = NhincConstants.ADAPTER_POLICY_ENGINE_ORCHESTRATOR_SERVICE_NAME;
 
-        try
-        {
+        try {
             log.debug("Before target system URL look up.");
             String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
-            if(log.isDebugEnabled())
-            {
+            if (log.isDebugEnabled()) {
                 log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
             }
 
-            if (NullChecker.isNotNullish(url))
-            {
+            if (NullChecker.isNotNullish(url)) {
                 AdapterPolicyEngineOrchestratorPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-                oResponse = (CheckPolicyResponseType)oProxyHelper.invokePort(port, AdapterPolicyEngineOrchestratorPortType.class, "checkPolicy", checkPolicyRequest);
-            }
-            else
-            {
+                oResponse = (CheckPolicyResponseType) oProxyHelper.invokePort(port,
+                        AdapterPolicyEngineOrchestratorPortType.class, "checkPolicy", checkPolicyRequest);
+            } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
-        }
-        catch (Exception e)
-        {
-            String sErrorMessage = "Error occurred calling AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl.checkPolicy.  Error: " +
-                                   e.getMessage();
+        } catch (Exception e) {
+            String sErrorMessage = "Error occurred calling AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl.checkPolicy.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }

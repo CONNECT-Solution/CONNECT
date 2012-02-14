@@ -35,7 +35,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class OutboundDocRetrieveAggregator_a0Test {

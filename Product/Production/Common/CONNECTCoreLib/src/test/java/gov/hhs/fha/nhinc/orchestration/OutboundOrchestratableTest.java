@@ -35,7 +35,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class OutboundOrchestratableTest {
@@ -100,8 +100,7 @@ public class OutboundOrchestratableTest {
             return null;
         }
 
-        public AssertionType getAssertion()
-        {
+        public AssertionType getAssertion() {
             return null;
         }
 
@@ -113,11 +112,11 @@ public class OutboundOrchestratableTest {
             return null;
         }
 
-		@Override
-		public OutboundDelegate getDelegate() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+        @Override
+        public OutboundDelegate getDelegate() {
+            // TODO Auto-generated method stub
+            return null;
+        }
     }
 
 }

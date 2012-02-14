@@ -31,8 +31,7 @@ package gov.hhs.fha.nhinc.connectmgr.data;
  * @version 1.0
  * @created 20-Oct-2008 12:06:57 PM
  */
-public class CMContact
-{
+public class CMContact {
 
     private CMContactDescriptions descriptions = null;
     private CMPersonNames personNames = null;
@@ -43,16 +42,14 @@ public class CMContact
     /**
      * Default Constructor.
      */
-    public CMContact()
-    {
+    public CMContact() {
         clear();
     }
 
     /**
      * Clear the contents of this and set it to a default state.
      */
-    public void clear()
-    {
+    public void clear() {
         descriptions = null;
         personNames = null;
         phones = null;
@@ -61,52 +58,43 @@ public class CMContact
     }
 
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
+     * Returns true of the contents of the object are the same as the one passed in.
      * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMContact oCompare)
-    {
-        if (!this.descriptions.equals(oCompare.descriptions))
-        {
+    public boolean equals(CMContact oCompare) {
+        if (!this.descriptions.equals(oCompare.descriptions)) {
             return false;
         }
-        
-        if (!this.personNames.equals(oCompare.personNames))
-        {
+
+        if (!this.personNames.equals(oCompare.personNames)) {
             return false;
         }
-        
-        if (!this.phones.equals(oCompare.phones))
-        {
+
+        if (!this.phones.equals(oCompare.phones)) {
             return false;
         }
-        
-        if (!this.emails.equals(oCompare.emails))
-        {
+
+        if (!this.emails.equals(oCompare.emails)) {
             return false;
         }
-        
-        if (!this.addresses.equals(oCompare.addresses))
-        {
+
+        if (!this.addresses.equals(oCompare.addresses)) {
             return false;
         }
-        
+
         // If we got here then everything is the same...
-        //----------------------------------------------
+        // ----------------------------------------------
         return true;
     }
-    
 
     /**
      * Returns the list of addresses for this contact.
      * 
      * @return The list of addresses for this contact.
      */
-    public CMAddresses getAddresses()
-    {
+    public CMAddresses getAddresses() {
         return addresses;
     }
 
@@ -115,8 +103,7 @@ public class CMContact
      * 
      * @param addresses The list of addresses for this contact.
      */
-    public void setAddresses(CMAddresses addresses)
-    {
+    public void setAddresses(CMAddresses addresses) {
         this.addresses = addresses;
     }
 
@@ -125,8 +112,7 @@ public class CMContact
      * 
      * @return The set of descriptions for this contact.
      */
-    public CMContactDescriptions getDescriptions()
-    {
+    public CMContactDescriptions getDescriptions() {
         return descriptions;
     }
 
@@ -135,8 +121,7 @@ public class CMContact
      * 
      * @param descriptions The set of descriptions for this contact.
      */
-    public void setDescriptions(CMContactDescriptions descriptions)
-    {
+    public void setDescriptions(CMContactDescriptions descriptions) {
         this.descriptions = descriptions;
     }
 
@@ -145,8 +130,7 @@ public class CMContact
      * 
      * @return The email addresses for this contact.
      */
-    public CMEmails getEmails()
-    {
+    public CMEmails getEmails() {
         return emails;
     }
 
@@ -155,8 +139,7 @@ public class CMContact
      * 
      * @param emails The email addresses for this contact.
      */
-    public void setEmails(CMEmails emails)
-    {
+    public void setEmails(CMEmails emails) {
         this.emails = emails;
     }
 
@@ -165,8 +148,7 @@ public class CMContact
      * 
      * @return The names for this contact.
      */
-    public CMPersonNames getPersonNames()
-    {
+    public CMPersonNames getPersonNames() {
         return personNames;
     }
 
@@ -175,8 +157,7 @@ public class CMContact
      * 
      * @return The names for this contact.
      */
-    public void setPersonNames(CMPersonNames personNames)
-    {
+    public void setPersonNames(CMPersonNames personNames) {
         this.personNames = personNames;
     }
 
@@ -185,8 +166,7 @@ public class CMContact
      * 
      * @return The phone numbers for this contact.
      */
-    public CMPhones getPhones()
-    {
+    public CMPhones getPhones() {
         return phones;
     }
 
@@ -195,8 +175,7 @@ public class CMContact
      * 
      * @param phones The phone numbers for this contact.
      */
-    public void setPhones(CMPhones phones)
-    {
+    public void setPhones(CMPhones phones) {
         this.phones = phones;
     }
 }

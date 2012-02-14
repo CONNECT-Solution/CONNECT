@@ -36,28 +36,29 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryOrchImpl;
+
 /**
- *
+ * 
  * @author mflynn02
  */
 public class AuditRepositoryProxyJavaImpl implements AuditRepositoryProxy {
-   private Log log = null;
+    private Log log = null;
 
-    public AuditRepositoryProxyJavaImpl()
-    {
+    public AuditRepositoryProxyJavaImpl() {
         log = createLogger();
     }
-    protected Log createLogger()
-    {
+
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
     protected AuditRepositoryOrchImpl getAuditRepositoryOrchImpl() {
         return new AuditRepositoryOrchImpl();
     }
+
     /**
      * Performs a query to the audit repository.
-     *
+     * 
      * @param request Audit query search criteria.
      * @return List of Audit records that match the search criteria along with a list of referenced communities.
      */
@@ -67,7 +68,7 @@ public class AuditRepositoryProxyJavaImpl implements AuditRepositoryProxy {
 
     /**
      * Logs an audit record to the audit repository.
-     *
+     * 
      * @param request Audit record
      * @return Repsonse that is a simple ack.
      */
@@ -77,10 +78,9 @@ public class AuditRepositoryProxyJavaImpl implements AuditRepositoryProxy {
         securedRequest.setAuditMessage(request.getAuditMessage());
         securedRequest.setDirection(request.getDirection());
         securedRequest.setInterface(request.getInterface());
-        
+
         return getAuditRepositoryOrchImpl().logAudit(securedRequest, assertion);
 
     }
-
 
 }

@@ -39,14 +39,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class AdapterPEPServiceTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class AdapterPEPServiceTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -55,24 +53,18 @@ public class AdapterPEPServiceTest
     final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
 
     @Test
-    public void testGetAdapterPEPServiceImpl()
-    {
-        try
-        {
-            AdapterPEPService sut = new AdapterPEPService()
-            {
+    public void testGetAdapterPEPServiceImpl() {
+        try {
+            AdapterPEPService sut = new AdapterPEPService() {
                 @Override
-                protected AdapterPEPServiceImpl getAdapterPEPServiceImpl()
-                {
+                protected AdapterPEPServiceImpl getAdapterPEPServiceImpl() {
                     return mockServiceImpl;
                 }
             };
 
             AdapterPEPServiceImpl serviceImpl = sut.getAdapterPEPServiceImpl();
             assertNotNull("AdapterPEPServiceImpl was null", serviceImpl);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetAdapterPEPServiceImpl: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetAdapterPEPServiceImpl: " + t.getMessage());
@@ -80,24 +72,18 @@ public class AdapterPEPServiceTest
     }
 
     @Test
-    public void testGetWebServiceContext()
-    {
-        try
-        {
-            AdapterPEPService sut = new AdapterPEPService()
-            {
+    public void testGetWebServiceContext() {
+        try {
+            AdapterPEPService sut = new AdapterPEPService() {
                 @Override
-                protected WebServiceContext getWebServiceContext()
-                {
+                protected WebServiceContext getWebServiceContext() {
                     return mockWebServiceContext;
                 }
             };
 
             WebServiceContext wsContext = sut.getWebServiceContext();
             assertNotNull("WebServiceContext was null", wsContext);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetWebServiceContext: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetWebServiceContext: " + t.getMessage());
@@ -105,27 +91,23 @@ public class AdapterPEPServiceTest
     }
 
     @Test
-    public void testCheckPolicy()
-    {
-        try
-        {
-            AdapterPEPService sut = new AdapterPEPService()
-            {
+    public void testCheckPolicy() {
+        try {
+            AdapterPEPService sut = new AdapterPEPService() {
                 @Override
-                protected AdapterPEPServiceImpl getAdapterPEPServiceImpl()
-                {
+                protected AdapterPEPServiceImpl getAdapterPEPServiceImpl() {
                     return mockServiceImpl;
                 }
+
                 @Override
-                protected WebServiceContext getWebServiceContext()
-                {
+                protected WebServiceContext getWebServiceContext() {
                     return mockWebServiceContext;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
-                    oneOf(mockServiceImpl).checkPolicy(with(aNonNull(CheckPolicyRequestType.class)), with(aNonNull(WebServiceContext.class)));
+                    oneOf(mockServiceImpl).checkPolicy(with(aNonNull(CheckPolicyRequestType.class)),
+                            with(aNonNull(WebServiceContext.class)));
                 }
             });
 
@@ -133,9 +115,7 @@ public class AdapterPEPServiceTest
 
             CheckPolicyResponseType response = sut.checkPolicy(request);
             assertNotNull("CheckPolicyResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCheckPolicy: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCheckPolicy: " + t.getMessage());

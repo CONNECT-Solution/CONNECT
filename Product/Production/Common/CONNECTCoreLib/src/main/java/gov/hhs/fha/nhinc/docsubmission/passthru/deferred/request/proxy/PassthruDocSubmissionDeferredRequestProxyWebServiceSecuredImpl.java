@@ -41,10 +41,11 @@ import org.apache.commons.logging.LogFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class PassthruDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implements PassthruDocSubmissionDeferredRequestProxy {
+public class PassthruDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implements
+        PassthruDocSubmissionDeferredRequestProxy {
 
     private Log log = null;
     private static Service cachedService = null;
@@ -70,18 +71,21 @@ public class PassthruDocSubmissionDeferredRequestProxyWebServiceSecuredImpl impl
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected ProxyXDRSecuredAsyncRequestPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected ProxyXDRSecuredAsyncRequestPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         ProxyXDRSecuredAsyncRequestPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), ProxyXDRSecuredAsyncRequestPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            port = service
+                    .getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), ProxyXDRSecuredAsyncRequestPortType.class);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -90,7 +94,7 @@ public class PassthruDocSubmissionDeferredRequestProxyWebServiceSecuredImpl impl
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -104,39 +108,32 @@ public class PassthruDocSubmissionDeferredRequestProxyWebServiceSecuredImpl impl
         return cachedService;
     }
 
-
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin provideAndRegisterDocumentSetBAsyncRequest");
         XDRAcknowledgementType response = null;
 
-        try
-        {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.NHINC_PROXY_XDR_REQUEST_SECURED_SERVICE_NAME);
-            ProxyXDRSecuredAsyncRequestPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
+        try {
+            String url = oProxyHelper
+                    .getUrlLocalHomeCommunity(NhincConstants.NHINC_PROXY_XDR_REQUEST_SECURED_SERVICE_NAME);
+            ProxyXDRSecuredAsyncRequestPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION,
+                    assertion);
 
-            if(request == null)
-            {
+            if (request == null) {
                 log.error("Message was null");
-            }
-            else if (targetSystem == null)
-            {
+            } else if (targetSystem == null) {
                 log.error("targetSystem was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType msg = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
                 msg.setProvideAndRegisterDocumentSetRequest(request);
                 msg.setNhinTargetSystem(targetSystem);
 
-                response = (XDRAcknowledgementType)oProxyHelper.invokePort(port, ProxyXDRSecuredAsyncRequestPortType.class, "provideAndRegisterDocumentSetBAsyncRequest", msg);
+                response = (XDRAcknowledgementType) oProxyHelper.invokePort(port,
+                        ProxyXDRSecuredAsyncRequestPortType.class, "provideAndRegisterDocumentSetBAsyncRequest", msg);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetBAsyncRequest: " + ex.getMessage(), ex);
             response = new XDRAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();

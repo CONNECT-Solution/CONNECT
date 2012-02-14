@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.proxy;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -40,10 +41,10 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmissionProxy{
+public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmissionProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:ihe:iti:xdr:2007";
@@ -68,18 +69,20 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected DocumentRepositoryXDRPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected DocumentRepositoryXDRPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         DocumentRepositoryXDRPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), DocumentRepositoryXDRPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -88,7 +91,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -103,38 +106,31 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
     }
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
-            AssertionType assertion, NhinTargetSystemType targetSystem)
-    {
+            AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin provideAndRegisterDocumentSetB");
         RegistryResponseType response = new RegistryResponseType();
 
-        try
-        {
-            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, NhincConstants.NHINC_XDR_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
-            DocumentRepositoryXDRPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
+        try {
+            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
+                    NhincConstants.NHINC_XDR_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+            DocumentRepositoryXDRPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION,
+                    assertion);
 
-            if(request == null)
-            {
+            if (request == null) {
                 log.error("Message was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
+            } else {
+                response = (RegistryResponseType) oProxyHelper.invokePort(port, DocumentRepositoryXDRPortType.class,
+                        "documentRepositoryProvideAndRegisterDocumentSetB", request);
             }
-            else
-            {
-                response = (RegistryResponseType)oProxyHelper.invokePort(port, DocumentRepositoryXDRPortType.class, "documentRepositoryProvideAndRegisterDocumentSetB", request);
-            }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling documentRepositoryProvideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
         }
 
         log.debug("End provideAndRegisterDocumentSetB");
         return response;
 
-        
     }
 
 }

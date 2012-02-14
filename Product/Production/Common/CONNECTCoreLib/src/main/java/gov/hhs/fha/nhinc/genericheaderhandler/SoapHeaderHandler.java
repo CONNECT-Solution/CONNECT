@@ -35,35 +35,32 @@ import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 /**
- *
+ * 
  * @author rayj
  */
-public class SoapHeaderHandler implements SOAPHandler<SOAPMessageContext>
-{
+public class SoapHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SoapHeaderHandler.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(SoapHeaderHandler.class);
 
-    public Set<QName> getHeaders()
-    {
+    public Set<QName> getHeaders() {
         log.debug("SoapHeaderHandler.getHeaders");
         return Collections.EMPTY_SET;
     }
 
-    public boolean handleMessage(SOAPMessageContext context)
-    {
+    public boolean handleMessage(SOAPMessageContext context) {
         log.debug("SoapHeaderHandler.handleMessage");
-        new gov.hhs.fha.nhinc.hiem.dte.SoapUtil().extractReferenceParameters(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
+        new gov.hhs.fha.nhinc.hiem.dte.SoapUtil().extractReferenceParameters(context,
+                NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
         return true;
     }
 
-    public boolean handleFault(SOAPMessageContext context)
-    {
+    public boolean handleFault(SOAPMessageContext context) {
         log.warn("SoapHeaderHandler.handleFault");
         return true;
     }
 
-    public void close(MessageContext context)
-    {
+    public void close(MessageContext context) {
         log.debug("SoapHeaderHandler.close");
     }
 }

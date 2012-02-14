@@ -31,11 +31,12 @@ import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExt
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class TopicFilterFactory {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(TopicFilterFactory.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(TopicFilterFactory.class);
 
     public static ITopicFilterStrategy getTopicFilterStrategy(String dialect) throws SubscriptionRepositoryException {
         ITopicFilterStrategy topicFilterStategy = null;
@@ -50,7 +51,8 @@ public class TopicFilterFactory {
             ITopicComparison topicComparison = TopicComparisonFactory.getTopicComparisonStrategy(dialect);
             topicFilterStategy = new TopicFilterBasicComparisonStrategy(topicComparison);
         } else if (dialect.contentEquals(RootTopicExtractor.DIALECT_CONCRETE_MISSPELLED)) {
-            log.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + RootTopicExtractor.DIALECT_CONCRETE + "'");
+            log.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + RootTopicExtractor.DIALECT_CONCRETE
+                    + "'");
             ITopicComparison topicComparison = TopicComparisonFactory.getTopicComparisonStrategy(dialect);
             topicFilterStategy = new TopicFilterBasicComparisonStrategy(topicComparison);
         } else if (dialect.contentEquals(RootTopicExtractor.DIALECT_FULL)) {

@@ -31,10 +31,11 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
- *
+ * 
  * @author rayj
  */
 public interface AdapterComponentDocRepositoryProxy {
-    public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType retrieveDocumentSetRequestType, AssertionType assertion);
+    public RetrieveDocumentSetResponseType retrieveDocument(
+            RetrieveDocumentSetRequestType retrieveDocumentSetRequestType, AssertionType assertion);
 
 }

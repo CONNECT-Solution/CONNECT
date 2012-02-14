@@ -39,7 +39,7 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
@@ -118,8 +118,7 @@ public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
         // Do nothing
     }
 
-    private static SOAPElement getFirstChild(SOAPHeader header, String name,
-            String ns) {
+    private static SOAPElement getFirstChild(SOAPHeader header, String name, String ns) {
         SOAPElement result = null;
         QName qname = new QName(ns, name);
         Iterator iter = header.getChildElements(qname);

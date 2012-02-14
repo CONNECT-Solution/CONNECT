@@ -72,7 +72,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author vvickers
  */
 @RunWith(JMock.class)
@@ -114,15 +114,13 @@ public class UDDIAccessorTest {
         UDDIAccessor accessor = new UDDIAccessor() {
 
             @Override
-            protected CMBusinessEntity findSpecificBusiness(
-                    List<CMBusinessEntity> oaEntities, String sBusinessKey) {
+            protected CMBusinessEntity findSpecificBusiness(List<CMBusinessEntity> oaEntities, String sBusinessKey) {
                 // For the test return the first one provided in the list
                 return oaEntities.get(0);
             }
 
             @Override
-            protected List<String> findAndGetValueFromKeyedReference(
-                    List<KeyedReference> oaKeys, String sDesiredKey) {
+            protected List<String> findAndGetValueFromKeyedReference(List<KeyedReference> oaKeys, String sDesiredKey) {
                 List<String> retServiceNames = new ArrayList<String>();
                 retServiceNames.add("service1");
                 return retServiceNames;
@@ -144,37 +142,32 @@ public class UDDIAccessorTest {
 
         // CMBusinessEntity has been created with one CMBusinessService
         // and populated with test data
-        CMBusinessService testBusinessService =
-                testBusinessEntities.getBusinessEntity().get(0).
-                getBusinessServices().getBusinessService().get(0);
+        CMBusinessService testBusinessService = testBusinessEntities.getBusinessEntity().get(0).getBusinessServices()
+                .getBusinessService().get(0);
 
         // Test that the accessor populates the business entity
         // with a single service with the name service1
-        accessor.populateUniformServiceNameAndReplicateService(testUDDIService,
-                testBusinessEntities, testBusinessService);
-        assertNotNull("Returned Business Entities was null",
-                testBusinessEntities);
+        accessor.populateUniformServiceNameAndReplicateService(testUDDIService, testBusinessEntities,
+                testBusinessService);
+        assertNotNull("Returned Business Entities was null", testBusinessEntities);
         if (testBusinessEntities != null) {
-            assertNotNull("Returned Business Entity list was null",
-                    testBusinessEntities.getBusinessEntity());
+            assertNotNull("Returned Business Entity list was null", testBusinessEntities.getBusinessEntity());
             if (testBusinessEntities.getBusinessEntity() != null) {
                 assertTrue("A single business entity was not returned",
                         testBusinessEntities.getBusinessEntity().size() == 1);
                 if (testBusinessEntities.getBusinessEntity().size() == 1) {
-                    CMBusinessEntity businessEntity =
-                            testBusinessEntities.getBusinessEntity().get(0);
+                    CMBusinessEntity businessEntity = testBusinessEntities.getBusinessEntity().get(0);
                     if (businessEntity != null) {
-                        assertNotNull("Returned Business Services was null",
-                                businessEntity.getBusinessServices());
+                        assertNotNull("Returned Business Services was null", businessEntity.getBusinessServices());
                         if (businessEntity.getBusinessServices() != null) {
-                            assertNotNull("Returned Business Service list was null",
-                                    businessEntity.getBusinessServices().getBusinessService());
+                            assertNotNull("Returned Business Service list was null", businessEntity
+                                    .getBusinessServices().getBusinessService());
                             if (businessEntity.getBusinessServices().getBusinessService() != null) {
-                                assertTrue("A single business service was not returned",
-                                        businessEntity.getBusinessServices().getBusinessService().size() == 1);
+                                assertTrue("A single business service was not returned", businessEntity
+                                        .getBusinessServices().getBusinessService().size() == 1);
                                 if (businessEntity.getBusinessServices().getBusinessService().size() == 1) {
-                                    CMBusinessService businessService =
-                                            businessEntity.getBusinessServices().getBusinessService().get(0);
+                                    CMBusinessService businessService = businessEntity.getBusinessServices()
+                                            .getBusinessService().get(0);
                                     assertEquals("Service name mismatch -", "service1",
                                             businessService.getUniformServiceName());
                                 }
@@ -187,8 +180,7 @@ public class UDDIAccessorTest {
     }
 
     /**
-     * Test of populateUniformServiceName of UDDIAccessor class for a
-     * multiple service name entry
+     * Test of populateUniformServiceName of UDDIAccessor class for a multiple service name entry
      */
     @Test
     public void testPopulateMultipleUniformServiceName() {
@@ -226,38 +218,34 @@ public class UDDIAccessorTest {
 
         // CMBusinessEntity has been created with one CMBusinessService
         // and populated with test data
-        CMBusinessService testBusinessService =
-                testBusinessEntities.getBusinessEntity().get(0).
-                getBusinessServices().getBusinessService().get(0);
+        CMBusinessService testBusinessService = testBusinessEntities.getBusinessEntity().get(0).getBusinessServices()
+                .getBusinessService().get(0);
 
-        // Test that the accessor populates the business entity with 
+        // Test that the accessor populates the business entity with
         // three services with the names service1, service2, and service3
         // as set above in the override
-        accessor.populateUniformServiceNameAndReplicateService(testUDDIService,
-                testBusinessEntities, testBusinessService);
+        accessor.populateUniformServiceNameAndReplicateService(testUDDIService, testBusinessEntities,
+                testBusinessService);
         assertNotNull("Returned Business Entities was null", testBusinessEntities);
         if (testBusinessEntities != null) {
-            assertNotNull("Returned Business Entity list was null",
-                    testBusinessEntities.getBusinessEntity());
+            assertNotNull("Returned Business Entity list was null", testBusinessEntities.getBusinessEntity());
             if (testBusinessEntities.getBusinessEntity() != null) {
                 assertTrue("A single business entity was not returned",
                         testBusinessEntities.getBusinessEntity().size() == 1);
                 if (testBusinessEntities.getBusinessEntity().size() == 1) {
-                    CMBusinessEntity businessEntity =
-                            testBusinessEntities.getBusinessEntity().get(0);
+                    CMBusinessEntity businessEntity = testBusinessEntities.getBusinessEntity().get(0);
                     if (businessEntity != null) {
-                        assertNotNull("Returned Business Services was null",
-                                businessEntity.getBusinessServices());
+                        assertNotNull("Returned Business Services was null", businessEntity.getBusinessServices());
                         if (businessEntity.getBusinessServices() != null) {
-                            assertNotNull("Returned Business Service list was null",
-                                    businessEntity.getBusinessServices().getBusinessService());
+                            assertNotNull("Returned Business Service list was null", businessEntity
+                                    .getBusinessServices().getBusinessService());
                             if (businessEntity.getBusinessServices().getBusinessService() != null) {
-                                assertTrue("Three business services were not returned",
-                                        businessEntity.getBusinessServices().getBusinessService().size() == 3);
+                                assertTrue("Three business services were not returned", businessEntity
+                                        .getBusinessServices().getBusinessService().size() == 3);
                                 if (businessEntity.getBusinessServices().getBusinessService().size() == 3) {
                                     for (int i = 0; i < 3; i++) {
-                                        CMBusinessService businessService =
-                                                businessEntity.getBusinessServices().getBusinessService().get(i);
+                                        CMBusinessService businessService = businessEntity.getBusinessServices()
+                                                .getBusinessService().get(i);
                                         assertEquals("Service name mismatch -", "service" + (i + 1),
                                                 businessService.getUniformServiceName());
                                     }
@@ -272,7 +260,7 @@ public class UDDIAccessorTest {
 
     /**
      * Create a generic Business Service filled with test data
-     *
+     * 
      * @return The test Business Service
      */
     private BusinessService generateTestBusinessService() {
@@ -320,7 +308,7 @@ public class UDDIAccessorTest {
 
     /**
      * Create a generic Business Entity filled with test data
-     *
+     * 
      * @return The test Business Entity
      */
     private CMBusinessEntity generateTestCMBusinessEntity() {
@@ -389,7 +377,7 @@ public class UDDIAccessorTest {
 
     /**
      * Create a generic CMBusiness Service filled with test data
-     *
+     * 
      * @return The test CMBusiness Service
      */
     private CMBusinessService generateTestCMBusinessService() {

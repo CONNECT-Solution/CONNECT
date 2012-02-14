@@ -39,42 +39,47 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class EntityDocRetrieveDeferredResponseImpl {
 
     /**
-     *
+     * 
      * @param crossGatewayRetrieveResponse
      * @param context
      * @return DocRetrieveAcknowledgementType
      */
-    protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse, WebServiceContext context) {
+    protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(
+            RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse, WebServiceContext context) {
 
         AssertionType assertion = extractAssertionFromContext(context, crossGatewayRetrieveResponse.getAssertion());
-        RetrieveDocumentSetResponseType retrieveDocumentSetResponse = crossGatewayRetrieveResponse.getRetrieveDocumentSetResponse();
+        RetrieveDocumentSetResponseType retrieveDocumentSetResponse = crossGatewayRetrieveResponse
+                .getRetrieveDocumentSetResponse();
         NhinTargetCommunitiesType nhinTarget = crossGatewayRetrieveResponse.getNhinTargetCommunities();
 
-        return new EntityDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTarget);
+        return new EntityDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse,
+                assertion, nhinTarget);
     }
 
     /**
-     *
+     * 
      * @param body
      * @return DocRetrieveAcknowledgementType
      */
-    protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, WebServiceContext context) {
+    protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(
+            RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, WebServiceContext context) {
 
         AssertionType assertion = extractAssertionFromContext(context, null);
         RetrieveDocumentSetResponseType retrieveDocumentSetResponse = body.getRetrieveDocumentSetResponse();
         NhinTargetCommunitiesType nhinTarget = body.getNhinTargetCommunities();
 
-        return new EntityDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse, assertion, nhinTarget);
+        return new EntityDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(retrieveDocumentSetResponse,
+                assertion, nhinTarget);
     }
 
     /**
-     *
+     * 
      * @param context
      * @param oAssertionIn
      * @return AssertionType

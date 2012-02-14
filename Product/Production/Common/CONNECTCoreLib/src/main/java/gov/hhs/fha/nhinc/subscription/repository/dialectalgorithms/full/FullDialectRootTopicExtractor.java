@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import org.w3c.dom.Node;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class FullDialectRootTopicExtractor implements IRootTopicExtractionStrategy {

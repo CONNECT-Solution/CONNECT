@@ -59,7 +59,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Hibernate;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class NhinDocSubmissionDeferredRequestOrchImpl {
@@ -68,14 +68,15 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
     private static final Log logger = LogFactory.getLog(NhinDocSubmissionDeferredRequestOrchImpl.class);
 
     /**
-     *
+     * 
      * @return
      */
     protected Log getLogger() {
         return logger;
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion) {
 
         XDRAcknowledgementType result = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
@@ -84,7 +85,8 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
 
         getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
 
-        AcknowledgementType ack = getXDRAuditLogger().auditNhinXDR(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        AcknowledgementType ack = getXDRAuditLogger().auditNhinXDR(body, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         getLogger().debug("Audit Log Ack Message:" + ack.getMessage());
 
@@ -104,32 +106,26 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
                     getLogger().error("Policy Check Failed");
                     result = sendErrorToAgency(body, assertion, "Policy Check Failed");
                 }
-            }
-            else {
+            } else {
                 result = forwardToAgency(body, assertion);
             }
-        }
-        else {
+        } else {
             getLogger().warn("Document Submission Request Service is not enabled");
             result = sendErrorToAgency(body, assertion, "Policy Check Failed");
         }
-        ack = getXDRAuditLogger().auditAcknowledgement(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
+        ack = getXDRAuditLogger().auditAcknowledgement(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.XDR_REQUEST_ACTION);
 
         getLogger().debug("Audit Log Ack Message for Outbound Acknowledgement:" + ack.getMessage());
 
-        logger.debug(
-                "Exiting provideAndRegisterDocumentSetBRequest");
-
-
-
-
+        logger.debug("Exiting provideAndRegisterDocumentSetBRequest");
 
         return result;
     }
 
     /**
      * Checks the gateway.properties file to see if the Patient Discovery Async Request Service is enabled.
-     *
+     * 
      * @return Returns true if the servicePatientDiscoveryAsyncReq is enabled in the properties file.
      */
     protected boolean isServiceEnabled() {
@@ -137,8 +133,8 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
     }
 
     /**
-     * Checks to see if the query should  be handled internally or passed through to an adapter.
-     *
+     * Checks to see if the query should be handled internally or passed through to an adapter.
+     * 
      * @return Returns true if the patientDiscoveryPassthroughAsyncReq property of the gateway.properties file is true.
      */
     protected boolean isInPassThroughMode() {
@@ -146,13 +142,14 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
     }
 
     /**
-     *
+     * 
      * @return
      */
     protected String retrieveHomeCommunityID() {
         String localHCID = null;
         try {
-            localHCID = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            localHCID = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             logger.error("Exception while retrieving home community ID", ex);
         }
@@ -161,7 +158,7 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
     }
 
     /**
-     *
+     * 
      * @return
      */
     protected XDRAuditLogger getXDRAuditLogger() {
@@ -169,12 +166,13 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param body
      * @param context
      * @return
      */
-    protected XDRAcknowledgementType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+    protected XDRAcknowledgementType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion) {
         getLogger().debug("Entering forwardToAgency");
 
         AdapterDocSubmissionDeferredRequestProxyObjectFactory factory = new AdapterDocSubmissionDeferredRequestProxyObjectFactory();
@@ -188,10 +186,12 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
         return response;
     }
 
-    protected XDRAcknowledgementType sendErrorToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, String errMsg) {
+    protected XDRAcknowledgementType sendErrorToAgency(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion, String errMsg) {
 
         AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory factory = new AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory();
-        AdapterDocSubmissionDeferredRequestErrorProxy proxy = factory.getAdapterDocSubmissionDeferredRequestErrorProxy();
+        AdapterDocSubmissionDeferredRequestErrorProxy proxy = factory
+                .getAdapterDocSubmissionDeferredRequestErrorProxy();
 
         XDRAcknowledgementType adapterResp = proxy.provideAndRegisterDocumentSetBRequestError(body, errMsg, assertion);
 
@@ -199,22 +199,23 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param newRequest
      * @param assertion
      * @param senderHCID
      * @param receiverHCID
      * @return
      */
-    protected boolean isPolicyOk(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, String senderHCID, String receiverHCID) {
+    protected boolean isPolicyOk(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+            String senderHCID, String receiverHCID) {
 
         boolean isPolicyOk = false;
 
         getLogger().debug("Check policy");
 
         XDRPolicyChecker policyChecker = new XDRPolicyChecker();
-        isPolicyOk =
-                policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID, receiverHCID, NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+        isPolicyOk = policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID, receiverHCID,
+                NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
 
         getLogger().debug("Response from policy engine: " + isPolicyOk);
 
@@ -247,12 +248,10 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
             byte[] buffer = baOutStrm.toByteArray();
             logger.debug("Byte Array: " + baOutStrm.toString());
 
-            data =
-                    Hibernate.createBlob(buffer);
+            data = Hibernate.createBlob(buffer);
         }
 
         return data;
     }
-
 
 }

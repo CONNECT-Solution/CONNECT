@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class UDDIFindBusinessException extends Exception {
@@ -43,8 +43,8 @@ public class UDDIFindBusinessException extends Exception {
 
     /**
      * Constructor with an envloping exception.
-     *
-     * @param e  The exception that caused this one.
+     * 
+     * @param e The exception that caused this one.
      */
     public UDDIFindBusinessException(Exception e) {
         super(e);
@@ -52,7 +52,7 @@ public class UDDIFindBusinessException extends Exception {
 
     /**
      * Constructor with the given exception and message.
-     *
+     * 
      * @param sMessage The message to place in the exception.
      * @param e The exception that triggered this one.
      */
@@ -62,7 +62,7 @@ public class UDDIFindBusinessException extends Exception {
 
     /**
      * Constructor with a given message.
-     *
+     * 
      * @param sMessage The message for the exception.
      */
     public UDDIFindBusinessException(String sMessage) {

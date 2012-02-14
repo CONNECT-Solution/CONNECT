@@ -13,15 +13,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class NhinXDRRequestImpl
-{
+public class NhinXDRRequestImpl {
     private static Log log = LogFactory.getLog(NhinXDRRequestImpl.class);
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         log.debug("In NhinXDRRequestImpl for interface test helper service.");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

@@ -39,29 +39,26 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-
 /**
- *
+ * 
  * @author Ralph Saunders
  */
 public class AdapterDocRetrieveDeferredReqErrorOrchImpl {
     private Log log = null;
 
-    public AdapterDocRetrieveDeferredReqErrorOrchImpl()
-    {
+    public AdapterDocRetrieveDeferredReqErrorOrchImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(AdapterDocumentRetrieveDeferredRequestErrorType body, AssertionType assertion, String errMsg)
-    {
+    public DocRetrieveAcknowledgementType respondingGatewayCrossGatewayRetrieve(
+            AdapterDocumentRetrieveDeferredRequestErrorType body, AssertionType assertion, String errMsg) {
         log.debug("Enter AdapterDocRetrieveDeferredReqErrorImpl.respondingGatewayCrossGatewayRetrieve()");
         DocRetrieveAcknowledgementType response = null;
-        RegistryResponseType           responseType;
+        RegistryResponseType responseType;
 
         response = new DocRetrieveAcknowledgementType();
         responseType = new RegistryResponseType();

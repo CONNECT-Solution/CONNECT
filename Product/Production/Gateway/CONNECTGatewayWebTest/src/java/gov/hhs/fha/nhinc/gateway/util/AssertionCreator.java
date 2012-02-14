@@ -17,11 +17,9 @@ import java.io.IOException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
- * Constructs a SAML AssertionType for testing
- * This class was taken from the connect universal client
- *
+ * Constructs a SAML AssertionType for testing This class was taken from the connect universal client
+ * 
  * @author paul
  */
 public class AssertionCreator {
@@ -60,11 +58,11 @@ public class AssertionCreator {
         assertOut.setUserInfo(user);
         assertOut.setPurposeOfDisclosureCoded(purposeCoded);
         assertOut.setHomeCommunity(userHc);
-        
+
         SamlAuthnStatementType auth = new SamlAuthnStatementType();
         assertOut.setSamlAuthnStatement(auth);
 
-        try{
+        try {
             Properties props = new Properties();
             props.load(getClass().getResourceAsStream(PROPERTY_FILE_NAME));
             userPerson.setGivenName(props.getProperty(PROPERTY_KEY_USER_FIRST));
@@ -83,18 +81,17 @@ public class AssertionCreator {
             purposeCoded.setCodeSystemName(props.getProperty(PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
             purposeCoded.setDisplayName(props.getProperty(PROPERTY_KEY_PURPOSE_DISPLAY));
 
-/*            assertOut.setDateOfSignature(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SIGN));
-            assertOut.setExpirationDate(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_EXPIRE));
-            assertOut.setClaimFormRef(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_CONTENT_REF));
-
-            byte[] binData = getBinaryClaimForm();
-            if (binData != null && binData.length > 0) {
-                assertOut.setClaimFormRaw(binData);
-            }
- */
-        }catch(IOException iex){
+            /*
+             * assertOut.setDateOfSignature(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SIGN));
+             * assertOut.setExpirationDate(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_EXPIRE));
+             * assertOut.setClaimFormRef(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_CONTENT_REF));
+             * 
+             * byte[] binData = getBinaryClaimForm(); if (binData != null && binData.length > 0) {
+             * assertOut.setClaimFormRaw(binData); }
+             */
+        } catch (IOException iex) {
             ExceptionDump.outputCompleteException(iex);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ExceptionDump.outputCompleteException(ex);
         }
         return assertOut;
@@ -125,9 +122,10 @@ public class AssertionCreator {
                     }
                     // Ensure all the bytes have been read in
                     if (offset < binOut.length) {
-                        log.error("AssertionCreator: Could only read " + offset + " of " + binOut.length + " bytes of file " + binFileName);
+                        log.error("AssertionCreator: Could only read " + offset + " of " + binOut.length
+                                + " bytes of file " + binFileName);
                     } else {
-                        log.debug ("Binary A27 form read: " + binOut.length + " bytes");
+                        log.debug("Binary A27 form read: " + binOut.length + " bytes");
                     }
                 } else {
                     log.error(binFileName + " file is too long to read");

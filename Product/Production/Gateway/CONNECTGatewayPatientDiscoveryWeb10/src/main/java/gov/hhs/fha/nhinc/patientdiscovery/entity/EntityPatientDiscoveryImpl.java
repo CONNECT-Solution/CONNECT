@@ -40,7 +40,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
- *
+ * 
  * @author shawc
  */
 public class EntityPatientDiscoveryImpl {
@@ -55,7 +55,7 @@ public class EntityPatientDiscoveryImpl {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor(){
+    protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
         // create the orch impl and pass in references to the executor services
         return new EntityPatientDiscoveryOrchImpl(InitServlet.getExecutorService(),
                 InitServlet.getLargeJobExecutorService());
@@ -65,7 +65,8 @@ public class EntityPatientDiscoveryImpl {
         return PerformanceManager.getPerformanceManagerInstance();
     }
 
-    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context) {
+    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
+            RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context) {
 
         log.debug("Entering EntityPatientDiscoverySecuredImpl.respondingGatewayPRPAIN201305UV02...");
 
@@ -85,7 +86,9 @@ public class EntityPatientDiscoveryImpl {
                 // Log the start of the performance record
                 String homeCommunityId = getLocalHomeCommunityId();
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = getPerformanceManager().logPerformanceStart(starttime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
+                Long logId = getPerformanceManager().logPerformanceStart(starttime,
+                        NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
 
                 response = processor.respondingGatewayPRPAIN201305UV02(request, assertion);
 
@@ -101,11 +104,12 @@ public class EntityPatientDiscoveryImpl {
         return response;
     }
 
-	protected String getLocalHomeCommunityId() {
-		return HomeCommunityMap.getLocalHomeCommunityId();
-	}
-    
-    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
+    protected String getLocalHomeCommunityId() {
+        return HomeCommunityMap.getLocalHomeCommunityId();
+    }
+
+    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
+            RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
 
         log.debug("Begin EntityPatientDiscoveryUnsecuredImpl.respondingGatewayPRPAIN201305UV02...");
 
@@ -120,9 +124,12 @@ public class EntityPatientDiscoveryImpl {
                 // Log the start of the performance record
                 String homeCommunityId = getLocalHomeCommunityId();
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = getPerformanceManager().logPerformanceStart(starttime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
+                Long logId = getPerformanceManager().logPerformanceStart(starttime,
+                        NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
 
-                response = processor.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request, respondingGatewayPRPAIN201305UV02Request.getAssertion());
+                response = processor.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request,
+                        respondingGatewayPRPAIN201305UV02Request.getAssertion());
 
                 // Log the end of the performance record
                 Timestamp stoptime = new Timestamp(System.currentTimeMillis());

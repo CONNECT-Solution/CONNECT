@@ -34,7 +34,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class PatientService {
@@ -51,6 +51,7 @@ public class PatientService {
 
     /**
      * Singleton instance returned...
+     * 
      * @return PatientService
      */
     public static PatientService getPatientService() {

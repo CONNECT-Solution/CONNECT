@@ -50,285 +50,245 @@ import static org.junit.Assert.*;
  */
 @RunWith(JMock.class)
 public class EntityPatientDiscoveryUnsecuredImplTest {
-	Mockery context = new JUnit4Mockery() {
-		{
-			setImposteriser(ClassImposteriser.INSTANCE);
-		}
-	};
-	final Log mockLog = context.mock(Log.class);
-	final EntityPatientDiscoveryOrchImpl mockEntityPatientDiscoveryProcessor = context
-			.mock(EntityPatientDiscoveryOrchImpl.class);
-	final PRPAIN201305UV02 mockPdMessage = context.mock(PRPAIN201305UV02.class);
-	final AssertionType mockAssertion = context.mock(AssertionType.class);
-	final NhinTargetCommunitiesType mockTargetCommunities = context
-			.mock(NhinTargetCommunitiesType.class);
-	final PerformanceManager mockPerformanceManager = context
-			.mock(PerformanceManager.class);
+    Mockery context = new JUnit4Mockery() {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
+    final Log mockLog = context.mock(Log.class);
+    final EntityPatientDiscoveryOrchImpl mockEntityPatientDiscoveryProcessor = context
+            .mock(EntityPatientDiscoveryOrchImpl.class);
+    final PRPAIN201305UV02 mockPdMessage = context.mock(PRPAIN201305UV02.class);
+    final AssertionType mockAssertion = context.mock(AssertionType.class);
+    final NhinTargetCommunitiesType mockTargetCommunities = context.mock(NhinTargetCommunitiesType.class);
+    final PerformanceManager mockPerformanceManager = context.mock(PerformanceManager.class);
 
-	@Test
-	public void testCreateLogger() {
-		try {
-			EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
-			};
-			context.checking(new Expectations() {
-				{
-					allowing(mockLog).debug(with(aNonNull(String.class)));
-				}
-			});
+    @Test
+    public void testCreateLogger() {
+        try {
+            EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
+                @Override
+                protected Log createLogger() {
+                    return mockLog;
+                }
+            };
+            context.checking(new Expectations() {
+                {
+                    allowing(mockLog).debug(with(aNonNull(String.class)));
+                }
+            });
 
-			Log log = pdUnsecuredImpl.createLogger();
-			assertNotNull("Log was null", log);
-		} catch (Throwable t) {
-			System.out.println("Error running testCreateLogger: "
-					+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testCreateLogger: " + t.getMessage());
-		}
-	}
+            Log log = pdUnsecuredImpl.createLogger();
+            assertNotNull("Log was null", log);
+        } catch (Throwable t) {
+            System.out.println("Error running testCreateLogger: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testCreateLogger: " + t.getMessage());
+        }
+    }
 
-	@Test
-	public void testGetEntityPatientDiscoveryProcessor() {
-		try {
-			EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+    @Test
+    public void testGetEntityPatientDiscoveryProcessor() {
+        try {
+            EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
+                @Override
+                protected Log createLogger() {
+                    return mockLog;
+                }
 
-				@Override
-				protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
-					return mockEntityPatientDiscoveryProcessor;
-				}
-			};
-			context.checking(new Expectations() {
-				{
-					allowing(mockLog).debug(with(aNonNull(String.class)));
-				}
-			});
+                @Override
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
+                    return mockEntityPatientDiscoveryProcessor;
+                }
+            };
+            context.checking(new Expectations() {
+                {
+                    allowing(mockLog).debug(with(aNonNull(String.class)));
+                }
+            });
 
-			EntityPatientDiscoveryOrchImpl processor = pdUnsecuredImpl
-					.getEntityPatientDiscoveryProcessor();
-			assertNotNull("EntityPatientDiscoveryProcessor was null", processor);
-		} catch (Throwable t) {
-			System.out
-					.println("Error running testGetEntityPatientDiscoveryProcessor: "
-							+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testGetEntityPatientDiscoveryProcessor: "
-					+ t.getMessage());
-		}
-	}
+            EntityPatientDiscoveryOrchImpl processor = pdUnsecuredImpl.getEntityPatientDiscoveryProcessor();
+            assertNotNull("EntityPatientDiscoveryProcessor was null", processor);
+        } catch (Throwable t) {
+            System.out.println("Error running testGetEntityPatientDiscoveryProcessor: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetEntityPatientDiscoveryProcessor: " + t.getMessage());
+        }
+    }
 
-	@Test
-	public void testRespondingGatewayPRPAIN201305UV02Happy() {
-		try {
-			EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+    @Test
+    public void testRespondingGatewayPRPAIN201305UV02Happy() {
+        try {
+            EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
+                @Override
+                protected Log createLogger() {
+                    return mockLog;
+                }
 
-				@Override
-				protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
-					return mockEntityPatientDiscoveryProcessor;
-				}
+                @Override
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
+                    return mockEntityPatientDiscoveryProcessor;
+                }
 
-				@Override
-				protected PerformanceManager getPerformanceManager() {
-					return mockPerformanceManager;
-				}
-			};
-			context.checking(new Expectations() {
-				{
-					allowing(mockLog).debug(with(aNonNull(String.class)));
-					oneOf(mockEntityPatientDiscoveryProcessor)
-							.respondingGatewayPRPAIN201305UV02(
-									with(aNonNull(RespondingGatewayPRPAIN201305UV02RequestType.class)),
-									with(aNonNull(AssertionType.class)));
-					oneOf(mockPerformanceManager).logPerformanceStart(
-							with(aNonNull(Timestamp.class)),
-							with(aNonNull(String.class)),
-							with(aNonNull(String.class)),
-							with(aNonNull(String.class)),
-							with(any(String.class)));
-					oneOf(mockPerformanceManager).logPerformanceStop(
-							with(aNonNull(Long.class)),
-							with(aNonNull(Timestamp.class)),
-							with(aNonNull(Timestamp.class)));
-				}
-			});
+                @Override
+                protected PerformanceManager getPerformanceManager() {
+                    return mockPerformanceManager;
+                }
+            };
+            context.checking(new Expectations() {
+                {
+                    allowing(mockLog).debug(with(aNonNull(String.class)));
+                    oneOf(mockEntityPatientDiscoveryProcessor).respondingGatewayPRPAIN201305UV02(
+                            with(aNonNull(RespondingGatewayPRPAIN201305UV02RequestType.class)),
+                            with(aNonNull(AssertionType.class)));
+                    oneOf(mockPerformanceManager).logPerformanceStart(with(aNonNull(Timestamp.class)),
+                            with(aNonNull(String.class)), with(aNonNull(String.class)), with(aNonNull(String.class)),
+                            with(any(String.class)));
+                    oneOf(mockPerformanceManager).logPerformanceStop(with(aNonNull(Long.class)),
+                            with(aNonNull(Timestamp.class)), with(aNonNull(Timestamp.class)));
+                }
+            });
 
-			RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-			request.setPRPAIN201305UV02(mockPdMessage);
-			request.setAssertion(mockAssertion);
-			request.setNhinTargetCommunities(mockTargetCommunities);
+            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+            request.setPRPAIN201305UV02(mockPdMessage);
+            request.setAssertion(mockAssertion);
+            request.setNhinTargetCommunities(mockTargetCommunities);
 
-			RespondingGatewayPRPAIN201306UV02ResponseType response = pdUnsecuredImpl
-					.respondingGatewayPRPAIN201305UV02(request);
-			assertNotNull(
-					"RespondingGatewayPRPAIN201306UV02ResponseType was null",
-					response);
-		} catch (Throwable t) {
-			System.out
-					.println("Error running testRespondingGatewayPRPAIN201305UV02Happy: "
-							+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testRespondingGatewayPRPAIN201305UV02Happy: "
-					+ t.getMessage());
-		}
-	}
+            RespondingGatewayPRPAIN201306UV02ResponseType response = pdUnsecuredImpl
+                    .respondingGatewayPRPAIN201305UV02(request);
+            assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
+        } catch (Throwable t) {
+            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02Happy: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRespondingGatewayPRPAIN201305UV02Happy: " + t.getMessage());
+        }
+    }
 
-	@Test
-	public void testRespondingGatewayPRPAIN201305UV02NullRequest() {
-		try {
-			EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+    @Test
+    public void testRespondingGatewayPRPAIN201305UV02NullRequest() {
+        try {
+            EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
+                @Override
+                protected Log createLogger() {
+                    return mockLog;
+                }
 
-				@Override
-				protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
-					return mockEntityPatientDiscoveryProcessor;
-				}
-			};
-			context.checking(new Expectations() {
-				{
-					allowing(mockLog).debug(with(aNonNull(String.class)));
-					oneOf(mockLog)
-							.warn("RespondingGatewayPRPAIN201305UV02RequestType was null.");
-				}
-			});
+                @Override
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
+                    return mockEntityPatientDiscoveryProcessor;
+                }
+            };
+            context.checking(new Expectations() {
+                {
+                    allowing(mockLog).debug(with(aNonNull(String.class)));
+                    oneOf(mockLog).warn("RespondingGatewayPRPAIN201305UV02RequestType was null.");
+                }
+            });
 
-			RespondingGatewayPRPAIN201305UV02RequestType request = null;
+            RespondingGatewayPRPAIN201305UV02RequestType request = null;
 
-			RespondingGatewayPRPAIN201306UV02ResponseType response = pdUnsecuredImpl
-					.respondingGatewayPRPAIN201305UV02(request);
-			assertNull(
-					"RespondingGatewayPRPAIN201306UV02ResponseType was not null",
-					response);
-		} catch (Throwable t) {
-			System.out
-					.println("Error running testRespondingGatewayPRPAIN201305UV02NullRequest: "
-							+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testRespondingGatewayPRPAIN201305UV02NullRequest: "
-					+ t.getMessage());
-		}
-	}
+            RespondingGatewayPRPAIN201306UV02ResponseType response = pdUnsecuredImpl
+                    .respondingGatewayPRPAIN201305UV02(request);
+            assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
+        } catch (Throwable t) {
+            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullRequest: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRespondingGatewayPRPAIN201305UV02NullRequest: " + t.getMessage());
+        }
+    }
 
-	@Test
-	public void testRespondingGatewayPRPAIN201305UV02NullProcessor() {
-		try {
-			EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+    @Test
+    public void testRespondingGatewayPRPAIN201305UV02NullProcessor() {
+        try {
+            EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
+                @Override
+                protected Log createLogger() {
+                    return mockLog;
+                }
 
-				@Override
-				protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
-					return null;
-				}
-			};
-			context.checking(new Expectations() {
-				{
-					allowing(mockLog).debug(with(aNonNull(String.class)));
-					oneOf(mockLog).warn(
-							"EntityPatientDiscoveryProcessor was null.");
-				}
-			});
+                @Override
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
+                    return null;
+                }
+            };
+            context.checking(new Expectations() {
+                {
+                    allowing(mockLog).debug(with(aNonNull(String.class)));
+                    oneOf(mockLog).warn("EntityPatientDiscoveryProcessor was null.");
+                }
+            });
 
-			RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-			request.setPRPAIN201305UV02(mockPdMessage);
-			request.setAssertion(mockAssertion);
-			request.setNhinTargetCommunities(mockTargetCommunities);
+            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+            request.setPRPAIN201305UV02(mockPdMessage);
+            request.setAssertion(mockAssertion);
+            request.setNhinTargetCommunities(mockTargetCommunities);
 
-			RespondingGatewayPRPAIN201306UV02ResponseType response = pdUnsecuredImpl
-					.respondingGatewayPRPAIN201305UV02(request);
-			assertNull(
-					"RespondingGatewayPRPAIN201306UV02ResponseType was not null",
-					response);
-		} catch (Throwable t) {
-			System.out
-					.println("Error running testRespondingGatewayPRPAIN201305UV02NullProcessor: "
-							+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testRespondingGatewayPRPAIN201305UV02NullProcessor: "
-					+ t.getMessage());
-		}
-	}
+            RespondingGatewayPRPAIN201306UV02ResponseType response = pdUnsecuredImpl
+                    .respondingGatewayPRPAIN201305UV02(request);
+            assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
+        } catch (Throwable t) {
+            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullProcessor: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRespondingGatewayPRPAIN201305UV02NullProcessor: " + t.getMessage());
+        }
+    }
 
-	@Test
-	@Ignore
-	public void testRespondingGatewayPRPAIN201305UV02NullResponse() {
-		try {
-			EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+    @Test
+    @Ignore
+    public void testRespondingGatewayPRPAIN201305UV02NullResponse() {
+        try {
+            EntityPatientDiscoveryImpl pdUnsecuredImpl = new EntityPatientDiscoveryImpl() {
+                @Override
+                protected Log createLogger() {
+                    return mockLog;
+                }
 
-				@Override
-				protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
-					EntityPatientDiscoveryOrchImpl processor = null;
-					// EntityPatientDiscoveryOrchImpl processor = new
-					// EntityPatientDiscoveryOrchImpl()
-					// {
-					// @Override
-					// public RespondingGatewayPRPAIN201306UV02ResponseType
-					// respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType
-					// request, AssertionType assertion)
-					// {
-					// return null;
-					// }
-					// };
-					return processor;
-				}
+                @Override
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
+                    EntityPatientDiscoveryOrchImpl processor = null;
+                    // EntityPatientDiscoveryOrchImpl processor = new
+                    // EntityPatientDiscoveryOrchImpl()
+                    // {
+                    // @Override
+                    // public RespondingGatewayPRPAIN201306UV02ResponseType
+                    // respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType
+                    // request, AssertionType assertion)
+                    // {
+                    // return null;
+                    // }
+                    // };
+                    return processor;
+                }
 
-				@Override
-				protected PerformanceManager getPerformanceManager() {
-					return mockPerformanceManager;
-				}
-			};
-			context.checking(new Expectations() {
-				{
-					allowing(mockLog).debug(with(aNonNull(String.class)));
-					oneOf(mockPerformanceManager).logPerformanceStart(
-							with(aNonNull(Timestamp.class)),
-							with(aNonNull(String.class)),
-							with(aNonNull(String.class)),
-							with(aNonNull(String.class)),
-							with(aNonNull(String.class)));
-					oneOf(mockPerformanceManager).logPerformanceStop(
-							with(aNonNull(Long.class)),
-							with(aNonNull(Timestamp.class)),
-							with(aNonNull(Timestamp.class)));
-				}
-			});
+                @Override
+                protected PerformanceManager getPerformanceManager() {
+                    return mockPerformanceManager;
+                }
+            };
+            context.checking(new Expectations() {
+                {
+                    allowing(mockLog).debug(with(aNonNull(String.class)));
+                    oneOf(mockPerformanceManager).logPerformanceStart(with(aNonNull(Timestamp.class)),
+                            with(aNonNull(String.class)), with(aNonNull(String.class)), with(aNonNull(String.class)),
+                            with(aNonNull(String.class)));
+                    oneOf(mockPerformanceManager).logPerformanceStop(with(aNonNull(Long.class)),
+                            with(aNonNull(Timestamp.class)), with(aNonNull(Timestamp.class)));
+                }
+            });
 
-			RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-			request.setPRPAIN201305UV02(mockPdMessage);
-			request.setAssertion(mockAssertion);
-			request.setNhinTargetCommunities(mockTargetCommunities);
+            RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+            request.setPRPAIN201305UV02(mockPdMessage);
+            request.setAssertion(mockAssertion);
+            request.setNhinTargetCommunities(mockTargetCommunities);
 
-			RespondingGatewayPRPAIN201306UV02ResponseType response = pdUnsecuredImpl
-					.respondingGatewayPRPAIN201305UV02(request);
-			assertNull(
-					"RespondingGatewayPRPAIN201306UV02ResponseType was not null",
-					response);
-		} catch (Throwable t) {
-			System.out
-					.println("Error running testRespondingGatewayPRPAIN201305UV02NullProcessor: "
-							+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testRespondingGatewayPRPAIN201305UV02NullResponse: "
-					+ t.getMessage());
-		}
-	}
+            RespondingGatewayPRPAIN201306UV02ResponseType response = pdUnsecuredImpl
+                    .respondingGatewayPRPAIN201305UV02(request);
+            assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
+        } catch (Throwable t) {
+            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullProcessor: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testRespondingGatewayPRPAIN201305UV02NullResponse: " + t.getMessage());
+        }
+    }
 
 }

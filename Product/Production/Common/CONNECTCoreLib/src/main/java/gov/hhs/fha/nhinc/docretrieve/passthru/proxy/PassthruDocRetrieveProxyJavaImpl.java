@@ -35,35 +35,30 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class PassthruDocRetrieveProxyJavaImpl implements PassthruDocRetrieveProxy
-{
+public class PassthruDocRetrieveProxyJavaImpl implements PassthruDocRetrieveProxy {
     private Log log = null;
 
-    public PassthruDocRetrieveProxyJavaImpl()
-    {
+    public PassthruDocRetrieveProxyJavaImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected NhincProxyDocRetrieveOrchImpl getNhincProxyDocRetrieveOrchImpl()
-    {
+    protected NhincProxyDocRetrieveOrchImpl getNhincProxyDocRetrieveOrchImpl() {
         return new NhincProxyDocRetrieveOrchImpl();
     }
 
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem)
-    {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
+            RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin PassthruDocRetrieveProxyJavaImpl.respondingGatewayCrossGatewayRetrieve");
         RetrieveDocumentSetResponseType response = null;
         NhincProxyDocRetrieveOrchImpl orchImpl = getNhincProxyDocRetrieveOrchImpl();
-        if(orchImpl != null)
-        {
+        if (orchImpl != null) {
             response = orchImpl.respondingGatewayCrossGatewayRetrieve(request, assertion, targetSystem);
         }
         log.debug("End PassthruDocRetrieveProxyJavaImpl.respondingGatewayCrossGatewayRetrieve");

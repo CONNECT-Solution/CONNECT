@@ -50,7 +50,7 @@ public class LoggingContextHelperTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    
+
     final Log mockLog = context.mock(Log.class);
 
     public LoggingContextHelperTest() {
@@ -104,7 +104,7 @@ public class LoggingContextHelperTest {
         try {
             // Passing in null WebServiceContext is ok, as value set is overridden above
             loggingContextHelper.setContext(null);
-            // Access to the same nested diagnostic context as in the  same thread
+            // Access to the same nested diagnostic context as in the same thread
             assertEquals("Nested diagnostic context is not properly constructed. ", 1, NDC.getDepth());
             assertEquals("Context contents are not successfully generated. ", "TestUUID", NDC.peek());
         } finally {

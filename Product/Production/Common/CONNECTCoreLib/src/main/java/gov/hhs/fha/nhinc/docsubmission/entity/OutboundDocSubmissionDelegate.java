@@ -35,7 +35,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author zmelnick
  */
 public class OutboundDocSubmissionDelegate implements OutboundDelegate {
@@ -57,16 +57,16 @@ public class OutboundDocSubmissionDelegate implements OutboundDelegate {
             OutboundDocSubmissionOrchestratable dsMessage = (OutboundDocSubmissionOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
-                dsMessage.getTarget().getHomeCommunity(), dsMessage.getServiceName());
+                    dsMessage.getTarget().getHomeCommunity(), dsMessage.getServiceName());
 
             if (contextBuilder instanceof OutboundDocSubmissionOrchestrationContextBuilder_g0) {
                 ((OutboundDocSubmissionOrchestrationContextBuilder_g0) contextBuilder).init(message);
             } else if (contextBuilder instanceof OutboundDocSubmissionOrchestrationContextBuilder_g1) {
                 ((OutboundDocSubmissionOrchestrationContextBuilder_g1) contextBuilder).init(message);
-            } else  {
+            } else {
                 return null;
             }
-            return (OutboundOrchestratable)contextBuilder.build().execute();
+            return (OutboundOrchestratable) contextBuilder.build().execute();
         }
         getLogger().error("message is not an instance of OutboundDocSubmissionOrchestratable!");
         return null;

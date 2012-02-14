@@ -39,45 +39,36 @@ import java.io.File;
  * 
  * @author Neil Webb
  */
-public class HibernateUtil
-{
+public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
     private static Log log = LogFactory.getLog(HibernateUtil.class);
 
-    static
-    {
-        try
-        {
+    static {
+        try {
             // Create the SessionFactory from hibernate.cfg.xml
             sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
-        } catch (Throwable ex)
-        {
+        } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             log.error("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
 
-    public static SessionFactory getSessionFactory()
-    {
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    private static File getConfigFile(){
+
+    private static File getConfigFile() {
         File result = null;
 
-        try
-        {
+        try {
             result = HibernateAccessor.getHibernateFile(NhincConstants.HIBERNATE_DOCUMENT_REPOSITORY);
+        } catch (Exception ex) {
+            log.error("Unable to load " + NhincConstants.HIBERNATE_DOCUMENT_REPOSITORY + " " + ex.getMessage(), ex);
         }
-        catch (Exception ex)
-        {
-            log.error("Unable to load " + NhincConstants.HIBERNATE_DOCUMENT_REPOSITORY + " " + ex.getMessage(), ex );
-        }
-
 
         return result;
-
 
     }
 }

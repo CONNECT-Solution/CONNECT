@@ -36,13 +36,14 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class OutboundDocRetrieveOrchestratableFactory {
 
     public OutboundDocRetrieveOrchestratableImpl getEntityDocRetrieveOrchestratableImpl_a0() {
-        OutboundDocRetrieveOrchestratableImpl impl = new OutboundDocRetrieveOrchestratableImpl(getRetrieveDocumentSetRequestType(), getAssertion(), null, null, null, null, getNhinTargetSystemType());
+        OutboundDocRetrieveOrchestratableImpl impl = new OutboundDocRetrieveOrchestratableImpl(
+                getRetrieveDocumentSetRequestType(), getAssertion(), null, null, null, null, getNhinTargetSystemType());
         return impl;
     }
 
@@ -69,8 +70,7 @@ public class OutboundDocRetrieveOrchestratableFactory {
         return resp;
     }
 
-    public NhinTargetSystemType getNhinTargetSystemType()
-    {
+    public NhinTargetSystemType getNhinTargetSystemType() {
         NhinTargetSystemType target = new NhinTargetSystemType();
         HomeCommunityType hcid = new HomeCommunityType();
         hcid.setHomeCommunityId("1.1");
@@ -78,8 +78,7 @@ public class OutboundDocRetrieveOrchestratableFactory {
         return target;
     }
 
-    public AssertionType getAssertion()
-    {
+    public AssertionType getAssertion() {
         AssertionType assertion = new AssertionType();
         return assertion;
     }

@@ -42,14 +42,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class PassthruDocRetrieveProxyJavaImplTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class PassthruDocRetrieveProxyJavaImplTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -59,23 +57,17 @@ public class PassthruDocRetrieveProxyJavaImplTest
     final NhincProxyDocRetrieveOrchImpl mockOrchImpl = context.mock(NhincProxyDocRetrieveOrchImpl.class);
 
     @Test
-    public void testCreateLogger()
-    {
-        try
-        {
-            PassthruDocRetrieveProxyJavaImpl sut = new PassthruDocRetrieveProxyJavaImpl()
-            {
+    public void testCreateLogger() {
+        try {
+            PassthruDocRetrieveProxyJavaImpl sut = new PassthruDocRetrieveProxyJavaImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
             };
             Log log = sut.createLogger();
             assertNotNull("Log was null", log);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger: " + t.getMessage());
@@ -83,28 +75,22 @@ public class PassthruDocRetrieveProxyJavaImplTest
     }
 
     @Test
-    public void testGetNhincProxyDocRetrieveOrchImpl()
-    {
-        try
-        {
-            PassthruDocRetrieveProxyJavaImpl sut = new PassthruDocRetrieveProxyJavaImpl()
-            {
+    public void testGetNhincProxyDocRetrieveOrchImpl() {
+        try {
+            PassthruDocRetrieveProxyJavaImpl sut = new PassthruDocRetrieveProxyJavaImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected NhincProxyDocRetrieveOrchImpl getNhincProxyDocRetrieveOrchImpl()
-                {
+                protected NhincProxyDocRetrieveOrchImpl getNhincProxyDocRetrieveOrchImpl() {
                     return mockOrchImpl;
                 }
             };
             NhincProxyDocRetrieveOrchImpl orchImpl = sut.getNhincProxyDocRetrieveOrchImpl();
             assertNotNull("NhincProxyDocRetrieveOrchImpl was null", orchImpl);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetNhincProxyDocRetrieveOrchImpl: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetNhincProxyDocRetrieveOrchImpl: " + t.getMessage());
@@ -112,38 +98,34 @@ public class PassthruDocRetrieveProxyJavaImplTest
     }
 
     @Test
-    public void testRespondingGatewayCrossGatewayRetrieveHappy()
-    {
-        try
-        {
-            PassthruDocRetrieveProxyJavaImpl sut = new PassthruDocRetrieveProxyJavaImpl()
-            {
+    public void testRespondingGatewayCrossGatewayRetrieveHappy() {
+        try {
+            PassthruDocRetrieveProxyJavaImpl sut = new PassthruDocRetrieveProxyJavaImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected NhincProxyDocRetrieveOrchImpl getNhincProxyDocRetrieveOrchImpl()
-                {
+                protected NhincProxyDocRetrieveOrchImpl getNhincProxyDocRetrieveOrchImpl() {
                     return mockOrchImpl;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
-                    allowing(mockOrchImpl).respondingGatewayCrossGatewayRetrieve(with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(AssertionType.class)), with(aNonNull(NhinTargetSystemType.class)));
+                    allowing(mockOrchImpl).respondingGatewayCrossGatewayRetrieve(
+                            with(aNonNull(RetrieveDocumentSetRequestType.class)), with(aNonNull(AssertionType.class)),
+                            with(aNonNull(NhinTargetSystemType.class)));
                 }
             });
             RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
             AssertionType assertion = new AssertionType();
             NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-            RetrieveDocumentSetResponseType response = sut.respondingGatewayCrossGatewayRetrieve(request, assertion, targetSystem);
+            RetrieveDocumentSetResponseType response = sut.respondingGatewayCrossGatewayRetrieve(request, assertion,
+                    targetSystem);
             assertNotNull("RetrieveDocumentSetResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayCrossGatewayRetrieveHappy: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayCrossGatewayRetrieveHappy: " + t.getMessage());
@@ -151,25 +133,20 @@ public class PassthruDocRetrieveProxyJavaImplTest
     }
 
     @Test
-    public void testRespondingGatewayCrossGatewayRetrieveNullOrchImpl()
-    {
-        try
-        {
-            PassthruDocRetrieveProxyJavaImpl sut = new PassthruDocRetrieveProxyJavaImpl()
-            {
+    public void testRespondingGatewayCrossGatewayRetrieveNullOrchImpl() {
+        try {
+            PassthruDocRetrieveProxyJavaImpl sut = new PassthruDocRetrieveProxyJavaImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected NhincProxyDocRetrieveOrchImpl getNhincProxyDocRetrieveOrchImpl()
-                {
+                protected NhincProxyDocRetrieveOrchImpl getNhincProxyDocRetrieveOrchImpl() {
                     return null;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
                 }
@@ -177,12 +154,12 @@ public class PassthruDocRetrieveProxyJavaImplTest
             RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
             AssertionType assertion = new AssertionType();
             NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-            RetrieveDocumentSetResponseType response = sut.respondingGatewayCrossGatewayRetrieve(request, assertion, targetSystem);
+            RetrieveDocumentSetResponseType response = sut.respondingGatewayCrossGatewayRetrieve(request, assertion,
+                    targetSystem);
             assertNull("testRespondingGatewayCrossGatewayRetrieveNullOrchImpl was not null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testRespondingGatewayCrossGatewayRetrieveNullOrchImpl: " + t.getMessage());
+        } catch (Throwable t) {
+            System.out
+                    .println("Error running testRespondingGatewayCrossGatewayRetrieveNullOrchImpl: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayCrossGatewayRetrieveNullOrchImpl: " + t.getMessage());
         }

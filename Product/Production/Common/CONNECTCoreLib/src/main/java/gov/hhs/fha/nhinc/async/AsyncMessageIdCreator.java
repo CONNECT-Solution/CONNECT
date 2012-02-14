@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AsyncMessageIdCreator {
@@ -43,8 +43,7 @@ public class AsyncMessageIdCreator {
         Map requestContext = new HashMap();
 
         // Set the value for the message id property in the request context
-        if (assertion != null &&
-                NullChecker.isNotNullish(assertion.getMessageId())) {
+        if (assertion != null && NullChecker.isNotNullish(assertion.getMessageId())) {
             requestContext.put(NhincConstants.ASYNC_MESSAGE_ID_PROP, assertion.getMessageId());
         }
 
@@ -57,8 +56,7 @@ public class AsyncMessageIdCreator {
     public Map CreateRequestContextForRelatesTo(AssertionType assertion) {
         Map requestContext = new HashMap();
 
-        if (assertion != null &&
-                NullChecker.isNotNullish(assertion.getRelatesToList())) {
+        if (assertion != null && NullChecker.isNotNullish(assertion.getRelatesToList())) {
             requestContext.put(NhincConstants.ASYNC_RELATES_TO_PROP, assertion.getRelatesToList());
         }
 

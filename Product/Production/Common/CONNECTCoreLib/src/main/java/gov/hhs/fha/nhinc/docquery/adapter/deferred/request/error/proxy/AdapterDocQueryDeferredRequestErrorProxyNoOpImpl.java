@@ -35,13 +35,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterDocQueryDeferredRequestErrorProxyNoOpImpl implements AdapterDocQueryDeferredRequestErrorProxy {
     private static Log log = LogFactory.getLog(AdapterDocQueryDeferredRequestErrorProxyNoOpImpl.class);
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, String errMsg) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
+            AssertionType assertion, String errMsg) {
         log.debug("Using NoOp Implementation for Adapter Doc Query Deferred Request Error Service");
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

@@ -36,7 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class NhinDocRetrieveAuditTransformer_g0Test {
@@ -65,12 +65,11 @@ public class NhinDocRetrieveAuditTransformer_g0Test {
      */
     @Test
     public void testTransformRequest() {
-        /*Orchestratable message = null;
-        NhinDocRetrieveAuditTransformer_g0 instance = new NhinDocRetrieveAuditTransformer_g0();
-        LogEventRequestType expResult = null;
-        LogEventRequestType result = instance.transformRequest(message);
-        assertEquals(expResult, result);
-        */
+        /*
+         * Orchestratable message = null; NhinDocRetrieveAuditTransformer_g0 instance = new
+         * NhinDocRetrieveAuditTransformer_g0(); LogEventRequestType expResult = null; LogEventRequestType result =
+         * instance.transformRequest(message); assertEquals(expResult, result);
+         */
         // TODO: update this test once we can mock Orchestratable and the LogEventRequestType
     }
 
@@ -79,11 +78,11 @@ public class NhinDocRetrieveAuditTransformer_g0Test {
      */
     @Test
     public void testTransformResponse() {
-        /*Orchestratable message = null;
-        NhinDocRetrieveAuditTransformer_g0 instance = new NhinDocRetrieveAuditTransformer_g0();
-        LogEventRequestType expResult = null;
-        LogEventRequestType result = instance.transformResponse(message);
-        assertEquals(expResult, result);*/
+        /*
+         * Orchestratable message = null; NhinDocRetrieveAuditTransformer_g0 instance = new
+         * NhinDocRetrieveAuditTransformer_g0(); LogEventRequestType expResult = null; LogEventRequestType result =
+         * instance.transformResponse(message); assertEquals(expResult, result);
+         */
         // TODO: update this test once we can mock Orchestratable and the LogEventRequestType
     }
 

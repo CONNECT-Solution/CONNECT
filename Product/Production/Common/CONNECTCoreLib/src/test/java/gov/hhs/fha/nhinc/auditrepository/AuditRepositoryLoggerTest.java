@@ -41,7 +41,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @Ignore
@@ -67,8 +67,6 @@ public class AuditRepositoryLoggerTest {
     @After
     public void tearDown() {
     }
-
-
 
     /**
      * Test of logNhinPatientDiscAck method, of class AuditRepositoryLogger.

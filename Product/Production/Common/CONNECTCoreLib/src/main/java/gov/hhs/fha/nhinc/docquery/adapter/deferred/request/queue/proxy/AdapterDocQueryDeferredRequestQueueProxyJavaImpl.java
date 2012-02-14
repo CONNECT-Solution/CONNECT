@@ -35,7 +35,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author narendra.reddy
  */
 public class AdapterDocQueryDeferredRequestQueueProxyJavaImpl implements AdapterDocQueryDeferredRequestQueueProxy {
@@ -43,14 +43,16 @@ public class AdapterDocQueryDeferredRequestQueueProxyJavaImpl implements Adapter
     private static Log log = LogFactory.getLog(AdapterDocQueryDeferredRequestQueueProxyJavaImpl.class);
 
     /**
-     *
+     * 
      * @param msg
      * @param assertion
      * @param targets
      * @return DocQueryAcknowledgementType
      */
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("Using Java Implementation for Adapter Doc Query Deferred Request Service");
-        return new AdapterDocQueryDeferredReqQueueOrchImpl().respondingGatewayCrossGatewayQuery(msg, assertion, targets);
+        return new AdapterDocQueryDeferredReqQueueOrchImpl()
+                .respondingGatewayCrossGatewayQuery(msg, assertion, targets);
     }
 }

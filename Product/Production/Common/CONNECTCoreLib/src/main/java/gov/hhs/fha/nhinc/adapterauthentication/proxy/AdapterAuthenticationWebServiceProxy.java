@@ -37,8 +37,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- * This is the concrete implementation for the Web based call to the
- * AdapterAuthentication.
+ * This is the concrete implementation for the Web based call to the AdapterAuthentication.
  */
 public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticationProxy {
 
@@ -52,12 +51,12 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
     private WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
 
     /**
-     * Given a request to authenticate a user, this service will determine if
-     * this is an identifiable user within OpenSSO and if so will provide an
-     * identifying token.
+     * Given a request to authenticate a user, this service will determine if this is an identifiable user within
+     * OpenSSO and if so will provide an identifying token.
+     * 
      * @param authenticateUserRequest The request to authenticate the user
-     * @return The response which indicates if an authentication service is
-     * implemented and if so the resulting token identifier
+     * @return The response which indicates if an authentication service is implemented and if so the resulting token
+     *         identifier
      */
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
 
@@ -68,8 +67,8 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
             AdapterAuthenticationPortType authPort = getAdapterAuthenticationPort();
             authResp = authPort.authenticateUser(authenticateUserRequest);
         } catch (Exception ex) {
-            String message = "Error occurred calling AdapterAuthenticationWebServiceProxy.authenticateUser.  Error: " +
-                    ex.getMessage();
+            String message = "Error occurred calling AdapterAuthenticationWebServiceProxy.authenticateUser.  Error: "
+                    + ex.getMessage();
             log.error(message, ex);
             throw new RuntimeException(message, ex);
         }
@@ -80,11 +79,10 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
 
     /**
      * Return a handle to the AdapterAuthentication web service.
-     *
+     * 
      * @return The handle to the Adapter Authentication port web service.
      */
-    private AdapterAuthenticationPortType getAdapterAuthenticationPort()
-            throws AdapterAuthenticationException {
+    private AdapterAuthenticationPortType getAdapterAuthenticationPort() throws AdapterAuthenticationException {
         AdapterAuthenticationPortType port = null;
         Service service = getService();
         if (service != null) {
@@ -103,7 +101,7 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {

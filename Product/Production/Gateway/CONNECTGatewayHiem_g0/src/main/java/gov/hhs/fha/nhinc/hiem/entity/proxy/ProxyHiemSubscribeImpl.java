@@ -54,14 +54,19 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class ProxyHiemSubscribeImpl {
 
     private static Log log = LogFactory.getLog(ProxyHiemSubscribeImpl.class);
 
-    public SubscribeResponse subscribe(SubscribeRequestType subscribeRequest, WebServiceContext context) throws NotifyMessageNotSupportedFault, UnacceptableInitialTerminationTimeFault, InvalidTopicExpressionFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault, InvalidProducerPropertiesExpressionFault, TopicNotSupportedFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, InvalidFilterFault, InvalidMessageContentExpressionFault, ResourceUnknownFault {
+    public SubscribeResponse subscribe(SubscribeRequestType subscribeRequest, WebServiceContext context)
+            throws NotifyMessageNotSupportedFault, UnacceptableInitialTerminationTimeFault,
+            InvalidTopicExpressionFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault,
+            InvalidProducerPropertiesExpressionFault, TopicNotSupportedFault, SubscribeCreationFailedFault,
+            TopicExpressionDialectUnknownFault, InvalidFilterFault, InvalidMessageContentExpressionFault,
+            ResourceUnknownFault {
         log.debug("Entering ProxyHiemSubscribeImpl.subscribe...");
         SubscribeResponse resp = null;
 
@@ -73,7 +78,8 @@ public class ProxyHiemSubscribeImpl {
         NhinHiemSubscribeProxyObjectFactory hiemSubscribeFactory = new NhinHiemSubscribeProxyObjectFactory();
         NhinHiemSubscribeProxy proxy = hiemSubscribeFactory.getNhinHiemSubscribeProxy();
 
-        Element responseElement = proxy.subscribe(subscribeElement, subscribeRequest.getAssertion(), subscribeRequest.getNhinTargetSystem());
+        Element responseElement = proxy.subscribe(subscribeElement, subscribeRequest.getAssertion(),
+                subscribeRequest.getNhinTargetSystem());
 
         SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
         resp = responseMarshaller.unmarshal(responseElement);
@@ -84,29 +90,34 @@ public class ProxyHiemSubscribeImpl {
 
     private AcknowledgementType audit(SubscribeRequestType subscribeRequest) {
         AcknowledgementType ack = null;
-//        ConfigurationManager config = new ConfigurationManager();
-//        if (config.isAuditEnabled()) {
-//
-//            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-//
-//            // Fix namespace issue
-//            gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType();
-//            message.setAssertion(subscribeRequest.getAssertion());
-//            message.setSubscribe(subscribeRequest.getSubscribe());
-//
-//            LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-//
-//            AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-//            AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-//            ack = proxy.auditLog(auditLogMsg);
-//        }
+        // ConfigurationManager config = new ConfigurationManager();
+        // if (config.isAuditEnabled()) {
+        //
+        // AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        //
+        // // Fix namespace issue
+        // gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType message = new
+        // gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType();
+        // message.setAssertion(subscribeRequest.getAssertion());
+        // message.setSubscribe(subscribeRequest.getSubscribe());
+        //
+        // LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
+        // NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        //
+        // AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+        // AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+        // ack = proxy.auditLog(auditLogMsg);
+        // }
 
         return ack;
     }
 
-
-
-    public SubscribeResponse subscribe(SubscribeRequestSecuredType subscribeRequest, WebServiceContext context) throws NotifyMessageNotSupportedFault, UnacceptableInitialTerminationTimeFault, InvalidTopicExpressionFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault, InvalidProducerPropertiesExpressionFault, TopicNotSupportedFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, InvalidFilterFault, InvalidMessageContentExpressionFault, ResourceUnknownFault {
+    public SubscribeResponse subscribe(SubscribeRequestSecuredType subscribeRequest, WebServiceContext context)
+            throws NotifyMessageNotSupportedFault, UnacceptableInitialTerminationTimeFault,
+            InvalidTopicExpressionFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault,
+            InvalidProducerPropertiesExpressionFault, TopicNotSupportedFault, SubscribeCreationFailedFault,
+            TopicExpressionDialectUnknownFault, InvalidFilterFault, InvalidMessageContentExpressionFault,
+            ResourceUnknownFault {
         log.debug("Entering Secured ProxyHiemSubscribeImpl.subscribe...");
         SubscribeResponse resp = null;
 
@@ -118,35 +129,38 @@ public class ProxyHiemSubscribeImpl {
         NhinHiemSubscribeProxyObjectFactory hiemSubscribeFactory = new NhinHiemSubscribeProxyObjectFactory();
         NhinHiemSubscribeProxy proxy = hiemSubscribeFactory.getNhinHiemSubscribeProxy();
 
-        Element responseElement = proxy.subscribe(subscribeElement, SamlTokenExtractor.GetAssertion(context), subscribeRequest.getNhinTargetSystem());
+        Element responseElement = proxy.subscribe(subscribeElement, SamlTokenExtractor.GetAssertion(context),
+                subscribeRequest.getNhinTargetSystem());
 
         SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
         resp = responseMarshaller.unmarshal(responseElement);
 
         log.debug("Response = " + XmlUtility.serializeElementIgnoreFaults(responseElement));
-        
+
         log.debug("Exiting Secured ProxyHiemSubscribeImpl.subscribe...");
         return resp;
     }
 
     private AcknowledgementType audit(SubscribeRequestSecuredType subscribeRequest) {
         AcknowledgementType ack = null;
-//        ConfigurationManager config = new ConfigurationManager();
-//        if (config.isAuditEnabled()) {
-//
-//            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-//
-//            // Fix namespace issue
-//            gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType();
-//            message.setAssertion(subscribeRequest.getAssertion());
-//            message.setSubscribe(subscribeRequest.getSubscribe());
-//
-//            LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-//
-//            AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-//            AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-//            ack = proxy.auditLog(auditLogMsg);
-//        }
+        // ConfigurationManager config = new ConfigurationManager();
+        // if (config.isAuditEnabled()) {
+        //
+        // AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        //
+        // // Fix namespace issue
+        // gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType message = new
+        // gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType();
+        // message.setAssertion(subscribeRequest.getAssertion());
+        // message.setSubscribe(subscribeRequest.getSubscribe());
+        //
+        // LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
+        // NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        //
+        // AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+        // AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+        // ack = proxy.auditLog(auditLogMsg);
+        // }
 
         return ack;
     }

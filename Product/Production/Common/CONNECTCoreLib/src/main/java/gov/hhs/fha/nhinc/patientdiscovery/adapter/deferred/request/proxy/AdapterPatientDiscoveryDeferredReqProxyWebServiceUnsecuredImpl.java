@@ -40,10 +40,11 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class AdapterPatientDiscoveryDeferredReqProxyWebServiceUnsecuredImpl implements AdapterPatientDiscoveryDeferredReqProxy {
+public class AdapterPatientDiscoveryDeferredReqProxyWebServiceUnsecuredImpl implements
+        AdapterPatientDiscoveryDeferredReqProxy {
 
     private Log log = null;
     private static Service cachedService = null;
@@ -69,18 +70,21 @@ public class AdapterPatientDiscoveryDeferredReqProxyWebServiceUnsecuredImpl impl
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterPatientDiscoveryAsyncReqPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected AdapterPatientDiscoveryAsyncReqPortType getPort(String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion) {
         AdapterPatientDiscoveryAsyncReqPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterPatientDiscoveryAsyncReqPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    AdapterPatientDiscoveryAsyncReqPortType.class);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -89,7 +93,7 @@ public class AdapterPatientDiscoveryDeferredReqProxyWebServiceUnsecuredImpl impl
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -107,41 +111,34 @@ public class AdapterPatientDiscoveryDeferredReqProxyWebServiceUnsecuredImpl impl
         log.debug("Begin processPatientDiscoveryAsyncReqError");
         MCCIIN000002UV01 ack = null;
 
-        try
-        {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_SERVICE_NAME);
-            AdapterPatientDiscoveryAsyncReqPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+        try {
+            String url = oProxyHelper
+                    .getUrlLocalHomeCommunity(NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_SERVICE_NAME);
+            AdapterPatientDiscoveryAsyncReqPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION,
+                    WS_ADDRESSING_ACTION, assertion);
 
-            if(request == null)
-            {
+            if (request == null) {
                 log.error("Request was null");
-            }
-            else if (assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("assertion was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 RespondingGatewayPRPAIN201305UV02RequestType msg = new RespondingGatewayPRPAIN201305UV02RequestType();
                 msg.setAssertion(assertion);
                 msg.setPRPAIN201305UV02(request);
 
-                ack = (MCCIIN000002UV01)oProxyHelper.invokePort(port, AdapterPatientDiscoveryAsyncReqPortType.class, "processPatientDiscoveryAsyncReq", msg);
+                ack = (MCCIIN000002UV01) oProxyHelper.invokePort(port, AdapterPatientDiscoveryAsyncReqPortType.class,
+                        "processPatientDiscoveryAsyncReq", msg);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling processPatientDiscoveryAsyncReq: " + ex.getMessage(), ex);
-            ack = HL7AckTransforms.createAckFrom201305(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+            ack = HL7AckTransforms.createAckFrom201305(request,
+                    NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
         }
 
         log.debug("End processPatientDiscoveryAsyncReqError");
         return ack;
     }
-
 
 }

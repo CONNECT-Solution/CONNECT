@@ -35,26 +35,25 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This is the Java implementation for the AdapterComponentXDRRequest service.  This
- * is intended to be overridden by the adapter.  It really does nothing but returns
- * the ACK message.
- *
+ * This is the Java implementation for the AdapterComponentXDRRequest service. This is intended to be overridden by the
+ * adapter. It really does nothing but returns the ACK message.
+ * 
  * @author Les Westberg
  */
-public class AdapterComponentDocSubmissionRequestOrchImpl
-{
-   private static Log log = LogFactory.getLog(AdapterComponentDocSubmissionRequestOrchImpl.class);
+public class AdapterComponentDocSubmissionRequestOrchImpl {
+    private static Log log = LogFactory.getLog(AdapterComponentDocSubmissionRequestOrchImpl.class);
 
     /**
      * This method recieves the document information
+     * 
      * @param body The XDR request message
      * @param assertion The assertion information.
      * @param url
      * @return The ACK
      */
-   //This is a dummy adapter - ignoring the URL parameter in interest of not updating the interface
-   public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, String url)
-    {
+    // This is a dummy adapter - ignoring the URL parameter in interest of not updating the interface
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion, String url) {
         log.debug("Entering AdapterComponentXDRRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

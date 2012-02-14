@@ -38,7 +38,7 @@ import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author zmelnick
  */
 public class OutboundDocSubmissionOrchestratable implements OutboundOrchestratable {
@@ -53,7 +53,8 @@ public class OutboundDocSubmissionOrchestratable implements OutboundOrchestratab
         this.nhinDelegate = delegate;
     }
 
-    public OutboundDocSubmissionOrchestratable(OutboundDelegate delegate, ProvideAndRegisterDocumentSetRequestType request, NhinTargetSystemType target, AssertionType assertion) {
+    public OutboundDocSubmissionOrchestratable(OutboundDelegate delegate,
+            ProvideAndRegisterDocumentSetRequestType request, NhinTargetSystemType target, AssertionType assertion) {
         this(delegate);
         this.assertion = assertion;
         this.request = request;

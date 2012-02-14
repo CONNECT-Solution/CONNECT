@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.transform.audit;
+
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
@@ -40,7 +41,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 
-
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import javax.xml.bind.JAXBContext;
 import java.io.ByteArrayOutputStream;
@@ -48,26 +48,28 @@ import javax.xml.bind.Marshaller;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class AdminDistTransforms {
     private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
-    private Log log = null;//LogFactory.getLog(PatientDiscoveryTransforms.class);
+    private Log log = null;// LogFactory.getLog(PatientDiscoveryTransforms.class);
 
-    public AdminDistTransforms()
-    {
+    public AdminDistTransforms() {
         log = createLogger();
     }
 
     /**
      * Instantiating log4j logger
+     * 
      * @return
      */
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
-    public LogEventRequestType transformEntitySendAlertToAuditMsg(RespondingGatewaySendAlertMessageType message, AssertionType assertion, String direction, String _interface) {
+
+    public LogEventRequestType transformEntitySendAlertToAuditMsg(RespondingGatewaySendAlertMessageType message,
+            AssertionType assertion, String direction, String _interface) {
         LogEventRequestType oReturnLogEventRequestType = null;
         EDXLDistribution body = null;
 
@@ -78,18 +80,17 @@ public class AdminDistTransforms {
             body = message.getEDXLDistribution();
         }
 
-
-        if (body == null || assertion == null)
-        {
+        if (body == null || assertion == null) {
             log.error("The SendAlert did not have an EDXLDistribution or Assertion Object ");
             return null;
-        } 
+        }
 
         if ((message == null) || (assertion == null)) {
             log.error("The SendAlert did not have an EDXLDistribution or Assertion Object ");
             return null;
         } else {
-            oReturnLogEventRequestType = transformEDXLDistributionRequestToAuditMsg(message.getEDXLDistribution(), assertion, direction, _interface);
+            oReturnLogEventRequestType = transformEDXLDistributionRequestToAuditMsg(message.getEDXLDistribution(),
+                    assertion, direction, _interface);
         }
 
         if (oReturnLogEventRequestType == null) {
@@ -106,128 +107,136 @@ public class AdminDistTransforms {
 
     }
 
-    public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target, String direction, String _interface) {
-    {
-
-        LogEventRequestType result = null;
-
-        AuditMessageType auditMsg = null;
-
-        log.debug("Entering transformPRPAIN201305RequestToAuditMsg() method.");
-
-
-        auditMsg = new AuditMessageType();
-
-        //check to see that the required fields are not null
-        boolean bRequiredFieldsAreNull = areRequiredUserTypeFieldsNull( assertion);
-        if (bRequiredFieldsAreNull) {
-            //TODO add a unit test case...
-            log.error("One or more of the required fields needed to transform to an audit message request were null.");
-            return null;
-        } //else continue
-        if(target == null || target.getHomeCommunity() == null || target.getHomeCommunity().getHomeCommunityId() == null)
+    public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistribution body,
+            AssertionType assertion, NhinTargetSystemType target, String direction, String _interface) {
         {
-            log.error("One or more of the required fields needed to transform to an audit message request were null.");
-        }
 
-        // Extract UserInfo from request assertion
-        UserType userInfo = assertion.getUserInfo();//new UserType();
+            LogEventRequestType result = null;
 
-        result = new LogEventRequestType();
+            AuditMessageType auditMsg = null;
 
-        // Create EventIdentification
-        CodedValueType eventID = new CodedValueType();
-        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_ADMIN_DIST, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_ADMIN_DIST);
-        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
+            log.debug("Entering transformPRPAIN201305RequestToAuditMsg() method.");
 
+            auditMsg = new AuditMessageType();
 
+            // check to see that the required fields are not null
+            boolean bRequiredFieldsAreNull = areRequiredUserTypeFieldsNull(assertion);
+            if (bRequiredFieldsAreNull) {
+                // TODO add a unit test case...
+                log.error("One or more of the required fields needed to transform to an audit message request were null.");
+                return null;
+            } // else continue
+            if (target == null || target.getHomeCommunity() == null
+                    || target.getHomeCommunity().getHomeCommunityId() == null) {
+                log.error("One or more of the required fields needed to transform to an audit message request were null.");
+            }
 
-        // Create Active Participant Section
-        AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(userInfo, true);
-        auditMsg.getActiveParticipant().add(participant);
+            // Extract UserInfo from request assertion
+            UserType userInfo = assertion.getUserInfo();// new UserType();
 
-        /* Assign AuditSourceIdentification */
-        String communityId = "";
-        String communityName = "";
+            result = new LogEventRequestType();
 
-        communityId = target.getHomeCommunity().getHomeCommunityId();
-        communityName = target.getHomeCommunity().getName();
+            // Create EventIdentification
+            CodedValueType eventID = new CodedValueType();
+            eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63,
+                    AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_ADMIN_DIST,
+                    AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63,
+                    AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_ADMIN_DIST);
+            auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
+                    AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
+                    AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
 
+            // Create Active Participant Section
+            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                    userInfo, true);
+            auditMsg.getActiveParticipant().add(participant);
 
-        /* Create the AuditSourceIdentifierType object */
-        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityName);
-        auditMsg.getAuditSourceIdentification().add(auditSource);
+            /* Assign AuditSourceIdentification */
+            String communityId = "";
+            String communityName = "";
 
-        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper.createParticipantObjectIdentification("N/A");
-        // Fill in the message field with the contents of the event message
-        try {
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext(oasis.names.tc.emergency.edxl.de._1.ObjectFactory.class, oasis.names.tc.emergency.edxl.de._1.EDXLDistribution.class);
-            Marshaller marshaller = jc.createMarshaller();
+            communityId = target.getHomeCommunity().getHomeCommunityId();
+            communityName = target.getHomeCommunity().getName();
+
+            /* Create the AuditSourceIdentifierType object */
+            AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
+                    communityId, communityName);
+            auditMsg.getAuditSourceIdentification().add(auditSource);
+
+            ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
+                    .createParticipantObjectIdentification("N/A");
+            // Fill in the message field with the contents of the event message
+            try {
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext(oasis.names.tc.emergency.edxl.de._1.ObjectFactory.class,
+                        oasis.names.tc.emergency.edxl.de._1.EDXLDistribution.class);
+                Marshaller marshaller = jc.createMarshaller();
+                ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+                baOutStrm.reset();
+                marshaller.marshal(body, baOutStrm);
+                log.debug("Done marshalling the message.");
+
+                participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.error("EXCEPTION when marshalling Nhin Notify Request : " + e);
+                throw new RuntimeException();
+            }
+            // Put the contents of the actual message into the Audit Log Message
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-            baOutStrm.reset();
-            marshaller.marshal(body, baOutStrm);
-            log.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
+            auditMsg.getParticipantObjectIdentification().add(participantObject);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("EXCEPTION when marshalling Nhin Notify Request : " + e);
-            throw new RuntimeException();
+            result.setAuditMessage(auditMsg);
+            result.setDirection(direction);
+            result.setInterface(_interface);
+
+            log.debug("Exiting transformEDXLDistributionRequestToAuditMsg() method.");
+
+            return result;
         }
-        // Put the contents of the actual message into the Audit Log Message
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
-
-        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
-        auditMsg.getParticipantObjectIdentification().add(participantObject);
-
-        result.setAuditMessage(auditMsg);
-        result.setDirection(direction);
-        result.setInterface(_interface);
-
-        log.debug("Exiting transformEDXLDistributionRequestToAuditMsg() method.");
-
-
-        return result;
     }
-}
-public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistribution body, AssertionType assertion, String direction, String _interface) {
+
+    public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistribution body,
+            AssertionType assertion, String direction, String _interface) {
         LogEventRequestType result = null;
 
         AuditMessageType auditMsg = null;
-        
-        log.debug("Entering transformPRPAIN201305RequestToAuditMsg() method.");
 
+        log.debug("Entering transformPRPAIN201305RequestToAuditMsg() method.");
 
         auditMsg = new AuditMessageType();
 
-        //check to see that the required fields are not null
-        boolean bRequiredFieldsAreNull = areRequiredUserTypeFieldsNull( assertion);
+        // check to see that the required fields are not null
+        boolean bRequiredFieldsAreNull = areRequiredUserTypeFieldsNull(assertion);
         if (bRequiredFieldsAreNull) {
-            //TODO add a unit test case...
+            // TODO add a unit test case...
             log.error("One or more of the required fields needed to transform to an audit message request were null.");
             return null;
-        } //else continue
-
+        } // else continue
 
         // Extract UserInfo from request assertion
-        UserType userInfo = assertion.getUserInfo();//new UserType();
+        UserType userInfo = assertion.getUserInfo();// new UserType();
 
         result = new LogEventRequestType();
 
         // Create EventIdentification
         CodedValueType eventID = new CodedValueType();
-        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_ADMIN_DIST, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_ADMIN_DIST);
-        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
+        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_ADMIN_DIST,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_ADMIN_DIST);
+        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
+                AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
+                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
 
-
-
-        // Create Active Participant Section        
-        AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(userInfo, true);
+        // Create Active Participant Section
+        AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                userInfo, true);
         auditMsg.getActiveParticipant().add(participant);
-        
+
         /* Assign AuditSourceIdentification */
         String communityId = "";
         String communityName = "";
@@ -235,16 +244,18 @@ public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistri
         communityId = userInfo.getOrg().getHomeCommunityId();
         communityName = userInfo.getOrg().getName();
 
-
         /* Create the AuditSourceIdentifierType object */
-        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityName);
+        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
+                communityId, communityName);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
-        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper.createParticipantObjectIdentification("N/A");
+        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
+                .createParticipantObjectIdentification("N/A");
         // Fill in the message field with the contents of the event message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext(oasis.names.tc.emergency.edxl.de._1.ObjectFactory.class, oasis.names.tc.emergency.edxl.de._1.EDXLDistribution.class);
+            JAXBContext jc = oHandler.getJAXBContext(oasis.names.tc.emergency.edxl.de._1.ObjectFactory.class,
+                    oasis.names.tc.emergency.edxl.de._1.EDXLDistribution.class);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
@@ -261,7 +272,6 @@ public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistri
         // Put the contents of the actual message into the Audit Log Message
         ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
 
-
         participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
@@ -271,17 +281,17 @@ public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistri
 
         log.debug("Exiting transformEDXLDistributionRequestToAuditMsg() method.");
 
-
         return result;
 
     }
- protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
+
+    protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
         boolean bReturnVal = false;
 
-        if ((oAssertion != null) &&
-                (oAssertion.getUserInfo() != null)) {
+        if ((oAssertion != null) && (oAssertion.getUserInfo() != null)) {
             if (oAssertion.getUserInfo().getUserName() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getUserName: " + oAssertion.getUserInfo().getUserName());
+                log.debug("Incomming request.getAssertion.getUserInfo.getUserName: "
+                        + oAssertion.getUserInfo().getUserName());
             } else {
                 log.error("Incomming request.getAssertion.getUserInfo.getUserName was null.");
                 bReturnVal = true;
@@ -289,7 +299,8 @@ public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistri
             }
 
             if (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): " + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
+                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): "
+                        + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
             } else {
                 log.error("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
                 bReturnVal = true;
@@ -297,7 +308,8 @@ public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistri
             }
 
             if (oAssertion.getUserInfo().getOrg().getName() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: " + oAssertion.getUserInfo().getOrg().getName());
+                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: "
+                        + oAssertion.getUserInfo().getOrg().getName());
             } else {
                 log.error("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name was null.");
                 bReturnVal = true;
@@ -307,7 +319,7 @@ public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistri
             log.error("The UserType object or request assertion object containing the assertion user info was null.");
             bReturnVal = true;
             return true;
-        } //else continue
+        } // else continue
 
         return bReturnVal;
     }

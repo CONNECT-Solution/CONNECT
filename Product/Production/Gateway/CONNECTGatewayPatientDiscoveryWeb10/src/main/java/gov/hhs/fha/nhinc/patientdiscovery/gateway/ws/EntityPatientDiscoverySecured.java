@@ -46,42 +46,39 @@ import org.apache.commons.logging.LogFactory;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityPatientDiscoverySecured extends PatientDiscoveryBase {
-	private static final Log log = LogFactory
-			.getLog(EntityPatientDiscoverySecured.class);
+    private static final Log log = LogFactory.getLog(EntityPatientDiscoverySecured.class);
 
-	@Resource
-	private WebServiceContext context;
+    @Resource
+    private WebServiceContext context;
 
-	public EntityPatientDiscoverySecured() {
-		super();
-	}
+    public EntityPatientDiscoverySecured() {
+        super();
+    }
 
-	public EntityPatientDiscoverySecured(
-			PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
+    public EntityPatientDiscoverySecured(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
 
-	public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
-			RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
-		log.debug("Begin EntityPatientDiscoverySecured.respondingGatewayPRPAIN201305UV02...");
-		RespondingGatewayPRPAIN201306UV02ResponseType response = null;
+    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
+            RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
+        log.debug("Begin EntityPatientDiscoverySecured.respondingGatewayPRPAIN201305UV02...");
+        RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
-		EntityPatientDiscoveryImpl serviceImpl = getEntityPatientDiscoveryImpl();
-		if (serviceImpl != null) {
-			response = serviceImpl.respondingGatewayPRPAIN201305UV02(
-					respondingGatewayPRPAIN201305UV02Request,
-					getWebServiceContext());
-		}
-		log.debug("End EntityPatientDiscoverySecured.respondingGatewayPRPAIN201305UV02...");
-		return response;
-	}
+        EntityPatientDiscoveryImpl serviceImpl = getEntityPatientDiscoveryImpl();
+        if (serviceImpl != null) {
+            response = serviceImpl.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request,
+                    getWebServiceContext());
+        }
+        log.debug("End EntityPatientDiscoverySecured.respondingGatewayPRPAIN201305UV02...");
+        return response;
+    }
 
-	protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-		return getServiceFactory().getEntityPatientDiscoveryImpl();
-	}
+    protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
+        return getServiceFactory().getEntityPatientDiscoveryImpl();
+    }
 
-	protected WebServiceContext getWebServiceContext() {
-		return context;
-	}
+    protected WebServiceContext getWebServiceContext() {
+        return context;
+    }
 
 }

@@ -34,11 +34,11 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import org.hl7.v3.PRPAIN201305UV02;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public interface AdapterPatientDiscoveryProxy
-{
+public interface AdapterPatientDiscoveryProxy {
 
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException;
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
+            throws PatientDiscoveryException;
 }

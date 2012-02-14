@@ -41,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This class performs the actual work of querying the performance log
- *
+ * 
  * @author richard.ettema
  */
 public class EntityPerformanceLogQueryImpl {
@@ -50,12 +50,13 @@ public class EntityPerformanceLogQueryImpl {
 
     /**
      * Return the Performance Log summary based on the request criteria
-     *
+     * 
      * @param entityPerformanceLogQueryRequest
      * @param context
      * @return Performance Response Summary
      */
-    public EntityPerformanceLogQueryResponseType findPerformanceData(EntityPerformanceLogQueryRequestType entityPerformanceLogQueryRequest, WebServiceContext context) {
+    public EntityPerformanceLogQueryResponseType findPerformanceData(
+            EntityPerformanceLogQueryRequestType entityPerformanceLogQueryRequest, WebServiceContext context) {
         log.debug("Start - EntityPerformanceLogQueryImpl.findPerformanceData");
 
         EntityPerformanceLogQueryResponseType response = new EntityPerformanceLogQueryResponseType();
@@ -66,13 +67,15 @@ public class EntityPerformanceLogQueryImpl {
             Calendar beginTime = entityPerformanceLogQueryRequest.getBeginTime().toGregorianCalendar();
             Calendar endTime = entityPerformanceLogQueryRequest.getEndTime().toGregorianCalendar();
 
-            List<CountDataType> countDataList = PerformanceManager.getPerformanceManagerInstance().getPerfrepositoryCountData(beginTime, endTime);
+            List<CountDataType> countDataList = PerformanceManager.getPerformanceManagerInstance()
+                    .getPerfrepositoryCountData(beginTime, endTime);
             if (countDataList == null) {
                 countDataList = new ArrayList<CountDataType>();
             }
             response.getCountDataList().addAll(countDataList);
 
-            List<DetailDataType> detailDataList = PerformanceManager.getPerformanceManagerInstance().getPerfrepositoryDetailData(beginTime, endTime);
+            List<DetailDataType> detailDataList = PerformanceManager.getPerformanceManagerInstance()
+                    .getPerfrepositoryDetailData(beginTime, endTime);
             if (detailDataList == null) {
                 detailDataList = new ArrayList<DetailDataType>();
             }
@@ -80,8 +83,7 @@ public class EntityPerformanceLogQueryImpl {
 
             // Set success to true is we get this far
             response.getSuccessOrFail().setSuccess(true);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Exception populating response: ", e);
         }
 

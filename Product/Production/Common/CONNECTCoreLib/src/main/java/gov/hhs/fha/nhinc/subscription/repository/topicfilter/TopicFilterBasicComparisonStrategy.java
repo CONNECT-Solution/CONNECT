@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class TopicFilterBasicComparisonStrategy implements ITopicFilterStrategy {
@@ -56,8 +56,10 @@ public class TopicFilterBasicComparisonStrategy implements ITopicFilterStrategy 
         boolean meetsCriteria = false;
         try {
             RootTopicExtractor rootTopicExtractor = new RootTopicExtractor();
-            Element notificationMessageTopic = rootTopicExtractor.extractTopicElementFromNotificationMessageElement(notificationMessageElement);
-            meetsCriteria = topicComparisonStrategy.MeetsCriteria(subscriptionTopicExpression, notificationMessageTopic);
+            Element notificationMessageTopic = rootTopicExtractor
+                    .extractTopicElementFromNotificationMessageElement(notificationMessageElement);
+            meetsCriteria = topicComparisonStrategy
+                    .MeetsCriteria(subscriptionTopicExpression, notificationMessageTopic);
         } catch (XPathExpressionException ex) {
             meetsCriteria = true;
         }

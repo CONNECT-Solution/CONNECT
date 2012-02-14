@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
-
 public class PassthruPatientDiscoveryDeferredRequestProxyObjectFactory extends ComponentProxyObjectFactory {
     private static final String CONFIG_FILE_NAME = "PassthruPatientDiscoveryAsyncReqProxyConfig.xml";
     private static final String BEAN_NAME = "passthrupatientdiscoveryasyncreq";

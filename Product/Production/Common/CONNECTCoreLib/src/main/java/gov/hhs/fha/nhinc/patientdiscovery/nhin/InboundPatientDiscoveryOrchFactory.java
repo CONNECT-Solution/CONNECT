@@ -31,35 +31,31 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
 
-final public class InboundPatientDiscoveryOrchFactory implements
-		GenericFactory<InboundPatientDiscoveryOrchestration> {
+final public class InboundPatientDiscoveryOrchFactory implements GenericFactory<InboundPatientDiscoveryOrchestration> {
 
-	private static InboundPatientDiscoveryOrchFactory INSTANCE = new InboundPatientDiscoveryOrchFactory();
+    private static InboundPatientDiscoveryOrchFactory INSTANCE = new InboundPatientDiscoveryOrchFactory();
 
-	InboundPatientDiscoveryOrchFactory() {
-	}
+    InboundPatientDiscoveryOrchFactory() {
+    }
 
-	@Override
-	public InboundPatientDiscoveryOrchestration create() {
-		return new NhinPatientDiscoveryOrchImpl(
-				new AbstractServicePropertyAccessor() {
+    @Override
+    public InboundPatientDiscoveryOrchestration create() {
+        return new NhinPatientDiscoveryOrchImpl(new AbstractServicePropertyAccessor() {
 
-					@Override
-					protected String getServiceEnabledPropertyName() {
-						return  NhincConstants.NHINC_PATIENT_DISCOVERY_SERVICE_NAME;
-					}
+            @Override
+            protected String getServiceEnabledPropertyName() {
+                return NhincConstants.NHINC_PATIENT_DISCOVERY_SERVICE_NAME;
+            }
 
-					@Override
-					protected String getPassThruEnabledPropertyName() {
-						return  NhincConstants.PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY;
-					} },
-				new PatientDiscoveryAuditLogger(),
-				new PatientDiscovery201305Processor(),
-				new AdapterPatientDiscoveryProxyObjectFactory()
-		);
-	}
+            @Override
+            protected String getPassThruEnabledPropertyName() {
+                return NhincConstants.PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY;
+            }
+        }, new PatientDiscoveryAuditLogger(), new PatientDiscovery201305Processor(),
+                new AdapterPatientDiscoveryProxyObjectFactory());
+    }
 
-	public static InboundPatientDiscoveryOrchFactory getInstance() {
-		return INSTANCE;
-	}
+    public static InboundPatientDiscoveryOrchFactory getInstance() {
+        return INSTANCE;
+    }
 }

@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class CMUrlInfos {
@@ -52,9 +52,8 @@ public class CMUrlInfos {
     }
 
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
-     *
+     * Returns true of the contents of the object are the same as the one passed in.
+     * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
@@ -75,7 +74,7 @@ public class CMUrlInfos {
 
     /**
      * Return the list of url information associated with this service.
-     *
+     * 
      * @return The list of url information associated with this service.
      */
     public List<CMUrlInfo> getUrlInfo() {

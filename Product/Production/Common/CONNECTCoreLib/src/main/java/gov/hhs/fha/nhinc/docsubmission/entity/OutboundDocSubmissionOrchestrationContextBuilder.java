@@ -36,7 +36,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 
 /**
- *
+ * 
  * @author zmelnick
  */
 public abstract class OutboundDocSubmissionOrchestrationContextBuilder implements OrchestrationContextBuilder {
@@ -75,7 +75,6 @@ public abstract class OutboundDocSubmissionOrchestrationContextBuilder implement
     public void setNhinDelegate(OutboundDelegate nhinDelegate) {
         this.nhinDelegate = nhinDelegate;
     }
-
 
     public ProvideAndRegisterDocumentSetRequestType getRequest() {
         return request;

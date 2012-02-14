@@ -43,87 +43,77 @@ class EntityDocSubmissionImpl_g1 {
 
     private Log log = null;
 
-    public EntityDocSubmissionImpl_g1()
-    {
+    public EntityDocSubmissionImpl_g1() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected WebServiceHelper createWebServiceHelper()
-    {
+    protected WebServiceHelper createWebServiceHelper() {
         return new WebServiceHelper();
     }
 
-    RegistryResponseType provideAndRegisterDocumentSetBUnsecured(RespondingGatewayProvideAndRegisterDocumentSetRequestType request, WebServiceContext context)
-    {
+    RegistryResponseType provideAndRegisterDocumentSetBUnsecured(
+            RespondingGatewayProvideAndRegisterDocumentSetRequestType request, WebServiceContext context) {
         log.info("Begin EntityDocSubmissionImpl.provideAndRegisterDocumentSetBUnsecured(RespondingGatewayProvideAndRegisterDocumentSetRequestType, WebServiceContext)");
         WebServiceHelper oHelper = createWebServiceHelper();
         EntityDocSubmissionOrchImpl implOrch = createEntityDocSubmissionOrchImpl();
         RegistryResponseType response = null;
 
-        try
-        {
-            if (request != null)
-            {
+        try {
+            if (request != null) {
                 ProvideAndRegisterDocumentSetRequestType msg = request.getProvideAndRegisterDocumentSetRequest();
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 AssertionType assertIn = request.getAssertion();
                 UrlInfoType urlInfo = request.getUrl();
-                response = (RegistryResponseType) oHelper.invokeUnsecureWebService(implOrch, implOrch.getClass(), 
+                response = (RegistryResponseType) oHelper.invokeUnsecureWebService(implOrch, implOrch.getClass(),
                         "provideAndRegisterDocumentSetB", msg, assertIn, targets, urlInfo, context);
-            } else
-            {
-                log.error("Failed to call the web orchestration (" + implOrch.getClass() +
-                        ".provideAndRegisterDocumentSetB).  The input parameter is null.");
+            } else {
+                log.error("Failed to call the web orchestration (" + implOrch.getClass()
+                        + ".provideAndRegisterDocumentSetB).  The input parameter is null.");
             }
-        } catch (Exception e)
-        {
-            log.error("Failed to call the web orchestration (" + implOrch.getClass() +
-                    ".provideAndRegisterDocumentSetB).  An unexpected exception occurred.  " +
-                    "Exception: " + e.getMessage(), e);
+        } catch (Exception e) {
+            log.error(
+                    "Failed to call the web orchestration (" + implOrch.getClass()
+                            + ".provideAndRegisterDocumentSetB).  An unexpected exception occurred.  " + "Exception: "
+                            + e.getMessage(), e);
         }
         log.info("End EntityDocSubmissionImpl.provideAndRegisterDocumentSetBUnsecured with response: " + response);
         return response;
     }
 
-    RegistryResponseType provideAndRegisterDocumentSetBSecured(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, WebServiceContext context)
-    {
+    RegistryResponseType provideAndRegisterDocumentSetBSecured(
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, WebServiceContext context) {
         log.info("Begin EntityDocSubmissionImpl.provideAndRegisterDocumentSetBSecured(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, WebServiceContext)");
         WebServiceHelper oHelper = createWebServiceHelper();
         EntityDocSubmissionOrchImpl implOrch = createEntityDocSubmissionOrchImpl();
         RegistryResponseType response = null;
 
-        try
-        {
-            if (request != null)
-            {
+        try {
+            if (request != null) {
                 ProvideAndRegisterDocumentSetRequestType msg = request.getProvideAndRegisterDocumentSetRequest();
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 UrlInfoType urlInfo = request.getUrl();
-                response = (RegistryResponseType) oHelper.invokeSecureWebService(implOrch, implOrch.getClass(), 
+                response = (RegistryResponseType) oHelper.invokeSecureWebService(implOrch, implOrch.getClass(),
                         "provideAndRegisterDocumentSetB", msg, targets, urlInfo, context);
-            } else
-            {
-                log.error("Failed to call the web orchestration (" + implOrch.getClass() +
-                        ".provideAndRegisterDocumentSetB).  The input parameter is null.");
+            } else {
+                log.error("Failed to call the web orchestration (" + implOrch.getClass()
+                        + ".provideAndRegisterDocumentSetB).  The input parameter is null.");
             }
-        } catch (Exception e)
-        {
-            log.error("Failed to call the web orchestration (" + implOrch.getClass() +
-                    ".provideAndRegisterDocumentSetB).  An unexpected exception occurred.  " +
-                    "Exception: " + e.getMessage(), e);
+        } catch (Exception e) {
+            log.error(
+                    "Failed to call the web orchestration (" + implOrch.getClass()
+                            + ".provideAndRegisterDocumentSetB).  An unexpected exception occurred.  " + "Exception: "
+                            + e.getMessage(), e);
         }
         log.info("End EntityDocSubmissionImpl.provideAndRegisterDocumentSetBSecured with response: " + response);
 
         return response;
     }
 
-    private EntityDocSubmissionOrchImpl createEntityDocSubmissionOrchImpl()
-    {
+    private EntityDocSubmissionOrchImpl createEntityDocSubmissionOrchImpl() {
         return new EntityDocSubmissionOrchImpl();
     }
 }

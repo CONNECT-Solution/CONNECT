@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "AdapterNotificationProducerSecured", portName = "AdapterNotificationProducerPortSecuredSoap", endpointInterface = "gov.hhs.fha.nhinc.adaptersubscriptionmanagementsecured.AdapterNotificationProducerPortSecuredType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagementsecured", wsdlLocation = "META-INF/wsdl/AdapterSubscriptionManagementSecured/AdapterSubscriptionManagementSecured.wsdl")
@@ -45,17 +45,18 @@ public class AdapterSubscriptionManagementSecured implements AdapterNotification
 
     private static Log log = LogFactory.getLog(AdapterSubcriptionManagement.class);
 
-    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(org.oasis_open.docs.wsn.b_2.Subscribe subscribeRequest) {
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
+            org.oasis_open.docs.wsn.b_2.Subscribe subscribeRequest) {
         SubscribeResponse response = new SubscribeResponse();
 
         log.info("Received Subscribe Request: " + subscribeRequest);
 
-
         return response;
     }
 
-    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribeDocument(gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeDocumentRequestSecuredType subscribeDocumentRequest) {
-        //TODO implement this method
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribeDocument(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeDocumentRequestSecuredType subscribeDocumentRequest) {
+        // TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 

@@ -35,26 +35,23 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class AdapterDocSubmissionDeferredRequestOrchImpl
-{
+public class AdapterDocSubmissionDeferredRequestOrchImpl {
 
     private Log log = null;
 
-    public AdapterDocSubmissionDeferredRequestOrchImpl()
-    {
+    public AdapterDocSubmissionDeferredRequestOrchImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(this.getClass());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, String url, AssertionType assertion)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
+            String url, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
 
         XDRAcknowledgementType ack = null;

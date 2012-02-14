@@ -33,10 +33,12 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public interface NhinDocSubmissionDeferredRequestProxy {
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel);
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+            NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel);
 }

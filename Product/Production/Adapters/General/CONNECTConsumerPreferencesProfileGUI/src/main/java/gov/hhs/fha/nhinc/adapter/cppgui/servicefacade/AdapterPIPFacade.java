@@ -47,7 +47,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class AdapterPIPFacade {
@@ -58,14 +58,12 @@ public class AdapterPIPFacade {
         AdapterPIPProxy adapterPIPProxy = getAdapterPIPProxy();
 
         AssertionType assertion = null;
-        if(consentRequest != null)
-        {
+        if (consentRequest != null) {
             assertion = consentRequest.getAssertion();
         }
         StorePtConsentResponseType consentResponse = adapterPIPProxy.storePtConsent(consentRequest, assertion);
 
-        if (consentResponse != null)
-        {
+        if (consentResponse != null) {
             log.debug("Save Consumer PReference Status: " + consentResponse.getStatus());
             return consentResponse.getStatus();
         }
@@ -79,83 +77,78 @@ public class AdapterPIPFacade {
         return adapterPIPProxy;
     }
 
-    public RetrievePtConsentByPtIdResponseType retrieveConsumerPreferences(RetrievePtConsentByPtIdRequestType consentRequest) {
+    public RetrievePtConsentByPtIdResponseType retrieveConsumerPreferences(
+            RetrievePtConsentByPtIdRequestType consentRequest) {
         AdapterPIPProxy adapterPIPProxy = getAdapterPIPProxy();
         AssertionType assertion = null;
-        if(consentRequest != null)
-        {
+        if (consentRequest != null) {
             assertion = consentRequest.getAssertion();
         }
-        RetrievePtConsentByPtIdResponseType consentResponse = adapterPIPProxy.retrievePtConsentByPtId(consentRequest, assertion);
+        RetrievePtConsentByPtIdResponseType consentResponse = adapterPIPProxy.retrievePtConsentByPtId(consentRequest,
+                assertion);
 
         return consentResponse;
     }
 
-    public PatientPreferencesVO retriveConsumerPreferences(ConsumerPreferencesSearchCriteria criteria)
-    {
+    public PatientPreferencesVO retriveConsumerPreferences(ConsumerPreferencesSearchCriteria criteria) {
         AdapterPIPProxy adapterPIPProxy = getAdapterPIPProxy();
 
         RetrievePtConsentByPtIdRequestType consentReq = createRetrievePtConsentByPtIdRequestType(criteria);
         AssertionType assertion = null;
-        if(consentReq != null)
-        {
+        if (consentReq != null) {
             assertion = consentReq.getAssertion();
         }
 
-        RetrievePtConsentByPtIdResponseType consentResp = adapterPIPProxy.retrievePtConsentByPtId(consentReq, assertion);
+        RetrievePtConsentByPtIdResponseType consentResp = adapterPIPProxy
+                .retrievePtConsentByPtId(consentReq, assertion);
 
         return convertConsentResponseToPatientPreferences(consentResp);
     }
 
-    private PatientPreferencesVO convertConsentResponseToPatientPreferences(RetrievePtConsentByPtIdResponseType consentResponse)
-    {
+    private PatientPreferencesVO convertConsentResponseToPatientPreferences(
+            RetrievePtConsentByPtIdResponseType consentResponse) {
         PatientPreferencesVO patientPreferences = new PatientPreferencesVO();
 
-        if (consentResponse != null && consentResponse.getPatientPreferences() != null)
-        {
+        if (consentResponse != null && consentResponse.getPatientPreferences() != null) {
             PatientPreferencesType preferencesRespObj = consentResponse.getPatientPreferences();
-            
+
             patientPreferences.setOptIn(preferencesRespObj.isOptIn());
 
-            if (preferencesRespObj.getFineGrainedPolicyCriteria() != null)
-            {
-                FineGrainedPolicyCriteriaType fineGrainedCriteriaRespObj = preferencesRespObj.getFineGrainedPolicyCriteria();
+            if (preferencesRespObj.getFineGrainedPolicyCriteria() != null) {
+                FineGrainedPolicyCriteriaType fineGrainedCriteriaRespObj = preferencesRespObj
+                        .getFineGrainedPolicyCriteria();
 
-                if (fineGrainedCriteriaRespObj.getFineGrainedPolicyCriterion() != null && fineGrainedCriteriaRespObj.getFineGrainedPolicyCriterion().size() > 0)
-                {
-                    for (FineGrainedPolicyCriterionType fineGrainedCriterionRespObj:fineGrainedCriteriaRespObj.getFineGrainedPolicyCriterion() )
-                    {
+                if (fineGrainedCriteriaRespObj.getFineGrainedPolicyCriterion() != null
+                        && fineGrainedCriteriaRespObj.getFineGrainedPolicyCriterion().size() > 0) {
+                    for (FineGrainedPolicyCriterionType fineGrainedCriterionRespObj : fineGrainedCriteriaRespObj
+                            .getFineGrainedPolicyCriterion()) {
                         FineGrainedPolicyCriterionVO fineGrainedPolicyCriterion = new FineGrainedPolicyCriterionVO();
 
                         fineGrainedPolicyCriterion.setPolicyOID(fineGrainedCriterionRespObj.getPolicyOID());
 
-                        if (fineGrainedCriterionRespObj.isPermit())
-                        {
+                        if (fineGrainedCriterionRespObj.isPermit()) {
                             fineGrainedPolicyCriterion.setPermit("Permit");
-                        }
-                        else
-                        {
+                        } else {
                             fineGrainedPolicyCriterion.setPermit("Deny");
                         }
 
-                        if (fineGrainedCriterionRespObj.getDocumentTypeCode() != null)
-                        {
-                            fineGrainedPolicyCriterion.setDocumentTypeCode(fineGrainedCriterionRespObj.getDocumentTypeCode().getCode());
+                        if (fineGrainedCriterionRespObj.getDocumentTypeCode() != null) {
+                            fineGrainedPolicyCriterion.setDocumentTypeCode(fineGrainedCriterionRespObj
+                                    .getDocumentTypeCode().getCode());
                         }
 
-                        if (fineGrainedCriterionRespObj.getUserRole() != null)
-                        {
+                        if (fineGrainedCriterionRespObj.getUserRole() != null) {
                             fineGrainedPolicyCriterion.setUserRole(fineGrainedCriterionRespObj.getUserRole().getCode());
                         }
 
-                        if (fineGrainedCriterionRespObj.getPurposeOfUse() != null)
-                        {
-                            fineGrainedPolicyCriterion.setPurposeOfUse(fineGrainedCriterionRespObj.getPurposeOfUse().getCode());
+                        if (fineGrainedCriterionRespObj.getPurposeOfUse() != null) {
+                            fineGrainedPolicyCriterion.setPurposeOfUse(fineGrainedCriterionRespObj.getPurposeOfUse()
+                                    .getCode());
                         }
 
-                        if (fineGrainedCriterionRespObj.getConfidentialityCode() != null)
-                        {
-                            fineGrainedPolicyCriterion.setConfidentialityCode(fineGrainedCriterionRespObj.getConfidentialityCode().getCode());
+                        if (fineGrainedCriterionRespObj.getConfidentialityCode() != null) {
+                            fineGrainedPolicyCriterion.setConfidentialityCode(fineGrainedCriterionRespObj
+                                    .getConfidentialityCode().getCode());
                         }
 
                         patientPreferences.addFineGrainedPolicyCriterion(fineGrainedPolicyCriterion);
@@ -172,7 +165,8 @@ public class AdapterPIPFacade {
      * @param criteria
      * @return
      */
-    private RetrievePtConsentByPtIdRequestType createRetrievePtConsentByPtIdRequestType(ConsumerPreferencesSearchCriteria criteria) {
+    private RetrievePtConsentByPtIdRequestType createRetrievePtConsentByPtIdRequestType(
+            ConsumerPreferencesSearchCriteria criteria) {
         RetrievePtConsentByPtIdRequestType consentReq = new RetrievePtConsentByPtIdRequestType();
 
         consentReq.setAssigningAuthority(criteria.getAssigningAuthorityID());
@@ -180,77 +174,67 @@ public class AdapterPIPFacade {
         return consentReq;
     }
 
-    public String saveOptInConsumerPreference(PatientVO patientVO)
-    {
+    public String saveOptInConsumerPreference(PatientVO patientVO) {
         StorePtConsentRequestType consentRequest = createStorePtConsentRequestType(patientVO);
         String status = saveConsumerPreferences(consentRequest);
         return status;
     }
 
-    private StorePtConsentRequestType createStorePtConsentRequestType(PatientVO patientVO)
-    {
+    private StorePtConsentRequestType createStorePtConsentRequestType(PatientVO patientVO) {
         StorePtConsentRequestType consentRequest = new StorePtConsentRequestType();
         PatientPreferencesType patientPreference = new PatientPreferencesType();
 
         log.debug("createStorePtConsentRequestType - patientVO.getPatientID(): " + patientVO.getPatientID());
-        log.debug("createStorePtConsentRequestType - patientVO.getAssigningAuthorityID(): " + patientVO.getAssigningAuthorityID());
+        log.debug("createStorePtConsentRequestType - patientVO.getAssigningAuthorityID(): "
+                + patientVO.getAssigningAuthorityID());
 
         patientPreference.setPatientId(patientVO.getPatientID());
         patientPreference.setAssigningAuthority(patientVO.getAssigningAuthorityID());
 
-        if (patientVO.getPatientPreferences() != null)
-        {
+        if (patientVO.getPatientPreferences() != null) {
             PatientPreferencesVO patientPreferencesVO = patientVO.getPatientPreferences();
 
             patientPreference.setOptIn(patientPreferencesVO.getOptIn());
 
             if (patientPreferencesVO.getFineGrainedPolicyCriteria() != null
-                    && patientPreferencesVO.getFineGrainedPolicyCriteria().size() > 0)
-            {
+                    && patientPreferencesVO.getFineGrainedPolicyCriteria().size() > 0) {
                 FineGrainedPolicyCriteriaType fineGrainedPolicyCriteria = new FineGrainedPolicyCriteriaType();
 
-                for (FineGrainedPolicyCriterionVO fineGrainedPolicyCriterionVO : patientPreferencesVO.getFineGrainedPolicyCriteria())
-                {
+                for (FineGrainedPolicyCriterionVO fineGrainedPolicyCriterionVO : patientPreferencesVO
+                        .getFineGrainedPolicyCriteria()) {
                     FineGrainedPolicyCriterionType fineGrainedPolicyCriterion = new FineGrainedPolicyCriterionType();
 
                     fineGrainedPolicyCriterion.setPolicyOID(fineGrainedPolicyCriterionVO.getPolicyOID());
-                    
-                    if (CPPConstants.PERMIT.equalsIgnoreCase(fineGrainedPolicyCriterionVO.getPermit()))
-                    {
+
+                    if (CPPConstants.PERMIT.equalsIgnoreCase(fineGrainedPolicyCriterionVO.getPermit())) {
                         fineGrainedPolicyCriterion.setPermit(true);
-                    }
-                    else
-                    {
+                    } else {
                         fineGrainedPolicyCriterion.setPermit(false);
                     }
 
-                    if (fineGrainedPolicyCriterionVO.getDocumentTypeCode() != null &&
-                            !fineGrainedPolicyCriterionVO.getDocumentTypeCode().isEmpty())
-                    {
+                    if (fineGrainedPolicyCriterionVO.getDocumentTypeCode() != null
+                            && !fineGrainedPolicyCriterionVO.getDocumentTypeCode().isEmpty()) {
                         CeType documentTypeCode = new CeType();
                         documentTypeCode.setCode(fineGrainedPolicyCriterionVO.getDocumentTypeCode());
                         fineGrainedPolicyCriterion.setDocumentTypeCode(documentTypeCode);
                     }
 
-                    if (fineGrainedPolicyCriterionVO.getUserRole() != null &&
-                            !fineGrainedPolicyCriterionVO.getUserRole().isEmpty())
-                    {
+                    if (fineGrainedPolicyCriterionVO.getUserRole() != null
+                            && !fineGrainedPolicyCriterionVO.getUserRole().isEmpty()) {
                         CeType userRole = new CeType();
                         userRole.setCode(fineGrainedPolicyCriterionVO.getUserRole());
                         fineGrainedPolicyCriterion.setUserRole(userRole);
                     }
 
-                    if (fineGrainedPolicyCriterionVO.getPurposeOfUse() != null &&
-                            !fineGrainedPolicyCriterionVO.getUserRole().isEmpty())
-                    {
+                    if (fineGrainedPolicyCriterionVO.getPurposeOfUse() != null
+                            && !fineGrainedPolicyCriterionVO.getUserRole().isEmpty()) {
                         CeType purposeOfUse = new CeType();
                         purposeOfUse.setCode(fineGrainedPolicyCriterionVO.getPurposeOfUse());
                         fineGrainedPolicyCriterion.setPurposeOfUse(purposeOfUse);
                     }
 
-                    if (fineGrainedPolicyCriterionVO.getConfidentialityCode() != null &&
-                            !fineGrainedPolicyCriterionVO.getConfidentialityCode().isEmpty())
-                    {
+                    if (fineGrainedPolicyCriterionVO.getConfidentialityCode() != null
+                            && !fineGrainedPolicyCriterionVO.getConfidentialityCode().isEmpty()) {
                         CeType confidentialityCode = new CeType();
                         confidentialityCode.setCode(fineGrainedPolicyCriterionVO.getConfidentialityCode());
                         fineGrainedPolicyCriterion.setConfidentialityCode(confidentialityCode);
@@ -262,7 +246,7 @@ public class AdapterPIPFacade {
             }
             consentRequest.setPatientPreferences(patientPreference);
         }
-        
+
         return consentRequest;
     }
 }

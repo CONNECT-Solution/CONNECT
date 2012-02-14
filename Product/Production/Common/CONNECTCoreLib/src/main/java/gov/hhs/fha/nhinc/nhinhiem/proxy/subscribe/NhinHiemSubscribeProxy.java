@@ -42,13 +42,15 @@ import org.oasis_open.docs.wsn.bw_2.UnrecognizedPolicyRequestFault;
 import org.oasis_open.docs.wsn.bw_2.UnsupportedPolicyRequestFault;
 import org.w3c.dom.Element;
 
-
 /**
- *
+ * 
  * @author jhoppesc
  */
 public interface NhinHiemSubscribeProxy {
 
     public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target)
-            throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault;
+            throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
+            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault,
+            SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault,
+            UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault;
 }

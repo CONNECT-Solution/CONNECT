@@ -41,14 +41,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class PassthruDocRetrieveProxyNoOpImplTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class PassthruDocRetrieveProxyNoOpImplTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -57,23 +55,17 @@ public class PassthruDocRetrieveProxyNoOpImplTest
     final Log mockLog = context.mock(Log.class);
 
     @Test
-    public void testCreateLogger()
-    {
-        try
-        {
-            PassthruDocRetrieveProxyNoOpImpl sut = new PassthruDocRetrieveProxyNoOpImpl()
-            {
+    public void testCreateLogger() {
+        try {
+            PassthruDocRetrieveProxyNoOpImpl sut = new PassthruDocRetrieveProxyNoOpImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
             };
             Log log = sut.createLogger();
             assertNotNull("Log was null", log);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger: " + t.getMessage());
@@ -81,32 +73,27 @@ public class PassthruDocRetrieveProxyNoOpImplTest
     }
 
     @Test
-    public void testRespondingGatewayCrossGatewayRetrieve()
-    {
-        try
-        {
-            PassthruDocRetrieveProxyNoOpImpl sut = new PassthruDocRetrieveProxyNoOpImpl()
-            {
+    public void testRespondingGatewayCrossGatewayRetrieve() {
+        try {
+            PassthruDocRetrieveProxyNoOpImpl sut = new PassthruDocRetrieveProxyNoOpImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
-                    oneOf(mockLog).debug("Begin PassthruDocRetrieveProxyNoOpImpl.respondingGatewayCrossGatewayRetrieve");
+                    oneOf(mockLog)
+                            .debug("Begin PassthruDocRetrieveProxyNoOpImpl.respondingGatewayCrossGatewayRetrieve");
                 }
             });
             RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
             AssertionType assertion = new AssertionType();
             NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-            RetrieveDocumentSetResponseType response = sut.respondingGatewayCrossGatewayRetrieve(request, assertion, targetSystem);
+            RetrieveDocumentSetResponseType response = sut.respondingGatewayCrossGatewayRetrieve(request, assertion,
+                    targetSystem);
             assertNotNull("RetrieveDocumentSetResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayCrossGatewayRetrieve: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayCrossGatewayRetrieve: " + t.getMessage());

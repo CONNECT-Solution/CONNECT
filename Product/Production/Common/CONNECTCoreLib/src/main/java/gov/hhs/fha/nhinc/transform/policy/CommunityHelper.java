@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.transform.policy;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class CommunityHelper {

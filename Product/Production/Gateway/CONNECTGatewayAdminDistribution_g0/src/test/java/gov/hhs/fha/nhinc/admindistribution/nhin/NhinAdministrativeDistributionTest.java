@@ -36,12 +36,13 @@ import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class NhinAdministrativeDistributionTest {
 
     private Mockery context;
+
     public NhinAdministrativeDistributionTest() {
     }
 
@@ -66,16 +67,14 @@ public class NhinAdministrativeDistributionTest {
         final AssertionType assertion = new AssertionType();
 
         body.setSenderID("test");
-        
-        NhinAdministrativeDistribution instance = new NhinAdministrativeDistribution()
-        {
 
-            protected AssertionType extractAssertion(WebServiceContext context)
-            {
-                return  assertion;
+        NhinAdministrativeDistribution instance = new NhinAdministrativeDistribution() {
+
+            protected AssertionType extractAssertion(WebServiceContext context) {
+                return assertion;
             }
-            protected NhinAdminDistributionOrchImpl getNhinImpl()
-            {
+
+            protected NhinAdminDistributionOrchImpl getNhinImpl() {
                 return mockImpl;
             }
         };
@@ -86,11 +85,9 @@ public class NhinAdministrativeDistributionTest {
                 will(returnValue(null));
             }
         });
-        
+
         instance.sendAlertMessage(body);
         context.assertIsSatisfied();
     }
-
-
 
 }

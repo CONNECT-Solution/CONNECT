@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author akong
  */
 @RunWith(JMock.class)
@@ -28,15 +28,16 @@ public class AdapterDocRetrieveDeferredReqQueueProcessTest {
         }
     };
 
-    final AdapterDocRetrieveDeferredReqQueueProcessImpl mockImpl = context.mock(AdapterDocRetrieveDeferredReqQueueProcessImpl.class);
+    final AdapterDocRetrieveDeferredReqQueueProcessImpl mockImpl = context
+            .mock(AdapterDocRetrieveDeferredReqQueueProcessImpl.class);
 
     @Test
     public void testGetAdapterDocRetrieveDeferredReqQueueProcessImpl() {
         AdapterDocRetrieveDeferredReqQueueProcess process = new AdapterDocRetrieveDeferredReqQueueProcess();
-        AdapterDocRetrieveDeferredReqQueueProcessImpl processImpl = process.getAdapterDocRetrieveDeferredReqQueueProcessImpl();
+        AdapterDocRetrieveDeferredReqQueueProcessImpl processImpl = process
+                .getAdapterDocRetrieveDeferredReqQueueProcessImpl();
         assertNotNull(processImpl);
     }
-
 
     @Test
     public void testProcessDocRetrieveDeferredReqQueue() {
@@ -48,7 +49,9 @@ public class AdapterDocRetrieveDeferredReqQueueProcessTest {
         };
         context.checking(new Expectations() {
             {
-                oneOf(mockImpl).processDocRetrieveDeferredReqQueue(with(any(DocRetrieveDeferredReqQueueProcessRequestType.class)), with(any(javax.xml.ws.WebServiceContext.class)));
+                oneOf(mockImpl).processDocRetrieveDeferredReqQueue(
+                        with(any(DocRetrieveDeferredReqQueueProcessRequestType.class)),
+                        with(any(javax.xml.ws.WebServiceContext.class)));
                 will(returnValue(new DocRetrieveDeferredReqQueueProcessResponseType()));
             }
         });

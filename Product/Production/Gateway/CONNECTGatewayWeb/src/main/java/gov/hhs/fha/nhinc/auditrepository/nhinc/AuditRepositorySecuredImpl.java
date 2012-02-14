@@ -37,7 +37,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEvents
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 
-
 public class AuditRepositorySecuredImpl {
 
     private Log log = null;
@@ -73,8 +72,7 @@ public class AuditRepositorySecuredImpl {
 
                     response = processor.logAudit(mess, assertion);
                 } catch (Exception ex) {
-                    String message = "Error occurred calling AuditRepositoryImpl.logAudit. Error: " +
-                            ex.getMessage();
+                    String message = "Error occurred calling AuditRepositoryImpl.logAudit. Error: " + ex.getMessage();
                     log.error(message, ex);
                     throw new RuntimeException(message, ex);
                 }
@@ -102,8 +100,7 @@ public class AuditRepositorySecuredImpl {
 
                     response = processor.findAudit(query, assertion);
                 } catch (Exception ex) {
-                    String message = "Error occurred calling AuditRepositoryImpl.findAudit. Error: " +
-                            ex.getMessage();
+                    String message = "Error occurred calling AuditRepositoryImpl.findAudit. Error: " + ex.getMessage();
                     log.error(message, ex);
                     throw new RuntimeException(message, ex);
                 }

@@ -41,12 +41,13 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
-public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl implements NhinPatientDiscoveryDeferredRespProxy {
+public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl implements
+        NhinPatientDiscoveryDeferredRespProxy {
 
-   private static Service cachedService = null;
+    private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:ihe:iti:xcpd:2009";
     private static final String SERVICE_LOCAL_PART = "RespondingGatewayDeferredResp_Service";
     private static final String PORT_LOCAL_PART = "RespondingGatewayDeferredResponse_Port";
@@ -58,36 +59,29 @@ public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl implemen
     /**
      * Default constructor.
      */
-    public NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl()
-    {
+    public NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl() {
         log = createLogger();
     }
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
@@ -96,62 +90,61 @@ public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl implemen
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @param serviceAction The action for the web service.
      * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected RespondingGatewayDeferredResponsePortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-    {
+    protected RespondingGatewayDeferredResponsePortType getPort(String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion) {
         RespondingGatewayDeferredResponsePortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayDeferredResponsePortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
-        }
-        else
-        {
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    RespondingGatewayDeferredResponsePortType.class);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
     }
 
-    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetSystemType target) {
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 request, AssertionType assertion,
+            NhinTargetSystemType target) {
         String url = null;
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
 
-        try
-        {
-            if (request != null)
-            {
+        try {
+            if (request != null) {
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
-                log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + " is: " + url);
+                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
+                        NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+                log.debug("After target system URL look up. URL for service: "
+                        + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + " is: " + url);
 
-                if (NullChecker.isNotNullish(url))
-                {
-                    RespondingGatewayDeferredResponsePortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
-                    response = (MCCIIN000002UV01) oProxyHelper.invokePort(port, RespondingGatewayDeferredResponsePortType.class, "respondingGatewayDeferredPRPAIN201306UV02", request);
+                if (NullChecker.isNotNullish(url)) {
+                    RespondingGatewayDeferredResponsePortType port = getPort(url,
+                            NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+                    response = (MCCIIN000002UV01) oProxyHelper.invokePort(port,
+                            RespondingGatewayDeferredResponsePortType.class,
+                            "respondingGatewayDeferredPRPAIN201306UV02", request);
+                } else {
+                    log.error("Failed to call the web service ("
+                            + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ").  The URL is null.");
                 }
-                else
-                {
-                    log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ").  The URL is null.");
-                }
+            } else {
+                log.error("Failed to call the web service ("
+                        + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME
+                        + ").  The input parameter is null.");
             }
-            else
-            {
-                log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ").  The input parameter is null.");
-            }
-        }
-        catch (Exception e)
-        {
-            log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ").  An unexpected exception occurred.  " +
-                      "Exception: " + e.getMessage(), e);
+        } catch (Exception e) {
+            log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME
+                    + ").  An unexpected exception occurred.  " + "Exception: " + e.getMessage(), e);
         }
 
         return response;

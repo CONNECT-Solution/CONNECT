@@ -46,7 +46,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This contains the implementation of the Adapter PIP (Policy Information Point).
- *
+ * 
  * @author Les Westberg
  */
 public class AdapterPIPImpl {
@@ -71,7 +71,7 @@ public class AdapterPIPImpl {
 
     /**
      * Retrieve the patient consent settings for the given patient ID.
-     *
+     * 
      * @param request The patient ID for which the consent is being retrieved.
      * @return The patient consent information for that patient.
      * @throws AdapterPIPException This exception is thrown if the data cannot be retrieved.
@@ -83,13 +83,11 @@ public class AdapterPIPImpl {
         String sPatientId = "";
         String sAssigningAuthority = "";
 
-        if ((request != null) &&
-                (request.getAssigningAuthority() != null)) {
+        if ((request != null) && (request.getAssigningAuthority() != null)) {
             sAssigningAuthority = request.getAssigningAuthority();
         }
 
-        if ((request != null) &&
-                (request.getPatientId() != null)) {
+        if ((request != null) && (request.getPatientId() != null)) {
             sPatientId = request.getPatientId();
         }
 
@@ -104,15 +102,13 @@ public class AdapterPIPImpl {
     }
 
     /**
-     * Retrieve the patient consent settings for the patient associated with
-     * the given document identifiers.
-     *
+     * Retrieve the patient consent settings for the patient associated with the given document identifiers.
+     * 
      * @param request The doucment identifiers of a document in the repository.
-     * @return The patient consent settings for the patient associated with
-     *         the given document identifiers.
+     * @return The patient consent settings for the patient associated with the given document identifiers.
      */
-    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request)
-            throws AdapterPIPException {
+    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
+            RetrievePtConsentByPtDocIdRequestType request) throws AdapterPIPException {
         log.debug("Begin AdapterPIPImpl.retrievePtIdFromDocumentId()..");
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
 
@@ -120,24 +116,21 @@ public class AdapterPIPImpl {
         String sRepositoryId = "";
         String sDocumentUniqueId = "";
 
-        if ((request != null) &&
-                (request.getHomeCommunityId() != null)) {
+        if ((request != null) && (request.getHomeCommunityId() != null)) {
             sHomeCommunityId = request.getHomeCommunityId();
         }
 
-        if ((request != null) &&
-                (request.getRepositoryId() != null)) {
+        if ((request != null) && (request.getRepositoryId() != null)) {
             sRepositoryId = request.getRepositoryId();
         }
 
-        if ((request != null) &&
-                (request.getDocumentId() != null)) {
+        if ((request != null) && (request.getDocumentId() != null)) {
             sDocumentUniqueId = request.getDocumentId();
         }
 
-
         PatientConsentManager oManager = new PatientConsentManager();
-        PatientPreferencesType oPtPref = oManager.retrievePatientConsentByDocId(sHomeCommunityId, sRepositoryId, sDocumentUniqueId);
+        PatientPreferencesType oPtPref = oManager.retrievePatientConsentByDocId(sHomeCommunityId, sRepositoryId,
+                sDocumentUniqueId);
 
         if (oPtPref != null) {
             oResponse.setPatientPreferences(oPtPref);
@@ -149,18 +142,16 @@ public class AdapterPIPImpl {
 
     /**
      * Store the patient consent information into the repository.
-     *
+     * 
      * @param request The patient consent settings to be stored.
-     * @return Status of the storage.  Currently this is either "SUCCESS" or
-     *         or the word "FAILED" followed by a ':' followed by the error information.
+     * @return Status of the storage. Currently this is either "SUCCESS" or or the word "FAILED" followed by a ':'
+     *         followed by the error information.
      */
-    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request)
-            throws AdapterPIPException {
+    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request) throws AdapterPIPException {
         log.debug("Begin AdapterPIPImpl.storePtConsent()..");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
         try {
-            if ((request != null) &&
-                    (request.getPatientPreferences() != null)) {
+            if ((request != null) && (request.getPatientPreferences() != null)) {
                 PatientConsentManager oManager = getPatientConsentManager();
                 oManager.storePatientConsent(request.getPatientPreferences());
                 oResponse.setStatus("SUCCESS");
@@ -169,8 +160,7 @@ public class AdapterPIPImpl {
             }
         } catch (Exception e) {
             oResponse.setStatus("FAILED: " + e.getMessage());
-            String sErrorMessage = "Failed to store the patient consent.  Error: " +
-                    e.getMessage();
+            String sErrorMessage = "Failed to store the patient consent.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
@@ -179,6 +169,7 @@ public class AdapterPIPImpl {
 
     /**
      * This method is used to build Asserton information to send Notification to Entity Notification Consumer
+     * 
      * @param sHid
      * @return AssertionType
      */
@@ -191,15 +182,18 @@ public class AdapterPIPImpl {
             assertion.setHaveWitnessSignature(true);
             svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PERMISSION_DATE);
             if (svalue != null && svalue.length() > 0) {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore(svalue.trim());
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
+                        .setNotBefore(svalue.trim());
             } else {
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore("");
             }
             svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.EXPIRATION_DATE);
             if (null != svalue && svalue.length() > 0) {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter(svalue.trim());
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
+                        .setNotOnOrAfter(svalue.trim());
             } else {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter("");
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
+                        .setNotOnOrAfter("");
             }
             PersonNameType aPersonName = new PersonNameType();
             svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.FIRST_NAME);
@@ -273,19 +267,22 @@ public class AdapterPIPImpl {
             } else {
                 ce.setCode("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PURPOSE_FOR_USE_CODE_SYSTEM);
+            svalue = PropertyAccessor
+                    .getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PURPOSE_FOR_USE_CODE_SYSTEM);
             if (null != svalue && svalue.length() > 0) {
                 ce.setCodeSystem(svalue.trim());
             } else {
                 ce.setCodeSystem("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PURPOSE_FOR_USE_CODE_SYSTEM_NAME);
+            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
+                    CDAConstants.PURPOSE_FOR_USE_CODE_SYSTEM_NAME);
             if (null != svalue && svalue.length() > 0) {
                 ce.setCodeSystemName(svalue.trim());
             } else {
                 ce.setCodeSystemName("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PURPOSE_FOR_USE_DISPLAY_NAME);
+            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
+                    CDAConstants.PURPOSE_FOR_USE_DISPLAY_NAME);
             if (null != svalue && svalue.length() > 0) {
                 ce.setDisplayName(svalue.trim());
             } else {
@@ -294,17 +291,20 @@ public class AdapterPIPImpl {
             assertion.setPurposeOfDisclosureCoded(ce);
             svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.ACCESS_POLICY_CONSENT);
             if (null != svalue && svalue.length() > 0) {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().add(svalue.trim());
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
+                        .add(svalue.trim());
             } else {
-                //Do not add empty string to AccessConsentPolicy (Can occur 0 times)
-                //assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().add("");
+                // Do not add empty string to AccessConsentPolicy (Can occur 0 times)
+                // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().add("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.INSTANCE_ACCESS_POLICY_CONSENT);
+            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
+                    CDAConstants.INSTANCE_ACCESS_POLICY_CONSENT);
             if (null != svalue && svalue.length() > 0) {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().add(svalue.trim());
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy()
+                        .add(svalue.trim());
             } else {
-                //Do not add empty string to InstanceAccessConsentPolicy (Can occur 0 times)
-                //assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().add("");
+                // Do not add empty string to InstanceAccessConsentPolicy (Can occur 0 times)
+                // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().add("");
             }
         } catch (PropertyAccessException propExp) {
             propExp.printStackTrace();

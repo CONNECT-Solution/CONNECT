@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class HL7Parser201301 {
@@ -57,7 +57,8 @@ public class HL7Parser201301 {
             log.info("message does not contain a gender code");
         } else {
             log.info("person.getAdministrativeGenderCode().getCode()=" + person.getAdministrativeGenderCode().getCode());
-            log.info("person.getAdministrativeGenderCode().getDisplayName()=" + person.getAdministrativeGenderCode().getDisplayName());
+            log.info("person.getAdministrativeGenderCode().getDisplayName()="
+                    + person.getAdministrativeGenderCode().getDisplayName());
             genderCode = person.getAdministrativeGenderCode().getCode();
         }
         return genderCode;
@@ -79,15 +80,13 @@ public class HL7Parser201301 {
     }
 
     public static PersonName ExtractPersonName(PRPAMT201301UV02Person person) {
-        //temp logic to prove i can get to name - long term would want to store discrete name parts
-        //also assume one name, not multiple names
+        // temp logic to prove i can get to name - long term would want to store discrete name parts
+        // also assume one name, not multiple names
         PersonName personname = new PersonName();
 
         log.info("patientPerson.getName().size() " + person.getName().size());
-        if (person.getName() != null &&
-                person.getName().size() > 0 &&
-                person.getName().get(0) != null &&
-                person.getName().get(0).getContent() != null) {
+        if (person.getName() != null && person.getName().size() > 0 && person.getName().get(0) != null
+                && person.getName().get(0).getContent() != null) {
 
             List<Serializable> choice = person.getName().get(0).getContent();
             log.info("choice.size()=" + choice.size());
@@ -163,7 +162,8 @@ public class HL7Parser201301 {
             Identifier id = new Identifier();
             id.setId(patientid.getExtension());
             id.setOrganizationId(patientid.getRoot());
-            log.info("Created id from patient identifier [organization=" + id.getOrganizationId() + "][id=" + id.getId() + "]");
+            log.info("Created id from patient identifier [organization=" + id.getOrganizationId() + "][id="
+                    + id.getId() + "]");
             ids.add(id);
         }
 
@@ -172,7 +172,8 @@ public class HL7Parser201301 {
             Identifier id = new Identifier();
             id.setId(personid.getExtension());
             id.setOrganizationId(personid.getRoot());
-            log.info("Created id from person identifier [organization=" + id.getOrganizationId() + "][id=" + id.getId() + "]");
+            log.info("Created id from person identifier [organization=" + id.getOrganizationId() + "][id=" + id.getId()
+                    + "]");
             ids.add(id);
         }
 
@@ -183,7 +184,8 @@ public class HL7Parser201301 {
                     Identifier id = new Identifier();
                     id.setId(otherPersonId.getExtension());
                     id.setOrganizationId(otherPersonId.getRoot());
-                    log.info("Created id from person other identifier [organization=" + id.getOrganizationId() + "][id=" + id.getId() + "]");
+                    log.info("Created id from person other identifier [organization=" + id.getOrganizationId()
+                            + "][id=" + id.getId() + "]");
                     ids.add(id);
                 }
             }
@@ -191,10 +193,10 @@ public class HL7Parser201301 {
 
         return ids;
     }
-    
-    public static String ExtractSsn (PRPAMT201301UV02Person person) {
+
+    public static String ExtractSsn(PRPAMT201301UV02Person person) {
         String ssn = null;
-        
+
         List<PRPAMT201301UV02OtherIDs> OtherIds = person.getAsOtherIDs();
         for (PRPAMT201301UV02OtherIDs otherPersonIds : OtherIds) {
             for (II otherPersonId : otherPersonIds.getId()) {
@@ -203,7 +205,7 @@ public class HL7Parser201301 {
                 }
             }
         }
-        
+
         return ssn;
     }
 
@@ -214,14 +216,14 @@ public class HL7Parser201301 {
     }
 
     public static PRPAMT201301UV02Person ExtractHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV02 message) {
-        //assume one subject for now
+        // assume one subject for now
         PRPAMT201301UV02Patient patient = ExtractHL7PatientFromMessage(message);
         PRPAMT201301UV02Person patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
         return patientPerson;
     }
 
     public static PRPAMT201301UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
-        //assume one subject for now
+        // assume one subject for now
         PRPAMT201301UV02Patient patient = null;
         log.info("in ExtractPatient");
 
@@ -242,7 +244,7 @@ public class HL7Parser201301 {
             return null;
         }
 
-        //for now, assume we only need one subject, this will need to be modified later
+        // for now, assume we only need one subject, this will need to be modified later
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = subjects.get(0);
         HL7Parser.PrintId(subject.getTypeId(), "subject");
 
@@ -306,7 +308,8 @@ public class HL7Parser201301 {
         subjectA.setPatient(patient);
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname, PRPAMT201301UV02Person.class, patientPerson);
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+                PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPersonElement.setValue(patientPerson);
         PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();

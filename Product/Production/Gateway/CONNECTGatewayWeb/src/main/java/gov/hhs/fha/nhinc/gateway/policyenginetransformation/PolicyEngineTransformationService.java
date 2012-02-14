@@ -31,51 +31,53 @@ import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
 import javax.xml.ws.BindingType;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @WebService(serviceName = "NhincComponentInternalPolicyEngineTransformService", portName = "NhincInternalComponentPolicyEngineTransformPort", endpointInterface = "gov.hhs.fha.nhinc.nhincinternalcomponentpolicyenginetransform.NhincInternalComponentPolicyEngineTransformPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform", wsdlLocation = "WEB-INF/wsdl/PolicyEngineTransformationService/NhincComponentInternalPolicyEngineTransform.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class PolicyEngineTransformationService
-{
+public class PolicyEngineTransformationService {
 
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest)
-    {
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryToCheckPolicy(
+            gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
         return new PolicyEngineTransformer().transformAdhocQueryToCheckPolicy(transformAdhocQueryToCheckPolicyRequest);
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryResultToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest)
-    {
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryResultToCheckPolicy(
+            gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest) {
         throw new UnsupportedOperationException("Not implemented.");
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformDocRetrieveToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType transformDocRetrieveToCheckPolicyRequest)
-    {
-        return new PolicyEngineTransformer().transformDocRetrieveToCheckPolicy(transformDocRetrieveToCheckPolicyRequest);
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformDocRetrieveToCheckPolicy(
+            gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType transformDocRetrieveToCheckPolicyRequest) {
+        return new PolicyEngineTransformer()
+                .transformDocRetrieveToCheckPolicy(transformDocRetrieveToCheckPolicyRequest);
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformDocRetrieveResultToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveResultEventType transformDocRetrieveResultToCheckPolicyRequest)
-    {
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformDocRetrieveResultToCheckPolicy(
+            gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveResultEventType transformDocRetrieveResultToCheckPolicyRequest) {
         throw new UnsupportedOperationException("Not implemented.");
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest)
-    {
-        return new PolicyEngineTransformer().transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(
+            gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
+        return new PolicyEngineTransformer()
+                .transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformSubscribeToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType transformSubscribeToCheckPolicyRequest)
-    {
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformSubscribeToCheckPolicy(
+            gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType transformSubscribeToCheckPolicyRequest) {
         return new PolicyEngineTransformer().transformSubscribeToCheckPolicy(transformSubscribeToCheckPolicyRequest);
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformUnsubscribeToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeEventType transformUnsubscribeToCheckPolicyRequest)
-    {
-        return new PolicyEngineTransformer().transformUnsubscribeToCheckPolicy(transformUnsubscribeToCheckPolicyRequest);
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformUnsubscribeToCheckPolicy(
+            gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeEventType transformUnsubscribeToCheckPolicyRequest) {
+        return new PolicyEngineTransformer()
+                .transformUnsubscribeToCheckPolicy(transformUnsubscribeToCheckPolicyRequest);
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformNotifyToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType transformNotifyToCheckPolicyRequest)
-    {
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformNotifyToCheckPolicy(
+            gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType transformNotifyToCheckPolicyRequest) {
         return new PolicyEngineTransformer().transformNotifyToCheckPolicy(transformNotifyToCheckPolicyRequest);
     }
 

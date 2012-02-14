@@ -33,19 +33,16 @@ import com.thoughtworks.xstream.XStream;
  * 
  * @author Les Westberg
  */
-public class CMInternalConnectionInfosXML
-{
+public class CMInternalConnectionInfosXML {
     /**
-     * This method serializes an InternalConnectionInfos object to an
-     * XML string.
+     * This method serializes an InternalConnectionInfos object to an XML string.
      * 
      * @param oInternalConnectionInfos The object to be serialized.
      * @return The XML string representation of the object.
      */
-    public static String serialize(CMInternalConnectionInfos oInternalConnectionInfos)
-    {
+    public static String serialize(CMInternalConnectionInfos oInternalConnectionInfos) {
         String sXML = "";
-        
+
         XStream oXStream = new XStream();
         oXStream.alias("InternalConnectionInfos", CMInternalConnectionInfos.class);
         oXStream.addImplicitCollection(CMInternalConnectionInfos.class, "internalConnectionInfoList");
@@ -56,21 +53,19 @@ public class CMInternalConnectionInfosXML
         oXStream.alias("state", CMInternalConnectionInfoState.class);
         oXStream.processAnnotations(CMInternalConnectionInfos.class);
         sXML = oXStream.toXML(oInternalConnectionInfos);
-        
+
         return sXML;
     }
-    
+
     /**
-     * This method takes an XML representation of CMInternalConnectionInfos and
-     * produces an instance of the object.
+     * This method takes an XML representation of CMInternalConnectionInfos and produces an instance of the object.
      * 
      * @param sXML The serialized representation of the CMInternalConnectionInfos object.
      * @return The object instance of the XML.
      */
-    public static CMInternalConnectionInfos deserialize(String sXML)
-    {
+    public static CMInternalConnectionInfos deserialize(String sXML) {
         CMInternalConnectionInfos oInternalConnectionInfos = new CMInternalConnectionInfos();
-        
+
         XStream oXStream = new XStream();
         oXStream.alias("InternalConnectionInfos", CMInternalConnectionInfos.class);
         oXStream.addImplicitCollection(CMInternalConnectionInfos.class, "internalConnectionInfoList");
@@ -81,11 +76,10 @@ public class CMInternalConnectionInfosXML
         oXStream.alias("state", CMInternalConnectionInfoState.class);
         oXStream.processAnnotations(CMInternalConnectionInfos.class);
         Object oObject = oXStream.fromXML(sXML);
-        if (oObject instanceof CMInternalConnectionInfos)
-        {
+        if (oObject instanceof CMInternalConnectionInfos) {
             oInternalConnectionInfos = (CMInternalConnectionInfos) oObject;
         }
-        
+
         return oInternalConnectionInfos;
     }
 }

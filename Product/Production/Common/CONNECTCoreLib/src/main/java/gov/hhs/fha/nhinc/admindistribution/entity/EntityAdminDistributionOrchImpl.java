@@ -48,7 +48,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class EntityAdminDistributionOrchImpl {
@@ -70,24 +70,24 @@ public class EntityAdminDistributionOrchImpl {
             log.warn("No targets were found for the Admin Distribution Request");
         } else {
             for (UrlInfo urlInfo : urlInfoList) {
-                //create a new request to send out to each target community
+                // create a new request to send out to each target community
                 log.debug("Target: " + urlInfo.getHcid());
-                //check the policy for the outgoing request to the target community
+                // check the policy for the outgoing request to the target community
                 boolean bIsPolicyOk = checkPolicy(message, assertion, urlInfo.getHcid());
 
                 if (bIsPolicyOk) {
                     NhinTargetSystemType targetSystem = buildTargetSystem(urlInfo);
                     auditMessage(message, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                     sendToNhinProxy(message, assertion, targetSystem);
-                } //if (bIsPolicyOk)
+                } // if (bIsPolicyOk)
                 else {
                     log.error("The policy engine evaluated the request and denied the request.");
-                } //else policy enging did not return a permit response
+                } // else policy enging did not return a permit response
             }
         }
     }
 
-    protected void auditMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion, String direction){
+    protected void auditMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion, String direction) {
         AcknowledgementType ack = getLogger().auditEntityAdminDist(message, assertion, direction);
         if (ack != null) {
             log.debug("ack: " + ack.getMessage());
@@ -110,7 +110,8 @@ public class EntityAdminDistributionOrchImpl {
         return result;
     }
 
-    public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion, NhinTargetCommunitiesType target) {
+    public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
+            NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType unsecured = new RespondingGatewaySendAlertMessageType();
 
         unsecured.setAssertion(assertion);
@@ -133,7 +134,7 @@ public class EntityAdminDistributionOrchImpl {
     }
 
     protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {
-    	List<UrlInfo> urlInfoList = null;
+        List<UrlInfo> urlInfoList = null;
 
         try {
             urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
@@ -145,8 +146,7 @@ public class EntityAdminDistributionOrchImpl {
         return urlInfoList;
     }
 
-    protected boolean checkPolicy(RespondingGatewaySendAlertMessageType request,
-            AssertionType assertion, String hcid) {
+    protected boolean checkPolicy(RespondingGatewaySendAlertMessageType request, AssertionType assertion, String hcid) {
         if (request != null) {
             request.setAssertion(assertion);
         }
@@ -154,12 +154,11 @@ public class EntityAdminDistributionOrchImpl {
 
     }
 
-    protected void sendToNhinProxy(RespondingGatewaySendAlertMessageType newRequest,
-            AssertionType assertion, NhinTargetSystemType target) {
+    protected void sendToNhinProxy(RespondingGatewaySendAlertMessageType newRequest, AssertionType assertion,
+            NhinTargetSystemType target) {
         log.debug("begin sendToNhinProxy");
         OutboundAdminDistributionDelegate adDelegate = new OutboundAdminDistributionDelegate();
-        OutboundAdminDistributionOrchestratable orchestratable =
-                new OutboundAdminDistributionOrchestratable(adDelegate);
+        OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(adDelegate);
         orchestratable.setRequest(newRequest);
         orchestratable.setAssertion(assertion);
         orchestratable.setTarget(target);

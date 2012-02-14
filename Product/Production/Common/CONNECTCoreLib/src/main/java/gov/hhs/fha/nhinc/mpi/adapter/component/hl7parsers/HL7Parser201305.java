@@ -36,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class HL7Parser201305 {
@@ -49,14 +49,13 @@ public class HL7Parser201305 {
         String genderCode = null;
 
         // Extract the gender from the query parameters - Assume only one was specified
-        if (params.getLivingSubjectAdministrativeGender() != null &&
-                params.getLivingSubjectAdministrativeGender().size() > 0 &&
-                params.getLivingSubjectAdministrativeGender().get(0) != null) {
-            PRPAMT201306UV02LivingSubjectAdministrativeGender gender = params.getLivingSubjectAdministrativeGender().get(0);
+        if (params.getLivingSubjectAdministrativeGender() != null
+                && params.getLivingSubjectAdministrativeGender().size() > 0
+                && params.getLivingSubjectAdministrativeGender().get(0) != null) {
+            PRPAMT201306UV02LivingSubjectAdministrativeGender gender = params.getLivingSubjectAdministrativeGender()
+                    .get(0);
 
-            if (gender.getValue() != null &&
-                    gender.getValue().size() > 0 &&
-                    gender.getValue().get(0) != null) {
+            if (gender.getValue() != null && gender.getValue().size() > 0 && gender.getValue().get(0) != null) {
                 CE administrativeGenderCode = gender.getValue().get(0);
 
                 log.info("Found gender in query parameters = " + administrativeGenderCode.getCode());
@@ -78,14 +77,11 @@ public class HL7Parser201305 {
         String birthDate = null;
 
         // Extract the birth time from the query parameters - Assume only one was specified
-        if (params.getLivingSubjectBirthTime() != null &&
-                params.getLivingSubjectBirthTime().size() > 0 &&
-                params.getLivingSubjectBirthTime().get(0) != null) {
+        if (params.getLivingSubjectBirthTime() != null && params.getLivingSubjectBirthTime().size() > 0
+                && params.getLivingSubjectBirthTime().get(0) != null) {
             PRPAMT201306UV02LivingSubjectBirthTime birthTime = params.getLivingSubjectBirthTime().get(0);
 
-            if (birthTime.getValue() != null &&
-                    birthTime.getValue().size() > 0 &&
-                    birthTime.getValue().get(0) != null) {
+            if (birthTime.getValue() != null && birthTime.getValue().size() > 0 && birthTime.getValue().get(0) != null) {
                 IVLTSExplicit birthday = birthTime.getValue().get(0);
                 log.info("Found birthTime in query parameters = " + birthday.getValue());
                 birthDate = birthday.getValue();
@@ -106,14 +102,11 @@ public class HL7Parser201305 {
         PersonName personname = new PersonName();
 
         // Extract the name from the query parameters - Assume only one was specified
-        if (params.getLivingSubjectName() != null &&
-                params.getLivingSubjectName().size() > 0 &&
-                params.getLivingSubjectName().get(0) != null) {
+        if (params.getLivingSubjectName() != null && params.getLivingSubjectName().size() > 0
+                && params.getLivingSubjectName().get(0) != null) {
             PRPAMT201306UV02LivingSubjectName name = params.getLivingSubjectName().get(0);
 
-            if (name.getValue() != null &&
-                    name.getValue().size() > 0 &&
-                    name.getValue().get(0) != null) {
+            if (name.getValue() != null && name.getValue().size() > 0 && name.getValue().get(0) != null) {
                 List<Serializable> choice = name.getValue().get(0).getContent();
 
                 log.info("choice.size()=" + choice.size());
@@ -149,12 +142,12 @@ public class HL7Parser201305 {
                             lastname = (EnExplicitFamily) oJAXBElement.getValue();
                             log.info("found lastname element; content=" + lastname.getContent());
                         } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
-                            if(firstname == null){
+                            if (firstname == null) {
                                 firstname = new EnExplicitGiven();
                                 firstname = (EnExplicitGiven) oJAXBElement.getValue();
                                 log.info("found firstname element; content=" + firstname.getContent());
-                            }else{
-                                //this would be where to add handle for middlename
+                            } else {
+                                // this would be where to add handle for middlename
                             }
                         } else {
                             log.info("other name part=" + (ENXPExplicit) oJAXBElement.getValue());
@@ -167,13 +160,13 @@ public class HL7Parser201305 {
                 // If text string in patient name, then set in name
                 // else set in element.
                 boolean namefound = false;
-                if (lastname!= null && lastname.getContent() != null) {
+                if (lastname != null && lastname.getContent() != null) {
                     personname.setLastName(lastname.getContent());
                     log.info("FamilyName : " + personname.getLastName());
                     namefound = true;
                 }
 
-                if (firstname!=null && firstname.getContent() != null) {
+                if (firstname != null && firstname.getContent() != null) {
                     personname.setFirstName(firstname.getContent());
                     log.info("GivenName : " + personname.getFirstName());
                     namefound = true;
@@ -195,30 +188,26 @@ public class HL7Parser201305 {
         return personname;
     }
 
-    public static Identifiers ExtractPersonIdentifiers(
-            PRPAMT201306UV02ParameterList params) {
+    public static Identifiers ExtractPersonIdentifiers(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractPersonIdentifiers method...");
 
         Identifiers ids = new Identifiers();
         Identifier id = new Identifier();
 
-        if (params.getLivingSubjectId() != null &&
-                params.getLivingSubjectId().size() > 0 &&
-                params.getLivingSubjectId().get(0) != null) {
+        if (params.getLivingSubjectId() != null && params.getLivingSubjectId().size() > 0
+                && params.getLivingSubjectId().get(0) != null) {
             PRPAMT201306UV02LivingSubjectId livingSubjectId = params.getLivingSubjectId().get(0);
 
-            if (livingSubjectId.getValue() != null &&
-                    livingSubjectId.getValue().size() > 0 &&
-                    livingSubjectId.getValue().get(0) != null) {
+            if (livingSubjectId.getValue() != null && livingSubjectId.getValue().size() > 0
+                    && livingSubjectId.getValue().get(0) != null) {
                 II subjectId = livingSubjectId.getValue().get(0);
 
-                if (subjectId.getExtension() != null &&
-                        subjectId.getExtension().length() > 0 &&
-                        subjectId.getRoot() != null &&
-                        subjectId.getRoot().length() > 0) {
+                if (subjectId.getExtension() != null && subjectId.getExtension().length() > 0
+                        && subjectId.getRoot() != null && subjectId.getRoot().length() > 0) {
                     id.setId(subjectId.getExtension());
                     id.setOrganizationId(subjectId.getRoot());
-                    log.info("Created id from patient identifier [organization=" + id.getOrganizationId() + "][id=" + id.getId() + "]");
+                    log.info("Created id from patient identifier [organization=" + id.getOrganizationId() + "][id="
+                            + id.getId() + "]");
                     ids.add(id);
                 } else {
                     log.info("message does not contain an id");
@@ -239,14 +228,12 @@ public class HL7Parser201305 {
 
         Address address = null;
 
-        if (params.getPatientAddress() != null &&
-                params.getPatientAddress().size() > 0 &&
-                params.getPatientAddress().get(0) != null) {
+        if (params.getPatientAddress() != null && params.getPatientAddress().size() > 0
+                && params.getPatientAddress().get(0) != null) {
             PRPAMT201306UV02PatientAddress patientAddress = params.getPatientAddress().get(0);
 
-            if (patientAddress.getValue() != null &&
-                    patientAddress.getValue().size() > 0 &&
-                    patientAddress.getValue().get(0) != null) {
+            if (patientAddress.getValue() != null && patientAddress.getValue().size() > 0
+                    && patientAddress.getValue().get(0) != null) {
                 ADExplicit adExplicit = patientAddress.getValue().get(0);
 
                 List<Serializable> choice = adExplicit.getContent();
@@ -278,39 +265,40 @@ public class HL7Parser201305 {
                                 addressLine1 = new AdxpExplicitStreetAddressLine();
                                 addressLine1 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
                                 log.info("found addressLine1 element; content=" + addressLine1.getContent());
-                                if (address == null) address = new Address();
+                                if (address == null)
+                                    address = new Address();
                                 address.setStreet1(addressLine1.getContent());
                             }
                             if (addressLineCounter == 2) {
                                 addressLine2 = new AdxpExplicitStreetAddressLine();
                                 addressLine2 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
                                 log.info("found addressLine2 element; content=" + addressLine2.getContent());
-                                if (address == null) address = new Address();
+                                if (address == null)
+                                    address = new Address();
                                 address.setStreet2(addressLine2.getContent());
                             }
-                        }
-                        else if (oJAXBElement.getValue() instanceof AdxpExplicitCity) {
+                        } else if (oJAXBElement.getValue() instanceof AdxpExplicitCity) {
                             city = new AdxpExplicitCity();
                             city = (AdxpExplicitCity) oJAXBElement.getValue();
                             log.info("found city element; content=" + city.getContent());
-                            if (address == null) address = new Address();
+                            if (address == null)
+                                address = new Address();
                             address.setCity(city.getContent());
-                        }
-                        else if (oJAXBElement.getValue() instanceof AdxpExplicitState) {
+                        } else if (oJAXBElement.getValue() instanceof AdxpExplicitState) {
                             state = new AdxpExplicitState();
                             state = (AdxpExplicitState) oJAXBElement.getValue();
                             log.info("found state element; content=" + state.getContent());
-                            if (address == null) address = new Address();
+                            if (address == null)
+                                address = new Address();
                             address.setState(state.getContent());
-                        }
-                        else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode) {
+                        } else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode) {
                             postalCode = new AdxpExplicitPostalCode();
                             postalCode = (AdxpExplicitPostalCode) oJAXBElement.getValue();
                             log.info("found postalCode element; content=" + postalCode.getContent());
-                            if (address == null) address = new Address();
+                            if (address == null)
+                                address = new Address();
                             address.setZip(postalCode.getContent());
-                        }
-                        else {
+                        } else {
                             log.info("other address part=" + (ADXPExplicit) oJAXBElement.getValue());
                         }
                     } else {
@@ -330,14 +318,12 @@ public class HL7Parser201305 {
         String telecom = null;
 
         // Extract the telecom (phone number) from the query parameters - Assume only one was specified
-        if (params.getPatientTelecom() != null &&
-                params.getPatientTelecom().size() > 0 &&
-                params.getPatientTelecom().get(0) != null) {
+        if (params.getPatientTelecom() != null && params.getPatientTelecom().size() > 0
+                && params.getPatientTelecom().get(0) != null) {
             PRPAMT201306UV02PatientTelecom patientTelecom = params.getPatientTelecom().get(0);
 
-            if (patientTelecom.getValue() != null &&
-                    patientTelecom.getValue().size() > 0 &&
-                    patientTelecom.getValue().get(0) != null) {
+            if (patientTelecom.getValue() != null && patientTelecom.getValue().size() > 0
+                    && patientTelecom.getValue().get(0) != null) {
                 TELExplicit telecomValue = patientTelecom.getValue().get(0);
                 log.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
                 telecom = telecomValue.getValue();
@@ -359,8 +345,7 @@ public class HL7Parser201305 {
         return telecom;
     }
 
-    public static PRPAMT201306UV02ParameterList ExtractHL7QueryParamsFromMessage(
-            org.hl7.v3.PRPAIN201305UV02 message) {
+    public static PRPAMT201306UV02ParameterList ExtractHL7QueryParamsFromMessage(org.hl7.v3.PRPAIN201305UV02 message) {
         log.debug("Entering HL7Parser201305.ExtractHL7QueryParamsFromMessage method...");
         PRPAMT201306UV02ParameterList queryParamList = null;
 
@@ -375,9 +360,10 @@ public class HL7Parser201305 {
             return null;
         }
 
-        if (controlActProcess.getQueryByParameter() != null &&
-                controlActProcess.getQueryByParameter().getValue() != null) {
-            PRPAMT201306UV02QueryByParameter queryParams = (PRPAMT201306UV02QueryByParameter) controlActProcess.getQueryByParameter().getValue();
+        if (controlActProcess.getQueryByParameter() != null
+                && controlActProcess.getQueryByParameter().getValue() != null) {
+            PRPAMT201306UV02QueryByParameter queryParams = (PRPAMT201306UV02QueryByParameter) controlActProcess
+                    .getQueryByParameter().getValue();
 
             if (queryParams.getParameterList() != null) {
                 queryParamList = queryParams.getParameterList();
@@ -389,8 +375,7 @@ public class HL7Parser201305 {
         return queryParamList;
     }
 
-    public static Patient ExtractMpiPatientFromMessage(
-            org.hl7.v3.PRPAIN201305UV02 message) {
+    public static Patient ExtractMpiPatientFromMessage(org.hl7.v3.PRPAIN201305UV02 message) {
         log.debug("Entering HL7Parser201305.ExtractMpiPatientFromMessage method...");
 
         PRPAMT201306UV02ParameterList queryParamList = ExtractHL7QueryParamsFromMessage(message);
@@ -400,15 +385,14 @@ public class HL7Parser201305 {
         return mpipatient;
     }
 
-    public static Patient ExtractMpiPatientFromQueryParams(
-            PRPAMT201306UV02ParameterList params) {
+    public static Patient ExtractMpiPatientFromQueryParams(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractMpiPatientFromQueryParams method...");
 
         Patient mpiPatient = new Patient();
 
         if (params != null) {
 
-            //mpiPatient.setName(ExtractPersonName(params));
+            // mpiPatient.setName(ExtractPersonName(params));
             mpiPatient.getNames().add(ExtractPersonName(params));
             mpiPatient.setGender(ExtractGender(params));
 

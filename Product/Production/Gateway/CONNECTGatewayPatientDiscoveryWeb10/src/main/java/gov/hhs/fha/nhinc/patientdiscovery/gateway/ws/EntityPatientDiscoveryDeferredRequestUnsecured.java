@@ -38,36 +38,33 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 @WebService(serviceName = "EntityPatientDiscoveryAsyncReq", portName = "EntityPatientDiscoveryAsyncReqPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitypatientdiscoveryasyncreq.EntityPatientDiscoveryAsyncReqPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryDeferredRequestUnsecured/EntityPatientDiscoveryAsyncReq.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class EntityPatientDiscoveryDeferredRequestUnsecured extends PatientDiscoveryBase {
 
     @Resource
     private WebServiceContext context;
-    
+
     public EntityPatientDiscoveryDeferredRequestUnsecured() {
-		super();
-	}
+        super();
+    }
 
-	public EntityPatientDiscoveryDeferredRequestUnsecured(
-			PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
+    public EntityPatientDiscoveryDeferredRequestUnsecured(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
 
-	public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02RequestType request)
-    {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02RequestType request) {
         MCCIIN000002UV01 response = null;
 
-        EntityPatientDiscoveryDeferredRequestImpl impl = getServiceFactory().getEntityPatientDiscoveryDeferredRequestImpl();
-        if (impl != null)
-        {
+        EntityPatientDiscoveryDeferredRequestImpl impl = getServiceFactory()
+                .getEntityPatientDiscoveryDeferredRequestImpl();
+        if (impl != null) {
             response = impl.processPatientDiscoveryAsyncRequestUnsecured(request, getWebServiceContext());
         }
 
         return response;
     }
 
-    protected WebServiceContext getWebServiceContext()
-    {
+    protected WebServiceContext getWebServiceContext() {
         return context;
     }
 }

@@ -32,12 +32,13 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class NhinPatientDiscoveryDeferredReqProxyNoOpImpl implements NhinPatientDiscoveryDeferredReqProxy {
 
-    public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion, NhinTargetSystemType target) {
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion,
+            NhinTargetSystemType target) {
         return new MCCIIN000002UV01();
     }
 }

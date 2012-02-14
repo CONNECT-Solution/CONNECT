@@ -41,75 +41,69 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 public class PassthruAdminDistributionHelper extends AdminDistributionHelper {
 
-	   private Log log = LogFactory.getLog(PassthruAdminDistributionHelper.class);
+    private Log log = LogFactory.getLog(PassthruAdminDistributionHelper.class);
 
-	
-	WebServiceProxyHelper proxyHelper;
+    WebServiceProxyHelper proxyHelper;
 
-	private String WSDL_FILE_G0;
-	private String WSDL_FILE_G1;
-	private String NAMESPACE_URI;
-	private String SERVICE_LOCAL_PART;
-	private String action;
-	private String PORT_LOCAL_PART;
+    private String WSDL_FILE_G0;
+    private String WSDL_FILE_G1;
+    private String NAMESPACE_URI;
+    private String SERVICE_LOCAL_PART;
+    private String action;
+    private String PORT_LOCAL_PART;
 
-	
-	
-	public PassthruAdminDistributionHelper(WebServiceProxyHelper proxyHelper,
-			String wsdlFileG0, String wsdlFileG1, String namespaceURI,
-			String serviceLocalPart, String portLocalPart, String action) {
-		this.proxyHelper = proxyHelper;
-		this.WSDL_FILE_G0 = wsdlFileG0;
-		this.WSDL_FILE_G1 = wsdlFileG1;
-		this.NAMESPACE_URI = namespaceURI;
-		this.SERVICE_LOCAL_PART = serviceLocalPart;
-		this.PORT_LOCAL_PART = portLocalPart;
-		this.action = action;
+    public PassthruAdminDistributionHelper(WebServiceProxyHelper proxyHelper, String wsdlFileG0, String wsdlFileG1,
+            String namespaceURI, String serviceLocalPart, String portLocalPart, String action) {
+        this.proxyHelper = proxyHelper;
+        this.WSDL_FILE_G0 = wsdlFileG0;
+        this.WSDL_FILE_G1 = wsdlFileG1;
+        this.NAMESPACE_URI = namespaceURI;
+        this.SERVICE_LOCAL_PART = serviceLocalPart;
+        this.PORT_LOCAL_PART = portLocalPart;
+        this.action = action;
 
-	}
-	
-	 public Service getService(String wsdl, String uri, String service) {
-	        try {
-	          
-	            return proxyHelper.createService(wsdl, uri, service);
-	        } catch (Throwable t) {
-	            log.error("Error creating service: " + t.getMessage(), t);
-	        }
-	        return null;
-	    }
-	 
-	 public NhincAdminDistSecuredPortType getSecuredPort(String url,
-				String nhincAdminDistSecuredServiceName, String wsAddressingAction,
-				AssertionType assertion, GATEWAY_API_LEVEL apiLevel) {
-			NhincAdminDistSecuredPortType port = null;
-	        String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0))
-	                ? WSDL_FILE_G0 : WSDL_FILE_G1;
-	        Service service = getService(wsdlFile, NAMESPACE_URI, SERVICE_LOCAL_PART);
-	        if (service != null) {
-	            log.debug("Obtained service - creating port.");
-	            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincAdminDistSecuredPortType.class);
+    }
 
-	            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, action, wsAddressingAction, assertion);
-	        } else {
-	            log.error("Unable to obtain serivce - no port created.");
-	        }
-	        return port;
-		}
-		
-		public NhincAdminDistPortType getUnsecuredPort(String url, String wsAddressingAction, AssertionType assertion,
-	            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-	        NhincAdminDistPortType port = null;
-	        String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0))
-	                ? WSDL_FILE_G0 : WSDL_FILE_G1;
-	        Service service = getService(wsdlFile, NAMESPACE_URI, SERVICE_LOCAL_PART);
-	        if (service != null) {
-	            log.debug("Obtained service - creating port.");
-	            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincAdminDistPortType.class);
-	            proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-	        } else {
-	            log.error("Unable to obtain serivce - no port created.");
-	        }
-	        return port;
-	    }
+    public Service getService(String wsdl, String uri, String service) {
+        try {
+
+            return proxyHelper.createService(wsdl, uri, service);
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+        }
+        return null;
+    }
+
+    public NhincAdminDistSecuredPortType getSecuredPort(String url, String nhincAdminDistSecuredServiceName,
+            String wsAddressingAction, AssertionType assertion, GATEWAY_API_LEVEL apiLevel) {
+        NhincAdminDistSecuredPortType port = null;
+        String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0)) ? WSDL_FILE_G0 : WSDL_FILE_G1;
+        Service service = getService(wsdlFile, NAMESPACE_URI, SERVICE_LOCAL_PART);
+        if (service != null) {
+            log.debug("Obtained service - creating port.");
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincAdminDistSecuredPortType.class);
+
+            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, action, wsAddressingAction,
+                    assertion);
+        } else {
+            log.error("Unable to obtain serivce - no port created.");
+        }
+        return port;
+    }
+
+    public NhincAdminDistPortType getUnsecuredPort(String url, String wsAddressingAction, AssertionType assertion,
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        NhincAdminDistPortType port = null;
+        String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0)) ? WSDL_FILE_G0 : WSDL_FILE_G1;
+        Service service = getService(wsdlFile, NAMESPACE_URI, SERVICE_LOCAL_PART);
+        if (service != null) {
+            log.debug("Obtained service - creating port.");
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincAdminDistPortType.class);
+            proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
+            log.error("Unable to obtain serivce - no port created.");
+        }
+        return port;
+    }
 
 }

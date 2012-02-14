@@ -37,7 +37,7 @@ import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class NhinAdministrativeDistributionTest_g1 {

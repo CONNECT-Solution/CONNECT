@@ -33,7 +33,7 @@ import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.GetBusinessDetail;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class UDDIFindBusinessProxyNoOpImpl extends UDDIFindBusinessProxyBase {

@@ -14,7 +14,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 @WebService(serviceName = "AdapterDocRetrieveDeferredReqQueueProcess", portName = "AdapterDocRetrieveDeferredReqQueueProcessPort", endpointInterface = "gov.hhs.fha.nhinc.adapterdocretrievereqqueueprocess.AdapterDocRetrieveDeferredReqQueueProcessPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterdocretrievereqqueueprocess", wsdlLocation = "WEB-INF/wsdl/AdapterDocRetrieveDeferredReqQueueProcess/AdapterDocRetrieveDeferredReqQueueProcess.wsdl")
@@ -30,10 +30,12 @@ public class AdapterDocRetrieveDeferredReqQueueProcess {
 
     /**
      * processDocRetrieveDeferredReqQueue WebMethod for processing request queues on reponding gateway
+     * 
      * @param request
      * @return response
      */
-    public DocRetrieveDeferredReqQueueProcessResponseType processDocRetrieveDeferredReqQueue(DocRetrieveDeferredReqQueueProcessRequestType request) {
+    public DocRetrieveDeferredReqQueueProcessResponseType processDocRetrieveDeferredReqQueue(
+            DocRetrieveDeferredReqQueueProcessRequestType request) {
         return getAdapterDocRetrieveDeferredReqQueueProcessImpl().processDocRetrieveDeferredReqQueue(request, context);
     }
 }

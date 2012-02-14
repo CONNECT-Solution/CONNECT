@@ -38,7 +38,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class CONNECTOrchestrationBaseTest {
@@ -124,19 +124,18 @@ public class CONNECTOrchestrationBaseTest {
 
     public class CONNECTOrchestrationBaseImpl extends CONNECTOrchestrationBase {
 
-		@Override
-		protected Orchestratable processIfPolicyIsOk(Orchestratable message) {
-			// TODO Auto-generated method stub
-                    return null;
-			
-		}
+        @Override
+        protected Orchestratable processIfPolicyIsOk(Orchestratable message) {
+            // TODO Auto-generated method stub
+            return null;
 
-		@Override
-		protected boolean isPolicyOk(Orchestratable message, Direction direction) {
-			
-			return false;
-		}
-		
-		
+        }
+
+        @Override
+        protected boolean isPolicyOk(Orchestratable message, Direction direction) {
+
+            return false;
+        }
+
     }
 }

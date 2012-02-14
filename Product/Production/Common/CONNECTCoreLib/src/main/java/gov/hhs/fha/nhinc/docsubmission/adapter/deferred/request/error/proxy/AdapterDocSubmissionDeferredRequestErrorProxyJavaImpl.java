@@ -34,27 +34,26 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl implements AdapterDocSubmissionDeferredRequestErrorProxy
-{
+public class AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl implements
+        AdapterDocSubmissionDeferredRequestErrorProxy {
     private Log log = null;
 
-    public AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl()
-    {
+    public AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
+            ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl.provideAndRegisterDocumentSetBRequestError");
-        XDRAcknowledgementType ack = new AdapterDocSubmissionDeferredRequestErrorOrchImpl().provideAndRegisterDocumentSetBRequestError(request, errorMessage, assertion);
+        XDRAcknowledgementType ack = new AdapterDocSubmissionDeferredRequestErrorOrchImpl()
+                .provideAndRegisterDocumentSetBRequestError(request, errorMessage, assertion);
         log.debug("End AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl.provideAndRegisterDocumentSetBRequestError");
         return ack;
     }

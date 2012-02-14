@@ -40,63 +40,59 @@ import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public abstract class AbstractPatientDiscoveryPolicyChecker<OUTGOING,INCOMMING> implements PolicyChecker<OUTGOING,INCOMMING>  {
+public abstract class AbstractPatientDiscoveryPolicyChecker<OUTGOING, INCOMMING> implements
+        PolicyChecker<OUTGOING, INCOMMING> {
 
-	static Log log = LogFactory.getLog(AbstractPatientDiscoveryPolicyChecker.class);
-	   
-	
-	private GenericFactory<PolicyEngineProxy> policyEngFactory;
+    static Log log = LogFactory.getLog(AbstractPatientDiscoveryPolicyChecker.class);
 
-	protected AbstractPatientDiscoveryPolicyChecker(GenericFactory<PolicyEngineProxy> policyEngFactory) {
-		this.policyEngFactory = policyEngFactory;
-	}
+    private GenericFactory<PolicyEngineProxy> policyEngFactory;
 
-	protected boolean invokePolicyEngine(PatDiscReqEventType policyCheckReq) {
-	    boolean policyIsValid = false;
-	
-	    PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-	    CheckPolicyRequestType policyReq = policyChecker.checkPolicyPatDiscRequest(policyCheckReq);
-	    PolicyEngineProxy policyProxy = policyEngFactory.create();
-	    AssertionType assertion = null;
-	    if(policyReq != null)
-	    {
-	        assertion = policyReq.getAssertion();
-	    }
-	    CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
-	
-	    if (policyResp.getResponse() != null &&
-	            NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-	            policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
-	        policyIsValid = true;
-	    }
-	
-	    return policyIsValid;
-	}
+    protected AbstractPatientDiscoveryPolicyChecker(GenericFactory<PolicyEngineProxy> policyEngFactory) {
+        this.policyEngFactory = policyEngFactory;
+    }
 
-	protected boolean invokePolicyEngine(CheckPolicyRequestType policyCheckReq) {
-	    boolean policyIsValid = false;
-	
-	     /* invoke check policy */
-	    PolicyEngineProxy policyProxy = policyEngFactory.create();
-	    AssertionType assertion = null;
-	    if(policyCheckReq != null)
-	    {
-	        assertion = policyCheckReq.getAssertion();
-	    }
-	    CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyCheckReq, assertion);
-	
-	    /* if response='permit' */
-	    if (policyResp.getResponse() != null &&
-	            NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-	            policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
-	        log.debug("Policy engine check returned permit.");
-	        policyIsValid = true;
-	    } else {
-	        log.debug("Policy engine check returned deny.");
-	        policyIsValid = false;
-	    }
-	
-	    return policyIsValid;
-	}
+    protected boolean invokePolicyEngine(PatDiscReqEventType policyCheckReq) {
+        boolean policyIsValid = false;
+
+        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
+        CheckPolicyRequestType policyReq = policyChecker.checkPolicyPatDiscRequest(policyCheckReq);
+        PolicyEngineProxy policyProxy = policyEngFactory.create();
+        AssertionType assertion = null;
+        if (policyReq != null) {
+            assertion = policyReq.getAssertion();
+        }
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
+
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+            policyIsValid = true;
+        }
+
+        return policyIsValid;
+    }
+
+    protected boolean invokePolicyEngine(CheckPolicyRequestType policyCheckReq) {
+        boolean policyIsValid = false;
+
+        /* invoke check policy */
+        PolicyEngineProxy policyProxy = policyEngFactory.create();
+        AssertionType assertion = null;
+        if (policyCheckReq != null) {
+            assertion = policyCheckReq.getAssertion();
+        }
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyCheckReq, assertion);
+
+        /* if response='permit' */
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+            log.debug("Policy engine check returned permit.");
+            policyIsValid = true;
+        } else {
+            log.debug("Policy engine check returned deny.");
+            policyIsValid = false;
+        }
+
+        return policyIsValid;
+    }
 
 }

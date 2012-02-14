@@ -141,5 +141,4 @@ public class PatientSearchData {
         this.dob = dob;
     }
 
-    
 }

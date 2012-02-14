@@ -18,20 +18,23 @@ import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterDocQueryDeferredRequestSecuredImpl {
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecureRequestType body, WebServiceContext context) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
+            RespondingGatewayCrossGatewayQuerySecureRequestType body, WebServiceContext context) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
-        // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
+        // Extract the relates to value from the WS-Addressing Header and place
+        // it in the Assertion Class
         if (assertion != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
             assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
-        return new AdapterDocQueryDeferredRequestOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), assertion);
+        return new AdapterDocQueryDeferredRequestOrchImpl().respondingGatewayCrossGatewayQuery(
+                body.getAdhocQueryRequest(), assertion);
     }
 }

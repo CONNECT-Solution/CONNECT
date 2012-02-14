@@ -33,11 +33,10 @@ import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredRespProxyJavaImpl implements EntityDocRetrieveDeferredRespProxy
-{
+public class EntityDocRetrieveDeferredRespProxyJavaImpl implements EntityDocRetrieveDeferredRespProxy {
 
     /**
      * 
@@ -46,7 +45,8 @@ public class EntityDocRetrieveDeferredRespProxyJavaImpl implements EntityDocRetr
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType response, AssertionType assertion, NhinTargetCommunitiesType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType response,
+            AssertionType assertion, NhinTargetCommunitiesType target) {
         return new EntityDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(response, assertion, target);
     }
 }

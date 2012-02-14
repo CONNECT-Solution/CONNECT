@@ -39,10 +39,11 @@ import org.hibernate.criterion.Expression;
 
 /**
  * AuditRepositoryDAO Class provides methods to query and update Audit Data to/from MySQL Database using Hibernate
+ * 
  * @author svalluripalli
  */
 public class AuditRepositoryDAO {
-    //Log4j logging initiated
+    // Log4j logging initiated
     private static Log log = LogFactory.getLog(AuditRepositoryDAO.class);
     private static AuditRepositoryDAO auditDAO = new AuditRepositoryDAO();
     public static String JAVA_IO_TMPDIR = "java.io.tmpdir";
@@ -56,6 +57,7 @@ public class AuditRepositoryDAO {
 
     /**
      * Singleton instance returned...
+     * 
      * @return AuditRepositoryDAO
      */
     public static AuditRepositoryDAO getAuditRepositoryDAOInstance() {
@@ -90,7 +92,7 @@ public class AuditRepositoryDAO {
                 session.close();
             }
         }
- 
+
         log.debug("AuditRepositoryDAO.getData() end");
         return queryList;
     }
@@ -138,8 +140,9 @@ public class AuditRepositoryDAO {
     }
 
     /**
-     * This method does a query to database to get the Audit Log Messages based on user id and/or patient id and/or 
+     * This method does a query to database to get the Audit Log Messages based on user id and/or patient id and/or
      * community id and/or timeframe
+     * 
      * @param eUserId
      * @param ePatientId
      * @param startDate
@@ -162,7 +165,7 @@ public class AuditRepositoryDAO {
             session = sessionFactory.openSession();
             log.info("Getting Record");
 
-            // Build the criteria 
+            // Build the criteria
             Criteria aCriteria = session.createCriteria(AuditRepositoryRecord.class);
             if (eUserId != null && !eUserId.equals("")) {
                 aCriteria.add(Expression.eq("userId", eUserId));
@@ -172,7 +175,8 @@ public class AuditRepositoryDAO {
             }
 
             if (startDate != null && endDate != null) {
-                aCriteria.add(Expression.between("timeStamp", new Date(startDate.getTime()), new Date(endDate.getTime())));
+                aCriteria.add(Expression.between("timeStamp", new Date(startDate.getTime()),
+                        new Date(endDate.getTime())));
             } else if (startDate != null && endDate == null) {
                 aCriteria.add(Expression.ge("timeStamp", new Date(startDate.getTime())));
             }

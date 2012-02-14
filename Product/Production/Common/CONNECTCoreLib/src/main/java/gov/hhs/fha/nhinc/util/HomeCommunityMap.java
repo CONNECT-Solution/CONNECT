@@ -44,11 +44,9 @@ import org.apache.commons.logging.LogFactory;
 import org.uddi.api_v3.BusinessEntity;
 
 /**
- * This class is used to map a home community ID to the
- * textual name of the home community.  The information
- * is stored in a properties file so that it can be tweaked
- * and changed without having to recompile...
- *
+ * This class is used to map a home community ID to the textual name of the home community. The information is stored in
+ * a properties file so that it can be tweaked and changed without having to recompile...
+ * 
  * Added getCommunityIdFromXXX() methods for use in audit logging.
  * 
  * @author Les Westberg
@@ -63,8 +61,7 @@ public class HomeCommunityMap {
     }
 
     /**
-     * This method retrieves the name of the home community baased on the
-     * home community Id.
+     * This method retrieves the name of the home community baased on the home community Id.
      * 
      * @param sHomeCommunityId The home community ID to be looked up.
      * @return The textual name of the home community.
@@ -76,13 +73,10 @@ public class HomeCommunityMap {
             ConnectionManagerCache connectionManagerCache = getConnectionManagerCache();
 
             BusinessEntity oEntity = connectionManagerCache.getBusinessEntity(sHomeCommunityId);
-            if ((oEntity != null) &&
-                    (oEntity.getName() != null) &&
-                    (oEntity.getName().size() > 0) &&
-                    (oEntity.getName().get(0) != null) &&
-                    (oEntity.getName().get(0).getValue().length() > 0) &&
-                    (oEntity.getBusinessKey().length() > 0)) {
-            	sHomeCommunityName = connectionManagerCache.getCommunityId(oEntity);
+            if ((oEntity != null) && (oEntity.getName() != null) && (oEntity.getName().size() > 0)
+                    && (oEntity.getName().get(0) != null) && (oEntity.getName().get(0).getValue().length() > 0)
+                    && (oEntity.getBusinessKey().length() > 0)) {
+                sHomeCommunityName = connectionManagerCache.getCommunityId(oEntity);
             }
         } catch (Exception e) {
             log.warn("Failed to retrieve textual name for home community ID: " + sHomeCommunityId, e);
@@ -92,16 +86,15 @@ public class HomeCommunityMap {
     }
 
     /**
-     * This method retrieves the first home community id from the target home
-     * communities list.
+     * This method retrieves the first home community id from the target home communities list.
+     * 
      * @param target
      * @return The home community OID string
      */
     public static String getCommunityIdFromTargetCommunities(NhinTargetCommunitiesType target) {
         String responseCommunityId = null;
-        if (target != null &&
-                NullChecker.isNotNullish(target.getNhinTargetCommunity()) &&
-                target.getNhinTargetCommunity().get(0) != null) {
+        if (target != null && NullChecker.isNotNullish(target.getNhinTargetCommunity())
+                && target.getNhinTargetCommunity().get(0) != null) {
             responseCommunityId = target.getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId();
         }
         log.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
@@ -110,14 +103,14 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the home community id from the target home system.
+     * 
      * @param target
      * @return The home community OID string
      */
     public static String getCommunityIdFromTargetSystem(NhinTargetSystemType target) {
         String responseCommunityId = null;
-        if (target != null &&
-                target.getHomeCommunity() != null &&
-                target.getHomeCommunity().getHomeCommunityId() != null) {
+        if (target != null && target.getHomeCommunity() != null
+                && target.getHomeCommunity().getHomeCommunityId() != null) {
             responseCommunityId = target.getHomeCommunity().getHomeCommunityId();
         }
         log.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
@@ -125,36 +118,34 @@ public class HomeCommunityMap {
     }
 
     /**
-     * This method retrieves the home community id from the user info found in
-     * saml assertion.  If not defined in the user info, retrieve the id from
-     * the homeCommunityId property of the assertion.
+     * This method retrieves the home community id from the user info found in saml assertion. If not defined in the
+     * user info, retrieve the id from the homeCommunityId property of the assertion.
+     * 
      * @param assertion
      * @return The home community OID string
      */
     public static String getCommunityIdFromAssertion(AssertionType assertion) {
         // Extract UserInfo from Message.Assertion
         String communityId = null;
-        if (assertion != null &&
-                assertion.getUserInfo() != null) {
+        if (assertion != null && assertion.getUserInfo() != null) {
             UserType userInfo = assertion.getUserInfo();
 
-            if (userInfo != null &&
-                    userInfo.getOrg() != null) {
-                if (userInfo.getOrg().getHomeCommunityId() != null &&
-                        userInfo.getOrg().getHomeCommunityId().length() > 0) {
+            if (userInfo != null && userInfo.getOrg() != null) {
+                if (userInfo.getOrg().getHomeCommunityId() != null
+                        && userInfo.getOrg().getHomeCommunityId().length() > 0) {
                     communityId = userInfo.getOrg().getHomeCommunityId();
                 }
             }
 
-        } else if (assertion!= null && assertion.getHomeCommunity() != null) {
+        } else if (assertion != null && assertion.getHomeCommunity() != null) {
             communityId = assertion.getHomeCommunity().getHomeCommunityId();
         }
         return formatHomeCommunityId(communityId);
     }
 
     /**
-     * This method retrieves the community id from the deferred query
-     * document request.
+     * This method retrieves the community id from the deferred query document request.
+     * 
      * @param body
      * @return The home community OID string
      */
@@ -167,59 +158,55 @@ public class HomeCommunityMap {
     }
 
     /**
-     * This method retrieves the community id from the deferred query
-     * document response.
+     * This method retrieves the community id from the deferred query document response.
+     * 
      * @param body
      * @return The home community OID string
      */
     public static String getCommunityIdForDeferredQDResponse(AdhocQueryResponse body) {
         String responseCommunityID = null;
-        if (body != null &&
-                body.getRegistryObjectList() != null &&
-                body.getRegistryObjectList().getIdentifiable() != null &&
-                body.getRegistryObjectList().getIdentifiable().size() > 0 &&
-                body.getRegistryObjectList().getIdentifiable().get(0) != null) {
+        if (body != null && body.getRegistryObjectList() != null
+                && body.getRegistryObjectList().getIdentifiable() != null
+                && body.getRegistryObjectList().getIdentifiable().size() > 0
+                && body.getRegistryObjectList().getIdentifiable().get(0) != null) {
             responseCommunityID = body.getRegistryObjectList().getIdentifiable().get(0).getValue().getHome();
         }
         return formatHomeCommunityId(responseCommunityID);
     }
 
     /**
-     * This method retrieves the home community id from the retrieve document
-     * request.
+     * This method retrieves the home community id from the retrieve document request.
+     * 
      * @param body
      * @return The home community OID string
      */
     public static String getCommunityIdForRDRequest(RetrieveDocumentSetRequestType body) {
         String responseCommunityID = null;
-        if (body != null &&
-                NullChecker.isNotNullish(body.getDocumentRequest()) &&
-                body.getDocumentRequest().get(0) != null) {
+        if (body != null && NullChecker.isNotNullish(body.getDocumentRequest())
+                && body.getDocumentRequest().get(0) != null) {
             responseCommunityID = body.getDocumentRequest().get(0).getHomeCommunityId();
         }
         return formatHomeCommunityId(responseCommunityID);
     }
 
     /**
-     * This method retrieves the home community id from the deferred retrieve
-     * document response.
+     * This method retrieves the home community id from the deferred retrieve document response.
+     * 
      * @param body
      * @return The home community OID string
      */
     public static String getCommunityIdForDeferredRDResponse(RetrieveDocumentSetResponseType body) {
         String responseCommunityID = null;
-        if (body != null &&
-                NullChecker.isNotNullish(body.getDocumentResponse()) &&
-                body.getDocumentResponse().get(0) != null) {
+        if (body != null && NullChecker.isNotNullish(body.getDocumentResponse())
+                && body.getDocumentResponse().get(0) != null) {
             responseCommunityID = body.getDocumentResponse().get(0).getHomeCommunityId();
         }
         return formatHomeCommunityId(responseCommunityID);
     }
 
     /**
-     * Formats the home community id by parsing out the 'urn:oid:' prefix if it
-     * exists.
-     *
+     * Formats the home community id by parsing out the 'urn:oid:' prefix if it exists.
+     * 
      * @param communityId the community id string to format
      * @return the formatted community id
      */
@@ -235,14 +222,15 @@ public class HomeCommunityMap {
 
     /**
      * Return this gateway's home community id
-     *
+     * 
      * @return
      */
     public static String getLocalHomeCommunityId() {
         String sHomeCommunity = null;
 
         try {
-            sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             log.error(ex.getMessage());
         }

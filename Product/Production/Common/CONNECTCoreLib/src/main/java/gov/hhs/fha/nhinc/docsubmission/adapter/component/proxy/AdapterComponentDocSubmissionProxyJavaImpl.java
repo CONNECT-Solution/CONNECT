@@ -34,13 +34,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterComponentDocSubmissionProxyJavaImpl implements AdapterComponentDocSubmissionProxy {
     private static Log log = LogFactory.getLog(AdapterComponentDocSubmissionProxyJavaImpl.class);
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion) {
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
+            AssertionType assertion) {
         log.debug("Using Java Implementation for Adapter Doc Submission Service");
         return new AdapterComponentDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(msg, assertion);
     }

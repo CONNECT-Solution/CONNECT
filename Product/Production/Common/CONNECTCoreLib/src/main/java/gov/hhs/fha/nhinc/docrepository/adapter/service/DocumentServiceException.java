@@ -31,25 +31,22 @@ package gov.hhs.fha.nhinc.docrepository.adapter.service;
  * 
  * @author Neil Webb
  */
-public class DocumentServiceException extends Exception
-{
+public class DocumentServiceException extends Exception {
     private static final long serialVersionUID = -4876112548123135498L;
 
     /**
      * Default constructor
      */
-    public DocumentServiceException()
-    {
+    public DocumentServiceException() {
         super();
     }
 
     /**
      * Create an exception with a message.
-     *
+     * 
      * @param message Exception message
      */
-    public DocumentServiceException(String message)
-    {
+    public DocumentServiceException(String message) {
         super(message);
     }
 
@@ -58,8 +55,7 @@ public class DocumentServiceException extends Exception
      * 
      * @param cause Root cause
      */
-    public DocumentServiceException(Throwable cause)
-    {
+    public DocumentServiceException(Throwable cause) {
         super(cause);
     }
 
@@ -69,8 +65,7 @@ public class DocumentServiceException extends Exception
      * @param message Exception message
      * @param cause Root cause
      */
-    public DocumentServiceException(String message, Throwable cause)
-    {
+    public DocumentServiceException(String message, Throwable cause) {
         super(message, cause);
     }
 }

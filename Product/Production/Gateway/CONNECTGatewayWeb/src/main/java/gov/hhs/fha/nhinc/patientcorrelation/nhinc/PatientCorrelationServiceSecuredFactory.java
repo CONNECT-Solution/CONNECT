@@ -34,25 +34,23 @@ import org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
 
 public class PatientCorrelationServiceSecuredFactory
-		implements
-		PatientCorrelationServiceFactory<RetrievePatientCorrelationsSecuredRequestType, RetrievePatientCorrelationsSecuredResponseType, AddPatientCorrelationSecuredRequestType, AddPatientCorrelationSecuredResponseType>
- {
-	private PatientCorrelationOrch orchestration;
-	
-	private static PatientCorrelationServiceSecuredFactory INSTANCE = new PatientCorrelationServiceSecuredFactory(new PatientCorrelationOrchImpl(new CorrelatedIdentifiersDaoImpl()));
+        implements
+        PatientCorrelationServiceFactory<RetrievePatientCorrelationsSecuredRequestType, RetrievePatientCorrelationsSecuredResponseType, AddPatientCorrelationSecuredRequestType, AddPatientCorrelationSecuredResponseType> {
+    private PatientCorrelationOrch orchestration;
 
-	 PatientCorrelationServiceSecuredFactory(
-			PatientCorrelationOrch orchestration) {
-		this.orchestration = orchestration;
-	}
+    private static PatientCorrelationServiceSecuredFactory INSTANCE = new PatientCorrelationServiceSecuredFactory(
+            new PatientCorrelationOrchImpl(new CorrelatedIdentifiersDaoImpl()));
 
-	@Override
-	public PatientCorrelationService<RetrievePatientCorrelationsSecuredRequestType, RetrievePatientCorrelationsSecuredResponseType, AddPatientCorrelationSecuredRequestType, AddPatientCorrelationSecuredResponseType> createPatientCorrelationService() {
-		return new PatientCorrelationServiceSecuredServiceImpl(orchestration);
-	}
+    PatientCorrelationServiceSecuredFactory(PatientCorrelationOrch orchestration) {
+        this.orchestration = orchestration;
+    }
 
-	
-	public static PatientCorrelationServiceSecuredFactory getInstance() {
-		return INSTANCE;
-	}
+    @Override
+    public PatientCorrelationService<RetrievePatientCorrelationsSecuredRequestType, RetrievePatientCorrelationsSecuredResponseType, AddPatientCorrelationSecuredRequestType, AddPatientCorrelationSecuredResponseType> createPatientCorrelationService() {
+        return new PatientCorrelationServiceSecuredServiceImpl(orchestration);
+    }
+
+    public static PatientCorrelationServiceSecuredFactory getInstance() {
+        return INSTANCE;
+    }
 }

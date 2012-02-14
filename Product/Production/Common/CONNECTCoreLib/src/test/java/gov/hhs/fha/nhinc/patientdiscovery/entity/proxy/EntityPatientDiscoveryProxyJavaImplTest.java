@@ -44,14 +44,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class EntityPatientDiscoveryProxyJavaImplTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class EntityPatientDiscoveryProxyJavaImplTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -63,23 +61,17 @@ public class EntityPatientDiscoveryProxyJavaImplTest
     final EntityPatientDiscoveryOrchImpl mockProcessor = context.mock(EntityPatientDiscoveryOrchImpl.class);
 
     @Test
-    public void testCreateLogger()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyJavaImpl sut = new EntityPatientDiscoveryProxyJavaImpl()
-            {
+    public void testCreateLogger() {
+        try {
+            EntityPatientDiscoveryProxyJavaImpl sut = new EntityPatientDiscoveryProxyJavaImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
             };
             Log log = sut.createLogger();
             assertNotNull("Log was null", log);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger test: " + t.getMessage());
@@ -87,103 +79,88 @@ public class EntityPatientDiscoveryProxyJavaImplTest
     }
 
     @Test
-    public void testGetEntityPatientDiscoveryProcessor()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyJavaImpl sut = new EntityPatientDiscoveryProxyJavaImpl()
-            {
+    public void testGetEntityPatientDiscoveryProcessor() {
+        try {
+            EntityPatientDiscoveryProxyJavaImpl sut = new EntityPatientDiscoveryProxyJavaImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
-                {
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
                     return mockProcessor;
                 }
             };
             EntityPatientDiscoveryOrchImpl processor = sut.getEntityPatientDiscoveryProcessor();
             assertNotNull("EntityPatientDiscoveryProcessor was null", processor);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetEntityPatientDiscoveryProcessor test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetEntityPatientDiscoveryProcessor test: " + t.getMessage());
         }
     }
 
-    //@Ignore
+    // @Ignore
     @Test
-    public void testRespondingGatewayPRPAIN201305UV02Happy()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyJavaImpl sut = new EntityPatientDiscoveryProxyJavaImpl()
-            {
+    public void testRespondingGatewayPRPAIN201305UV02Happy() {
+        try {
+            EntityPatientDiscoveryProxyJavaImpl sut = new EntityPatientDiscoveryProxyJavaImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
-                {
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
                     return mockProcessor;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockProcessor).respondingGatewayPRPAIN201305UV02(with(aNonNull(RespondingGatewayPRPAIN201305UV02RequestType.class)), with(aNonNull(AssertionType.class)));
+                    oneOf(mockProcessor).respondingGatewayPRPAIN201305UV02(
+                            with(aNonNull(RespondingGatewayPRPAIN201305UV02RequestType.class)),
+                            with(aNonNull(AssertionType.class)));
                 }
             });
-            RespondingGatewayPRPAIN201306UV02ResponseType response = sut.respondingGatewayPRPAIN201305UV02(mockPdRequest, mockAssertion, mockTargetCommunities);
+            RespondingGatewayPRPAIN201306UV02ResponseType response = sut.respondingGatewayPRPAIN201305UV02(
+                    mockPdRequest, mockAssertion, mockTargetCommunities);
             assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayPRPAIN201305UV02Happy test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02Happy test: " + t.getMessage());
         }
     }
 
-    //@Ignore
+    // @Ignore
     @Test
-    public void testRespondingGatewayPRPAIN201305UV02NullProcessor()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyJavaImpl sut = new EntityPatientDiscoveryProxyJavaImpl()
-            {
+    public void testRespondingGatewayPRPAIN201305UV02NullProcessor() {
+        try {
+            EntityPatientDiscoveryProxyJavaImpl sut = new EntityPatientDiscoveryProxyJavaImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
-                {
+                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
                     return null;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockLog).warn("EntityPatientDiscoveryProcessor was null");
                 }
             });
-            RespondingGatewayPRPAIN201306UV02ResponseType response = sut.respondingGatewayPRPAIN201305UV02(mockPdRequest, mockAssertion, mockTargetCommunities);
+            RespondingGatewayPRPAIN201306UV02ResponseType response = sut.respondingGatewayPRPAIN201305UV02(
+                    mockPdRequest, mockAssertion, mockTargetCommunities);
             assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullProcessor test: " + t.getMessage());
+        } catch (Throwable t) {
+            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullProcessor test: "
+                    + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullProcessor test: " + t.getMessage());
         }

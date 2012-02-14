@@ -44,7 +44,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class NotifyTransforms {
@@ -63,36 +63,39 @@ public class NotifyTransforms {
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
-        if (message != null &&
-                message.getMessage() != null &&
-                message.getMessage().getAssertion() != null &&
-                message.getMessage().getAssertion().getUserInfo() != null) {
+        if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
+                && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
         }
 
         // Create EventIdentification
         CodedValueType eventID = new CodedValueType();
-        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY);
-        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
+        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY);
+        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
+                AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
+                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
 
-        // Create Active Participant Section   
+        // Create Active Participant Section
         if (userInfo != null) {
-            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(userInfo, true);
+            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                    userInfo, true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
         /* Assign AuditSourceIdentification */
 
         String patientId = "";
-        if (NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId()) &&
-                NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId().get(0))) {
+        if (NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId())
+                && NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId().get(0))) {
             patientId = message.getMessage().getAssertion().getUniquePatientId().get(0);
         }
 
         String communityId = "";
         String communityName = "";
-        if (userInfo != null &&
-                userInfo.getOrg() != null) {
+        if (userInfo != null && userInfo.getOrg() != null) {
 
             if (userInfo.getOrg().getHomeCommunityId() != null) {
                 communityId = userInfo.getOrg().getHomeCommunityId();
@@ -102,16 +105,19 @@ public class NotifyTransforms {
             }
         }
 
-        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityName);
+        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
+                communityId, communityName);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         /* Assign ParticipationObjectIdentification */
-        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
+        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
+                .createParticipantObjectIdentification(patientId);
 
         // Fill in the message field with the contents of the event message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext(org.oasis_open.docs.wsn.b_2.ObjectFactory.class, ihe.iti.xds_b._2007.ObjectFactory.class);
+            JAXBContext jc = oHandler.getJAXBContext(org.oasis_open.docs.wsn.b_2.ObjectFactory.class,
+                    ihe.iti.xds_b._2007.ObjectFactory.class);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
@@ -148,36 +154,39 @@ public class NotifyTransforms {
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
-        if (message != null &&
-                message.getMessage() != null &&
-                message.getMessage().getAssertion() != null &&
-                message.getMessage().getAssertion().getUserInfo() != null) {
+        if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
+                && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
         }
 
         // Create EventIdentification
         CodedValueType eventID = new CodedValueType();
-        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY);
-        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
+        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY);
+        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
+                AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
+                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
 
-        // Create Active Participant Section   
+        // Create Active Participant Section
         if (userInfo != null) {
-            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(userInfo, true);
+            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                    userInfo, true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
         /* Assign AuditSourceIdentification */
 
         String patientId = "";
-        if (NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId()) &&
-                NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId().get(0))) {
+        if (NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId())
+                && NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId().get(0))) {
             patientId = message.getMessage().getAssertion().getUniquePatientId().get(0);
         }
 
         String communityId = "";
         String communityName = "";
-        if (userInfo != null &&
-                userInfo.getOrg() != null) {
+        if (userInfo != null && userInfo.getOrg() != null) {
 
             if (userInfo.getOrg().getHomeCommunityId() != null) {
                 communityId = userInfo.getOrg().getHomeCommunityId();
@@ -187,16 +196,18 @@ public class NotifyTransforms {
             }
         }
 
-        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityName);
+        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
+                communityId, communityName);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         /* Assign ParticipationObjectIdentification */
-        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
+        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
+                .createParticipantObjectIdentification(patientId);
 
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         response.setAuditMessage(auditMsg);
-        
+
         log.info("******************************************************************");
         log.info("Exiting transformEntityNotifyResponseToGenericAudit() method.");
         log.info("******************************************************************");

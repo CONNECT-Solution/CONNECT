@@ -34,10 +34,10 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
-public class PassthruDocRetrieveDeferredRespProxyNoOpImpl implements PassthruDocRetrieveDeferredRespProxy{
+public class PassthruDocRetrieveDeferredRespProxyNoOpImpl implements PassthruDocRetrieveDeferredRespProxy {
 
     /**
      * 
@@ -46,7 +46,9 @@ public class PassthruDocRetrieveDeferredRespProxyNoOpImpl implements PassthruDoc
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion, NhinTargetSystemType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetRequestType request,
+            RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion,
+            NhinTargetSystemType target) {
         DocRetrieveAcknowledgementType ack = new DocRetrieveAcknowledgementType();
         RegistryResponseType resp = new RegistryResponseType();
         resp.setStatus("Success");

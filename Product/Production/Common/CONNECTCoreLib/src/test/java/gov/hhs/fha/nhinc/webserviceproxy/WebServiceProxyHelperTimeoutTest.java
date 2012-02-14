@@ -36,77 +36,71 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(JMock.class)
-public class WebServiceProxyHelperTimeoutTest extends
-		AbstractWebServiceProxyHelpTest {
+public class WebServiceProxyHelperTimeoutTest extends AbstractWebServiceProxyHelpTest {
 
+    WebServiceProxyHelperProperties oHelper;
 
-	WebServiceProxyHelperProperties oHelper;
+    @Before
+    public void before() throws PropertyAccessException {
 
-	@Before
-	public void before() throws PropertyAccessException {
+        retryAttemptsExpectation(mockPropertyAccessor, Expectations.returnValue("5"));
 
-			retryAttemptsExpectation(mockPropertyAccessor,
-				Expectations.returnValue("5"));
+        exceptionExpectation(mockPropertyAccessor, Expectations.returnValue("PropertyAccessException"));
+        retryDelayExpectation(mockPropertyAccessor,
 
-		exceptionExpectation(mockPropertyAccessor,
-				Expectations.returnValue("PropertyAccessException"));
-		retryDelayExpectation(mockPropertyAccessor,
-	
-				Expectations.returnValue("300"));
+        Expectations.returnValue("300"));
 
-	}
-	
-	/**
-	 * Test the GetTimeout method happy path.
-	 * @throws PropertyAccessException 
-	 */
-	@Test
-	public void testGetTimeoutHappyPath() throws PropertyAccessException {
-		
-		timeoutExpectation(mockPropertyAccessor,
-				Expectations.returnValue("300"));
+    }
 
-		oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
+    /**
+     * Test the GetTimeout method happy path.
+     * 
+     * @throws PropertyAccessException
+     */
+    @Test
+    public void testGetTimeoutHappyPath() throws PropertyAccessException {
 
-		int iTimeout = oHelper.getTimeout();
-		assertEquals("Timeout failed.", 300, iTimeout);
-	}
+        timeoutExpectation(mockPropertyAccessor, Expectations.returnValue("300"));
 
-	/**
-	 * Test the GetTimeout method with PropertyAccessException.
-	 * @throws PropertyAccessException 
-	 */
-	@Test
-	public void testGetTimeoutPropertyException() throws PropertyAccessException {
-	
-		timeoutExpectation(mockPropertyAccessor,
-				Expectations.throwException(new PropertyAccessException(
-						"Failed to retrieve property.")));
+        oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
 
-		oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
+        int iTimeout = oHelper.getTimeout();
+        assertEquals("Timeout failed.", 300, iTimeout);
+    }
 
+    /**
+     * Test the GetTimeout method with PropertyAccessException.
+     * 
+     * @throws PropertyAccessException
+     */
+    @Test
+    public void testGetTimeoutPropertyException() throws PropertyAccessException {
 
-		int iTimeout = oHelper.getTimeout();
-		assertEquals("getTimeout failed: ", 0, iTimeout);
+        timeoutExpectation(mockPropertyAccessor,
+                Expectations.throwException(new PropertyAccessException("Failed to retrieve property.")));
 
-	}
+        oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
 
-	/**
-	 * Test the GetTimeout method with NumberFormatException.
-	 * @throws PropertyAccessException 
-	 */
-	@Test
-	public void testGetTimeoutNumberFormatException() throws PropertyAccessException {
-	
-		timeoutExpectation(mockPropertyAccessor,
-				Expectations.returnValue("NotANumber"));
+        int iTimeout = oHelper.getTimeout();
+        assertEquals("getTimeout failed: ", 0, iTimeout);
 
-		oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
+    }
 
-		
-		int iTimeout = oHelper.getTimeout();
-		assertEquals("getTimeout failed: ", 0, iTimeout);
+    /**
+     * Test the GetTimeout method with NumberFormatException.
+     * 
+     * @throws PropertyAccessException
+     */
+    @Test
+    public void testGetTimeoutNumberFormatException() throws PropertyAccessException {
 
-	}
+        timeoutExpectation(mockPropertyAccessor, Expectations.returnValue("NotANumber"));
+
+        oHelper = new WebServiceProxyHelperProperties(mockPropertyAccessor);
+
+        int iTimeout = oHelper.getTimeout();
+        assertEquals("getTimeout failed: ", 0, iTimeout);
+
+    }
 
 }

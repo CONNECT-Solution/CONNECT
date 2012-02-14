@@ -32,11 +32,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class CreationTimeHelper {
     public static final String DateFormat = "yyyyMMDDhhmmss";
+
     public static TSExplicit getCreationTime() {
         TSExplicit time = new TSExplicit();
         String formattedTime;

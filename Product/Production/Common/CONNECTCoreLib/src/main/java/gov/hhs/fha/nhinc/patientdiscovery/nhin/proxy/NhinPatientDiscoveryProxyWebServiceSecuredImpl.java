@@ -44,7 +44,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatientDiscoveryProxy {
@@ -67,54 +67,62 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target)
-                throws Exception{
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion,
+            NhinTargetSystemType target) throws Exception {
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
         try {
             if (request != null && target != null) {
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
-                log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
+                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
+                        NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+                log.debug("After target system URL look up. URL for service: "
+                        + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    RespondingGatewayPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+                    RespondingGatewayPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION,
+                            WS_ADDRESSING_ACTION, assertion);
 
                     // Log the start of the performance record
                     String targetCommunityId = "";
 
-                    if ((target != null) &&
-                            (target.getHomeCommunity() != null)) {
+                    if ((target != null) && (target.getHomeCommunity() != null)) {
                         targetCommunityId = target.getHomeCommunity().getHomeCommunityId();
                     }
 
                     Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                    Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetCommunityId);
+                    Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetCommunityId);
 
-                    response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, RespondingGatewayPortType.class, "respondingGatewayPRPAIN201305UV02", request);
+                    response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, RespondingGatewayPortType.class,
+                            "respondingGatewayPRPAIN201305UV02", request);
 
                     // Log the end of the performance record
                     Timestamp stoptime = new Timestamp(System.currentTimeMillis());
                     PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
 
                 } else {
-                    log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  The URL is null.");
+                    log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
+                            + ").  The URL is null.");
                 }
             } else {
-                log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  The input parameters are null.");
+                log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
+                        + ").  The input parameters are null.");
             }
         } catch (Exception e) {
-            log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + ").  An unexpected exception occurred.  " +
-                    "Exception: " + e.getMessage(), e);
-            // response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+            log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
+                    + ").  An unexpected exception occurred.  " + "Exception: " + e.getMessage(), e);
+            // response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request,
+            // NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
             throw e;
         }
 
@@ -123,7 +131,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -139,22 +147,24 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @param serviceAction The action for the web service.
      * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected RespondingGatewayPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected RespondingGatewayPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         RespondingGatewayPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
-            oProxyHelper.setPortTimeoutByService((javax.xml.ws.BindingProvider)port,
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
+            oProxyHelper.setPortTimeoutByService((javax.xml.ws.BindingProvider) port,
                     NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         } else {
             log.error("Unable to obtain serivce - no port created.");

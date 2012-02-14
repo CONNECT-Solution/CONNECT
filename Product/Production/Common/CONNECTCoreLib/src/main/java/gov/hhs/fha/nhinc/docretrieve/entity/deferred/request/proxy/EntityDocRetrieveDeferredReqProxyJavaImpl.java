@@ -34,6 +34,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
  * Java implementation for Entity Document retrieve deferred unsecured request webservice call
+ * 
  * @author Sai Valluripalli
  */
 public class EntityDocRetrieveDeferredReqProxyJavaImpl implements EntityDocRetrieveDeferredReqProxy {
@@ -45,7 +46,8 @@ public class EntityDocRetrieveDeferredReqProxyJavaImpl implements EntityDocRetri
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message, AssertionType assertion, NhinTargetCommunitiesType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message,
+            AssertionType assertion, NhinTargetCommunitiesType target) {
         return getEntityDocRetrieveDeferredReqOrchImpl().crossGatewayRetrieveRequest(message, assertion, target);
     }
 
@@ -53,8 +55,7 @@ public class EntityDocRetrieveDeferredReqProxyJavaImpl implements EntityDocRetri
      * 
      * @return EntityDocRetrieveDeferredReqImpl
      */
-    protected EntityDocRetrieveDeferredReqOrchImpl getEntityDocRetrieveDeferredReqOrchImpl()
-    {
+    protected EntityDocRetrieveDeferredReqOrchImpl getEntityDocRetrieveDeferredReqOrchImpl() {
         return new EntityDocRetrieveDeferredReqOrchImpl();
     }
 }

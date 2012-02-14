@@ -44,12 +44,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl implements NhinDocQueryDeferredRequestProxy {
 
-    //Logger
+    // Logger
     private static final Log log = LogFactory.getLog(NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl.class);
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:ihe:iti:xds-b:2007";
@@ -69,18 +69,21 @@ public class NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl implements Nh
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected RespondingGatewayQueryDeferredRequestPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected RespondingGatewayQueryDeferredRequestPortType getPort(String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion) {
         RespondingGatewayQueryDeferredRequestPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayQueryDeferredRequestPortType.class);
-            getWebServiceProxyHelper().initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    RespondingGatewayQueryDeferredRequestPortType.class);
+            getWebServiceProxyHelper().initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -90,7 +93,7 @@ public class NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl implements Nh
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -104,7 +107,8 @@ public class NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl implements Nh
         return cachedService;
     }
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetSystemType target) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
+            AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Begin respondingGatewayCrossGatewayQuery");
 
         String url = null;
@@ -112,46 +116,62 @@ public class NhinDocQueryDeferredRequestProxyWebServiceSecuredImpl implements Nh
         DocQueryAcknowledgementType response = null;
 
         String responseCommunityID = null;
-        if (target != null &&
-                target.getHomeCommunity() != null &&
-                target.getHomeCommunity().getHomeCommunityId() != null) {
+        if (target != null && target.getHomeCommunity() != null
+                && target.getHomeCommunity().getHomeCommunityId() != null) {
             responseCommunityID = target.getHomeCommunity().getHomeCommunityId();
         }
         // Log the outbound request -- Audit Logging
         AcknowledgementType ack = getDocQueryAuditLogger().auditDQRequest(msg, assertion,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                responseCommunityID);
 
         try {
             if (msg != null) {
                 log.debug("Before target system URL look up.");
-                url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
-                log.debug("After target system URL look up. URL for service: " + NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME + " is: " + url);
+                url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(target,
+                        NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+                log.debug("After target system URL look up. URL for service: "
+                        + NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME + " is: " + url);
 
-                if (NullChecker.isNotNullish(url)) {                   
-                    RespondingGatewayQueryDeferredRequestPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
-                    response = (DocQueryAcknowledgementType) getWebServiceProxyHelper().invokePort(port, RespondingGatewayQueryDeferredRequestPortType.class, "respondingGatewayCrossGatewayQuery", msg);
+                if (NullChecker.isNotNullish(url)) {
+                    RespondingGatewayQueryDeferredRequestPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION,
+                            WS_ADDRESSING_ACTION, assertion);
+                    response = (DocQueryAcknowledgementType) getWebServiceProxyHelper().invokePort(port,
+                            RespondingGatewayQueryDeferredRequestPortType.class, "respondingGatewayCrossGatewayQuery",
+                            msg);
 
                 } else {
-                    ackMessage = "Failed to call the web service (" + NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME + ").  The URL is null.";
-                    response = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMessage);
+                    ackMessage = "Failed to call the web service ("
+                            + NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME + ").  The URL is null.";
+                    response = DocQueryAckTranforms.createAckMessage(
+                            NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG,
+                            NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMessage);
 
                     log.error(ackMessage);
                 }
             } else {
-                ackMessage = "Failed to call the web service (" + NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME + ").  The input parameter is null.";
-                response = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMessage);
+                ackMessage = "Failed to call the web service ("
+                        + NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME
+                        + ").  The input parameter is null.";
+                response = DocQueryAckTranforms.createAckMessage(
+                        NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG,
+                        NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMessage);
                 log.error(ackMessage);
             }
         } catch (Exception e) {
-            ackMessage = "Failed to call the web service (" + NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME + ").  An unexpected exception occurred: " + e.getMessage();
-            response = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMessage);
+            ackMessage = "Failed to call the web service ("
+                    + NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME
+                    + ").  An unexpected exception occurred: " + e.getMessage();
+            response = DocQueryAckTranforms.createAckMessage(
+                    NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG,
+                    NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMessage);
 
             log.error(ackMessage + "  Exception: " + e.getMessage(), e);
         }
 
         // Log the inbound acknowledgement response -- Audit Logging
-        ack = getDocQueryAuditLogger().logDocQueryAck(response, assertion,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
+        ack = getDocQueryAuditLogger().logDocQueryAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
 
         log.debug("End respondingGatewayCrossGatewayQuery");
 

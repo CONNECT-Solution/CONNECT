@@ -39,52 +39,64 @@ import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 
-
 /**
- *
+ * 
  * @author rayj
  */
 public class PolicyEngineTransformer {
 
-    public CheckPolicyRequestType transformPatDiscReqToCheckPolicy(PatDiscReqEventType transformPatDiscReqToCheckPolicyRequest) {
-        return new PatientDiscoveryPolicyTransformHelper().transformPatientDiscoveryNhincToCheckPolicy(transformPatDiscReqToCheckPolicyRequest);
+    public CheckPolicyRequestType transformPatDiscReqToCheckPolicy(
+            PatDiscReqEventType transformPatDiscReqToCheckPolicyRequest) {
+        return new PatientDiscoveryPolicyTransformHelper()
+                .transformPatientDiscoveryNhincToCheckPolicy(transformPatDiscReqToCheckPolicyRequest);
     }
 
-    public CheckPolicyRequestType transformAdhocQueryToCheckPolicy(AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
+    public CheckPolicyRequestType transformAdhocQueryToCheckPolicy(
+            AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
         return AdhocQueryTransformHelper.transformAdhocQueryToCheckPolicy(transformAdhocQueryToCheckPolicyRequest);
     }
 
-    public CheckPolicyRequestType transformAdhocQueryResultToCheckPolicy(AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest) {
-        return AdhocQueryTransformHelper.transformAdhocQueryResponseToCheckPolicy(transformAdhocQueryResultToCheckPolicyRequest);
+    public CheckPolicyRequestType transformAdhocQueryResultToCheckPolicy(
+            AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest) {
+        return AdhocQueryTransformHelper
+                .transformAdhocQueryResponseToCheckPolicy(transformAdhocQueryResultToCheckPolicyRequest);
     }
 
-    public CheckPolicyRequestType transformDocRetrieveToCheckPolicy(DocRetrieveEventType transformDocRetrieveToCheckPolicyRequest) {
+    public CheckPolicyRequestType transformDocRetrieveToCheckPolicy(
+            DocRetrieveEventType transformDocRetrieveToCheckPolicyRequest) {
         return DocRetrieveTransformHelper.transformDocRetrieveToCheckPolicy(transformDocRetrieveToCheckPolicyRequest);
     }
 
-    public CheckPolicyRequestType transformDocRetrieveResultToCheckPolicy(DocRetrieveResultEventType transformDocRetrieveResultToCheckPolicyRequest) {
-        //TODO implement this method
+    public CheckPolicyRequestType transformDocRetrieveResultToCheckPolicy(
+            DocRetrieveResultEventType transformDocRetrieveResultToCheckPolicyRequest) {
+        // TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    public CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
-        return FindAuditEventsTransformHelper.transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
+    public CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(
+            FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
+        return FindAuditEventsTransformHelper
+                .transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
     }
 
-    public CheckPolicyRequestType transformSubscribeToCheckPolicy(SubscribeEventType transformSubscribeToCheckPolicyRequest) {
+    public CheckPolicyRequestType transformSubscribeToCheckPolicy(
+            SubscribeEventType transformSubscribeToCheckPolicyRequest) {
         return SubscribeTransformHelper.transformSubscribeToCheckPolicy(transformSubscribeToCheckPolicyRequest);
     }
 
-    public CheckPolicyRequestType transformUnsubscribeToCheckPolicy(UnsubscribeEventType transformUnsubscribeToCheckPolicyRequest) {
+    public CheckPolicyRequestType transformUnsubscribeToCheckPolicy(
+            UnsubscribeEventType transformUnsubscribeToCheckPolicyRequest) {
         return UnsubscribeTransformHelper.transformUnsubscribeToCheckPolicy(transformUnsubscribeToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformNotifyToCheckPolicy(NotifyEventType transformNotifyToCheckPolicyRequest) {
         return NotifyTransformHelper.transformNotifyToCheckPolicy(transformNotifyToCheckPolicyRequest);
     }
+
     public CheckPolicyRequestType transformXDRRequestToCheckPolicy(XDREventType request) {
         return new XDRPolicyTransformHelper().transformXDRToCheckPolicy(request);
     }
+
     public CheckPolicyRequestType transformXDRResponseInputToCheckPolicy(XDRResponseEventType request) {
         return new XDRPolicyTransformHelper().transformXDRResponseToCheckPolicy(request);
     }
@@ -92,5 +104,5 @@ public class PolicyEngineTransformer {
     public CheckPolicyRequestType transformDRResponseInputToCheckPolicy(DocRetrieveResultEventType request) {
         return new DocRetrieveDeferredTransformHelper().transformDocRetrieveDeferredRespToCheckPolicy(request);
     }
-    
+
 }

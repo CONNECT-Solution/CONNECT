@@ -35,7 +35,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author narendra.reddy
  */
 public class AdapterDocRetrieveDeferredRequestQueueProxyJavaImpl implements AdapterDocRetrieveDeferredRequestQueueProxy {
@@ -43,14 +43,16 @@ public class AdapterDocRetrieveDeferredRequestQueueProxyJavaImpl implements Adap
     private static Log log = LogFactory.getLog(AdapterDocRetrieveDeferredRequestQueueProxyJavaImpl.class);
 
     /**
-     *
+     * 
      * @param request
      * @param assertion
      * @param targets
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetRequestType request,
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("Using Java Implementation for Entity Doc Retrieve Deferred Request Service");
-        return new AdapterDocRetrieveDeferredReqQueueOrchImpl().crossGatewayRetrieveResponse(request, assertion, targets);
+        return new AdapterDocRetrieveDeferredReqQueueOrchImpl().crossGatewayRetrieveResponse(request, assertion,
+                targets);
     }
 }

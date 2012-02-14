@@ -18,7 +18,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author akong
  */
 public class AdapterDocRetrieveDeferredReqQueueProcessImplTest {
@@ -28,7 +28,8 @@ public class AdapterDocRetrieveDeferredReqQueueProcessImplTest {
         }
     };
 
-    final AdapterDocRetrieveDeferredReqQueueProcessOrchImpl mockServiceImpl = context.mock(AdapterDocRetrieveDeferredReqQueueProcessOrchImpl.class);
+    final AdapterDocRetrieveDeferredReqQueueProcessOrchImpl mockServiceImpl = context
+            .mock(AdapterDocRetrieveDeferredReqQueueProcessOrchImpl.class);
 
     private DocRetrieveAcknowledgementType createDocRetrieveAcknowledgementType() {
         DocRetrieveAcknowledgementType docRetrieveAck = new DocRetrieveAcknowledgementType();
@@ -63,7 +64,8 @@ public class AdapterDocRetrieveDeferredReqQueueProcessImplTest {
     @Test
     public void testGetAdapterDocRetrieveDeferredReqQueueProcessOrchImpl() {
         AdapterDocRetrieveDeferredReqQueueProcessImpl deferredProcessImpl = new AdapterDocRetrieveDeferredReqQueueProcessImpl();
-        AdapterDocRetrieveDeferredReqQueueProcessOrchImpl processImpl = deferredProcessImpl.getAdapterDocRetrieveDeferredReqQueueProcessOrchImpl();
+        AdapterDocRetrieveDeferredReqQueueProcessOrchImpl processImpl = deferredProcessImpl
+                .getAdapterDocRetrieveDeferredReqQueueProcessOrchImpl();
         assertNotNull(processImpl);
     }
 
@@ -83,18 +85,15 @@ public class AdapterDocRetrieveDeferredReqQueueProcessImplTest {
             context.checking(new Expectations() {
                 {
                     exactly(NUM_CALLS).of(mockServiceImpl).processDocRetrieveDeferredReqQueue(with(any(String.class)));
-                    will(onConsecutiveCalls(
-                            returnValue(createDocRetrieveAcknowledgementType()),
+                    will(onConsecutiveCalls(returnValue(createDocRetrieveAcknowledgementType()),
                             returnValue(createDocRetrieveAcknowledgementType2()),
                             returnValue(createDocRetrieveAcknowledgementType3()),
                             returnValue(createDocRetrieveAcknowledgementType4()),
-                            returnValue(new DocRetrieveAcknowledgementType()),
-                            returnValue(null)
-                            ));
+                            returnValue(new DocRetrieveAcknowledgementType()), returnValue(null)));
 
                 }
             });
-            
+
             DocRetrieveDeferredReqQueueProcessResponseType response = null;
             for (int i = 0; i < NUM_CALLS; i++) {
                 response = deferredProcessImpl.processDocRetrieveDeferredReqQueue(request, null);

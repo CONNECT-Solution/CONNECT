@@ -9,7 +9,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class InboundDocRetrieveFactory {
@@ -20,8 +20,8 @@ public class InboundDocRetrieveFactory {
 
     public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {
-            default:
-                return new InboundDocRetrieveOrchestrationContextBuilder();
+        default:
+            return new InboundDocRetrieveOrchestrationContextBuilder();
         }
     }
 

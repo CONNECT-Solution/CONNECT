@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy ;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -45,14 +45,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -66,28 +64,22 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     final WebServiceProxyHelper mockWebServiceProxyHelper = context.mock(WebServiceProxyHelper.class);
 
     @Test
-    public void testCreateLogger()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+    public void testCreateLogger() {
+        try {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
             };
             Log log = sut.createLogger();
             assertNotNull("Log was null", log);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger test: " + t.getMessage());
@@ -95,28 +87,22 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     }
 
     @Test
-    public void testCreateWebServiceProxyHelper()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+    public void testCreateWebServiceProxyHelper() {
+        try {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
             };
             WebServiceProxyHelper wsProxyHelper = sut.createWebServiceProxyHelper();
             assertNotNull("WebServiceProxyHelper was null", wsProxyHelper);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateWebServiceProxyHelper test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateWebServiceProxyHelper test: " + t.getMessage());
@@ -124,63 +110,53 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     }
 
     @Test
-    public void testInvokeConnectionManagerHappy()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+    public void testInvokeConnectionManagerHappy() {
+        try {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
+
                 @Override
-                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException
-                {
+                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
                     return "test_endpoint";
                 }
             };
             String endpointURL = webProxy.invokeConnectionManager("not_used_by_override");
             assertNotNull("EndpointURL was null", endpointURL);
             assertEquals("EndpointURL was not correct", "test_endpoint", endpointURL);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testInvokeConnectionManagerHappy test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testInvokeConnectionManagerHappy test: " + t.getMessage());
         }
     }
 
-    @Test (expected= gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException.class)
-    public void testInvokeConnectionManagerException() throws ConnectionManagerException
-    {
-        EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-        {
+    @Test(expected = gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException.class)
+    public void testInvokeConnectionManagerException() throws ConnectionManagerException {
+        EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
             @Override
-            protected Log createLogger()
-            {
+            protected Log createLogger() {
                 return mockLog;
             }
+
             @Override
-            protected WebServiceProxyHelper createWebServiceProxyHelper()
-            {
+            protected WebServiceProxyHelper createWebServiceProxyHelper() {
                 return mockWebServiceProxyHelper;
             }
+
             @Override
-            protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException
-            {
+            protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
                 throw new ConnectionManagerException();
             }
         };
-        context.checking(new Expectations()
-        {
+        context.checking(new Expectations() {
             {
                 allowing(mockLog).isDebugEnabled();
                 allowing(mockLog).debug(with(any(String.class)));
@@ -191,30 +167,25 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     }
 
     @Test
-    public void testGetEndpointURLHappy()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+    public void testGetEndpointURLHappy() {
+        try {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
+
                 @Override
-                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException
-                {
+                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
                     return "test_endpoint";
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
@@ -223,9 +194,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
             String endpointURL = webProxy.getEndpointURL();
             assertNotNull("EndpointURL was null", endpointURL);
             assertEquals("EndpointURL was not correct", "test_endpoint", endpointURL);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetEndpointURLHappy test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetEndpointURLHappy test: " + t.getMessage());
@@ -233,30 +202,25 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     }
 
     @Test
-    public void testGetEndpointURLException()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+    public void testGetEndpointURLException() {
+        try {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
+
                 @Override
-                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException
-                {
+                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
                     throw new ConnectionManagerException();
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
@@ -265,9 +229,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
             });
             String endpointURL = webProxy.getEndpointURL();
             assertNull("EndpointURL was not null", endpointURL);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetEndpointURLException test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetEndpointURLException test: " + t.getMessage());
@@ -275,30 +237,25 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     }
 
     @Test
-    public void testGetService()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+    public void testGetService() {
+        try {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
+
                 @Override
-                protected Service getService()
-                {
+                protected Service getService() {
                     return mockService;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
@@ -306,9 +263,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
             });
             Service service = webProxy.getService();
             assertNotNull("Service was null", service);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetService test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetService test: " + t.getMessage());
@@ -316,30 +271,25 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     }
 
     @Test
-    public void testGetPortNullService()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+    public void testGetPortNullService() {
+        try {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
+
                 @Override
-                protected Service getService()
-                {
+                protected Service getService() {
                     return null;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockLog).error("Unable to obtain serivce - no port created.");
@@ -348,9 +298,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
             String url = "url";
             EntityPatientDiscoveryPortType port = sut.getPort(url, "action", "action", mockAssertion);
             assertNull("Port was not null", port);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetPortNullService test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetPortNullService test: " + t.getMessage());
@@ -358,59 +306,53 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     }
 
     @Test
-    public void testRespondingGatewayPRPAIN201305UV02Happy()
-    {
-        try
-        {
-            final RespondingGatewayPRPAIN201306UV02ResponseType mockResponse = context.mock(RespondingGatewayPRPAIN201306UV02ResponseType.class);
-            final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper()
-            {
+    public void testRespondingGatewayPRPAIN201305UV02Happy() {
+        try {
+            final RespondingGatewayPRPAIN201306UV02ResponseType mockResponse = context
+                    .mock(RespondingGatewayPRPAIN201306UV02ResponseType.class);
+            final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
                 public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-                    throws Exception
-                {
+                        throws Exception {
                     return mockResponse;
                 }
             };
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
                 }
+
                 @Override
-                protected String getEndpointURL()
-                {
+                protected String getEndpointURL() {
                     return "";
                 }
+
                 @Override
-                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-                {
+                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction,
+                        String wsAddressingAction, AssertionType assertion) {
                     return mockPort;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
-            RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(mockPdRequest, mockAssertion, mockTargetCommunities);
+            RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(
+                    mockPdRequest, mockAssertion, mockTargetCommunities);
             assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayPRPAIN201305UV02Happy test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02Happy test: " + t.getMessage());
@@ -418,183 +360,168 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest
     }
 
     @Test
-    public void testRespondingGatewayPRPAIN201305UV02NullPRPAIN201305UV02()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+    public void testRespondingGatewayPRPAIN201305UV02NullPRPAIN201305UV02() {
+        try {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
+
                 @Override
-                protected String getEndpointURL()
-                {
+                protected String getEndpointURL() {
                     return "";
                 }
+
                 @Override
-                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-                {
+                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction,
+                        String wsAddressingAction, AssertionType assertion) {
                     return mockPort;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockLog).error("PRPAIN201305UV02 was null");
                 }
             });
-            RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(null, mockAssertion, mockTargetCommunities);
+            RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(null,
+                    mockAssertion, mockTargetCommunities);
             assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullPRPAIN201305UV02 test: " + t.getMessage());
+        } catch (Throwable t) {
+            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullPRPAIN201305UV02 test: "
+                    + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullPRPAIN201305UV02 test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testRespondingGatewayPRPAIN201305UV02NullAssertionType()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+    public void testRespondingGatewayPRPAIN201305UV02NullAssertionType() {
+        try {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
+
                 @Override
-                protected String getEndpointURL()
-                {
+                protected String getEndpointURL() {
                     return "";
                 }
+
                 @Override
-                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-                {
+                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction,
+                        String wsAddressingAction, AssertionType assertion) {
                     return mockPort;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockLog).error("AssertionType was null");
                 }
             });
-            RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(mockPdRequest, null, mockTargetCommunities);
+            RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(
+                    mockPdRequest, null, mockTargetCommunities);
             assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullAssertionType test: " + t.getMessage());
+        } catch (Throwable t) {
+            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullAssertionType test: "
+                    + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullAssertionType test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+    public void testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType() {
+        try {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
+
                 @Override
-                protected String getEndpointURL()
-                {
+                protected String getEndpointURL() {
                     return "";
                 }
+
                 @Override
-                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-                {
+                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction,
+                        String wsAddressingAction, AssertionType assertion) {
                     return mockPort;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockLog).error("NhinTargetCommunitiesType was null");
                 }
             });
-            RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(mockPdRequest, mockAssertion, null);
+            RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(
+                    mockPdRequest, mockAssertion, null);
             assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: " + t.getMessage());
+        } catch (Throwable t) {
+            System.out
+                    .println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: "
+                            + t.getMessage());
             t.printStackTrace();
-            fail("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: " + t.getMessage());
+            fail("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: "
+                    + t.getMessage());
         }
     }
 
     @Test
-    public void testRespondingGatewayPRPAIN201305UV02NullPort()
-    {
-        try
-        {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-            {
+    public void testRespondingGatewayPRPAIN201305UV02NullPort() {
+        try {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
+
                 @Override
-                protected String getEndpointURL()
-                {
+                protected String getEndpointURL() {
                     return "";
                 }
+
                 @Override
-                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-                {
+                protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction,
+                        String wsAddressingAction, AssertionType assertion) {
                     return null;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockLog).error("EntityPatientDiscoverySecuredPortType was null");
                 }
             });
-            RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(mockPdRequest, mockAssertion, mockTargetCommunities);
+            RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(
+                    mockPdRequest, mockAssertion, mockTargetCommunities);
             assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullPort test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullPort test: " + t.getMessage());

@@ -34,10 +34,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class is responsible for handling the work that is done each time the timer
- * goes off.  It will read the data from the UDDI server, update the 
- * uddiConenctionInfo.xml file, and tell the connection manager to update its cache
- * with that data.
+ * This class is responsible for handling the work that is done each time the timer goes off. It will read the data from
+ * the UDDI server, update the uddiConenctionInfo.xml file, and tell the connection manager to update its cache with
+ * that data.
  * 
  * @author Les Westberg
  */
@@ -110,8 +109,8 @@ public class UDDITimerTask {
     }
 
     /**
-     * Main method used to test this class.   This one really should not be run under unit
-     * test scenarios because it requires access to the UDDI server.
+     * Main method used to test this class. This one really should not be run under unit test scenarios because it
+     * requires access to the UDDI server.
      * 
      * @param args
      */

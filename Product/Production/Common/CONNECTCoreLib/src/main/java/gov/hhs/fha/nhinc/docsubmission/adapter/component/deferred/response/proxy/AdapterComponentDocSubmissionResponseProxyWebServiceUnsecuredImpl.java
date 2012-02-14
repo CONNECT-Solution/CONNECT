@@ -40,11 +40,11 @@ import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author dunnek, Les Westberg
  */
-public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl implements AdapterComponentDocSubmissionResponseProxy
-{
+public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl implements
+        AdapterComponentDocSubmissionResponseProxy {
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse";
     private static final String SERVICE_LOCAL_PART = "AdapterComponentXDRResponse_Service";
@@ -57,65 +57,57 @@ public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl i
     /**
      * Default constructor.
      */
-    public AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl()
-    {
+    public AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl() {
         log = createLogger();
     }
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**
      * Receive document deferred document submission response.
-     *
+     * 
      * @param body The doc submission response message.
      * @param assertion The assertion information.
      * @return The ACK
      */
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, AssertionType assertion)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
+            AssertionType assertion) {
         String endpointUrl = null;
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         String sServiceName = NhincConstants.ADAPTER_COMPONENT_XDR_RESPONSE_SERVICE_NAME;
 
-        try
-        {
-            if (body != null)
-            {
+        try {
+            if (body != null) {
                 log.debug("Before target system URL look up.");
                 endpointUrl = oProxyHelper.getUrlLocalHomeCommunity(sServiceName);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + endpointUrl);
 
-                if (NullChecker.isNotNullish(endpointUrl))
-                {
+                if (NullChecker.isNotNullish(endpointUrl)) {
                     AdapterRegistryResponseType adaptResponse = new AdapterRegistryResponseType();
                     adaptResponse.setAssertion(assertion);
                     adaptResponse.setRegistryResponse(body);
 
-                    AdapterComponentXDRResponsePortType port = getPort(endpointUrl, NhincConstants.ADAPTER_XDRRESPONSE_ACTION, WS_ADDRESSING_ACTION, assertion);
-                    response = (XDRAcknowledgementType) oProxyHelper.invokePort(port, AdapterComponentXDRResponsePortType.class, "provideAndRegisterDocumentSetBResponse", adaptResponse);
-                }
-                else
-                {
+                    AdapterComponentXDRResponsePortType port = getPort(endpointUrl,
+                            NhincConstants.ADAPTER_XDRRESPONSE_ACTION, WS_ADDRESSING_ACTION, assertion);
+                    response = (XDRAcknowledgementType) oProxyHelper.invokePort(port,
+                            AdapterComponentXDRResponsePortType.class, "provideAndRegisterDocumentSetBResponse",
+                            adaptResponse);
+                } else {
                     log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
-            }
-            else
-            {
+            } else {
                 log.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
-        }
-        catch (Exception e)
-        {
-            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  " +
-                    "Exception: " + e.getMessage(), e);
+        } catch (Exception e) {
+            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
+                    + "Exception: " + e.getMessage(), e);
         }
 
         return response;
@@ -123,19 +115,14 @@ public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl i
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
@@ -144,26 +131,25 @@ public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl i
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @param serviceAction The action for the web service.
      * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected AdapterComponentXDRResponsePortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-    {
+    protected AdapterComponentXDRResponsePortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         AdapterComponentXDRResponsePortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterComponentXDRResponsePortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+            port = service
+                    .getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterComponentXDRResponsePortType.class);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;

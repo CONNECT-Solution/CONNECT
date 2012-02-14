@@ -35,15 +35,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocSubmissionProxyJavaImpl implements PassthruDocSubmissionProxy {
     private static Log log = LogFactory.getLog(PassthruDocSubmissionProxyJavaImpl.class);
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
+            AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Using Java Implementation for Passthru Doc Submission Service");
-        
+
         return new PassthruDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(request, assertion, targetSystem);
     }
 

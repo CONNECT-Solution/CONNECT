@@ -84,11 +84,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 /**
- * ######## NOTICE #########
- * This class is not currently used due to problems placing SAML assertion
- * data in the header. It has been retained to allow future research on this 
- * issue.
- *
+ * ######## NOTICE ######### This class is not currently used due to problems placing SAML assertion data in the header.
+ * It has been retained to allow future research on this issue.
+ * 
  * @author Jon Hoppesch
  */
 public class NhinHiemSubscribeXmlWebServiceProxy implements NhinHiemSubscribeProxy {
@@ -96,15 +94,17 @@ public class NhinHiemSubscribeXmlWebServiceProxy implements NhinHiemSubscribePro
     private static Log log = LogFactory.getLog(NhinHiemSubscribeWebServiceProxy.class);
     static NotificationProducerService nhinService = new NotificationProducerService();
 
-    public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
+    public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target)
+            throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
+            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault,
+            SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault,
+            UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
         Element resp = null;
 
         Dispatch<Source> sourceDispatch = getNotificationProducerDispath(target, assertion);
 
-        try
-        {
-            if(sourceDispatch != null)
-            {
+        try {
+            if (sourceDispatch != null) {
                 Document subscribeRequestDocument = buildSubscribeRequestMessage(subscribeElement);
 
                 Source input = new DOMSource(subscribeRequestDocument);
@@ -117,40 +117,31 @@ public class NhinHiemSubscribeXmlWebServiceProxy implements NhinHiemSubscribePro
 
                 String resultXml = new String(bos.toByteArray());
                 resp = parseSubscribeResponse(resultXml);
-            }
-            else
-            {
+            } else {
                 log.error("The source dispatch object was null");
             }
-        }
-        catch (ParserConfigurationException ex)
-        {
+        } catch (ParserConfigurationException ex) {
             log.error("ParserConfigurationException sending subscribe message: " + ex.getMessage(), ex);
             // TODO: Create and throw generic exception
-        }
-        catch (TransformerConfigurationException ex)
-        {
+        } catch (TransformerConfigurationException ex) {
             log.error("TransformerConfigurationException sending subscribe message: " + ex.getMessage(), ex);
             // TODO: Create and throw generic exception
-        }
-        catch (TransformerException ex)
-        {
+        } catch (TransformerException ex) {
             log.error("TransformerException sending subscribe message: " + ex.getMessage(), ex);
             // TODO: Create and throw generic exception
         }
         return resp;
     }
 
-    private Dispatch<Source> getNotificationProducerDispath(NhinTargetSystemType target, AssertionType assertion)
-    {
+    private Dispatch<Source> getNotificationProducerDispath(NhinTargetSystemType target, AssertionType assertion) {
         Dispatch<Source> sourceDispatch = null;
 
         org.oasis_open.docs.wsn.bw_2.NotificationProducerService service = new org.oasis_open.docs.wsn.bw_2.NotificationProducerService();
 
-        QName portQName = new QName("http://docs.oasis-open.org/wsn/bw-2" , "NotificationProducerPort");
+        QName portQName = new QName("http://docs.oasis-open.org/wsn/bw-2", "NotificationProducerPort");
 
         List<WebServiceFeature> wsFeatures = new ArrayList<WebServiceFeature>();
-//        wsFeatures.add(new AddressingFeature());
+        // wsFeatures.add(new AddressingFeature());
         wsFeatures.add(new RespectBindingFeature());
         WebServiceFeature[] wsFeatureArray = wsFeatures.toArray(new WebServiceFeature[0]);
         sourceDispatch = service.createDispatch(portQName, Source.class, Service.Mode.PAYLOAD, wsFeatureArray);
@@ -159,7 +150,8 @@ public class NhinHiemSubscribeXmlWebServiceProxy implements NhinHiemSubscribePro
         String url = getUrl(target);
         sourceDispatch.getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
-//        sourceDispatch.getRequestContext().put(javax.xml.ws.BindingProvider.SOAPACTION_URI_PROPERTY, "http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/SubscribeRequest");
+        // sourceDispatch.getRequestContext().put(javax.xml.ws.BindingProvider.SOAPACTION_URI_PROPERTY,
+        // "http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/SubscribeRequest");
 
         // Add assertion data
         SamlTokenCreator tokenCreator = new SamlTokenCreator();
@@ -169,15 +161,12 @@ public class NhinHiemSubscribeXmlWebServiceProxy implements NhinHiemSubscribePro
         return sourceDispatch;
     }
 
-    private String getUrl(NhinTargetSystemType target)
-    {
+    private String getUrl(NhinTargetSystemType target) {
         String url = null;
-        try
-        {
-            url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
-        }
-        catch (ConnectionManagerException ex)
-        {
+        try {
+            url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target,
+                    NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
+        } catch (ConnectionManagerException ex) {
             log.error("Error obtaining endpoint url: " + ex.getMessage(), ex);
         }
 
@@ -196,48 +185,49 @@ public class NhinHiemSubscribeXmlWebServiceProxy implements NhinHiemSubscribePro
         document.appendChild(subscribeRequestElement);
         return document;
     }
-//    private NotificationProducer getPort(String url) {
-//        NotificationProducer port = nhinService.getNotificationProducerPort();
-//
-//        log.info("Setting endpoint address to Nhin Hiem Subscribe Service to " + url);
-//        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-//
-//        return port;
-//    }
 
-//    private Subscribe unmarshalSubscribe(String subscribeXml)
-//    {
-//        log.debug("Begin unmarshal subscribe");
-//        Subscribe subscribe = null;
-//
-//        if (subscribeXml != null)
-//        {
-//            try
-//            {
-//                JAXBContext jc = JAXBContext.newInstance("org.oasis_open.docs.wsn.b_2");
-//                Unmarshaller unmarshaller = jc.createUnmarshaller();
-//                StringReader srSubscribeXML = new StringReader(subscribeXml);
-//                log.debug("Calling unmarshal");
-//                subscribe = (Subscribe)unmarshaller.unmarshal(srSubscribeXML);
-//            }
-//            catch (Exception e)
-//            {
-//                log.error("Failed to marshall Subscribe to XML: " + e.getMessage(), e);
-//            }
-//        }
-//        log.debug("End unmarshal subscribe");
-//        return subscribe;
-//    }
+    // private NotificationProducer getPort(String url) {
+    // NotificationProducer port = nhinService.getNotificationProducerPort();
+    //
+    // log.info("Setting endpoint address to Nhin Hiem Subscribe Service to " + url);
+    // ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+    //
+    // return port;
+    // }
+
+    // private Subscribe unmarshalSubscribe(String subscribeXml)
+    // {
+    // log.debug("Begin unmarshal subscribe");
+    // Subscribe subscribe = null;
+    //
+    // if (subscribeXml != null)
+    // {
+    // try
+    // {
+    // JAXBContext jc = JAXBContext.newInstance("org.oasis_open.docs.wsn.b_2");
+    // Unmarshaller unmarshaller = jc.createUnmarshaller();
+    // StringReader srSubscribeXML = new StringReader(subscribeXml);
+    // log.debug("Calling unmarshal");
+    // subscribe = (Subscribe)unmarshaller.unmarshal(srSubscribeXML);
+    // }
+    // catch (Exception e)
+    // {
+    // log.error("Failed to marshall Subscribe to XML: " + e.getMessage(), e);
+    // }
+    // }
+    // log.debug("End unmarshal subscribe");
+    // return subscribe;
+    // }
     // TODO: Move to a common library - needs access to b-2.wsdl(?) messages
-    private Element parseSubscribeResponse(String responseXml) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault
-    {
+    private Element parseSubscribeResponse(String responseXml) throws InvalidFilterFault,
+            InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
+            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault,
+            SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault,
+            UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
         Element responseElement = null;
-        try
-        {
+        try {
             responseElement = XmlUtility.convertXmlToElement(responseXml);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error parsing subscribe response: " + ex.getMessage(), ex);
         }
         return responseElement;

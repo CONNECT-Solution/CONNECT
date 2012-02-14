@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.orchestration;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public interface OutboundDelegate extends Delegate {

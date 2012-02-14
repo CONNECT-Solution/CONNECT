@@ -36,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Date utility for UTC dates.
- *
+ * 
  * @author Neil Webb
  */
 public class UTCDateUtil {
@@ -57,9 +57,8 @@ public class UTCDateUtil {
     }
 
     /**
-     * Parse a date string as a UTC date. The date may optionally have a time zone which will be
-     * used if present.
-     *
+     * Parse a date string as a UTC date. The date may optionally have a time zone which will be used if present.
+     * 
      * @param dateString Date string to parse
      * @return Parsed date
      */
@@ -69,7 +68,7 @@ public class UTCDateUtil {
 
     /**
      * Format a date using a UTC format.
-     *
+     * 
      * @param sourceDate Date to
      * @return
      */
@@ -79,7 +78,7 @@ public class UTCDateUtil {
 
     /**
      * Format a date using a UTC Date Only format.
-     *
+     * 
      * @param sourceDate Date to
      * @return
      */
@@ -89,7 +88,7 @@ public class UTCDateUtil {
 
     /**
      * Parses a string and returns a Date object having the given date format.
-     *
+     * 
      * @param dateString String to be parsed containing a date
      * @param dateFormat Format of the date to be parsed
      * @return Returns the Date object for the given string and format.
@@ -97,9 +96,8 @@ public class UTCDateUtil {
     public Date parseDate(String dateString, String dateFormat, TimeZone timeZone) {
         // Candidate to move to a super class for other format types
         if (log.isDebugEnabled()) {
-            log.debug("Parsing (" + dateString + ") using format string (" + dateFormat +
-                    ") and time zone (" + ((timeZone == null) ? "none" : timeZone.getDisplayName()) +
-                    ").");
+            log.debug("Parsing (" + dateString + ") using format string (" + dateFormat + ") and time zone ("
+                    + ((timeZone == null) ? "none" : timeZone.getDisplayName()) + ").");
         }
         Date parsed = null;
         if ((dateString != null) && (dateFormat != null)) {
@@ -119,7 +117,7 @@ public class UTCDateUtil {
 
     /**
      * Create a date formatter.
-     *
+     * 
      * @param formatString Date format string
      * @param timeZone Optional time zone. Not used if null.
      * @return Prepared date formatter
@@ -137,9 +135,8 @@ public class UTCDateUtil {
     }
 
     /**
-     * Prepare a date format string based on the length of the date string
-     * to be parsed. The date Format will be reduced to meet the length of the date provided to
-     * match the accuracy of the date string.
+     * Prepare a date format string based on the length of the date string to be parsed. The date Format will be reduced
+     * to meet the length of the date provided to match the accuracy of the date string.
      * 
      * @param dateFormat Date format string (ex. yyyyMMddhhmmssZ)
      * @param dateString Date string to be parsed (ex. 19990205)
@@ -148,7 +145,8 @@ public class UTCDateUtil {
     private String prepareDateFormatString(String dateFormat, String dateString) {
         // Candidate to move to a super class for other format types
         String formatString = dateFormat;
-        if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0) && (dateString.length() < dateFormat.length())) {
+        if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0)
+                && (dateString.length() < dateFormat.length())) {
             formatString = dateFormat.substring(0, dateString.length());
             if (log.isDebugEnabled()) {
                 log.debug("New dateFormat: " + dateFormat);
@@ -165,7 +163,8 @@ public class UTCDateUtil {
                 DateFormat dateFormatter = createDateFormatter(formatString, TimeZone.getTimeZone(TIME_ZONE_UTC));
                 formatted = dateFormatter.format(sourceDate);
             } catch (Throwable t) {
-                log.warn("Failed to format a date (" + ((sourceDate == null) ? "null" : sourceDate.toString()) + ") to a formatted string using the format '" + formatString + "': " + t.getMessage(), t);
+                log.warn("Failed to format a date (" + ((sourceDate == null) ? "null" : sourceDate.toString())
+                        + ") to a formatted string using the format '" + formatString + "': " + t.getMessage(), t);
             }
         }
         return formatted;

@@ -51,7 +51,7 @@ import org.w3c.dom.*;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class HiemNotifyAdapterWebServiceDispatch implements HiemNotifyAdapterProxy {
@@ -63,7 +63,8 @@ public class HiemNotifyAdapterWebServiceDispatch implements HiemNotifyAdapterPro
     private static final String SERVICE_LOCAL_PART = "AdapterNotificationConsumer";
     private static final String WSDL_FILE = "AdapterNotificationConsumer.wsdl";
 
-    public Element notify(Element notify, ReferenceParametersElements referenceParametersElements, AssertionType assertion, NhinTargetSystemType target) throws Exception {
+    public Element notify(Element notify, ReferenceParametersElements referenceParametersElements,
+            AssertionType assertion, NhinTargetSystemType target) throws Exception {
         Document notifyRequestDocument = buildNotifyRequestMessage(notify, assertion);
 
         Dispatch<Source> dispatch = getAdapterNotificationConsumerDispatch(target);
@@ -83,35 +84,43 @@ public class HiemNotifyAdapterWebServiceDispatch implements HiemNotifyAdapterPro
         return resultElement;
     }
 
-    public Element notifySubscribersOfDocument(Element docNotify, AssertionType assertion, NhinTargetSystemType target) throws Exception {
+    public Element notifySubscribersOfDocument(Element docNotify, AssertionType assertion, NhinTargetSystemType target)
+            throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Element notifySubscribersOfCdcBioPackage(Element cdcNotify, AssertionType assertion, NhinTargetSystemType target) throws Exception {
+    public Element notifySubscribersOfCdcBioPackage(Element cdcNotify, AssertionType assertion,
+            NhinTargetSystemType target) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    private Document buildNotifyRequestMessage(Element notify, AssertionType assertion) throws ParserConfigurationException, DOMException {
+    private Document buildNotifyRequestMessage(Element notify, AssertionType assertion)
+            throws ParserConfigurationException, DOMException {
         Document document = null;
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
         document = docBuilder.newDocument();
         Element notifyRequestElement = null;
-        notifyRequestElement = document.createElementNS("urn:gov:hhs:fha:nhinc:common:nhinccommonadapter", "NotifyRequest");
+        notifyRequestElement = document.createElementNS("urn:gov:hhs:fha:nhinc:common:nhinccommonadapter",
+                "NotifyRequest");
         Node notifyNode = document.importNode(notify, true);
         notifyRequestElement.appendChild(notifyNode);
         document.appendChild(notifyRequestElement);
         return document;
     }
 
-    private Dispatch<Source> getAdapterNotificationConsumerDispatch(NhinTargetSystemType target) throws ConnectionManagerException {
-        QName portQName = new QName("urn:gov:hhs:fha:nhinc:adapternotificationconsumer", "AdapterNotificationConsumerPortSoap11");
+    private Dispatch<Source> getAdapterNotificationConsumerDispatch(NhinTargetSystemType target)
+            throws ConnectionManagerException {
+        QName portQName = new QName("urn:gov:hhs:fha:nhinc:adapternotificationconsumer",
+                "AdapterNotificationConsumerPortSoap11");
         Service adapterNotifyService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-        Dispatch<Source> dispatch = getGenericDispatch(adapterNotifyService, portQName, NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME, target);
+        Dispatch<Source> dispatch = getGenericDispatch(adapterNotifyService, portQName,
+                NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME, target);
         return dispatch;
     }
 
-    private Dispatch<Source> getGenericDispatch(Service service, QName portQName, String serviceName, NhinTargetSystemType target) throws ConnectionManagerException {
+    private Dispatch<Source> getGenericDispatch(Service service, QName portQName, String serviceName,
+            NhinTargetSystemType target) throws ConnectionManagerException {
         Dispatch<Source> dispatch = null;
         dispatch = service.createDispatch(portQName, Source.class, Service.Mode.PAYLOAD);
         String url = getUrl(target, serviceName);

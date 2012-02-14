@@ -32,7 +32,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "AdapterPatientDiscoverySecured", portName = "AdapterPatientDiscoverySecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoverySecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecured", wsdlLocation = "WEB-INF/wsdl/AdapterPatientDiscoverySecured/AdapterPatientDiscoverySecured.wsdl")
@@ -41,7 +41,9 @@ public class AdapterPatientDiscoverySecured {
     @Resource
     private WebServiceContext context;
 
-    public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
-        return new AdapterPatientDiscoveryImpl().respondingGatewayPRPAIN201305UV02(true, respondingGatewayPRPAIN201305UV02Request, context);
+    public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
+            org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
+        return new AdapterPatientDiscoveryImpl().respondingGatewayPRPAIN201305UV02(true,
+                respondingGatewayPRPAIN201305UV02Request, context);
     }
 }

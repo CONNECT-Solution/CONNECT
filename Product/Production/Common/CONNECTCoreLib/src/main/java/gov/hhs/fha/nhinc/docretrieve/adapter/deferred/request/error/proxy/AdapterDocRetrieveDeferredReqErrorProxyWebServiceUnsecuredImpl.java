@@ -42,12 +42,10 @@ import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- * Created by
- * User: ralph
- * Date: Jul 26, 2010
- * Time: 2:37:22 PM
+ * Created by User: ralph Date: Jul 26, 2010 Time: 2:37:22 PM
  */
-public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl implements AdapterDocRetrieveDeferredReqErrorProxy {
+public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl implements
+        AdapterDocRetrieveDeferredReqErrorProxy {
 
     private Log log = null;
     private static Service cachedService = null;
@@ -73,18 +71,21 @@ public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl impl
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterDocRetrieveDeferredRequestErrorPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
+    protected AdapterDocRetrieveDeferredRequestErrorPortType getPort(String url, String wsAddressingAction,
+            AssertionType assertion) {
         AdapterDocRetrieveDeferredRequestErrorPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveDeferredRequestErrorPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    AdapterDocRetrieveDeferredRequestErrorPortType.class);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -93,7 +94,7 @@ public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl impl
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -107,42 +108,35 @@ public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl impl
         return cachedService;
     }
 
-    public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion, String errMsg) {
+    public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion,
+            String errMsg) {
         log.debug("Begin sendToAdapter");
         DocRetrieveAcknowledgementType response = null;
 
-        try
-        {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME);
+        try {
+            String url = oProxyHelper
+                    .getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME);
             AdapterDocRetrieveDeferredRequestErrorPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
-            if(body == null)
-            {
+            if (body == null) {
                 log.error("Message was null");
-            }
-            else if(assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("AssertionType was null");
-            }
-            else if (NullChecker.isNullish(errMsg)) {
+            } else if (NullChecker.isNullish(errMsg)) {
                 log.error("errMsg was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 AdapterDocumentRetrieveDeferredRequestErrorType request = new AdapterDocumentRetrieveDeferredRequestErrorType();
                 request.setRetrieveDocumentSetRequest(body);
                 request.setAssertion(assertion);
                 request.setErrorMsg(errMsg);
 
-                response = (DocRetrieveAcknowledgementType)oProxyHelper.invokePort(port, AdapterDocRetrieveDeferredRequestErrorPortType.class, "crossGatewayRetrieveRequestError", request);
+                response = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port,
+                        AdapterDocRetrieveDeferredRequestErrorPortType.class, "crossGatewayRetrieveRequestError",
+                        request);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling crossGatewayRetrieveRequestError: " + ex.getMessage(), ex);
             response = new DocRetrieveAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();

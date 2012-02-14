@@ -30,23 +30,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class Config {
 
     private List<RoutingConfig> routingInfo = null;
 
-    public Config()
-    {
+    public Config() {
         routingInfo = new ArrayList<RoutingConfig>();
     }
-    public List<RoutingConfig> getRoutingInfo()
-    {
+
+    public List<RoutingConfig> getRoutingInfo() {
         return routingInfo;
     }
-    public void setRoutingInfo(List<RoutingConfig> value)
-    {
+
+    public void setRoutingInfo(List<RoutingConfig> value) {
         routingInfo = value;
     }
 }

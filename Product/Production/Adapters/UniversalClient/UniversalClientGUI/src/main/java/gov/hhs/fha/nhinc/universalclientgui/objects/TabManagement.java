@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.universalclientgui.objects;
 
 /**
- *
+ * 
  * @author Duane DeCouteau
  */
 public class TabManagement {
@@ -36,7 +36,8 @@ public class TabManagement {
     private String repositoryId = "";
     private String homeCommunityId = "";
     private String orgHomeCommunityId = "";
-    //maybe just put the xml in here as well.
+
+    // maybe just put the xml in here as well.
 
     public TabManagement() {
 

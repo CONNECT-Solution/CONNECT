@@ -37,22 +37,22 @@ import gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincPatientDiscoveryOrchImpl
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 
 /**
- *
+ * 
  * @author mflynn02
  */
 public class PassthruPatientDiscoveryProxyJavaImpl implements PassthruPatientDiscoveryProxy {
-   private Log log = null;
+    private Log log = null;
 
-    public PassthruPatientDiscoveryProxyJavaImpl()
-    {
+    public PassthruPatientDiscoveryProxyJavaImpl() {
         log = createLogger();
     }
-    protected Log createLogger()
-    {
+
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
-    public PRPAIN201306UV02 PRPAIN201305UV(PRPAIN201305UV02 body, AssertionType assertion, 
-            NhinTargetSystemType target) throws Exception{
+
+    public PRPAIN201306UV02 PRPAIN201305UV(PRPAIN201305UV02 body, AssertionType assertion, NhinTargetSystemType target)
+            throws Exception {
         log.debug("Entering NhincPatientDiscoveryProxyJavaImpl.PRPAIN201305UV");
 
         ProxyPRPAIN201305UVProxySecuredRequestType secureRequest = new ProxyPRPAIN201305UVProxySecuredRequestType();

@@ -27,10 +27,11 @@
 package gov.hhs.fha.nhinc.orchestration;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public interface OutboundOrchestratable extends Orchestratable {
     public OutboundDelegate getDelegate();
+
     public NhinAggregator getAggregator();
 }

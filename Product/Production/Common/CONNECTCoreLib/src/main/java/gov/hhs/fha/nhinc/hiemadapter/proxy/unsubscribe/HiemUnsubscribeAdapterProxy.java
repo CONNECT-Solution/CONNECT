@@ -32,10 +32,11 @@ import org.w3c.dom.Element;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 
 /**
- *
+ * 
  * @author rayj
  */
 public interface HiemUnsubscribeAdapterProxy {
 
-    public Element unsubscribe(Element unsubscribeElement, ReferenceParametersElements referenceParametersElements, AssertionType assertion, NhinTargetSystemType target);
+    public Element unsubscribe(Element unsubscribeElement, ReferenceParametersElements referenceParametersElements,
+            AssertionType assertion, NhinTargetSystemType target);
 }

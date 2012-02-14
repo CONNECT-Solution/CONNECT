@@ -40,7 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class EntityDocQueryDeferredResponseUnsecuredImpl {
@@ -57,12 +57,13 @@ public class EntityDocQueryDeferredResponseUnsecuredImpl {
 
     /**
      * Implementation of EntityDocQueryDeferredResponse service
-     *
+     * 
      * @param request
      * @param context
      * @return Doc Query Acknowledgement
      */
-    public DocQueryAcknowledgementType crossGatewayQueryResponse(RespondingGatewayCrossGatewayQueryResponseType request, WebServiceContext context) {
+    public DocQueryAcknowledgementType crossGatewayQueryResponse(
+            RespondingGatewayCrossGatewayQueryResponseType request, WebServiceContext context) {
 
         log.debug("Begin EntityDocQueryDeferredResponseUnsecuredImpl.crossGatewayQueryResponse(unsecured)");
 
@@ -78,7 +79,8 @@ public class EntityDocQueryDeferredResponseUnsecuredImpl {
         }
         assertion = getAssertion(context, assertion);
 
-        response = new EntityDocQueryDeferredResponseOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion, target);
+        response = new EntityDocQueryDeferredResponseOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion,
+                target);
 
         log.debug("End EntityDocQueryDeferredResponseUnsecuredImpl.crossGatewayQueryResponse(unsecured)");
 

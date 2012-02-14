@@ -56,7 +56,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class DocumentQueryClient {
@@ -72,22 +72,24 @@ public class DocumentQueryClient {
     private static final String CREATION_TIME_FROM_SLOT_NAME = "$XDSDocumentEntryCreationTimeFrom";
     private static final String CREATION_TIME_TO_SLOT_NAME = "$XDSDocumentEntryCreationTimeTo";
     private static final String DOCUMENT_STATUS_APPROVED = "('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')";
-    //private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmssZ";
+    // private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmssZ";
     private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmss";
     private static final String REGULAR_DATE_FORMAT = "MM/dd/yyyy";
 
     /**
-     *
+     * 
      * @param patientSearchData
      * @param creationFromDate
      * @param creationToDate
      * @return
      */
-    public List<DocumentInformation> retrieveDocumentsInformation(PatientSearchData patientSearchData, Date creationFromDate, Date creationToDate) {
+    public List<DocumentInformation> retrieveDocumentsInformation(PatientSearchData patientSearchData,
+            Date creationFromDate, Date creationToDate) {
 
         EntityDocQueryPortType port = getPort(getEntityDocumentQueryProxyAddress());
 
-        RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest(patientSearchData, creationFromDate, creationToDate);
+        RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest(patientSearchData,
+                creationFromDate, creationToDate);
 
         AdhocQueryResponse response = port.respondingGatewayCrossGatewayQuery(request);
 
@@ -95,13 +97,14 @@ public class DocumentQueryClient {
     }
 
     /**
-     *
+     * 
      * @param patientSearchData
      * @param creationFromDate
      * @param creationToDate
      * @return
      */
-    private RespondingGatewayCrossGatewayQueryRequestType createAdhocQueryRequest(PatientSearchData patientSearchData, Date creationFromDate, Date creationToDate) {
+    private RespondingGatewayCrossGatewayQueryRequestType createAdhocQueryRequest(PatientSearchData patientSearchData,
+            Date creationFromDate, Date creationToDate) {
         AdhocQueryType adhocQuery = new AdhocQueryType();
         adhocQuery.setHome(HOME_ID);
         adhocQuery.setId(ID);
@@ -125,7 +128,7 @@ public class DocumentQueryClient {
         adhocQuery.getSlot().add(patientIDSlot);
 
         SlotType1 documentEntryStatusSlot = new SlotType1();
-        documentEntryStatusSlot.setName( DOCUMENT_STATUS_SLOT_NAME );
+        documentEntryStatusSlot.setName(DOCUMENT_STATUS_SLOT_NAME);
         ValueListType valueEntryStatusList = new ValueListType();
         valueEntryStatusList.getValue().add(DOCUMENT_STATUS_APPROVED);
         documentEntryStatusSlot.setValueList(valueEntryStatusList);
@@ -172,7 +175,7 @@ public class DocumentQueryClient {
     }
 
     /**
-     *
+     * 
      * @return
      */
     private String getEntityDocumentQueryProxyAddress() {
@@ -182,18 +185,21 @@ public class DocumentQueryClient {
             // Lookup home community id
             String homeCommunity = getHomeCommunityId();
             // Get endpoint url
-            endpointAddress = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunity, NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
+            endpointAddress = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunity,
+                    NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
             log.debug("Doc Query endpoint address: " + endpointAddress);
         } catch (PropertyAccessException pae) {
             log.error("Exception encountered retrieving the local home community: " + pae.getMessage(), pae);
         } catch (ConnectionManagerException cme) {
-            log.error("Exception encountered retrieving the entity doc query connection endpoint address: " + cme.getMessage(), cme);
+            log.error(
+                    "Exception encountered retrieving the entity doc query connection endpoint address: "
+                            + cme.getMessage(), cme);
         }
         return endpointAddress;
     }
 
     /**
-     *
+     * 
      * @param url
      * @return
      */
@@ -204,15 +210,15 @@ public class DocumentQueryClient {
 
         EntityDocQueryPortType port = service.getEntityDocQueryPortSoap();
 
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
         return port;
     }
 
     /**
      * Retrieve the local home community id
-     *
+     * 
      * @return Local home community id
      * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
@@ -221,7 +227,7 @@ public class DocumentQueryClient {
     }
 
     /**
-     *
+     * 
      * @param response
      * @return
      */
@@ -234,13 +240,13 @@ public class DocumentQueryClient {
             return documentInfoList;
         }
 
-        if (response.getRegistryObjectList() == null ||
-                response.getRegistryObjectList().getIdentifiable() == null) {
+        if (response.getRegistryObjectList() == null || response.getRegistryObjectList().getIdentifiable() == null) {
             log.debug("AdhocQueryResponse is null");
             return documentInfoList;
         }
 
-        List<JAXBElement<? extends IdentifiableType>> extrinsicObjects = response.getRegistryObjectList().getIdentifiable();
+        List<JAXBElement<? extends IdentifiableType>> extrinsicObjects = response.getRegistryObjectList()
+                .getIdentifiable();
 
         if (extrinsicObjects != null && extrinsicObjects.size() > 0) {
             for (JAXBElement<? extends IdentifiableType> jaxb : extrinsicObjects) {
@@ -267,13 +273,13 @@ public class DocumentQueryClient {
         return documentInfoList;
     }
 
-    private String extractRespositoryUniqueID(ExtrinsicObjectType extrinsicObject)
-    {
+    private String extractRespositoryUniqueID(ExtrinsicObjectType extrinsicObject) {
         return extractSingleSlotValue(extrinsicObject, "repositoryUniqueId");
     }
 
     private String extractDocumentType(ExtrinsicObjectType extrinsicObject) {
-        ClassificationType classification = extractClassification(extrinsicObject, "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a");
+        ClassificationType classification = extractClassification(extrinsicObject,
+                "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a");
 
         String documentTypeCode = classification.getName().getLocalizedString().get(0).getValue();
         return documentTypeCode;
@@ -283,8 +289,7 @@ public class DocumentQueryClient {
 
         String documentTitle = null;
 
-        if (extrinsicObject != null &&
-                extrinsicObject.getName() != null) {
+        if (extrinsicObject != null && extrinsicObject.getName() != null) {
             List<LocalizedStringType> localizedString = extrinsicObject.getName().getLocalizedString();
 
             if (localizedString != null && localizedString.size() > 0) {
@@ -302,7 +307,8 @@ public class DocumentQueryClient {
     private String extractDocumentID(ExtrinsicObjectType extrinsicObject) {
         String documentID = null;
 
-        ExternalIdentifierType identifier = extractIndentifierType(extrinsicObject, "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab");
+        ExternalIdentifierType identifier = extractIndentifierType(extrinsicObject,
+                "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab");
 
         if (identifier != null) {
             documentID = identifier.getValue();
@@ -312,14 +318,16 @@ public class DocumentQueryClient {
     }
 
     private String extractInstitution(ExtrinsicObjectType extrinsicObject) {
-        ClassificationType classification = extractClassification(extrinsicObject, "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d");
+        ClassificationType classification = extractClassification(extrinsicObject,
+                "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d");
 
         String institution = null;
 
         if (classification != null && classification.getSlot() != null && !classification.getSlot().isEmpty()) {
             for (SlotType1 slot : classification.getSlot()) {
                 if (slot != null && slot.getName().contentEquals("authorInstitution")) {
-                    if (slot.getValueList() != null && slot.getValueList().getValue() != null && !slot.getValueList().getValue().isEmpty()) {
+                    if (slot.getValueList() != null && slot.getValueList().getValue() != null
+                            && !slot.getValueList().getValue().isEmpty()) {
                         institution = slot.getValueList().getValue().get(0);
                         break;
                     }
@@ -343,7 +351,8 @@ public class DocumentQueryClient {
         return slotValue;
     }
 
-    private ExternalIdentifierType extractIndentifierType(ExtrinsicObjectType extrinsicObject, String identificationScheme) {
+    private ExternalIdentifierType extractIndentifierType(ExtrinsicObjectType extrinsicObject,
+            String identificationScheme) {
         ExternalIdentifierType identifier = null;
 
         for (ExternalIdentifierType identifierItem : extrinsicObject.getExternalIdentifier()) {
@@ -360,7 +369,8 @@ public class DocumentQueryClient {
         ClassificationType classification = null;
 
         for (ClassificationType classificationItem : extrinsicObject.getClassification()) {
-            if (classificationItem != null && classificationItem.getClassificationScheme().contentEquals(classificationScheme)) {
+            if (classificationItem != null
+                    && classificationItem.getClassificationScheme().contentEquals(classificationScheme)) {
                 classification = classificationItem;
                 break;
             }
@@ -371,12 +381,12 @@ public class DocumentQueryClient {
 
     /**
      * Format date in the String format using UTCDateUtil class.
-     *
+     * 
      * @param dateString
      * @param outputFormat
      * @return
      */
-    private String formatDate(String dateString, String outputFormat){
+    private String formatDate(String dateString, String outputFormat) {
         UTCDateUtil dateUtil = new UTCDateUtil();
 
         Date date = dateUtil.parseUTCDateOptionalTimeZone(dateString);

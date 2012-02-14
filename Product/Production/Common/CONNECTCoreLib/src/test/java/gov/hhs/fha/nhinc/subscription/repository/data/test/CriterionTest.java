@@ -38,14 +38,11 @@ import org.junit.Ignore;
  * @author Neil Webb
  */
 @Ignore
-public class CriterionTest
-{
+public class CriterionTest {
     @Test
-    public void testGettersAndSetters()
-    {
+    public void testGettersAndSetters() {
         System.out.println("Begin testGettersAndSetters");
-        try
-        {
+        try {
             String key = "CriterionKey";
             String value = "CriterionValue";
             Criterion crit = new Criterion();
@@ -54,9 +51,7 @@ public class CriterionTest
 
             assertEquals("Key", key, crit.getKey());
             assertEquals("Value", value, crit.getValue());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail(t.getMessage());
         }
@@ -64,11 +59,9 @@ public class CriterionTest
     }
 
     @Test
-    public void testEquals()
-    {
+    public void testEquals() {
         System.out.println("Begin testEquals");
-        try
-        {
+        try {
             // Equals - both
             Criterion crit1 = new Criterion();
             crit1.setKey("Key1");
@@ -149,9 +142,7 @@ public class CriterionTest
             crit2 = null;
             assertFalse("Not equal - c1 full, c2 null", crit1.equals(crit2));
 
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail(t.getMessage());
         }

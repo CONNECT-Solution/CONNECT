@@ -79,17 +79,19 @@ import org.w3c.dom.Node;
  */
 public class HiemSubscriptionRepositoryService {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(HiemSubscriptionRepositoryService.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(HiemSubscriptionRepositoryService.class);
     public static final String REFERENCE_PARAMETER_SUBSCRIPTION_ID_NAMESPACE = "http://www.hhs.gov/healthit/nhin";
     public static final String REFERENCE_PARAMETER_SUBSCRIPTION_ID_ELEMENT_NAME = "SubscriptionId";
 
     /**
      * Save a subscription to a remote gateway or adapter
-     *
+     * 
      * @param subscriptionItem
      * @throws SubscriptionRepositoryException
      */
-    public void saveSubscriptionToExternal(HiemSubscriptionItem subscriptionItem) throws SubscriptionRepositoryException {
+    public void saveSubscriptionToExternal(HiemSubscriptionItem subscriptionItem)
+            throws SubscriptionRepositoryException {
         log.debug("In saveSubscriptionToExternal");
         SubscriptionStorageItem storageItem = loadStorageObject(subscriptionItem);
         if (storageItem != null) {
@@ -102,15 +104,15 @@ public class HiemSubscriptionRepositoryService {
     }
 
     /**
-     * Save a subscription that a remote system (gateway or adapter) initiates
-     * to the CONNECT gateway. A subscription reference is created and populated
-     * in the subscription item that is passed in for storage.
-     *
+     * Save a subscription that a remote system (gateway or adapter) initiates to the CONNECT gateway. A subscription
+     * reference is created and populated in the subscription item that is passed in for storage.
+     * 
      * @param subscriptionItem
      * @return Subscription Reference
      * @throws SubscriptionRepositoryException
      */
-    public EndpointReferenceType saveSubscriptionToConnect(HiemSubscriptionItem subscriptionItem) throws SubscriptionRepositoryException {
+    public EndpointReferenceType saveSubscriptionToConnect(HiemSubscriptionItem subscriptionItem)
+            throws SubscriptionRepositoryException {
         EndpointReferenceType subRef = null;
         log.debug("In saveSubscriptionToConnect");
         SubscriptionStorageItem storageItem = loadStorageObject(subscriptionItem);
@@ -126,7 +128,8 @@ public class HiemSubscriptionRepositoryService {
             storageItem.setSubscriptionReferenceXML(subRefXml);
 
             // Extract root topic
-            String rootTopic = new RootTopicExtractor().extractRootTopicFromSubscribeXml(subscriptionItem.getSubscribeXML());
+            String rootTopic = new RootTopicExtractor().extractRootTopicFromSubscribeXml(subscriptionItem
+                    .getSubscribeXML());
             storageItem.setRootTopic(rootTopic);
 
             // Set creation date
@@ -141,33 +144,39 @@ public class HiemSubscriptionRepositoryService {
         return subRef;
     }
 
-    public HiemSubscriptionItem retrieveByLocalSubscriptionReferenceParameters(ReferenceParametersElements referenceParametersElements) throws SubscriptionRepositoryException {
+    public HiemSubscriptionItem retrieveByLocalSubscriptionReferenceParameters(
+            ReferenceParametersElements referenceParametersElements) throws SubscriptionRepositoryException {
         HiemSubscriptionItem subscriptionItem = null;
         SubscriptionStorageItemService storageService = new SubscriptionStorageItemService();
-        SubscriptionStorageItem storageItem = storageService.retrieveByLocalSubscriptionReferenceParameters(referenceParametersElements);
+        SubscriptionStorageItem storageItem = storageService
+                .retrieveByLocalSubscriptionReferenceParameters(referenceParametersElements);
         if (storageItem != null) {
             subscriptionItem = loadDataObject(storageItem);
         }
         return subscriptionItem;
     }
 
-    public HiemSubscriptionItem retrieveByLocalSubscriptionReference(String subscriptionReferenceXML) throws SubscriptionRepositoryException {
+    public HiemSubscriptionItem retrieveByLocalSubscriptionReference(String subscriptionReferenceXML)
+            throws SubscriptionRepositoryException {
         HiemSubscriptionItem subscriptionItem = null;
         SubscriptionStorageItemService storageService = new SubscriptionStorageItemService();
-        SubscriptionStorageItem storageItem = storageService.retrieveByLocalSubscriptionReference(subscriptionReferenceXML);
+        SubscriptionStorageItem storageItem = storageService
+                .retrieveByLocalSubscriptionReference(subscriptionReferenceXML);
         if (storageItem != null) {
             subscriptionItem = loadDataObject(storageItem);
         }
         return subscriptionItem;
     }
 
-    public HiemSubscriptionItem retrieveBySubscriptionReference(String subscriptionReferenceXML, String producer) throws SubscriptionRepositoryException {
+    public HiemSubscriptionItem retrieveBySubscriptionReference(String subscriptionReferenceXML, String producer)
+            throws SubscriptionRepositoryException {
         SubscriptionReferenceMarshaller marshaller = new SubscriptionReferenceMarshaller();
         EndpointReferenceType subscriptionReference = marshaller.unmarshal(subscriptionReferenceXML);
         return retrieveBySubscriptionReference(subscriptionReference, producer);
     }
 
-    public HiemSubscriptionItem retrieveBySubscriptionReference(EndpointReferenceType subscriptionReference, String producer) throws SubscriptionRepositoryException {
+    public HiemSubscriptionItem retrieveBySubscriptionReference(EndpointReferenceType subscriptionReference,
+            String producer) throws SubscriptionRepositoryException {
         log.debug("retrieveBySubscriptionReference [producer=" + producer + "] [" + subscriptionReference + "]");
         SubscriptionStorageItemService storageService = new SubscriptionStorageItemService();
         List<SubscriptionStorageItem> subscriptionStorageItems = storageService.findByProducer(producer);
@@ -181,14 +190,16 @@ public class HiemSubscriptionRepositoryService {
 
             log.debug("unmarshalling subscriptionItem.getSubscriptionReferenceXML()");
             SubscriptionReferenceMarshaller marshaller = new SubscriptionReferenceMarshaller();
-            EndpointReferenceType subscriptionSubscriptionReference = marshaller.unmarshal(subscriptionItem.getSubscriptionReferenceXML());
+            EndpointReferenceType subscriptionSubscriptionReference = marshaller.unmarshal(subscriptionItem
+                    .getSubscriptionReferenceXML());
 
             SubscribeReferenceMatcher matcher = new SubscribeReferenceMatcher();
             log.debug("checking subscription item to input subscription reference");
             log.debug("prototypeSubscriptionReference=subscriptionSubscriptionReference; possibleMatchSubscriptionReference=subscriptionReference");
-            boolean isMatch = matcher.isSubscriptionReferenceMatch(subscriptionSubscriptionReference, subscriptionReference);
+            boolean isMatch = matcher.isSubscriptionReferenceMatch(subscriptionSubscriptionReference,
+                    subscriptionReference);
             if (isMatch) {
-            log.debug("found matching subscription item");
+                log.debug("found matching subscription item");
                 matchingSubscriptionItem = subscriptionItem;
             }
         }
@@ -201,19 +212,20 @@ public class HiemSubscriptionRepositoryService {
     }
 
     /**
-     * Retrieve subscriptions from parent subscription reference. The parent
-     * subscription reference will always be generated by this system so
-     * efficient matching may be performed by extracting the subscription id.
-     * No support for a variant form of subscription reference is required.
-     *
+     * Retrieve subscriptions from parent subscription reference. The parent subscription reference will always be
+     * generated by this system so efficient matching may be performed by extracting the subscription id. No support for
+     * a variant form of subscription reference is required.
+     * 
      * @param parentSubscriptionReferenceXML Parent subscription reference
      * @return Matching subscriptions
      * @throws SubscriptionRepositoryException
      */
-    public List<HiemSubscriptionItem> retrieveByParentSubscriptionReference(String parentSubscriptionReferenceXML) throws SubscriptionRepositoryException {
+    public List<HiemSubscriptionItem> retrieveByParentSubscriptionReference(String parentSubscriptionReferenceXML)
+            throws SubscriptionRepositoryException {
         List<HiemSubscriptionItem> subscriptionItems = null;
         SubscriptionStorageItemService storageService = new SubscriptionStorageItemService();
-        List<SubscriptionStorageItem> storageItems = storageService.retrieveByParentSubscriptionReference(parentSubscriptionReferenceXML);
+        List<SubscriptionStorageItem> storageItems = storageService
+                .retrieveByParentSubscriptionReference(parentSubscriptionReferenceXML);
         if (storageItems != null) {
             subscriptionItems = new ArrayList<HiemSubscriptionItem>();
             for (SubscriptionStorageItem storageItem : storageItems) {
@@ -230,18 +242,21 @@ public class HiemSubscriptionRepositoryService {
         SubscriptionStorageItem storageItem = null;
         if (subscriptionItem != null) {
             storageItem = new SubscriptionStorageItem();
-            String subscriptionId = SubscriptionIdHelper.extractSubscriptionIdFromSubscriptionReferenceXml(subscriptionItem.getSubscriptionReferenceXML());
+            String subscriptionId = SubscriptionIdHelper
+                    .extractSubscriptionIdFromSubscriptionReferenceXml(subscriptionItem.getSubscriptionReferenceXML());
             storageItem.setSubscriptionId(subscriptionId);
             storageItem.setSubscribeXML(subscriptionItem.getSubscribeXML());
             storageItem.setSubscriptionReferenceXML(subscriptionItem.getSubscriptionReferenceXML());
             storageItem.setRootTopic(subscriptionItem.getRootTopic());
-            String parentubscriptionId = SubscriptionIdHelper.extractSubscriptionIdFromSubscriptionReferenceXml(subscriptionItem.getParentSubscriptionReferenceXML());
+            String parentubscriptionId = SubscriptionIdHelper
+                    .extractSubscriptionIdFromSubscriptionReferenceXml(subscriptionItem
+                            .getParentSubscriptionReferenceXML());
             storageItem.setParentSubscriptionId(parentubscriptionId);
             storageItem.setParentSubscriptionReferenceXML(subscriptionItem.getParentSubscriptionReferenceXML());
             storageItem.setConsumer(subscriptionItem.getConsumer());
             storageItem.setProducer(subscriptionItem.getProducer());
-            //storageItem.setPatientId(subscriptionItem.getPatientId());
-            //storageItem.setPatientAssigningAuthority(subscriptionItem.getPatientAssigningAuthority());
+            // storageItem.setPatientId(subscriptionItem.getPatientId());
+            // storageItem.setPatientAssigningAuthority(subscriptionItem.getPatientAssigningAuthority());
             storageItem.setTargets(subscriptionItem.getTargets());
             storageItem.setCreationDate(subscriptionItem.getCreationDate());
         }
@@ -278,63 +293,69 @@ public class HiemSubscriptionRepositoryService {
         return java.util.UUID.randomUUID().toString();
     }
 
-//    private EndpointReferenceType createSubscriptionReference(String subscriptionId) {
-//        EndpointReferenceType subscriptionReference = null;
-//        if (subscriptionId != null) {
-//            org.w3._2005._08.addressing.ObjectFactory addrObjFact = new org.w3._2005._08.addressing.ObjectFactory();
-//
-//            subscriptionReference = addrObjFact.createEndpointReferenceType();
-//
-//            // Subscription manager endpoint address
-//            AttributedURIType address = addrObjFact.createAttributedURIType();
-//            address.setValue(getSubscriptionManagerEndpointAddress());
-//            subscriptionReference.setAddress(address);
-//
-//            // Reference parameters
-//            ReferenceParametersType refParams = addrObjFact.createReferenceParametersType();
-//
-//            DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-//            Document doc = null;
-//            try {
-//                doc = docBuilderFactory.newDocumentBuilder().newDocument();
-//            } catch (ParserConfigurationException ex) {
-//                throw new RuntimeException(ex);
-//            }
-//            doc.setXmlStandalone(true);
-//            Element subscriptionElem = doc.createElementNS(REFERENCE_PARAMETER_SUBSCRIPTION_ID_NAMESPACE, REFERENCE_PARAMETER_SUBSCRIPTION_ID_ELEMENT_NAME);
-//            subscriptionElem.setTextContent(subscriptionId);
-//            refParams.getAny().add(subscriptionElem);
-//            subscriptionReference.setReferenceParameters(refParams);
-//        }
-//        return subscriptionReference;
-//    }
+    // private EndpointReferenceType createSubscriptionReference(String subscriptionId) {
+    // EndpointReferenceType subscriptionReference = null;
+    // if (subscriptionId != null) {
+    // org.w3._2005._08.addressing.ObjectFactory addrObjFact = new org.w3._2005._08.addressing.ObjectFactory();
+    //
+    // subscriptionReference = addrObjFact.createEndpointReferenceType();
+    //
+    // // Subscription manager endpoint address
+    // AttributedURIType address = addrObjFact.createAttributedURIType();
+    // address.setValue(getSubscriptionManagerEndpointAddress());
+    // subscriptionReference.setAddress(address);
+    //
+    // // Reference parameters
+    // ReferenceParametersType refParams = addrObjFact.createReferenceParametersType();
+    //
+    // DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+    // Document doc = null;
+    // try {
+    // doc = docBuilderFactory.newDocumentBuilder().newDocument();
+    // } catch (ParserConfigurationException ex) {
+    // throw new RuntimeException(ex);
+    // }
+    // doc.setXmlStandalone(true);
+    // Element subscriptionElem = doc.createElementNS(REFERENCE_PARAMETER_SUBSCRIPTION_ID_NAMESPACE,
+    // REFERENCE_PARAMETER_SUBSCRIPTION_ID_ELEMENT_NAME);
+    // subscriptionElem.setTextContent(subscriptionId);
+    // refParams.getAny().add(subscriptionElem);
+    // subscriptionReference.setReferenceParameters(refParams);
+    // }
+    // return subscriptionReference;
+    // }
 
-//    //todo: move to common location
-//    private String getSubscriptionManagerEndpointAddress() {
-//        String subMgrUrl = null;
-//        String homeCommunityId = null;
-//        try {
-//            log.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-//            homeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-//            log.info("Retrieve local home community id: " + homeCommunityId);
-//        } catch (PropertyAccessException ex) {
-//            log.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-//            log.error(ex.getMessage());
-//        }
-//
-//        if (NullChecker.isNotNullish(homeCommunityId)) {
-//            try {
-//                subMgrUrl = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunityId, NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
-//            } catch (ConnectionManagerException ex) {
-//                log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME + " for community id: " + homeCommunityId);
-//                log.error(ex.getMessage());
-//            }
-//        }
-//        return subMgrUrl;
-//    }
+    // //todo: move to common location
+    // private String getSubscriptionManagerEndpointAddress() {
+    // String subMgrUrl = null;
+    // String homeCommunityId = null;
+    // try {
+    // log.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY +
+    // " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+    // homeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+    // NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+    // log.info("Retrieve local home community id: " + homeCommunityId);
+    // } catch (PropertyAccessException ex) {
+    // log.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY + " from property file: " +
+    // NhincConstants.GATEWAY_PROPERTY_FILE);
+    // log.error(ex.getMessage());
+    // }
+    //
+    // if (NullChecker.isNotNullish(homeCommunityId)) {
+    // try {
+    // subMgrUrl = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunityId,
+    // NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
+    // } catch (ConnectionManagerException ex) {
+    // log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME +
+    // " for community id: " + homeCommunityId);
+    // log.error(ex.getMessage());
+    // }
+    // }
+    // return subMgrUrl;
+    // }
     /**
      * Retrieve the number of subscriptions in the repository.
-     *
+     * 
      * @return Subscription count
      */
     public int subscriptionCount() {
@@ -348,7 +369,8 @@ public class HiemSubscriptionRepositoryService {
         new SubscriptionStorageItemService().emptyRepository();
     }
 
-    public String marshalSubscriptionReference(EndpointReferenceType subscriptionReference) throws SubscriptionRepositoryException {
+    public String marshalSubscriptionReference(EndpointReferenceType subscriptionReference)
+            throws SubscriptionRepositoryException {
         try {
             EndpointReferenceMarshaller marshaller = new EndpointReferenceMarshaller();
             Element subscriptionReferenceElement = marshaller.marshal(subscriptionReference);
@@ -360,7 +382,8 @@ public class HiemSubscriptionRepositoryService {
         }
     }
 
-    public EndpointReferenceType unmarshalSubscriptionReference(String subscriptionReferenceXml) throws SubscriptionRepositoryException {
+    public EndpointReferenceType unmarshalSubscriptionReference(String subscriptionReferenceXml)
+            throws SubscriptionRepositoryException {
         try {
             EndpointReferenceMarshaller marshaller = new EndpointReferenceMarshaller();
             Element subscriptionReferenceElement = XmlUtility.convertXmlToElement(subscriptionReferenceXml);
@@ -372,41 +395,46 @@ public class HiemSubscriptionRepositoryService {
         }
     }
 
-    public List<HiemSubscriptionItem> RetrieveByNotificationMessage(Element notificationMessageElement, String producer) throws SubscriptionRepositoryException {
+    public List<HiemSubscriptionItem> RetrieveByNotificationMessage(Element notificationMessageElement, String producer)
+            throws SubscriptionRepositoryException {
         List<HiemSubscriptionItem> subscriptionItems = null;
 
         NotificationMessageMarshaller notificationMessageMarshaller = new NotificationMessageMarshaller();
-        NotificationMessageHolderType notificationMessage = notificationMessageMarshaller.unmarshal(notificationMessageElement);
+        NotificationMessageHolderType notificationMessage = notificationMessageMarshaller
+                .unmarshal(notificationMessageElement);
         log.debug("checking to see if should retrieve by subscription reference or by topic");
         if (notificationMessage.getSubscriptionReference() != null) {
             log.debug("retrieve by subscription reference: [" + notificationMessage.getSubscriptionReference() + "]");
-            HiemSubscriptionItem subscriptionItem = retrieveBySubscriptionReference(notificationMessage.getSubscriptionReference(), producer);
-            if(subscriptionItem != null)
-            {
+            HiemSubscriptionItem subscriptionItem = retrieveBySubscriptionReference(
+                    notificationMessage.getSubscriptionReference(), producer);
+            if (subscriptionItem != null) {
                 subscriptionItems = new ArrayList<HiemSubscriptionItem>();
                 subscriptionItems.add(subscriptionItem);
             }
         } else {
-            log.debug("retrieve by topic"); 
-            //get root topic from notificationMessage
+            log.debug("retrieve by topic");
+            // get root topic from notificationMessage
             RootTopicExtractor rootTopicExtractor = new RootTopicExtractor();
-            String rootTopic = rootTopicExtractor.extractRootTopicFromNotificationMessageElement(notificationMessageElement);
+            String rootTopic = rootTopicExtractor
+                    .extractRootTopicFromNotificationMessageElement(notificationMessageElement);
             log.debug("retrieve by root topic [" + rootTopic + "]");
 
-            //retrieve by root topic, producer
+            // retrieve by root topic, producer
             SubscriptionStorageItemService storageService = new SubscriptionStorageItemService();
-            List<SubscriptionStorageItem> subscriptionStorageItems = storageService.findByRootTopic(rootTopic, producer);
+            List<SubscriptionStorageItem> subscriptionStorageItems = storageService
+                    .findByRootTopic(rootTopic, producer);
             subscriptionItems = loadDataObjects(subscriptionStorageItems);
 
             List<HiemSubscriptionItem> matchingSubscriptionItems = new ArrayList<HiemSubscriptionItem>();
 
-            //todo: clean up code below, including extracting out the logic below and making the dialect process config driven
-            //todo: add filter check for message content
+            // todo: clean up code below, including extracting out the logic below and making the dialect process config
+            // driven
+            // todo: add filter check for message content
             for (HiemSubscriptionItem subscriptionItem : subscriptionItems) {
                 boolean match = true;
 
                 try {
-                    //check to see if topic passes
+                    // check to see if topic passes
                     String subscribeXml = subscriptionItem.getSubscribeXML();
                     Element subscriptionElement = null;
                     try {
@@ -415,8 +443,10 @@ public class HiemSubscriptionRepositoryService {
                         log.error("failed to turned subscription to element", ex);
                     }
 
-                    Element subscriptionTopicExpression = rootTopicExtractor.extractTopicExpressionElementFromSubscribeXml(subscribeXml);
-                    Element notificationTopic = rootTopicExtractor.extractTopicElementFromNotificationMessageElement(notificationMessageElement);
+                    Element subscriptionTopicExpression = rootTopicExtractor
+                            .extractTopicExpressionElementFromSubscribeXml(subscribeXml);
+                    Element notificationTopic = rootTopicExtractor
+                            .extractTopicElementFromNotificationMessageElement(notificationMessageElement);
 
                     String dialect = rootTopicExtractor.getDialectFromTopicExpression(subscriptionTopicExpression);
 
@@ -432,14 +462,16 @@ public class HiemSubscriptionRepositoryService {
                         matchingSubscriptionItems.add(subscriptionItem);
                     }
                 } catch (XPathExpressionException ex) {
-                    log.warn("Failed to extract subscription topic expression from subscription item's raw Subscribe XML", ex);
+                    log.warn(
+                            "Failed to extract subscription topic expression from subscription item's raw Subscribe XML",
+                            ex);
                     match = false;
                 }
             }
             subscriptionItems = matchingSubscriptionItems;
         }
 
-        //return subscription items
+        // return subscription items
         return subscriptionItems;
     }
 

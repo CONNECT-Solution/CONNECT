@@ -36,18 +36,21 @@ import gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubm
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class AdapterComponentDocSubmissionImpl {
 
-    public RegistryResponseType provideAndRegisterDocumentSetb(AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+    public RegistryResponseType provideAndRegisterDocumentSetb(AdapterProvideAndRegisterDocumentSetRequestType body,
+            WebServiceContext context) {
         AssertionType assertion = getAssertion(context, body.getAssertion());
 
-        return new AdapterComponentDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), assertion);
+        return new AdapterComponentDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(
+                body.getProvideAndRegisterDocumentSetRequest(), assertion);
     }
 
-    public RegistryResponseType provideAndRegisterDocumentSetb(ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+    public RegistryResponseType provideAndRegisterDocumentSetb(ProvideAndRegisterDocumentSetRequestType body,
+            WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
         return new AdapterComponentDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(body, assertion);

@@ -41,7 +41,7 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class NhincProxyPatientDiscoveryImpl extends WebServiceHelper {
@@ -61,8 +61,8 @@ public class NhincProxyPatientDiscoveryImpl extends WebServiceHelper {
     }
 
     protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
-    	String messageId = getMessageId(wsContext);
-    	populateAssertionWithMessageId(assertion,  messageId);
+        String messageId = getMessageId(wsContext);
+        populateAssertionWithMessageId(assertion, messageId);
     }
 
     public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxyRequestType request, WebServiceContext context) {
@@ -83,8 +83,8 @@ public class NhincProxyPatientDiscoveryImpl extends WebServiceHelper {
 
                     response = processor.proxyPRPAIN201305UV(secureRequest, assertion);
                 } catch (Exception ex) {
-                    String message = "Error occurred calling NhincProxyPatientDiscoveryImpl.proxyPRPAIN201305UV. Error: " +
-                            ex.getMessage();
+                    String message = "Error occurred calling NhincProxyPatientDiscoveryImpl.proxyPRPAIN201305UV. Error: "
+                            + ex.getMessage();
                     log.error(message, ex);
                     throw new RuntimeException(message, ex);
                 }
@@ -96,9 +96,9 @@ public class NhincProxyPatientDiscoveryImpl extends WebServiceHelper {
         log.info("Exiting NhincProxyPatientDiscoveryImpl.proxyPRPAIN201305UV");
         return response;
     }
-    
-    
-    public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxySecuredRequestType request, WebServiceContext context) {
+
+    public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxySecuredRequestType request,
+            WebServiceContext context) {
         log.debug("Entering NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV...");
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
@@ -111,8 +111,8 @@ public class NhincProxyPatientDiscoveryImpl extends WebServiceHelper {
 
                 response = processor.proxyPRPAIN201305UV(request, assertion);
             } catch (Exception ex) {
-                String message = "Error occurred calling NhincProxyPatientDiscoveryImpl.proxyPRPAIN201305UV. Error: " +
-                        ex.getMessage();
+                String message = "Error occurred calling NhincProxyPatientDiscoveryImpl.proxyPRPAIN201305UV. Error: "
+                        + ex.getMessage();
                 log.error(message, ex);
                 throw new RuntimeException(message, ex);
             }

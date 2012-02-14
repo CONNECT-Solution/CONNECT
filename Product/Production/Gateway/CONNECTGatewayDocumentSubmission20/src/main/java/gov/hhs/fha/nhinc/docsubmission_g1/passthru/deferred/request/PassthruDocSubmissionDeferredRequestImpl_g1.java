@@ -36,29 +36,32 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class PassthruDocSubmissionDeferredRequestImpl_g1
-{
-    
+public class PassthruDocSubmissionDeferredRequestImpl_g1 {
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, WebServiceContext context)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest,
+            WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, null);
 
-        return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
+        return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(
+                provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
+                provideAndRegisterRequestRequest.getNhinTargetSystem());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterRequestRequest, WebServiceContext context)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterRequestRequest,
+            WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, provideAndRegisterRequestRequest.getAssertion());
 
-        return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
-        
+        return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(
+                provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
+                provideAndRegisterRequestRequest.getNhinTargetSystem());
+
     }
 
-    
     protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {

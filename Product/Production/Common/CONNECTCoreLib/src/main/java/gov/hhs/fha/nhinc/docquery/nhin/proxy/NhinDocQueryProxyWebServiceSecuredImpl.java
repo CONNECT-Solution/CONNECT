@@ -47,7 +47,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This class is the component proxy for calling the NHIN doc query web service.
- *
+ * 
  * @author jhoppesc, Les Westberg
  */
 public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy {
@@ -79,21 +79,23 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @param serviceAction The action for the web service.
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected RespondingGatewayQueryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected RespondingGatewayQueryPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         RespondingGatewayQueryPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayQueryPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
-            oProxyHelper.setPortTimeoutByService((javax.xml.ws.BindingProvider)port,
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
+            oProxyHelper.setPortTimeoutByService((javax.xml.ws.BindingProvider) port,
                     NhincConstants.DOC_QUERY_SERVICE_NAME);
         } else {
             log.error("Unable to obtain serivce - no port created.");
@@ -103,7 +105,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -119,17 +121,19 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
 
     /**
      * Calls the respondingGatewayCrossGatewayQuery method of the web service.
-     *
+     * 
      * @param request The information for the web service.
      * @return The response from the web service.
      */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, 
-            AssertionType assertion, NhinTargetSystemType target) throws Exception{
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
+            NhinTargetSystemType target) throws Exception {
         AdhocQueryResponse response = new AdhocQueryResponse();
 
         try {
-            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.DOC_QUERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
-            RespondingGatewayQueryPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
+                    NhincConstants.DOC_QUERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+            RespondingGatewayQueryPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION,
+                    assertion);
 
             if (request == null) {
                 log.error("Message was null");
@@ -141,25 +145,28 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
                 log.error("port was null");
             } else {
                 String uniquePatientId = "";
-                if (assertion != null &&
-                        assertion.getUniquePatientId() != null &&
-                        assertion.getUniquePatientId().size() > 0) {
+                if (assertion != null && assertion.getUniquePatientId() != null
+                        && assertion.getUniquePatientId().size() > 0) {
                     uniquePatientId = assertion.getUniquePatientId().get(0);
                 }
 
                 // Log the start of the performance record
                 String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetSystem(target);
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetHomeCommunityId);
+                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                        NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetHomeCommunityId);
 
-                response = (AdhocQueryResponse) oProxyHelper.invokePort(port, RespondingGatewayQueryPortType.class, "respondingGatewayCrossGatewayQuery", request);
+                response = (AdhocQueryResponse) oProxyHelper.invokePort(port, RespondingGatewayQueryPortType.class,
+                        "respondingGatewayCrossGatewayQuery", request);
 
                 // Check for Demo Mode
                 if (DocumentProcessHelper.isDemoOperationModeEnabled()) {
                     log.debug("CONNECT Demo Operation Mode Enabled");
                     DocumentProcessHelper documentProcessHelper = getDocumentProcessHelper();
 
-                    // Demo mode enabled, process AdhocQueryResponse to save document metadata to the CONNECT default document repository
+                    // Demo mode enabled, process AdhocQueryResponse to save document metadata to the CONNECT default
+                    // document repository
                     documentProcessHelper.documentRepositoryProvideAndRegisterDocumentSet(response, uniquePatientId);
                 } else {
                     log.debug("CONNECT Demo Operation Mode Disabled");
@@ -172,14 +179,14 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
         } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
             throw ex;
-//            RegistryErrorList registryErrorList = new RegistryErrorList();
-//
-//            RegistryError registryError = new RegistryError();
-//            registryError.setCodeContext("Processing Adapter Doc Query document query");
-//            registryError.setErrorCode("XDSRepostoryError");
-//            registryError.setSeverity("Error");
-//            registryErrorList.getRegistryError().add(registryError);
-//            response.setRegistryErrorList(registryErrorList);
+            // RegistryErrorList registryErrorList = new RegistryErrorList();
+            //
+            // RegistryError registryError = new RegistryError();
+            // registryError.setCodeContext("Processing Adapter Doc Query document query");
+            // registryError.setErrorCode("XDSRepostoryError");
+            // registryError.setSeverity("Error");
+            // registryErrorList.getRegistryError().add(registryError);
+            // response.setRegistryErrorList(registryErrorList);
         }
         return response;
     }

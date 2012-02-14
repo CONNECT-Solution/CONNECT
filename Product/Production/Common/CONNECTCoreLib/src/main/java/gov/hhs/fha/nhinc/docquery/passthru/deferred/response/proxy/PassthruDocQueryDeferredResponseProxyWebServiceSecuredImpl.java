@@ -41,10 +41,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl implements PassthruDocQueryDeferredResponseProxy {
+public class PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl implements
+        PassthruDocQueryDeferredResponseProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponsesecured";
@@ -54,41 +55,37 @@ public class PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl implemen
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponsesecured:RespondingGateway_CrossGatewayQueryResponseSecured";
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl()
-    {
+    public PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected NhincProxyDocQueryDeferredResponseSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-    {
+    protected NhincProxyDocQueryDeferredResponseSecuredPortType getPort(String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion) {
         NhincProxyDocQueryDeferredResponseSecuredPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyDocQueryDeferredResponseSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
-        }
-        else
-        {
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    NhincProxyDocQueryDeferredResponseSecuredPortType.class);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -96,61 +93,49 @@ public class PassthruDocQueryDeferredResponseProxyWebServiceSecuredImpl implemen
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion, NhinTargetSystemType target) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg,
+            AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Begin respondingGatewayCrossGatewayQuery");
         DocQueryAcknowledgementType response = null;
 
-        try
-        {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PASSTHRU_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME);
-            NhincProxyDocQueryDeferredResponseSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+        try {
+            String url = oProxyHelper
+                    .getUrlLocalHomeCommunity(NhincConstants.PASSTHRU_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME);
+            NhincProxyDocQueryDeferredResponseSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION,
+                    WS_ADDRESSING_ACTION, assertion);
 
-            if(msg == null)
-            {
+            if (msg == null) {
                 log.error("Message was null");
-            }
-            else if(assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("AssertionType was null");
-            }
-            else if(target == null)
-            {
+            } else if (target == null) {
                 log.error("NhinTargetCommunitiesType was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 RespondingGatewayCrossGatewayQueryResponseSecuredType request = new RespondingGatewayCrossGatewayQueryResponseSecuredType();
                 request.setAdhocQueryResponse(msg);
                 request.setNhinTargetSystem(target);
 
-                response = (DocQueryAcknowledgementType)oProxyHelper.invokePort(port, NhincProxyDocQueryDeferredResponseSecuredPortType.class, "respondingGatewayCrossGatewayQuery", request);
+                response = (DocQueryAcknowledgementType) oProxyHelper.invokePort(port,
+                        NhincProxyDocQueryDeferredResponseSecuredPortType.class, "respondingGatewayCrossGatewayQuery",
+                        request);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
             response = new DocQueryAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();

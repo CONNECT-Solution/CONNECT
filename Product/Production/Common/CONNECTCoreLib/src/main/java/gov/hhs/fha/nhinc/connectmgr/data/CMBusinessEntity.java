@@ -73,8 +73,7 @@ public class CMBusinessEntity {
     }
 
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
+     * Returns true of the contents of the object are the same as the one passed in.
      * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
@@ -125,7 +124,7 @@ public class CMBusinessEntity {
         }
 
         // If we got here then everything is the same...
-        //----------------------------------------------
+        // ----------------------------------------------
         return true;
     }
 

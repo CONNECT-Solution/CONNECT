@@ -35,22 +35,21 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class NhinDocSubmissionImpl_g1
-{
-    
-    public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,WebServiceContext context ) {
-       AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+public class NhinDocSubmissionImpl_g1 {
 
-       if (assertion != null) {
+    public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
+            ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+
+        if (assertion != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
             assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
-       return new NhinDocSubmissionOrchImpl().documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
+        return new NhinDocSubmissionOrchImpl().documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
 
     }
 
-    
 }

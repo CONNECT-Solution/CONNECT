@@ -34,7 +34,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 public interface EntityPatientDiscoveryDeferredResponseOrch {
 
-	public abstract MCCIIN000002UV01 processPatientDiscoveryAsyncRespOrch(PRPAIN201306UV02 body,
-			AssertionType assertion, NhinTargetCommunitiesType target);
+    public abstract MCCIIN000002UV01 processPatientDiscoveryAsyncRespOrch(PRPAIN201306UV02 body,
+            AssertionType assertion, NhinTargetCommunitiesType target);
 
 }

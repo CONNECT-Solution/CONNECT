@@ -29,23 +29,20 @@ package gov.hhs.fha.nhinc.adapterauthentication;
 /**
  * This exception is thrown when an error occurs within the AdapterAuthentication.
  */
-public class AdapterAuthenticationException extends Exception
-{   
+public class AdapterAuthenticationException extends Exception {
     /**
      * Default constructor.
      */
-    public AdapterAuthenticationException()
-    {
+    public AdapterAuthenticationException() {
         super();
     }
-    
+
     /**
      * Constructor with an envloping exception.
      * 
-     * @param ex  The exception that caused this one.
+     * @param ex The exception that caused this one.
      */
-    public AdapterAuthenticationException(Exception ex)
-    {
+    public AdapterAuthenticationException(Exception ex) {
         super(ex);
     }
 
@@ -55,8 +52,7 @@ public class AdapterAuthenticationException extends Exception
      * @param message The message to place in the exception.
      * @param ex The exception that triggered this one.
      */
-    public AdapterAuthenticationException(String message, Exception ex)
-    {
+    public AdapterAuthenticationException(String message, Exception ex) {
         super(message, ex);
     }
 
@@ -65,9 +61,8 @@ public class AdapterAuthenticationException extends Exception
      * 
      * @param message The message for the exception.
      */
-    public AdapterAuthenticationException(String message)
-    {
+    public AdapterAuthenticationException(String message) {
         super(message);
     }
-    
+
 }

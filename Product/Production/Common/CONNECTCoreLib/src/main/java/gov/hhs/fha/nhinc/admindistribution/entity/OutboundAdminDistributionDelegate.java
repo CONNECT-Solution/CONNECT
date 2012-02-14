@@ -31,7 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author nnguyen
  */
 public class OutboundAdminDistributionDelegate implements OutboundDelegate {
@@ -45,7 +45,7 @@ public class OutboundAdminDistributionDelegate implements OutboundDelegate {
         return null;
     }
 
-    //@Overrides
+    // @Overrides
     public OutboundOrchestratable process(OutboundOrchestratable message) {
         getLogger().debug("begin process");
         if (message instanceof OutboundAdminDistributionOrchestratable) {
@@ -53,16 +53,16 @@ public class OutboundAdminDistributionDelegate implements OutboundDelegate {
             OutboundAdminDistributionOrchestratable adMessage = (OutboundAdminDistributionOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
-                adMessage.getTarget().getHomeCommunity(), adMessage.getServiceName());
-                    
+                    adMessage.getTarget().getHomeCommunity(), adMessage.getServiceName());
+
             if (contextBuilder instanceof OutboundAdminDistributionOrchestrationContextBuilder_g0) {
                 ((OutboundAdminDistributionOrchestrationContextBuilder_g0) contextBuilder).init(message);
             } else if (contextBuilder instanceof OutboundAdminDistributionOrchestrationContextBuilder_g1) {
                 ((OutboundAdminDistributionOrchestrationContextBuilder_g1) contextBuilder).init(message);
-            } else  {
+            } else {
                 return null;
             }
-            return (OutboundOrchestratable)contextBuilder.build().execute();
+            return (OutboundOrchestratable) contextBuilder.build().execute();
         }
         getLogger().error("message is not an instance of NhinAdminDistributionOrchestratable!");
         return null;

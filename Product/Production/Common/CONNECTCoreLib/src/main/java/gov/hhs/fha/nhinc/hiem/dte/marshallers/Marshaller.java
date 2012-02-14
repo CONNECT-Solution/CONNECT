@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class Marshaller {
@@ -69,7 +69,7 @@ public class Marshaller {
                     element = XmlUtility.convertXmlToElement(xml);
                 }
             } catch (Exception e) {
-                //"java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
+                // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
                 log.error("Failed to marshall: " + e.getMessage(), e);
                 element = null;
             }
@@ -110,8 +110,8 @@ public class Marshaller {
                 unmarshalledObject = unmarshaller.unmarshal(stringReader);
                 log.debug("end unmarshal");
             } catch (Exception e) {
-                //"java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
-                //use jaxb element
+                // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
+                // use jaxb element
                 log.error("Failed to unmarshall: " + e.getMessage(), e);
                 unmarshalledObject = null;
             }

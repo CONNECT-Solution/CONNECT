@@ -44,39 +44,40 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * @author bhumphrey/paul
- *
+ * 
  */
-public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationStrategy{
-	
+public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationStrategy {
+
     private static Log log = LogFactory.getLog(OutboundPatientDiscoveryStrategy.class);
 
-    private Log getLogger(){
-         return log;
+    private Log getLogger() {
+        return log;
     }
 
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy#execute(gov.hhs.fha.nhinc.orchestration.Orchestratable)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy#execute(gov.hhs.fha.nhinc.orchestration.Orchestratable)
      */
     @Override
-    public void execute(Orchestratable message){
-        if(message instanceof OutboundPatientDiscoveryOrchestratable){
-            execute((OutboundPatientDiscoveryOrchestratable)message);
-        }else{
+    public void execute(Orchestratable message) {
+        if (message instanceof OutboundPatientDiscoveryOrchestratable) {
+            execute((OutboundPatientDiscoveryOrchestratable) message);
+        } else {
             // shouldn't get here
-            getLogger().error("NhinPatientDiscoveryStrategy input Orchestratable was not an EntityPatientDiscoveryOrchestratable!!!");
-            // throw new Exception("NhinPatientDiscoveryStrategy input message was not an EntityPatientDiscoveryOrchestratable!!!");
+            getLogger()
+                    .error("NhinPatientDiscoveryStrategy input Orchestratable was not an EntityPatientDiscoveryOrchestratable!!!");
+            // throw new
+            // Exception("NhinPatientDiscoveryStrategy input message was not an EntityPatientDiscoveryOrchestratable!!!");
         }
     }
 
     abstract public void execute(OutboundPatientDiscoveryOrchestratable message);
 
-
-    protected void auditRequestMessage(PRPAIN201305UV02 request,
-                    AssertionType assertion, String hcid){
+    protected void auditRequestMessage(PRPAIN201305UV02 request, AssertionType assertion, String hcid) {
 
         RespondingGatewayPRPAIN201305UV02RequestType auditRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         auditRequest.setAssertion(assertion);
@@ -89,13 +90,11 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
         targetList.getNhinTargetCommunity().add(target);
         auditRequest.setNhinTargetCommunities(targetList);
         auditRequest.setPRPAIN201305UV02(request);
-        new PatientDiscoveryAuditLogger().auditEntity201305(auditRequest,
-                        assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        new PatientDiscoveryAuditLogger().auditEntity201305(auditRequest, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
-
-    protected void auditResponseMessage(PRPAIN201306UV02 response,
-                    AssertionType assertion, String hcid){
+    protected void auditResponseMessage(PRPAIN201306UV02 response, AssertionType assertion, String hcid) {
 
         RespondingGatewayPRPAIN201306UV02ResponseType auditResponse = new RespondingGatewayPRPAIN201306UV02ResponseType();
         CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
@@ -106,8 +105,8 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
         target.setHomeCommunity(home);
         communityResponse.setNhinTargetCommunity(target);
         auditResponse.getCommunityResponse().add(communityResponse);
-        new PatientDiscoveryAuditLogger().auditEntity201306(auditResponse,
-                        assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        new PatientDiscoveryAuditLogger().auditEntity201306(auditResponse, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
 }

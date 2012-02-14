@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public abstract class InboundDocRetrieveOrchestratable implements InboundOrchestratable {
@@ -29,25 +29,20 @@ public abstract class InboundDocRetrieveOrchestratable implements InboundOrchest
     private AuditTransformer _auditTransformer = null;
     private InboundDelegate _adapterDelegate = null;
 
-
     public void setAssertion(AssertionType _assertion) {
         this._assertion = _assertion;
     }
-    
-    public InboundDocRetrieveOrchestratable()
-    {
-        
+
+    public InboundDocRetrieveOrchestratable() {
+
     }
-    
-    
 
     @Override
-	public Delegate getDelegate() {
-		return getAdapterDelegate();
-	}
+    public Delegate getDelegate() {
+        return getAdapterDelegate();
+    }
 
-	public InboundDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad)
-    {
+    public InboundDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad) {
         _policyTransformer = pt;
         _auditTransformer = at;
         _adapterDelegate = ad;
@@ -60,7 +55,8 @@ public abstract class InboundDocRetrieveOrchestratable implements InboundOrchest
     public boolean isEnabled() {
         boolean result = false;
         try {
-            result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY);
+            result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY);
         } catch (PropertyAccessException ex) {
             Logger.getLogger(InboundDocRetrieveOrchestratable.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,7 +66,8 @@ public abstract class InboundDocRetrieveOrchestratable implements InboundOrchest
     public boolean isPassthru() {
         boolean result = false;
         try {
-            result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY);
+            result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY);
         } catch (PropertyAccessException ex) {
             Logger.getLogger(InboundDocRetrieveOrchestratable.class.getName()).log(Level.SEVERE, null, ex);
         }

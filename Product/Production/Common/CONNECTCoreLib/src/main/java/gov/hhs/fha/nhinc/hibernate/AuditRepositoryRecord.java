@@ -30,7 +30,7 @@ import java.util.Date;
 import java.sql.Blob;
 
 /**
- *
+ * 
  * @author MFLYNN02
  */
 public class AuditRepositoryRecord {
@@ -46,7 +46,7 @@ public class AuditRepositoryRecord {
     private String communityId = null;
     private String messageType = null;
     private Blob message = null;
-    
+
     public AuditRepositoryRecord() {
     }
 

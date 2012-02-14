@@ -36,11 +36,12 @@ import javax.xml.ws.soap.Addressing;
 
 /**
  * This is an Entity Unsecure service for Document Retrieve Deferred Response message
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "EntityDocRetrieveDeferredResponse", portName = "EntityDocRetrieveDeferredResponsePortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrieveDeferredResponsePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocretrieve", wsdlLocation = "WEB-INF/wsdl/EntityDocRetrieveDeferredResp/EntityDocRetrieveDeferredResp.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class EntityDocRetrieveDeferredResp extends EntityDocRetrieveDeferredResponseImpl {
 
     @Resource
@@ -51,7 +52,8 @@ public class EntityDocRetrieveDeferredResp extends EntityDocRetrieveDeferredResp
      * @param crossGatewayRetrieveResponse
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(
+            RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse) {
         return crossGatewayRetrieveResponse(crossGatewayRetrieveResponse, context);
     }
 }

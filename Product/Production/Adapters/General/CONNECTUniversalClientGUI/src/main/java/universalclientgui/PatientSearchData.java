@@ -30,14 +30,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientSearchData implements Serializable
-{
+public class PatientSearchData implements Serializable {
 
     private ArrayList<String> columns;
     private String assigningAuthorityID;
 
-    public PatientSearchData()
-    {
+    public PatientSearchData() {
     }
 
     public PatientSearchData(List<String> cols) {
@@ -107,5 +105,5 @@ public class PatientSearchData implements Serializable
     public void setGender(String col) {
         columns.set(5, col);
     }
-    
+
 }

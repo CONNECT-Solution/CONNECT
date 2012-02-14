@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.mpilib.*;
 
 /**
- *
+ * 
  * @author mflynn02
  */
 public class PersonNameParser {
@@ -64,8 +64,7 @@ public class PersonNameParser {
         return personname;
     }
 
-    private static PersonName SplitNameByDelimiter(
-            String name, String delimiter, nameorder order) {
+    private static PersonName SplitNameByDelimiter(String name, String delimiter, nameorder order) {
         log.debug("Begin PersonNameParser.SplitNameByDelimiter(String,String,nameorder)");
         PersonName personname = null;
         if (name.contains(delimiter)) {

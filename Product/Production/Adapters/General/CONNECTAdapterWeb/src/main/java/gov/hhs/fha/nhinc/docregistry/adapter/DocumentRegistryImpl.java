@@ -37,11 +37,9 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  * 
  * @author Neil Webb
  */
-public class DocumentRegistryImpl
-{
+public class DocumentRegistryImpl {
 
-    public AdhocQueryResponse documentRegistryRegistryStoredQuery(AdhocQueryRequest body, WebServiceContext context)
-    {
+    public AdhocQueryResponse documentRegistryRegistryStoredQuery(AdhocQueryRequest body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context);
         return new AdapterComponentDocRegistryOrchImpl().registryStoredQuery(body);
     }
@@ -56,5 +54,4 @@ public class DocumentRegistryImpl
         return assertion;
     }
 
-    
 }

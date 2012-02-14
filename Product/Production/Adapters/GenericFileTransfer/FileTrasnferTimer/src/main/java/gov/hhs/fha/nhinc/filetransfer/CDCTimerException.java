@@ -31,25 +31,22 @@ package gov.hhs.fha.nhinc.filetransfer;
  * 
  * @author Les Westberg
  */
-public class CDCTimerException extends Exception
-{
+public class CDCTimerException extends Exception {
     private static final long serialVersionUID = -4399592211810514874L;
 
     /**
      * Default constructor.
      */
-    public CDCTimerException()
-    {
+    public CDCTimerException() {
         super();
     }
-    
+
     /**
      * Constructor with an envloping exception.
      * 
-     * @param e  The exception that caused this one.
+     * @param e The exception that caused this one.
      */
-    public CDCTimerException(Exception e)
-    {
+    public CDCTimerException(Exception e) {
         super(e);
     }
 
@@ -59,8 +56,7 @@ public class CDCTimerException extends Exception
      * @param sMessage The message to place in the exception.
      * @param e The exception that triggered this one.
      */
-    public CDCTimerException(String sMessage, Exception e)
-    {
+    public CDCTimerException(String sMessage, Exception e) {
         super(sMessage, e);
     }
 
@@ -69,9 +65,8 @@ public class CDCTimerException extends Exception
      * 
      * @param sMessage The message for the exception.
      */
-    public CDCTimerException(String sMessage)
-    {
+    public CDCTimerException(String sMessage) {
         super(sMessage);
     }
-    
+
 }

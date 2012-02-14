@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class HibernateUtil {
@@ -54,21 +54,20 @@ public class HibernateUtil {
 
     /**
      * Method returns an instance of Hibernate SessionFactory
+     * 
      * @return SessionFactory
      */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    private static File getConfigFile(){
+
+    private static File getConfigFile() {
         File result = null;
 
-        try
-        {
+        try {
             result = HibernateAccessor.getHibernateFile(NhincConstants.HIBERNATE_PATIENTDB_REPOSITORY);
-        }
-        catch (Exception ex)
-        {
-            log.error("Unable to load " + NhincConstants.HIBERNATE_PATIENTDB_REPOSITORY + " " + ex.getMessage(), ex );
+        } catch (Exception ex) {
+            log.error("Unable to load " + NhincConstants.HIBERNATE_PATIENTDB_REPOSITORY + " " + ex.getMessage(), ex);
         }
 
         return result;

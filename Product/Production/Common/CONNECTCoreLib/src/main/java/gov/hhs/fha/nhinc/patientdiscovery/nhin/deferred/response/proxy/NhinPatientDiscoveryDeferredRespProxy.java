@@ -32,11 +32,12 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public interface NhinPatientDiscoveryDeferredRespProxy {
 
-    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetSystemType target);
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion,
+            NhinTargetSystemType target);
 
 }

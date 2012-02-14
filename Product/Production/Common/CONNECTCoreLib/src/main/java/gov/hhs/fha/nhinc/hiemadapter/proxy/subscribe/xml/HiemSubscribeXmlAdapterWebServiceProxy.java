@@ -49,18 +49,20 @@ import javax.xml.transform.dom.DOMSource;
 import org.w3c.dom.*;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class HiemSubscribeXmlAdapterWebServiceProxy implements HiemSubscribeXmlAdapterProxy {
-    //todo: how am i going to append the assertion?
-    //todo: need to make alternate implementations, hook into factory method, spring, etc
-    //todo: throw proper exceptions
-    //todo: do we want to pass the url and assertion in as seperate params?
+    // todo: how am i going to append the assertion?
+    // todo: need to make alternate implementations, hook into factory method, spring, etc
+    // todo: throw proper exceptions
+    // todo: do we want to pass the url and assertion in as seperate params?
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(HiemSubscribeXmlAdapterWebServiceProxy.class);
-//    static AdapterNotificationProducer adapterNotificationProducerService = new AdapterNotificationProducer();
-//    static AdapterSubscriptionManager adapterUnsubscribeService = new AdapterSubscriptionManager();
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(HiemSubscribeXmlAdapterWebServiceProxy.class);
+
+    // static AdapterNotificationProducer adapterNotificationProducerService = new AdapterNotificationProducer();
+    // static AdapterSubscriptionManager adapterUnsubscribeService = new AdapterSubscriptionManager();
 
     public Node subscribe(Node subscribe, AssertionType assertion, NhinTargetSystemType target) throws Exception {
         Document subscribeRequestDocument = buildSubscribeRequestMessage(subscribe, assertion);
@@ -82,20 +84,23 @@ public class HiemSubscribeXmlAdapterWebServiceProxy implements HiemSubscribeXmlA
         return resultNode;
     }
 
-    private Document buildSubscribeRequestMessage(Node subscribe, AssertionType assertion) throws ParserConfigurationException, DOMException {
+    private Document buildSubscribeRequestMessage(Node subscribe, AssertionType assertion)
+            throws ParserConfigurationException, DOMException {
         Document document = null;
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
         document = docBuilder.newDocument();
         Element subscribeRequestElement = null;
-        subscribeRequestElement = document.createElementNS("urn:gov:hhs:fha:nhinc:common:nhinccommonadapter", "SubscribeRequest");
+        subscribeRequestElement = document.createElementNS("urn:gov:hhs:fha:nhinc:common:nhinccommonadapter",
+                "SubscribeRequest");
         Node subscribeNode = document.importNode(subscribe, true);
         subscribeRequestElement.appendChild(subscribeNode);
         document.appendChild(subscribeRequestElement);
         return document;
     }
 
-    private Dispatch<Source> getAdapterNotificationProducerDispatch(NhinTargetSystemType target) throws ConnectionManagerException {
+    private Dispatch<Source> getAdapterNotificationProducerDispatch(NhinTargetSystemType target)
+            throws ConnectionManagerException {
         AdapterNotificationProducer adapterNotificationProducerService = null;
         try {
             adapterNotificationProducerService = new AdapterNotificationProducer();
@@ -104,12 +109,15 @@ public class HiemSubscribeXmlAdapterWebServiceProxy implements HiemSubscribeXmlA
             log.error(ex);
         }
 
-        QName portQName = new QName("urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement", "AdapterNotificationProducerPortSoap11");
-        Dispatch<Source> dispatch = getGenericDispath(adapterNotificationProducerService, portQName, NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SERVICE_NAME, target);
+        QName portQName = new QName("urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement",
+                "AdapterNotificationProducerPortSoap11");
+        Dispatch<Source> dispatch = getGenericDispath(adapterNotificationProducerService, portQName,
+                NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SERVICE_NAME, target);
         return dispatch;
     }
 
-    private Dispatch<Source> getGenericDispath(Service service, QName portQName, String serviceName, NhinTargetSystemType target) throws ConnectionManagerException {
+    private Dispatch<Source> getGenericDispath(Service service, QName portQName, String serviceName,
+            NhinTargetSystemType target) throws ConnectionManagerException {
         Dispatch<Source> dispatch = null;
         dispatch = service.createDispatch(portQName, Source.class, Service.Mode.PAYLOAD);
         String url = getUrl(target, serviceName);
@@ -119,8 +127,9 @@ public class HiemSubscribeXmlAdapterWebServiceProxy implements HiemSubscribeXmlA
 
     private String getUrl(NhinTargetSystemType target, String serviceName) throws ConnectionManagerException {
         String url = null;
-        url =ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, serviceName);
-        if (NullChecker.isNullish(url)) url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName) ;
+        url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, serviceName);
+        if (NullChecker.isNullish(url))
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName);
         return url;
     }
 }

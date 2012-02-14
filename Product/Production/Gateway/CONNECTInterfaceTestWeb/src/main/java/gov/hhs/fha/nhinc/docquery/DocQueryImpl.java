@@ -22,7 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class DocQueryImpl {
@@ -43,7 +43,9 @@ public class DocQueryImpl {
 
         NhincDocQueryService service = new NhincDocQueryService();
         NhincDocQueryPortType port = service.getNhincDocQueryPortTypeBindingPort();
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
+        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
 
         resp = port.respondingGatewayCrossGatewayQuery(crossGatewayQueryRequest);
         log.debug("Exiting DocQueryImpl.respondingGatewayCrossGatewayQuery");

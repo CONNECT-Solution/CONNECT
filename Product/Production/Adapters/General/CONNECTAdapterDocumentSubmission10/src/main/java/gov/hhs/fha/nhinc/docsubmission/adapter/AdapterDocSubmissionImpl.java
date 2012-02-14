@@ -35,23 +35,26 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterDocSubmissionImpl {
-    
-    public RegistryResponseType provideAndRegisterDocumentSetb(ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+
+    public RegistryResponseType provideAndRegisterDocumentSetb(ProvideAndRegisterDocumentSetRequestType body,
+            WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
         return new AdapterDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(body, assertion);
     }
 
-    public RegistryResponseType provideAndRegisterDocumentSetb(AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+    public RegistryResponseType provideAndRegisterDocumentSetb(AdapterProvideAndRegisterDocumentSetRequestType body,
+            WebServiceContext context) {
         AssertionType assertion = getAssertion(context, body.getAssertion());
 
-        return new AdapterDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), assertion);
+        return new AdapterDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(
+                body.getProvideAndRegisterDocumentSetRequest(), assertion);
     }
-    
+
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {

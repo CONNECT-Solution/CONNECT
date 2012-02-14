@@ -42,7 +42,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Duane DeCouteau
  */
 public class RequestCreator {
@@ -61,7 +61,8 @@ public class RequestCreator {
 
     }
 
-    public RespondingGatewayCrossGatewayQueryRequestType createQueryRequest(PatientSearchData patientSearchData, Date creationFromDate, Date creationToDate) {
+    public RespondingGatewayCrossGatewayQueryRequestType createQueryRequest(PatientSearchData patientSearchData,
+            Date creationFromDate, Date creationToDate) {
         AdhocQueryType adhocQuery = new AdhocQueryType();
         adhocQuery.setHome(HOME_ID);
         adhocQuery.setId(ID);
@@ -80,12 +81,12 @@ public class RequestCreator {
 
         valueList.getValue().add(universalPatientID.toString());
 
-        //valueList.getValue().add("D123401^^^&1.1&ISO");
+        // valueList.getValue().add("D123401^^^&1.1&ISO");
 
         patientIDSlot.setValueList(valueList);
         adhocQuery.getSlot().add(patientIDSlot);
 
-        //Set Creation From Date
+        // Set Creation From Date
         SlotType1 creationStartTimeSlot = new SlotType1();
         creationStartTimeSlot.setName(CREATION_TIME_FROM_SLOT_NAME);
 

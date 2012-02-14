@@ -29,11 +29,10 @@ package gov.hhs.fha.nhinc.nhinclib;
 import java.math.BigInteger;
 
 /**
-
- *
-
+ * 
+ * 
+ * 
  * @author Jon Hoppesch
-
  */
 public class NhincConstants {
 
@@ -41,6 +40,7 @@ public class NhincConstants {
 
         LEVEL_g0, LEVEL_g1
     }
+
     public static final String HCID_PREFIX = "urn:oid:";
 
     public static enum ADAPTER_API_LEVEL {
@@ -50,8 +50,7 @@ public class NhincConstants {
 
     public static enum UDDI_SPEC_VERSION {
 
-        SPEC_1_0("1.0"),
-        SPEC_2_0("2.0");
+        SPEC_1_0("1.0"), SPEC_2_0("2.0");
         private String value = null;
 
         UDDI_SPEC_VERSION(String value) {
@@ -74,6 +73,7 @@ public class NhincConstants {
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
     };
+
     // Property File Constants
     public static final String GATEWAY_PROPERTY_FILE = "gateway";
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
@@ -97,7 +97,6 @@ public class NhincConstants {
     public static final String DOC_QUERY_REQUEST_TIMEOUT = "DQRequestTimeout";
     public static final String CONNECT_TIMEOUT_NAME = "com.sun.xml.ws.connect.timeout";
     public static final String REQUEST_TIMEOUT_NAME = "com.sun.xml.ws.request.timeout";
-
 
     // SAML Constants
     public static final String ACTION_PROP = "action";
@@ -275,7 +274,7 @@ public class NhincConstants {
     public static final String WS_SOAP_HEADER_ADDRESS = "Address";
     public static final String WS_SOAP_HEADER_MESSAGE_ID = "MessageID";
     public static final String WS_SOAP_HEADER_MESSAGE_ID_PREFIX = "urn:uuid:";
-    //Document Query Constants
+    // Document Query Constants
     public static final String ADAPTER_DOC_QUERY_SERVICE_NAME = "adapterdocquery";
     public static final String ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME = "adapterdocquerysecured";
     public static final String ADAPTER_DOC_REGISTRY_SERVICE_NAME = "adapterxdsbdocregistry";
@@ -322,7 +321,7 @@ public class NhincConstants {
     public static final String DOC_QUERY_DEFERRED_ACK_ERROR_SIGNATURE = "SignatureValidationException";
     public static final String DOC_QUERY_DEFERRED_ACK_ERROR_TIMEOUT = "TimeoutException";
     public static final String DOC_QUERY_DEFERRED_ACK_ERROR_UNSUPPORTED = "UnsupportedCapabilityException";
-    //Document Retrieve Constants
+    // Document Retrieve Constants
     public static final String ADAPTER_DOC_RETRIEVE_SERVICE_NAME = "adapterdocretrieve";
     public static final String ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME = "adapterdocretrievesecured";
     public static final String ADAPTER_DOC_REPOSITORY_SERVICE_NAME = "adapterxdsbdocrepository";
@@ -345,7 +344,7 @@ public class NhincConstants {
     public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_SIGNATURE = "SignatureValidationException";
     public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_TIMEOUT = "TimeoutException";
     public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_UNSUPPORTED = "UnsupportedCapabilityException";
-    //Patient Correlation Constants
+    // Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";
     public static final String PATIENT_CORRELATION_SECURED_SERVICE_NAME = "patientcorrelationsecured";
     // Patient Discovery Constants
@@ -381,8 +380,10 @@ public class NhincConstants {
     public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoverysecuredasyncresp";
     public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoveryasyncreqqueue";
     public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreqqueue";
-    //public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_SERVICE_NAME = "entitypatientdiscoveryasyncreqqueue";
-    //public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME = "entitypatientdiscoverysecuredasyncreqqueue";
+    // public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_SERVICE_NAME =
+    // "entitypatientdiscoveryasyncreqqueue";
+    // public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME =
+    // "entitypatientdiscoverysecuredasyncreqqueue";
     public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME = "adapterpatientdiscoverydeferredreqqueueprocess";
     // Patient Discovery Error Constants
     public static final String PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE = "AnswerNotAvailable";
@@ -431,7 +432,7 @@ public class NhincConstants {
     public static final String DOC_SUBMISSION_PASSTHRU_PROP = "documentSubmissionPassthrough";
     public static final String DOC_SUBMISSION_DEFERRED_REQ_PASSTHRU_PROP = "documentSubmissionDeferredReqPassthrough";
     public static final String DOC_SUBMISSION_DEFERRED_RESP_PASSTHRU_PROP = "documentSubmissionDeferredRespPassthrough";
-    //Administrative Distribution Constants
+    // Administrative Distribution Constants
     public static final String ADMIN_DIST_SERVICE_NAME = "admindist";
     public static final String NHIN_ADMIN_DIST_SERVICE_NAME = "AdminDistribution";
     public static final String ENTITY_ADMIN_DIST_SERVICE_NAME = "entityadmindist";

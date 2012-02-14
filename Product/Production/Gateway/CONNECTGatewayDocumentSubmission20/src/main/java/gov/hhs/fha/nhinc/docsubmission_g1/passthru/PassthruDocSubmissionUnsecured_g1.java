@@ -33,17 +33,18 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "ProxyXDR_Service", portName = "ProxyXDR_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincproxyxdr.ProxyXDRPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxyxdr", wsdlLocation = "WEB-INF/wsdl/PassthruDocSubmissionUnsecured/NhincProxyXDR.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class PassthruDocSubmissionUnsecured_g1 {
     @Resource
     private WebServiceContext context;
 
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetB(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType body) {
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetB(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType body) {
         return new PassthruDocSubmissionImpl_g1().provideAndRegisterDocumentSetB(body, context);
     }
 

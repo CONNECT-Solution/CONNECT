@@ -39,7 +39,7 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class NhinPatientDiscoveryAsyncReqImpl {
@@ -54,8 +54,9 @@ public class NhinPatientDiscoveryAsyncReqImpl {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
 
-        MCCIIN000002UV01 resp = NhinPatientDiscoveryDeferredReqOrchFactory.getInstance().create().respondingGatewayPRPAIN201305UV02(request, assertion);
+        MCCIIN000002UV01 resp = NhinPatientDiscoveryDeferredReqOrchFactory.getInstance().create()
+                .respondingGatewayPRPAIN201305UV02(request, assertion);
 
         return resp;
-    }    
+    }
 }

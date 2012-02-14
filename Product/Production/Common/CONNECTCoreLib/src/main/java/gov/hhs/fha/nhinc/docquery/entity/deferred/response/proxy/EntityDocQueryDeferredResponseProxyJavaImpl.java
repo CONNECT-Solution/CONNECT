@@ -33,12 +33,13 @@ import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class EntityDocQueryDeferredResponseProxyJavaImpl implements EntityDocQueryDeferredResponseProxy {
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg,
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
         return new EntityDocQueryDeferredResponseOrchImpl().respondingGatewayCrossGatewayQuery(msg, assertion, targets);
     }
 

@@ -39,21 +39,20 @@ import org.w3c.dom.Element;
 
 /**
  * Entity subscribe message handler.
- *
+ * 
  * @author Neil Webb
  */
-public interface EntitySubscribeHandler
-{
+public interface EntitySubscribeHandler {
     /**
      * Set an optional patient identifier from the subscription
-     *
+     * 
      * @param patientIdentifier Optional patient identifier
      */
     public void setPatientIdentifier(QualifiedSubjectIdentifierType patientIdentifier);
 
     /**
      * Set an optional XPath location to the patient identifier
-     *
+     * 
      * @param xpathToPatientId Optional XPath location to patient identifier
      */
     public void setPatientIdentiferLocation(String xpathToPatientId);
@@ -71,5 +70,7 @@ public interface EntitySubscribeHandler
      * @throws org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault
      * @throws org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault
      */
-    public SubscribeResponse handleSubscribe(TopicConfigurationEntry topicConfig, Subscribe subscribe, Element subscribeElement, AssertionType assertion, NhinTargetCommunitiesType targetCommunitites) throws TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault;
+    public SubscribeResponse handleSubscribe(TopicConfigurationEntry topicConfig, Subscribe subscribe,
+            Element subscribeElement, AssertionType assertion, NhinTargetCommunitiesType targetCommunitites)
+            throws TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault;
 }

@@ -27,7 +27,7 @@
 package universalclientgui;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class DocumentInformation {

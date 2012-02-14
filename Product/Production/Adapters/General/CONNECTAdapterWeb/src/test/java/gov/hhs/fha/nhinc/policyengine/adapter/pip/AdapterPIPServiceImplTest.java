@@ -45,14 +45,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class AdapterPIPServiceImplTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class AdapterPIPServiceImplTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -62,24 +60,18 @@ public class AdapterPIPServiceImplTest
     final AdapterPIPImpl mockAdapterPIPImpl = context.mock(AdapterPIPImpl.class);
 
     @Test
-    public void testCreateLogger()
-    {
-        try
-        {
-            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl()
-            {
+    public void testCreateLogger() {
+        try {
+            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
             };
 
             Log log = sut.createLogger();
             assertNotNull("Log was null", log);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger: " + t.getMessage());
@@ -87,29 +79,23 @@ public class AdapterPIPServiceImplTest
     }
 
     @Test
-    public void testGetAdapterPIPImpl()
-    {
-        try
-        {
-            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl()
-            {
+    public void testGetAdapterPIPImpl() {
+        try {
+            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected AdapterPIPImpl getAdapterPIPImpl()
-                {
+                protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
             };
 
             AdapterPIPImpl pipImpl = sut.getAdapterPIPImpl();
             assertNotNull("AdapterPIPImpl was null", pipImpl);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetAdapterPIPImpl: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetAdapterPIPImpl: " + t.getMessage());
@@ -117,29 +103,23 @@ public class AdapterPIPServiceImplTest
     }
 
     @Test
-    public void testLoadAssertion()
-    {
-        try
-        {
-            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl()
-            {
+    public void testLoadAssertion() {
+        try {
+            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
-                {
+                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                 }
             };
 
             final AssertionType mockAssertion = context.mock(AssertionType.class);
             sut.loadAssertion(mockAssertion, mockWebServiceContext);
             assertTrue("Passed loadAssertion", true);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testLoadAssertion: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testLoadAssertion: " + t.getMessage());
@@ -147,32 +127,28 @@ public class AdapterPIPServiceImplTest
     }
 
     @Test
-    public void testRetrievePtConsentByPtIdHappy()
-    {
-        try
-        {
-            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl()
-            {
+    public void testRetrievePtConsentByPtIdHappy() {
+        try {
+            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected AdapterPIPImpl getAdapterPIPImpl()
-                {
+                protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
+
                 @Override
-                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
-                {
+                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockAdapterPIPImpl).retrievePtConsentByPtId(with(aNonNull(RetrievePtConsentByPtIdRequestType.class)));
+                    oneOf(mockAdapterPIPImpl).retrievePtConsentByPtId(
+                            with(aNonNull(RetrievePtConsentByPtIdRequestType.class)));
                 }
             });
 
@@ -180,9 +156,7 @@ public class AdapterPIPServiceImplTest
 
             RetrievePtConsentByPtIdResponseType response = sut.retrievePtConsentByPtId(request, mockWebServiceContext);
             assertNotNull("RetrievePtConsentByPtIdResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRetrievePtConsentByPtIdHappy: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRetrievePtConsentByPtIdHappy: " + t.getMessage());
@@ -190,30 +164,25 @@ public class AdapterPIPServiceImplTest
     }
 
     @Test
-    public void testRetrievePtConsentByPtIdException()
-    {
-        try
-        {
-            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl()
-            {
+    public void testRetrievePtConsentByPtIdException() {
+        try {
+            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected AdapterPIPImpl getAdapterPIPImpl()
-                {
+                protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
+
                 @Override
-                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
-                {
+                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                     throw new IllegalArgumentException("Forced error.");
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(IllegalArgumentException.class)));
@@ -224,13 +193,11 @@ public class AdapterPIPServiceImplTest
 
             sut.retrievePtConsentByPtId(request, mockWebServiceContext);
             fail("Should have had exception.");
-        }
-        catch(RuntimeException e)
-        {
-            assertEquals("Exception message", "Error occurred calling AdapterPIPImpl.retrievePtConsentByPtId.  Error: Forced error.", e.getMessage());
-        }
-        catch(Throwable t)
-        {
+        } catch (RuntimeException e) {
+            assertEquals("Exception message",
+                    "Error occurred calling AdapterPIPImpl.retrievePtConsentByPtId.  Error: Forced error.",
+                    e.getMessage());
+        } catch (Throwable t) {
             System.out.println("Error running testRetrievePtConsentByPtIdException: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRetrievePtConsentByPtIdException: " + t.getMessage());
@@ -238,42 +205,37 @@ public class AdapterPIPServiceImplTest
     }
 
     @Test
-    public void testRetrievePtConsentByPtDocIdHappy()
-    {
-        try
-        {
-            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl()
-            {
+    public void testRetrievePtConsentByPtDocIdHappy() {
+        try {
+            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected AdapterPIPImpl getAdapterPIPImpl()
-                {
+                protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
+
                 @Override
-                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
-                {
+                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockAdapterPIPImpl).retrievePtConsentByPtDocId(with(aNonNull(RetrievePtConsentByPtDocIdRequestType.class)));
+                    oneOf(mockAdapterPIPImpl).retrievePtConsentByPtDocId(
+                            with(aNonNull(RetrievePtConsentByPtDocIdRequestType.class)));
                 }
             });
 
             RetrievePtConsentByPtDocIdRequestType request = new RetrievePtConsentByPtDocIdRequestType();
 
-            RetrievePtConsentByPtDocIdResponseType response = sut.retrievePtConsentByPtDocId(request, mockWebServiceContext);
+            RetrievePtConsentByPtDocIdResponseType response = sut.retrievePtConsentByPtDocId(request,
+                    mockWebServiceContext);
             assertNotNull("RetrievePtConsentByPtDocIdResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRetrievePtConsentByPtDocIdHappy: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRetrievePtConsentByPtDocIdHappy: " + t.getMessage());
@@ -281,30 +243,25 @@ public class AdapterPIPServiceImplTest
     }
 
     @Test
-    public void testRetrievePtConsentByPtDocIdException()
-    {
-        try
-        {
-            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl()
-            {
+    public void testRetrievePtConsentByPtDocIdException() {
+        try {
+            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected AdapterPIPImpl getAdapterPIPImpl()
-                {
+                protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
+
                 @Override
-                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
-                {
+                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                     throw new IllegalArgumentException("Forced error.");
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(IllegalArgumentException.class)));
@@ -315,13 +272,11 @@ public class AdapterPIPServiceImplTest
 
             sut.retrievePtConsentByPtDocId(request, mockWebServiceContext);
             fail("Should have had exception.");
-        }
-        catch(RuntimeException e)
-        {
-            assertEquals("Exception message", "Error occurred calling AdapterPIPImpl.retrievePtConsentByPtDocId.  Error: Forced error.", e.getMessage());
-        }
-        catch(Throwable t)
-        {
+        } catch (RuntimeException e) {
+            assertEquals("Exception message",
+                    "Error occurred calling AdapterPIPImpl.retrievePtConsentByPtDocId.  Error: Forced error.",
+                    e.getMessage());
+        } catch (Throwable t) {
             System.out.println("Error running testRetrievePtConsentByPtDocIdException: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRetrievePtConsentByPtDocIdException: " + t.getMessage());
@@ -329,29 +284,24 @@ public class AdapterPIPServiceImplTest
     }
 
     @Test
-    public void testStorePtConsentHappy()
-    {
-        try
-        {
-            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl()
-            {
+    public void testStorePtConsentHappy() {
+        try {
+            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected AdapterPIPImpl getAdapterPIPImpl()
-                {
+                protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
+
                 @Override
-                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
-                {
+                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockAdapterPIPImpl).storePtConsent(with(aNonNull(StorePtConsentRequestType.class)));
@@ -362,9 +312,7 @@ public class AdapterPIPServiceImplTest
 
             StorePtConsentResponseType response = sut.storePtConsent(request, mockWebServiceContext);
             assertNotNull("StorePtConsentResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testStorePtConsentHappy: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testStorePtConsentHappy: " + t.getMessage());
@@ -372,30 +320,25 @@ public class AdapterPIPServiceImplTest
     }
 
     @Test
-    public void testStorePtConsentException()
-    {
-        try
-        {
-            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl()
-            {
+    public void testStorePtConsentException() {
+        try {
+            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected AdapterPIPImpl getAdapterPIPImpl()
-                {
+                protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
+
                 @Override
-                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
-                {
+                protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                     throw new IllegalArgumentException("Forced error.");
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(IllegalArgumentException.class)));
@@ -406,18 +349,14 @@ public class AdapterPIPServiceImplTest
 
             sut.storePtConsent(request, mockWebServiceContext);
             fail("Should have had exception.");
-        }
-        catch(RuntimeException e)
-        {
-            assertEquals("Exception message", "Error occurred calling AdapterPIPImpl.storePtConsent.  Error: Forced error.", e.getMessage());
-        }
-        catch(Throwable t)
-        {
+        } catch (RuntimeException e) {
+            assertEquals("Exception message",
+                    "Error occurred calling AdapterPIPImpl.storePtConsent.  Error: Forced error.", e.getMessage());
+        } catch (Throwable t) {
             System.out.println("Error running testStorePtConsentException: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testStorePtConsentException: " + t.getMessage());
         }
     }
-
 
 }

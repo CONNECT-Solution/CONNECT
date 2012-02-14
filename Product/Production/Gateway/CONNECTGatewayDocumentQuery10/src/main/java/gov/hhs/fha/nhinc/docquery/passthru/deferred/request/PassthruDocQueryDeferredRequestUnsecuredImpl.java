@@ -36,40 +36,36 @@ import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 
 /**
  * The implementation for passthru service for unsecured Deferred Doc Query Request.
- *
+ * 
  * @author Les westberg
  */
-public class PassthruDocQueryDeferredRequestUnsecuredImpl
-{
-    //Logger
+public class PassthruDocQueryDeferredRequestUnsecuredImpl {
+    // Logger
 
     private static final Log logger = LogFactory.getLog(PassthruDocQueryDeferredRequestUnsecuredImpl.class);
 
     /**
      * Delegates method call to Implementation class in the core library
-     *
+     * 
      * @param crossGatewayQueryRequest
      * @return
      */
     public DocQueryAcknowledgementType crossGatewayQueryRequest(
-            RespondingGatewayCrossGatewayQueryRequestType crossGatewayQueryRequest,
-            WebServiceContext context)
-    {
+            RespondingGatewayCrossGatewayQueryRequestType crossGatewayQueryRequest, WebServiceContext context) {
 
         getLogger().debug("Beginning of PassthruDocQueryDeferredRequestUnsecured.crossGatewayQueryRequest()");
 
-
         AssertionType assertion = crossGatewayQueryRequest.getAssertion();
 
-        if (assertion != null)
-        {
+        if (assertion != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
             assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
         }
 
         // Fwd request to orchestrator
-        DocQueryAcknowledgementType ackResponse = getPassthruDocQueryDeferredRequestOrchImpl().crossGatewayQueryRequest(crossGatewayQueryRequest.getAdhocQueryRequest(),
-                assertion, crossGatewayQueryRequest.getNhinTargetSystem());
+        DocQueryAcknowledgementType ackResponse = getPassthruDocQueryDeferredRequestOrchImpl()
+                .crossGatewayQueryRequest(crossGatewayQueryRequest.getAdhocQueryRequest(), assertion,
+                        crossGatewayQueryRequest.getNhinTargetSystem());
 
         getLogger().debug("End of PassthruDocQueryDeferredRequestUnsecured.crossGatewayQueryRequest()");
 
@@ -78,20 +74,19 @@ public class PassthruDocQueryDeferredRequestUnsecuredImpl
 
     /**
      * Returns the static logger for this class
+     * 
      * @return
      */
-    protected Log getLogger()
-    {
+    protected Log getLogger() {
         return logger;
     }
 
     /**
      * Implementation class for
-     *
+     * 
      * @return
      */
-    protected PassthruDocQueryDeferredRequestOrchImpl getPassthruDocQueryDeferredRequestOrchImpl()
-    {
+    protected PassthruDocQueryDeferredRequestOrchImpl getPassthruDocQueryDeferredRequestOrchImpl() {
         return new PassthruDocQueryDeferredRequestOrchImpl();
     }
 }

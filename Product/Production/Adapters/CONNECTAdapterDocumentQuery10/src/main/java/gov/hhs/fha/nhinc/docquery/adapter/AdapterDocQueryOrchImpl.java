@@ -23,7 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterDocQueryOrchImpl {
@@ -41,7 +41,7 @@ public class AdapterDocQueryOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param request
      * @param assertion
      * @return AdhocQueryResponse
@@ -54,7 +54,9 @@ public class AdapterDocQueryOrchImpl {
                 // Log the start of the adapter performance record
                 String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
+                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                        NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
+                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
 
                 AdapterComponentDocRegistryProxyObjectFactory objFactory = new AdapterComponentDocRegistryProxyObjectFactory();
                 AdapterComponentDocRegistryProxy registryProxy = objFactory.getAdapterComponentDocRegistryProxy();
@@ -93,7 +95,8 @@ public class AdapterDocQueryOrchImpl {
 
     }
 
-    protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse, AssertionType assertion) {
+    protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse,
+            AssertionType assertion) {
         AdhocQueryResponse response = null;
         if (queryResponse == null) {
             log.warn("Did not call redaction engine because the query response was null.");

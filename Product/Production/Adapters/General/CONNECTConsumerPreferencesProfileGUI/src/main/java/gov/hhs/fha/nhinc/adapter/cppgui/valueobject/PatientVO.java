@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.adapter.cppgui.valueobject;
 import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientPreferencesVO;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class PatientVO {
@@ -39,7 +39,7 @@ public class PatientVO {
     private String patientID;
     private String organizationID;
     private String assigningAuthorityID;
-    private PatientPreferencesVO  patientPreferences;
+    private PatientPreferencesVO patientPreferences;
 
     public PatientPreferencesVO getPatientPreferences() {
         return patientPreferences;
@@ -49,7 +49,6 @@ public class PatientVO {
         this.patientPreferences = patientPreferences;
     }
 
-    
     public String getAssigningAuthorityID() {
         return assigningAuthorityID;
     }

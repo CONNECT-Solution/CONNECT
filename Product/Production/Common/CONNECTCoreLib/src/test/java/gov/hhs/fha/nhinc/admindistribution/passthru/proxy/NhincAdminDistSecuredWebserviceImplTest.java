@@ -45,57 +45,55 @@ import org.junit.Test;
  */
 public class NhincAdminDistSecuredWebserviceImplTest {
 
-	private Mockery context;
+    private Mockery context;
 
-	public NhincAdminDistSecuredWebserviceImplTest() {
-	}
+    public NhincAdminDistSecuredWebserviceImplTest() {
+    }
 
-	@Before
-	public void setup() {
-		context = new Mockery() {
+    @Before
+    public void setup() {
+        context = new Mockery() {
 
-			{
-				setImposteriser(ClassImposteriser.INSTANCE);
-			}
-		};
-	}
+            {
+                setImposteriser(ClassImposteriser.INSTANCE);
+            }
+        };
+    }
 
-	@Test
-	public void testSendAlertMessage() throws Exception {
-		System.out.println("sendAlertMessage");
-		final PassthruAdminDistributionHelper mockHelper = context
-				.mock(PassthruAdminDistributionHelper.class);
-	
-		final WebServiceProxyHelper mockWebServiceProxyHelper = context
-				.mock(WebServiceProxyHelper.class);
+    @Test
+    public void testSendAlertMessage() throws Exception {
+        System.out.println("sendAlertMessage");
+        final PassthruAdminDistributionHelper mockHelper = context.mock(PassthruAdminDistributionHelper.class);
 
-		EDXLDistribution body = null;
-		AssertionType assertion = null;
-		final NhinTargetSystemType target = null;
+        final WebServiceProxyHelper mockWebServiceProxyHelper = context.mock(WebServiceProxyHelper.class);
 
-		PassthruAdminDistributionProxyWebServiceSecuredImpl instance = new PassthruAdminDistributionProxyWebServiceSecuredImpl(mockWebServiceProxyHelper, mockHelper);
-		
-		context.checking(new Expectations() {
+        EDXLDistribution body = null;
+        AssertionType assertion = null;
+        final NhinTargetSystemType target = null;
 
-			{
+        PassthruAdminDistributionProxyWebServiceSecuredImpl instance = new PassthruAdminDistributionProxyWebServiceSecuredImpl(
+                mockWebServiceProxyHelper, mockHelper);
 
-			
-				allowing(mockHelper).getLocalCommunityId();
-				allowing(mockHelper).getUrl(with(any(String.class)),
-						with(any(String.class)),
-						with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
-				will(returnValue("http://someurl/"));
-				
-				allowing(mockHelper).getSecuredPort(with(any(String.class)), with(any(String.class)), with(any(String.class)), with(any(AssertionType.class)), with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
+        context.checking(new Expectations() {
 
-			}
-		});
+            {
 
-		instance.sendAlertMessage(body, assertion, target,
-				NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+                allowing(mockHelper).getLocalCommunityId();
+                allowing(mockHelper).getUrl(with(any(String.class)), with(any(String.class)),
+                        with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
+                will(returnValue("http://someurl/"));
 
-		context.assertIsSatisfied();
+                allowing(mockHelper).getSecuredPort(with(any(String.class)), with(any(String.class)),
+                        with(any(String.class)), with(any(AssertionType.class)),
+                        with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
 
-	}
+            }
+        });
+
+        instance.sendAlertMessage(body, assertion, target, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+
+        context.assertIsSatisfied();
+
+    }
 
 }

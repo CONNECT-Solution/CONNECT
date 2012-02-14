@@ -35,7 +35,7 @@ import javax.jws.HandlerChain;
 import javax.xml.ws.BindingType;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "EntitySubscriptionManager", portName = "EntitySubscriptionManagerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntitySubscriptionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl")
@@ -46,7 +46,9 @@ public class EntityUnsubscribeService {
     @Resource
     private WebServiceContext context;
 
-    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(gov.hhs.fha.nhinc.common.nhinccommonentity.UnsubscribeRequestType unsubscribeRequest) throws ResourceUnknownFault, UnableToDestroySubscriptionFault {
+    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.UnsubscribeRequestType unsubscribeRequest)
+            throws ResourceUnknownFault, UnableToDestroySubscriptionFault {
         return new EntityUnsubscribeServiceImpl().unsubscribe(unsubscribeRequest, context);
     }
 

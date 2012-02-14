@@ -40,8 +40,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * This class manages the creation of the header section of the soap message that
- * defines WS-Addressing.
+ * This class manages the creation of the header section of the soap message that defines WS-Addressing.
  */
 public class AsyncHeaderCreator {
 
@@ -56,6 +55,7 @@ public class AsyncHeaderCreator {
 
     /**
      * Creates the error logger
+     * 
      * @return The Logger
      */
     protected Log createLogger() {
@@ -66,27 +66,23 @@ public class AsyncHeaderCreator {
     }
 
     /**
-     * Creates the WS-Addressing headers.  Specifically the To, Action, ReplyTo,
-     * Address, and MessageID elements are created as Header objects and packaged
-     * in a List.  This listing can be used to define a WSBindingProvider's
+     * Creates the WS-Addressing headers. Specifically the To, Action, ReplyTo, Address, and MessageID elements are
+     * created as Header objects and packaged in a List. This listing can be used to define a WSBindingProvider's
      * outbound headers.
-     * @param url       The Endpoint URL used to set the To header element
-     * @param action    The WS-Addressing action used to set the Action header
-     *                  element and should match the wsaw:Action as defined in
-     *                  the port definition section of the corresponding wsdl
-     * @param messageId The UUID uniquely identifying the message used to set
-     *                  the MessageID header
-     * @param relatesToIds A optional listing of ids specifying messages this
-     *                     one relates to.  This listing may be null or empty if
-     *                     no such relationships exist.
+     * 
+     * @param url The Endpoint URL used to set the To header element
+     * @param action The WS-Addressing action used to set the Action header element and should match the wsaw:Action as
+     *            defined in the port definition section of the corresponding wsdl
+     * @param messageId The UUID uniquely identifying the message used to set the MessageID header
+     * @param relatesToIds A optional listing of ids specifying messages this one relates to. This listing may be null
+     *            or empty if no such relationships exist.
      * @return A listing of the WS-Addressing headers
      */
-    public List<Header> createOutboundHeaders(String url, String action,
-            String messageId, List<String> relatesToIds) {
+    public List<Header> createOutboundHeaders(String url, String action, String messageId, List<String> relatesToIds) {
 
         List<Header> headers = new ArrayList<Header>();
 
-        //The To header is required
+        // The To header is required
         if (url == null) {
             log.warn("Provided endpoint URL is null");
         }
@@ -95,7 +91,7 @@ public class AsyncHeaderCreator {
         log.debug("Set WS-Addressing <To> " + url);
         headers.add(toHdr);
 
-        //The Action header is required
+        // The Action header is required
         if (action == null) {
             log.warn("Provided endpoint URL is null");
         }
@@ -104,12 +100,14 @@ public class AsyncHeaderCreator {
         log.debug("Set WS-Addressing <Action> " + action);
         headers.add(actionHdr);
 
-        //The optional ReplyTo header contains the Address element
+        // The optional ReplyTo header contains the Address element
         final Document document;
         try {
             document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-            final Element elemReplyTo = document.createElementNS(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_REPLYTO);
-            final Element elemAddr = document.createElementNS(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_ADDRESS);
+            final Element elemReplyTo = document.createElementNS(NhincConstants.WS_ADDRESSING_URL,
+                    NhincConstants.WS_SOAP_HEADER_REPLYTO);
+            final Element elemAddr = document.createElementNS(NhincConstants.WS_ADDRESSING_URL,
+                    NhincConstants.WS_SOAP_HEADER_ADDRESS);
             elemAddr.setTextContent(NhincConstants.WS_ADDRESSING_URL_ANONYMOUS);
             elemReplyTo.appendChild(elemAddr);
             Header replyToHdr = Headers.create(elemReplyTo);
@@ -118,7 +116,7 @@ public class AsyncHeaderCreator {
             log.error("ReplyTo header element can not be created: " + ex.getMessage());
         }
 
-        //The messageID header is an optional element
+        // The messageID header is an optional element
         if (messageId != null) {
             qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_MESSAGE_ID);
             Header msgIdHdr = Headers.create(qname, messageId);
@@ -126,7 +124,7 @@ public class AsyncHeaderCreator {
             headers.add(msgIdHdr);
         }
 
-        //The RelatesTo header is an optional but potentially repeating element
+        // The RelatesTo header is an optional but potentially repeating element
         if (relatesToIds != null && !relatesToIds.isEmpty()) {
             qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.HEADER_RELATESTO);
             for (String id : relatesToIds) {

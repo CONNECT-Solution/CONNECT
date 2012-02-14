@@ -44,88 +44,77 @@ import gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscover
  */
 public class NhincPatientDiscoveryProxyObjectFactoryTest {
 
-	Mockery context = new JUnit4Mockery() {
+    Mockery context = new JUnit4Mockery() {
 
-		{
-			setImposteriser(ClassImposteriser.INSTANCE);
-		}
-	};
-	final Log mockLog = context.mock(Log.class);
-	final PassthruPatientDiscoveryProxy mockProxy = context
-			.mock(PassthruPatientDiscoveryProxy.class);
-	final ApplicationContext appContext = new FileSystemXmlApplicationContext() {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
+    final Log mockLog = context.mock(Log.class);
+    final PassthruPatientDiscoveryProxy mockProxy = context.mock(PassthruPatientDiscoveryProxy.class);
+    final ApplicationContext appContext = new FileSystemXmlApplicationContext() {
 
-		@Override
-		public Object getBean(String beanName) {
-			return mockProxy;
-		}
-	};
+        @Override
+        public Object getBean(String beanName) {
+            return mockProxy;
+        }
+    };
 
-	/**
-	 * Test of getConfigFileName method, of class
-	 * NhincPatientDiscoveryProxyObjectFactory.
-	 */
-	@Test
-	public void testGetConfigFileName() {
-		final ApplicationContext mockContext = context
-				.mock(ApplicationContext.class);
-		PassthruPatientDiscoveryProxyObjectFactory proxyFactory = new PassthruPatientDiscoveryProxyObjectFactory() {
-			@Override
-			protected Log createLogger() {
-				return mockLog;
-			}
+    /**
+     * Test of getConfigFileName method, of class NhincPatientDiscoveryProxyObjectFactory.
+     */
+    @Test
+    public void testGetConfigFileName() {
+        final ApplicationContext mockContext = context.mock(ApplicationContext.class);
+        PassthruPatientDiscoveryProxyObjectFactory proxyFactory = new PassthruPatientDiscoveryProxyObjectFactory() {
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
 
-			@Override
-			protected String getConfigFileName() {
-				return "TEST_CONFIG_FILE_NAME";
-			}
+            @Override
+            protected String getConfigFileName() {
+                return "TEST_CONFIG_FILE_NAME";
+            }
 
-			@Override
-			protected ApplicationContext getContext() {
-				return mockContext;
-			}
-		};
-		try {
-			assertEquals("Config file name", "TEST_CONFIG_FILE_NAME",
-					proxyFactory.getConfigFileName());
-		} catch (Throwable t) {
-			System.out.println("Error running testGetConfigFileName test: "
-					+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testGetConfigFileName test: " + t.getMessage());
-		}
-	}
+            @Override
+            protected ApplicationContext getContext() {
+                return mockContext;
+            }
+        };
+        try {
+            assertEquals("Config file name", "TEST_CONFIG_FILE_NAME", proxyFactory.getConfigFileName());
+        } catch (Throwable t) {
+            System.out.println("Error running testGetConfigFileName test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetConfigFileName test: " + t.getMessage());
+        }
+    }
 
-	/**
-	 * Test of getNhincPatientDiscoveryProxy method, of class
-	 * NhincPatientDiscoveryProxyObjectFactory.
-	 */
-	@Test
-	public void testGetNhincPatientDiscoveryProxyHappy() {
-		PassthruPatientDiscoveryProxyObjectFactory proxyFactory = new PassthruPatientDiscoveryProxyObjectFactory() {
-			@Override
-			protected Log createLogger() {
-				return mockLog;
-			}
+    /**
+     * Test of getNhincPatientDiscoveryProxy method, of class NhincPatientDiscoveryProxyObjectFactory.
+     */
+    @Test
+    public void testGetNhincPatientDiscoveryProxyHappy() {
+        PassthruPatientDiscoveryProxyObjectFactory proxyFactory = new PassthruPatientDiscoveryProxyObjectFactory() {
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
 
-			@Override
-			protected <T extends Object> T getBean(String beanName,
-					Class<T> type) {
-				return type.cast(mockProxy);
-			}
-		};
-		try {
-			PassthruPatientDiscoveryProxy proxy = proxyFactory
-					.getNhincPatientDiscoveryProxy();
-			assertNotNull("NhincPatientDiscoveryProxy was null", proxy);
-		} catch (Throwable t) {
-			System.out
-					.println("Error running testGetNhincPatientDiscoveryProxyHappy test: "
-							+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testGetNhincPatientDiscoveryProxyHappy test: "
-					+ t.getMessage());
-		}
-	}
+            @Override
+            protected <T extends Object> T getBean(String beanName, Class<T> type) {
+                return type.cast(mockProxy);
+            }
+        };
+        try {
+            PassthruPatientDiscoveryProxy proxy = proxyFactory.getNhincPatientDiscoveryProxy();
+            assertNotNull("NhincPatientDiscoveryProxy was null", proxy);
+        } catch (Throwable t) {
+            System.out.println("Error running testGetNhincPatientDiscoveryProxyHappy test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetNhincPatientDiscoveryProxyHappy test: " + t.getMessage());
+        }
+    }
 
 }

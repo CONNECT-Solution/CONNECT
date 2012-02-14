@@ -32,7 +32,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public class NotifyTransformHelper {
@@ -50,7 +50,8 @@ public class NotifyTransformHelper {
             request.setAction(ActionHelper.actionFactory(ActionOutValue));
         }
         SubjectHelper subjHelp = new SubjectHelper();
-        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
+                .getAssertion());
         request.getSubject().add(subject);
 
         AssertionHelper assertHelp = new AssertionHelper();

@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.universalclientgui.objects;
 
 /**
- *
+ * 
  * @author Duane DeCouteau
  */
 public class RetrievedDocumentDisplayObject {
@@ -49,10 +49,10 @@ public class RetrievedDocumentDisplayObject {
 
     }
 
-    public RetrievedDocumentDisplayObject(boolean selected, String organizationName, String orgId, String documentTitle,
-                                          String documentType, String uniqueDocumentId, boolean availableInLocalStore,
-                                          boolean hasbeenaccessed, String status, String requestinguser, String patientId,
-                                          String creationdate, String respositoryid) {
+    public RetrievedDocumentDisplayObject(boolean selected, String organizationName, String orgId,
+            String documentTitle, String documentType, String uniqueDocumentId, boolean availableInLocalStore,
+            boolean hasbeenaccessed, String status, String requestinguser, String patientId, String creationdate,
+            String respositoryid) {
         this.selected = selected;
         this.organizationName = organizationName;
         this.orgId = orgId;
@@ -67,9 +67,6 @@ public class RetrievedDocumentDisplayObject {
         this.creationDate = creationdate;
         this.repositoryId = respositoryid;
     }
-
-
-
 
     /**
      * @return the organizationName
@@ -252,7 +249,5 @@ public class RetrievedDocumentDisplayObject {
     public void setRepositoryId(String respositoryId) {
         this.repositoryId = respositoryId;
     }
-
-
 
 }

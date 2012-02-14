@@ -25,11 +25,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.patientdiscovery.response;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class ResponseFactory {
@@ -44,92 +45,69 @@ public class ResponseFactory {
     public ResponseFactory() {
         log = createLogger();
     }
-    public ResponseMode getResponseMode()
-    {
+
+    public ResponseMode getResponseMode() {
         ResponseMode result = null;
 
         int mode = getResponseModeType();
 
-        switch (mode)
-        {
-            case (VERIFY_MODE):
-            {
-                result = new VerifyMode();
-                break;
-            }
-            case TRUST_MODE:
-            {
-                result = new TrustMode();
-                break;
-            }
-            case PASSTHRU_MODE:
-            {
-                result = new PassThruMode();
-                break;
-            }
-            default:
-            {
-                result = new VerifyMode();
-            }
+        switch (mode) {
+        case (VERIFY_MODE): {
+            result = new VerifyMode();
+            break;
+        }
+        case TRUST_MODE: {
+            result = new TrustMode();
+            break;
+        }
+        case PASSTHRU_MODE: {
+            result = new PassThruMode();
+            break;
+        }
+        default: {
+            result = new VerifyMode();
+        }
         }
 
         return result;
     }
-    protected Log createLogger()
-    {
+
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected String getModeProperty()
-    {
+    protected String getModeProperty() {
         String result = "";
 
-        try
-        {
-            result = gov.hhs.fha.nhinc.properties.PropertyAccessor.getProperty("gateway", "patientDiscoveryResponseMode");
-        }
-        catch (Exception ex)
-        {
+        try {
+            result = gov.hhs.fha.nhinc.properties.PropertyAccessor.getProperty("gateway",
+                    "patientDiscoveryResponseMode");
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
         }
 
-
         return result;
     }
-    
-    public int getResponseModeType()
-    {
+
+    public int getResponseModeType() {
         int result = 0;
 
-        try
-        {
+        try {
             String property = getModeProperty();
-            if (property == null)
-            {
+            if (property == null) {
                 result = VERIFY_MODE;
-            }
-            else if(property.equalsIgnoreCase(RESPONSE_MODE_VERIFY))
-            {
+            } else if (property.equalsIgnoreCase(RESPONSE_MODE_VERIFY)) {
                 result = VERIFY_MODE;
-            }
-            else if(property.equalsIgnoreCase(RESPONSE_MODE_TRUST))
-            {
+            } else if (property.equalsIgnoreCase(RESPONSE_MODE_TRUST)) {
                 result = TRUST_MODE;
-            }
-            else if(property.equalsIgnoreCase(RESPONSE_MODE_PASSTHRU))
-            {
+            } else if (property.equalsIgnoreCase(RESPONSE_MODE_PASSTHRU)) {
                 result = PASSTHRU_MODE;
-            }
-            else
-            {
-                //unknown mode, use default response mode
+            } else {
+                // unknown mode, use default response mode
                 result = VERIFY_MODE;
             }
 
-
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             result = VERIFY_MODE;
         }

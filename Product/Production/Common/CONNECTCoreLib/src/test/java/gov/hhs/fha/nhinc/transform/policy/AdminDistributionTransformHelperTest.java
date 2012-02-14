@@ -44,13 +44,13 @@ import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class AdminDistributionTransformHelperTest {
 
     private Mockery context;
-    
+
     public AdminDistributionTransformHelperTest() {
     }
 
@@ -67,7 +67,7 @@ public class AdminDistributionTransformHelperTest {
     @Test
     public void testTransformEntityAlertToCheckPolicy() {
         final Log mockLogger = context.mock(Log.class);
-        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper(){
+        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper() {
 
             @Override
             protected Log createLogger() {
@@ -77,7 +77,7 @@ public class AdminDistributionTransformHelperTest {
         context.checking(new Expectations() {
 
             {
-                //Input Request Object can not be null
+                // Input Request Object can not be null
                 exactly(1).of(mockLogger).error("Request is null.");
                 will(returnValue(with(any(CheckPolicyRequestType.class))));
             }
@@ -86,18 +86,20 @@ public class AdminDistributionTransformHelperTest {
         instance.transformEntityAlertToCheckPolicy(null, null);
         context.assertIsSatisfied();
     }
-   @Test
+
+    @Test
     public void testTransformEntityAlertToCheckPolicy_NoTarget() {
         final Log mockLogger = context.mock(Log.class);
-        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper(){
+        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc, AssertionType assertion)
-            {
+            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc,
+                    AssertionType assertion) {
                 return new oasis.names.tc.xacml._2_0.context.schema.os.SubjectType();
             }
         };
@@ -111,7 +113,7 @@ public class AdminDistributionTransformHelperTest {
             }
         });
 
-        RespondingGatewaySendAlertMessageType message= new RespondingGatewaySendAlertMessageType();
+        RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
         message.setAssertion(new AssertionType());
         message.setEDXLDistribution(new EDXLDistribution());
 
@@ -122,18 +124,19 @@ public class AdminDistributionTransformHelperTest {
         assertNotNull(result);
     }
 
-   @Test
+    @Test
     public void testTransformEntityAlertToCheckPolicy_NoBody() {
         final Log mockLogger = context.mock(Log.class);
-        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper(){
+        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc, AssertionType assertion)
-            {
+            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc,
+                    AssertionType assertion) {
                 return new oasis.names.tc.xacml._2_0.context.schema.os.SubjectType();
             }
         };
@@ -147,9 +150,9 @@ public class AdminDistributionTransformHelperTest {
             }
         });
 
-        RespondingGatewaySendAlertMessageType message= new RespondingGatewaySendAlertMessageType();
+        RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
         message.setAssertion(new AssertionType());
-        //message.setEDXLDistribution(new EDXLDistribution());
+        // message.setEDXLDistribution(new EDXLDistribution());
 
         String target = "121";
 
@@ -158,18 +161,19 @@ public class AdminDistributionTransformHelperTest {
         assertNotNull(result);
     }
 
-   @Test
+    @Test
     public void testTransformEntityAlertToCheckPolicy_NoAssertion() {
         final Log mockLogger = context.mock(Log.class);
-        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper(){
+        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc, AssertionType assertion)
-            {
+            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc,
+                    AssertionType assertion) {
                 return new oasis.names.tc.xacml._2_0.context.schema.os.SubjectType();
             }
         };
@@ -183,8 +187,8 @@ public class AdminDistributionTransformHelperTest {
             }
         });
 
-        RespondingGatewaySendAlertMessageType message= new RespondingGatewaySendAlertMessageType();
-        //message.setAssertion(new AssertionType());
+        RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
+        // message.setAssertion(new AssertionType());
         message.setEDXLDistribution(new EDXLDistribution());
 
         String target = "121";
@@ -193,19 +197,20 @@ public class AdminDistributionTransformHelperTest {
         context.assertIsSatisfied();
         assertNotNull(result);
     }
-   
+
     @Test
     public void testTransformEntityAlertToCheckPolicy_Valid() {
         final Log mockLogger = context.mock(Log.class);
-        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper(){
+        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc, AssertionType assertion)
-            {
+            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc,
+                    AssertionType assertion) {
                 return new oasis.names.tc.xacml._2_0.context.schema.os.SubjectType();
             }
         };
@@ -218,8 +223,8 @@ public class AdminDistributionTransformHelperTest {
             }
         });
 
-        RespondingGatewaySendAlertMessageType message= new RespondingGatewaySendAlertMessageType();
-        HomeCommunityType hc  = new HomeCommunityType();
+        RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
+        HomeCommunityType hc = new HomeCommunityType();
         hc.setHomeCommunityId("1.1");
 
         AssertionType assertion = new AssertionType();
@@ -229,7 +234,7 @@ public class AdminDistributionTransformHelperTest {
         message.setEDXLDistribution(new EDXLDistribution());
 
         String target = "121";
-        
+
         instance.transformEntityAlertToCheckPolicy(message, target);
         context.assertIsSatisfied();
     }
@@ -239,15 +244,16 @@ public class AdminDistributionTransformHelperTest {
         final Log mockLogger = context.mock(Log.class);
         final AssertionType assertion = new AssertionType();
 
-        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper(){
+        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc, AssertionType assertion)
-            {
+            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc,
+                    AssertionType assertion) {
                 return new oasis.names.tc.xacml._2_0.context.schema.os.SubjectType();
             }
         };
@@ -260,13 +266,13 @@ public class AdminDistributionTransformHelperTest {
             }
         });
 
-        RespondingGatewaySendAlertMessageType message= new RespondingGatewaySendAlertMessageType();
+        RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
         message.setAssertion(new AssertionType());
         message.setEDXLDistribution(new EDXLDistribution());
 
         String target = "121";
 
-        CheckPolicyRequestType result  =  instance.transformNhinAlertToCheckPolicy(new EDXLDistribution(), assertion);
+        CheckPolicyRequestType result = instance.transformNhinAlertToCheckPolicy(new EDXLDistribution(), assertion);
         context.assertIsSatisfied();
 
         assertNotNull(result);
@@ -278,19 +284,20 @@ public class AdminDistributionTransformHelperTest {
         assertEquals(1, result.getRequest().getAction().getAttribute().size());
     }
 
-   @Test
+    @Test
     public void transformNhinAlertToCheckPolicy_NoBody() {
         final Log mockLogger = context.mock(Log.class);
         final AssertionType assertion = new AssertionType();
-        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper(){
+        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc, AssertionType assertion)
-            {
+            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc,
+                    AssertionType assertion) {
                 return new oasis.names.tc.xacml._2_0.context.schema.os.SubjectType();
             }
         };
@@ -304,29 +311,30 @@ public class AdminDistributionTransformHelperTest {
             }
         });
 
-
         String target = "121";
 
-        CheckPolicyRequestType result  =  instance.transformNhinAlertToCheckPolicy(null, assertion);
-        
+        CheckPolicyRequestType result = instance.transformNhinAlertToCheckPolicy(null, assertion);
+
         context.assertIsSatisfied();
         assertNotNull(result);
         assertNull(result.getRequest());
-        
+
     }
-   @Test
+
+    @Test
     public void transformNhinAlertToCheckPolicy_NoAssertion() {
         final Log mockLogger = context.mock(Log.class);
         final AssertionType assertion = new AssertionType();
-        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper(){
+        AdminDistributionTransformHelper instance = new AdminDistributionTransformHelper() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc, AssertionType assertion)
-            {
+            protected oasis.names.tc.xacml._2_0.context.schema.os.SubjectType createSubject(HomeCommunityType hc,
+                    AssertionType assertion) {
                 return new oasis.names.tc.xacml._2_0.context.schema.os.SubjectType();
             }
         };
@@ -340,10 +348,9 @@ public class AdminDistributionTransformHelperTest {
             }
         });
 
-
         String target = "121";
 
-        CheckPolicyRequestType result  =  instance.transformNhinAlertToCheckPolicy(new EDXLDistribution(), null);
+        CheckPolicyRequestType result = instance.transformNhinAlertToCheckPolicy(new EDXLDistribution(), null);
 
         context.assertIsSatisfied();
         assertNotNull(result);

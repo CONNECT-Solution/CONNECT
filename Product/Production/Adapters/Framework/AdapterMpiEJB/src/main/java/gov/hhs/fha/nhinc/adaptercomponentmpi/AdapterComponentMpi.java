@@ -30,7 +30,7 @@ import javax.ejb.Stateless;
 import javax.jws.WebService;
 
 /**
- *
+ * 
  * @author mflynn02
  */
 @WebService(serviceName = "AdapterComponentMpiService", portName = "AdapterComponentMpiPort", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentmpi", wsdlLocation = "META-INF/wsdl/AdapterComponentMpi/AdapterComponentMpi.wsdl")

@@ -33,11 +33,12 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 /**
  * 
- *
+ * 
  * @author patlollav
  */
 public interface PassthruDocQueryDeferredRequestProxy {
 
-    public DocQueryAcknowledgementType crossGatewayQueryRequest(AdhocQueryRequest msg, AssertionType assertion, NhinTargetSystemType target);
+    public DocQueryAcknowledgementType crossGatewayQueryRequest(AdhocQueryRequest msg, AssertionType assertion,
+            NhinTargetSystemType target);
 
 }

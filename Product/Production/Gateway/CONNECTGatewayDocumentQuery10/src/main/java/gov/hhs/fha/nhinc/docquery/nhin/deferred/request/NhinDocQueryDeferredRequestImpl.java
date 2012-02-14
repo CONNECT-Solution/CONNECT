@@ -34,11 +34,12 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class NhinDocQueryDeferredRequestImpl {
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, WebServiceContext context) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest body,
+            WebServiceContext context) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class

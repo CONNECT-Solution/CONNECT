@@ -39,7 +39,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 public class NhincProxyDocRetrieveOrchImpl {
@@ -54,17 +54,20 @@ public class NhincProxyDocRetrieveOrchImpl {
         return LogFactory.getLog(getClass());
     }
 
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
+            RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin NhincProxyDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve(...)");
         RetrieveDocumentSetResponseType response = null;
 
-        // Note: auditing occurs in the orchestrator strategy.  
+        // Note: auditing occurs in the orchestrator strategy.
         try {
             OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
-            OutboundDocRetrieveOrchestratableImpl message = new OutboundDocRetrieveOrchestratableImpl(request, assertion, null, null, delegate, null, targetSystem);
+            OutboundDocRetrieveOrchestratableImpl message = new OutboundDocRetrieveOrchestratableImpl(request,
+                    assertion, null, null, delegate, null, targetSystem);
             OutboundPassthruDocRetrieveOrchestratorImpl orchestrator = new OutboundPassthruDocRetrieveOrchestratorImpl();
 
-            OutboundDocRetrieveOrchestratableImpl orchResponse = (OutboundDocRetrieveOrchestratableImpl)orchestrator.process(message);
+            OutboundDocRetrieveOrchestratableImpl orchResponse = (OutboundDocRetrieveOrchestratableImpl) orchestrator
+                    .process(message);
             response = orchResponse.getResponse();
         } catch (Throwable t) {
             log.error("Error occured sending doc query to NHIN target: " + t.getMessage(), t);

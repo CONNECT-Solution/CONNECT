@@ -34,7 +34,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author vvickers
  */
 public class CmBindingTemplatesTest {
@@ -71,7 +71,7 @@ public class CmBindingTemplatesTest {
 
     /**
      * Create a generic CMBindingTemplates filled with test data
-     *
+     * 
      * @return The test CMBindingTemplates
      */
     private CMBindingTemplates generateTestCMBindingTemplates() {

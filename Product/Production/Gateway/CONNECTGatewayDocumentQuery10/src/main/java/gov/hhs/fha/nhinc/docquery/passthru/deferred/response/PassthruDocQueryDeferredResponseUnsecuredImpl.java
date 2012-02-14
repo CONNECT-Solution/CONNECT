@@ -35,36 +35,41 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class PassthruDocQueryDeferredResponseUnsecuredImpl {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PassthruDocQueryDeferredResponseUnsecuredImpl.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(PassthruDocQueryDeferredResponseUnsecuredImpl.class);
 
     protected AsyncMessageProcessHelper createAsyncProcesser() {
         return new AsyncMessageProcessHelper();
     }
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryResponseType body, WebServiceContext context) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
+            RespondingGatewayCrossGatewayQueryResponseType body, WebServiceContext context) {
         log.debug("Begin PassthruDocQueryDeferredResponseUnsecuredImpl.respondingGatewayCrossGatewayQuery(unsecured)");
 
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
 
-        log.debug("Assertion from AdhocQueryResponse is: " + asyncProcess.marshalAssertionTypeObject(body.getAssertion()));
+        log.debug("Assertion from AdhocQueryResponse is: "
+                + asyncProcess.marshalAssertionTypeObject(body.getAssertion()));
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (body.getAssertion() != null) {
             body.getAssertion().setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
-               body.getAssertion().getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
+                body.getAssertion().getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
             }
         }
 
         log.debug("Assertion after modify is: " + asyncProcess.marshalAssertionTypeObject(body.getAssertion()));
 
-        DocQueryAcknowledgementType response = new PassthruDocQueryDeferredResponseOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryResponse(), body.getAssertion(), body.getNhinTargetSystem());
+        DocQueryAcknowledgementType response = new PassthruDocQueryDeferredResponseOrchImpl()
+                .respondingGatewayCrossGatewayQuery(body.getAdhocQueryResponse(), body.getAssertion(),
+                        body.getNhinTargetSystem());
 
         return response;
     }

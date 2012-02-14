@@ -36,7 +36,7 @@ import org.hl7.v3.MFMIMT700701UV01Custodian;
 import org.hl7.v3.MFMIMT700711UV01Custodian;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class HL7CustodianTransforms {
@@ -46,8 +46,8 @@ public class HL7CustodianTransforms {
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
     /**
-     * Create custodian element based on the local device id.  The device id is
-     * the corresponding assigning authority id.
+     * Create custodian element based on the local device id. The device id is the corresponding assigning authority id.
+     * 
      * @param localDeviceId
      * @return custodian
      */
@@ -64,8 +64,9 @@ public class HL7CustodianTransforms {
     }
 
     /**
-     * Create assignedEntity element based on the local device id.  The device id is
-     * the corresponding assigning authority id.
+     * Create assignedEntity element based on the local device id. The device id is the corresponding assigning
+     * authority id.
+     * 
      * @param localDeviceId
      * @return entity
      */
@@ -81,8 +82,8 @@ public class HL7CustodianTransforms {
     }
 
     /**
-     * Create custodian element based on the local device id.  The device id is
-     * the corresponding assigning authority id.
+     * Create custodian element based on the local device id. The device id is the corresponding assigning authority id.
+     * 
      * @param localDeviceId
      * @return custodian
      */
@@ -103,7 +104,9 @@ public class HL7CustodianTransforms {
         try {
             defaultLocalId = PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME);
         } catch (PropertyAccessException e) {
-            log.error("PropertyAccessException - Default Assigning Authority property not defined in adapter.properties", e);
+            log.error(
+                    "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
+                    e);
         }
 
         return defaultLocalId;

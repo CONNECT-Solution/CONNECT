@@ -64,18 +64,20 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected EntityDocQueryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected EntityDocQueryPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         EntityDocQueryPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityDocQueryPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -84,7 +86,7 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -98,44 +100,33 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
         return cachedService;
     }
 
-        public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets)
-    {
-            log.debug("Begin respondingGatewayCrossGatewayQuery");
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
+            NhinTargetCommunitiesType targets) {
+        log.debug("Begin respondingGatewayCrossGatewayQuery");
         AdhocQueryResponse response = null;
 
-        try
-        {
+        try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
             EntityDocQueryPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
-            if(msg == null)
-            {
+            if (msg == null) {
                 log.error("Message was null");
-            }
-            else if (assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("assertion was null");
-            }
-            else if (targets == null)
-            {
+            } else if (targets == null) {
                 log.error("targets was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
                 request.setAdhocQueryRequest(msg);
                 request.setAssertion(assertion);
                 request.setNhinTargetCommunities(targets);
 
-                response = (AdhocQueryResponse)oProxyHelper.invokePort(port, EntityDocQueryPortType.class, "respondingGatewayCrossGatewayQuery", request);
+                response = (AdhocQueryResponse) oProxyHelper.invokePort(port, EntityDocQueryPortType.class,
+                        "respondingGatewayCrossGatewayQuery", request);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
         }
 

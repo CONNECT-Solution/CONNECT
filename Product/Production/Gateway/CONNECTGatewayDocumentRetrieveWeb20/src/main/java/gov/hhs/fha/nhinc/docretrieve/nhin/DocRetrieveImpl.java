@@ -21,14 +21,15 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This is the Web Service implementation of Nhin Doc Retrieve.
- *
+ * 
  * @author vvickers, Les Westberg
  */
 class DocRetrieveImpl {
 
     private static Log log = LogFactory.getLog(DocRetrieveImpl.class);
 
-    RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, WebServiceContext context) {
+    RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+            WebServiceContext context) {
         log.debug("Entering DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
@@ -41,9 +42,11 @@ class DocRetrieveImpl {
         PolicyTransformer pt = new InboundDocRetrievePolicyTransformer_g0();
         AuditTransformer at = new InboundDocRetrieveAuditTransformer_g0();
         InboundDelegate ad = new InboundDocRetrieveDelegate();
-        InboundDocRetrieveOrchestratableImpl NhinDROrchImpl = new InboundDocRetrieveOrchestratableImpl(body, assertion, pt, at, ad);
+        InboundDocRetrieveOrchestratableImpl NhinDROrchImpl = new InboundDocRetrieveOrchestratableImpl(body, assertion,
+                pt, at, ad);
         CONNECTInboundOrchestrator oOrchestrator = new CONNECTInboundOrchestrator();
-        InboundDocRetrieveOrchestratableImpl OrchResponse = (InboundDocRetrieveOrchestratableImpl)oOrchestrator.process(NhinDROrchImpl);
+        InboundDocRetrieveOrchestratableImpl OrchResponse = (InboundDocRetrieveOrchestratableImpl) oOrchestrator
+                .process(NhinDROrchImpl);
         RetrieveDocumentSetResponseType response = OrchResponse.getResponse();
 
         // Send response back to the initiating Gateway

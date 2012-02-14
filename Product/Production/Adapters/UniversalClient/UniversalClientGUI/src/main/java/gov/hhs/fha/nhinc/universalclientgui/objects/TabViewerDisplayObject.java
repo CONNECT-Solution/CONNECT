@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.universalclientgui.objects;
 
 /**
- *
+ * 
  * @author Duane DeCouteau
  */
 public class TabViewerDisplayObject {
@@ -107,7 +107,5 @@ public class TabViewerDisplayObject {
     public void setConvertedXMLDoc(String convertedXMLDoc) {
         this.convertedXMLDoc = convertedXMLDoc;
     }
-
-    
 
 }

@@ -45,7 +45,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class PassthruDocQueryDeferredRequestUnsecuredImplTest {
@@ -84,18 +84,19 @@ public class PassthruDocQueryDeferredRequestUnsecuredImplTest {
         System.out.println("crossGatewayQueryRequest -- Happy Path");
 
         final Log mockLogger = mockery.mock(Log.class);
-        final PassthruDocQueryDeferredRequestOrchImpl mockNhincDocQueryDeferredRequestOrchImpl = mockery.mock(PassthruDocQueryDeferredRequestOrchImpl.class);
+        final PassthruDocQueryDeferredRequestOrchImpl mockNhincDocQueryDeferredRequestOrchImpl = mockery
+                .mock(PassthruDocQueryDeferredRequestOrchImpl.class);
 
-        final RespondingGatewayCrossGatewayQueryRequestType mockCrossGatewayQueryRequest = mockery.mock(RespondingGatewayCrossGatewayQueryRequestType.class);
+        final RespondingGatewayCrossGatewayQueryRequestType mockCrossGatewayQueryRequest = mockery
+                .mock(RespondingGatewayCrossGatewayQueryRequestType.class);
         final AssertionType mockAssertion = mockery.mock(AssertionType.class);
         final DocQueryAuditLog mockDocQueryAuditLog = mockery.mock(DocQueryAuditLog.class);
         final AdhocQueryRequest mockAdhocQueryRequest = mockery.mock(AdhocQueryRequest.class);
         final NhinTargetSystemType mockTarget = mockery.mock(NhinTargetSystemType.class);
 
-
-        PassthruDocQueryDeferredRequestUnsecuredImpl instance = new PassthruDocQueryDeferredRequestUnsecuredImpl(){
+        PassthruDocQueryDeferredRequestUnsecuredImpl instance = new PassthruDocQueryDeferredRequestUnsecuredImpl() {
             @Override
-            protected Log getLogger(){
+            protected Log getLogger() {
                 return mockLogger;
             }
 
@@ -117,10 +118,11 @@ public class PassthruDocQueryDeferredRequestUnsecuredImplTest {
                 one(mockCrossGatewayQueryRequest).getNhinTargetSystem();
                 will(returnValue(mockTarget));
                 one(mockAssertion).setMessageId(with(any(String.class)));
-                one(mockNhincDocQueryDeferredRequestOrchImpl).crossGatewayQueryRequest(with(any(AdhocQueryRequest.class)), with(any(AssertionType.class)),
+                one(mockNhincDocQueryDeferredRequestOrchImpl).crossGatewayQueryRequest(
+                        with(any(AdhocQueryRequest.class)), with(any(AssertionType.class)),
                         with(any(NhinTargetSystemType.class)));
                 will(returnValue(new DocQueryAcknowledgementType()));
-                
+
             }
         });
 

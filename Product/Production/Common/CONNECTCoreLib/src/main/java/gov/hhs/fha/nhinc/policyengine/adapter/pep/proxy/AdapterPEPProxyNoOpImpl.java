@@ -38,28 +38,24 @@ import org.apache.commons.logging.LogFactory;
 /**
  * This is a "NoOp" implementation of the AdapterPEPProxy interface.
  */
-public class AdapterPEPProxyNoOpImpl implements AdapterPEPProxy
-{
+public class AdapterPEPProxyNoOpImpl implements AdapterPEPProxy {
     private Log log = null;
 
-    public AdapterPEPProxyNoOpImpl()
-    {
+    public AdapterPEPProxyNoOpImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
     /**
      * NO-OP implementation of the checkPolicy operation returns "Permit"
-     *
+     * 
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The xacml response which contains the access denied
      */
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
-    {
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         log.debug("Begin AdapterPEPProxyNoOpImpl.checkPolicy");
         CheckPolicyResponseType policyResponse = new CheckPolicyResponseType();
         ResponseType response = new ResponseType();

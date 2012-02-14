@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers;
 import org.hl7.v3.CS;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class CSHelper {

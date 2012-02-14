@@ -40,7 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterComponentDocQueryDeferredResponseOrchImpl {
@@ -53,46 +53,53 @@ public class AdapterComponentDocQueryDeferredResponseOrchImpl {
 
     /**
      * Return acknowledgement based on CONNECT Demo Operation Mode
-     *
+     * 
      * @param msg
      * @param assertion
      * @return DocQueryAcknowledgementType
      */
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg,
+            AssertionType assertion) {
         log.debug("Begin - AdapterComponentDocQueryDeferredResponseOrchImpl.respondingGatewayCrossGatewayQuery()");
 
         // Log the start of the adapter performance record
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
         Timestamp starttime = new Timestamp(System.currentTimeMillis());
-        Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, "Deferred"+NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
+        Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                "Deferred" + NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
 
         String uniquePatientId = "";
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
 
-        if (assertion != null &&
-                assertion.getUniquePatientId() != null &&
-                assertion.getUniquePatientId().size() > 0) {
+        if (assertion != null && assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0) {
             uniquePatientId = assertion.getUniquePatientId().get(0);
         }
 
         if (DocumentProcessHelper.isDemoOperationModeEnabled()) {
             DocumentProcessHelper documentProcessHelper = getDocumentProcessHelper();
 
-            // Demo mode enabled, process AdhocQueryResponse to save document metadata to the CONNECT default document repository
-            RegistryResponseType responseType = documentProcessHelper.documentRepositoryProvideAndRegisterDocumentSet(msg, uniquePatientId);
+            // Demo mode enabled, process AdhocQueryResponse to save document metadata to the CONNECT default document
+            // repository
+            RegistryResponseType responseType = documentProcessHelper.documentRepositoryProvideAndRegisterDocumentSet(
+                    msg, uniquePatientId);
             if (responseType.getStatus().equals(DocumentProcessHelper.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS)) {
                 // Set the ack success status of the deferred queue entry
-                ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG, null, null);
+                ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG,
+                        null, null);
             } else {
                 String ackMsg = responseType.getStatus();
 
                 // Set the error acknowledgement status
                 // fatal error with deferred queue repository
-                ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+                ack = DocQueryAckTranforms.createAckMessage(
+                        NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG,
+                        NhincConstants.DOC_QUERY_DEFERRED_ACK_ERROR_INVALID, ackMsg);
             }
         } else {
             // Demo mode not enabled, send success acknowledgement by default with no other processing
-            ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG, null, null);
+            ack = DocQueryAckTranforms.createAckMessage(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG, null,
+                    null);
         }
 
         // Log the end of the adapter performance record

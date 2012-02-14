@@ -27,12 +27,12 @@
 package gov.hhs.fha.nhinc.util;
 
 /**
- *
+ * 
  * @author narendra.reddy
  */
 public interface DeferredGUIConstants {
-    
-    //Requestor Constants
+
+    // Requestor Constants
     public static final String REQSENTERR = "Request Sent Error";
     public static final String REQPROCESS = "Request Processed";
     public static final String REQSENT = "Request Sent";
@@ -41,7 +41,7 @@ public interface DeferredGUIConstants {
     public static final String REQRCVDACK = "Request Received Acknowledged";
     public static final String REQRCVDERR = "Request Received Error";
 
-    //Response Constants.
+    // Response Constants.
     public static final String RSPRCVDERR = "Response Received Error";
     public static final String RSPRCVD = "Response Received";
     public static final String RSPRCVDACK = "Response Received Acknowledged";
@@ -50,7 +50,5 @@ public interface DeferredGUIConstants {
     public static final String RSPSENT = "Response Sent";
     public static final String RSPSENTACK = "Response Sent Acknowledged";
     public static final String RSPSENTERR = "Response Sent Error";
-
-
 
 }

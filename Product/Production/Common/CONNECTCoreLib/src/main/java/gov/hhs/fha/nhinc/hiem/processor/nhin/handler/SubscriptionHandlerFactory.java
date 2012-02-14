@@ -48,17 +48,20 @@ public class SubscriptionHandlerFactory {
 
         ConfigurationManager config = new ConfigurationManager();
         String childAdapterSubscriptionMode = config.getAdapterSubscriptionMode();
-        log.debug("child adapter subscription mode = " + childAdapterSubscriptionMode ) ;
-        if (NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_SUBSCRIPTIONS.equals(childAdapterSubscriptionMode)) {
+        log.debug("child adapter subscription mode = " + childAdapterSubscriptionMode);
+        if (NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_SUBSCRIPTIONS
+                .equals(childAdapterSubscriptionMode)) {
             subscriptionHandler = new ChildSubscriptionModeSubscriptionHandler();
-        } else if (NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_FORWARD.equals(childAdapterSubscriptionMode)) {
+        } else if (NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_FORWARD
+                .equals(childAdapterSubscriptionMode)) {
             subscriptionHandler = new ForwardChildModeSubscriptionHandler();
-        } else if (NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_DISABLED.equals(childAdapterSubscriptionMode)) {
+        } else if (NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_DISABLED
+                .equals(childAdapterSubscriptionMode)) {
             subscriptionHandler = new DisabledChildModeSubscriptionHandler();
         } else {
             throw new SoapFaultFactory().getUnknownSubscriptionServiceAdapterModeFault(childAdapterSubscriptionMode);
         }
-        log.debug("subscriptionHandler = " + subscriptionHandler.toString() ) ;
+        log.debug("subscriptionHandler = " + subscriptionHandler.toString());
         return subscriptionHandler;
     }
 }

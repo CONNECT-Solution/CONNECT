@@ -38,7 +38,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class OutboundDocRetrieveOrchestratorImpl extends CONNECTOutboundOrchestrator {
@@ -49,7 +49,9 @@ public class OutboundDocRetrieveOrchestratorImpl extends CONNECTOutboundOrchestr
     public Orchestratable processEnabledMessage(Orchestratable message) {
         OutboundDocRetrieveOrchestratable EntityDROrchMessage = (OutboundDocRetrieveOrchestratable) message;
         for (DocumentRequest docRequest : EntityDROrchMessage.getRequest().getDocumentRequest()) {
-            OutboundOrchestratable impl = new OutboundDocRetrieveOrchestratable(message.getPolicyTransformer(), message.getAuditTransformer(), EntityDROrchMessage.getNhinDelegate(), EntityDROrchMessage.getAggregator());
+            OutboundOrchestratable impl = new OutboundDocRetrieveOrchestratable(message.getPolicyTransformer(),
+                    message.getAuditTransformer(), EntityDROrchMessage.getNhinDelegate(),
+                    EntityDROrchMessage.getAggregator());
             RetrieveDocumentSetRequestType rdRequest = new RetrieveDocumentSetRequestType();
             rdRequest.getDocumentRequest().add(docRequest);
             ((OutboundDocRetrieveOrchestratable) impl).setRequest(rdRequest);
@@ -58,7 +60,7 @@ public class OutboundDocRetrieveOrchestratorImpl extends CONNECTOutboundOrchestr
 
             // Process and aggregate
             NhinAggregator agg = EntityDROrchMessage.getAggregator();
-            agg.aggregate((OutboundOrchestratable)message, (OutboundOrchestratable)super.processEnabledMessage(impl));
+            agg.aggregate((OutboundOrchestratable) message, (OutboundOrchestratable) super.processEnabledMessage(impl));
         }
         return message;
     }

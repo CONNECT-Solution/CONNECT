@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docquery.passthru.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocQueryProxyObjectFactory extends ComponentProxyObjectFactory {

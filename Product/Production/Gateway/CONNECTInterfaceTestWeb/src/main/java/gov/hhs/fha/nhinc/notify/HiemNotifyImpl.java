@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Notify;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class HiemNotifyImpl {
@@ -45,16 +45,18 @@ public class HiemNotifyImpl {
 
         log.debug("extracting reference parameters from soap header");
         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-        ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
+        ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+                .createReferenceParameterElements(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
         log.debug("extracted reference parameters from soap header");
-
 
         String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
 
         if (NullChecker.isNotNullish(homeCommunityId)) {
             NhincNotificationConsumerService service = new NhincNotificationConsumerService();
             NotificationConsumer port = service.getNotificationConsumerPort();
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
+            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                    javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                    SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
 
             log.debug("attaching reference parameter headers");
             SoapUtil soapUtil = new SoapUtil();

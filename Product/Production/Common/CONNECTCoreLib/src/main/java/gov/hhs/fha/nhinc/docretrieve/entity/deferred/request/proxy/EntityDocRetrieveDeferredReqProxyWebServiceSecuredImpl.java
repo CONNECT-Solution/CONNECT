@@ -42,7 +42,7 @@ import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class EntityDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements EntityDocRetrieveDeferredReqProxy {
@@ -76,6 +76,7 @@ public class EntityDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements E
 
     /**
      * create logger instance
+     * 
      * @return Log
      */
     protected Log createLogger() {
@@ -83,13 +84,14 @@ public class EntityDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements E
     }
 
     /**
-     *
+     * 
      * @param message
      * @param assertion
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message, AssertionType assertion, NhinTargetCommunitiesType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message,
+            AssertionType assertion, NhinTargetCommunitiesType target) {
         if (enableDebug) {
             log.debug("Begin EntityDocRetrieveDeferredReqSecuredWebServiceImpl.crossGatewayRetrieveRequest ");
         }
@@ -98,7 +100,8 @@ public class EntityDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements E
 
         try {
             url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST);
-            EntityDocRetrieveDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOCRETRIEVE_DEFERRED_ACTION, WS_ADDRESSING_ACTION, assertion);
+            EntityDocRetrieveDeferredRequestSecuredPortType port = getPort(url,
+                    NhincConstants.DOCRETRIEVE_DEFERRED_ACTION, WS_ADDRESSING_ACTION, assertion);
             if (message == null) {
                 log.error("Message was null");
             } else if (assertion == null) {
@@ -111,11 +114,13 @@ public class EntityDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements E
                 RespondingGatewayCrossGatewayRetrieveSecuredRequestType request = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
                 request.setNhinTargetCommunities(target);
                 request.setRetrieveDocumentSetRequest(message);
-                ack = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port, EntityDocRetrieveDeferredRequestSecuredPortType.class, "crossGatewayRetrieveRequest", request);
+                ack = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port,
+                        EntityDocRetrieveDeferredRequestSecuredPortType.class, "crossGatewayRetrieveRequest", request);
             }
 
         } catch (Exception e) {
-            log.error("Error: Failed to retrieve url for service: '" + NhincConstants.ENTITY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST + "' ");
+            log.error("Error: Failed to retrieve url for service: '"
+                    + NhincConstants.ENTITY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST + "' ");
             log.error(e.getMessage());
             ack = new DocRetrieveAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();
@@ -136,14 +141,17 @@ public class EntityDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements E
      * @param assertion
      * @return EntityDocRetrieveDeferredRequestSecuredPortType
      */
-    protected EntityDocRetrieveDeferredRequestSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected EntityDocRetrieveDeferredRequestSecuredPortType getPort(String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion) {
         EntityDocRetrieveDeferredRequestSecuredPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityDocRetrieveDeferredRequestSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    EntityDocRetrieveDeferredRequestSecuredPortType.class);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -153,7 +161,7 @@ public class EntityDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements E
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {

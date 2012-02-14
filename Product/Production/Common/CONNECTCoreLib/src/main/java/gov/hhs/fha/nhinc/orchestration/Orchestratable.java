@@ -29,16 +29,22 @@ package gov.hhs.fha.nhinc.orchestration;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public interface Orchestratable {
 
     public boolean isEnabled();
+
     public boolean isPassthru();
+
     public AuditTransformer getAuditTransformer();
+
     public PolicyTransformer getPolicyTransformer();
+
     public AssertionType getAssertion();
+
     public String getServiceName();
+
     public Delegate getDelegate();
 }

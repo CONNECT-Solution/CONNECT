@@ -34,36 +34,29 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class PolicyEngineProxyJavaImpl implements PolicyEngineProxy
-{
+public class PolicyEngineProxyJavaImpl implements PolicyEngineProxy {
     private Log log = null;
 
-    public PolicyEngineProxyJavaImpl()
-    {
+    public PolicyEngineProxyJavaImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion)
-    {
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         log.debug("Begin PolicyEngineWebServiceProxyJavaImpl.checkPolicy");
         CheckPolicyResponseType response = null;
         AdapterPolicyEngineProcessorImpl policyEngine = new AdapterPolicyEngineProcessorImpl();
-        try
-        {
+        try {
             response = policyEngine.checkPolicy(checkPolicyRequest, assertion);
-        }
-        catch (Exception e)
-        {
-            String sErrorMessage = "Error occurred calling PolicyEngineWebServiceProxyJavaImpl.checkPolicy.  Error: " +
-                                   e.getMessage();
+        } catch (Exception e) {
+            String sErrorMessage = "Error occurred calling PolicyEngineWebServiceProxyJavaImpl.checkPolicy.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }

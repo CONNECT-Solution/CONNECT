@@ -50,7 +50,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class HL7QueryParamsTransformsTest {
@@ -75,31 +75,30 @@ public class HL7QueryParamsTransformsTest {
     }
 
     @Test
-    public void testcreateTelecom()
-    {
+    public void testcreateTelecom() {
         TELExplicit phone;
         String phoneNumber = "7031231234";
         ArrayList<TELExplicit> phoneList = null;
 
-        PRPAMT201306UV02PatientTelecom result  = HL7QueryParamsTransforms.createTelecom(phoneList);
+        PRPAMT201306UV02PatientTelecom result = HL7QueryParamsTransforms.createTelecom(phoneList);
 
         assertEquals(null, result);
-        
+
         phoneList = new ArrayList<TELExplicit>();
 
         phone = HL7DataTransformHelper.createTELExplicit(phoneNumber);
 
         phoneList.add(phone);
-        result  = HL7QueryParamsTransforms.createTelecom(phoneList);
+        result = HL7QueryParamsTransforms.createTelecom(phoneList);
 
         assertNotNull(result);
         assertEquals(1, result.getValue().size());
         assertEquals(phoneNumber, result.getValue().get(0).getValue());
 
     }
+
     @Test
-    public void testCreateAddr()
-    {
+    public void testCreateAddr() {
         PRPAMT201306UV02PatientAddress result = null;
         ADExplicit addr;
         String street = "123 Main Street";
@@ -120,12 +119,12 @@ public class HL7QueryParamsTransformsTest {
         result = HL7QueryParamsTransforms.createAddress(addList);
 
         assertNotNull(result);
-        assertEquals(addr,result.getValue().get(0));
+        assertEquals(addr, result.getValue().get(0));
 
     }
+
     @Test
-    public void testCreateGender()
-    {
+    public void testCreateGender() {
         PRPAMT201306UV02LivingSubjectAdministrativeGender result;
         String gender = "MALE";
         result = HL7QueryParamsTransforms.createGender(null);
@@ -138,9 +137,9 @@ public class HL7QueryParamsTransformsTest {
         assertEquals(1, result.getValue().size());
         assertEquals(gender, result.getValue().get(0).getCode());
     }
+
     @Test
-    public void testCreateBirthTime()
-    {
+    public void testCreateBirthTime() {
         PRPAMT201306UV02LivingSubjectBirthTime result;
         String birthTime = "19000101";
 
@@ -154,13 +153,13 @@ public class HL7QueryParamsTransformsTest {
         assertEquals(1, result.getValue().size());
         assertEquals(birthTime, result.getValue().get(0).getValue());
     }
+
     @Test
-    public void testCreateName()
-    {
+    public void testCreateName() {
         PRPAMT201306UV02LivingSubjectName result;
         ArrayList<PNExplicit> nameList = null;
         PNExplicit name = new PNExplicit();
-        String fName= "John";
+        String fName = "John";
         String lName = "Smith";
 
         result = HL7QueryParamsTransforms.createName(null);
@@ -169,7 +168,7 @@ public class HL7QueryParamsTransformsTest {
 
         nameList = new ArrayList<PNExplicit>();
 
-        //Test not null, but zero names
+        // Test not null, but zero names
         HL7QueryParamsTransforms.createName(nameList);
 
         result = HL7QueryParamsTransforms.createName(nameList);
@@ -184,11 +183,11 @@ public class HL7QueryParamsTransformsTest {
         assertNotNull(name);
         assertEquals(1, result.getValue().size());
         assertEquals(2, result.getValue().get(0).getContent().size());
-        
+
     }
+
     @Test
-    public void testCreateId()
-    {
+    public void testCreateId() {
         PRPAMT201306UV02LivingSubjectId result;
         II id = new II();
         id.setRoot("1.1");
@@ -200,6 +199,5 @@ public class HL7QueryParamsTransformsTest {
         assertEquals(id.getRoot(), result.getValue().get(0).getRoot());
         assertEquals(id.getExtension(), result.getValue().get(0).getExtension());
     }
-
 
 }

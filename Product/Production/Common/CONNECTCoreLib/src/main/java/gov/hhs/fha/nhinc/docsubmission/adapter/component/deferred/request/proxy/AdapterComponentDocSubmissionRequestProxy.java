@@ -32,19 +32,19 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
  * Spring Proxy interface for deferred processing of Doc Submission request.
- *
+ * 
  * @author Les Westberg
  */
-public interface AdapterComponentDocSubmissionRequestProxy
-{
+public interface AdapterComponentDocSubmissionRequestProxy {
 
     /**
      * Receive document deferred document submission request.
-     *
+     * 
      * @param body The doc submission message.
      * @param assertion The assertion information.
-     * @param url 
+     * @param url
      * @return The ACK
      */
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, String url);
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion, String url);
 }

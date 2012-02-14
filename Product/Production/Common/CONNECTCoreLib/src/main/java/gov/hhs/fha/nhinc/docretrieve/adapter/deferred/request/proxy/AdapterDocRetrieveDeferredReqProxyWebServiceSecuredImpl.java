@@ -47,10 +47,7 @@ import java.util.Map;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- * Created by
- * User: ralph
- * Date: Jul 26, 2010
- * Time: 2:37:22 PM
+ * Created by User: ralph Date: Jul 26, 2010 Time: 2:37:22 PM
  */
 public class AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements AdapterDocRetrieveDeferredReqProxy {
     private Log log = null;
@@ -77,18 +74,21 @@ public class AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements 
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterDocRetrieveDeferredRequestSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected AdapterDocRetrieveDeferredRequestSecuredPortType getPort(String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion) {
         AdapterDocRetrieveDeferredRequestSecuredPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveDeferredRequestSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    AdapterDocRetrieveDeferredRequestSecuredPortType.class);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -97,7 +97,7 @@ public class AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements 
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -111,14 +111,15 @@ public class AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements 
         return cachedService;
     }
 
-
     public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion) {
         log.debug("Begin sendToAdapter");
         DocRetrieveAcknowledgementType response = null;
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME);
-            AdapterDocRetrieveDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION, WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper
+                    .getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME);
+            AdapterDocRetrieveDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION,
+                    WS_ADDRESSING_ACTION, assertion);
 
             if (body == null) {
                 log.error("Message was null");
@@ -128,7 +129,8 @@ public class AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements 
                 RespondingGatewayCrossGatewayRetrieveSecuredRequestType request = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
                 request.setRetrieveDocumentSetRequest(body);
 
-                response = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port, AdapterDocRetrieveDeferredRequestSecuredPortType.class, "crossGatewayRetrieveRequest", request);
+                response = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port,
+                        AdapterDocRetrieveDeferredRequestSecuredPortType.class, "crossGatewayRetrieveRequest", request);
             }
         } catch (Exception ex) {
             log.error("Error calling crossGatewayRetrieveRequest: " + ex.getMessage(), ex);

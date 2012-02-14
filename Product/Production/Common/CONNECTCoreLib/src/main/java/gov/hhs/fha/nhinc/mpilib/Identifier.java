@@ -30,7 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class Identifier implements java.io.Serializable {
@@ -40,23 +40,22 @@ public class Identifier implements java.io.Serializable {
     public Identifier() {
     }
 
-    public Identifier(String id, String organizationId) 
-    {
+    public Identifier(String id, String organizationId) {
         this.id = id;
         this.organizationId = organizationId;
     }
-    
+
     private String id = "";
     private String organizationId = "";
 
-    public String getOrganizationId()
-    {
+    public String getOrganizationId() {
         return organizationId;
     }
-    public void setOrganizationId(String id)
-    {
+
+    public void setOrganizationId(String id) {
         organizationId = id;
     }
+
     public String getId() {
         return id;
     }
@@ -64,7 +63,5 @@ public class Identifier implements java.io.Serializable {
     public void setId(String id) {
         this.id = id;
     }
-    
-    
-    
+
 }

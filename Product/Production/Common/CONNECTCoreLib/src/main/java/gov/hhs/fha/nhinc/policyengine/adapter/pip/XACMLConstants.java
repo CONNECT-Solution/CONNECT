@@ -27,13 +27,12 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
 /**
- * This class contains constants used to construct the XACML policy
- * document that represents the patient's consent information.
- *
+ * This class contains constants used to construct the XACML policy document that represents the patient's consent
+ * information.
+ * 
  * @author Les Westberg
  */
-public class XACMLConstants
-{
+public class XACMLConstants {
     public static final String POLICY_DESCRIPTION = "CONSUMER CONSENT POLICY";
     public static final String RULE_COMBINING_ALG_FIRST_APPLICABLE = "urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable";
 
@@ -78,15 +77,13 @@ public class XACMLConstants
     public static final String QNAME_NAMESPACE_LOCALPART_HL7 = "hl7";
     public static final String NAMESPACE_HL7_V3 = "urn:hl7-org:v3";
 
-
     public static final String PATIENT_SUBJECT_ID = "http://www.hhs.gov/healthit/nhin#subject-id";
 
     public static final String DESCRIPTION_OPT_IN_OUT_RULE = "Rule specifying preference for global opt in/opt out of NHIN.";
     public static final String DESCRIPTION_FINE_GRAINED_RULE = "Rule specifying fine grained criteria.";
 
-
     // Constants for an NHIN patient ID tag
-    //-------------------------------------
+    // -------------------------------------
     public static final String NHIN_PATIENT_ID_TAG = "hl7:PatientId";
     public static final String NHIN_PATIENT_ID_TAG_ROOT = "root";
     public static final String NHIN_PATIENT_ID_TAG_EXTENSION = "extension";

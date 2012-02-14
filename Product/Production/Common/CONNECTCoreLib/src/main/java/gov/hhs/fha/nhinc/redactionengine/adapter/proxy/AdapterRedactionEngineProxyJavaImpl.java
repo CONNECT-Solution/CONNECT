@@ -43,13 +43,17 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterRedactionEngineProxyJavaImpl implements AdapterRedactionEngineProxy {
     private static Log log = LogFactory.getLog(AdapterRedactionEngineProxyJavaImpl.class);
 
-    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse, AssertionType assertion) {
+    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
+            AdhocQueryResponse adhocQueryResponse, AssertionType assertion) {
         log.debug("Using Java Implementation for Adapter Redaction Engine Service");
         return new AdapterRedactionEngineOrchImpl().filterAdhocQueryResults(adhocQueryRequest, adhocQueryResponse);
     }
 
-    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion) {
+    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
+            RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
+            RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion) {
         log.debug("Using Java Implementation for Adapter Redaction Engine Service");
-        return new AdapterRedactionEngineOrchImpl().filterRetrieveDocumentSetResults(retrieveDocumentSetRequest, retrieveDocumentSetResponse);
+        return new AdapterRedactionEngineOrchImpl().filterRetrieveDocumentSetResults(retrieveDocumentSetRequest,
+                retrieveDocumentSetResponse);
     }
 }

@@ -32,14 +32,14 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class DocRetrieveAckTranforms {
 
     /**
      * Create acknowledgement message based on specific data values.
-     *
+     * 
      * @param status
      * @param errCode
      * @param errText

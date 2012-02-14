@@ -39,32 +39,28 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class AdapterXDRResponseImpl
-{
+public class AdapterXDRResponseImpl {
     private Log log = null;
 
-    public AdapterXDRResponseImpl()
-    {
+    public AdapterXDRResponseImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(AdapterRegistryResponseType body, WebServiceContext context)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(AdapterRegistryResponseType body,
+            WebServiceContext context) {
         log.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(unsecured)");
         XDRAcknowledgementType response = null;
 
         RegistryResponseType regResponse = null;
         AssertionType assertion = null;
-        if (body != null)
-        {
+        if (body != null) {
             regResponse = body.getRegistryResponse();
             assertion = body.getAssertion();
         }
@@ -75,8 +71,8 @@ public class AdapterXDRResponseImpl
         return response;
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, WebServiceContext context)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
+            WebServiceContext context) {
         log.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(secured)");
         XDRAcknowledgementType response = null;
 
@@ -88,25 +84,19 @@ public class AdapterXDRResponseImpl
         return response;
     }
 
-    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn)
-    {
+    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
-        if (oAssertionIn == null)
-        {
+        if (oAssertionIn == null) {
             assertion = SamlTokenExtractor.GetAssertion(context);
-        }
-        else
-        {
+        } else {
             assertion = oAssertionIn;
         }
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null)
-        {
+        if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList))
-            {
+            if (NullChecker.isNotNullish(relatesToList)) {
                 assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
             }
         }
@@ -114,9 +104,10 @@ public class AdapterXDRResponseImpl
         return assertion;
     }
 
-    protected XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse, AssertionType assertion)
-    {
+    protected XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
+            AssertionType assertion) {
         log.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse");
-        return new AdapterDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(regResponse, assertion);
+        return new AdapterDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(regResponse,
+                assertion);
     }
 }

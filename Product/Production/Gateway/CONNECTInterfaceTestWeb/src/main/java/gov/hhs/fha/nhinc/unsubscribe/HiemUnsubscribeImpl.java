@@ -44,7 +44,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class HiemUnsubscribeImpl {
@@ -68,12 +68,13 @@ public class HiemUnsubscribeImpl {
 
         log.debug("extracting reference parameters from soap header");
         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-        ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
+        ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+                .createReferenceParameterElements(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
         log.debug("extracted reference parameters from soap header");
 
         // Collect info and create the subscription reference
-//            SubscriptionReferenceType subscriptionReference = createSubscriptionReference(homeCommunityId, context);
-//            unsubscribeType.setSubscriptionReference(subscriptionReference);
+        // SubscriptionReferenceType subscriptionReference = createSubscriptionReference(homeCommunityId, context);
+        // unsubscribeType.setSubscriptionReference(subscriptionReference);
 
         // Call the internal unsubscribe process
         resp = callInternalUnsubscribe(request, referenceParametersElements);
@@ -91,7 +92,8 @@ public class HiemUnsubscribeImpl {
                 MessageContext msgContext = context.getMessageContext();
                 if (msgContext != null) {
                     @SuppressWarnings("unchecked")
-                    Map<String, List<String>> msgCtxMap = (Map<String, List<String>>) msgContext.get(MessageContext.HTTP_REQUEST_HEADERS);
+                    Map<String, List<String>> msgCtxMap = (Map<String, List<String>>) msgContext
+                            .get(MessageContext.HTTP_REQUEST_HEADERS);
                     if (msgCtxMap != null) {
                         for (String key : msgCtxMap.keySet()) {
                             if ("Subscriptionid".equalsIgnoreCase(key)) {
@@ -133,7 +135,8 @@ public class HiemUnsubscribeImpl {
             refParamsType.getReferenceParameter().add(refParam);
         }
 
-        subscriptionReference.setSubscriptionManagerEndpointAddress(getEndpointUrl(homeCommunityId, "subscriptionmanager"));
+        subscriptionReference.setSubscriptionManagerEndpointAddress(getEndpointUrl(homeCommunityId,
+                "subscriptionmanager"));
 
         return subscriptionReference;
     }
@@ -141,32 +144,39 @@ public class HiemUnsubscribeImpl {
     private String getEndpointUrl(String homeCommunityId, String serviceName) {
         String endpointUrl = null;
         try {
-            BusinessEntity businessEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(homeCommunityId, serviceName);
+            BusinessEntity businessEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(
+                    homeCommunityId, serviceName);
             if (businessEntity != null) {
                 BusinessServices businessServices = businessEntity.getBusinessServices();
                 if ((businessServices != null) && (businessServices.getBusinessService() != null)) {
                     for (BusinessService businessService : businessServices.getBusinessService()) {
-                        if ((businessService.getBindingTemplates() != null) && (businessService.getBindingTemplates().getBindingTemplate() != null)) {
-                            for (BindingTemplate bindingTemplate : businessService.getBindingTemplates().getBindingTemplate()) {
+                        if ((businessService.getBindingTemplates() != null)
+                                && (businessService.getBindingTemplates().getBindingTemplate() != null)) {
+                            for (BindingTemplate bindingTemplate : businessService.getBindingTemplates()
+                                    .getBindingTemplate()) {
                                 endpointUrl = bindingTemplate.getAccessPoint().getValue();
                                 break;
                             }
                             break;
                         } else {
-                            log.debug("No binding templates found for community '" + homeCommunityId + "' and service name '" + serviceName + "'.");
+                            log.debug("No binding templates found for community '" + homeCommunityId
+                                    + "' and service name '" + serviceName + "'.");
                         }
                     }
                 } else {
-                    log.debug("No business services found for community '" + homeCommunityId + "' and service name '" + serviceName + "'.");
+                    log.debug("No business services found for community '" + homeCommunityId + "' and service name '"
+                            + serviceName + "'.");
                 }
             }
         } catch (Throwable t) {
-            log.error("Error collecting endpoint url for community '" + homeCommunityId + "' and service name '" + serviceName + "': " + t.getMessage(), t);
+            log.error("Error collecting endpoint url for community '" + homeCommunityId + "' and service name '"
+                    + serviceName + "': " + t.getMessage(), t);
         }
         return endpointUrl;
     }
 
-    private org.oasis_open.docs.wsn.b_2.UnsubscribeResponse callInternalUnsubscribe(UnsubscribeRequestType request, ReferenceParametersElements referenceParametersElements) {
+    private org.oasis_open.docs.wsn.b_2.UnsubscribeResponse callInternalUnsubscribe(UnsubscribeRequestType request,
+            ReferenceParametersElements referenceParametersElements) {
         org.oasis_open.docs.wsn.b_2.UnsubscribeResponse result = null;
         try { // Call Web Service Operation
             log.debug("sending unsubscribe from test helper to adapter");
@@ -177,12 +187,12 @@ public class HiemUnsubscribeImpl {
             log.debug("preparing port");
             gov.hhs.fha.nhinc.nhincsubscription.NhincSubscriptionManagerService service = new gov.hhs.fha.nhinc.nhincsubscription.NhincSubscriptionManagerService();
             gov.hhs.fha.nhinc.nhincsubscription.SubscriptionManager port = service.getSubscriptionManagerPort();
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                    javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
             log.debug("attaching reference parameter headers");
             SoapUtil soapUtil = new SoapUtil();
             soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
-
 
             log.debug("send request to adapter");
             result = port.unsubscribe(request);

@@ -34,7 +34,7 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterPatientDiscoverySecuredDeferredResponseImpl {
@@ -42,15 +42,18 @@ public class AdapterPatientDiscoverySecuredDeferredResponseImpl {
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        MCCIIN000002UV01 ack = new AdapterPatientDiscoveryDeferredRespOrchImpl().processPatientDiscoveryAsyncResp(request, assertion);
+        MCCIIN000002UV01 ack = new AdapterPatientDiscoveryDeferredRespOrchImpl().processPatientDiscoveryAsyncResp(
+                request, assertion);
 
         return ack;
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion, WebServiceContext context) {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
+            WebServiceContext context) {
         AssertionType assertType = getAssertion(context, assertion);
 
-        MCCIIN000002UV01 ack = new AdapterPatientDiscoveryDeferredRespOrchImpl().processPatientDiscoveryAsyncResp(request, assertType);
+        MCCIIN000002UV01 ack = new AdapterPatientDiscoveryDeferredRespOrchImpl().processPatientDiscoveryAsyncResp(
+                request, assertType);
 
         return ack;
     }

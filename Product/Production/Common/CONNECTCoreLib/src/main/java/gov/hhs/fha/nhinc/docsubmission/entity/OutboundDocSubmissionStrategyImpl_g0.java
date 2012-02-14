@@ -35,7 +35,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author zmelnick
  */
 class OutboundDocSubmissionStrategyImpl_g0 implements OrchestrationStrategy {
@@ -66,12 +66,15 @@ class OutboundDocSubmissionStrategyImpl_g0 implements OrchestrationStrategy {
         }
 
         if (message instanceof OutboundDocSubmissionOrchestratable) {
-            NhinDocSubmissionProxy nhincDocSubmission = new NhinDocSubmissionProxyObjectFactory().getNhinDocSubmissionProxy();
-            RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetB(message.getRequest(), message.getAssertion(), message.getTarget());
+            NhinDocSubmissionProxy nhincDocSubmission = new NhinDocSubmissionProxyObjectFactory()
+                    .getNhinDocSubmissionProxy();
+            RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetB(message.getRequest(),
+                    message.getAssertion(), message.getTarget());
             message.setResponse(response);
         } else {
-            getLogger().error("OutboundDocSubmissionOrchestratableImpl_g0 AdapterDelegateImpl_a0.process recieved a message " +
-                    "which was not of type OutboundDocSubmissionOrchestratableImpl_a0.");
+            getLogger().error(
+                    "OutboundDocSubmissionOrchestratableImpl_g0 AdapterDelegateImpl_a0.process recieved a message "
+                            + "which was not of type OutboundDocSubmissionOrchestratableImpl_a0.");
         }
         getLogger().debug("End OutboundDocSubmissionOrchestratableImpl_g0.process");
     }

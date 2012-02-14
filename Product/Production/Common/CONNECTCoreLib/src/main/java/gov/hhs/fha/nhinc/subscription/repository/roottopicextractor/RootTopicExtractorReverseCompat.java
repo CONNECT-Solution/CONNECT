@@ -60,12 +60,13 @@ import org.w3c.dom.*;
 //import org.xml.sax.SAXException;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class RootTopicExtractorReverseCompat {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(RootTopicExtractorReverseCompat.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(RootTopicExtractorReverseCompat.class);
 
     public Element buildTopicExpressionFromSubscribe(Element message) {
         String documentSubscribeXpathQuery = "//*[local-name()='Subscribe']/*[local-name()='AdhocQuery']";
@@ -110,28 +111,30 @@ public class RootTopicExtractorReverseCompat {
         return element;
     }
 
-//    public String extractReverseCompatRootTopic(String message) {
-//        Element element = null;
-//        try {
-//            element = XmlUtility.convertXmlToElement(message);
-//        } catch (Exception ex) {
-//            log.warn("Failed to check topic for reverse compatibility.", ex);
-//        }
-//        return extractReverseCompatRootTopic(element);
-//    }
+    // public String extractReverseCompatRootTopic(String message) {
+    // Element element = null;
+    // try {
+    // element = XmlUtility.convertXmlToElement(message);
+    // } catch (Exception ex) {
+    // log.warn("Failed to check topic for reverse compatibility.", ex);
+    // }
+    // return extractReverseCompatRootTopic(element);
+    // }
 
-//    public String extractReverseCompatRootTopic(Element message) {
-//        String documentNotifyXpathQuery = "//*[local-name()='Subscribe']/*[local-name()='AdhocQuery']";
-//        String documentSubscribeXpathQuery = "//*[local-name()='NotificationMessage']/*[local-name()='Message']/*[local-name()='RetrieveDocumentSetRequest']";
-//        String documentTopic = "{urn:gov.hhs.fha.nhinc.hiemtopic}document";
-//
-//        String rootTopic = null;
-//
-//        if (xpathCheckForTopic(documentSubscribeXpathQuery, message) || xpathCheckForTopic(documentNotifyXpathQuery, message)) {
-//            rootTopic = documentTopic;
-//        }
-//        return rootTopic;
-//    }
+    // public String extractReverseCompatRootTopic(Element message) {
+    // String documentNotifyXpathQuery = "//*[local-name()='Subscribe']/*[local-name()='AdhocQuery']";
+    // String documentSubscribeXpathQuery =
+    // "//*[local-name()='NotificationMessage']/*[local-name()='Message']/*[local-name()='RetrieveDocumentSetRequest']";
+    // String documentTopic = "{urn:gov.hhs.fha.nhinc.hiemtopic}document";
+    //
+    // String rootTopic = null;
+    //
+    // if (xpathCheckForTopic(documentSubscribeXpathQuery, message) || xpathCheckForTopic(documentNotifyXpathQuery,
+    // message)) {
+    // rootTopic = documentTopic;
+    // }
+    // return rootTopic;
+    // }
 
     private boolean xpathCheckForTopic(String xpathQuery, Element message) {
         boolean result = false;

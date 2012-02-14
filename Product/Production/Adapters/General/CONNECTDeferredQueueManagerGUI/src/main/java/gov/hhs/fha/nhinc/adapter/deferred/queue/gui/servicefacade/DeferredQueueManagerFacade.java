@@ -39,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
 import com.sun.webui.jsf.model.Option;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class DeferredQueueManagerFacade implements DeferredGUIConstants {
@@ -78,7 +78,7 @@ public class DeferredQueueManagerFacade implements DeferredGUIConstants {
         return asyncMsgRecs;
     }
 
-    public List<AsyncMsgRecord> queryBySearchCriteria(Date startDate, Date stopDate,String status) {
+    public List<AsyncMsgRecord> queryBySearchCriteria(Date startDate, Date stopDate, String status) {
         log.debug("Performing DeferredQueueManagerFacade:: queryByGivenSearchCriteria API.");
 
         AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
@@ -100,21 +100,21 @@ public class DeferredQueueManagerFacade implements DeferredGUIConstants {
     private List<Option> loadDeferredQueueStatuses() {
         ArrayList statusList = new ArrayList();
 
-        statusList.add(new Option("REQSENTERR",REQSENTERR));
-        statusList.add(new Option("REQPROCESS",REQPROCESS));
-        statusList.add(new Option("REQSENT",REQSENT));
-        statusList.add(new Option("REQSENTACK",REQSENTACK));
-        statusList.add(new Option("REQRCVD",REQRCVD));
-        statusList.add(new Option("REQRCVDACK",REQRCVDACK));
-        statusList.add(new Option("REQRCVDERR",REQRCVDERR));
-        statusList.add(new Option("RSPRCVDERR",RSPRCVDERR));
-        statusList.add(new Option("RSPRCVD",RSPRCVD));
-        statusList.add(new Option("RSPRCVDACK",RSPRCVDACK));
-        statusList.add(new Option("RSPSELECT",RSPSELECT));
-        statusList.add(new Option("RSPPROCESS",RSPPROCESS));
-        statusList.add(new Option("RSPSENT",RSPSENT));
-        statusList.add(new Option("RSPSENTACK",RSPSENTACK));
-        statusList.add(new Option("RSPSENTERR",RSPSENTERR));
+        statusList.add(new Option("REQSENTERR", REQSENTERR));
+        statusList.add(new Option("REQPROCESS", REQPROCESS));
+        statusList.add(new Option("REQSENT", REQSENT));
+        statusList.add(new Option("REQSENTACK", REQSENTACK));
+        statusList.add(new Option("REQRCVD", REQRCVD));
+        statusList.add(new Option("REQRCVDACK", REQRCVDACK));
+        statusList.add(new Option("REQRCVDERR", REQRCVDERR));
+        statusList.add(new Option("RSPRCVDERR", RSPRCVDERR));
+        statusList.add(new Option("RSPRCVD", RSPRCVD));
+        statusList.add(new Option("RSPRCVDACK", RSPRCVDACK));
+        statusList.add(new Option("RSPSELECT", RSPSELECT));
+        statusList.add(new Option("RSPPROCESS", RSPPROCESS));
+        statusList.add(new Option("RSPSENT", RSPSENT));
+        statusList.add(new Option("RSPSENTACK", RSPSENTACK));
+        statusList.add(new Option("RSPSENTERR", RSPSENTERR));
         return statusList;
     }
 }

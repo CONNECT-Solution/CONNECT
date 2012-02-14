@@ -31,23 +31,20 @@ package gov.hhs.fha.nhinc.properties;
  * 
  * @author Les Westberg
  */
-public class PropertyAccessException extends Exception
-{
+public class PropertyAccessException extends Exception {
     /**
      * Default constructor.
      */
-    public PropertyAccessException()
-    {
+    public PropertyAccessException() {
         super();
     }
-    
+
     /**
      * Constructor with an envloping exception.
      * 
-     * @param e  The exception that caused this one.
+     * @param e The exception that caused this one.
      */
-    public PropertyAccessException(Exception e)
-    {
+    public PropertyAccessException(Exception e) {
         super(e);
     }
 
@@ -57,8 +54,7 @@ public class PropertyAccessException extends Exception
      * @param sMessage The message to place in the exception.
      * @param e The exception that triggered this one.
      */
-    public PropertyAccessException(String sMessage, Exception e)
-    {
+    public PropertyAccessException(String sMessage, Exception e) {
         super(sMessage, e);
     }
 
@@ -67,9 +63,8 @@ public class PropertyAccessException extends Exception
      * 
      * @param sMessage The message for the exception.
      */
-    public PropertyAccessException(String sMessage)
-    {
+    public PropertyAccessException(String sMessage) {
         super(sMessage);
     }
-    
+
 }

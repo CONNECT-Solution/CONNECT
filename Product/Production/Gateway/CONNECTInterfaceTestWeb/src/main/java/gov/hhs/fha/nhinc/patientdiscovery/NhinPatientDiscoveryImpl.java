@@ -22,7 +22,7 @@ import gov.hhs.fha.nhinc.nhincproxypatientdiscovery.NhincProxyPatientDiscovery;
 import gov.hhs.fha.nhinc.nhincproxypatientdiscovery.NhincProxyPatientDiscoveryPortType;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class NhinPatientDiscoveryImpl {
@@ -38,18 +38,23 @@ public class NhinPatientDiscoveryImpl {
         request.setAssertion(SamlTokenExtractor.GetAssertion(context));
 
         String homeCommunityId = null;
-        if (body != null &&
-                NullChecker.isNotNullish(body.getReceiver()) &&
-                body.getReceiver().get(0) != null &&
-                body.getReceiver().get(0).getDevice() != null &&
-                body.getReceiver().get(0).getDevice().getAsAgent() != null &&
-                body.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
-                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-            homeCommunityId = body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        if (body != null
+                && NullChecker.isNotNullish(body.getReceiver())
+                && body.getReceiver().get(0) != null
+                && body.getReceiver().get(0).getDevice() != null
+                && body.getReceiver().get(0).getDevice().getAsAgent() != null
+                && body.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
+                && body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                && body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue() != null
+                && NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId())
+                && body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue().getId().get(0) != null
+                && NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            homeCommunityId = body.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                    .getRepresentedOrganization().getValue().getId().get(0).getRoot();
         } else {
             homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
         }
@@ -57,7 +62,9 @@ public class NhinPatientDiscoveryImpl {
         if (NullChecker.isNotNullish(homeCommunityId)) {
             NhincProxyPatientDiscovery service = new NhincProxyPatientDiscovery();
             NhincProxyPatientDiscoveryPortType port = service.getNhincProxyPatientDiscoveryPort();
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
+            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                    javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                    SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
 
             response = port.proxyPRPAIN201305UV(request);
         } else {

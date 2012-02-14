@@ -29,9 +29,8 @@ package gov.hhs.fha.nhinc.adapter.deferred.queue;
 import java.io.Serializable;
 
 /**
- * This exception is thrown when an error occurs during deferred queue
- * processing.
- *
+ * This exception is thrown when an error occurs during deferred queue processing.
+ * 
  * @author richard.ettema
  */
 public class DeferredQueueException extends Exception implements Serializable {
@@ -47,8 +46,8 @@ public class DeferredQueueException extends Exception implements Serializable {
 
     /**
      * Constructor with an envloping exception.
-     *
-     * @param e  The exception that caused this one.
+     * 
+     * @param e The exception that caused this one.
      */
     public DeferredQueueException(Exception e) {
         super(e);
@@ -56,7 +55,7 @@ public class DeferredQueueException extends Exception implements Serializable {
 
     /**
      * Constructor with the given exception and message.
-     *
+     * 
      * @param sMessage The message to place in the exception.
      * @param e The exception that triggered this one.
      */
@@ -66,7 +65,7 @@ public class DeferredQueueException extends Exception implements Serializable {
 
     /**
      * Constructor with a given message.
-     *
+     * 
      * @param sMessage The message for the exception.
      */
     public DeferredQueueException(String sMessage) {

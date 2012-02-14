@@ -42,7 +42,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class PassthruDocQueryDeferredResponseOrchImpl {
@@ -50,13 +50,14 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
     private static Log log = LogFactory.getLog(PassthruDocQueryDeferredResponseOrchImpl.class);
 
     /**
-     *
+     * 
      * @param body
      * @param assertion
      * @param target
      * @return <code>DocQueryAcknowledgementType</code>
      */
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse body, AssertionType assertion, NhinTargetSystemType target) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse body,
+            AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Begin - respondingGatewayCrossGatewayQuery");
 
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
@@ -66,14 +67,15 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
 
         // The responding home community id is required in the audit log
         String responseCommunityID = null;
-        if (assertion != null &&
-                assertion.getUserInfo() != null &&
-                assertion.getUserInfo().getOrg() != null) {
+        if (assertion != null && assertion.getUserInfo() != null && assertion.getUserInfo().getOrg() != null) {
             responseCommunityID = assertion.getUserInfo().getOrg().getHomeCommunityId();
-            log.debug("=====>>>>> PassthruDocQueryDeferredResponseOrchImpl --> responseCommunityID is [" + responseCommunityID + "]");
+            log.debug("=====>>>>> PassthruDocQueryDeferredResponseOrchImpl --> responseCommunityID is ["
+                    + responseCommunityID + "]");
         }
         // Audit the outgoing NHIN Message
-        AcknowledgementType ack = auditLog.auditDQResponse(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
+        AcknowledgementType ack = auditLog.auditDQResponse(body, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                responseCommunityID);
 
         // Call the NHIN Interface
         NhinDocQueryDeferredResponseProxyObjectFactory factory = new NhinDocQueryDeferredResponseProxyObjectFactory();
@@ -91,7 +93,8 @@ public class PassthruDocQueryDeferredResponseOrchImpl {
         respAck = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
 
         // Audit the incoming NHIN Acknowledgement Message
-        ack = auditLog.logDocQueryAck(respAck, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
+        ack = auditLog.logDocQueryAck(respAck, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
 
         log.debug("End - respondingGatewayCrossGatewayQuery");
 

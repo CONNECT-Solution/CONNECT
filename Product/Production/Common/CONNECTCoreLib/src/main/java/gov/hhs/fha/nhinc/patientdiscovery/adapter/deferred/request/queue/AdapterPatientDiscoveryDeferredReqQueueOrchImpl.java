@@ -57,7 +57,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
@@ -67,7 +67,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         return new AsyncMessageProcessHelper();
     }
 
-    public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
+            NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
         RespondingGatewayPRPAIN201305UV02RequestType unsecureRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         unsecureRequest.setAssertion(assertion);
@@ -76,7 +77,9 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
 
         // Audit the incoming Nhin 201305 Message
         PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLogger.auditEntityDeferred201305(unsecureRequest, unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_RESPONSE_PROCESS);
+        AcknowledgementType ack = auditLogger.auditEntityDeferred201305(unsecureRequest,
+                unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_RESPONSE_PROCESS);
 
         // ASYNCMSG PROCESSING - RSPPROCESS
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
@@ -87,7 +90,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         if (bIsQueueOk) {
             resp = addPatientDiscoveryAsyncReq(unsecureRequest);
 
-            asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, resp);
+            asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK,
+                    AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, resp);
         } else {
             String ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
 
@@ -97,7 +101,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         }
 
         // Audit the responding Acknowledgement Message
-        ack = auditLogger.auditAck(resp, unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        ack = auditLogger.auditAck(resp, unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         return resp;
     }
@@ -122,8 +127,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         homeCommunityType.setHomeCommunityId(homeCommunityId);
         homeCommunityType.setName(homeCommunityId);
         newAssertion.setHomeCommunity(homeCommunityType);
-        if (newAssertion.getUserInfo() != null &&
-                newAssertion.getUserInfo().getOrg() != null) {
+        if (newAssertion.getUserInfo() != null && newAssertion.getUserInfo().getOrg() != null) {
             newAssertion.getUserInfo().getOrg().setHomeCommunityId(homeCommunityId);
             newAssertion.getUserInfo().getOrg().setName(homeCommunityId);
         }
@@ -133,7 +137,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         return ack;
     }
 
-    protected MCCIIN000002UV01 sendToNhin(PRPAIN201306UV02 respMsg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    protected MCCIIN000002UV01 sendToNhin(PRPAIN201306UV02 respMsg, AssertionType assertion,
+            NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         java.util.List<UrlInfo> urlInfoList = null;
@@ -142,10 +147,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
             urlInfoList = getTargets(targets);
         }
 
-        if (urlInfoList != null &&
-                NullChecker.isNotNullish(urlInfoList) &&
-                urlInfoList.get(0) != null &&
-                NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
+        if (urlInfoList != null && NullChecker.isNotNullish(urlInfoList) && urlInfoList.get(0) != null
+                && NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
 
             targetSystem.setUrl(urlInfoList.get(0).getUrl());
 
@@ -164,10 +167,12 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
+                    targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
 
         } catch (ConnectionManagerException ex) {
-            log.error("Failed to obtain target URLs for service " + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
+            log.error("Failed to obtain target URLs for service "
+                    + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
             return null;
         }
 

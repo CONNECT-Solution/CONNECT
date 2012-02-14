@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.connectmgr.data;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class CMInternalConnectionInfoState {
@@ -51,24 +51,19 @@ public class CMInternalConnectionInfoState {
     }
 
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
-     *
+     * Returns true of the contents of the object are the same as the one passed in.
+     * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
     public boolean equals(CMInternalConnectionInfoState oCompare) {
         boolean result = false;
 
-        if (NullChecker.isNullish(oCompare.name) &&
-                NullChecker.isNullish(this.name)) {
+        if (NullChecker.isNullish(oCompare.name) && NullChecker.isNullish(this.name)) {
             result = true;
-        }
-        else if (NullChecker.isNullish(oCompare.name) ||
-                NullChecker.isNullish(this.name)) {
+        } else if (NullChecker.isNullish(oCompare.name) || NullChecker.isNullish(this.name)) {
             result = false;
-        }
-        else {
+        } else {
             if (this.name.equalsIgnoreCase(oCompare.name)) {
                 result = true;
             }
@@ -79,7 +74,7 @@ public class CMInternalConnectionInfoState {
 
     /**
      * Return the name of this servie.
-     *
+     * 
      * @return The name of this service.
      */
     public String getName() {
@@ -88,7 +83,7 @@ public class CMInternalConnectionInfoState {
 
     /**
      * Set the name of this service.
-     *
+     * 
      * @param name The name of this service.
      */
     public void setName(String name) {

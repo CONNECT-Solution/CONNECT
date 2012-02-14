@@ -39,10 +39,8 @@ public class PatientIdFormatUtil {
     private static Log log = LogFactory.getLog(PatientIdFormatUtil.class);
 
     /**
-     * Parse an optionally HL7 encoded patient identifier. If the patient 
-     * identifier is not HL7 encoded, the original id will be returned.
-     * The format of an HL7 encoded patient id is 
-     * "<id>^^^&<home coummunity id>&ISO"
+     * Parse an optionally HL7 encoded patient identifier. If the patient identifier is not HL7 encoded, the original id
+     * will be returned. The format of an HL7 encoded patient id is "<id>^^^&<home coummunity id>&ISO"
      * 
      * @param receivedPatientId Optionally HL7 encoded patient identifier
      * @return Parsed patient id
@@ -64,6 +62,7 @@ public class PatientIdFormatUtil {
 
     /**
      * stripQuotesFromPatientId
+     * 
      * @param patientId
      * @return patientId
      */
@@ -71,14 +70,14 @@ public class PatientIdFormatUtil {
         log.debug("stripQuotesFromPatientId - Parsing patient id: " + patientId);
 
         if ((patientId != null) && (patientId.length() > 0)) {
-            // In some cases we see a quote - in others we do not.  So lets strip them off if we see them.
-            //---------------------------------------------------------------------------------------------
+            // In some cases we see a quote - in others we do not. So lets strip them off if we see them.
+            // ---------------------------------------------------------------------------------------------
             if ((patientId.startsWith("'")) && (patientId.length() > 1)) {
                 StringBuffer sbPatientId = new StringBuffer(patientId);
                 if (patientId.endsWith("'")) {
-                    sbPatientId.deleteCharAt(sbPatientId.length() - 1);     // strip off the ending quote
+                    sbPatientId.deleteCharAt(sbPatientId.length() - 1); // strip off the ending quote
                 }
-                sbPatientId.deleteCharAt(0);        // strip off hte first char quote
+                sbPatientId.deleteCharAt(0); // strip off hte first char quote
 
                 patientId = sbPatientId.toString();
             }
@@ -88,10 +87,8 @@ public class PatientIdFormatUtil {
     }
 
     /**
-     * Parse an optionally HL7 encoded community id. If the patient 
-     * identifier is not HL7 encoded, null will be returned.
-     * The format of an HL7 encoded patient id is 
-     * "<id>^^^&<home coummunity id>&ISO"
+     * Parse an optionally HL7 encoded community id. If the patient identifier is not HL7 encoded, null will be
+     * returned. The format of an HL7 encoded patient id is "<id>^^^&<home coummunity id>&ISO"
      * 
      * @param encodedPatientId Optionally HL7 encoded patient identifier
      * @return Parsed community id
@@ -124,24 +121,24 @@ public class PatientIdFormatUtil {
     }
 
     /**
-     * HL7 encode a patient identifier. The resulting format will be:
-     * "<id>^^^&<home coummunity id>&ISO"
+     * HL7 encode a patient identifier. The resulting format will be: "<id>^^^&<home coummunity id>&ISO"
      * 
      * @param patientId Patient identifier
      * @param homeCommunityId Home community id
      * @return HL7 encoded patient id
      */
     public static String hl7EncodePatientId(String patientId, String homeCommunityId) {
-        // Sometimes the homeCommunityId is prepended with "urn:oid:" for various reasons.  We do not
-        // want that included when putting together the Patient ID.  If it is there, we need to 
+        // Sometimes the homeCommunityId is prepended with "urn:oid:" for various reasons. We do not
+        // want that included when putting together the Patient ID. If it is there, we need to
         // strip it off.
-        //---------------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------
         String sLocalHomeCommunityId = homeCommunityId;
         if (homeCommunityId.startsWith("urn:oid:")) {
             sLocalHomeCommunityId = sLocalHomeCommunityId.substring("urn:oid:".length());
         }
         String encodedPatientId = null;
-        log.debug("Creating HL7 encoded patient id for patient id: " + patientId + ", home community id: " + sLocalHomeCommunityId);
+        log.debug("Creating HL7 encoded patient id for patient id: " + patientId + ", home community id: "
+                + sLocalHomeCommunityId);
         if (patientId != null) {
             encodedPatientId = "'" + patientId + "^^^&" + sLocalHomeCommunityId + "&ISO" + "'";
             log.debug("HL7 encoded patient id: " + encodedPatientId);

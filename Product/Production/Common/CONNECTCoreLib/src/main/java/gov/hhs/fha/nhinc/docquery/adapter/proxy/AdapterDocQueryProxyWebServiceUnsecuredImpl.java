@@ -40,7 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQueryProxy {
@@ -53,41 +53,35 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterdocquery:AdapterDocQueryRequestMessage";
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public AdapterDocQueryProxyWebServiceUnsecuredImpl()
-    {
+    public AdapterDocQueryProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterDocQueryPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-    {
+    protected AdapterDocQueryPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
         AdapterDocQueryPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocQueryPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -95,19 +89,14 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
@@ -118,33 +107,24 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
         log.debug("Begin respondingGatewayCrossGatewayQuery");
         AdhocQueryResponse response = null;
 
-        try
-        {
+        try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME);
             AdapterDocQueryPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
-            if(msg == null)
-            {
+            if (msg == null) {
                 log.error("Message was null");
-            }
-            else if(assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("assertion was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
                 request.setAdhocQueryRequest(msg);
                 request.setAssertion(assertion);
-                response = (AdhocQueryResponse)oProxyHelper.invokePort(port, AdapterDocQueryPortType.class, "respondingGatewayCrossGatewayQuery", request);
+                response = (AdhocQueryResponse) oProxyHelper.invokePort(port, AdapterDocQueryPortType.class,
+                        "respondingGatewayCrossGatewayQuery", request);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error sending Adapter Doc Query Unsecured message: " + ex.getMessage(), ex);
             response = new AdhocQueryResponse();
             response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");

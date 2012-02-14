@@ -38,7 +38,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author akong
  */
 @RunWith(JMock.class)
@@ -49,15 +49,16 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessTest {
         }
     };
 
-    final AdapterPatientDiscoveryDeferredReqQueueProcessImpl mockImpl = context.mock(AdapterPatientDiscoveryDeferredReqQueueProcessImpl.class);
+    final AdapterPatientDiscoveryDeferredReqQueueProcessImpl mockImpl = context
+            .mock(AdapterPatientDiscoveryDeferredReqQueueProcessImpl.class);
 
     @Test
     public void testGetAdapterPatientDiscoveryDeferredReqQueueProcessImpl() {
         AdapterPatientDiscoveryDeferredReqQueueProcess process = new AdapterPatientDiscoveryDeferredReqQueueProcess();
-        AdapterPatientDiscoveryDeferredReqQueueProcessImpl processImpl = process.getAdapterPatientDiscoveryDeferredReqQueueProcessImpl();
+        AdapterPatientDiscoveryDeferredReqQueueProcessImpl processImpl = process
+                .getAdapterPatientDiscoveryDeferredReqQueueProcessImpl();
         assertNotNull(processImpl);
     }
-
 
     @Test
     public void testProcessPatientDiscoveryDeferredReqQueue() {
@@ -69,12 +70,15 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessTest {
         };
         context.checking(new Expectations() {
             {
-                oneOf(mockImpl).processPatientDiscoveryDeferredReqQueue(with(any(PatientDiscoveryDeferredReqQueueProcessRequestType.class)), with(any(javax.xml.ws.WebServiceContext.class)));
+                oneOf(mockImpl).processPatientDiscoveryDeferredReqQueue(
+                        with(any(PatientDiscoveryDeferredReqQueueProcessRequestType.class)),
+                        with(any(javax.xml.ws.WebServiceContext.class)));
                 will(returnValue(new PatientDiscoveryDeferredReqQueueProcessResponseType()));
             }
         });
 
-        PatientDiscoveryDeferredReqQueueProcessResponseType response = process.processPatientDiscoveryDeferredReqQueue(null);
+        PatientDiscoveryDeferredReqQueueProcessResponseType response = process
+                .processPatientDiscoveryDeferredReqQueue(null);
         assertNotNull(response);
     }
 }

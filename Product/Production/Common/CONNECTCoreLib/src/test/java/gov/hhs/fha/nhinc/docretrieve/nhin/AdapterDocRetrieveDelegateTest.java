@@ -35,7 +35,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class AdapterDocRetrieveDelegateTest {
@@ -65,8 +65,8 @@ public class AdapterDocRetrieveDelegateTest {
     @Test
     public void testProcess() {
         InboundOrchestratable message = null;
-        //AdapterDocRetrieveDelegate instance = new AdapterDocRetrieveDelegate();
-        //instance.process(message);
+        // AdapterDocRetrieveDelegate instance = new AdapterDocRetrieveDelegate();
+        // instance.process(message);
         // TODO: update this test once we can mock InboundOrchestratable
     }
 
@@ -77,8 +77,8 @@ public class AdapterDocRetrieveDelegateTest {
     public void testCreateErrorResponse() {
         InboundOrchestratable message = null;
         String error = "";
-        //AdapterDocRetrieveDelegate instance = new AdapterDocRetrieveDelegate();
-        //instance.createErrorResponse(message, error);
+        // AdapterDocRetrieveDelegate instance = new AdapterDocRetrieveDelegate();
+        // instance.createErrorResponse(message, error);
         // TODO: update this test once we can mock InboundOrchestratable
     }
 

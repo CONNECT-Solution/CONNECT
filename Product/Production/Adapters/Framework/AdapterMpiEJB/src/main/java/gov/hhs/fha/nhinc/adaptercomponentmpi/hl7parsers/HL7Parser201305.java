@@ -38,15 +38,14 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class HL7Parser201305 {
 
     private static Log log = LogFactory.getLog(HL7Parser201305.class);
 
-    public static PRPAMT201306UV02ParameterList ExtractHL7QueryParamsFromMessage(
-            org.hl7.v3.PRPAIN201305UV02 message) {
+    public static PRPAMT201306UV02ParameterList ExtractHL7QueryParamsFromMessage(org.hl7.v3.PRPAIN201305UV02 message) {
         log.debug("Entering HL7Parser201305.ExtractHL7QueryParamsFromMessage method...");
         PRPAMT201306UV02ParameterList queryParamList = null;
 
@@ -61,9 +60,10 @@ public class HL7Parser201305 {
             return null;
         }
 
-        if (controlActProcess.getQueryByParameter() != null &&
-                controlActProcess.getQueryByParameter().getValue() != null) {
-            PRPAMT201306UV02QueryByParameter queryParams = (PRPAMT201306UV02QueryByParameter) controlActProcess.getQueryByParameter().getValue();
+        if (controlActProcess.getQueryByParameter() != null
+                && controlActProcess.getQueryByParameter().getValue() != null) {
+            PRPAMT201306UV02QueryByParameter queryParams = (PRPAMT201306UV02QueryByParameter) controlActProcess
+                    .getQueryByParameter().getValue();
 
             if (queryParams.getParameterList() != null) {
                 queryParamList = queryParams.getParameterList();

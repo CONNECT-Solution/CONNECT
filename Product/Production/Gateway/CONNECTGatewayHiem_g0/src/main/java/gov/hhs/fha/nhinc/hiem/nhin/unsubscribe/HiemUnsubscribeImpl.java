@@ -77,14 +77,15 @@ import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class HiemUnsubscribeImpl {
 
     private static Log log = LogFactory.getLog(HiemUnsubscribeImpl.class);
 
-    public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeRequest, WebServiceContext context) throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
+    public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeRequest, WebServiceContext context)
+            throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
         UnsubscribeResponse response;
         try {
             response = unsubscribeOps(unsubscribeRequest, context);
@@ -94,19 +95,21 @@ public class HiemUnsubscribeImpl {
         return response;
     }
 
-    private UnsubscribeResponse unsubscribeOps(Unsubscribe unsubscribeRequest, WebServiceContext context) throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
+    private UnsubscribeResponse unsubscribeOps(Unsubscribe unsubscribeRequest, WebServiceContext context)
+            throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
         log.debug("Entering HiemUnsubscribeImpl.unsubscribe");
 
         log.debug("extracting reference parameters from soap header");
         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-        ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, NhincConstants.HIEM_UNSUBSCRIBE_SOAP_HDR_ATTR_TAG);
+        ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+                .createReferenceParameterElements(context, NhincConstants.HIEM_UNSUBSCRIBE_SOAP_HDR_ATTR_TAG);
         log.debug("extracted reference parameters from soap header");
 
         log.debug("extracting assertion");
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
         log.debug("extracted assertion");
 
-        //retrieve by consumer reference
+        // retrieve by consumer reference
         HiemSubscriptionRepositoryService repo = new HiemSubscriptionRepositoryService();
         HiemSubscriptionItem subscriptionItem = null;
         try {
@@ -120,10 +123,11 @@ public class HiemUnsubscribeImpl {
             throw new SubscriptionManagerSoapFaultFactory().getUnableToFindSubscriptionFault();
         }
 
-        //todo: if has parent, retrieve parent, forward unsubscribe to agency
+        // todo: if has parent, retrieve parent, forward unsubscribe to agency
         List<HiemSubscriptionItem> childSubscriptions = null;
         try {
-            childSubscriptions = repo.retrieveByParentSubscriptionReference(subscriptionItem.getSubscriptionReferenceXML());
+            childSubscriptions = repo.retrieveByParentSubscriptionReference(subscriptionItem
+                    .getSubscriptionReferenceXML());
         } catch (SubscriptionRepositoryException ex) {
             log.warn("failed to check for child subscription", ex);
         }
@@ -139,7 +143,7 @@ public class HiemUnsubscribeImpl {
         } else {
         }
 
-        //"remove" from local repo
+        // "remove" from local repo
         log.debug("invoking subscription storage service to delete subscription");
         try {
             repo.deleteSubscription(subscriptionItem);
@@ -162,8 +166,7 @@ public class HiemUnsubscribeImpl {
             mode = config.getAdapterSubscriptionMode();
         } catch (ConfigurationException ex) {
             log.warn("unable to determine adapter subscription mode");
-            forward =
-                    false;
+            forward = false;
         }
 
         if (NullChecker.isNotNullish(mode)) {
@@ -175,8 +178,10 @@ public class HiemUnsubscribeImpl {
         return forward;
     }
 
-    private void forwardUnsubscribeToAdapter(Unsubscribe parentUnsubscribe, ReferenceParametersElements parentReferenceParametersElements, AssertionType parentAssertion) throws UnableToDestroySubscriptionFault {
-//        try {
+    private void forwardUnsubscribeToAdapter(Unsubscribe parentUnsubscribe,
+            ReferenceParametersElements parentReferenceParametersElements, AssertionType parentAssertion)
+            throws UnableToDestroySubscriptionFault {
+        // try {
         log.debug("forwarding unsubscribe to adapter");
 
         log.debug("target to be filled in by proxy using connection manager");
@@ -187,7 +192,8 @@ public class HiemUnsubscribeImpl {
         Element unsubscribeElement = unsubscribeMarshaller.marshal(parentUnsubscribe);
         log.debug(XmlUtility.formatElementForLogging(null, unsubscribeElement));
 
-        log.debug("using reference parameters from parent message [" + parentReferenceParametersElements.getElements().size() + " element(s)]");
+        log.debug("using reference parameters from parent message ["
+                + parentReferenceParametersElements.getElements().size() + " element(s)]");
 
         log.debug("initialize proxy");
         HiemUnsubscribeAdapterProxyObjectFactory factory = new HiemUnsubscribeAdapterProxyObjectFactory();
@@ -195,7 +201,8 @@ public class HiemUnsubscribeImpl {
         log.debug("initialized proxy");
 
         log.debug("sending unsubscribe");
-        Element unsubscribeResponseElement = proxy.unsubscribe(unsubscribeElement, parentReferenceParametersElements, parentAssertion, target);
+        Element unsubscribeResponseElement = proxy.unsubscribe(unsubscribeElement, parentReferenceParametersElements,
+                parentAssertion, target);
         log.debug("unsubscribe response received");
 
         log.debug("unmarshalling response");
@@ -203,24 +210,25 @@ public class HiemUnsubscribeImpl {
         UnsubscribeResponse unsubscribeResponse = unsubscribeResponseMarshaller.unmarshal(unsubscribeResponseElement);
         log.debug("unmarshalled response");
 
-//        } catch (SubscriptionRepositoryException ex) {
-//            log.error("failed to remove child subscription for repository");
-//            throw new SoapFaultFactory().getUnableToDeleteSubscriptionFault(ex);
-//        } catch (XPathExpressionException ex) {
-//            log.error("failed to parse subscription reference");
-//            throw new SoapFaultFactory().getUnableToDeleteSubscriptionFault(ex);
-//        }
+        // } catch (SubscriptionRepositoryException ex) {
+        // log.error("failed to remove child subscription for repository");
+        // throw new SoapFaultFactory().getUnableToDeleteSubscriptionFault(ex);
+        // } catch (XPathExpressionException ex) {
+        // log.error("failed to parse subscription reference");
+        // throw new SoapFaultFactory().getUnableToDeleteSubscriptionFault(ex);
+        // }
     }
 
-    private void unsubscribeToChild(Unsubscribe parentUnsubscribe, HiemSubscriptionItem childSubscriptionItem, AssertionType parentAssertion) throws UnableToDestroySubscriptionFault {
+    private void unsubscribeToChild(Unsubscribe parentUnsubscribe, HiemSubscriptionItem childSubscriptionItem,
+            AssertionType parentAssertion) throws UnableToDestroySubscriptionFault {
         try {
             log.debug("unsubscribing to child subscription");
 
             log.debug("building target");
             NhinTargetSystemType target;
 
-            target =
-                    new TargetBuilder().buildSubscriptionManagerTarget(childSubscriptionItem.getSubscriptionReferenceXML());
+            target = new TargetBuilder().buildSubscriptionManagerTarget(childSubscriptionItem
+                    .getSubscriptionReferenceXML());
             log.debug("target url = " + target.getUrl());
 
             log.debug("unmarshalling unsubscribe");
@@ -230,7 +238,9 @@ public class HiemUnsubscribeImpl {
 
             log.debug("extracting reference parameters from subscription reference");
             ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-            ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElementsFromSubscriptionReference(childSubscriptionItem.getSubscriptionReferenceXML());
+            ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+                    .createReferenceParameterElementsFromSubscriptionReference(childSubscriptionItem
+                            .getSubscriptionReferenceXML());
             log.debug("extracted " + referenceParametersElements.getElements().size() + " element(s)");
 
             log.debug("initialize proxy");
@@ -239,12 +249,14 @@ public class HiemUnsubscribeImpl {
             log.debug("initialized proxy");
 
             log.debug("sending unsubscribe");
-            Element unsubscribeResponseElement = proxy.unsubscribe(unsubscribeElement, referenceParametersElements, parentAssertion, target);
+            Element unsubscribeResponseElement = proxy.unsubscribe(unsubscribeElement, referenceParametersElements,
+                    parentAssertion, target);
             log.debug("unsubscribe response received");
 
             log.debug("unmarshalling response");
             WsntUnsubscribeResponseMarshaller unsubscribeResponseMarshaller = new WsntUnsubscribeResponseMarshaller();
-            UnsubscribeResponse unsubscribeResponse = unsubscribeResponseMarshaller.unmarshal(unsubscribeResponseElement);
+            UnsubscribeResponse unsubscribeResponse = unsubscribeResponseMarshaller
+                    .unmarshal(unsubscribeResponseElement);
             log.debug("unmarshalled response");
 
             log.debug("invoking subscription repository to remove child subscription");
@@ -253,10 +265,10 @@ public class HiemUnsubscribeImpl {
             log.debug("child subscription deleted");
         } catch (SubscriptionRepositoryException ex) {
             log.error("failed to remove child subscription for repository");
-            throw new  SubscriptionManagerSoapFaultFactory().getFailedToRemoveSubscriptionFault(ex);
+            throw new SubscriptionManagerSoapFaultFactory().getFailedToRemoveSubscriptionFault(ex);
         } catch (XPathExpressionException ex) {
             log.error("failed to parse subscription reference");
-            throw new  SubscriptionManagerSoapFaultFactory().getFailedToRemoveSubscriptionFault(ex);
+            throw new SubscriptionManagerSoapFaultFactory().getFailedToRemoveSubscriptionFault(ex);
         }
     }
 }

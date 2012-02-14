@@ -30,12 +30,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
 class UnableToInitializeMpi extends RuntimeException {
     private static Log log = LogFactory.getLog(UnableToInitializeMpi.class);
-    
+
     public UnableToInitializeMpi() {
         super();
         log.info("UnableToInitializeMpi Initialized with no arguments");

@@ -37,39 +37,32 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class EntityPatientDiscoveryAsyncReqNoOpImplTest
-{
+public class EntityPatientDiscoveryAsyncReqNoOpImplTest {
 
-    public EntityPatientDiscoveryAsyncReqNoOpImplTest()
-    {
+    public EntityPatientDiscoveryAsyncReqNoOpImplTest() {
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() throws Exception {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() throws Exception {
     }
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
     }
 
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
     }
 
     /**
      * Test of processPatientDiscoveryAsyncReq method, of class EntityPatientDiscoveryAsyncReqNoOpImpl.
      */
     @Test
-    public void testProcessPatientDiscoveryAsyncReq()
-    {
+    public void testProcessPatientDiscoveryAsyncReq() {
         System.out.println("testProcessPatientDiscoveryAsyncReq");
 
         EntityPatientDiscoveryDeferredRequestProxyNoOpImpl instance = new EntityPatientDiscoveryDeferredRequestProxyNoOpImpl();

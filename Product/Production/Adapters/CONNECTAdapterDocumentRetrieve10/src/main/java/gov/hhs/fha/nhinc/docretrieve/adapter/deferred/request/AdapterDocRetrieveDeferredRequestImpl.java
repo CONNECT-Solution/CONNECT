@@ -20,20 +20,24 @@ import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterDocRetrieveDeferredRequestImpl {
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(
+            RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        return new AdapterDocRetrieveDeferredReqOrchImpl().respondingGatewayCrossGatewayRetrieve(body.getRetrieveDocumentSetRequest(), assertion);
+        return new AdapterDocRetrieveDeferredReqOrchImpl().respondingGatewayCrossGatewayRetrieve(
+                body.getRetrieveDocumentSetRequest(), assertion);
     }
 
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest, WebServiceContext context) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(
+            RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, crossGatewayRetrieveRequest.getAssertion());
 
-        return new AdapterDocRetrieveDeferredReqOrchImpl().respondingGatewayCrossGatewayRetrieve(crossGatewayRetrieveRequest.getRetrieveDocumentSetRequest(), assertion);
+        return new AdapterDocRetrieveDeferredReqOrchImpl().respondingGatewayCrossGatewayRetrieve(
+                crossGatewayRetrieveRequest.getRetrieveDocumentSetRequest(), assertion);
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
@@ -44,7 +48,8 @@ public class AdapterDocRetrieveDeferredRequestImpl {
             assertion = oAssertionIn;
         }
 
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        // Extract the message id value from the WS-Addressing Header and place
+        // it in the Assertion Class
         if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }

@@ -24,26 +24,39 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.assemblymanager;
-
-/**
- *
- * @author kim
- */
-public class InvalidIdentifierException extends Exception {
-
-   /**
-    * Creates a new instance of <code>InvalidIdentifierException</code> without detail message.
-    */
-   public InvalidIdentifierException() {
-      super();
-   }
-
-   /**
-    * Constructs an instance of <code>InvalidIdentifierException</code> with the specified detail message.
-    * @param msg the detail message.
-    */
-   public InvalidIdentifierException(String msg) {
-      super(msg);
-   }
-}
+package gov.hhs.fha.nhinc.assemblymanager;
+
+/**
+ * 
+ * 
+ * 
+ * @author kim
+ */
+
+public class InvalidIdentifierException extends Exception {
+
+    /**
+     * 
+     * Creates a new instance of <code>InvalidIdentifierException</code> without detail message.
+     */
+
+    public InvalidIdentifierException() {
+
+        super();
+
+    }
+
+    /**
+     * 
+     * Constructs an instance of <code>InvalidIdentifierException</code> with the specified detail message.
+     * 
+     * @param msg the detail message.
+     */
+
+    public InvalidIdentifierException(String msg) {
+
+        super(msg);
+
+    }
+
+}

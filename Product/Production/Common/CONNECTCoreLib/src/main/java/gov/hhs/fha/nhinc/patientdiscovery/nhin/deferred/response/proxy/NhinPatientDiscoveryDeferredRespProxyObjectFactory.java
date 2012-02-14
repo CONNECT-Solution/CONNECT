@@ -37,7 +37,7 @@ public class NhinPatientDiscoveryDeferredRespProxyObjectFactory extends Componen
 
     /**
      * Returns the name of the config file.
-     *
+     * 
      * @return The name of the config file.
      */
     protected String getConfigFileName() {
@@ -46,7 +46,7 @@ public class NhinPatientDiscoveryDeferredRespProxyObjectFactory extends Componen
 
     /**
      * Return an instance of the NhinPatientDiscoveryProxy class.
-     *
+     * 
      * @return An instance of the NhinPatientDiscoveryProxy class.
      */
     public NhinPatientDiscoveryDeferredRespProxy getNhinPatientDiscoveryAsyncRespProxy() {

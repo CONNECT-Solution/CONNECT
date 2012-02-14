@@ -30,12 +30,13 @@ import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExt
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class TopicComparisonFactory {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(TopicComparisonFactory.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(TopicComparisonFactory.class);
 
     public static ITopicComparison getTopicComparisonStrategy(String dialect) throws SubscriptionRepositoryException {
         ITopicComparison topicComparisonStategy = null;
@@ -47,14 +48,15 @@ public class TopicComparisonFactory {
         } else if (dialect.contentEquals(RootTopicExtractor.DIALECT_CONCRETE)) {
             topicComparisonStategy = new TopicComparisonExactMatchStrategy();
         } else if (dialect.contentEquals(RootTopicExtractor.DIALECT_CONCRETE_MISSPELLED)) {
-            log.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + RootTopicExtractor.DIALECT_CONCRETE + "'");
+            log.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + RootTopicExtractor.DIALECT_CONCRETE
+                    + "'");
             topicComparisonStategy = new TopicComparisonExactMatchStrategy();
         } else if (dialect.contentEquals(RootTopicExtractor.DIALECT_FULL)) {
-            //temp only
+            // temp only
             topicComparisonStategy = new TopicComparisonExactMatchStrategy();
         } else if (dialect.contentEquals(RootTopicExtractor.DIALECT_FULL_MISSPELLED)) {
             log.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + RootTopicExtractor.DIALECT_FULL + "'");
-            //temp only
+            // temp only
             topicComparisonStategy = new TopicComparisonExactMatchStrategy();
         } else {
             throw new SubscriptionRepositoryException("Unknown dialect + '" + dialect + "'");

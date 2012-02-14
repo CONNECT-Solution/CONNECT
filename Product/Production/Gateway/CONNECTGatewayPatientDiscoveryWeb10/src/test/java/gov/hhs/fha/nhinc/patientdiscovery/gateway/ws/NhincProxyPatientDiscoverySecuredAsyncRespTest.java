@@ -42,41 +42,46 @@ import org.junit.Test;
 
 public class NhincProxyPatientDiscoverySecuredAsyncRespTest {
 
-	//NhincProxyPatientDiscoverySecuredAsyncResp
-	Mockery context = new JUnit4Mockery()
-    {
+    // NhincProxyPatientDiscoverySecuredAsyncResp
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    
-    @Test 
+
+    @Test
     public void testDefaultConstructor() {
-    	NhincProxyPatientDiscoverySecuredAsyncResp patientDiscovery =  new NhincProxyPatientDiscoverySecuredAsyncResp();
-    	assertNotNull(patientDiscovery);
+        NhincProxyPatientDiscoverySecuredAsyncResp patientDiscovery = new NhincProxyPatientDiscoverySecuredAsyncResp();
+        assertNotNull(patientDiscovery);
     }
-	
-	@Test
-	public void testMockService() {
-		
-		final ProxyPRPAIN201306UVProxySecuredRequestType mockBody = context.mock(ProxyPRPAIN201306UVProxySecuredRequestType.class);
-		final MCCIIN000002UV01 expectedResponse = context.mock(MCCIIN000002UV01.class);
-		final NhincProxyPatientDiscoveryAsyncRespImpl mockService = context.mock(NhincProxyPatientDiscoveryAsyncRespImpl.class);
-		final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
-		
-		NhincProxyPatientDiscoverySecuredAsyncResp patientDiscovery =  new NhincProxyPatientDiscoverySecuredAsyncResp(mockFactory);
-		
-		context.checking(new Expectations() {{
-	        oneOf(mockService).proxyProcessPatientDiscoveryAsyncResp(with(same(mockBody)), with(any(WebServiceContext.class)));
-	        will(returnValue(expectedResponse));
-	        
-	        oneOf(mockFactory).getNhincProxyPatientDiscoveryAsyncRespImpl();
-	        will(returnValue(mockService));
-	    }});
-		
-		MCCIIN000002UV01 actualResponse = patientDiscovery.proxyProcessPatientDiscoveryAsyncResp(mockBody);
-		
-		assertSame(expectedResponse, actualResponse);
-	
-	}
+
+    @Test
+    public void testMockService() {
+
+        final ProxyPRPAIN201306UVProxySecuredRequestType mockBody = context
+                .mock(ProxyPRPAIN201306UVProxySecuredRequestType.class);
+        final MCCIIN000002UV01 expectedResponse = context.mock(MCCIIN000002UV01.class);
+        final NhincProxyPatientDiscoveryAsyncRespImpl mockService = context
+                .mock(NhincProxyPatientDiscoveryAsyncRespImpl.class);
+        final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
+
+        NhincProxyPatientDiscoverySecuredAsyncResp patientDiscovery = new NhincProxyPatientDiscoverySecuredAsyncResp(
+                mockFactory);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(mockService).proxyProcessPatientDiscoveryAsyncResp(with(same(mockBody)),
+                        with(any(WebServiceContext.class)));
+                will(returnValue(expectedResponse));
+
+                oneOf(mockFactory).getNhincProxyPatientDiscoveryAsyncRespImpl();
+                will(returnValue(mockService));
+            }
+        });
+
+        MCCIIN000002UV01 actualResponse = patientDiscovery.proxyProcessPatientDiscoveryAsyncResp(mockBody);
+
+        assertSame(expectedResponse, actualResponse);
+
+    }
 }

@@ -35,18 +35,19 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class NhinDocSubmissionDeferredRequestImpl_g1 {
 
     /**
-     *
+     * 
      * @param body
      * @param context
      * @return
      */
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
+            WebServiceContext context) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         if (assertion != null) {

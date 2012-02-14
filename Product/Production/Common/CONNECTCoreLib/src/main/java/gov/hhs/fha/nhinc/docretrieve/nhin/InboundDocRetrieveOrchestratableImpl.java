@@ -13,7 +13,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class InboundDocRetrieveOrchestratableImpl extends InboundDocRetrieveOrchestratable {
@@ -21,11 +21,13 @@ public class InboundDocRetrieveOrchestratableImpl extends InboundDocRetrieveOrch
     private RetrieveDocumentSetResponseType response = null;
     private final String serviceName = "NhinDocumentRetrieve_g0";
 
-    public InboundDocRetrieveOrchestratableImpl(RetrieveDocumentSetRequestType body, AssertionType assertion, PolicyTransformer pt, AuditTransformer at, InboundDelegate ad) {
+    public InboundDocRetrieveOrchestratableImpl(RetrieveDocumentSetRequestType body, AssertionType assertion,
+            PolicyTransformer pt, AuditTransformer at, InboundDelegate ad) {
         super(pt, at, ad);
         request = body;
         setAssertion(assertion);
     }
+
     public RetrieveDocumentSetRequestType getRequest() {
         return request;
     }
@@ -39,9 +41,8 @@ public class InboundDocRetrieveOrchestratableImpl extends InboundDocRetrieveOrch
     }
 
     @Override
-    public String getServiceName()
-    {
+    public String getServiceName() {
         return serviceName;
     }
-	
+
 }

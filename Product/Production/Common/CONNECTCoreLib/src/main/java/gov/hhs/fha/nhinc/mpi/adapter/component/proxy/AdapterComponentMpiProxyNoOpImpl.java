@@ -31,14 +31,12 @@ import org.hl7.v3.PRPAIN201306UV02;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class AdapterComponentMpiProxyNoOpImpl implements AdapterComponentMpiProxy
-{
+public class AdapterComponentMpiProxyNoOpImpl implements AdapterComponentMpiProxy {
 
-    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion)
-    {
+    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
         return new PRPAIN201306UV02();
     }
 }

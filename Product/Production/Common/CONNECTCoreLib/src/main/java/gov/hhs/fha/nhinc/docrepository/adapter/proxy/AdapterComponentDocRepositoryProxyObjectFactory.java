@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docrepository.adapter.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class AdapterComponentDocRepositoryProxyObjectFactory extends ComponentProxyObjectFactory {
@@ -43,5 +43,5 @@ public class AdapterComponentDocRepositoryProxyObjectFactory extends ComponentPr
     public AdapterComponentDocRepositoryProxy getAdapterDocumentRepositoryProxy() {
         return getBean(BEAN_NAME, AdapterComponentDocRepositoryProxy.class);
     }
-    
+
 }

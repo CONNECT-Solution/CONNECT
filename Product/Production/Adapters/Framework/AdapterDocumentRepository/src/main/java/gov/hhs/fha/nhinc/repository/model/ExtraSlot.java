@@ -31,51 +31,42 @@ package gov.hhs.fha.nhinc.repository.model;
  * 
  * @author Chrisjan Matser
  */
-public class ExtraSlot
-{
+public class ExtraSlot {
 
     private Long extraSlotId;
     private String extraSlotName;
     private String extraSlotValue;
     private Document document;
 
-    public String getExtraSlotName()
-    {
+    public String getExtraSlotName() {
         return extraSlotName;
     }
 
-    public void setExtraSlotName(String extraSlotName)
-    {
+    public void setExtraSlotName(String extraSlotName) {
         this.extraSlotName = extraSlotName;
     }
 
-    public String getExtraSlotValue()
-    {
+    public String getExtraSlotValue() {
         return extraSlotValue;
     }
 
-    public void setExtraSlotValue(String extraSlotValue)
-    {
+    public void setExtraSlotValue(String extraSlotValue) {
         this.extraSlotValue = extraSlotValue;
     }
 
-    public Long getExtraSlotId()
-    {
+    public Long getExtraSlotId() {
         return extraSlotId;
     }
 
-    public void setExtraSlotId(Long extraSlotId)
-    {
+    public void setExtraSlotId(Long extraSlotId) {
         this.extraSlotId = extraSlotId;
     }
 
-    public Document getDocument()
-    {
+    public Document getDocument() {
         return document;
     }
 
-    public void setDocument(Document document)
-    {
+    public void setDocument(Document document) {
         this.document = document;
     }
 }

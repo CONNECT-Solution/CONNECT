@@ -35,8 +35,9 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 public class AdapterAuthenticationProxyNoOpImpl implements AdapterAuthenticationProxy {
 
     /**
-     * NO-OP implementation of the authenticateUser operation returns a
-     * response indicating that an authentication service is not available.
+     * NO-OP implementation of the authenticateUser operation returns a response indicating that an authentication
+     * service is not available.
+     * 
      * @return a response indicating no authentication service is set-up.
      */
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {

@@ -43,7 +43,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class NhinDocSubmissionOrchImpl {
@@ -58,7 +58,8 @@ public class NhinDocSubmissionOrchImpl {
         log = createLogger();
     }
 
-    public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+    public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
+            ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         RegistryResponseType result = null;
 
         log.debug("Entering NhinXDRImpl.documentRepositoryProvideAndRegisterDocumentSetB");
@@ -69,7 +70,8 @@ public class NhinDocSubmissionOrchImpl {
         log.debug(ack.getMessage());
         String localHCID = "";
         try {
-            localHCID = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            localHCID = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             log.error(ex.getMessage());
 
@@ -83,14 +85,12 @@ public class NhinDocSubmissionOrchImpl {
             result = createFailedPolicyCheckResponse();
         }
 
-
         ack = auditLogger.auditNhinXDRResponse(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         return result;
     }
 
-    private RegistryResponseType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion)
-    {
+    private RegistryResponseType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         log.debug("begin forwardToAgency()");
 
         RegistryResponseType response = null;
@@ -103,32 +103,33 @@ public class NhinDocSubmissionOrchImpl {
         return response;
     }
 
-    protected boolean isPolicyOk(ProvideAndRegisterDocumentSetRequestType newRequest, AssertionType assertion, String senderHCID, String receiverHCID) {
+    protected boolean isPolicyOk(ProvideAndRegisterDocumentSetRequestType newRequest, AssertionType assertion,
+            String senderHCID, String receiverHCID) {
         boolean bPolicyOk = false;
 
         log.debug("checking the policy engine for the new request to a target community");
 
-        //return true if 'permit' returned, false otherwise
+        // return true if 'permit' returned, false otherwise
         XDRPolicyChecker policyChecker = new XDRPolicyChecker();
-        return policyChecker.checkXDRRequestPolicy(newRequest, assertion,senderHCID ,receiverHCID, NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+        return policyChecker.checkXDRRequestPolicy(newRequest, assertion, senderHCID, receiverHCID,
+                NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
 
     }
-    
-    protected Log createLogger()
-    {
+
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
-    private RegistryResponseType createPositiveAck()
-    {
-        RegistryResponseType result= new RegistryResponseType();
+
+    private RegistryResponseType createPositiveAck() {
+        RegistryResponseType result = new RegistryResponseType();
 
         result.setStatus(XDR_RESPONSE_SUCCESS);
 
         return result;
     }
-    private RegistryResponseType createFailedPolicyCheckResponse()
-    {
-        RegistryResponseType result= new RegistryResponseType();
+
+    private RegistryResponseType createFailedPolicyCheckResponse() {
+        RegistryResponseType result = new RegistryResponseType();
         result.setRegistryErrorList(new RegistryErrorList());
 
         RegistryError policyError = new RegistryError();
@@ -141,5 +142,5 @@ public class NhinDocSubmissionOrchImpl {
 
         return result;
     }
-   
+
 }

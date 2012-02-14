@@ -48,21 +48,21 @@ import javax.xml.xpath.XPathExpressionException;
 import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
-public class EntitySubscribeProcessor
-{
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(EntitySubscribeProcessor.class);
+public class EntitySubscribeProcessor {
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(EntitySubscribeProcessor.class);
 
-    public SubscribeResponse processSubscribe(Subscribe subscribe, Element subscribeElement, AssertionType assertion, NhinTargetCommunitiesType targetCommunitites) throws TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault, ResourceUnknownFault
-    {
+    public SubscribeResponse processSubscribe(Subscribe subscribe, Element subscribeElement, AssertionType assertion,
+            NhinTargetCommunitiesType targetCommunitites) throws TopicNotSupportedFault, InvalidTopicExpressionFault,
+            SubscribeCreationFailedFault, ResourceUnknownFault {
         SubscribeResponse response = null;
 
         TopicConfigurationEntry topicConfig;
-        try
-        {
+        try {
             log.debug("determine topic configuration");
             log.debug(XmlUtility.serializeElementIgnoreFaults(subscribeElement));
             topicConfig = getTopicConfiguration(subscribeElement);
@@ -75,36 +75,35 @@ public class EntitySubscribeProcessor
             throw new SoapFaultFactory().getTopicConfigurationException(ex);
         }
 
-        QualifiedSubjectIdentifierType patientIdentifier = new PatientIdExtractor().extractPatientIdentifier(subscribeElement, topicConfig);
+        QualifiedSubjectIdentifierType patientIdentifier = new PatientIdExtractor().extractPatientIdentifier(
+                subscribeElement, topicConfig);
 
-        EntitySubscribeHandler subscribeHandler = new EntitySubscribeHandlerFactory().getEntitySubscribeHandler(topicConfig, patientIdentifier);
-        response = subscribeHandler.handleSubscribe(topicConfig, subscribe, subscribeElement, assertion, targetCommunitites);
+        EntitySubscribeHandler subscribeHandler = new EntitySubscribeHandlerFactory().getEntitySubscribeHandler(
+                topicConfig, patientIdentifier);
+        response = subscribeHandler.handleSubscribe(topicConfig, subscribe, subscribeElement, assertion,
+                targetCommunitites);
 
         return response;
     }
 
-    private TopicConfigurationEntry getTopicConfiguration(Element subscribeElement) throws TopicNotSupportedFault, InvalidTopicExpressionFault, ConfigurationException {
+    private TopicConfigurationEntry getTopicConfiguration(Element subscribeElement) throws TopicNotSupportedFault,
+            InvalidTopicExpressionFault, ConfigurationException {
         TopicConfigurationEntry topicConfig = null;
 
         RootTopicExtractor rootTopicExtractor = new RootTopicExtractor();
 
         Element topicElement;
-        try
-        {
+        try {
             log.debug("finding topic from message");
             topicElement = rootTopicExtractor.extractTopicExpressionElementFromSubscribeElement(subscribeElement);
             log.debug("complete with finding topic.  found=" + (topicElement != null));
-        }
-        catch (XPathExpressionException ex)
-        {
+        } catch (XPathExpressionException ex) {
             throw new SoapFaultFactory().getUnableToParseTopicExpressionFromSubscribeFault(ex);
         }
 
-        if(topicElement != null)
-        {
+        if (topicElement != null) {
             topicConfig = TopicConfigurationManager.getInstance().getTopicConfiguration(topicElement);
-            if((topicConfig != null) && !topicConfig.isSupported())
-            {
+            if ((topicConfig != null) && !topicConfig.isSupported()) {
                 throw new SoapFaultFactory().getKnownTopicNotSupported(topicElement);
             }
         }

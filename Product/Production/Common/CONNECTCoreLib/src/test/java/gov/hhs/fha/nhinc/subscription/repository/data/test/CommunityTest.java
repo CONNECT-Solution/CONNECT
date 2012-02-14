@@ -37,14 +37,11 @@ import org.junit.Ignore;
  * @author Neil Webb
  */
 @Ignore
-public class CommunityTest
-{
+public class CommunityTest {
     @Test
-    public void testGettersAndSetters()
-    {
+    public void testGettersAndSetters() {
         System.out.println("Begin testGettersAndSetters");
-        try
-        {
+        try {
             String communityId = "CommunityId";
             String communityName = "CommunityName";
 
@@ -58,9 +55,7 @@ public class CommunityTest
             assertEquals("Community id", communityId, comm.getCommunityId());
             assertEquals("Community name", communityName, comm.getCommunityName());
 
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail(t.getMessage());
         }
@@ -68,11 +63,9 @@ public class CommunityTest
     }
 
     @Test
-    public void testEquals()
-    {
+    public void testEquals() {
         System.out.println("Begin testEquals");
-        try
-        {
+        try {
             // Equals - both values populated
             Community c1 = new Community();
             c1.setCommunityId("CommunityId1");
@@ -100,7 +93,6 @@ public class CommunityTest
             c1 = new Community();
             c2 = new Community();
             assertTrue("Equals - all null", c1.equals(c2));
-
 
             // Not equals - Only first id
             c1 = new Community();
@@ -213,9 +205,7 @@ public class CommunityTest
             c2.setCommunityName("CommunityName2");
             assertFalse("Not equals - Both populated, name different", c1.equals(c2));
 
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail(t.getMessage());
         }

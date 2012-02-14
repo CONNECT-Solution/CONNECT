@@ -34,11 +34,10 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
-public class PassthruDocRetrieveDeferredRespProxyJavaImpl implements PassthruDocRetrieveDeferredRespProxy
-{
+public class PassthruDocRetrieveDeferredRespProxyJavaImpl implements PassthruDocRetrieveDeferredRespProxy {
 
     /**
      * 
@@ -47,8 +46,11 @@ public class PassthruDocRetrieveDeferredRespProxyJavaImpl implements PassthruDoc
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion, NhinTargetSystemType target) {
-        return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(request, retrieveDocumentSetResponse, assertion, target);
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetRequestType request,
+            RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion,
+            NhinTargetSystemType target) {
+        return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(request,
+                retrieveDocumentSetResponse, assertion, target);
     }
 
 }

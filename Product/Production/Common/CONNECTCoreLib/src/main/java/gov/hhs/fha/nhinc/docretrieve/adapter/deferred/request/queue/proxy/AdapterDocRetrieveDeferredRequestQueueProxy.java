@@ -32,10 +32,11 @@ import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
- *
+ * 
  * @author narendra.reddy
  */
 public interface AdapterDocRetrieveDeferredRequestQueueProxy {
 
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets);
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetRequestType request,
+            AssertionType assertion, NhinTargetCommunitiesType targets);
 }

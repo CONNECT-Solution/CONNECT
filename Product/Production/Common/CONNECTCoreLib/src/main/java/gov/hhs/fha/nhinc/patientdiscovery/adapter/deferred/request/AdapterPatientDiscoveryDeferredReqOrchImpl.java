@@ -36,7 +36,7 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterPatientDiscoveryDeferredReqOrchImpl {
@@ -62,29 +62,32 @@ public class AdapterPatientDiscoveryDeferredReqOrchImpl {
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
 
         // Add a new inbound PD request entry to the local deferred queue
-        boolean bIsQueueOk = asyncProcess.addPatientDiscoveryRequest(request, assertion, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        boolean bIsQueueOk = asyncProcess.addPatientDiscoveryRequest(request, assertion,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
 
         // check for valid queue entry
         if (bIsQueueOk) {
-            bIsQueueOk = asyncProcess.processMessageStatus(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVD);
+            bIsQueueOk = asyncProcess.processMessageStatus(assertion.getMessageId(),
+                    AsyncMsgRecordDao.QUEUE_STATUS_REQRCVD);
         }
 
         // check for valid queue entry/update
         if (bIsQueueOk) {
             // Set the ack success status of the deferred queue entry
             ack = HL7AckTransforms.createAckFrom201305(request, ackMsg);
-            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK, AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
+            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK,
+                    AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
         } else {
             ackMsg = "Deferred Patient Discovery processing halted; deferred queue repository error encountered";
 
             // Set the error acknowledgement status
             // fatal error with deferred queue repository
             ack = HL7AckTransforms.createAckErrorFrom201305(request, ackMsg);
-            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
+            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR,
+                    AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
         }
 
         return ack;
     }
-
 
 }

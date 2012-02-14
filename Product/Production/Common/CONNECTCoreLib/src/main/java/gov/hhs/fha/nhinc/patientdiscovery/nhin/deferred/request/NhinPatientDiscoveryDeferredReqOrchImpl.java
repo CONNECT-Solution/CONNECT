@@ -46,60 +46,52 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class NhinPatientDiscoveryDeferredReqOrchImpl implements  NhinPatientDiscoveryDeferredReqOrch {
+public class NhinPatientDiscoveryDeferredReqOrchImpl implements NhinPatientDiscoveryDeferredReqOrch {
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryDeferredReqOrchImpl.class);
 
-    
     private ServicePropertyAccessor servicePropertyAccessor;
 
-	private PatientDiscoveryAuditor auditLogger;
+    private PatientDiscoveryAuditor auditLogger;
 
-	private GenericFactory<AdapterPatientDiscoveryDeferredReqProxy> proxyFactory;
-	
-	private GenericFactory<AdapterPatientDiscoveryDeferredReqErrorProxy> proxyErrorFactory;
-	
-	private PolicyChecker<RespondingGatewayPRPAIN201305UV02RequestType,PRPAIN201305UV02> policyChecker;
-     
-    NhinPatientDiscoveryDeferredReqOrchImpl(
-				ServicePropertyAccessor servicePropertyAccessor,
-				PatientDiscoveryAuditor auditLogger,
-				GenericFactory<AdapterPatientDiscoveryDeferredReqProxy> proxyFactory,
-				GenericFactory<AdapterPatientDiscoveryDeferredReqErrorProxy> proxyErrorFactory,
-				PolicyChecker<RespondingGatewayPRPAIN201305UV02RequestType,PRPAIN201305UV02> policyChecker) {
-			super();
-			this.servicePropertyAccessor = servicePropertyAccessor;
-			this.auditLogger = auditLogger;
-			this.proxyFactory = proxyFactory;
-			this.proxyErrorFactory = proxyErrorFactory;
-			this.policyChecker = policyChecker;
-		}
+    private GenericFactory<AdapterPatientDiscoveryDeferredReqProxy> proxyFactory;
 
-    
-	
-	
-	
+    private GenericFactory<AdapterPatientDiscoveryDeferredReqErrorProxy> proxyErrorFactory;
+
+    private PolicyChecker<RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201305UV02> policyChecker;
+
+    NhinPatientDiscoveryDeferredReqOrchImpl(ServicePropertyAccessor servicePropertyAccessor,
+            PatientDiscoveryAuditor auditLogger, GenericFactory<AdapterPatientDiscoveryDeferredReqProxy> proxyFactory,
+            GenericFactory<AdapterPatientDiscoveryDeferredReqErrorProxy> proxyErrorFactory,
+            PolicyChecker<RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201305UV02> policyChecker) {
+        super();
+        this.servicePropertyAccessor = servicePropertyAccessor;
+        this.auditLogger = auditLogger;
+        this.proxyFactory = proxyFactory;
+        this.proxyErrorFactory = proxyErrorFactory;
+        this.policyChecker = policyChecker;
+    }
+
     protected AsyncMessageProcessHelper createAsyncProcesser() {
         return new AsyncMessageProcessHelper();
     }
-    
-    
 
     @Override
-	public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion) {
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
 
         // Audit the incoming Nhin 201305 Message
-        AcknowledgementType ack = auditLogger.auditNhinDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        AcknowledgementType ack = auditLogger.auditNhinDeferred201305(request, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         // Check if the Patient Discovery Async Request Service is enabled
         if (isServiceEnabled()) {
             if (isInPassThroughMode()) {
                 // Send the 201305 to the Adapter Interface
                 resp = sendToAgency(request, assertion);
-            } else {               
+            } else {
                 resp = serviceInternal(request, assertion);
             }
         } else {
@@ -109,35 +101,34 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl implements  NhinPatientDisc
             resp = sendToAgencyError(request, assertion, ackMsg);
         }
 
-
-
         // Audit the responding ack Message
-        ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         return resp;
     }
 
     /**
      * Checks the gateway.properties file to see if the Patient Discovery Async Request Service is enabled.
-     *
+     * 
      * @return Returns true if the servicePatientDiscoveryAsyncReq is enabled in the properties file.
      */
     protected boolean isServiceEnabled() {
-    	return servicePropertyAccessor.isServiceEnabled();
+        return servicePropertyAccessor.isServiceEnabled();
     }
 
     /**
-     * Checks to see if the query should  be handled internally or passed through to an adapter.
-     *
+     * Checks to see if the query should be handled internally or passed through to an adapter.
+     * 
      * @return Returns true if the patientDiscoveryPassthroughAsyncReq property of the gateway.properties file is true.
      */
     protected boolean isInPassThroughMode() {
-    	return servicePropertyAccessor.isInPassThroughMode();
+        return servicePropertyAccessor.isInPassThroughMode();
     }
 
     /**
      * Checks the policy of the passed in request.
-     *
+     * 
      * @param request
      * @param assertion
      * @return
@@ -147,7 +138,7 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl implements  NhinPatientDisc
     }
 
     /**
-     *
+     * 
      * @param request
      * @param assertion
      * @param homeCommunityId
@@ -155,10 +146,10 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl implements  NhinPatientDisc
      */
     private MCCIIN000002UV01 serviceInternal(PRPAIN201305UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 response = null;
-        //HomeCommunityType hcId = new HomeCommunityType();
+        // HomeCommunityType hcId = new HomeCommunityType();
         String errMsg = null;
 
-        //hcId.setHomeCommunityId(homeCommunityId);
+        // hcId.setHomeCommunityId(homeCommunityId);
         if (checkPolicy(request, assertion)) {
             log.debug("Adapter patient discovery deferred policy check successful");
             response = sendToAgency(request, assertion);
@@ -171,31 +162,31 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl implements  NhinPatientDisc
         return response;
     }
 
-  
-
-
-	protected MCCIIN000002UV01 sendToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
-        AcknowledgementType ack = auditLogger.auditAdapterDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    protected MCCIIN000002UV01 sendToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
+        AcknowledgementType ack = auditLogger.auditAdapterDeferred201305(request, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         AdapterPatientDiscoveryDeferredReqProxy proxy = proxyFactory.create();
 
         MCCIIN000002UV01 resp = proxy.processPatientDiscoveryAsyncReq(request, assertion);
-       
-        ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+
+        ack = auditLogger.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
         return resp;
     }
 
     protected MCCIIN000002UV01 sendToAgencyError(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
-        AcknowledgementType ack = auditLogger.auditAdapterDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        AcknowledgementType ack = auditLogger.auditAdapterDeferred201305(request, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
- 
         PRPAIN201306UV02 response = new HL7PRPA201306Transforms().createPRPA201306ForPatientNotFound(request);
 
-        MCCIIN000002UV01 adapterResp = proxyErrorFactory.create().processPatientDiscoveryAsyncReqError(request, response, assertion, errMsg);
-        
-        
-        ack = auditLogger.auditAck(adapterResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+        MCCIIN000002UV01 adapterResp = proxyErrorFactory.create().processPatientDiscoveryAsyncReqError(request,
+                response, assertion, errMsg);
+
+        ack = auditLogger.auditAck(adapterResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
         return adapterResp;
     }

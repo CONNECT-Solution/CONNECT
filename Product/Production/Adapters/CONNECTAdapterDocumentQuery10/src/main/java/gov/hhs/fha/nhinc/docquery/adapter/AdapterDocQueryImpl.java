@@ -17,7 +17,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public class AdapterDocQueryImpl {
@@ -39,23 +39,24 @@ public class AdapterDocQueryImpl {
         log.debug("Enter AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
         AssertionType assertion = getAssertion(context, null);
 
-        AdhocQueryResponse response = new AdapterDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(request, assertion);
+        AdhocQueryResponse response = new AdapterDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(request,
+                assertion);
 
         log.debug("End AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
         return response;
     }
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request, WebServiceContext context) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request,
+            WebServiceContext context) {
         log.debug("Enter AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
         AssertionType assertion = getAssertion(context, request.getAssertion());
 
-        AdhocQueryResponse response = new AdapterDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), assertion);
+        AdhocQueryResponse response = new AdapterDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(
+                request.getAdhocQueryRequest(), assertion);
 
         log.debug("End AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
         return response;
     }
-
-    
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
@@ -65,7 +66,8 @@ public class AdapterDocQueryImpl {
             assertion = oAssertionIn;
         }
 
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        // Extract the message id value from the WS-Addressing Header and place
+        // it in the Assertion Class
         if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }

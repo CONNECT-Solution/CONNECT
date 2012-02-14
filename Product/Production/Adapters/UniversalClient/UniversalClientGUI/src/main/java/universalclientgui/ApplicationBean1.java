@@ -36,17 +36,17 @@ import javax.faces.FacesException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
- * <p>Application scope data bean for your application.  Create properties
- *  here to represent cached data that should be made available to all users
- *  and pages in the application.</p>
- *
- * <p>An instance of this class will be created for you automatically,
- * the first time your application evaluates a value binding expression
- * or method binding expression that references a managed bean using
- * this class.</p>
- *
+ * <p>
+ * Application scope data bean for your application. Create properties here to represent cached data that should be made
+ * available to all users and pages in the application.
+ * </p>
+ * 
+ * <p>
+ * An instance of this class will be created for you automatically, the first time your application evaluates a value
+ * binding expression or method binding expression that references a managed bean using this class.
+ * </p>
+ * 
  * @version ApplicationBean1.java
  * @version Created on Oct 12, 2009, 4:37:57 PM
  * @author Duane DeCouteau
@@ -89,31 +89,36 @@ public class ApplicationBean1 extends AbstractApplicationBean {
     // <editor-fold defaultstate="collapsed" desc="Managed Component Definition">
 
     /**
-     * <p>Automatically managed component initialization.  <strong>WARNING:</strong>
-     * This method is automatically generated, so any user-specified code inserted
-     * here is subject to being replaced.</p>
+     * <p>
+     * Automatically managed component initialization. <strong>WARNING:</strong> This method is automatically generated,
+     * so any user-specified code inserted here is subject to being replaced.
+     * </p>
      */
     private void _init() throws Exception {
     }
+
     // </editor-fold>
 
     /**
-     * <p>Construct a new application data bean instance.</p>
+     * <p>
+     * Construct a new application data bean instance.
+     * </p>
      */
     public ApplicationBean1() {
     }
 
     /**
-     * <p>This method is called when this bean is initially added to
-     * application scope.  Typically, this occurs as a result of evaluating
-     * a value binding or method binding expression, which utilizes the
-     * managed bean facility to instantiate this bean and store it into
-     * application scope.</p>
+     * <p>
+     * This method is called when this bean is initially added to application scope. Typically, this occurs as a result
+     * of evaluating a value binding or method binding expression, which utilizes the managed bean facility to
+     * instantiate this bean and store it into application scope.
+     * </p>
      * 
-     * <p>You may customize this method to initialize and cache application wide
-     * data values (such as the lists of valid options for dropdown list
-     * components), or to allocate resources that are required for the
-     * lifetime of the application.</p>
+     * <p>
+     * You may customize this method to initialize and cache application wide data values (such as the lists of valid
+     * options for dropdown list components), or to allocate resources that are required for the lifetime of the
+     * application.
+     * </p>
      */
     @Override
     public void init() {
@@ -122,7 +127,7 @@ public class ApplicationBean1 extends AbstractApplicationBean {
         // Perform application initialization that must complete
         // *before* managed components are initialized
         // TODO - add your own initialiation code here
-        
+
         // <editor-fold defaultstate="collapsed" desc="Managed Component Initialization">
         // Initialize automatically managed components
         // *Note* - this logic should NOT be modified
@@ -136,24 +141,33 @@ public class ApplicationBean1 extends AbstractApplicationBean {
             String assigningauth = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, ASSIGNING_AUTHORITY_ID_PROPERTY);
             String defaultpou = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, DEFAULT_PURPOSE_OF_USE_PROPERTY);
             String purposeofusecode = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, PURPOSE_OF_USE_CODE_PROPERTY);
-            String purposeofusesystem = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, PURPOSE_OF_USE_CODE_SYSTEM_PROPERTY);
-            String purposeofusesystemname = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, PURPOSE_OF_USE_CODE_SYSTEM_NAME_PROPERTY);
-            String purposeofusesystemversion = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, PURPOSE_OF_USE_CODE_SYSTEM_VERSION_PROPERTY);
+            String purposeofusesystem = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE,
+                    PURPOSE_OF_USE_CODE_SYSTEM_PROPERTY);
+            String purposeofusesystemname = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE,
+                    PURPOSE_OF_USE_CODE_SYSTEM_NAME_PROPERTY);
+            String purposeofusesystemversion = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE,
+                    PURPOSE_OF_USE_CODE_SYSTEM_VERSION_PROPERTY);
             String userorganization = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, USER_ORGANIZATION_PROPERTY);
             String userrolecode = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, USER_ROLE_CODE_PROPERTY);
-            String userrolecodesystem = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, USER_ROLE_CODE_SYSTEM_PROPERTY);
-            String userrolecodesystemname = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, USER_ROLE_CODE_SYSTEM_NAME_PROPERTY);
-            String userrolecodesystemversion = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, USER_ROLE_CODE_SYSTEM_VERSION_PROPERTY);
-            String userroledisplayname = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, USER_ROLE_DISPLAY_NAME_DEFAULT_PROPERTY);
-            String docviewerws = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, DOCVIEWER_REQUEST_SERVICE_PROPERTY);
+            String userrolecodesystem = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE,
+                    USER_ROLE_CODE_SYSTEM_PROPERTY);
+            String userrolecodesystemname = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE,
+                    USER_ROLE_CODE_SYSTEM_NAME_PROPERTY);
+            String userrolecodesystemversion = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE,
+                    USER_ROLE_CODE_SYSTEM_VERSION_PROPERTY);
+            String userroledisplayname = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE,
+                    USER_ROLE_DISPLAY_NAME_DEFAULT_PROPERTY);
+            String docviewerws = PropertyAccessor
+                    .getProperty(ADAPTER_PROPERTY_FILE, DOCVIEWER_REQUEST_SERVICE_PROPERTY);
             String claimformref = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, CLAIM_FORM_REF_PROPERTY);
             String claimformstring = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, CLAIM_FORM_STRING_PROPERTY);
             String signaturedate = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, SIGNATURE_DATE_PROPERTY);
             String expirationdate = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, EXPIRATION_DATE_PROPERTY);
             String numberofyearsstring = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, NUMBER_OF_YEARS_PROPERTY);
-            String docmanagerservice = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, DOC_MANAGER_SERVICE_PROPERTY);
+            String docmanagerservice = PropertyAccessor
+                    .getProperty(ADAPTER_PROPERTY_FILE, DOC_MANAGER_SERVICE_PROPERTY);
 
-            //CAL Service Params
+            // CAL Service Params
             String calservice = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, CAL_SERVICE_PROPERTY);
             String calservicewsdl = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, CAL_SERVICE_WSDL_PROPERTY);
             String calserviceqname = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, CAL_SERVICE_QNAME_PROPERTY);
@@ -186,22 +200,21 @@ public class ApplicationBean1 extends AbstractApplicationBean {
             setNumberOfYears(num.intValue());
             setDocumentManagerService(docmanagerservice);
             setNhinDocRetrieveService(nhindocretrieve);
-            //DoDConnector setters
+            // DoDConnector setters
             setCALService(calservice);
             setCALServiceWSDL(calservicewsdl);
             setCALServiceQNAME(calserviceqname);
-        }
-        catch (Exception ex) {
-            log.error("WARNING APPLICATIONBEAN "+ex.getMessage());
+        } catch (Exception ex) {
+            log.error("WARNING APPLICATIONBEAN " + ex.getMessage());
             log.error(ex);
         }
         try {
             _init();
         } catch (Exception e) {
             log("ApplicationBean1 Initialization Failure", e);
-            throw e instanceof FacesException ? (FacesException) e: new FacesException(e);
+            throw e instanceof FacesException ? (FacesException) e : new FacesException(e);
         }
-        
+
         // </editor-fold>
         // Perform application initialization that must complete
         // *after* managed components are initialized
@@ -209,26 +222,29 @@ public class ApplicationBean1 extends AbstractApplicationBean {
     }
 
     /**
-     * <p>This method is called when this bean is removed from
-     * application scope.  Typically, this occurs as a result of
-     * the application being shut down by its owning container.</p>
+     * <p>
+     * This method is called when this bean is removed from application scope. Typically, this occurs as a result of the
+     * application being shut down by its owning container.
+     * </p>
      * 
-     * <p>You may customize this method to clean up resources allocated
-     * during the execution of the <code>init()</code> method, or
-     * at any later time during the lifetime of the application.</p>
+     * <p>
+     * You may customize this method to clean up resources allocated during the execution of the <code>init()</code>
+     * method, or at any later time during the lifetime of the application.
+     * </p>
      */
     @Override
     public void destroy() {
     }
 
     /**
-     * <p>Return an appropriate character encoding based on the
-     * <code>Locale</code> defined for the current JavaServer Faces
-     * view.  If no more suitable encoding can be found, return
-     * "UTF-8" as a general purpose default.</p>
-     *
-     * <p>The default implementation uses the implementation from
-     * our superclass, <code>AbstractApplicationBean</code>.</p>
+     * <p>
+     * Return an appropriate character encoding based on the <code>Locale</code> defined for the current JavaServer
+     * Faces view. If no more suitable encoding can be found, return "UTF-8" as a general purpose default.
+     * </p>
+     * 
+     * <p>
+     * The default implementation uses the implementation from our superclass, <code>AbstractApplicationBean</code>.
+     * </p>
      */
     @Override
     public String getLocaleCharacterEncoding() {
@@ -315,7 +331,6 @@ public class ApplicationBean1 extends AbstractApplicationBean {
         this.homeCommunityDesc = homeCommunityDesc;
     }
 
-
     private String bOS;
     private String assigningAuthorityId;
     private String defaultPurposeOfUse;
@@ -336,12 +351,11 @@ public class ApplicationBean1 extends AbstractApplicationBean {
     private String expirationDate;
     private int numberOfYears;
     private String documentManagerService;
-	private String nhinDocRetrieveService;
-    //DoDConnector Params
+    private String nhinDocRetrieveService;
+    // DoDConnector Params
     private String calService;
     private String calServiceWSDL;
     private String calServiceQname;
-
 
     /**
      * @return the bOS
@@ -623,7 +637,6 @@ public class ApplicationBean1 extends AbstractApplicationBean {
         this.documentManagerService = documentManagerService;
     }
 
-
     /**
      * @return the nhinDocRetrieveService
      */
@@ -637,7 +650,8 @@ public class ApplicationBean1 extends AbstractApplicationBean {
     public void setNhinDocRetrieveService(String nhinDocRetrieveService) {
         this.nhinDocRetrieveService = nhinDocRetrieveService;
     }
-    //DoDConnector
+
+    // DoDConnector
 
     /**
      * @return the dodConnectorService
@@ -653,7 +667,7 @@ public class ApplicationBean1 extends AbstractApplicationBean {
         this.calService = dodConnectorService;
     }
 
-     /**
+    /**
      * @return the dodConnectorWSDLURL
      */
     public String getCALServiceWSDL() {
@@ -667,7 +681,7 @@ public class ApplicationBean1 extends AbstractApplicationBean {
         this.calServiceWSDL = calServiceWSDL;
     }
 
-     /**
+    /**
      * @return the dodConnectorQname
      */
     public String getCALServiceQNAME() {
@@ -680,6 +694,5 @@ public class ApplicationBean1 extends AbstractApplicationBean {
     public void setCALServiceQNAME(String calServiceQname) {
         this.calServiceQname = calServiceQname;
     }
-
 
 }

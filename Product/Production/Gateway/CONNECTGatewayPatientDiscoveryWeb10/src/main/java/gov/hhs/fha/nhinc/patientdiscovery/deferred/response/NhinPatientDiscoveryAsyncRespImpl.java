@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.deferred.response;
 
-
-
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -42,16 +40,14 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
-public class NhinPatientDiscoveryAsyncRespImpl
-{
+public class NhinPatientDiscoveryAsyncRespImpl {
 
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryAsyncRespImpl.class);
 
-    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, WebServiceContext context)
-    {
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, WebServiceContext context) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
@@ -63,6 +59,7 @@ public class NhinPatientDiscoveryAsyncRespImpl
             }
         }
 
-        return NhinPatientDiscoveryDeferredRespOrchFactory.getInstance().create().respondingGatewayPRPAIN201306UV02Orch(body, assertion);
-    }    
+        return NhinPatientDiscoveryDeferredRespOrchFactory.getInstance().create()
+                .respondingGatewayPRPAIN201306UV02Orch(body, assertion);
+    }
 }

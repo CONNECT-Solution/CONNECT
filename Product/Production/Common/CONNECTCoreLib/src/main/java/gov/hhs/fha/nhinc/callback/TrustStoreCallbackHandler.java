@@ -41,9 +41,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class uses the truststore system properties as established in the 
- * domain.xml file to allow the configuration of the SAML Truststore policy 
- * statements.
+ * This class uses the truststore system properties as established in the domain.xml file to allow the configuration of
+ * the SAML Truststore policy statements.
  */
 public class TrustStoreCallbackHandler implements CallbackHandler {
 
@@ -52,9 +51,8 @@ public class TrustStoreCallbackHandler implements CallbackHandler {
     private static Log log = LogFactory.getLog(TrustStoreCallbackHandler.class);
 
     /**
-     * Creates the callback handler saving the truststore certificates 
-     * information from the truststore file specified by the system properties:
-     * javax.net.ssl.trustStore and javax.net.ssl.trustStorePassword.
+     * Creates the callback handler saving the truststore certificates information from the truststore file specified by
+     * the system properties: javax.net.ssl.trustStore and javax.net.ssl.trustStorePassword.
      */
     public TrustStoreCallbackHandler() {
         log.debug("Entry TrustStoreCallbackHandler Constructor");
@@ -107,10 +105,9 @@ public class TrustStoreCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Implementing the callback, this method provides the truststore 
-     * information to the input Callback object.
-     * @param callbacks The Callback which needs to have truststore information 
-     * set.
+     * Implementing the callback, this method provides the truststore information to the input Callback object.
+     * 
+     * @param callbacks The Callback which needs to have truststore information set.
      * @throws java.io.IOException
      * @throws javax.security.auth.callback.UnsupportedCallbackException
      */
@@ -119,7 +116,7 @@ public class TrustStoreCallbackHandler implements CallbackHandler {
         for (int i = 0; i < callbacks.length; i++) {
             if (callbacks[i] instanceof KeyStoreCallback) {
                 KeyStoreCallback cb = (KeyStoreCallback) callbacks[i];
-                //print(cb.getRuntimeProperties());
+                // print(cb.getRuntimeProperties());
                 cb.setKeystore(trustStore);
                 log.debug("TrustStoreCallback set truststore: " + trustStore);
             } else {
@@ -130,11 +127,8 @@ public class TrustStoreCallbackHandler implements CallbackHandler {
         log.debug("Exit TrustStoreCallbackHandler handle callback");
     }
 
-    /*private void print(Map context) {
-    Iterator it = context.keySet().iterator();
-    while (it.hasNext()) {
-    log.debug("Prop " + it.next());
-    }
-    }*/
+    /*
+     * private void print(Map context) { Iterator it = context.keySet().iterator(); while (it.hasNext()) {
+     * log.debug("Prop " + it.next()); } }
+     */
 }
-

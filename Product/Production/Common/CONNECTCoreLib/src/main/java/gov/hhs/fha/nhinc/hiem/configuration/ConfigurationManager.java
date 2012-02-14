@@ -37,7 +37,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class ConfigurationManager {
@@ -59,9 +59,11 @@ public class ConfigurationManager {
     public String getAdapterSubscriptionMode() throws ConfigurationException {
         String value = null;
         try {
-            value = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_PROPERTY);
+            value = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_PROPERTY);
         } catch (PropertyAccessException ex) {
-            throw new SoapFaultFactory().getConfigurationException("Failed to determine adapter subscription mode ['" + NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_PROPERTY + "'].", ex);
+            throw new SoapFaultFactory().getConfigurationException("Failed to determine adapter subscription mode ['"
+                    + NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_PROPERTY + "'].", ex);
         }
         return value;
     }
@@ -82,7 +84,8 @@ public class ConfigurationManager {
         try {
             serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, service);
         } catch (PropertyAccessException ex) {
-            throw new SoapFaultFactory().getConfigurationException("Failed to determine if service '" + service + "' is enabled.", ex);
+            throw new SoapFaultFactory().getConfigurationException("Failed to determine if service '" + service
+                    + "' is enabled.", ex);
         }
 
         return serviceEnabled;
@@ -94,7 +97,8 @@ public class ConfigurationManager {
         try {
             passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, service);
         } catch (PropertyAccessException ex) {
-            throw new SoapFaultFactory().getConfigurationException("Failed to determine if service '" + service + "' is pass through mode.", ex);
+            throw new SoapFaultFactory().getConfigurationException("Failed to determine if service '" + service
+                    + "' is pass through mode.", ex);
         }
 
         return passThroughModeEnabled;
@@ -103,7 +107,8 @@ public class ConfigurationManager {
     public String getEntityNotificationConsumerAddress() throws ConfigurationException {
         String url = null;
         try {
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+                    NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             throw new ConfigurationException("Unable to determine EntityNotificationConsumerAddress", ex);
         }

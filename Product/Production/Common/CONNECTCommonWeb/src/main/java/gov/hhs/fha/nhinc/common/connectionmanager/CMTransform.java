@@ -103,41 +103,38 @@ import org.xmlsoap.schemas.ws._2004._08.addressing.AttributedURI;
 import org.xmlsoap.schemas.ws._2004._08.addressing.ServiceNameType;
 
 /**
- * This class is used to transform from the internal POJO representations of 
- * connection manager information to the Web Service representations.
+ * This class is used to transform from the internal POJO representations of connection manager information to the Web
+ * Service representations.
  * 
  * @author Les Westberg
  */
-public class CMTransform 
-{
+public class CMTransform {
     private static Log log = LogFactory.getLog(CMTransform.class);
     private static final String EPR_PROPERTY_FILE_NAME = "connectionEPR";
     private static final String EPR_NAMESPACE_URI = "NamespaceURI";
     private static final String EPR_PORT_NAME = "PortName";
     private static final String EPR_SERVICE_NAME = "ServiceName";
     private static final String EPR_NAMESPACE_PREFIX = "NamespacePrefix";
-    
+
     /**
      * Transform a POJO representation of a CMHomeCommunity to the web service represenation.
      * 
      * @param oCMHomeCommunity The POJO representation.
      * @return The web service representation.
      */
-    public static HomeCommunityType cmHomeCommunityToHomeCommunity(CMHomeCommunity oCMHomeCommunity)
-    {
+    public static HomeCommunityType cmHomeCommunityToHomeCommunity(CMHomeCommunity oCMHomeCommunity) {
         HomeCommunityType oHomeCommunity = new HomeCommunityType();
-        
-        if (oCMHomeCommunity == null)
-        {
+
+        if (oCMHomeCommunity == null) {
             return null;
         }
-        
+
         oHomeCommunity.setDescription(oCMHomeCommunity.getDescription());
         oHomeCommunity.setName(oCMHomeCommunity.getName());
         oHomeCommunity.setHomeCommunityId(oCMHomeCommunity.getHomeCommunityId());
-        
+
         return oHomeCommunity;
-        
+
     }
 
     /**
@@ -146,96 +143,78 @@ public class CMTransform
      * @param oCMBusinessEntity The POJO representation.
      * @return The web service representation.
      */
-    public static HomeCommunityType cmBusinessEntityToHomeCommunity(CMBusinessEntity oCMBusinessEntity)
-    {
+    public static HomeCommunityType cmBusinessEntityToHomeCommunity(CMBusinessEntity oCMBusinessEntity) {
         HomeCommunityType oHomeCommunity = new HomeCommunityType();
-        
-        if (oCMBusinessEntity == null)
-        {
+
+        if (oCMBusinessEntity == null) {
             return null;
         }
-        
+
         // Description
-        //------------
-        if ((oCMBusinessEntity.getDescriptions() != null) &&
-            (oCMBusinessEntity.getDescriptions().getBusinessDescription() != null) &&
-            (oCMBusinessEntity.getDescriptions().getBusinessDescription().size() > 0) &&
-            (oCMBusinessEntity.getDescriptions().getBusinessDescription().get(0) != null) &&
-            (oCMBusinessEntity.getDescriptions().getBusinessDescription().get(0).length() > 0))
-        {
+        // ------------
+        if ((oCMBusinessEntity.getDescriptions() != null)
+                && (oCMBusinessEntity.getDescriptions().getBusinessDescription() != null)
+                && (oCMBusinessEntity.getDescriptions().getBusinessDescription().size() > 0)
+                && (oCMBusinessEntity.getDescriptions().getBusinessDescription().get(0) != null)
+                && (oCMBusinessEntity.getDescriptions().getBusinessDescription().get(0).length() > 0)) {
             oHomeCommunity.setDescription(oCMBusinessEntity.getDescriptions().getBusinessDescription().get(0));
         }
-        
+
         // Name
-        //------
-        if ((oCMBusinessEntity.getNames() != null) &&
-            (oCMBusinessEntity.getNames().getBusinessName() != null) &&
-            (oCMBusinessEntity.getNames().getBusinessName().size() > 0) &&
-            (oCMBusinessEntity.getNames().getBusinessName().get(0) != null) &&
-            (oCMBusinessEntity.getNames().getBusinessName().get(0).length() > 0))
-        {
+        // ------
+        if ((oCMBusinessEntity.getNames() != null) && (oCMBusinessEntity.getNames().getBusinessName() != null)
+                && (oCMBusinessEntity.getNames().getBusinessName().size() > 0)
+                && (oCMBusinessEntity.getNames().getBusinessName().get(0) != null)
+                && (oCMBusinessEntity.getNames().getBusinessName().get(0).length() > 0)) {
             oHomeCommunity.setName(oCMBusinessEntity.getNames().getBusinessName().get(0));
         }
-        
 
         // Home Community Id
-        //-------------------
+        // -------------------
         oHomeCommunity.setHomeCommunityId(oCMBusinessEntity.getHomeCommunityId());
-        
+
         return oHomeCommunity;
-        
+
     }
-    
+
     /**
-     * Transform the information in a list of CMHomeCommunity objects to the web service representation
-     * of these data types.
+     * Transform the information in a list of CMHomeCommunity objects to the web service representation of these data
+     * types.
      * 
      * @param oaCMHomeCommunity The POJO home community information.
      * @return The Web service representation of the information.
      */
-    public static HomeCommunitiesType listCMHomeCommunityToHomeCommunitiesType(List<CMHomeCommunity> oaCMHomeCommunity)
-    {
+    public static HomeCommunitiesType listCMHomeCommunityToHomeCommunitiesType(List<CMHomeCommunity> oaCMHomeCommunity) {
         HomeCommunitiesType oCommunities = new HomeCommunitiesType();
-        
-        if ((oaCMHomeCommunity != null) && (oaCMHomeCommunity.size() > 0))
-        {
-            for (CMHomeCommunity oCMHomeCommunity : oaCMHomeCommunity)
-            {
+
+        if ((oaCMHomeCommunity != null) && (oaCMHomeCommunity.size() > 0)) {
+            for (CMHomeCommunity oCMHomeCommunity : oaCMHomeCommunity) {
                 HomeCommunityType oHomeCommunity = cmHomeCommunityToHomeCommunity(oCMHomeCommunity);
-                
-                if (oHomeCommunity != null)
-                {
+
+                if (oHomeCommunity != null) {
                     oCommunities.getHomeCommunity().add(oHomeCommunity);
                 }
-            }   // for (CMHomeCommunity oCommunity : oaHomeCommunity)
+            } // for (CMHomeCommunity oCommunity : oaHomeCommunity)
         }
-        
-        if (oCommunities.getHomeCommunity().size() > 0)
-        {
+
+        if (oCommunities.getHomeCommunity().size() > 0) {
             return oCommunities;
-        }
-        else
-        {
+        } else {
             return null;
         }
-        
+
     }
 
     /**
-     * Transform the information in a CMPhones object to the web service representation
-     * of this data type.
+     * Transform the information in a CMPhones object to the web service representation of this data type.
      * 
      * @param oCMPhones The POJO information.
      * @return The Web service representation of the information.
      */
-    public static PhonesType cmPhonesToPhonesType(CMPhones oCMPhones)
-    {
+    public static PhonesType cmPhonesToPhonesType(CMPhones oCMPhones) {
         PhonesType oPhones = new PhonesType();
-        
-        if ((oCMPhones == null) ||
-            (oCMPhones.getPhone() == null) ||
-            (oCMPhones.getPhone().size() <= 0))
-        {
+
+        if ((oCMPhones == null) || (oCMPhones.getPhone() == null) || (oCMPhones.getPhone().size() <= 0)) {
             return null;
         }
 
@@ -243,46 +222,37 @@ public class CMTransform
 
         return oPhones;
     }
-    
+
     /**
-     * Transform the information in a CMPersonNames object to the web service representation
-     * of this data type.
+     * Transform the information in a CMPersonNames object to the web service representation of this data type.
      * 
      * @param oCMPersonNames The POJO information.
      * @return The Web service representation of the information.
      */
-    public static PersonNamesType cmPersonNamesToPersonNamesType(CMPersonNames oCMPersonNames)
-    {
+    public static PersonNamesType cmPersonNamesToPersonNamesType(CMPersonNames oCMPersonNames) {
         PersonNamesType oPersonNames = new PersonNamesType();
-        
-        if ((oCMPersonNames == null) ||
-            (oCMPersonNames.getPersonName() == null) ||
-            (oCMPersonNames.getPersonName().size() <= 0))
-        {
+
+        if ((oCMPersonNames == null) || (oCMPersonNames.getPersonName() == null)
+                || (oCMPersonNames.getPersonName().size() <= 0)) {
             return null;
         }
 
         oPersonNames.getPersonName().addAll(oCMPersonNames.getPersonName());
 
         return oPersonNames;
-        
+
     }
-    
+
     /**
-     * Transform the information in a CMEmails object to the web service representation
-     * of this data type.
+     * Transform the information in a CMEmails object to the web service representation of this data type.
      * 
      * @param oCMEmails The POJO information.
      * @return The Web service representation of the information.
      */
-    public static EmailsType cmEmailsToEmailstype(CMEmails oCMEmails)
-    {
+    public static EmailsType cmEmailsToEmailstype(CMEmails oCMEmails) {
         EmailsType oEmails = new EmailsType();
-        
-        if ((oCMEmails == null) ||
-            (oCMEmails.getEmail() == null) ||
-            (oCMEmails.getEmail().size() <= 0))
-        {
+
+        if ((oCMEmails == null) || (oCMEmails.getEmail() == null) || (oCMEmails.getEmail().size() <= 0)) {
             return null;
         }
 
@@ -290,22 +260,19 @@ public class CMTransform
 
         return oEmails;
     }
-    
+
     /**
-     * Transform the information in a CMContactDescriptions object to the web service representation
-     * of this data type.
+     * Transform the information in a CMContactDescriptions object to the web service representation of this data type.
      * 
      * @param oCMContactDescriptions The POJO information.
      * @return The Web service representation of the information.
      */
-    public static ContactDescriptionsType cmContactDescriptionsToContactDescriptionsType(CMContactDescriptions oCMContactDescriptions)
-    {
+    public static ContactDescriptionsType cmContactDescriptionsToContactDescriptionsType(
+            CMContactDescriptions oCMContactDescriptions) {
         ContactDescriptionsType oContactDescriptions = new ContactDescriptionsType();
-        
-        if ((oCMContactDescriptions == null) ||
-            (oCMContactDescriptions.getDescription() == null) ||
-            (oCMContactDescriptions.getDescription().size() <= 0))
-        {
+
+        if ((oCMContactDescriptions == null) || (oCMContactDescriptions.getDescription() == null)
+                || (oCMContactDescriptions.getDescription().size() <= 0)) {
             return null;
         }
 
@@ -313,133 +280,104 @@ public class CMTransform
 
         return oContactDescriptions;
     }
-    
+
     /**
-     * Transform the information in a CMAddresses object to the web service representation
-     * of this data type.
+     * Transform the information in a CMAddresses object to the web service representation of this data type.
      * 
      * @param oCMAddresses The POJO information.
      * @return The Web service representation of the information.
      */
-    public static AddressesType cmAddressesToAddressesType(CMAddresses oCMAddresses)
-    {
+    public static AddressesType cmAddressesToAddressesType(CMAddresses oCMAddresses) {
         AddressesType oAddresses = new AddressesType();
-        
-        if ((oCMAddresses == null) ||
-            (oCMAddresses.getAddress() == null) ||
-            (oCMAddresses.getAddress().size() <= 0))
-        {
+
+        if ((oCMAddresses == null) || (oCMAddresses.getAddress() == null) || (oCMAddresses.getAddress().size() <= 0)) {
             return null;
         }
-        
-        for (CMAddress oCMAddress : oCMAddresses.getAddress())
-        {
+
+        for (CMAddress oCMAddress : oCMAddresses.getAddress()) {
             AddressType oAddress = new AddressType();
-            
-            if ((oCMAddress.getAddressLine() != null) &&
-                (oCMAddress.getAddressLine().size() > 0))
-            {
+
+            if ((oCMAddress.getAddressLine() != null) && (oCMAddress.getAddressLine().size() > 0)) {
                 oAddress.getAddressLine().addAll(oCMAddress.getAddressLine());
             }
-            
+
             oAddresses.getAddress().add(oAddress);
         }
-        
+
         return oAddresses;
     }
 
     /**
-     * Transform the information in a CMBindingNames object to the web service representation
-     * of this data type.
+     * Transform the information in a CMBindingNames object to the web service representation of this data type.
      * 
      * @param oCMBindingNames The POJO information.
      * @return The Web service representation of the information.
      */
-    public static List<BindingNamesType> cmBindingNamesToListBindingNamesType(CMBindingNames oCMBindingNames)
-    {
+    public static List<BindingNamesType> cmBindingNamesToListBindingNamesType(CMBindingNames oCMBindingNames) {
         List<BindingNamesType> oaBindingNames = new ArrayList<BindingNamesType>();
-        
-        if ((oCMBindingNames == null) ||
-            (oCMBindingNames.getName() == null) ||
-            (oCMBindingNames.getName().size() <= 0))
-        {
+
+        if ((oCMBindingNames == null) || (oCMBindingNames.getName() == null) || (oCMBindingNames.getName().size() <= 0)) {
             return null;
         }
-        
-        for (String sCMBindingName : oCMBindingNames.getName())
-        {
+
+        for (String sCMBindingName : oCMBindingNames.getName()) {
             BindingNamesType oBindingNames = new BindingNamesType();
             oBindingNames.getName().add(sCMBindingName);
             oaBindingNames.add(oBindingNames);
         }
 
-        if (oaBindingNames.size() > 0)
-        {
+        if (oaBindingNames.size() > 0) {
             return oaBindingNames;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
-    
+
     /**
-     * Transform the information in a CMBindingDescriptions object to the web service representation
-     * of this data type.
+     * Transform the information in a CMBindingDescriptions object to the web service representation of this data type.
      * 
-     * @param oCMBindingDescriptions  The POJO information.
+     * @param oCMBindingDescriptions The POJO information.
      * @return The Web service representation of the information.
      */
-    public static List<BindingDescriptionsType> cmBindingDescriptionsToListBindingDescriptionsType(CMBindingDescriptions oCMBindingDescriptions)
-    {
+    public static List<BindingDescriptionsType> cmBindingDescriptionsToListBindingDescriptionsType(
+            CMBindingDescriptions oCMBindingDescriptions) {
         List<BindingDescriptionsType> oaBindingDescriptions = new ArrayList<BindingDescriptionsType>();
-        
-        if ((oCMBindingDescriptions == null) ||
-            (oCMBindingDescriptions.getDescription() == null) ||
-            (oCMBindingDescriptions.getDescription().size() <= 0))
-        {
+
+        if ((oCMBindingDescriptions == null) || (oCMBindingDescriptions.getDescription() == null)
+                || (oCMBindingDescriptions.getDescription().size() <= 0)) {
             return null;
         }
-        
-        for (String sCMBindingDescription : oCMBindingDescriptions.getDescription())
-        {
+
+        for (String sCMBindingDescription : oCMBindingDescriptions.getDescription()) {
             BindingDescriptionsType oBindingDescriptions = new BindingDescriptionsType();
             oBindingDescriptions.getDescription().add(sCMBindingDescription);
             oaBindingDescriptions.add(oBindingDescriptions);
         }
 
-        if (oaBindingDescriptions.size() > 0)
-        {
+        if (oaBindingDescriptions.size() > 0) {
             return oaBindingDescriptions;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
-    
+
     /**
-     * Transform the information in a CMBindingTemplates object to the web service representation
-     * of this data type.
+     * Transform the information in a CMBindingTemplates object to the web service representation of this data type.
      * 
      * @param oCMBindingTemplates The POJO information.
      * @return The Web service representation of the information.
      */
-    public static BindingTemplatesType cmBindingTemplatesToBindingTemplatesType(CMBindingTemplates oCMBindingTemplates)
-    {
+    public static BindingTemplatesType cmBindingTemplatesToBindingTemplatesType(CMBindingTemplates oCMBindingTemplates) {
         BindingTemplatesType oBindingTemplates = new BindingTemplatesType();
-        
-        if ((oCMBindingTemplates == null) ||
-            (oCMBindingTemplates.getBindingTemplate() == null) ||
-            (oCMBindingTemplates.getBindingTemplate().size() <= 0))
-        {
+
+        if ((oCMBindingTemplates == null) || (oCMBindingTemplates.getBindingTemplate() == null)
+                || (oCMBindingTemplates.getBindingTemplate().size() <= 0)) {
             return null;
         }
-        
-        for (CMBindingTemplate oCMBindingTemplate : oCMBindingTemplates.getBindingTemplate())
-        {
+
+        for (CMBindingTemplate oCMBindingTemplate : oCMBindingTemplates.getBindingTemplate()) {
             BindingTemplateType oBindingTemplate = new BindingTemplateType();
-            
+
             oBindingTemplate.setBindingKey(oCMBindingTemplate.getBindingKey());
             oBindingTemplate.setEndpointURL(oCMBindingTemplate.getEndpointURL());
             oBindingTemplate.setWsdlURL(oCMBindingTemplate.getWsdlURL());
@@ -447,31 +385,23 @@ public class CMTransform
             oBindingTemplates.getBindingTemplate().add(oBindingTemplate);
         }
 
-        if (oBindingTemplates.getBindingTemplate().size() > 0)
-        {
+        if (oBindingTemplates.getBindingTemplate().size() > 0) {
             return oBindingTemplates;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
-    
+
     /**
-     * Transform the information in a States object to the web service representation
-     * of this data type.
+     * Transform the information in a States object to the web service representation of this data type.
      * 
      * @param oCMStates The POJO information.
      * @return The Web service representation of the information.
      */
-    public static StatesType cmStatesToStatesType(CMStates oCMStates)
-    {
+    public static StatesType cmStatesToStatesType(CMStates oCMStates) {
         StatesType oStates = new StatesType();
-        
-        if ((oCMStates == null) ||
-            (oCMStates.getState() == null) ||
-            (oCMStates.getState().size() <= 0))
-        {
+
+        if ((oCMStates == null) || (oCMStates.getState() == null) || (oCMStates.getState().size() <= 0)) {
             return null;
         }
 
@@ -479,98 +409,81 @@ public class CMTransform
 
         return oStates;
     }
-    
+
     /**
-     * Transform the information in a CMBusinessNames object to the web service representation
-     * of this data type.
+     * Transform the information in a CMBusinessNames object to the web service representation of this data type.
      * 
      * @param oCMBusinessNames The POJO information.
      * @return The Web service representation of the information.
      */
-    public static BusinessNamesType cmBusinessNamesToBusinessNamesType(CMBusinessNames oCMBusinessNames)
-    {
+    public static BusinessNamesType cmBusinessNamesToBusinessNamesType(CMBusinessNames oCMBusinessNames) {
         BusinessNamesType oBusinessNames = new BusinessNamesType();
-        
-        if ((oCMBusinessNames == null) ||
-            (oCMBusinessNames.getBusinessName() == null) ||
-            (oCMBusinessNames.getBusinessName().size() <= 0))
-        {
+
+        if ((oCMBusinessNames == null) || (oCMBusinessNames.getBusinessName() == null)
+                || (oCMBusinessNames.getBusinessName().size() <= 0)) {
             return null;
         }
-        
+
         oBusinessNames.getBusinessName().addAll(oCMBusinessNames.getBusinessName());
 
         return oBusinessNames;
-        
+
     }
-    
+
     /**
-     * Transform the information in a CMDiscoveryURLs object to the web service representation
-     * of this data type.
+     * Transform the information in a CMDiscoveryURLs object to the web service representation of this data type.
      * 
      * @param oCMDiscoveryURLs The POJO information.
      * @return The Web service representation of the information.
      */
-    public static DiscoveryURLsType cmDiscoveryURLsToDiscoveryURLsType(CMDiscoveryURLs oCMDiscoveryURLs)
-    {
+    public static DiscoveryURLsType cmDiscoveryURLsToDiscoveryURLsType(CMDiscoveryURLs oCMDiscoveryURLs) {
         DiscoveryURLsType oDiscoveryURLs = new DiscoveryURLsType();
-        
-        if ((oCMDiscoveryURLs == null) ||
-            (oCMDiscoveryURLs.getDiscoveryURL() == null) ||
-            (oCMDiscoveryURLs.getDiscoveryURL().size() <= 0))
-        {
+
+        if ((oCMDiscoveryURLs == null) || (oCMDiscoveryURLs.getDiscoveryURL() == null)
+                || (oCMDiscoveryURLs.getDiscoveryURL().size() <= 0)) {
             return null;
         }
-        
+
         oDiscoveryURLs.getDiscoveryURL().addAll(oCMDiscoveryURLs.getDiscoveryURL());
 
         return oDiscoveryURLs;
-        
+
     }
-    
+
     /**
-     * Transform the information in a CMBusinessDescriptions object to the web service representation
-     * of this data type.
+     * Transform the information in a CMBusinessDescriptions object to the web service representation of this data type.
      * 
      * @param oCMBusinessDescriptions The POJO information.
      * @return The Web service representation of the information.
      */
-    public static BusinessDescriptionsType cmBusinessDescriptionsToBusinessDescriptionsType(CMBusinessDescriptions oCMBusinessDescriptions)
-    {
+    public static BusinessDescriptionsType cmBusinessDescriptionsToBusinessDescriptionsType(
+            CMBusinessDescriptions oCMBusinessDescriptions) {
         BusinessDescriptionsType oBusinessDescriptions = new BusinessDescriptionsType();
-        
-        if ((oCMBusinessDescriptions == null) ||
-            (oCMBusinessDescriptions.getBusinessDescription() == null) ||
-            (oCMBusinessDescriptions.getBusinessDescription().size() <= 0))
-        {
+
+        if ((oCMBusinessDescriptions == null) || (oCMBusinessDescriptions.getBusinessDescription() == null)
+                || (oCMBusinessDescriptions.getBusinessDescription().size() <= 0)) {
             return null;
         }
-        
+
         oBusinessDescriptions.getBusinessDescription().addAll(oCMBusinessDescriptions.getBusinessDescription());
 
         return oBusinessDescriptions;
     }
-    
+
     /**
-     * Transform the information in a CMContacts object to the web service representation
-     * of this data type.
+     * Transform the information in a CMContacts object to the web service representation of this data type.
      * 
      * @param oCMContacts The POJO information.
      * @return The Web service representation of the information.
      */
-    public static ContactsType cmContactsToContactsType(CMContacts oCMContacts)
-    {
+    public static ContactsType cmContactsToContactsType(CMContacts oCMContacts) {
         ContactsType oContacts = new ContactsType();
-        
-        if ((oCMContacts == null) ||
-            (oCMContacts.getContact() == null) ||
-            (oCMContacts.getContact().size() <= 0))
-        {
+
+        if ((oCMContacts == null) || (oCMContacts.getContact() == null) || (oCMContacts.getContact().size() <= 0)) {
             return null;
         }
-        
-        for (CMContact oCMContact : oCMContacts.getContact())
-        {
+
+        for (CMContact oCMContact : oCMContacts.getContact()) {
             ContactType oContact = new ContactType();
             oContact.setAddresses(cmAddressesToAddressesType(oCMContact.getAddresses()));
             oContact.setDescriptions(cmContactDescriptionsToContactDescriptionsType(oCMContact.getDescriptions()));
@@ -579,91 +492,76 @@ public class CMTransform
             oContact.setPhones(cmPhonesToPhonesType(oCMContact.getPhones()));
             oContacts.getContact().add(oContact);
         }
-        
-        if (oContacts.getContact().size() > 0)
-        {
+
+        if (oContacts.getContact().size() > 0) {
             return oContacts;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
-    
+
     /**
-     * Transform the information in a CMBusinessServices object to the web service representation
-     * of this data type.
+     * Transform the information in a CMBusinessServices object to the web service representation of this data type.
      * 
      * @param oCMBusinessServices The POJO information.
      * @return The Web service representation of the information.
      */
-    public static BusinessServicesType cmBusinessServicesToBusinessServicesType(CMBusinessServices oCMBusinessServices)
-    {
+    public static BusinessServicesType cmBusinessServicesToBusinessServicesType(CMBusinessServices oCMBusinessServices) {
         BusinessServicesType oBusinessServices = new BusinessServicesType();
-        
-        if ((oCMBusinessServices == null  ||
-            (oCMBusinessServices.getBusinessService() == null) ||
-            (oCMBusinessServices.getBusinessService().size() <= 0)))
-        {
+
+        if ((oCMBusinessServices == null || (oCMBusinessServices.getBusinessService() == null) || (oCMBusinessServices
+                .getBusinessService().size() <= 0))) {
             return null;
         }
-        
-        for (CMBusinessService oCMBusinessService : oCMBusinessServices.getBusinessService())
-        {
+
+        for (CMBusinessService oCMBusinessService : oCMBusinessServices.getBusinessService()) {
             BusinessServiceType oBusinessService = new BusinessServiceType();
-            oBusinessService.setBindingTemplates(cmBindingTemplatesToBindingTemplatesType(oCMBusinessService.getBindingTemplates()));
+            oBusinessService.setBindingTemplates(cmBindingTemplatesToBindingTemplatesType(oCMBusinessService
+                    .getBindingTemplates()));
             oBusinessService.setInternalWebService(oCMBusinessService.isInternalWebService());
             oBusinessService.setServiceKey(oCMBusinessService.getServiceKey());
             oBusinessService.setUniformServiceName(oCMBusinessService.getUniformServiceName());
 
-            List<BindingDescriptionsType> oaBindingDescriptions = cmBindingDescriptionsToListBindingDescriptionsType(oCMBusinessService.getDescriptions());
-            if ((oaBindingDescriptions != null) &&
-                (oaBindingDescriptions.size() > 0))
-            {
+            List<BindingDescriptionsType> oaBindingDescriptions = cmBindingDescriptionsToListBindingDescriptionsType(oCMBusinessService
+                    .getDescriptions());
+            if ((oaBindingDescriptions != null) && (oaBindingDescriptions.size() > 0)) {
                 oBusinessService.getDescriptions().addAll(oaBindingDescriptions);
             }
-            
+
             List<BindingNamesType> oaBindingNames = cmBindingNamesToListBindingNamesType(oCMBusinessService.getNames());
-            if ((oaBindingNames != null) &&
-                (oaBindingNames.size() > 0))
-            {
+            if ((oaBindingNames != null) && (oaBindingNames.size() > 0)) {
                 oBusinessService.getNames().addAll(oaBindingNames);
             }
-            
+
             oBusinessServices.getBusinessService().add(oBusinessService);
         }
-        
 
-        if (oBusinessServices.getBusinessService().size() > 0)
-        {
+        if (oBusinessServices.getBusinessService().size() > 0) {
             return oBusinessServices;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
-    
+
     /**
-     * Transform the information in a CMBusinessEntity objects to the web service representation
-     * of these data types.
+     * Transform the information in a CMBusinessEntity objects to the web service representation of these data types.
      * 
      * @param oCMBusinessEntity The POJO information.
      * @return The Web service representation of the information.
      */
-    public static BusinessEntityType cmBusinessEntityToBusinessEntityType(CMBusinessEntity oCMBusinessEntity)
-    {
+    public static BusinessEntityType cmBusinessEntityToBusinessEntityType(CMBusinessEntity oCMBusinessEntity) {
         BusinessEntityType oBusinessEntity = new BusinessEntityType();
-        
-        if (oCMBusinessEntity == null)
-        {
+
+        if (oCMBusinessEntity == null) {
             return null;
         }
-        
+
         oBusinessEntity.setBusinessKey(oCMBusinessEntity.getBusinessKey());
-        oBusinessEntity.setBusinessServices(cmBusinessServicesToBusinessServicesType(oCMBusinessEntity.getBusinessServices()));
+        oBusinessEntity.setBusinessServices(cmBusinessServicesToBusinessServicesType(oCMBusinessEntity
+                .getBusinessServices()));
         oBusinessEntity.setContacts(cmContactsToContactsType(oCMBusinessEntity.getContacts()));
-        oBusinessEntity.setDescriptions(cmBusinessDescriptionsToBusinessDescriptionsType(oCMBusinessEntity.getDescriptions()));
+        oBusinessEntity.setDescriptions(cmBusinessDescriptionsToBusinessDescriptionsType(oCMBusinessEntity
+                .getDescriptions()));
         oBusinessEntity.setDiscoveryURLs(cmDiscoveryURLsToDiscoveryURLsType(oCMBusinessEntity.getDiscoveryURLs()));
         oBusinessEntity.setFederalHIE(oCMBusinessEntity.isFederalHIE());
         oBusinessEntity.setHomeCommunityId(oCMBusinessEntity.getHomeCommunityId());
@@ -671,231 +569,191 @@ public class CMTransform
         oBusinessEntity.setPublicKey(oCMBusinessEntity.getPublicKey());
         oBusinessEntity.setPublicKeyURI(oCMBusinessEntity.getPublicKeyURI());
         oBusinessEntity.setStates(cmStatesToStatesType(oCMBusinessEntity.getStates()));
-        
+
         return oBusinessEntity;
     }
-    
+
     /**
-     * Transform the information in a CMBusinessEntities objects to the web service representation
-     * of these data types.
+     * Transform the information in a CMBusinessEntities objects to the web service representation of these data types.
      * 
      * @param oCMBusinessEntities The POJO information.
      * @return The Web service representation of the information.
      */
-    public static BusinessEntitiesType cmBusinessEntitiesToBusinessEntitiesType(CMBusinessEntities oCMBusinessEntities)
-    {
+    public static BusinessEntitiesType cmBusinessEntitiesToBusinessEntitiesType(CMBusinessEntities oCMBusinessEntities) {
         BusinessEntitiesType oBusinessEntities = new BusinessEntitiesType();
-        
-        if ((oCMBusinessEntities != null) && 
-            (oCMBusinessEntities.getBusinessEntity() != null) &&
-            (oCMBusinessEntities.getBusinessEntity().size() > 0))
-        {
-            for (CMBusinessEntity oCMBusinessEntity : oCMBusinessEntities.getBusinessEntity())
-            {
+
+        if ((oCMBusinessEntities != null) && (oCMBusinessEntities.getBusinessEntity() != null)
+                && (oCMBusinessEntities.getBusinessEntity().size() > 0)) {
+            for (CMBusinessEntity oCMBusinessEntity : oCMBusinessEntities.getBusinessEntity()) {
                 BusinessEntityType oBusinessEntity = cmBusinessEntityToBusinessEntityType(oCMBusinessEntity);
-                if (oBusinessEntity != null)
-                {
+                if (oBusinessEntity != null) {
                     oBusinessEntities.getBusinessEntity().add(oBusinessEntity);
                 }
-            }   // for (CMHomeCommunity oCommunity : oaHomeCommunity)
+            } // for (CMHomeCommunity oCommunity : oaHomeCommunity)
         }
-        
-        if (oBusinessEntities.getBusinessEntity().size() > 0)
-        {
+
+        if (oBusinessEntities.getBusinessEntity().size() > 0) {
             return oBusinessEntities;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
-    
+
     /**
      * This transforms the information in a CMBusinessServices object to a ServiceConnectionInfosType object.
      * 
      * @param oCMBusinessServices The information to be transformed.
      * @return The transformed information.
      */
-    public static ServiceConnectionInfosType cmBusinessServicesToServiceConnectionInfos(CMBusinessServices oCMBusinessServices)
-    {
+    public static ServiceConnectionInfosType cmBusinessServicesToServiceConnectionInfos(
+            CMBusinessServices oCMBusinessServices) {
         ServiceConnectionInfosType oServiceConnectionInfos = new ServiceConnectionInfosType();
-        
-        if ((oCMBusinessServices == null) ||
-            (oCMBusinessServices.getBusinessService() == null) ||
-            (oCMBusinessServices.getBusinessService().size() <= 0))
-        {
+
+        if ((oCMBusinessServices == null) || (oCMBusinessServices.getBusinessService() == null)
+                || (oCMBusinessServices.getBusinessService().size() <= 0)) {
             return null;
         }
-        
-        for (CMBusinessService oCMBusinessService : oCMBusinessServices.getBusinessService())
-        {
+
+        for (CMBusinessService oCMBusinessService : oCMBusinessServices.getBusinessService()) {
             ServiceConnectionInfoType oServiceConnectionInfo = new ServiceConnectionInfoType();
             boolean bHaveData = false;
-            
+
             // Uniform Service Name
-            //---------------------
-            if ((oCMBusinessService.getUniformServiceName() != null) &&
-                (oCMBusinessService.getUniformServiceName().length() > 0))
-            {
+            // ---------------------
+            if ((oCMBusinessService.getUniformServiceName() != null)
+                    && (oCMBusinessService.getUniformServiceName().length() > 0)) {
                 oServiceConnectionInfo.setServiceName(oCMBusinessService.getUniformServiceName());
                 bHaveData = true;
             }
 
             // URL
-            // Note that the UDDI server is set up to have multiple URLs per UniformServiceName.  However
-            // there should only be one.  We will use the first one we see...
-            //--------------------------------------------------------------------------------------------
-            if ((oCMBusinessService != null) &&
-                (oCMBusinessService.getBindingTemplates() != null) &&
-                (oCMBusinessService.getBindingTemplates().getBindingTemplate() != null) &&
-                (oCMBusinessService.getBindingTemplates().getBindingTemplate().size() > 0) &&
-                (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0) != null) &&
-                (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL() != null) &&
-                (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL().length() > 0))
-            {
+            // Note that the UDDI server is set up to have multiple URLs per UniformServiceName. However
+            // there should only be one. We will use the first one we see...
+            // --------------------------------------------------------------------------------------------
+            if ((oCMBusinessService != null)
+                    && (oCMBusinessService.getBindingTemplates() != null)
+                    && (oCMBusinessService.getBindingTemplates().getBindingTemplate() != null)
+                    && (oCMBusinessService.getBindingTemplates().getBindingTemplate().size() > 0)
+                    && (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0) != null)
+                    && (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL() != null)
+                    && (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL().length() > 0)) {
                 String sURL = oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL();
                 oServiceConnectionInfo.setUrl(sURL);
                 bHaveData = true;
-                
-                try
-                {
+
+                try {
                     URL oURL = new URL(sURL);
 
                     String sValue = oURL.getFile();
-                    if ((sValue != null) && (sValue.length() > 0))
-                    {
+                    if ((sValue != null) && (sValue.length() > 0)) {
                         oServiceConnectionInfo.setFile(sValue);
-                    }
-                    else
-                    {
+                    } else {
                         oServiceConnectionInfo.setFile("");
                     }
 
                     sValue = oURL.getHost();
-                    if ((sValue != null) && (sValue.length() > 0))
-                    {
+                    if ((sValue != null) && (sValue.length() > 0)) {
                         oServiceConnectionInfo.setHost(sValue);
-                    }
-                    else
-                    {
+                    } else {
                         oServiceConnectionInfo.setHost("");
                     }
 
                     sValue = oURL.getPath();
-                    if ((sValue != null) && (sValue.length() > 0))
-                    {
+                    if ((sValue != null) && (sValue.length() > 0)) {
                         oServiceConnectionInfo.setPath(sValue);
-                    }
-                    else
-                    {
+                    } else {
                         oServiceConnectionInfo.setPath("");
                     }
 
                     sValue = oURL.getPort() + "";
-                    if ((sValue != null) && (sValue.length() > 0))
-                    {
+                    if ((sValue != null) && (sValue.length() > 0)) {
                         oServiceConnectionInfo.setPort(sValue);
-                    }
-                    else
-                    {
+                    } else {
                         oServiceConnectionInfo.setPort("");
                     }
 
                     sValue = oURL.getProtocol();
-                    if ((sValue != null) && (sValue.length() > 0))
-                    {
+                    if ((sValue != null) && (sValue.length() > 0)) {
                         oServiceConnectionInfo.setProtocol(sValue);
-                    }
-                    else
-                    {
+                    } else {
                         oServiceConnectionInfo.setProtocol("");
                     }
-                }
-                catch (Throwable t)
-                {
-                    String sErrorMessage = "Failed to decompose URL into its parts. URL='" +
-                                           sURL + "'.  Error: " + t.getMessage();
+                } catch (Throwable t) {
+                    String sErrorMessage = "Failed to decompose URL into its parts. URL='" + sURL + "'.  Error: "
+                            + t.getMessage();
                     log.error(sErrorMessage, t);
                 }
-                
-            }   // if ((oCMBusinessService != null) &&
-            
-            if (bHaveData)
-            {
+
+            } // if ((oCMBusinessService != null) &&
+
+            if (bHaveData) {
                 oServiceConnectionInfos.getServiceConnectionInfo().add(oServiceConnectionInfo);
             }
-            
-        }   // for (CMBusinessService oCMBusinessService : oCMBusinessServices.getBusinessService())
-        
+
+        } // for (CMBusinessService oCMBusinessService : oCMBusinessServices.getBusinessService())
+
         return oServiceConnectionInfos;
     }
-    
+
     /**
      * This transforms the information in a CMBusinessServices object to a ServiceConnectionInfoEndpointsType object.
      * 
      * @param oCMBusinessServices The information to be transformed.
      * @return The transformed information.
      */
-    public static ServiceConnectionInfoEndpointsType cmBusinessServicesToServiceConnectionInfoEndpointsType(CMBusinessServices oCMBusinessServices)
-    {
+    public static ServiceConnectionInfoEndpointsType cmBusinessServicesToServiceConnectionInfoEndpointsType(
+            CMBusinessServices oCMBusinessServices) {
         ServiceConnectionInfoEndpointsType oServiceConnectionInfoEndpoints = new ServiceConnectionInfoEndpointsType();
-        
-        if ((oCMBusinessServices == null) ||
-            (oCMBusinessServices.getBusinessService() == null) ||
-            (oCMBusinessServices.getBusinessService().size() <= 0))
-        {
+
+        if ((oCMBusinessServices == null) || (oCMBusinessServices.getBusinessService() == null)
+                || (oCMBusinessServices.getBusinessService().size() <= 0)) {
             return null;
         }
-        
-        for (CMBusinessService oCMBusinessService : oCMBusinessServices.getBusinessService())
-        {
+
+        for (CMBusinessService oCMBusinessService : oCMBusinessServices.getBusinessService()) {
             ServiceConnectionInfoEndpointType oServiceConnectionInfoEndpoint = new ServiceConnectionInfoEndpointType();
             boolean bHaveData = false;
             String sServiceName = "";
-            
+
             // Uniform Service Name
-            //---------------------
-            if ((oCMBusinessService.getUniformServiceName() != null) &&
-                (oCMBusinessService.getUniformServiceName().length() > 0))
-            {
+            // ---------------------
+            if ((oCMBusinessService.getUniformServiceName() != null)
+                    && (oCMBusinessService.getUniformServiceName().length() > 0)) {
                 oServiceConnectionInfoEndpoint.setServiceName(oCMBusinessService.getUniformServiceName());
                 sServiceName = oCMBusinessService.getUniformServiceName();
                 bHaveData = true;
             }
 
             // URL - Put into an EPR
-            // Note that the UDDI server is set up to have multiple URLs per UniformServiceName.  However
-            // there should only be one.  We will use the first one we see...
-            
-            //--------------------------------------------------------------------------------------------
-            if ((oCMBusinessService != null) &&
-                (oCMBusinessService.getBindingTemplates() != null) &&
-                (oCMBusinessService.getBindingTemplates().getBindingTemplate() != null) &&
-                (oCMBusinessService.getBindingTemplates().getBindingTemplate().size() > 0) &&
-                (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0) != null) &&
-                (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL() != null) &&
-                (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL().length() > 0))
-            {
+            // Note that the UDDI server is set up to have multiple URLs per UniformServiceName. However
+            // there should only be one. We will use the first one we see...
+
+            // --------------------------------------------------------------------------------------------
+            if ((oCMBusinessService != null)
+                    && (oCMBusinessService.getBindingTemplates() != null)
+                    && (oCMBusinessService.getBindingTemplates().getBindingTemplate() != null)
+                    && (oCMBusinessService.getBindingTemplates().getBindingTemplate().size() > 0)
+                    && (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0) != null)
+                    && (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL() != null)
+                    && (oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL().length() > 0)) {
                 String sURL = oCMBusinessService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL();
                 EPRType oEpr = createEPR(sServiceName, sURL);
-                if (oEpr != null)
-                {
+                if (oEpr != null) {
                     oServiceConnectionInfoEndpoint.setEPR(oEpr);
                     bHaveData = true;
                 }
-                
-            }   // if ((oCMBusinessService != null) &&
-            
-            if (bHaveData)
-            {
+
+            } // if ((oCMBusinessService != null) &&
+
+            if (bHaveData) {
                 oServiceConnectionInfoEndpoints.getServiceConnectionInfoEndpoint().add(oServiceConnectionInfoEndpoint);
             }
-            
-        }   // for (CMBusinessService oCMBusinessService : oCMBusinessServices.getBusinessService())
-        
+
+        } // for (CMBusinessService oCMBusinessService : oCMBusinessServices.getBusinessService())
+
         return oServiceConnectionInfoEndpoints;
     }
-    
+
     /**
      * This method creates an endpoint for the given service name and URL.
      * 
@@ -903,36 +761,31 @@ public class CMTransform
      * @param sUrl The URL that is being used for the service.
      * @return The Endpoint reference to be returned.
      */
-    public static EPRType createEPR(String sServiceName, String sUrl)
-    {
-        if ((sServiceName == null) || (sServiceName.length() <= 0))
-        {
+    public static EPRType createEPR(String sServiceName, String sUrl) {
+        if ((sServiceName == null) || (sServiceName.length() <= 0)) {
             return null;
         }
-        
+
         EPRType oEpr = new EPRType();
 
         EndpointReferenceType oRefType = new EndpointReferenceType();
-        
+
         oEpr.setEndpointReference(oRefType);
 
         CreateEPRRequestType oEprReq = new CreateEPRRequestType();
         log.info("Generating EPR for service: " + sServiceName);
-        
+
         CMEprInfo oCMEprInfo = null;
-        
-        try
-        {
+
+        try {
             oCMEprInfo = CMEprUtil.createEPR(sServiceName);
-        }
-        catch (Exception e)
-        {
-            String sErrorMessage = "Failed to retrieve EPR info for service name: " + sServiceName + 
-                                   ".  Error: " + e.getMessage();
+        } catch (Exception e) {
+            String sErrorMessage = "Failed to retrieve EPR info for service name: " + sServiceName + ".  Error: "
+                    + e.getMessage();
             log.warn(sErrorMessage, e);
-            
+
             // Set to default values.
-            //-----------------------
+            // -----------------------
             oCMEprInfo = new CMEprInfo();
             oCMEprInfo.setNamespacePrefix("");
             oCMEprInfo.setNamespaceURI("");
@@ -940,7 +793,7 @@ public class CMTransform
             oCMEprInfo.setServiceName("");
             oCMEprInfo.setUniformServiceName("");
         }
-        
+
         oEprReq.setNamespacePrefix(oCMEprInfo.getNamespacePrefix());
         oEprReq.setNamespaceURI(oCMEprInfo.getNamespaceURI());
         oEprReq.setPortName(oCMEprInfo.getPortName());
@@ -949,14 +802,15 @@ public class CMTransform
         AttributedURI oAddress = new AttributedURI();
         oAddress.setValue(sUrl);
         oRefType.setAddress(oAddress);
-        
+
         log.debug("address.getValue() -- " + oAddress.getValue());
-        
+
         ServiceNameType oEprServiceName = new ServiceNameType();
         oEprServiceName.setPortName(oEprReq.getPortName());
         log.debug("createEPRIn.getPortName() -- " + oEprReq.getPortName());
 
-        QName serviceNameValue = new QName(oEprReq.getNamespaceURI(), oEprReq.getServiceName(), oEprReq.getNamespacePrefix());
+        QName serviceNameValue = new QName(oEprReq.getNamespaceURI(), oEprReq.getServiceName(),
+                oEprReq.getNamespacePrefix());
         log.debug("serviceNameValue -- " + oEprReq.getServiceName());
         log.debug("NamespacePrefix -- " + oEprReq.getNamespacePrefix());
         oEprServiceName.setValue(serviceNameValue);
@@ -966,235 +820,198 @@ public class CMTransform
 
         return oEpr;
     }
-    
-    
+
     /**
      * This transforms the information in a CMBusinessEntities structure to a ConnectionInfosType structure.
      * 
      * @param oCMBusinessEntities The information to be transformed.
      * @return The transformed information.
      */
-    public static ConnectionInfosType cmBusinessEntitiesToConnectionInfosType(CMBusinessEntities oCMBusinessEntities)    
-    {
+    public static ConnectionInfosType cmBusinessEntitiesToConnectionInfosType(CMBusinessEntities oCMBusinessEntities) {
         ConnectionInfosType oConnectionInfos = new ConnectionInfosType();
-        
-        if ((oCMBusinessEntities == null) ||
-            (oCMBusinessEntities.getBusinessEntity() == null) ||
-            (oCMBusinessEntities.getBusinessEntity().size() <= 0))
-        {
+
+        if ((oCMBusinessEntities == null) || (oCMBusinessEntities.getBusinessEntity() == null)
+                || (oCMBusinessEntities.getBusinessEntity().size() <= 0)) {
             return null;
         }
-        
-        for (CMBusinessEntity oCMBusinessEntity : oCMBusinessEntities.getBusinessEntity())
-        {
+
+        for (CMBusinessEntity oCMBusinessEntity : oCMBusinessEntities.getBusinessEntity()) {
             ConnectionInfoType oConnectionInfo = new ConnectionInfoType();
             boolean bHaveData = false;
 
             // Home community information
-            //---------------------------
+            // ---------------------------
             HomeCommunityType oHomeCommunity = cmBusinessEntityToHomeCommunity(oCMBusinessEntity);
-            if (oHomeCommunity != null)
-            {
+            if (oHomeCommunity != null) {
                 oConnectionInfo.setHomeCommunity(oHomeCommunity);
                 bHaveData = true;
             }
-            
+
             ServiceConnectionInfosType oServiceConnectionInfos = null;
-            oServiceConnectionInfos = cmBusinessServicesToServiceConnectionInfos(oCMBusinessEntity.getBusinessServices());
-            if (oServiceConnectionInfos != null)
-            {
+            oServiceConnectionInfos = cmBusinessServicesToServiceConnectionInfos(oCMBusinessEntity
+                    .getBusinessServices());
+            if (oServiceConnectionInfos != null) {
                 oConnectionInfo.setServiceConnectionInfos(oServiceConnectionInfos);
                 bHaveData = true;
             }
-            
-            if (bHaveData)
-            {
+
+            if (bHaveData) {
                 oConnectionInfos.getConnectionInfo().add(oConnectionInfo);
             }
         }
-        
-        if (oConnectionInfos.getConnectionInfo().size() > 0)
-        {
+
+        if (oConnectionInfos.getConnectionInfo().size() > 0) {
             return oConnectionInfos;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
-    
+
     /**
      * This transforms a CMBusinessEntities object into a ConectionInfoEndpointsType object.
      * 
      * @param oCMBusinessEntities The object to be transformed.
      * @return The transformed object.
      */
-    public static ConnectionInfoEndpointsType cmBusinessEntitiesToConnectionInfoEndpointsType(CMBusinessEntities oCMBusinessEntities)
-    {
+    public static ConnectionInfoEndpointsType cmBusinessEntitiesToConnectionInfoEndpointsType(
+            CMBusinessEntities oCMBusinessEntities) {
         ConnectionInfoEndpointsType oConnectionInfoEndpoints = new ConnectionInfoEndpointsType();
-        
-        if ((oCMBusinessEntities == null) ||
-            (oCMBusinessEntities.getBusinessEntity() == null) ||
-            (oCMBusinessEntities.getBusinessEntity().size() <= 0))
-        {
+
+        if ((oCMBusinessEntities == null) || (oCMBusinessEntities.getBusinessEntity() == null)
+                || (oCMBusinessEntities.getBusinessEntity().size() <= 0)) {
             return null;
         }
-        
-        for (CMBusinessEntity oCMBusinessEntity : oCMBusinessEntities.getBusinessEntity())
-        {
+
+        for (CMBusinessEntity oCMBusinessEntity : oCMBusinessEntities.getBusinessEntity()) {
             ConnectionInfoEndpointType oConnectionInfoEndpoint = new ConnectionInfoEndpointType();
             boolean bHaveData = false;
 
             // Home community information
-            //---------------------------
+            // ---------------------------
             HomeCommunityType oHomeCommunity = cmBusinessEntityToHomeCommunity(oCMBusinessEntity);
-            if (oHomeCommunity != null)
-            {
+            if (oHomeCommunity != null) {
                 oConnectionInfoEndpoint.setHomeCommunity(oHomeCommunity);
                 bHaveData = true;
             }
-            
+
             ServiceConnectionInfoEndpointsType oServiceConnectionInfoEndpoints = null;
-            oServiceConnectionInfoEndpoints = cmBusinessServicesToServiceConnectionInfoEndpointsType(oCMBusinessEntity.getBusinessServices());
-            if (oServiceConnectionInfoEndpoints != null)
-            {
+            oServiceConnectionInfoEndpoints = cmBusinessServicesToServiceConnectionInfoEndpointsType(oCMBusinessEntity
+                    .getBusinessServices());
+            if (oServiceConnectionInfoEndpoints != null) {
                 oConnectionInfoEndpoint.setServiceConnectionInfoEndpoints(oServiceConnectionInfoEndpoints);
                 bHaveData = true;
             }
-            
-            if (bHaveData)
-            {
+
+            if (bHaveData) {
                 oConnectionInfoEndpoints.getConnectionInfoEndpoint().add(oConnectionInfoEndpoint);
             }
         }
-        
-        if (oConnectionInfoEndpoints.getConnectionInfoEndpoint().size() > 0)
-        {
+
+        if (oConnectionInfoEndpoints.getConnectionInfoEndpoint().size() > 0) {
             return oConnectionInfoEndpoints;
-        }
-        else
-        {
+        } else {
             return null;
         }
-        
+
     }
+
     /**
      * This transforms a list of HomeCommunities into a list of HomeCommunityIds.
      * 
      * @param oaHomeCommunity The list of home communities.
      * @return The list of home community ids.
      */
-    public static List<String> listHomeCommunityToListHomeCommunityId(List<HomeCommunityType> oaHomeCommunity)
-    {
+    public static List<String> listHomeCommunityToListHomeCommunityId(List<HomeCommunityType> oaHomeCommunity) {
         ArrayList<String> saHomeCommunityId = new ArrayList<String>();
         String tempHomeCommunityId = "";
-        if ((oaHomeCommunity != null) &&
-            (oaHomeCommunity.size() > 0))
-        {
+        if ((oaHomeCommunity != null) && (oaHomeCommunity.size() > 0)) {
             saHomeCommunityId = new ArrayList<String>();
 
-            for (HomeCommunityType oHomeCommunity : oaHomeCommunity)
-            {
-                if ((oHomeCommunity.getHomeCommunityId() != null) &&
-                    (oHomeCommunity.getHomeCommunityId().length() > 0))
-                {
+            for (HomeCommunityType oHomeCommunity : oaHomeCommunity) {
+                if ((oHomeCommunity.getHomeCommunityId() != null) && (oHomeCommunity.getHomeCommunityId().length() > 0)) {
                     tempHomeCommunityId = formatHomeCommunityId(oHomeCommunity.getHomeCommunityId());
                     saHomeCommunityId.add(tempHomeCommunityId);
                 }
             }
         }
-        
-        if (saHomeCommunityId.size() > 0)
-        {
+
+        if (saHomeCommunityId.size() > 0) {
             return saHomeCommunityId;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
-    
+
     /**
-     * This method take home community id as input verifies if the home community id consists of urn:id: at the begining and strip it off
+     * This method take home community id as input verifies if the home community id consists of urn:id: at the begining
+     * and strip it off
+     * 
      * @param homeCommunityId
      * @return String
      */
-    public static String formatHomeCommunityId(String homeCommunityId)
-    {
+    public static String formatHomeCommunityId(String homeCommunityId) {
         String homeCommId = "";
-        if(homeCommunityId.contains("urn:id:"))
-        {
+        if (homeCommunityId.contains("urn:id:")) {
             homeCommId = homeCommunityId.substring("urn:id:".length(), homeCommunityId.length());
-        } else 
-        {
+        } else {
             homeCommId = homeCommunityId;
         }
         return homeCommId;
     }
 
-        /**
-     * Transform the information in a list of CMHomeCommunity objects to the web service representation
-     * of these data types.
-     *
+    /**
+     * Transform the information in a list of CMHomeCommunity objects to the web service representation of these data
+     * types.
+     * 
      * @param oaCMHomeCommunity The POJO home community information.
      * @return The Web service representation of the information.
      */
-    public static HomeCommunitiesType transformBusinessEntityListToHomeCommunitiesType(List<BusinessEntity> businessEntities)
-    {
+    public static HomeCommunitiesType transformBusinessEntityListToHomeCommunitiesType(
+            List<BusinessEntity> businessEntities) {
         HomeCommunitiesType homeCommunities = new HomeCommunitiesType();
 
-        if (businessEntities != null)
-        {
-            for (BusinessEntity businessEntity : businessEntities)
-            {
+        if (businessEntities != null) {
+            for (BusinessEntity businessEntity : businessEntities) {
 
                 HomeCommunityType homeCommunity = transformBusinessEntityToHomeCommunityType(businessEntity);
 
-                if (homeCommunity != null)
-                {
+                if (homeCommunity != null) {
                     homeCommunities.getHomeCommunity().add(homeCommunity);
                 }
-            }   // for (CMHomeCommunity oCommunity : oaHomeCommunity)
+            } // for (CMHomeCommunity oCommunity : oaHomeCommunity)
         }
 
-        if (homeCommunities.getHomeCommunity().size() > 0)
-        {
+        if (homeCommunities.getHomeCommunity().size() > 0) {
             return homeCommunities;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
 
     /**
      * Transform a POJO representation of a CMHomeCommunity to the web service represenation.
-     *
+     * 
      * @param oCMHomeCommunity The POJO representation.
      * @return The web service representation.
      */
-    public static HomeCommunityType transformBusinessEntityToHomeCommunityType(BusinessEntity businessEntity)
-    {
+    public static HomeCommunityType transformBusinessEntityToHomeCommunityType(BusinessEntity businessEntity) {
         HomeCommunityType homeCommunity = new HomeCommunityType();
 
-        if (businessEntity == null)
-        {
+        if (businessEntity == null) {
             return null;
         }
 
         String name = "";
-        if ((businessEntity.getName() != null) &&
-            (businessEntity.getName().size() > 0)) {
+        if ((businessEntity.getName() != null) && (businessEntity.getName().size() > 0)) {
             name = businessEntity.getName().get(0).getValue();
         }
 
         String description = "";
-        if ((businessEntity.getDescription() != null) &&
-            (businessEntity.getDescription().size() > 0)) {
+        if ((businessEntity.getDescription() != null) && (businessEntity.getDescription().size() > 0)) {
             description = businessEntity.getDescription().get(0).getValue();
         }
 
-        // TODO: Is the HCID correct?  Do we need to trim it?
+        // TODO: Is the HCID correct? Do we need to trim it?
         homeCommunity.setName(name);
         homeCommunity.setDescription(description);
         homeCommunity.setHomeCommunityId(ConnectionManagerCache.getInstance().getCommunityId(businessEntity));

@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.mpi.adapter.component;
 import gov.hhs.fha.nhinc.mpilib.Patients;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class CommonChecks {

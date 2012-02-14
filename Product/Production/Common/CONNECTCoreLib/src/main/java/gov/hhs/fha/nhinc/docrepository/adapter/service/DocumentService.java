@@ -46,8 +46,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Neil Webb
  */
-public class DocumentService
-{
+public class DocumentService {
     private static Log log = LogFactory.getLog(DocumentService.class);
 
     /**
@@ -55,27 +54,20 @@ public class DocumentService
      * 
      * @param document Document object to save.
      */
-    public void saveDocument(Document document)
-    {
+    public void saveDocument(Document document) {
         log.debug("Saving a document");
-        if (document != null)
-        {
-            if (document.getDocumentid() != null)
-            {
-                if(log.isDebugEnabled())
-                {
+        if (document != null) {
+            if (document.getDocumentid() != null) {
+                if (log.isDebugEnabled()) {
                     log.debug("Performing an update for document: " + document.getDocumentid().longValue());
                 }
                 Document ecDoc = getDocument(document.getDocumentid());
-                if (ecDoc != null)
-                {
+                if (ecDoc != null) {
                     // Delete existing event codes
                     Set<EventCode> eventCodes = ecDoc.getEventCodes();
-                    if ((eventCodes != null) && !eventCodes.isEmpty())
-                    {
+                    if ((eventCodes != null) && !eventCodes.isEmpty()) {
                         EventCodeDao eventCodeDao = new EventCodeDao();
-                        for (EventCode eventCode : eventCodes)
-                        {
+                        for (EventCode eventCode : eventCodes) {
                             eventCodeDao.delete(eventCode);
                             eventCode.setEventCodeId(null);
                         }
@@ -83,47 +75,34 @@ public class DocumentService
 
                     // Reset event code identifiers
                     eventCodes = document.getEventCodes();
-                    if ((eventCodes != null) && !eventCodes.isEmpty())
-                    {
-                        for (EventCode eventCode : eventCodes)
-                        {
-                            if (eventCode.getEventCodeId() != null)
-                            {
+                    if ((eventCodes != null) && !eventCodes.isEmpty()) {
+                        for (EventCode eventCode : eventCodes) {
+                            if (eventCode.getEventCodeId() != null) {
                                 eventCode.setEventCodeId(null);
                             }
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 log.debug("Performing an insert");
             }
 
             // Calculate the hash code.
-            //-------------------------
-            if (document.getRawData() != null)
-            {
-                try
-                {
+            // -------------------------
+            if (document.getRawData() != null) {
+                try {
                     String sHash = "";
                     sHash = SHA1HashCode.calculateSHA1(new String(document.getRawData()));
-                    if (log.isDebugEnabled())
-                    {
-                        log.debug("Created Hash Code: " + sHash + " for string: " +
-                                  new String(document.getRawData()));
+                    if (log.isDebugEnabled()) {
+                        log.debug("Created Hash Code: " + sHash + " for string: " + new String(document.getRawData()));
                     }
                     document.setHash(sHash);
-                }
-                catch (Throwable t)
-                {
-                    String sError = "Failed to create SHA-1 Hash code.  Error: " + t.getMessage() +
-                                    "Data Text: " + new String(document.getRawData());
+                } catch (Throwable t) {
+                    String sError = "Failed to create SHA-1 Hash code.  Error: " + t.getMessage() + "Data Text: "
+                            + new String(document.getRawData());
                     log.error(sError, t);
                 }
-            }
-            else
-            {
+            } else {
                 document.setHash("");
                 log.warn("No SHA-1 Hash Code created because document was null.");
             }
@@ -137,38 +116,29 @@ public class DocumentService
      * Delete a document
      * 
      * @param document Document to delete
-     * @throws DocumentServiceException 
+     * @throws DocumentServiceException
      */
-    public void deleteDocument(Document document) throws DocumentServiceException
-    {
+    public void deleteDocument(Document document) throws DocumentServiceException {
         log.debug("Deleting a document");
         DocumentDao dao = new DocumentDao();
 
-        if ((document != null) && (document.getDocumentid() == null) && (document.getDocumentUniqueId() != null))
-        {
+        if ((document != null) && (document.getDocumentid() == null) && (document.getDocumentUniqueId() != null)) {
             // Query by unique id and delete if only one exists.
             DocumentQueryParams params = new DocumentQueryParams();
             List<String> uniqueIds = new ArrayList<String>();
             uniqueIds.add(document.getDocumentUniqueId());
 
             List<Document> docs = documentQuery(params);
-            if ((docs != null) && (docs.size() == 1))
-            {
+            if ((docs != null) && (docs.size() == 1)) {
                 document = docs.get(0);
+            } else {
+                throw new DocumentServiceException("Single document match not found for document unique id: "
+                        + document.getDocumentUniqueId());
             }
-            else
-            {
-                throw new DocumentServiceException("Single document match not found for document unique id: " + document.getDocumentUniqueId());
-            }
-        }
-        else
-        {
-            if (document == null)
-            {
+        } else {
+            if (document == null) {
                 throw new DocumentServiceException("Document to delete was null");
-            }
-            else if (document.getDocumentUniqueId() == null)
-            {
+            } else if (document.getDocumentUniqueId() == null) {
                 throw new DocumentServiceException("Document unique id was null");
             }
         }
@@ -182,8 +152,7 @@ public class DocumentService
      * @param documentId Document identifier
      * @return Retrieved document
      */
-    public Document getDocument(Long documentId)
-    {
+    public Document getDocument(Long documentId) {
         DocumentDao dao = new DocumentDao();
         return dao.findById(documentId);
     }
@@ -193,8 +162,7 @@ public class DocumentService
      * 
      * @return All document records
      */
-    public List<Document> getAllDocuments()
-    {
+    public List<Document> getAllDocuments() {
         DocumentDao dao = new DocumentDao();
         return dao.findAll();
     }
@@ -205,28 +173,21 @@ public class DocumentService
      * @param params Document query parameters
      * @return Query results
      */
-    public List<Document> documentQuery(DocumentQueryParams params)
-    {
+    public List<Document> documentQuery(DocumentQueryParams params) {
         List<Document> documents = new ArrayList<Document>();
         DocumentDao dao = new DocumentDao();
         List<Document> queryMatchDocs = dao.findDocuments(params);
         List<Document> eventCodeMatchDocs = null;
-        if((params != null) && NullChecker.isNotNullish(params.getEventCodeParams()))
-        {
+        if ((params != null) && NullChecker.isNotNullish(params.getEventCodeParams())) {
             eventCodeMatchDocs = queryByEventCode(params.getEventCodeParams());
-            if(NullChecker.isNotNullish(queryMatchDocs))
-            {
+            if (NullChecker.isNotNullish(queryMatchDocs)) {
                 // Both doc parameter and event code query doc matches found. Return union of collections
                 documents = createUnion(queryMatchDocs, eventCodeMatchDocs);
-            }
-            else
-            {
+            } else {
                 // Only event code match docs found.
                 documents = eventCodeMatchDocs;
             }
-        }
-        else
-        {
+        } else {
             // Only doc parameter match docs found.
             documents = queryMatchDocs;
         }
@@ -234,52 +195,40 @@ public class DocumentService
         return documents;
     }
 
-    private List<Document> queryByEventCode(List<EventCodeParam> eventCodeParams)
-    {
+    private List<Document> queryByEventCode(List<EventCodeParam> eventCodeParams) {
         List<Document> documents = new ArrayList<Document>();
         Set<Document> documentSet = new HashSet<Document>();
-        if(NullChecker.isNotNullish(eventCodeParams))
-        {
+        if (NullChecker.isNotNullish(eventCodeParams)) {
             EventCodeDao eventCodeDao = new EventCodeDao();
             Set<EventCode> eventCodesAggregate = new HashSet<EventCode>();
-            for(EventCodeParam eventCodeParam : eventCodeParams)
-            {
+            for (EventCodeParam eventCodeParam : eventCodeParams) {
                 List<EventCode> eventCodes = eventCodeDao.eventCodeQuery(eventCodeParam);
-                if(NullChecker.isNotNullish(eventCodes))
-                {
+                if (NullChecker.isNotNullish(eventCodes)) {
                     eventCodesAggregate.addAll(eventCodes);
                 }
             }
 
-            if(eventCodesAggregate != null)
-            {
-                for(EventCode ec : eventCodesAggregate)
-                {
-                    if(ec != null)
-                    {
+            if (eventCodesAggregate != null) {
+                for (EventCode ec : eventCodesAggregate) {
+                    if (ec != null) {
                         documentSet.add(ec.getDocument());
                     }
                 }
             }
         }
-        if(!documentSet.isEmpty())
-        {
+        if (!documentSet.isEmpty()) {
             documents.addAll(documentSet);
         }
 
         return documents;
     }
 
-    private List<Document> createUnion(List<Document> listA, List<Document> listB)
-    {
+    private List<Document> createUnion(List<Document> listA, List<Document> listB) {
         List<Document> docUnion = new ArrayList<Document>();
 
-        if(NullChecker.isNotNullish(listA) && NullChecker.isNotNullish(listB))
-        {
-            for(Document docA : listA)
-            {
-                if(listContainsDoc(listB, docA))
-                {
+        if (NullChecker.isNotNullish(listA) && NullChecker.isNotNullish(listB)) {
+            for (Document docA : listA) {
+                if (listContainsDoc(listB, docA)) {
                     docUnion.add(docA);
                 }
             }
@@ -288,16 +237,12 @@ public class DocumentService
         return docUnion;
     }
 
-    private boolean listContainsDoc(List<Document> docs, Document doc)
-    {
+    private boolean listContainsDoc(List<Document> docs, Document doc) {
         boolean containsDoc = false;
-        if((doc != null) && (doc.getDocumentUniqueId() != null) && NullChecker.isNotNullish(docs))
-        {
+        if ((doc != null) && (doc.getDocumentUniqueId() != null) && NullChecker.isNotNullish(docs)) {
 
-            for(Document docFromList : docs)
-            {
-                if((docFromList != null) && (doc.getDocumentUniqueId().equals(docFromList.getDocumentUniqueId())))
-                {
+            for (Document docFromList : docs) {
+                if ((docFromList != null) && (doc.getDocumentUniqueId().equals(docFromList.getDocumentUniqueId()))) {
                     containsDoc = true;
                     break;
                 }

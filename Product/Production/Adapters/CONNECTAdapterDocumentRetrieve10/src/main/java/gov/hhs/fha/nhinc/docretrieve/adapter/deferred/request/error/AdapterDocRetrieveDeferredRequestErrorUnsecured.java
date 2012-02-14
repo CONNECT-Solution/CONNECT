@@ -19,7 +19,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "AdapterDocRetrieveDeferredRequestErrorService", portName = "AdapterDocRetrieveRequestErrorPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterdocretrievedeferredrequesterror.AdapterDocRetrieveDeferredRequestErrorPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrequesterror", wsdlLocation = "WEB-INF/wsdl/AdapterDocRetrieveDeferredRequestErrorUnsecured/AdapterDocRetrieveDeferredReqError.wsdl")
@@ -28,7 +28,8 @@ public class AdapterDocRetrieveDeferredRequestErrorUnsecured {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType crossGatewayRetrieveRequestError(AdapterDocumentRetrieveDeferredRequestErrorType body) {
+    public gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType crossGatewayRetrieveRequestError(
+            AdapterDocumentRetrieveDeferredRequestErrorType body) {
         return new AdapterDocRetrieveDeferredRequestErrorImpl().crossGatewayRetrieveRequestError(body, context);
     }
 

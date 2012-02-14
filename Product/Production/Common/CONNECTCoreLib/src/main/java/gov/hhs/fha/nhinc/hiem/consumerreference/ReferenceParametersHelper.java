@@ -38,14 +38,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class ReferenceParametersHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(ReferenceParametersHelper.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(ReferenceParametersHelper.class);
 
-    public ReferenceParametersElements createReferenceParameterElements(WebServiceContext context, String messageContextAttributeName) {
+    public ReferenceParametersElements createReferenceParameterElements(WebServiceContext context,
+            String messageContextAttributeName) {
         ReferenceParametersElements referenceParameters = null;
         SOAPHeader header = null;
         try {
@@ -54,7 +56,7 @@ public class ReferenceParametersHelper {
             header = soaputil.extractSoapHeader(context, messageContextAttributeName);
         } catch (SOAPException ex) {
             log.error("failed to extract soapheader", ex);
-        //todo: throw new UnableToDestroySubscriptionFault();
+            // todo: throw new UnableToDestroySubscriptionFault();
         }
 
         log.debug(XmlUtility.formatElementForLogging("soapheader", header));
@@ -87,32 +89,37 @@ public class ReferenceParametersHelper {
     public ReferenceParametersElements createReferenceParameterElementsFromSoapMessage(Element soapMessage) {
         ReferenceParametersElements elements = null;
         if (soapMessage != null) {
-            Element soapHeader = XmlUtility.getSingleChildElement(soapMessage, "http://schemas.xmlsoap.org/soap/envelope/", "Header");
+            Element soapHeader = XmlUtility.getSingleChildElement(soapMessage,
+                    "http://schemas.xmlsoap.org/soap/envelope/", "Header");
             elements = createReferenceParameterElements(soapHeader);
         }
         return elements;
     }
 
-    public ReferenceParametersElements createReferenceParameterElementsFromSubscriptionReference(String subscriptionReferenceXml) throws XPathExpressionException {
+    public ReferenceParametersElements createReferenceParameterElementsFromSubscriptionReference(
+            String subscriptionReferenceXml) throws XPathExpressionException {
         log.debug("extracting reference parameters from subscription reference [" + subscriptionReferenceXml + "]");
         String xpathQuery = "//*[local-name()='ReferenceParameters']";
         return createReferenceParameterElementsFromEndpointReference(subscriptionReferenceXml, xpathQuery);
     }
 
-    public ReferenceParametersElements createReferenceParameterElementsFromConsumerReference(String subscribeXml) throws XPathExpressionException {
+    public ReferenceParametersElements createReferenceParameterElementsFromConsumerReference(String subscribeXml)
+            throws XPathExpressionException {
         log.debug("extracting reference parameters from subscribe [" + subscribeXml + "]");
         String xpathQuery = "//*[local-name()='ReferenceParameters']";
         return createReferenceParameterElementsFromEndpointReference(subscribeXml, xpathQuery);
     }
 
-    private ReferenceParametersElements createReferenceParameterElementsFromEndpointReference(String xml, String xpathQuery) throws XPathExpressionException {
+    private ReferenceParametersElements createReferenceParameterElementsFromEndpointReference(String xml,
+            String xpathQuery) throws XPathExpressionException {
         log.debug("extracting reference parameters from xml [" + xml + "]");
         log.debug("get endpoint reference using xpath:" + xpathQuery);
         Element endpointReference = (Element) XpathHelper.performXpathQuery(xml, xpathQuery);
         return createReferenceParameterElementsFromEndpointReference(endpointReference);
     }
 
-    private ReferenceParametersElements createReferenceParameterElementsFromEndpointReference(Element endpointReference) throws XPathExpressionException {
+    private ReferenceParametersElements createReferenceParameterElementsFromEndpointReference(Element endpointReference)
+            throws XPathExpressionException {
         ReferenceParametersElements referenceParametersElements = new ReferenceParametersElements();
         if (endpointReference != null) {
             for (int i = 0; i < endpointReference.getChildNodes().getLength(); i++) {
@@ -127,7 +134,8 @@ public class ReferenceParametersHelper {
                 }
             }
         }
-        log.debug("referenceParametersElements.getElements().size() = " + referenceParametersElements.getElements().size());
+        log.debug("referenceParametersElements.getElements().size() = "
+                + referenceParametersElements.getElements().size());
         return referenceParametersElements;
     }
 }

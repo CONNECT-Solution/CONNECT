@@ -41,7 +41,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements AdapterAdminDistributionProxy {
@@ -60,44 +60,47 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
         log = createLogger();
         adminDistributionHelper = new AdminDistributionHelper(oProxyHelper);
     }
-    
+
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.debug("Begin sendAlertMessage");
-        String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+        String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME,
+                ADAPTER_API_LEVEL.LEVEL_a0);
 
         if (NullChecker.isNotNullish(url)) {
-            
+
             AdapterAdministrativeDistributionPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
             RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
 
             message.setEDXLDistribution(body);
             message.setAssertion(assertion);
             try {
-                oProxyHelper.invokePort(port, AdapterAdministrativeDistributionPortType.class, "sendAlertMessage", message);
+                oProxyHelper.invokePort(port, AdapterAdministrativeDistributionPortType.class, "sendAlertMessage",
+                        message);
             } catch (Exception ex) {
                 log.error("Unable to send message: " + ex.getMessage());
             }
-        }
-        else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME + ").  The URL is null.");
+        } else {
+            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
+                    + ").  The URL is null.");
         }
     }
 
-    protected AdapterAdministrativeDistributionPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
+    protected AdapterAdministrativeDistributionPortType getPort(String url, String wsAddressingAction,
+            AssertionType assertion) {
         AdapterAdministrativeDistributionPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-                AdapterAdministrativeDistributionPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else {
+                    AdapterAdministrativeDistributionPortType.class);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -109,7 +112,7 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {

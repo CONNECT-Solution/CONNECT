@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docquery.adapter.component.deferred.request.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterComponentDocQueryDeferredRequestProxyObjectFactory extends ComponentProxyObjectFactory {

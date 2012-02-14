@@ -40,7 +40,7 @@ import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.GetBusinessDetail;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public abstract class UDDIFindBusinessProxyBase {
@@ -61,6 +61,7 @@ public abstract class UDDIFindBusinessProxyBase {
 
     /**
      * Override in implementation class
+     * 
      * @return list of businesses from UDDI
      * @throws UDDIFindBusinessException
      */
@@ -69,8 +70,7 @@ public abstract class UDDIFindBusinessProxyBase {
     public abstract BusinessDetail getBusinessDetail(GetBusinessDetail searchParams) throws UDDIFindBusinessException;
 
     /**
-     * This method loads information from the gateway.properties file that are
-     * pertinent to this class.
+     * This method loads information from the gateway.properties file that are pertinent to this class.
      */
     protected void loadProperties() throws UDDIFindBusinessException {
 
@@ -80,7 +80,8 @@ public abstract class UDDIFindBusinessProxyBase {
                 m_sUDDIInquiryEndpointURL = sValue;
             }
         } catch (PropertyAccessException e) {
-            String sErrorMessage = "Failed to retrieve properties from " + GATEWAY_PROPFILE_NAME + ".properties file.  Error: " + e.getMessage();
+            String sErrorMessage = "Failed to retrieve properties from " + GATEWAY_PROPFILE_NAME
+                    + ".properties file.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw new UDDIFindBusinessException(sErrorMessage, e);
         }
@@ -89,7 +90,7 @@ public abstract class UDDIFindBusinessProxyBase {
 
     /**
      * This method retrieves the port for the UDDI server with the correct endpoint.
-     *
+     * 
      * @return port type from UDDI inquiry service
      */
     protected UDDIInquiryPortType getUDDIInquiryWebService() throws UDDIFindBusinessException {
@@ -98,16 +99,14 @@ public abstract class UDDIFindBusinessProxyBase {
         try {
             Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-            if (oService != null)
-            {
+            if (oService != null) {
                 log.debug("getUDDIInquiryWebService() Obtained UDDI service - creating port.");
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), UDDIInquiryPortType.class);
 
                 // Load in the correct UDDI endpoint URL address.
-                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, m_sUDDIInquiryEndpointURL, null, null);
-             }
-            else
-            {
+                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, m_sUDDIInquiryEndpointURL,
+                        null, null);
+            } else {
                 log.error("Unable to obtain serivce - no port created.");
             }
         } catch (Exception e) {
@@ -118,25 +117,18 @@ public abstract class UDDIFindBusinessProxyBase {
         return oPort;
     }
 
-    protected WebServiceProxyHelper getWebServiceProxyHelper()
-    {
-        if (oProxyHelper == null)
-        {
+    protected WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
             oProxyHelper = new WebServiceProxyHelper();
         }
         return oProxyHelper;
     }
 
-    protected Service getService(String wsdl, String uri, String service)
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
                 cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }

@@ -33,8 +33,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author mweaver
  */
-public class CONNECTInboundOrchestrator extends CONNECTOrchestrationBase implements
-        CONNECTOrchestrator {
+public class CONNECTInboundOrchestrator extends CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
     private static final Log logger = LogFactory.getLog(CONNECTInboundOrchestrator.class);
 

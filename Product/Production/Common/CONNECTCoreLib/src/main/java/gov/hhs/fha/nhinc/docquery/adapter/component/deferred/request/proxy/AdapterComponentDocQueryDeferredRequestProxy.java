@@ -32,7 +32,7 @@ import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public interface AdapterComponentDocQueryDeferredRequestProxy {

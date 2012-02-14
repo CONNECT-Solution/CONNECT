@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.common.connectionmanager.model;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public class AssigningAuthorityToHomeCommunityMapping {
@@ -35,14 +35,14 @@ public class AssigningAuthorityToHomeCommunityMapping {
     private String assigningAuthorityId = "";
     private String homeCommunityId = "";
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
-    
-    public void setId(Long id){
+
+    public void setId(Long id) {
         this.id = id;
     }
-    
+
     public String getAssigningAuthorityId() {
         return assigningAuthorityId;
     }
@@ -58,5 +58,5 @@ public class AssigningAuthorityToHomeCommunityMapping {
     public void setHomeCommunityId(String homeCommunityId) {
         this.homeCommunityId = homeCommunityId;
     }
-    
+
 }

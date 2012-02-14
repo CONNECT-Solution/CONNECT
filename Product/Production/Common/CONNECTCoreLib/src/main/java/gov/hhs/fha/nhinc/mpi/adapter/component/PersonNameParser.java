@@ -31,7 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class PersonNameParser {
@@ -65,8 +65,7 @@ public class PersonNameParser {
         return personname;
     }
 
-    private static PersonName SplitNameByDelimiter(
-            String name, String delimiter, nameorder order) {
+    private static PersonName SplitNameByDelimiter(String name, String delimiter, nameorder order) {
         log.debug("Begin PersonNameParser.SplitNameByDelimiter(String,String,nameorder)");
         PersonName personname = null;
         if (name.contains(delimiter)) {

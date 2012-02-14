@@ -34,7 +34,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class CMUrlInfoTest {
@@ -59,8 +59,7 @@ public class CMUrlInfoTest {
     }
 
     /**
-     * Test of clear method, of class CMUrlInfo.
-     *    This tests the clear method when there is data already in the field.
+     * Test of clear method, of class CMUrlInfo. This tests the clear method when there is data already in the field.
      */
     @Test
     public void testClearWithData() {
@@ -80,8 +79,7 @@ public class CMUrlInfoTest {
     }
 
     /**
-     * Test of clear method, of class CMUrlInfo.
-     *    This tests the clear method when there is no data already in the field.
+     * Test of clear method, of class CMUrlInfo. This tests the clear method when there is no data already in the field.
      */
     @Test
     public void testClearWithNoData() {
@@ -96,8 +94,7 @@ public class CMUrlInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMUrlInfo.
-     *    Test that two empty objects are equal
+     * Test of equals method, of class CMUrlInfo. Test that two empty objects are equal
      */
     @Test
     public void testEqualsEmptyObjects() {
@@ -109,17 +106,16 @@ public class CMUrlInfoTest {
         boolean result = instance.equals(oCompare);
 
         assertEquals(true, result);
-        
+
     }
 
     /**
-     * Test of equals method, of class CMUrlInfo.
-     *    Test that two empty objects are not equal if one is empty
+     * Test of equals method, of class CMUrlInfo. Test that two empty objects are not equal if one is empty
      */
     @Test
     public void testNotEqualsOneEmpty() {
         System.out.println("testNotEqualsOneEmpty");
-        
+
         CMUrlInfo oCompare = new CMUrlInfo();
         CMUrlInfo instance = new CMUrlInfo();
         instance.setHcid("1.1");
@@ -131,8 +127,7 @@ public class CMUrlInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMUrlInfo.
-     *     Test that two objects are equal if both have the same values
+     * Test of equals method, of class CMUrlInfo. Test that two objects are equal if both have the same values
      */
     @Test
     public void testEquals() {
@@ -147,14 +142,13 @@ public class CMUrlInfoTest {
         instance.setUrl("http://service.com");
 
         boolean result = instance.equals(oCompare);
-        
+
         assertEquals(true, result);
     }
 
     /**
-     * Test of equals method, of class CMUrlInfo.
-     *     Test that two objects are equal if both have the same values, but
-     *     url is mixed case
+     * Test of equals method, of class CMUrlInfo. Test that two objects are equal if both have the same values, but url
+     * is mixed case
      */
     @Test
     public void testEqualsMixedCase() {
@@ -174,8 +168,8 @@ public class CMUrlInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMUrlInfo.
-     *     Test that two objects are not equal if both have differnt url and hcid values
+     * Test of equals method, of class CMUrlInfo. Test that two objects are not equal if both have differnt url and hcid
+     * values
      */
     @Test
     public void testNotEquals() {
@@ -190,13 +184,13 @@ public class CMUrlInfoTest {
         instance.setUrl("http://service.com");
 
         boolean result = instance.equals(oCompare);
-        
+
         assertEquals(false, result);
     }
 
     /**
-     * Test of equals method, of class CMUrlInfo.
-     *     Test that two objects are not equal if both have different url and same hcid values
+     * Test of equals method, of class CMUrlInfo. Test that two objects are not equal if both have different url and
+     * same hcid values
      */
     @Test
     public void testNotEqualsUrl() {
@@ -216,8 +210,8 @@ public class CMUrlInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMUrlInfo.
-     *     Test that two objects are not equal if both have same url and different hcid values
+     * Test of equals method, of class CMUrlInfo. Test that two objects are not equal if both have same url and
+     * different hcid values
      */
     @Test
     public void testNotEqualsHcid() {
@@ -237,8 +231,8 @@ public class CMUrlInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMUrlInfo.
-     *     Test that two objects are not equal if both have null url and same hcid values
+     * Test of equals method, of class CMUrlInfo. Test that two objects are not equal if both have null url and same
+     * hcid values
      */
     @Test
     public void testNotEqualsNullUrl() {
@@ -257,8 +251,8 @@ public class CMUrlInfoTest {
     }
 
     /**
-     * Test of equals method, of class CMUrlInfo.
-     *     Test that two objects are not equal if both have same url and null hcid values
+     * Test of equals method, of class CMUrlInfo. Test that two objects are not equal if both have same url and null
+     * hcid values
      */
     @Test
     public void testNotEqualsNullHcid() {
@@ -277,8 +271,7 @@ public class CMUrlInfoTest {
     }
 
     /**
-     * Test of getUrl method, of class CMUrlInfo.
-     *    Test empty case for Set/Get
+     * Test of getUrl method, of class CMUrlInfo. Test empty case for Set/Get
      */
     @Test
     public void testSetGetUrlEmpty() {
@@ -287,13 +280,12 @@ public class CMUrlInfoTest {
         CMUrlInfo instance = new CMUrlInfo();
 
         String result = instance.getUrl();
-        
+
         assertEquals("", result);
     }
 
     /**
-     * Test of setUrl method, of class CMUrlInfo.
-     *    Test case for Set/Get with a value (all upper)
+     * Test of setUrl method, of class CMUrlInfo. Test case for Set/Get with a value (all upper)
      */
     @Test
     public void testSetGetUrlUpper() {
@@ -303,15 +295,13 @@ public class CMUrlInfoTest {
         CMUrlInfo instance = new CMUrlInfo();
         instance.setUrl(url);
 
-
         String result = instance.getUrl();
 
         assertEquals(url, result);
     }
 
     /**
-     * Test of setUrl method, of class CMUrlInfo.
-     *    Test case for Set/Get with a value (all lower)
+     * Test of setUrl method, of class CMUrlInfo. Test case for Set/Get with a value (all lower)
      */
     @Test
     public void testSetGetUrlLower() {
@@ -321,15 +311,13 @@ public class CMUrlInfoTest {
         CMUrlInfo instance = new CMUrlInfo();
         instance.setUrl(url);
 
-
         String result = instance.getUrl();
 
         assertEquals(url, result);
     }
 
     /**
-     * Test of setUrl method, of class CMUrlInfo.
-     *    Test case for Set/Get with a value (mixed case)
+     * Test of setUrl method, of class CMUrlInfo. Test case for Set/Get with a value (mixed case)
      */
     @Test
     public void testSetGetUrlMixed() {
@@ -339,15 +327,13 @@ public class CMUrlInfoTest {
         CMUrlInfo instance = new CMUrlInfo();
         instance.setUrl(url);
 
-
         String result = instance.getUrl();
 
         assertEquals(url, result);
     }
 
     /**
-     * Test of setUrl method, of class CMUrlInfo.
-     *    Test case for Set/Get with a null value
+     * Test of setUrl method, of class CMUrlInfo. Test case for Set/Get with a null value
      */
     @Test
     public void testSetGetUrlNull() {
@@ -356,30 +342,27 @@ public class CMUrlInfoTest {
         CMUrlInfo instance = new CMUrlInfo();
         instance.setUrl(null);
 
-
         String result = instance.getUrl();
 
         assertNull(result);
     }
 
     /**
-     * Test of getHcid method, of class CMUrlInfo.
-     *    Test empty case for Set/Get
+     * Test of getHcid method, of class CMUrlInfo. Test empty case for Set/Get
      */
     @Test
     public void testSetGetHcidEmpty() {
         System.out.println("testSetGetHcidEmpty");
 
         CMUrlInfo instance = new CMUrlInfo();
-        
+
         String result = instance.getHcid();
-        
+
         assertEquals("", result);
     }
 
     /**
-     * Test of setHcid method, of class CMUrlInfo.
-     *    Test the setting and getting the HCID
+     * Test of setHcid method, of class CMUrlInfo. Test the setting and getting the HCID
      */
     @Test
     public void testSetGetHcid() {
@@ -396,8 +379,7 @@ public class CMUrlInfoTest {
     }
 
     /**
-     * Test of setHcid method, of class CMUrlInfo.
-     *    Test the setting and getting a null HCID
+     * Test of setHcid method, of class CMUrlInfo. Test the setting and getting a null HCID
      */
     @Test
     public void testSetGetHcidNull() {

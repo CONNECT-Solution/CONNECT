@@ -63,60 +63,42 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 /**
  * This class provides methods to manage the async message record during its lifecycle.
- *
+ * 
  * @author richard.ettema
  */
 public class AsyncMessageProcessHelper {
 
     private Log log = null;
 
-    private static HashMap<String, String> statusToDirectionMap =
-                new HashMap<String, String>();
+    private static HashMap<String, String> statusToDirectionMap = new HashMap<String, String>();
 
-    static
-    {
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENTACK,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVD,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDACK,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+    static {
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENTACK, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENTERR, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVD, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDACK, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
 
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVD,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
-        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSELECT,
-                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVD, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENT, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSELECT, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
     }
 
-
-    public AsyncMessageProcessHelper()
-    {
+    public AsyncMessageProcessHelper() {
         log = createLogger();
     }
 
     /**
      * Create a logger object.
-     *
+     * 
      * @return The logger object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
@@ -125,16 +107,14 @@ public class AsyncMessageProcessHelper {
      * 
      * @return an instance of AsyncMsgRecordDao
      */
-    protected AsyncMsgRecordDao createAsyncMsgRecordDao()
-    {
+    protected AsyncMsgRecordDao createAsyncMsgRecordDao() {
         return new AsyncMsgRecordDao();
     }
 
     /**
-     * Used to add the Deferred Patient Discovery Request to the local gateway
-     * asyncmsgs repository.  The direction indicates the role of the local
-     * gateway; i.e. outbound == initiator, inbound == receiver/responder
-     *
+     * Used to add the Deferred Patient Discovery Request to the local gateway asyncmsgs repository. The direction
+     * indicates the role of the local gateway; i.e. outbound == initiator, inbound == receiver/responder
+     * 
      * @param request
      * @param assertion
      * @param direction
@@ -153,10 +133,9 @@ public class AsyncMessageProcessHelper {
     }
 
     /**
-     * Used to add the Deferred Patient Discovery Request to the local gateway
-     * asyncmsgs repository.  The direction indicates the role of the local
-     * gateway; i.e. outbound == initiator, inbound == receiver/responder
-     *
+     * Used to add the Deferred Patient Discovery Request to the local gateway asyncmsgs repository. The direction
+     * indicates the role of the local gateway; i.e. outbound == initiator, inbound == receiver/responder
+     * 
      * @param request
      * @param direction
      * @return true - success; false - error
@@ -178,7 +157,7 @@ public class AsyncMessageProcessHelper {
             rec.setDirection(direction);
             rec.setCommunityId(getPatientDiscoveryMessageCommunityId(request, direction));
             rec.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS);
-            rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);            
+            rec.setResponseType(AsyncMsgRecordDao.QUEUE_RESPONSE_TYPE_AUTO);
             rec.setMsgData(getBlobFromPRPAIN201305UV02RequestType(request));
 
             asyncMsgRecs.add(rec);
@@ -198,17 +177,17 @@ public class AsyncMessageProcessHelper {
     }
 
     /**
-     * Used to add the Deferred Query For Documents Request to the local gateway
-     * asyncmsgs repository.  The direction indicates the role of the local
-     * gateway; i.e. outbound == initiator, inbound == receiver/responder
-     *
+     * Used to add the Deferred Query For Documents Request to the local gateway asyncmsgs repository. The direction
+     * indicates the role of the local gateway; i.e. outbound == initiator, inbound == receiver/responder
+     * 
      * @param request
      * @param assertion
      * @param direction
      * @param communityId
      * @return true - success; false - error
      */
-    public boolean addQueryForDocumentsRequest(AdhocQueryRequest request, AssertionType assertion, String direction, String communityId) {
+    public boolean addQueryForDocumentsRequest(AdhocQueryRequest request, AssertionType assertion, String direction,
+            String communityId) {
         log.debug("Begin AsyncMessageProcessHelper.addQueryForDocumentsRequest(assertion)...");
 
         RespondingGatewayCrossGatewayQueryRequestType newRequest = new RespondingGatewayCrossGatewayQueryRequestType();
@@ -221,16 +200,16 @@ public class AsyncMessageProcessHelper {
     }
 
     /**
-     * Used to add the Deferred Query For Documents Request to the local gateway
-     * asyncmsgs repository.  The direction indicates the role of the local
-     * gateway; i.e. outbound == initiator, inbound == receiver/responder
-     *
+     * Used to add the Deferred Query For Documents Request to the local gateway asyncmsgs repository. The direction
+     * indicates the role of the local gateway; i.e. outbound == initiator, inbound == receiver/responder
+     * 
      * @param request
      * @param direction
      * @param communityId
      * @return true - success; false - error
      */
-    public boolean addQueryForDocumentsRequest(RespondingGatewayCrossGatewayQueryRequestType request, String direction, String communityId) {
+    public boolean addQueryForDocumentsRequest(RespondingGatewayCrossGatewayQueryRequestType request, String direction,
+            String communityId) {
         log.debug("Begin AsyncMessageProcessHelper.addQueryForDocumentsRequest()...");
 
         boolean result = false;
@@ -267,16 +246,16 @@ public class AsyncMessageProcessHelper {
     }
 
     /**
-     * Used to add the Deferred Retrieve Documents Request to the local gateway
-     * asyncmsgs repository.  The direction indicates the role of the local
-     * gateway; i.e. outbound == initiator, inbound == receiver/responder
-     *
+     * Used to add the Deferred Retrieve Documents Request to the local gateway asyncmsgs repository. The direction
+     * indicates the role of the local gateway; i.e. outbound == initiator, inbound == receiver/responder
+     * 
      * @param request
      * @param direction
      * @param communityId
      * @return true - success; false - error
      */
-    public boolean addRetrieveDocumentsRequest(RespondingGatewayCrossGatewayRetrieveRequestType request, String direction, String communityId) {
+    public boolean addRetrieveDocumentsRequest(RespondingGatewayCrossGatewayRetrieveRequestType request,
+            String direction, String communityId) {
         log.debug("Begin AsyncMessageProcessHelper.addRetrieveDocumentsRequest()...");
 
         boolean result = false;
@@ -313,9 +292,8 @@ public class AsyncMessageProcessHelper {
     }
 
     /**
-     * Process an acknowledgement for a Deferred Patient Discovery asyncmsgs
-     * record.
-     *
+     * Process an acknowledgement for a Deferred Patient Discovery asyncmsgs record.
+     * 
      * @param messageId
      * @param newStatus
      * @param errorStatus
@@ -354,7 +332,7 @@ public class AsyncMessageProcessHelper {
 
     /**
      * Process an acknowledgement for a Deferred Query For Documents asyncmsgs record
-     *
+     * 
      * @param messageId
      * @param direction
      * @param newStatus
@@ -394,7 +372,7 @@ public class AsyncMessageProcessHelper {
 
     /**
      * Process an acknowledgement for a Deferred Retrieve Documents asyncmsgs record
-     *
+     * 
      * @param messageId
      * @param direction
      * @param newStatus
@@ -434,7 +412,7 @@ public class AsyncMessageProcessHelper {
 
     /**
      * Process the new status for the asyncmsgs record
-     *
+     * 
      * @param messageId
      * @param newStatus
      * @return true - success; false - error
@@ -467,14 +445,15 @@ public class AsyncMessageProcessHelper {
 
     /**
      * Process an acknowledgement error for the Patient Discovery asyncmsgs record
-     *
+     * 
      * @param messageId
      * @param newStatus
      * @param errorStatus
      * @param ack
      * @return true - success; false - error
      */
-    public boolean processPatientDiscoveryResponse(String messageId, String newStatus, String errorStatus, RespondingGatewayPRPAIN201306UV02RequestType response) {
+    public boolean processPatientDiscoveryResponse(String messageId, String newStatus, String errorStatus,
+            RespondingGatewayPRPAIN201306UV02RequestType response) {
         log.debug("Begin AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");
 
         boolean result = false;
@@ -513,14 +492,15 @@ public class AsyncMessageProcessHelper {
 
     /**
      * Process an acknowledgement error for the Query For Documents asyncmsgs record
-     *
+     * 
      * @param messageId
      * @param newStatus
      * @param errorStatus
      * @param ack
      * @return true - success; false - error
      */
-    public boolean processQueryForDocumentsResponse(String messageId, String newStatus, String errorStatus, RespondingGatewayCrossGatewayQueryResponseType response) {
+    public boolean processQueryForDocumentsResponse(String messageId, String newStatus, String errorStatus,
+            RespondingGatewayCrossGatewayQueryResponseType response) {
         log.debug("Begin AsyncMessageProcessHelper.processQueryForDocumentsResponse()...");
 
         boolean result = false;
@@ -559,14 +539,15 @@ public class AsyncMessageProcessHelper {
 
     /**
      * Process an acknowledgement error for the Retrieve Documents asyncmsgs record
-     *
+     * 
      * @param messageId
      * @param newStatus
      * @param errorStatus
      * @param ack
      * @return true - success; false - error
      */
-    public boolean processRetrieveDocumentsResponse(String messageId, String newStatus, String errorStatus, RespondingGatewayCrossGatewayRetrieveResponseType response) {
+    public boolean processRetrieveDocumentsResponse(String messageId, String newStatus, String errorStatus,
+            RespondingGatewayCrossGatewayRetrieveResponseType response) {
         log.debug("Begin AsyncMessageProcessHelper.processQueryForDocumentsResponse()...");
 
         boolean result = false;
@@ -605,7 +586,7 @@ public class AsyncMessageProcessHelper {
 
     /**
      * Copy the original RetrieveDocumentSetRequestType using JAXB
-     *
+     * 
      * @param orig
      * @return copy of RetrieveDocumentSetRequestType
      */
@@ -616,7 +597,7 @@ public class AsyncMessageProcessHelper {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
             Marshaller marshaller = jc.createMarshaller();
-            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            // marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
@@ -627,9 +608,10 @@ public class AsyncMessageProcessHelper {
 
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             ByteArrayInputStream baInStrm = new ByteArrayInputStream(buffer);
-            JAXBElement<RetrieveDocumentSetRequestType> oJaxbElementCopy = (JAXBElement<RetrieveDocumentSetRequestType>) unmarshaller.unmarshal(baInStrm);
+            JAXBElement<RetrieveDocumentSetRequestType> oJaxbElementCopy = (JAXBElement<RetrieveDocumentSetRequestType>) unmarshaller
+                    .unmarshal(baInStrm);
             copy = oJaxbElementCopy.getValue();
-            //asyncMessage = Hibernate.createBlob(buffer);
+            // asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
             log.error("Exception during RetrieveDocumentSetRequestType conversion :" + e, e);
         }
@@ -639,18 +621,19 @@ public class AsyncMessageProcessHelper {
 
     /**
      * Copy the original RetrieveDocumentSetResponseType using JAXB
-     *
+     * 
      * @param orig
      * @return copy of RetrieveDocumentSetResponseType
      */
-    public RetrieveDocumentSetResponseType copyRetrieveDocumentSetResponseTypeObject(RetrieveDocumentSetResponseType orig) {
+    public RetrieveDocumentSetResponseType copyRetrieveDocumentSetResponseTypeObject(
+            RetrieveDocumentSetResponseType orig) {
         RetrieveDocumentSetResponseType copy = null;
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
             Marshaller marshaller = jc.createMarshaller();
-            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            // marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
@@ -661,9 +644,10 @@ public class AsyncMessageProcessHelper {
 
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             ByteArrayInputStream baInStrm = new ByteArrayInputStream(buffer);
-            JAXBElement<RetrieveDocumentSetResponseType> oJaxbElementCopy = (JAXBElement<RetrieveDocumentSetResponseType>) unmarshaller.unmarshal(baInStrm);
+            JAXBElement<RetrieveDocumentSetResponseType> oJaxbElementCopy = (JAXBElement<RetrieveDocumentSetResponseType>) unmarshaller
+                    .unmarshal(baInStrm);
             copy = oJaxbElementCopy.getValue();
-            //asyncMessage = Hibernate.createBlob(buffer);
+            // asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
             log.error("Exception during copyRetrieveDocumentSetResponseTypeObject conversion :" + e, e);
         }
@@ -684,7 +668,7 @@ public class AsyncMessageProcessHelper {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
             Marshaller marshaller = jc.createMarshaller();
-            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            // marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
@@ -693,11 +677,11 @@ public class AsyncMessageProcessHelper {
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
 
-            Unmarshaller unmarshaller =  jc.createUnmarshaller();
+            Unmarshaller unmarshaller = jc.createUnmarshaller();
             ByteArrayInputStream baInStrm = new ByteArrayInputStream(buffer);
             JAXBElement<AssertionType> oJaxbElementCopy = (JAXBElement<AssertionType>) unmarshaller.unmarshal(baInStrm);
             copy = oJaxbElementCopy.getValue();
-            //asyncMessage = Hibernate.createBlob(buffer);
+            // asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
             log.error("Exception during copyAssertionTypeObject conversion :" + e, e);
         }
@@ -707,7 +691,7 @@ public class AsyncMessageProcessHelper {
 
     /**
      * Marshal AssertionType using JAXB
-     *
+     * 
      * @param orig
      * @return copy of AssertionType
      */
@@ -718,7 +702,7 @@ public class AsyncMessageProcessHelper {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
             Marshaller marshaller = jc.createMarshaller();
-            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            // marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
@@ -745,7 +729,7 @@ public class AsyncMessageProcessHelper {
     }
 
     private Blob getBlobFromMCCIIN000002UV01(MCCIIN000002UV01 ack) {
-        Blob asyncMessage = null; //Not Implemented
+        Blob asyncMessage = null; // Not Implemented
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -756,7 +740,8 @@ public class AsyncMessageProcessHelper {
             org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
             PIXConsumerMCCIIN000002UV01RequestType request = factory.createPIXConsumerMCCIIN000002UV01RequestType();
             request.setMCCIIN000002UV01(ack);
-            JAXBElement<PIXConsumerMCCIIN000002UV01RequestType> oJaxbElement = factory.createPIXConsumerMCCIIN000002UV01Request(request);
+            JAXBElement<PIXConsumerMCCIIN000002UV01RequestType> oJaxbElement = factory
+                    .createPIXConsumerMCCIIN000002UV01Request(request);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
@@ -769,7 +754,7 @@ public class AsyncMessageProcessHelper {
     }
 
     private Blob getBlobFromPRPAIN201305UV02RequestType(RespondingGatewayPRPAIN201305UV02RequestType request) {
-        Blob asyncMessage = null; //Not Implemented
+        Blob asyncMessage = null; // Not Implemented
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -778,7 +763,8 @@ public class AsyncMessageProcessHelper {
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-            JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType> oJaxbElement = factory.createRespondingGatewayPRPAIN201305UV02Request(request);
+            JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType> oJaxbElement = factory
+                    .createRespondingGatewayPRPAIN201305UV02Request(request);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
@@ -791,7 +777,7 @@ public class AsyncMessageProcessHelper {
     }
 
     private Blob getBlobFromPRPAIN201306UV02RequestType(RespondingGatewayPRPAIN201306UV02RequestType request) {
-        Blob asyncMessage = null; //Not Implemented
+        Blob asyncMessage = null; // Not Implemented
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -800,7 +786,8 @@ public class AsyncMessageProcessHelper {
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-            JAXBElement<RespondingGatewayPRPAIN201306UV02RequestType> oJaxbElement = factory.createRespondingGatewayPRPAIN201306UV02Request(request);
+            JAXBElement<RespondingGatewayPRPAIN201306UV02RequestType> oJaxbElement = factory
+                    .createRespondingGatewayPRPAIN201306UV02Request(request);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
@@ -812,8 +799,9 @@ public class AsyncMessageProcessHelper {
         return asyncMessage;
     }
 
-    private Blob getBlobFromRespondingGatewayCrossGatewayQueryRequestType(RespondingGatewayCrossGatewayQueryRequestType request) {
-        Blob asyncMessage = null; //Not Implemented
+    private Blob getBlobFromRespondingGatewayCrossGatewayQueryRequestType(
+            RespondingGatewayCrossGatewayQueryRequestType request) {
+        Blob asyncMessage = null; // Not Implemented
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -822,7 +810,8 @@ public class AsyncMessageProcessHelper {
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory();
-            JAXBElement<RespondingGatewayCrossGatewayQueryRequestType> oJaxbElement = factory.createRespondingGatewayCrossGatewayQueryRequest(request);
+            JAXBElement<RespondingGatewayCrossGatewayQueryRequestType> oJaxbElement = factory
+                    .createRespondingGatewayCrossGatewayQueryRequest(request);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
@@ -834,8 +823,9 @@ public class AsyncMessageProcessHelper {
         return asyncMessage;
     }
 
-    private Blob getBlobFromRespondingGatewayCrossGatewayQueryResponseType(RespondingGatewayCrossGatewayQueryResponseType response) {
-        Blob asyncMessage = null; //Not Implemented
+    private Blob getBlobFromRespondingGatewayCrossGatewayQueryResponseType(
+            RespondingGatewayCrossGatewayQueryResponseType response) {
+        Blob asyncMessage = null; // Not Implemented
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -844,7 +834,8 @@ public class AsyncMessageProcessHelper {
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory();
-            JAXBElement<RespondingGatewayCrossGatewayQueryResponseType> oJaxbElement = factory.createRespondingGatewayCrossGatewayQueryResponse(response);
+            JAXBElement<RespondingGatewayCrossGatewayQueryResponseType> oJaxbElement = factory
+                    .createRespondingGatewayCrossGatewayQueryResponse(response);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
@@ -856,8 +847,9 @@ public class AsyncMessageProcessHelper {
         return asyncMessage;
     }
 
-    private Blob getBlobFromRespondingGatewayCrossGatewayRetrieveRequestType(RespondingGatewayCrossGatewayRetrieveRequestType request) {
-        Blob asyncMessage = null; //Not Implemented
+    private Blob getBlobFromRespondingGatewayCrossGatewayRetrieveRequestType(
+            RespondingGatewayCrossGatewayRetrieveRequestType request) {
+        Blob asyncMessage = null; // Not Implemented
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -866,7 +858,8 @@ public class AsyncMessageProcessHelper {
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory();
-            JAXBElement<RespondingGatewayCrossGatewayRetrieveRequestType> oJaxbElement = factory.createRespondingGatewayCrossGatewayRetrieveRequest(request);
+            JAXBElement<RespondingGatewayCrossGatewayRetrieveRequestType> oJaxbElement = factory
+                    .createRespondingGatewayCrossGatewayRetrieveRequest(request);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
@@ -878,8 +871,9 @@ public class AsyncMessageProcessHelper {
         return asyncMessage;
     }
 
-    private Blob getBlobFromRespondingGatewayCrossGatewayRetrieveResponseType(RespondingGatewayCrossGatewayRetrieveResponseType response) {
-        Blob asyncMessage = null; //Not Implemented
+    private Blob getBlobFromRespondingGatewayCrossGatewayRetrieveResponseType(
+            RespondingGatewayCrossGatewayRetrieveResponseType response) {
+        Blob asyncMessage = null; // Not Implemented
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -888,7 +882,8 @@ public class AsyncMessageProcessHelper {
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommonentity.ObjectFactory();
-            JAXBElement<RespondingGatewayCrossGatewayRetrieveResponseType> oJaxbElement = factory.createRespondingGatewayCrossGatewayRetrieveResponse(response);
+            JAXBElement<RespondingGatewayCrossGatewayRetrieveResponseType> oJaxbElement = factory
+                    .createRespondingGatewayCrossGatewayRetrieveResponse(response);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
@@ -901,13 +896,13 @@ public class AsyncMessageProcessHelper {
     }
 
     private Blob getBlobFromDocQueryAcknowledgementType(DocQueryAcknowledgementType ack) {
-        Blob asyncMessage = null; //Not Implemented
+        Blob asyncMessage = null; // Not Implemented
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("gov.hhs.healthit.nhin");
             Marshaller marshaller = jc.createMarshaller();
-            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            // marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             gov.hhs.healthit.nhin.ObjectFactory factory = new gov.hhs.healthit.nhin.ObjectFactory();
@@ -924,13 +919,13 @@ public class AsyncMessageProcessHelper {
     }
 
     private Blob getBlobFromDocRetrieveAcknowledgementType(DocRetrieveAcknowledgementType ack) {
-        Blob asyncMessage = null; //Not Implemented
+        Blob asyncMessage = null; // Not Implemented
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("gov.hhs.healthit.nhin");
             Marshaller marshaller = jc.createMarshaller();
-            //marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
+            // marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             gov.hhs.healthit.nhin.ObjectFactory factory = new gov.hhs.healthit.nhin.ObjectFactory();
@@ -949,12 +944,10 @@ public class AsyncMessageProcessHelper {
     private boolean isAckError(MCCIIN000002UV01 ack) {
         boolean result = false;
 
-        if (ack != null &&
-                ack.getAcknowledgement() != null &&
-                ack.getAcknowledgement().size() > 0 &&
-                ack.getAcknowledgement().get(0).getTypeCode() != null &&
-                ack.getAcknowledgement().get(0).getTypeCode().getCode() != null &&
-                ack.getAcknowledgement().get(0).getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ERROR)) {
+        if (ack != null && ack.getAcknowledgement() != null && ack.getAcknowledgement().size() > 0
+                && ack.getAcknowledgement().get(0).getTypeCode() != null
+                && ack.getAcknowledgement().get(0).getTypeCode().getCode() != null
+                && ack.getAcknowledgement().get(0).getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ERROR)) {
             result = true;
         }
 
@@ -964,13 +957,11 @@ public class AsyncMessageProcessHelper {
     private boolean isAckError(DocQueryAcknowledgementType ack) {
         boolean result = true;
 
-        if (ack != null &&
-                ack.getMessage() != null &&
-                ack.getMessage().getStatus() != null &&
-                    (ack.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG) ||
-                    ack.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG)
-                    )
-                ) {
+        if (ack != null
+                && ack.getMessage() != null
+                && ack.getMessage().getStatus() != null
+                && (ack.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG) || ack
+                        .getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG))) {
             result = false;
         }
 
@@ -980,13 +971,11 @@ public class AsyncMessageProcessHelper {
     private boolean isAckError(DocRetrieveAcknowledgementType ack) {
         boolean result = true;
 
-        if (ack != null &&
-                ack.getMessage() != null &&
-                ack.getMessage().getStatus() != null &&
-                    (ack.getMessage().getStatus().equals(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG) ||
-                    ack.getMessage().getStatus().equals(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG)
-                    )
-                ) {
+        if (ack != null
+                && ack.getMessage() != null
+                && ack.getMessage().getStatus() != null
+                && (ack.getMessage().getStatus().equals(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG) || ack
+                        .getMessage().getStatus().equals(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG))) {
             result = false;
         }
 
@@ -995,11 +984,13 @@ public class AsyncMessageProcessHelper {
 
     /**
      * Get the home community id of the communicating gateway
+     * 
      * @param requestMessage
      * @param direction
      * @return String
      */
-    private String getPatientDiscoveryMessageCommunityId(RespondingGatewayPRPAIN201305UV02RequestType requestMessage, String direction) {
+    private String getPatientDiscoveryMessageCommunityId(RespondingGatewayPRPAIN201305UV02RequestType requestMessage,
+            String direction) {
         String communityId = "";
         boolean useReceiver = false;
 
@@ -1009,55 +1000,71 @@ public class AsyncMessageProcessHelper {
             }
 
             if (useReceiver) {
-                if (requestMessage.getPRPAIN201305UV02() != null &&
-                        requestMessage.getPRPAIN201305UV02().getReceiver() != null &&
-                        requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0 &&
-                        requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null &&
-                        requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null &&
-                        requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent() != null &&
-                        requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
-                        requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                        requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                        requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
-                        requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
-                        requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
-                    communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                if (requestMessage.getPRPAIN201305UV02() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                                .getValue() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                                .getValue().getRepresentedOrganization() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                                .getValue().getRepresentedOrganization().getValue() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                                .getValue().getRepresentedOrganization().getValue().getId() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                                .getValue().getRepresentedOrganization().getValue().getId().size() > 0
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                                .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                    communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                            .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
                 if (communityId == null || communityId.equals("")) {
-                    if (requestMessage.getPRPAIN201305UV02().getReceiver() != null &&
-                            requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0 &&
-                            requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null &&
-                            requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null &&
-                            requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null &&
-                            requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().size() > 0 &&
-                            requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null &&
-                            requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).getRoot() != null) {
-                        communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).getRoot();
+                    if (requestMessage.getPRPAIN201305UV02().getReceiver() != null
+                            && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
+                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
+                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
+                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
+                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().size() > 0
+                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null
+                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
+                                    .getRoot() != null) {
+                        communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId()
+                                .get(0).getRoot();
                     }
                 }
             } else {
-                if (requestMessage.getPRPAIN201305UV02().getSender() != null &&
-                        requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null &&
-                        requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent() != null &&
-                        requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue() != null &&
-                        requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                        requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                        requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null &&
-                        requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().size() > 0 &&
-                        requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
-                    communityId = requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                if (requestMessage.getPRPAIN201305UV02().getSender() != null
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent() != null
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue() != null
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                                .getRepresentedOrganization() != null
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                                .getRepresentedOrganization().getValue() != null
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                                .getRepresentedOrganization().getValue().getId() != null
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                                .getRepresentedOrganization().getValue().getId().size() > 0
+                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                                .getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                    communityId = requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
                 if (communityId == null || communityId.equals("")) {
-                    if (requestMessage.getPRPAIN201305UV02().getSender() != null &&
-                            requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null &&
-                            requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null &&
-                            requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId() != null &&
-                            requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().size() > 0 &&
-                            requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0) != null &&
-                            requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot() != null) {
-                        communityId = requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot();
+                    if (requestMessage.getPRPAIN201305UV02().getSender() != null
+                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
+                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
+                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId() != null
+                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().size() > 0
+                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0) != null
+                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot() != null) {
+                        communityId = requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0)
+                                .getRoot();
                     }
                 }
             }

@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class CMInternalConnectionInfoStates {
@@ -39,38 +39,31 @@ public class CMInternalConnectionInfoStates {
     /**
      * Default constructor.
      */
-    public CMInternalConnectionInfoStates()
-    {
+    public CMInternalConnectionInfoStates() {
         clear();
     }
 
     /**
      * Clear the contents of this and set it to a default state.
      */
-    public void clear()
-    {
+    public void clear() {
         stateList = new ArrayList<CMInternalConnectionInfoState>();
     }
 
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
-     *
+     * Returns true of the contents of the object are the same as the one passed in.
+     * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMInternalConnectionInfoStates oCompare)
-    {
-        if (oCompare.stateList.size() != this.stateList.size())
-        {
+    public boolean equals(CMInternalConnectionInfoStates oCompare) {
+        if (oCompare.stateList.size() != this.stateList.size()) {
             return false;
         }
 
         int iCnt = this.stateList.size();
-        for (int i = 0; i < iCnt; i++)
-        {
-            if (! this.stateList.get(i).equals(oCompare.stateList.get(i)))
-            {
+        for (int i = 0; i < iCnt; i++) {
+            if (!this.stateList.get(i).equals(oCompare.stateList.get(i))) {
                 return false;
             }
         }
@@ -80,11 +73,10 @@ public class CMInternalConnectionInfoStates {
 
     /**
      * Return the list of states associated with this home community.
-     *
+     * 
      * @return The list of states associated with this home community.
      */
-    public List<CMInternalConnectionInfoState> getState()
-    {
+    public List<CMInternalConnectionInfoState> getState() {
         return stateList;
     }
 

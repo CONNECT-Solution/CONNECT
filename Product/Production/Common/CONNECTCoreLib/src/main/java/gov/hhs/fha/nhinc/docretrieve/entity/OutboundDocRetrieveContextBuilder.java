@@ -8,7 +8,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public interface OutboundDocRetrieveContextBuilder {

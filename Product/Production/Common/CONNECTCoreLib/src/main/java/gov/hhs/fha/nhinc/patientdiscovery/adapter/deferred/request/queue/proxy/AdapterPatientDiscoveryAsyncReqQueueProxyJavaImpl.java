@@ -36,43 +36,39 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
 /**
- * This class is the java implementation of the AdapterPatientDiscoveryAsyncReqQueue
- * component proxy.
- *
+ * This class is the java implementation of the AdapterPatientDiscoveryAsyncReqQueue component proxy.
+ * 
  * @author Les westberg
  */
-public class AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl implements AdapterPatientDiscoveryAsyncReqQueueProxy
-{
+public class AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl implements AdapterPatientDiscoveryAsyncReqQueueProxy {
 
     private Log log = null;
 
     /**
      * Default constructor.
      */
-    public AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl()
-    {
+    public AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl() {
         log = createLogger();
     }
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**
      * This calls the java implementation for this method.
-     *
+     * 
      * @param body The message to be sent to the web service.
      * @param assertion The assertion information to go with the message.
      * @return The response from the web service.
      */
-    public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetCommunitiesType targets)
-    {
+    public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
+            NhinTargetCommunitiesType targets) {
         log.debug("Entering AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq");
         AdapterPatientDiscoveryDeferredReqQueueOrchImpl oOrchestrator = new AdapterPatientDiscoveryDeferredReqQueueOrchImpl();
         log.debug("Leaving AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq");

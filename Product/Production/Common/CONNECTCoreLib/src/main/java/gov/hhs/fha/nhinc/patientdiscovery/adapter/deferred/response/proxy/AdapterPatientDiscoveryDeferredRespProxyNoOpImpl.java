@@ -33,10 +33,10 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
-public class AdapterPatientDiscoveryDeferredRespProxyNoOpImpl implements AdapterPatientDiscoveryDeferredRespProxy{
+public class AdapterPatientDiscoveryDeferredRespProxyNoOpImpl implements AdapterPatientDiscoveryDeferredRespProxy {
     private static Log log = LogFactory.getLog(AdapterPatientDiscoveryDeferredRespProxyJavaImpl.class);
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion) {

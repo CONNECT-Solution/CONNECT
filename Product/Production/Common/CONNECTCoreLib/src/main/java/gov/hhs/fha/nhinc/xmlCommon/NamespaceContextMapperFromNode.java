@@ -33,7 +33,7 @@ import javax.xml.namespace.NamespaceContext;
 import org.w3c.dom.Node;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class NamespaceContextMapperFromNode implements NamespaceContext {

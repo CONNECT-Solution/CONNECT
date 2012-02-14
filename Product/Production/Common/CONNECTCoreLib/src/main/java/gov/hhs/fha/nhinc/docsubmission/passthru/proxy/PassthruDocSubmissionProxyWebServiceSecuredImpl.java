@@ -40,7 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocSubmissionProxyWebServiceSecuredImpl implements PassthruDocSubmissionProxy {
@@ -68,18 +68,20 @@ public class PassthruDocSubmissionProxyWebServiceSecuredImpl implements Passthru
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected ProxyXDRSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected ProxyXDRSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         ProxyXDRSecuredPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), ProxyXDRSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -88,7 +90,7 @@ public class PassthruDocSubmissionProxyWebServiceSecuredImpl implements Passthru
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -102,18 +104,19 @@ public class PassthruDocSubmissionProxyWebServiceSecuredImpl implements Passthru
         return cachedService;
     }
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Begin provideAndRegisterDocumentSetB");
         RegistryResponseType response = null;
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.NHINC_PROXY_XDR_SECURED_SERVICE_NAME);
-            ProxyXDRSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+            ProxyXDRSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION,
+                    assertion);
 
             if (body == null) {
                 log.error("Message was null");
-            }
-            else if (target == null) {
+            } else if (target == null) {
                 log.error("target was null");
             } else if (port == null) {
                 log.error("port was null");
@@ -122,7 +125,8 @@ public class PassthruDocSubmissionProxyWebServiceSecuredImpl implements Passthru
                 request.setProvideAndRegisterDocumentSetRequest(body);
                 request.setNhinTargetSystem(target);
 
-                response = (RegistryResponseType) oProxyHelper.invokePort(port, ProxyXDRSecuredPortType.class, "provideAndRegisterDocumentSetB", request);
+                response = (RegistryResponseType) oProxyHelper.invokePort(port, ProxyXDRSecuredPortType.class,
+                        "provideAndRegisterDocumentSetB", request);
             }
         } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetB: " + ex.getMessage(), ex);

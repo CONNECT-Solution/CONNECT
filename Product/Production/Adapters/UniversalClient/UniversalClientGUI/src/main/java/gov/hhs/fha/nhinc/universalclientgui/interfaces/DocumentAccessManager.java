@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.universalclientgui.interfaces;
 
-
 import gov.hhs.fha.nhinc.adapter.commondatalayer.DoDConnectorPortType;
 
 import gov.hhs.fha.nhinc.adapter.commondatalayer.DoDConnectorService;
@@ -93,20 +92,17 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
 
-
 /**
-
- *
-
+ * 
+ * 
+ * 
  * @author Duane DeCouteau
-
  */
 
 public class DocumentAccessManager extends Thread {
 
     private static Log log = LogFactory.getLog(DocumentAccessManager.class);
 
-
     private String patientUnitNumber = "";
 
     private String dateOfBirth = "";
@@ -173,54 +169,43 @@ public class DocumentAccessManager extends Thread {
 
     private static final String REGULAR_DATE_FORMAT = "MM/dd/yyyy";
 
-
     private ApplicationBean1 app;
 
     private SessionBean1 session;
 
-
-    //patient provider ids from url instantiation
+    // patient provider ids from url instantiation
 
     private String encryptedPatientId;
 
     private String encryptedProviderId;
 
-
-    //PAWS processing should use below
+    // PAWS processing should use below
 
     public DocumentAccessManager(ApplicationBean1 app, SessionBean1 sess, String ePatientId,
 
-                                 String eProviderId) {
+    String eProviderId) {
 
-
         log.debug("DocumentAccessManager - Entering PAWS Enabled Instance");
 
-
         this.app = app;
 
         this.session = sess;
 
-
         this.encryptedPatientId = ePatientId;
 
         this.encryptedProviderId = eProviderId;
 
-
-
-
     }
 
-
     public void run() {
 
-
         session.setStillProcessing(true);
 
-        //set initial new status
+        // set initial new status
 
         updateInitialProcessingStatus("Acquiring Local Patient and Provider Information.");
 
-        //get patient info
+        // get patient info
 
         decodePatientId(encryptedPatientId);
 
@@ -228,7 +213,7 @@ public class DocumentAccessManager extends Thread {
 
         session.setPawsPatientLookupComplete(true);
 
-        //get provider info
+        // get provider info
 
         decodeProviderId(encryptedProviderId);
 
@@ -236,29 +221,26 @@ public class DocumentAccessManager extends Thread {
 
         session.setPawsProviderLookupComplete(true);
 
-
         updateInitialProcessingStatus("Searching All Organizations");
 
-
         AdhocQueryRequest query = createAdhocQueryRequest();
 
         AssertionType assertion = createAssertion();
 
-
-        //set session assertion info this is new to support paws action
+        // set session assertion info this is new to support paws action
 
         session.setAssertion(assertion);
 
-
         try { // Call Web Service Operation
 
             gov.hhs.fha.nhinc.universalclient.ws.DocViewerRequestServicesService service = new gov.hhs.fha.nhinc.universalclient.ws.DocViewerRequestServicesService();
 
-            gov.hhs.fha.nhinc.universalclient.ws.DocViewerRequestServicesPortType port = service.getDocViewerRequestServicesPort();
+            gov.hhs.fha.nhinc.universalclient.ws.DocViewerRequestServicesPortType port = service
+                    .getDocViewerRequestServicesPort();
 
-            ((BindingProvider)port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, app.getDocViewerRequestService());
+            ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                    app.getDocViewerRequestService());
 
-
             org.netbeans.xml.schema.docviewer.DocViewerRequestType docRequest = new org.netbeans.xml.schema.docviewer.DocViewerRequestType();
 
             docRequest.setAdhocQueryRequest(query);
@@ -271,211 +253,180 @@ public class DocumentAccessManager extends Thread {
 
             docRequest.setUserId(providerId);
 
-
             org.netbeans.xml.schema.docviewer.DocViewerResponseType result = port.requestAllNHINDocuments(docRequest);
 
-            System.out.println("Result = "+result);
+            System.out.println("Result = " + result);
 
         } catch (Exception ex) {
 
-            log.error("DocumentAccessManager:run ERROR "+ex.getMessage());
+            log.error("DocumentAccessManager:run ERROR " + ex.getMessage());
 
             ex.printStackTrace();
 
         }
 
-
         session.setStillProcessing(false);
 
         session.setProcessingLBLString("Processing complete.  All available documents are listed below.");
 
-       log.debug("DocumentAccessManager - Exiting Instance");
+        log.debug("DocumentAccessManager - Exiting Instance");
 
     }
 
-
-
-
     /**
-
-     *  build getPatientInfo Request
-
+     * 
+     * build getPatientInfo Request
      */
 
     org.hl7.v3.PatientDemographicsPRPAIN201307UV02RequestType buildPawsRequest(String pId)
 
     {
 
-        //II
+        // II
 
         org.hl7.v3.II ii = new org.hl7.v3.II();
 
         ii.setExtension(pId);
 
-
-        //PatientIdentfier
+        // PatientIdentfier
 
         org.hl7.v3.PRPAMT201307UVPatientIdentifier id = new org.hl7.v3.PRPAMT201307UVPatientIdentifier();
 
         id.getValue().add(ii);
 
-
-        //Parameter List
+        // Parameter List
 
         org.hl7.v3.PRPAMT201307UVParameterList paramList = new org.hl7.v3.PRPAMT201307UVParameterList();
 
         paramList.getPatientIdentifier().add(id);
 
-
-        //Query By Parameter
+        // Query By Parameter
 
         org.hl7.v3.PRPAMT201307UVQueryByParameter qparams = new org.hl7.v3.PRPAMT201307UVQueryByParameter();
 
         qparams.setParameterList(paramList);
 
-
-        //objectfactory
+        // objectfactory
 
         org.hl7.v3.ObjectFactory obf = new org.hl7.v3.ObjectFactory();
 
-
-        //control act process
+        // control act process
 
         org.hl7.v3.PRPAIN201307UV02QUQIMT021001UV01ControlActProcess controlActProcess = new org.hl7.v3.PRPAIN201307UV02QUQIMT021001UV01ControlActProcess();
 
-        controlActProcess.setQueryByParameter(obf.createPRPAIN201307UV02QUQIMT021001UV01ControlActProcessQueryByParameter(qparams));
+        controlActProcess.setQueryByParameter(obf
+                .createPRPAIN201307UV02QUQIMT021001UV01ControlActProcessQueryByParameter(qparams));
 
-
-        //message
+        // message
 
         org.hl7.v3.PRPAIN201307UV02MCCIMT000100UV01Message patientMessage = new org.hl7.v3.PRPAIN201307UV02MCCIMT000100UV01Message();
 
         patientMessage.setControlActProcess(controlActProcess);
 
-
-        //request and query
+        // request and query
 
         PatientDemographicsPRPAIN201307UV02RequestType request = new PatientDemographicsPRPAIN201307UV02RequestType();
 
         request.setQuery(patientMessage);
 
-
         return request;
 
-
     }
 
-
     private AdhocQueryRequest createAdhocQueryRequest() {
 
-            AdhocQueryRequest query = new AdhocQueryRequest();
+        AdhocQueryRequest query = new AdhocQueryRequest();
 
-            query.setFederated(false);
+        query.setFederated(false);
 
-            query.setStartIndex(BigInteger.valueOf(0));
+        query.setStartIndex(BigInteger.valueOf(0));
 
-            query.setMaxResults(BigInteger.valueOf(-1));
+        query.setMaxResults(BigInteger.valueOf(-1));
 
-            ResponseOptionType resp = new ResponseOptionType();
+        ResponseOptionType resp = new ResponseOptionType();
 
-            resp.setReturnComposedObjects(true);
+        resp.setReturnComposedObjects(true);
 
-            resp.setReturnType("LeafClass");
+        resp.setReturnType("LeafClass");
 
-            query.setResponseOption(resp);
+        query.setResponseOption(resp);
 
-
-            AdhocQueryType queryType = new AdhocQueryType();
+        AdhocQueryType queryType = new AdhocQueryType();
 
-            queryType.setId("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
+        queryType.setId("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
 
+        SlotType1 patientslot = new SlotType1();
 
+        patientslot.setName("$XDSDocumentEntryPatientId");
 
-
-            SlotType1 patientslot = new SlotType1();
+        ValueListType patientvalList = new ValueListType();
 
-            patientslot.setName("$XDSDocumentEntryPatientId");
+        StringBuffer sb = new StringBuffer();
 
-            ValueListType patientvalList = new ValueListType();
+        sb.append(patientUnitNumber);
 
-            StringBuffer sb = new StringBuffer();
+        sb.append("^^^&");
 
-            sb.append(patientUnitNumber);
+        sb.append(app.getHomeCommunityId());
 
-            sb.append("^^^&");
+        sb.append("&ISO");
 
-            sb.append(app.getHomeCommunityId());
+        patientvalList.getValue().add(sb.toString());
 
-            sb.append("&ISO");
+        patientslot.setValueList(patientvalList);
 
-            patientvalList.getValue().add(sb.toString());
+        queryType.getSlot().add(patientslot);
 
-            patientslot.setValueList(patientvalList);
+        SlotType1 entryslot = new SlotType1();
 
-            queryType.getSlot().add(patientslot);
+        entryslot.setName("$XDSDocumentEntryStatus");
 
-
-            SlotType1 entryslot = new SlotType1();
+        ValueListType entryvalList = new ValueListType();
 
-            entryslot.setName("$XDSDocumentEntryStatus");
+        entryvalList.getValue().add("('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')");
 
-            ValueListType entryvalList = new ValueListType();
+        entryslot.setValueList(entryvalList);
 
-            entryvalList.getValue().add("('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')");
+        queryType.getSlot().add(entryslot);
 
-            entryslot.setValueList(entryvalList);
+        // Set Creation From Date
 
-            queryType.getSlot().add(entryslot);
+        SlotType1 creationStartTimeSlot = new SlotType1();
 
-
-            //Set Creation From Date
+        creationStartTimeSlot.setName(CREATION_TIME_FROM_SLOT_NAME);
 
-            SlotType1 creationStartTimeSlot = new SlotType1();
+        ValueListType creationStartTimeValueList = new ValueListType();
 
-            creationStartTimeSlot.setName(CREATION_TIME_FROM_SLOT_NAME);
+        Date creationFromDate = getStartDate();
 
-
-            ValueListType creationStartTimeValueList = new ValueListType();
+        creationStartTimeValueList.getValue().add(formatDate(creationFromDate, HL7_DATE_FORMAT));
 
-            Date creationFromDate = getStartDate();
+        creationStartTimeSlot.setValueList(creationStartTimeValueList);
 
-            creationStartTimeValueList.getValue().add(formatDate(creationFromDate, HL7_DATE_FORMAT));
+        queryType.getSlot().add(creationStartTimeSlot);
 
-
-            creationStartTimeSlot.setValueList(creationStartTimeValueList);
+        // Set Creation To Date
 
-            queryType.getSlot().add(creationStartTimeSlot);
+        SlotType1 creationEndTimeSlot = new SlotType1();
 
-
-            // Set Creation To Date
+        creationEndTimeSlot.setName(CREATION_TIME_TO_SLOT_NAME);
 
-            SlotType1 creationEndTimeSlot = new SlotType1();
+        ValueListType creationEndTimeSlotValueList = new ValueListType();
 
-            creationEndTimeSlot.setName(CREATION_TIME_TO_SLOT_NAME);
+        Date creationToDate = new Date();
 
-
-            ValueListType creationEndTimeSlotValueList = new ValueListType();
+        creationEndTimeSlotValueList.getValue().add(formatDate(creationToDate, HL7_DATE_FORMAT));
 
-            Date creationToDate = new Date();
+        creationEndTimeSlot.setValueList(creationEndTimeSlotValueList);
 
-            creationEndTimeSlotValueList.getValue().add(formatDate(creationToDate, HL7_DATE_FORMAT));
+        queryType.getSlot().add(creationEndTimeSlot);
 
-
-            creationEndTimeSlot.setValueList(creationEndTimeSlotValueList);
+        query.setAdhocQuery(queryType);
 
-            queryType.getSlot().add(creationEndTimeSlot);
-
-
-
-
-            query.setAdhocQuery(queryType);
-
-
-            return query;
+        return query;
 
     }
 
-
     public AssertionType createAssertion() {
 
         AssertionType assertion = new AssertionType();
@@ -507,7 +458,6 @@ public class DocumentAccessManager extends Thread {
 
         assertion.setSamlAuthnStatement(samlAuthnStatement);
 
-
         PersonNameType pName = new PersonNameType();
 
         pName.setFamilyName(patientLastName);
@@ -518,7 +468,6 @@ public class DocumentAccessManager extends Thread {
 
         assertion.setPersonName(pName);
 
-
         HomeCommunityType hc = new HomeCommunityType();
 
         hc.setDescription(app.getHomeCommunityDesc());
@@ -527,9 +476,6 @@ public class DocumentAccessManager extends Thread {
 
         hc.setName(app.getHomeCommunityName());
 
-
-
-
         UserType muser = new UserType();
 
         CeType roleType = new CeType();
@@ -550,7 +496,7 @@ public class DocumentAccessManager extends Thread {
 
         muser.setRoleCoded(roleType);
 
-        //VA DoD Requirement
+        // VA DoD Requirement
 
         String uPlusDoD = userName + "*DoD";
 
@@ -572,7 +518,6 @@ public class DocumentAccessManager extends Thread {
 
         nType.setOriginalText("P");
 
-
         uName.setNameType(nType);
 
         uName.setFamilyName(providerLastName);
@@ -585,7 +530,6 @@ public class DocumentAccessManager extends Thread {
 
         assertion.setUserInfo(muser);
 
-
         assertion.setHomeCommunity(hc);
 
         CeType pouType = new CeType();
@@ -604,38 +548,32 @@ public class DocumentAccessManager extends Thread {
 
         assertion.setPurposeOfDisclosureCoded(pouType);
 
-
         return assertion;
 
     }
 
-
     private String formatDate(String dateString, String inputFormat, String outputFormat) {
 
         SimpleDateFormat inputFormatter = new SimpleDateFormat(inputFormat);
 
         SimpleDateFormat outputFormatter = new SimpleDateFormat(outputFormat);
 
-
         Date date = null;
 
-
         try {
 
             date = inputFormatter.parse(dateString);
 
         } catch (Exception ex) {
 
-            log.error("DocumentAccessManager.formatDate "+ex.getMessage());
+            log.error("DocumentAccessManager.formatDate " + ex.getMessage());
 
         }
 
-
         return outputFormatter.format(date);
 
     }
 
-
     private String formatDate(Date date, String format) {
 
         SimpleDateFormat formatter = new SimpleDateFormat(format);
@@ -644,7 +582,6 @@ public class DocumentAccessManager extends Thread {
 
     }
 
-
     private Date getStartDate() {
 
         Date res = new Date();
@@ -673,97 +610,86 @@ public class DocumentAccessManager extends Thread {
 
     }
 
-
     private void decodePatientId(String dPatientId) {
 
-       CryptAHLTA cipherOBJ = new CryptAHLTA();
+        CryptAHLTA cipherOBJ = new CryptAHLTA();
 
-
-       patientUnitNumber = cipherOBJ.decrypt(dPatientId);
+        patientUnitNumber = cipherOBJ.decrypt(dPatientId);
 
-       session.setPatientId(patientUnitNumber);
+        session.setPatientId(patientUnitNumber);
 
-       log.debug("DocumentAccessManager - Decrypted patientId = " + patientUnitNumber);
+        log.debug("DocumentAccessManager - Decrypted patientId = " + patientUnitNumber);
 
     }
 
-
     private void decodeProviderId(String dProviderId) {
 
-       CryptAHLTA cipherOBJ = new CryptAHLTA();
+        CryptAHLTA cipherOBJ = new CryptAHLTA();
 
-
-       providerId = cipherOBJ.decrypt(dProviderId);
+        providerId = cipherOBJ.decrypt(dProviderId);
 
-       session.setProviderId(providerId);
+        session.setProviderId(providerId);
 
-       log.debug("DocumentAccessManager - Decrypted providerId = " + providerId);
+        log.debug("DocumentAccessManager - Decrypted providerId = " + providerId);
 
     }
 
-
     private void providerInfoLookup() {
 
-        //perform paws web service call for provider info here
+        // perform paws web service call for provider info here
 
-
         try {
 
-            //retreieve patient info
+            // retreieve patient info
 
-            log.debug("DocumentAccessManager - Instantiating DOD Connector Service (" + app.getCALServiceWSDL() + ")...");
+            log.debug("DocumentAccessManager - Instantiating DOD Connector Service (" + app.getCALServiceWSDL()
+                    + ")...");
 
-
-            DoDConnectorService calservice = new DoDConnectorService(new URL(app.getCALServiceWSDL()), new QName(app.getCALServiceQNAME(), app.getCALService()));
+            DoDConnectorService calservice = new DoDConnectorService(new URL(app.getCALServiceWSDL()), new QName(
+                    app.getCALServiceQNAME(), app.getCALService()));
 
-
-            log.debug("DocumentAccessManager - Retrieving the port from the following service: " + calservice.toString());
+            log.debug("DocumentAccessManager - Retrieving the port from the following service: "
+                    + calservice.toString());
 
-
             DoDConnectorPortType port = calservice.getCommonDataLayerPort();
 
-
-            //build provider info request
+            // build provider info request
 
             org.hl7.v3.PatientDemographicsPRPAIN201307UV02RequestType providerReqType = buildPawsRequest(providerId);
 
-
-
-
             log.debug("DocumentAccessManager - Invoking getProviderInfo Operation: " + calservice.toString());
 
-            PatientDemographicsPRPAMT201303UV02ResponseType providerInfoResponse = port.getProviderInfo(providerReqType);
+            PatientDemographicsPRPAMT201303UV02ResponseType providerInfoResponse = port
+                    .getProviderInfo(providerReqType);
 
-
             if (providerInfoResponse != null)
 
             {
 
                 log.debug("DocumentAccessManager - getProviderInfo response returned from PAWS");
 
-
-                //parse names
+                // parse names
 
-                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitFamily> eef = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitFamily>) providerInfoResponse.getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(0);
+                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitFamily> eef = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitFamily>) providerInfoResponse
+                        .getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(0);
 
                 providerLastName = eef.getValue().getContent();
 
-
-                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitGiven> eeg = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitGiven>) providerInfoResponse.getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(1);
+                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitGiven> eeg = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitGiven>) providerInfoResponse
+                        .getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(1);
 
                 providerFirstName = eeg.getValue().getContent();
 
-
-                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitDelimiter> eed = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitDelimiter>) providerInfoResponse.getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(2);
+                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitDelimiter> eed = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitDelimiter>) providerInfoResponse
+                        .getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(2);
 
                 providerMiddleName = eed.getValue().getContent();
 
-
-                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitSuffix> ees = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitSuffix>) providerInfoResponse.getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(3);
+                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitSuffix> ees = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitSuffix>) providerInfoResponse
+                        .getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(3);
 
                 providerName = ees.getValue().getContent();
 
-
                 log.debug("DocumentAccessManager - SessionBean Provider Last Name = " + providerLastName);
 
                 log.debug("DocumentAccessManager - SessionBean Provider First Name = " + providerFirstName);
@@ -772,10 +698,8 @@ public class DocumentAccessManager extends Thread {
 
                 log.debug("DocumentAccessManager - SessionBean Provider Full Name = " + providerName);
 
-
             }
 
-
             if (providerName != null)
 
                 session.setProviderName(providerName);
@@ -784,7 +708,6 @@ public class DocumentAccessManager extends Thread {
 
                 session.setProviderName("");
 
-
             if (providerFirstName != null)
 
                 session.setProviderFirstName(providerFirstName);
@@ -793,19 +716,17 @@ public class DocumentAccessManager extends Thread {
 
                 session.setProviderFirstName("");
 
-
             if (providerLastName != null)
 
-                 session.setProviderLastName(providerLastName);
+                session.setProviderLastName(providerLastName);
 
             else
 
                 session.setProviderLastName("");
 
-
             if (providerMiddleName != null)
 
-                 session.setProviderMiddleNameOrInitial(providerMiddleName);
+                session.setProviderMiddleNameOrInitial(providerMiddleName);
 
             else
 
@@ -815,67 +736,60 @@ public class DocumentAccessManager extends Thread {
 
         catch (Exception ep) {
 
-            log.error("DocumentAccessManager:providerLookup "+ep);
+            log.error("DocumentAccessManager:providerLookup " + ep);
 
         }
 
     }
 
-
     private void patientInfoLookup() {
 
-        //perform paws web service patient info lookup here
+        // perform paws web service patient info lookup here
 
-
         try {
 
-            //retreieve patient info
+            // retreieve patient info
 
-            log.debug("DocumentAccessManager - Instantiating DOD Connector Service (" + app.getCALServiceWSDL() + ")...");
+            log.debug("DocumentAccessManager - Instantiating DOD Connector Service (" + app.getCALServiceWSDL()
+                    + ")...");
 
-
-            DoDConnectorService calservice = new DoDConnectorService(new URL(app.getCALServiceWSDL()), new QName(app.getCALServiceQNAME(), app.getCALService()));
+            DoDConnectorService calservice = new DoDConnectorService(new URL(app.getCALServiceWSDL()), new QName(
+                    app.getCALServiceQNAME(), app.getCALService()));
 
-
-            log.debug("DocumentAccessManager - Retrieving the port from the following service: " + calservice.toString());
+            log.debug("DocumentAccessManager - Retrieving the port from the following service: "
+                    + calservice.toString());
 
-
             DoDConnectorPortType port = calservice.getCommonDataLayerPort();
 
-
-            //build patient info request
+            // build patient info request
 
             org.hl7.v3.PatientDemographicsPRPAIN201307UV02RequestType patientReqType = buildPawsRequest(patientUnitNumber);
 
-
             log.debug("DocumentAccessManager - Invoking getPatientInfo Operation: " + calservice.toString());
 
             PatientDemographicsPRPAMT201303UV02ResponseType patientInfoResponse = port.getPatienInfo(patientReqType);
 
-
             if (patientInfoResponse != null)
 
             {
 
                 log.debug("DocumentAccessManager - getPatientInfo response returned from PAWS");
 
-
                 dateOfBirth = patientInfoResponse.getSubject().getPatientPerson().getValue().getBirthTime().getValue();
 
-
-                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitGiven> eeg = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitGiven>) patientInfoResponse.getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(1);
+                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitGiven> eeg = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitGiven>) patientInfoResponse
+                        .getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(1);
 
                 patientFirstName = eeg.getValue().getContent();
 
-
-                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitFamily> eef = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitFamily>) patientInfoResponse.getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(0);
+                javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitFamily> eef = (javax.xml.bind.JAXBElement<org.hl7.v3.EnExplicitFamily>) patientInfoResponse
+                        .getSubject().getPatientPerson().getValue().getName().get(0).getContent().get(0);
 
                 patientLastName = eef.getValue().getContent();
 
-
-                patientGender = patientInfoResponse.getSubject().getPatientPerson().getValue().getAdministrativeGenderCode().getCode();
+                patientGender = patientInfoResponse.getSubject().getPatientPerson().getValue()
+                        .getAdministrativeGenderCode().getCode();
 
-
                 log.debug("DocumentAccessManager - SessionBean Patient Date of Birth = " + dateOfBirth);
 
                 log.debug("DocumentAccessManager - SessionBean Patient First Name = " + patientFirstName);
@@ -884,10 +798,8 @@ public class DocumentAccessManager extends Thread {
 
                 log.debug("DocumentAccessManager - SessionBean Patient Gender = " + patientGender);
 
-
             }
 
-
             if (dateOfBirth != null)
 
                 session.setPatientDOB(dateOfBirth);
@@ -896,7 +808,6 @@ public class DocumentAccessManager extends Thread {
 
                 session.setPatientDOB("");
 
-
             if (patientFirstName != null)
 
                 session.setPatientFirstName(patientFirstName);
@@ -905,7 +816,6 @@ public class DocumentAccessManager extends Thread {
 
                 session.setPatientFirstName("");
 
-
             if (patientLastName != null)
 
                 session.setPatientLastName(patientLastName);
@@ -914,13 +824,10 @@ public class DocumentAccessManager extends Thread {
 
                 session.setPatientLastName("");
 
-
             session.setPatientMiddleInitial("");
 
-
             session.setPatientName(patientLastName + "," + patientFirstName);
 
-
             if (patientGender != null)
 
                 session.setPatientGender(patientGender);
@@ -933,60 +840,52 @@ public class DocumentAccessManager extends Thread {
 
         catch (Exception ep) {
 
-            log.error("DocumentAccessManager:patientInfoLookup "+ep);
+            log.error("DocumentAccessManager:patientInfoLookup " + ep);
 
         }
 
     }
 
-
     private void updateInitialProcessingStatus(String status) {
 
-
-            RetrievedDocumentDisplayObject[] docs = new RetrievedDocumentDisplayObject[1];
+        RetrievedDocumentDisplayObject[] docs = new RetrievedDocumentDisplayObject[1];
 
-            RetrievedDocumentDisplayObject docInfo = new RetrievedDocumentDisplayObject();
+        RetrievedDocumentDisplayObject docInfo = new RetrievedDocumentDisplayObject();
 
-            docInfo.setDocumentTitle("Summary of Episode");
+        docInfo.setDocumentTitle("Summary of Episode");
 
-            docInfo.setDocumentType("C32");
+        docInfo.setDocumentType("C32");
 
-            docInfo.setCreationDate(formatDate(new Date(), REGULAR_DATE_FORMAT));
+        docInfo.setCreationDate(formatDate(new Date(), REGULAR_DATE_FORMAT));
 
-            docInfo.setOrganizationName(status);
+        docInfo.setOrganizationName(status);
 
-            docInfo.setUniqueDocumentId("999999");
+        docInfo.setUniqueDocumentId("999999");
 
-            docInfo.setRepositoryId("999999");
+        docInfo.setRepositoryId("999999");
 
-            docInfo.setOrgId(app.getHomeCommunityId());
+        docInfo.setOrgId(app.getHomeCommunityId());
 
-            docInfo.setSelected(false);
+        docInfo.setSelected(false);
 
-            docInfo.setAvailableInLocalStore(false);
+        docInfo.setAvailableInLocalStore(false);
 
-            docInfo.setDocumentStatus("Pending");
+        docInfo.setDocumentStatus("Pending");
 
-            docInfo.setPatientId(patientUnitNumber);
+        docInfo.setPatientId(patientUnitNumber);
 
-            docInfo.setRequestingUser(userName);
+        docInfo.setRequestingUser(userName);
 
-            docInfo.setOrigDocumentId("999999");
+        docInfo.setOrigDocumentId("999999");
 
-            docInfo.setOrigHomeCommunityId(app.getHomeCommunityId());
+        docInfo.setOrigHomeCommunityId(app.getHomeCommunityId());
 
-            docInfo.setOrigRespositoryId("999999");
+        docInfo.setOrigRespositoryId("999999");
 
-
-            docs[0] = docInfo;
+        docs[0] = docInfo;
 
-            session.setAvailableDocuments(docs);
+        session.setAvailableDocuments(docs);
 
-
     }
 
-
-
-
 }
-

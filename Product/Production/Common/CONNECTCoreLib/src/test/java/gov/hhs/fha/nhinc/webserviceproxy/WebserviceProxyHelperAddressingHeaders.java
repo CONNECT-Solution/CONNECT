@@ -43,88 +43,76 @@ import org.junit.Test;
 
 import com.sun.xml.ws.developer.WSBindingProvider;
 
-public class WebserviceProxyHelperAddressingHeaders extends
-		AbstractWebServiceProxyHelpTest {
+public class WebserviceProxyHelperAddressingHeaders extends AbstractWebServiceProxyHelpTest {
 
-	final WSBindingProvider mockPort = context.mock(WSBindingProvider.class);
-	@SuppressWarnings("unchecked")
-	final Map<String, Object> mockRequestContext = context.mock(Map.class);
-	final HashMap<String, Object> oMap = new HashMap<String, Object>();
-	final SamlTokenCreator mockTokenCreator = context
-			.mock(SamlTokenCreator.class);
-	final AsyncHeaderCreator mockAsyncHeaderCreator = context
-			.mock(AsyncHeaderCreator.class);
+    final WSBindingProvider mockPort = context.mock(WSBindingProvider.class);
+    @SuppressWarnings("unchecked")
+    final Map<String, Object> mockRequestContext = context.mock(Map.class);
+    final HashMap<String, Object> oMap = new HashMap<String, Object>();
+    final SamlTokenCreator mockTokenCreator = context.mock(SamlTokenCreator.class);
+    final AsyncHeaderCreator mockAsyncHeaderCreator = context.mock(AsyncHeaderCreator.class);
 
-	
-	final Log mockLog = context.mock(Log.class);
+    final Log mockLog = context.mock(Log.class);
 
-	WebServiceProxyHelper oHelper;
-	
-	/**
-	 * Tests the getWSAddressing method
-	 * @throws PropertyAccessException 
-	 */
-	@Test
-	public void testGetWSAddressingHeaders() throws PropertyAccessException {
-		
-		initializationExpectations();
+    WebServiceProxyHelper oHelper;
 
-		WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+    /**
+     * Tests the getWSAddressing method
+     * 
+     * @throws PropertyAccessException
+     */
+    @Test
+    public void testGetWSAddressingHeaders() throws PropertyAccessException {
 
-			@Override
-			protected Log createLogger() {
-				return mockLog;
-			}
+        initializationExpectations();
 
-			@Override
-			protected AsyncHeaderCreator getAsyncHeaderCreator() {
-				return new AsyncHeaderCreator() {
+        WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
 
-					@Override
-					public List createOutboundHeaders(String url,
-							String action, String messageId,
-							List<String> relatesToIds) {
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
 
-						List headers = new ArrayList();
-						headers.add(url);
-						headers.add(action);
-						headers.add(messageId);
-						headers.addAll(relatesToIds);
-						return headers;
-					}
-				};
-			}
+            @Override
+            protected AsyncHeaderCreator getAsyncHeaderCreator() {
+                return new AsyncHeaderCreator() {
 
-			@Override
-			protected String getMessageId(AssertionType assertion) {
-				return "Test_Message_Id";
-			}
+                    @Override
+                    public List createOutboundHeaders(String url, String action, String messageId,
+                            List<String> relatesToIds) {
 
-			@Override
-			protected List<String> getRelatesTo(AssertionType assertion) {
-				List<String> allRelatesTo = new ArrayList();
-				allRelatesTo.add("Test_Relates_1");
-				allRelatesTo.add("Test_Relates_2");
-				return allRelatesTo;
-			}
-		};
+                        List headers = new ArrayList();
+                        headers.add(url);
+                        headers.add(action);
+                        headers.add(messageId);
+                        headers.addAll(relatesToIds);
+                        return headers;
+                    }
+                };
+            }
 
-		AssertionType oAssertion = new AssertionType();
-		List returnedHeaders = oHelper.getWSAddressingHeaders("Test_URL",
-				"Test_ws_action", oAssertion);
-		assertEquals("Number of created Headers is invalid.", 5,
-				returnedHeaders.size());
-		assertTrue("Test_URL header not found",
-				returnedHeaders.contains("Test_URL"));
-		assertTrue("Test_ws_action header not found",
-				returnedHeaders.contains("Test_ws_action"));
-		assertTrue("Test_Message_Id header not found",
-				returnedHeaders.contains("Test_Message_Id"));
-		assertTrue("Test_Relates_1 header not found",
-				returnedHeaders.contains("Test_Relates_1"));
-		assertTrue("Test_Relates_2 header not found",
-				returnedHeaders.contains("Test_Relates_2"));
-	}
+            @Override
+            protected String getMessageId(AssertionType assertion) {
+                return "Test_Message_Id";
+            }
 
-	
+            @Override
+            protected List<String> getRelatesTo(AssertionType assertion) {
+                List<String> allRelatesTo = new ArrayList();
+                allRelatesTo.add("Test_Relates_1");
+                allRelatesTo.add("Test_Relates_2");
+                return allRelatesTo;
+            }
+        };
+
+        AssertionType oAssertion = new AssertionType();
+        List returnedHeaders = oHelper.getWSAddressingHeaders("Test_URL", "Test_ws_action", oAssertion);
+        assertEquals("Number of created Headers is invalid.", 5, returnedHeaders.size());
+        assertTrue("Test_URL header not found", returnedHeaders.contains("Test_URL"));
+        assertTrue("Test_ws_action header not found", returnedHeaders.contains("Test_ws_action"));
+        assertTrue("Test_Message_Id header not found", returnedHeaders.contains("Test_Message_Id"));
+        assertTrue("Test_Relates_1 header not found", returnedHeaders.contains("Test_Relates_1"));
+        assertTrue("Test_Relates_2 header not found", returnedHeaders.contains("Test_Relates_2"));
+    }
+
 }

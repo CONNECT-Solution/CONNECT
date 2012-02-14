@@ -33,10 +33,10 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
  * Interface to implement Entity Doc retrieve deferred request service call
+ * 
  * @author Sai Valluripalli
  */
-public interface EntityDocRetrieveDeferredReqProxy
-{
+public interface EntityDocRetrieveDeferredReqProxy {
     /**
      * 
      * @param message
@@ -44,5 +44,6 @@ public interface EntityDocRetrieveDeferredReqProxy
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message, AssertionType assertion, NhinTargetCommunitiesType target);
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message,
+            AssertionType assertion, NhinTargetCommunitiesType target);
 }

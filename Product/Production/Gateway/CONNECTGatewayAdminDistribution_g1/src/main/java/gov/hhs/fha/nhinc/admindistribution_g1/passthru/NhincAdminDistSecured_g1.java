@@ -37,27 +37,29 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author dunnek
  */
 @WebService(serviceName = "NhincAdminDistSecuredService", portName = "NhincAdminDistSecured_PortType", endpointInterface = "gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincadmindistribution", wsdlLocation = "WEB-INF/wsdl/NhincAdminDistSecured/NhincAdminDistSecured_g1.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class NhincAdminDistSecured_g1 {
     @Resource
     private WebServiceContext context;
-    public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType body) {
+
+    public void sendAlertMessage(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
 
-        getNhincImpl().sendAlertMessage(body.getEDXLDistribution(),assertion, body.getNhinTargetSystem(),
+        getNhincImpl().sendAlertMessage(body.getEDXLDistribution(), assertion, body.getNhinTargetSystem(),
                 NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
     }
-    protected AssertionType extractAssertion(WebServiceContext context)
-    {
+
+    protected AssertionType extractAssertion(WebServiceContext context) {
         return SamlTokenExtractor.GetAssertion(context);
     }
-    public PassthruAdminDistributionOrchImpl getNhincImpl()
-    {
+
+    public PassthruAdminDistributionOrchImpl getNhincImpl() {
         return new PassthruAdminDistributionOrchImpl();
     }
 }

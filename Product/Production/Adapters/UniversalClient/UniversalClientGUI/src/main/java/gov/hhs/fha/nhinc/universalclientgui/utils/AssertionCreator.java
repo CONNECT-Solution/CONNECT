@@ -78,7 +78,8 @@ public class AssertionCreator {
         try {
             userPerson.setGivenName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_FIRST));
             userPerson.setFamilyName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_LAST));
-            userPerson.setSecondNameOrInitials(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_MIDDLE));
+            userPerson.setSecondNameOrInitials(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,
+                    PROPERTY_KEY_USER_MIDDLE));
             userHc.setName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_ORG));
             user.setUserName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_NAME));
             userRole.setCode(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_CODE));
@@ -88,18 +89,18 @@ public class AssertionCreator {
 
             purposeCoded.setCode(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_CODE));
             purposeCoded.setCodeSystem(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_SYSTEM));
-            purposeCoded.setCodeSystemName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
+            purposeCoded.setCodeSystemName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,
+                    PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
             purposeCoded.setDisplayName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_DISPLAY));
 
-/*            assertOut.setDateOfSignature(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SIGN));
-            assertOut.setExpirationDate(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_EXPIRE));
-            assertOut.setClaimFormRef(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_CONTENT_REF));
-
-            byte[] binData = getBinaryClaimForm();
-            if (binData != null && binData.length > 0) {
-                assertOut.setClaimFormRaw(binData);
-            }
- */
+            /*
+             * assertOut.setDateOfSignature(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SIGN));
+             * assertOut.setExpirationDate(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_EXPIRE));
+             * assertOut.setClaimFormRef(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_CONTENT_REF));
+             * 
+             * byte[] binData = getBinaryClaimForm(); if (binData != null && binData.length > 0) {
+             * assertOut.setClaimFormRaw(binData); }
+             */
         } catch (PropertyAccessException ex) {
             log.error("Universal Client can not access property: " + ex.getMessage());
         }
@@ -131,9 +132,10 @@ public class AssertionCreator {
                     }
                     // Ensure all the bytes have been read in
                     if (offset < binOut.length) {
-                        log.error("AssertionCreator: Could only read " + offset + " of " + binOut.length + " bytes of file " + binFileName);
+                        log.error("AssertionCreator: Could only read " + offset + " of " + binOut.length
+                                + " bytes of file " + binFileName);
                     } else {
-                        log.debug ("Binary A27 form read: " + binOut.length + " bytes");
+                        log.debug("Binary A27 form read: " + binOut.length + " bytes");
                     }
                 } else {
                     log.error(binFileName + " file is too long to read");

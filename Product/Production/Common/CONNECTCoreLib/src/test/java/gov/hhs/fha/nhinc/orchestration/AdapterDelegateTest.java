@@ -34,7 +34,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class AdapterDelegateTest {
@@ -78,17 +78,17 @@ public class AdapterDelegateTest {
     public class AdapterDelegateImpl implements InboundDelegate {
 
         public InboundOrchestratable process(InboundOrchestratable message) {
-        	return null;
+            return null;
         }
 
         public void createErrorResponse(InboundOrchestratable message, String error) {
         }
 
-		@Override
-		public Orchestratable process(Orchestratable message) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+        @Override
+        public Orchestratable process(Orchestratable message) {
+            // TODO Auto-generated method stub
+            return null;
+        }
     }
 
 }

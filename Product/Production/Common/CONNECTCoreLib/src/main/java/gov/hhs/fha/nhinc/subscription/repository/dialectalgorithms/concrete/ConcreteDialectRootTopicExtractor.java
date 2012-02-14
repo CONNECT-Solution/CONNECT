@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import org.w3c.dom.Node;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class ConcreteDialectRootTopicExtractor implements IRootTopicExtractionStrategy {
@@ -46,7 +46,8 @@ public class ConcreteDialectRootTopicExtractor implements IRootTopicExtractionSt
         String[] topicParts = topicValue.split("/");
 
         for (String topicPart : topicParts) {
-            String cleanedTopicPart = RootTopicExtractorHelper.ReplaceNamespacePrefixesWithNamespaces(topicPart, topicExpression);
+            String cleanedTopicPart = RootTopicExtractorHelper.ReplaceNamespacePrefixesWithNamespaces(topicPart,
+                    topicExpression);
             if (NullChecker.isNullish(rootTopic)) {
                 rootTopic = "";
             } else {

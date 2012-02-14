@@ -34,30 +34,27 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
- * Created by
- * User: ralph
- * Date: Jul 26, 2010
- * Time: 2:36:53 PM
+ * Created by User: ralph Date: Jul 26, 2010 Time: 2:36:53 PM
  */
 public class AdapterDocRetrieveDeferredReqErrorProxyNoOpImpl implements AdapterDocRetrieveDeferredReqErrorProxy {
     private Log log = null;
 
-     public AdapterDocRetrieveDeferredReqErrorProxyNoOpImpl() {
-         log = LogFactory.getLog(getClass());
-     }
+    public AdapterDocRetrieveDeferredReqErrorProxyNoOpImpl() {
+        log = LogFactory.getLog(getClass());
+    }
 
-     public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion, String errMsg) {
-         DocRetrieveAcknowledgementType     response = new DocRetrieveAcknowledgementType();
-         RegistryResponseType               resp = new RegistryResponseType();
+    public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion,
+            String errMsg) {
+        DocRetrieveAcknowledgementType response = new DocRetrieveAcknowledgementType();
+        RegistryResponseType resp = new RegistryResponseType();
 
-         resp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
-         response.setMessage(resp);
+        resp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
+        response.setMessage(resp);
 
-         log.info("AdapterDocRetrieveDeferredReqErrorNoOpImpl.sendToAdapter() - NO OP called");
+        log.info("AdapterDocRetrieveDeferredReqErrorNoOpImpl.sendToAdapter() - NO OP called");
 
-         return response;
-     }
+        return response;
+    }
 
 }

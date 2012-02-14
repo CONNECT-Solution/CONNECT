@@ -40,10 +40,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class EntityDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl implements EntityDocSubmissionDeferredResponseProxy {
+public class EntityDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl implements
+        EntityDocSubmissionDeferredResponseProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response";
@@ -68,7 +69,7 @@ public class EntityDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl imp
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
@@ -79,7 +80,8 @@ public class EntityDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl imp
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityXDRAsyncResponsePortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -88,7 +90,7 @@ public class EntityDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl imp
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -102,43 +104,33 @@ public class EntityDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl imp
         return cachedService;
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("Begin provideAndRegisterDocumentSetBAsyncResponse");
         XDRAcknowledgementType response = null;
 
-        try
-        {
+        try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_RESPONSE_SERVICE_NAME);
             EntityXDRAsyncResponsePortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
-            if(request == null)
-            {
+            if (request == null) {
                 log.error("Message was null");
-            }
-            else if (assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("assertion was null");
-            }
-            else if (targets == null)
-            {
+            } else if (targets == null) {
                 log.error("targets was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType msg = new RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType();
                 msg.setRegistryResponse(request);
                 msg.setAssertion(assertion);
                 msg.setNhinTargetCommunities(targets);
 
-                response = (XDRAcknowledgementType)oProxyHelper.invokePort(port, EntityXDRAsyncResponsePortType.class, "provideAndRegisterDocumentSetBAsyncResponse", msg);
+                response = (XDRAcknowledgementType) oProxyHelper.invokePort(port, EntityXDRAsyncResponsePortType.class,
+                        "provideAndRegisterDocumentSetBAsyncResponse", msg);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetBAsyncResponse: " + ex.getMessage(), ex);
             response = new XDRAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();

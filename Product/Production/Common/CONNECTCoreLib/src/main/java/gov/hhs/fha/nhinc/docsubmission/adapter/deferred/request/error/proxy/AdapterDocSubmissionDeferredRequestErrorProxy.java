@@ -31,10 +31,10 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
-public interface AdapterDocSubmissionDeferredRequestErrorProxy
-{
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion);
+public interface AdapterDocSubmissionDeferredRequestErrorProxy {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
+            ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion);
 }

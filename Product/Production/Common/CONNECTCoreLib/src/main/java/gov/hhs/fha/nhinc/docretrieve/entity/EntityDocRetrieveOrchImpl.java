@@ -57,7 +57,7 @@ import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class EntityDocRetrieveOrchImpl {
@@ -75,17 +75,19 @@ public class EntityDocRetrieveOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param body
      * @param assertion
      * @return <code>RetrieveDocumentSetResponseType</code>
      */
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion) {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+            AssertionType assertion) {
         RetrieveDocumentSetResponseType response = null;
         DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();
         DocRetrieveAggregator aggregator = new DocRetrieveAggregator();
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-        auditLog.auditDocRetrieveRequest(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
+        auditLog.auditDocRetrieveRequest(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         try {
             String transactionId = startTransaction(aggregator, body);
@@ -97,14 +99,16 @@ public class EntityDocRetrieveOrchImpl {
         }
 
         // Audit log - response
-        auditLog.auditResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
+        auditLog.auditResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, homeCommunityId);
 
         log.debug("End EntityDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve");
         return response;
 
     }
 
-    private RetrieveDocumentSetResponseType retrieveDocRetrieveResults(DocRetrieveAggregator aggregator, String transactionId) {
+    private RetrieveDocumentSetResponseType retrieveDocRetrieveResults(DocRetrieveAggregator aggregator,
+            String transactionId) {
         log.debug("Begin retrieveDocRetrieveResults");
         RetrieveDocumentSetResponseType response = null;
         boolean retrieveTimedOut = false;
@@ -171,7 +175,8 @@ public class EntityDocRetrieveOrchImpl {
 
             if (isPolicyValid(nhinDocRequest, assertion, nhinDocRetrieveMsg.getNhinTargetSystem().getHomeCommunity())) {
                 // Create and start doc retrieve sender thread
-                DocRetrieveSender docRetrieveSender = new DocRetrieveSender(transactionId, nhinDocRetrieveMsg, assertion);
+                DocRetrieveSender docRetrieveSender = new DocRetrieveSender(transactionId, nhinDocRetrieveMsg,
+                        assertion);
                 docRetrieveSender.sendMessage();
             } else {
                 log.error("Fault encountered processing Policy Check");
@@ -212,7 +217,8 @@ public class EntityDocRetrieveOrchImpl {
         return nhinTargetSystem;
     }
 
-    protected boolean isPolicyValid(RetrieveDocumentSetRequestType oEachNhinRequest, AssertionType oAssertion, HomeCommunityType targetCommunity) {
+    protected boolean isPolicyValid(RetrieveDocumentSetRequestType oEachNhinRequest, AssertionType oAssertion,
+            HomeCommunityType targetCommunity) {
         boolean isValid = false;
 
         DocRetrieveEventType checkPolicy = new DocRetrieveEventType();

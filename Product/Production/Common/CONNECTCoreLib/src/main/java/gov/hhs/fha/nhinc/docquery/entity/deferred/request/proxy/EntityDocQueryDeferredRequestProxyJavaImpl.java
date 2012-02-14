@@ -35,13 +35,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class EntityDocQueryDeferredRequestProxyJavaImpl implements EntityDocQueryDeferredRequestProxy {
     private static Log log = LogFactory.getLog(EntityDocQueryDeferredRequestProxyJavaImpl.class);
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("Using Java Implementation for Entity Doc Query Deferred Request Service");
         return new EntityDocQueryDeferredReqOrchImpl().respondingGatewayCrossGatewayQuery(msg, assertion, targets);
     }

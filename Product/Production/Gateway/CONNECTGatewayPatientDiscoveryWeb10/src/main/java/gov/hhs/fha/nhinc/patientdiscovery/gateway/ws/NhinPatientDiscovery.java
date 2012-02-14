@@ -46,29 +46,27 @@ import javax.xml.ws.soap.Addressing;
 @Addressing(enabled = true)
 public class NhinPatientDiscovery extends PatientDiscoveryBase {
 
-	@Resource
-	private WebServiceContext context;
+    @Resource
+    private WebServiceContext context;
 
-	public NhinPatientDiscovery() {
-		super();
-	}
+    public NhinPatientDiscovery() {
+        super();
+    }
 
-	public NhinPatientDiscovery(PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
+    public NhinPatientDiscovery(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
 
-	public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
-			org.hl7.v3.PRPAIN201305UV02 body) {
-		try {
-			return getNhinPatientDiscoveryService()
-					.respondingGatewayPRPAIN201305UV02(body, context);
-		} catch (PatientDiscoveryException e) {
-			throw new RuntimeException(e.getMessage(), e.fillInStackTrace());
-		}
-	}
+    public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body) {
+        try {
+            return getNhinPatientDiscoveryService().respondingGatewayPRPAIN201305UV02(body, context);
+        } catch (PatientDiscoveryException e) {
+            throw new RuntimeException(e.getMessage(), e.fillInStackTrace());
+        }
+    }
 
-	protected NhinPatientDiscoveryImpl getNhinPatientDiscoveryService() {
-		return getServiceFactory().getNhinPatientDiscoveryService();
-	}
+    protected NhinPatientDiscoveryImpl getNhinPatientDiscoveryService() {
+        return getServiceFactory().getNhinPatientDiscoveryService();
+    }
 
 }

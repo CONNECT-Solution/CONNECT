@@ -33,19 +33,20 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 @WebService(serviceName = "RespondingGatewayDeferredRequest_Retrieve_Service", portName = "RespondingGatewayDeferredRequest_Retrieve_Port_Soap", endpointInterface = "ihe.iti.xds_b._2007.RespondingGatewayDeferredRequestRetrievePortType", targetNamespace = "urn:ihe:iti:xds-b:2007", wsdlLocation = "WEB-INF/wsdl/NhinDocRetrieveDeferredRequest/NhinDocRetrieveDeferredReq.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
-@Addressing(enabled=true)
-
+@Addressing(enabled = true)
 public class NhinDocRetrieveDeferredRequest {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType respondingGatewayDeferredRequestCrossGatewayRetrieve(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
-        return new NhinDocRetrieveDeferredRequestImpl().respondingGatewayDeferredRequestCrossGatewayRetrieve(body, context);
+    public gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType respondingGatewayDeferredRequestCrossGatewayRetrieve(
+            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+        return new NhinDocRetrieveDeferredRequestImpl().respondingGatewayDeferredRequestCrossGatewayRetrieve(body,
+                context);
     }
 
 }

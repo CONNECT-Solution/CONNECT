@@ -55,7 +55,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Helper class for the web service.
- *
+ * 
  * @author richard.ettema
  */
 public class DeferredQueueManagerHelper {
@@ -68,11 +68,14 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Called via web service interface
+     * 
      * @param deferredQueueManagerForceProcessRequest
      * @param context
      * @return deferredQueueManagerForceProcessResponse
      */
-    public DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredQueue(DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest, WebServiceContext context) {
+    public DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredQueue(
+            DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest,
+            WebServiceContext context) {
         DeferredQueueManagerForceProcessResponseType oResponse = new DeferredQueueManagerForceProcessResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
@@ -90,11 +93,14 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Called via web service interface
+     * 
      * @param deferredQueueManagerForceProcessRequest
      * @param context
      * @return deferredQueueManagerForceProcessResponse
      */
-    public DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredRequest(DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest, WebServiceContext context) {
+    public DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredRequest(
+            DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest,
+            WebServiceContext context) {
         DeferredQueueManagerForceProcessResponseType oResponse = new DeferredQueueManagerForceProcessResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
@@ -113,11 +119,13 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Called via web service interface
+     * 
      * @param queryDeferredQueueRequest
      * @param context
      * @return queryDeferredQueueResponse
      */
-    public QueryDeferredQueueResponseType queryDeferredQueue(QueryDeferredQueueRequestType queryDeferredQueueRequest, WebServiceContext context) {
+    public QueryDeferredQueueResponseType queryDeferredQueue(QueryDeferredQueueRequestType queryDeferredQueueRequest,
+            WebServiceContext context) {
         QueryDeferredQueueResponseType oResponse = new QueryDeferredQueueResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
@@ -135,11 +143,13 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Called via web service interface
+     * 
      * @param retrieveDeferredQueueRequest
      * @param context
      * @return retrieveDeferredQueueResponse
      */
-    public RetrieveDeferredQueueResponseType retrieveDeferredQueue(RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest, WebServiceContext context) {
+    public RetrieveDeferredQueueResponseType retrieveDeferredQueue(
+            RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest, WebServiceContext context) {
         RetrieveDeferredQueueResponseType oResponse = new RetrieveDeferredQueueResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
@@ -157,17 +167,20 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Called via web service interface
+     * 
      * @param deferredQueueStatisticsRequest
      * @param context
      * @return deferredQueueStatisticsResponse
      */
-    public DeferredQueueStatisticsResponseType deferredQueueStatistics(DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest, WebServiceContext context) {
+    public DeferredQueueStatisticsResponseType deferredQueueStatistics(
+            DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest, WebServiceContext context) {
         DeferredQueueStatisticsResponseType oResponse = new DeferredQueueStatisticsResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
 
         try {
-            oResponse.getDeferredQueueStatisticsData().addAll(queryDeferredQueueStatistics(deferredQueueStatisticsRequest));
+            oResponse.getDeferredQueueStatisticsData().addAll(
+                    queryDeferredQueueStatistics(deferredQueueStatisticsRequest));
             oResponse.getSuccessOrFail().setSuccess(true);
         } catch (DeferredQueueException e) {
             String sErrorMessage = "Failed to query the Deferred Queue Statistics.  Error: " + e.getMessage();
@@ -179,6 +192,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Force the deferred queue process
+     * 
      * @throws DeferredQueueException
      */
     public void forceProcess() throws DeferredQueueException {
@@ -203,7 +217,8 @@ public class DeferredQueueManagerHelper {
         if (NullChecker.isNotNullish(queueRecords) && queueRecords.size() > 0) {
             int count = 0;
             int maxCount = (queueRecords.size() > iGlobalThreshold ? iGlobalThreshold : queueRecords.size());
-            log.debug("***** Found " + queueRecords.size() + " queue message records; will process " + maxCount + " records. *****");
+            log.debug("***** Found " + queueRecords.size() + " queue message records; will process " + maxCount
+                    + " records. *****");
 
             // Set all statuses of all records to be processed to RSPSELECT
             for (AsyncMsgRecord queueRecord : queueRecords) {
@@ -235,6 +250,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Force the deferred queue process on a specific request
+     * 
      * @param messageId
      * @return true - success; false - failure
      * @throws DeferredQueueException
@@ -249,7 +265,8 @@ public class DeferredQueueManagerHelper {
         queueDao.checkExpiration();
 
         log.debug("***** Retrieve queue message record to be processed [" + messageId + "] *****");
-        List<AsyncMsgRecord> queueRecords = queueDao.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+        List<AsyncMsgRecord> queueRecords = queueDao.queryByMessageIdAndDirection(messageId,
+                AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
 
         if (NullChecker.isNotNullish(queueRecords) && queueRecords.size() > 0) {
             if (queueRecords.get(0).getStatus().equals(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK)) {
@@ -268,6 +285,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Force the deferred queue process on a specific request
+     * 
      * @param queueRecord
      * @return true - success; false - failure
      * @throws DeferredQueueException
@@ -276,33 +294,31 @@ public class DeferredQueueManagerHelper {
         log.debug("Start: DeferredQueueManagerHelper.forceProcessOnRequest method - processing deferred request by record.");
         boolean result = false;
 
-        log.debug("***** Processing deferred service request for " + queueRecord.getServiceName() + " received at " + queueRecord.getCreationTime() + " *****");
+        log.debug("***** Processing deferred service request for " + queueRecord.getServiceName() + " received at "
+                + queueRecord.getCreationTime() + " *****");
 
         // Call processing based on the service name
         if (queueRecord.getServiceName().equals(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME)) {
             PatientDiscoveryDeferredReqQueueProcessResponseType pdResponse = processDeferredPatientDiscovery(queueRecord);
 
-            if (pdResponse != null &&
-                    pdResponse.getSuccessOrFail() != null &&
-                    pdResponse.getSuccessOrFail().isSuccess()) {
+            if (pdResponse != null && pdResponse.getSuccessOrFail() != null
+                    && pdResponse.getSuccessOrFail().isSuccess()) {
                 result = true;
             }
 
         } else if (queueRecord.getServiceName().equals(NhincConstants.DOC_QUERY_SERVICE_NAME)) {
             DocQueryDeferredReqQueueProcessResponseType qdResponse = processDeferredQueryForDocuments(queueRecord);
 
-            if (qdResponse != null &&
-                    qdResponse.getSuccessOrFail() != null &&
-                    qdResponse.getSuccessOrFail().isSuccess()) {
+            if (qdResponse != null && qdResponse.getSuccessOrFail() != null
+                    && qdResponse.getSuccessOrFail().isSuccess()) {
                 result = true;
             }
 
         } else if (queueRecord.getServiceName().equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) {
             DocRetrieveDeferredReqQueueProcessResponseType rdResponse = processDeferredRetrieveDocuments(queueRecord);
 
-            if (rdResponse != null &&
-                    rdResponse.getSuccessOrFail() != null &&
-                    rdResponse.getSuccessOrFail().isSuccess()) {
+            if (rdResponse != null && rdResponse.getSuccessOrFail() != null
+                    && rdResponse.getSuccessOrFail().isSuccess()) {
                 result = true;
             }
 
@@ -321,15 +337,15 @@ public class DeferredQueueManagerHelper {
     private void setGlobalThreshold() {
 
         try {
-            String sGlobalThreshold = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, DEFERRED_QUEUE_GLOBAL_THRESHOLD);
+            String sGlobalThreshold = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE,
+                    DEFERRED_QUEUE_GLOBAL_THRESHOLD);
             if ((sGlobalThreshold != null) && (sGlobalThreshold.length() > 0)) {
                 iGlobalThreshold = Integer.parseInt(sGlobalThreshold);
             }
         } catch (PropertyAccessException e) {
-            String sErrorMessage = "Failed to read and parse " + DEFERRED_QUEUE_GLOBAL_THRESHOLD +
-                    " from " + GATEWAY_PROPERTY_FILE + ".properties file - using default " + "" +
-                    "value of " + DEFERRED_QUEUE_GLOBAL_THRESHOLD_DEFAULT + " seconds.  Error: " +
-                    e.getMessage();
+            String sErrorMessage = "Failed to read and parse " + DEFERRED_QUEUE_GLOBAL_THRESHOLD + " from "
+                    + GATEWAY_PROPERTY_FILE + ".properties file - using default " + "" + "value of "
+                    + DEFERRED_QUEUE_GLOBAL_THRESHOLD_DEFAULT + " seconds.  Error: " + e.getMessage();
             log.warn(sErrorMessage, e);
         }
 
@@ -337,15 +353,18 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Process the deferred patient discovery request
+     * 
      * @param queueRecord
      * @return Deferred Patient Discovery Response
      * @throws DeferredQueueException
      */
-    private PatientDiscoveryDeferredReqQueueProcessResponseType processDeferredPatientDiscovery(AsyncMsgRecord queueRecord) throws DeferredQueueException {
+    private PatientDiscoveryDeferredReqQueueProcessResponseType processDeferredPatientDiscovery(
+            AsyncMsgRecord queueRecord) throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.processDeferredPatientDiscovery method - processing deferred message.");
 
         PatientDiscoveryDeferredReqQueueClient reqClient = new PatientDiscoveryDeferredReqQueueClient();
-        PatientDiscoveryDeferredReqQueueProcessResponseType response = reqClient.processPatientDiscoveryDeferredReqQueue(queueRecord.getMessageId());
+        PatientDiscoveryDeferredReqQueueProcessResponseType response = reqClient
+                .processPatientDiscoveryDeferredReqQueue(queueRecord.getMessageId());
 
         log.debug("End: DeferredQueueManagerHelper.processDeferredPatientDiscovery method - processing deferred message.");
 
@@ -354,15 +373,18 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Process the deferred query for documents request
+     * 
      * @param queueRecord
      * @return Deferred Query For Documents Response
      * @throws DeferredQueueException
      */
-    private DocQueryDeferredReqQueueProcessResponseType processDeferredQueryForDocuments(AsyncMsgRecord queueRecord) throws DeferredQueueException {
+    private DocQueryDeferredReqQueueProcessResponseType processDeferredQueryForDocuments(AsyncMsgRecord queueRecord)
+            throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
 
         QueryForDocumentsDeferredReqQueueClient reqClient = new QueryForDocumentsDeferredReqQueueClient();
-        DocQueryDeferredReqQueueProcessResponseType response = reqClient.processDocQueryDeferredReqQueue(queueRecord.getMessageId());
+        DocQueryDeferredReqQueueProcessResponseType response = reqClient.processDocQueryDeferredReqQueue(queueRecord
+                .getMessageId());
 
         log.debug("End: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
 
@@ -371,15 +393,18 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Process the deferred retrieve documents request
+     * 
      * @param queueRecord
      * @return Deferred Retrieve Documents Response
      * @throws DeferredQueueException
      */
-    private DocRetrieveDeferredReqQueueProcessResponseType processDeferredRetrieveDocuments(AsyncMsgRecord queueRecord) throws DeferredQueueException {
+    private DocRetrieveDeferredReqQueueProcessResponseType processDeferredRetrieveDocuments(AsyncMsgRecord queueRecord)
+            throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
 
         RetrieveDocumentsDeferredReqQueueClient reqClient = new RetrieveDocumentsDeferredReqQueueClient();
-        DocRetrieveDeferredReqQueueProcessResponseType response = reqClient.processDocRetrieveDeferredReqQueue(queueRecord.getMessageId());
+        DocRetrieveDeferredReqQueueProcessResponseType response = reqClient
+                .processDocRetrieveDeferredReqQueue(queueRecord.getMessageId());
 
         log.debug("End: DeferredQueueManagerHelper.processDeferredQueryForDocuments method - processing deferred message.");
 
@@ -388,11 +413,13 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Call deferred queue dao to query for matching records
+     * 
      * @param queryDeferredQueueRequest
      * @return found list of queue records
      * @throws DeferredQueueException
      */
-    private List<DeferredQueueRecordType> queryDeferredQueue(QueryDeferredQueueRequestType queryDeferredQueueRequest) throws DeferredQueueException {
+    private List<DeferredQueueRecordType> queryDeferredQueue(QueryDeferredQueueRequestType queryDeferredQueueRequest)
+            throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.queryDeferredQueue method - query deferred messages.");
 
         List<DeferredQueueRecordType> response = new ArrayList<DeferredQueueRecordType>();
@@ -430,11 +457,13 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Call deferred queue dao to retrieve message content for one record
+     * 
      * @param retrieveDeferredQueueRequest
      * @return found list of queue records with message content populated
      * @throws DeferredQueueException
      */
-    private DeferredQueueRecordType retrieveDeferredQueue(RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest) throws DeferredQueueException {
+    private DeferredQueueRecordType retrieveDeferredQueue(RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest)
+            throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.retrieveDeferredQueue method - retrieve deferred message.");
 
         DeferredQueueRecordType response = null;
@@ -442,7 +471,8 @@ public class DeferredQueueManagerHelper {
         try {
             AsyncMsgRecordDao queueDao = new AsyncMsgRecordDao();
 
-            List<AsyncMsgRecord> asyncResponse = queueDao.queryByMessageIdAndDirection(retrieveDeferredQueueRequest.getMessageId(), AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
+            List<AsyncMsgRecord> asyncResponse = queueDao.queryByMessageIdAndDirection(
+                    retrieveDeferredQueueRequest.getMessageId(), AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
 
             if (asyncResponse != null && asyncResponse.size() > 0) {
                 response = new DeferredQueueRecordType();
@@ -484,11 +514,13 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Call deferred queue dao to query for statistics
+     * 
      * @param deferredQueueStatisticsRequest
      * @return found list of queue statistics records
      * @throws DeferredQueueException
      */
-    private List<DeferredQueueStatisticsDataType> queryDeferredQueueStatistics(DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest) throws DeferredQueueException {
+    private List<DeferredQueueStatisticsDataType> queryDeferredQueueStatistics(
+            DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest) throws DeferredQueueException {
         log.debug("Start: DeferredQueueManagerHelper.queryDeferredQueueStatistics method - query deferred statistics.");
 
         List<DeferredQueueStatisticsDataType> response = new ArrayList<DeferredQueueStatisticsDataType>();

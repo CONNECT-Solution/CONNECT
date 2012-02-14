@@ -32,11 +32,12 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public interface NhinDocSubmissionProxy {
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem);
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
+            AssertionType assertion, NhinTargetSystemType targetSystem);
 
 }

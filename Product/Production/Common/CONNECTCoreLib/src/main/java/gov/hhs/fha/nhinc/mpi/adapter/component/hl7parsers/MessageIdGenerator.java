@@ -27,12 +27,13 @@
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class MessageIdGenerator {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(MessageIdGenerator.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(MessageIdGenerator.class);
 
     public static String GenerateMessageId() {
         java.rmi.server.UID uid = new java.rmi.server.UID();

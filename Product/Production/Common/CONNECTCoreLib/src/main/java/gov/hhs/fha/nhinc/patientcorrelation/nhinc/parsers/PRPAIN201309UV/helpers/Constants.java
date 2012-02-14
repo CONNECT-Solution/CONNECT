@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class Constants {

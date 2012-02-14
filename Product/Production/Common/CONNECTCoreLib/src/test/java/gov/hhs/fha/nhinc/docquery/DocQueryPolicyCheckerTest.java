@@ -41,134 +41,134 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author goldmanm
  */
 public class DocQueryPolicyCheckerTest {
 
-  Mockery mockery;
+    Mockery mockery;
 
-  @Before
-  public void setup() {
-    mockery = new Mockery() {
+    @Before
+    public void setup() {
+        mockery = new Mockery() {
 
-      {
-        setImposteriser(ClassImposteriser.INSTANCE);
-      }
-    };
-  }
+            {
+                setImposteriser(ClassImposteriser.INSTANCE);
+            }
+        };
+    }
 
-  /**
-   * Test of checkPolicy method, of class DocQueryPolicyChecker.
-   */
-  @Test
-  public void testValidatePolicyResponse_null_PolicyResponse_returns_false() {
-    final CheckPolicyResponseType mockResponse = mockery.mock(CheckPolicyResponseType.class);
-    DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
+    /**
+     * Test of checkPolicy method, of class DocQueryPolicyChecker.
+     */
+    @Test
+    public void testValidatePolicyResponse_null_PolicyResponse_returns_false() {
+        final CheckPolicyResponseType mockResponse = mockery.mock(CheckPolicyResponseType.class);
+        DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
 
-    mockery.checking(new Expectations() {
+        mockery.checking(new Expectations() {
 
-      {
-        one(mockResponse).getResponse();
-        will(returnValue(null));
-      }
-    });
+            {
+                one(mockResponse).getResponse();
+                will(returnValue(null));
+            }
+        });
 
-    assertFalse(testSubject.validatePolicyResponse(mockResponse));
+        assertFalse(testSubject.validatePolicyResponse(mockResponse));
 
-    mockery.assertIsSatisfied();
-  }
+        mockery.assertIsSatisfied();
+    }
 
-  /**
-   * Test of checkPolicy method, of class DocQueryPolicyChecker.
-   */
-  @Test
-  public void testValidatePolicyResponse_null_Result_returns_false() {
-    final CheckPolicyResponseType mockPolicyResponse = mockery.mock(CheckPolicyResponseType.class);
-    final ResponseType mockResponse = mockery.mock(ResponseType.class);
-    DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
+    /**
+     * Test of checkPolicy method, of class DocQueryPolicyChecker.
+     */
+    @Test
+    public void testValidatePolicyResponse_null_Result_returns_false() {
+        final CheckPolicyResponseType mockPolicyResponse = mockery.mock(CheckPolicyResponseType.class);
+        final ResponseType mockResponse = mockery.mock(ResponseType.class);
+        DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
 
-    mockery.checking(new Expectations() {
+        mockery.checking(new Expectations() {
 
-      {
-        atLeast(1).of(mockPolicyResponse).getResponse();
-        will(returnValue(mockResponse));
-        atLeast(1).of(mockResponse).getResult();
-        will(returnValue(null));
-      }
-    });
+            {
+                atLeast(1).of(mockPolicyResponse).getResponse();
+                will(returnValue(mockResponse));
+                atLeast(1).of(mockResponse).getResult();
+                will(returnValue(null));
+            }
+        });
 
-    assertFalse(testSubject.validatePolicyResponse(mockPolicyResponse));
+        assertFalse(testSubject.validatePolicyResponse(mockPolicyResponse));
 
-    mockery.assertIsSatisfied();
-  }
+        mockery.assertIsSatisfied();
+    }
 
-  /**
-   * Test of checkPolicy method, of class DocQueryPolicyChecker.
-   */
-  @Test
-  public void testValidatePolicyResponse_DecisionType_not_PERMIT_returns_false() {
-    final CheckPolicyResponseType mockPolicyResponse = mockery.mock(CheckPolicyResponseType.class);
-    final ResponseType mockResponse = mockery.mock(ResponseType.class);
-    final ResultType mockResult = mockery.mock(ResultType.class);
-    final List<ResultType> results = new ArrayList<ResultType>();
-    results.add(mockResult);
-    
-    DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
+    /**
+     * Test of checkPolicy method, of class DocQueryPolicyChecker.
+     */
+    @Test
+    public void testValidatePolicyResponse_DecisionType_not_PERMIT_returns_false() {
+        final CheckPolicyResponseType mockPolicyResponse = mockery.mock(CheckPolicyResponseType.class);
+        final ResponseType mockResponse = mockery.mock(ResponseType.class);
+        final ResultType mockResult = mockery.mock(ResultType.class);
+        final List<ResultType> results = new ArrayList<ResultType>();
+        results.add(mockResult);
 
-    mockery.checking(new Expectations() {
+        DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
 
-      {
-        allowing(mockPolicyResponse).getResponse();
-        will(returnValue(mockResponse));
-        allowing(mockResponse).getResult();
-        will(returnValue(results));
-        one(mockResult).getDecision();
-      }
-    });
+        mockery.checking(new Expectations() {
 
-    assertFalse(testSubject.validatePolicyResponse(mockPolicyResponse));
+            {
+                allowing(mockPolicyResponse).getResponse();
+                will(returnValue(mockResponse));
+                allowing(mockResponse).getResult();
+                will(returnValue(results));
+                one(mockResult).getDecision();
+            }
+        });
 
-    mockery.assertIsSatisfied();
-  }
+        assertFalse(testSubject.validatePolicyResponse(mockPolicyResponse));
 
-  /**
-   * Test of checkPolicy method, of class DocQueryPolicyChecker.
-   */
-  @Test
-  public void testValidatePolicyResponse_DecisionType_PERMIT_returns_true() {
-    final CheckPolicyResponseType mockPolicyResponse = mockery.mock(CheckPolicyResponseType.class);
-    final ResponseType mockResponse = mockery.mock(ResponseType.class);
-    final ResultType mockResult = mockery.mock(ResultType.class);
-    final List<ResultType> results = new ArrayList<ResultType>();
-    results.add(mockResult);
-    
-    DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
+        mockery.assertIsSatisfied();
+    }
 
-    mockery.checking(new Expectations() {
+    /**
+     * Test of checkPolicy method, of class DocQueryPolicyChecker.
+     */
+    @Test
+    public void testValidatePolicyResponse_DecisionType_PERMIT_returns_true() {
+        final CheckPolicyResponseType mockPolicyResponse = mockery.mock(CheckPolicyResponseType.class);
+        final ResponseType mockResponse = mockery.mock(ResponseType.class);
+        final ResultType mockResult = mockery.mock(ResultType.class);
+        final List<ResultType> results = new ArrayList<ResultType>();
+        results.add(mockResult);
 
-      {
-        allowing(mockPolicyResponse).getResponse();
-        will(returnValue(mockResponse));
-        allowing(mockResponse).getResult();
-        will(returnValue(results));
-        one(mockResult).getDecision();
-        will(returnValue(DecisionType.PERMIT));
-      }
-    });
+        DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
 
-    assertTrue(testSubject.validatePolicyResponse(mockPolicyResponse));
+        mockery.checking(new Expectations() {
 
-    mockery.assertIsSatisfied();
-  }
+            {
+                allowing(mockPolicyResponse).getResponse();
+                will(returnValue(mockResponse));
+                allowing(mockResponse).getResult();
+                will(returnValue(results));
+                one(mockResult).getDecision();
+                will(returnValue(DecisionType.PERMIT));
+            }
+        });
 
-  /**
-   * Test of getPolicyChecker method, of class DocQueryPolicyChecker.
-   */
-  @Test
-  public void testGetPolicyChecker() {
-    DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
-    PolicyEngineChecker result = testSubject.getPolicyChecker();
-    assertNotNull(result);
-  }
+        assertTrue(testSubject.validatePolicyResponse(mockPolicyResponse));
+
+        mockery.assertIsSatisfied();
+    }
+
+    /**
+     * Test of getPolicyChecker method, of class DocQueryPolicyChecker.
+     */
+    @Test
+    public void testGetPolicyChecker() {
+        DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
+        PolicyEngineChecker result = testSubject.getPolicyChecker();
+        assertNotNull(result);
+    }
 }

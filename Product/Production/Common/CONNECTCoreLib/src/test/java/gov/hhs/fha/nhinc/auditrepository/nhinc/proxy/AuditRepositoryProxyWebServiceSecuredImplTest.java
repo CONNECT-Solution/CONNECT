@@ -40,14 +40,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class AuditRepositoryProxyWebServiceSecuredImplTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class AuditRepositoryProxyWebServiceSecuredImplTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -58,24 +56,18 @@ public class AuditRepositoryProxyWebServiceSecuredImplTest
     final AuditRepositoryManagerSecuredPortType mockPort = context.mock(AuditRepositoryManagerSecuredPortType.class);
 
     @Test
-    public void testCreateLogger()
-    {
-        try
-        {
-            AuditRepositoryProxyWebServiceSecuredImpl sut = new AuditRepositoryProxyWebServiceSecuredImpl()
-            {
+    public void testCreateLogger() {
+        try {
+            AuditRepositoryProxyWebServiceSecuredImpl sut = new AuditRepositoryProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
             };
             Log log = sut.createLogger();
             assertNotNull("Log was null", log);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger test: " + t.getMessage());
@@ -83,34 +75,26 @@ public class AuditRepositoryProxyWebServiceSecuredImplTest
     }
 
     @Test
-    public void testGetService()
-    {
-        try
-        {
-            AuditRepositoryProxyWebServiceSecuredImpl sut = new AuditRepositoryProxyWebServiceSecuredImpl()
-            {
+    public void testGetService() {
+        try {
+            AuditRepositoryProxyWebServiceSecuredImpl sut = new AuditRepositoryProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected Service getService()
-                {
+                protected Service getService() {
                     return mockService;
                 }
             };
             Service service = sut.getService();
             assertNotNull("Service was null", service);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetService test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetService test: " + t.getMessage());
         }
     }
-
-
 
 }

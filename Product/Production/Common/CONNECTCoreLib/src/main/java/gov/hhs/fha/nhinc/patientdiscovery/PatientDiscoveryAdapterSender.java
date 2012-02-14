@@ -43,12 +43,13 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class PatientDiscoveryAdapterSender {
 
-    public PRPAIN201306UV02 send201305ToAgency(PRPAIN201305UV02 request, AssertionType assertion) throws PatientDiscoveryException {
+    public PRPAIN201306UV02 send201305ToAgency(PRPAIN201305UV02 request, AssertionType assertion)
+            throws PatientDiscoveryException {
         RespondingGatewayPRPAIN201305UV02RequestType adapterReq = new RespondingGatewayPRPAIN201305UV02RequestType();
 
         AdapterPatientDiscoveryProxyObjectFactory factory = new AdapterPatientDiscoveryProxyObjectFactory();
@@ -56,12 +57,14 @@ public class PatientDiscoveryAdapterSender {
 
         adapterReq.setAssertion(assertion);
         adapterReq.setPRPAIN201305UV02(request);
-        PRPAIN201306UV02 adapterResp = proxy.respondingGatewayPRPAIN201305UV02(adapterReq.getPRPAIN201305UV02(), adapterReq.getAssertion());
+        PRPAIN201306UV02 adapterResp = proxy.respondingGatewayPRPAIN201305UV02(adapterReq.getPRPAIN201305UV02(),
+                adapterReq.getAssertion());
 
         return adapterResp;
     }
 
-    public MCCIIN000002UV01 sendDeferredReqErrorToAgency(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
+    public MCCIIN000002UV01 sendDeferredReqErrorToAgency(PRPAIN201305UV02 request, AssertionType assertion,
+            String errMsg) {
         AsyncAdapterPatientDiscoveryErrorRequestType adapterReq = new AsyncAdapterPatientDiscoveryErrorRequestType();
 
         AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory factory = new AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory();

@@ -42,43 +42,42 @@ import org.junit.Test;
 
 public class NhincProxyPatientDiscoveryTest {
 
-	Mockery context = new JUnit4Mockery()
-    {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    
-    @Test 
+
+    @Test
     public void testDefaultConstructor() {
-    	NhincProxyPatientDiscovery patientDiscovery =  new NhincProxyPatientDiscovery();
-    	assertNotNull(patientDiscovery);
+        NhincProxyPatientDiscovery patientDiscovery = new NhincProxyPatientDiscovery();
+        assertNotNull(patientDiscovery);
     }
-	
-	@Test
-	public void testMockService() {
-		
-		final ProxyPRPAIN201305UVProxyRequestType mockBody = context.mock(ProxyPRPAIN201305UVProxyRequestType.class);
-		final PRPAIN201306UV02 expectedResponse = context.mock(PRPAIN201306UV02.class);
-		final NhincProxyPatientDiscoveryImpl mockService = context.mock(NhincProxyPatientDiscoveryImpl.class);
-		final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
-		
-		NhincProxyPatientDiscovery patientDiscovery =  new NhincProxyPatientDiscovery(mockFactory);
-		
-		context.checking(new Expectations() {{
-	        oneOf(mockService).proxyPRPAIN201305UV(with(same(mockBody)), with(any(WebServiceContext.class)));
-	        will(returnValue(expectedResponse));
-	        
-	        oneOf(mockFactory).getNhincProxyPatientDiscoveryImpl();
-	        will(returnValue(mockService));
-	    }});
-		
-		PRPAIN201306UV02 actualResponse = patientDiscovery.proxyPRPAIN201305UV(mockBody);
-		
-		assertSame(expectedResponse, actualResponse);
-	
-	}
-	
-	
-	
+
+    @Test
+    public void testMockService() {
+
+        final ProxyPRPAIN201305UVProxyRequestType mockBody = context.mock(ProxyPRPAIN201305UVProxyRequestType.class);
+        final PRPAIN201306UV02 expectedResponse = context.mock(PRPAIN201306UV02.class);
+        final NhincProxyPatientDiscoveryImpl mockService = context.mock(NhincProxyPatientDiscoveryImpl.class);
+        final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
+
+        NhincProxyPatientDiscovery patientDiscovery = new NhincProxyPatientDiscovery(mockFactory);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(mockService).proxyPRPAIN201305UV(with(same(mockBody)), with(any(WebServiceContext.class)));
+                will(returnValue(expectedResponse));
+
+                oneOf(mockFactory).getNhincProxyPatientDiscoveryImpl();
+                will(returnValue(mockService));
+            }
+        });
+
+        PRPAIN201306UV02 actualResponse = patientDiscovery.proxyPRPAIN201305UV(mockBody);
+
+        assertSame(expectedResponse, actualResponse);
+
+    }
+
 }

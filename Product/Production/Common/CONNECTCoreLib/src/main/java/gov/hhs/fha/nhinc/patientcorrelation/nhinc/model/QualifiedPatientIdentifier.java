@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.model;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class QualifiedPatientIdentifier {
@@ -48,5 +48,5 @@ public class QualifiedPatientIdentifier {
 
     public void setPatientId(String patientId) {
         this.patientId = patientId;
-    }  
+    }
 }

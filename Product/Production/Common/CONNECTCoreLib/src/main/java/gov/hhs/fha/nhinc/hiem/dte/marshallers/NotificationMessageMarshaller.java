@@ -31,7 +31,7 @@ import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class NotificationMessageMarshaller {
@@ -46,7 +46,7 @@ public class NotificationMessageMarshaller {
     }
 
     public NotificationMessageHolderType unmarshal(Element element) {
-        NotificationMessageHolderType unmarshalledObject=null;
+        NotificationMessageHolderType unmarshalledObject = null;
         Marshaller marshaller = new Marshaller();
         Object object = marshaller.unmarshal(element, ContextPath);
         if (object instanceof NotificationMessageHolderType) {

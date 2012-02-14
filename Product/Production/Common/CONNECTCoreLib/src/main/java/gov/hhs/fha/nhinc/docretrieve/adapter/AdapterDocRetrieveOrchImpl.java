@@ -42,7 +42,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author westberg
  */
 public class AdapterDocRetrieveOrchImpl {
@@ -58,12 +58,13 @@ public class AdapterDocRetrieveOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param body
      * @param assertion
      * @return RetrieveDocumentSetResponseType
      */
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion) {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+            AssertionType assertion) {
         log.debug("Enter AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
         RetrieveDocumentSetResponseType response = null;
 
@@ -71,10 +72,13 @@ public class AdapterDocRetrieveOrchImpl {
             // Log the start of the adapter performance record
             String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
             Timestamp starttime = new Timestamp(System.currentTimeMillis());
-            Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
+            Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                    NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
+                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
 
-            AdapterComponentDocRepositoryProxy proxy = new AdapterComponentDocRepositoryProxyObjectFactory().getAdapterDocumentRepositoryProxy();
-            
+            AdapterComponentDocRepositoryProxy proxy = new AdapterComponentDocRepositoryProxyObjectFactory()
+                    .getAdapterDocumentRepositoryProxy();
+
             response = proxy.retrieveDocument(body, assertion);
             response = callRedactionEngine(body, response, assertion);
 
@@ -92,12 +96,14 @@ public class AdapterDocRetrieveOrchImpl {
         return response;
     }
 
-    protected RetrieveDocumentSetResponseType callRedactionEngine(RetrieveDocumentSetRequestType retrieveRequest, RetrieveDocumentSetResponseType retrieveResponse, AssertionType assertion) {
+    protected RetrieveDocumentSetResponseType callRedactionEngine(RetrieveDocumentSetRequestType retrieveRequest,
+            RetrieveDocumentSetResponseType retrieveResponse, AssertionType assertion) {
         RetrieveDocumentSetResponseType response = null;
         if (retrieveResponse == null) {
             log.warn("Did not call redaction engine because the retrieve response was null.");
         } else {
-            response = getRedactionEngineProxy().filterRetrieveDocumentSetResults(retrieveRequest, retrieveResponse, assertion);
+            response = getRedactionEngineProxy().filterRetrieveDocumentSetResults(retrieveRequest, retrieveResponse,
+                    assertion);
         }
         return response;
     }

@@ -50,57 +50,57 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
- * @paul.eftis updated exception handling to return DQ error response
- * with error/exception detail within DQ response.
+ * @paul.eftis updated exception handling to return DQ error response with error/exception detail within DQ response.
  */
 public class PassthruDocQueryOrchImpl {
 
     private static Log log = LogFactory.getLog(PassthruDocQueryOrchImpl.class);
 
-    private static final String XDS_RESPONSE_STATUS_FAILURE =
-            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+    private static final String XDS_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
 
     /**
-     *
+     * 
      * @param body
      * @param assertion
      * @param target
      * @return <code>AdhocQueryResponse</code>
      */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, 
-            AssertionType assertion, NhinTargetSystemType target){
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion,
+            NhinTargetSystemType target) {
         log.debug("Entering NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         AdhocQueryResponse response = null;
 
         // The responding home community id is required in the audit log
         String responseCommunityID = null;
-        if (target != null &&
-                target.getHomeCommunity() != null) {
+        if (target != null && target.getHomeCommunity() != null) {
             responseCommunityID = target.getHomeCommunity().getHomeCommunityId();
         }
         log.debug("=====>>>>> responseCommunityID is " + responseCommunityID);
         // Audit the Document Query Request Message sent on the Nhin Interface
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLog.auditDQRequest(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
+        AcknowledgementType ack = auditLog.auditDQRequest(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
 
         try {
             log.debug("Creating NhinDocQueryProxy");
 
             // Log the start of the nhin performance record
             Timestamp starttime = new Timestamp(System.currentTimeMillis());
-            Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, responseCommunityID);
+            Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                    NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, responseCommunityID);
 
             OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
-            OutboundDocQueryOrchestratable orchestratable = 
-                    new OutboundDocQueryOrchestratable(delegate, null, null, null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, body);
+            OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null, null,
+                    null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, body);
             response = ((OutboundDocQueryOrchestratable) delegate.process(orchestratable)).getResponse();
 
             // Log the end of the nhin performance record
             Timestamp stoptime = new Timestamp(System.currentTimeMillis());
             PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             log.error("PassthruDocQueryOrchImpl Exception", ex);
             String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, target,
                     NhincConstants.DOC_QUERY_SERVICE_NAME);
@@ -111,14 +111,14 @@ public class PassthruDocQueryOrchImpl {
         AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
         auditMsg.setAdhocQueryResponse(response);
         auditMsg.setAssertion(assertion);
-        ack = auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
+        ack = auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
 
         log.debug("Leaving NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         return response;
     }
 
-
-    private AdhocQueryResponse generateErrorResponse(NhinTargetSystemType target, String error){
+    private AdhocQueryResponse generateErrorResponse(NhinTargetSystemType target, String error) {
         AdhocQueryResponse adhocresponse = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
         adhocresponse.setStatus(XDS_RESPONSE_STATUS_FAILURE);

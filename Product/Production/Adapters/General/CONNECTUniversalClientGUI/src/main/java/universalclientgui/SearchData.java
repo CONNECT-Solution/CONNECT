@@ -27,11 +27,10 @@
 package universalclientgui;
 
 /**
- *
+ * 
  * @author patlollav
  */
-public class SearchData
-{
+public class SearchData {
 
     public String getPatientID() {
         return patientID;
@@ -40,5 +39,6 @@ public class SearchData
     public void setPatientID(String patientID) {
         this.patientID = patientID;
     }
+
     private String patientID;
 }

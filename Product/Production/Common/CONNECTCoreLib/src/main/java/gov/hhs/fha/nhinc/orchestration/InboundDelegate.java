@@ -27,10 +27,11 @@
 package gov.hhs.fha.nhinc.orchestration;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public interface InboundDelegate extends Delegate {
     public InboundOrchestratable process(InboundOrchestratable message);
+
     public void createErrorResponse(InboundOrchestratable message, String error);
 }

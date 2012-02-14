@@ -7,7 +7,7 @@ package gov.hhs.fha.nhinc.docretrieve;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class ResponseScrubber {

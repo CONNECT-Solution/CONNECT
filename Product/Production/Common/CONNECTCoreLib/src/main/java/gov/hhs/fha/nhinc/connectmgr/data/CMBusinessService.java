@@ -60,25 +60,22 @@ public class CMBusinessService {
     }
 
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
+     * Returns true of the contents of the object are the same as the one passed in.
      * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
     public boolean equals(CMBusinessService oCompare) {
-        if ((!this.uniformServiceName.equals(oCompare.uniformServiceName)) ||
-                (this.internalWebService != oCompare.internalWebService) ||
-                (!this.serviceKey.equals(oCompare.serviceKey)) ||
-                (!this.names.equals(oCompare.names)) ||
-                (!this.descriptions.equals(oCompare.descriptions)) ||
-                (!this.bindingTemplates.equals(oCompare.bindingTemplates)))
-        {
+        if ((!this.uniformServiceName.equals(oCompare.uniformServiceName))
+                || (this.internalWebService != oCompare.internalWebService)
+                || (!this.serviceKey.equals(oCompare.serviceKey)) || (!this.names.equals(oCompare.names))
+                || (!this.descriptions.equals(oCompare.descriptions))
+                || (!this.bindingTemplates.equals(oCompare.bindingTemplates))) {
             return false;
         }
 
         // If we got here then everything is the same...
-        //----------------------------------------------
+        // ----------------------------------------------
         return true;
     }
 
@@ -119,22 +116,19 @@ public class CMBusinessService {
     }
 
     /**
-     * Returns true if this web service is internal to this gateway false if it is
-     * exposed to the NHIN.
+     * Returns true if this web service is internal to this gateway false if it is exposed to the NHIN.
      * 
-     * @return True if this web service is internal to this gateway and false if it
-     *         is exposed to the NHIN.
+     * @return True if this web service is internal to this gateway and false if it is exposed to the NHIN.
      */
     public boolean isInternalWebService() {
         return internalWebService;
     }
 
     /**
-     * Set to true if this web service is internal to this gateway false if it is
-     * exposed to the NHIN.
+     * Set to true if this web service is internal to this gateway false if it is exposed to the NHIN.
      * 
-     * @param internalWebService True if this web service is internal to this gateway and false if it
-     *         is exposed to the NHIN.
+     * @param internalWebService True if this web service is internal to this gateway and false if it is exposed to the
+     *            NHIN.
      */
     public void setInternalWebService(boolean internalWebService) {
         this.internalWebService = internalWebService;
@@ -196,7 +190,7 @@ public class CMBusinessService {
 
     /**
      * Creates a deep copy of this business service.
-     *
+     * 
      * @return A copy of this service that includes copies of data structures
      */
     public CMBusinessService createCopy() {

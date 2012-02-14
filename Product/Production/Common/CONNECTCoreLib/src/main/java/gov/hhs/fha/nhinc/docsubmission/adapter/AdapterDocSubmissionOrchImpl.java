@@ -33,11 +33,12 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterDocSubmissionOrchImpl {
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion) {
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
+            AssertionType assertion) {
         AdapterComponentDocSubmissionProxyObjectFactory factory = new AdapterComponentDocSubmissionProxyObjectFactory();
         AdapterComponentDocSubmissionProxy proxy = factory.getAdapterComponentDocSubmissionProxy();
 

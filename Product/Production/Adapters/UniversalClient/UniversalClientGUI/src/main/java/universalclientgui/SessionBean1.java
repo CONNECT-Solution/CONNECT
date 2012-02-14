@@ -48,18 +48,17 @@ import javax.xml.transform.Result;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
-
 /**
- * <p>Session scope data bean for your application.  Create properties
- *  here to represent cached data that should be made available across
- *  multiple HTTP requests for an individual user.</p>
- *
- * <p>An instance of this class will be created for you automatically,
- * the first time your application evaluates a value binding expression
- * or method binding expression that references a managed bean using
- * this class.</p>
- *
+ * <p>
+ * Session scope data bean for your application. Create properties here to represent cached data that should be made
+ * available across multiple HTTP requests for an individual user.
+ * </p>
+ * 
+ * <p>
+ * An instance of this class will be created for you automatically, the first time your application evaluates a value
+ * binding expression or method binding expression that references a managed bean using this class.
+ * </p>
+ * 
  * @version SessionBean1.java
  * @version Created on Oct 12, 2009, 4:37:57 PM
  * @author Duane DeCouteau
@@ -70,30 +69,21 @@ public class SessionBean1 extends AbstractSessionBean {
 
     private static final String ADAPTER_PROPERTY_FILE = "adapter";
     private static String m_sPropertyFileDir = "";
-    private static String m_sFileSeparator =
-                          System.getProperty("file.separator");
-    private static final String m_sFailedEnvVarMessage =
-                                "Unable to access environment variable: NHINC_PROPERTIES_DIR.";
+    private static String m_sFileSeparator = System.getProperty("file.separator");
+    private static final String m_sFailedEnvVarMessage = "Unable to access environment variable: NHINC_PROPERTIES_DIR.";
     private static boolean m_bFailedToLoadEnvVar = false;
-    static
-    {
+    static {
         String sValue = PropertyAccessor.getPropertyFileLocation();
 
-        if ((sValue != null) && (sValue.length() > 0))
-        {
+        if ((sValue != null) && (sValue.length() > 0)) {
             // Set it up so that we always have a "/" at the end - in case
-            //------------------------------------------------------------
-            if ((sValue.endsWith("/")) || (sValue.endsWith("\\")))
-            {
+            // ------------------------------------------------------------
+            if ((sValue.endsWith("/")) || (sValue.endsWith("\\"))) {
                 m_sPropertyFileDir = sValue;
-            }
-            else
-            {
+            } else {
                 m_sPropertyFileDir = sValue + m_sFileSeparator;
             }
-        }
-        else
-        {
+        } else {
             log.error(m_sFailedEnvVarMessage);
             m_bFailedToLoadEnvVar = true;
         }
@@ -102,30 +92,35 @@ public class SessionBean1 extends AbstractSessionBean {
     // <editor-fold defaultstate="collapsed" desc="Managed Component Definition">
 
     /**
-     * <p>Automatically managed component initialization.  <strong>WARNING:</strong>
-     * This method is automatically generated, so any user-specified code inserted
-     * here is subject to being replaced.</p>
+     * <p>
+     * Automatically managed component initialization. <strong>WARNING:</strong> This method is automatically generated,
+     * so any user-specified code inserted here is subject to being replaced.
+     * </p>
      */
     private void _init() throws Exception {
     }
+
     // </editor-fold>
 
     /**
-     * <p>Construct a new session data bean instance.</p>
+     * <p>
+     * Construct a new session data bean instance.
+     * </p>
      */
     public SessionBean1() {
     }
 
     /**
-     * <p>This method is called when this bean is initially added to
-     * session scope.  Typically, this occurs as a result of evaluating
-     * a value binding or method binding expression, which utilizes the
-     * managed bean facility to instantiate this bean and store it into
-     * session scope.</p>
-     *
-     * <p>You may customize this method to initialize and cache data values
-     * or resources that are required for the lifetime of a particular
-     * user session.</p>
+     * <p>
+     * This method is called when this bean is initially added to session scope. Typically, this occurs as a result of
+     * evaluating a value binding or method binding expression, which utilizes the managed bean facility to instantiate
+     * this bean and store it into session scope.
+     * </p>
+     * 
+     * <p>
+     * You may customize this method to initialize and cache data values or resources that are required for the lifetime
+     * of a particular user session.
+     * </p>
      */
     @Override
     public void init() {
@@ -142,7 +137,7 @@ public class SessionBean1 extends AbstractSessionBean {
             _init();
         } catch (Exception e) {
             log("SessionBean1 Initialization Failure", e);
-            throw e instanceof FacesException ? (FacesException) e: new FacesException(e);
+            throw e instanceof FacesException ? (FacesException) e : new FacesException(e);
         }
 
         // </editor-fold>
@@ -152,47 +147,55 @@ public class SessionBean1 extends AbstractSessionBean {
     }
 
     /**
-     * <p>This method is called when the session containing it is about to be
-     * passivated.  Typically, this occurs in a distributed servlet container
-     * when the session is about to be transferred to a different
-     * container instance, after which the <code>activate()</code> method
-     * will be called to indicate that the transfer is complete.</p>
-     *
-     * <p>You may customize this method to release references to session data
-     * or resources that can not be serialized with the session itself.</p>
+     * <p>
+     * This method is called when the session containing it is about to be passivated. Typically, this occurs in a
+     * distributed servlet container when the session is about to be transferred to a different container instance,
+     * after which the <code>activate()</code> method will be called to indicate that the transfer is complete.
+     * </p>
+     * 
+     * <p>
+     * You may customize this method to release references to session data or resources that can not be serialized with
+     * the session itself.
+     * </p>
      */
     @Override
     public void passivate() {
     }
 
     /**
-     * <p>This method is called when the session containing it was
-     * reactivated.</p>
-     *
-     * <p>You may customize this method to reacquire references to session
-     * data or resources that could not be serialized with the
-     * session itself.</p>
+     * <p>
+     * This method is called when the session containing it was reactivated.
+     * </p>
+     * 
+     * <p>
+     * You may customize this method to reacquire references to session data or resources that could not be serialized
+     * with the session itself.
+     * </p>
      */
     @Override
     public void activate() {
     }
 
     /**
-     * <p>This method is called when this bean is removed from
-     * session scope.  Typically, this occurs as a result of
-     * the session timing out or being terminated by the application.</p>
-     *
-     * <p>You may customize this method to clean up resources allocated
-     * during the execution of the <code>init()</code> method, or
-     * at any later time during the lifetime of the application.</p>
+     * <p>
+     * This method is called when this bean is removed from session scope. Typically, this occurs as a result of the
+     * session timing out or being terminated by the application.
+     * </p>
+     * 
+     * <p>
+     * You may customize this method to clean up resources allocated during the execution of the <code>init()</code>
+     * method, or at any later time during the lifetime of the application.
+     * </p>
      */
     @Override
     public void destroy() {
     }
 
     /**
-     * <p>Return a reference to the scoped data bean.</p>
-     *
+     * <p>
+     * Return a reference to the scoped data bean.
+     * </p>
+     * 
      * @return reference to the scoped data bean
      */
     protected ApplicationBean1 getApplicationBean1() {
@@ -200,10 +203,13 @@ public class SessionBean1 extends AbstractSessionBean {
     }
 
     private RetrievedDocumentDisplayObject[] availableDocuments;
-    //= new RetrievedDocumentDisplayObject[] {
-    //    new RetrievedDocumentDisplayObject(false,"Veteran Affairs","1","Summary of Episode Note","HITSP-C32","1",false,true,"Downloading"),
-    //    new RetrievedDocumentDisplayObject(false,"Kaiser Permanente","1","Summary of Episode Note","HITSP-C32","2",false,true,"Pending")
-    //};
+
+    // = new RetrievedDocumentDisplayObject[] {
+    // new
+    // RetrievedDocumentDisplayObject(false,"Veteran Affairs","1","Summary of Episode Note","HITSP-C32","1",false,true,"Downloading"),
+    // new
+    // RetrievedDocumentDisplayObject(false,"Kaiser Permanente","1","Summary of Episode Note","HITSP-C32","2",false,true,"Pending")
+    // };
 
     /**
      * @return the availableDocuments
@@ -254,21 +260,20 @@ public class SessionBean1 extends AbstractSessionBean {
         try {
             if (rawxml != null) {
                 // Look for the C32 stylesheet specific to this provider
-                log.debug("Lookup stylesheet for: "+getSelectedOrgHomeCommunityId());
+                log.debug("Lookup stylesheet for: " + getSelectedOrgHomeCommunityId());
                 String styleSheet = null;
-                if (getSelectedOrgHomeCommunityId() != null)
-                {
+                if (getSelectedOrgHomeCommunityId() != null) {
                     String[] saArgs = getSelectedOrgHomeCommunityId().split(":");
-                    log.debug("Lookup property value for: C32StyleSheet_"+saArgs[saArgs.length-1]);
-                    styleSheet = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, "C32StyleSheet_"+saArgs[saArgs.length-1]);
+                    log.debug("Lookup property value for: C32StyleSheet_" + saArgs[saArgs.length - 1]);
+                    styleSheet = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, "C32StyleSheet_"
+                            + saArgs[saArgs.length - 1]);
                 }
-                if ((styleSheet == null) || (styleSheet.isEmpty()))
-                {
+                if ((styleSheet == null) || (styleSheet.isEmpty())) {
                     // Provider-specific stylesheet not defined... use default
                     styleSheet = getApplicationBean1().getC32StyleSheet();
                 }
-                log.debug("Converting raw XML using stylesheet: "+styleSheet);
-                FileReader reader = new FileReader(m_sPropertyFileDir+styleSheet);
+                log.debug("Converting raw XML using stylesheet: " + styleSheet);
+                FileReader reader = new FileReader(m_sPropertyFileDir + styleSheet);
                 TransformerFactory tFactory = TransformerFactory.newInstance();
                 Transformer transformer = tFactory.newTransformer(new StreamSource(reader));
                 StringWriter out = new StringWriter();
@@ -276,8 +281,7 @@ public class SessionBean1 extends AbstractSessionBean {
                 transformer.transform(new StreamSource(new StringReader(rawxml)), result);
                 res = out.toString();
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             log.error(ex);
         }
         return res;
@@ -302,10 +306,10 @@ public class SessionBean1 extends AbstractSessionBean {
     public DocumentManagerObjectManagement[] getPatientDocumentSubList(String patientId) {
         DocumentManagerObjectManagement[] res = null;
         ArrayList tList = new ArrayList();
-        List <DocumentManagerObjectManagement> mList = getApplicationBean1().getDocList();
+        List<DocumentManagerObjectManagement> mList = getApplicationBean1().getDocList();
         Iterator iter = mList.iterator();
         while (iter.hasNext()) {
-            DocumentManagerObjectManagement obj = (DocumentManagerObjectManagement)iter.next();
+            DocumentManagerObjectManagement obj = (DocumentManagerObjectManagement) iter.next();
             String patientid = obj.getPatientId();
             if (patientid.equals(patientId)) {
                 tList.add(obj);
@@ -317,14 +321,14 @@ public class SessionBean1 extends AbstractSessionBean {
         return res;
     }
 
-    private String providerId; //equivalent of userNCID or something that uniquely identifies provider globally
-    private String userName;  //user login
-    private String providerName; //user name
+    private String providerId; // equivalent of userNCID or something that uniquely identifies provider globally
+    private String userName; // user login
+    private String providerName; // user name
     private String providerLastName;
     private String providerFirstName;
     private String providerMiddleNameOrInitial;
 
-    private String patientId; //equiv of patientUnitNumber
+    private String patientId; // equiv of patientUnitNumber
     private String patientName;
     private String patientFirstName;
     private String patientLastName;
@@ -332,7 +336,7 @@ public class SessionBean1 extends AbstractSessionBean {
     private String patientDOB;
     private String patientGender;
 
-    //may be global in nature
+    // may be global in nature
     private String providerRole;
     private String purposeOfUse;
 
@@ -625,16 +629,16 @@ public class SessionBean1 extends AbstractSessionBean {
      */
     public List<TabManagement> getTabList() {
         if (tabList.size() == 0) {
-            tabList.add(new TabManagement(1,"",""));
-            tabList.add(new TabManagement(2,"",""));
-            tabList.add(new TabManagement(3,"",""));
-            tabList.add(new TabManagement(4,"",""));
-            tabList.add(new TabManagement(5,"",""));
-            tabList.add(new TabManagement(6,"",""));
-            tabList.add(new TabManagement(7,"",""));
-            tabList.add(new TabManagement(8,"",""));
-            tabList.add(new TabManagement(9,"",""));
-            tabList.add(new TabManagement(10,"",""));
+            tabList.add(new TabManagement(1, "", ""));
+            tabList.add(new TabManagement(2, "", ""));
+            tabList.add(new TabManagement(3, "", ""));
+            tabList.add(new TabManagement(4, "", ""));
+            tabList.add(new TabManagement(5, "", ""));
+            tabList.add(new TabManagement(6, "", ""));
+            tabList.add(new TabManagement(7, "", ""));
+            tabList.add(new TabManagement(8, "", ""));
+            tabList.add(new TabManagement(9, "", ""));
+            tabList.add(new TabManagement(10, "", ""));
         }
         return tabList;
     }

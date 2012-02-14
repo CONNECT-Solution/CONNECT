@@ -40,7 +40,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class Storer {
@@ -51,18 +51,15 @@ public class Storer {
         log.info("patient correlation add requested");
         if (!Retriever.doesCorrelationExist(correlatedIdentifers)) {
             localAddPatientCorrelation(correlatedIdentifers);
-        } else if(correlatedIdentifers.getCorrelationExpirationDate() != null)
-        {
+        } else if (correlatedIdentifers.getCorrelationExpirationDate() != null) {
             log.info("updating expiration date");
             localUpdatePatientCorrelation(correlatedIdentifers);
-        }
-        else{
+        } else {
             log.info("Correlation already exists, no store needed");
         }
     }
 
-    private static void localUpdatePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers)
-    {
+    private static void localUpdatePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         log.debug("-- Begin CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
         Session sess = null;
         Transaction trans = null;
@@ -97,6 +94,7 @@ public class Storer {
         }
         log.debug("-- End CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
     }
+
     private static void localAddPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         log.debug("-- Begin CorrelatedIdentifiersDao.addPatientCorrelation() ---");
         Session sess = null;
@@ -130,7 +128,7 @@ public class Storer {
         log.debug("-- End CorrelatedIdentifiersDao.addPatientCorrelation() ---");
     }
 
-    public static  void removePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
+    public static void removePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         log.debug("-- Begin CorrelatedIdentifiersDao.removePatientCorrelation() ---");
         Session sess = null;
         Transaction trans = null;
@@ -139,9 +137,11 @@ public class Storer {
         String param2 = correlatedIdentifers.getPatientId();
         String param3 = correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId();
         String param4 = correlatedIdentifers.getCorrelatedPatientId();
-        String sql = "delete from correlatedidentifiers where ((PatientAssigningAuthorityId='" + param1 + "' and PatientId='" + param2 + "' and CorrelatedPatientAssignAuthId='" +
-                param3 + "' and CorrelatedPatientId='" + param4 + "') or (PatientAssigningAuthorityId='" + param3 + "' and PatientId='" + param4 + "' and CorrelatedPatientAssignAuthId='" +
-                param1 + "' and CorrelatedPatientId='" + param2 + "'))";
+        String sql = "delete from correlatedidentifiers where ((PatientAssigningAuthorityId='" + param1
+                + "' and PatientId='" + param2 + "' and CorrelatedPatientAssignAuthId='" + param3
+                + "' and CorrelatedPatientId='" + param4 + "') or (PatientAssigningAuthorityId='" + param3
+                + "' and PatientId='" + param4 + "' and CorrelatedPatientAssignAuthId='" + param1
+                + "' and CorrelatedPatientId='" + param2 + "'))";
         try {
             SessionFactory fact = HibernateUtil.getSessionFactory();
             if (fact != null) {

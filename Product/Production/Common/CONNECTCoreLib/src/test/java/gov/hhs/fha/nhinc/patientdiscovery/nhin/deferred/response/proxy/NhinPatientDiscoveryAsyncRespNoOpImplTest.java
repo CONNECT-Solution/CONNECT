@@ -38,7 +38,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class NhinPatientDiscoveryAsyncRespNoOpImplTest {
@@ -72,7 +72,7 @@ public class NhinPatientDiscoveryAsyncRespNoOpImplTest {
         AssertionType assertion = new AssertionType();
         NhinTargetSystemType target = new NhinTargetSystemType();
         NhinPatientDiscoveryDeferredRespProxyNoOpImpl instance = new NhinPatientDiscoveryDeferredRespProxyNoOpImpl();
-       
+
         MCCIIN000002UV01 result = instance.respondingGatewayPRPAIN201306UV02(body, assertion, target);
 
         assertNotNull(result);

@@ -17,7 +17,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 @WebService(serviceName = "AdapterDocQueryDeferredRequestError", portName = "AdapterDocQueryDeferredRequestErrorPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterdocquerydeferredrequesterror.AdapterDocQueryDeferredRequestErrorPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterror", wsdlLocation = "WEB-INF/wsdl/AdapterDocQueryDeferredRequestErrorUnsecured/AdapterDocQueryDeferredRequestError.wsdl")
@@ -26,8 +26,10 @@ public class AdapterDocQueryDeferredRequestErrorUnsecured {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentQueryDeferredRequestErrorType respondingGatewayCrossGatewayQueryRequest) {
-        return new AdapterDocQueryDeferredRequestErrorUnsecuredImpl().respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest, context);
+    public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentQueryDeferredRequestErrorType respondingGatewayCrossGatewayQueryRequest) {
+        return new AdapterDocQueryDeferredRequestErrorUnsecuredImpl().respondingGatewayCrossGatewayQuery(
+                respondingGatewayCrossGatewayQueryRequest, context);
     }
 
 }

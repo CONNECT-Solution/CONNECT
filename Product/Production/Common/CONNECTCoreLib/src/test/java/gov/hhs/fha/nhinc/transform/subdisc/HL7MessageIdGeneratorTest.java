@@ -38,7 +38,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class HL7MessageIdGeneratorTest {
@@ -65,8 +65,7 @@ public class HL7MessageIdGeneratorTest {
     }
 
     /**
-     * Test of GenerateHL7MessageId method, of class HL7MessageIdGenerator.
-     * device id
+     * Test of GenerateHL7MessageId method, of class HL7MessageIdGenerator. device id
      */
     @Test
     public void testGenerateHL7MessageId_1arg() {
@@ -79,9 +78,8 @@ public class HL7MessageIdGeneratorTest {
         assertNotNull(result.getExtension());
     }
 
-        /**
-     * Test of GenerateHL7MessageId method, of class HL7MessageIdGenerator.
-     * device id, no input
+    /**
+     * Test of GenerateHL7MessageId method, of class HL7MessageIdGenerator. device id, no input
      */
     @Test
     public void testGenerateHL7MessageId_1arg_NoInput() {

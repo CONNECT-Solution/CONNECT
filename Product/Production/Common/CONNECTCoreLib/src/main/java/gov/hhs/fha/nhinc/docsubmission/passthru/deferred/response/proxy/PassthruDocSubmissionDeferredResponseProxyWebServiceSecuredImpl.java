@@ -40,10 +40,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class PassthruDocSubmissionDeferredResponseProxyWebServiceSecuredImpl implements PassthruDocSubmissionDeferredResponseProxy {
+public class PassthruDocSubmissionDeferredResponseProxyWebServiceSecuredImpl implements
+        PassthruDocSubmissionDeferredResponseProxy {
 
     private Log log = null;
     private static Service cachedService = null;
@@ -69,18 +70,21 @@ public class PassthruDocSubmissionDeferredResponseProxyWebServiceSecuredImpl imp
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected ProxyXDRSecuredAsyncResponsePortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected ProxyXDRSecuredAsyncResponsePortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         ProxyXDRSecuredAsyncResponsePortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), ProxyXDRSecuredAsyncResponsePortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    ProxyXDRSecuredAsyncResponsePortType.class);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -89,7 +93,7 @@ public class PassthruDocSubmissionDeferredResponseProxyWebServiceSecuredImpl imp
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -103,38 +107,32 @@ public class PassthruDocSubmissionDeferredResponseProxyWebServiceSecuredImpl imp
         return cachedService;
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request,
+            AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin provideAndRegisterDocumentSetBAsyncRequest");
         XDRAcknowledgementType response = null;
 
-        try
-        {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.NHINC_PROXY_XDR_RESPONSE_SECURED_SERVICE_NAME);
-            ProxyXDRSecuredAsyncResponsePortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
+        try {
+            String url = oProxyHelper
+                    .getUrlLocalHomeCommunity(NhincConstants.NHINC_PROXY_XDR_RESPONSE_SECURED_SERVICE_NAME);
+            ProxyXDRSecuredAsyncResponsePortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION,
+                    assertion);
 
-            if(request == null)
-            {
+            if (request == null) {
                 log.error("Message was null");
-            }
-            else if (targetSystem == null)
-            {
+            } else if (targetSystem == null) {
                 log.error("targetSystem was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType msg = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
                 msg.setRegistryResponse(request);
                 msg.setNhinTargetSystem(targetSystem);
 
-                response = (XDRAcknowledgementType)oProxyHelper.invokePort(port, ProxyXDRSecuredAsyncResponsePortType.class, "provideAndRegisterDocumentSetBAsyncResponse", msg);
+                response = (XDRAcknowledgementType) oProxyHelper.invokePort(port,
+                        ProxyXDRSecuredAsyncResponsePortType.class, "provideAndRegisterDocumentSetBAsyncResponse", msg);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetBAsyncResponse: " + ex.getMessage(), ex);
             response = new XDRAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();

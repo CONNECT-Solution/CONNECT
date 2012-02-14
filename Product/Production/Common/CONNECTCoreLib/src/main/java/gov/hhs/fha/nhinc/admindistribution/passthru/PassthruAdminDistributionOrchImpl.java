@@ -39,8 +39,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class PassthruAdminDistributionOrchImpl {
@@ -56,19 +57,20 @@ public class PassthruAdminDistributionOrchImpl {
     }
 
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
-             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.info("begin sendAlert");
-        //TODO: LogRequest        
-        AcknowledgementType ack = getLogger().auditNhincAdminDist(body, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        // TODO: LogRequest
+        AcknowledgementType ack = getLogger().auditNhincAdminDist(body, assertion, target,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         if (ack != null) {
             log.debug("ack: " + ack.getMessage());
         }
-        
-        RespondingGatewaySendAlertMessageType newRequest = createRespondingGatewaySendAlertMessageType(target, assertion, body);
+
+        RespondingGatewaySendAlertMessageType newRequest = createRespondingGatewaySendAlertMessageType(target,
+                assertion, body);
 
         OutboundAdminDistributionDelegate adDelegate = new OutboundAdminDistributionDelegate();
-        OutboundAdminDistributionOrchestratable orchestratable =
-                new OutboundAdminDistributionOrchestratable(adDelegate);
+        OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(adDelegate);
         orchestratable.setRequest(newRequest);
         orchestratable.setAssertion(assertion);
         orchestratable.setTarget(target);
@@ -76,7 +78,8 @@ public class PassthruAdminDistributionOrchImpl {
         execute(adDelegate, orchestratable);
     }
 
-    private RespondingGatewaySendAlertMessageType createRespondingGatewaySendAlertMessageType(NhinTargetSystemType target, AssertionType assertion, EDXLDistribution body) {
+    private RespondingGatewaySendAlertMessageType createRespondingGatewaySendAlertMessageType(
+            NhinTargetSystemType target, AssertionType assertion, EDXLDistribution body) {
         NhinTargetCommunitiesType targetCommunitiesType = new NhinTargetCommunitiesType();
         NhinTargetCommunityType targetCommunityType = new NhinTargetCommunityType();
         targetCommunityType.setHomeCommunity(target.getHomeCommunity());
@@ -87,8 +90,9 @@ public class PassthruAdminDistributionOrchImpl {
         newRequest.setNhinTargetCommunities(targetCommunitiesType);
         return newRequest;
     }
-    
-    protected void execute(OutboundAdminDistributionDelegate adDelegate, OutboundAdminDistributionOrchestratable orchestratable) {
+
+    protected void execute(OutboundAdminDistributionDelegate adDelegate,
+            OutboundAdminDistributionOrchestratable orchestratable) {
         adDelegate.process(orchestratable);
     }
 

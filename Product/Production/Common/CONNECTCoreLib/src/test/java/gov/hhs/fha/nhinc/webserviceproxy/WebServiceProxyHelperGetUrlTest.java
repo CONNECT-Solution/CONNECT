@@ -48,371 +48,343 @@ import org.junit.Test;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
 public class WebServiceProxyHelperGetUrlTest extends AbstractWebServiceProxyHelpTest {
-	public WSBindingProvider mockPort;
-	@SuppressWarnings("unchecked")
-	public Map<String, Object> mockRequestContext;
-	public HashMap<String, Object> oMap;
-	public SamlTokenCreator mockTokenCreator;
-	public AsyncHeaderCreator mockAsyncHeaderCreator;
-	public Log mockLog = context.mock(Log.class);
-	public WebServiceProxyHelper oHelper;
+    public WSBindingProvider mockPort;
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> mockRequestContext;
+    public HashMap<String, Object> oMap;
+    public SamlTokenCreator mockTokenCreator;
+    public AsyncHeaderCreator mockAsyncHeaderCreator;
+    public Log mockLog = context.mock(Log.class);
+    public WebServiceProxyHelper oHelper;
 
-	/**
-	 * Test the getUrlFromTargetSystem method happy path.
-	 * @throws Exception 
-	 * @throws ConnectionManagerException 
-	 * @throws IllegalArgumentException 
-	 */
-	@Test
-	public void testGetUrlFromTargetSystemHappyPath() throws IllegalArgumentException, ConnectionManagerException, Exception {
-			context.checking(new Expectations() {
+    /**
+     * Test the getUrlFromTargetSystem method happy path.
+     * 
+     * @throws Exception
+     * @throws ConnectionManagerException
+     * @throws IllegalArgumentException
+     */
+    @Test
+    public void testGetUrlFromTargetSystemHappyPath() throws IllegalArgumentException, ConnectionManagerException,
+            Exception {
+        context.checking(new Expectations() {
 
-				{
-					exactly(3).of(mockLog).info(with(any(String.class)));
-				}
-			});
-			
-			initializationExpectations();
-			
-			WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+            {
+                exactly(3).of(mockLog).info(with(any(String.class)));
+            }
+        });
 
-				
+        initializationExpectations();
 
-				@Override
-				protected String getEndPointFromConnectionManagerByGatewayAPILevel(
-						NhinTargetSystemType oTargetSystem,
-						String sServiceName, GATEWAY_API_LEVEL level) {
-					return "http://www.theurl.com";
-				}
-			};
-			NhinTargetSystemType oTargetSystem = new NhinTargetSystemType();
-			HomeCommunityType oHomeCommunity = new HomeCommunityType();
-			oTargetSystem.setHomeCommunity(oHomeCommunity);
-			oHomeCommunity.setHomeCommunityId("1.1");
-			oHomeCommunity.setName("The name");
-			oHomeCommunity.setDescription("The name");
-			String sURL = oHelper.getUrlFromTargetSystemByGatewayAPILevel(
-					oTargetSystem, NhincConstants.DOC_QUERY_SERVICE_NAME,
-					GATEWAY_API_LEVEL.LEVEL_g0);
-			assertEquals("URL was incorrect.", "http://www.theurl.com", sURL);
-	}
+        WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
 
-	/**
-	 * Test the getUrlFromTargetSystem method null target system.
-	 */
-	@Test
-	public void testGetUrlFromTargetSystemNullTargetSystem() {
-		try {
-			context.checking(new Expectations() {
+            @Override
+            protected String getEndPointFromConnectionManagerByGatewayAPILevel(NhinTargetSystemType oTargetSystem,
+                    String sServiceName, GATEWAY_API_LEVEL level) {
+                return "http://www.theurl.com";
+            }
+        };
+        NhinTargetSystemType oTargetSystem = new NhinTargetSystemType();
+        HomeCommunityType oHomeCommunity = new HomeCommunityType();
+        oTargetSystem.setHomeCommunity(oHomeCommunity);
+        oHomeCommunity.setHomeCommunityId("1.1");
+        oHomeCommunity.setName("The name");
+        oHomeCommunity.setDescription("The name");
+        String sURL = oHelper.getUrlFromTargetSystemByGatewayAPILevel(oTargetSystem,
+                NhincConstants.DOC_QUERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+        assertEquals("URL was incorrect.", "http://www.theurl.com", sURL);
+    }
 
-				{
-					exactly(1).of(mockLog).error(with(any(String.class)));
-				}
-			});
-			initializationExpectations();
-			
-			
-			WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+    /**
+     * Test the getUrlFromTargetSystem method null target system.
+     */
+    @Test
+    public void testGetUrlFromTargetSystemNullTargetSystem() {
+        try {
+            context.checking(new Expectations() {
 
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+                {
+                    exactly(1).of(mockLog).error(with(any(String.class)));
+                }
+            });
+            initializationExpectations();
 
-				@Override
-				protected String getEndPointFromConnectionManagerByGatewayAPILevel(
-						NhinTargetSystemType oTargetSystem,
-						String sServiceName, GATEWAY_API_LEVEL level) {
-					return "http://www.theurl.com";
-				}
-			};
-			String sURL = oHelper.getUrlFromTargetSystemByGatewayAPILevel(null,
-					NhincConstants.DOC_QUERY_SERVICE_NAME,
-					GATEWAY_API_LEVEL.LEVEL_g0);
-			fail("An exception should have been thrown.");
-		} catch (IllegalArgumentException e) {
-			assertEquals("Unexpected exception message.",
-					"Target system passed into the proxy is null",
-					e.getMessage());
-		} catch (Throwable t) {
-			System.out
-					.println("Error running testGetUrlFromTargetSystemNullTargetSystem test: "
-							+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testGetUrlFromTargetSystemNullTargetSystem test: "
-					+ t.getMessage());
-		}
-	}
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
 
-	/**
-	 * Test the getUrlFromTargetSystem method with ConnectionManagerException.
-	 */
-	@Test
-	public void testGetUrlFromTargetSystemConnectionManagerException() {
-		try {
-			context.checking(new Expectations() {
+                @Override
+                protected Log createLogger() {
+                    return mockLog;
+                }
 
-				{
-					exactly(3).of(mockLog).info(with(any(String.class)));
-					exactly(1).of(mockLog).error(with(any(String.class)),
-							with(any(Exception.class)));
-				}
-			});
-			initializationExpectations();
-			
-			
-			WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+                @Override
+                protected String getEndPointFromConnectionManagerByGatewayAPILevel(NhinTargetSystemType oTargetSystem,
+                        String sServiceName, GATEWAY_API_LEVEL level) {
+                    return "http://www.theurl.com";
+                }
+            };
+            String sURL = oHelper.getUrlFromTargetSystemByGatewayAPILevel(null, NhincConstants.DOC_QUERY_SERVICE_NAME,
+                    GATEWAY_API_LEVEL.LEVEL_g0);
+            fail("An exception should have been thrown.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Unexpected exception message.", "Target system passed into the proxy is null", e.getMessage());
+        } catch (Throwable t) {
+            System.out.println("Error running testGetUrlFromTargetSystemNullTargetSystem test: " + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetUrlFromTargetSystemNullTargetSystem test: " + t.getMessage());
+        }
+    }
 
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+    /**
+     * Test the getUrlFromTargetSystem method with ConnectionManagerException.
+     */
+    @Test
+    public void testGetUrlFromTargetSystemConnectionManagerException() {
+        try {
+            context.checking(new Expectations() {
 
-				@Override
-				protected String getEndPointFromConnectionManagerByGatewayAPILevel(
-						NhinTargetSystemType oTargetSystem,
-						String sServiceName, GATEWAY_API_LEVEL level)
-						throws ConnectionManagerException {
-					throw new ConnectionManagerException(
-							"This is a forced exception");
-				}
-			};
-			NhinTargetSystemType oTargetSystem = new NhinTargetSystemType();
-			HomeCommunityType oHomeCommunity = new HomeCommunityType();
-			oTargetSystem.setHomeCommunity(oHomeCommunity);
-			oHomeCommunity.setHomeCommunityId("1.1");
-			oHomeCommunity.setName("The name");
-			oHomeCommunity.setDescription("The name");
-			String sURL = oHelper.getUrlFromTargetSystemByGatewayAPILevel(
-					oTargetSystem, NhincConstants.DOC_QUERY_SERVICE_NAME,
-					GATEWAY_API_LEVEL.LEVEL_g0);
-			fail("An exception should have been thrown.");
-		} catch (ConnectionManagerException e) {
-			assertEquals("Unexpected exception message.",
-					"This is a forced exception", e.getMessage());
-		} catch (Throwable t) {
-			System.out
-					.println("Error running testGetUrlFromTargetSystemConnectionManagerException test: "
-							+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testGetUrlFromTargetSystemConnectionManagerException test: "
-					+ t.getMessage());
-		}
-	}
+                {
+                    exactly(3).of(mockLog).info(with(any(String.class)));
+                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(Exception.class)));
+                }
+            });
+            initializationExpectations();
 
-	/**
-	 * Test the getUrlFromHomeCommunity method happy path.
-	 * @throws Exception 
-	 * @throws ConnectionManagerException 
-	 * @throws IllegalArgumentException 
-	 */
-	@Test
-	public void testGetUrlFromHomeCommunity() throws IllegalArgumentException, ConnectionManagerException, Exception {
-			context.checking(new Expectations() {
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
 
-				{
-					exactly(1).of(mockLog).info(with(any(String.class)));
-				}
-			});
-			initializationExpectations();
-			
-			WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+                @Override
+                protected Log createLogger() {
+                    return mockLog;
+                }
 
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+                @Override
+                protected String getEndPointFromConnectionManagerByGatewayAPILevel(NhinTargetSystemType oTargetSystem,
+                        String sServiceName, GATEWAY_API_LEVEL level) throws ConnectionManagerException {
+                    throw new ConnectionManagerException("This is a forced exception");
+                }
+            };
+            NhinTargetSystemType oTargetSystem = new NhinTargetSystemType();
+            HomeCommunityType oHomeCommunity = new HomeCommunityType();
+            oTargetSystem.setHomeCommunity(oHomeCommunity);
+            oHomeCommunity.setHomeCommunityId("1.1");
+            oHomeCommunity.setName("The name");
+            oHomeCommunity.setDescription("The name");
+            String sURL = oHelper.getUrlFromTargetSystemByGatewayAPILevel(oTargetSystem,
+                    NhincConstants.DOC_QUERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+            fail("An exception should have been thrown.");
+        } catch (ConnectionManagerException e) {
+            assertEquals("Unexpected exception message.", "This is a forced exception", e.getMessage());
+        } catch (Throwable t) {
+            System.out.println("Error running testGetUrlFromTargetSystemConnectionManagerException test: "
+                    + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetUrlFromTargetSystemConnectionManagerException test: " + t.getMessage());
+        }
+    }
 
-				@Override
-				protected String getEndPointFromConnectionManager(
-						String sHomeCommunityId, String sServiceName) {
-					return "http://www.theurl.com";
-				}
-			};
-			String sHomeCommunityId = "1.1";
-			String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId,
-					NhincConstants.DOC_QUERY_SERVICE_NAME);
-			assertEquals("URL was incorrect.", "http://www.theurl.com", sURL);
-	
-	}
+    /**
+     * Test the getUrlFromHomeCommunity method happy path.
+     * 
+     * @throws Exception
+     * @throws ConnectionManagerException
+     * @throws IllegalArgumentException
+     */
+    @Test
+    public void testGetUrlFromHomeCommunity() throws IllegalArgumentException, ConnectionManagerException, Exception {
+        context.checking(new Expectations() {
 
-	/**
-	 * Test the getUrlFromHomeCommunity method null homeCommunityId.
-	 * @throws Exception 
-	 * @throws ConnectionManagerException 
-	 * @throws IllegalArgumentException 
-	 */
-	@Test(expected = IllegalArgumentException.class )
-	public void testGetUrlFromHomeCommunityNullId() throws IllegalArgumentException, ConnectionManagerException, Exception {
-			context.checking(new Expectations() {
+            {
+                exactly(1).of(mockLog).info(with(any(String.class)));
+            }
+        });
+        initializationExpectations();
 
-				{
-					exactly(1).of(mockLog).error(with(any(String.class)));
-				}
-			});
-			initializationExpectations();
-			
-			WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+        WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
 
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
 
-				@Override
-				protected String getEndPointFromConnectionManager(
-						String sHomeCommunityId, String sServiceName) {
-					return "http://www.theurl.com";
-				}
-			};
-			String sHomeCommunityId = null;
-			String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId,
-					NhincConstants.DOC_QUERY_SERVICE_NAME);
-		
-	}
+            @Override
+            protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName) {
+                return "http://www.theurl.com";
+            }
+        };
+        String sHomeCommunityId = "1.1";
+        String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
+        assertEquals("URL was incorrect.", "http://www.theurl.com", sURL);
 
-	/**
-	 * Test the getUrlFromHomeCommunity method empty homeCommunityId.
-	 * @throws Exception 
-	 * @throws ConnectionManagerException 
-	 * @throws IllegalArgumentException 
-	 */
-	@Test (expected = IllegalArgumentException.class)
-	public void testGetUrlFromHomeCommunityEmptyId() throws IllegalArgumentException, ConnectionManagerException, Exception {
-			context.checking(new Expectations() {
+    }
 
-				{
-					exactly(1).of(mockLog).error(with(any(String.class)));
-				}
-			});
-			initializationExpectations();
-			
-			WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+    /**
+     * Test the getUrlFromHomeCommunity method null homeCommunityId.
+     * 
+     * @throws Exception
+     * @throws ConnectionManagerException
+     * @throws IllegalArgumentException
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetUrlFromHomeCommunityNullId() throws IllegalArgumentException, ConnectionManagerException,
+            Exception {
+        context.checking(new Expectations() {
 
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+            {
+                exactly(1).of(mockLog).error(with(any(String.class)));
+            }
+        });
+        initializationExpectations();
 
-				@Override
-				protected String getEndPointFromConnectionManager(
-						String sHomeCommunityId, String sServiceName) {
-					return "http://www.theurl.com";
-				}
-			};
-			String sHomeCommunityId = "";
-			String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId,
-					NhincConstants.DOC_QUERY_SERVICE_NAME);
-	
-	}
+        WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
 
-	/**
-	 * Test the getUrlFromHomeCommunity method ConnectionManagerException.
-	 * @throws Exception 
-	 * @throws ConnectionManagerException 
-	 * @throws IllegalArgumentException 
-	 */
-	@Test(expected = ConnectionManagerException.class )
-	public void testGetUrlFromHomeCommunityConnectionManagerException() throws IllegalArgumentException, ConnectionManagerException, Exception {
-			context.checking(new Expectations() {
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
 
-				{
-					exactly(1).of(mockLog).info(with(any(String.class)));
-					exactly(1).of(mockLog).error(with(any(String.class)),
-							with(any(ConnectionManagerException.class)));
-				}
-			});
-			initializationExpectations();
-			WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+            @Override
+            protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName) {
+                return "http://www.theurl.com";
+            }
+        };
+        String sHomeCommunityId = null;
+        String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
 
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+    }
 
-				@Override
-				protected String getEndPointFromConnectionManager(
-						String sHomeCommunityId, String sServiceName)
-						throws ConnectionManagerException {
-					throw new ConnectionManagerException("Call failed.");
-				}
-			};
-			String sHomeCommunityId = "1.1";
-			String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId,
-					NhincConstants.DOC_QUERY_SERVICE_NAME);
-		
-	}
+    /**
+     * Test the getUrlFromHomeCommunity method empty homeCommunityId.
+     * 
+     * @throws Exception
+     * @throws ConnectionManagerException
+     * @throws IllegalArgumentException
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetUrlFromHomeCommunityEmptyId() throws IllegalArgumentException, ConnectionManagerException,
+            Exception {
+        context.checking(new Expectations() {
 
-	/**
-	 * Test the getUrlLocalHomeCommunity method happy path.
-	 * @throws Exception 
-	 * @throws ConnectionManagerException 
-	 * @throws IllegalArgumentException 
-	 */
-	@Test
-	public void testGetUrlLocalHomeCommunity() throws IllegalArgumentException, ConnectionManagerException, Exception {
-		initializationExpectations();
-		
-		WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+            {
+                exactly(1).of(mockLog).error(with(any(String.class)));
+            }
+        });
+        initializationExpectations();
 
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+        WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
 
-				@Override
-				protected String getLocalEndPointFromConnectionManager(
-						String sServiceName) {
-					return "http://www.theurl.com";
-				}
-			};
-			String sURL = oHelper
-					.getUrlLocalHomeCommunity(NhincConstants.DOC_QUERY_SERVICE_NAME);
-			assertEquals("URL was incorrect.", "http://www.theurl.com", sURL);
-		
-	}
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
 
-	/**
-	 * Test the getUrlLocalHomeCommunity method ConnectionManagerException.
-	 */
-	@Test
-	public void testGetUrlLocalHomeCommunityConnectionManagerException() {
-		try {
-			initializationExpectations();
-			
-			
-			context.checking(new Expectations() {
+            @Override
+            protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName) {
+                return "http://www.theurl.com";
+            }
+        };
+        String sHomeCommunityId = "";
+        String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
 
-				{
-					exactly(1).of(mockLog).error(with(any(String.class)),
-							with(any(ConnectionManagerException.class)));
-				}
-			});
-			WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+    }
 
-				@Override
-				protected Log createLogger() {
-					return mockLog;
-				}
+    /**
+     * Test the getUrlFromHomeCommunity method ConnectionManagerException.
+     * 
+     * @throws Exception
+     * @throws ConnectionManagerException
+     * @throws IllegalArgumentException
+     */
+    @Test(expected = ConnectionManagerException.class)
+    public void testGetUrlFromHomeCommunityConnectionManagerException() throws IllegalArgumentException,
+            ConnectionManagerException, Exception {
+        context.checking(new Expectations() {
 
-				@Override
-				protected String getLocalEndPointFromConnectionManager(
-						String sServiceName) throws ConnectionManagerException {
-					throw new ConnectionManagerException("Call failed.");
-				}
-			};
-			String sURL = oHelper
-					.getUrlLocalHomeCommunity(NhincConstants.DOC_QUERY_SERVICE_NAME);
-		} catch (ConnectionManagerException e) {
-			assertTrue("Invalid exception message: ",
-					e.getMessage().contains("Call failed."));
-		} catch (Throwable t) {
-			System.out
-					.println("Error running testGetUrlLocalHomeCommunityConnectionManagerException test: "
-							+ t.getMessage());
-			t.printStackTrace();
-			fail("Error running testGetUrlLocalHomeCommunityConnectionManagerException test: "
-					+ t.getMessage());
-		}
-	}
+            {
+                exactly(1).of(mockLog).info(with(any(String.class)));
+                exactly(1).of(mockLog).error(with(any(String.class)), with(any(ConnectionManagerException.class)));
+            }
+        });
+        initializationExpectations();
+        WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
+
+            @Override
+            protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
+                    throws ConnectionManagerException {
+                throw new ConnectionManagerException("Call failed.");
+            }
+        };
+        String sHomeCommunityId = "1.1";
+        String sURL = oHelper.getUrlFromHomeCommunity(sHomeCommunityId, NhincConstants.DOC_QUERY_SERVICE_NAME);
+
+    }
+
+    /**
+     * Test the getUrlLocalHomeCommunity method happy path.
+     * 
+     * @throws Exception
+     * @throws ConnectionManagerException
+     * @throws IllegalArgumentException
+     */
+    @Test
+    public void testGetUrlLocalHomeCommunity() throws IllegalArgumentException, ConnectionManagerException, Exception {
+        initializationExpectations();
+
+        WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
+
+            @Override
+            protected String getLocalEndPointFromConnectionManager(String sServiceName) {
+                return "http://www.theurl.com";
+            }
+        };
+        String sURL = oHelper.getUrlLocalHomeCommunity(NhincConstants.DOC_QUERY_SERVICE_NAME);
+        assertEquals("URL was incorrect.", "http://www.theurl.com", sURL);
+
+    }
+
+    /**
+     * Test the getUrlLocalHomeCommunity method ConnectionManagerException.
+     */
+    @Test
+    public void testGetUrlLocalHomeCommunityConnectionManagerException() {
+        try {
+            initializationExpectations();
+
+            context.checking(new Expectations() {
+
+                {
+                    exactly(1).of(mockLog).error(with(any(String.class)), with(any(ConnectionManagerException.class)));
+                }
+            });
+            WebServiceProxyHelper oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor) {
+
+                @Override
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected String getLocalEndPointFromConnectionManager(String sServiceName)
+                        throws ConnectionManagerException {
+                    throw new ConnectionManagerException("Call failed.");
+                }
+            };
+            String sURL = oHelper.getUrlLocalHomeCommunity(NhincConstants.DOC_QUERY_SERVICE_NAME);
+        } catch (ConnectionManagerException e) {
+            assertTrue("Invalid exception message: ", e.getMessage().contains("Call failed."));
+        } catch (Throwable t) {
+            System.out.println("Error running testGetUrlLocalHomeCommunityConnectionManagerException test: "
+                    + t.getMessage());
+            t.printStackTrace();
+            fail("Error running testGetUrlLocalHomeCommunityConnectionManagerException test: " + t.getMessage());
+        }
+    }
 }

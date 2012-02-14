@@ -33,11 +33,12 @@ import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class SubscriptionReferenceHelper {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SubscriptionReferenceHelper.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(SubscriptionReferenceHelper.class);
 
     /**
      * @deprecated
@@ -49,14 +50,16 @@ public class SubscriptionReferenceHelper {
         SubscribeResponse subscribeResponse = new SubscribeResponse();
 
         Element endpointReferenceXml = null;
-        endpointReferenceXml = XmlUtility.getSingleChildElement(subscribeResponseXml, Namespaces.WSNT, "SubscriptionReference");
+        endpointReferenceXml = XmlUtility.getSingleChildElement(subscribeResponseXml, Namespaces.WSNT,
+                "SubscriptionReference");
 
         EndpointReferenceHelper endpointReferenceHelper = new EndpointReferenceHelper();
-        EndpointReferenceType subscriptionReference = endpointReferenceHelper.createEndpointReference(endpointReferenceXml);
+        EndpointReferenceType subscriptionReference = endpointReferenceHelper
+                .createEndpointReference(endpointReferenceXml);
         subscribeResponse.setSubscriptionReference(subscriptionReference);
 
-        //todo: handle "CurrentTime"
-        //todo: handle "TerminationTime"
+        // todo: handle "CurrentTime"
+        // todo: handle "TerminationTime"
 
         return subscribeResponse;
     }

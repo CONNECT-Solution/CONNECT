@@ -36,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This class implements the policy engine PAP (Policy Access Point).
- *
+ * 
  * @author mastan.ketha
  */
 public class AdapterPAPImpl {
@@ -45,6 +45,7 @@ public class AdapterPAPImpl {
 
     /**
      * Get the Access Consent Policy (ACP) document for the patient.
+     * 
      * @param patientId
      * @return <code>Document</code>
      */
@@ -77,8 +78,8 @@ public class AdapterPAPImpl {
     }
 
     /**
-     * Get the Access Consent Policy (ACP) document from the document
-     * repository.
+     * Get the Access Consent Policy (ACP) document from the document repository.
+     * 
      * @param documentId
      * @return <code>Document</code>
      */
@@ -97,8 +98,9 @@ public class AdapterPAPImpl {
     }
 
     /**
-     * Saves the document to the repository. If the document id (PK) is null
-     * then the document is inserted, else the document is updated
+     * Saves the document to the repository. If the document id (PK) is null then the document is inserted, else the
+     * document is updated
+     * 
      * @param document
      * @return true - success; false - failure
      */
@@ -124,6 +126,7 @@ public class AdapterPAPImpl {
 
     /**
      * Deletes the document from the repository.
+     * 
      * @param document
      * @return true - success; false - failure
      */

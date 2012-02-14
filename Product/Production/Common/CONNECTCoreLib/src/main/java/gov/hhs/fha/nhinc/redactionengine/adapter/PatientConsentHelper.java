@@ -38,78 +38,71 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class PatientConsentHelper
-{
+public class PatientConsentHelper {
     private Log log = null;
 
-    public PatientConsentHelper()
-    {
+    public PatientConsentHelper() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected AdapterPIPImpl getAdapterPIP()
-    {
+    protected AdapterPIPImpl getAdapterPIP() {
         return new AdapterPIPImpl();
     }
 
-    public PatientPreferencesType retrievePatientConsentbyPatientId(String patientId, String assigningAuthorityId)
-    {
+    public PatientPreferencesType retrievePatientConsentbyPatientId(String patientId, String assigningAuthorityId) {
         PatientPreferencesType response = null;
-        try
-        {
-            log.debug("Retrieving patient preferences by patient id. Patient id (" + patientId + "), assigning authority id (" + assigningAuthorityId + ")");
+        try {
+            log.debug("Retrieving patient preferences by patient id. Patient id (" + patientId
+                    + "), assigning authority id (" + assigningAuthorityId + ")");
             RetrievePtConsentByPtIdRequestType retrieveRequest = new RetrievePtConsentByPtIdRequestType();
 
             retrieveRequest.setPatientId(patientId);
             retrieveRequest.setAssigningAuthority(assigningAuthorityId);
 
-            RetrievePtConsentByPtIdResponseType retrieveResponse = getAdapterPIP().retrievePtConsentByPtId(retrieveRequest);
-            if(retrieveResponse != null)
-            {
+            RetrievePtConsentByPtIdResponseType retrieveResponse = getAdapterPIP().retrievePtConsentByPtId(
+                    retrieveRequest);
+            if (retrieveResponse != null) {
                 response = retrieveResponse.getPatientPreferences();
             }
-        }
-        catch(Throwable t)
-        {
-            log.error("Error retrieving patient preferences. Patient id (" + patientId + "), assigning authority id (" + assigningAuthorityId + ") Error: " + t.getMessage(), t);
+        } catch (Throwable t) {
+            log.error("Error retrieving patient preferences. Patient id (" + patientId + "), assigning authority id ("
+                    + assigningAuthorityId + ") Error: " + t.getMessage(), t);
         }
         return response;
     }
 
-    public PatientPreferencesType retrievePatientConsentbyDocumentId(String homeCommunityId, String repositoryId, String documentId)
-    {
+    public PatientPreferencesType retrievePatientConsentbyDocumentId(String homeCommunityId, String repositoryId,
+            String documentId) {
         PatientPreferencesType response = null;
-        try
-        {
-            log.debug("Retrieving patient preferences by document id. Home community id (" + homeCommunityId + "), repository id (" + repositoryId + "), document id (" + documentId + ")");
+        try {
+            log.debug("Retrieving patient preferences by document id. Home community id (" + homeCommunityId
+                    + "), repository id (" + repositoryId + "), document id (" + documentId + ")");
             RetrievePtConsentByPtDocIdRequestType retrieveRequest = new RetrievePtConsentByPtDocIdRequestType();
 
             retrieveRequest.setHomeCommunityId(homeCommunityId);
             retrieveRequest.setRepositoryId(repositoryId);
             retrieveRequest.setDocumentId(documentId);
 
-            RetrievePtConsentByPtDocIdResponseType retrieveResponse = getAdapterPIP().retrievePtConsentByPtDocId(retrieveRequest);
-            if(retrieveResponse != null)
-            {
+            RetrievePtConsentByPtDocIdResponseType retrieveResponse = getAdapterPIP().retrievePtConsentByPtDocId(
+                    retrieveRequest);
+            if (retrieveResponse != null) {
                 response = retrieveResponse.getPatientPreferences();
                 log.debug("Retrieved patient consent document.");
-            }
-            else
-            {
+            } else {
                 log.debug("Patient consent document was null.");
             }
-        }
-        catch(Throwable t)
-        {
-            log.error("Error retrieving patient preferences. Home community id (" + homeCommunityId + "), repository id (" + repositoryId + "), document id (" + documentId + ") Error: " + t.getMessage(), t);
+        } catch (Throwable t) {
+            log.error(
+                    "Error retrieving patient preferences. Home community id (" + homeCommunityId
+                            + "), repository id (" + repositoryId + "), document id (" + documentId + ") Error: "
+                            + t.getMessage(), t);
         }
         return response;
     }
@@ -117,61 +110,50 @@ public class PatientConsentHelper
     /**
      * This method will extract the document type from Patient Preferences and compare with the one in document
      * response, if the document type present and matches then returns true otherwise it is considered as false (Deny).
+     * 
      * @param documentType
      * @param ptPreferences
      * @return boolean
      */
-    public boolean documentSharingAllowed(String documentType, PatientPreferencesType ptPreferences)
-    {
+    public boolean documentSharingAllowed(String documentType, PatientPreferencesType ptPreferences) {
         log.debug("Begin extract permit value from patient preferences - document type code tested: " + documentType);
         // Default to false in case something goes wrong.
         boolean allowDocumentSharing = false;
         FineGrainedPolicyCriteriaType findGrainedPolicy = null;
-        if(documentType == null || documentType.equals(""))
-        {
+        if (documentType == null || documentType.equals("")) {
             log.error("Invalid documentType");
             return allowDocumentSharing;
         }
-        if(ptPreferences == null)
-        {
+        if (ptPreferences == null) {
             log.error("Patient preferences was null");
             return allowDocumentSharing;
         }
 
         findGrainedPolicy = ptPreferences.getFineGrainedPolicyCriteria();
-        if(findGrainedPolicy == null ||
-                findGrainedPolicy.getFineGrainedPolicyCriterion() == null ||
-                findGrainedPolicy.getFineGrainedPolicyCriterion().isEmpty())
-        {
+        if (findGrainedPolicy == null || findGrainedPolicy.getFineGrainedPolicyCriterion() == null
+                || findGrainedPolicy.getFineGrainedPolicyCriterion().isEmpty()) {
             // No fine grained policy info - use simple opt-in/opt-out
             allowDocumentSharing = ptPreferences.isOptIn();
             log.debug("Simple opt-in/opt-out value from patient preferences: " + allowDocumentSharing);
-        }
-        else
-        {
+        } else {
             // No global opt-in/opt-out. Look at fine grained policy for opt-in limited
-            log.debug("Patient preferences has " + findGrainedPolicy.getFineGrainedPolicyCriterion().size() + " fine grained policy criterion.");
+            log.debug("Patient preferences has " + findGrainedPolicy.getFineGrainedPolicyCriterion().size()
+                    + " fine grained policy criterion.");
 
             String criterionDocumentTypeCode = null;
-            for(FineGrainedPolicyCriterionType eachFineGrainedPolicyCriterion : findGrainedPolicy.getFineGrainedPolicyCriterion())
-            {
-                if(eachFineGrainedPolicyCriterion != null)
-                {
-                    if(eachFineGrainedPolicyCriterion.getDocumentTypeCode() != null)
-                    {
+            for (FineGrainedPolicyCriterionType eachFineGrainedPolicyCriterion : findGrainedPolicy
+                    .getFineGrainedPolicyCriterion()) {
+                if (eachFineGrainedPolicyCriterion != null) {
+                    if (eachFineGrainedPolicyCriterion.getDocumentTypeCode() != null) {
                         criterionDocumentTypeCode = eachFineGrainedPolicyCriterion.getDocumentTypeCode().getCode();
                         log.debug("Looking at criterion for document type: " + criterionDocumentTypeCode);
-                        if(criterionDocumentTypeCode != null &&
-                                !criterionDocumentTypeCode.equals("") &&
-                                criterionDocumentTypeCode.equals(documentType))
-                        {
+                        if (criterionDocumentTypeCode != null && !criterionDocumentTypeCode.equals("")
+                                && criterionDocumentTypeCode.equals(documentType)) {
                             allowDocumentSharing = eachFineGrainedPolicyCriterion.isPermit();
                             // The algorithm is to use the first found - leave after the first match.
                             break;
                         }
-                    }
-                    else if(isDefaultFineGrainedPolicyCriterion(eachFineGrainedPolicyCriterion))
-                    {
+                    } else if (isDefaultFineGrainedPolicyCriterion(eachFineGrainedPolicyCriterion)) {
                         allowDocumentSharing = eachFineGrainedPolicyCriterion.isPermit();
                         break;
                     }
@@ -183,13 +165,10 @@ public class PatientConsentHelper
         return allowDocumentSharing;
     }
 
-
-    protected boolean isDefaultFineGrainedPolicyCriterion(FineGrainedPolicyCriterionType criterion)
-    {
+    protected boolean isDefaultFineGrainedPolicyCriterion(FineGrainedPolicyCriterionType criterion) {
         log.debug("Begin isDefaultFineGrainedPolicyCriterion");
         boolean defaultCriterion = false;
-        if(criterion != null)
-        {
+        if (criterion != null) {
             // Add other values when additional options are considered.
             defaultCriterion = ((criterion.getDocumentTypeCode() == null));
         }

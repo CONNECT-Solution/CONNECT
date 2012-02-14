@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEvents
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AuditRepositoryProxyNoOpImpl implements AuditRepositoryProxy {

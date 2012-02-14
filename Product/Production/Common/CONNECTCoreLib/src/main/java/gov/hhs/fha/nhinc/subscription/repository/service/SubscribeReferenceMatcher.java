@@ -38,14 +38,16 @@ import org.w3c.dom.Element;
 import org.w3._2005._08.addressing.EndpointReferenceType;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class SubscribeReferenceMatcher {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SubscribeReferenceMatcher.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(SubscribeReferenceMatcher.class);
 
-    public boolean isSubscriptionReferenceMatch(String prototypeSubscriptionReferenceXml, String possibleMatchSubscriptionReferenceXml) {
+    public boolean isSubscriptionReferenceMatch(String prototypeSubscriptionReferenceXml,
+            String possibleMatchSubscriptionReferenceXml) {
         boolean result = false;
         log.debug("isSubscriptionReferenceMatch (xml)");
         Element element1 = null;
@@ -63,26 +65,34 @@ public class SubscribeReferenceMatcher {
         return result;
     }
 
-    public boolean isSubscriptionReferenceMatch(Element prototypeSubscriptionReferenceElement, Element possibleMatchSubscriptionReferenceElement) {
+    public boolean isSubscriptionReferenceMatch(Element prototypeSubscriptionReferenceElement,
+            Element possibleMatchSubscriptionReferenceElement) {
         log.debug("isSubscriptionReferenceMatch");
-        log.debug("prototypeSubscriptionReferenceElement: [" + XmlUtility.serializeElementIgnoreFaults(prototypeSubscriptionReferenceElement) + "]");
-        log.debug("possibleMatchSubscriptionReferenceElement: [" + XmlUtility.serializeElementIgnoreFaults(possibleMatchSubscriptionReferenceElement) + "]");
+        log.debug("prototypeSubscriptionReferenceElement: ["
+                + XmlUtility.serializeElementIgnoreFaults(prototypeSubscriptionReferenceElement) + "]");
+        log.debug("possibleMatchSubscriptionReferenceElement: ["
+                + XmlUtility.serializeElementIgnoreFaults(possibleMatchSubscriptionReferenceElement) + "]");
 
         SubscriptionReferenceMarshaller marshaller = new SubscriptionReferenceMarshaller();
-        EndpointReferenceType subscribeSubscriptionReference = marshaller.unmarshal(prototypeSubscriptionReferenceElement);
-        EndpointReferenceType possibleMatchSubscriptionReference = marshaller.unmarshal(possibleMatchSubscriptionReferenceElement);
+        EndpointReferenceType subscribeSubscriptionReference = marshaller
+                .unmarshal(prototypeSubscriptionReferenceElement);
+        EndpointReferenceType possibleMatchSubscriptionReference = marshaller
+                .unmarshal(possibleMatchSubscriptionReferenceElement);
 
         return isSubscriptionReferenceMatch(subscribeSubscriptionReference, possibleMatchSubscriptionReference);
     }
 
-    public boolean isSubscriptionReferenceMatch(EndpointReferenceType prototypeSubscriptionReference, EndpointReferenceType possibleMatchSubscriptionReference) {
+    public boolean isSubscriptionReferenceMatch(EndpointReferenceType prototypeSubscriptionReference,
+            EndpointReferenceType possibleMatchSubscriptionReference) {
         boolean match = true;
         log.debug("isSubscriptionReferenceMatch");
 
         try {
             EndpointReferenceMarshaller marshaller = new EndpointReferenceMarshaller();
-            log.debug(XmlUtility.formatElementForLogging("prototypeSubscriptionReference", marshaller.marshal(prototypeSubscriptionReference)));
-            log.debug(XmlUtility.formatElementForLogging("possibleMatchSubscriptionReference", marshaller.marshal(possibleMatchSubscriptionReference)));
+            log.debug(XmlUtility.formatElementForLogging("prototypeSubscriptionReference",
+                    marshaller.marshal(prototypeSubscriptionReference)));
+            log.debug(XmlUtility.formatElementForLogging("possibleMatchSubscriptionReference",
+                    marshaller.marshal(possibleMatchSubscriptionReference)));
         } catch (Exception ex) {
             log.debug("failed to output endpoint references");
         }
@@ -95,10 +105,14 @@ public class SubscribeReferenceMatcher {
             match = false;
         } else {
             log.debug("check address");
-            match = match && isMatch(prototypeSubscriptionReference.getAddress(), possibleMatchSubscriptionReference.getAddress());
+            match = match
+                    && isMatch(prototypeSubscriptionReference.getAddress(),
+                            possibleMatchSubscriptionReference.getAddress());
             log.debug("match=" + match);
             log.debug("check reference parameters");
-            match = match && isMatch(prototypeSubscriptionReference.getReferenceParameters(), possibleMatchSubscriptionReference.getReferenceParameters());
+            match = match
+                    && isMatch(prototypeSubscriptionReference.getReferenceParameters(),
+                            possibleMatchSubscriptionReference.getReferenceParameters());
             log.debug("match=" + match);
         }
         return match;
@@ -111,20 +125,26 @@ public class SubscribeReferenceMatcher {
             log.debug("checking reference parameter [" + prototypeReferenceParameter.toString() + "]");
             if (prototypeReferenceParameter instanceof Element) {
                 Element prototypeReferenceParameterElement = (Element) prototypeReferenceParameter;
-                log.debug("reference parameter element [" + XmlUtility.serializeElementIgnoreFaults(prototypeReferenceParameterElement) + "]");
+                log.debug("reference parameter element ["
+                        + XmlUtility.serializeElementIgnoreFaults(prototypeReferenceParameterElement) + "]");
                 boolean foundMatchingReferenceParameter = false;
                 for (Object possibleMatchReferenceParameter : possibleMatch.getAny()) {
                     Element possibleMatchReferenceParameterElement = (Element) possibleMatchReferenceParameter;
-                    log.debug("trying to find matching reference parameter [[" + XmlUtility.serializeElementIgnoreFaults(prototypeReferenceParameterElement) + "]==[" + XmlUtility.serializeElementIgnoreFaults(possibleMatchReferenceParameterElement) + "]");
+                    log.debug("trying to find matching reference parameter [["
+                            + XmlUtility.serializeElementIgnoreFaults(prototypeReferenceParameterElement) + "]==["
+                            + XmlUtility.serializeElementIgnoreFaults(possibleMatchReferenceParameterElement) + "]");
 
                     log.debug("check node name");
-                    boolean matchOnNodeName = isMatch(prototypeReferenceParameterElement.getLocalName(), possibleMatchReferenceParameterElement.getLocalName());
+                    boolean matchOnNodeName = isMatch(prototypeReferenceParameterElement.getLocalName(),
+                            possibleMatchReferenceParameterElement.getLocalName());
 
                     log.debug("check node namespace");
-                    boolean matchOnNamespaceUri = isMatch(prototypeReferenceParameterElement.getNamespaceURI(), possibleMatchReferenceParameterElement.getNamespaceURI());
+                    boolean matchOnNamespaceUri = isMatch(prototypeReferenceParameterElement.getNamespaceURI(),
+                            possibleMatchReferenceParameterElement.getNamespaceURI());
 
                     log.debug("check node value");
-                    boolean matchOnNodeValue = isMatch(XmlUtility.getNodeValue(prototypeReferenceParameterElement), XmlUtility.getNodeValue(possibleMatchReferenceParameterElement));
+                    boolean matchOnNodeValue = isMatch(XmlUtility.getNodeValue(prototypeReferenceParameterElement),
+                            XmlUtility.getNodeValue(possibleMatchReferenceParameterElement));
 
                     if (matchOnNodeName && matchOnNodeValue && matchOnNamespaceUri) {
                         log.debug("found match");

@@ -32,16 +32,16 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public interface NhinDocQueryProxy {
     /**
      * Sends a document query to another Gateway.
-     *
+     * 
      * @param request Document Query Request.
      * @return List of Documents that match the search criteria.
      */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, 
-            AssertionType assertion, NhinTargetSystemType target) throws Exception;
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
+            NhinTargetSystemType target) throws Exception;
 }

@@ -44,7 +44,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mflynn02
  */
 @RunWith(JMock.class)
@@ -101,27 +101,28 @@ public class NhincPatientDiscoveryOrchImplTest {
     @Test
     public void testProxyPRPAIN201305UV() {
         try {
-            NhincPatientDiscoveryOrchImpl instance = new NhincPatientDiscoveryOrchImpl()
-            {
+            NhincPatientDiscoveryOrchImpl instance = new NhincPatientDiscoveryOrchImpl() {
                 @Override
-                protected Log createLogger ( ) {
-                   return mockLog;
+                protected Log createLogger() {
+                    return mockLog;
                 }
-                    @Override
-                    protected void logNhincPatientDiscoveryRequest(PRPAIN201305UV02 request, AssertionType assertion) {
-                    }
 
-                    @Override
-                    protected void logNhincPatientDiscoveryResponse(PRPAIN201306UV02 response, AssertionType assertion) {
-                    }
-                    @Override
-                    protected PRPAIN201306UV02 sendToNhinProxy(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
-                        return mockPRPAIN201306UV02;
-                    }
+                @Override
+                protected void logNhincPatientDiscoveryRequest(PRPAIN201305UV02 request, AssertionType assertion) {
+                }
+
+                @Override
+                protected void logNhincPatientDiscoveryResponse(PRPAIN201306UV02 response, AssertionType assertion) {
+                }
+
+                @Override
+                protected PRPAIN201306UV02 sendToNhinProxy(PRPAIN201305UV02 request, AssertionType assertion,
+                        NhinTargetSystemType target) {
+                    return mockPRPAIN201306UV02;
+                }
 
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
                     allowing(mockTargetSystem).getHomeCommunity();

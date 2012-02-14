@@ -39,7 +39,7 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 public class AdapterComponentRedactionEngineImpl {
@@ -54,7 +54,8 @@ public class AdapterComponentRedactionEngineImpl {
         return LogFactory.getLog(getClass());
     }
 
-    public FilterDocQueryResultsResponseType filterDocQueryResults(FilterDocQueryResultsRequestType filterDocQueryResultsRequest, WebServiceContext context) {
+    public FilterDocQueryResultsResponseType filterDocQueryResults(
+            FilterDocQueryResultsRequestType filterDocQueryResultsRequest, WebServiceContext context) {
         log.debug("Begin filterDocQueryResults");
         FilterDocQueryResultsResponseType response = null;
         AssertionType assertion = getAssertion(context);
@@ -70,10 +71,11 @@ public class AdapterComponentRedactionEngineImpl {
         return response;
     }
 
-    public FilterDocRetrieveResultsResponseType filterDocRetrieveResults(FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest, WebServiceContext context) {
+    public FilterDocRetrieveResultsResponseType filterDocRetrieveResults(
+            FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest, WebServiceContext context) {
         FilterDocRetrieveResultsResponseType response = null;
         AssertionType assertion = getAssertion(context);
-        
+
         if (filterDocRetrieveResultsRequest == null) {
             log.warn("FilterDocRetrieveResultsRequestType was null");
         } else {
@@ -94,14 +96,20 @@ public class AdapterComponentRedactionEngineImpl {
         return assertion;
     }
 
-    protected AdhocQueryResponse invokeRedactionEngineForQuery (FilterDocQueryResultsRequestType filterDocQueryResultsRequest) {
-        AdhocQueryResponse adhocQueryResponse = new AdapterRedactionEngineOrchImpl().filterAdhocQueryResults(filterDocQueryResultsRequest.getAdhocQueryRequest(), filterDocQueryResultsRequest.getAdhocQueryResponse());
+    protected AdhocQueryResponse invokeRedactionEngineForQuery(
+            FilterDocQueryResultsRequestType filterDocQueryResultsRequest) {
+        AdhocQueryResponse adhocQueryResponse = new AdapterRedactionEngineOrchImpl().filterAdhocQueryResults(
+                filterDocQueryResultsRequest.getAdhocQueryRequest(),
+                filterDocQueryResultsRequest.getAdhocQueryResponse());
 
         return adhocQueryResponse;
     }
 
-    protected RetrieveDocumentSetResponseType invokeRedactionEngineForRetrieve (FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest) {
-        RetrieveDocumentSetResponseType retrieveDocSetResponse = new AdapterRedactionEngineOrchImpl().filterRetrieveDocumentSetResults(filterDocRetrieveResultsRequest.getRetrieveDocumentSetRequest(), filterDocRetrieveResultsRequest.getRetrieveDocumentSetResponse());
+    protected RetrieveDocumentSetResponseType invokeRedactionEngineForRetrieve(
+            FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest) {
+        RetrieveDocumentSetResponseType retrieveDocSetResponse = new AdapterRedactionEngineOrchImpl()
+                .filterRetrieveDocumentSetResults(filterDocRetrieveResultsRequest.getRetrieveDocumentSetRequest(),
+                        filterDocRetrieveResultsRequest.getRetrieveDocumentSetResponse());
 
         return retrieveDocSetResponse;
     }

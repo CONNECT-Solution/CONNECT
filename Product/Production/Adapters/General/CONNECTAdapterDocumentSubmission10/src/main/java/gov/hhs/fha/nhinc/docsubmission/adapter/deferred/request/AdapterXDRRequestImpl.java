@@ -37,33 +37,29 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class AdapterXDRRequestImpl
-{
+public class AdapterXDRRequestImpl {
     private Log log = null;
 
-    public AdapterXDRRequestImpl()
-    {
+    public AdapterXDRRequestImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         log.debug("Begin AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(unsecure)");
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
         String url = null;
         AssertionType assertion = null;
-        if (body != null)
-        {
+        if (body != null) {
             request = body.getProvideAndRegisterDocumentSetRequest();
             url = body.getUrl();
             assertion = body.getAssertion();
@@ -75,16 +71,16 @@ public class AdapterXDRRequestImpl
         return response;
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType body,
+            WebServiceContext context) {
         log.debug("Begin AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(secure)");
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
         String url = null;
         AssertionType assertion = null;
-        if (body != null)
-        {
+        if (body != null) {
             request = body.getProvideAndRegisterDocumentSetRequest();
             url = body.getUrl();
         }
@@ -95,28 +91,24 @@ public class AdapterXDRRequestImpl
         return response;
     }
 
-    protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn)
-    {
+    protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
-        if (oAssertionIn == null)
-        {
+        if (oAssertionIn == null) {
             assertion = SamlTokenExtractor.GetAssertion(context);
-        }
-        else
-        {
+        } else {
             assertion = oAssertionIn;
         }
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null)
-        {
+        if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
 
         return assertion;
     }
 
-    protected XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion)
-    {
-        return new AdapterDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request, url, assertion);
+    protected XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion) {
+        return new AdapterDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request, url,
+                assertion);
     }
 }

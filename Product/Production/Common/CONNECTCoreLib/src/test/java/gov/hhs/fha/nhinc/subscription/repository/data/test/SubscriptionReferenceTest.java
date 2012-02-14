@@ -38,14 +38,11 @@ import org.junit.Ignore;
  * @author webbn
  */
 @Ignore
-public class SubscriptionReferenceTest
-{
+public class SubscriptionReferenceTest {
     @Test
-    public void testGettersAndSetters()
-    {
+    public void testGettersAndSetters() {
         System.out.println("Begin testGettersAndSetters");
-        try
-        {
+        try {
             String subMgrEndptAddr = "Submgredptaddr";
             String namespace = "namespace";
             String namespacePrefix = "prefix";
@@ -71,9 +68,7 @@ public class SubscriptionReferenceTest
             assertEquals("Ref param - namespace prefix", namespacePrefix, retRefParam.getNamespacePrefix());
             assertEquals("Ref param - element name", elementName, retRefParam.getElementName());
             assertEquals("Ref param - value", value, retRefParam.getValue());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail(t.getMessage());
         }
@@ -81,11 +76,9 @@ public class SubscriptionReferenceTest
     }
 
     @Test
-    public void testEquals()
-    {
+    public void testEquals() {
         System.out.println("Begin testEquals");
-        try
-        {
+        try {
             // Equals - full
             ReferenceParameter refParam = new ReferenceParameter();
             refParam.setNamespace("namespace1");
@@ -229,9 +222,7 @@ public class SubscriptionReferenceTest
             ref2.addReferenceParameter(refParam);
             assertFalse("Not equal - 2 full, 1 missing ref param", ref1.equals(ref2));
 
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail(t.getMessage());
         }

@@ -40,7 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQueryProxy {
@@ -68,18 +68,20 @@ public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQu
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected NhincProxyDocQuerySecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected NhincProxyDocQuerySecuredPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         NhincProxyDocQuerySecuredPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyDocQuerySecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -88,7 +90,7 @@ public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQu
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -102,19 +104,20 @@ public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQu
         return cachedService;
     }
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, 
-            AssertionType assertion, NhinTargetSystemType target) throws Exception{
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion,
+            NhinTargetSystemType target) throws Exception {
         log.debug("Begin respondingGatewayCrossGatewayQuery");
         AdhocQueryResponse response = null;
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.NHINC_PROXY_DOC_QUERY_SECURED_SERVICE_NAME);
-            NhincProxyDocQuerySecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper
+                    .getUrlLocalHomeCommunity(NhincConstants.NHINC_PROXY_DOC_QUERY_SECURED_SERVICE_NAME);
+            NhincProxyDocQuerySecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION,
+                    WS_ADDRESSING_ACTION, assertion);
 
             if (body == null) {
                 log.error("Message was null");
-            }
-            else if (target == null) {
+            } else if (target == null) {
                 log.error("target was null");
             } else if (port == null) {
                 log.error("port was null");
@@ -123,7 +126,8 @@ public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQu
                 request.setAdhocQueryRequest(body);
                 request.setNhinTargetSystem(target);
 
-                response = (AdhocQueryResponse) oProxyHelper.invokePort(port, NhincProxyDocQuerySecuredPortType.class, "respondingGatewayCrossGatewayQuery", request);
+                response = (AdhocQueryResponse) oProxyHelper.invokePort(port, NhincProxyDocQuerySecuredPortType.class,
+                        "respondingGatewayCrossGatewayQuery", request);
             }
         } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);

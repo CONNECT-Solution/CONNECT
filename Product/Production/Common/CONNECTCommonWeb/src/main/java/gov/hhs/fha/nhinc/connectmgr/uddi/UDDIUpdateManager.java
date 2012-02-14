@@ -31,7 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "NhincComponentUDDIUpdateManager", portName = "NhincComponentUDDIUpdateManagerPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentuddiupdatemanager.NhincComponentUDDIUpdateManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentuddiupdatemanager", wsdlLocation = "WEB-INF/wsdl/UDDIUpdateManager/NhincComponentUDDIUpdateManager.wsdl")
@@ -39,17 +39,17 @@ public class UDDIUpdateManager {
 
     private static Log log = LogFactory.getLog(UDDIUpdateManager.class);
 
-//    static {
-//        //WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
-//        javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
-//                new javax.net.ssl.HostnameVerifier() {
-//
-//                    public boolean verify(String hostname,
-//                            javax.net.ssl.SSLSession sslSession) {
-//                        return true;
-//                    }
-//                });
-//    }
+    // static {
+    // //WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
+    // javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
+    // new javax.net.ssl.HostnameVerifier() {
+    //
+    // public boolean verify(String hostname,
+    // javax.net.ssl.SSLSession sslSession) {
+    // return true;
+    // }
+    // });
+    // }
 
     /**
      * Default constructor.
@@ -64,7 +64,8 @@ public class UDDIUpdateManager {
         }
     }
 
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshResponseType forceRefreshFileFromUDDIServer(gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshRequestType uddiUpdateManagerForceRefreshRequest) {
+    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshResponseType forceRefreshFileFromUDDIServer(
+            gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshRequestType uddiUpdateManagerForceRefreshRequest) {
         UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();
         return helper.forceRefreshFileFromUDDIServer(uddiUpdateManagerForceRefreshRequest);
     }

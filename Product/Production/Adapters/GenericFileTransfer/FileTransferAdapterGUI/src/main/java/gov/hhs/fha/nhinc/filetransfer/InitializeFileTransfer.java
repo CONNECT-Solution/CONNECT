@@ -32,7 +32,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public class InitializeFileTransfer implements ServletContextListener {
@@ -43,17 +43,17 @@ public class InitializeFileTransfer implements ServletContextListener {
         initializeFileTransfer();
         log.info("Servlet Context Listner - End");
     }
-    private static void initializeFileTransfer()
-    {
+
+    private static void initializeFileTransfer() {
         log.info("Servlet Context initializeFileTransfer - Begin");
-        try{
-        CDCTimer.startTimer();
-        }catch(CDCTimerException exp)
-        {
+        try {
+            CDCTimer.startTimer();
+        } catch (CDCTimerException exp) {
             exp.printStackTrace();
         }
         log.info("Servlet Context initializeFileTransfer - End");
     }
+
     public void contextDestroyed(ServletContextEvent sce) {
         log.info("Servlet Context contextDestroyed - Begin");
         CDCTimer.stopTimer();

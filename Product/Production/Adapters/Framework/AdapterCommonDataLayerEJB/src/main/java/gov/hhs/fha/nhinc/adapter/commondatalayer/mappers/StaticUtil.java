@@ -36,57 +36,57 @@ import org.hl7.v3.AdxpExplicitStreetAddressLine;
 import org.hl7.v3.TELExplicit;
 
 /**
- *
+ * 
  * @author kim
  */
 public class StaticUtil {
 
-   private static org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+    private static org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
 
-   public static ADExplicit createAddress(String streetName, String city, String state, String zip, String country) {
-      ADExplicit addr = new ADExplicit();
+    public static ADExplicit createAddress(String streetName, String city, String state, String zip, String country) {
+        ADExplicit addr = new ADExplicit();
 
-      addr.getUse().add("HP");
+        addr.getUse().add("HP");
 
-      List addrlist = addr.getContent();
-      if (streetName != null && streetName.length() > 0) {
-         AdxpExplicitStreetAddressLine streetAddrLine = new AdxpExplicitStreetAddressLine();
-         streetAddrLine.setContent(streetName);
-         addrlist.add(factory.createADExplicitStreetAddressLine(streetAddrLine));
-      }
+        List addrlist = addr.getContent();
+        if (streetName != null && streetName.length() > 0) {
+            AdxpExplicitStreetAddressLine streetAddrLine = new AdxpExplicitStreetAddressLine();
+            streetAddrLine.setContent(streetName);
+            addrlist.add(factory.createADExplicitStreetAddressLine(streetAddrLine));
+        }
 
-      if (city != null && city.length() > 0) {
-         AdxpExplicitCity aCity = new AdxpExplicitCity();
-         aCity.setContent(city);
-         addrlist.add(factory.createADExplicitCity(aCity));
-      }
+        if (city != null && city.length() > 0) {
+            AdxpExplicitCity aCity = new AdxpExplicitCity();
+            aCity.setContent(city);
+            addrlist.add(factory.createADExplicitCity(aCity));
+        }
 
-      if (state != null && state.length() > 0) {
-         AdxpExplicitState aState = new AdxpExplicitState();
-         aState.setContent(state);
-         addrlist.add(factory.createADExplicitState(aState));
-      }
+        if (state != null && state.length() > 0) {
+            AdxpExplicitState aState = new AdxpExplicitState();
+            aState.setContent(state);
+            addrlist.add(factory.createADExplicitState(aState));
+        }
 
-      if (zip != null && zip.length() > 0) {
-         AdxpExplicitPostalCode postalCode = new AdxpExplicitPostalCode();
-         postalCode.setContent(zip);
-         addrlist.add(factory.createADExplicitPostalCode(postalCode));
-      }
+        if (zip != null && zip.length() > 0) {
+            AdxpExplicitPostalCode postalCode = new AdxpExplicitPostalCode();
+            postalCode.setContent(zip);
+            addrlist.add(factory.createADExplicitPostalCode(postalCode));
+        }
 
-      if (country != null && country.length() > 0) {
-         AdxpExplicitCountry aCountry = new AdxpExplicitCountry();
-         aCountry.setContent(country);
-         addrlist.add(factory.createADExplicitCountry(aCountry));
-      }
+        if (country != null && country.length() > 0) {
+            AdxpExplicitCountry aCountry = new AdxpExplicitCountry();
+            aCountry.setContent(country);
+            addrlist.add(factory.createADExplicitCountry(aCountry));
+        }
 
-      return addr;
-   }
+        return addr;
+    }
 
-   public static TELExplicit createTelecom(String phoneNumber, String type) {
-      TELExplicit telecom = new TELExplicit();
-      telecom.getUse().add(type);
-      telecom.setValue(phoneNumber);
+    public static TELExplicit createTelecom(String phoneNumber, String type) {
+        TELExplicit telecom = new TELExplicit();
+        telecom.getUse().add(type);
+        telecom.setValue(phoneNumber);
 
-      return telecom;
-   }
+        return telecom;
+    }
 }

@@ -35,29 +35,26 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class PassthruPatientDiscoveryDeferredRespProxyJavaImpl implements PassthruPatientDiscoveryDeferredRespProxy
-{
+public class PassthruPatientDiscoveryDeferredRespProxyJavaImpl implements PassthruPatientDiscoveryDeferredRespProxy {
     private Log log = null;
 
-    public PassthruPatientDiscoveryDeferredRespProxyJavaImpl()
-    {
+    public PassthruPatientDiscoveryDeferredRespProxyJavaImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-
-    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetSystemType targetSystem)
-    {
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
+            NhinTargetSystemType targetSystem) {
         log.debug("Begin PassthruPatientDiscoveryDeferredRespProxyJavaImpl.processPatientDiscoveryAsyncResp(...)");
         MCCIIN000002UV01 response = null;
-        response = new PassthruPatientDiscoveryDeferredRespOrchImpl().proxyProcessPatientDiscoveryAsyncResp(request, assertion, targetSystem);
+        response = new PassthruPatientDiscoveryDeferredRespOrchImpl().proxyProcessPatientDiscoveryAsyncResp(request,
+                assertion, targetSystem);
         log.debug("End PassthruPatientDiscoveryDeferredRespProxyJavaImpl.processPatientDiscoveryAsyncResp(...)");
         return response;
     }

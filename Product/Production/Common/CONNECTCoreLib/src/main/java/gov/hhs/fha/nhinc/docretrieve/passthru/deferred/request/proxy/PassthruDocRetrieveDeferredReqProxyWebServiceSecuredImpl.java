@@ -42,7 +42,7 @@ import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class PassthruDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements PassthruDocRetrieveDeferredReqProxy {
@@ -67,7 +67,7 @@ public class PassthruDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements
     }
 
     /**
-     *
+     * 
      * @return WebServiceProxyHelper
      */
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -76,6 +76,7 @@ public class PassthruDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements
 
     /**
      * Creates logger instance
+     * 
      * @return Log
      */
     protected Log createLogger() {
@@ -83,13 +84,14 @@ public class PassthruDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements
     }
 
     /**
-     *
+     * 
      * @param request
      * @param assertion
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType request,
+            AssertionType assertion, NhinTargetSystemType target) {
         if (debugEnable) {
             log.debug("-- Begin NhincProxyDocRetrieveDeferredReqSecuredWebServiceImpl.crossGatewayRetrieveRequest() --");
         }
@@ -97,13 +99,16 @@ public class PassthruDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements
         String url = null;
         try {
             url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.NHINCPROXY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST);
-            NhincProxyDocRetrieveDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOCRETRIEVE_DEFERRED_ACTION, WS_ADDRESSING_ACTION, assertion);
+            NhincProxyDocRetrieveDeferredRequestSecuredPortType port = getPort(url,
+                    NhincConstants.DOCRETRIEVE_DEFERRED_ACTION, WS_ADDRESSING_ACTION, assertion);
             RespondingGatewayCrossGatewayRetrieveSecuredRequestType req = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
             req.setNhinTargetSystem(target);
             req.setRetrieveDocumentSetRequest(request);
-            ack = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port, NhincProxyDocRetrieveDeferredRequestSecuredPortType.class, "crossGatewayRetrieveRequest", req);
+            ack = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port,
+                    NhincProxyDocRetrieveDeferredRequestSecuredPortType.class, "crossGatewayRetrieveRequest", req);
         } catch (Exception e) {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.NHINCPROXY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST);
+            log.error("Error: Failed to retrieve url for service: "
+                    + NhincConstants.NHINCPROXY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST);
             log.error(e.getMessage());
             ack = new DocRetrieveAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();
@@ -117,22 +122,25 @@ public class PassthruDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements
     }
 
     /**
-     *
+     * 
      * @param url
      * @param serviceAction
      * @param wsAddressingAction
      * @param assertion
      * @return NhincProxyDocRetrieveDeferredRequestSecuredPortType
      */
-    protected NhincProxyDocRetrieveDeferredRequestSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected NhincProxyDocRetrieveDeferredRequestSecuredPortType getPort(String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion) {
         NhincProxyDocRetrieveDeferredRequestSecuredPortType port = null;
         Service service = getService();
         if (service != null) {
             if (debugEnable) {
                 log.debug("Obtained service - creating port.");
             }
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyDocRetrieveDeferredRequestSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    NhincProxyDocRetrieveDeferredRequestSecuredPortType.class);
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -141,7 +149,7 @@ public class PassthruDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {

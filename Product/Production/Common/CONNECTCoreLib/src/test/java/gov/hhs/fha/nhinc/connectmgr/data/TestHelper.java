@@ -29,34 +29,32 @@ package gov.hhs.fha.nhinc.connectmgr.data;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class TestHelper {
 
-    public static boolean assertConnInfoEmpty (CMInternalConnectionInfo connInfo) {
-        if (NullChecker.isNullish(connInfo.getDescription()) &&
-                NullChecker.isNullish(connInfo.getHomeCommunityId()) &&
-                NullChecker.isNullish(connInfo.getName()) &&
-                connInfo.getServices() == null &&
-                connInfo.getStates() == null) {
+    public static boolean assertConnInfoEmpty(CMInternalConnectionInfo connInfo) {
+        if (NullChecker.isNullish(connInfo.getDescription()) && NullChecker.isNullish(connInfo.getHomeCommunityId())
+                && NullChecker.isNullish(connInfo.getName()) && connInfo.getServices() == null
+                && connInfo.getStates() == null) {
             return true;
         }
         return false;
     }
 
-    public static boolean assertConnInfoNotEmpty (CMInternalConnectionInfo connInfo) {
-       if (NullChecker.isNotNullish(connInfo.getDescription()) ||
-               NullChecker.isNotNullish(connInfo.getHomeCommunityId()) ||
-               NullChecker.isNotNullish(connInfo.getName()) ||
-               NullChecker.isNotNullish(connInfo.getServices().getService()) ||
-               NullChecker.isNotNullish(connInfo.getStates().getState())) {
-           return true;
-       }
-       return false;
+    public static boolean assertConnInfoNotEmpty(CMInternalConnectionInfo connInfo) {
+        if (NullChecker.isNotNullish(connInfo.getDescription())
+                || NullChecker.isNotNullish(connInfo.getHomeCommunityId())
+                || NullChecker.isNotNullish(connInfo.getName())
+                || NullChecker.isNotNullish(connInfo.getServices().getService())
+                || NullChecker.isNotNullish(connInfo.getStates().getState())) {
+            return true;
+        }
+        return false;
     }
 
-    public static CMInternalConnectionInfo createConnInfo (String commId, String commName, String desc, String servDesc,
+    public static CMInternalConnectionInfo createConnInfo(String commId, String commName, String desc, String servDesc,
             String url, String servName, String stateName, boolean supportsLift, String protocolName) {
         String hcid = commId;
         String name = commName;
@@ -85,34 +83,27 @@ public class TestHelper {
         return instance;
     }
 
-      public static boolean assertBusinessEntityEmpty (CMBusinessEntity busEntity) {
-        if (busEntity.getHomeCommunityId().equals("") &&
-                busEntity.getBusinessKey().equals("") &&
-                busEntity.getPublicKey().equals("") &&
-                busEntity.getPublicKeyURI().equals("") &&
-                busEntity.getBusinessServices() == null &&
-                busEntity.getDescriptions() == null &&
-                busEntity.getDiscoveryURLs() == null &&
-                busEntity.isFederalHIE() == false &&
-                busEntity.getContacts() == null &&
-                busEntity.getStates() == null) {
+    public static boolean assertBusinessEntityEmpty(CMBusinessEntity busEntity) {
+        if (busEntity.getHomeCommunityId().equals("") && busEntity.getBusinessKey().equals("")
+                && busEntity.getPublicKey().equals("") && busEntity.getPublicKeyURI().equals("")
+                && busEntity.getBusinessServices() == null && busEntity.getDescriptions() == null
+                && busEntity.getDiscoveryURLs() == null && busEntity.isFederalHIE() == false
+                && busEntity.getContacts() == null && busEntity.getStates() == null) {
             return true;
         }
         return false;
     }
 
-     public static boolean assertConnInfoNotEmpty (CMBusinessEntity busEntity) {
-       if (NullChecker.isNotNullish(busEntity.getBusinessServices().getBusinessService()) ||
-               NullChecker.isNotNullish(busEntity.getDescriptions().getBusinessDescription()) ||
-               NullChecker.isNotNullish(busEntity.getDiscoveryURLs().getDiscoveryURL()) ||
-               NullChecker.isNotNullish(busEntity.getContacts().getContact()) ||
-               NullChecker.isNotNullish(busEntity.getStates().getState()) ||
-               !busEntity.getHomeCommunityId().equals("") ||
-               !busEntity.getBusinessKey().equals("") ||
-               !busEntity.getPublicKey().equals("") ||
-               !busEntity.getPublicKeyURI().equals("")) {
-           return true;
-       }
-       return false;
+    public static boolean assertConnInfoNotEmpty(CMBusinessEntity busEntity) {
+        if (NullChecker.isNotNullish(busEntity.getBusinessServices().getBusinessService())
+                || NullChecker.isNotNullish(busEntity.getDescriptions().getBusinessDescription())
+                || NullChecker.isNotNullish(busEntity.getDiscoveryURLs().getDiscoveryURL())
+                || NullChecker.isNotNullish(busEntity.getContacts().getContact())
+                || NullChecker.isNotNullish(busEntity.getStates().getState())
+                || !busEntity.getHomeCommunityId().equals("") || !busEntity.getBusinessKey().equals("")
+                || !busEntity.getPublicKey().equals("") || !busEntity.getPublicKeyURI().equals("")) {
+            return true;
+        }
+        return false;
     }
 }

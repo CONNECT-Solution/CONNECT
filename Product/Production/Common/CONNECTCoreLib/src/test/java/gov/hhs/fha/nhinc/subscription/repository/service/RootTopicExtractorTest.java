@@ -44,23 +44,24 @@ import org.xml.sax.SAXException;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author rayj
  */
 @Ignore
 public class RootTopicExtractorTest {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(RootTopicExtractorTest.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(RootTopicExtractorTest.class);
 
     public RootTopicExtractorTest() {
     }
 
-//    public Node xmlToNode(String xmlSource) throws ParserConfigurationException, SAXException, IOException {
-//        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//        DocumentBuilder builder = factory.newDocumentBuilder();
-//        Document doc = builder.parse(new InputSource(new StringReader(xmlSource)));
-//        return (Node) doc.getDocumentElement();
-//    }
+    // public Node xmlToNode(String xmlSource) throws ParserConfigurationException, SAXException, IOException {
+    // DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    // DocumentBuilder builder = factory.newDocumentBuilder();
+    // Document doc = builder.parse(new InputSource(new StringReader(xmlSource)));
+    // return (Node) doc.getDocumentElement();
+    // }
     @Test
     public void ExtractSimpleRootTopicFromTopicExpressionNoNamespace() throws Exception {
         String topicExpressionXml = "<wsnt:TopicExpression xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\" Dialect=\"http://doc.oasis-open.org/wsn/t-1/TopicExpression/Simple\">SomeTopic</wsnt:TopicExpression> ";
@@ -113,48 +114,40 @@ public class RootTopicExtractorTest {
     @Test
     public void ExtractDocumentTopicFromV1Format() throws Exception {
         String expectedRootTopic = "{urn:gov.hhs.fha.nhinc.hiemtopic}document";
-        String subscribe =
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?> " +
-                "<wsnt:Subscribe xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:PrefixDefinedInHeader=\"urn:myNamespace\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\" xmlns:nhin-cdc=\"http://www.hhs.gov/healthit/nhin/cdc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://docs.oasis-open.org/wsn/b-2 schemas/docs.oasis-open.org/wsn/b-2.xsd\"> " +
-                "	<wsnt:ConsumerReference> " +
-                "		<wsa:Address>https://remotegateway/NotificationConsumerService</wsa:Address> " +
-                "		<wsa:ReferenceParameters> " +
-                "			<nhin:UserAddress xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">user@remotegateway</nhin:UserAddress> " +
-                "			<prefix:CustomInformation xmlns:prefix=\"http://remotegateway/somenamespace\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">Custom Data</prefix:CustomInformation> " +
-                "		</wsa:ReferenceParameters> " +
-                "	</wsnt:ConsumerReference> " +
-                "	<rim:AdhocQuery id=\"urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d\" xmlns:rim=\"urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0\">" +
-                "	   <rim:Slot name=\"$XDSDocumentEntryPatientId\"> " +
-                "	      <rim:ValueList> " +
-                "	         <rim:Value>222498764^^^&amp;2.16.840.1.113883.3.18.103&amp;ISO</rim:Value> " +
-                "	      </rim:ValueList> " +
-                "	   </rim:Slot> " +
-                "      <rim:Slot name=\"$XDSDocumentEntryClassCode\">  " +
-                "	      <rim:ValueList> " +
-                "	         <rim:Value>('XNHIN-CONSENT')</rim:Value> " +
-                "	      </rim:ValueList> " +
-                "	   </rim:Slot> " +
-                "   </rim:AdhocQuery> " +
-                "</wsnt:Subscribe>";
+        String subscribe = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> "
+                + "<wsnt:Subscribe xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:PrefixDefinedInHeader=\"urn:myNamespace\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\" xmlns:nhin-cdc=\"http://www.hhs.gov/healthit/nhin/cdc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://docs.oasis-open.org/wsn/b-2 schemas/docs.oasis-open.org/wsn/b-2.xsd\"> "
+                + "	<wsnt:ConsumerReference> "
+                + "		<wsa:Address>https://remotegateway/NotificationConsumerService</wsa:Address> "
+                + "		<wsa:ReferenceParameters> "
+                + "			<nhin:UserAddress xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">user@remotegateway</nhin:UserAddress> "
+                + "			<prefix:CustomInformation xmlns:prefix=\"http://remotegateway/somenamespace\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">Custom Data</prefix:CustomInformation> "
+                + "		</wsa:ReferenceParameters> "
+                + "	</wsnt:ConsumerReference> "
+                + "	<rim:AdhocQuery id=\"urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d\" xmlns:rim=\"urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0\">"
+                + "	   <rim:Slot name=\"$XDSDocumentEntryPatientId\"> " + "	      <rim:ValueList> "
+                + "	         <rim:Value>222498764^^^&amp;2.16.840.1.113883.3.18.103&amp;ISO</rim:Value> "
+                + "	      </rim:ValueList> " + "	   </rim:Slot> "
+                + "      <rim:Slot name=\"$XDSDocumentEntryClassCode\">  " + "	      <rim:ValueList> "
+                + "	         <rim:Value>('XNHIN-CONSENT')</rim:Value> " + "	      </rim:ValueList> "
+                + "	   </rim:Slot> " + "   </rim:AdhocQuery> " + "</wsnt:Subscribe>";
         executeTest(subscribe, expectedRootTopic);
     }
 
-    private void executeTopicTest(String topicExpression, String expectedRootTopic) throws SubscriptionRepositoryException {
-        String subscribe =
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?> " +
-                "<wsnt:Subscribe xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:PrefixDefinedInHeader=\"urn:myNamespace\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\" xmlns:nhin-cdc=\"http://www.hhs.gov/healthit/nhin/cdc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://docs.oasis-open.org/wsn/b-2 schemas/docs.oasis-open.org/wsn/b-2.xsd\"> " +
-                "	<wsnt:ConsumerReference> " +
-                "		<wsa:Address>https://remotegateway/NotificationConsumerService</wsa:Address> " +
-                "		<wsa:ReferenceParameters> " +
-                "			<nhin:UserAddress xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">user@remotegateway</nhin:UserAddress> " +
-                "			<prefix:CustomInformation xmlns:prefix=\"http://remotegateway/somenamespace\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">Custom Data</prefix:CustomInformation> " +
-                "		</wsa:ReferenceParameters> " +
-                "	</wsnt:ConsumerReference> " +
-                "	<wsnt:Filter> " +
-                "		{topicExpression} " +
-                "		<wsnt:MessageContent Dialect=\"http://www.w3.ord/TR/1999/REC-xpath-19991116\" xmlns:x='urn:somenamespace'>//x:SomeXpathStatement</wsnt:MessageContent> " +
-                "	</wsnt:Filter> " +
-                "</wsnt:Subscribe>";
+    private void executeTopicTest(String topicExpression, String expectedRootTopic)
+            throws SubscriptionRepositoryException {
+        String subscribe = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> "
+                + "<wsnt:Subscribe xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:PrefixDefinedInHeader=\"urn:myNamespace\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\" xmlns:nhin-cdc=\"http://www.hhs.gov/healthit/nhin/cdc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://docs.oasis-open.org/wsn/b-2 schemas/docs.oasis-open.org/wsn/b-2.xsd\"> "
+                + "	<wsnt:ConsumerReference> "
+                + "		<wsa:Address>https://remotegateway/NotificationConsumerService</wsa:Address> "
+                + "		<wsa:ReferenceParameters> "
+                + "			<nhin:UserAddress xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">user@remotegateway</nhin:UserAddress> "
+                + "			<prefix:CustomInformation xmlns:prefix=\"http://remotegateway/somenamespace\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">Custom Data</prefix:CustomInformation> "
+                + "		</wsa:ReferenceParameters> "
+                + "	</wsnt:ConsumerReference> "
+                + "	<wsnt:Filter> "
+                + "		{topicExpression} "
+                + "		<wsnt:MessageContent Dialect=\"http://www.w3.ord/TR/1999/REC-xpath-19991116\" xmlns:x='urn:somenamespace'>//x:SomeXpathStatement</wsnt:MessageContent> "
+                + "	</wsnt:Filter> " + "</wsnt:Subscribe>";
 
         subscribe = subscribe.replace("{topicExpression}", topicExpression);
         executeTest(subscribe, expectedRootTopic);

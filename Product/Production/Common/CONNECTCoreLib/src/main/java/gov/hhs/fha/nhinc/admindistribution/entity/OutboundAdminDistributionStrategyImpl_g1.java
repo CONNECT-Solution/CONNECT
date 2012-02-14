@@ -35,7 +35,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author nnguyen
  */
 public class OutboundAdminDistributionStrategyImpl_g1 implements OrchestrationStrategy {
@@ -66,13 +66,14 @@ public class OutboundAdminDistributionStrategyImpl_g1 implements OrchestrationSt
         }
 
         if (message instanceof OutboundAdminDistributionOrchestratable) {
-            NhinAdminDistributionProxy nhincAdminDist = new NhinAdminDistributionProxyObjectFactory().getNhinAdminDistProxy();
-            nhincAdminDist.sendAlertMessage(message.getRequest().getEDXLDistribution(),
-                    message.getRequest().getAssertion(), message.getTarget(),
-                    NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
+            NhinAdminDistributionProxy nhincAdminDist = new NhinAdminDistributionProxyObjectFactory()
+                    .getNhinAdminDistProxy();
+            nhincAdminDist.sendAlertMessage(message.getRequest().getEDXLDistribution(), message.getRequest()
+                    .getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
         } else {
-            getLogger().error("NhinAdminDistributionImpl_g1 AdapterDelegateImpl.process recieved a message " +
-                    "which was not of type NhinAdminDistributionOrchestratableImpl_g1.");
+            getLogger().error(
+                    "NhinAdminDistributionImpl_g1 AdapterDelegateImpl.process recieved a message "
+                            + "which was not of type NhinAdminDistributionOrchestratableImpl_g1.");
         }
         getLogger().debug("End NhinAdminDistributionOrchestratableImpl_g1.process");
     }

@@ -38,7 +38,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class EntityXDRAsyncRespNoOpImplTest {
@@ -69,8 +69,9 @@ public class EntityXDRAsyncRespNoOpImplTest {
     public void testProvideAndRegisterDocumentSetBAsyncResponse() {
         System.out.println("testProvideAndRegisterDocumentSetBAsyncResponse");
         EntityDocSubmissionDeferredResponseProxyNoOpImpl instance = new EntityDocSubmissionDeferredResponseProxyNoOpImpl();
-        
-        XDRAcknowledgementType result = instance.provideAndRegisterDocumentSetBAsyncResponse(new RegistryResponseType(), new AssertionType(), new NhinTargetCommunitiesType());
+
+        XDRAcknowledgementType result = instance.provideAndRegisterDocumentSetBAsyncResponse(
+                new RegistryResponseType(), new AssertionType(), new NhinTargetCommunitiesType());
         assertNotNull(result);
     }
 

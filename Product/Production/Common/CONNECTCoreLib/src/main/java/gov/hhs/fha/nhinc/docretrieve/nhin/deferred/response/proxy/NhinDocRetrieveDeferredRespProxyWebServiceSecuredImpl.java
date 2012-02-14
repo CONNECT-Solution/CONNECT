@@ -43,10 +43,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- * Created by
- * User: ralph
- * Date: Jul 31, 2010
- * Time: 11:16:36 PM
+ * Created by User: ralph Date: Jul 31, 2010 Time: 11:16:36 PM
  */
 public class NhinDocRetrieveDeferredRespProxyWebServiceSecuredImpl implements NhinDocRetrieveDeferredRespProxy {
 
@@ -67,21 +64,25 @@ public class NhinDocRetrieveDeferredRespProxyWebServiceSecuredImpl implements Nh
         return oProxyHelper;
     }
 
-    /**\
-     *
+    /**
+     * \
+     * 
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected RespondingGatewayDeferredResponseRetrievePortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected RespondingGatewayDeferredResponseRetrievePortType getPort(String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion) {
         RespondingGatewayDeferredResponseRetrievePortType port = null;
         Service service = getService();
         if (service != null) {
             getLogger().debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), RespondingGatewayDeferredResponseRetrievePortType.class);
-            getWebServiceProxyHelper().initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    RespondingGatewayDeferredResponseRetrievePortType.class);
+            getWebServiceProxyHelper().initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
         } else {
             getLogger().error("Unable to obtain serivce - no port created.");
         }
@@ -91,7 +92,7 @@ public class NhinDocRetrieveDeferredRespProxyWebServiceSecuredImpl implements Nh
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -105,26 +106,33 @@ public class NhinDocRetrieveDeferredRespProxyWebServiceSecuredImpl implements Nh
         return cachedService;
     }
 
-    public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetResponseType body, AssertionType assertion, NhinTargetSystemType target) {
+    public DocRetrieveAcknowledgementType sendToRespondingGateway(RetrieveDocumentSetResponseType body,
+            AssertionType assertion, NhinTargetSystemType target) {
         getLogger().debug("Begin sendToRespondingGateway");
 
         DocRetrieveAcknowledgementType response = null;
 
         try {
-            String url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE, GATEWAY_API_LEVEL.LEVEL_g0);
-            RespondingGatewayDeferredResponseRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION, WS_ADDRESSING_ACTION, assertion);
+            String url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(target,
+                    NhincConstants.NHIN_DOCRETRIEVE_DEFERRED_RESPONSE, GATEWAY_API_LEVEL.LEVEL_g0);
+            RespondingGatewayDeferredResponseRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION,
+                    WS_ADDRESSING_ACTION, assertion);
 
             if (body == null) {
                 getLogger().error("Message was null");
             } else if (port == null) {
                 getLogger().error("port was null");
             } else {
-                response = (DocRetrieveAcknowledgementType) getWebServiceProxyHelper().invokePort(port, RespondingGatewayDeferredResponseRetrievePortType.class, "respondingGatewayDeferredResponseCrossGatewayRetrieve", body);
+                response = (DocRetrieveAcknowledgementType) getWebServiceProxyHelper().invokePort(port,
+                        RespondingGatewayDeferredResponseRetrievePortType.class,
+                        "respondingGatewayDeferredResponseCrossGatewayRetrieve", body);
             }
         } catch (Exception ex) {
             String ackMsg = "Error calling respondingGatewayDeferredResponseCrossGatewayRetrieve";
             getLogger().error(ackMsg + ": " + ex.getMessage(), ex);
-            response = DocRetrieveAckTranforms.createAckMessage(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG, NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
+            response = DocRetrieveAckTranforms.createAckMessage(
+                    NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG,
+                    NhincConstants.DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID, ackMsg);
         }
 
         getLogger().debug("End sendToRespondingGateway");

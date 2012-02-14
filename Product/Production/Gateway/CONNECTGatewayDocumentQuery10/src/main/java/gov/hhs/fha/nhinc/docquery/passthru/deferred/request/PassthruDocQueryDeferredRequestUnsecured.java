@@ -34,21 +34,20 @@ import javax.xml.ws.soap.Addressing;
 
 /**
  * Unsecured Nhin proxy for DocQueryDeferredRequest service
- *
+ * 
  * @author patlollav
  */
 @WebService(serviceName = "NhincProxyDocQueryDeferredRequest", portName = "NhincProxyDocQueryDeferredRequestPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxydocquerydeferredrequest.NhincProxyDocQueryDeferredRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest", wsdlLocation = "WEB-INF/wsdl/PassthruDocQueryDeferredRequestUnsecured/NhincProxyDocQueryDeferredRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class PassthruDocQueryDeferredRequestUnsecured {
 
     @Resource
     private WebServiceContext context;
 
-
     /**
      * Delegates method call to Implementation class in the core library
-     *
+     * 
      * @param crossGatewayQueryRequest
      * @return
      */

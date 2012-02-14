@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.*;
 import org.hl7.v3.*;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class AckBuilder {
@@ -52,7 +52,9 @@ public class AckBuilder {
         II originalMessageId = null;
 
         if (originalMessage != null) {
-            if ((originalMessage.getSender() != null) && (originalMessage.getSender().getDevice() != null) && (originalMessage.getSender().getDevice().getId() != null) && (originalMessage.getSender().getDevice().getId().size() > 0)) {
+            if ((originalMessage.getSender() != null) && (originalMessage.getSender().getDevice() != null)
+                    && (originalMessage.getSender().getDevice().getId() != null)
+                    && (originalMessage.getSender().getDevice().getId().size() > 0)) {
                 receiverId = originalMessage.getSender().getDevice().getId().get(0);
             }
 
@@ -66,7 +68,8 @@ public class AckBuilder {
 
     }
 
-    public static MCCIIN000002UV01 BuildAck(II receiverId, II senderId, String acknowledgementTypeCode, II originalMessageId) {
+    public static MCCIIN000002UV01 BuildAck(II receiverId, II senderId, String acknowledgementTypeCode,
+            II originalMessageId) {
         MCCIIN000002UV01 message = new MCCIIN000002UV01();
 
         message.setITSVersion(ITSVersion);

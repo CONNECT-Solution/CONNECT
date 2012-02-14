@@ -32,12 +32,13 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class NhinPatientDiscoveryNoOpImpl implements NhinPatientDiscoveryProxy {
 
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion,
+            NhinTargetSystemType target) {
         return new PRPAIN201306UV02();
     }
 

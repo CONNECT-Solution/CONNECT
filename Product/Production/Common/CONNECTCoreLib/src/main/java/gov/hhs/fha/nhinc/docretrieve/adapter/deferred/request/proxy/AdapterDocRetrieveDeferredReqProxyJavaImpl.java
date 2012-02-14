@@ -34,10 +34,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Created by
- * User: ralph
- * Date: Jul 28, 2010
- * Time: 12:36:16 PM
+ * Created by User: ralph Date: Jul 28, 2010 Time: 12:36:16 PM
  */
 public class AdapterDocRetrieveDeferredReqProxyJavaImpl implements AdapterDocRetrieveDeferredReqProxy {
 

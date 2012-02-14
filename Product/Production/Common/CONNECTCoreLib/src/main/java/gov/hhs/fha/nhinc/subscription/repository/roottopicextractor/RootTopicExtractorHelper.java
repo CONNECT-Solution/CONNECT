@@ -37,24 +37,26 @@ import org.w3c.dom.Node;
 import org.w3c.dom.ls.LSException;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class RootTopicExtractorHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(RootTopicExtractorHelper.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(RootTopicExtractorHelper.class);
     private static final String startDelimter = "{";
     private static final String endDelimter = "}";
 
     public static String removeNamespaceHolder(String xml) {
         String newXml = xml;
         if (NullChecker.isNotNullish(xml)) {
-            newXml = xml.replaceAll("\\{([^\\}]*)\\}", "" );
+            newXml = xml.replaceAll("\\{([^\\}]*)\\}", "");
         }
         return newXml;
     }
 
-    public static String ReplaceNamespacePrefixesWithNamespaces(String xml, Node node) throws SubscriptionRepositoryException {
+    public static String ReplaceNamespacePrefixesWithNamespaces(String xml, Node node)
+            throws SubscriptionRepositoryException {
         log.debug("begin ReplaceNamespacePrefixesWithNamespaces for xml string: '" + xml + "'");
         log.debug("node='" + XmlUtility.serializeElementIgnoreFaults((Element) node) + "'");
         int positionOfDelimiter = xml.indexOf(":");
@@ -74,8 +76,9 @@ public class RootTopicExtractorHelper {
                 if (supportUndefinedNamespacePrefix()) {
                     namespaceValue = null;
                 } else {
-                    //todo: throw better exception
-                    throw new SubscriptionRepositoryException("Unable to determine namespace for prefix '" + prefix + "'.  Prefix not defined in source node.");
+                    // todo: throw better exception
+                    throw new SubscriptionRepositoryException("Unable to determine namespace for prefix '" + prefix
+                            + "'.  Prefix not defined in source node.");
                 }
             }
 

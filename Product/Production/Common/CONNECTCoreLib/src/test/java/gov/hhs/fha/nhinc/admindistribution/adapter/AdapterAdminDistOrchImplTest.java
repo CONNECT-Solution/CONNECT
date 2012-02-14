@@ -41,13 +41,13 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class AdapterAdminDistOrchImplTest {
 
-
     private Mockery context;
+
     public AdapterAdminDistOrchImplTest() {
     }
 
@@ -63,7 +63,7 @@ public class AdapterAdminDistOrchImplTest {
 
     @Test
     public void testSendAlertMessage() {
-       System.out.println("testSendAlertMessage_ServiceEnabled");
+        System.out.println("testSendAlertMessage_ServiceEnabled");
         final Log mockLogger = context.mock(Log.class);
 
         final EDXLDistribution body = new EDXLDistribution();
@@ -73,12 +73,10 @@ public class AdapterAdminDistOrchImplTest {
 
         body.setDistributionID(stringValue);
         body.setSenderID(stringValue);
-        
-        AdapterAdminDistributionOrchImpl instance = new AdapterAdminDistributionOrchImpl()
-        {
+
+        AdapterAdminDistributionOrchImpl instance = new AdapterAdminDistributionOrchImpl() {
             @Override
-            protected Log createLogger()
-            {
+            protected Log createLogger() {
                 return mockLogger;
             }
         };

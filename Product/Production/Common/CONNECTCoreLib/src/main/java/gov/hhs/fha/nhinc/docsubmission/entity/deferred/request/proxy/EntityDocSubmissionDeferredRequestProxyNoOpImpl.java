@@ -37,13 +37,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class EntityDocSubmissionDeferredRequestProxyNoOpImpl implements EntityDocSubmissionDeferredRequestProxy {
     private static Log log = LogFactory.getLog(EntityDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+            NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         log.debug("Using NoOp Implementation for Entity Doc Submission Deferred Request Service");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

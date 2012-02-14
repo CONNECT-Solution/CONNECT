@@ -40,31 +40,22 @@ import org.xml.sax.InputSource;
  * 
  * @author Neil Webb
  */
-public class XmlUtil
-{
-    public static Document getDocumentFromString(String xmlString)
-        throws Exception
-    {
+public class XmlUtil {
+    public static Document getDocumentFromString(String xmlString) throws Exception {
         DocumentBuilderFactory oDocumentBuilderFactory = DocumentBuilderFactory.newInstance();
-        try
-        {
+        try {
             // Do not load the DTD
-            oDocumentBuilderFactory.setAttribute(
-                "http://apache.org/xml/features/nonvalidating/load-external-dtd",
-                Boolean.FALSE);
-        }
-        catch (IllegalArgumentException e)
-        {
+            oDocumentBuilderFactory.setAttribute("http://apache.org/xml/features/nonvalidating/load-external-dtd",
+                    Boolean.FALSE);
+        } catch (IllegalArgumentException e) {
         }
         DocumentBuilder oDocumentBuilder = oDocumentBuilderFactory.newDocumentBuilder();
 
         InputSource inputSource = new InputSource(new StringReader(xmlString));
         return oDocumentBuilder.parse(inputSource);
     }
-    
-    public static Document getDocumentFromFile(String absolutePath)
-        throws Exception
-    {
+
+    public static Document getDocumentFromFile(String absolutePath) throws Exception {
         DocumentBuilderFactory oDocumentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder oDocumentBuilder = oDocumentBuilderFactory.newDocumentBuilder();
 
@@ -74,5 +65,5 @@ public class XmlUtil
 
         return oDocument;
     }
-    
+
 }

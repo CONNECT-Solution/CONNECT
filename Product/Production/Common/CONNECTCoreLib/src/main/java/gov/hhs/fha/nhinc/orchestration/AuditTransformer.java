@@ -27,11 +27,15 @@
 package gov.hhs.fha.nhinc.orchestration;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public interface AuditTransformer {
-    public enum Direction {INBOUND, OUTBOUND};
+    public enum Direction {
+        INBOUND, OUTBOUND
+    };
+
     public gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType transformRequest(Orchestratable message);
+
     public gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType transformResponse(Orchestratable message);
 }

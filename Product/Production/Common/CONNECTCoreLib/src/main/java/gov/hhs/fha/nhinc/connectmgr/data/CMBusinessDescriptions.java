@@ -34,51 +34,43 @@ import java.util.ArrayList;
  * 
  * @author Les Westberg
  */
-public class CMBusinessDescriptions
-{
+public class CMBusinessDescriptions {
     private List<String> businessDescriptionList = new ArrayList<String>();
 
     /**
      * Default Constructor.
      */
-    public CMBusinessDescriptions()
-    {
+    public CMBusinessDescriptions() {
         clear();
     }
 
     /**
      * Clear the contents of this and set it to a default state.
      */
-    public void clear()
-    {
+    public void clear() {
         businessDescriptionList = new ArrayList<String>();
     }
 
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
+     * Returns true of the contents of the object are the same as the one passed in.
      * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMBusinessDescriptions oCompare)
-    {
-        if (oCompare.businessDescriptionList.size() != this.businessDescriptionList.size())
-        {
+    public boolean equals(CMBusinessDescriptions oCompare) {
+        if (oCompare.businessDescriptionList.size() != this.businessDescriptionList.size()) {
             return false;
         }
-        
+
         int iCnt = this.businessDescriptionList.size();
-        for (int i = 0; i < iCnt; i++)
-        {
-            if (! this.businessDescriptionList.get(i).equals(oCompare.businessDescriptionList.get(i)))
-            {
+        for (int i = 0; i < iCnt; i++) {
+            if (!this.businessDescriptionList.get(i).equals(oCompare.businessDescriptionList.get(i))) {
                 return false;
             }
         }
-        
+
         // If we got here then everything is the same...
-        //----------------------------------------------
+        // ----------------------------------------------
         return true;
     }
 
@@ -87,10 +79,8 @@ public class CMBusinessDescriptions
      * 
      * @return The list of business descriptions for this entity.
      */
-    public List<String> getBusinessDescription()
-    {
+    public List<String> getBusinessDescription() {
         return businessDescriptionList;
     }
-    
-    
+
 }

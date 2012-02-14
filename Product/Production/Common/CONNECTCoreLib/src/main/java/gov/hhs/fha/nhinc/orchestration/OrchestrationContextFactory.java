@@ -54,32 +54,28 @@ public class OrchestrationContextFactory {
                 homeCommunityType.getHomeCommunityId(), serviceName);
         return getBuilder(apiLevel, serviceName);
     }
-    
-    private OrchestrationContextBuilder getBuilder(
-            NhincConstants.GATEWAY_API_LEVEL apiLevel, String serviceName){
 
-        if(NhincConstants.DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)){
-            return OutboundDocRetrieveFactory.getInstance().
-                    createOrchestrationContextBuilder(apiLevel);
-        }else if(NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)){
-            return InboundDocRetrieveFactory.getInstance().
-                    createOrchestrationContextBuilder(apiLevel);
-        }else if(NhincConstants.ADMIN_DIST_SERVICE_NAME.equals(serviceName)){
-            return OutboundAdminDistributionFactory.getInstance().
-                    createOrchestrationContextBuilder(apiLevel);
-        }else if(NhincConstants.DOC_QUERY_SERVICE_NAME.equalsIgnoreCase(serviceName)){
-            return OutboundDocQueryFactory.getInstance().
-                    createOrchestrationContextBuilder(apiLevel);
-        }else if(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME.equalsIgnoreCase(serviceName)){
-            return OutboundPatientDiscoveryFactory.getInstance().
-                    createOrchestrationContextBuilder(apiLevel);
+    private OrchestrationContextBuilder getBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel, String serviceName) {
+
+        if (NhincConstants.DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)) {
+            return OutboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        } else if (NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)) {
+            return InboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        } else if (NhincConstants.ADMIN_DIST_SERVICE_NAME.equals(serviceName)) {
+            return OutboundAdminDistributionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        } else if (NhincConstants.DOC_QUERY_SERVICE_NAME.equalsIgnoreCase(serviceName)) {
+            return OutboundDocQueryFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        } else if (NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME.equalsIgnoreCase(serviceName)) {
+            return OutboundPatientDiscoveryFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         } else if (NhincConstants.NHINC_XDR_SERVICE_NAME.equals(serviceName)) {
             return OutboundDocSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         } else if (NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME.equals(serviceName)) {
-            return OutboundDocSubmissionDeferredRequestFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+            return OutboundDocSubmissionDeferredRequestFactory.getInstance()
+                    .createOrchestrationContextBuilder(apiLevel);
         } else if (NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME.equals(serviceName)) {
-            return OutboundDocSubmissionDeferredResponseFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+            return OutboundDocSubmissionDeferredResponseFactory.getInstance().createOrchestrationContextBuilder(
+                    apiLevel);
         }
         return null;
-	}
+    }
 }

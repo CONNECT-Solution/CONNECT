@@ -39,36 +39,34 @@ import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
  * 
  */
 public final class NhinPatientDiscoveryDeferredReqOrchFactory implements
-		GenericFactory<NhinPatientDiscoveryDeferredReqOrch> {
+        GenericFactory<NhinPatientDiscoveryDeferredReqOrch> {
 
-	private static NhinPatientDiscoveryDeferredReqOrchFactory INSTANCE = new NhinPatientDiscoveryDeferredReqOrchFactory();
+    private static NhinPatientDiscoveryDeferredReqOrchFactory INSTANCE = new NhinPatientDiscoveryDeferredReqOrchFactory();
 
-	NhinPatientDiscoveryDeferredReqOrchFactory() {
+    NhinPatientDiscoveryDeferredReqOrchFactory() {
 
-	}
+    }
 
-	@Override
-	public NhinPatientDiscoveryDeferredReqOrch create() {
-		return new NhinPatientDiscoveryDeferredReqOrchImpl(
-				new AbstractServicePropertyAccessor() {
+    @Override
+    public NhinPatientDiscoveryDeferredReqOrch create() {
+        return new NhinPatientDiscoveryDeferredReqOrchImpl(new AbstractServicePropertyAccessor() {
 
-					@Override
-					protected String getServiceEnabledPropertyName() {
-						return  NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME;
-					}
+            @Override
+            protected String getServiceEnabledPropertyName() {
+                return NhincConstants.NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME;
+            }
 
-					@Override
-					protected String getPassThruEnabledPropertyName() {
-						return  NhincConstants.PATIENT_DISCOVERY_SERVICE_ASYNC_REQ_PASSTHRU_PROPERTY;
-					} },
-				new PatientDiscoveryAuditLogger(),
-		new AdapterPatientDiscoveryDeferredReqProxyObjectFactory(),
-		new AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory(),
-		PatientDiscoveryPolicyChecker.getInstance());
-	}
+            @Override
+            protected String getPassThruEnabledPropertyName() {
+                return NhincConstants.PATIENT_DISCOVERY_SERVICE_ASYNC_REQ_PASSTHRU_PROPERTY;
+            }
+        }, new PatientDiscoveryAuditLogger(), new AdapterPatientDiscoveryDeferredReqProxyObjectFactory(),
+                new AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory(),
+                PatientDiscoveryPolicyChecker.getInstance());
+    }
 
-	public static NhinPatientDiscoveryDeferredReqOrchFactory getInstance() {
-		return INSTANCE;
-	}
+    public static NhinPatientDiscoveryDeferredReqOrchFactory getInstance() {
+        return INSTANCE;
+    }
 
 }

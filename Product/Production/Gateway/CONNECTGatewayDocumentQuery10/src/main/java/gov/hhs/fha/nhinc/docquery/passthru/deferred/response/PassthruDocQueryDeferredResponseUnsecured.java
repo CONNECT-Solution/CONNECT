@@ -32,19 +32,22 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+
 /**
- *
+ * 
  * @author jhoppesc
  */
 @WebService(serviceName = "NhincProxyDocQueryDeferredResponse", portName = "NhincProxyDocQueryDeferredResponsePortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxydocquerydeferredresponse.NhincProxyDocQueryDeferredResponsePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse", wsdlLocation = "WEB-INF/wsdl/PassthruDocQueryDeferredResponseUnsecured/NhincProxyDocQueryDeferredResponse.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class PassthruDocQueryDeferredResponseUnsecured {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQueryRequest) {
-        return new PassthruDocQueryDeferredResponseUnsecuredImpl().respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest, context);
+    public gov.hhs.healthit.nhin.DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQueryRequest) {
+        return new PassthruDocQueryDeferredResponseUnsecuredImpl().respondingGatewayCrossGatewayQuery(
+                respondingGatewayCrossGatewayQueryRequest, context);
     }
 
 }

@@ -32,11 +32,11 @@ import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.PassthruPati
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
-public class PassthruPatientDiscoveryDeferredRequestProxyJavaImpl implements PassthruPatientDiscoveryDeferredRequestProxy
-{
+public class PassthruPatientDiscoveryDeferredRequestProxyJavaImpl implements
+        PassthruPatientDiscoveryDeferredRequestProxy {
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion, NhinTargetSystemType target)
-    {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
+            NhinTargetSystemType target) {
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
 
         PassthruPatientDiscoveryDeferredRequestOrchImpl orchImpl = new PassthruPatientDiscoveryDeferredRequestOrchImpl();

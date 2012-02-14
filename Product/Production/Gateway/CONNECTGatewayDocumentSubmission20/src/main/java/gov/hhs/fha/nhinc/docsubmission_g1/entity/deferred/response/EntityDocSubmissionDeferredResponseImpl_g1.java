@@ -37,25 +37,34 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.List;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class EntityDocSubmissionDeferredResponseImpl_g1
-{
+public class EntityDocSubmissionDeferredResponseImpl_g1 {
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest, WebServiceContext context)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest,
+            WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, null);
 
-        XDRAcknowledgementType response = new EntityDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetSecuredResponseRequest.getRegistryResponse(), assertion, provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities());
+        XDRAcknowledgementType response = new EntityDocSubmissionDeferredResponseOrchImpl()
+                .provideAndRegisterDocumentSetBAsyncResponse(
+                        provideAndRegisterDocumentSetSecuredResponseRequest.getRegistryResponse(), assertion,
+                        provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities());
 
         return response;
     }
 
-    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterDocumentSetAsyncRespRequest, WebServiceContext context) {
-        AssertionType assertion = extractAssertionFromContext(context, provideAndRegisterDocumentSetAsyncRespRequest.getAssertion());
+    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterDocumentSetAsyncRespRequest,
+            WebServiceContext context) {
+        AssertionType assertion = extractAssertionFromContext(context,
+                provideAndRegisterDocumentSetAsyncRespRequest.getAssertion());
 
-        XDRAcknowledgementType response = new EntityDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetAsyncRespRequest.getRegistryResponse(), assertion, provideAndRegisterDocumentSetAsyncRespRequest.getNhinTargetCommunities());
+        XDRAcknowledgementType response = new EntityDocSubmissionDeferredResponseOrchImpl()
+                .provideAndRegisterDocumentSetBAsyncResponse(
+                        provideAndRegisterDocumentSetAsyncRespRequest.getRegistryResponse(), assertion,
+                        provideAndRegisterDocumentSetAsyncRespRequest.getNhinTargetCommunities());
 
         return response;
     }
@@ -79,6 +88,5 @@ public class EntityDocSubmissionDeferredResponseImpl_g1
 
         return assertion;
     }
-
 
 }

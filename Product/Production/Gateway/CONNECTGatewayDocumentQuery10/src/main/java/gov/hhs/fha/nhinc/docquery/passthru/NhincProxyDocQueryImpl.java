@@ -37,26 +37,30 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
 public class NhincProxyDocQueryImpl {
 
     private static Log log = LogFactory.getLog(NhincProxyDocQueryImpl.class);
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType body, WebServiceContext context) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType body,
+            WebServiceContext context) {
         log.debug("NhincProxyDocQueryImpl.respondingGatewayCrossGatewayQuery(unsecured)");
 
-        return new PassthruDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), body.getAssertion(), body.getNhinTargetSystem());
+        return new PassthruDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(),
+                body.getAssertion(), body.getNhinTargetSystem());
     }
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType body, WebServiceContext context) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(
+            RespondingGatewayCrossGatewayQuerySecuredRequestType body, WebServiceContext context) {
         log.debug("NhincProxyDocQueryImpl.respondingGatewayCrossGatewayQuery(secured)");
 
-        AssertionType assertion = getAssertion (context, null);
-        
-        return new PassthruDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), assertion, body.getNhinTargetSystem());
+        AssertionType assertion = getAssertion(context, null);
+
+        return new PassthruDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(),
+                assertion, body.getNhinTargetSystem());
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {

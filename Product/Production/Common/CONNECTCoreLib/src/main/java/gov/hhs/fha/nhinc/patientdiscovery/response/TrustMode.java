@@ -45,7 +45,7 @@ import java.util.List;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class TrustMode implements ResponseMode {
@@ -59,6 +59,7 @@ public class TrustMode implements ResponseMode {
 
     /**
      * Process Patient Discovery Response
+     * 
      * @param params
      * @return response
      */
@@ -72,9 +73,8 @@ public class TrustMode implements ResponseMode {
             PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
 
             List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
-            if (response != null &&
-                    response.getControlActProcess() != null &&
-                    NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
+            if (response != null && response.getControlActProcess() != null
+                    && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
                 pRPAINSubjects = response.getControlActProcess().getSubject();
                 log.debug("processResponse - Subjects size: " + pRPAINSubjects.size());
             } else {
@@ -84,13 +84,13 @@ public class TrustMode implements ResponseMode {
             II remotePatId = null;
             II localPatId = getPatientId(requestMsg);
 
-            if (requestHasLivingSubjectId(requestMsg) &&
-                    localPatId != null) {
+            if (requestHasLivingSubjectId(requestMsg) && localPatId != null) {
                 for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
                     int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
                     log.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
-                    
-                    PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject().set(0, pRPAINSubject);
+
+                    PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess()
+                            .getSubject().set(0, pRPAINSubject);
                     response.getControlActProcess().getSubject().set(pRPAINSubjectInd, subjReplaced);
 
                     try {
@@ -118,6 +118,7 @@ public class TrustMode implements ResponseMode {
 
     /**
      * Process Patient Discovery Response
+     * 
      * @param response
      * @param assertion
      * @param localPatId
@@ -128,8 +129,8 @@ public class TrustMode implements ResponseMode {
         if (response != null) {
             if (localPatId != null) {
                 List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
-                if (response.getControlActProcess() != null &&
-                        NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
+                if (response.getControlActProcess() != null
+                        && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
                     pRPAINSubjects = response.getControlActProcess().getSubject();
                     log.debug("processResponse - Subjects size: " + pRPAINSubjects.size());
                 } else {
@@ -141,7 +142,8 @@ public class TrustMode implements ResponseMode {
                     int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
                     log.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
 
-                    PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject().set(0, pRPAINSubject);
+                    PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess()
+                            .getSubject().set(0, pRPAINSubject);
                     response.getControlActProcess().getSubject().set(pRPAINSubjectInd, subjReplaced);
 
                     try {
@@ -154,7 +156,7 @@ public class TrustMode implements ResponseMode {
                     } catch (Exception ex) {
                         log.error(ex.getMessage(), ex);
                     }
-                    
+
                     response.getControlActProcess().getSubject().set(pRPAINSubjectInd, pRPAINSubject);
                     response.getControlActProcess().getSubject().set(0, subjReplaced);
                 }
@@ -168,27 +170,29 @@ public class TrustMode implements ResponseMode {
         return response;
     }
 
-    protected void sendToPatientCorrelationComponent(II localPatId, II remotePatId, AssertionType assertion, PRPAIN201306UV02 response) {
+    protected void sendToPatientCorrelationComponent(II localPatId, II remotePatId, AssertionType assertion,
+            PRPAIN201306UV02 response) {
         PRPAIN201301UV02 request = new PRPAIN201301UV02();
 
-        if (localPatId != null &&
-                NullChecker.isNotNullish(localPatId.getRoot()) &&
-                NullChecker.isNotNullish(localPatId.getExtension()) &&
-                remotePatId != null &&
-                NullChecker.isNotNullish(remotePatId.getRoot()) &&
-                NullChecker.isNotNullish(remotePatId.getExtension())) {
+        if (localPatId != null && NullChecker.isNotNullish(localPatId.getRoot())
+                && NullChecker.isNotNullish(localPatId.getExtension()) && remotePatId != null
+                && NullChecker.isNotNullish(remotePatId.getRoot())
+                && NullChecker.isNotNullish(remotePatId.getExtension())) {
             request = HL7PRPA201301Transforms.createPRPA201301(response, localPatId.getRoot());
 
-            if (request != null &&
-                    request.getControlActProcess() != null &&
-                    NullChecker.isNotNullish(request.getControlActProcess().getSubject()) &&
-                    request.getControlActProcess().getSubject().get(0) != null &&
-                    request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                    request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                    request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
-                    NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
+            if (request != null
+                    && request.getControlActProcess() != null
+                    && NullChecker.isNotNullish(request.getControlActProcess().getSubject())
+                    && request.getControlActProcess().getSubject().get(0) != null
+                    && request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
+                    && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
+                    && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
+                            .getPatient() != null
+                    && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0)
+                            .getRegistrationEvent().getSubject1().getPatient().getId())) {
 
-                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().add(localPatId);
+                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
+                        .getId().add(localPatId);
 
                 PatientCorrelationProxyObjectFactory patCorrelationFactory = new PatientCorrelationProxyObjectFactory();
                 PatientCorrelationProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationProxy();
@@ -218,21 +222,27 @@ public class TrustMode implements ResponseMode {
     protected II getPatientId(PRPAIN201306UV02 request) {
         II patId = null;
 
-        if (request != null &&
-                request.getControlActProcess() != null &&
-                NullChecker.isNotNullish(request.getControlActProcess().getSubject()) &&
-                request.getControlActProcess().getSubject().get(0) != null &&
-                request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
-                NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
-                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
-                NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
-                NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
+        if (request != null
+                && request.getControlActProcess() != null
+                && NullChecker.isNotNullish(request.getControlActProcess().getSubject())
+                && request.getControlActProcess().getSubject().get(0) != null
+                && request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
+                && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
+                && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null
+                && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                        .getSubject1().getPatient().getId())
+                && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
+                        .getId().get(0) != null
+                && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                        .getSubject1().getPatient().getId().get(0).getExtension())
+                && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                        .getSubject1().getPatient().getId().get(0).getRoot())) {
 
             patId = new II();
-            patId.setRoot(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
-            patId.setExtension(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
+            patId.setRoot(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
+                    .getPatient().getId().get(0).getRoot());
+            patId.setExtension(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
+                    .getPatient().getId().get(0).getExtension());
         }
 
         return patId;
@@ -254,7 +264,8 @@ public class TrustMode implements ResponseMode {
         String result = "";
 
         try {
-            result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
         }
@@ -268,26 +279,32 @@ public class TrustMode implements ResponseMode {
 
         log.debug("begin MergeIds");
 
-        if (result != null &&
-                result.getControlActProcess() != null &&
-                NullChecker.isNotNullish(result.getControlActProcess().getSubject()) &&
-                result.getControlActProcess().getSubject().get(0) != null &&
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
-                NullChecker.isNotNullish(result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null) {
+        if (result != null
+                && result.getControlActProcess() != null
+                && NullChecker.isNotNullish(result.getControlActProcess().getSubject())
+                && result.getControlActProcess().getSubject().get(0) != null
+                && result.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
+                && result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
+                && result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null
+                && NullChecker.isNotNullish(result.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                        .getSubject1().getPatient().getId())
+                && result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
+                        .getId().get(0) != null) {
             try {
-                remoteId = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0);
+                remoteId = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
+                        .getPatient().getId().get(0);
 
                 log.debug("Local Id = " + localId.getExtension() + "; remote id = " + remoteId.getExtension());
 
-                //clear Id's
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().clear();
+                // clear Id's
+                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
+                        .getId().clear();
 
-                //add both the local and remote id.
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().add(localId);
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().add(remoteId);
+                // add both the local and remote id.
+                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
+                        .getId().add(localId);
+                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
+                        .getId().add(remoteId);
 
             } catch (Exception ex) {
                 log.error(ex.getMessage(), ex);
@@ -299,5 +316,3 @@ public class TrustMode implements ResponseMode {
         return result;
     }
 }
-
-

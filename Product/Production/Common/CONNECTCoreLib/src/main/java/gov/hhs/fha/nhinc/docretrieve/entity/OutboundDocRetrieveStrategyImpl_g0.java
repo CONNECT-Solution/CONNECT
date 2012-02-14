@@ -35,10 +35,11 @@ import org.apache.commons.logging.LogFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
- *
+ * 
  * @author mweaver
  */
-public class OutboundDocRetrieveStrategyImpl_g0 extends OutboundDocRetrieveStrategyBase implements OrchestrationStrategy {
+public class OutboundDocRetrieveStrategyImpl_g0 extends OutboundDocRetrieveStrategyBase implements
+        OrchestrationStrategy {
 
     private static Log log = LogFactory.getLog(OutboundDocRetrieveStrategyImpl_g0.class);
 
@@ -55,6 +56,7 @@ public class OutboundDocRetrieveStrategyImpl_g0 extends OutboundDocRetrieveStrat
         getLogger().debug("Creating nhin (g0) doc retrieve proxy");
         NhinDocRetrieveProxy proxy = new NhinDocRetrieveProxyObjectFactory().getNhinDocRetrieveProxy();
         getLogger().debug("Sending nhin doc retrieve to nhin (g0)");
-        return proxy.respondingGatewayCrossGatewayRetrieve(message.getRequest(), message.getAssertion(), message.getTarget(), GATEWAY_API_LEVEL.LEVEL_g0);
+        return proxy.respondingGatewayCrossGatewayRetrieve(message.getRequest(), message.getAssertion(),
+                message.getTarget(), GATEWAY_API_LEVEL.LEVEL_g0);
     }
 }

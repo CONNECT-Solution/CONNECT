@@ -34,43 +34,38 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class is used as a java implementation for calling the Adapter MPI.
- * Obviously in order to use the java implementation the caller and the MPI
- * must be on the same system.
- *
+ * This class is used as a java implementation for calling the Adapter MPI. Obviously in order to use the java
+ * implementation the caller and the MPI must be on the same system.
+ * 
  * @author Les Westberg
  */
-public class AdapterComponentMpiProxyJavaImpl implements AdapterComponentMpiProxy
-{
+public class AdapterComponentMpiProxyJavaImpl implements AdapterComponentMpiProxy {
     private Log log = null;
 
     /**
      * Default constructor.
      */
-    public AdapterComponentMpiProxyJavaImpl()
-    {
+    public AdapterComponentMpiProxyJavaImpl() {
         log = createLogger();
     }
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**
      * Find the matching candidates from the MPI.
-     *
+     * 
      * @param request The information to use for matching.
      * @param assertion The assertion data.
      * @return The matches that are found.
      */
-    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion)
-    {
+    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
         log.debug("Entering AdapterComponentMpiProxyJavaImpl.findCandidates");
         AdapterComponentMpiOrchImpl oOrchestrator = new AdapterComponentMpiOrchImpl();
         PRPAIN201306UV02 response = oOrchestrator.findCandidates(findCandidatesRequest, assertion);

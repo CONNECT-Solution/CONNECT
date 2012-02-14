@@ -31,8 +31,8 @@ import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.w3c.dom.Element;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
 public class SubscribeResponseMarshaller {

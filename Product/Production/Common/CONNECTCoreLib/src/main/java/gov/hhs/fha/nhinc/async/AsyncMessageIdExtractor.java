@@ -37,7 +37,7 @@ import java.util.UUID;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AsyncMessageIdExtractor {
@@ -69,7 +69,8 @@ public class AsyncMessageIdExtractor {
             Object oList = context.getMessageContext().get(JAXWSProperties.INBOUND_HEADER_LIST_PROPERTY);
             if (oList instanceof HeaderList) {
                 HeaderList hlist = (HeaderList) oList;
-                Iterator<Header> allRelatesToHeaders = hlist.getHeaders(NhincConstants.NS_ADDRESSING_2005, NhincConstants.HEADER_RELATESTO, false);
+                Iterator<Header> allRelatesToHeaders = hlist.getHeaders(NhincConstants.NS_ADDRESSING_2005,
+                        NhincConstants.HEADER_RELATESTO, false);
                 while (allRelatesToHeaders.hasNext()) {
                     Header header = allRelatesToHeaders.next();
 

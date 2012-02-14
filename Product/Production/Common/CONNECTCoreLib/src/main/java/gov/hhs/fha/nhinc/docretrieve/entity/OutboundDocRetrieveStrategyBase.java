@@ -21,13 +21,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationStrategy {
 
     private static Log log = LogFactory.getLog(OutboundDocRetrieveStrategyBase.class);
-    
+
     @Override
     public void execute(Orchestratable message) {
         if (message instanceof OutboundDocRetrieveOrchestratable) {
@@ -51,39 +51,44 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
             String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(NhinDRMessage.getRequest());
 
             getLogger().debug("Calling audit log for doc retrieve request (a0) sent to nhin (g0)");
-            auditRequestMessage(NhinDRMessage.getRequest(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                    NhinDRMessage.getAssertion(), requestCommunityID);
+            auditRequestMessage(NhinDRMessage.getRequest(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                    NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhinDRMessage.getAssertion(), requestCommunityID);
 
             NhinDRMessage.setResponse(callProxy(NhinDRMessage));
 
             getLogger().debug("Calling audit log for doc retrieve response received from nhin (g0)");
-            auditResponseMessage(NhinDRMessage.getResponse(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                    NhinDRMessage.getAssertion(), requestCommunityID);
+            auditResponseMessage(NhinDRMessage.getResponse(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                    NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhinDRMessage.getAssertion(), requestCommunityID);
         } else {
-            getLogger().error("OutboundDocRetrieveStrategyBase.execute recieved a message which was not of type NhinDocRetrieveOrchestratableImpl_g0.");
+            getLogger()
+                    .error("OutboundDocRetrieveStrategyBase.execute recieved a message which was not of type NhinDocRetrieveOrchestratableImpl_g0.");
         }
         getLogger().debug("End OutboundDocRetrieveStrategyBase.execute");
     }
 
     protected abstract RetrieveDocumentSetResponseType callProxy(OutboundDocRetrieveOrchestratable message);
 
-    protected void auditRequestMessage(RetrieveDocumentSetRequestType request, String direction, String connectInterface, AssertionType assertion, String requestCommunityID) {
+    protected void auditRequestMessage(RetrieveDocumentSetRequestType request, String direction,
+            String connectInterface, AssertionType assertion, String requestCommunityID) {
         gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType message = new gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType();
         message.setRetrieveDocumentSetRequest(request);
         message.setAssertion(assertion);
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieve(message, direction, connectInterface, requestCommunityID);
+        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieve(message, direction, connectInterface,
+                requestCommunityID);
         if (auditLogMsg != null) {
             auditMessage(auditLogMsg, assertion);
         }
     }
 
-    protected void auditResponseMessage(RetrieveDocumentSetResponseType response, String direction, String connectInterface, AssertionType assertion, String requestCommunityID) {
+    protected void auditResponseMessage(RetrieveDocumentSetResponseType response, String direction,
+            String connectInterface, AssertionType assertion, String requestCommunityID) {
         gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType message = new gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType();
         message.setRetrieveDocumentSetResponse(response);
         message.setAssertion(assertion);
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveResult(message, direction, connectInterface, requestCommunityID);
+        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveResult(message, direction, connectInterface,
+                requestCommunityID);
         if (auditLogMsg != null) {
             auditMessage(auditLogMsg, assertion);
         }

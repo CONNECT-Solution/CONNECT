@@ -27,12 +27,12 @@
 package gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class NhinHiemUnsubscribeProxyObjectFactory {
     public NhinHiemUnsubscribeProxy getNhinHiemSubscribeProxy() {
-        NhinHiemUnsubscribeProxy nhinHiemSubscribe =  new NhinHiemUnsubscribeWebServiceProxy();
+        NhinHiemUnsubscribeProxy nhinHiemSubscribe = new NhinHiemUnsubscribeWebServiceProxy();
         return nhinHiemSubscribe;
     }
 

@@ -12,18 +12,17 @@ import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @WebService(serviceName = "RespondingGateway_Query_Service", portName = "RespondingGateway_Query_Port_Soap", endpointInterface = "ihe.iti.xds_b._2007.RespondingGatewayQueryPortType", targetNamespace = "urn:ihe:iti:xds-b:2007", wsdlLocation = "WEB-INF/wsdl/DocQuery/NhinDocQuery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class DocQuery
-{
+public class DocQuery {
     @Resource
     private WebServiceContext context;
 
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
-    {
+    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
+            oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
         return new DocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
     }
 

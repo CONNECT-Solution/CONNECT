@@ -41,7 +41,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class QueryForDocumentsDeferredReqQueueClient {
@@ -56,7 +56,7 @@ public class QueryForDocumentsDeferredReqQueueClient {
 
     /**
      * Send queue process request for a deferred patient discovery queue record
-     *
+     * 
      * @param messageId
      * @return queue process response
      */
@@ -71,12 +71,15 @@ public class QueryForDocumentsDeferredReqQueueClient {
         response.setSuccessOrFail(sof);
 
         try {
-            String sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            String sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
-            String endpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunity, NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME);
+            String endpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunity,
+                    NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME);
 
             if (endpointURL != null && !endpointURL.isEmpty()) {
-                AdapterDocQueryDeferredReqQueueProcessPortType port = service.getAdapterDocQueryDeferredReqQueueProcessPort();
+                AdapterDocQueryDeferredReqQueueProcessPortType port = service
+                        .getAdapterDocQueryDeferredReqQueueProcessPort();
 
                 BindingProvider bp = (BindingProvider) port;
                 // (Optional) Configure RequestContext with endpoint's URL
@@ -87,7 +90,8 @@ public class QueryForDocumentsDeferredReqQueueClient {
                 request.setMessageId(messageId);
                 response = port.processDocQueryDeferredReqQueue(request);
             } else {
-                msgText = "Endpoint URL not found for home community [" + sHomeCommunity + "] and service name [" + NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME + "]";
+                msgText = "Endpoint URL not found for home community [" + sHomeCommunity + "] and service name ["
+                        + NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME + "]";
                 log.error(msgText);
                 response.setResponse(msgText);
             }

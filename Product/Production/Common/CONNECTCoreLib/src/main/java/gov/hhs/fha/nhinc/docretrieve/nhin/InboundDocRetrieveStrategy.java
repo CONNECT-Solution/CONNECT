@@ -6,7 +6,7 @@
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public interface InboundDocRetrieveStrategy {

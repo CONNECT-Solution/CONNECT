@@ -39,14 +39,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class EntityPatientDiscoveryUnsecuredTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class EntityPatientDiscoveryUnsecuredTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -54,32 +52,27 @@ public class EntityPatientDiscoveryUnsecuredTest
     final EntityPatientDiscoveryImpl mockServiceImpl = context.mock(EntityPatientDiscoveryImpl.class);
 
     @Test
-    public void testRespondingGatewayPRPAIN201305UV02Happy()
-    {
-        try
-        {
-            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured()
-            {
+    public void testRespondingGatewayPRPAIN201305UV02Happy() {
+        try {
+            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured() {
                 @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl()
-                {
+                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
                     return mockServiceImpl;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
-                    oneOf(mockServiceImpl).respondingGatewayPRPAIN201305UV02(with(aNonNull(RespondingGatewayPRPAIN201305UV02RequestType.class)));
+                    oneOf(mockServiceImpl).respondingGatewayPRPAIN201305UV02(
+                            with(aNonNull(RespondingGatewayPRPAIN201305UV02RequestType.class)));
                 }
             });
 
             RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
 
-            RespondingGatewayPRPAIN201306UV02ResponseType response = unsecuredService.respondingGatewayPRPAIN201305UV02(request);
+            RespondingGatewayPRPAIN201306UV02ResponseType response = unsecuredService
+                    .respondingGatewayPRPAIN201305UV02(request);
             assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayPRPAIN201305UV02Happy: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02Happy: " + t.getMessage());
@@ -87,31 +80,25 @@ public class EntityPatientDiscoveryUnsecuredTest
     }
 
     @Test
-    public void testRespondingGatewayPRPAIN201305UV02NullImpl()
-    {
-        try
-        {
-            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured()
-            {
+    public void testRespondingGatewayPRPAIN201305UV02NullImpl() {
+        try {
+            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured() {
                 @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl()
-                {
+                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
                     return null;
                 }
             };
 
             RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
 
-            RespondingGatewayPRPAIN201306UV02ResponseType response = unsecuredService.respondingGatewayPRPAIN201305UV02(request);
+            RespondingGatewayPRPAIN201306UV02ResponseType response = unsecuredService
+                    .respondingGatewayPRPAIN201305UV02(request);
             assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullImpl: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullImpl: " + t.getMessage());
         }
     }
-
 
 }

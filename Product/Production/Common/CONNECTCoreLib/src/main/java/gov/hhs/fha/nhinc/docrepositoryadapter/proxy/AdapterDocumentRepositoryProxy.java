@@ -33,11 +33,10 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * Interface for the adapter document repository proxy.
- *
+ * 
  * @author Neil Webb
  */
-public interface AdapterDocumentRepositoryProxy
-{
+public interface AdapterDocumentRepositoryProxy {
     /**
      * Retrieve a document set.
      * 
@@ -45,5 +44,6 @@ public interface AdapterDocumentRepositoryProxy
      * @return Retrieve document set response
      */
     public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request);
+
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body);
 }

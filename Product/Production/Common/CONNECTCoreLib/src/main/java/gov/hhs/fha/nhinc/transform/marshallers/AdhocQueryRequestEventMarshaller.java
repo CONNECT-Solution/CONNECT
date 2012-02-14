@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class AdhocQueryRequestEventMarshaller {

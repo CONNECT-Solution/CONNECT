@@ -34,29 +34,26 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
- * Created by
- * User: ralph
- * Date: Jul 28, 2010
- * Time: 12:36:16 PM
+ * Created by User: ralph Date: Jul 28, 2010 Time: 12:36:16 PM
  */
-public class AdapterComponentDocRetrieveDeferredRespProxyNoOpImpl implements AdapterComponentDocRetrieveDeferredRespProxy {
+public class AdapterComponentDocRetrieveDeferredRespProxyNoOpImpl implements
+        AdapterComponentDocRetrieveDeferredRespProxy {
     private Log log = null;
 
-     public AdapterComponentDocRetrieveDeferredRespProxyNoOpImpl() {
-         log = LogFactory.getLog(getClass());
-     }
+    public AdapterComponentDocRetrieveDeferredRespProxyNoOpImpl() {
+        log = LogFactory.getLog(getClass());
+    }
 
-     public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetResponseType body, AssertionType assertion) {
-         DocRetrieveAcknowledgementType     response = new DocRetrieveAcknowledgementType();
-         RegistryResponseType               resp = new RegistryResponseType();
+    public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetResponseType body, AssertionType assertion) {
+        DocRetrieveAcknowledgementType response = new DocRetrieveAcknowledgementType();
+        RegistryResponseType resp = new RegistryResponseType();
 
-         resp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG);
-         response.setMessage(resp);
+        resp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG);
+        response.setMessage(resp);
 
-         log.info("AdapterComponentDocRetrieveDeferredRespNoOpImpl.sendToAdapter() - NO OP called");
+        log.info("AdapterComponentDocRetrieveDeferredRespNoOpImpl.sendToAdapter() - NO OP called");
 
-         return response;
-     }
+        return response;
+    }
 }

@@ -25,30 +25,31 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.admindistribution.passthru.proxy;
+
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class PassthruAdminDistributionProxyNoOpImpl {
-   private Log log = null;
+    private Log log = null;
 
-    public PassthruAdminDistributionProxyNoOpImpl()
-    {
+    public PassthruAdminDistributionProxyNoOpImpl() {
         log = createLogger();
     }
-    protected Log createLogger()
-    {
+
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
+
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
-            NhincConstants.GATEWAY_API_LEVEL apiLevel)
-    {
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.info("begin sendAlert");
     }
 }

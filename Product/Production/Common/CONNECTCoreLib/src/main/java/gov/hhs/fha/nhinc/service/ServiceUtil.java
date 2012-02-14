@@ -35,62 +35,48 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class ServiceUtil
-{
+public class ServiceUtil {
 
     private Log log = null;
 
-    public ServiceUtil()
-    {
+    public ServiceUtil() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected String getWsdlPath()
-    {
+    protected String getWsdlPath() {
         return ServicePropertyLoader.getBaseWsdlPath();
     }
 
-    protected Service constructService(String wsdlURL, String namespaceURI, String serviceLocalPart) throws MalformedURLException
-    {
+    protected Service constructService(String wsdlURL, String namespaceURI, String serviceLocalPart)
+            throws MalformedURLException {
         return Service.create(new URL(wsdlURL), new QName(namespaceURI, serviceLocalPart));
     }
 
-    public Service createService(String wsdlFile, String namespaceURI, String serviceLocalPart) throws MalformedURLException
-    {
+    public Service createService(String wsdlFile, String namespaceURI, String serviceLocalPart)
+            throws MalformedURLException {
         Service service = null;
         log.debug("Begin createService");
 
-        if((wsdlFile == null) || (wsdlFile.length() < 1))
-        {
+        if ((wsdlFile == null) || (wsdlFile.length() < 1)) {
             log.error("WSDL file name is required.");
-        }
-        else if((namespaceURI == null) || (namespaceURI.length() < 1))
-        {
+        } else if ((namespaceURI == null) || (namespaceURI.length() < 1)) {
             log.error("Namespace URI is required.");
-        }
-        else if((serviceLocalPart == null) || (serviceLocalPart.length() < 1))
-        {
+        } else if ((serviceLocalPart == null) || (serviceLocalPart.length() < 1)) {
             log.error("Service local part name is required.");
-        }
-        else
-        {
+        } else {
             final String wsdlPath = getWsdlPath();
-            if((wsdlPath != null) && (wsdlPath.length() > 0))
-            {
+            if ((wsdlPath != null) && (wsdlPath.length() > 0)) {
                 String wsdlURL = wsdlPath + wsdlFile;
                 log.debug("Creating service using the URL: " + wsdlURL);
                 service = constructService(wsdlURL, namespaceURI, serviceLocalPart);
-            }
-            else
-            {
+            } else {
                 log.error("Unable to retrieve the WSDL path.");
             }
         }

@@ -5,7 +5,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.*;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
-public class OutboundDocRetrieveOrchestrationContextBuilder_g1 implements OrchestrationContextBuilder, OutboundDocRetrieveContextBuilder {
+public class OutboundDocRetrieveOrchestrationContextBuilder_g1 implements OrchestrationContextBuilder,
+        OutboundDocRetrieveContextBuilder {
 
     private RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
     private AssertionType assertionType;
@@ -70,21 +71,22 @@ public class OutboundDocRetrieveOrchestrationContextBuilder_g1 implements Orches
         nhinTarget = target;
     }
 
-    public NhinTargetSystemType getTarget()
-    {
+    public NhinTargetSystemType getTarget() {
         return nhinTarget;
     }
 
     @Override
     public OrchestrationContext build() {
-        return new OrchestrationContext(new OutboundDocRetrieveStrategyImpl_g1(), new OutboundDocRetrieveOrchestratableImpl(getRetrieveDocumentSetRequestType(), getAssertionType(), getPolicyTransformer(), getAuditTransformer(), getOutboundDelegate(), getNhinAggregator(), getTarget()));
+        return new OrchestrationContext(new OutboundDocRetrieveStrategyImpl_g1(),
+                new OutboundDocRetrieveOrchestratableImpl(getRetrieveDocumentSetRequestType(), getAssertionType(),
+                        getPolicyTransformer(), getAuditTransformer(), getOutboundDelegate(), getNhinAggregator(),
+                        getTarget()));
     }
 
     @Override
     public void setContextMessage(OutboundOrchestratable message) {
-        if (message instanceof OutboundDocRetrieveOrchestratable)
-        {
-            setContextMessage((OutboundDocRetrieveOrchestratable)message);
+        if (message instanceof OutboundDocRetrieveOrchestratable) {
+            setContextMessage((OutboundDocRetrieveOrchestratable) message);
         }
     }
 

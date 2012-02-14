@@ -36,6 +36,7 @@ import java.io.File;
 
 /**
  * This class will be used as a Utility Class to access the Data Object using Hibernate SessionFactory
+ * 
  * @author svalluripalli
  */
 public class HibernateUtil {
@@ -51,29 +52,26 @@ public class HibernateUtil {
             throw new ExceptionInInitializerError(ex);
         }
     }
-    
+
     /**
      * Method returns an instance of Hibernate SessionFactory
+     * 
      * @return SessionFactory
      */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    private static File getConfigFile(){
+
+    private static File getConfigFile() {
         File result = null;
 
-        try
-        {
+        try {
             result = HibernateAccessor.getHibernateFile(NhincConstants.HIBERNATE_PATIENT_CORRELATION);
+        } catch (Exception ex) {
+            log.error("Unable to load " + NhincConstants.HIBERNATE_PATIENT_CORRELATION + " " + ex.getMessage(), ex);
         }
-        catch (Exception ex)
-        {
-            log.error("Unable to load " + NhincConstants.HIBERNATE_PATIENT_CORRELATION + " " + ex.getMessage(), ex );
-        }
-
 
         return result;
-
 
     }
 }

@@ -38,60 +38,54 @@ import org.jmock.lib.legacy.ClassImposteriser;
 
 @Ignore
 public abstract class AbstractWebServiceProxyHelpTest {
-	
-	protected Mockery context = new JUnit4Mockery() {{
-		setImposteriser(ClassImposteriser.INSTANCE);
-	}};
-	
-	final protected IPropertyAcessor mockPropertyAccessor = context
-			.mock(IPropertyAcessor.class);
-	
-	
-	protected void initializationExpectations() throws PropertyAccessException {
-		retryDelayExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
 
-		retryAttemptsExpectation(mockPropertyAccessor, Expectations.returnValue("5"));
-		
-		timeoutExpectation(mockPropertyAccessor, Expectations.returnValue("300"));
-			
-		
-		exceptionExpectation(mockPropertyAccessor, Expectations.returnValue("PropertyAccessException"));
-	}
-	
-	
-	protected void exceptionExpectation(IPropertyAcessor mock,
-			Action action) throws PropertyAccessException {
-		propertyExpectation(mock, action, WebServiceProxyHelperProperties.CONFIG_KEY_EXCEPTION);
-	}
+    protected Mockery context = new JUnit4Mockery() {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
 
-	protected void timeoutExpectation(IPropertyAcessor mockPropertyAccessor,
-			Action action) throws PropertyAccessException {
-		propertyExpectation(mockPropertyAccessor, action, WebServiceProxyHelperProperties.CONFIG_KEY_TIMEOUT);
-		
-	}
+    final protected IPropertyAcessor mockPropertyAccessor = context.mock(IPropertyAcessor.class);
 
-	protected void retryAttemptsExpectation(final IPropertyAcessor mock,
-			final Action action) throws PropertyAccessException {
-		propertyExpectation(mock, action, WebServiceProxyHelperProperties.CONFIG_KEY_RETRYATTEMPTS);
-	}
+    protected void initializationExpectations() throws PropertyAccessException {
+        retryDelayExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
 
-	protected void retryDelayExpectation(final IPropertyAcessor mock,
-			final Action action) throws PropertyAccessException {
-		propertyExpectation(mock, action,
-				WebServiceProxyHelperProperties.CONFIG_KEY_RETRYDELAY);
-	}
+        retryAttemptsExpectation(mockPropertyAccessor, Expectations.returnValue("5"));
 
-	protected void propertyExpectation(final IPropertyAcessor mock,
-			final Action action, final String property)
-			throws PropertyAccessException {
-		context.checking(new Expectations() {
+        timeoutExpectation(mockPropertyAccessor, Expectations.returnValue("300"));
 
-			{
-				oneOf(mock).getProperty(property);
-				will(action);
-			}
-		});
-	}
+        exceptionExpectation(mockPropertyAccessor, Expectations.returnValue("PropertyAccessException"));
+    }
 
-	
+    protected void exceptionExpectation(IPropertyAcessor mock, Action action) throws PropertyAccessException {
+        propertyExpectation(mock, action, WebServiceProxyHelperProperties.CONFIG_KEY_EXCEPTION);
+    }
+
+    protected void timeoutExpectation(IPropertyAcessor mockPropertyAccessor, Action action)
+            throws PropertyAccessException {
+        propertyExpectation(mockPropertyAccessor, action, WebServiceProxyHelperProperties.CONFIG_KEY_TIMEOUT);
+
+    }
+
+    protected void retryAttemptsExpectation(final IPropertyAcessor mock, final Action action)
+            throws PropertyAccessException {
+        propertyExpectation(mock, action, WebServiceProxyHelperProperties.CONFIG_KEY_RETRYATTEMPTS);
+    }
+
+    protected void retryDelayExpectation(final IPropertyAcessor mock, final Action action)
+            throws PropertyAccessException {
+        propertyExpectation(mock, action, WebServiceProxyHelperProperties.CONFIG_KEY_RETRYDELAY);
+    }
+
+    protected void propertyExpectation(final IPropertyAcessor mock, final Action action, final String property)
+            throws PropertyAccessException {
+        context.checking(new Expectations() {
+
+            {
+                oneOf(mock).getProperty(property);
+                will(action);
+            }
+        });
+    }
+
 }

@@ -46,7 +46,7 @@ import org.oasis_open.docs.wsn.b_2.Notify;
 import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class CDCTimerTask {
@@ -78,7 +78,7 @@ public class CDCTimerTask {
     public void run() {
         try {
 
-            //dynamic setting that determines wheter or not to process directory.
+            // dynamic setting that determines wheter or not to process directory.
             if (CDCTimerTask.directoryProcessingEnabled()) {
                 processDir(monitorDirectory);
             }
@@ -138,8 +138,8 @@ public class CDCTimerTask {
         StringBuilder contents = new StringBuilder();
 
         try {
-            //use buffering, reading one line at a time
-            //FileReader always assumes default encoding is OK!
+            // use buffering, reading one line at a time
+            // FileReader always assumes default encoding is OK!
             BufferedReader input = new BufferedReader(new FileReader(aFile));
             try {
                 String line = null;
@@ -161,32 +161,31 @@ public class CDCTimerTask {
 
     public static void sendNotification(String contents) {
         log.debug("Begin - CDCFileTransferAdapter.sendNotification() - End");
-        try
-        {
-            //Create End point Dynamically
+        try {
+            // Create End point Dynamically
             String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
             log.info("EntityNotificationConsumerURL :" + endpointURL);
 
             NotifyRequestType notifyRequest = new NotifyRequestType();
 
-            //build Set Assertion
+            // build Set Assertion
             AssertionType assertion = new AssertionType();
             notifyRequest.setAssertion(assertion);
 
             EntityNotificationConsumerPortType port = getPort(endpointURL, assertion);
-            
-            //build set CdcBioPackageElement
+
+            // build set CdcBioPackageElement
             gov.hhs.healthit.nhin.cdc.ObjectFactory factory = new gov.hhs.healthit.nhin.cdc.ObjectFactory();
             JAXBElement<byte[]> cdcBioPackageElement = factory.createCdcBioPackagePayload(Util.convertToByte(contents));
             Notify notify = new Notify();
             NotificationMessageHolderType messageHolderType = new NotificationMessageHolderType();
 
-            //Set Message with byte array
+            // Set Message with byte array
             Message message = new Message();
             message.setAny(cdcBioPackageElement);
             messageHolderType.setMessage(message);
 
-            //create set Simple Topic
+            // create set Simple Topic
             TopicExpressionType topic = new TopicExpressionType();
             topic.setDialect("http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple");
             messageHolderType.setTopic(topic);
@@ -208,12 +207,13 @@ public class CDCTimerTask {
 
             if (oService != null) {
                 log.debug("subscribe() Obtained service - creating port.");
-                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityNotificationConsumerPortType.class);
-                    
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                        EntityNotificationConsumerPortType.class);
+
                 // Initialize unsecured port
-                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, WS_ADDRESSING_ACTION, assertIn);
-             }
-            else  {
+                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, WS_ADDRESSING_ACTION,
+                        assertIn);
+            } else {
                 log.error("Unable to obtain serivce - no port created.");
             }
         } catch (Throwable t) {

@@ -35,25 +35,22 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class AdapterDocSubmissionDeferredResponseOrchImpl
-{
+public class AdapterDocSubmissionDeferredResponseOrchImpl {
     private Log log = null;
 
-    public AdapterDocSubmissionDeferredResponseOrchImpl()
-    {
+    public AdapterDocSubmissionDeferredResponseOrchImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse, AssertionType assertion)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
+            AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredResponseOrchImpl.provideAndRegisterDocumentSetBResponse");
         AdapterComponentDocSubmissionResponseProxyObjectFactory oFactory = new AdapterComponentDocSubmissionResponseProxyObjectFactory();
         AdapterComponentDocSubmissionResponseProxy oProxy = oFactory.getAdapterComponentDocSubmissionResponseProxy();

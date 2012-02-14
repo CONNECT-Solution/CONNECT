@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
+
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,27 +33,26 @@ import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistributionOrchI
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class AdapterAdminDistributionProxyJavaImpl implements AdapterAdminDistributionProxy{
-     private Log log = null;
+public class AdapterAdminDistributionProxyJavaImpl implements AdapterAdminDistributionProxy {
+    private Log log = null;
 
-    public AdapterAdminDistributionProxyJavaImpl()
-    {
+    public AdapterAdminDistributionProxyJavaImpl() {
         log = createLogger();
     }
-    protected Log createLogger()
-    {
+
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion)
-    {
+
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.debug("Begin sendAlertMessage");
         getAdapterImplementation().sendAlertMessage(body, assertion);
     }
-    protected AdapterAdminDistributionOrchImpl getAdapterImplementation()
-    {
+
+    protected AdapterAdminDistributionOrchImpl getAdapterImplementation() {
         return new gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistributionOrchImpl();
     }
 }

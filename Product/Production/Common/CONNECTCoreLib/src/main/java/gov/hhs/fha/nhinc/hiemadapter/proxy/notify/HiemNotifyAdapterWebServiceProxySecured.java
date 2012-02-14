@@ -51,7 +51,7 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapterProxy {
@@ -65,7 +65,8 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
     private static final String WSDL_FILE = "AdapterNotificationConsumerSecured.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:Notify";
 
-    public Element notify(Element notifyElement, ReferenceParametersElements referenceParametersElements, AssertionType assertion, NhinTargetSystemType target) throws Exception {
+    public Element notify(Element notifyElement, ReferenceParametersElements referenceParametersElements,
+            AssertionType assertion, NhinTargetSystemType target) throws Exception {
         Element responseElement = null;
         AcknowledgementType response = null;
 
@@ -78,14 +79,15 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
         Notify notify = subscribeMarshaller.unmarshalNotifyRequest(notifyElement);
 
         SamlTokenCreator tokenCreator = new SamlTokenCreator();
-        Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
+        Map requestContext = tokenCreator.CreateRequestContext(assertion, url,
+                NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
         ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
         log.debug("attaching reference parameter headers");
         SoapUtil soapUtil = new SoapUtil();
         soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
 
-        //The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
+        // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
         response = port.notify(notify);
 
         NhincCommonAcknowledgementMarshaller acknowledgementMarshaller = new NhincCommonAcknowledgementMarshaller();
@@ -96,20 +98,24 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
         return responseElement;
     }
 
-    public Element notifySubscribersOfDocument(Element docNotify, AssertionType assertion, NhinTargetSystemType target) throws Exception {
+    public Element notifySubscribersOfDocument(Element docNotify, AssertionType assertion, NhinTargetSystemType target)
+            throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Element notifySubscribersOfCdcBioPackage(Element cdcNotify, AssertionType assertion, NhinTargetSystemType target) throws Exception {
+    public Element notifySubscribersOfCdcBioPackage(Element cdcNotify, AssertionType assertion,
+            NhinTargetSystemType target) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     private String getUrl() {
         String url = "";
         try {
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+                    NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME + " for local home community");
+            log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME
+                    + " for local home community");
             log.error(ex.getMessage());
         }
 
@@ -127,7 +133,8 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
                         AdapterNotificationConsumerPortSecureType.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url, NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_SECURED_NAME, WS_ADDRESSING_ACTION, assertIn);
+                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+                        NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_SECURED_NAME, WS_ADDRESSING_ACTION, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

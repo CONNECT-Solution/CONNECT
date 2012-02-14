@@ -36,33 +36,28 @@ import javax.xml.ws.soap.Addressing;
 
 @WebService(serviceName = "EntityDocQuery", portName = "EntityDocQueryPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocquery", wsdlLocation = "WEB-INF/wsdl/EntityDocQueryUnsecured/EntityDocQuery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
-public class EntityDocQueryUnsecured
-{
+@Addressing(enabled = true)
+public class EntityDocQueryUnsecured {
 
     @Resource
     private WebServiceContext context;
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request)
-    {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request) {
         AdhocQueryResponse response = null;
 
         EntityDocQueryImpl impl = getEntityDocQueryImpl();
-        if (impl != null)
-        {
+        if (impl != null) {
             response = impl.respondingGatewayCrossGatewayQueryUnsecured(request, getWebServiceContext());
         }
 
         return response;
     }
 
-    protected EntityDocQueryImpl getEntityDocQueryImpl()
-    {
+    protected EntityDocQueryImpl getEntityDocQueryImpl() {
         return new EntityDocQueryImpl();
     }
 
-    protected WebServiceContext getWebServiceContext()
-    {
+    protected WebServiceContext getWebServiceContext() {
         return context;
     }
 }

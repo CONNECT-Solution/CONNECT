@@ -46,7 +46,7 @@ import org.xmlsoap.schemas.ws._2004._08.addressing.EndpointReferenceType;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Arthur Kong
  */
 public class ConnectionManagerCacheTest {
@@ -61,7 +61,6 @@ public class ConnectionManagerCacheTest {
     private static String QUERY_FOR_DOCUMENTS_DEFERRED_URL = "https://localhost:8181/QueryForDocumentsDeferredRequest";
     private static String QUERY_FOR_DOCUMENTS_URL_22 = "https://server2:8181/QueryForDocuments";
     private static String QUERY_FOR_DOCUMENTS_DEFERRED_URL_22 = "https://server2:8181/QueryForDocumentsDeferredRequest";
-
 
     private static String FL_REGION_VALUE = "US-FL";
 
@@ -157,25 +156,20 @@ public class ConnectionManagerCacheTest {
     @Test
     public void testGetAllCommunities_EmptyBusinessDetail() {
         try {
-            ConnectionManagerCache connectionManager = createConnectionManager_Empty();           
+            ConnectionManagerCache connectionManager = createConnectionManager_Empty();
             assertTrue(connectionManager.getAllCommunities().isEmpty());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetAllCommunities_EmptyBusinessDetail test: " + t.getMessage());
         }
     }
-
 
     @Test
     public void testGetAllCommunities_EmptyBusinessEntity() {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager_EmptyBusinessEntity();
             assertTrue(connectionManager.getAllCommunities().isEmpty());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetAllCommunities_EmptyBusinessEntity test: " + t.getMessage());
         }
@@ -186,9 +180,7 @@ public class ConnectionManagerCacheTest {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
             assertEquals(2, connectionManager.getAllCommunities().size());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetAllCommunities test: " + t.getMessage());
         }
@@ -204,9 +196,7 @@ public class ConnectionManagerCacheTest {
             connectionManager.setCommunityId(businessEntity, HCID_3);
             String newHCID = connectionManager.getCommunityId(businessEntity);
             assertTrue(newHCID.equals(HCID_3));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testSetCommunityId test: " + t.getMessage());
         }
@@ -215,16 +205,14 @@ public class ConnectionManagerCacheTest {
     @Test
     public void testGetAllBusinessEntities() {
         try {
-            ConnectionManagerCache connectionManager = createConnectionManager();           
+            ConnectionManagerCache connectionManager = createConnectionManager();
             List<BusinessEntity> entities = connectionManager.getAllBusinessEntities();
             assertEquals(2, entities.size());
 
             connectionManager = createConnectionManager_Override();
             entities = connectionManager.getAllBusinessEntities();
             assertEquals(3, entities.size());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetAllBusinessEntities test: " + t.getMessage());
         }
@@ -243,9 +231,7 @@ public class ConnectionManagerCacheTest {
 
             url = connectionManager.getEndpointURLByServiceName(HCID_1, QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(QUERY_FOR_DOCUMENTS_URL, url);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testMerging test: " + t.getMessage());
         }
@@ -270,9 +256,7 @@ public class ConnectionManagerCacheTest {
             hcidList.add("hcidValue2123");
             entitySet = connectionManager.getBusinessEntitySet(hcidList);
             assertNull(entitySet);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetBusinessEntitySet test: " + t.getMessage());
         }
@@ -291,9 +275,7 @@ public class ConnectionManagerCacheTest {
 
             url = connectionManager.getEndpointURLByServiceName(HCID_2, QUERY_FOR_DOCUMENTS_DEFERRED_NAME);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_DEFERRED_URL_22));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetEndpointURLByServiceName test: " + t.getMessage());
         }
@@ -312,9 +294,7 @@ public class ConnectionManagerCacheTest {
 
             url = connectionManager.getLocalEndpointURLByServiceName(RETRIEVE_DOCUMENTS_NAME);
             assertTrue(url.equals(""));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetEndpointURLByServiceName test: " + t.getMessage());
         }
@@ -354,17 +334,18 @@ public class ConnectionManagerCacheTest {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            String url = connectionManager.getEndpontURLFromNhinTarget(createNhinTargetSystem(), QUERY_FOR_DOCUMENTS_NAME);
+            String url = connectionManager.getEndpontURLFromNhinTarget(createNhinTargetSystem(),
+                    QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(NHIN_TARGET_ENDPOINT_URL_VALUE));
 
-            url = connectionManager.getEndpontURLFromNhinTarget(createNhinTargetSystem_UrlOnly(), QUERY_FOR_DOCUMENTS_NAME);
+            url = connectionManager.getEndpontURLFromNhinTarget(createNhinTargetSystem_UrlOnly(),
+                    QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(NHIN_TARGET_ENDPOINT_URL_VALUE));
 
-            url = connectionManager.getEndpontURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(), QUERY_FOR_DOCUMENTS_NAME);
+            url = connectionManager.getEndpontURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(),
+                    QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_URL));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetEndpontURLFromNhinTarget test: " + t.getMessage());
         }
@@ -388,14 +369,13 @@ public class ConnectionManagerCacheTest {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            List<UrlInfo> endpointUrlList = connectionManager.getEndpontURLFromNhinTargetCommunities(createNhinTargetCommunites(), QUERY_FOR_DOCUMENTS_NAME);
+            List<UrlInfo> endpointUrlList = connectionManager.getEndpontURLFromNhinTargetCommunities(
+                    createNhinTargetCommunites(), QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(endpointUrlList.get(0).getUrl().equals(QUERY_FOR_DOCUMENTS_URL));
 
             endpointUrlList = connectionManager.getEndpontURLFromNhinTargetCommunities(null, QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(2, endpointUrlList.size());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetEndpontURLFromNhinTargetCommunities test: " + t.getMessage());
         }
@@ -411,9 +391,7 @@ public class ConnectionManagerCacheTest {
 
             url = connectionManager.getAdapterEndpontURL(QUERY_FOR_DOCUMENTS_DEFERRED_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_DEFERRED_URL));
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetAdapterEndpontURL test: " + t.getMessage());
         }

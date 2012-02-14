@@ -54,136 +54,125 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  */
 public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrchestration {
 
-	private static Log log = LogFactory
-			.getLog(NhinPatientDiscoveryOrchImpl.class);
+    private static Log log = LogFactory.getLog(NhinPatientDiscoveryOrchImpl.class);
 
-	private ServicePropertyAccessor servicePropertyAccessor;
+    private ServicePropertyAccessor servicePropertyAccessor;
 
-	private PatientDiscoveryAuditor auditLogger;
+    private PatientDiscoveryAuditor auditLogger;
 
-	private PatientDiscoveryProcessor patientDiscoveryProcessor;
+    private PatientDiscoveryProcessor patientDiscoveryProcessor;
 
-	private GenericFactory<AdapterPatientDiscoveryProxy> proxyFactory;
-	
-	NhinPatientDiscoveryOrchImpl(ServicePropertyAccessor servicePropertyAccessor, PatientDiscoveryAuditor auditLogger, PatientDiscoveryProcessor patientDiscoveryProcessor, GenericFactory<AdapterPatientDiscoveryProxy> proxyFactory) {
-		this.servicePropertyAccessor = servicePropertyAccessor;
-		this.auditLogger = auditLogger;
-		this.patientDiscoveryProcessor = patientDiscoveryProcessor;
-		this.proxyFactory = proxyFactory;
-	}
+    private GenericFactory<AdapterPatientDiscoveryProxy> proxyFactory;
 
-	/* (non-Javadoc)
-	 * @see gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration#respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
-	 */
-	@Override
-	public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
-			PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
-		log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
+    NhinPatientDiscoveryOrchImpl(ServicePropertyAccessor servicePropertyAccessor, PatientDiscoveryAuditor auditLogger,
+            PatientDiscoveryProcessor patientDiscoveryProcessor,
+            GenericFactory<AdapterPatientDiscoveryProxy> proxyFactory) {
+        this.servicePropertyAccessor = servicePropertyAccessor;
+        this.auditLogger = auditLogger;
+        this.patientDiscoveryProcessor = patientDiscoveryProcessor;
+        this.proxyFactory = proxyFactory;
+    }
 
-		PRPAIN201306UV02 response = new PRPAIN201306UV02();
-		AcknowledgementType ack = new AcknowledgementType();
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration#respondingGatewayPRPAIN201305UV02
+     * (org.hl7.v3.PRPAIN201305UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
+     */
+    @Override
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
+            throws PatientDiscoveryException {
+        log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
 
-		// Check if the Patient Discovery Service is enabled
-		if (isServiceEnabled()) {
+        PRPAIN201306UV02 response = new PRPAIN201306UV02();
+        AcknowledgementType ack = new AcknowledgementType();
 
-			response = auditAndProcess(body, assertion, auditLogger);
-		}
+        // Check if the Patient Discovery Service is enabled
+        if (isServiceEnabled()) {
 
-		// Send response back to the initiating Gateway
-		log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
-		return response;
-	}
+            response = auditAndProcess(body, assertion, auditLogger);
+        }
 
-	/**
-	 * @param body
-	 * @param assertion
-	 * @param auditLogger
-	 * @return
-	 * @throws PatientDiscoveryException 
-	 */
-	protected PRPAIN201306UV02 auditAndProcess(PRPAIN201305UV02 body,
-			AssertionType assertion, PatientDiscoveryAuditor auditLogger) throws PatientDiscoveryException {
-		PRPAIN201306UV02 response;
-		AcknowledgementType ack;
-		// Audit the outgoing Adapter 201305 Message
-		ack = auditLogger.auditAdapter201305(body, assertion,
-				NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        // Send response back to the initiating Gateway
+        log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
+        return response;
+    }
 
-		// Log the start of the adapter performance record
-		String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-		Timestamp starttimeAdapter = new Timestamp(
-				System.currentTimeMillis());
-		Long logAdapterId = PerformanceManager
-				.getPerformanceManagerInstance().logPerformanceStart(
-						starttimeAdapter,
-						NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,
-						NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
-						NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-						homeCommunityId);
+    /**
+     * @param body
+     * @param assertion
+     * @param auditLogger
+     * @return
+     * @throws PatientDiscoveryException
+     */
+    protected PRPAIN201306UV02 auditAndProcess(PRPAIN201305UV02 body, AssertionType assertion,
+            PatientDiscoveryAuditor auditLogger) throws PatientDiscoveryException {
+        PRPAIN201306UV02 response;
+        AcknowledgementType ack;
+        // Audit the outgoing Adapter 201305 Message
+        ack = auditLogger.auditAdapter201305(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
-		response = process(body, assertion);
+        // Log the start of the adapter performance record
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+        Timestamp starttimeAdapter = new Timestamp(System.currentTimeMillis());
+        Long logAdapterId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttimeAdapter,
+                NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
 
-		// Log the end of the adapter performance record
-		Timestamp stoptimeAdapter = new Timestamp(
-				System.currentTimeMillis());
-		PerformanceManager.getPerformanceManagerInstance()
-				.logPerformanceStop(logAdapterId, starttimeAdapter,
-						stoptimeAdapter);
+        response = process(body, assertion);
 
-		// Audit the incoming Adapter 201306 Message - response that came
-		// back from the adapter.
-		ack = auditLogger.auditAdapter201306(response, assertion,
-				NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-		return response;
-	}
+        // Log the end of the adapter performance record
+        Timestamp stoptimeAdapter = new Timestamp(System.currentTimeMillis());
+        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logAdapterId, starttimeAdapter,
+                stoptimeAdapter);
 
-	/**
-	 * @param body
-	 * @param assertion
-	 * @return
-	 * @throws PatientDiscoveryException 
-	 */
-	protected PRPAIN201306UV02 process(PRPAIN201305UV02 body,
-			AssertionType assertion) throws PatientDiscoveryException {
-		PRPAIN201306UV02 response;
-		// Check if in Pass-Through Mode
-		if (isInPassThroughMode()) {
-			response = send201305ToAgency(body, assertion);
-		} else {
-			response = patientDiscoveryProcessor.process201305(body, assertion);
-		}
-		return response;
-	}
+        // Audit the incoming Adapter 201306 Message - response that came
+        // back from the adapter.
+        ack = auditLogger.auditAdapter201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        return response;
+    }
 
-	
-	
-	
-	protected PRPAIN201306UV02 send201305ToAgency(PRPAIN201305UV02 request, AssertionType assertion) throws PatientDiscoveryException {
+    /**
+     * @param body
+     * @param assertion
+     * @return
+     * @throws PatientDiscoveryException
+     */
+    protected PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
+        PRPAIN201306UV02 response;
+        // Check if in Pass-Through Mode
+        if (isInPassThroughMode()) {
+            response = send201305ToAgency(body, assertion);
+        } else {
+            response = patientDiscoveryProcessor.process201305(body, assertion);
+        }
+        return response;
+    }
+
+    protected PRPAIN201306UV02 send201305ToAgency(PRPAIN201305UV02 request, AssertionType assertion)
+            throws PatientDiscoveryException {
         AdapterPatientDiscoveryProxy proxy = proxyFactory.create();
         PRPAIN201306UV02 adapterResp = proxy.respondingGatewayPRPAIN201305UV02(request, assertion);
         return adapterResp;
     }
-	
-	/**
-	 * Checks the gateway.properties file to see if the Patient Discovery
-	 * Service is enabled.
-	 * 
-	 * @return Returns true if the servicePatientDiscovery is enabled in the
-	 *         properties file.
-	 */
-	protected boolean isServiceEnabled() {
-		return servicePropertyAccessor.isServiceEnabled();
-	}
 
-	/**
-	 * Checks to see if the query should be handled internally or passed through
-	 * to an adapter.
-	 * 
-	 * @return Returns true if the patientDiscoveryPassthrough property of the
-	 *         gateway.properties file is true.
-	 */
-	protected boolean isInPassThroughMode() {
-		return servicePropertyAccessor.isInPassThroughMode();
-	}
+    /**
+     * Checks the gateway.properties file to see if the Patient Discovery Service is enabled.
+     * 
+     * @return Returns true if the servicePatientDiscovery is enabled in the properties file.
+     */
+    protected boolean isServiceEnabled() {
+        return servicePropertyAccessor.isServiceEnabled();
+    }
+
+    /**
+     * Checks to see if the query should be handled internally or passed through to an adapter.
+     * 
+     * @return Returns true if the patientDiscoveryPassthrough property of the gateway.properties file is true.
+     */
+    protected boolean isInPassThroughMode() {
+        return servicePropertyAccessor.isInPassThroughMode();
+    }
 
 }

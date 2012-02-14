@@ -65,10 +65,8 @@ public class FindAuditEventsTransforms {
 
             // Extract UserInfo from Message.Assertion
             UserType userInfo = new UserType();
-            if (message != null &&
-                    message.getMessage() != null &&
-                    message.getMessage().getAssertion() != null &&
-                    message.getMessage().getAssertion().getUserInfo() != null) {
+            if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
+                    && message.getMessage().getAssertion().getUserInfo() != null) {
                 userInfo = message.getMessage().getAssertion().getUserInfo();
             }
 
@@ -77,25 +75,25 @@ public class FindAuditEventsTransforms {
             CodedValueType eventID = AuditDataTransformHelper.createEventId("ADQ", "AuditQuery", "ADQ", "AuditQuery");
 
             // EventIdentification
-            auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE, eventOutcomeID, eventID));
+            auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
+                    AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE, eventOutcomeID, eventID));
             log.info("set EventIdentification");
 
-            //ActiveParticipant
+            // ActiveParticipant
             // NOTE: This is [1..*] in schema but only one item to map to from FindAuditEventsType
 
-            if (userInfo != null &&
-                    NullChecker.isNotNullish(userInfo.getUserName())) {
+            if (userInfo != null && NullChecker.isNotNullish(userInfo.getUserName())) {
                 userID = userInfo.getUserName();
                 log.info("userID " + userID);
             }
             String altUserID = "";
             String userName = "";
-            if (userInfo.getPersonName() != null &&
-                    NullChecker.isNotNullish(userInfo.getPersonName().getGivenName()) &&
-                    NullChecker.isNotNullish(userInfo.getPersonName().getFamilyName())) {
+            if (userInfo.getPersonName() != null && NullChecker.isNotNullish(userInfo.getPersonName().getGivenName())
+                    && NullChecker.isNotNullish(userInfo.getPersonName().getFamilyName())) {
                 userName = userInfo.getPersonName().getGivenName() + " " + userInfo.getPersonName().getFamilyName();
             }
-            AuditMessageType.ActiveParticipant activeParticipant = AuditDataTransformHelper.createActiveParticipant(userID, altUserID, userName, true);
+            AuditMessageType.ActiveParticipant activeParticipant = AuditDataTransformHelper.createActiveParticipant(
+                    userID, altUserID, userName, true);
 
             auditMsg.getActiveParticipant().add(activeParticipant);
             log.info("set ActiveParticiapnt");
@@ -104,20 +102,19 @@ public class FindAuditEventsTransforms {
             // NOTE: This is [1..*] in the schema but only one item to map to from FindAuditEventsType
             String auditSourceID = "";
             String enterpriseSiteID = "";
-            if (userInfo != null &&
-                    userInfo.getOrg() != null) {
-                if (userInfo.getOrg().getName() != null &&
-                        userInfo.getOrg().getName().length() > 0) {
+            if (userInfo != null && userInfo.getOrg() != null) {
+                if (userInfo.getOrg().getName() != null && userInfo.getOrg().getName().length() > 0) {
                     enterpriseSiteID = userInfo.getOrg().getName();
                 }
-                if (userInfo.getOrg().getHomeCommunityId() != null &&
-                        userInfo.getOrg().getHomeCommunityId().length() > 0) {
+                if (userInfo.getOrg().getHomeCommunityId() != null
+                        && userInfo.getOrg().getHomeCommunityId().length() > 0) {
 
                     auditSourceID = userInfo.getOrg().getHomeCommunityId();
                     log.info("auditSourceID " + auditSourceID);
                 }
             }
-            AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(auditSourceID, enterpriseSiteID);
+            AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
+                    auditSourceID, enterpriseSiteID);
             auditMsg.getAuditSourceIdentification().add(auditSource);
             log.info("set AuditSourceIdentification");
 
@@ -125,12 +122,13 @@ public class FindAuditEventsTransforms {
             // NOTE: This is [0..*] in the schema but only one item to map to from FindAuditEventsType
             String patientID = "";
 
-            if (message.getMessage().getFindAuditEvents().getPatientId() != null &&
-                    message.getMessage().getFindAuditEvents().getPatientId().length() > 0) {
+            if (message.getMessage().getFindAuditEvents().getPatientId() != null
+                    && message.getMessage().getFindAuditEvents().getPatientId().length() > 0) {
                 patientID = message.getMessage().getFindAuditEvents().getPatientId();
                 log.info("patientID " + patientID);
             }
-            ParticipantObjectIdentificationType partObject = AuditDataTransformHelper.createParticipantObjectIdentification(patientID);
+            ParticipantObjectIdentificationType partObject = AuditDataTransformHelper
+                    .createParticipantObjectIdentification(patientID);
 
             // Fill in the message field with the contents of the event message
             try {

@@ -37,14 +37,12 @@ import java.util.StringTokenizer;
 public class StringUtil {
 
     /**
-     * This method reads the entire contents of a text file and returns the contents in 
-     * a string variable.
+     * This method reads the entire contents of a text file and returns the contents in a string variable.
      * 
      * @param sFileName The path and location of the text file.
      * @return The contents that was read in.
      */
-    public static String readTextFile(String sFileName)
-            throws UtilException {
+    public static String readTextFile(String sFileName) throws UtilException {
         String sText = "";
         FileReader frTextFile = null;
 
@@ -75,6 +73,7 @@ public class StringUtil {
 
     /**
      * Extracts required string by removing the tokens given as input
+     * 
      * @param tokenString
      * @param tokens
      * @return String
@@ -96,35 +95,30 @@ public class StringUtil {
 
     /**
      * This method is used to add CDATA tags around a string.
-     *
+     * 
      * @param sText The text to be wrapped in a CDATA tag.
      * @return The wrapped text.
      */
     public static String wrapCdata(String sText) {
         if (sText != null) {
             return "[CDATA[" + sText + "]]";
-        }
-        else {
+        } else {
             return "[CDATA[]]";
         }
 
     }
 
     /**
-     * If the text is wrapped with a "[CDATA[ ]]" tag then it is removed and
-     * the text inside is returned.
+     * If the text is wrapped with a "[CDATA[ ]]" tag then it is removed and the text inside is returned.
      * 
      * @param sText The text containing a CDATA wrapper.
-     * @return The text without the CDATA wrapper.  If it does not contain a 
-     *         CDATA wrapper, it simply returns the same text it was passed.
+     * @return The text without the CDATA wrapper. If it does not contain a CDATA wrapper, it simply returns the same
+     *         text it was passed.
      */
-    public static String unwrapCdata (String sText) {
-        if ((sText != null) &&
-            (sText.trim().startsWith("[CDATA[")) &&
-            (sText.trim().endsWith("]]")))   {
-            return sText.trim().substring(7, sText.trim().length()-2);
-        }
-        else {
+    public static String unwrapCdata(String sText) {
+        if ((sText != null) && (sText.trim().startsWith("[CDATA[")) && (sText.trim().endsWith("]]"))) {
+            return sText.trim().substring(7, sText.trim().length() - 2);
+        } else {
             return sText;
         }
 

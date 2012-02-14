@@ -37,14 +37,15 @@ import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class PatientCorrelationProxyJavaImpl implements PatientCorrelationProxy {
 
-	private  PatientCorrelationOrch orchestration = new PatientCorrelationOrchImpl(new CorrelatedIdentifiersDaoImpl()); 
-	
-    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request, AssertionType assertion) {
+    private PatientCorrelationOrch orchestration = new PatientCorrelationOrchImpl(new CorrelatedIdentifiersDaoImpl());
+
+    public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request,
+            AssertionType assertion) {
         return orchestration.retrievePatientCorrelations(request, assertion);
     }
 

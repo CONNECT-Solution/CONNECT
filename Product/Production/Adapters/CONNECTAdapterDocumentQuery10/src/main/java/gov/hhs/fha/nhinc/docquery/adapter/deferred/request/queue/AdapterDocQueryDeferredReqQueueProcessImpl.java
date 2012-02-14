@@ -16,7 +16,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class AdapterDocQueryDeferredReqQueueProcessImpl {
@@ -29,11 +29,13 @@ public class AdapterDocQueryDeferredReqQueueProcessImpl {
 
     /**
      * processDocQueryAsyncReqQueue Implementation method for processing request queues on reponding gateway
+     * 
      * @param request
      * @param context
      * @return DocQueryDeferredReqQueueProcessResponseType
      */
-    public DocQueryDeferredReqQueueProcessResponseType processDocQueryDeferredReqQueue(DocQueryDeferredReqQueueProcessRequestType request, WebServiceContext context) {
+    public DocQueryDeferredReqQueueProcessResponseType processDocQueryDeferredReqQueue(
+            DocQueryDeferredReqQueueProcessRequestType request, WebServiceContext context) {
 
         DocQueryDeferredReqQueueProcessResponseType response = new DocQueryDeferredReqQueueProcessResponseType();
         SuccessOrFailType sof = new SuccessOrFailType();
@@ -42,12 +44,11 @@ public class AdapterDocQueryDeferredReqQueueProcessImpl {
 
         DocQueryAcknowledgementType docQueryAck = new DocQueryAcknowledgementType();
         AdapterDocQueryDeferredReqQueueProcessOrchImpl adapterDocQueryDeferredReqQueueProcessOrchImpl = getAdapterDocQueryDeferredReqQueueProcessOrchImpl();
-        docQueryAck = adapterDocQueryDeferredReqQueueProcessOrchImpl.processDocQueryAsyncReqQueue(request.getMessageId());
+        docQueryAck = adapterDocQueryDeferredReqQueueProcessOrchImpl.processDocQueryAsyncReqQueue(request
+                .getMessageId());
 
-        if (docQueryAck != null &&
-                docQueryAck.getMessage() != null &&
-                docQueryAck.getMessage().getStatus() != null &&
-                docQueryAck.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG)) {
+        if (docQueryAck != null && docQueryAck.getMessage() != null && docQueryAck.getMessage().getStatus() != null
+                && docQueryAck.getMessage().getStatus().equals(NhincConstants.DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG)) {
             sof.setSuccess(Boolean.TRUE);
         }
 

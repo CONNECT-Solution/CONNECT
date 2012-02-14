@@ -51,7 +51,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 
 /**
- *
+ * 
  * @author mflynn02
  */
 public class FindAuditEventsTransformsTest {
@@ -85,14 +85,14 @@ public class FindAuditEventsTransformsTest {
         LogFindAuditEventsRequestType logMessage = new LogFindAuditEventsRequestType();
         FindAuditEventsMessageType FAEMessage = new FindAuditEventsMessageType();
         AssertionType assertion = new AssertionType();
-        
+
         FindAuditEventsType message = new FindAuditEventsType();
         HomeCommunityType home = new HomeCommunityType();
         AuditData auditData = new AuditData();
         auditData.setReceiverPatientId("909090");
         auditData.setMessageType("findAuditEvents");
         message.setPatientId("4321");
-        
+
         UserType userInfo = new UserType();
         home.setHomeCommunityId("2.16.840.1.113883.3.200");
         home.setName("Federal - VA");
@@ -103,11 +103,11 @@ public class FindAuditEventsTransformsTest {
         userInfo.setPersonName(person);
         userInfo.setUserName(person.getGivenName() + " " + person.getFamilyName());
         assertion.setUserInfo(userInfo);
-        
+
         FAEMessage.setAssertion(assertion);
         FAEMessage.setFindAuditEvents(message);
         logMessage.setMessage(FAEMessage);
-        
+
         AuditMessageType expResult = new AuditMessageType();
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         participant.setUserName(person.getGivenName() + " " + person.getFamilyName());
@@ -116,20 +116,24 @@ public class FindAuditEventsTransformsTest {
         sourceId.setAuditEnterpriseSiteID(home.getName());
         expResult.getAuditSourceIdentification().add(sourceId);
         ParticipantObjectIdentificationType partObjId = new ParticipantObjectIdentificationType();
-        partObjId.setParticipantObjectID(auditData.getReceiverPatientId() + "^^^&" + home.getHomeCommunityId() + "&ISO");
+        partObjId
+                .setParticipantObjectID(auditData.getReceiverPatientId() + "^^^&" + home.getHomeCommunityId() + "&ISO");
         expResult.getParticipantObjectIdentification().add(partObjId);
         EventIdentificationType eventId = new EventIdentificationType();
         eventId.setEventActionCode(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_ADQ);
         expResult.setEventIdentification(eventId);
         LogEventRequestType expected = new LogEventRequestType();
         expected.setAuditMessage(expResult);
-        
+
         LogEventRequestType result = FindAuditEventsTransforms.transformFindAuditEventsReq2AuditMsg(logMessage);
-        
-        assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage().getActiveParticipant().get(0).getUserName());
-        assertEquals(expected.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID(), result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID());
-        assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage().getEventIdentification().getEventID().getCode());
-        
+
+        assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage()
+                .getActiveParticipant().get(0).getUserName());
+        assertEquals(expected.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID(),
+                result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID());
+        assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage()
+                .getEventIdentification().getEventID().getCode());
+
         log.debug("End - testTransformFindAuditEventsReq2AuditMsg");
     }
 

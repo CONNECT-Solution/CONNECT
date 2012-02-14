@@ -37,14 +37,11 @@ import org.junit.Ignore;
  * @author Neil Webb
  */
 @Ignore
-public class ReferenceParameterTest
-{
+public class ReferenceParameterTest {
     @Test
-    public void testGettersAndSetters()
-    {
+    public void testGettersAndSetters() {
         System.out.println("Begin testGettersAndSetters");
-        try
-        {
+        try {
             String namespace = "namespace";
             String namespacePrefix = "prefix";
             String elementName = "elementName";
@@ -60,9 +57,7 @@ public class ReferenceParameterTest
             assertEquals("Namespace prefix", namespacePrefix, refParam.getNamespacePrefix());
             assertEquals("Element name", elementName, refParam.getElementName());
             assertEquals("Value", value, refParam.getValue());
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail(t.getMessage());
         }
@@ -70,11 +65,9 @@ public class ReferenceParameterTest
     }
 
     @Test
-    public void testEquals()
-    {
+    public void testEquals() {
         System.out.println("Begin testEquals");
-        try
-        {
+        try {
             // Equals - All equal
             ReferenceParameter refParam1 = new ReferenceParameter();
             refParam1.setNamespace("namespace1");
@@ -233,17 +226,17 @@ public class ReferenceParameterTest
             assertFalse("Not equal - All populated, namespace different", refParam1.equals(refParam2));
 
             // Not equal - All populated, namespace prefix different
-//            refParam1 = new ReferenceParameter();
-//            refParam1.setNamespace("namespace1");
-//            refParam1.setNamespacePrefix("namespacePrefix1");
-//            refParam1.setElementName("elementName1");
-//            refParam1.setValue("value1");
-//            refParam2 = new ReferenceParameter();
-//            refParam2.setNamespace("namespace1");
-//            refParam2.setNamespacePrefix("namespacePrefix2");
-//            refParam2.setElementName("elementName1");
-//            refParam2.setValue("value1");
-//            assertFalse("Not equal - All populated, namespace prefix different", refParam1.equals(refParam2));
+            // refParam1 = new ReferenceParameter();
+            // refParam1.setNamespace("namespace1");
+            // refParam1.setNamespacePrefix("namespacePrefix1");
+            // refParam1.setElementName("elementName1");
+            // refParam1.setValue("value1");
+            // refParam2 = new ReferenceParameter();
+            // refParam2.setNamespace("namespace1");
+            // refParam2.setNamespacePrefix("namespacePrefix2");
+            // refParam2.setElementName("elementName1");
+            // refParam2.setValue("value1");
+            // assertFalse("Not equal - All populated, namespace prefix different", refParam1.equals(refParam2));
 
             // Not equal - All populated, element name different
             refParam1 = new ReferenceParameter();
@@ -284,16 +277,16 @@ public class ReferenceParameterTest
             assertFalse("Not equal - 1 full, 2 missing namespace", refParam1.equals(refParam2));
 
             // Not equal - 1 full, 2 missing namespace prefix
-//            refParam1 = new ReferenceParameter();
-//            refParam1.setNamespace("namespace1");
-//            refParam1.setNamespacePrefix("namespacePrefix1");
-//            refParam1.setElementName("elementName1");
-//            refParam1.setValue("value1");
-//            refParam2 = new ReferenceParameter();
-//            refParam2.setNamespace("namespace1");
-//            refParam2.setElementName("elementName1");
-//            refParam2.setValue("value1");
-//            assertFalse("Not equal - 1 full, 2 missing namespace prefix", refParam1.equals(refParam2));
+            // refParam1 = new ReferenceParameter();
+            // refParam1.setNamespace("namespace1");
+            // refParam1.setNamespacePrefix("namespacePrefix1");
+            // refParam1.setElementName("elementName1");
+            // refParam1.setValue("value1");
+            // refParam2 = new ReferenceParameter();
+            // refParam2.setNamespace("namespace1");
+            // refParam2.setElementName("elementName1");
+            // refParam2.setValue("value1");
+            // assertFalse("Not equal - 1 full, 2 missing namespace prefix", refParam1.equals(refParam2));
 
             // Not equal - 1 full, 2 missing element name
             refParam1 = new ReferenceParameter();
@@ -332,16 +325,16 @@ public class ReferenceParameterTest
             assertFalse("Not equal - 2 full, 1 missing namespace", refParam1.equals(refParam2));
 
             // Not equal - 2 full, 1 missing namespace prefix
-//            refParam1 = new ReferenceParameter();
-//            refParam1.setNamespace("namespace1");
-//            refParam1.setElementName("elementName1");
-//            refParam1.setValue("value1");
-//            refParam2 = new ReferenceParameter();
-//            refParam2.setNamespace("namespace1");
-//            refParam2.setNamespacePrefix("namespacePrefix1");
-//            refParam2.setElementName("elementName1");
-//            refParam2.setValue("value1");
-//            assertFalse("Not equal - 2 full, 1 missing namespace prefix", refParam1.equals(refParam2));
+            // refParam1 = new ReferenceParameter();
+            // refParam1.setNamespace("namespace1");
+            // refParam1.setElementName("elementName1");
+            // refParam1.setValue("value1");
+            // refParam2 = new ReferenceParameter();
+            // refParam2.setNamespace("namespace1");
+            // refParam2.setNamespacePrefix("namespacePrefix1");
+            // refParam2.setElementName("elementName1");
+            // refParam2.setValue("value1");
+            // assertFalse("Not equal - 2 full, 1 missing namespace prefix", refParam1.equals(refParam2));
 
             // Not equal - 2 full, 1 missing element name
             refParam1 = new ReferenceParameter();
@@ -367,9 +360,7 @@ public class ReferenceParameterTest
             refParam2.setValue("value1");
             assertFalse("Not equal - 2 full, 1 missing value", refParam1.equals(refParam2));
 
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail(t.getMessage());
         }

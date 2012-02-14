@@ -33,7 +33,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "RespondingGatewayDeferredResponse_Retrieve_Service", portName = "RespondingGatewayDeferredResponse_Retrieve_Port_Soap", endpointInterface = "ihe.iti.xds_b._2007.RespondingGatewayDeferredResponseRetrievePortType", targetNamespace = "urn:ihe:iti:xds-b:2007", wsdlLocation = "WEB-INF/wsdl/NhinDocRetrieveDeferredResponse/NhinDocRetrieveDeferredResp.wsdl")
@@ -44,7 +44,9 @@ public class NhinDocRetrieveDeferredResponse {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType respondingGatewayDeferredResponseCrossGatewayRetrieve(ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType body) {
-        return new NhinDocRetrieveDeferredResponseImpl().respondingGatewayDeferredResponseCrossGatewayRetrieve(body, context);
+    public gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType respondingGatewayDeferredResponseCrossGatewayRetrieve(
+            ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType body) {
+        return new NhinDocRetrieveDeferredResponseImpl().respondingGatewayDeferredResponseCrossGatewayRetrieve(body,
+                context);
     }
 }

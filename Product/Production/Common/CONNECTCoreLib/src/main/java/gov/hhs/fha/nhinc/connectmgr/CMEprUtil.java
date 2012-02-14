@@ -31,9 +31,8 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.connectmgr.data.CMEprInfo;
 
 /**
- * This class has utilities for constructing the information needed for an endpoint reference
- * object.  It retrieves the information based on a uniform service name from the
- * connectionsEPR.properties file.
+ * This class has utilities for constructing the information needed for an endpoint reference object. It retrieves the
+ * information based on a uniform service name from the connectionsEPR.properties file.
  * 
  * @author Les Westberg
  */
@@ -46,7 +45,7 @@ public class CMEprUtil {
      * 
      * @param sUniformServiceName The service name for the service.
      * @return The Endpoint reference to be returned.
-     * @throws ConnectionManagerException 
+     * @throws ConnectionManagerException
      */
     public static CMEprInfo createEPR(String sUniformServiceName) throws ConnectionManagerException {
         log.debug("Getting EPR for service '" + sUniformServiceName + "'");

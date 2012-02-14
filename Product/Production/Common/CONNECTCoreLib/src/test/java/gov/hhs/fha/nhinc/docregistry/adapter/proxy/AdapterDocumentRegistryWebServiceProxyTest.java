@@ -39,10 +39,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author rayj
  */
-@Ignore // TODO: Move to an integration test
+@Ignore
+// TODO: Move to an integration test
 public class AdapterDocumentRegistryWebServiceProxyTest {
 
     public AdapterDocumentRegistryWebServiceProxyTest() {

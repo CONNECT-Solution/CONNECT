@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.docsubmission_g1.passthru;
+
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
@@ -36,24 +37,26 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionOrchImpl;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class PassthruDocSubmissionImpl_g1 {
-    
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context)
-    {
-         // Create an assertion class from the contents of the SAML token
+    public RegistryResponseType provideAndRegisterDocumentSetB(
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context) {
+        // Create an assertion class from the contents of the SAML token
         AssertionType assertion = extractAssertionFromContext(context, null);
 
-        return new PassthruDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
+        return new PassthruDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(
+                body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
     }
-    
-    public RegistryResponseType provideAndRegisterDocumentSetB(RespondingGatewayProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+
+    public RegistryResponseType provideAndRegisterDocumentSetB(
+            RespondingGatewayProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, body.getAssertion());
-        
-        return new PassthruDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
+
+        return new PassthruDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(
+                body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
     }
 
     protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
@@ -70,5 +73,5 @@ public class PassthruDocSubmissionImpl_g1 {
 
         return assertion;
     }
-    
+
 }

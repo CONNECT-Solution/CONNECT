@@ -13,7 +13,7 @@ import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class UtilTest {
@@ -34,8 +34,7 @@ public class UtilTest {
     }
 
     @Test
-    public void testMarshallNotify()
-    {
+    public void testMarshallNotify() {
         gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller marshaller;
         marshaller = new gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller();
         org.w3c.dom.Element element;
@@ -51,40 +50,38 @@ public class UtilTest {
         System.out.println(element.getTextContent());
         System.out.println(element.getOwnerDocument().getTextContent());
     }
-       
+
     @Test
-    public void testUnMarshallNotify()
-    {
+    public void testUnMarshallNotify() {
         String xml = "<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>";
         org.oasis_open.docs.wsn.b_2.TopicExpressionType topic;
         gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller marshaller;
         marshaller = new gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller();
-        //topic = Util.unmarshalTopic(xml);
+        // topic = Util.unmarshalTopic(xml);
 
-        
         topic = marshaller.unmarshal(xml);
 
         assertEquals("http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple", topic.getDialect());
         assertEquals("nhinc:testTopic", topic.getContent().get(0));
 
     }
+
     @Test
-    public void testByteArrayConversion()
-    {
+    public void testByteArrayConversion() {
         String expValue = "blah, blah, blah";
         String result;
 
         byte[] array;
-        
+
         array = Util.convertToByte(expValue);
 
         result = Util.convertToString(array);
 
         assertEquals(expValue, result);
     }
+
     @Test
-    public void testMarshaller()
-    {
+    public void testMarshaller() {
         String expValue = "blah, blah, blah";
         String result;
 

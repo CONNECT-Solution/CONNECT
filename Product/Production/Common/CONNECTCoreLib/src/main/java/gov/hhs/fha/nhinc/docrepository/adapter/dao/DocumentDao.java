@@ -48,63 +48,43 @@ import org.hibernate.criterion.Restrictions;
  * 
  * @author Neil Webb
  */
-public class DocumentDao
-{
+public class DocumentDao {
     Log log = LogFactory.getLog(DocumentDao.class);
 
     /**
-     * Save a document record to the database.
-     * Insert if document id is null. Update otherwise.
+     * Save a document record to the database. Insert if document id is null. Update otherwise.
      * 
      * @param document Document object to save.
      */
-    public void save(Document document)
-    {
+    public void save(Document document) {
         log.debug("Performing document save");
         Session sess = null;
         Transaction trans = null;
-        try
-        {
+        try {
             SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null)
-            {
+            if (fact != null) {
                 sess = fact.openSession();
-                if (sess != null)
-                {
+                if (sess != null) {
                     trans = sess.beginTransaction();
                     sess.saveOrUpdate(document);
-                }
-                else
-                {
+                } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }
-            }
-            else
-            {
+            } else {
                 log.error("Session factory was null");
             }
-        }
-        finally
-        {
-            if (trans != null)
-            {
-                try
-                {
+        } finally {
+            if (trans != null) {
+                try {
                     trans.commit();
-                }
-                catch (Throwable t)
-                {
+                } catch (Throwable t) {
                     log.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
-            if (sess != null)
-            {
-                try
-                {
+            if (sess != null) {
+                try {
                     sess.close();
-                }
-                catch (Throwable t)
-                {
+                } catch (Throwable t) {
                     log.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
@@ -118,54 +98,36 @@ public class DocumentDao
      * 
      * @param document Document to delete
      */
-    public void delete(Document document)
-    {
+    public void delete(Document document) {
         log.debug("Performing document delete");
 
         Session sess = null;
         Transaction trans = null;
-        try
-        {
+        try {
             SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null)
-            {
+            if (fact != null) {
                 sess = fact.openSession();
-                if (sess != null)
-                {
+                if (sess != null) {
                     trans = sess.beginTransaction();
                     sess.delete(document);
-                }
-                else
-                {
+                } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }
-            }
-            else
-            {
+            } else {
                 log.error("Session factory was null");
             }
-        }
-        finally
-        {
-            if (trans != null)
-            {
-                try
-                {
+        } finally {
+            if (trans != null) {
+                try {
                     trans.commit();
-                }
-                catch (Throwable t)
-                {
+                } catch (Throwable t) {
                     log.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
-            if (sess != null)
-            {
-                try
-                {
+            if (sess != null) {
+                try {
                     sess.close();
-                }
-                catch (Throwable t)
-                {
+                } catch (Throwable t) {
                     log.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
@@ -179,45 +141,32 @@ public class DocumentDao
      * @param documentId Document identifier
      * @return Retrieved document
      */
-    public Document findById(Long documentId)
-    {
+    public Document findById(Long documentId) {
         getLogger().debug("Performing document retrieve using id: " + documentId);
         Document document = null;
         Session sess = null;
-        try
-        {
+        try {
             SessionFactory fact = getSessionFactory();
-            if (fact != null)
-            {
+            if (fact != null) {
                 sess = fact.openSession();
-                if (sess != null)
-                {
+                if (sess != null) {
                     document = (Document) sess.get(Document.class, documentId);
-                }
-                else
-                {
+                } else {
                     getLogger().error("Failed to obtain a session from the sessionFactory");
                 }
-            }
-            else
-            {
+            } else {
                 getLogger().error("Session factory was null");
             }
-            if (getLogger().isDebugEnabled())
-            {
-                getLogger().debug("Completed document retrieve by id. Result was " + ((document == null) ? "not " : "") + "found");
+            if (getLogger().isDebugEnabled()) {
+                getLogger()
+                        .debug("Completed document retrieve by id. Result was " + ((document == null) ? "not " : "")
+                                + "found");
             }
-        }
-        finally
-        {
-            if (sess != null)
-            {
-                try
-                {
+        } finally {
+            if (sess != null) {
+                try {
                     sess.close();
-                }
-                catch (Throwable t)
-                {
+                } catch (Throwable t) {
                     getLogger().error("Failed to close session: " + t.getMessage(), t);
                 }
             }
@@ -240,46 +189,32 @@ public class DocumentDao
      * @return All document records
      */
     @SuppressWarnings("unchecked")
-    public List<Document> findAll()
-    {
+    public List<Document> findAll() {
         log.debug("Performing retrieve of all documents");
         List<Document> documents = null;
         Session sess = null;
-        try
-        {
+        try {
             SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null)
-            {
+            if (fact != null) {
                 sess = fact.openSession();
-                if (sess != null)
-                {
+                if (sess != null) {
                     Criteria criteria = sess.createCriteria(Document.class);
                     documents = criteria.list();
-                }
-                else
-                {
+                } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }
-            }
-            else
-            {
+            } else {
                 log.error("Session factory was null");
             }
-            if (log.isDebugEnabled())
-            {
-                log.debug("Completed retrieve of all documents. " + ((documents == null) ? "0" : Integer.toString(documents.size())) + " results returned.");
+            if (log.isDebugEnabled()) {
+                log.debug("Completed retrieve of all documents. "
+                        + ((documents == null) ? "0" : Integer.toString(documents.size())) + " results returned.");
             }
-        }
-        finally
-        {
-            if (sess != null)
-            {
-                try
-                {
+        } finally {
+            if (sess != null) {
+                try {
                     sess.close();
-                }
-                catch (Throwable t)
-                {
+                } catch (Throwable t) {
                     log.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
@@ -294,8 +229,7 @@ public class DocumentDao
      * @return Query results
      */
     @SuppressWarnings("unchecked")
-    public List<Document> findDocuments(DocumentQueryParams params)
-    {
+    public List<Document> findDocuments(DocumentQueryParams params) {
         log.debug("Beginning document query");
 
         String patientId = null;
@@ -309,8 +243,7 @@ public class DocumentDao
         Date serviceStopTimeTo = null;
         List<String> statuses = null;
         List<String> documentUniqueIds = null;
-        if (params != null)
-        {
+        if (params != null) {
             patientId = params.getPatientId();
             classCodes = params.getClassCodes();
             classCodeScheme = params.getClassCodeScheme();
@@ -326,165 +259,126 @@ public class DocumentDao
         }
         List<Document> documents = null;
         Session sess = null;
-        try
-        {
+        try {
             SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null)
-            {
+            if (fact != null) {
                 sess = fact.openSession();
-                if (sess != null)
-                {
+                if (sess != null) {
                     SimpleDateFormat logDateFormatter = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
                     Criteria criteria = sess.createCriteria(Document.class);
 
-                    if (patientId != null)
-                    {
-                        if (log.isDebugEnabled())
-                        {
+                    if (patientId != null) {
+                        if (log.isDebugEnabled()) {
                             log.debug("Document query - patient id: " + patientId);
                         }
                         criteria.add(Expression.eq("patientId", patientId));
                     }
 
-                    if ((classCodes != null) && (!classCodes.isEmpty()))
-                    {
+                    if ((classCodes != null) && (!classCodes.isEmpty())) {
                         /**************************************************************
-                         * The class code and class code scheme combination can come
-                         * in two different formats:
-                         *
-                         * <ns7:Slot name="$XDSDocumentEntryClassCode">
-                         *    <ns7:ValueList>
-                         *       <ns7:Value>34133-9</ns7:Value>
-                         *    </ns7:ValueList>
-                         * </ns7:Slot>
-                         * <ns7:Slot name="$XDSDocumentEntryClassCodeScheme">
-                         *   <ns7:ValueList>
-                         *    <ns7:Value>2.16.840.1.113883.6.1</ns7:Value>
-                         *   </ns7:ValueList>
-                         * </ns7:Slot>
-                         *
+                         * The class code and class code scheme combination can come in two different formats:
+                         * 
+                         * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>34133-9</ns7:Value>
+                         * </ns7:ValueList> </ns7:Slot> <ns7:Slot name="$XDSDocumentEntryClassCodeScheme">
+                         * <ns7:ValueList> <ns7:Value>2.16.840.1.113883.6.1</ns7:Value> </ns7:ValueList> </ns7:Slot>
+                         * 
                          * or
-                         *
-                         * <ns7:Slot name="$XDSDocumentEntryClassCode">
-                         *   <ns7:ValueList>
-                         *       <ns7:Value>('34133-9^^2.16.840.1.113883.6.1')</ns7:Value>
-                         *   </ns7:ValueList>
-                         *   </ns7:Slot>
-                         *
+                         * 
+                         * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList>
+                         * <ns7:Value>('34133-9^^2.16.840.1.113883.6.1')</ns7:Value> </ns7:ValueList> </ns7:Slot>
+                         * 
                          * The code below can deal with both formats.
-                         *
+                         * 
                          *************************************************************/
-                        Criterion  criterion = null;
-                        for (String classCode : classCodes)
-                        {
-                            if (log.isDebugEnabled())
-                            {
-                              log.debug("Document query - class code: " + classCode);
+                        Criterion criterion = null;
+                        for (String classCode : classCodes) {
+                            if (log.isDebugEnabled()) {
+                                log.debug("Document query - class code: " + classCode);
                             }
                             String newClassCode = null;
                             String newCodeScheme = null;
 
-                            if (classCode.contains("^^"))
-                            {
+                            if (classCode.contains("^^")) {
                                 int index = classCode.indexOf("^^");
-                                newClassCode = classCode.substring(0,index);
-                                newCodeScheme = classCode.substring(index+2);
-                            }
-                            else
-                            {
+                                newClassCode = classCode.substring(0, index);
+                                newCodeScheme = classCode.substring(index + 2);
+                            } else {
                                 newClassCode = classCode;
                                 newCodeScheme = classCodeScheme;
                             }
 
                             Criterion andCrit = Expression.eq("classCode", newClassCode);
-                            if (newCodeScheme != null && !newCodeScheme.isEmpty())
-                            {
-                                andCrit = Restrictions.and(andCrit, Expression.eq("classCodeScheme", newCodeScheme) );
+                            if (newCodeScheme != null && !newCodeScheme.isEmpty()) {
+                                andCrit = Restrictions.and(andCrit, Expression.eq("classCodeScheme", newCodeScheme));
                             }
-                            if (criterion == null)
-                            {
+                            if (criterion == null) {
                                 criterion = andCrit;
-                            }
-                            else
-                            {
+                            } else {
                                 criterion = Restrictions.or(criterion, andCrit);
                             }
                         }
                         criteria.add(criterion);
                     }
 
-                    if (creationTimeFrom != null)
-                    {
-                        if (log.isDebugEnabled())
-                        {
-                            log.debug("Document query - creation time from: " + logDateFormatter.format(creationTimeFrom));
+                    if (creationTimeFrom != null) {
+                        if (log.isDebugEnabled()) {
+                            log.debug("Document query - creation time from: "
+                                    + logDateFormatter.format(creationTimeFrom));
                         }
                         criteria.add(Expression.ge("creationTime", creationTimeFrom));
                     }
 
-                    if (creationTimeTo != null)
-                    {
-                        if (log.isDebugEnabled())
-                        {
+                    if (creationTimeTo != null) {
+                        if (log.isDebugEnabled()) {
                             log.debug("Document query - creation time to: " + logDateFormatter.format(creationTimeTo));
                         }
                         criteria.add(Expression.le("creationTime", creationTimeTo));
                     }
 
-                    if (serviceStartTimeFrom != null)
-                    {
-                        if (log.isDebugEnabled())
-                        {
-                            log.debug("Document query - service start time from: " + logDateFormatter.format(serviceStartTimeFrom));
+                    if (serviceStartTimeFrom != null) {
+                        if (log.isDebugEnabled()) {
+                            log.debug("Document query - service start time from: "
+                                    + logDateFormatter.format(serviceStartTimeFrom));
                         }
                         criteria.add(Expression.ge("serviceStartTime", serviceStartTimeFrom));
                     }
 
-                    if (serviceStartTimeTo != null)
-                    {
-                        if (log.isDebugEnabled())
-                        {
-                            log.debug("Document query - service start time to: " + logDateFormatter.format(serviceStartTimeTo));
+                    if (serviceStartTimeTo != null) {
+                        if (log.isDebugEnabled()) {
+                            log.debug("Document query - service start time to: "
+                                    + logDateFormatter.format(serviceStartTimeTo));
                         }
                         criteria.add(Expression.le("serviceStartTime", serviceStartTimeTo));
                     }
 
-                    if (serviceStopTimeFrom != null)
-                    {
-                        if (log.isDebugEnabled())
-                        {
-                            log.debug("Document query - service stop time from: " + logDateFormatter.format(serviceStopTimeFrom));
+                    if (serviceStopTimeFrom != null) {
+                        if (log.isDebugEnabled()) {
+                            log.debug("Document query - service stop time from: "
+                                    + logDateFormatter.format(serviceStopTimeFrom));
                         }
                         criteria.add(Expression.ge("serviceStopTime", serviceStopTimeFrom));
                     }
 
-                    if (serviceStopTimeTo != null)
-                    {
-                        if (log.isDebugEnabled())
-                        {
-                            log.debug("Document query - service stop time to: " + logDateFormatter.format(serviceStopTimeTo));
+                    if (serviceStopTimeTo != null) {
+                        if (log.isDebugEnabled()) {
+                            log.debug("Document query - service stop time to: "
+                                    + logDateFormatter.format(serviceStopTimeTo));
                         }
                         criteria.add(Expression.le("serviceStopTime", serviceStopTimeTo));
                     }
 
-                    if ((statuses != null) && (!statuses.isEmpty()))
-                    {
-                        if (log.isDebugEnabled())
-                        {
-                            for (String status : statuses)
-                            {
+                    if ((statuses != null) && (!statuses.isEmpty())) {
+                        if (log.isDebugEnabled()) {
+                            for (String status : statuses) {
                                 log.debug("Document query - status: " + status);
                             }
                         }
                         criteria.add(Expression.in("status", statuses));
                     }
 
-                    if ((documentUniqueIds != null) && (!documentUniqueIds.isEmpty()))
-                    {
-                        if (log.isDebugEnabled())
-                        {
-                            for (String documentUniqueId : documentUniqueIds)
-                            {
+                    if ((documentUniqueIds != null) && (!documentUniqueIds.isEmpty())) {
+                        if (log.isDebugEnabled()) {
+                            for (String documentUniqueId : documentUniqueIds) {
                                 log.debug("Document query - document unique id: " + documentUniqueId);
                             }
                         }
@@ -492,37 +386,26 @@ public class DocumentDao
                     }
 
                     documents = criteria.list();
-                }
-                else
-                {
+                } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }
-            }
-            else
-            {
+            } else {
                 log.error("Session factory was null");
             }
-            if (log.isDebugEnabled())
-            {
-                log.debug("Completed retrieve of document query. " + ((documents == null) ? "0" : Integer.toString(documents.size())) + " results returned.");
+            if (log.isDebugEnabled()) {
+                log.debug("Completed retrieve of document query. "
+                        + ((documents == null) ? "0" : Integer.toString(documents.size())) + " results returned.");
             }
-        }
-        finally
-        {
-            if (sess != null)
-            {
-                try
-                {
+        } finally {
+            if (sess != null) {
+                try {
                     sess.close();
-                }
-                catch (Throwable t)
-                {
+                } catch (Throwable t) {
                     log.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
         return documents;
     }
-
 
 }

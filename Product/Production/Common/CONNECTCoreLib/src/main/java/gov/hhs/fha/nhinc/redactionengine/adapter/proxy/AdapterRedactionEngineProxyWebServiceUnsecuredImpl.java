@@ -44,11 +44,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements AdapterRedactionEngineProxy
-{
+public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements AdapterRedactionEngineProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentredaction";
@@ -59,41 +58,37 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
     private static final String WS_ADDRESSING_ACTION_RETRIEVE = "urn:gov:hhs:fha:nhinc:adaptercomponentredaction:FilterDocRetrieveResultsRequest";
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public AdapterRedactionEngineProxyWebServiceUnsecuredImpl()
-    {
+    public AdapterRedactionEngineProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterComponentRedactionEnginePortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-    {
+    protected AdapterComponentRedactionEnginePortType getPort(String url, String wsAddressingAction,
+            AssertionType assertion) {
         AdapterComponentRedactionEnginePortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterComponentRedactionEnginePortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    AdapterComponentRedactionEnginePortType.class);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
@@ -101,59 +96,46 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
- 
-    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse, AssertionType assertion)
-    {
+
+    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
+            AdhocQueryResponse adhocQueryResponse, AssertionType assertion) {
         log.debug("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
 
-        try
-        {
+        try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.REDACTION_ENGINE_SERVICE_NAME);
             AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_QUERY, assertion);
 
-            if(adhocQueryRequest == null)
-            {
+            if (adhocQueryRequest == null) {
                 log.error("adhocQueryRequest was null");
-            }
-            else if(adhocQueryResponse == null)
-            {
+            } else if (adhocQueryResponse == null) {
                 log.error("adhocQueryResponse was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 FilterDocQueryResultsRequestType filterDocQueryResultsRequest = new FilterDocQueryResultsRequestType();
                 filterDocQueryResultsRequest.setAdhocQueryRequest(adhocQueryRequest);
                 filterDocQueryResultsRequest.setAdhocQueryResponse(adhocQueryResponse);
 
-                FilterDocQueryResultsResponseType filteredResponse = (FilterDocQueryResultsResponseType)oProxyHelper.invokePort(port, AdapterComponentRedactionEnginePortType.class, "filterDocQueryResults",filterDocQueryResultsRequest);
+                FilterDocQueryResultsResponseType filteredResponse = (FilterDocQueryResultsResponseType) oProxyHelper
+                        .invokePort(port, AdapterComponentRedactionEnginePortType.class, "filterDocQueryResults",
+                                filterDocQueryResultsRequest);
                 response = filteredResponse.getAdhocQueryResponse();
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling filterDocQueryResults: " + ex.getMessage(), ex);
         }
 
@@ -161,47 +143,39 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         return response;
     }
 
-    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion)
-    {
+    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
+            RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
+            RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion) {
         log.debug("Begin filterAdhocQueryResults");
         RetrieveDocumentSetResponseType response = null;
 
-        try
-        {
+        try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.REDACTION_ENGINE_SERVICE_NAME);
             AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVE, assertion);
 
-            if(retrieveDocumentSetRequest == null)
-            {
+            if (retrieveDocumentSetRequest == null) {
                 log.error("retrieveDocumentSetRequest was null");
-            }
-            else if(retrieveDocumentSetResponse == null)
-            {
+            } else if (retrieveDocumentSetResponse == null) {
                 log.error("retrieveDocumentSetResponse was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
                 filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocumentSetRequest);
                 filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retrieveDocumentSetResponse);
 
-                FilterDocRetrieveResultsResponseType filteredResponse = (FilterDocRetrieveResultsResponseType)oProxyHelper.invokePort(port, AdapterComponentRedactionEnginePortType.class, "filterDocRetrieveResults",filterDocRetrieveResultsRequest);
+                FilterDocRetrieveResultsResponseType filteredResponse = (FilterDocRetrieveResultsResponseType) oProxyHelper
+                        .invokePort(port, AdapterComponentRedactionEnginePortType.class, "filterDocRetrieveResults",
+                                filterDocRetrieveResultsRequest);
                 response = filteredResponse.getRetrieveDocumentSetResponse();
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling filterDocRetrieveResults: " + ex.getMessage(), ex);
         }
 
         log.debug("End respondingGatewayCrossGatewayQuery");
         return response;
 
-        
     }
 
 }

@@ -15,20 +15,21 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class OutboundDocRetrieveOrchestratableImpl extends OutboundDocRetrieveOrchestratable {
     private RetrieveDocumentSetResponseType response;
 
-    public OutboundDocRetrieveOrchestratableImpl(RetrieveDocumentSetRequestType body, AssertionType assertion,PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd, NhinAggregator na, NhinTargetSystemType target)
-    {
+    public OutboundDocRetrieveOrchestratableImpl(RetrieveDocumentSetRequestType body, AssertionType assertion,
+            PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd, NhinAggregator na,
+            NhinTargetSystemType target) {
         super(pt, at, nd, na);
         super.setRequest(body);
         super.setAssertion(assertion);
         super.setTarget(target);
     }
-    
+
     public RetrieveDocumentSetResponseType getResponse() {
         return response;
     }

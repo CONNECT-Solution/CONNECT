@@ -36,18 +36,21 @@ import javax.xml.xpath.XPathExpressionException;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class TargetBuilder {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(TargetBuilder.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(TargetBuilder.class);
 
-    public NhinTargetSystemType buildSubscriptionManagerTarget(String subscriptionReferenceXml) throws XPathExpressionException {
+    public NhinTargetSystemType buildSubscriptionManagerTarget(String subscriptionReferenceXml)
+            throws XPathExpressionException {
         String xpathQuery = "//*[local-name()='Address']";
         NhinTargetSystemType target = null;
         Element subscriptionReferenceAddressElement;
-        subscriptionReferenceAddressElement = (Element) XpathHelper.performXpathQuery(subscriptionReferenceXml, xpathQuery);
+        subscriptionReferenceAddressElement = (Element) XpathHelper.performXpathQuery(subscriptionReferenceXml,
+                xpathQuery);
         String subscriptionReferenceAddress = XmlUtility.getNodeValue(subscriptionReferenceAddressElement);
         target = new NhinTargetSystemType();
         target.setUrl(subscriptionReferenceAddress);

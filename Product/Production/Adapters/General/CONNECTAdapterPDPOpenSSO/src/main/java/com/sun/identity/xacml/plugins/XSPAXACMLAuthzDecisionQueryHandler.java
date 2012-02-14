@@ -42,7 +42,6 @@ import com.sun.identity.saml2.protocol.ProtocolFactory;
 
 import com.sun.identity.shared.xml.XMLUtils;
 
-
 import com.sun.identity.xacml.common.XACMLException;
 import com.sun.identity.xacml.context.Attribute;
 import com.sun.identity.xacml.context.ContextFactory;
@@ -78,52 +77,49 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
 /**
- * This class is an implementation of SAML2 query RequestHandler to handle
- * XACMLAuthzDecisionQuery
- *
+ * This class is an implementation of SAML2 query RequestHandler to handle XACMLAuthzDecisionQuery
+ * 
  */
 public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
 
-    //effect
+    // effect
     public static final String PERMIT = "Permit";
     public static final String DENY = "Deny";
     public static final String INDETERMINATE = "Indetermiante";
     public static final String NOT_APPLICABLE = "NotApplicable";
 
-    //subject attributes
+    // subject attributes
     public static final String USER_ID = "urn:oasis:names:tc:xacml:2.0:subject:subject-id";
     public static final String USER_LOCALITY = "urn:oasis:names:tc:xacml:2.0:subject:locality";
     public static final String USER_ROLE = "urn:oasis:names:tc:xacml:2.0:subject:role";
     public static final String PURPOSE_OF_USE = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
 
-    //resource attributes
+    // resource attributes
     public static final String RESOURCE_ID = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
     public static final String HOME_COMMUNITY_ID = "urn:gov:hhs:fha:nhinc:assigning-authority-id";
     public static final String SERVICE_TYPE = "urn:gov:hhs:fha:nhinc:service-type";
     public static final String OPT_IN = "urn:gov:hhs:fha:nhinc:patient-opt-in";
-    //action attributes
+    // action attributes
     public static final String ACTION_ID = "urn:oasis:names:tc:xacml:1.0:action:action-id";
 
-    //environment attributes
+    // environment attributes
     public static final String ENVIRONMENT_LOCALITY = "urn:oasis:names:tc:xacml:2.0:resource:locality";
 
     /**
-     * This class is an implementation of SAML2 query RequestHandler to handle
-     * XACMLAuthzDecisionQuery
-     *
+     * This class is an implementation of SAML2 query RequestHandler to handle XACMLAuthzDecisionQuery
+     * 
      */
     public XSPAXACMLAuthzDecisionQueryHandler() {
     }
 
     /**
      * Processes an XACMLAuthzDecisionQuery and returns a SAML2 Response.
-     *
+     * 
      * @param pdpEntityId EntityID of PDP
      * @param pepEntityId EntityID of PEP
      * @param samlpRequest SAML2 Request, an XAMLAuthzDecisionQuery
@@ -131,14 +127,12 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
      * @return SAML2 Response with an XAMLAuthzDecisionStatement
      * @exception SAML2Exception if the query can not be handled
      */
-    public com.sun.identity.saml2.protocol.Response handleQuery(
-            String pdpEntityId, String pepEntityId,
-            RequestAbstract samlpRequest, SOAPMessage soapMessage)
-            throws SAML2Exception {
+    public com.sun.identity.saml2.protocol.Response handleQuery(String pdpEntityId, String pepEntityId,
+            RequestAbstract samlpRequest, SOAPMessage soapMessage) throws SAML2Exception {
 
-        System.out.println(
-                "Entering XSPAXACMLAuthzDecisionQueryHandler.handleQuery() with " + ":pdpEntityId=" + pdpEntityId + ":pepEntityId=" + pepEntityId + ":samlpRequest=\n" + samlpRequest.toXMLString(
-                true, true) + ":soapMessage=\n" + soapMessage);
+        System.out.println("Entering XSPAXACMLAuthzDecisionQueryHandler.handleQuery() with " + ":pdpEntityId="
+                + pdpEntityId + ":pepEntityId=" + pepEntityId + ":samlpRequest=\n"
+                + samlpRequest.toXMLString(true, true) + ":soapMessage=\n" + soapMessage);
 
         SubjectMapper subjectMapper = new FMSubjectMapper();
         subjectMapper.initialize(pdpEntityId, pepEntityId, null);
@@ -159,78 +153,75 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         boolean returnContext = ((XACMLAuthzDecisionQuery) samlpRequest).getReturnContext();
 
         boolean permitAccess = false;
-        String obligationId = null; //obligation on emergency, uba, ma
+        String obligationId = null; // obligation on emergency, uba, ma
         String fullfillOn = null;
 
-
-        //subject attributes
+        // subject attributes
         String userId = null;
         Set userRoles = null;
         String userLocality = null;
-        String pou = null;   //purpose of use
+        String pou = null; // purpose of use
 
-
-        //resource attributes
+        // resource attributes
         String resourceId = null;
         String communityId = null;
         String serviceType = null;
         boolean optIn = false;
 
-        //action attributes
+        // action attributes
         String actionId = null;
 
-        //environment attributes
+        // environment attributes
         String environmentLocality = null;
 
         String detailText = "";
 
         try {
 
-            //subject attributes
+            // subject attributes
             userId = getUserId(xacmlRequest);
             userRoles = getUserRoles(xacmlRequest);
             userLocality = getUserLocality(xacmlRequest);
 
-            //resource attributes
+            // resource attributes
             resourceId = getResourceId(xacmlRequest);
             pou = getPurposeOfUse(xacmlRequest);
             communityId = getCommunityId(xacmlRequest);
             serviceType = getServiceType(xacmlRequest);
             optIn = isOptIn(xacmlRequest);
 
-            //action attributes
+            // action attributes
             actionId = getActionId(xacmlRequest);
 
-            //environment attributes
+            // environment attributes
             environmentLocality = getEnvironmentLocality(xacmlRequest);
 
+            System.out.println("xspa.handleQuery():\n" + "userId = " + userId + "\n" + "Roles = " + userRoles + "\n"
+                    + "resourceId = " + resourceId + "\n" + "purpose = " + pou + "\n" + "communityId = " + communityId
+                    + "\n" + "serviceType = " + serviceType + "\n" + "OptIN = " + new Boolean(optIn).toString() + "\n"
+                    + "userLocality = " + userLocality + "\n" + "environmentLocality = " + environmentLocality + "\n"
+                    + "actionId = " + actionId + "\n");
 
-            System.out.println(
-                    "xspa.handleQuery():\n" + "userId = " + userId + "\n" + "Roles = " + userRoles + "\n" + "resourceId = " + resourceId + "\n" + "purpose = " + pou + "\n" + "communityId = " + communityId + "\n" + "serviceType = " + serviceType + "\n" + "OptIN = " + new Boolean(optIn).toString() + "\n" + "userLocality = " + userLocality + "\n" + "environmentLocality = " + environmentLocality + "\n" + "actionId = " + actionId + "\n");
-
-
-            //  BEGIN CUSTOM BUS LOGIC
+            // BEGIN CUSTOM BUS LOGIC
             if (optIn) {
                 effect = PERMIT;
                 detailText = detailText + "PERMIT based upon OPT-IN";
-                System.out.println(
-                        "xspa.handleQuery():" + "Permit based upon OPT-IN");
+                System.out.println("xspa.handleQuery():" + "Permit based upon OPT-IN");
             } else {
                 effect = DENY;
                 detailText = detailText + "DENY: based upon OPT-OUT";
-                System.out.println(
-                        "xspa.handleQuery():" + "DENY: based upon OPT-OUT");
+                System.out.println("xspa.handleQuery():" + "DENY: based upon OPT-OUT");
             }
 
         } catch (Exception e) {
             statusCodeValue = XACMLConstants.STATUS_CODE_MISSING_ATTRIBUTE;
             evaluationFailed = true;
-            System.out.println(
-                    "XSPAXACMLAuthzDecisionQueryHandler.handleQuery()," + "caught exception " + e.getMessage());
+            System.out.println("XSPAXACMLAuthzDecisionQueryHandler.handleQuery()," + "caught exception "
+                    + e.getMessage());
         }
 
-        //decision: Indeterminate, Deny, Permit, NotApplicable
-        //status code: missing_attribute, syntax_error, processing_error, ok
+        // decision: Indeterminate, Deny, Permit, NotApplicable
+        // status code: missing_attribute, syntax_error, processing_error, ok
 
         Decision decision = ContextFactory.getInstance().createDecision();
         Status status = ContextFactory.getInstance().createStatus();
@@ -238,19 +229,17 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         StatusMessage message = ContextFactory.getInstance().createStatusMessage();
         StatusDetail detail = ContextFactory.getInstance().createStatusDetail();
         // Try this
-        //detail.getElement().insertBefore(detail.getElement().cloneNode(true),
-        //        null);
+        // detail.getElement().insertBefore(detail.getElement().cloneNode(true),
+        // null);
         // Instead of this
         try {
             Document doc = detail.getElement().getOwnerDocument();
             Text textNode = textNode = doc.createTextNode(detailText);
             detail.getElement().insertBefore(textNode, null);
         } catch (Exception e) {
-            System.out.println(
-                    "XSPAXACMLAuthzDecisionQueryHandler.handleQuery()," + "caught exception " + e.getMessage());
+            System.out.println("XSPAXACMLAuthzDecisionQueryHandler.handleQuery()," + "caught exception "
+                    + e.getMessage());
         }
-
-
 
         if (PERMIT.equals(effect)) {
             permitAccess = true;
@@ -283,8 +272,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         result.setStatus(status);
 
         if (obligationId != null) {
-            Obligations obligations = createObligations(obligationId,
-                    permitAccess);
+            Obligations obligations = createObligations(obligationId, permitAccess);
             result.setObligations(obligations);
         }
 
@@ -294,23 +282,23 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         XACMLAuthzDecisionStatement statement = ContextFactory.getInstance().createXACMLAuthzDecisionStatement();
         statement.setResponse(response);
         if (returnContext) {
-            //statement.setRequest(xacmlRequest);
+            // statement.setRequest(xacmlRequest);
         }
 
-        com.sun.identity.saml2.protocol.Response samlpResponse = createSamlpResponse(statement,
-                status.getStatusCode().getValue());
+        com.sun.identity.saml2.protocol.Response samlpResponse = createSamlpResponse(statement, status.getStatusCode()
+                .getValue());
 
-        System.out.println(
-                "XSPAXACMLAuthzDecisionQueryHandler.handleQuery(), returning " + ":samlResponse=\n" + samlpResponse.toXMLString(true, true));
+        System.out.println("XSPAXACMLAuthzDecisionQueryHandler.handleQuery(), returning " + ":samlResponse=\n"
+                + samlpResponse.toXMLString(true, true));
 
         return samlpResponse;
     }
-//  END CUSTOM BUS LOGIC
 
-// BEGIN HELPER METHODS
-    private com.sun.identity.saml2.protocol.Response createSamlpResponse(
-            XACMLAuthzDecisionStatement statement, String statusCodeValue)
-            throws XACMLException, SAML2Exception {
+    // END CUSTOM BUS LOGIC
+
+    // BEGIN HELPER METHODS
+    private com.sun.identity.saml2.protocol.Response createSamlpResponse(XACMLAuthzDecisionStatement statement,
+            String statusCodeValue) throws XACMLException, SAML2Exception {
 
         com.sun.identity.saml2.protocol.Response samlpResponse = ProtocolFactory.getInstance().createResponse();
         samlpResponse.setID("response-id:1");
@@ -331,8 +319,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         issuer.setValue("issuer-1");
         assertion.setIssuer(issuer);
         List statements = new ArrayList();
-        statements.add(
-                statement.toXMLString(true, true)); //add decisionstatement
+        statements.add(statement.toXMLString(true, true)); // add decisionstatement
         assertion.setStatements(statements);
         List assertions = new ArrayList();
         assertions.add(assertion);
@@ -367,8 +354,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             obligation.setFulfillOn("Permit");
             List list = new ArrayList();
             Document doc = XMLUtils.newDocument();
-            Element elem = doc.createElementNS(XACMLConstants.XACML_NS_URI,
-                    "xacml:AttributeAssignment");
+            Element elem = doc.createElementNS(XACMLConstants.XACML_NS_URI, "xacml:AttributeAssignment");
             elem.setAttribute("AttributeId", "a-120");
             elem.setAttribute("DataType", "f-120");
             list.add(elem);
@@ -394,8 +380,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             obligation2.setFulfillOn("Permit");
             List list = new ArrayList();
             Document doc = XMLUtils.newDocument();
-            Element elem = doc.createElementNS(XACMLConstants.XACML_NS_URI,
-                    "xacml:AttributeAssignment");
+            Element elem = doc.createElementNS(XACMLConstants.XACML_NS_URI, "xacml:AttributeAssignment");
             elem.setAttribute("AttributeId", "a-120");
             elem.setAttribute("DataType", "f-120");
             list.add(elem);
@@ -621,5 +606,5 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         }
         return value;
     }
-// END HELPER METHODS
+    // END HELPER METHODS
 }

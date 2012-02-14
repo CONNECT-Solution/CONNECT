@@ -34,10 +34,12 @@ import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public interface NhinHiemUnsubscribeProxy {
 
-    public Element unsubscribe(Element unsubscribeElement, ReferenceParametersElements referenceParametersElements, AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault, UnableToDestroySubscriptionFault;
+    public Element unsubscribe(Element unsubscribeElement, ReferenceParametersElements referenceParametersElements,
+            AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault,
+            UnableToDestroySubscriptionFault;
 }

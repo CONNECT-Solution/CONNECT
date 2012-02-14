@@ -41,18 +41,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class NhincAdminDistUnsecuredWebserviceImplTest {
 
     private Mockery context;
+
     public NhincAdminDistUnsecuredWebserviceImplTest() {
     }
 
     @Before
     public void setup() {
-    	
+
         context = new Mockery() {
 
             {
@@ -61,42 +62,38 @@ public class NhincAdminDistUnsecuredWebserviceImplTest {
         };
     }
 
-
     @Test
-
     public void testSendAlertMessage() throws Exception {
-      final PassthruAdminDistributionHelper mockHelper = context
-				.mock(PassthruAdminDistributionHelper.class);
+        final PassthruAdminDistributionHelper mockHelper = context.mock(PassthruAdminDistributionHelper.class);
 
-	
-		final WebServiceProxyHelper mockWebServiceProxyHelper = context
-				.mock(WebServiceProxyHelper.class);
+        final WebServiceProxyHelper mockWebServiceProxyHelper = context.mock(WebServiceProxyHelper.class);
 
-        
         EDXLDistribution body = null;
         AssertionType assertion = null;
         NhinTargetSystemType target = null;
-   
-        PassthruAdminDistributionProxyWebServiceUnsecuredImpl instance = new PassthruAdminDistributionProxyWebServiceUnsecuredImpl(mockWebServiceProxyHelper, mockHelper);
-        
+
+        PassthruAdminDistributionProxyWebServiceUnsecuredImpl instance = new PassthruAdminDistributionProxyWebServiceUnsecuredImpl(
+                mockWebServiceProxyHelper, mockHelper);
+
         context.checking(new Expectations() {
 
             {
-  
-            	allowing(mockHelper).getLocalCommunityId();
-				allowing(mockHelper).getUrl(with(any(String.class)),
-						with(any(String.class)),
-						with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
-				will(returnValue("http://someurl/"));
-				
-				allowing(mockHelper).getUnsecuredPort(with(any(String.class)), with(any(String.class)), with(any(AssertionType.class)), with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
-				
-				allowing(mockWebServiceProxyHelper).invokePort(with(any(Object.class)), with(NhincAdminDistPortType.class), with("sendAlertMessage"), with(any(String.class)));
+
+                allowing(mockHelper).getLocalCommunityId();
+                allowing(mockHelper).getUrl(with(any(String.class)), with(any(String.class)),
+                        with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
+                will(returnValue("http://someurl/"));
+
+                allowing(mockHelper).getUnsecuredPort(with(any(String.class)), with(any(String.class)),
+                        with(any(AssertionType.class)), with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
+
+                allowing(mockWebServiceProxyHelper).invokePort(with(any(Object.class)),
+                        with(NhincAdminDistPortType.class), with("sendAlertMessage"), with(any(String.class)));
 
             }
         });
 
-            instance.sendAlertMessage(body, assertion, target, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+        instance.sendAlertMessage(body, assertion, target, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
 
     }
 

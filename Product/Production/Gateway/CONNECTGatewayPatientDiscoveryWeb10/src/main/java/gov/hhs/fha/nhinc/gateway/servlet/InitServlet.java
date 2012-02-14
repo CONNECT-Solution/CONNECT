@@ -38,69 +38,62 @@ import javax.servlet.http.HttpServlet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
-
 /**
- * Started on webapplication init, creates the main ExecutorService and CamelContext instances
- * Note the following:
- * 1.  Main ExecutorService creates a new thread pool of size specified on construction,
- * independent/in addition to glassfish thread pool(s) set in domain.xml.
- * 2. ExecutorService automatically handles any thread death condition and creates a
- * new thread in this case
- *
- * 3. Also creates a second largeJobExecutor with a fixed size thread pool
- * (largeJobExecutor is used for TaskExecutors that get a callable list of size
- * comparable to the size of the main ExecutorService)
- *
+ * Started on webapplication init, creates the main ExecutorService and CamelContext instances Note the following: 1.
+ * Main ExecutorService creates a new thread pool of size specified on construction, independent/in addition to
+ * glassfish thread pool(s) set in domain.xml. 2. ExecutorService automatically handles any thread death condition and
+ * creates a new thread in this case
+ * 
+ * 3. Also creates a second largeJobExecutor with a fixed size thread pool (largeJobExecutor is used for TaskExecutors
+ * that get a callable list of size comparable to the size of the main ExecutorService)
+ * 
  * @author paul.eftis
  */
-public class InitServlet extends HttpServlet{
+public class InitServlet extends HttpServlet {
 
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = -4229185731377926278L;
+    private static final long serialVersionUID = -4229185731377926278L;
 
-	private Log log = LogFactory.getLog(InitServlet.class);
+    private Log log = LogFactory.getLog(InitServlet.class);
 
     private static ExecutorService executor = null;
     private static ExecutorService largeJobExecutor = null;
-    
 
     @Override
     @SuppressWarnings("static-access")
-    public void init(ServletConfig config) throws ServletException{
+    public void init(ServletConfig config) throws ServletException {
         super.init(config);
         log.debug("InitServlet start...");
         executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
-        largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getLargeJobExecutorPoolSize());
+        largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
+                .getLargeJobExecutorPoolSize());
     }
 
-
-    public static ExecutorService getExecutorService(){
+    public static ExecutorService getExecutorService() {
         return executor;
     }
 
-
-    public static ExecutorService getLargeJobExecutorService(){
+    public static ExecutorService getLargeJobExecutorService() {
         return largeJobExecutor;
     }
 
-    
-    
     @Override
-    public void destroy(){
+    public void destroy() {
         log.debug("InitServlet shutdown stopping executor(s)....");
-        if(executor != null){
-            try{
+        if (executor != null) {
+            try {
                 executor.shutdown();
-            }catch(Exception e){}
+            } catch (Exception e) {
+            }
         }
-        if(largeJobExecutor != null){
-            try{
+        if (largeJobExecutor != null) {
+            try {
                 largeJobExecutor.shutdown();
-            }catch(Exception e){}
+            } catch (Exception e) {
+            }
         }
     }
-    
+
 }

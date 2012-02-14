@@ -35,12 +35,12 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "NhincProxyDocRetrieveDeferredRequest", portName = "NhincProxyDocRetrieveDeferredRequestPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxydocretrievedeferredrequest.NhincProxyDocRetrieveDeferredRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest", wsdlLocation = "WEB-INF/wsdl/PassthruDocRetrieveDeferredRequestUnsecured/NhincProxyDocRetrieveDeferredReq.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class PassthruDocRetrieveDeferredRequestUnsecured extends PassthruDocRetrieveDeferredRequestImpl {
 
     @Resource
@@ -51,7 +51,8 @@ public class PassthruDocRetrieveDeferredRequestUnsecured extends PassthruDocRetr
      * @param crossGatewayRetrieveRequest
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(
+            RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest) {
         return crossGatewayRetrieveRequest(crossGatewayRetrieveRequest, context);
     }
 }

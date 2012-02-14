@@ -41,7 +41,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class EntityDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl implements EntityDocRetrieveDeferredRespProxy {
@@ -67,6 +67,7 @@ public class EntityDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl implement
 
     /**
      * creates logger instance
+     * 
      * @return Log
      */
     private Log createLogger() {
@@ -74,7 +75,7 @@ public class EntityDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl implement
     }
 
     /**
-     *
+     * 
      * @return WebServiceProxyHelper
      */
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -82,13 +83,14 @@ public class EntityDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl implement
     }
 
     /**
-     *
+     * 
      * @param response
      * @param assertion
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType response, AssertionType assertion, NhinTargetCommunitiesType target) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RetrieveDocumentSetResponseType response,
+            AssertionType assertion, NhinTargetCommunitiesType target) {
         if (debugEnabled) {
             log.debug("-- Begin EntityDocRetrieveDeferredRespUnsecuredWebServiceImpl.crossGatewayRetrieveResponse(...) --");
         }
@@ -96,12 +98,14 @@ public class EntityDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl implement
         String url = null;
         try {
             url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_RESPONSE);
-            EntityDocRetrieveDeferredResponsePortType port = getPort(url, NhincConstants.DOCRETRIEVE_DEFERRED_ACTION, WS_ADDRESSING_ACTION, assertion);
+            EntityDocRetrieveDeferredResponsePortType port = getPort(url, NhincConstants.DOCRETRIEVE_DEFERRED_ACTION,
+                    WS_ADDRESSING_ACTION, assertion);
             RespondingGatewayCrossGatewayRetrieveResponseType resp = new RespondingGatewayCrossGatewayRetrieveResponseType();
             resp.setAssertion(assertion);
             resp.setNhinTargetCommunities(target);
             resp.setRetrieveDocumentSetResponse(response);
-            ack = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port, EntityDocRetrieveDeferredResponsePortType.class, "crossGatewayRetrieveResponse", resp);
+            ack = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port,
+                    EntityDocRetrieveDeferredResponsePortType.class, "crossGatewayRetrieveResponse", resp);
         } catch (Exception ex) {
             log.error(ex);
         }
@@ -113,22 +117,25 @@ public class EntityDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl implement
     }
 
     /**
-     *
+     * 
      * @param url
      * @param serviceAction
      * @param wsAddressingAction
      * @param assertion
      * @return EntityDocRetrieveDeferredResponsePortType
      */
-    private EntityDocRetrieveDeferredResponsePortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    private EntityDocRetrieveDeferredResponsePortType getPort(String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion) {
         EntityDocRetrieveDeferredResponsePortType port = null;
         Service service = getService();
         if (service != null) {
             if (debugEnabled) {
                 log.debug("Obtained service - creating port.");
             }
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityDocRetrieveDeferredResponsePortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    EntityDocRetrieveDeferredResponsePortType.class);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -137,7 +144,7 @@ public class EntityDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl implement
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {

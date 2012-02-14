@@ -37,12 +37,13 @@ import javax.xml.bind.Unmarshaller;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class MarshallerHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(MarshallerHelper.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(MarshallerHelper.class);
 
     public Element marshal(Object object, String contextPath) {
         Element element = null;

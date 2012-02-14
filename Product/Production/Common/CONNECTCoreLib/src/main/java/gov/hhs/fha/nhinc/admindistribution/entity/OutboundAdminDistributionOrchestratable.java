@@ -38,7 +38,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 
 /**
- *
+ * 
  * @author nnguyen
  */
 public class OutboundAdminDistributionOrchestratable implements OutboundOrchestratable {
@@ -46,18 +46,16 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     private AssertionType assertion = null;
     private OutboundDelegate nhinDelegate = null;
     private RespondingGatewaySendAlertMessageType request = null;
-	private AdminDistributionHelper adminDistributionHelper;
+    private AdminDistributionHelper adminDistributionHelper;
 
-    public OutboundAdminDistributionOrchestratable( OutboundDelegate delegate)
-    {
+    public OutboundAdminDistributionOrchestratable(OutboundDelegate delegate) {
         nhinDelegate = delegate;
         this.adminDistributionHelper = new AdminDistributionHelper();
-        
+
     }
 
-    public OutboundAdminDistributionOrchestratable( OutboundDelegate delegate, RespondingGatewaySendAlertMessageType request,
-            NhinTargetSystemType targetSystem, AssertionType assertion)
-    {
+    public OutboundAdminDistributionOrchestratable(OutboundDelegate delegate,
+            RespondingGatewaySendAlertMessageType request, NhinTargetSystemType targetSystem, AssertionType assertion) {
         this(delegate);
         setRequest(request);
         setAssertion(assertion);
@@ -72,7 +70,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     public void setRequest(RespondingGatewaySendAlertMessageType request) {
         this.request = request;
     }
-    
+
     public NhinTargetSystemType getTarget() {
         return target;
     }
@@ -80,11 +78,11 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     public void setTarget(NhinTargetSystemType target) {
         this.target = target;
     }
-    
+
     public void setAssertion(AssertionType _assertion) {
         this.assertion = _assertion;
     }
-    
+
     public OutboundDelegate getNhinDelegate() {
         return nhinDelegate;
     }
@@ -103,7 +101,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
 
     @Override
     public OutboundDelegate getDelegate() {
-	return getNhinDelegate();
+        return getNhinDelegate();
     }
 
     public boolean isPassthru() {

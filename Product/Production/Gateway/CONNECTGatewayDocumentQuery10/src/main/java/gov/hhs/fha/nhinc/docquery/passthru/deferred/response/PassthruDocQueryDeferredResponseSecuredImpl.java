@@ -37,17 +37,19 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class PassthruDocQueryDeferredResponseSecuredImpl {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PassthruDocQueryDeferredResponseSecuredImpl.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(PassthruDocQueryDeferredResponseSecuredImpl.class);
 
     protected AsyncMessageProcessHelper createAsyncProcesser() {
         return new AsyncMessageProcessHelper();
     }
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryResponseSecuredType body, WebServiceContext context) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
+            RespondingGatewayCrossGatewayQueryResponseSecuredType body, WebServiceContext context) {
         log.debug("Begin PassthruDocQueryDeferredResponseSecuredImpl.respondingGatewayCrossGatewayQuery(secured)");
 
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
@@ -61,13 +63,14 @@ public class PassthruDocQueryDeferredResponseSecuredImpl {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
-               assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
+                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
             }
         }
 
         log.debug("Assertion after modify is: " + asyncProcess.marshalAssertionTypeObject(assertion));
 
-        DocQueryAcknowledgementType response = new PassthruDocQueryDeferredResponseOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryResponse(), assertion, body.getNhinTargetSystem());
+        DocQueryAcknowledgementType response = new PassthruDocQueryDeferredResponseOrchImpl()
+                .respondingGatewayCrossGatewayQuery(body.getAdhocQueryResponse(), assertion, body.getNhinTargetSystem());
 
         log.debug("End PassthruDocQueryDeferredResponseSecuredImpl.respondingGatewayCrossGatewayQuery(secured)");
 

@@ -40,7 +40,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mastan.ketha
  */
 public class TrustModeTest {
@@ -74,7 +74,7 @@ public class TrustModeTest {
         TrustMode instance = new TrustMode();
         PRPAIN201306UV02 expResult = null;
         PRPAIN201306UV02 result = instance.processResponse(params);
-        assertEquals(expResult, result);        
+        assertEquals(expResult, result);
     }
 
     /**
@@ -89,7 +89,7 @@ public class TrustModeTest {
         TrustMode instance = new TrustMode();
         PRPAIN201306UV02 expResult = null;
         PRPAIN201306UV02 result = instance.processResponse(response, assertion, localPatId);
-        assertEquals(expResult, result);        
+        assertEquals(expResult, result);
     }
 
     /**
@@ -103,7 +103,7 @@ public class TrustModeTest {
         AssertionType assertion = null;
         PRPAIN201306UV02 response = null;
         TrustMode instance = new TrustMode();
-        instance.sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);       
+        instance.sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);
     }
 
     /**
@@ -116,7 +116,7 @@ public class TrustModeTest {
         TrustMode instance = new TrustMode();
         boolean expResult = false;
         boolean result = instance.requestHasLivingSubjectId(request);
-        assertEquals(expResult, result);        
+        assertEquals(expResult, result);
     }
 
     /**
@@ -129,7 +129,7 @@ public class TrustModeTest {
         TrustMode instance = new TrustMode();
         II expResult = null;
         II result = instance.getPatientId(request);
-        assertEquals(expResult, result);        
+        assertEquals(expResult, result);
     }
 
     /**
@@ -142,9 +142,9 @@ public class TrustModeTest {
         TrustMode instance = new TrustMode();
         II expResult = null;
         II result = instance.getPatientId(request);
-        assertEquals(expResult, result);        
+        assertEquals(expResult, result);
     }
-   
+
     /**
      * Test of createPRPA201301 method, of class TrustMode.
      */
@@ -155,7 +155,7 @@ public class TrustModeTest {
         TrustMode instance = new TrustMode();
         PRPAIN201301UV02 expResult = null;
         PRPAIN201301UV02 result = instance.createPRPA201301(input);
-        assertEquals(expResult, result);        
-    }    
+        assertEquals(expResult, result);
+    }
 
 }

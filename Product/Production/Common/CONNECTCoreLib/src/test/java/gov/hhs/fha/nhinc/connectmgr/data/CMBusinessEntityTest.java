@@ -35,7 +35,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class CMBusinessEntityTest {
@@ -151,9 +151,9 @@ public class CMBusinessEntityTest {
         CMDiscoveryURLs discoveryURLs = new CMDiscoveryURLs();
         discoveryURLs.getDiscoveryURL().add("http://testurl.com");
         instance.setDiscoveryURLs(discoveryURLs);
-        
+
         CMDiscoveryURLs result = instance.getDiscoveryURLs();
-        
+
         assertEquals("http://testurl.com", result.getDiscoveryURL().get(0));
     }
 
@@ -166,7 +166,7 @@ public class CMBusinessEntityTest {
         CMBusinessEntity instance = new CMBusinessEntity();
         instance.setFederalHIE(false);
         boolean expResult = false;
-        
+
         boolean result = instance.isFederalHIE();
 
         assertEquals(expResult, result);
@@ -196,7 +196,7 @@ public class CMBusinessEntityTest {
         CMBusinessEntity instance = new CMBusinessEntity();
         String homeCommunityId = "1.2";
         instance.setHomeCommunityId(homeCommunityId);
-        
+
         String result = instance.getHomeCommunityId();
 
         assertEquals("1.2", result);
@@ -230,7 +230,7 @@ public class CMBusinessEntityTest {
         CMBusinessEntity instance = new CMBusinessEntity();
         String publicKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         instance.setPublicKey(publicKey);
-        
+
         String result = instance.getPublicKey();
 
         assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ", result);
@@ -245,7 +245,7 @@ public class CMBusinessEntityTest {
         CMBusinessEntity instance = new CMBusinessEntity();
         String publicKeyURI = "http://www.publickey.com";
         instance.setPublicKeyURI(publicKeyURI);
-        
+
         String result = instance.getPublicKeyURI();
 
         assertEquals("http://www.publickey.com", result);
@@ -266,7 +266,5 @@ public class CMBusinessEntityTest {
 
         assertEquals("FL", result.getState().get(0));
     }
-
-    
 
 }

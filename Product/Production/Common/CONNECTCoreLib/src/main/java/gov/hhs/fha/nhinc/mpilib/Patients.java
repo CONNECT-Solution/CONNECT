@@ -31,11 +31,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
-public class Patients extends ArrayList<Patient>
-        implements java.io.Serializable {
+public class Patients extends ArrayList<Patient> implements java.io.Serializable {
     private static Log log = LogFactory.getLog(Patients.class);
     static final long serialVersionUID = -8509797581456649328L;
 

@@ -45,9 +45,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class uses the keystore system properties as established in the 
- * domain.xml file to allow the configuration of the SAML Keystore policy 
- * statements.
+ * This class uses the keystore system properties as established in the domain.xml file to allow the configuration of
+ * the SAML Keystore policy statements.
  */
 public class KeyStoreCallbackHandler implements CallbackHandler {
 
@@ -56,9 +55,8 @@ public class KeyStoreCallbackHandler implements CallbackHandler {
     private static Log log = LogFactory.getLog(KeyStoreCallbackHandler.class);
 
     /**
-     * Creates the callback handler saving the keystore certificates information 
-     * from the keystore file specified by the system properties:
-     * javax.net.ssl.keyStore and javax.net.ssl.keyStorePassword.
+     * Creates the callback handler saving the keystore certificates information from the keystore file specified by the
+     * system properties: javax.net.ssl.keyStore and javax.net.ssl.keyStorePassword.
      */
     public KeyStoreCallbackHandler() {
         log.debug("Entry KeyStoreCallbackHandler Constructor");
@@ -112,11 +110,11 @@ public class KeyStoreCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Implementing the callback, this method provides the keystore information 
-     * or the private key information depending on the type of callback desired 
-     * to the input Callback object.
-     * @param callbacks The Callback which needs to have keystore information 
-     * set, should be either a KeyStoreCallback or a PrivateKeyCallback
+     * Implementing the callback, this method provides the keystore information or the private key information depending
+     * on the type of callback desired to the input Callback object.
+     * 
+     * @param callbacks The Callback which needs to have keystore information set, should be either a KeyStoreCallback
+     *            or a PrivateKeyCallback
      * @throws java.io.IOException
      * @throws javax.security.auth.callback.UnsupportedCallbackException
      */
@@ -125,13 +123,13 @@ public class KeyStoreCallbackHandler implements CallbackHandler {
         for (int i = 0; i < callbacks.length; i++) {
             if (callbacks[i] instanceof KeyStoreCallback) {
                 KeyStoreCallback cb = (KeyStoreCallback) callbacks[i];
-                //print(cb.getRuntimeProperties());
+                // print(cb.getRuntimeProperties());
                 cb.setKeystore(keyStore);
                 log.debug("KeyStoreCallback set keystore");
             } else if (callbacks[i] instanceof PrivateKeyCallback) {
                 try {
                     PrivateKeyCallback cb = (PrivateKeyCallback) callbacks[i];
-                    //print(cb.getRuntimeProperties());
+                    // print(cb.getRuntimeProperties());
                     Key privkey = keyStore.getKey(cb.getAlias(), password.toCharArray());
                     cb.setKey((PrivateKey) privkey);
                     log.debug("PrivateKeyCallback set private key");
@@ -153,11 +151,8 @@ public class KeyStoreCallbackHandler implements CallbackHandler {
         log.debug("Exit KeyStoreCallbackHandler handle callback");
     }
 
-    /*private void print(Map context) {
-    Iterator it = context.keySet().iterator();
-    while (it.hasNext()) {
-    log.debug("Prop " + it.next());
-    }
-    }*/
+    /*
+     * private void print(Map context) { Iterator it = context.keySet().iterator(); while (it.hasNext()) {
+     * log.debug("Prop " + it.next()); } }
+     */
 }
-

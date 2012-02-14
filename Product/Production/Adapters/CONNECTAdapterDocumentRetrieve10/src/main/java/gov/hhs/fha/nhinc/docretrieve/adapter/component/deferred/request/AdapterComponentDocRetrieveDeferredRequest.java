@@ -17,7 +17,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 @WebService(serviceName = "AdapterComponentDocRetrieveReqService", portName = "AdapterComponentDocRetrieveReqPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentdocretrievedeferredreq.AdapterComponentDocRetrieveDeferredReqPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentdocretrievedeferredreq", wsdlLocation = "WEB-INF/wsdl/AdapterComponentDocRetrieveDeferredRequest/AdapterComponentDocRetrieveDeferredRequest.wsdl")
@@ -26,7 +26,8 @@ public class AdapterComponentDocRetrieveDeferredRequest {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType retrieveDocumentSetRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType body) {
+    public gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType retrieveDocumentSetRequest(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType body) {
         return new AdapterComponentDocRetrieveDeferredRequestImpl().crossGatewayRetrieveRequest(body, context);
     }
 

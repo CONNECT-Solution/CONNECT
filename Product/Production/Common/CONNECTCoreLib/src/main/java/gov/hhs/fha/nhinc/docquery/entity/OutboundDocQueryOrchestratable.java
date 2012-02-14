@@ -39,14 +39,12 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-
-
 /**
  * Doc Query implementation of OutboundOrchestratableMessage
+ * 
  * @author paul.eftis
  */
-public class OutboundDocQueryOrchestratable
-        implements OutboundOrchestratableMessage{
+public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMessage {
 
     private OutboundDelegate delegate = null;
     private OutboundResponseProcessor processor = null;
@@ -60,16 +58,15 @@ public class OutboundDocQueryOrchestratable
 
     private AdhocQueryResponse response = null;
 
+    public OutboundDocQueryOrchestratable() {
+    }
 
-    public OutboundDocQueryOrchestratable(){}
-
-    public OutboundDocQueryOrchestratable(OutboundDelegate delegate){
+    public OutboundDocQueryOrchestratable(OutboundDelegate delegate) {
         this.delegate = delegate;
     }
 
-    public OutboundDocQueryOrchestratable(OutboundDelegate d, OutboundResponseProcessor p,
-            AuditTransformer at, PolicyTransformer pt, AssertionType a, String name,
-            NhinTargetSystemType t, AdhocQueryRequest r){
+    public OutboundDocQueryOrchestratable(OutboundDelegate d, OutboundResponseProcessor p, AuditTransformer at,
+            PolicyTransformer pt, AssertionType a, String name, NhinTargetSystemType t, AdhocQueryRequest r) {
 
         this.delegate = d;
         this.processor = p;
@@ -94,56 +91,56 @@ public class OutboundDocQueryOrchestratable
         this.target = target;
     }
 
-    public AdhocQueryResponse getResponse(){
+    public AdhocQueryResponse getResponse() {
         return response;
     }
 
-    public void setResponse(AdhocQueryResponse r){
+    public void setResponse(AdhocQueryResponse r) {
         response = r;
     }
 
-    public OutboundDelegate getDelegate(){
+    public OutboundDelegate getDelegate() {
         return delegate;
     }
 
     // NOT USED.......use getResponseProcessor instead
-    public NhinAggregator getAggregator(){
+    public NhinAggregator getAggregator() {
         return null;
     }
 
-    public OutboundResponseProcessor getResponseProcessor(){
+    public OutboundResponseProcessor getResponseProcessor() {
         return processor;
     }
 
-    public AuditTransformer getAuditTransformer(){
+    public AuditTransformer getAuditTransformer() {
         return auditTransformer;
     }
-    
-    public PolicyTransformer getPolicyTransformer(){
+
+    public PolicyTransformer getPolicyTransformer() {
         return policyTransformer;
     }
-    
-    public AssertionType getAssertion(){
+
+    public AssertionType getAssertion() {
         return assertion;
     }
-    
-    public String getServiceName(){
+
+    public String getServiceName() {
         return serviceName;
     }
 
-    public NhinTargetSystemType getTarget(){
+    public NhinTargetSystemType getTarget() {
         return target;
     }
 
-    public AdhocQueryRequest getRequest(){
+    public AdhocQueryRequest getRequest() {
         return request;
     }
 
-    public boolean isEnabled(){
+    public boolean isEnabled() {
         return true;
     }
 
-    public boolean isPassthru(){
+    public boolean isPassthru() {
         return false;
     }
 

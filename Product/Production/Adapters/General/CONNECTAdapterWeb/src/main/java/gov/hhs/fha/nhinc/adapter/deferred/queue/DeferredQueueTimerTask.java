@@ -34,10 +34,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class is responsible for handling the work that is done each time the
- * timer goes off; i.e. processing the outstanding deferred queue request
- * messages.
- *
+ * This class is responsible for handling the work that is done each time the timer goes off; i.e. processing the
+ * outstanding deferred queue request messages.
+ * 
  * @author richard.ettema
  */
 public class DeferredQueueTimerTask {
@@ -93,9 +92,9 @@ public class DeferredQueueTimerTask {
     }
 
     /**
-     * Main method used to test this class.   This one really should not be run under unit
-     * test scenarios because it requires access to the UDDI server.
-     *
+     * Main method used to test this class. This one really should not be run under unit test scenarios because it
+     * requires access to the UDDI server.
+     * 
      * @param args
      */
     public static void main(String[] args) {

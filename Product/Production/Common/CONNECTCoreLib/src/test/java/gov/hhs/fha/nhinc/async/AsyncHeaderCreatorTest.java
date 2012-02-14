@@ -67,8 +67,7 @@ public class AsyncHeaderCreatorTest {
     }
 
     /**
-     * Test of createOutboundHeaders method, of class AsyncHeaderCreator.
-     * This case has all parameters provided.
+     * Test of createOutboundHeaders method, of class AsyncHeaderCreator. This case has all parameters provided.
      */
     @Test
     public void testCreateOutboundHeadersFull() {
@@ -91,7 +90,8 @@ public class AsyncHeaderCreatorTest {
                 assertNotNull("Created header was null", hdr);
                 if (hdr != null) {
                     String desiredNS = "http://www.w3.org/2005/08/addressing";
-                    assertEquals("Every header should be in the addressing namespace ", desiredNS, hdr.getNamespaceURI());
+                    assertEquals("Every header should be in the addressing namespace ", desiredNS,
+                            hdr.getNamespaceURI());
                     String elemTag = hdr.getLocalPart();
                     if ("To".equals(elemTag)) {
                         assertEquals(url, hdr.getStringContent());
@@ -112,8 +112,8 @@ public class AsyncHeaderCreatorTest {
     }
 
     /**
-     * Test of createOutboundHeaders method, of class AsyncHeaderCreator.
-     * This case has multiple RelatesTo items provided.
+     * Test of createOutboundHeaders method, of class AsyncHeaderCreator. This case has multiple RelatesTo items
+     * provided.
      */
     @Test
     public void testCreateOutboundHeadersMultipleRelatesTo() {
@@ -138,7 +138,8 @@ public class AsyncHeaderCreatorTest {
                 assertNotNull("Created header was null", hdr);
                 if (hdr != null) {
                     String desiredNS = "http://www.w3.org/2005/08/addressing";
-                    assertEquals("Every header should be in the addressing namespace ", desiredNS, hdr.getNamespaceURI());
+                    assertEquals("Every header should be in the addressing namespace ", desiredNS,
+                            hdr.getNamespaceURI());
                     String elemTag = hdr.getLocalPart();
                     if ("To".equals(elemTag)) {
                         assertEquals(url, hdr.getStringContent());
@@ -159,8 +160,7 @@ public class AsyncHeaderCreatorTest {
     }
 
     /**
-     * Test of createOutboundHeaders method, of class AsyncHeaderCreator.
-     * This case has no RelatesTo items provided.
+     * Test of createOutboundHeaders method, of class AsyncHeaderCreator. This case has no RelatesTo items provided.
      */
     @Test
     public void testCreateOutboundHeadersNullRelatesTo() {
@@ -180,7 +180,8 @@ public class AsyncHeaderCreatorTest {
                 assertNotNull("Created header was null", hdr);
                 if (hdr != null) {
                     String desiredNS = "http://www.w3.org/2005/08/addressing";
-                    assertEquals("Every header should be in the addressing namespace ", desiredNS, hdr.getNamespaceURI());
+                    assertEquals("Every header should be in the addressing namespace ", desiredNS,
+                            hdr.getNamespaceURI());
                     String elemTag = hdr.getLocalPart();
                     if ("To".equals(elemTag)) {
                         assertEquals(url, hdr.getStringContent());
@@ -199,8 +200,7 @@ public class AsyncHeaderCreatorTest {
     }
 
     /**
-     * Test of createOutboundHeaders method, of class AsyncHeaderCreator.
-     * This case has no MessageID header.
+     * Test of createOutboundHeaders method, of class AsyncHeaderCreator. This case has no MessageID header.
      */
     @Test
     public void testCreateOutboundHeadersNullMessageId() {
@@ -222,7 +222,8 @@ public class AsyncHeaderCreatorTest {
                 assertNotNull("Created header was null", hdr);
                 if (hdr != null) {
                     String desiredNS = "http://www.w3.org/2005/08/addressing";
-                    assertEquals("Every header should be in the addressing namespace ", desiredNS, hdr.getNamespaceURI());
+                    assertEquals("Every header should be in the addressing namespace ", desiredNS,
+                            hdr.getNamespaceURI());
                     String elemTag = hdr.getLocalPart();
                     if ("To".equals(elemTag)) {
                         assertEquals(url, hdr.getStringContent());
@@ -241,8 +242,7 @@ public class AsyncHeaderCreatorTest {
     }
 
     /**
-     * Test of createOutboundHeaders method, of class AsyncHeaderCreator.
-     * This case has no action provided.
+     * Test of createOutboundHeaders method, of class AsyncHeaderCreator. This case has no action provided.
      */
     @Test
     public void testCreateOutboundHeadersNullAction() {
@@ -264,7 +264,8 @@ public class AsyncHeaderCreatorTest {
                 assertNotNull("Created header was null", hdr);
                 if (hdr != null) {
                     String desiredNS = "http://www.w3.org/2005/08/addressing";
-                    assertEquals("Every header should be in the addressing namespace ", desiredNS, hdr.getNamespaceURI());
+                    assertEquals("Every header should be in the addressing namespace ", desiredNS,
+                            hdr.getNamespaceURI());
                     String elemTag = hdr.getLocalPart();
                     if ("To".equals(elemTag)) {
                         assertEquals(url, hdr.getStringContent());
@@ -289,8 +290,7 @@ public class AsyncHeaderCreatorTest {
     }
 
     /**
-     * Test of createOutboundHeaders method, of class AsyncHeaderCreator.
-     * This case has no endpoint url provided.
+     * Test of createOutboundHeaders method, of class AsyncHeaderCreator. This case has no endpoint url provided.
      */
     @Test
     public void testCreateOutboundHeadersNullURL() {
@@ -312,7 +312,8 @@ public class AsyncHeaderCreatorTest {
                 assertNotNull("Created header was null", hdr);
                 if (hdr != null) {
                     String desiredNS = "http://www.w3.org/2005/08/addressing";
-                    assertEquals("Every header should be in the addressing namespace ", desiredNS, hdr.getNamespaceURI());
+                    assertEquals("Every header should be in the addressing namespace ", desiredNS,
+                            hdr.getNamespaceURI());
                     String elemTag = hdr.getLocalPart();
                     if ("To".equals(elemTag)) {
                         try {

@@ -33,7 +33,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author dunnek
  */
 @WebService()
@@ -41,11 +41,11 @@ import org.apache.commons.logging.LogFactory;
 public class FTAService {
     private static Log log = LogFactory.getLog(FTAService.class);
 
-    public FTAService()
-    {
+    public FTAService() {
         log.info("FTA Service Starting.");
         this.start();
     }
+
     /**
      * Web service operation
      */
@@ -53,12 +53,9 @@ public class FTAService {
     public Boolean start() {
         boolean result = true;
         log.info("begin start()");
-        try
-        {
+        try {
             FTATimer.startTimer();
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             result = false;
         }
         log.info("end start()");
@@ -74,10 +71,10 @@ public class FTAService {
 
         return true;
     }
+
     @Override
-    protected void finalize() throws Throwable
-    {
-      FTATimer.stopTimer();
-      super.finalize(); //not necessary if extending Object.
+    protected void finalize() throws Throwable {
+        FTATimer.stopTimer();
+        super.finalize(); // not necessary if extending Object.
     }
 }

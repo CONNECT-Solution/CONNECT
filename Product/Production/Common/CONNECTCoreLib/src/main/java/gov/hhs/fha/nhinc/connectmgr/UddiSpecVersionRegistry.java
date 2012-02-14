@@ -50,10 +50,10 @@ public class UddiSpecVersionRegistry {
         ArrayList<UDDI_SPEC_VERSION> gw1Specs = new ArrayList<UDDI_SPEC_VERSION>();
         ArrayList<UDDI_SPEC_VERSION> gw2Specs = new ArrayList<UDDI_SPEC_VERSION>();
 
-        gw1Specs.add(UDDI_SPEC_VERSION.SPEC_1_0);        
+        gw1Specs.add(UDDI_SPEC_VERSION.SPEC_1_0);
         gw2Specs.add(UDDI_SPEC_VERSION.SPEC_1_0);
         gw2Specs.add(UDDI_SPEC_VERSION.SPEC_2_0);
-        
+
         map.put(GATEWAY_API_LEVEL.LEVEL_g0, gw1Specs);
         map.put(GATEWAY_API_LEVEL.LEVEL_g1, gw2Specs);
 

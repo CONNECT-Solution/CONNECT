@@ -52,32 +52,34 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class EntityDocQueryDeferredResponseOrchImpl {
 
     private static final Log log = LogFactory.getLog(EntityDocQueryDeferredResponseOrchImpl.class);
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg,
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
         DocQueryAcknowledgementType respAck = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         respAck.setMessage(regResp);
         String responseCommunityId = HomeCommunityMap.getCommunityIdFromTargetCommunities(targets);
         // Audit the incoming Entity Message
-        AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityId);
+        AcknowledgementType ack = auditResponse(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityId);
 
         try {
             List<UrlInfo> urlInfoList = getEndpoints(targets);
 
-            if (urlInfoList != null &&
-                    NullChecker.isNotNullish(urlInfoList) &&
-                    urlInfoList.get(0) != null &&
-                    NullChecker.isNotNullish(urlInfoList.get(0).getHcid()) &&
-                    NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
+            if (urlInfoList != null && NullChecker.isNotNullish(urlInfoList) && urlInfoList.get(0) != null
+                    && NullChecker.isNotNullish(urlInfoList.get(0).getHcid())
+                    && NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
                 // Log the start of the performance record
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, "Deferred"+NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, responseCommunityId);
+                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                        "Deferred" + NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, responseCommunityId);
 
                 HomeCommunityType targetHcid = new HomeCommunityType();
                 targetHcid.setHomeCommunityId(urlInfoList.get(0).getHcid());
@@ -107,19 +109,23 @@ public class EntityDocQueryDeferredResponseOrchImpl {
         }
 
         // Audit the outgoing Entity Message
-        ack = auditAck(respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        ack = auditAck(respAck, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         return respAck;
     }
 
-    private AcknowledgementType auditResponse(AdhocQueryResponse msg, AssertionType assertion, String direction, String _interface, String responseCommunityId) {
+    private AcknowledgementType auditResponse(AdhocQueryResponse msg, AssertionType assertion, String direction,
+            String _interface, String responseCommunityId) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, direction, _interface, responseCommunityId);
+        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion, direction, _interface,
+                responseCommunityId);
 
         return ack;
     }
 
-    private AcknowledgementType auditAck(DocQueryAcknowledgementType msg, AssertionType assertion, String direction, String _interface) {
+    private AcknowledgementType auditAck(DocQueryAcknowledgementType msg, AssertionType assertion, String direction,
+            String _interface) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
         AcknowledgementType ack = auditLogger.logDocQueryAck(msg, assertion, direction, _interface);
 
@@ -136,7 +142,8 @@ public class EntityDocQueryDeferredResponseOrchImpl {
         List<UrlInfo> urlInfoList = null;
 
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
+                    targetCommunities, NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs", ex);
         }

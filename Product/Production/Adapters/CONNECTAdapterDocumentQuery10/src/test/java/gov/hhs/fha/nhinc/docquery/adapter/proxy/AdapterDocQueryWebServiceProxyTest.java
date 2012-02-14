@@ -15,14 +15,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class AdapterDocQueryWebServiceProxyTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class AdapterDocQueryWebServiceProxyTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -33,24 +31,18 @@ public class AdapterDocQueryWebServiceProxyTest
     final AdapterDocQuerySecuredPortType mockPort = context.mock(AdapterDocQuerySecuredPortType.class);
 
     @Test
-    public void testCreateLogger()
-    {
-        try
-        {
-            AdapterDocQueryProxyWebServiceSecuredImpl sut = new AdapterDocQueryProxyWebServiceSecuredImpl()
-            {
+    public void testCreateLogger() {
+        try {
+            AdapterDocQueryProxyWebServiceSecuredImpl sut = new AdapterDocQueryProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
             };
             Log log = sut.createLogger();
             assertNotNull("Log was null", log);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger test: " + t.getMessage());
@@ -58,66 +50,54 @@ public class AdapterDocQueryWebServiceProxyTest
     }
 
     @Test
-    public void testGetService()
-    {
-        try
-        {
-            AdapterDocQueryProxyWebServiceSecuredImpl sut = new AdapterDocQueryProxyWebServiceSecuredImpl()
-            {
+    public void testGetService() {
+        try {
+            AdapterDocQueryProxyWebServiceSecuredImpl sut = new AdapterDocQueryProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected Service getService()
-                {
+                protected Service getService() {
                     return mockService;
                 }
             };
             Service service = sut.getService();
             assertNotNull("Service was null", service);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetService test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetService test: " + t.getMessage());
         }
     }
 
-    
     @Test
-    public void testGetPortNullService()
-    {
-        try
-        {
-            AdapterDocQueryProxyWebServiceSecuredImpl sut = new AdapterDocQueryProxyWebServiceSecuredImpl()
-            {
+    public void testGetPortNullService() {
+        try {
+            AdapterDocQueryProxyWebServiceSecuredImpl sut = new AdapterDocQueryProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected Service getService()
-                {
+                protected Service getService() {
                     return null;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockLog).error("Unable to obtain serivce - no port created.");
                 }
             });
             String url = "url";
-            AdapterDocQuerySecuredPortType port = sut.getPort(url, NhincConstants.DOC_QUERY_ACTION, "urn:gov:hhs:fha:nhinc:adapterdocquerysecured:AdapterDocQueryRequestSecuredMessage", new AssertionType());
+            AdapterDocQuerySecuredPortType port = sut.getPort(url, NhincConstants.DOC_QUERY_ACTION,
+                    "urn:gov:hhs:fha:nhinc:adapterdocquerysecured:AdapterDocQueryRequestSecuredMessage",
+                    new AssertionType());
             assertNull("Port was not null", port);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetPortNullService test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetPortNullService test: " + t.getMessage());

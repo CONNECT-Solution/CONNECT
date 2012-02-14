@@ -37,7 +37,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class OutboundDocRetrieveStrategyTest {
@@ -77,11 +77,11 @@ public class OutboundDocRetrieveStrategyTest {
         public void execute(OutboundDocRetrieveOrchestratable message) {
         }
 
-		@Override
-		public void execute(Orchestratable message) {
-			// TODO Auto-generated method stub
-			
-		}
+        @Override
+        public void execute(Orchestratable message) {
+            // TODO Auto-generated method stub
+
+        }
     }
 
 }

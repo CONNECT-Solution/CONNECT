@@ -33,16 +33,14 @@ import org.junit.Test;
 
 public class PatientCorrelationServiceUnsecuredFactoryTest {
 
-	
+    @Test
+    public void getInstance() {
+        assertNotNull(PatientCorrelationServiceUnsecuredFactory.getInstance());
+    }
 
-	@Test
-	public void getInstance() {
-		assertNotNull(PatientCorrelationServiceUnsecuredFactory.getInstance());
-	}
-	
-	@Test
-	public void createPatientCorrelationService() {	
-		PatientCorrelationServiceUnsecuredFactory factoryUnderTest = new PatientCorrelationServiceUnsecuredFactory(null);
-		assertTrue(factoryUnderTest.createPatientCorrelationService() instanceof PatientCorrelationServiceUnsecuredImpl );
-	}
+    @Test
+    public void createPatientCorrelationService() {
+        PatientCorrelationServiceUnsecuredFactory factoryUnderTest = new PatientCorrelationServiceUnsecuredFactory(null);
+        assertTrue(factoryUnderTest.createPatientCorrelationService() instanceof PatientCorrelationServiceUnsecuredImpl);
+    }
 }

@@ -31,13 +31,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class ConnectionManagerCommunityMapping {
 
     /**
-     *
+     * 
      * @param requestType
      * @return GetHomeCommunityByAssigningAuthorityResponseType
      */
@@ -48,8 +48,7 @@ public class ConnectionManagerCommunityMapping {
         if (NullChecker.isNotNullish(assigningAuthId)) {
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
             hc.setHomeCommunityId(mappingDao.getHomeCommunityId(assigningAuthId));
-        }
-        else {
+        } else {
             hc = null;
         }
 

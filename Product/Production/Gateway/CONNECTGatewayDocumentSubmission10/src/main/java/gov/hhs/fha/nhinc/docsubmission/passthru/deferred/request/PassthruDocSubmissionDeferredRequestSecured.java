@@ -33,18 +33,20 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "ProxyXDRSecuredAsyncRequest_Service", portName = "ProxyXDRSecuredAsyncRequest_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincproxyxdrsecured.async.request.ProxyXDRSecuredAsyncRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:request", wsdlLocation = "WEB-INF/wsdl/PassthruDocSubmissionDeferredRequestSecured/NhincProxyXDRSecuredRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class PassthruDocSubmissionDeferredRequestSecured {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterAsyncReqRequest) {
-        return new PassthruDocSubmissionDeferredRequestImpl().provideAndRegisterDocumentSetBRequest(provideAndRegisterAsyncReqRequest, context);
+    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterAsyncReqRequest) {
+        return new PassthruDocSubmissionDeferredRequestImpl().provideAndRegisterDocumentSetBRequest(
+                provideAndRegisterAsyncReqRequest, context);
     }
 
 }

@@ -30,7 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class MiniMpi implements IMPI {
@@ -81,7 +81,7 @@ public class MiniMpi implements IMPI {
 
     private Patients SearchById(Patient searchParams, boolean includeOptOutPatient) {
         Patients results = new Patients();
-        //System.out.println("performing an id search");
+        // System.out.println("performing an id search");
         log.info("performing an id search");
         if (includeOptOutPatient) {
             for (Patient patient : this.getPatients()) {
@@ -100,26 +100,19 @@ public class MiniMpi implements IMPI {
     }
 
     private void ValidateNewPatient(Patient patient) {
-        if(patient.getNames().size() > 0)
-        {
-            for(PersonName name : patient.getNames())
-            {
-                if(!hasDemographicInfo(name))
-                {
+        if (patient.getNames().size() > 0) {
+            for (PersonName name : patient.getNames()) {
+                if (!hasDemographicInfo(name)) {
                     throw new IllegalArgumentException("Must supply a patient name");
                 }
             }
-        }
-        else
-        {
-            if(!hasDemographicInfo(patient.getName()))
-            {
+        } else {
+            if (!hasDemographicInfo(patient.getName())) {
                 throw new IllegalArgumentException("Must supply a patient name");
             }
         }
 
     }
-
 
     public Patient AddUpdate(Patient newPatient) {
         Patient resultPatient = null;
@@ -128,7 +121,7 @@ public class MiniMpi implements IMPI {
         Patients existingPatients = Search(newPatient, true, true);
 
         if (existingPatients.size() == 2) {
-            //throw exception
+            // throw exception
         } else if (existingPatients.size() == 1) {
             resultPatient = existingPatients.get(0);
             resultPatient.getIdentifiers().add(newPatient.getIdentifiers());
@@ -146,8 +139,8 @@ public class MiniMpi implements IMPI {
     }
 
     public void Delete(Patient patient, String homeCommunityId) {
-        log.info("Attemping to Delete identifiers for community: " + homeCommunityId +
-                " for patient: " + patient.getName().getFirstName() + " " + patient.getName().getLastName());
+        log.info("Attemping to Delete identifiers for community: " + homeCommunityId + " for patient: "
+                + patient.getName().getFirstName() + " " + patient.getName().getLastName());
         Patients existingPatients = Search(patient, true, true);
         int patIdx = 0;
         int idIdx = 0;
@@ -173,7 +166,7 @@ public class MiniMpi implements IMPI {
                 patIdx++;
             }
         } else {
-            //System.out.println("ERROR: Patient not found in MPI");
+            // System.out.println("ERROR: Patient not found in MPI");
             log.info("ERROR: Patient not found in MPI");
         }
 
@@ -184,31 +177,27 @@ public class MiniMpi implements IMPI {
         return Search(searchParams, AllowSearchByDemographics, false);
     }
 
-    private boolean hasDemographicInfo(Patient params)
-    {
-        if(params.getNames().size() > 0)
-        {
+    private boolean hasDemographicInfo(Patient params) {
+        if (params.getNames().size() > 0) {
             return hasDemographicInfo(params.getNames().get(0));
-        }
-        else
-        {
+        } else {
             return hasDemographicInfo(params.getName());
         }
     }
-    private boolean hasDemographicInfo(PersonName name)
-    {
+
+    private boolean hasDemographicInfo(PersonName name) {
         boolean result = false;
-        if(name != null)
-        {
-            result =  !(name.getFirstName().contentEquals("") && name.getLastName().contentEquals(""));
+        if (name != null) {
+            result = !(name.getFirstName().contentEquals("") && name.getLastName().contentEquals(""));
         }
 
         return result;
     }
+
     public Patients Search(Patient searchParams, boolean AllowSearchByDemographics, boolean includeOptOutPatient) {
         Patients results = new Patients();
 
-        //if not results, try a demographics search
+        // if not results, try a demographics search
         log.info("should we perform an demographic search?");
         if ((AllowSearchByDemographics) && (hasDemographicInfo(searchParams))) {
             log.info("attempt demographic search");
@@ -222,7 +211,7 @@ public class MiniMpi implements IMPI {
             log.info("no attempt on demographic search");
         }
 
-        //perform a id search
+        // perform a id search
         log.info("should we perform an id search?");
         if ((results.size() == 0) && (searchParams.getIdentifiers().size() > 0)) {
             log.info("attempt id search");
@@ -253,7 +242,7 @@ public class MiniMpi implements IMPI {
 
     private void LoadData() {
         MpiDataSaver mpiDataSaver = new MpiDataSaver();
-        this.setPatients( mpiDataSaver.loadMpi());
+        this.setPatients(mpiDataSaver.loadMpi());
     }
 
     private void LoadData(String fileName) {

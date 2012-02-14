@@ -36,7 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class CONNECTOutboundOrchestratorTest {
@@ -81,9 +81,7 @@ public class CONNECTOutboundOrchestratorTest {
         Log result = instance.getLogger();
         try {
             result.info("testing CONNECTEntityOrchestrator getLogger()");
-        }
-        catch (Exception exc)
-        {
+        } catch (Exception exc) {
             fail("An exception has occurred:" + exc.getMessage());
         }
     }
@@ -102,11 +100,10 @@ public class CONNECTOutboundOrchestratorTest {
 
     public class EntityOrchestratableImpl implements OutboundOrchestratable {
 
-        public EntityOrchestratableImpl()
-        {
-            
+        public EntityOrchestratableImpl() {
+
         }
-        
+
         public OutboundDelegate getNhinDelegate() {
             InboundDelegateTest test = new InboundDelegateTest();
             return test.new NhinDelegateImpl();
@@ -140,9 +137,9 @@ public class CONNECTOutboundOrchestratorTest {
             return "";
         }
 
-		@Override
-		public OutboundDelegate getDelegate() {
-			return getNhinDelegate();
-		}
+        @Override
+        public OutboundDelegate getDelegate() {
+            return getNhinDelegate();
+        }
     }
 }

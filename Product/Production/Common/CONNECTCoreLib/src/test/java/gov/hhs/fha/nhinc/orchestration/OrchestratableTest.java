@@ -35,7 +35,7 @@ import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class OrchestratableTest {
@@ -132,8 +132,7 @@ public class OrchestratableTest {
             return null;
         }
 
-        public AssertionType getAssertion()
-        {
+        public AssertionType getAssertion() {
             return null;
         }
 
@@ -141,11 +140,11 @@ public class OrchestratableTest {
             return "";
         }
 
-		@Override
-		public Delegate getDelegate() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+        @Override
+        public Delegate getDelegate() {
+            // TODO Auto-generated method stub
+            return null;
+        }
     }
 
 }

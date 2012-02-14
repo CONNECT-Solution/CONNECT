@@ -35,13 +35,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class AdapterComponentDocQueryDeferredResponseProxyNoOpImpl implements AdapterComponentDocQueryDeferredResponseProxy {
+public class AdapterComponentDocQueryDeferredResponseProxyNoOpImpl implements
+        AdapterComponentDocQueryDeferredResponseProxy {
     private static Log log = LogFactory.getLog(AdapterComponentDocQueryDeferredResponseProxyNoOpImpl.class);
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg, AssertionType assertion) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryResponse msg,
+            AssertionType assertion) {
         log.debug("Using NoOp Implementation for Adapter Component Doc Query Deferred Response Service");
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

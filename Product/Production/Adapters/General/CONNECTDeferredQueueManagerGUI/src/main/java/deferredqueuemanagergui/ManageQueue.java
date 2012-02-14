@@ -52,15 +52,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p>Page bean that corresponds to a similarly named JSP page.  This
- * class contains component definitions (and initialization code) for
- * all components that you have defined on this page, as well as
- * lifecycle methods and event handlers where you may add behavior
- * to respond to incoming events.</p>
- *
+ * <p>
+ * Page bean that corresponds to a similarly named JSP page. This class contains component definitions (and
+ * initialization code) for all components that you have defined on this page, as well as lifecycle methods and event
+ * handlers where you may add behavior to respond to incoming events.
+ * </p>
+ * 
  * @version ManageQueue.java
  * @version Created on May 13, 2011, 11:55:16 PM
- *
+ * 
  * @author richard.ettema,narendra.reddy
  */
 public class ManageQueue extends AbstractPageBean {
@@ -186,16 +186,17 @@ public class ManageQueue extends AbstractPageBean {
     }
 
     /**
-     * <p>Callback method that is called whenever a page is navigated to,
-     * either directly via a URL, or indirectly via page navigation.
-     * Customize this method to acquire resources that will be needed
-     * for event handlers and lifecycle methods, whether or not this
-     * page is performing post back processing.</p>
-     *
-     * <p>Note that, if the current request is a postback, the property
-     * values of the components do <strong>not</strong> represent any
-     * values submitted with this request.  Instead, they represent the
-     * property values that were saved for this view when it was rendered.</p>
+     * <p>
+     * Callback method that is called whenever a page is navigated to, either directly via a URL, or indirectly via page
+     * navigation. Customize this method to acquire resources that will be needed for event handlers and lifecycle
+     * methods, whether or not this page is performing post back processing.
+     * </p>
+     * 
+     * <p>
+     * Note that, if the current request is a postback, the property values of the components do <strong>not</strong>
+     * represent any values submitted with this request. Instead, they represent the property values that were saved for
+     * this view when it was rendered.
+     * </p>
      */
     @Override
     public void init() {
@@ -222,35 +223,35 @@ public class ManageQueue extends AbstractPageBean {
     }
 
     /**
-     * <p>Callback method that is called after the component tree has been
-     * restored, but before any event processing takes place.  This method
-     * will <strong>only</strong> be called on a postback request that
-     * is processing a form submit.  Customize this method to allocate
-     * resources that will be required in your event handlers.</p>
+     * <p>
+     * Callback method that is called after the component tree has been restored, but before any event processing takes
+     * place. This method will <strong>only</strong> be called on a postback request that is processing a form submit.
+     * Customize this method to allocate resources that will be required in your event handlers.
+     * </p>
      */
     @Override
     public void preprocess() {
     }
 
     /**
-     * <p>Callback method that is called just before rendering takes place.
-     * This method will <strong>only</strong> be called for the page that
-     * will actually be rendered (and not, for example, on a page that
-     * handled a postback and then navigated to a different page).  Customize
-     * this method to allocate resources that will be required for rendering
-     * this page.</p>
+     * <p>
+     * Callback method that is called just before rendering takes place. This method will <strong>only</strong> be
+     * called for the page that will actually be rendered (and not, for example, on a page that handled a postback and
+     * then navigated to a different page). Customize this method to allocate resources that will be required for
+     * rendering this page.
+     * </p>
      */
     @Override
     public void prerender() {
     }
 
     /**
-     * <p>Callback method that is called after rendering is completed for
-     * this request, if <code>init()</code> was called (regardless of whether
-     * or not this was the page that was actually rendered).  Customize this
-     * method to release resources acquired in the <code>init()</code>,
-     * <code>preprocess()</code>, or <code>prerender()</code> methods (or
-     * acquired during execution of an event handler).</p>
+     * <p>
+     * Callback method that is called after rendering is completed for this request, if <code>init()</code> was called
+     * (regardless of whether or not this was the page that was actually rendered). Customize this method to release
+     * resources acquired in the <code>init()</code>, <code>preprocess()</code>, or <code>prerender()</code> methods (or
+     * acquired during execution of an event handler).
+     * </p>
      */
     @Override
     public void destroy() {
@@ -287,8 +288,6 @@ public class ManageQueue extends AbstractPageBean {
             this.errorMessages.setText("No records found to process.");
         }
 
-
-
         UserSession userSession = (UserSession) getBean("UserSession");
         userSession.setProcessQueueResults(null); // reset to null to force lazy load
         userSession.getProcessQueueResults().addAll(processQueueResults);
@@ -312,7 +311,7 @@ public class ManageQueue extends AbstractPageBean {
         Date stopDate = new Date();
         String startCreationTime = "";
         String stopCreationTime = "";
-        String statusValue ="";
+        String statusValue = "";
         try {
             startCreationTime = (String) startCreationDate.getText();
             stopCreationTime = (String) stopCreationDate.getText();
@@ -333,7 +332,8 @@ public class ManageQueue extends AbstractPageBean {
             Calendar cal2 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, stopCreationTime);
 
             if (cal1 == null || cal2 == null) {
-                this.errorMessages.setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
+                this.errorMessages
+                        .setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
                 return null;
             }
 
@@ -345,7 +345,8 @@ public class ManageQueue extends AbstractPageBean {
             }
         } catch (Exception ex) {
             log.error("Error Message: " + ex);
-            this.errorMessages.setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
+            this.errorMessages
+                    .setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
             return null;
         }
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
@@ -354,7 +355,7 @@ public class ManageQueue extends AbstractPageBean {
         if ((startCreationTime.equals("") && stopCreationTime.equals("") && statusValue.equals(""))) {
             unProcessQueueResults = deferredQueueManagerFacade.queryForDeferredQueueSelected();
         } else {
-            unProcessQueueResults = deferredQueueManagerFacade.queryBySearchCriteria(startDate, stopDate,statusValue);
+            unProcessQueueResults = deferredQueueManagerFacade.queryBySearchCriteria(startDate, stopDate, statusValue);
         }
 
         if (unProcessQueueResults == null || unProcessQueueResults.size() == 0) {
@@ -378,10 +379,10 @@ public class ManageQueue extends AbstractPageBean {
         } else if (this.startCreationDate == null || this.getStopCreationDate() == null) {
             message.append("Earliest Date and Most Recent Date should not be null");
             isValid = false;
-        } //else if (this.startCreationDate.after(this.getStopCreationDate())) {
-        //message.append("Earliest Date should not be after Most Recent Date");
-        //isValid = false;
-        //}
+        } // else if (this.startCreationDate.after(this.getStopCreationDate())) {
+          // message.append("Earliest Date should not be after Most Recent Date");
+          // isValid = false;
+          // }
 
         errors = message.toString();
 
@@ -398,29 +399,35 @@ public class ManageQueue extends AbstractPageBean {
         if (serviceName.trim().equals(PATIENT_DISCOVERY)) {
             PatientDiscoveryDeferredReqQueueClient pdClient = new PatientDiscoveryDeferredReqQueueClient();
             pdResponse = pdClient.processPatientDiscoveryDeferredReqQueue(asyncMsgId);
-            gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.SuccessOrFailType sfpd = pdResponse.getSuccessOrFail();
+            gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.SuccessOrFailType sfpd = pdResponse
+                    .getSuccessOrFail();
             if (sfpd.isSuccess()) {
                 this.userInfo.setText("Succesfully Patient Discovery Deferred Response Msg got Processed.");
             } else {
-                this.errorMessages.setText("Unable to process the Patient Discovery Deferred Response, Please contact system administrator for further details.");
+                this.errorMessages
+                        .setText("Unable to process the Patient Discovery Deferred Response, Please contact system administrator for further details.");
             }
         } else if (serviceName.trim().equals(QUERY_FOR_DOCUMENT)) {
             QueryForDocumentsDeferredReqQueueClient qdClient = new QueryForDocumentsDeferredReqQueueClient();
             qdResponse = qdClient.processDocQueryDeferredReqQueue(asyncMsgId);
-            gov.hhs.fha.nhinc.gateway.adapterdocqueryreqqueueprocess.SuccessOrFailType sfqd = qdResponse.getSuccessOrFail();
+            gov.hhs.fha.nhinc.gateway.adapterdocqueryreqqueueprocess.SuccessOrFailType sfqd = qdResponse
+                    .getSuccessOrFail();
             if (sfqd.isSuccess()) {
                 this.userInfo.setText("Succesfully Query for Document Deferred Response Msg got Processed.");
             } else {
-                this.errorMessages.setText("Unable to process the Query for Document Deferred Response, Please contact system administrator for further details.");
+                this.errorMessages
+                        .setText("Unable to process the Query for Document Deferred Response, Please contact system administrator for further details.");
             }
         } else if (serviceName.trim().equals(RETRIEVE_DOCUMENT)) {
             RetrieveDocumentsDeferredReqQueueClient rdClient = new RetrieveDocumentsDeferredReqQueueClient();
             rdResponse = rdClient.processDocRetrieveDeferredReqQueue(asyncMsgId);
-            gov.hhs.fha.nhinc.gateway.adapterdocretrievereqqueueprocess.SuccessOrFailType sfrd = rdResponse.getSuccessOrFail();
+            gov.hhs.fha.nhinc.gateway.adapterdocretrievereqqueueprocess.SuccessOrFailType sfrd = rdResponse
+                    .getSuccessOrFail();
             if (sfrd.isSuccess()) {
                 this.userInfo.setText("Succesfully Retrieve for Document Deferred Response Msg got Processed.");
             } else {
-                this.errorMessages.setText("Unable to process the Retrieve for Document Deferred Response, Please contact system administrator for further details.");
+                this.errorMessages
+                        .setText("Unable to process the Retrieve for Document Deferred Response, Please contact system administrator for further details.");
             }
         }
 

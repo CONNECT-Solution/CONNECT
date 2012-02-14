@@ -36,26 +36,23 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class DocQueryImpl
-{
+public class DocQueryImpl {
     private Log log = null;
 
-    public DocQueryImpl()
-    {
+    public DocQueryImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, WebServiceContext context) {
         log.debug("Entering DocQueryImpl.respondingGatewayCrossGatewayQuery");
-        
+
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
@@ -66,5 +63,4 @@ public class DocQueryImpl
         return new NhinDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion);
     }
 
-    
 }

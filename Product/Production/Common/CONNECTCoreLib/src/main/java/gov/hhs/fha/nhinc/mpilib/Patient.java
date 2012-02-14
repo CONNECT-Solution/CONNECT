@@ -30,7 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class Patient implements java.io.Serializable {
@@ -38,7 +38,7 @@ public class Patient implements java.io.Serializable {
     static final long serialVersionUID = 449060013287108229L;
     private String dateOfBirth = null;
     private String gender = "";
-    //private QualifiedSubjectId RequesterSubjectId = null;
+    // private QualifiedSubjectId RequesterSubjectId = null;
     private String ssn = "";
     private String lastName = "";
     private String firstName = "";
@@ -51,19 +51,19 @@ public class Patient implements java.io.Serializable {
     private PhoneNumbers phoneNumbers = new PhoneNumbers();
     private PhoneNumber phoneNumber = new PhoneNumber("70312312345");
     private boolean optedIn = true;
-    
+
     public Patient() {
         log.info("Patient initialized");
     }
-    
+
     public boolean isOptedIn() {
         return optedIn;
     }
-   
+
     public void setOptedIn(boolean optedIn) {
         this.optedIn = optedIn;
     }
-    
+
     public String getDateOfBirth() {
         return dateOfBirth;
     }
@@ -71,13 +71,12 @@ public class Patient implements java.io.Serializable {
     public void setDateOfBirth(String newVal) {
         this.dateOfBirth = newVal;
     }
-    public void setPhoneNumbers(PhoneNumbers val)
-    {
+
+    public void setPhoneNumbers(PhoneNumbers val) {
         this.phoneNumbers = val;
     }
 
-    public PhoneNumbers getPhoneNumbers()
-    {
+    public PhoneNumbers getPhoneNumbers() {
         return phoneNumbers;
     }
 
@@ -105,29 +104,28 @@ public class Patient implements java.io.Serializable {
         this.ssn = val;
     }
 
-    public Addresses getAddresses()
-    {
+    public Addresses getAddresses() {
         return adds;
     }
-    public void setAddresses(Addresses val)
-    {
+
+    public void setAddresses(Addresses val) {
         this.adds = val;
     }
+
     @Deprecated
-    public Address getAddress()
-    {
-        if (add == null)
-        {
+    public Address getAddress() {
+        if (add == null) {
             add = new Address();
         }
-        
+
         return add;
     }
+
     @Deprecated
-    public void setAddress(Address value)
-    {
+    public void setAddress(Address value) {
         add = value;
     }
+
     @Deprecated
     public PersonName getName() {
         if (name == null) {
@@ -135,18 +133,20 @@ public class Patient implements java.io.Serializable {
         }
         return name;
     }
+
     @Deprecated
     public void setName(PersonName newVal) {
         this.name = newVal;
     }
-    public void setNames(PersonNames newVal)
-    {
+
+    public void setNames(PersonNames newVal) {
         this.names = newVal;
     }
-    public PersonNames getNames()
-    {
+
+    public PersonNames getNames() {
         return names;
     }
+
     public String getFirstName() {
         return firstName;
     }
@@ -154,7 +154,7 @@ public class Patient implements java.io.Serializable {
     public void setFirstName(String newVal) {
         this.firstName = newVal;
     }
-    
+
     public String getLastName() {
         return lastName;
     }
@@ -162,23 +162,18 @@ public class Patient implements java.io.Serializable {
     public void setLastName(String newVal) {
         this.lastName = newVal;
     }
-    public String toString()
-    {
+
+    public String toString() {
         String result = "";
 
-        if(this.names.size() > 0)
-        {
+        if (this.names.size() > 0) {
 
-
-            for(PersonName personName : this.names)
-            {
-                result += "|" + personName.toString() ;
+            for (PersonName personName : this.names) {
+                result += "|" + personName.toString();
             }
 
             result.replaceFirst("|", "");
-        }
-        else
-        {
+        } else {
             result = this.name.toString();
         }
         return result;

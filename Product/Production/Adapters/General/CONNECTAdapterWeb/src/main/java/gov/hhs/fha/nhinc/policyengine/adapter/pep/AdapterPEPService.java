@@ -32,34 +32,32 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "AdapterPEP", portName = "AdapterPEPPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpep.AdapterPEPPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpep", wsdlLocation = "WEB-INF/wsdl/AdapterPEPService/AdapterPEP.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPEPService
-{
+public class AdapterPEPService {
     @Resource
     private WebServiceContext context;
 
-    protected AdapterPEPServiceImpl getAdapterPEPServiceImpl()
-    {
+    protected AdapterPEPServiceImpl getAdapterPEPServiceImpl() {
         return new AdapterPEPServiceImpl();
     }
 
-    protected WebServiceContext getWebServiceContext()
-    {
+    protected WebServiceContext getWebServiceContext() {
         return context;
     }
 
     /**
-     * Given a request to check the access policy, this service will interface
-     * with the PDP to determine if access is to be granted or denied.
+     * Given a request to check the access policy, this service will interface with the PDP to determine if access is to
+     * be granted or denied.
+     * 
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The xacml response which contains the access decision
      */
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest) 
-    {
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest) {
         return getAdapterPEPServiceImpl().checkPolicy(checkPolicyRequest, getWebServiceContext());
     }
 

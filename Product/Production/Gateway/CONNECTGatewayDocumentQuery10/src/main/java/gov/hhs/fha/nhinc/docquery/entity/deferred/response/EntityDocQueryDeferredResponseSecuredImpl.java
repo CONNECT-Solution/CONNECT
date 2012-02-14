@@ -36,12 +36,13 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class EntityDocQueryDeferredResponseSecuredImpl {
 
-    public DocQueryAcknowledgementType crossGatewayQueryResponse(RespondingGatewayCrossGatewayQueryResponseSecuredType body, WebServiceContext context) {
+    public DocQueryAcknowledgementType crossGatewayQueryResponse(
+            RespondingGatewayCrossGatewayQueryResponseSecuredType body, WebServiceContext context) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
@@ -53,6 +54,7 @@ public class EntityDocQueryDeferredResponseSecuredImpl {
             }
         }
 
-        return new EntityDocQueryDeferredResponseOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryResponse(), assertion, body.getNhinTargetCommunities());
+        return new EntityDocQueryDeferredResponseOrchImpl().respondingGatewayCrossGatewayQuery(
+                body.getAdhocQueryResponse(), assertion, body.getNhinTargetCommunities());
     }
 }

@@ -38,13 +38,15 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class EntityAdministrativeDistributionSecuredTest_g1 {
 
     private Mockery context;
+
     public EntityAdministrativeDistributionSecuredTest_g1() {
     }
 
@@ -71,31 +73,28 @@ public class EntityAdministrativeDistributionSecuredTest_g1 {
         final EntityAdminDistributionOrchImpl mockImpl = context.mock(EntityAdminDistributionOrchImpl.class);
         final NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
-       
-        EntityAdministrativeDistributionSecured_g1 instance = new EntityAdministrativeDistributionSecured_g1(){
-        @Override
-            protected AssertionType extractAssertion(WebServiceContext context)
-            {
+        EntityAdministrativeDistributionSecured_g1 instance = new EntityAdministrativeDistributionSecured_g1() {
+            @Override
+            protected AssertionType extractAssertion(WebServiceContext context) {
                 return assertion;
             }
-            protected EntityAdminDistributionOrchImpl getEntityImpl()
-            {
+
+            protected EntityAdminDistributionOrchImpl getEntityImpl() {
                 return mockImpl;
             }
         };
 
-
         context.checking(new Expectations() {
 
-          {
-                allowing(mockImpl).sendAlertMessage(with(any(RespondingGatewaySendAlertMessageSecuredType.class)),with(any(AssertionType.class)),with(any(NhinTargetCommunitiesType.class)));
+            {
+                allowing(mockImpl).sendAlertMessage(with(any(RespondingGatewaySendAlertMessageSecuredType.class)),
+                        with(any(AssertionType.class)), with(any(NhinTargetCommunitiesType.class)));
                 will(returnValue(null));
-          }
+            }
         });
 
         instance.sendAlertMessage(body);
         context.assertIsSatisfied();
     }
-
 
 }

@@ -35,25 +35,22 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class AdapterDocSubmissionDeferredRequestErrorOrchImpl
-{
+public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
     private Log log = null;
 
-    public AdapterDocSubmissionDeferredRequestErrorOrchImpl()
-    {
+    public AdapterDocSubmissionDeferredRequestErrorOrchImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
+            ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestErrorOrchImpl.provideAndRegisterDocumentSetBRequestError");
 
         // Stub until adapter component is available

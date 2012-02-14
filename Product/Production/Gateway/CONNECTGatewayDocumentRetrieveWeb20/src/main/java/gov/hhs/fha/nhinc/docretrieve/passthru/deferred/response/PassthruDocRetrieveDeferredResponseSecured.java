@@ -15,7 +15,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "NhincProxyDocRetrieveDeferredResponseSecured", portName = "NhincProxyDocRetrieveDeferredResponseSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxydocretrievesecuredresponse.NhincProxyDocRetrieveDeferredResponseSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecuredresponse", wsdlLocation = "WEB-INF/wsdl/PassthruDocRetrieveDeferredResponseSecured/NhincProxyDocRetrieveDeferredRespSecured.wsdl")
@@ -31,7 +31,8 @@ public class PassthruDocRetrieveDeferredResponseSecured extends PassthruDocRetri
      * @param body
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(
+            RespondingGatewayCrossGatewayRetrieveSecuredResponseType body) {
         return crossGatewayRetrieveResponse(body, context);
     }
 }

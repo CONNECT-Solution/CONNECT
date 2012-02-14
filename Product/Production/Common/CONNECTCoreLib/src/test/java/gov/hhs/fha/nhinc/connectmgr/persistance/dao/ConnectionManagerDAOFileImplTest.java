@@ -43,60 +43,52 @@ import static org.junit.Assert.*;
 
 public class ConnectionManagerDAOFileImplTest {
 
-    private static final String TEST_CONTENT =
-            "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-            "<businessDetail xmlns=\"urn:uddi-org:api_v3\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">" +
-            "<businessEntity businessKey=\"key\">" +
-            "<name xml:lang=\"EN\">BusinessEntity 1</name>" +
-            "</businessEntity>" +
-            "<businessEntity businessKey=\"key\">" +
-            "<name xml:lang=\"EN\">BusinessEntity 2</name>" +
-            "</businessEntity>" +
-            "</businessDetail>";
-    private static final String TEST_CONTENT_2 =
-            "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-            "<businessDetail xmlns=\"urn:uddi-org:api_v3\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">" +
-            "	<businessEntity businessKey=\"uddiztestnhieonenodezum:oid:2.1 6.840.1 .1 13883.3.166.4\">" +
-            "			  <name xml:lang=\"en\">Test NHIE One</name>" +
-            "			  <name xml:lang=\"en\">TestNHIE_1</name>" +
-            "			    <contacts>" +
-            "			      <contact useType=\"\">" +
-            "			        <personName xml:lang=\"en\">John Doe</personName>" +
-            "			        <phone>111-111-1111</phone>" +
-            "			        <email>john.doe@testnhieone.oom</email>" +
-            "			        <address xml:lang=\"en\" useType=\"\" sortCode=\"\">" +
-            "			          <addressLine>112 W. Main Street</addressLine>" +
-            "			          <addressLine>Somewhere, AL 21 11 1</addressLine>" +
-            "			        </address>" +
-            "			      </contact>" +
-            "			    </contacts>" +
-            "			    <businessServices>" +
-            "			      <businessService servioeKey=\"uddi:testnhieonenode:PatientDiscovery\"" +
-            "			        businessKey=\"uddi:tes1nhieonenode:um:oid:2.16.840.1.113883.3.166.4\">" +
-            "			        <name xml:lang=\"en\">PatientDisoovery</name>" +
-            "			        <bindingTemplates>" +
-            "			          <bindingTemplate bindingKey=\"uddi:00f27b20-c31e-1 1de-a851-5ad17990a84c\"" +
-            "			            sarvioeKey=\"uddi:testnhieonenode:PatientDiscovery\">" +
-            "			            <accessPoint useType=\"endPoint\">https:/testonenhie.comlPa1ientDiscoveryRespondingGatawayService" +
-            "			          </accessPoint>" +
-            "			            <categoryBag>" +
-            "			              <keyedReferenoe tModelKey=\"uddi:nhin:versionofservioe\" keyName=\"\" keyValue=\"2.0\"/>" +
-            "			            </categoryBag>" +
-            "			          </bindingTemplate>" +
-            "			        </bindingTemplates>" +
-            "			      </businessService>" +
-            "			    </businessServices>" +
-            "			    <identityBag>" +
-            "			      <keyedReferenoe tModelKey=\"uddi:nhinznhiemomeoommunityid\" keyName=\"\" keyValue=\"um:oid:2.16.840.1.113883.3.166.4\"/>" +
-            "			    </identityBag>" +
-            "			    <categoryBag>" +
-            "			      <keyedReference tModelKey=\"uddi:nhin:nhie:publickey\" keyName=\"\" keyValue=\"305C300D06092AB64886F70D01010105" +
-            "			        00034B003048024100D1565D698FA304 19CED840497E346 FOOFSF451 D6C43315 8508130639AE25EEE009FD9A574251 12" +
-            "			        7A2F9A14A047ADBB2DC39253D2658E8F 4AOBC6DDF!D09DEE7F020301 0001\"/>" +
-            "			        <keyedReferenoe tModelKey=\"uddi:uddi.org:ubr:categorization:iso3166\" keyName=\"Alabama\" keyValue=\"US-AL\"/>" +
-            "			    </categoryBag>" +
-            "		</businessEntity>" +
-            "	</businessDetail>";
+    private static final String TEST_CONTENT = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+            + "<businessDetail xmlns=\"urn:uddi-org:api_v3\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">"
+            + "<businessEntity businessKey=\"key\">" + "<name xml:lang=\"EN\">BusinessEntity 1</name>"
+            + "</businessEntity>" + "<businessEntity businessKey=\"key\">"
+            + "<name xml:lang=\"EN\">BusinessEntity 2</name>" + "</businessEntity>" + "</businessDetail>";
+    private static final String TEST_CONTENT_2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+            + "<businessDetail xmlns=\"urn:uddi-org:api_v3\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">"
+            + "	<businessEntity businessKey=\"uddiztestnhieonenodezum:oid:2.1 6.840.1 .1 13883.3.166.4\">"
+            + "			  <name xml:lang=\"en\">Test NHIE One</name>"
+            + "			  <name xml:lang=\"en\">TestNHIE_1</name>"
+            + "			    <contacts>"
+            + "			      <contact useType=\"\">"
+            + "			        <personName xml:lang=\"en\">John Doe</personName>"
+            + "			        <phone>111-111-1111</phone>"
+            + "			        <email>john.doe@testnhieone.oom</email>"
+            + "			        <address xml:lang=\"en\" useType=\"\" sortCode=\"\">"
+            + "			          <addressLine>112 W. Main Street</addressLine>"
+            + "			          <addressLine>Somewhere, AL 21 11 1</addressLine>"
+            + "			        </address>"
+            + "			      </contact>"
+            + "			    </contacts>"
+            + "			    <businessServices>"
+            + "			      <businessService servioeKey=\"uddi:testnhieonenode:PatientDiscovery\""
+            + "			        businessKey=\"uddi:tes1nhieonenode:um:oid:2.16.840.1.113883.3.166.4\">"
+            + "			        <name xml:lang=\"en\">PatientDisoovery</name>"
+            + "			        <bindingTemplates>"
+            + "			          <bindingTemplate bindingKey=\"uddi:00f27b20-c31e-1 1de-a851-5ad17990a84c\""
+            + "			            sarvioeKey=\"uddi:testnhieonenode:PatientDiscovery\">"
+            + "			            <accessPoint useType=\"endPoint\">https:/testonenhie.comlPa1ientDiscoveryRespondingGatawayService"
+            + "			          </accessPoint>"
+            + "			            <categoryBag>"
+            + "			              <keyedReferenoe tModelKey=\"uddi:nhin:versionofservioe\" keyName=\"\" keyValue=\"2.0\"/>"
+            + "			            </categoryBag>"
+            + "			          </bindingTemplate>"
+            + "			        </bindingTemplates>"
+            + "			      </businessService>"
+            + "			    </businessServices>"
+            + "			    <identityBag>"
+            + "			      <keyedReferenoe tModelKey=\"uddi:nhinznhiemomeoommunityid\" keyName=\"\" keyValue=\"um:oid:2.16.840.1.113883.3.166.4\"/>"
+            + "			    </identityBag>"
+            + "			    <categoryBag>"
+            + "			      <keyedReference tModelKey=\"uddi:nhin:nhie:publickey\" keyName=\"\" keyValue=\"305C300D06092AB64886F70D01010105"
+            + "			        00034B003048024100D1565D698FA304 19CED840497E346 FOOFSF451 D6C43315 8508130639AE25EEE009FD9A574251 12"
+            + "			        7A2F9A14A047ADBB2DC39253D2658E8F 4AOBC6DDF!D09DEE7F020301 0001\"/>"
+            + "			        <keyedReferenoe tModelKey=\"uddi:uddi.org:ubr:categorization:iso3166\" keyName=\"Alabama\" keyValue=\"US-AL\"/>"
+            + "			    </categoryBag>" + "		</businessEntity>" + "	</businessDetail>";
     private File tempFile = null;
     private Log log = null;
 

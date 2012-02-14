@@ -47,13 +47,15 @@ import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class AdapterAdminDistNoOpImplTest {
 
     private Mockery context;
+
     public AdapterAdminDistNoOpImplTest() {
     }
 
@@ -66,7 +68,6 @@ public class AdapterAdminDistNoOpImplTest {
             }
         };
     }
-  
 
     @Test
     public void testSendAlertMessage() {
@@ -75,9 +76,7 @@ public class AdapterAdminDistNoOpImplTest {
 
         final EDXLDistribution body = null;
 
-
-        AdapterAdminDistributionProxyNoOpImpl instance = new AdapterAdminDistributionProxyNoOpImpl()
-{
+        AdapterAdminDistributionProxyNoOpImpl instance = new AdapterAdminDistributionProxyNoOpImpl() {
 
             @Override
             protected Log createLogger() {
@@ -94,7 +93,7 @@ public class AdapterAdminDistNoOpImplTest {
             }
         });
 
-        instance.sendAlertMessage(body, new AssertionType() );
+        instance.sendAlertMessage(body, new AssertionType());
         context.assertIsSatisfied();
     }
 

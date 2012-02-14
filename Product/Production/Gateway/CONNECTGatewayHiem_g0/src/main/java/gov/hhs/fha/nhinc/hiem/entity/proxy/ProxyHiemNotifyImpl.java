@@ -42,23 +42,22 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class ProxyHiemNotifyImpl
-{
+public class ProxyHiemNotifyImpl {
 
     private static Log log = LogFactory.getLog(ProxyHiemNotifyImpl.class);
 
-    public void notify(NotifyRequestType notifyRequest, WebServiceContext context)
-    {
+    public void notify(NotifyRequestType notifyRequest, WebServiceContext context) {
         log.debug("Entering ProxyHiemNotifyImpl.notify...");
 
         Element notifyElement = new SoapUtil().extractFirstElement(context, "notifySoapMessage", "Notify");
 
         log.debug("extracting soap header elements");
         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-        ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, "unsubscribeSoapMessage");
+        ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+                .createReferenceParameterElements(context, "unsubscribeSoapMessage");
         log.debug("extracted soap header elements");
 
         // Audit the HIEM Notify Request Message sent on the Nhin Interface
@@ -67,23 +66,26 @@ public class ProxyHiemNotifyImpl
         NhinHiemNotifyProxyObjectFactory hiemNotifyFactory = new NhinHiemNotifyProxyObjectFactory();
         NhinHiemNotifyProxy proxy = hiemNotifyFactory.getNhinHiemNotifyProxy();
 
-        proxy.notify(notifyElement, referenceParametersElements, notifyRequest.getAssertion(), notifyRequest.getNhinTargetSystem());
+        proxy.notify(notifyElement, referenceParametersElements, notifyRequest.getAssertion(),
+                notifyRequest.getNhinTargetSystem());
 
         log.debug("Exiting ProxyHiemNotifyImpl.notify...");
     }
 
-    public void notify(NotifyRequestSecuredType notifyRequest, WebServiceContext context)
-    {
+    public void notify(NotifyRequestSecuredType notifyRequest, WebServiceContext context) {
         log.debug("Entering ProxyHiemNotifyImpl.notify...");
 
         Element notifyElement = new SoapUtil().extractFirstElement(context, "notifySoapMessage", "Notify");
 
-        log.debug("NOTIFY MESSAGE RECEIVED FROM SECURED INTERFACE: " + XmlUtility.serializeElementIgnoreFaults(notifyElement));
+        log.debug("NOTIFY MESSAGE RECEIVED FROM SECURED INTERFACE: "
+                + XmlUtility.serializeElementIgnoreFaults(notifyElement));
 
         log.debug("extracting soap header elements");
         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-//        ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, "unsubscribeSoapMessage");
-        ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, "notifySoapMessage");
+        // ReferenceParametersElements referenceParametersElements =
+        // referenceParametersHelper.createReferenceParameterElements(context, "unsubscribeSoapMessage");
+        ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+                .createReferenceParameterElements(context, "notifySoapMessage");
         log.debug("extracted soap header elements");
 
         // Audit the HIEM Notify Request Message sent on the Nhin Interface
@@ -92,20 +94,19 @@ public class ProxyHiemNotifyImpl
         NhinHiemNotifyProxyObjectFactory hiemNotifyFactory = new NhinHiemNotifyProxyObjectFactory();
         NhinHiemNotifyProxy proxy = hiemNotifyFactory.getNhinHiemNotifyProxy();
 
-        proxy.notify(notifyElement, referenceParametersElements, SamlTokenExtractor.GetAssertion(context), notifyRequest.getNhinTargetSystem());
+        proxy.notify(notifyElement, referenceParametersElements, SamlTokenExtractor.GetAssertion(context),
+                notifyRequest.getNhinTargetSystem());
 
         log.debug("Exiting ProxyHiemNotifyImpl.notify...");
     }
 
-    private AcknowledgementType audit(NotifyRequestType notifyRequest)
-    {
+    private AcknowledgementType audit(NotifyRequestType notifyRequest) {
         AcknowledgementType ack = null;
 
         return ack;
     }
 
-    private AcknowledgementType audit(NotifyRequestSecuredType notifyRequest)
-    {
+    private AcknowledgementType audit(NotifyRequestSecuredType notifyRequest) {
         AcknowledgementType ack = null;
 
         return ack;

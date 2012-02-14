@@ -30,11 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 
  * @author patlollav
  */
-public class PatientPreferencesVO
-{
+public class PatientPreferencesVO {
     private Boolean optIn;
 
     private List<FineGrainedPolicyCriterionVO> fineGrainedPolicyCriteria;
@@ -55,41 +54,31 @@ public class PatientPreferencesVO
         this.optIn = optIn;
     }
 
-    public void addFineGrainedPolicyCriterion(FineGrainedPolicyCriterionVO criterion)
-    {
-        if (fineGrainedPolicyCriteria == null)
-        {
+    public void addFineGrainedPolicyCriterion(FineGrainedPolicyCriterionVO criterion) {
+        if (fineGrainedPolicyCriteria == null) {
             fineGrainedPolicyCriteria = new ArrayList<FineGrainedPolicyCriterionVO>();
             if (criterion.getPolicyOID() != null && !criterion.getPolicyOID().isEmpty()) {
                 fineGrainedPolicyCriteria.add(criterion);
-            }
-            else
-            {
+            } else {
                 criterion.setPolicyOID("1");
                 fineGrainedPolicyCriteria.add(criterion);
-           }
-        }
-        else
-        {
+            }
+        } else {
             if (criterion.getPolicyOID() != null && !criterion.getPolicyOID().isEmpty()) {
                 fineGrainedPolicyCriteria.add(criterion);
-            }
-            else
-            {
+            } else {
                 int pOID = 0;
                 // Find the max policyOID
-                for(FineGrainedPolicyCriterionVO fineGrainedPolicyCriterionVO : this.fineGrainedPolicyCriteria)
-                {
+                for (FineGrainedPolicyCriterionVO fineGrainedPolicyCriterionVO : this.fineGrainedPolicyCriteria) {
                     int tempPOID = Integer.parseInt(fineGrainedPolicyCriterionVO.getPolicyOID());
 
-                    if (tempPOID > pOID)
-                    {
+                    if (tempPOID > pOID) {
                         pOID = tempPOID;
                     }
                 }
-                
+
                 StringBuffer newPolicyOID = new StringBuffer();
-                newPolicyOID.append(pOID+1);
+                newPolicyOID.append(pOID + 1);
                 criterion.setPolicyOID(newPolicyOID.toString());
                 fineGrainedPolicyCriteria.add(criterion);
             }

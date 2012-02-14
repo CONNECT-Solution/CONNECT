@@ -33,21 +33,19 @@ import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
-public class PassthruDocRetrieveDeferredReqProxyJavaImpl implements PassthruDocRetrieveDeferredReqProxy
-{
+public class PassthruDocRetrieveDeferredReqProxyJavaImpl implements PassthruDocRetrieveDeferredReqProxy {
     /**
-     *
+     * 
      * @param request
      * @param assertion
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
     public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType request,
-                                                                      AssertionType assertion,
-                                                                      NhinTargetSystemType target) {
+            AssertionType assertion, NhinTargetSystemType target) {
         return new NhincProxyDocRetrieveDeferredReqOrchImpl().crossGatewayRetrieveRequest(request, assertion, target);
     }
 

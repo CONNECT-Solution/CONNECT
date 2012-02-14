@@ -42,40 +42,40 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * @author bhumphrey/paul
- *
+ * 
  */
-public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy{
-	
+public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy {
+
     private static Log log = LogFactory.getLog(OutboundDocQueryStrategy.class);
 
-    private Log getLogger(){
+    private Log getLogger() {
         return log;
     }
 
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy#execute(gov.hhs.fha.nhinc.orchestration.Orchestratable)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy#execute(gov.hhs.fha.nhinc.orchestration.Orchestratable)
      */
     @Override
-    public void execute(Orchestratable message){
-        if(message instanceof OutboundDocQueryOrchestratable){
-            execute((OutboundDocQueryOrchestratable)message);
-        }else{
+    public void execute(Orchestratable message) {
+        if (message instanceof OutboundDocQueryOrchestratable) {
+            execute((OutboundDocQueryOrchestratable) message);
+        } else {
             // shouldn't get here
             getLogger().debug("OutboundDocQueryStrategy Orchestratable was not an OutboundDocQueryOrchestratable!!!");
-            // throw new Exception("OutboundDocQueryStrategy input message was not an OutboundDocQueryOrchestratable!!!");
+            // throw new
+            // Exception("OutboundDocQueryStrategy input message was not an OutboundDocQueryOrchestratable!!!");
         }
     }
 
-
     abstract public void execute(OutboundDocQueryOrchestratable message);
 
-
     protected void auditRequestMessage(AdhocQueryRequest request, String direction, String connectInterface,
-            AssertionType assertion, String requestCommunityID){
+            AssertionType assertion, String requestCommunityID) {
 
         gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType message = new gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType();
         message.setAdhocQueryRequest(request);
@@ -87,8 +87,8 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy{
         }
     }
 
-
-    protected void auditResponseMessage(AdhocQueryResponse response, String direction, String connectInterface, AssertionType assertion, String requestCommunityID) {
+    protected void auditResponseMessage(AdhocQueryResponse response, String direction, String connectInterface,
+            AssertionType assertion, String requestCommunityID) {
         gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType message = new gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType();
         message.setAdhocQueryResponse(response);
         message.setAssertion(assertion);
@@ -98,7 +98,6 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy{
             auditMessage(auditLogMsg, assertion);
         }
     }
-
 
     private AcknowledgementType auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {
         AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();

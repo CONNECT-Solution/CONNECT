@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.subscription.filters.documentfilter;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class Constants {

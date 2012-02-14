@@ -50,7 +50,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class EntityDocQueryHelper {
@@ -67,6 +67,7 @@ public class EntityDocQueryHelper {
 
     /**
      * This method retrieves the correlations
+     * 
      * @param slotList
      * @param urlInfoList
      * @param assertion
@@ -74,7 +75,8 @@ public class EntityDocQueryHelper {
      * @param localHomeCommunity
      * @return subIdList
      */
-    public List<QualifiedSubjectIdentifierType> retreiveCorrelations(List<SlotType1> slotList, List<UrlInfo> urlInfoList, AssertionType assertion, boolean isTargeted, String localHomeCommunity) {
+    public List<QualifiedSubjectIdentifierType> retreiveCorrelations(List<SlotType1> slotList,
+            List<UrlInfo> urlInfoList, AssertionType assertion, boolean isTargeted, String localHomeCommunity) {
         log.debug("Begin EntityDocQueryHelper.retreiveCorrelations().....");
         RetrievePatientCorrelationsResponseType results = null;
         RetrievePatientCorrelationsRequestType patientCorrelationReq = new RetrievePatientCorrelationsRequestType();
@@ -92,7 +94,8 @@ public class EntityDocQueryHelper {
                         log.debug("retreiveCorrelations slot1.getValueList(): null");
                     }
                 } else {
-                    log.debug("retreiveCorrelations " + NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME + " not found");
+                    log.debug("retreiveCorrelations " + NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME
+                            + " not found");
                 }
             }
         }
@@ -101,11 +104,12 @@ public class EntityDocQueryHelper {
         for (SlotType1 slot : slotList) {
             // Find the Patient Id slot
             if (slot.getName().equalsIgnoreCase(NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME)) {
-                if (slot.getValueList() != null &&
-                        NullChecker.isNotNullish(slot.getValueList().getValue()) &&
-                        NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
-                    qualSubId.setSubjectIdentifier(PatientIdFormatUtil.parsePatientId(slot.getValueList().getValue().get(0)));
-                    qualSubId.setAssigningAuthorityIdentifier(PatientIdFormatUtil.parseCommunityId(slot.getValueList().getValue().get(0)));
+                if (slot.getValueList() != null && NullChecker.isNotNullish(slot.getValueList().getValue())
+                        && NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
+                    qualSubId.setSubjectIdentifier(PatientIdFormatUtil.parsePatientId(slot.getValueList().getValue()
+                            .get(0)));
+                    qualSubId.setAssigningAuthorityIdentifier(PatientIdFormatUtil.parseCommunityId(slot.getValueList()
+                            .getValue().get(0)));
 
                     log.debug("Extracting subject id: " + qualSubId.getSubjectIdentifier());
                     log.debug("Extracting assigning authority id: " + qualSubId.getAssigningAuthorityIdentifier());
@@ -113,14 +117,12 @@ public class EntityDocQueryHelper {
                 }
 
                 // Save off the target home community ids to use in the patient correlation query
-                if (urlInfoList != null &&
-                        NullChecker.isNotNullish(urlInfoList)) {
+                if (urlInfoList != null && NullChecker.isNotNullish(urlInfoList)) {
                     for (UrlInfo target : urlInfoList) {
                         if (NullChecker.isNotNullish(target.getHcid())) {
                             patientCorrelationReq.getTargetHomeCommunity().add(target.getHcid());
 
-                            if (target.getHcid().equals(localHomeCommunity) &&
-                                    isTargeted == true) {
+                            if (target.getHcid().equals(localHomeCommunity) && isTargeted == true) {
                                 querySelf = true;
                             }
                         }
@@ -132,7 +134,8 @@ public class EntityDocQueryHelper {
         }
 
         if (!querySelf) {
-            querySelf = getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.DOC_QUERY_SELF_PROPERTY_NAME);
+            querySelf = getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.DOC_QUERY_SELF_PROPERTY_NAME);
         }
 
         // Retreive Patient Correlations this patient
@@ -142,21 +145,23 @@ public class EntityDocQueryHelper {
         patientCorrelationReq.setAssertion(assertion);
         PRPAIN201309UV02 patCorrelationRequest = PixRetrieveBuilder.createPixRetrieve(patientCorrelationReq);
 
-
-
         results = proxy.retrievePatientCorrelations(patCorrelationRequest, assertion);
 
         // Make sure the response is valid
-        if (results != null &&
-                results.getPRPAIN201310UV02() != null &&
-                results.getPRPAIN201310UV02().getControlActProcess() != null &&
-                NullChecker.isNotNullish(results.getPRPAIN201310UV02().getControlActProcess().getSubject()) &&
-                results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0) != null &&
-                results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
-                NullChecker.isNotNullish(results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
-            for (II id : results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) {
+        if (results != null
+                && results.getPRPAIN201310UV02() != null
+                && results.getPRPAIN201310UV02().getControlActProcess() != null
+                && NullChecker.isNotNullish(results.getPRPAIN201310UV02().getControlActProcess().getSubject())
+                && results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0) != null
+                && results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
+                && results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                        .getSubject1() != null
+                && results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                        .getSubject1().getPatient() != null
+                && NullChecker.isNotNullish(results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0)
+                        .getRegistrationEvent().getSubject1().getPatient().getId())) {
+            for (II id : results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0)
+                    .getRegistrationEvent().getSubject1().getPatient().getId()) {
                 QualifiedSubjectIdentifierType subId = new QualifiedSubjectIdentifierType();
                 subId.setAssigningAuthorityIdentifier(id.getRoot());
                 subId.setSubjectIdentifier(id.getExtension());
@@ -168,33 +173,38 @@ public class EntityDocQueryHelper {
         if (querySelf == true) {
             // Examine our patient
             if (patientCorrelationReq.getQualifiedPatientIdentifier() != null) {
-                log.debug("***** documentQueryQuerySelf=true - Our Patient Id: " + patientCorrelationReq.getQualifiedPatientIdentifier().getSubjectIdentifier() + " *****");
-                log.debug("***** documentQueryQuerySelf=true - Our AA Id: " + patientCorrelationReq.getQualifiedPatientIdentifier().getAssigningAuthorityIdentifier() + " *****");
+                log.debug("***** documentQueryQuerySelf=true - Our Patient Id: "
+                        + patientCorrelationReq.getQualifiedPatientIdentifier().getSubjectIdentifier() + " *****");
+                log.debug("***** documentQueryQuerySelf=true - Our AA Id: "
+                        + patientCorrelationReq.getQualifiedPatientIdentifier().getAssigningAuthorityIdentifier()
+                        + " *****");
             }
             subIdList.add(patientCorrelationReq.getQualifiedPatientIdentifier());
         }
         log.debug("retreiveCorrelations subIdList.size(): " + subIdList.size());
-		for (QualifiedSubjectIdentifierType qual : subIdList) {
-		    log.info("retreiveCorrelations qual.getSubjectIdentifier: " + qual.getSubjectIdentifier());
-		    log.info("retreiveCorrelations qual.getAssigningAuthorityIdentifier: " + qual.getAssigningAuthorityIdentifier());
-		}
+        for (QualifiedSubjectIdentifierType qual : subIdList) {
+            log.info("retreiveCorrelations qual.getSubjectIdentifier: " + qual.getSubjectIdentifier());
+            log.info("retreiveCorrelations qual.getAssigningAuthorityIdentifier: "
+                    + qual.getAssigningAuthorityIdentifier());
+        }
         log.debug("End EntityDocQueryHelper.retreiveCorrelations().....");
         return subIdList;
     }
 
-    public HomeCommunityType lookupHomeCommunityId(String sAssigningAuthorityId, String sLocalAssigningAuthorityId, String sLocalHomeCommunity) {
+    public HomeCommunityType lookupHomeCommunityId(String sAssigningAuthorityId, String sLocalAssigningAuthorityId,
+            String sLocalHomeCommunity) {
         HomeCommunityType targetCommunity = null;
         if ((sAssigningAuthorityId != null) && (sAssigningAuthorityId.equals(sLocalAssigningAuthorityId))) {
             /*
-             * If the target is the local home community, the local
-             * assigning authority may not be mapped to the local
+             * If the target is the local home community, the local assigning authority may not be mapped to the local
              * home community in the community mapping. Set manually.
              */
             targetCommunity = new HomeCommunityType();
             targetCommunity.setHomeCommunityId(sLocalHomeCommunity);
             log.debug("Assigning authority was for the local home community. Set target to manual local home community id");
         } else {
-            targetCommunity = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(sAssigningAuthorityId);
+            targetCommunity = ConnectionManagerCommunityMapping
+                    .getHomeCommunityByAssigningAuthority(sAssigningAuthorityId);
         }
         return targetCommunity;
     }
@@ -215,10 +225,10 @@ public class EntityDocQueryHelper {
         // For each slot process each of the Patient Id slots
         for (SlotType1 slot : slotList) {
             if (slot.getName().equalsIgnoreCase(NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME)) {
-                if (slot.getValueList() != null &&
-                        NullChecker.isNotNullish(slot.getValueList().getValue()) &&
-                        NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
-                    localAssigningAuthorityId = PatientIdFormatUtil.parseCommunityId(slot.getValueList().getValue().get(0));
+                if (slot.getValueList() != null && NullChecker.isNotNullish(slot.getValueList().getValue())
+                        && NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
+                    localAssigningAuthorityId = PatientIdFormatUtil.parseCommunityId(slot.getValueList().getValue()
+                            .get(0));
                 }
                 break;
             }
@@ -229,6 +239,7 @@ public class EntityDocQueryHelper {
 
     /**
      * This method returns uniquePatientId from slot list
+     * 
      * @param slotList
      * @return uniquePatientId
      */
@@ -238,10 +249,10 @@ public class EntityDocQueryHelper {
         // For each slot process each of the Patient Id slots
         for (SlotType1 slot : slotList) {
             if (slot.getName().equalsIgnoreCase(NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME)) {
-                if (slot.getValueList() != null &&
-                        NullChecker.isNotNullish(slot.getValueList().getValue()) &&
-                        NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
-                    uniquePatientId = PatientIdFormatUtil.stripQuotesFromPatientId(slot.getValueList().getValue().get(0));
+                if (slot.getValueList() != null && NullChecker.isNotNullish(slot.getValueList().getValue())
+                        && NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
+                    uniquePatientId = PatientIdFormatUtil.stripQuotesFromPatientId(slot.getValueList().getValue()
+                            .get(0));
                 }
                 break;
             }

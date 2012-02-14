@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class PassthruDocRetrieveDeferredRespProxyObjectFactory extends ComponentProxyObjectFactory {
@@ -38,10 +38,9 @@ public class PassthruDocRetrieveDeferredRespProxyObjectFactory extends Component
     private static final String BEAN_NAME_NHINCPROXY_DOCRETRIEVE_DEFERRED_RESPONSE = "nhincproxydocretrievedeferredresp";
 
     /**
-     * Retrieve an Nhinc proxy Document Retrieve Deferred Response implementation
-     * using the IOC framework.
-     * This method retrieves the object from the framework that has an
-     * identifier of "nhincproxydocretrievedeferredresp".
+     * Retrieve an Nhinc proxy Document Retrieve Deferred Response implementation using the IOC framework. This method
+     * retrieves the object from the framework that has an identifier of "nhincproxydocretrievedeferredresp".
+     * 
      * @return NhincProxyDocRetrieveDeferredRespProxy
      */
     public PassthruDocRetrieveDeferredRespProxy getNhincProxyDocRetrieveDeferredRespProxy() {

@@ -33,16 +33,13 @@ import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionType;
  * 
  * @author Neil Webb
  */
-public class SubscriptionRepositoryHelper extends BaseSubscriptionRepositoryHelper
-{
-    public SubscriptionRepositoryHelper() throws SubscriptionRepositoryException
-    {
+public class SubscriptionRepositoryHelper extends BaseSubscriptionRepositoryHelper {
+    public SubscriptionRepositoryHelper() throws SubscriptionRepositoryException {
         super();
     }
 
     @Override
-    protected SubscriptionType getSubscriptionType()
-    {
+    protected SubscriptionType getSubscriptionType() {
         return SubscriptionType.SUBSCRIPTION;
     }
 }

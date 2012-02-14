@@ -34,32 +34,29 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
- * Created by
- * User: ralph
- * Date: Jul 26, 2010
- * Time: 2:36:53 PM
+ * Created by User: ralph Date: Jul 26, 2010 Time: 2:36:53 PM
  */
 public class AdapterDocRetrieveDeferredReqErrorProxyJavaImpl implements AdapterDocRetrieveDeferredReqErrorProxy {
     private Log log = null;
 
-     public AdapterDocRetrieveDeferredReqErrorProxyJavaImpl() {
-         log = LogFactory.getLog(getClass());
-     }
+    public AdapterDocRetrieveDeferredReqErrorProxyJavaImpl() {
+        log = LogFactory.getLog(getClass());
+    }
 
-     public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion, String errMsg) {
-         DocRetrieveAcknowledgementType                 response = new DocRetrieveAcknowledgementType();
-         AdapterDocRetrieveDeferredReqErrorOrchImpl  errorAdapter = new AdapterDocRetrieveDeferredReqErrorOrchImpl();
-         AdapterDocumentRetrieveDeferredRequestErrorType request = new AdapterDocumentRetrieveDeferredRequestErrorType();
+    public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion,
+            String errMsg) {
+        DocRetrieveAcknowledgementType response = new DocRetrieveAcknowledgementType();
+        AdapterDocRetrieveDeferredReqErrorOrchImpl errorAdapter = new AdapterDocRetrieveDeferredReqErrorOrchImpl();
+        AdapterDocumentRetrieveDeferredRequestErrorType request = new AdapterDocumentRetrieveDeferredRequestErrorType();
 
-         request.setRetrieveDocumentSetRequest(body);
-         request.setAssertion(assertion);
-         request.setErrorMsg(errMsg);
+        request.setRetrieveDocumentSetRequest(body);
+        request.setAssertion(assertion);
+        request.setErrorMsg(errMsg);
 
-         response = errorAdapter.respondingGatewayCrossGatewayRetrieve(request, assertion, errMsg);
+        response = errorAdapter.respondingGatewayCrossGatewayRetrieve(request, assertion, errMsg);
 
-         return response;
-     }
+        return response;
+    }
 
 }

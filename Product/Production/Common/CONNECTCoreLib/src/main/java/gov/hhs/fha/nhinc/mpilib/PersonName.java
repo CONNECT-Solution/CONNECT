@@ -30,7 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class PersonName implements java.io.Serializable {
@@ -40,33 +40,34 @@ public class PersonName implements java.io.Serializable {
     private String middleName = "";
     private String title = "";
     private String suffix = "";
-    
+
     public PersonName() {
         log.debug("PersonName Initialized");
     }
-    public PersonName(String lastname , String firstname) {
+
+    public PersonName(String lastname, String firstname) {
         this.setLastName(lastname);
         this.setFirstName(firstname);
     }
-    public String getMiddleName()
-    {
+
+    public String getMiddleName() {
         if (middleName == null) {
             middleName = "";
         }
         return middleName;
     }
-    public String getMiddleInitial()
-    {
+
+    public String getMiddleInitial() {
         if (middleName == null) {
             middleName = "";
         }
-        return middleName.substring(0, 0);       
+        return middleName.substring(0, 0);
     }
-    
-    public void setMiddleName(String middle)
-    {
+
+    public void setMiddleName(String middle) {
         middleName = middle;
     }
+
     public String getLastName() {
         if (lastName == null) {
             lastName = "";
@@ -88,24 +89,24 @@ public class PersonName implements java.io.Serializable {
     public void setFirstName(String FirstName) {
         this.firstName = FirstName;
     }
-    public void setTitle(String value)
-    {
+
+    public void setTitle(String value) {
         this.title = value;
     }
-    public String getTitle()
-    {
+
+    public String getTitle() {
         return title;
     }
-    public void setSuffix(String value)
-    {
+
+    public void setSuffix(String value) {
         this.suffix = value;
     }
-    public String getSuffix()
-    {
+
+    public String getSuffix() {
         return suffix;
     }
-    public String toString()
-    {
+
+    public String toString() {
         String result = "";
         result = lastName + ", " + firstName;
 

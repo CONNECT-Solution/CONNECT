@@ -56,47 +56,38 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class EntityPatientDiscoverDeferredRequestImplTest
-{
+public class EntityPatientDiscoverDeferredRequestImplTest {
 
-    public EntityPatientDiscoverDeferredRequestImplTest()
-    {
+    public EntityPatientDiscoverDeferredRequestImplTest() {
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
+    public static void setUpClass() throws Exception {
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() throws Exception {
     }
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
     }
 
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
     }
 
     /**
      * Test of processPatientDiscoveryAsyncReq method, of class EntityPatientDiscoveryAsyncRequestOrchImpl.
      */
     @Test
-    public void testProcessPatientDiscoveryAsyncReq()
-    {
+    public void testProcessPatientDiscoveryAsyncReq() {
         System.out.println("testProcessPatientDiscoveryAsyncReq");
 
-        EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl()
-        {
+        EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
 
             @Override
-            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities)
-            {
+            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities) {
                 List<UrlInfo> urlInfo = new ArrayList<UrlInfo>();
 
                 UrlInfo target = new UrlInfo();
@@ -108,32 +99,28 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request)
-            {
+            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request) {
                 return true;
             }
 
             @Override
-            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo)
-            {
+            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo) {
                 return HL7AckTransforms.createAckFrom201305(request, "Success");
             }
 
             @Override
-            protected PatientDiscoveryAuditor createAuditLogger()
-            {
-                PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger()
-                {
+            protected PatientDiscoveryAuditor createAuditLogger() {
+                PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger() {
 
                     @Override
-                    public AcknowledgementType auditEntity201305(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, String direction)
-                    {
+                    public AcknowledgementType auditEntity201305(RespondingGatewayPRPAIN201305UV02RequestType request,
+                            AssertionType assertion, String direction) {
                         return new AcknowledgementType();
                     }
 
                     @Override
-                    public AcknowledgementType auditAck(MCCIIN000002UV01 request, AssertionType assertion, String direction, String _interface)
-                    {
+                    public AcknowledgementType auditAck(MCCIIN000002UV01 request, AssertionType assertion,
+                            String direction, String _interface) {
                         return new AcknowledgementType();
                     }
                 };
@@ -141,20 +128,18 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected AsyncMessageProcessHelper createAsyncProcesser()
-            {
-                AsyncMessageProcessHelper processHelper = new AsyncMessageProcessHelper()
-                {
+            protected AsyncMessageProcessHelper createAsyncProcesser() {
+                AsyncMessageProcessHelper processHelper = new AsyncMessageProcessHelper() {
 
                     @Override
-                    public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, String direction)
-                    {
+                    public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request,
+                            String direction) {
                         return true;
                     }
 
                     @Override
-                    public boolean processAck(String messageId, String newStatus, String errorStatus, MCCIIN000002UV01 ack)
-                    {
+                    public boolean processAck(String messageId, String newStatus, String errorStatus,
+                            MCCIIN000002UV01 ack) {
                         return true;
                     }
                 };
@@ -162,14 +147,11 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected PatientDiscovery201305Processor getPatientDiscovery201305Processor()
-            {
-                PatientDiscovery201305Processor processHelper = new PatientDiscovery201305Processor()
-                {
+            protected PatientDiscovery201305Processor getPatientDiscovery201305Processor() {
+                PatientDiscovery201305Processor processHelper = new PatientDiscovery201305Processor() {
 
                     @Override
-                    public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request)
-                    {
+                    public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request) {
                         return;
                     }
                 };
@@ -177,14 +159,11 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected PDDeferredCorrelationDao getPDDeferredCorrelationDao()
-            {
-                PDDeferredCorrelationDao pdCorrelationDao = new PDDeferredCorrelationDao()
-                {
+            protected PDDeferredCorrelationDao getPDDeferredCorrelationDao() {
+                PDDeferredCorrelationDao pdCorrelationDao = new PDDeferredCorrelationDao() {
 
                     @Override
-                    public void saveOrUpdate(String messageId, II patientId)
-                    {
+                    public void saveOrUpdate(String messageId, II patientId) {
                         return;
                     }
                 };
@@ -195,7 +174,8 @@ public class EntityPatientDiscoverDeferredRequestImplTest
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
         PRPAIN201305UV02 msg = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
 
@@ -212,46 +192,39 @@ public class EntityPatientDiscoverDeferredRequestImplTest
      * Test of processPatientDiscoveryAsyncReq method, of class EntityPatientDiscoveryAsyncRequestOrchImpl.
      */
     @Test
-    public void testProcessPatientDiscoveryAsyncReqNoTargets()
-    {
+    public void testProcessPatientDiscoveryAsyncReqNoTargets() {
         System.out.println("testProcessPatientDiscoveryAsyncReqNoTargets");
 
-        EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl()
-        {
+        EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
 
             @Override
-            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities)
-            {
+            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities) {
                 return null;
             }
 
             @Override
-            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request)
-            {
+            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request) {
                 return true;
             }
 
             @Override
-            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo)
-            {
+            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo) {
                 return HL7AckTransforms.createAckFrom201305(request, "Success");
             }
 
             @Override
-            protected PatientDiscoveryAuditor createAuditLogger()
-            {
-                PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger()
-                {
+            protected PatientDiscoveryAuditor createAuditLogger() {
+                PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger() {
 
                     @Override
-                    public AcknowledgementType auditEntity201305(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, String direction)
-                    {
+                    public AcknowledgementType auditEntity201305(RespondingGatewayPRPAIN201305UV02RequestType request,
+                            AssertionType assertion, String direction) {
                         return new AcknowledgementType();
                     }
 
                     @Override
-                    public AcknowledgementType auditAck(MCCIIN000002UV01 request, AssertionType assertion, String direction, String _interface)
-                    {
+                    public AcknowledgementType auditAck(MCCIIN000002UV01 request, AssertionType assertion,
+                            String direction, String _interface) {
                         return new AcknowledgementType();
                     }
                 };
@@ -259,20 +232,18 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected AsyncMessageProcessHelper createAsyncProcesser()
-            {
-                AsyncMessageProcessHelper processHelper = new AsyncMessageProcessHelper()
-                {
+            protected AsyncMessageProcessHelper createAsyncProcesser() {
+                AsyncMessageProcessHelper processHelper = new AsyncMessageProcessHelper() {
 
                     @Override
-                    public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, String direction)
-                    {
+                    public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request,
+                            String direction) {
                         return true;
                     }
 
                     @Override
-                    public boolean processAck(String messageId, String newStatus, String errorStatus, MCCIIN000002UV01 ack)
-                    {
+                    public boolean processAck(String messageId, String newStatus, String errorStatus,
+                            MCCIIN000002UV01 ack) {
                         return true;
                     }
                 };
@@ -280,14 +251,11 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected PatientDiscovery201305Processor getPatientDiscovery201305Processor()
-            {
-                PatientDiscovery201305Processor processHelper = new PatientDiscovery201305Processor()
-                {
+            protected PatientDiscovery201305Processor getPatientDiscovery201305Processor() {
+                PatientDiscovery201305Processor processHelper = new PatientDiscovery201305Processor() {
 
                     @Override
-                    public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request)
-                    {
+                    public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request) {
                         return;
                     }
                 };
@@ -295,14 +263,11 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected PDDeferredCorrelationDao getPDDeferredCorrelationDao()
-            {
-                PDDeferredCorrelationDao pdCorrelationDao = new PDDeferredCorrelationDao()
-                {
+            protected PDDeferredCorrelationDao getPDDeferredCorrelationDao() {
+                PDDeferredCorrelationDao pdCorrelationDao = new PDDeferredCorrelationDao() {
 
                     @Override
-                    public void saveOrUpdate(String messageId, II patientId)
-                    {
+                    public void saveOrUpdate(String messageId, II patientId) {
                         return;
                     }
                 };
@@ -313,7 +278,8 @@ public class EntityPatientDiscoverDeferredRequestImplTest
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
         PRPAIN201305UV02 msg = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
 
@@ -330,16 +296,13 @@ public class EntityPatientDiscoverDeferredRequestImplTest
      * Test of processPatientDiscoveryAsyncReq method, of class EntityPatientDiscoveryAsyncRequestOrchImpl.
      */
     @Test
-    public void testProcessPatientDiscoveryAsyncReqPolicyFailed()
-    {
+    public void testProcessPatientDiscoveryAsyncReqPolicyFailed() {
         System.out.println("testProcessPatientDiscoveryAsyncReqPolicyFailed");
 
-        EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl()
-        {
+        EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
 
             @Override
-            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities)
-            {
+            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities) {
                 List<UrlInfo> urlInfo = new ArrayList<UrlInfo>();
 
                 UrlInfo target = new UrlInfo();
@@ -351,32 +314,28 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request)
-            {
+            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request) {
                 return false;
             }
 
             @Override
-            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo)
-            {
+            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo) {
                 return HL7AckTransforms.createAckFrom201305(request, "Success");
             }
 
             @Override
-            protected PatientDiscoveryAuditor createAuditLogger()
-            {
-                PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger()
-                {
+            protected PatientDiscoveryAuditor createAuditLogger() {
+                PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger() {
 
                     @Override
-                    public AcknowledgementType auditEntity201305(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, String direction)
-                    {
+                    public AcknowledgementType auditEntity201305(RespondingGatewayPRPAIN201305UV02RequestType request,
+                            AssertionType assertion, String direction) {
                         return new AcknowledgementType();
                     }
 
                     @Override
-                    public AcknowledgementType auditAck(MCCIIN000002UV01 request, AssertionType assertion, String direction, String _interface)
-                    {
+                    public AcknowledgementType auditAck(MCCIIN000002UV01 request, AssertionType assertion,
+                            String direction, String _interface) {
                         return new AcknowledgementType();
                     }
                 };
@@ -384,20 +343,18 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected AsyncMessageProcessHelper createAsyncProcesser()
-            {
-                AsyncMessageProcessHelper processHelper = new AsyncMessageProcessHelper()
-                {
+            protected AsyncMessageProcessHelper createAsyncProcesser() {
+                AsyncMessageProcessHelper processHelper = new AsyncMessageProcessHelper() {
 
                     @Override
-                    public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, String direction)
-                    {
+                    public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request,
+                            String direction) {
                         return true;
                     }
 
                     @Override
-                    public boolean processAck(String messageId, String newStatus, String errorStatus, MCCIIN000002UV01 ack)
-                    {
+                    public boolean processAck(String messageId, String newStatus, String errorStatus,
+                            MCCIIN000002UV01 ack) {
                         return true;
                     }
                 };
@@ -405,14 +362,11 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected PatientDiscovery201305Processor getPatientDiscovery201305Processor()
-            {
-                PatientDiscovery201305Processor processHelper = new PatientDiscovery201305Processor()
-                {
+            protected PatientDiscovery201305Processor getPatientDiscovery201305Processor() {
+                PatientDiscovery201305Processor processHelper = new PatientDiscovery201305Processor() {
 
                     @Override
-                    public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request)
-                    {
+                    public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request) {
                         return;
                     }
                 };
@@ -420,14 +374,11 @@ public class EntityPatientDiscoverDeferredRequestImplTest
             }
 
             @Override
-            protected PDDeferredCorrelationDao getPDDeferredCorrelationDao()
-            {
-                PDDeferredCorrelationDao pdCorrelationDao = new PDDeferredCorrelationDao()
-                {
+            protected PDDeferredCorrelationDao getPDDeferredCorrelationDao() {
+                PDDeferredCorrelationDao pdCorrelationDao = new PDDeferredCorrelationDao() {
 
                     @Override
-                    public void saveOrUpdate(String messageId, II patientId)
-                    {
+                    public void saveOrUpdate(String messageId, II patientId) {
                         return;
                     }
                 };
@@ -438,7 +389,8 @@ public class EntityPatientDiscoverDeferredRequestImplTest
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
-        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", null, null);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith",
+                "M", null, null);
         PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
         PRPAIN201305UV02 msg = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
 

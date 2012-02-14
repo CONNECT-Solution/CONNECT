@@ -32,7 +32,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "AdapterPatientDiscoverySecuredAsyncReqError", portName = "AdapterPatientDiscoverySecuredAsyncReqErrorPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreqerror.AdapterPatientDiscoverySecuredAsyncReqErrorPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror", wsdlLocation = "WEB-INF/wsdl/AdapterPatientDiscoveryDeferredRequestErrorSecured/AdapterPatientDiscoverySecuredAsyncReqError.wsdl")
@@ -41,8 +41,12 @@ public class AdapterPatientDiscoveryDeferredRequestErrorSecured {
     @Resource
     private WebServiceContext context;
 
-    public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(org.hl7.v3.AsyncAdapterPatientDiscoveryErrorSecuredRequestType processPatientDiscoveryAsyncReqErrorRequest) {
-        return new AdapterPatientDiscoverySecuredDeferredRequestErrorImpl().processPatientDiscoveryAsyncReqError(processPatientDiscoveryAsyncReqErrorRequest.getPRPAIN201305UV02(), processPatientDiscoveryAsyncReqErrorRequest.getPRPAIN201306UV02(), processPatientDiscoveryAsyncReqErrorRequest.getErrorMsg(), context);
+    public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(
+            org.hl7.v3.AsyncAdapterPatientDiscoveryErrorSecuredRequestType processPatientDiscoveryAsyncReqErrorRequest) {
+        return new AdapterPatientDiscoverySecuredDeferredRequestErrorImpl().processPatientDiscoveryAsyncReqError(
+                processPatientDiscoveryAsyncReqErrorRequest.getPRPAIN201305UV02(),
+                processPatientDiscoveryAsyncReqErrorRequest.getPRPAIN201306UV02(),
+                processPatientDiscoveryAsyncReqErrorRequest.getErrorMsg(), context);
     }
 
 }

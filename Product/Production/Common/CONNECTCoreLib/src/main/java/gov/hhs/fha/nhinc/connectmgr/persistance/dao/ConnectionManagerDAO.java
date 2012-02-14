@@ -32,8 +32,8 @@ import org.uddi.api_v3.BusinessDetail;
  * 
  * @author kshtabnoy
  * 
- * Isolates load/save functionality
- *  
+ *         Isolates load/save functionality
+ * 
  */
 public interface ConnectionManagerDAO {
 

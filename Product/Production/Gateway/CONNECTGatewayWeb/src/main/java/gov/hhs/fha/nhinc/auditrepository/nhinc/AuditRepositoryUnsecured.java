@@ -34,15 +34,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author mflynn02
  */
 @WebService(serviceName = "AuditRepositoryManagerService", portName = "AuditRepositoryManagerPort", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository", wsdlLocation = "WEB-INF/wsdl/AuditRepositoryManagerService/NhincComponentAuditRepository.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
-
 public class AuditRepositoryUnsecured {
     @Resource
     private WebServiceContext context;
+
     protected AuditRepositoryUnsecuredImpl getAuditRepositoryUnsecuredImpl() {
         return new AuditRepositoryUnsecuredImpl();
     }
@@ -51,14 +51,16 @@ public class AuditRepositoryUnsecured {
         return context;
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType queryAuditEvents(gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest) {
-        //TODO implement this method
-       return getAuditRepositoryUnsecuredImpl().queryAuditEvents(queryAuditEventsRequest, getWebServiceContext());
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType queryAuditEvents(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest) {
+        // TODO implement this method
+        return getAuditRepositoryUnsecuredImpl().queryAuditEvents(queryAuditEventsRequest, getWebServiceContext());
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType logEvent(gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType logEventRequest) {
-        //TODO implement this method
-       return getAuditRepositoryUnsecuredImpl().logEvent(logEventRequest, getWebServiceContext());
+    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType logEvent(
+            gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType logEventRequest) {
+        // TODO implement this method
+        return getAuditRepositoryUnsecuredImpl().logEvent(logEventRequest, getWebServiceContext());
     }
 
 }

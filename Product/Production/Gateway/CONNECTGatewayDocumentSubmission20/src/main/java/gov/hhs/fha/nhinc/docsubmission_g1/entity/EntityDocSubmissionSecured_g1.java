@@ -37,32 +37,28 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 @WebService(serviceName = "EntityXDRSecured_Service", portName = "EntityXDRSecured_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincentityxdrsecured", wsdlLocation = "WEB-INF/wsdl/EntityDocSubmissionSecured/EntityXDRSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityDocSubmissionSecured_g1
-{
+public class EntityDocSubmissionSecured_g1 {
 
     @Resource
     private WebServiceContext context;
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body)
-    {
+    public RegistryResponseType provideAndRegisterDocumentSetB(
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
         RegistryResponseType response = null;
 
         EntityDocSubmissionImpl_g1 impl = getEntityDocSubmissionImpl();
-        if (impl != null)
-        {
+        if (impl != null) {
             response = impl.provideAndRegisterDocumentSetBSecured(body, getWebServiceContext());
         }
 
         return response;
     }
 
-    protected EntityDocSubmissionImpl_g1 getEntityDocSubmissionImpl()
-    {
+    protected EntityDocSubmissionImpl_g1 getEntityDocSubmissionImpl() {
         return new EntityDocSubmissionImpl_g1();
     }
 
-    protected WebServiceContext getWebServiceContext()
-    {
+    protected WebServiceContext getWebServiceContext() {
         return context;
     }
 }

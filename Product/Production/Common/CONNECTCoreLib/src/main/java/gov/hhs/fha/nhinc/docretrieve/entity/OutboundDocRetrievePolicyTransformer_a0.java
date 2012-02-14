@@ -39,37 +39,30 @@ import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
  */
 public class OutboundDocRetrievePolicyTransformer_a0 implements PolicyTransformer {
 
-	@Override
-	public CheckPolicyRequestType transform(Orchestratable message,
-			Direction direction) {
-		CheckPolicyRequestType policyReq = null;
-		if (message instanceof OutboundDocRetrieveOrchestratable) {
-			policyReq = tranform((OutboundDocRetrieveOrchestratable) message, direction);
-		}
-		return policyReq;
-	}
+    @Override
+    public CheckPolicyRequestType transform(Orchestratable message, Direction direction) {
+        CheckPolicyRequestType policyReq = null;
+        if (message instanceof OutboundDocRetrieveOrchestratable) {
+            policyReq = tranform((OutboundDocRetrieveOrchestratable) message, direction);
+        }
+        return policyReq;
+    }
 
-	public CheckPolicyRequestType tranform(
-			OutboundDocRetrieveOrchestratable EntityDROrchMessage,
-			Direction direction) {
-		CheckPolicyRequestType policyReq = null;
-		DocRetrieveEventType policyCheckReq = new DocRetrieveEventType();
-		if (Direction.INBOUND == direction)
-			policyCheckReq
-					.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
-		else
-			policyCheckReq
-					.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
+    public CheckPolicyRequestType tranform(OutboundDocRetrieveOrchestratable EntityDROrchMessage, Direction direction) {
+        CheckPolicyRequestType policyReq = null;
+        DocRetrieveEventType policyCheckReq = new DocRetrieveEventType();
+        if (Direction.INBOUND == direction)
+            policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+        else
+            policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
 
-		gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType request = new gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType();
-		request.setAssertion(EntityDROrchMessage.getAssertion());
-		request.setRetrieveDocumentSetRequest(EntityDROrchMessage.getRequest());
-		policyCheckReq.setMessage(request);
-		PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-		policyReq = policyChecker.checkPolicyDocRetrieve(policyCheckReq);
-		return policyReq;
-	}
+        gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType request = new gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType();
+        request.setAssertion(EntityDROrchMessage.getAssertion());
+        request.setRetrieveDocumentSetRequest(EntityDROrchMessage.getRequest());
+        policyCheckReq.setMessage(request);
+        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
+        policyReq = policyChecker.checkPolicyDocRetrieve(policyCheckReq);
+        return policyReq;
+    }
 
-	
-		
 }

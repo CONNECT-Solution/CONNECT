@@ -73,7 +73,7 @@ import org.oasis_open.docs.wsn.b_2.SubscribeCreationFailedFaultType;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy {
@@ -87,7 +87,11 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
     private static final String PORT_LOCAL_PART = "NotificationProducerPort";
     private static final String WSDL_FILE = "NhinSubscription.wsdl";
 
-    public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
+    public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target)
+            throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
+            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault,
+            SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault,
+            UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
         Element responseElement = null;
         SubscribeResponse response = null;
         String url = null;
@@ -96,7 +100,8 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
         if (target != null) {
             try {
-                url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target,
+                        NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
                 log.error(ex.getMessage());
@@ -111,19 +116,17 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
             WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
             Subscribe subscribe = subscribeMarshaller.unmarshalUnsubscribeRequest(subscribeElement);
 
-            if(checkPolicy(subscribe, assertion))
-            {
+            if (checkPolicy(subscribe, assertion)) {
                 auditInputMessage(subscribe, assertion);
-                //The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
-				response = port.subscribe(subscribe);
+                // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method
+                // invocation
+                response = port.subscribe(subscribe);
                 auditResponseMessage(response, assertion);
-            }
-            else
-            {
+            } else {
                 SubscribeCreationFailedFaultType faultInfo = null;
                 throw new SubscribeCreationFailedFault("Policy check failed", faultInfo);
             }
-            
+
             SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
             responseElement = responseMarshaller.marshal(response);
             log.debug(XmlUtility.serializeElementIgnoreFaults(responseElement));
@@ -153,9 +156,8 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             policyIsValid = true;
         }
 
@@ -166,25 +168,22 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
     private void auditInputMessage(Subscribe subscribe, AssertionType assertion) {
         log.debug("In NhinHiemSubscribeWebServiceProxy.auditInputMessage");
         AcknowledgementType ack = null;
-        try
-        {
+        try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
             gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType();
             message.setAssertion(assertion);
             message.setSubscribe(subscribe);
 
-            LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
+                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
-            if(auditLogMsg != null)
-            {
+            if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
                 ack = proxy.auditLog(auditLogMsg, assertion);
             }
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error logging subscribe message: " + t.getMessage(), t);
         }
     }
@@ -192,75 +191,59 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
     private void auditResponseMessage(SubscribeResponse response, AssertionType assertion) {
         log.debug("In NhinHiemSubscribeWebServiceProxy.auditResponseMessage");
         AcknowledgementType ack = null;
-        try
-        {
+        try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
             gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType message = new gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType();
             message.setAssertion(assertion);
             message.setSubscribeResponse(response);
 
-            LogEventRequestType auditLogMsg = auditLogger.logSubscribeResponse(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            LogEventRequestType auditLogMsg = auditLogger.logSubscribeResponse(message,
+                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
-            if(auditLogMsg != null)
-            {
+            if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
                 ack = proxy.auditLog(auditLogMsg, assertion);
             }
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error logging subscribe response message: " + t.getMessage(), t);
         }
     }
 
-    protected NotificationProducer getPort(String url, AssertionType assertIn)
-    {
+    protected NotificationProducer getPort(String url, AssertionType assertIn) {
         NotificationProducer oPort = null;
         try {
             Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-            if (oService != null)
-            {
+            if (oService != null) {
                 log.debug("subscribe() Obtained service - creating port.");
-                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-                            NotificationProducer.class);
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NotificationProducer.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort,
-                        url, NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
-             }
-            else
-            {
+                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+                        NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
+            } else {
                 log.error("Unable to obtain service - no port created.");
             }
-        } catch (Throwable t)
-            {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+        }
         return oPort;
     }
 
-    private WebServiceProxyHelper getWebServiceProxyHelper()
-    {
-        if (oProxyHelper == null)
-        {
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
             oProxyHelper = new WebServiceProxyHelper();
         }
         return oProxyHelper;
     }
 
-    private Service getService(String wsdl, String uri, String service)
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    private Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
                 cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }

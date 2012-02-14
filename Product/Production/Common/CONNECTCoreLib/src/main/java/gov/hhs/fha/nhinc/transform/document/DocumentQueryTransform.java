@@ -47,16 +47,14 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Class to perform transform operations for document query messages.
- *
+ * 
  * @author Neil Webb
  */
-public class DocumentQueryTransform 
-{
+public class DocumentQueryTransform {
     private static Log log = LogFactory.getLog(DocumentQueryTransform.class);
 
     /**
-     * Replace the patient identifier information in an AdhocQuery message with the information
-     * provided.
+     * Replace the patient identifier information in an AdhocQuery message with the information provided.
      * 
      * @param sourceQuery Original AdhocQuery message
      * @param homeCommuinty Home community identifier
@@ -64,51 +62,45 @@ public class DocumentQueryTransform
      * @param patientId Patient identifier
      * @return Altered AdhocQuery Message
      */
-    public AdhocQueryRequest replaceAdhocQueryPatientId(AdhocQueryRequest sourceQuery, String homeCommuinty, String assigningAuthority, String patientId)
-    {
+    public AdhocQueryRequest replaceAdhocQueryPatientId(AdhocQueryRequest sourceQuery, String homeCommuinty,
+            String assigningAuthority, String patientId) {
         log.debug("DocumentQueryTransform.replaceAdhocQueryPatientId() -- Begin");
         AdhocQueryRequest adhocQueryRequest = null;
-        
-        if (sourceQuery != null)
-        {
+
+        if (sourceQuery != null) {
             adhocQueryRequest = sourceQuery;
 
             // Home community ID
-            //-------------------
-            if (NullChecker.isNotNullish(homeCommuinty))
-            {
-                if (adhocQueryRequest.getAdhocQuery() == null)
-                {
+            // -------------------
+            if (NullChecker.isNotNullish(homeCommuinty)) {
+                if (adhocQueryRequest.getAdhocQuery() == null) {
                     adhocQueryRequest.setAdhocQuery(new AdhocQueryType());
                 }
                 adhocQueryRequest.getAdhocQuery().setHome(homeCommuinty);
             }
 
             // Patient ID
-            //-------------
-            if (NullChecker.isNotNullish(patientId) && NullChecker.isNotNullish(assigningAuthority))
-            {
-                if (adhocQueryRequest.getAdhocQuery() == null)
-                {
+            // -------------
+            if (NullChecker.isNotNullish(patientId) && NullChecker.isNotNullish(assigningAuthority)) {
+                if (adhocQueryRequest.getAdhocQuery() == null) {
                     adhocQueryRequest.setAdhocQuery(new AdhocQueryType());
                 }
-                
+
                 String formattedPatientId = PatientIdFormatUtil.hl7EncodePatientId(patientId, assigningAuthority);
 
-                // Look for the entries in the slot that contain the patient ID and fix them.  If none were found, create one.
-                //-------------------------------------------------------------------------------------------------------------
+                // Look for the entries in the slot that contain the patient ID and fix them. If none were found, create
+                // one.
+                // -------------------------------------------------------------------------------------------------------------
                 boolean foundEntry = false;
                 List<SlotType1> slotType1 = adhocQueryRequest.getAdhocQuery().getSlot();
                 Iterator<SlotType1> iterSlotType1 = slotType1.iterator();
-                while (iterSlotType1.hasNext())
-                {
+                while (iterSlotType1.hasNext()) {
                     SlotType1 slot = iterSlotType1.next();
-                    if ((slot.getName() != null) &&
-                        (slot.getName().equals(DocumentTransformConstants.EBXML_DOCENTRY_PATIENT_ID)))
-                    {
+                    if ((slot.getName() != null)
+                            && (slot.getName().equals(DocumentTransformConstants.EBXML_DOCENTRY_PATIENT_ID))) {
                         ValueListType slotValueList = new ValueListType();
                         slot.setValueList(slotValueList);
-                        List<String> slotValues = null;                       // Handle to a list of strings
+                        List<String> slotValues = null; // Handle to a list of strings
                         slotValues = slotValueList.getValue();
                         slotValues.add(formattedPatientId);
                         foundEntry = true;
@@ -116,23 +108,21 @@ public class DocumentQueryTransform
                 }
 
                 // If we did not replace an entry - then we need to create one...
-                //-----------------------------------------------------------------
-                if (!foundEntry)
-                {
+                // -----------------------------------------------------------------
+                if (!foundEntry) {
                     SlotType1 slot = new SlotType1();
                     slot.setName(DocumentTransformConstants.EBXML_DOCENTRY_PATIENT_ID);
                     ValueListType slotValueList = new ValueListType();
                     slot.setValueList(slotValueList);
-                    List<String> slotValues = null;                       // Handle to a list of strings
+                    List<String> slotValues = null; // Handle to a list of strings
                     slotValues = slotValueList.getValue();
                     slotValues.add(formattedPatientId);
                     slotType1.add(slot);
-                }   // if (!bFoundEntry)
-            }   // if ((oInsertDocQueryPatIds.getQualifiedSubjectId() != null) &&
-        }   // if ((oInsertDocQueryPatIds != null) &&
+                } // if (!bFoundEntry)
+            } // if ((oInsertDocQueryPatIds.getQualifiedSubjectId() != null) &&
+        } // if ((oInsertDocQueryPatIds != null) &&
 
-        if(log.isDebugEnabled())
-        {
+        if (log.isDebugEnabled()) {
             log.debug("The result as it should be: ");
             outputAdhocQueryRequest(adhocQueryRequest);
             log.debug("----------------------------");
@@ -141,17 +131,15 @@ public class DocumentQueryTransform
         log.debug("DocumentQueryTransform.replaceAdhocQueryPatientId() -- End");
         return adhocQueryRequest;
     }
-    
+
     /**
      * Output the contents of the adhoc query request.
      * 
-     * @param oAdhocQueryRequest  The object to be printed out.
+     * @param oAdhocQueryRequest The object to be printed out.
      */
-    public static void outputAdhocQueryRequest(AdhocQueryRequest oAdhocQueryRequest)
-    {
+    public static void outputAdhocQueryRequest(AdhocQueryRequest oAdhocQueryRequest) {
         log.debug("DocumentQueryTransform.outputAdhocQueryRequest() -- Begin");
-        try
-        {
+        try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.query._3");
             Marshaller marshaller = jc.createMarshaller();
@@ -162,13 +150,11 @@ public class DocumentQueryTransform
             log.debug("");
             log.debug(oXML);
             log.debug("");
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             log.error("Unexpected exception: " + e.getMessage());
             e.printStackTrace();
         }
         log.debug("DocumentQueryTransform.outputAdhocQueryRequest() -- End");
     }
-    
+
 }

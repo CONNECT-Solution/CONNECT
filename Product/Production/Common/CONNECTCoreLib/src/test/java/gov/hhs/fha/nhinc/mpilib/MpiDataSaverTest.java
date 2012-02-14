@@ -40,13 +40,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author akong
  */
 public class MpiDataSaverTest {
 
-    Mockery context = new JUnit4Mockery()
-    {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -54,7 +53,7 @@ public class MpiDataSaverTest {
     final Log mockLog = context.mock(Log.class);
     final static String mockMpiName = System.getProperty("user.dir", ".") + File.separator + "mockmpi.xml";
     final static String mockMpiDirectoryName = System.getProperty("user.dir", ".") + File.separator;
-    
+
     public MpiDataSaverTest() {
     }
 
@@ -137,7 +136,7 @@ public class MpiDataSaverTest {
         patientList.add(createPatient("John", "Doe"));
         mpiDataSaver.saveMpi(patientList);
         patientList = mpiDataSaver.loadMpi();
-        
+
         assertEquals(1, patientList.size());
         Patient patient = patientList.get(0);
         assertEquals("John", patient.getFirstName());
@@ -165,7 +164,7 @@ public class MpiDataSaverTest {
         assertEquals(0, patientList.size());
     }
 
-    @Test(expected=UnableToInitializeMpi.class)
+    @Test(expected = UnableToInitializeMpi.class)
     public void testSaveMpi_BadFile() {
         context.checking(new Expectations() {
             {
@@ -189,7 +188,7 @@ public class MpiDataSaverTest {
 
         MpiDataSaver mpiDataSaver = createMpiDataSaver();
         Patients patientList = mpiDataSaver.loadMpi(mockMpiName);
-        assertEquals(0, patientList.size());   
+        assertEquals(0, patientList.size());
     }
 
 }

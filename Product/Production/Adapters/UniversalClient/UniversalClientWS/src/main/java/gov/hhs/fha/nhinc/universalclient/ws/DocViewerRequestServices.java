@@ -80,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
 import org.netbeans.xml.schema.docviewer.RetrievedDocumentDisplayObject;
 
 /**
- *
+ * 
  * @author Duane DeCouteau
  */
 @WebService(serviceName = "DocViewerRequestServicesService", portName = "DocViewerRequestServicesPort", endpointInterface = "gov.hhs.fha.nhinc.universalclient.ws.DocViewerRequestServicesPortType", targetNamespace = "http://ws.universalclient.nhinc.fha.hhs.gov/", wsdlLocation = "WEB-INF/wsdl/DocViewerRequestServices/DocViewerRequestServicesService.wsdl")
@@ -103,12 +103,11 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
     private static final String CREATION_TIME_TO_SLOT_NAME = "$XDSDocumentEntryCreationTimeTo";
     private static final String PATIENT_EXTERNAL_IDENTITY_SCHEME = "urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427";
 
-
-    //DB4Objects to handle management of display object based on requesting user and patient
+    // DB4Objects to handle management of display object based on requesting user and patient
     private static ObjectServer db4server = null;
     private static ObjectContainer db = null;
     private static String dbFileName = "UniversalClientWSdbo";
-    private static String dbFilePath = "./";  //put objectmanagement in config directory of glassfish
+    private static String dbFilePath = "./"; // put objectmanagement in config directory of glassfish
 
     private void getDB4Server() {
         try {
@@ -120,8 +119,7 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
                     if (dbtest.exists()) {
                         dbexists = true;
                     }
-                }
-                catch (Exception fx) {
+                } catch (Exception fx) {
                     fx.printStackTrace();
                 }
                 try {
@@ -130,19 +128,17 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
                     conf.disableCommitRecovery();
                     conf.lockDatabaseFile(false);
                     db4server = Db4o.openServer(conf, dbFile, 0);
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     System.out.println("DB4object is open");
                 }
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-
-    public org.netbeans.xml.schema.docviewer.DocViewerResponseType requestAllNHINDocuments(org.netbeans.xml.schema.docviewer.DocViewerRequestType docRequest) {
+    public org.netbeans.xml.schema.docviewer.DocViewerResponseType requestAllNHINDocuments(
+            org.netbeans.xml.schema.docviewer.DocViewerRequestType docRequest) {
         getDB4Server();
         addInitialStatusRecord(docRequest);
         this.patientId = docRequest.getPatientId();
@@ -157,45 +153,44 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
         WebServiceFeature[] wsfeaturearray = wsfeatures.toArray(new WebServiceFeature[0]);
         try {
             // Get the Home community ID for this box...
-            //------------------------------------------
+            // ------------------------------------------
             String sHomeCommunityId = "";
             String sEndpointURL = "";
             try {
-               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
-            }
-            catch (Exception e) {
-                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
-                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
-                          e.getMessage(), e);
+                sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            } catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY + " property from the "
+                        + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " + e.getMessage(), e);
             }
 
             // Get the endpoint URL for the entity doc query service
-            //------------------------------------------
+            // ------------------------------------------
             EntityDocQuery service = new EntityDocQuery();
-            EntityDocQueryPortType port =  service.getEntityDocQueryPortSoap11(wsfeaturearray);
+            EntityDocQueryPortType port = service.getEntityDocQueryPortSoap11(wsfeaturearray);
 
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE);
-                }
-                catch (Exception e) {
-                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE +
-                              " from connection manager.  Error: " + e.getMessage(), e);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId,
+                            SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE);
+                } catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE
+                            + " from connection manager.  Error: " + e.getMessage(), e);
                 }
             }
 
-            if ((sEndpointURL != null) &&
-                (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
-            }
-            else {
-                // Just a way to cover ourselves for the time being...  - assume port 9080
-                //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:9080/NhinConnect/EntityDocQuery");
+            if ((sEndpointURL != null) && (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            } else {
+                // Just a way to cover ourselves for the time being... - assume port 9080
+                // -------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                        "http://localhost:9080/NhinConnect/EntityDocQuery");
 
-                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE + " and " +
-                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
-                         "'http://localhost:9080/NhinConnect/EntityDocQuery'");
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE + " and "
+                        + "Home Community: " + sHomeCommunityId + ".  Using default URL: "
+                        + "'http://localhost:9080/NhinConnect/EntityDocQuery'");
             }
 
             RespondingGatewayCrossGatewayQueryRequestType gateway = new RespondingGatewayCrossGatewayQueryRequestType();
@@ -204,45 +199,44 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
             nhinResults = port.respondingGatewayCrossGatewayQuery(gateway);
             if (nhinResults.getTotalResultCount() != null) {
-                log.debug("DocViewerRequestService NHIN RESULT COUNT "+nhinResults.getTotalResultCount().toString());
+                log.debug("DocViewerRequestService NHIN RESULT COUNT " + nhinResults.getTotalResultCount().toString());
             }
             addNewSearchToDisplayList();
             res.setStatusCode(0);
             res.setStatusDesc("Request Successfully Processed");
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-            log.error("DocViewerRequestServices.findDocuments "+ex.getMessage());
+            log.error("DocViewerRequestServices.findDocuments " + ex.getMessage());
             res.setStatusCode(1);
-            res.setStatusDesc("DocViewerRequestAll failed "+ex.getMessage());
+            res.setStatusDesc("DocViewerRequestAll failed " + ex.getMessage());
         }
-        
+
         log.debug("Exiting DocViewerRequestService.findDocuments");
         localResults = queryLocalRespository(origAdhocQuery);
-        log.debug("DocViewerRequestServices : queryLocalRepository status"+localResults.getStatus());
+        log.debug("DocViewerRequestServices : queryLocalRepository status" + localResults.getStatus());
         if (localResults != null) {
             String localStatus = localResults.getStatus();
             if (!"urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure".equals(localStatus)) {
                 compareAndStore();
-            }
-            else {
+            } else {
                 storeAll();
             }
-        }
-        else {
+        } else {
             storeAll();
         }
-        
+
         log.debug("Exiting DocViewerRequestService.requestAllNHINDocuments");
         return res;
     }
 
-    public org.netbeans.xml.schema.docviewer.DocViewerStatusResponseType getNHINRequestStatus(org.netbeans.xml.schema.docviewer.DocViewerStatusRequestType statusRequest) {
+    public org.netbeans.xml.schema.docviewer.DocViewerStatusResponseType getNHINRequestStatus(
+            org.netbeans.xml.schema.docviewer.DocViewerStatusRequestType statusRequest) {
         org.netbeans.xml.schema.docviewer.DocViewerStatusResponseType res = new org.netbeans.xml.schema.docviewer.DocViewerStatusResponseType();
         List<org.netbeans.xml.schema.docviewer.RetrievedDocumentDisplayObject> objs = new ArrayList();
         getDB4Server();
         ObjectContainer client = null;
-        System.out.println("DocViewerRequestService.getNHINRequestStatus PatientId "+statusRequest.getPatientId()+" Requesting User "+statusRequest.getUserId());
+        System.out.println("DocViewerRequestService.getNHINRequestStatus PatientId " + statusRequest.getPatientId()
+                + " Requesting User " + statusRequest.getUserId());
         try {
             client = db4server.openClient();
             Query query = client.query();
@@ -251,69 +245,110 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             ObjectSet set = query.execute();
             Iterator iter = set.iterator();
             while (iter.hasNext()) {
-                RetrievedDocumentDisplayObject obj = (RetrievedDocumentDisplayObject)iter.next();
+                RetrievedDocumentDisplayObject obj = (RetrievedDocumentDisplayObject) iter.next();
                 if (obj.getRequestingUser().equals(statusRequest.getUserId())) {
                     objs.add(obj);
                 }
             }
             client.commit();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
             client.close();
         }
         res.getDisplayObjects().addAll(objs);
         return res;
     }
+
     private void addNewSearchToDisplayList() {
-        //remove old for requesting user
+        // remove old for requesting user
         log.debug("Entering DocViewerRequestServices.addNewSearchToDisplayList");
 
         try {
-             List<JAXBElement<? extends IdentifiableType>> objectList = nhinResults.getRegistryObjectList().getIdentifiable();
-             List<RetrievedDocumentDisplayObject> docArray = new ArrayList();
+            List<JAXBElement<? extends IdentifiableType>> objectList = nhinResults.getRegistryObjectList()
+                    .getIdentifiable();
+            List<RetrievedDocumentDisplayObject> docArray = new ArrayList();
 
             for (JAXBElement<? extends IdentifiableType> object : objectList) {
                 IdentifiableType identifiableType = object.getValue();
 
-
                 RetrievedDocumentDisplayObject docInfo = new RetrievedDocumentDisplayObject();
 
                 if (identifiableType instanceof ExtrinsicObjectType) {
-                    ExtrinsicObjectType extrinsicObject = (ExtrinsicObjectType)identifiableType;
+                    ExtrinsicObjectType extrinsicObject = (ExtrinsicObjectType) identifiableType;
 
                     if (extrinsicObject != null) {
-                        try { docInfo.setDocumentTitle(extractDocumentTitle(extrinsicObject)); } catch (Exception ex) { System.out.println("DocViewerRequestService ERROR "+ex.getMessage()); }
-                        try { docInfo.setDocumentType(extractDocumentType(extrinsicObject)); } catch (Exception ex) { System.out.println("DocViewerRequestService ERROR "+ex.getMessage()); }
+                        try {
+                            docInfo.setDocumentTitle(extractDocumentTitle(extrinsicObject));
+                        } catch (Exception ex) {
+                            System.out.println("DocViewerRequestService ERROR " + ex.getMessage());
+                        }
+                        try {
+                            docInfo.setDocumentType(extractDocumentType(extrinsicObject));
+                        } catch (Exception ex) {
+                            System.out.println("DocViewerRequestService ERROR " + ex.getMessage());
+                        }
                         String creationTime = "";
-                        try { creationTime = extractCreationTime(extrinsicObject); } catch (Exception ex) { System.out.println("DocViewerRequestService ERROR "+ex.getMessage()); }
-                        try { docInfo.setCreationDate(formatDate(creationTime, HL7_DATE_FORMAT, REGULAR_DATE_FORMAT)); } catch (Exception ex) { System.out.println("DocViewerRequestService ERROR "+ex.getMessage()); }
-                        try { docInfo.setOrganizationName(extractInstitution(extrinsicObject)); } catch (Exception ex) { System.out.println("DocViewerRequestService ERROR "+ex.getMessage()); }
-                        try { docInfo.setUniqueDocumentId(extractDocumentID(extrinsicObject)); } catch (Exception ex) { System.out.println("DocViewerRequestService ERROR "+ex.getMessage()); }
-                        try { docInfo.setRepositoryId(extractRespositoryUniqueID(extrinsicObject)); } catch (Exception ex) { System.out.println("DocViewerRequestService ERROR "+ex.getMessage()); }
-                        try { docInfo.setOrgId(extrinsicObject.getHome()); } catch (Exception ex) { System.out.println("DocViewerRequestService ERROR "+ex.getMessage()); }
-                        try { docInfo.setOrigDocumentId(extractDocumentID(extrinsicObject)); } catch (Exception ex) { System.out.println("DocViewerRequestService ERROR "+ex.getMessage()); }
-                        try { docInfo.setOrigRespositoryId(extractRespositoryUniqueID(extrinsicObject)); } catch (Exception ex) { System.out.println("DocViewerRequestService ERROR "+ex.getMessage()); }
-                        try { docInfo.setOrigHomeCommunityId(extrinsicObject.getHome()); } catch (Exception ex) { System.out.println("DocViewerRequestService ERROR "+ex.getMessage()); }
+                        try {
+                            creationTime = extractCreationTime(extrinsicObject);
+                        } catch (Exception ex) {
+                            System.out.println("DocViewerRequestService ERROR " + ex.getMessage());
+                        }
+                        try {
+                            docInfo.setCreationDate(formatDate(creationTime, HL7_DATE_FORMAT, REGULAR_DATE_FORMAT));
+                        } catch (Exception ex) {
+                            System.out.println("DocViewerRequestService ERROR " + ex.getMessage());
+                        }
+                        try {
+                            docInfo.setOrganizationName(extractInstitution(extrinsicObject));
+                        } catch (Exception ex) {
+                            System.out.println("DocViewerRequestService ERROR " + ex.getMessage());
+                        }
+                        try {
+                            docInfo.setUniqueDocumentId(extractDocumentID(extrinsicObject));
+                        } catch (Exception ex) {
+                            System.out.println("DocViewerRequestService ERROR " + ex.getMessage());
+                        }
+                        try {
+                            docInfo.setRepositoryId(extractRespositoryUniqueID(extrinsicObject));
+                        } catch (Exception ex) {
+                            System.out.println("DocViewerRequestService ERROR " + ex.getMessage());
+                        }
+                        try {
+                            docInfo.setOrgId(extrinsicObject.getHome());
+                        } catch (Exception ex) {
+                            System.out.println("DocViewerRequestService ERROR " + ex.getMessage());
+                        }
+                        try {
+                            docInfo.setOrigDocumentId(extractDocumentID(extrinsicObject));
+                        } catch (Exception ex) {
+                            System.out.println("DocViewerRequestService ERROR " + ex.getMessage());
+                        }
+                        try {
+                            docInfo.setOrigRespositoryId(extractRespositoryUniqueID(extrinsicObject));
+                        } catch (Exception ex) {
+                            System.out.println("DocViewerRequestService ERROR " + ex.getMessage());
+                        }
+                        try {
+                            docInfo.setOrigHomeCommunityId(extrinsicObject.getHome());
+                        } catch (Exception ex) {
+                            System.out.println("DocViewerRequestService ERROR " + ex.getMessage());
+                        }
                         docInfo.setSelected(false);
-                        docInfo.setAvailableInLocalStore(false);  //change this back to false
-                        docInfo.setDocumentStatus("Pending"); //change this back to pending
+                        docInfo.setAvailableInLocalStore(false); // change this back to false
+                        docInfo.setDocumentStatus("Pending"); // change this back to pending
                         docInfo.setPatientId(patientId);
                         docInfo.setRequestingUser(requestingUser);
                         docArray.add(docInfo);
                     }
-                }
-                else {
+                } else {
                     System.out.println("DocViewerRequestService Failed to Add Status NULL");
                 }
             }
             deleteRetrievedDocumentDisplayObject(patientId, requestingUser);
             addRetrievedDocumentDisplayObject(docArray);
-        }
-        catch (Exception ex) {
-            log.debug("DocViewerRequestServices.addNewSearchToDisplayList "+ex.getMessage());
+        } catch (Exception ex) {
+            log.debug("DocViewerRequestServices.addNewSearchToDisplayList " + ex.getMessage());
         }
         log.debug("Exiting DocViewerRequestServices.addNewSearchToDisplayList");
     }
@@ -323,50 +358,48 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
         AdhocQueryResponse res = null;
         try {
             // Get the Home community ID for this box...
-            //------------------------------------------
+            // ------------------------------------------
             String sHomeCommunityId = "";
             String sEndpointURL = "";
             try {
-               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
-            }
-            catch (Exception e) {
-                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
-                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
-                          e.getMessage(), e);
+                sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            } catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY + " property from the "
+                        + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " + e.getMessage(), e);
             }
 
             // Get the endpoint URL for the document manager service
-            //------------------------------------------
+            // ------------------------------------------
             ihe.iti.xds_b._2007.DocumentManagerService service = new ihe.iti.xds_b._2007.DocumentManagerService();
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
-                }
-                catch (Exception e) {
-                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +
-                              " from connection manager.  Error: " + e.getMessage(), e);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId,
+                            SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                } catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE
+                            + " from connection manager.  Error: " + e.getMessage(), e);
                 }
             }
 
-            if ((sEndpointURL != null) &&
-                (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
-            }
-            else {
-                // Just a way to cover ourselves for the time being...  - assume port 8080
-                //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
+            if ((sEndpointURL != null) && (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            } else {
+                // Just a way to cover ourselves for the time being... - assume port 8080
+                // -------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                        "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
 
-                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
-                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
-                         "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and "
+                        + "Home Community: " + sHomeCommunityId + ".  Using default URL: "
+                        + "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
             }
 
             res = port.documentManagerQueryInboundRepository(request);
-        }
-        catch (Exception ex) {
-            log.error("DocViewerReqeustService.queryLocalRespository "+ex.getMessage());
+        } catch (Exception ex) {
+            log.error("DocViewerReqeustService.queryLocalRespository " + ex.getMessage());
             ex.printStackTrace();
         }
         log.debug("Exiting DocRequestViewerService.queryLocalRepository");
@@ -381,56 +414,53 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
         RetrieveDocumentSetResponseType response = null;
         try {
             // Get the Home community ID for this box...
-            //------------------------------------------
+            // ------------------------------------------
             String sHomeCommunityId = "";
             String sEndpointURL = "";
             try {
-               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
-            }
-            catch (Exception e) {
-                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
-                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
-                          e.getMessage(), e);
+                sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            } catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY + " property from the "
+                        + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " + e.getMessage(), e);
             }
 
             // Get the endpoint URL for the entity doc query service
-            //------------------------------------------
+            // ------------------------------------------
             EntityDocRetrieve service = new EntityDocRetrieve();
             EntityDocRetrievePortType port = service.getEntityDocRetrievePortSoap11(wsfeaturearray);
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE);
-                }
-                catch (Exception e) {
-                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE +
-                              " from connection manager.  Error: " + e.getMessage(), e);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId,
+                            SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE);
+                } catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE
+                            + " from connection manager.  Error: " + e.getMessage(), e);
                 }
             }
 
-            if ((sEndpointURL != null) &&
-                (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
-            }
-            else {
-                // Just a way to cover ourselves for the time being...  - assume port 9080
-                //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:9080/NhinConnect/EntityDocRetrieve");
+            if ((sEndpointURL != null) && (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            } else {
+                // Just a way to cover ourselves for the time being... - assume port 9080
+                // -------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                        "http://localhost:9080/NhinConnect/EntityDocRetrieve");
 
-                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE + " and " +
-                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
-                         "'http://localhost:9080/NhinConnect/EntityDocRetrieve'");
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE + " and "
+                        + "Home Community: " + sHomeCommunityId + ".  Using default URL: "
+                        + "'http://localhost:9080/NhinConnect/EntityDocRetrieve'");
             }
 
             RespondingGatewayCrossGatewayRetrieveRequestType gateway = new RespondingGatewayCrossGatewayRetrieveRequestType();
             gateway.setAssertion(origAssertion);
             gateway.setRetrieveDocumentSetRequest(request);
 
-
             response = port.respondingGatewayCrossGatewayRetrieve(gateway);
 
-        }
-        catch (Exception ex) {
-            log.error("DocViewerRequestServices.retrieveNHINDocument "+ex.getMessage());
+        } catch (Exception ex) {
+            log.error("DocViewerRequestServices.retrieveNHINDocument " + ex.getMessage());
             ex.printStackTrace();
         }
         log.debug("Exiting DocViewerRequestServices.retrieveNHINDocument ");
@@ -438,49 +468,48 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
     }
 
     private RegistryResponseType storeInboundDocumentToRespository(RetrieveDocumentSetResponseType document,
-                                                                   ExtrinsicObjectType extrinsicType, ClassificationType classType,
-                                                                   AssociationType1 assocType, RegistryPackageType regPackageType) {
+            ExtrinsicObjectType extrinsicType, ClassificationType classType, AssociationType1 assocType,
+            RegistryPackageType regPackageType) {
         RegistryResponseType response = null;
         try {
             // Get the Home community ID for this box...
-            //------------------------------------------
+            // ------------------------------------------
             String sHomeCommunityId = "";
             String sEndpointURL = "";
             try {
-               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
-            }
-            catch (Exception e) {
-                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
-                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
-                          e.getMessage(), e);
+                sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            } catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY + " property from the "
+                        + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " + e.getMessage(), e);
             }
 
             // Get the endpoint URL for the document manager service
-            //------------------------------------------
+            // ------------------------------------------
             ihe.iti.xds_b._2007.DocumentManagerService service = new ihe.iti.xds_b._2007.DocumentManagerService();
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
-                }
-                catch (Exception e) {
-                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +
-                              " from connection manager.  Error: " + e.getMessage(), e);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId,
+                            SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                } catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE
+                            + " from connection manager.  Error: " + e.getMessage(), e);
                 }
             }
 
-            if ((sEndpointURL != null) &&
-                (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
-            }
-            else {
-                // Just a way to cover ourselves for the time being...  - assume port 8080
-                //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
+            if ((sEndpointURL != null) && (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            } else {
+                // Just a way to cover ourselves for the time being... - assume port 8080
+                // -------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                        "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
 
-                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
-                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
-                         "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and "
+                        + "Home Community: " + sHomeCommunityId + ".  Using default URL: "
+                        + "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
             }
 
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType req = new ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType();
@@ -497,21 +526,21 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             String origHomeCommunity = document.getDocumentResponse().get(0).getHomeCommunityId();
             String origMIMEType = document.getDocumentResponse().get(0).getMimeType();
 
-            System.out.println("DocViewerRequestService Orig Doc Id "+origDocId);
-            System.out.println("DocViewerRequestService Orig Repository Id "+origRepositoryId);
-            System.out.println("DocViewerRequestService Orig Home Community "+origHomeCommunity);
-            System.out.println("DocViewerRequestService Orig MIME Type "+origMIMEType);
+            System.out.println("DocViewerRequestService Orig Doc Id " + origDocId);
+            System.out.println("DocViewerRequestService Orig Repository Id " + origRepositoryId);
+            System.out.println("DocViewerRequestService Orig Home Community " + origHomeCommunity);
+            System.out.println("DocViewerRequestService Orig MIME Type " + origMIMEType);
 
             GenerateUniqueIdResponseType uId = getUniqueDocumentId();
             String newDocId = uId.getUniqueId();
-            System.out.println("DocViewerRequestService NEW DOCUMENT ID "+newDocId);
+            System.out.println("DocViewerRequestService NEW DOCUMENT ID " + newDocId);
 
             document.getDocumentResponse().get(0).setDocumentUniqueId(newDocId);
             document.getDocumentResponse().get(0).setHomeCommunityId(homeCommunityId);
             document.getDocumentResponse().get(0).setRepositoryUniqueId(newDocId);
             document.getDocumentResponse().get(0).setMimeType(origMIMEType);
 
-            //set new values
+            // set new values
             SlotType1 slot1 = new SlotType1();
             slot1.setName("urn:gov:hhs:fha:nhinc:xds:OrigDocumentUniqueId");
             ValueListType valList = new ValueListType();
@@ -540,9 +569,9 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             extrinsicType.getSlot().add(slot2);
             extrinsicType.getSlot().add(slot3);
             extrinsicType.getSlot().add(slot4);
-            //extrinsic.getSlot().add(slot5);
+            // extrinsic.getSlot().add(slot5);
 
-            //update xdspatientid
+            // update xdspatientid
             try {
                 StringBuffer sb2 = new StringBuffer();
                 sb2.append(patientId);
@@ -551,21 +580,23 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
                 sb2.append("&ISO");
 
                 for (ExternalIdentifierType identifierItem : extrinsicType.getExternalIdentifier()) {
-                    if (identifierItem != null && identifierItem.getIdentificationScheme().contentEquals(PATIENT_EXTERNAL_IDENTITY_SCHEME)) {
-                        System.out.println("DocViewerRequestService ExternalIdentifier "+identifierItem.getName().getLocalizedString().get(0).getValue());
-                        if (identifierItem.getName().getLocalizedString().get(0).getValue().equals("XDSDocumentEntry.patientId")) {
+                    if (identifierItem != null
+                            && identifierItem.getIdentificationScheme().contentEquals(PATIENT_EXTERNAL_IDENTITY_SCHEME)) {
+                        System.out.println("DocViewerRequestService ExternalIdentifier "
+                                + identifierItem.getName().getLocalizedString().get(0).getValue());
+                        if (identifierItem.getName().getLocalizedString().get(0).getValue()
+                                .equals("XDSDocumentEntry.patientId")) {
                             System.out.println("DocViewerRequestService ExternalIdentifier Found");
                             identifierItem.setValue(sb2.toString());
                             break;
                         }
                     }
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
 
-            //need to update patient source value
+            // need to update patient source value
             SlotType1 patientslot = new SlotType1();
             patientslot.setName("sourcePatientId");
             ValueListType patientvalList = new ValueListType();
@@ -577,15 +608,14 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             patientvalList.getValue().add(sb.toString());
             patientslot.setValueList(patientvalList);
 
-            //remove existing SourcePatientId before replacing it
+            // remove existing SourcePatientId before replacing it
             for (SlotType1 mSlot : extrinsicType.getSlot()) {
                 if (mSlot != null && mSlot.getName().contentEquals("sourcePatientId")) {
                     extrinsicType.getSlot().remove(mSlot);
                     break;
-                }                
+                }
             }
             extrinsicType.getSlot().add(patientslot);
-
 
             extrinsicType.setId(newDocId);
             assocType.setId(newDocId);
@@ -603,30 +633,28 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             registryList.getIdentifiable().add(associationObject);
             registryList.getIdentifiable().add(classificationObject);
 
-
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document regdocument = new ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document();
             regdocument.setId(newDocId);
             regdocument.setValue(rawxml);
 
-
-            //Add request to body for submission
+            // Add request to body for submission
             SubmitObjectsRequest submitObjects = new SubmitObjectsRequest();
             submitObjects.setRegistryObjectList(registryList);
             req.setSubmitObjectsRequest(submitObjects);
             req.getDocument().add(regdocument);
 
-
             response = port.documentManagerStoreInboundDocument(req);
             if (response.getRegistryErrorList() != null) {
                 List<RegistryError> errorList = response.getRegistryErrorList().getRegistryError();
                 for (RegistryError err : errorList) {
-                    System.out.println("DocViewerRequestService Error "+err.getErrorCode()+" codeContext "+err.getCodeContext()+" Severity "+err.getSeverity()+" location "+err.getLocation()+" value "+err.getValue());
+                    System.out.println("DocViewerRequestService Error " + err.getErrorCode() + " codeContext "
+                            + err.getCodeContext() + " Severity " + err.getSeverity() + " location "
+                            + err.getLocation() + " value " + err.getValue());
                 }
             }
-            System.out.println("DocViewerRequestService Result = "+response.getStatus());
-        }
-        catch (Exception ex) {
-            log.error("DocViewerRequestService storeInboundRespository "+ex.getMessage());
+            System.out.println("DocViewerRequestService Result = " + response.getStatus());
+        } catch (Exception ex) {
+            log.error("DocViewerRequestService storeInboundRespository " + ex.getMessage());
             ex.printStackTrace();
         }
         log.debug("Exiting DocViewerRequestService storeInboundRespository");
@@ -637,7 +665,8 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
     private void compareAndStore() {
         log.debug("Entering DocViewerRequestService compareAndStore");
         try {
-             List<JAXBElement<? extends IdentifiableType>> objectList = nhinResults.getRegistryObjectList().getIdentifiable();
+            List<JAXBElement<? extends IdentifiableType>> objectList = nhinResults.getRegistryObjectList()
+                    .getIdentifiable();
             for (JAXBElement<? extends IdentifiableType> object : objectList) {
                 IdentifiableType identifiableType = object.getValue();
 
@@ -647,42 +676,41 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
                 String respId = "";
                 String docId = "";
 
-                //because standard is dumb
+                // because standard is dumb
                 ClassificationType classType = new ClassificationType();
                 ExtrinsicObjectType extrinsicType = new ExtrinsicObjectType();
                 AssociationType1 assocType = new AssociationType1();
                 RegistryPackageType regPackageType = new RegistryPackageType();
 
-
-
                 if (identifiableType instanceof ExtrinsicObjectType) {
-                    ExtrinsicObjectType slottype = (ExtrinsicObjectType)identifiableType;
+                    ExtrinsicObjectType slottype = (ExtrinsicObjectType) identifiableType;
                     docReq.setHomeCommunityId(slottype.getHome());
                     docReq.setDocumentUniqueId(extractDocumentID(slottype));
                     docReq.setRepositoryUniqueId(extractRespositoryUniqueID(slottype));
                     extrinsicType = slottype;
                 }
                 if (identifiableType instanceof ClassificationType) {
-                    classType = (ClassificationType)identifiableType;
+                    classType = (ClassificationType) identifiableType;
                 }
                 if (identifiableType instanceof AssociationType1) {
-                    assocType = (AssociationType1)identifiableType;
+                    assocType = (AssociationType1) identifiableType;
                 }
                 if (identifiableType instanceof RegistryPackageType) {
-                    regPackageType = (RegistryPackageType)identifiableType;
+                    regPackageType = (RegistryPackageType) identifiableType;
                 }
 
-                if (!existsInRepository(docReq.getHomeCommunityId(), docReq.getRepositoryUniqueId(), docReq.getDocumentUniqueId())) {
+                if (!existsInRepository(docReq.getHomeCommunityId(), docReq.getRepositoryUniqueId(),
+                        docReq.getDocumentUniqueId())) {
                     reqType.getDocumentRequest().add(docReq);
                     updateRetrievedDocumentDisplayObjectState(docReq, "Downloading");
                     RetrieveDocumentSetResponseType respType = getNHINDocumentSet(reqType);
-                    RegistryResponseType regResponse = storeInboundDocumentToRespository(respType, extrinsicType, classType, assocType, regPackageType);
+                    RegistryResponseType regResponse = storeInboundDocumentToRespository(respType, extrinsicType,
+                            classType, assocType, regPackageType);
                 }
             }
             refreshLocalRespositoryQuery();
-        }
-        catch (Exception ex) {
-            log.error("DocViewerRequestServices compareAndStore "+ex.getMessage());
+        } catch (Exception ex) {
+            log.error("DocViewerRequestServices compareAndStore " + ex.getMessage());
             ex.printStackTrace();
         }
         log.debug("Exiting DocViewerRequestService compareAndStore");
@@ -692,7 +720,8 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
         log.debug("Entering DocViewerRequestService storeAll");
         try {
 
-             List<JAXBElement<? extends IdentifiableType>> objectList = nhinResults.getRegistryObjectList().getIdentifiable();
+            List<JAXBElement<? extends IdentifiableType>> objectList = nhinResults.getRegistryObjectList()
+                    .getIdentifiable();
 
             for (JAXBElement<? extends IdentifiableType> object : objectList) {
                 IdentifiableType identifiableType = object.getValue();
@@ -705,31 +734,31 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
                 RegistryPackageType regPackageType = new RegistryPackageType();
 
                 if (identifiableType instanceof ExtrinsicObjectType) {
-                    ExtrinsicObjectType slottype = (ExtrinsicObjectType)identifiableType;
+                    ExtrinsicObjectType slottype = (ExtrinsicObjectType) identifiableType;
                     docReq.setHomeCommunityId(slottype.getHome());
                     docReq.setDocumentUniqueId(extractDocumentID(slottype));
                     docReq.setRepositoryUniqueId(extractRespositoryUniqueID(slottype));
                     extrinsicType = slottype;
                 }
                 if (identifiableType instanceof ClassificationType) {
-                    classType = (ClassificationType)identifiableType;
+                    classType = (ClassificationType) identifiableType;
                 }
                 if (identifiableType instanceof AssociationType1) {
-                    assocType = (AssociationType1)identifiableType;
+                    assocType = (AssociationType1) identifiableType;
                 }
                 if (identifiableType instanceof RegistryPackageType) {
-                    regPackageType = (RegistryPackageType)identifiableType;
+                    regPackageType = (RegistryPackageType) identifiableType;
                 }
 
                 reqType.getDocumentRequest().add(docReq);
                 updateRetrievedDocumentDisplayObjectState(docReq, "Downloading");
                 RetrieveDocumentSetResponseType respType = getNHINDocumentSet(reqType);
-                RegistryResponseType regResponse = storeInboundDocumentToRespository(respType, extrinsicType, classType, assocType, regPackageType);
+                RegistryResponseType regResponse = storeInboundDocumentToRespository(respType, extrinsicType,
+                        classType, assocType, regPackageType);
             }
             refreshLocalRespositoryQuery();
-        }
-        catch (Exception ex) {
-            log.error("DocViewerRequestService StoreAll "+ex.getMessage());
+        } catch (Exception ex) {
+            log.error("DocViewerRequestService StoreAll " + ex.getMessage());
             ex.printStackTrace();
         }
         log.debug("Exiting DocViewerRequestServices storeAll");
@@ -738,7 +767,8 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
     private boolean existsInRepository(String homeId, String respositoryId, String docId) {
         boolean res = false;
         try {
-             List<JAXBElement<? extends IdentifiableType>> objectList = localResults.getRegistryObjectList().getIdentifiable();
+            List<JAXBElement<? extends IdentifiableType>> objectList = localResults.getRegistryObjectList()
+                    .getIdentifiable();
             for (JAXBElement<? extends IdentifiableType> object : objectList) {
                 IdentifiableType identifiableType = object.getValue();
 
@@ -749,7 +779,7 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
                 String resp = "";
 
                 if (identifiableType instanceof ExtrinsicObjectType) {
-                    ExtrinsicObjectType slottype = (ExtrinsicObjectType)identifiableType;
+                    ExtrinsicObjectType slottype = (ExtrinsicObjectType) identifiableType;
                     for (SlotType1 returnSlot : slottype.getSlot()) {
                         if ("urn:gov:hhs:fha:nhinc:xds:OrigDocumentUniqueId".equals(returnSlot.getName())) {
                             doc = returnSlot.getValueList().getValue().get(0);
@@ -763,30 +793,29 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
                     }
                 }
-                System.out.println("DocViewerRequestService COMPARE HC "+home+" "+homeId);
-                System.out.println("DocViewerRequestService COMPARE DOCID "+doc+" "+docId);
-                System.out.println("DocViewerRequestService COMPARE REPID "+resp+" "+respositoryId);
+                System.out.println("DocViewerRequestService COMPARE HC " + home + " " + homeId);
+                System.out.println("DocViewerRequestService COMPARE DOCID " + doc + " " + docId);
+                System.out.println("DocViewerRequestService COMPARE REPID " + resp + " " + respositoryId);
                 if (home.equals(homeId) && resp.equals(respositoryId) && doc.equals(docId)) {
-                    //document exists
+                    // document exists
                     res = true;
                     break;
                 }
             }
-        }
-        catch (Exception ex) {
-            log.error("DocViewerRequestServices.existInRespository "+ex.getMessage());
+        } catch (Exception ex) {
+            log.error("DocViewerRequestServices.existInRespository " + ex.getMessage());
             ex.printStackTrace();
         }
         return res;
     }
 
-    private String extractRespositoryUniqueID(ExtrinsicObjectType extrinsicObject)
-    {
+    private String extractRespositoryUniqueID(ExtrinsicObjectType extrinsicObject) {
         return extractSingleSlotValue(extrinsicObject, "repositoryUniqueId");
     }
 
     private String extractDocumentType(ExtrinsicObjectType extrinsicObject) {
-        ClassificationType classification = extractClassification(extrinsicObject, "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a");
+        ClassificationType classification = extractClassification(extrinsicObject,
+                "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a");
 
         String documentTypeCode = classification.getName().getLocalizedString().get(0).getValue();
         return documentTypeCode;
@@ -796,8 +825,7 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
         String documentTitle = null;
 
-        if (extrinsicObject != null &&
-                extrinsicObject.getName() != null) {
+        if (extrinsicObject != null && extrinsicObject.getName() != null) {
             List<LocalizedStringType> localizedString = extrinsicObject.getName().getLocalizedString();
 
             if (localizedString != null && localizedString.size() > 0) {
@@ -815,7 +843,8 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
     private String extractDocumentID(ExtrinsicObjectType extrinsicObject) {
         String documentID = null;
 
-        ExternalIdentifierType identifier = extractIdentifierType(extrinsicObject, "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab");
+        ExternalIdentifierType identifier = extractIdentifierType(extrinsicObject,
+                "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab");
 
         if (identifier != null) {
             documentID = identifier.getValue();
@@ -825,14 +854,16 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
     }
 
     private String extractInstitution(ExtrinsicObjectType extrinsicObject) {
-        ClassificationType classification = extractClassification(extrinsicObject, "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d");
+        ClassificationType classification = extractClassification(extrinsicObject,
+                "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d");
 
         String institution = null;
 
         if (classification != null && classification.getSlot() != null && !classification.getSlot().isEmpty()) {
             for (SlotType1 slot : classification.getSlot()) {
                 if (slot != null && slot.getName().contentEquals("authorInstitution")) {
-                    if (slot.getValueList() != null && slot.getValueList().getValue() != null && !slot.getValueList().getValue().isEmpty()) {
+                    if (slot.getValueList() != null && slot.getValueList().getValue() != null
+                            && !slot.getValueList().getValue().isEmpty()) {
                         institution = slot.getValueList().getValue().get(0);
                         break;
                     }
@@ -856,7 +887,8 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
         return slotValue;
     }
 
-    private ExternalIdentifierType extractIdentifierType(ExtrinsicObjectType extrinsicObject, String identificationScheme) {
+    private ExternalIdentifierType extractIdentifierType(ExtrinsicObjectType extrinsicObject,
+            String identificationScheme) {
         ExternalIdentifierType identifier = null;
 
         for (ExternalIdentifierType identifierItem : extrinsicObject.getExternalIdentifier()) {
@@ -868,11 +900,13 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
         return identifier;
     }
+
     private ClassificationType extractClassification(ExtrinsicObjectType extrinsicObject, String classificationScheme) {
         ClassificationType classification = null;
 
         for (ClassificationType classificationItem : extrinsicObject.getClassification()) {
-            if (classificationItem != null && classificationItem.getClassificationScheme().contentEquals(classificationScheme)) {
+            if (classificationItem != null
+                    && classificationItem.getClassificationScheme().contentEquals(classificationScheme)) {
                 classification = classificationItem;
                 break;
             }
@@ -924,9 +958,8 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             List<RetrievedDocumentDisplayObject> docArray = new ArrayList();
             docArray.add(docInfo);
             addRetrievedDocumentDisplayObject(docArray);
-        }
-        catch (Exception ex) {
-            log.error("DocViewerRequestService.addInitialStatusRecord "+ex.getMessage());
+        } catch (Exception ex) {
+            log.error("DocViewerRequestService.addInitialStatusRecord " + ex.getMessage());
         }
         log.debug("Exiting DocViewerRequestService.addInitialStatus");
     }
@@ -938,15 +971,13 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             client = db4server.openClient();
             Iterator iter = objL.iterator();
             while (iter.hasNext()) {
-                RetrievedDocumentDisplayObject obj = (RetrievedDocumentDisplayObject)iter.next();
+                RetrievedDocumentDisplayObject obj = (RetrievedDocumentDisplayObject) iter.next();
                 client.store(obj);
             }
             client.commit();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
             client.close();
         }
     }
@@ -962,17 +993,15 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             ObjectSet set = query.execute();
             Iterator iter = set.iterator();
             while (iter.hasNext()) {
-                RetrievedDocumentDisplayObject obj = (RetrievedDocumentDisplayObject)iter.next();
+                RetrievedDocumentDisplayObject obj = (RetrievedDocumentDisplayObject) iter.next();
                 if (requestingUser.equals(obj.getRequestingUser())) {
                     client.delete(obj);
                 }
             }
             client.commit();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
             client.close();
         }
     }
@@ -991,22 +1020,21 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             ObjectSet set = query.execute();
             Iterator iter = set.iterator();
             while (iter.hasNext()) {
-                RetrievedDocumentDisplayObject obj = (RetrievedDocumentDisplayObject)iter.next();
+                RetrievedDocumentDisplayObject obj = (RetrievedDocumentDisplayObject) iter.next();
                 String rUser = obj.getRequestingUser();
                 String origDocId = obj.getOrigDocumentId();
                 String origRepId = obj.getOrigRespositoryId();
                 String origHC = obj.getOrigHomeCommunityId();
-                if (rUser.equals(requestingUser) && origDocId.equals(docId) && origRepId.equals(repId) && origHC.equals(homeId)) {
+                if (rUser.equals(requestingUser) && origDocId.equals(docId) && origRepId.equals(repId)
+                        && origHC.equals(homeId)) {
                     obj.setDocumentStatus(stateupdate);
                     client.store(obj);
                 }
             }
             client.commit();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
             client.close();
         }
     }
@@ -1014,49 +1042,51 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
     private void refreshLocalRespositoryQuery() {
         try {
             // Get the Home community ID for this box...
-            //------------------------------------------
+            // ------------------------------------------
             String sHomeCommunityId = "";
             String sEndpointURL = "";
             try {
-               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
-            }
-            catch (Exception e) {
-                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
-                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
-                          e.getMessage(), e);
+                sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            } catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY + " property from the "
+                        + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " + e.getMessage(), e);
             }
 
             // Get the endpoint URL for the document manager service
-            //------------------------------------------
+            // ------------------------------------------
             ihe.iti.xds_b._2007.DocumentManagerService service = new ihe.iti.xds_b._2007.DocumentManagerService();
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId,
+                            SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                } catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE
+                            + " from connection manager.  Error: " + e.getMessage(), e);
                 }
-                catch (Exception e) {
-                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +
-                              " from connection manager.  Error: " + e.getMessage(), e);
-                }
             }
 
-            if ((sEndpointURL != null) &&
-                (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            if ((sEndpointURL != null) && (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            } else {
+                // Just a way to cover ourselves for the time being... - assume port 8080
+                // -------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                        "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
+
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and "
+                        + "Home Community: " + sHomeCommunityId + ".  Using default URL: "
+                        + "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
             }
-            else {
-                // Just a way to cover ourselves for the time being...  - assume port 8080
-                //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
 
-                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
-                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
-                         "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
-            }
+            AdhocQueryResponse res = port.documentManagerQueryInboundRepository(origAdhocQuery); // patientid and
+                                                                                                 // community should be
+                                                                                                 // same so just use the
+                                                                                                 // original query
 
-            AdhocQueryResponse res = port.documentManagerQueryInboundRepository(origAdhocQuery);  //patientid and community should be same so just use the original query
-
-             List<JAXBElement<? extends IdentifiableType>> objectList = res.getRegistryObjectList().getIdentifiable();
+            List<JAXBElement<? extends IdentifiableType>> objectList = res.getRegistryObjectList().getIdentifiable();
             for (JAXBElement<? extends IdentifiableType> object : objectList) {
                 IdentifiableType identifiableType = object.getValue();
 
@@ -1068,9 +1098,8 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
                 String origDoc = "";
                 String origRep = "";
 
-
                 if (identifiableType instanceof ExtrinsicObjectType) {
-                    ExtrinsicObjectType slottype = (ExtrinsicObjectType)identifiableType;
+                    ExtrinsicObjectType slottype = (ExtrinsicObjectType) identifiableType;
                     docId = extractDocumentID(slottype);
                     repId = extractRespositoryUniqueID(slottype);
                     homeId = slottype.getHome();
@@ -1086,17 +1115,17 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
                         }
                     }
                 }
-                //update retrieved docs status to available
+                // update retrieved docs status to available
                 updateRetrievedDocumentDisplayObjectToAvailable(docId, repId, homeId, origDoc, origRep, origHome);
             }
-        }
-        catch (Exception ex) {
-            log.error("DocViewerReqeustService.refreshQueryLocalRespository "+ex.getMessage());
+        } catch (Exception ex) {
+            log.error("DocViewerReqeustService.refreshQueryLocalRespository " + ex.getMessage());
             ex.printStackTrace();
         }
     }
 
-    private void updateRetrievedDocumentDisplayObjectToAvailable(String docId, String repId, String homeId, String oDocId, String oRepId, String oHomeId) {
+    private void updateRetrievedDocumentDisplayObjectToAvailable(String docId, String repId, String homeId,
+            String oDocId, String oRepId, String oHomeId) {
         log.debug("Entering DocViewerRequestService updateRetrievedDocumentDisplayObject");
         getDB4Server();
         ObjectContainer client = null;
@@ -1108,12 +1137,13 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
             ObjectSet set = query.execute();
             Iterator iter = set.iterator();
             while (iter.hasNext()) {
-                RetrievedDocumentDisplayObject obj = (RetrievedDocumentDisplayObject)iter.next();
+                RetrievedDocumentDisplayObject obj = (RetrievedDocumentDisplayObject) iter.next();
                 String rUser = obj.getRequestingUser();
                 String origDocId = obj.getOrigDocumentId();
                 String origRepId = obj.getOrigRespositoryId();
                 String origHC = obj.getOrigHomeCommunityId();
-                if (rUser.equals(requestingUser) && origDocId.equals(oDocId) && origRepId.equals(oRepId) && origHC.equals(oHomeId)) {
+                if (rUser.equals(requestingUser) && origDocId.equals(oDocId) && origRepId.equals(oRepId)
+                        && origHC.equals(oHomeId)) {
                     obj.setUniqueDocumentId(docId);
                     obj.setRepositoryId(repId);
                     obj.setOrgId(homeId);
@@ -1123,11 +1153,9 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
                 }
             }
             client.commit();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
             client.close();
         }
         log.debug("Exiting DocViewerRequestService updateRetrievedDocumentDisplayObject");
@@ -1139,55 +1167,52 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
         GenerateUniqueIdRequestType request = new GenerateUniqueIdRequestType();
         try {
             // Get the Home community ID for this box...
-            //------------------------------------------
+            // ------------------------------------------
             String sHomeCommunityId = "";
             String sEndpointURL = "";
             try {
-               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
-            }
-            catch (Exception e) {
-                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
-                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
-                          e.getMessage(), e);
+                sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            } catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY + " property from the "
+                        + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " + e.getMessage(), e);
             }
 
             // Get the endpoint URL for the document manager service
-            //------------------------------------------
+            // ------------------------------------------
             ihe.iti.xds_b._2007.DocumentManagerService service = new ihe.iti.xds_b._2007.DocumentManagerService();
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
-                }
-                catch (Exception e) {
-                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +
-                              " from connection manager.  Error: " + e.getMessage(), e);
+                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId,
+                            SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                } catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE
+                            + " from connection manager.  Error: " + e.getMessage(), e);
                 }
             }
 
-            if ((sEndpointURL != null) &&
-                (sEndpointURL.length() > 0)) {
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
-            }
-            else {
-                // Just a way to cover ourselves for the time being...  - assume port 8080
-                //-------------------------------------------------------------------------
-                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
+            if ((sEndpointURL != null) && (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            } else {
+                // Just a way to cover ourselves for the time being... - assume port 8080
+                // -------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                        javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                        "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
 
-                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
-                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
-                         "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and "
+                        + "Home Community: " + sHomeCommunityId + ".  Using default URL: "
+                        + "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
             }
 
             res = port.generateUniqueId(request);
-        }
-        catch (Exception ex) {
-            log.error("DocViewerReqeustService.getUniqueDocumentId "+ex.getMessage());
+        } catch (Exception ex) {
+            log.error("DocViewerReqeustService.getUniqueDocumentId " + ex.getMessage());
             ex.printStackTrace();
         }
         log.debug("Exiting DocViewerRequestService.getUniqueDocumentId");
         return res;
     }
-
 
 }

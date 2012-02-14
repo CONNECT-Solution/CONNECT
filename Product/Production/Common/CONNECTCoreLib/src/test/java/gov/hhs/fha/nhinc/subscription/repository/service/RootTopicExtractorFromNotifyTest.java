@@ -40,13 +40,14 @@ import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSParser;
 
 /**
- *
+ * 
  * @author rayj
  */
 @Ignore
 public class RootTopicExtractorFromNotifyTest {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(RootTopicExtractorFromNotifyTest.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(RootTopicExtractorFromNotifyTest.class);
 
     public RootTopicExtractorFromNotifyTest() {
     }
@@ -97,36 +98,36 @@ public class RootTopicExtractorFromNotifyTest {
     @Test
     public void ExtractDocumentTopicFromV1Format() throws Exception {
         String expectedRootTopic = "{urn:gov.hhs.fha.nhinc.hiemtopic}document";
-        String notificationMessage =
-                "<wsnt:NotificationMessage xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:PrefixDefinedInHeader=\"urn:myNamespace\"> " +
-                "   <wsnt:Message> " +
-                "			<ihe:RetrieveDocumentSetRequest xmlns:ihe=\"urn:ihe:iti:xds-wsnt:2007\"> " +
-                "				<ihe:DocumentRequest> " +
-                "					<ihe:HomeCommunityId>2.16.840.1.113883.3.18.103</ihe:HomeCommunityId> " +
-                "					<ihe:RepositoryUniqueId>2.16.840.1.113883.3.18.103.12</ihe:RepositoryUniqueId> " +
-                "					<ihe:DocumentUniqueId>20cf14fb-b65c-4c8c-a54d-b0cca8341234</ihe:DocumentUniqueId> " +
-                "				</ihe:DocumentRequest> " +
-                "			</ihe:RetrieveDocumentSetRequest> " +
-                "   </wsnt:Message> " +
-                "</wsnt:NotificationMessage>";
+        String notificationMessage = "<wsnt:NotificationMessage xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:PrefixDefinedInHeader=\"urn:myNamespace\"> "
+                + "   <wsnt:Message> "
+                + "			<ihe:RetrieveDocumentSetRequest xmlns:ihe=\"urn:ihe:iti:xds-wsnt:2007\"> "
+                + "				<ihe:DocumentRequest> "
+                + "					<ihe:HomeCommunityId>2.16.840.1.113883.3.18.103</ihe:HomeCommunityId> "
+                + "					<ihe:RepositoryUniqueId>2.16.840.1.113883.3.18.103.12</ihe:RepositoryUniqueId> "
+                + "					<ihe:DocumentUniqueId>20cf14fb-b65c-4c8c-a54d-b0cca8341234</ihe:DocumentUniqueId> "
+                + "				</ihe:DocumentRequest> "
+                + "			</ihe:RetrieveDocumentSetRequest> "
+                + "   </wsnt:Message> "
+                + "</wsnt:NotificationMessage>";
         executeTest(notificationMessage, expectedRootTopic);
     }
 
-    private void executeTopicTest(String topic, String expectedRootTopic) throws SubscriptionRepositoryException, Exception {
-        String notificationMessage =
-                "<wsnt:NotificationMessage xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:PrefixDefinedInHeader=\"urn:myNamespace\"> " +
-                "   {topic} " +
-                "   <wsnt:Message> " +
-                "      <nhin:MyNode xmlns:nhin=\"urn:nhin\"> " +
-                "         some data " +
-                "      </nhin:MyNode> " +
-                "   </wsnt:Message> " +
-                "</wsnt:NotificationMessage>";
+    private void executeTopicTest(String topic, String expectedRootTopic) throws SubscriptionRepositoryException,
+            Exception {
+        String notificationMessage = "<wsnt:NotificationMessage xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:PrefixDefinedInHeader=\"urn:myNamespace\"> "
+                + "   {topic} "
+                + "   <wsnt:Message> "
+                + "      <nhin:MyNode xmlns:nhin=\"urn:nhin\"> "
+                + "         some data "
+                + "      </nhin:MyNode> "
+                + "   </wsnt:Message> "
+                + "</wsnt:NotificationMessage>";
         notificationMessage = notificationMessage.replace("{topic}", topic);
         executeTest(notificationMessage, expectedRootTopic);
     }
 
-    private void executeTest(String notificationMessage, String expectedRootTopic) throws SubscriptionRepositoryException, Exception {
+    private void executeTest(String notificationMessage, String expectedRootTopic)
+            throws SubscriptionRepositoryException, Exception {
         Element notificationMessageElement = XmlUtility.convertXmlToElement(notificationMessage);
         RootTopicExtractor rootTopicExtractor = new RootTopicExtractor();
         String extractedRootTopic = null;
@@ -134,7 +135,8 @@ public class RootTopicExtractorFromNotifyTest {
         log.debug("extracted root topic (xml): " + extractedRootTopic);
         log.debug("expected root topic       : " + expectedRootTopic);
         assertEquals(expectedRootTopic, extractedRootTopic);
-        extractedRootTopic = rootTopicExtractor.extractRootTopicFromNotificationMessageElement(notificationMessageElement);
+        extractedRootTopic = rootTopicExtractor
+                .extractRootTopicFromNotificationMessageElement(notificationMessageElement);
         log.debug("extracted root topic (element): " + extractedRootTopic);
         log.debug("expected root topic           : " + expectedRootTopic);
         assertEquals(expectedRootTopic, extractedRootTopic);

@@ -43,8 +43,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
 public class DocRetrieveSender {
@@ -58,7 +58,8 @@ public class DocRetrieveSender {
         return LogFactory.getLog(getClass());
     }
 
-    public DocRetrieveSender(String transactionId, RespondingGatewayCrossGatewayRetrieveSecuredRequestType request, AssertionType assertion) {
+    public DocRetrieveSender(String transactionId, RespondingGatewayCrossGatewayRetrieveSecuredRequestType request,
+            AssertionType assertion) {
         this.transactionId = transactionId;
         this.request = request;
         this.assertion = assertion;
@@ -74,7 +75,8 @@ public class DocRetrieveSender {
             String documentUniqueId = null;
             String repositoryUniqueId = null;
             String homeCommunityId = null;
-            if ((request != null) && (request.getRetrieveDocumentSetRequest() != null) && (!request.getRetrieveDocumentSetRequest().getDocumentRequest().isEmpty())) {
+            if ((request != null) && (request.getRetrieveDocumentSetRequest() != null)
+                    && (!request.getRetrieveDocumentSetRequest().getDocumentRequest().isEmpty())) {
                 log.debug("Doc retrieve request had sufficient information - creating request");
                 docRequest = request.getRetrieveDocumentSetRequest().getDocumentRequest().get(0);
                 if (docRequest != null) {
@@ -110,7 +112,8 @@ public class DocRetrieveSender {
                 RegistryErrorList regErrList = new RegistryErrorList();
                 RegistryError regErr = new RegistryError();
                 regErrList.getRegistryError().add(regErr);
-                regErr.setCodeContext("Fault encountered processing internal document retrieve for community " + homeCommunityId);
+                regErr.setCodeContext("Fault encountered processing internal document retrieve for community "
+                        + homeCommunityId);
                 regErr.setErrorCode("XDSRegistryNotAvailable");
                 regErr.setSeverity("Error");
                 registryResponse.setRegistryErrorList(regErrList);

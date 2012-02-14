@@ -42,7 +42,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 @RunWith(JMock.class)
@@ -54,7 +54,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessImplTest {
         }
     };
 
-    final AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl mockServiceImpl = context.mock(AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.class);
+    final AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl mockServiceImpl = context
+            .mock(AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.class);
 
     private MCCIIN000002UV01 createMCCIIN000002UV01() {
         MCCIIN000002UV01 mCCIIN000002UV01 = new MCCIIN000002UV01();
@@ -93,7 +94,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessImplTest {
     @Test
     public void testGetAdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl() {
         AdapterPatientDiscoveryDeferredReqQueueProcessImpl deferredProcessImpl = new AdapterPatientDiscoveryDeferredReqQueueProcessImpl();
-        AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl processImpl = deferredProcessImpl.getAdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl();
+        AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl processImpl = deferredProcessImpl
+                .getAdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl();
         assertNotNull(processImpl);
     }
 
@@ -112,16 +114,12 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessImplTest {
             };
             context.checking(new Expectations() {
                 {
-                    exactly(NUM_CALLS).of(mockServiceImpl).processPatientDiscoveryDeferredReqQueue(with(any(String.class)));
-                    will(onConsecutiveCalls(
-                            returnValue(createMCCIIN000002UV01()),
-                            returnValue(createMCCIIN000002UV01_2()),
-                            returnValue(createMCCIIN000002UV01_3()),
-                            returnValue(createMCCIIN000002UV01_4()),
-                            returnValue(createMCCIIN000002UV01_5()),
-                            returnValue(new MCCIIN000002UV01()),
-                            returnValue(null)
-                            ));
+                    exactly(NUM_CALLS).of(mockServiceImpl).processPatientDiscoveryDeferredReqQueue(
+                            with(any(String.class)));
+                    will(onConsecutiveCalls(returnValue(createMCCIIN000002UV01()),
+                            returnValue(createMCCIIN000002UV01_2()), returnValue(createMCCIIN000002UV01_3()),
+                            returnValue(createMCCIIN000002UV01_4()), returnValue(createMCCIIN000002UV01_5()),
+                            returnValue(new MCCIIN000002UV01()), returnValue(null)));
                 }
             });
 

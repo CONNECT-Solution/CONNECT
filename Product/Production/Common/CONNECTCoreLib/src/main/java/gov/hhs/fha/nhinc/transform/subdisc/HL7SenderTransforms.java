@@ -46,7 +46,7 @@ import org.hl7.v3.MCCIMT000300UV01Organization;
 import org.hl7.v3.MCCIMT000300UV01Sender;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class HL7SenderTransforms {
@@ -54,8 +54,9 @@ public class HL7SenderTransforms {
     private static Log log = LogFactory.getLog(HL7SenderTransforms.class);
 
     /**
-     * Create sender element.  The passed OID will be used as the HL7 device application id
-     * and the organization home community id.
+     * Create sender element. The passed OID will be used as the HL7 device application id and the organization home
+     * community id.
+     * 
      * @param OID
      * @return sender
      */
@@ -75,7 +76,6 @@ public class HL7SenderTransforms {
         log.debug("Setting sender device id (applicationId) to " + OID);
         senderDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
 
-
         MCCIMT000200UV01Agent agent = new MCCIMT000200UV01Agent();
         MCCIMT000200UV01Organization org = new MCCIMT000200UV01Organization();
         org.setClassCode(HL7Constants.ORG_CLASS_CODE);
@@ -83,13 +83,16 @@ public class HL7SenderTransforms {
         II id = HL7DataTransformHelper.IIFactory(OID);
         org.getId().add(id);
 
-        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
-        JAXBElement<MCCIMT000200UV01Organization> orgElem = new JAXBElement<MCCIMT000200UV01Organization>(xmlqnameorg, MCCIMT000200UV01Organization.class, org);
+        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
+                "representedOrganization");
+        JAXBElement<MCCIMT000200UV01Organization> orgElem = new JAXBElement<MCCIMT000200UV01Organization>(xmlqnameorg,
+                MCCIMT000200UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-        JAXBElement<MCCIMT000200UV01Agent> agentElem = new JAXBElement<MCCIMT000200UV01Agent>(xmlqnameagent, MCCIMT000200UV01Agent.class, agent);
+        JAXBElement<MCCIMT000200UV01Agent> agentElem = new JAXBElement<MCCIMT000200UV01Agent>(xmlqnameagent,
+                MCCIMT000200UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);
 
@@ -99,8 +102,9 @@ public class HL7SenderTransforms {
     }
 
     /**
-     * Create sender element.  The passed OID will be used as the HL7 device application id
-     * and the organization home community id.
+     * Create sender element. The passed OID will be used as the HL7 device application id and the organization home
+     * community id.
+     * 
      * @param OID
      * @return sender
      */
@@ -120,7 +124,6 @@ public class HL7SenderTransforms {
         log.debug("Setting sender device id (applicationId) to " + OID);
         senderDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
 
-
         MCCIMT000100UV01Agent agent = new MCCIMT000100UV01Agent();
         MCCIMT000100UV01Organization org = new MCCIMT000100UV01Organization();
         org.setClassCode(HL7Constants.ORG_CLASS_CODE);
@@ -128,13 +131,16 @@ public class HL7SenderTransforms {
         II id = HL7DataTransformHelper.IIFactory(OID);
         org.getId().add(id);
 
-        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
-        JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<MCCIMT000100UV01Organization>(xmlqnameorg, MCCIMT000100UV01Organization.class, org);
+        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
+                "representedOrganization");
+        JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<MCCIMT000100UV01Organization>(xmlqnameorg,
+                MCCIMT000100UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-        JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<MCCIMT000100UV01Agent>(xmlqnameagent, MCCIMT000100UV01Agent.class, agent);
+        JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<MCCIMT000100UV01Agent>(xmlqnameagent,
+                MCCIMT000100UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);
 
@@ -144,8 +150,9 @@ public class HL7SenderTransforms {
     }
 
     /**
-     * Create sender element.  The passed OID will be used as the HL7 device application id
-     * and the organization home community id.
+     * Create sender element. The passed OID will be used as the HL7 device application id and the organization home
+     * community id.
+     * 
      * @param OID
      * @return sender
      */
@@ -172,13 +179,16 @@ public class HL7SenderTransforms {
         II id = HL7DataTransformHelper.IIFactory(OID);
         org.getId().add(id);
 
-        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
-        JAXBElement<MCCIMT000300UV01Organization> orgElem = new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
+        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
+                "representedOrganization");
+        JAXBElement<MCCIMT000300UV01Organization> orgElem = new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg,
+                MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-        JAXBElement<MCCIMT000300UV01Agent> agentElem = new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
+        JAXBElement<MCCIMT000300UV01Agent> agentElem = new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent,
+                MCCIMT000300UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);
 

@@ -42,29 +42,30 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
 /**
- *
+ * 
  * @author dunnek
  */
-public class EntityDocRetrieveProxyJavaImpl implements EntityDocRetrieveProxy{
+public class EntityDocRetrieveProxyJavaImpl implements EntityDocRetrieveProxy {
     private static org.apache.commons.logging.Log log = null;
-    
-    public EntityDocRetrieveProxyJavaImpl()
-    {
+
+    public EntityDocRetrieveProxyJavaImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
-    
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetCommunitiesType targets) {
+
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
         PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
         AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
         OutboundDelegate nd = new OutboundDocRetrieveDelegate();
         NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-        OutboundDocRetrieveOrchestratableImpl EntityDROrchImpl = new OutboundDocRetrieveOrchestratableImpl(body, assertion, pt, at, nd, na, null);
+        OutboundDocRetrieveOrchestratableImpl EntityDROrchImpl = new OutboundDocRetrieveOrchestratableImpl(body,
+                assertion, pt, at, nd, na, null);
         OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
         oOrchestrator.process(EntityDROrchImpl);
         return EntityDROrchImpl.getResponse();

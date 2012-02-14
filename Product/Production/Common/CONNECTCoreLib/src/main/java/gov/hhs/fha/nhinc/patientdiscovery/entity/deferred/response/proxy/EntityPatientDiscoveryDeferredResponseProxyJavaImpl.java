@@ -39,38 +39,34 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class EntityPatientDiscoveryDeferredResponseProxyJavaImpl implements EntityPatientDiscoveryDeferredResponseProxy
-{
+public class EntityPatientDiscoveryDeferredResponseProxyJavaImpl implements EntityPatientDiscoveryDeferredResponseProxy {
 
     private static Log log = null;
-    
+
     private GenericFactory<EntityPatientDiscoveryDeferredResponseOrch> orchestrationFactory;
 
-    public EntityPatientDiscoveryDeferredResponseProxyJavaImpl()
-    {
+    public EntityPatientDiscoveryDeferredResponseProxyJavaImpl() {
         log = createLogger();
         orchestrationFactory = new EntityPatientDiscoveryDeferredResponseOrchFactory();
-        
+
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType target)
-    {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 body, AssertionType assertion,
+            NhinTargetCommunitiesType target) {
         log.debug("Begin EntityPatientDiscoveryDeferredResponseProxyJavaImpl.processPatientDiscoveryAsyncResp(...)");
 
         return getEntityImpl().processPatientDiscoveryAsyncRespOrch(body, assertion, target);
 
     }
 
-    protected EntityPatientDiscoveryDeferredResponseOrch getEntityImpl()
-    {
+    protected EntityPatientDiscoveryDeferredResponseOrch getEntityImpl() {
         return orchestrationFactory.create();
     }
 }

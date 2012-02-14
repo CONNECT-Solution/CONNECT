@@ -33,8 +33,7 @@ import java.util.Date;
  * 
  * @author Neil Webb
  */
-public class HiemSubscriptionItem
-{
+public class HiemSubscriptionItem {
     private String subscribeXML;
     private String subscriptionReferenceXML;
     private String rootTopic;
@@ -43,85 +42,70 @@ public class HiemSubscriptionItem
     private String producer;
     private String targets;
     private Date creationDate;
-    private SubscriptionStorageItem storageObject ;  //todo: is this a good idea.. can we achieve this another way?  can we "hide" it?
+    private SubscriptionStorageItem storageObject; // todo: is this a good idea.. can we achieve this another way? can
+                                                   // we "hide" it?
 
-    public String getSubscribeXML()
-    {
+    public String getSubscribeXML() {
         return subscribeXML;
     }
 
-    public void setSubscribeXML(String subscribeXML)
-    {
+    public void setSubscribeXML(String subscribeXML) {
         this.subscribeXML = subscribeXML;
     }
 
-    public String getSubscriptionReferenceXML()
-    {
+    public String getSubscriptionReferenceXML() {
         return subscriptionReferenceXML;
     }
 
-    public void setSubscriptionReferenceXML(String subscriptionReferenceXML)
-    {
+    public void setSubscriptionReferenceXML(String subscriptionReferenceXML) {
         this.subscriptionReferenceXML = subscriptionReferenceXML;
     }
 
-    public String getRootTopic()
-    {
+    public String getRootTopic() {
         return rootTopic;
     }
 
-    public void setRootTopic(String rootTopic)
-    {
+    public void setRootTopic(String rootTopic) {
         this.rootTopic = rootTopic;
     }
 
-    public String getParentSubscriptionReferenceXML()
-    {
+    public String getParentSubscriptionReferenceXML() {
         return parentSubscriptionReferenceXML;
     }
 
-    public void setParentSubscriptionReferenceXML(String parentSubscriptionReferenceXML)
-    {
+    public void setParentSubscriptionReferenceXML(String parentSubscriptionReferenceXML) {
         this.parentSubscriptionReferenceXML = parentSubscriptionReferenceXML;
     }
 
-    public String getConsumer()
-    {
+    public String getConsumer() {
         return consumer;
     }
 
-    public void setConsumer(String consumer)
-    {
+    public void setConsumer(String consumer) {
         this.consumer = consumer;
     }
 
-    public String getProducer()
-    {
+    public String getProducer() {
         return producer;
     }
 
-    public void setProducer(String producer)
-    {
+    public void setProducer(String producer) {
         this.producer = producer;
     }
 
-    public String getTargets()
-    {
+    public String getTargets() {
         return targets;
     }
 
-    public void setTargets(String targets)
-    {
+    public void setTargets(String targets) {
         this.targets = targets;
     }
 
-    public Date getCreationDate()
-    {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate)
-    {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 

@@ -40,11 +40,11 @@ import org.hl7.v3.CommunicationFunctionType;
 import org.hl7.v3.MCCIMT000300UV01Sender;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class HL7SenderTransformsTest {
-    
+
     private static Log log = LogFactory.getLog(HL7SenderTransformsTest.class);
 
     public HL7SenderTransformsTest() {
@@ -72,53 +72,53 @@ public class HL7SenderTransformsTest {
     @Test
     public void testCreateMCCIMT000200UV01Sender() {
         log.info("testCreateMCCIMT000200UV01Sender");
-        
+
         String OID = "2.16.840.1.113883.3.200";
         MCCIMT000200UV01Sender result = HL7SenderTransforms.createMCCIMT000200UV01Sender(OID);
-        
+
         assertEquals(result.getTypeCode(), CommunicationFunctionType.SND);
         assertEquals(result.getDevice().getDeterminerCode(), HL7Constants.SENDER_DETERMINER_CODE);
-        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.200");
+        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
+                .getRoot(), "2.16.840.1.113883.3.200");
     }
 
     /**
-     * Test of testCreateMCCIMT000200UV01Sender method, of class HL7DataTransformHelper
-     * with no input.
+     * Test of testCreateMCCIMT000200UV01Sender method, of class HL7DataTransformHelper with no input.
      */
     @Test
     public void testCreateMCCIMT000200UV01Sender_NullInput() {
         log.info("testCreateMCCIMT000200UV01Senderr_NullInput");
-        
+
         MCCIMT000200UV01Sender result = HL7SenderTransforms.createMCCIMT000200UV01Sender(null);
-        
+
         assertNotNull(result);
     }
-    
+
     /**
      * Test of testCreateMCCIMT000100UV01Sender method, of class HL7DataTransformHelper.
      */
     @Test
     public void testCreateMCCIMT000100UV01Sender() {
         log.info("testCreateMCCIMT000100UV01Sender");
-        
+
         String OID = "2.16.840.1.113883.3.166.4";
         MCCIMT000100UV01Sender result = HL7SenderTransforms.createMCCIMT000100UV01Sender(OID);
-        
+
         assertEquals(result.getTypeCode(), CommunicationFunctionType.SND);
         assertEquals(result.getDevice().getDeterminerCode(), HL7Constants.SENDER_DETERMINER_CODE);
-        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.166.4");
+        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
+                .getRoot(), "2.16.840.1.113883.3.166.4");
     }
 
     /**
-     * Test of testCreateMCCIMT000100UV01Sender method, of class HL7DataTransformHelper
-     * with no input.
+     * Test of testCreateMCCIMT000100UV01Sender method, of class HL7DataTransformHelper with no input.
      */
     @Test
     public void testCreateMCCIMT000100UV01Sender_NoInput() {
         log.info("testCreateMCCIMT000100UV01Sender_NoInput");
-        
+
         MCCIMT000100UV01Sender result = HL7SenderTransforms.createMCCIMT000100UV01Sender(null);
-        
+
         assertNotNull(result);
     }
 
@@ -134,12 +134,12 @@ public class HL7SenderTransformsTest {
 
         assertEquals(result.getTypeCode(), CommunicationFunctionType.SND);
         assertEquals(result.getDevice().getDeterminerCode(), HL7Constants.SENDER_DETERMINER_CODE);
-        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot(), "2.16.840.1.113883.3.200");
+        assertEquals(result.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
+                .getRoot(), "2.16.840.1.113883.3.200");
     }
 
     /**
-     * Test of testCreateMCCIMT000300UV01Sender method, of class HL7DataTransformHelper
-     * with no input.
+     * Test of testCreateMCCIMT000300UV01Sender method, of class HL7DataTransformHelper with no input.
      */
     @Test
     public void testCreateMCCIMT000300UV01Sender_NoInput() {
@@ -149,5 +149,5 @@ public class HL7SenderTransformsTest {
 
         assertNotNull(result);
     }
-   
+
 }

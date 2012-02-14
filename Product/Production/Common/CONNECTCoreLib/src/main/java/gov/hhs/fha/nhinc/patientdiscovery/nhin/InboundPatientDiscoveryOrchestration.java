@@ -34,7 +34,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 public interface InboundPatientDiscoveryOrchestration {
 
-	public abstract PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
-			PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException;
+    public abstract PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
+            throws PatientDiscoveryException;
 
 }

@@ -30,10 +30,7 @@ import gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy.AdapterDocRe
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- * Created by
- * User: ralph
- * Date: Jul 26, 2010
- * Time: 1:28:35 PM
+ * Created by User: ralph Date: Jul 26, 2010 Time: 1:28:35 PM
  */
 public class AdapterComponentDocRetrieveDeferredReqProxyObjectFactory extends ComponentProxyObjectFactory {
     private static final String CONFIG_FILE_NAME = "DocumentRetrieveDeferredProxyConfig.xml";

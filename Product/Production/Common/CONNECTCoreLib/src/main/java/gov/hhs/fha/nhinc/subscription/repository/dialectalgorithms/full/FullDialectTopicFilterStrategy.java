@@ -37,24 +37,24 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class FullDialectTopicFilterStrategy implements ITopicFilterStrategy {
 
     public boolean MeetsCriteria(Element subscriptionTopicExpression, Element notificationMessageElement) {
-//        boolean meetsCriteria = false;
-//        NamespaceContext namespaceContext = new NamespaceContextMapperFromNode(subscriptionTopicExpression);
-//
-//        String xpathQuery = XmlUtility.getNodeValue(subscriptionTopicExpression);
-//        try {
-//            Node result = XmlUtility.performXpathQuery(notificationMessageElement, xpathQuery, namespaceContext);
-//            meetsCriteria = (result != null);
-//        } catch (XPathExpressionException ex) {
-//            Logger.getLogger(FullDialectTopicFilterStrategy.class.getName()).log(Level.SEVERE, null, ex);
-//            meetsCriteria = false;
-//        }
-//        return meetsCriteria;
+        // boolean meetsCriteria = false;
+        // NamespaceContext namespaceContext = new NamespaceContextMapperFromNode(subscriptionTopicExpression);
+        //
+        // String xpathQuery = XmlUtility.getNodeValue(subscriptionTopicExpression);
+        // try {
+        // Node result = XmlUtility.performXpathQuery(notificationMessageElement, xpathQuery, namespaceContext);
+        // meetsCriteria = (result != null);
+        // } catch (XPathExpressionException ex) {
+        // Logger.getLogger(FullDialectTopicFilterStrategy.class.getName()).log(Level.SEVERE, null, ex);
+        // meetsCriteria = false;
+        // }
+        // return meetsCriteria;
         return true;
 
     }

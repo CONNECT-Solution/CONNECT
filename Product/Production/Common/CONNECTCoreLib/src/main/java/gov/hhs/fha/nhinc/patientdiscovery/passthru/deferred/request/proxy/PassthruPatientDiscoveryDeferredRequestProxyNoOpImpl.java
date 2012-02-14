@@ -31,10 +31,11 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
-public class PassthruPatientDiscoveryDeferredRequestProxyNoOpImpl implements PassthruPatientDiscoveryDeferredRequestProxy {
+public class PassthruPatientDiscoveryDeferredRequestProxyNoOpImpl implements
+        PassthruPatientDiscoveryDeferredRequestProxy {
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion, NhinTargetSystemType target)
-    {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
+            NhinTargetSystemType target) {
         return new MCCIIN000002UV01();
     }
 

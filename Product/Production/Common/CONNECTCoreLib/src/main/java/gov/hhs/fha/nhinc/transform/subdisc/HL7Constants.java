@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class HL7Constants {
@@ -53,18 +53,18 @@ public class HL7Constants {
     public static final String DETECTEDISSUEMANAGEMENT_CODE_RESPONDER_BUSY = "ResponderBusy";
     public static final String DETECTEDISSUEMANAGEMENT_CODESYSTEM = "1.3.6.1.4.1.19376.1.2.27.3";
 
-    public static final String AGENT_CLASS_CODE="AGNT";
-    public static final String ORG_CLASS_CODE="ORG";
+    public static final String AGENT_CLASS_CODE = "AGNT";
+    public static final String ORG_CLASS_CODE = "ORG";
     public static final String ASSIGNED_DEVICE_CLASS_CODE = "ASSIGNED";
 
     // ControlActProcess.ReasonOf.DetectedIssueEvent
-    public static final String DETECTED_ISSUE_EVENT_OID="2.16.578.1.34.5.3";
-    public static final String DETECTED_ISSUE_EVENT_CODE_KNOWNPAT="KNOWNPAT";
-    public static final String DETECTED_ISSUE_EVENT_CODE_KNOWNPAT_DESC="The patient is already known in the patient registry.";
-    public static final String DETECTED_ISSUE_EVENT_CODE_VALIDATION="VALIDATION";
-    public static final String DETECTED_ISSUE_EVENT_CODE_VALIDATION_DESC="The query parameters are wrong or insufficient.";
-    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHENTICATION="AUTHENTICATION";
-    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHENTICATION_DESC="The user cannot be authenticated.";
-    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION="AUTHORIZATION";
-    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION_DESC="The user is not authorized.";
+    public static final String DETECTED_ISSUE_EVENT_OID = "2.16.578.1.34.5.3";
+    public static final String DETECTED_ISSUE_EVENT_CODE_KNOWNPAT = "KNOWNPAT";
+    public static final String DETECTED_ISSUE_EVENT_CODE_KNOWNPAT_DESC = "The patient is already known in the patient registry.";
+    public static final String DETECTED_ISSUE_EVENT_CODE_VALIDATION = "VALIDATION";
+    public static final String DETECTED_ISSUE_EVENT_CODE_VALIDATION_DESC = "The query parameters are wrong or insufficient.";
+    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHENTICATION = "AUTHENTICATION";
+    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHENTICATION_DESC = "The user cannot be authenticated.";
+    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION = "AUTHORIZATION";
+    public static final String DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION_DESC = "The user is not authorized.";
 }

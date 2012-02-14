@@ -40,7 +40,7 @@ import org.uddi.api_v3.BusinessDetail;
  * 
  * @author kshtabnoy
  * 
- * Implementation of ConnectionManagerDAO that stores connection information in local file
+ *         Implementation of ConnectionManagerDAO that stores connection information in local file
  * 
  */
 public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase implements ConnectionManagerDAO {
@@ -52,10 +52,10 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
     private static final String INTERNAL_XML_FILE_NAME = "internalConnectionInfo.xml";
     private static boolean failedToLoadEnvVar = false;
 
-    public static InternalConnectionInfoDAOFileImpl getInstance() {    	
+    public static InternalConnectionInfoDAOFileImpl getInstance() {
         if (instance == null) {
             instance = new InternalConnectionInfoDAOFileImpl();
-        } 
+        }
 
         return instance;
     }
@@ -90,7 +90,7 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
         if (failedToLoadEnvVar) {
             throw new ConnectionManagerException("Unable to access system variable: nhinc.properties.dir.");
         }
-        
+
         BusinessDetail resp = null;
         try {
             resp = super.loadBusinessDetail(file);

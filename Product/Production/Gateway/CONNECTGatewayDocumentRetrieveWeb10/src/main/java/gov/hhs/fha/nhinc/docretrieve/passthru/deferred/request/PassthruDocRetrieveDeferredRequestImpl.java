@@ -39,7 +39,7 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class PassthruDocRetrieveDeferredRequestImpl {
@@ -49,18 +49,23 @@ public class PassthruDocRetrieveDeferredRequestImpl {
      * @param body
      * @return DocRetrieveAcknowledgementType
      */
-    protected DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context) {
+    protected DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(
+            RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context) {
         AssertionType assertion = extractAssertionInfo(context, null);
         RetrieveDocumentSetRequestType retrieveDocumentSetRequest = body.getRetrieveDocumentSetRequest();
         NhinTargetSystemType nhinTargetSystem = body.getNhinTargetSystem();
-        return new NhincProxyDocRetrieveDeferredReqOrchImpl().crossGatewayRetrieveRequest(retrieveDocumentSetRequest, assertion, nhinTargetSystem);
+        return new NhincProxyDocRetrieveDeferredReqOrchImpl().crossGatewayRetrieveRequest(retrieveDocumentSetRequest,
+                assertion, nhinTargetSystem);
     }
 
-    protected DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest, WebServiceContext context) {
+    protected DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(
+            RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest, WebServiceContext context) {
         AssertionType assertion = extractAssertionInfo(context, crossGatewayRetrieveRequest.getAssertion());
-        RetrieveDocumentSetRequestType retrieveDocumentSetRequest = crossGatewayRetrieveRequest.getRetrieveDocumentSetRequest();
+        RetrieveDocumentSetRequestType retrieveDocumentSetRequest = crossGatewayRetrieveRequest
+                .getRetrieveDocumentSetRequest();
         NhinTargetSystemType nhinTargetSystem = crossGatewayRetrieveRequest.getNhinTargetSystem();
-        return new NhincProxyDocRetrieveDeferredReqOrchImpl().crossGatewayRetrieveRequest(retrieveDocumentSetRequest, assertion, nhinTargetSystem);
+        return new NhincProxyDocRetrieveDeferredReqOrchImpl().crossGatewayRetrieveRequest(retrieveDocumentSetRequest,
+                assertion, nhinTargetSystem);
     }
 
     /**

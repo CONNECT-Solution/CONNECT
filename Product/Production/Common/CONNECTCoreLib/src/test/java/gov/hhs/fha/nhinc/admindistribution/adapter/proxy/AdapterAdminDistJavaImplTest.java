@@ -34,13 +34,15 @@ import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class AdapterAdminDistJavaImplTest {
 
     private Mockery context;
+
     public AdapterAdminDistJavaImplTest() {
     }
 
@@ -53,6 +55,7 @@ public class AdapterAdminDistJavaImplTest {
             }
         };
     }
+
     @Test
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
@@ -60,9 +63,7 @@ public class AdapterAdminDistJavaImplTest {
 
         final EDXLDistribution body = new EDXLDistribution();
 
-
-        AdapterAdminDistributionProxyJavaImpl instance = new AdapterAdminDistributionProxyJavaImpl()
-{
+        AdapterAdminDistributionProxyJavaImpl instance = new AdapterAdminDistributionProxyJavaImpl() {
 
             @Override
             protected Log createLogger() {

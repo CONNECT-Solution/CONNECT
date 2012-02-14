@@ -39,28 +39,22 @@ import org.hibernate.cfg.Configuration;
  * 
  * @author Neil Webb
  */
-public class HibernateUtil 
-{
+public class HibernateUtil {
     private static final SessionFactory sessionFactory;
     private static Log log = LogFactory.getLog(HibernateUtil.class);
-    
-    static
-    {
-        try
-        {
+
+    static {
+        try {
             // Create the SessionFactory from hibernate.cfg.xml
             sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
-        } 
-        catch (Throwable ex)
-        {
+        } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             log.error("Initial SessionFactory creation failed: " + ex.getMessage());
             throw new ExceptionInInitializerError(ex);
         }
     }
 
-    public static SessionFactory getSessionFactory()
-    {
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 

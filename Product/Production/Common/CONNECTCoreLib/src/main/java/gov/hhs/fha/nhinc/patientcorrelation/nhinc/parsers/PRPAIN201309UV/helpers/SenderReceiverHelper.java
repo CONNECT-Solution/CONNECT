@@ -35,7 +35,7 @@ import org.hl7.v3.MCCIMT000100UV01Sender;
 import org.hl7.v3.TELExplicit;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class SenderReceiverHelper {
@@ -75,9 +75,9 @@ public class SenderReceiverHelper {
         }
         device.getId().add(deviceId);
 
-//        TELExplicit tel = new TELExplicit();
-//        tel.getNullFlavor().add("NA");
-//        device.getTelecom().add(tel);
+        // TELExplicit tel = new TELExplicit();
+        // tel.getNullFlavor().add("NA");
+        // device.getTelecom().add(tel);
 
         return device;
     }

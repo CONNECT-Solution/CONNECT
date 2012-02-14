@@ -31,7 +31,7 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public interface AdapterPatientDiscoveryDeferredRespProxy {

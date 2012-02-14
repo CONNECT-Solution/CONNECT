@@ -41,72 +41,69 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocSubmissionDeferredRequestOrchImpl {
     private Log log = null;
     private XDRAuditLogger auditLogger = null;
 
-    public PassthruDocSubmissionDeferredRequestOrchImpl()
-    {
+    public PassthruDocSubmissionDeferredRequestOrchImpl() {
         log = createLogger();
         auditLogger = createAuditLogger();
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
         provideAndRegisterRequestRequest.setNhinTargetSystem(targetSystem);
         provideAndRegisterRequestRequest.setProvideAndRegisterDocumentSetRequest(request);
-        
+
         logRequest(provideAndRegisterRequestRequest, assertion);
 
         log.debug("Calling delegate");
         OutboundDocSubmissionDeferredRequestDelegate dsDelegate = new OutboundDocSubmissionDeferredRequestDelegate();
-        OutboundDocSubmissionDeferredRequestOrchestratable dsOrchestratable = new OutboundDocSubmissionDeferredRequestOrchestratable(dsDelegate);
+        OutboundDocSubmissionDeferredRequestOrchestratable dsOrchestratable = new OutboundDocSubmissionDeferredRequestOrchestratable(
+                dsDelegate);
         dsOrchestratable.setAssertion(assertion);
         dsOrchestratable.setRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest());
         dsOrchestratable.setTarget(provideAndRegisterRequestRequest.getNhinTargetSystem());
-        XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredRequestOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
-        
+        XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredRequestOrchestratable) dsDelegate
+                .process(dsOrchestratable)).getResponse();
+
         logResponse(response, assertion);
 
         log.debug("End provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
         return response;
     }
 
-    private void logRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion)
-    {
+    private void logRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+            AssertionType assertion) {
         log.debug("Begin logRequest");
         auditLogger.auditXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         log.debug("End logRequest");
     }
 
-    private void logResponse(XDRAcknowledgementType response, AssertionType assertion)
-    {
+    private void logResponse(XDRAcknowledgementType response, AssertionType assertion) {
         log.debug("Begin logResponse");
-        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
+        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.XDR_REQUEST_ACTION);
         log.debug("End logResponse");
     }
 
-    protected XDRAuditLogger createAuditLogger()
-    {
+    protected XDRAuditLogger createAuditLogger() {
         return new XDRAuditLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-
-    protected NhinDocSubmissionDeferredRequestProxy createNhinProxy()
-    {
+    protected NhinDocSubmissionDeferredRequestProxy createNhinProxy() {
         NhinDocSubmissionDeferredRequestProxyObjectFactory factory = new NhinDocSubmissionDeferredRequestProxyObjectFactory();
         return factory.getNhinDocSubmissionDeferredRequestProxy();
     }
-
 
 }

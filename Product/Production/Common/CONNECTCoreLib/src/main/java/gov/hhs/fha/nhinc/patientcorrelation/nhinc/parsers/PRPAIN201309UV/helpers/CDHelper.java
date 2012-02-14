@@ -29,15 +29,15 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helper
 import org.hl7.v3.CD;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class CDHelper {
 
     public static CD CDFactory(String codeValue, String codeSystem) {
-                CD code = new CD();
-        code.setCode( codeValue);
+        CD code = new CD();
+        code.setCode(codeValue);
         code.setCodeSystem(codeSystem);
-return code;
+        return code;
     }
 }

@@ -30,7 +30,7 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "AdapterMpiManagerService", portName = "AdapterMpiManagerPortTypeBindingPort", endpointInterface = "gov.hhs.fha.nhinc.adaptermpimanager.AdapterMpiManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptermpimanager", wsdlLocation = "WEB-INF/wsdl/MpiManager/AdapterMpiManager.wsdl")

@@ -44,33 +44,29 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.PRPAIN201305UV02;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 
 public class AdapterMpiImpl {
-   private static Log log = LogFactory.getLog(AdapterMpiImpl.class);
+    private static Log log = LogFactory.getLog(AdapterMpiImpl.class);
 
     /**
      * Perform a look up on the MPI.
-     *
-     * @param bIsSecure  TRUE if this is being called from a secure web service.
+     * 
+     * @param bIsSecure TRUE if this is being called from a secure web service.
      * @param findCandidatesRequest The information about the patient that is being used for the lookup.
      * @param context The web service context information.
      * @return The results of the lookup.
      */
-     
-    public  PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertionFromBody)
-    {
+
+    public PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertionFromBody) {
         log.debug("Entering AdapterMpiImpl.query");
 
         AssertionType assertion = null;
-        if(assertionFromBody != null)
-        {
+        if (assertionFromBody != null) {
             assertion = assertionFromBody;
-        }
-        else
-        {
+        } else {
             assertion = new AssertionType();
         }
 
@@ -81,18 +77,14 @@ public class AdapterMpiImpl {
         log.debug("Exiting AdapterMpiImpl.query - unsecured");
         return response;
     }
- 
-    public  PRPAIN201306UV02 query(boolean bIsSecure, PRPAIN201305UV02 findCandidatesRequest, WebServiceContext context)
-    {
+
+    public PRPAIN201306UV02 query(boolean bIsSecure, PRPAIN201305UV02 findCandidatesRequest, WebServiceContext context) {
         log.debug("Entering AdapterMpiImpl.findCandidates");
 
         AssertionType assertion = null;
-        if ((bIsSecure) && (context != null))
-        {
+        if ((bIsSecure) && (context != null)) {
             assertion = SamlTokenExtractor.GetAssertion(context);
-        }
-        else
-        {
+        } else {
             assertion = new AssertionType();
         }
 

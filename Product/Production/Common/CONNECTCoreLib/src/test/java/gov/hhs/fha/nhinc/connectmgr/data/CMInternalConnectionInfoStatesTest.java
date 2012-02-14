@@ -36,7 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class CMInternalConnectionInfoStatesTest {
@@ -60,10 +60,9 @@ public class CMInternalConnectionInfoStatesTest {
     public void tearDown() {
     }
 
-
     /**
-     * Test of clear method, of class CMInternalConnectionInfoStates.
-     *   This tests the clear method with a single entry in the list.
+     * Test of clear method, of class CMInternalConnectionInfoStates. This tests the clear method with a single entry in
+     * the list.
      */
     @Test
     public void testClearWithSingle() {
@@ -83,8 +82,8 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of clear method, of class CMInternalConnectionInfoStates.
-     *   This tests the clear method with a multiple entries in the list.
+     * Test of clear method, of class CMInternalConnectionInfoStates. This tests the clear method with a multiple
+     * entries in the list.
      */
     @Test
     public void testClearWithMultiple() {
@@ -112,8 +111,8 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of clear method, of class CMInternalConnectionInfoStates.
-     *   This tests the clear method when there is no entries in the list.
+     * Test of clear method, of class CMInternalConnectionInfoStates. This tests the clear method when there is no
+     * entries in the list.
      */
     @Test
     public void testClearWithNoEntries() {
@@ -127,8 +126,7 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two empty objects are equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two empty objects are equal
      */
     @Test
     public void testEqualsEmptyObjects() {
@@ -138,13 +136,13 @@ public class CMInternalConnectionInfoStatesTest {
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
 
         boolean result = instance.equals(oCompare);
-        
+
         assertEquals(true, result);
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with single entries are equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with single entries are
+     * equal
      */
     @Test
     public void testEqualsSingleEntries() {
@@ -166,8 +164,8 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with multiple entries are equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with multiple entries are
+     * equal
      */
     @Test
     public void testEqualsMultipleEntries() {
@@ -199,10 +197,10 @@ public class CMInternalConnectionInfoStatesTest {
 
         assertEquals(true, result);
     }
-    
+
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with multiple entries of different cases are equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with multiple entries of
+     * different cases are equal
      */
     @Test
     public void testEqualsDifferentCases() {
@@ -236,8 +234,8 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with single entries are not equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with single entries are not
+     * equal
      */
     @Test
     public void testNotEqualsSingleEntries() {
@@ -259,8 +257,8 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with multiple entries are not equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with multiple entries are
+     * not equal
      */
     @Test
     public void testNotEqualsMultipleEntriesOneMismatch() {
@@ -294,8 +292,8 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with multiple entries are not equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with multiple entries are
+     * not equal
      */
     @Test
     public void testNotEqualsMultipleEntriesTwoMismatch() {
@@ -329,8 +327,8 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with multiple entries are not equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with multiple entries are
+     * not equal
      */
     @Test
     public void testNotEqualsMultipleEntriesAllMismatch() {
@@ -364,8 +362,8 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with different sizes are not equal
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with different sizes are
+     * not equal
      */
     @Test
     public void testNotEqualsDifferentSizes() {
@@ -396,8 +394,8 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of equals method, of class CMInternalConnectionInfoStates.
-     *    Test that two objects with single entries are not equal if one is empty
+     * Test of equals method, of class CMInternalConnectionInfoStates. Test that two objects with single entries are not
+     * equal if one is empty
      */
     @Test
     public void testNotEqualsSingleEntriesOneNull() {
@@ -416,8 +414,7 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of getStates method, of class CMInternalConnectionInfoStates.
-     *    Test retreiving states from an empty list
+     * Test of getStates method, of class CMInternalConnectionInfoStates. Test retreiving states from an empty list
      */
     @Test
     public void testGetStatesNone() {
@@ -434,8 +431,7 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of getStates method, of class CMInternalConnectionInfoStates.
-     *    Test retreiving states with a single entry
+     * Test of getStates method, of class CMInternalConnectionInfoStates. Test retreiving states with a single entry
      */
     @Test
     public void testGetStatesOne() {
@@ -452,8 +448,7 @@ public class CMInternalConnectionInfoStatesTest {
     }
 
     /**
-     * Test of getStates method, of class CMInternalConnectionInfoStates.
-     *    Test retreiving states with multiple entries
+     * Test of getStates method, of class CMInternalConnectionInfoStates. Test retreiving states with multiple entries
      */
     @Test
     public void testGetStatesMultiple() {

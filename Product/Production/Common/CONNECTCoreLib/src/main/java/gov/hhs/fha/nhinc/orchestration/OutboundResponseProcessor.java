@@ -26,17 +26,15 @@
  */
 package gov.hhs.fha.nhinc.orchestration;
 
-
 /**
  * Used for concurrent task executor based orchestrator implementations
+ * 
  * @author paul.eftis
  */
-public interface OutboundResponseProcessor extends NhinAggregator{
+public interface OutboundResponseProcessor extends NhinAggregator {
 
-    public OutboundOrchestratableMessage processNhinResponse(
-            OutboundOrchestratableMessage individualResponse,
+    public OutboundOrchestratableMessage processNhinResponse(OutboundOrchestratableMessage individualResponse,
             OutboundOrchestratableMessage cumulativeResponse);
 
-    public OutboundOrchestratableMessage processErrorResponse(OutboundOrchestratableMessage request,
-            String error);
+    public OutboundOrchestratableMessage processErrorResponse(OutboundOrchestratableMessage request, String error);
 }

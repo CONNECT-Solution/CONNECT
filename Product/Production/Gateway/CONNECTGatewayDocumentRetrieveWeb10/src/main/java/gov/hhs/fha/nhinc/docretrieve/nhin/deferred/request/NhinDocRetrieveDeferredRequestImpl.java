@@ -34,11 +34,12 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class NhinDocRetrieveDeferredRequestImpl {
-    public DocRetrieveAcknowledgementType respondingGatewayDeferredRequestCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, WebServiceContext context) {
+    public DocRetrieveAcknowledgementType respondingGatewayDeferredRequestCrossGatewayRetrieve(
+            RetrieveDocumentSetRequestType body, WebServiceContext context) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class

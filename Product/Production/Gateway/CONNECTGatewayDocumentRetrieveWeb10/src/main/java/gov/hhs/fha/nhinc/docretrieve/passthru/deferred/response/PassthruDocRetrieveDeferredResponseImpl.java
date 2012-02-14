@@ -41,7 +41,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class PassthruDocRetrieveDeferredResponseImpl {
@@ -49,39 +49,44 @@ public class PassthruDocRetrieveDeferredResponseImpl {
     private static Log log = LogFactory.getLog(PassthruDocRetrieveDeferredResponseImpl.class);
 
     /**
-     *
+     * 
      * @param body
      * @param context
      * @return DocRetrieveAcknowledgementType
      */
-    protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, WebServiceContext context) {
+    protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(
+            RespondingGatewayCrossGatewayRetrieveSecuredResponseType body, WebServiceContext context) {
         log.debug("Begin PassthruDocRetrieveDeferredResponseImpl.crossGatewayRetrieveResponse(secured)");
 
         AssertionType assertion = extractAssertionInfo(context, null);
         RetrieveDocumentSetResponseType retrieveDocumentSetResponse = body.getRetrieveDocumentSetResponse();
         NhinTargetSystemType nhinTargetSystem = body.getNhinTargetSystem();
 
-        return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(null, retrieveDocumentSetResponse, assertion, nhinTargetSystem);
+        return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(null,
+                retrieveDocumentSetResponse, assertion, nhinTargetSystem);
     }
 
     /**
-     *
+     * 
      * @param crossGatewayRetrieveResponse
      * @param context
      * @return DocRetrieveAcknowledgementType
      */
-    protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse, WebServiceContext context) {
+    protected DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(
+            RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse, WebServiceContext context) {
         log.debug("Begin PassthruDocRetrieveDeferredResponseImpl.crossGatewayRetrieveResponse(unsecured)");
 
         AssertionType assertion = extractAssertionInfo(context, crossGatewayRetrieveResponse.getAssertion());
-        RetrieveDocumentSetResponseType retrieveDocumentSetResponse = crossGatewayRetrieveResponse.getRetrieveDocumentSetResponse();
+        RetrieveDocumentSetResponseType retrieveDocumentSetResponse = crossGatewayRetrieveResponse
+                .getRetrieveDocumentSetResponse();
         NhinTargetSystemType nhinTargetSystem = crossGatewayRetrieveResponse.getNhinTargetSystem();
 
-        return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(null, retrieveDocumentSetResponse, assertion, nhinTargetSystem);
+        return new NhincProxyDocRetrieveDeferredRespOrchImpl().crossGatewayRetrieveResponse(null,
+                retrieveDocumentSetResponse, assertion, nhinTargetSystem);
     }
 
     /**
-     *
+     * 
      * @param context
      * @param oAssertionIn
      * @return AssertionType

@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.adapter.cppgui;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class CPPConstants {

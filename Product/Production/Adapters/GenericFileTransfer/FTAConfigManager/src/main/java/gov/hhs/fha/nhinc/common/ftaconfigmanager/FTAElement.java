@@ -27,37 +27,35 @@
 package gov.hhs.fha.nhinc.common.ftaconfigmanager;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class FTAElement
-{
+public class FTAElement {
     private String name = "";
     private String val = "";
 
-    public FTAElement()
-    {
-        
+    public FTAElement() {
+
     }
-    public FTAElement(String elementName, String elementValue)
-    {
+
+    public FTAElement(String elementName, String elementValue) {
         name = elementName;
         val = elementValue;
     }
-    public String getName()
-    {
+
+    public String getName() {
         return name;
     }
-    public String getValue()
-    {
+
+    public String getValue() {
         return val;
     }
-    public void setName(String value)
-    {
+
+    public void setName(String value) {
         name = value;
     }
-    public void setValue(String value)
-    {
+
+    public void setValue(String value) {
         val = value;
     }
 }

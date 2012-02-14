@@ -42,7 +42,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 public class PassthruPatientDiscoveryDeferredRespOrchImpl {
@@ -50,13 +50,14 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
     private static Log log = LogFactory.getLog(PassthruPatientDiscoveryDeferredRespOrchImpl.class);
 
     /**
-     *
+     * 
      * @param request
      * @param assertion
      * @param targetSystem
      * @return Patient Discovery Response Acknowledgement
      */
-    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
+            NhinTargetSystemType targetSystem) {
         log.debug("Begin - proxyProcessPatientDiscoveryAsyncResp");
 
         MCCIIN000002UV01 response = null;
@@ -79,7 +80,8 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
         response = proxy.respondingGatewayPRPAIN201306UV02(request, assertion, targetSystem);
 
         // Audit the Patient Discovery Response Message received on the Nhin Interface
-        auditLog.auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        auditLog.auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         log.debug("End - proxyProcessPatientDiscoveryAsyncResp");
 

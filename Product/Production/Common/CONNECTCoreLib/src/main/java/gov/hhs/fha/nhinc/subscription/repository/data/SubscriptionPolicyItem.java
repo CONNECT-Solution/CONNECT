@@ -27,53 +27,43 @@
 package gov.hhs.fha.nhinc.subscription.repository.data;
 
 /**
- * Data class for a subscription policy item 
- *
+ * Data class for a subscription policy item
+ * 
  * @author Neil Webb
  */
-public class SubscriptionPolicyItem 
-{
+public class SubscriptionPolicyItem {
     private String key;
     private String value;
 
-    public String getKey()
-    {
+    public String getKey() {
         return key;
     }
 
-    public void setKey(String key)
-    {
+    public void setKey(String key) {
         this.key = key;
     }
 
-    public String getValue()
-    {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(String value)
-    {
+    public void setValue(String value) {
         this.value = value;
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass())
-        {
+        if (getClass() != obj.getClass()) {
             return false;
         }
         final SubscriptionPolicyItem other = (SubscriptionPolicyItem) obj;
-        if (this.key != other.key && (this.key == null || !this.key.equals(other.key)))
-        {
+        if (this.key != other.key && (this.key == null || !this.key.equals(other.key))) {
             return false;
         }
-        if (this.value != other.value && (this.value == null || !this.value.equals(other.value)))
-        {
+        if (this.value != other.value && (this.value == null || !this.value.equals(other.value))) {
             return false;
         }
         return true;

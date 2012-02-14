@@ -32,7 +32,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @WebService(serviceName = "NhincProxyPatientDiscoverySecured", portName = "NhincProxyPatientDiscoverySecuredPort", endpointInterface = "gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecured.NhincProxyPatientDiscoverySecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured", wsdlLocation = "WEB-INF/wsdl/NhincProxyPatientDiscoverySecured/NhincProxyPatientDiscoverySecured.wsdl")
@@ -41,22 +41,23 @@ public class NhincProxyPatientDiscoverySecured extends PatientDiscoveryBase {
 
     @Resource
     private WebServiceContext context;
-    
-     public NhincProxyPatientDiscoverySecured() {
-		super();
-	}
 
-	public NhincProxyPatientDiscoverySecured(
-			PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
+    public NhincProxyPatientDiscoverySecured() {
+        super();
+    }
 
-	public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType proxyPRPAIN201305UVProxyRequest) {
-		
-		return getServiceFactory().getNhincProxyPatientDiscoveryImpl().proxyPRPAIN201305UV(proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
-	}
+    public NhincProxyPatientDiscoverySecured(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
 
-	protected WebServiceContext getWebServiceContext() {
+    public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(
+            org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType proxyPRPAIN201305UVProxyRequest) {
+
+        return getServiceFactory().getNhincProxyPatientDiscoveryImpl().proxyPRPAIN201305UV(
+                proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
+    }
+
+    protected WebServiceContext getWebServiceContext() {
         return context;
     }
 

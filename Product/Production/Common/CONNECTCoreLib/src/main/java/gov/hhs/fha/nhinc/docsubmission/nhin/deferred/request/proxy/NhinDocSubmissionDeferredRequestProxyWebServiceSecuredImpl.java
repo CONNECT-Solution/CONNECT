@@ -41,10 +41,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
-public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implements NhinDocSubmissionDeferredRequestProxy {
+public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implements
+        NhinDocSubmissionDeferredRequestProxy {
     private Log log = null;
     private static HashMap<String, Service> cachedServiceMap = new HashMap<String, Service>();
     private static final String NAMESPACE_URI = "urn:ihe:iti:xdr:2007";
@@ -71,96 +72,83 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
     protected XDRDeferredRequestPortType getPort(String url, AssertionType assertion,
-            NhincConstants.GATEWAY_API_LEVEL apiLevel)
-    {
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         WebServiceProxyHelper proxyHelper = getWebServiceProxyHelper();
 
         XDRDeferredRequestPortType port = null;
         Service service = null;
         String wsAction = null;
         switch (apiLevel) {
-            case LEVEL_g0: 
-                service = getService(WSDL_FILE_G0, NAMESPACE_URI, SERVICE_LOCAL_PART);
-                wsAction = WS_ADDRESSING_ACTION_G0;
-                break;
-            case LEVEL_g1: 
-                service = getService(WSDL_FILE_G1, NAMESPACE_URI, SERVICE_LOCAL_PART);
-                wsAction = WS_ADDRESSING_ACTION_G1;
-                break;
-            default: service = null;
+        case LEVEL_g0:
+            service = getService(WSDL_FILE_G0, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            wsAction = WS_ADDRESSING_ACTION_G0;
+            break;
+        case LEVEL_g1:
+            service = getService(WSDL_FILE_G1, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            wsAction = WS_ADDRESSING_ACTION_G1;
+            break;
+        default:
+            service = null;
         }
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), XDRDeferredRequestPortType.class);
-            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,NhincConstants.XDR_REQUEST_ACTION, wsAction, assertion);
-         }
-        else
-        {
+            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,
+                    NhincConstants.XDR_REQUEST_ACTION, wsAction, assertion);
+        } else {
             log.error("Unable to obtain service - no port created.");
         }
         return port;
     }
 
-    protected WebServiceProxyHelper getWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService(String wsdl, String uri, String service)
-    {
+    protected Service getService(String wsdl, String uri, String service) {
         Service cachedService = cachedServiceMap.get(wsdl);
-        if (cachedService == null)
-        {
-            try
-            {
+        if (cachedService == null) {
+            try {
                 WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
                 cachedService = proxyHelper.createService(wsdl, uri, service);
                 cachedServiceMap.put(wsdl, cachedService);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, 
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
             NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.debug("Begin provideAndRegisterDocumentSetBAsyncRequest");
         XDRAcknowledgementType response = null;
 
-        try
-        {
-            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME, apiLevel);
+        try {
+            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
+                    NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME, apiLevel);
             XDRDeferredRequestPortType port = getPort(url, assertion, apiLevel);
 
-            if(request == null)
-            {
+            if (request == null) {
                 log.error("Message was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
+            } else {
+                response = (XDRAcknowledgementType) oProxyHelper.invokePort(port, XDRDeferredRequestPortType.class,
+                        "provideAndRegisterDocumentSetBDeferredRequest", request);
             }
-            else
-            {
-                response = (XDRAcknowledgementType)oProxyHelper.invokePort(port, XDRDeferredRequestPortType.class, "provideAndRegisterDocumentSetBDeferredRequest", request);
-            }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetBDeferredRequest: " + ex.getMessage(), ex);
             response = new XDRAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();

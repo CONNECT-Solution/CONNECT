@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.nhinclib;
 import java.util.List;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class NullChecker {
@@ -41,6 +41,7 @@ public class NullChecker {
         }
         return result;
     }
+
     public static boolean isNotNullish(String value) {
         return (!isNullish(value));
     }
@@ -52,9 +53,9 @@ public class NullChecker {
         }
         return result;
     }
+
     public static boolean isNotNullish(List value) {
         return (!isNullish(value));
     }
-
 
 }

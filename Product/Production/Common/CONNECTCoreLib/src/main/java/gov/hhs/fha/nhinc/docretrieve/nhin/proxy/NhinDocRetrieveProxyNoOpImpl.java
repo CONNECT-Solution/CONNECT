@@ -33,26 +33,23 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
-public class NhinDocRetrieveProxyNoOpImpl implements NhinDocRetrieveProxy
-{
+public class NhinDocRetrieveProxyNoOpImpl implements NhinDocRetrieveProxy {
 
     /**
      * Retrieve the document(s) specified in the request.
-     *
+     * 
      * @param request The identifier(s) of the document(s) to be retrieved.
      * @param targetSystem The target system where the message is being sent to.
      * @return The document(s) that were retrieved.
      */
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request,
-                                                                                 AssertionType assertion,
-                                                                                 NhinTargetSystemType targetSystem,
-                                                                                 GATEWAY_API_LEVEL level)
-    {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
+            RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem,
+            GATEWAY_API_LEVEL level) {
         return new RetrieveDocumentSetResponseType();
     }
-    
+
 }

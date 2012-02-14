@@ -32,14 +32,13 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class HL7Parser {
     private static Log log = LogFactory.getLog(HL7Parser.class);
     public static final String SSN_OID = "2.16.840.1.113883.4.1";
-    
-    
+
     public static void PrintMessageIdFromMessage(Object message) {
         log.debug("Begin HL7Parser.PrintMessageIdFromMessage(Object)");
         if (message != null) {

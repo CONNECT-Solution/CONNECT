@@ -36,7 +36,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  * This class is the implementation of the Unsecured AdapterMPI service.
- *
+ * 
  * @author Sai Valluripalli, Les Westberg
  */
 @WebService(serviceName = "AdapterMpiService", portName = "AdapterMpiPort", endpointInterface = "gov.hhs.fha.nhinc.adaptermpi.AdapterMpiPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptermpi", wsdlLocation = "WEB-INF/wsdl/AdapterMpi/AdapterMpi.wsdl")
@@ -47,16 +47,16 @@ public class AdapterMpi {
     private WebServiceContext context;
 
     /**
-     * This method takes the input and peforms a query against the MPI via the AdapterComponentMpi services
-     * and returns the response.
-     *
+     * This method takes the input and peforms a query against the MPI via the AdapterComponentMpi services and returns
+     * the response.
+     * 
      * @param findCandidatesRequest The query data.
      * @return The results from the MPI query.
      */
-    public PRPAIN201306UV02 findCandidates(RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest)
-    {
+    public PRPAIN201306UV02 findCandidates(RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest) {
         AdapterMpiImpl oImpl = new AdapterMpiImpl();
-        PRPAIN201306UV02 oResponse = oImpl.query(findCandidatesRequest.getPRPAIN201305UV02(), findCandidatesRequest.getAssertion());
+        PRPAIN201306UV02 oResponse = oImpl.query(findCandidatesRequest.getPRPAIN201305UV02(),
+                findCandidatesRequest.getAssertion());
         return oResponse;
     }
 

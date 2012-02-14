@@ -50,7 +50,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class AssertionHelper {
@@ -69,14 +69,14 @@ public class AssertionHelper {
     public void appendAssertionDataToRequest(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending assertion data to xacml request");
 
-//        if (log.isDebugEnabled()) {
-//            CheckPolicyRequestMarshaller marshaller = new CheckPolicyRequestMarshaller();
-//            String message = XmlUtility.serializeElementIgnoreFaults(marshaller.marshalCheckPolicyRequest(policyRequest));
-//            log.debug("begin transformAdhocQueryToCheckPolicy [" + message + "]");
-//        }
+        // if (log.isDebugEnabled()) {
+        // CheckPolicyRequestMarshaller marshaller = new CheckPolicyRequestMarshaller();
+        // String message =
+        // XmlUtility.serializeElementIgnoreFaults(marshaller.marshalCheckPolicyRequest(policyRequest));
+        // log.debug("begin transformAdhocQueryToCheckPolicy [" + message + "]");
+        // }
 
-
-        //PurposeOfUseHelper.appendPurposeOfUse(policyRequest, assertion);
+        // PurposeOfUseHelper.appendPurposeOfUse(policyRequest, assertion);
 
         if (assertion != null) {
             appendAuthnStatementAuthnInstant(policyRequest, assertion);
@@ -174,8 +174,7 @@ public class AssertionHelper {
         return found;
     }
 
-    public String extractUserName(
-            AssertionType assertion) {
+    public String extractUserName(AssertionType assertion) {
         String username = null;
         if ((assertion != null) && (assertion.getUserInfo() != null) && (assertion.getUserInfo().getUserName() != null)) {
             username = assertion.getUserInfo().getUserName();
@@ -184,30 +183,31 @@ public class AssertionHelper {
         return username;
     }
 
-    public String extractUserHomeCommunity(
-            AssertionType assertion) {
+    public String extractUserHomeCommunity(AssertionType assertion) {
         String username = null;
-        if ((assertion != null) && (assertion.getUserInfo() != null) && (assertion.getUserInfo().getOrg() != null) && (assertion.getUserInfo().getOrg().getHomeCommunityId() != null)) {
+        if ((assertion != null) && (assertion.getUserInfo() != null) && (assertion.getUserInfo().getOrg() != null)
+                && (assertion.getUserInfo().getOrg().getHomeCommunityId() != null)) {
             username = assertion.getUserInfo().getOrg().getHomeCommunityId();
         }
 
         return username;
     }
 
-    public String extractPurpose(
-            AssertionType assertion) {
+    public String extractPurpose(AssertionType assertion) {
         String purpose = null;
-        if ((assertion != null) && (assertion.getPurposeOfDisclosureCoded() != null) && (assertion.getPurposeOfDisclosureCoded().getCode() != null)) {
+        if ((assertion != null) && (assertion.getPurposeOfDisclosureCoded() != null)
+                && (assertion.getPurposeOfDisclosureCoded().getCode() != null)) {
             purpose = assertion.getPurposeOfDisclosureCoded().getCode();
         }
 
         return purpose;
     }
 
-    public String extractUserRole(
-            AssertionType assertion) {
+    public String extractUserRole(AssertionType assertion) {
         String userRole = null;
-        if ((assertion != null) && (assertion.getUserInfo() != null) && (assertion.getUserInfo().getRoleCoded() != null) && (assertion.getUserInfo().getRoleCoded().getCode() != null)) {
+        if ((assertion != null) && (assertion.getUserInfo() != null)
+                && (assertion.getUserInfo().getRoleCoded() != null)
+                && (assertion.getUserInfo().getRoleCoded().getCode() != null)) {
             userRole = assertion.getUserInfo().getRoleCoded().getCode();
         }
 
@@ -473,7 +473,8 @@ public class AssertionHelper {
                     iiValue = HL7DataTransformHelper.IIFactory(patRoot, patExt);
                 } else {
                     log.warn("Unique patient should be in ISO format including a root and extension");
-                    log.warn("Found root: " + patRoot + " and extension: " + patExt + " It will not be included in message to policy engine");
+                    log.warn("Found root: " + patRoot + " and extension: " + patExt
+                            + " It will not be included in message to policy engine");
                 }
             } else {
                 log.warn("Unable to find Unique Patient in SAML, will not be included in message to policy engine");
@@ -497,7 +498,8 @@ public class AssertionHelper {
 
     private String extractUserRoleCode(AssertionType assertion) {
         String value = null;
-        if ((assertion != null) && (assertion.getUserInfo() != null) && (assertion.getUserInfo().getRoleCoded() != null)) {
+        if ((assertion != null) && (assertion.getUserInfo() != null)
+                && (assertion.getUserInfo().getRoleCoded() != null)) {
             value = assertion.getUserInfo().getRoleCoded().getCode();
         } else {
             log.warn("Unable to find user role in SAML, will not be included in message to policy engine");
@@ -519,7 +521,8 @@ public class AssertionHelper {
 
     private String extractUserRoleCodeSystem(AssertionType assertion) {
         String value = null;
-        if ((assertion != null) && (assertion.getUserInfo() != null) && (assertion.getUserInfo().getRoleCoded() != null)) {
+        if ((assertion != null) && (assertion.getUserInfo() != null)
+                && (assertion.getUserInfo().getRoleCoded() != null)) {
             value = assertion.getUserInfo().getRoleCoded().getCodeSystem();
         } else {
             log.warn("Unable to find user role in SAML, will not be included in message to policy engine");
@@ -541,7 +544,8 @@ public class AssertionHelper {
 
     private String extractUserRoleCodeSystemName(AssertionType assertion) {
         String value = null;
-        if ((assertion != null) && (assertion.getUserInfo() != null) && (assertion.getUserInfo().getRoleCoded() != null)) {
+        if ((assertion != null) && (assertion.getUserInfo() != null)
+                && (assertion.getUserInfo().getRoleCoded() != null)) {
             value = assertion.getUserInfo().getRoleCoded().getCodeSystemName();
         } else {
             log.warn("Unable to find user role in SAML, will not be included in message to policy engine");
@@ -563,7 +567,8 @@ public class AssertionHelper {
 
     private String extractUserRoleCodeDiplayName(AssertionType assertion) {
         String value = null;
-        if ((assertion != null) && (assertion.getUserInfo() != null) && (assertion.getUserInfo().getRoleCoded() != null)) {
+        if ((assertion != null) && (assertion.getUserInfo() != null)
+                && (assertion.getUserInfo().getRoleCoded() != null)) {
             value = assertion.getUserInfo().getRoleCoded().getDisplayName();
         } else {
             log.warn("Unable to find user role in SAML, will not be included in message to policy engine");
@@ -737,7 +742,9 @@ public class AssertionHelper {
 
     private String extractAuthzDecisionStatementEvidenceAssertionID(AssertionType assertion) {
         String value = null;
-        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)) {
+        if ((assertion.getSamlAuthzDecisionStatement() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)) {
             log.debug("Extracting AuthzDecisionStatementEvidenceAssertionID");
             value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId();
             log.debug("Extracted AuthzDecisionStatementEvidenceAssertionID value=" + value);
@@ -748,7 +755,8 @@ public class AssertionHelper {
         return value;
     }
 
-    private void appendAuthzDecisionStatementEvidenceAssertionIssueInstant(RequestType policyRequest, AssertionType assertion) {
+    private void appendAuthzDecisionStatementEvidenceAssertionIssueInstant(RequestType policyRequest,
+            AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionIssueInstant");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionIssueInstant;
@@ -761,7 +769,9 @@ public class AssertionHelper {
 
     private String extractAuthzDecisionStatementEvidenceAssertionIssueInstant(AssertionType assertion) {
         String value = null;
-        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)) {
+        if ((assertion.getSamlAuthzDecisionStatement() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)) {
             log.debug("Extracting AuthzDecisionStatementEvidenceAssertionIssueInstant");
             value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant();
             log.debug("Extracted AuthzDecisionStatementEvidenceAssertionIssueInstant value=" + value);
@@ -785,7 +795,9 @@ public class AssertionHelper {
 
     private String extractAuthzDecisionStatementEvidenceAssertionVersion(AssertionType assertion) {
         String value = null;
-        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)) {
+        if ((assertion.getSamlAuthzDecisionStatement() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)) {
             log.debug("Extracting AuthzDecisionStatementEvidenceAssertionVersion");
             value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion();
             log.debug("Extracted AuthzDecisionStatementEvidenceAssertionVersion value=" + value);
@@ -810,7 +822,9 @@ public class AssertionHelper {
 
     private String extractAuthzDecisionStatementEvidenceAssertionIssuer(AssertionType assertion) {
         String value = null;
-        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)) {
+        if ((assertion.getSamlAuthzDecisionStatement() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)) {
             log.debug("Extracting AuthzDecisionStatementEvidenceAssertionIssuer");
             value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer();
             log.debug("Extracted AuthzDecisionStatementEvidenceAssertionIssuer value=" + value);
@@ -823,9 +837,13 @@ public class AssertionHelper {
 
     private String extractAuthzDecisionStatementEvidenceAssertionConditionsNotBefore(AssertionType assertion) {
         String value = null;
-        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() != null)) {
+        if ((assertion.getSamlAuthzDecisionStatement() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() != null)) {
             log.debug("Extracting AuthzDecisionStatementEvidenceAssertionConditionsNotBefore");
-            value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore();
+            value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
+                    .getNotBefore();
             log.debug("Extracted AuthzDecisionStatementEvidenceAssertionConditionsNotBefore value=" + value);
         } else {
             log.warn("Unable to find AuthzDecisionStatement Evidence Assertion Condition in SAML, will not be included in message to policy engine");
@@ -834,7 +852,8 @@ public class AssertionHelper {
         return value;
     }
 
-    private void appendAuthzDecisionStatementEvidenceAssertionConditionsNotBefore(RequestType policyRequest, AssertionType assertion) {
+    private void appendAuthzDecisionStatementEvidenceAssertionConditionsNotBefore(RequestType policyRequest,
+            AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionConditionsNotBefore");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionConditionsNotBefore;
@@ -848,9 +867,13 @@ public class AssertionHelper {
 
     private String extractAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter(AssertionType assertion) {
         String value = null;
-        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() != null)) {
+        if ((assertion.getSamlAuthzDecisionStatement() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() != null)) {
             log.debug("Extracting AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter");
-            value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter();
+            value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
+                    .getNotOnOrAfter();
             log.debug("Extracted AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter value=" + value);
         } else {
             log.warn("Unable to find AuthzDecisionStatement Evidence Assertion Condition in SAML, will not be included in message to policy engine");
@@ -860,7 +883,8 @@ public class AssertionHelper {
 
     }
 
-    private void appendAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter(RequestType policyRequest, AssertionType assertion) {
+    private void appendAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter(RequestType policyRequest,
+            AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter;
@@ -877,7 +901,7 @@ public class AssertionHelper {
         XMLGregorianCalendar xmlDate = null;
         if (time != null) {
             try {
-                //times must be in UTC format as specified by the XML Schema type (dateTime)
+                // times must be in UTC format as specified by the XML Schema type (dateTime)
                 DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
                 xmlDate = xmlDateFactory.newXMLGregorianCalendar(time.trim());
             } catch (IllegalArgumentException iaex) {
@@ -903,9 +927,11 @@ public class AssertionHelper {
 
     private List<String> extractAuthzDecisionStatementEvidenceAssertionAccessConsentPolicy(AssertionType assertion) {
         List<String> value = null;
-        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) 
+        if ((assertion.getSamlAuthzDecisionStatement() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null)
                 && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)
-                && (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().isEmpty())) {
+                && (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
+                        .isEmpty())) {
             log.debug("Extracting AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy");
             value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy();
             log.debug("Extracted AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy value=" + value);
@@ -916,7 +942,8 @@ public class AssertionHelper {
         return value;
     }
 
-    private void appendAuthzDecisionStatementEvidenceAssertionAccessConsentPolicy(RequestType policyRequest, AssertionType assertion) {
+    private void appendAuthzDecisionStatementEvidenceAssertionAccessConsentPolicy(RequestType policyRequest,
+            AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy;
@@ -927,13 +954,17 @@ public class AssertionHelper {
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy");
     }
 
-    private List<String> extractAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(AssertionType assertion) {
+    private List<String> extractAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(
+            AssertionType assertion) {
         List<String> value = null;
-        if ((assertion.getSamlAuthzDecisionStatement() != null) && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null) 
+        if ((assertion.getSamlAuthzDecisionStatement() != null)
+                && (assertion.getSamlAuthzDecisionStatement().getEvidence() != null)
                 && (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null)
-                && (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().isEmpty())) {
+                && (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
+                        .getInstanceAccessConsentPolicy().isEmpty())) {
             log.debug("Extracting AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy");
-            value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy();
+            value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
+                    .getInstanceAccessConsentPolicy();
             log.debug("Extracted AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy value=" + value);
         } else {
             log.warn("Unable to find AuthzDecisionStatement Evidence Assertion in SAML, will not be included in message to policy engine");
@@ -942,7 +973,8 @@ public class AssertionHelper {
         return value;
     }
 
-    private void appendAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(RequestType policyRequest, AssertionType assertion) {
+    private void appendAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(RequestType policyRequest,
+            AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy;

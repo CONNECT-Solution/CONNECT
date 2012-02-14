@@ -38,7 +38,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruXDRAsyncRespNoOpImplTest {
@@ -70,9 +70,10 @@ public class PassthruXDRAsyncRespNoOpImplTest {
         System.out.println("testProvideAndRegisterDocumentSetBAsyncResponse");
         RegistryResponseType provideAndRegisterAsyncRespRequest = null;
         PassthruDocSubmissionDeferredResponseProxyNoOpImpl instance = new PassthruDocSubmissionDeferredResponseProxyNoOpImpl();
-        
-        XDRAcknowledgementType result = instance.provideAndRegisterDocumentSetBResponse(provideAndRegisterAsyncRespRequest, new AssertionType(), new NhinTargetSystemType());
-       assertNotNull(result);
+
+        XDRAcknowledgementType result = instance.provideAndRegisterDocumentSetBResponse(
+                provideAndRegisterAsyncRespRequest, new AssertionType(), new NhinTargetSystemType());
+        assertNotNull(result);
     }
 
 }

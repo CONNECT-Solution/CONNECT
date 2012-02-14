@@ -33,48 +33,40 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
-public class AdapterPolicyEngineImpl
-{
+public class AdapterPolicyEngineImpl {
     private Log log = null;
 
-    public AdapterPolicyEngineImpl()
-    {
+    public AdapterPolicyEngineImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception
-    {
+    protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
         // TODO: Extract message ID from the web service context for logging.
     }
 
-    public CheckPolicyResponseType checkPolicy(gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType request, WebServiceContext context)
-    {
+    public CheckPolicyResponseType checkPolicy(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType request, WebServiceContext context) {
         log.debug("Begin AdapterPolicyEngineImpl.checkPolicy (unsecure)");
         CheckPolicyResponseType checkPolicyResp = null;
 
         gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl oPolicyEngine = new gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl();
-        try
-        {
+        try {
             AssertionType assertion = request.getAssertion();
             loadAssertion(assertion, context);
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest = new gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType();
             checkPolicyRequest.setAssertion(assertion);
             checkPolicyRequest.setRequest(request.getRequest());
             checkPolicyResp = oPolicyEngine.checkPolicy(checkPolicyRequest, assertion);
-        }
-        catch (Exception e)
-        {
-            String sMessage = "Error occurred calling AdapterPolicyEngineImpl.checkPolicy.  Error: " +
-                    e.getMessage();
+        } catch (Exception e) {
+            String sMessage = "Error occurred calling AdapterPolicyEngineImpl.checkPolicy.  Error: " + e.getMessage();
             log.error(sMessage, e);
             throw new RuntimeException(sMessage, e);
         }

@@ -66,14 +66,16 @@ public class NhinSubscribeProcessor {
 
     /**
      * Perform processing for an NHIN subscribe message.
-     *
+     * 
      * @param subscribe NHIN subscribe message
      * @param assertion Assertion information extracted from the SOAP header
      * @param rawSubscribeXml Raw subscribe message received in the SOAP message
      * @return Subscribe response message
      * @throws java.lang.Exception
      */
-    public SubscribeResponse processNhinSubscribe(Element soapMessage, AssertionType assertion) throws NotifyMessageNotSupportedFault, SubscribeCreationFailedFault, TopicNotSupportedFault, InvalidTopicExpressionFault, ResourceUnknownFault {
+    public SubscribeResponse processNhinSubscribe(Element soapMessage, AssertionType assertion)
+            throws NotifyMessageNotSupportedFault, SubscribeCreationFailedFault, TopicNotSupportedFault,
+            InvalidTopicExpressionFault, ResourceUnknownFault {
         log.debug("In processNhinSubscribe");
 
         log.debug("extract subscribe from soapmessage");
@@ -85,7 +87,8 @@ public class NhinSubscribeProcessor {
             ConfigurationManager config = new ConfigurationManager();
             serviceMode = config.getSubscriptionServiceMode();
         } catch (ConfigurationException ex) {
-            throw new SoapFaultFactory().getUnknownSubscriptionServiceMode("Configuration occurred - unable to determine service mode.");
+            throw new SoapFaultFactory()
+                    .getUnknownSubscriptionServiceMode("Configuration occurred - unable to determine service mode.");
         }
 
         log.debug("serviceMode=" + serviceMode);
@@ -105,7 +108,8 @@ public class NhinSubscribeProcessor {
         return subscribeResponse;
     }
 
-    private TopicConfigurationEntry getTopicConfiguration(Element subscribeElement) throws TopicNotSupportedFault, InvalidTopicExpressionFault, ConfigurationException {
+    private TopicConfigurationEntry getTopicConfiguration(Element subscribeElement) throws TopicNotSupportedFault,
+            InvalidTopicExpressionFault, ConfigurationException {
         RootTopicExtractor rootTopicExtractor = new RootTopicExtractor();
 
         Element topic;
@@ -117,12 +121,12 @@ public class NhinSubscribeProcessor {
             throw new SoapFaultFactory().getUnableToParseTopicExpressionFromSubscribeFault(ex);
         }
 
-//        if (topic == null) {
-//            log.debug("topic not found from message, so using reverse compatibility");
-//            RootTopicExtractorReverseCompat compat = new RootTopicExtractorReverseCompat();
-//            topic = compat.buildReverseCompatTopicExpression(subscribeElement);
-//            log.debug("complete with RootTopicExtractorReverseCompat.  found=" + (topic != null));
-//        }
+        // if (topic == null) {
+        // log.debug("topic not found from message, so using reverse compatibility");
+        // RootTopicExtractorReverseCompat compat = new RootTopicExtractorReverseCompat();
+        // topic = compat.buildReverseCompatTopicExpression(subscribeElement);
+        // log.debug("complete with RootTopicExtractorReverseCompat.  found=" + (topic != null));
+        // }
 
         TopicConfigurationEntry topicConfig;
         topicConfig = TopicConfigurationManager.getInstance().getTopicConfiguration(topic);
@@ -137,7 +141,8 @@ public class NhinSubscribeProcessor {
         return topicConfig;
     }
 
-    private SubscribeResponse nhinSubscribe(Element subscribe, AssertionType assertion) throws TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault, ResourceUnknownFault {
+    private SubscribeResponse nhinSubscribe(Element subscribe, AssertionType assertion) throws TopicNotSupportedFault,
+            InvalidTopicExpressionFault, SubscribeCreationFailedFault, ResourceUnknownFault {
         log.debug("Begin nhinSubscribe");
         SubscribeResponse response = null;
 
@@ -154,7 +159,8 @@ public class NhinSubscribeProcessor {
             throw new SoapFaultFactory().getTopicConfigurationException(ex);
         }
 
-        QualifiedSubjectIdentifierType patientIdentifier = new PatientIdExtractor().extractPatientIdentifier(subscribe, topicConfig);
+        QualifiedSubjectIdentifierType patientIdentifier = new PatientIdExtractor().extractPatientIdentifier(subscribe,
+                topicConfig);
         performPolicyCheck(subscribe, assertion, patientIdentifier);
 
         SubscriptionHandler subscriptionHandler;
@@ -173,11 +179,13 @@ public class NhinSubscribeProcessor {
         return response;
     }
 
-    private void performPolicyCheck(Element subscribe, AssertionType assertion, QualifiedSubjectIdentifierType patientIdentifier) {
+    private void performPolicyCheck(Element subscribe, AssertionType assertion,
+            QualifiedSubjectIdentifierType patientIdentifier) {
         // TODO: Call policy check
     }
 
-    private SubscribeResponse passthroughMode(Element subscribe, AssertionType assertion) throws SubscribeCreationFailedFault {
+    private SubscribeResponse passthroughMode(Element subscribe, AssertionType assertion)
+            throws SubscribeCreationFailedFault {
         log.info("initialize HIEM subscribe adapter proxy");
         HiemSubscribeAdapterProxyObjectFactory factory = new HiemSubscribeAdapterProxyObjectFactory();
         HiemSubscribeAdapterProxy proxy = factory.getHiemSubscribeAdapterProxy();
@@ -186,14 +194,14 @@ public class NhinSubscribeProcessor {
         NhinTargetSystemType target = null;
         log.info("invoke HIEM subscribe adapter proxy");
         try {
-            subscribeResponseElement =  proxy.subscribe(subscribe, assertion, target);
+            subscribeResponseElement = proxy.subscribe(subscribe, assertion, target);
         } catch (Exception ex) {
             throw new SoapFaultFactory().getFailedToForwardSubscribeToAgencyFault(ex);
         }
 
         log.debug("unmarshalling subscription response");
         SubscribeResponseMarshaller marshaller = new SubscribeResponseMarshaller();
-        SubscribeResponse subscribeResponse =marshaller.unmarshal(subscribeResponseElement);
+        SubscribeResponse subscribeResponse = marshaller.unmarshal(subscribeResponseElement);
 
         log.info("complete with invoke HIEM subscribe adapter proxy");
 

@@ -39,7 +39,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterPatientDiscoveryAsyncReqNoOpImplTest {

@@ -48,7 +48,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hl7.v3.II;
 
 /**
- *
+ * 
  * @author akong
  */
 public class PDDeferredCorrelationDao {
@@ -56,8 +56,8 @@ public class PDDeferredCorrelationDao {
     private static Log log = LogFactory.getLog(PDDeferredCorrelationDao.class);
 
     /**
-     * Query by Message Id.  This should return only one record.
-     *
+     * Query by Message Id. This should return only one record.
+     * 
      * @param messageId
      * @return matching records
      */
@@ -85,7 +85,8 @@ public class PDDeferredCorrelationDao {
             }
 
             if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by message id. Results found: " + ((pdCorrelations == null) ? "0" : Integer.toString(pdCorrelations.size())));
+                log.debug("Completed database record retrieve by message id. Results found: "
+                        + ((pdCorrelations == null) ? "0" : Integer.toString(pdCorrelations.size())));
             }
         } finally {
             if (sess != null) {
@@ -111,7 +112,7 @@ public class PDDeferredCorrelationDao {
 
     /**
      * Copies the field values from the source to the destination.
-     *
+     * 
      * @param source
      * @param dest
      */
@@ -120,11 +121,10 @@ public class PDDeferredCorrelationDao {
         dest.setCreationTime(source.getCreationTime());
         dest.setPatientId(source.getPatientId());
     }
-    
+
     /**
-     * Saves a record to the database. Updates if the message id already exists
-     * in the database.
-     *
+     * Saves a record to the database. Updates if the message id already exists in the database.
+     * 
      * @param messageId
      * @param patientId
      */
@@ -138,9 +138,8 @@ public class PDDeferredCorrelationDao {
     }
 
     /**
-     * Save a record to the database. Updates if the message id already exists
-     * in the database.
-     *
+     * Save a record to the database. Updates if the message id already exists in the database.
+     * 
      * @param object to save.
      */
     public void saveOrUpdate(PDDeferredCorrelation pdCorrelation) {

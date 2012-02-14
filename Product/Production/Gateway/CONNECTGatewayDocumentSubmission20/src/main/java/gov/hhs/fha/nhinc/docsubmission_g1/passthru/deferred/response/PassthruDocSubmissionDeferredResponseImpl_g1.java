@@ -38,24 +38,29 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.List;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class PassthruDocSubmissionDeferredResponseImpl_g1
-{
+public class PassthruDocSubmissionDeferredResponseImpl_g1 {
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest, WebServiceContext context)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest,
+            WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, null);
 
-        return new PassthruDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(provideAndRegisterResponseRequest.getRegistryResponse(), assertion, provideAndRegisterResponseRequest.getNhinTargetSystem());
+        return new PassthruDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(
+                provideAndRegisterResponseRequest.getRegistryResponse(), assertion,
+                provideAndRegisterResponseRequest.getNhinTargetSystem());
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponseOrch(RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterResponseRequest, WebServiceContext context)
-    {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponseOrch(
+            RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterResponseRequest,
+            WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, provideAndRegisterResponseRequest.getAssertion());
 
-        return new PassthruDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(provideAndRegisterResponseRequest.getRegistryResponse(), assertion, provideAndRegisterResponseRequest.getNhinTargetSystem());
+        return new PassthruDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(
+                provideAndRegisterResponseRequest.getRegistryResponse(), assertion,
+                provideAndRegisterResponseRequest.getNhinTargetSystem());
     }
 
     protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
@@ -69,8 +74,7 @@ public class PassthruDocSubmissionDeferredResponseImpl_g1
         if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList))
-            {
+            if (NullChecker.isNotNullish(relatesToList)) {
                 assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
             }
         }

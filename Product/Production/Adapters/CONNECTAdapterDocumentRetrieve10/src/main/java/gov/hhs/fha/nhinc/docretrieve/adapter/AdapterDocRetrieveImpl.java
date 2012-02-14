@@ -19,31 +19,29 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
 
-
 /**
- *
+ * 
  * @author svalluripalli
  */
-public class AdapterDocRetrieveImpl
-{
+public class AdapterDocRetrieveImpl {
     private static Log log = LogFactory.getLog(AdapterDocRetrieveImpl.class);
 
     /**
      * Perform Doc Retrieve.
-     *
-     * @param bIsSecure  TRUE if this is being called from a secure web service.
+     * 
+     * @param bIsSecure TRUE if this is being called from a secure web service.
      * @param respondingGatewayCrossGatewayRetrieveRequest The information about the document that is being retrieved.
      * @param context The web service context information.
      * @return The document(s) that were retrieved.
      */
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveUnsecured(RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest, WebServiceContext context)
-    {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveUnsecured(
+            RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest,
+            WebServiceContext context) {
         log.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         AssertionType assertion = null;
         RetrieveDocumentSetRequestType request = null;
-        if (respondingGatewayCrossGatewayRetrieveRequest != null)
-        {
+        if (respondingGatewayCrossGatewayRetrieveRequest != null) {
             request = respondingGatewayCrossGatewayRetrieveRequest.getRetrieveDocumentSetRequest();
             assertion = respondingGatewayCrossGatewayRetrieveRequest.getAssertion();
         }
@@ -58,22 +56,19 @@ public class AdapterDocRetrieveImpl
 
     /**
      * Perform Doc Retrieve.
-     *
+     * 
      * @param body The information about the document that is being retrieved.
      * @param context The web service context information.
      * @return The document(s) that were retrieved.
      */
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveSecured(RetrieveDocumentSetRequestType body, WebServiceContext context)
-    {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveSecured(
+            RetrieveDocumentSetRequestType body, WebServiceContext context) {
         log.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         AssertionType assertion = null;
-        if (context != null)
-        {
+        if (context != null) {
             assertion = SamlTokenExtractor.GetAssertion(context);
-        }
-        else
-        {
+        } else {
             assertion = new AssertionType();
         }
 
@@ -91,8 +86,8 @@ public class AdapterDocRetrieveImpl
      * @param assertion The assertion information.
      * @return The response from the orchestrator.
      */
-    private RetrieveDocumentSetResponseType callOrchestrator(RetrieveDocumentSetRequestType body, AssertionType assertion)
-    {
+    private RetrieveDocumentSetResponseType callOrchestrator(RetrieveDocumentSetRequestType body,
+            AssertionType assertion) {
         AdapterDocRetrieveOrchImpl oOrchestrator = new AdapterDocRetrieveOrchImpl();
         RetrieveDocumentSetResponseType response = oOrchestrator.respondingGatewayCrossGatewayRetrieve(body, assertion);
         return response;

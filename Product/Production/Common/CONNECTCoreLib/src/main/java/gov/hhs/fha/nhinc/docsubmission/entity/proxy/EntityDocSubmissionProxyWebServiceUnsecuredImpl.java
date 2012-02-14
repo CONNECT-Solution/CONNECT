@@ -69,18 +69,20 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected EntityXDRPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected EntityXDRPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         EntityXDRPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityXDRPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -89,7 +91,7 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -104,30 +106,26 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
     }
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType message,
-            AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo)
-    {
+            AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         log.debug("Begin EntityDocSubmissionProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetB");
         RegistryResponseType response = new RegistryResponseType();
 
-        try
-        {
-                String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_SERVICE_NAME);
-                EntityXDRPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
+        try {
+            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_SERVICE_NAME);
+            EntityXDRPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
 
-                if (port != null)
-                {
-                    RespondingGatewayProvideAndRegisterDocumentSetRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetRequestType();
-                    request.setNhinTargetCommunities(targets);
-                    request.setProvideAndRegisterDocumentSetRequest(message);
-                    request.setUrl(urlInfo);
-                    request.setAssertion(assertion);
-                    response = (RegistryResponseType) oProxyHelper.invokePort(port, EntityXDRPortType.class, "provideAndRegisterDocumentSetB", request);
-                } else
-                {
-                    log.error("EntityXDRPortType is null");
-                }
-        } catch (Exception ex)
-        {
+            if (port != null) {
+                RespondingGatewayProvideAndRegisterDocumentSetRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetRequestType();
+                request.setNhinTargetCommunities(targets);
+                request.setProvideAndRegisterDocumentSetRequest(message);
+                request.setUrl(urlInfo);
+                request.setAssertion(assertion);
+                response = (RegistryResponseType) oProxyHelper.invokePort(port, EntityXDRPortType.class,
+                        "provideAndRegisterDocumentSetB", request);
+            } else {
+                log.error("EntityXDRPortType is null");
+            }
+        } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
         }
 

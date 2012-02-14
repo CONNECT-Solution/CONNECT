@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "AdapterNotificationProducer", portName = "AdapterNotificationProducerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement", wsdlLocation = "META-INF/wsdl/AdapterSubcriptionManagement/AdapterSubscriptionManagement.wsdl")
@@ -45,23 +45,25 @@ public class AdapterSubcriptionManagement implements AdapterNotificationProducer
 
     private static Log log = LogFactory.getLog(AdapterSubcriptionManagement.class);
 
-    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeRequestType subscribeRequest) {
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeRequestType subscribeRequest) {
         SubscribeResponse response = new SubscribeResponse();
 
         log.info("Received Subscribe Request: " + subscribeRequest);
-
 
         return response;
 
     }
 
-    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribeDocument(gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeDocumentRequestType subscribeDocumentRequest) {
-        //TODO implement this method
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribeDocument(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeDocumentRequestType subscribeDocumentRequest) {
+        // TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribeCdcBioPackage(gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeCdcBioPackageRequestType subscribeCdcBioPackageRequest) {
-        //TODO implement this method
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribeCdcBioPackage(
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeCdcBioPackageRequestType subscribeCdcBioPackageRequest) {
+        // TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 

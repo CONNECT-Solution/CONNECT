@@ -32,17 +32,15 @@ import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
+public class EntityDocQueryProxyJavaImpl implements EntityDocQueryProxy {
 
-public class EntityDocQueryProxyJavaImpl implements EntityDocQueryProxy
-{
-
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets)
-    {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
+            NhinTargetCommunitiesType targets) {
         AdhocQueryResponse response = null;
 
         // @TODO......paul fix this......need references or executors on EntityDocQueryOrchImpl construction
-        //EntityDocQueryOrchImpl orchImpl = new EntityDocQueryOrchImpl();
-        //response = orchImpl.respondingGatewayCrossGatewayQuery(msg, assertion, targets);
+        // EntityDocQueryOrchImpl orchImpl = new EntityDocQueryOrchImpl();
+        // response = orchImpl.respondingGatewayCrossGatewayQuery(msg, assertion, targets);
 
         return response;
     }

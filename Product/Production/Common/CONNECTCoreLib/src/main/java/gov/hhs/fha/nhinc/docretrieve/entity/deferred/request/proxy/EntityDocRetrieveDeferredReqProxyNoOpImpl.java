@@ -34,13 +34,13 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- * This class is a very simple "No Op" implementation of the Entity Doc retrieve 
- * deferred request service java interface.Always return a Success message. .
- * The idea of this class is to provide a very fast - testable implementation of the service.
+ * This class is a very simple "No Op" implementation of the Entity Doc retrieve deferred request service java
+ * interface.Always return a Success message. . The idea of this class is to provide a very fast - testable
+ * implementation of the service.
+ * 
  * @author Sai Valluripalli
  */
-public class EntityDocRetrieveDeferredReqProxyNoOpImpl implements EntityDocRetrieveDeferredReqProxy
-{
+public class EntityDocRetrieveDeferredReqProxyNoOpImpl implements EntityDocRetrieveDeferredReqProxy {
     /**
      * 
      * @param message
@@ -48,8 +48,8 @@ public class EntityDocRetrieveDeferredReqProxyNoOpImpl implements EntityDocRetri
      * @param target
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message, AssertionType assertion, NhinTargetCommunitiesType target)
-    {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RetrieveDocumentSetRequestType message,
+            AssertionType assertion, NhinTargetCommunitiesType target) {
         DocRetrieveAcknowledgementType ack = new DocRetrieveAcknowledgementType();
         RegistryResponseType resp = new RegistryResponseType();
         resp.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);

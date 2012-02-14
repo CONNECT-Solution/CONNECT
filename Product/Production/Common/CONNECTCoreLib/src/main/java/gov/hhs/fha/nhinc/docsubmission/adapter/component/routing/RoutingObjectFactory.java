@@ -25,11 +25,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.routing;
+
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class RoutingObjectFactory {
@@ -42,6 +44,7 @@ public class RoutingObjectFactory {
     static {
         context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
     }
+
     public XDRRouting getNhinXDRRouting(String beanName) {
         XDRRouting proxy = null;
         if (context != null) {

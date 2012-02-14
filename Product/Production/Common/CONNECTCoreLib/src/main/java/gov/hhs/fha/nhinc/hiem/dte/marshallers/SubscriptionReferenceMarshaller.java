@@ -36,7 +36,7 @@ import org.w3._2005._08.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class SubscriptionReferenceMarshaller {
@@ -55,6 +55,7 @@ public class SubscriptionReferenceMarshaller {
         EndpointReferenceMarshaller marshaller = new EndpointReferenceMarshaller();
         return marshaller.unmarshal(element, ContextPath);
     }
+
     public EndpointReferenceType unmarshal(String xml) {
         EndpointReferenceMarshaller marshaller = new EndpointReferenceMarshaller();
         return marshaller.unmarshal(xml, ContextPath);

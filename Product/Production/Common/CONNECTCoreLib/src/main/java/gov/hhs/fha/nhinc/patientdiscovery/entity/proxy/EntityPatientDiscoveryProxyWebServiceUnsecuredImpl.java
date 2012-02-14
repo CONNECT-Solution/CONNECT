@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy ;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -42,11 +42,10 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements EntityPatientDiscoveryProxy
-{
+public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements EntityPatientDiscoveryProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entitypatientdiscovery";
@@ -57,39 +56,33 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
 
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public EntityPatientDiscoveryProxyWebServiceUnsecuredImpl()
-    {
+    public EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
-    protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException
-    {
+    protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
         return ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName);
     }
 
-    protected String getEndpointURL()
-    {
+    protected String getEndpointURL() {
         String endpointURL = null;
         String serviceName = NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME;
-        try
-        {
+        try {
             endpointURL = invokeConnectionManager(serviceName);
             log.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
-        }
-        catch (ConnectionManagerException ex)
-        {
-            log.error("Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(), ex);
+        } catch (ConnectionManagerException ex) {
+            log.error(
+                    "Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(),
+                    ex);
         }
 
         return endpointURL;
@@ -97,68 +90,61 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
 
-    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest, AssertionType assertion, NhinTargetCommunitiesType targetCommunities)
-    {
+    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
+            AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
         log.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
-        try
-        {
+        try {
             String url = getEndpointURL();
-            EntityPatientDiscoveryPortType port = getPort(url, NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
+            EntityPatientDiscoveryPortType port = getPort(url, NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME,
+                    WS_ADDRESSING_ACTION, assertion);
 
-            if(pdRequest == null)
-            {
+            if (pdRequest == null) {
                 log.error("PRPAIN201305UV02 was null");
-            }
-            else if(assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("AssertionType was null");
-            }
-            else if(targetCommunities == null)
-            {
+            } else if (targetCommunities == null) {
                 log.error("NhinTargetCommunitiesType was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("EntityPatientDiscoverySecuredPortType was null");
-            }
-            else
-            {
+            } else {
                 RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
                 request.setPRPAIN201305UV02(pdRequest);
                 request.setAssertion(assertion);
                 request.setNhinTargetCommunities(targetCommunities);
 
-                response = (RespondingGatewayPRPAIN201306UV02ResponseType)oProxyHelper.invokePort(port, EntityPatientDiscoveryPortType.class, "respondingGatewayPRPAIN201305UV02", request);
+                response = (RespondingGatewayPRPAIN201306UV02ResponseType) oProxyHelper.invokePort(port,
+                        EntityPatientDiscoveryPortType.class, "respondingGatewayPRPAIN201305UV02", request);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling respondingGatewayPRPAIN201305UV02: " + ex.getMessage(), ex);
         }
 
         log.debug("End respondingGatewayPRPAIN201305UV02");
         return response;
     }
+
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected EntityPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         EntityPatientDiscoveryPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityPatientDiscoveryPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -167,7 +153,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {

@@ -31,8 +31,7 @@ package gov.hhs.fha.nhinc.connectmgr.data;
 /**
  * @author Les Westberg
  */
-public class CMInternalConnInfoService
-{
+public class CMInternalConnInfoService {
     private String name;
     private String description;
     private String endpointURL;
@@ -41,52 +40,44 @@ public class CMInternalConnInfoService
     /**
      * Default constructor.
      */
-    public CMInternalConnInfoService()
-    {
+    public CMInternalConnInfoService() {
         clear();
     }
-    
+
     /**
      * Clear the contents of this and set it to a default state.
      */
-    public void clear()
-    {
+    public void clear() {
         name = "";
         description = "";
         endpointURL = "";
         externalService = false;
     }
-    
+
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
+     * Returns true of the contents of the object are the same as the one passed in.
      * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMInternalConnInfoService oCompare)
-    {
+    public boolean equals(CMInternalConnInfoService oCompare) {
         boolean headerMatch = false;
 
-        if ((this.name.equalsIgnoreCase(oCompare.name)) &&
-            (this.description.equalsIgnoreCase(oCompare.description)) &&
-            (this.endpointURL.equalsIgnoreCase(oCompare.endpointURL)) &&
-            (this.externalService == oCompare.externalService))
-        {
+        if ((this.name.equalsIgnoreCase(oCompare.name)) && (this.description.equalsIgnoreCase(oCompare.description))
+                && (this.endpointURL.equalsIgnoreCase(oCompare.endpointURL))
+                && (this.externalService == oCompare.externalService)) {
             headerMatch = true;
         }
 
         return headerMatch;
     }
-    
-    
+
     /**
      * This method returns the description of the service.
      * 
      * @return The description of the service.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
@@ -95,8 +86,7 @@ public class CMInternalConnInfoService
      * 
      * @param description The description of the service.
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -105,8 +95,7 @@ public class CMInternalConnInfoService
      * 
      * @return The URL for the endpoint.
      */
-    public String getEndpointURL()
-    {
+    public String getEndpointURL() {
         return endpointURL;
     }
 
@@ -115,19 +104,16 @@ public class CMInternalConnInfoService
      * 
      * @param endpointURL The URL for the endpoint.
      */
-    public void setEndpointURL(String endpointURL)
-    {
+    public void setEndpointURL(String endpointURL) {
         this.endpointURL = endpointURL;
     }
 
     /**
-     * If this is true then this service is an external service meaning
-     * that it is one that is exposed to the nhin.
+     * If this is true then this service is an external service meaning that it is one that is exposed to the nhin.
      * 
      * @return Returns true if this service is exposed to the nhin.
      */
-    public boolean isExternalService()
-    {
+    public boolean isExternalService() {
         return externalService;
     }
 
@@ -136,8 +122,7 @@ public class CMInternalConnInfoService
      * 
      * @param externalService This is true if this service is exposed to the nhin.
      */
-    public void setExternalService(boolean externalService)
-    {
+    public void setExternalService(boolean externalService) {
         this.externalService = externalService;
     }
 
@@ -146,8 +131,7 @@ public class CMInternalConnInfoService
      * 
      * @return The name of this service.
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -156,8 +140,7 @@ public class CMInternalConnInfoService
      * 
      * @param name The name of this service.
      */
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 

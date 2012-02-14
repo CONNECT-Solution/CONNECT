@@ -62,9 +62,8 @@ import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
 import org.hl7.v3.II;
 
 /**
- * This class manages the patient consent form.  It stores or retrieves the patient
- * consent document from the repository.
- *
+ * This class manages the patient consent form. It stores or retrieves the patient consent document from the repository.
+ * 
  * @author Les Westberg
  */
 public class PatientConsentManager {
@@ -79,11 +78,10 @@ public class PatientConsentManager {
 
     /**
      * Return a handle to the document registry port.
-     *
+     * 
      * @return The handle to the document registry port web service.
      */
-    public DocumentRegistryPortType getDocumentRegistryPort()
-            throws AdapterPIPException {
+    public DocumentRegistryPortType getDocumentRegistryPort() throws AdapterPIPException {
         DocumentRegistryPortType oDocRegistryPort = null;
 
         try {
@@ -94,28 +92,27 @@ public class PatientConsentManager {
             oDocRegistryPort = oDocRegService.getDocumentRegistryPortSoap();
 
             // Get the real endpoint URL for this service.
-            //--------------------------------------------
+            // --------------------------------------------
             String sEndpointURL = "";
             String xdsHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
-            if (xdsHomeCommunityId != null &&
-                    !xdsHomeCommunityId.equals("")) {
-                sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(xdsHomeCommunityId, CDAConstants.DOC_REGISTRY_SERVICE_NAME);
+            if (xdsHomeCommunityId != null && !xdsHomeCommunityId.equals("")) {
+                sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(xdsHomeCommunityId,
+                        CDAConstants.DOC_REGISTRY_SERVICE_NAME);
             } else {
-                sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(CDAConstants.DOC_REGISTRY_SERVICE_NAME);
+                sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+                        CDAConstants.DOC_REGISTRY_SERVICE_NAME);
             }
 
-
-            if ((sEndpointURL == null) ||
-                    (sEndpointURL.length() <= 0)) {
-                String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '" +
-                        CDAConstants.DOC_REGISTRY_SERVICE_NAME + "'.  " +
-                        "Setting this to: '" + sEndpointURL + "'";
+            if ((sEndpointURL == null) || (sEndpointURL.length() <= 0)) {
+                String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '"
+                        + CDAConstants.DOC_REGISTRY_SERVICE_NAME + "'.  " + "Setting this to: '" + sEndpointURL + "'";
                 log.warn(sErrorMessage);
             }
-            ((javax.xml.ws.BindingProvider) oDocRegistryPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            ((javax.xml.ws.BindingProvider) oDocRegistryPort).getRequestContext().put(
+                    javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
         } catch (Exception e) {
-            String sErrorMessage = "Failed to retrieve a handle to the Document Registry web service.  Error: " +
-                    e.getMessage();
+            String sErrorMessage = "Failed to retrieve a handle to the Document Registry web service.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
@@ -125,11 +122,10 @@ public class PatientConsentManager {
 
     /**
      * Return a handle to the document repository port.
-     *
+     * 
      * @return The handle to the document registry port web service.
      */
-    private DocumentRepositoryPortType getDocumentRepositoryPort()
-            throws AdapterPIPException {
+    private DocumentRepositoryPortType getDocumentRepositoryPort() throws AdapterPIPException {
         DocumentRepositoryPortType oDocRepositoryPort = null;
 
         try {
@@ -137,32 +133,31 @@ public class PatientConsentManager {
                 oDocRepService = new DocumentRepositoryService();
             }
 
-//            oDocRepositoryPort = oDocRepService.getDocumentRepositoryPortSoap();
+            // oDocRepositoryPort = oDocRepService.getDocumentRepositoryPortSoap();
             oDocRepositoryPort = oDocRepService.getDocumentRepositoryPortSoap();
 
             // Get the real endpoint URL for this service.
-            //--------------------------------------------
+            // --------------------------------------------
             String sEndpointURL = "";
             String xdsHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
-            if (xdsHomeCommunityId != null &&
-                    !xdsHomeCommunityId.equals("")) {
-                sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(xdsHomeCommunityId, CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
+            if (xdsHomeCommunityId != null && !xdsHomeCommunityId.equals("")) {
+                sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(xdsHomeCommunityId,
+                        CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
             } else {
-                sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
+                sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+                        CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
             }
 
-
-            if ((sEndpointURL == null) ||
-                    (sEndpointURL.length() <= 0)) {
-                String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '" +
-                        CDAConstants.DOC_REPOSITORY_SERVICE_NAME + "'.  " +
-                        "Setting this to: '" + sEndpointURL + "'";
+            if ((sEndpointURL == null) || (sEndpointURL.length() <= 0)) {
+                String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '"
+                        + CDAConstants.DOC_REPOSITORY_SERVICE_NAME + "'.  " + "Setting this to: '" + sEndpointURL + "'";
                 log.warn(sErrorMessage);
             }
-            ((javax.xml.ws.BindingProvider) oDocRepositoryPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            ((javax.xml.ws.BindingProvider) oDocRepositoryPort).getRequestContext().put(
+                    javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
         } catch (Exception e) {
-            String sErrorMessage = "Failed to retrieve a handle to the Document Repository web service.  Error: " +
-                    e.getMessage();
+            String sErrorMessage = "Failed to retrieve a handle to the Document Repository web service.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
@@ -171,20 +166,19 @@ public class PatientConsentManager {
     }
 
     /**
-     * This method saves the patient consent information to the document repository.
-     * It will overwrite anything that is currently there.
-     *
+     * This method saves the patient consent information to the document repository. It will overwrite anything that is
+     * currently there.
+     * 
      * @param oPtPref The patient consent preferences.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This
-     *         exception is thrown if there is an error storing.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This exception is thrown if there is an
+     *             error storing.
      */
-    public void storePatientConsent(PatientPreferencesType oPtPref)
-            throws AdapterPIPException, PropertyAccessException {
+    public void storePatientConsent(PatientPreferencesType oPtPref) throws AdapterPIPException, PropertyAccessException {
 
         log.info("------ Begin PatientConsentManager.storePatientConsent() ------");
         // PatientPreferences contains a FineGrainedPolicyCriteria and possibly
         // multiple BinaryDocumentPolicyCriteria.
-        //---------------------------------------------------------------------
+        // ---------------------------------------------------------------------
         if (oPtPref != null) {
 
             // Create the document
@@ -196,10 +190,9 @@ public class PatientConsentManager {
             log.info("Created XACML Doc with policy OID: " + oConsentXACML.getPolicyId());
 
             String sDocOID = null;
-            if ((oPtPref != null) &&
-                    (oPtPref.getAssigningAuthority() != null) &&
-                    (oPtPref.getPatientId() != null)) {
-                sDocOID = retrievePatientConsentDocumentIdByPatientId(oPtPref.getPatientId(), oPtPref.getAssigningAuthority());
+            if ((oPtPref != null) && (oPtPref.getAssigningAuthority() != null) && (oPtPref.getPatientId() != null)) {
+                sDocOID = retrievePatientConsentDocumentIdByPatientId(oPtPref.getPatientId(),
+                        oPtPref.getAssigningAuthority());
                 log.info("storePatientConsent - sDocOID: " + sDocOID);
             }
 
@@ -210,25 +203,27 @@ public class PatientConsentManager {
             XACMLSerializer oSerializer = new XACMLSerializer();
             String sConsentXACML = oSerializer.serializeConsentXACMLDoc(oConsentXACML);
 
-            //Uses Repository Services
+            // Uses Repository Services
             storeCPPToRepositoryUsingXDSb(oPtPref, sConsentXACML, sDocOID, XACML_MIME_TYPE);
 
             // Next handle the storage of the BinaryDocumentPolicyCriteria docs
             // if any have a store action set to add or update
-            if (oPtPref.getBinaryDocumentPolicyCriteria() != null &&
-                    oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null &&
-                    !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
+            if (oPtPref.getBinaryDocumentPolicyCriteria() != null
+                    && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
+                    && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
 
                 List<String> olDocIds2Store = new ArrayList<String>();
-                List<BinaryDocumentPolicyCriterionType> olBinPolicyCriteria = oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion();
+                List<BinaryDocumentPolicyCriterionType> olBinPolicyCriteria = oPtPref.getBinaryDocumentPolicyCriteria()
+                        .getBinaryDocumentPolicyCriterion();
                 for (BinaryDocumentPolicyCriterionType oBinPolicyCriterion : olBinPolicyCriteria) {
                     if (oBinPolicyCriterion != null && oBinPolicyCriterion.getStoreAction() != null) {
-                        if (oBinPolicyCriterion.getStoreAction().compareTo(BinaryDocumentStoreActionType.ADD) == 0 ||
-                                oBinPolicyCriterion.getStoreAction().compareTo(BinaryDocumentStoreActionType.UPDATE) == 0) {
-                            log.info(oBinPolicyCriterion.getStoreAction() + " requested for document: " + oBinPolicyCriterion.getDocumentUniqueId());
+                        if (oBinPolicyCriterion.getStoreAction().compareTo(BinaryDocumentStoreActionType.ADD) == 0
+                                || oBinPolicyCriterion.getStoreAction().compareTo(BinaryDocumentStoreActionType.UPDATE) == 0) {
+                            log.info(oBinPolicyCriterion.getStoreAction() + " requested for document: "
+                                    + oBinPolicyCriterion.getDocumentUniqueId());
                             olDocIds2Store.add(oBinPolicyCriterion.getDocumentUniqueId());
                         }
-                        //TODO how do we handle the delete request ?
+                        // TODO how do we handle the delete request ?
                     }
                 }
 
@@ -238,9 +233,8 @@ public class PatientConsentManager {
                     List<POCDMT000040ClinicalDocument> olPdfs = oPdfCreator.createCDA(oPtPref);
                     if (olPdfs != null && !olPdfs.isEmpty()) {
                         for (POCDMT000040ClinicalDocument oCda : olPdfs) {
-                            if (oCda != null && oCda.getId() != null &&
-                                    oCda.getId().getExtension() != null &&
-                                    !oCda.getId().getExtension().isEmpty()) {
+                            if (oCda != null && oCda.getId() != null && oCda.getId().getExtension() != null
+                                    && !oCda.getId().getExtension().isEmpty()) {
                                 // The CDA ID will reflect the document unique id in the extension part of the II
                                 // This can be used to determine which documents to store
                                 String sDocUniqueID = oCda.getId().getExtension();
@@ -268,19 +262,17 @@ public class PatientConsentManager {
 
     /**
      * This method stores the patient preference document to the repository.
-     *
+     * 
      * @param oPtPref The patient preference information.
      * @param sPrefDoc The consent document.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *         This exception is thrown if there is an error.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This exception is thrown if there is an
+     *             error.
      */
-    private void storeCPPToRepositoryUsingXDSb(PatientPreferencesType oPtPref, String sPrefDoc, String sUniqueDocumentId, String sMimeType)
-            throws AdapterPIPException, PropertyAccessException {
+    private void storeCPPToRepositoryUsingXDSb(PatientPreferencesType oPtPref, String sPrefDoc,
+            String sUniqueDocumentId, String sMimeType) throws AdapterPIPException, PropertyAccessException {
         log.info("------ Begin PatientConsentManager.storeCPPToRepositoryUsingXDSb() ------");
         log.info("Request to store Document: " + sUniqueDocumentId);
-        if ((oPtPref == null) ||
-                (oPtPref.getPatientId() == null) ||
-                (oPtPref.getPatientId().trim().length() <= 0)) {
+        if ((oPtPref == null) || (oPtPref.getPatientId() == null) || (oPtPref.getPatientId().trim().length() <= 0)) {
             String sErrorMessage = "failed to store patient consent.  The patient ID was null or blank.";
             log.error(sErrorMessage);
             throw new AdapterPIPException(sErrorMessage);
@@ -292,7 +284,7 @@ public class PatientConsentManager {
     }
 
     /**
-     *
+     * 
      * @param sPrefDoc
      * @param oPtPref
      * @return boolean
@@ -316,19 +308,22 @@ public class PatientConsentManager {
         }
 
         // If a matching document id is found the target will not be empty
-        String sTargetObject = checkCPPMetaFromRepositoryUsingXDSb(oPtPref.getPatientId(), oPtPref.getAssigningAuthority(), sUniqueDocumentId, sMimeType);
+        String sTargetObject = checkCPPMetaFromRepositoryUsingXDSb(oPtPref.getPatientId(),
+                oPtPref.getAssigningAuthority(), sUniqueDocumentId, sMimeType);
         String sHomeCommunityId = PropertyAccessor.getProperty("gateway", "localHomeCommunityId");
         PatientConsentDocumentBuilderHelper oPatConsentDocBuilderHelper = new PatientConsentDocumentBuilderHelper();
-        SubmitObjectsRequest oSubmitObjectRequest = oPatConsentDocBuilderHelper.createSubmitObjectRequest(sTargetObject, sHomeCommunityId, sUniqueDocumentId, sMimeType, oPtPref);
+        SubmitObjectsRequest oSubmitObjectRequest = oPatConsentDocBuilderHelper.createSubmitObjectRequest(
+                sTargetObject, sHomeCommunityId, sUniqueDocumentId, sMimeType, oPtPref);
         oRequest.setSubmitObjectsRequest(oSubmitObjectRequest);
         DocumentRepositoryPortType oDocRepositoryPort = getDocumentRepositoryPort();
-        RegistryResponseType oRegistryResponse = oDocRepositoryPort.documentRepositoryProvideAndRegisterDocumentSetB(oRequest);
-        if (oRegistryResponse != null &&
-                oRegistryResponse.getStatus() != null &&
-                !oRegistryResponse.getStatus().equals("")) {
+        RegistryResponseType oRegistryResponse = oDocRepositoryPort
+                .documentRepositoryProvideAndRegisterDocumentSetB(oRequest);
+        if (oRegistryResponse != null && oRegistryResponse.getStatus() != null
+                && !oRegistryResponse.getStatus().equals("")) {
             log.info("Patient Consent Document saved to repository Successfully");
         } else {
-            throw new AdapterPIPException("Unable to Save patient Consent Document" + oRegistryResponse.getRegistryErrorList().getRegistryError().get(0).getValue());
+            throw new AdapterPIPException("Unable to Save patient Consent Document"
+                    + oRegistryResponse.getRegistryErrorList().getRegistryError().get(0).getValue());
         }
 
         log.info("------ End PatientConsentManager.saveCPPDoc ------");
@@ -336,6 +331,7 @@ public class PatientConsentManager {
 
     /**
      * This method is used internal by saveCPPDoc creates Document with rawData and document unique id
+     * 
      * @param sPrefDoc
      * @param sDocUniqueId
      * @return ProvideAndRegisterDocumentSetRequestType.Document
@@ -351,35 +347,35 @@ public class PatientConsentManager {
 
     /**
      * To verify a XAML Document already persists in database
+     * 
      * @param sPatientId The Patient identifier
-     *  @param sAssigningAuthority The assigning authority
+     * @param sAssigningAuthority The assigning authority
      * @return boolean
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
      */
-    private String checkCPPMetaFromRepositoryUsingXDSb(String sPatientId, String sAssigningAuthority, String sUniqueDocumentId, String sMimeType)
-            throws AdapterPIPException {
+    private String checkCPPMetaFromRepositoryUsingXDSb(String sPatientId, String sAssigningAuthority,
+            String sUniqueDocumentId, String sMimeType) throws AdapterPIPException {
         log.info("--------------- Begin checkCPPMetaFromRepositoryUsingXDSb ---------------");
         String sTargetObject = "";
         DocumentRegistryPortType oDocRegistryPort = getDocumentRegistryPort();
 
         AdhocQueryResponse oResponse = null;
         AdhocQueryRequest oRequest = new QueryUtil().createAdhocQueryRequest(sPatientId, sAssigningAuthority);
-        oResponse =
-                oDocRegistryPort.documentRegistryRegistryStoredQuery(oRequest);
+        oResponse = oDocRegistryPort.documentRegistryRegistryStoredQuery(oRequest);
 
-        if (oResponse != null &&
-                oResponse.getRegistryObjectList() != null &&
-                oResponse.getRegistryObjectList().getIdentifiable() != null &&
-                oResponse.getRegistryObjectList().getIdentifiable().size() > 0) {
-            List<JAXBElement<? extends IdentifiableType>> olRegObjs = oResponse.getRegistryObjectList().getIdentifiable();
+        if (oResponse != null && oResponse.getRegistryObjectList() != null
+                && oResponse.getRegistryObjectList().getIdentifiable() != null
+                && oResponse.getRegistryObjectList().getIdentifiable().size() > 0) {
+            List<JAXBElement<? extends IdentifiableType>> olRegObjs = oResponse.getRegistryObjectList()
+                    .getIdentifiable();
             String sFoundXACMLDoc = "";
-            foundLabel:
-            for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs) {
-                if ((oJAXBObj != null) &&
-                        (oJAXBObj.getDeclaredType() != null) &&
-                        (oJAXBObj.getDeclaredType().getCanonicalName() != null) &&
-                        (oJAXBObj.getDeclaredType().getCanonicalName().equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")) &&
-                        (oJAXBObj.getValue() != null)) {
+            foundLabel: for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs) {
+                if ((oJAXBObj != null)
+                        && (oJAXBObj.getDeclaredType() != null)
+                        && (oJAXBObj.getDeclaredType().getCanonicalName() != null)
+                        && (oJAXBObj.getDeclaredType().getCanonicalName()
+                                .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"))
+                        && (oJAXBObj.getValue() != null)) {
                     ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
                     String sRepoObjMimeType = oExtObj.getMimeType();
                     log.info("Evaluate id: " + oExtObj.getId() + " of type: " + sRepoObjMimeType);
@@ -391,20 +387,18 @@ public class PatientConsentManager {
                     }
 
                     // Get found Document Unique ID
-                    //-----------------------------
-                    if ((oExtObj.getExternalIdentifier() != null) &&
-                            (oExtObj.getExternalIdentifier().size() > 0)) {
+                    // -----------------------------
+                    if ((oExtObj.getExternalIdentifier() != null) && (oExtObj.getExternalIdentifier().size() > 0)) {
                         List<ExternalIdentifierType> olExtId = oExtObj.getExternalIdentifier();
                         for (ExternalIdentifierType oExtId : olExtId) {
-                            if ((oExtId.getIdentificationScheme() != null) &&
-                                    (oExtId.getIdentificationScheme().equals(CDAConstants.DOCUMENT_ID_IDENT_SCHEME)) &&
-                                    (oExtId.getValue() != null) &&
-                                    (oExtId.getValue().length() > 0)) {
+                            if ((oExtId.getIdentificationScheme() != null)
+                                    && (oExtId.getIdentificationScheme().equals(CDAConstants.DOCUMENT_ID_IDENT_SCHEME))
+                                    && (oExtId.getValue() != null) && (oExtId.getValue().length() > 0)) {
                                 String sDocumentId = oExtId.getValue().trim();
 
                                 // If this matches the document id that we are
                                 // looking for save the target id and exit
-                                //---------------------------------------------
+                                // ---------------------------------------------
                                 if (sDocumentId.equals(sUniqueDocumentId)) {
                                     sTargetObject = oExtObj.getId();
                                     log.info("Matching document id: " + sDocumentId + " sets target: " + sTargetObject);
@@ -413,8 +407,8 @@ public class PatientConsentManager {
                                     log.info("Non-matching document id: " + sDocumentId);
                                 }
                             }
-                        }   // for (ExternalIdentifierType oExtid : olExtId)
-                    }   // if ((oExtObj.getExternalIdentifier() != null) &&
+                        } // for (ExternalIdentifierType oExtid : olExtId)
+                    } // if ((oExtObj.getExternalIdentifier() != null) &&
                 }
             }
 
@@ -429,28 +423,23 @@ public class PatientConsentManager {
     }
 
     /**
-     * This method retrieves the patient consent information from the repository
-     * based on a document Id.  It does this by first using the document ID to
-     * retrieve the patient ID.  Then it uses the patient ID to retrieve the consent
+     * This method retrieves the patient consent information from the repository based on a document Id. It does this by
+     * first using the document ID to retrieve the patient ID. Then it uses the patient ID to retrieve the consent
      * information.
-     *
+     * 
      * @param sPatientId The ID of the patient.
-     * @param sAssigningAuthority The assigning authority associated with the patient ID.
-     *                            Currently it is not really used, but here if it is needed.
+     * @param sAssigningAuthority The assigning authority associated with the patient ID. Currently it is not really
+     *            used, but here if it is needed.
      * @return The patient consent preferences.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *         This error is thrown if there are any issues retrieving the document.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This error is thrown if there are any
+     *             issues retrieving the document.
      */
-    public PatientPreferencesType retrievePatientConsentByDocId(
-            String sHomeCommunityId,
-            String sRepositoryId,
-            String sDocumentUniqueId)
-            throws AdapterPIPException {
+    public PatientPreferencesType retrievePatientConsentByDocId(String sHomeCommunityId, String sRepositoryId,
+            String sDocumentUniqueId) throws AdapterPIPException {
         log.info("--------------- Begin retrievePatientConsentByDocId ---------------");
         PatientPreferencesType oPtPref = new PatientPreferencesType();
 
-        if ((sDocumentUniqueId == null) ||
-                (sDocumentUniqueId.trim().length() <= 0)) {
+        if ((sDocumentUniqueId == null) || (sDocumentUniqueId.trim().length() <= 0)) {
             String sErrorMessage = "Failed to retrieve patient consent.  The document unique ID was either null or an empty string.";
             log.error(sErrorMessage);
             throw new AdapterPIPException(sErrorMessage);
@@ -459,14 +448,14 @@ public class PatientConsentManager {
         try {
             // Patient from the document is now the fully qualified Unique Patient Id; "PID^^^&AAID&ISO"
             String sPatientId = retrievePtIdFromDocumentId(sDocumentUniqueId, sRepositoryId);
-            log.info("Given DocId: " + sDocumentUniqueId + " in Repository: " + sRepositoryId + " patientId retrieved is: " + sPatientId);
+            log.info("Given DocId: " + sDocumentUniqueId + " in Repository: " + sRepositoryId
+                    + " patientId retrieved is: " + sPatientId);
 
             // Extract the patient and assigning authority id into an II
             II patII = extractUniquePatientIdToII(sPatientId);
 
-            if (patII != null &&
-                    patII.getExtension() != null && !patII.getExtension().isEmpty() &&
-                    patII.getRoot() != null && !patII.getRoot().isEmpty()) {
+            if (patII != null && patII.getExtension() != null && !patII.getExtension().isEmpty()
+                    && patII.getRoot() != null && !patII.getRoot().isEmpty()) {
                 oPtPref = retrievePatientConsentByPatientId(patII.getExtension(), patII.getRoot());
             }
         } catch (Exception e) {
@@ -478,9 +467,9 @@ public class PatientConsentManager {
     }
 
     /**
-     * This method takes the given Document ID and does a query against the repository
-     * to find out the patient ID for this patient.  It returns that patient ID.
-     *
+     * This method takes the given Document ID and does a query against the repository to find out the patient ID for
+     * this patient. It returns that patient ID.
+     * 
      * @param sDocumentUniqueId The document ID of an existing document in the repository.
      * @param sRepositoryId The repository ID of the repository where the document is stored.
      * @return The patient ID of the patient.
@@ -496,11 +485,9 @@ public class PatientConsentManager {
         AdhocQueryResponse oResponse = null;
         AdhocQueryRequest oRequest = new QueryUtil().createPatientIdQuery(sDocumentUniqueId, sRepositoryId);
 
-        oResponse =
-                oDocRegistryPort.documentRegistryRegistryStoredQuery(oRequest);
+        oResponse = oDocRegistryPort.documentRegistryRegistryStoredQuery(oRequest);
 
-        sPatientId =
-                new QueryUtil().extractPatientId(oResponse);
+        sPatientId = new QueryUtil().extractPatientId(oResponse);
 
         log.debug("retrievePtIdFromDocumentId() - PatientId:" + sPatientId);
 
@@ -551,24 +538,21 @@ public class PatientConsentManager {
     }
 
     /**
-     * This method retrieves the patient consent information from the repository
-     * based on patient Id.
-     *
+     * This method retrieves the patient consent information from the repository based on patient Id.
+     * 
      * @param sPatientId The ID of the patient.
-     * @param sAssigningAuthority The assigning authority associated with the patient ID.
-     *                            Currently it is not really used, but here if it is needed.
+     * @param sAssigningAuthority The assigning authority associated with the patient ID. Currently it is not really
+     *            used, but here if it is needed.
      * @return The patient consent preferences.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *         This error is thrown if there are any issues retrieving the document.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This error is thrown if there are any
+     *             issues retrieving the document.
      */
-    public PatientPreferencesType retrievePatientConsentByPatientId(
-            String sPatientId, String sAssigningAuthority)
+    public PatientPreferencesType retrievePatientConsentByPatientId(String sPatientId, String sAssigningAuthority)
             throws AdapterPIPException {
         log.info("--------------- Begin retrievePatientConsentByPatientId ---------------");
         PatientPreferencesType oPtPref = new PatientPreferencesType();
 
-        if ((sPatientId == null) ||
-                (sPatientId.trim().length() <= 0)) {
+        if ((sPatientId == null) || (sPatientId.trim().length() <= 0)) {
             String sErrorMessage = "Failed to retrieve patient consent.  The patient ID was either null or an empty string.";
             log.error(sErrorMessage);
             throw new AdapterPIPException(sErrorMessage);
@@ -584,14 +568,12 @@ public class PatientConsentManager {
         return oPtPref;
     }
 
-    public String retrievePatientConsentDocumentIdByPatientId(
-            String sPatientId, String sAssigningAuthority)
+    public String retrievePatientConsentDocumentIdByPatientId(String sPatientId, String sAssigningAuthority)
             throws AdapterPIPException {
         log.info("--------------- Begin retrievePatientConsentDocumentIdByPatientId ---------------");
         String patientConsentDocumentId = null;
 
-        if ((sPatientId == null) ||
-                (sPatientId.trim().length() <= 0)) {
+        if ((sPatientId == null) || (sPatientId.trim().length() <= 0)) {
             String sErrorMessage = "Failed to retrieve patient consent.  The patient ID was either null or an empty string.";
             log.error(sErrorMessage);
             throw new AdapterPIPException(sErrorMessage);
@@ -599,8 +581,7 @@ public class PatientConsentManager {
 
         List<CPPDocumentInfo> olDocInfo = retrieveCPPFromRepositoryUsingXDSb(sPatientId, sAssigningAuthority);
 
-        if (olDocInfo != null &&
-                (olDocInfo.size() > 0)) {
+        if (olDocInfo != null && (olDocInfo.size() > 0)) {
             log.info(olDocInfo.size() + " CPP documents were retrieved from the repository");
             patientConsentDocumentId = olDocInfo.get(0).sDocumentUniqueId;
         }
@@ -611,14 +592,12 @@ public class PatientConsentManager {
     }
 
     /**
-     * This operation retrieves the currently stored patient consent
-     * information from the repository.
-     *
+     * This operation retrieves the currently stored patient consent information from the repository.
+     * 
      * @param sPatientId The ID of the patient.
      * @param sAssigningAuthority The Assigning authority
      * @return The document information.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *         The error if one occurs.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException The error if one occurs.
      */
     private List<CPPDocumentInfo> retrieveCPPFromRepositoryUsingXDSb(String sPatientId, String sAssigningAuthority)
             throws AdapterPIPException {
@@ -640,9 +619,8 @@ public class PatientConsentManager {
                 if (oDocRequest.getDocumentUniqueId() != null) {
                     oCPPDocInfo.sDocumentUniqueId = oDocRequest.getDocumentUniqueId();
                 }
-                log.info("Document Request has community: " + oCPPDocInfo.sHomeCommunityId +
-                        " repository: " + oCPPDocInfo.sRepositoryId + " docId: " +
-                        oCPPDocInfo.sDocumentUniqueId);
+                log.info("Document Request has community: " + oCPPDocInfo.sHomeCommunityId + " repository: "
+                        + oCPPDocInfo.sRepositoryId + " docId: " + oCPPDocInfo.sDocumentUniqueId);
                 retrieveCPPDoc(oDocRequest, oCPPDocInfo);
                 olCPPDocInfo.add(oCPPDocInfo);
             }
@@ -653,14 +631,14 @@ public class PatientConsentManager {
     }
 
     /**
-     * This method retrieves the document identifier information from the
-     * repository for the Consumer Preferences document for this patient.
-     *
+     * This method retrieves the document identifier information from the repository for the Consumer Preferences
+     * document for this patient.
+     * 
      * @param sPatientId The patient ID of the patient.
      * @param sAssigningAuthority The assigning authority
      * @return The document identifiers for the CPP document
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *         This error is thrown if any problem occurs getting the data.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This error is thrown if any problem occurs
+     *             getting the data.
      */
     private List<DocumentRequest> retrieveCPPDocIdentifiers(String sPatientId, String sAssigningAuthority)
             throws AdapterPIPException {
@@ -671,8 +649,7 @@ public class PatientConsentManager {
         AdhocQueryResponse oResponse = null;
         AdhocQueryRequest oRequest = queryUtil.createAdhocQueryRequest(sPatientId, sAssigningAuthority);
 
-        oResponse =
-                oDocRegistryPort.documentRegistryRegistryStoredQuery(oRequest);
+        oResponse = oDocRegistryPort.documentRegistryRegistryStoredQuery(oRequest);
 
         List<DocumentRequest> olDocReq = queryUtil.createDocumentRequest(oResponse);
 
@@ -680,17 +657,14 @@ public class PatientConsentManager {
     }
 
     /**
-     * This method takes the document identifiers for the CPP document and
-     * retrieves the document from the repository.
-     *
+     * This method takes the document identifiers for the CPP document and retrieves the document from the repository.
+     * 
      * @param oDocRequest The document identifiers.
      * @param oCPPDocInfo Document object to hold results
      * @return void.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *         This is thrown if there are any errors.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This is thrown if there are any errors.
      */
-    private void retrieveCPPDoc(DocumentRequest oDocRequest, CPPDocumentInfo oCPPDocInfo)
-            throws AdapterPIPException {
+    private void retrieveCPPDoc(DocumentRequest oDocRequest, CPPDocumentInfo oCPPDocInfo) throws AdapterPIPException {
         String sPrefDoc = "";
 
         DocumentRepositoryPortType oDocRepositoryPort = getDocumentRepositoryPort();
@@ -699,8 +673,7 @@ public class PatientConsentManager {
         oRequest.getDocumentRequest().add(oDocRequest);
 
         RetrieveDocumentSetResponseType oResponse = null;
-        oResponse =
-                oDocRepositoryPort.documentRepositoryRetrieveDocumentSet(oRequest);
+        oResponse = oDocRepositoryPort.documentRepositoryRetrieveDocumentSet(oRequest);
 
         if (oResponse != null) {
             sPrefDoc = extractFineGrainedPrefDoc(oDocRequest, oResponse);
@@ -717,28 +690,24 @@ public class PatientConsentManager {
     }
 
     /**
-     * This operation returns the Patient CPP document in XML form that it
-     * extracts from the Response.
-     *
+     * This operation returns the Patient CPP document in XML form that it extracts from the Response.
+     * 
      * @param oResponse The response that was recieved from the repository.
      * @return The XML form of the patient CPP.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *         This is thrown if there are any errors.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This is thrown if there are any errors.
      */
     private String extractFineGrainedPrefDoc(DocumentRequest oDocRequest, RetrieveDocumentSetResponseType oResponse)
             throws AdapterPIPException {
         String sPrefDoc = "";
 
-        if ((oResponse != null) &&
-                (oResponse.getDocumentResponse() != null) &&
-                (oResponse.getDocumentResponse().size() > 0)) {
+        if ((oResponse != null) && (oResponse.getDocumentResponse() != null)
+                && (oResponse.getDocumentResponse().size() > 0)) {
             List<DocumentResponse> olDocResponse = oResponse.getDocumentResponse();
             for (DocumentResponse oDocResponse : olDocResponse) {
                 log.info("Doc: " + oDocResponse.getDocumentUniqueId() + " Mime type: " + oDocResponse.getMimeType());
                 if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())) {
                     if (XACML_MIME_TYPE.equals(oDocResponse.getMimeType())) {
-                        if ((oDocResponse.getDocument() != null) &&
-                                (oDocResponse.getDocument().length > 0)) {
+                        if ((oDocResponse.getDocument() != null) && (oDocResponse.getDocument().length > 0)) {
                             log.info("Matching XACML document found");
                             sPrefDoc = new String(oDocResponse.getDocument());
                             break;
@@ -747,7 +716,7 @@ public class PatientConsentManager {
                     }
                 }
             }
-        }   // if ((oResponse != null) &&
+        } // if ((oResponse != null) &&
 
         return sPrefDoc;
     }
@@ -757,17 +726,15 @@ public class PatientConsentManager {
         log.info("--------------- Begin extractBinPrefDoc ---------------");
         List<String> olBinPrefDoc = new ArrayList<String>();
 
-        if ((oResponse != null) &&
-                (oResponse.getDocumentResponse() != null) &&
-                (oResponse.getDocumentResponse().size() > 0)) {
+        if ((oResponse != null) && (oResponse.getDocumentResponse() != null)
+                && (oResponse.getDocumentResponse().size() > 0)) {
             List<DocumentResponse> olDocResponse = oResponse.getDocumentResponse();
             log.info(olDocResponse.size() + " documents have been found");
             for (DocumentResponse oDocResponse : olDocResponse) {
                 log.info("Doc: " + oDocResponse.getDocumentUniqueId() + " Mime type: " + oDocResponse.getMimeType());
                 if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())) {
                     if (PDF_MIME_TYPE.equals(oDocResponse.getMimeType())) {
-                        if ((oDocResponse.getDocument() != null) &&
-                                (oDocResponse.getDocument().length > 0)) {
+                        if ((oDocResponse.getDocument() != null) && (oDocResponse.getDocument().length > 0)) {
                             String sPrefDoc = new String(oDocResponse.getDocument());
                             log.info("Matching PDF document found: " + sPrefDoc);
                             olBinPrefDoc.add(sPrefDoc);
@@ -781,15 +748,14 @@ public class PatientConsentManager {
     }
 
     /**
-     * This method takes the XML Patient preference CDA documents and it populates
-     * the PtPref with the information it finds in it.
-     *
-     * @param olDocInfo  The list of patient preference documents
+     * This method takes the XML Patient preference CDA documents and it populates the PtPref with the information it
+     * finds in it.
+     * 
+     * @param olDocInfo The list of patient preference documents
      * @return The patient preferences from the document.
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
      */
-    private PatientPreferencesType populateConsentInfo(List<CPPDocumentInfo> olDocInfo)
-            throws AdapterPIPException {
+    private PatientPreferencesType populateConsentInfo(List<CPPDocumentInfo> olDocInfo) throws AdapterPIPException {
         log.info("--------------- Begin populateConsentInfo ---------------");
         PatientPreferencesType oPtPref = new PatientPreferencesType();
 
@@ -817,9 +783,10 @@ public class PatientConsentManager {
         if (bHasFineGrained && oPtPref != null) {
             log.info("Begin extraction for Binary documents");
             BinaryDocumentPolicyCriteriaType oBinDocPolicyCriteriaType = new BinaryDocumentPolicyCriteriaType();
-            List<BinaryDocumentPolicyCriterionType> olBinDocPolicyCriteria = oBinDocPolicyCriteriaType.getBinaryDocumentPolicyCriterion();
+            List<BinaryDocumentPolicyCriterionType> olBinDocPolicyCriteria = oBinDocPolicyCriteriaType
+                    .getBinaryDocumentPolicyCriterion();
 
-            //Add Binary extraction for each document that contains a pdf
+            // Add Binary extraction for each document that contains a pdf
             for (CPPDocumentInfo oDocInfo : olDocInfo) {
                 log.info(oDocInfo.lDocumentId + " has " + oDocInfo.olConsentPdf.size() + " pdf");
                 if (oDocInfo != null && oDocInfo.olConsentPdf != null && !oDocInfo.olConsentPdf.isEmpty()) {
@@ -831,11 +798,13 @@ public class PatientConsentManager {
                         log.info("Returned CDA: " + oCda);
                         if (oCda != null) {
                             CdaPdfExtractor oExtractor = new CdaPdfExtractor();
-                            BinaryDocumentPolicyCriterionType oBinDocPolicyCriterion = oExtractor.extractBinaryDocumentPolicyCriterion(oCda);
+                            BinaryDocumentPolicyCriterionType oBinDocPolicyCriterion = oExtractor
+                                    .extractBinaryDocumentPolicyCriterion(oCda);
                             log.info("Returned Binary Criterion: " + oCda);
                             if (oBinDocPolicyCriterion != null) {
                                 olBinDocPolicyCriteria.add(oBinDocPolicyCriterion);
-                                log.info("Extracted Binary document has id: " + oBinDocPolicyCriterion.getDocumentUniqueId());
+                                log.info("Extracted Binary document has id: "
+                                        + oBinDocPolicyCriterion.getDocumentUniqueId());
                             }
                         }
                     }
@@ -855,12 +824,11 @@ public class PatientConsentManager {
     }
 
     /**
-     * This class is an inner class used to hold the document along with its
-     * set of identifiers.  For internal purposes.
+     * This class is an inner class used to hold the document along with its set of identifiers. For internal purposes.
      */
     private class CPPDocumentInfo {
 
-        long lDocumentId = 0;           // note this is only used by our internal document repository service
+        long lDocumentId = 0; // note this is only used by our internal document repository service
         String sHomeCommunityId = "";
         String sRepositoryId = "";
         String sDocumentUniqueId = "";

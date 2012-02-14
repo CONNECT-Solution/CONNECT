@@ -49,7 +49,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import javax.xml.bind.Unmarshaller;
 
 /**
- *
+ * 
  * @author mastan.ketha
  */
 public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
@@ -65,6 +65,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
 
     /**
      * processPatientDiscoveryDeferredReqQueue Orchestration method for processing request queues on reponding gateway
+     * 
      * @param messageId
      * @return org.hl7.v3.MCCIIN000002UV01
      */
@@ -80,8 +81,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
             if ((messageId != null)) {
                 List<AsyncMsgRecord> msgList = new ArrayList<AsyncMsgRecord>();
                 msgList = instance.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
-                if ((msgList != null) &&
-                        (msgList.size() > 0)) {
+                if ((msgList != null) && (msgList.size() > 0)) {
                     log.info("msgList: " + msgList.size());
                     asyncMsgRecord = msgList.get(0);
 
@@ -103,11 +103,13 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
             AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl adapterPDAsyncReqQueueProxyJavaImpl = new AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl();
 
             if (asyncMsgRecord.getMsgData() != null) {
-                respondingGatewayPRPAIN201305UV02RequestType = extractRespondingGatewayPRPAIN201305UV02RequestType(asyncMsgRecord.getMsgData());
+                respondingGatewayPRPAIN201305UV02RequestType = extractRespondingGatewayPRPAIN201305UV02RequestType(asyncMsgRecord
+                        .getMsgData());
             }
 
             if (respondingGatewayPRPAIN201305UV02RequestType != null) {
-                log.info("AsyncMsgRecord - messageId: " + respondingGatewayPRPAIN201305UV02RequestType.getPRPAIN201305UV02().getITSVersion());
+                log.info("AsyncMsgRecord - messageId: "
+                        + respondingGatewayPRPAIN201305UV02RequestType.getPRPAIN201305UV02().getITSVersion());
 
                 PRPAIN201305UV02 pRPAIN201305UV02 = respondingGatewayPRPAIN201305UV02RequestType.getPRPAIN201305UV02();
 
@@ -125,7 +127,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
                     // Generate new request queue assertion from original request message assertion
                     AssertionType assertion = respondingGatewayPRPAIN201305UV02RequestType.getAssertion();
 
-                    ack = adapterPDAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq(pRPAIN201305UV02, assertion, targetCommunities);
+                    ack = adapterPDAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq(pRPAIN201305UV02, assertion,
+                            targetCommunities);
                 } else {
                     log.error("Sender root is null - Unable to extract target community hcid from sender root");
                 }
@@ -138,7 +141,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
     }
 
     @SuppressWarnings("unchecked")
-    private RespondingGatewayPRPAIN201305UV02RequestType extractRespondingGatewayPRPAIN201305UV02RequestType(Blob msgData) {
+    private RespondingGatewayPRPAIN201305UV02RequestType extractRespondingGatewayPRPAIN201305UV02RequestType(
+            Blob msgData) {
         log.debug("Begin AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.extractRespondingGatewayPRPAIN201305UV02RequestType()..");
         RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02RequestType = new RespondingGatewayPRPAIN201305UV02RequestType();
         try {
@@ -148,7 +152,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
                 ByteArrayInputStream xmlContentBytes = new ByteArrayInputStream(msgBytes);
                 JAXBContext context = JAXBContext.newInstance("org.hl7.v3");
                 Unmarshaller u = context.createUnmarshaller();
-                JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType> root = (JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType>) u.unmarshal(xmlContentBytes);
+                JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType> root = (JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType>) u
+                        .unmarshal(xmlContentBytes);
 
                 respondingGatewayPRPAIN201305UV02RequestType = root.getValue();
                 log.debug("End AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.extractRespondingGatewayPRPAIN201305UV02RequestType()..");
@@ -163,17 +168,21 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
     private String extractSenderOID(PRPAIN201305UV02 request) {
         String oid = null;
 
-        if (request != null &&
-                request.getSender() != null &&
-                request.getSender().getDevice() != null &&
-                request.getSender().getDevice().getAsAgent() != null &&
-                request.getSender().getDevice().getAsAgent().getValue() != null &&
-                request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-            oid = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        if (request != null
+                && request.getSender() != null
+                && request.getSender().getDevice() != null
+                && request.getSender().getDevice().getAsAgent() != null
+                && request.getSender().getDevice().getAsAgent().getValue() != null
+                && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId())
+                && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                        .getId().get(0) != null
+                && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            oid = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                    .getId().get(0).getRoot();
         }
 
         return oid;

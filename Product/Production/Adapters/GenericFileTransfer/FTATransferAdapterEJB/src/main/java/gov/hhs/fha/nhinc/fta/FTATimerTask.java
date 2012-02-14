@@ -35,7 +35,6 @@ import javax.xml.ws.BindingProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 import java.io.File;
 import java.io.StringWriter;
 import java.io.PrintWriter;
@@ -58,7 +57,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class FTATimerTask {
@@ -135,7 +134,7 @@ public class FTATimerTask {
     private static void sendNotification(String contents, String topic) {
         try { // Call Web Service Operation
             String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
-            //String endpointURL = "http://localhost:8088/mockEntityNotificationConsumerBindingSoap11";
+            // String endpointURL = "http://localhost:8088/mockEntityNotificationConsumerBindingSoap11";
             log.info("EntitySubscriptionURL :" + endpointURL);
 
             // TODO initialize WS operation arguments here
@@ -153,15 +152,16 @@ public class FTATimerTask {
 
             messageHolder.setMessage(message);
 
-            //TopicExpressionType topicExpression = new TopicExpressionType();
-            //topicExpression.setDialect("http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple");
-            //topicExpression.getContent().add(topic);
+            // TopicExpressionType topicExpression = new TopicExpressionType();
+            // topicExpression.setDialect("http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple");
+            // topicExpression.getContent().add(topic);
 
             TopicExpressionType topicExpression;
             gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller marshaller;
             marshaller = new gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller();
 
-            //topic = "<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>";
+            // topic =
+            // "<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>";
             log.info("topic :" + topic);
             topicExpression = (TopicExpressionType) marshaller.unmarshal(topic);
 
@@ -173,7 +173,8 @@ public class FTATimerTask {
 
             notifyRequest.setNotify(notify);
 
-        	//The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
+            // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method
+            // invocation
             AcknowledgementType result = port.notify(notifyRequest);
 
             log.info("Result = " + result);
@@ -185,9 +186,8 @@ public class FTATimerTask {
     private static void sendNotificationSecured(String contents, String topic) {
         try { // Call Web Service Operation
             String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
-            //String endpointURL = "http://localhost:8088/mockEntityNotificationConsumerBindingSoap11";
+            // String endpointURL = "http://localhost:8088/mockEntityNotificationConsumerBindingSoap11";
             log.info("EntitySubscriptionURL :" + endpointURL);
-
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             AssertionType assertion = Util.createAssertion();
@@ -195,7 +195,6 @@ public class FTATimerTask {
             EntityNotificationConsumerSecuredPortType port = getSecuredPort(endpointURL, assertion);
             // TODO initialize WS operation arguments here
             NotificationMessageHolderType messageHolder = new NotificationMessageHolderType();
-
 
             NotificationMessageHolderType.Message message = new NotificationMessageHolderType.Message();
             Notify notify = new Notify();
@@ -208,7 +207,8 @@ public class FTATimerTask {
             gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller marshaller;
             marshaller = new gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller();
 
-            //topic = "<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>";
+            // topic =
+            // "<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>";
             log.info("topic :" + topic);
             topicExpression = (TopicExpressionType) marshaller.unmarshal(topic);
 
@@ -216,7 +216,8 @@ public class FTATimerTask {
 
             notify.getNotificationMessage().add(messageHolder);
 
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, endpointURL, NhincConstants.PAT_CORR_ACTION);
+            Map requestContext = tokenCreator.CreateRequestContext(assertion, endpointURL,
+                    NhincConstants.PAT_CORR_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             AcknowledgementType result = port.notify(notify);
@@ -234,12 +235,13 @@ public class FTATimerTask {
 
             if (oService != null) {
                 log.debug("subscribe() Obtained service - creating port.");
-                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityNotificationConsumerPortType.class);
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                        EntityNotificationConsumerPortType.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, WS_ADDRESSING_ACTION, assertIn);
-             }
-            else  {
+                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, WS_ADDRESSING_ACTION,
+                        assertIn);
+            } else {
                 log.error("Unable to obtain serivce - no port created.");
             }
         } catch (Throwable t) {
@@ -255,12 +257,13 @@ public class FTATimerTask {
 
             if (oService != null) {
                 log.debug("subscribe() Obtained service - creating port.");
-                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityNotificationConsumerSecuredPortType.class);
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                        EntityNotificationConsumerSecuredPortType.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url, NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED, WS_ADDRESSING_ACTION, assertIn);
-             }
-            else  {
+                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+                        NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED, WS_ADDRESSING_ACTION, assertIn);
+            } else {
                 log.error("Unable to obtain service - no port created.");
             }
         } catch (Throwable t) {

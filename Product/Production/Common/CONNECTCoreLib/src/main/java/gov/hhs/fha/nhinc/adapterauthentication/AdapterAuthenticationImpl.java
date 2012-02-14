@@ -45,12 +45,12 @@ public class AdapterAuthenticationImpl {
     private static Log log = LogFactory.getLog(AdapterAuthenticationImpl.class);
 
     /**
-     * Given a request to authenticate a user, this service will determine if
-     * this is an identifiable user within OpenSSO and if so will provide an
-     * identifying token.
+     * Given a request to authenticate a user, this service will determine if this is an identifiable user within
+     * OpenSSO and if so will provide an identifying token.
+     * 
      * @param authenticateUserRequest The request to authenticate the user
-     * @return The response which indicates if an authentication service is
-     * implemented and if so the resulting token identifier
+     * @return The response which indicates if an authentication service is implemented and if so the resulting token
+     *         identifier
      */
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
@@ -78,7 +78,7 @@ public class AdapterAuthenticationImpl {
                     }
                 } else {
                     authResp = createInvalidUserResponse();
-                        log.debug("Authentication Context failed in AdapterAuthenticationImpl");
+                    log.debug("Authentication Context failed in AdapterAuthenticationImpl");
                 }
             } catch (AuthLoginException alex) {
                 authResp = createInvalidUserResponse();
@@ -97,9 +97,9 @@ public class AdapterAuthenticationImpl {
     }
 
     /**
-     * A response indicating an unauthenticated user will be generated.  This
-     * marks the authentication service as being available but sends an empty
-     * authentication token.
+     * A response indicating an unauthenticated user will be generated. This marks the authentication service as being
+     * available but sends an empty authentication token.
+     * 
      * @return a response indicating an unauthenticated user.
      */
     private AuthenticateUserResponseType createInvalidUserResponse() {
@@ -110,13 +110,12 @@ public class AdapterAuthenticationImpl {
     }
 
     /**
-     * Creates the authentication context which interfaces with the OpenSSO
-     * authentication plug-in module.
+     * Creates the authentication context which interfaces with the OpenSSO authentication plug-in module.
+     * 
      * @param orgName Not used, but required by OpenSSO
      * @param userName The user name to check for authentication
      * @param password The password of this user
-     * @return The authentication context which interfaces with the OpenSSO
-     * authentication plug-in module
+     * @return The authentication context which interfaces with the OpenSSO authentication plug-in module
      * @throws com.sun.identity.authentication.spi.AuthLoginException
      */
     private AuthContext getAuthcontext(String orgName, String userName, String password) throws AuthLoginException {

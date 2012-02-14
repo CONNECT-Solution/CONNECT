@@ -36,7 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class CMBusinessServiceTest {
@@ -155,7 +155,7 @@ public class CMBusinessServiceTest {
 
     /**
      * Create a generic CMBindingTemplate filled with test data
-     *
+     * 
      * @return The test CMBindingTemplate
      */
     private CMBindingTemplate generateTestCMBindingTemplate() {
@@ -169,7 +169,7 @@ public class CMBusinessServiceTest {
 
     /**
      * Create a generic CMBindingTemplates filled with test data
-     *
+     * 
      * @return The test CMBindingTemplates
      */
     private CMBindingTemplates generateTestCMBindingTemplates() {
@@ -181,7 +181,7 @@ public class CMBusinessServiceTest {
 
     /**
      * Create a generic CMBindingDescriptions filled with test data
-     *
+     * 
      * @return The test CMBindingDescriptions
      */
     private CMBindingDescriptions generateTestCMBindingDescriptions() {
@@ -192,7 +192,7 @@ public class CMBusinessServiceTest {
 
     /**
      * Create a generic CMBindingNames filled with test data
-     *
+     * 
      * @return The test CMBindingNames
      */
     private CMBindingNames generateTestCMBindingNames() {
@@ -203,7 +203,7 @@ public class CMBusinessServiceTest {
 
     /**
      * Create a generic CMBusiness Service filled with test data
-     *
+     * 
      * @return The test CMBusiness Service
      */
     private CMBusinessService generateTestCMBusinessService() {

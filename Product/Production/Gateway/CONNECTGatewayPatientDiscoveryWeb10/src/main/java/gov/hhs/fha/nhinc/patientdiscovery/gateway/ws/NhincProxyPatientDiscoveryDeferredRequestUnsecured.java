@@ -38,38 +38,32 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 
 @WebService(serviceName = "NhincProxyPatientDiscoveryAsyncReq", portName = "NhincProxyPatientDiscoveryAsyncReqPortType", endpointInterface = "gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncreq.NhincProxyPatientDiscoveryAsyncReqPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq", wsdlLocation = "WEB-INF/wsdl/NhincProxyPatientDiscoveryDeferredRequestUnsecured/NhincProxyPatientDiscoveryAsyncReq.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
-public class NhincProxyPatientDiscoveryDeferredRequestUnsecured extends PatientDiscoveryBase
-{
+@Addressing(enabled = true)
+public class NhincProxyPatientDiscoveryDeferredRequestUnsecured extends PatientDiscoveryBase {
 
     @Resource
     private WebServiceContext context;
-    
-    
 
     public NhincProxyPatientDiscoveryDeferredRequestUnsecured() {
-		super();
-	}
+        super();
+    }
 
-	public NhincProxyPatientDiscoveryDeferredRequestUnsecured(
-			PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
+    public NhincProxyPatientDiscoveryDeferredRequestUnsecured(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
 
-	public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncReq(ProxyPRPAIN201305UVProxyRequestType request)
-    {
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncReq(ProxyPRPAIN201305UVProxyRequestType request) {
         MCCIIN000002UV01 response = null;
 
-        NhincProxyPatientDiscoveryDeferredRequestImpl serviceImpl = getServiceFactory().getNhincProxyPatientDiscoveryDeferredRequestImpl();
-        if (serviceImpl != null)
-        {
+        NhincProxyPatientDiscoveryDeferredRequestImpl serviceImpl = getServiceFactory()
+                .getNhincProxyPatientDiscoveryDeferredRequestImpl();
+        if (serviceImpl != null) {
             response = serviceImpl.processPatientDiscoveryAsyncRequestUnsecured(request, getWebServiceContext());
         }
         return response;
     }
 
-    protected WebServiceContext getWebServiceContext()
-    {
+    protected WebServiceContext getWebServiceContext() {
         return context;
     }
 }

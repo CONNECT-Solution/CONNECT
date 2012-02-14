@@ -33,12 +33,10 @@ import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-public class EntityDocSubmissionProxyJavaImpl implements EntityDocSubmissionProxy
-{
+public class EntityDocSubmissionProxyJavaImpl implements EntityDocSubmissionProxy {
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg, 
-            AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo)
-    {
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
+            AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         RegistryResponseType response = new RegistryResponseType();
 
         EntityDocSubmissionOrchImpl orchImpl = new EntityDocSubmissionOrchImpl();

@@ -34,43 +34,38 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class is the java implementation of the AdapterPatientDiscovery
- * component proxy.
- *
+ * This class is the java implementation of the AdapterPatientDiscovery component proxy.
+ * 
  * @author Les westberg
  */
-public class AdapterPatientDiscoveryProxyJavaImpl implements AdapterPatientDiscoveryProxy
-{
+public class AdapterPatientDiscoveryProxyJavaImpl implements AdapterPatientDiscoveryProxy {
 
     private Log log = null;
 
     /**
      * Default constructor.
      */
-    public AdapterPatientDiscoveryProxyJavaImpl()
-    {
+    public AdapterPatientDiscoveryProxyJavaImpl() {
         log = createLogger();
     }
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**
      * This calls the java implementation for this method.
-     *
+     * 
      * @param body The message to be sent to the web service.
      * @param assertion The assertion information to go with the message.
      * @return The response from the web service.
      */
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion)
-    {
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion) {
         log.debug("Entering AdapterPatientDiscoveryProxyJavaImpl.respondingGatewayPRPAIN201305UV02");
         AdapterPatientDiscoveryOrchImpl oOrchestrator = new AdapterPatientDiscoveryOrchImpl();
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();

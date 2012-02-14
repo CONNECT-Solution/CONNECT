@@ -34,7 +34,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 @WebService(serviceName = "EntityPerformanceLogQuery", portName = "EntityPerformanceLogQueryPort", endpointInterface = "gov.hhs.fha.nhinc.entityperformancelogquery.EntityPerformanceLogQueryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entityperformancelogquery", wsdlLocation = "WEB-INF/wsdl/EntityPerformanceLogQuery/EntityPerformanceLogQuery.wsdl")
@@ -44,7 +44,8 @@ public class EntityPerformanceLogQuery {
     @Resource
     private WebServiceContext context;
 
-    public EntityPerformanceLogQueryResponseType findPerformanceData(EntityPerformanceLogQueryRequestType entityPerformanceLogQueryRequest) {
+    public EntityPerformanceLogQueryResponseType findPerformanceData(
+            EntityPerformanceLogQueryRequestType entityPerformanceLogQueryRequest) {
         return new EntityPerformanceLogQueryImpl().findPerformanceData(entityPerformanceLogQueryRequest, context);
     }
 

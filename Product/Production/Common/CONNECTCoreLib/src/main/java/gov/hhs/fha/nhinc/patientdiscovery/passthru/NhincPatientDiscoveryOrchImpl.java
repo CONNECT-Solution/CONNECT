@@ -53,12 +53,10 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
- *
+ * 
  * @author mflynn02
- * @paul.eftis updated exception handling to return PD error response
- * with error/exception detail within PD response.
+ * @paul.eftis updated exception handling to return PD error response with error/exception detail within PD response.
  */
 public class NhincPatientDiscoveryOrchImpl {
 
@@ -77,21 +75,26 @@ public class NhincPatientDiscoveryOrchImpl {
     }
 
     protected void logNhincPatientDiscoveryRequest(PRPAIN201305UV02 request, AssertionType assertion) {
-        getPatientDiscoveryAuditLogger().auditNhin201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        getPatientDiscoveryAuditLogger().auditNhin201305(request, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     protected void logNhincPatientDiscoveryResponse(PRPAIN201306UV02 response, AssertionType assertion) {
-        getPatientDiscoveryAuditLogger().auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        getPatientDiscoveryAuditLogger().auditNhin201306(response, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
-    protected PRPAIN201306UV02 sendToNhinProxy(PRPAIN201305UV02 request, AssertionType assertion, 
-            NhinTargetSystemType target){
-        try{
+    protected PRPAIN201306UV02 sendToNhinProxy(PRPAIN201305UV02 request, AssertionType assertion,
+            NhinTargetSystemType target) {
+        try {
             OutboundPatientDiscoveryDelegate delegate = new OutboundPatientDiscoveryDelegate();
-            OutboundPatientDiscoveryOrchestratable_a0 inMessage = new OutboundPatientDiscoveryOrchestratable_a0(delegate, null, null, null, assertion, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, request);
-            OutboundPatientDiscoveryOrchestratable_a0 outMessage = (OutboundPatientDiscoveryOrchestratable_a0)delegate.process(inMessage);
+            OutboundPatientDiscoveryOrchestratable_a0 inMessage = new OutboundPatientDiscoveryOrchestratable_a0(
+                    delegate, null, null, null, assertion, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target,
+                    request);
+            OutboundPatientDiscoveryOrchestratable_a0 outMessage = (OutboundPatientDiscoveryOrchestratable_a0) delegate
+                    .process(inMessage);
             return outMessage.getResponse();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             log.error("Passthru NhinpatientDiscoveryOrchImpl Exception", ex);
             String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, target,
                     NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
@@ -99,22 +102,25 @@ public class NhincPatientDiscoveryOrchImpl {
         }
     }
 
-    public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxySecuredRequestType request, 
-            AssertionType assertion){
+    public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxySecuredRequestType request,
+            AssertionType assertion) {
         log.debug("Entering NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV(request, assertion) method");
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
         logNhincPatientDiscoveryRequest(request.getPRPAIN201305UV02(), assertion);
 
         // Log the start of the adapter performance record
         String responseCommunityId = "";
-        if (request != null && request.getNhinTargetSystem() != null &&
-                request.getNhinTargetSystem().getHomeCommunity() != null) {
+        if (request != null && request.getNhinTargetSystem() != null
+                && request.getNhinTargetSystem().getHomeCommunity() != null) {
             responseCommunityId = request.getNhinTargetSystem().getHomeCommunity().getHomeCommunityId();
         }
         Timestamp starttime = new Timestamp(System.currentTimeMillis());
-        Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, responseCommunityId);
+        Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, responseCommunityId);
 
-        PRPAIN201306UV02 response = sendToNhinProxy(request.getPRPAIN201305UV02(), assertion, request.getNhinTargetSystem());
+        PRPAIN201306UV02 response = sendToNhinProxy(request.getPRPAIN201305UV02(), assertion,
+                request.getNhinTargetSystem());
 
         // Log the end of the performance record
         Timestamp stoptime = new Timestamp(System.currentTimeMillis());
@@ -127,9 +133,7 @@ public class NhincPatientDiscoveryOrchImpl {
         return response;
     }
 
-
-    private PRPAIN201306UV02 generateErrorResponse(NhinTargetSystemType target,
-            PRPAIN201305UV02 request, String error){
+    private PRPAIN201306UV02 generateErrorResponse(NhinTargetSystemType target, PRPAIN201305UV02 request, String error) {
         String errStr = "Error from target homeId=" + target.getHomeCommunity().getHomeCommunityId();
         errStr += "  The error received was " + error;
         return (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(request, errStr);

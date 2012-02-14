@@ -50,58 +50,64 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class NhincProxyPatientDiscoveryAsyncRespTest {
-	Mockery context = new JUnit4Mockery()
-    {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    
-    @Test 
+
+    @Test
     public void testDefaultConstructor() {
-    	NhincProxyPatientDiscoveryAsyncResp patientDiscovery =  new NhincProxyPatientDiscoveryAsyncResp();
-    	assertNotNull(patientDiscovery);
+        NhincProxyPatientDiscoveryAsyncResp patientDiscovery = new NhincProxyPatientDiscoveryAsyncResp();
+        assertNotNull(patientDiscovery);
     }
-	
-	@Test
-	public void testMockService() {
-		
-		final ProxyPRPAIN201306UVProxyRequestType mockBody = context.mock(ProxyPRPAIN201306UVProxyRequestType.class);
-		final MCCIIN000002UV01 expectedResponse = context.mock(MCCIIN000002UV01.class);
-		final NhincProxyPatientDiscoveryAsyncRespImpl mockService = context.mock(NhincProxyPatientDiscoveryAsyncRespImpl.class);
-		final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
-		
-		NhincProxyPatientDiscoveryAsyncResp patientDiscovery =  new NhincProxyPatientDiscoveryAsyncResp(mockFactory);
-		
-		context.checking(new Expectations() {{
-	        oneOf(mockService).proxyProcessPatientDiscoveryAsyncResp(with(same(mockBody)), with(any(WebServiceContext.class)));
-	        will(returnValue(expectedResponse));
-	        
-	        oneOf(mockFactory).getNhincProxyPatientDiscoveryAsyncRespImpl();
-	        will(returnValue(mockService));
-	    }});
-		
-		MCCIIN000002UV01 actualResponse = patientDiscovery.proxyProcessPatientDiscoveryAsyncResp(mockBody);
-		
-		assertSame(expectedResponse, actualResponse);
-	
-	}
-	
-	@Test
-	public void verifyWebServiceAnnotation() {
-		WebService webServiceAnnotation = NhincProxyPatientDiscoveryAsyncResp.class.getAnnotation(WebService.class);
-		assertEquals("NhincProxyPatientDiscoveryAsyncRespPortType", webServiceAnnotation.portName());
-		assertEquals("NhincProxyPatientDiscoveryAsyncResp", webServiceAnnotation.serviceName());
-		assertEquals("gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncresp.NhincProxyPatientDiscoveryAsyncRespPortType", webServiceAnnotation.endpointInterface());
-		assertEquals("urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp", webServiceAnnotation.targetNamespace());
-		assertEquals("WEB-INF/wsdl/NhincProxyPatientDiscoveryAsyncResp/NhincProxyPatientDiscoveryAsyncResp.wsdl", webServiceAnnotation.wsdlLocation());		
-	}
-	
-	
-	@Test
-	public void verifyAddressingIsEnabled() {
-		Addressing addressingAnnotation = NhincProxyPatientDiscoveryAsyncResp.class.getAnnotation(Addressing.class);
-		assertTrue(addressingAnnotation.enabled());
-	}
-	
+
+    @Test
+    public void testMockService() {
+
+        final ProxyPRPAIN201306UVProxyRequestType mockBody = context.mock(ProxyPRPAIN201306UVProxyRequestType.class);
+        final MCCIIN000002UV01 expectedResponse = context.mock(MCCIIN000002UV01.class);
+        final NhincProxyPatientDiscoveryAsyncRespImpl mockService = context
+                .mock(NhincProxyPatientDiscoveryAsyncRespImpl.class);
+        final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
+
+        NhincProxyPatientDiscoveryAsyncResp patientDiscovery = new NhincProxyPatientDiscoveryAsyncResp(mockFactory);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(mockService).proxyProcessPatientDiscoveryAsyncResp(with(same(mockBody)),
+                        with(any(WebServiceContext.class)));
+                will(returnValue(expectedResponse));
+
+                oneOf(mockFactory).getNhincProxyPatientDiscoveryAsyncRespImpl();
+                will(returnValue(mockService));
+            }
+        });
+
+        MCCIIN000002UV01 actualResponse = patientDiscovery.proxyProcessPatientDiscoveryAsyncResp(mockBody);
+
+        assertSame(expectedResponse, actualResponse);
+
+    }
+
+    @Test
+    public void verifyWebServiceAnnotation() {
+        WebService webServiceAnnotation = NhincProxyPatientDiscoveryAsyncResp.class.getAnnotation(WebService.class);
+        assertEquals("NhincProxyPatientDiscoveryAsyncRespPortType", webServiceAnnotation.portName());
+        assertEquals("NhincProxyPatientDiscoveryAsyncResp", webServiceAnnotation.serviceName());
+        assertEquals(
+                "gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncresp.NhincProxyPatientDiscoveryAsyncRespPortType",
+                webServiceAnnotation.endpointInterface());
+        assertEquals("urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp",
+                webServiceAnnotation.targetNamespace());
+        assertEquals("WEB-INF/wsdl/NhincProxyPatientDiscoveryAsyncResp/NhincProxyPatientDiscoveryAsyncResp.wsdl",
+                webServiceAnnotation.wsdlLocation());
+    }
+
+    @Test
+    public void verifyAddressingIsEnabled() {
+        Addressing addressingAnnotation = NhincProxyPatientDiscoveryAsyncResp.class.getAnnotation(Addressing.class);
+        assertTrue(addressingAnnotation.enabled());
+    }
+
 }

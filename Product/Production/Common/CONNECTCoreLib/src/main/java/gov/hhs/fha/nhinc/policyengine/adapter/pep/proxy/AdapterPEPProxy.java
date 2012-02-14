@@ -33,12 +33,12 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 /**
  * Component proxy Java interface for Adapter PEP (Policy Enforcement Point)
  */
-public interface AdapterPEPProxy
-{
+public interface AdapterPEPProxy {
 
     /**
-     * Given a request to check the access policy, this service will interface
-     * with the PDP to determine if access is to be granted or denied.
+     * Given a request to check the access policy, this service will interface with the PDP to determine if access is to
+     * be granted or denied.
+     * 
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The xacml response which contains the access decision
      */

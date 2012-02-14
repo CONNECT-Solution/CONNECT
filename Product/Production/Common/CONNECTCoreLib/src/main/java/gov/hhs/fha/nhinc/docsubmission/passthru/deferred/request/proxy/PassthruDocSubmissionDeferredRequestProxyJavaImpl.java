@@ -33,15 +33,18 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocSubmissionDeferredRequestProxyJavaImpl implements PassthruDocSubmissionDeferredRequestProxy {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PassthruDocSubmissionDeferredRequestProxyJavaImpl.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(PassthruDocSubmissionDeferredRequestProxyJavaImpl.class);
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Using Java Implementation for Passthru Doc Submission Deferred Request Service");
-        return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request, assertion, targetSystem);
+        return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request,
+                assertion, targetSystem);
     }
 
 }

@@ -46,25 +46,21 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class AdminDistributionHelper {
 
     private Log log = LogFactory.getLog(AdminDistributionHelper.class);
-	private WebServiceProxyHelper webServiceProxyHelper;
+    private WebServiceProxyHelper webServiceProxyHelper;
 
-     
-    
     public AdminDistributionHelper() {
-    	this.webServiceProxyHelper = new WebServiceProxyHelper();
-    }
-    
-    public AdminDistributionHelper(WebServiceProxyHelper webServiceProxyHelper) {
-    	this.webServiceProxyHelper = webServiceProxyHelper;
+        this.webServiceProxyHelper = new WebServiceProxyHelper();
     }
 
-   
+    public AdminDistributionHelper(WebServiceProxyHelper webServiceProxyHelper) {
+        this.webServiceProxyHelper = webServiceProxyHelper;
+    }
 
     protected Log createLogger() {
         return log;
@@ -124,15 +120,14 @@ public class AdminDistributionHelper {
         try {
             return ConnectionManagerCache.getInstance().getAdapterEndpontURL(adapterServcice, adapterApiLevel);
         } catch (ConnectionManagerException ex) {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME);
+            log.error("Error: Failed to retrieve url for service: "
+                    + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME);
             log.error(ex.getMessage());
         }
 
         return null;
     }
-    
-    
-  
+
     public boolean isInPassThroughMode() {
         return readBooleanGatewayProperty(NhincConstants.NHIN_ADMIN_DIST_SERVICE_PASSTHRU_PROPERTY);
     }
@@ -146,7 +141,8 @@ public class AdminDistributionHelper {
         try {
             result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + propertyName + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to retrieve " + propertyName + " from property file: "
+                    + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
         return result;
@@ -172,5 +168,4 @@ public class AdminDistributionHelper {
         return nhinTargetSystem;
     }
 
-	
 }

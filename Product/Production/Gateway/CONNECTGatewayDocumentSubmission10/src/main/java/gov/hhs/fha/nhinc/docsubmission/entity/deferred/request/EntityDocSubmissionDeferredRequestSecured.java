@@ -32,16 +32,17 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-
 @WebService(serviceName = "EntityXDRSecuredAsyncRequest_Service", portName = "EntityXDRSecuredAsyncRequest_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincentityxdrsecured.async.request.EntityXDRSecuredAsyncRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:request", wsdlLocation = "WEB-INF/wsdl/EntityDocSubmissionDeferredRequestSecured/EntityXDRSecuredRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class EntityDocSubmissionDeferredRequestSecured {
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterAsyncReqRequest) {
-        return new EntityDocSubmissionDeferredRequestImpl().provideAndRegisterDocumentSetBRequest(provideAndRegisterAsyncReqRequest, context);
+    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterAsyncReqRequest) {
+        return new EntityDocSubmissionDeferredRequestImpl().provideAndRegisterDocumentSetBRequest(
+                provideAndRegisterAsyncReqRequest, context);
     }
 
 }

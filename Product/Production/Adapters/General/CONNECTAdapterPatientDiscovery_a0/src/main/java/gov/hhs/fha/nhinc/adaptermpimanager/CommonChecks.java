@@ -31,11 +31,12 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.mpilib.Patients;
 
 /**
- *
+ * 
  * @author mflynn02
  */
 public class CommonChecks {
     private static Log log = LogFactory.getLog(PatientSaver.class);
+
     public static boolean isSingleSearchResult(Patients patients) {
         return ((patients != null) && (patients.size() == 1));
     }
@@ -47,6 +48,5 @@ public class CommonChecks {
     public static boolean isZeroSearchResult(Patients patients) {
         return ((patients == null) || (patients.size() == 0));
     }
-
 
 }

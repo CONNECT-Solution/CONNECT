@@ -55,20 +55,16 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
-
 /**
- * Implements the Nhin PatientDiscovery web service client that calls this web service
- * Defines the specific generics to be used as follows
- * Target is a gov.hhs.fha.nhinc.connectmgr.data.UrlInfo object
- * Request is an org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType object
- * Response is an org.hl7.v3.PRPAIN201306UV02 object
+ * Implements the Nhin PatientDiscovery web service client that calls this web service Defines the specific generics to
+ * be used as follows Target is a gov.hhs.fha.nhinc.connectmgr.data.UrlInfo object Request is an
+ * org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType object Response is an org.hl7.v3.PRPAIN201306UV02 object
  * ResponseWrapper contains the Response, Request and Target
  * 
  * @author paul.eftis
  */
-public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayPRPAIN201305UV02RequestType,
-        Response extends ResponseWrapper>
-        implements WebServiceClient<Target, Request, Response>{
+public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayPRPAIN201305UV02RequestType, Response extends ResponseWrapper>
+        implements WebServiceClient<Target, Request, Response> {
 
     private static Log log = LogFactory.getLog(PDClient.class);
 
@@ -77,24 +73,22 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
 
     private AssertionType assertion = null;
 
-
-    public PDClient(AssertionType a){
+    public PDClient(AssertionType a) {
         assertion = a;
     }
 
-
     // implement singleton pattern using double null check pattern
     @SuppressWarnings("static-access")
-    private static RespondingGatewayService getWebServiceInstance() throws Exception{
-        if(serviceInstance != null){
+    private static RespondingGatewayService getWebServiceInstance() throws Exception {
+        if (serviceInstance != null) {
             return serviceInstance;
-        }else{
-            synchronized(PDSYNC){
-                if(serviceInstance == null){
+        } else {
+            synchronized (PDSYNC) {
+                if (serviceInstance == null) {
                     log.debug("PDClient retrieving web service client from wsdl");
-                    try{
+                    try {
                         serviceInstance = new RespondingGatewayService();
-                    }catch(Exception e){
+                    } catch (Exception e) {
                         ExecutorServiceHelper.getInstance().outputCompleteException(e);
                         throw e;
                     }
@@ -104,18 +98,15 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
         }
     }
 
-
-     /**
+    /**
      * Implements all connect logic to generate web service call
-     *
-     * Updates RespondingGatewayPRPAIN201305UV02RequestType for the target
-     * Checks policy through PatientDiscoveryPolicyChecker (if policy false returns PRPAIN201306UV02
-     * with error set
-     *
-     * Note that web service client timeouts set to
-     * InitServlet.getTimeoutValues().get("DQConnectTimeout") and
+     * 
+     * Updates RespondingGatewayPRPAIN201305UV02RequestType for the target Checks policy through
+     * PatientDiscoveryPolicyChecker (if policy false returns PRPAIN201306UV02 with error set
+     * 
+     * Note that web service client timeouts set to InitServlet.getTimeoutValues().get("DQConnectTimeout") and
      * InitServlet.getTimeoutValues().get("DQRequestTimeout"))
-      *
+     * 
      * @param t is UrlInfo target with url to call
      * @param r is RespondingGatewayPRPAIN201305UV02RequestType request to send in web service call
      * @return Response is PRPAIN201306UV02 returned
@@ -123,90 +114,89 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
      */
     @SuppressWarnings("static-access")
     @Override
-    public Response callWebService(Target t, Request r) throws Exception{
+    public Response callWebService(Target t, Request r) throws Exception {
         ResponseWrapper resp = null;
         PRPAIN201306UV02 discoveryResponse = null;
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = null;
-        try{
-            //create a new request to send out to each target community
+        try {
+            // create a new request to send out to each target community
             newRequest = createNewRequest(r, assertion, t);
 
-            //check the policy for the outgoing request to the target community
+            // check the policy for the outgoing request to the target community
             boolean bIsPolicyOk = checkPolicy(newRequest, assertion);
-            if(bIsPolicyOk){
+            if (bIsPolicyOk) {
                 // Audit the patientDiscovery Request Message sent on the Nhin Interface
                 PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
-                AcknowledgementType ack = auditLog.auditEntity201305(newRequest, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+                AcknowledgementType ack = auditLog.auditEntity201305(newRequest, assertion,
+                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                 String serviceAddress = t.getUrl();
 
                 RespondingGatewayPortType servicePort = getWebServiceInstance().getRespondingGatewayPortSoap();
                 Map requestContext = ((BindingProvider) servicePort).getRequestContext();
                 requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, serviceAddress);
                 // set the urlconnection timeout and read timeout for the web service call
-//                requestContext.put(NhincConstants.CONNECT_TIMEOUT_NAME,
-//                        ExecutorServiceHelper.getInstance().getTimeoutValues().
-//                        get(NhincConstants.PATIENT_DISCOVERY_CONNECT_TIMEOUT));
-//                requestContext.put(NhincConstants.REQUEST_TIMEOUT_NAME,
-//                        ExecutorServiceHelper.getInstance().getTimeoutValues().
-//                        get(NhincConstants.PATIENT_DISCOVERY_REQUEST_TIMEOUT));
-                 // set saml assertion on requestContext
+                // requestContext.put(NhincConstants.CONNECT_TIMEOUT_NAME,
+                // ExecutorServiceHelper.getInstance().getTimeoutValues().
+                // get(NhincConstants.PATIENT_DISCOVERY_CONNECT_TIMEOUT));
+                // requestContext.put(NhincConstants.REQUEST_TIMEOUT_NAME,
+                // ExecutorServiceHelper.getInstance().getTimeoutValues().
+                // get(NhincConstants.PATIENT_DISCOVERY_REQUEST_TIMEOUT));
+                // set saml assertion on requestContext
                 Map samlMap = (new SamlTokenCreator()).CreateRequestContext(assertion, serviceAddress,
                         NhincConstants.PATIENT_DISCOVERY_ACTION);
                 requestContext.putAll(samlMap);
 
                 // ensure target hcid is set on request
-                if(newRequest.getPRPAIN201305UV02() != null && newRequest.getPRPAIN201305UV02().getReceiver() != null
+                if (newRequest.getPRPAIN201305UV02() != null && newRequest.getPRPAIN201305UV02().getReceiver() != null
                         && newRequest.getPRPAIN201305UV02().getReceiver().get(0) != null
                         && newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
                         && newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
-                        && newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null){
+                        && newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null) {
 
-                        newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().
-                                getId().get(0).setRoot(t.getHcid());
-                        log.debug(Thread.currentThread().getName() + " set Receiver.Device.Id.Root of "
-                                + "PRPAIN201305UV02 request to hcid=" + t.getHcid());
+                    newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
+                            .setRoot(t.getHcid());
+                    log.debug(Thread.currentThread().getName() + " set Receiver.Device.Id.Root of "
+                            + "PRPAIN201305UV02 request to hcid=" + t.getHcid());
                 }
 
                 log.debug(Thread.currentThread().getName() + " calling serviceAddress=" + serviceAddress
                         + " for target hcid=" + t.getHcid());
                 discoveryResponse = servicePort.respondingGatewayPRPAIN201305UV02(newRequest.getPRPAIN201305UV02());
-            }else{
+            } else {
                 log.debug(Thread.currentThread().getName() + " has validPolicy=false");
-                discoveryResponse = (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(newRequest.getPRPAIN201305UV02(),
-                        NhincConstants.PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG);
+                discoveryResponse = (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(
+                        newRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             ExecutorServiceHelper.getInstance().outputCompleteException(e);
             throw e;
-        }finally{
+        } finally {
             resp = new ResponseWrapper(t, newRequest, discoveryResponse);
         }
-        return (Response)resp;
+        return (Response) resp;
     }
 
-
-     /**
+    /**
      * Policy Check verification done here....from connect code
      */
     protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
-        if(request != null){
+        if (request != null) {
             request.setAssertion(assertion);
         }
         return PatientDiscoveryPolicyChecker.getInstance().checkOutgoingPolicy(request);
     }
 
-
     /**
-     * Create a new RespondingGatewayPRPAIN201305UV02RequestType which has a new
-     * PRPAIN201305UV02 cloned from the original
-     *
+     * Create a new RespondingGatewayPRPAIN201305UV02RequestType which has a new PRPAIN201305UV02 cloned from the
+     * original
+     * 
      * @param request
      * @param assertion
      * @param urlInfo
      * @return new RespondingGatewayPRPAIN201305UV02RequestType
      */
-    protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request,
-            AssertionType assertion, UrlInfo urlInfo) {
+    protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(
+            RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, UrlInfo urlInfo) {
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
 
         PRPAIN201305UV02 new201305 = new PatientDiscovery201305Processor().createNewRequest(
@@ -218,27 +208,25 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
         return newRequest;
     }
 
-
-
     /**
-     * paul added this to generate a new PRPAIN201305UV02 for every PDClient thread
-     * rather than a single PRPAIN201305UV02 for all requests
-     *
-     * The reason is that otherwise you can get a java.util.ConcurrentModificationException
-     * when the PRPAIN201305UV02 is marshalled for audit/policy etc calls in one thread
-     * and updated in another thread
+     * paul added this to generate a new PRPAIN201305UV02 for every PDClient thread rather than a single
+     * PRPAIN201305UV02 for all requests
+     * 
+     * The reason is that otherwise you can get a java.util.ConcurrentModificationException when the PRPAIN201305UV02 is
+     * marshalled for audit/policy etc calls in one thread and updated in another thread
+     * 
      * @param request is original PRPAIN201305UV02
      * @return new PRPAIN201305UV02 object with values set to original
      */
-    private PRPAIN201305UV02 cloneRequest(PRPAIN201305UV02 request){
+    private PRPAIN201305UV02 cloneRequest(PRPAIN201305UV02 request) {
         PRPAIN201305UV02 newRequest = new PRPAIN201305UV02();
 
         newRequest.setAcceptAckCode(request.getAcceptAckCode());
 
-        for(EDExplicit edex : request.getAttachmentText()){
+        for (EDExplicit edex : request.getAttachmentText()) {
             newRequest.getAttachmentText().add(edex);
         }
-        for(MCCIMT000100UV01AttentionLine mcc : request.getAttentionLine()){
+        for (MCCIMT000100UV01AttentionLine mcc : request.getAttentionLine()) {
             newRequest.getAttentionLine().add(mcc);
         }
         newRequest.setControlActProcess(request.getControlActProcess());
@@ -246,34 +234,33 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
         newRequest.setITSVersion(request.getITSVersion());
         newRequest.setId(request.getId());
         newRequest.setInteractionId(request.getInteractionId());
-        for(String n : request.getNullFlavor()){
+        for (String n : request.getNullFlavor()) {
             newRequest.getNullFlavor().add(n);
         }
         newRequest.setProcessingCode(request.getProcessingCode());
         newRequest.setProcessingModeCode(request.getProcessingModeCode());
-        for(II ii : request.getProfileId()){
+        for (II ii : request.getProfileId()) {
             newRequest.getProfileId().add(ii);
         }
-        for(CS cs : request.getRealmCode()){
+        for (CS cs : request.getRealmCode()) {
             newRequest.getRealmCode().add(cs);
         }
-        for(MCCIMT000100UV01Receiver mcc : request.getReceiver()){
+        for (MCCIMT000100UV01Receiver mcc : request.getReceiver()) {
             newRequest.getReceiver().add(mcc);
         }
-        for(MCCIMT000100UV01RespondTo mcc : request.getRespondTo()){
+        for (MCCIMT000100UV01RespondTo mcc : request.getRespondTo()) {
             newRequest.getRespondTo().add(mcc);
         }
         newRequest.setSecurityText(request.getSecurityText());
         newRequest.setSender(request.getSender());
         newRequest.setSequenceNumber(request.getSequenceNumber());
-        for(II ii : request.getTemplateId()){
+        for (II ii : request.getTemplateId()) {
             newRequest.getTemplateId().add(ii);
-        } 
+        }
         newRequest.setTypeId(request.getTypeId());
         newRequest.setVersionCode(request.getVersionCode());
 
         return newRequest;
     }
-
 
 }

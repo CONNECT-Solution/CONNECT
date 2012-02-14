@@ -30,7 +30,7 @@ import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class WsntUnsubscribeResponseMarshaller {

@@ -17,7 +17,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @WebService(serviceName = "RespondingGatewayDeferredRequest_Service", portName = "RespondingGatewayDeferredRequest_Port", endpointInterface = "ihe.iti.xcpd._2009.RespondingGatewayDeferredRequestPortType", targetNamespace = "urn:ihe:iti:xcpd:2009", wsdlLocation = "WEB-INF/wsdl/NhinPatientDiscoveryAsyncReq/NhinPatientDiscoveryDeferredRequest.wsdl")

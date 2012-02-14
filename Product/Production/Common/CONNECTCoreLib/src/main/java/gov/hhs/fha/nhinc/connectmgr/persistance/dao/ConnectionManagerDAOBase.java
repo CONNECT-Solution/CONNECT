@@ -38,7 +38,7 @@ import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.ObjectFactory;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class ConnectionManagerDAOBase {
@@ -62,7 +62,7 @@ public class ConnectionManagerDAOBase {
                 JAXBContext context = JAXBContext.newInstance(CONTEXT_PATH);
                 ObjectFactory factory = new ObjectFactory();
                 Marshaller marshaller = context.createMarshaller();
-                marshaller.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
+                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
                 marshaller.marshal(factory.createBusinessDetail(BusinessDetail), file);
             }
         } catch (JAXBException ex) {

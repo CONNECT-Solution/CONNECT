@@ -42,10 +42,11 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceUnsecuredImpl implements AdapterPatientDiscoveryDeferredReqErrorProxy {
+public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceUnsecuredImpl implements
+        AdapterPatientDiscoveryDeferredReqErrorProxy {
     private Log log = null;
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqerror";
@@ -70,18 +71,21 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceUnsecuredImpl
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterPatientDiscoveryAsyncReqErrorPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion) {
+    protected AdapterPatientDiscoveryAsyncReqErrorPortType getPort(String url, String serviceAction,
+            String wsAddressingAction, AssertionType assertion) {
         AdapterPatientDiscoveryAsyncReqErrorPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterPatientDiscoveryAsyncReqErrorPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    AdapterPatientDiscoveryAsyncReqErrorPortType.class);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -90,7 +94,7 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceUnsecuredImpl
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -104,47 +108,39 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceUnsecuredImpl
         return cachedService;
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response, AssertionType assertion, String errMsg) {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response,
+            AssertionType assertion, String errMsg) {
         log.debug("Begin processPatientDiscoveryAsyncReqError");
         MCCIIN000002UV01 ack = null;
 
-        try
-        {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_ERROR_SERVICE_NAME);
-            AdapterPatientDiscoveryAsyncReqErrorPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+        try {
+            String url = oProxyHelper
+                    .getUrlLocalHomeCommunity(NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_ERROR_SERVICE_NAME);
+            AdapterPatientDiscoveryAsyncReqErrorPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION,
+                    WS_ADDRESSING_ACTION, assertion);
 
-            if(request == null)
-            {
+            if (request == null) {
                 log.error("Request was null");
-            }
-            else if (response == null) {
+            } else if (response == null) {
                 log.error("Response was null");
-            }
-            else if (assertion == null)
-            {
+            } else if (assertion == null) {
                 log.error("assertion was null");
-            }
-            else if (NullChecker.isNullish(errMsg))
-            {
+            } else if (NullChecker.isNullish(errMsg)) {
                 log.error("targets was null");
-            }
-            else if(port == null)
-            {
+            } else if (port == null) {
                 log.error("port was null");
-            }
-            else
-            {
+            } else {
                 AsyncAdapterPatientDiscoveryErrorRequestType msg = new AsyncAdapterPatientDiscoveryErrorRequestType();
                 msg.setAssertion(assertion);
                 msg.setPRPAIN201305UV02(request);
                 msg.setPRPAIN201306UV02(response);
                 msg.setErrorMsg(errMsg);
 
-                ack = (MCCIIN000002UV01)oProxyHelper.invokePort(port, AdapterPatientDiscoveryAsyncReqErrorPortType.class, "processPatientDiscoveryAsyncReqError", msg);
+                ack = (MCCIIN000002UV01) oProxyHelper
+                        .invokePort(port, AdapterPatientDiscoveryAsyncReqErrorPortType.class,
+                                "processPatientDiscoveryAsyncReqError", msg);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling processPatientDiscoveryAsyncReqError: " + ex.getMessage(), ex);
             ack = HL7AckTransforms.createAckFrom201305(request, errMsg);
         }

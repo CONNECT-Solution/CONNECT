@@ -37,63 +37,54 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(JMock.class)
-public class WebServiceProxyHelperExceptionTextTest extends
-		AbstractWebServiceProxyHelpTest {
+public class WebServiceProxyHelperExceptionTextTest extends AbstractWebServiceProxyHelpTest {
 
-	/**
-	 * Test the GetExceptionText method happy path.
-	 * 
-	 * @throws PropertyAccessException
-	 */
-	@Test
-	public void testGetExceptionTextHappyPath() throws PropertyAccessException {
-		retryDelayExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
+    /**
+     * Test the GetExceptionText method happy path.
+     * 
+     * @throws PropertyAccessException
+     */
+    @Test
+    public void testGetExceptionTextHappyPath() throws PropertyAccessException {
+        retryDelayExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
 
-		retryAttemptsExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
+        retryAttemptsExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
 
-		timeoutExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
-		
-		exceptionExpectation(mockPropertyAccessor, Expectations.returnValue("PropertyAccessException"));
-	
+        timeoutExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
 
-		WebServiceProxyHelperProperties properties = new WebServiceProxyHelperProperties(
-				mockPropertyAccessor);
+        exceptionExpectation(mockPropertyAccessor, Expectations.returnValue("PropertyAccessException"));
 
-		String sExceptionText = properties.getExceptionText();
-		assertEquals("getExceptionText failed.", "PropertyAccessException",
-				sExceptionText);
+        WebServiceProxyHelperProperties properties = new WebServiceProxyHelperProperties(mockPropertyAccessor);
 
-	}
+        String sExceptionText = properties.getExceptionText();
+        assertEquals("getExceptionText failed.", "PropertyAccessException", sExceptionText);
 
-	
-	/**
-	 * Test the GetExceptionText method with PropertyAccessException.
-	 * 
-	 * @throws PropertyAccessException
-	 */
-	@Ignore
-	@Test
-	public void testGetExceptionTextPropertyException()
-			throws PropertyAccessException {
-	
+    }
 
-		retryDelayExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
+    /**
+     * Test the GetExceptionText method with PropertyAccessException.
+     * 
+     * @throws PropertyAccessException
+     */
+    @Ignore
+    @Test
+    public void testGetExceptionTextPropertyException() throws PropertyAccessException {
 
-		retryAttemptsExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
+        retryDelayExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
 
-		timeoutExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
-		
-		exceptionExpectation(mockPropertyAccessor, Expectations.throwException(new PropertyAccessException(
-				"Failed to retrieve property.")));
-	
+        retryAttemptsExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
 
-		WebServiceProxyHelperProperties properties = new WebServiceProxyHelperProperties(
-				mockPropertyAccessor);
+        timeoutExpectation(mockPropertyAccessor, Expectations.returnValue("1"));
 
-		String sExceptionText = properties.getExceptionText();
-		
-		assertEquals("getExceptionText failed: ", "", sExceptionText);
+        exceptionExpectation(mockPropertyAccessor,
+                Expectations.throwException(new PropertyAccessException("Failed to retrieve property.")));
 
-	}
+        WebServiceProxyHelperProperties properties = new WebServiceProxyHelperProperties(mockPropertyAccessor);
+
+        String sExceptionText = properties.getExceptionText();
+
+        assertEquals("getExceptionText failed: ", "", sExceptionText);
+
+    }
 
 }

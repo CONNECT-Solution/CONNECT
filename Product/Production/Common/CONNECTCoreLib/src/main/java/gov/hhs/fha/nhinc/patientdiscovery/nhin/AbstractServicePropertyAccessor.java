@@ -36,47 +36,43 @@ import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
 
 public abstract class AbstractServicePropertyAccessor implements ServicePropertyAccessor {
 
-	 static Log log = LogFactory.getLog(AbstractServicePropertyAccessor.class);
-		
-	
-	public AbstractServicePropertyAccessor() {
-		super();
-	}
+    static Log log = LogFactory.getLog(AbstractServicePropertyAccessor.class);
 
-	abstract protected String getServiceEnabledPropertyName();
-	
-	abstract protected String getPassThruEnabledPropertyName();
+    public AbstractServicePropertyAccessor() {
+        super();
+    }
 
-	@Override
-	public boolean isServiceEnabled() {
-		boolean serviceEnabled = false;
-		try {
-			serviceEnabled = PropertyAccessor.getPropertyBoolean(
-					NhincConstants.GATEWAY_PROPERTY_FILE, getServiceEnabledPropertyName());
-		} catch (PropertyAccessException ex) {
-			log.error("Error: Failed to retrieve " + getServiceEnabledPropertyName()
-					+ " from property file: "
-					+ NhincConstants.GATEWAY_PROPERTY_FILE);
-			log.error(ex.getMessage());
-		}
-	
-		return serviceEnabled;
-	}
+    abstract protected String getServiceEnabledPropertyName();
 
+    abstract protected String getPassThruEnabledPropertyName();
 
-	@Override
-	public boolean isInPassThroughMode() {
-		boolean passThroughModeEnabled = false;
-		try {
-			passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(
-					NhincConstants.GATEWAY_PROPERTY_FILE, getPassThruEnabledPropertyName());
-		} catch (PropertyAccessException ex) {
-			log.error("Error: Failed to retrieve " + getPassThruEnabledPropertyName()
-					+ " from property file: "
-					+ NhincConstants.GATEWAY_PROPERTY_FILE);
-			log.error(ex.getMessage());
-		}
-		return passThroughModeEnabled;
-	}
+    @Override
+    public boolean isServiceEnabled() {
+        boolean serviceEnabled = false;
+        try {
+            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    getServiceEnabledPropertyName());
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + getServiceEnabledPropertyName() + " from property file: "
+                    + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+        }
+
+        return serviceEnabled;
+    }
+
+    @Override
+    public boolean isInPassThroughMode() {
+        boolean passThroughModeEnabled = false;
+        try {
+            passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    getPassThruEnabledPropertyName());
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + getPassThruEnabledPropertyName() + " from property file: "
+                    + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+        }
+        return passThroughModeEnabled;
+    }
 
 }

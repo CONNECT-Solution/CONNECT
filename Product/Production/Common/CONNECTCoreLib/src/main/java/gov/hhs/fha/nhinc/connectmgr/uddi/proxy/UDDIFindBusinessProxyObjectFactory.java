@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class UDDIFindBusinessProxyObjectFactory extends ComponentProxyObjectFactory {
@@ -42,7 +42,7 @@ public class UDDIFindBusinessProxyObjectFactory extends ComponentProxyObjectFact
     }
 
     /**
-     *
+     * 
      * @return instance of <code>UDDIFindBusinessProxyBase</code>
      */
     public UDDIFindBusinessProxyBase getUDDIBusinessInfoProxy() {

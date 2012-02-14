@@ -36,7 +36,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class EndpointReferenceHelper {
@@ -53,9 +53,9 @@ public class EndpointReferenceHelper {
         String address = getAddressFromXml(endpointReferenceXml);
         setAddress(endpointReference, address);
 
-        //todo: handle "ReferenceParameters"
-        //todo: handle "Metadata"
-        //todo: handle "other"
+        // todo: handle "ReferenceParameters"
+        // todo: handle "Metadata"
+        // todo: handle "other"
 
         return endpointReference;
     }
@@ -83,7 +83,8 @@ public class EndpointReferenceHelper {
         endpointReference.setAddress(addressElement);
     }
 
-    public void attachSimpleReferenceParameter(EndpointReferenceType endpointReference, String referenceParameterUri, String referenceParameterElementName, String referenceParameterValue) {
+    public void attachSimpleReferenceParameter(EndpointReferenceType endpointReference, String referenceParameterUri,
+            String referenceParameterElementName, String referenceParameterValue) {
         org.w3._2005._08.addressing.ObjectFactory addrObjFact = new org.w3._2005._08.addressing.ObjectFactory();
         ReferenceParametersType refParams = addrObjFact.createReferenceParametersType();
 

@@ -10,14 +10,12 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
-
 /**
  * Constructs an AdhocQueryRequest for testing
  * 
  * @author paul
  */
-public class AdhocQueryRequestGenerator{
-
+public class AdhocQueryRequestGenerator {
 
     private AdhocQueryRequest request = null;
 
@@ -28,49 +26,29 @@ public class AdhocQueryRequestGenerator{
     private static final String ASYNC_ONEPASS_FLAG_SLOT_NAME = "$AsyncOnepassFlag";
     private static final String QUERY_RETURN_TYPE = "RegistryObject";
 
-    
-    public AdhocQueryRequest generateTestRequest(int counter, String patientid){
-        return generateAdhocQueryRequest(
-                patientid,
-                "48765-2",
-                true,
-                "a1b2c3d4e5-" + counter,
-                "01-01-1990",
-                "01-01-2020",
-                counter,
-                null,
-                null
-                );
+    public AdhocQueryRequest generateTestRequest(int counter, String patientid) {
+        return generateAdhocQueryRequest(patientid, "48765-2", true, "a1b2c3d4e5-" + counter, "01-01-1990",
+                "01-01-2020", counter, null, null);
     }
 
-
-    public AdhocQueryRequest generateTestRequest(int counter, String patientid,
-            String homeId, String aaId){
-        return generateAdhocQueryRequest(
-                patientid,
-                "48765-2",
-                true,
-                "a1b2c3d4e5-" + counter,
-                "01-01-1990",
-                "01-01-2020",
-                counter,
-                homeId,
-                aaId
-                );
+    public AdhocQueryRequest generateTestRequest(int counter, String patientid, String homeId, String aaId) {
+        return generateAdhocQueryRequest(patientid, "48765-2", true, "a1b2c3d4e5-" + counter, "01-01-1990",
+                "01-01-2020", counter, homeId, aaId);
     }
 
     /**
      * Construct associated AdhocQueryRequest for the input parameters
+     * 
      * @param patientid
      * @param loinc
      * @param useOnepass
      * @param queryid
-     * @param startDateStr          // startDateStr, endDateStr formatted mm-dd-yyyy
+     * @param startDateStr // startDateStr, endDateStr formatted mm-dd-yyyy
      * @param endDateStr
      */
     public AdhocQueryRequest generateAdhocQueryRequest(String patientid, String loinc, boolean useOnepass,
-            String queryid, String startDateStr, String endDateStr, int counter,
-            String homeCommunityId, String assigningAuthorityId){
+            String queryid, String startDateStr, String endDateStr, int counter, String homeCommunityId,
+            String assigningAuthorityId) {
         patientID = patientid;
         loincCode = loinc;
         queryId = queryid;
@@ -86,9 +64,9 @@ public class AdhocQueryRequestGenerator{
         AdhocQueryType query = new AdhocQueryType();
         // set the query id to FindDocuments query
         query.setId(queryid);
-        if(homeCommunityId == null){
+        if (homeCommunityId == null) {
             query.setHome(getHomeID());
-        }else{
+        } else {
             query.setHome(homeCommunityId);
         }
 
@@ -98,9 +76,9 @@ public class AdhocQueryRequestGenerator{
         List<String> valueList = new ArrayList<String>();
 
         // set patientId
-        if(assigningAuthorityId == null){
+        if (assigningAuthorityId == null) {
             setPatientId(patientID, slotList);
-        }else{
+        } else {
             setPatientId(patientID, slotList, assigningAuthorityId);
         }
 
@@ -113,7 +91,7 @@ public class AdhocQueryRequestGenerator{
         // set the $XDSDocumentEntryCreationTimeFrom and $XDSDocumentEntryCreationTimeTo
         // XDS_TIME_FORMAT = "yyyyMMddHHmmss" where MM is month in year (01 to 12) and HH is hour in day (00 to 24)
         // set start date-time (if startDate or endDate null we don't add these slots)
-        if(startDateStr != null){
+        if (startDateStr != null) {
             // startDateStr formatted mm-dd-yyyy
             // startDate = convertDateFromString(startDateStr);
             SlotType1 startDateSlot = new SlotType1();
@@ -125,7 +103,7 @@ public class AdhocQueryRequestGenerator{
             startDateSlot.setValueList(valueListType);
             slotList.add(startDateSlot);
         }
-        if(endDateStr != null){
+        if (endDateStr != null) {
             // endDateStr formatted mm-dd-yyyy
             // endDate = convertDateFromString(endDateStr);
             // set end date-time
@@ -138,7 +116,7 @@ public class AdhocQueryRequestGenerator{
             endDateSlot.setValueList(valueListType);
             slotList.add(endDateSlot);
         }
-        
+
         // set async queryID
         SlotType1 queryIDSlot = new SlotType1();
         queryIDSlot.setName(ASYNC_QUERYID_SLOT_NAME);
@@ -154,9 +132,9 @@ public class AdhocQueryRequestGenerator{
         onepassSlot.setName(ASYNC_ONEPASS_FLAG_SLOT_NAME);
         valueListType = new ValueListType();
         valueList = valueListType.getValue();
-        if(useOnepass){
+        if (useOnepass) {
             valueList.add("true");
-        }else{
+        } else {
             valueList.add("false");
         }
         onepassSlot.setValueList(valueListType);
@@ -166,16 +144,14 @@ public class AdhocQueryRequestGenerator{
         return request;
     }
 
-
-
-
     /**
-     * Appends ^^^&homeid&ISO to original patientid and adds patientIDSlot to slotList
-     * slotList is passed by reference from AdhocQueryRequestGenerator
+     * Appends ^^^&homeid&ISO to original patientid and adds patientIDSlot to slotList slotList is passed by reference
+     * from AdhocQueryRequestGenerator
+     * 
      * @param requestedPatientID
      * @param slotList
      */
-    public void setPatientId(String requestedPatientID, List<SlotType1> slotList){
+    public void setPatientId(String requestedPatientID, List<SlotType1> slotList) {
         requestedPatientID += "^^^&" + "1.1" + "&ISO";
         SlotType1 patientIDSlot = new SlotType1();
         patientIDSlot.setName("$XDSDocumentEntryPatientId");
@@ -185,7 +161,8 @@ public class AdhocQueryRequestGenerator{
         patientIDSlot.setValueList(valueListType);
         slotList.add(patientIDSlot);
     }
-    public void setPatientId(String requestedPatientID, List<SlotType1> slotList, String aaid){
+
+    public void setPatientId(String requestedPatientID, List<SlotType1> slotList, String aaid) {
         requestedPatientID += "^^^&" + aaid + "&ISO";
         SlotType1 patientIDSlot = new SlotType1();
         patientIDSlot.setName("$XDSDocumentEntryPatientId");
@@ -197,11 +174,12 @@ public class AdhocQueryRequestGenerator{
     }
 
     /**
-     * Set the query status value to urn:oasis:names:tc:ebxml-regrep:StatusType:Approved
-     * slotList is passed by reference from AdhocQueryRequestGenerator
+     * Set the query status value to urn:oasis:names:tc:ebxml-regrep:StatusType:Approved slotList is passed by reference
+     * from AdhocQueryRequestGenerator
+     * 
      * @param slotList
      */
-    public void setQueryStatus(List<SlotType1> slotList){
+    public void setQueryStatus(List<SlotType1> slotList) {
         SlotType1 statusSlot = new SlotType1();
         statusSlot.setName("$XDSDocumentEntryStatus");
         ValueListType valueListType = new ValueListType();
@@ -211,15 +189,14 @@ public class AdhocQueryRequestGenerator{
         slotList.add(statusSlot);
     }
 
-
-
     /**
-     * slotList is passed by reference from AdhocQueryRequestGenerator
-     * Currently only notes need to be converted to a set of classcode/classcodescheme
+     * slotList is passed by reference from AdhocQueryRequestGenerator Currently only notes need to be converted to a
+     * set of classcode/classcodescheme
+     * 
      * @param requestedLoinc
      * @param slotList
      */
-    public void setClasscodeAndScheme(String requestedLoinc, List<SlotType1> slotList){
+    public void setClasscodeAndScheme(String requestedLoinc, List<SlotType1> slotList) {
         // set the query datatype/LOINC in the class code
         SlotType1 loincSlot = new SlotType1();
         loincSlot.setName("$XDSDocumentEntryClassCodeScheme");
@@ -235,87 +212,82 @@ public class AdhocQueryRequestGenerator{
         slotList.add(loincSlot);
     }
 
-
     /**
      * the classcode scheme value must be formatted as ('LOINC^^CLASS_CODE_SCHEME_OID')
+     * 
      * @param loinc
      * @param oid
      * @return
      */
-    private String formatClasscodeSchemeValue(String loinc, String oid){
+    private String formatClasscodeSchemeValue(String loinc, String oid) {
         return "('" + loinc + "^^" + oid + "')";
     }
 
-
-    public AdhocQueryRequest getAdhocQueryRequest(){
+    public AdhocQueryRequest getAdhocQueryRequest() {
         return request;
     }
 
-
     /**
      * Get the HOME_COMMUNITY_ID from the spring configs stored in InitServlet
+     * 
      * @return string that is the HOME_COMMUNITY_ID
      */
-    public String getHomeID(){
+    public String getHomeID() {
         return "1.1";
     }
 
-
     /**
-     * Returns the dateStr formatted as XCA compliant date string that includes time
-     * XDS_TIME_FORMAT = "yyyyMMddHHmmss" where MM is month in year (01 to 12) and HH is hour in day (00 to 24)
-     * with the time part set to 000000 for start time
-     * will return null if dateStr is null or not formatted properly
+     * Returns the dateStr formatted as XCA compliant date string that includes time XDS_TIME_FORMAT = "yyyyMMddHHmmss"
+     * where MM is month in year (01 to 12) and HH is hour in day (00 to 24) with the time part set to 000000 for start
+     * time will return null if dateStr is null or not formatted properly
+     * 
      * @param dateStr
      * @return String in format yyyyMMddHHmmss
      */
-    private String getXcaStartDateTime(String dStr){
+    private String getXcaStartDateTime(String dStr) {
         String xcaStartDate = null;
         xcaStartDate = convertDateToXcaString(dStr);
-        if(xcaStartDate != null){
+        if (xcaStartDate != null) {
             xcaStartDate += "000000";
         }
         return xcaStartDate;
     }
 
-
     /**
-     * Returns the dateStr formatted as XCA compliant date string that includes time
-     * XDS_TIME_FORMAT = "yyyyMMddHHmmss" where MM is month in year (01 to 12) and HH is hour in day (00 to 24)
-     * with the time part set to 235959 for end time
-     * will return null if dateStr is null or not formatted properly
+     * Returns the dateStr formatted as XCA compliant date string that includes time XDS_TIME_FORMAT = "yyyyMMddHHmmss"
+     * where MM is month in year (01 to 12) and HH is hour in day (00 to 24) with the time part set to 235959 for end
+     * time will return null if dateStr is null or not formatted properly
+     * 
      * @param dateStr
      * @return String in format yyyyMMddHHmmss
      */
-    private String getXcaEndDateTime(String dStr){
+    private String getXcaEndDateTime(String dStr) {
         String xcaStartDate = null;
         xcaStartDate = convertDateToXcaString(dStr);
-        if(xcaStartDate != null){
+        if (xcaStartDate != null) {
             xcaStartDate += "235959";
         }
         return xcaStartDate;
     }
 
-
     /**
-     * converts the dateStr in mm-dd-yyyy format to a XCA compliant string
-     * which is format yyyymmdd
-     * will return null if dateStr is null or not formatted properly
+     * converts the dateStr in mm-dd-yyyy format to a XCA compliant string which is format yyyymmdd will return null if
+     * dateStr is null or not formatted properly
+     * 
      * @param dateStr
      * @return String in format yyyymmdd
      */
-    private String convertDateToXcaString(String dtStr){
+    private String convertDateToXcaString(String dtStr) {
         String date = null;
-        try{
+        try {
             StringTokenizer st = new StringTokenizer(dtStr, "-");
             String mmStr = st.nextToken();
             String ddStr = st.nextToken();
             String yyyyStr = st.nextToken();
             date = yyyyStr + mmStr + ddStr;
-        }catch(Exception ex){}
+        } catch (Exception ex) {
+        }
         return date;
     }
-
-
 
 }

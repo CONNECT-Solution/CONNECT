@@ -31,25 +31,22 @@ package gov.hhs.fha.nhinc.connectmgr.uddi;
  * 
  * @author Les Westberg
  */
-public class UDDIAccessorException extends Exception
-{
+public class UDDIAccessorException extends Exception {
     private static final long serialVersionUID = -4399592211810514874L;
 
     /**
      * Default constructor.
      */
-    public UDDIAccessorException()
-    {
+    public UDDIAccessorException() {
         super();
     }
-    
+
     /**
      * Constructor with an envloping exception.
      * 
-     * @param e  The exception that caused this one.
+     * @param e The exception that caused this one.
      */
-    public UDDIAccessorException(Exception e)
-    {
+    public UDDIAccessorException(Exception e) {
         super(e);
     }
 
@@ -59,8 +56,7 @@ public class UDDIAccessorException extends Exception
      * @param sMessage The message to place in the exception.
      * @param e The exception that triggered this one.
      */
-    public UDDIAccessorException(String sMessage, Exception e)
-    {
+    public UDDIAccessorException(String sMessage, Exception e) {
         super(sMessage, e);
     }
 
@@ -69,9 +65,8 @@ public class UDDIAccessorException extends Exception
      * 
      * @param sMessage The message for the exception.
      */
-    public UDDIAccessorException(String sMessage)
-    {
+    public UDDIAccessorException(String sMessage) {
         super(sMessage);
     }
-    
+
 }

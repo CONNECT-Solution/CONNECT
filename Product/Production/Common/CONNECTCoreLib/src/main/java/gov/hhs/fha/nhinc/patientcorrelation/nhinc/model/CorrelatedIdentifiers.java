@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.model;
 import java.util.Date;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public class CorrelatedIdentifiers {
@@ -86,5 +86,5 @@ public class CorrelatedIdentifiers {
 
     public void setPatientId(String patientId) {
         this.patientId = patientId;
-    }  
+    }
 }

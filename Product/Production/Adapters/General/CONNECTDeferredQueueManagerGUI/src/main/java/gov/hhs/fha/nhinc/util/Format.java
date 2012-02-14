@@ -41,7 +41,7 @@ public final class Format {
     private static final Log log = LogFactory.getLog("gov.hhs.fha.nhinc.util.Format");
 
     public static final String MMDDYYYY_DATEFORMAT = "MMddyyyy";
-    public static final String MMDDYYYYHHMMSS_DATEFORMAT = "MMddyyyy HH:mm:ss";    
+    public static final String MMDDYYYYHHMMSS_DATEFORMAT = "MMddyyyy HH:mm:ss";
     public static final String DATETIME_DISPLAYFORMAT = "d MMM, yyyy hh:mm a";
     public static final String DATETIME_WITH_SECONDS_DISPLAYFORMAT = "d MMM, yyyy hh:mm:ss a";
 
@@ -54,7 +54,7 @@ public final class Format {
      */
     /**
      * Validate passed date string against the passed date format
-     *
+     * 
      * @param dateStr
      * @param format
      * @return boolean
@@ -84,7 +84,7 @@ public final class Format {
     }
 
     /**
-     *
+     * 
      * @param date
      * @return
      * @throws ServiceException
@@ -107,11 +107,13 @@ public final class Format {
                 if (strict && ((pos.getIndex() < format.length()) || date.length() != format.length())) {
                     // no-op
                     if (log.isDebugEnabled()) {
-                        log.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict=" + strict + "]");
+                        log.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
+                                + strict + "]");
                     }
                 } else {
                     if (log.isDebugEnabled()) {
-                        log.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict=" + strict + "]");
+                        log.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
+                                + strict + "]");
                     }
                     if (parseDate != null) {
                         dateValue = new java.sql.Date(parseDate.getTime());
@@ -127,7 +129,7 @@ public final class Format {
     }
 
     /**
-     *
+     * 
      * @param date
      * @return
      * @throws ServiceException
@@ -149,11 +151,13 @@ public final class Format {
                 if (strict && ((pos.getIndex() < format.length()) || date.length() != format.length())) {
                     // no-op
                     if (log.isDebugEnabled()) {
-                        log.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict=" + strict + "]");
+                        log.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
+                                + strict + "]");
                     }
                 } else {
                     if (log.isDebugEnabled()) {
-                        log.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict=" + strict + "]");
+                        log.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
+                                + strict + "]");
                     }
                     if (parseDate != null) {
                         ts = new Timestamp(parseDate.getTime());
@@ -167,7 +171,7 @@ public final class Format {
     }
 
     /**
-     *
+     * 
      * @param format
      * @param cal
      * @return
@@ -205,7 +209,6 @@ public final class Format {
         cal.setTime(date);
         return cal;
     }
-
 
     /*
      * String Functions
@@ -289,4 +292,3 @@ public final class Format {
         return answer;
     }
 }
-

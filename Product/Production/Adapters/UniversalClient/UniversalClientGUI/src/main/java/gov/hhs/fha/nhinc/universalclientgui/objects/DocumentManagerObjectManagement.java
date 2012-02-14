@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.universalclientgui.objects;
 
 /**
- *
+ * 
  * @author Duane DeCouteau
  */
 public class DocumentManagerObjectManagement {
@@ -52,7 +52,6 @@ public class DocumentManagerObjectManagement {
     private boolean selectedForViewing;
     private String localHash;
     private String nhinHash;
-
 
     /**
      * @return the patientId
@@ -347,8 +346,5 @@ public class DocumentManagerObjectManagement {
     public void setLocalRepositoryId(String localRepositoryId) {
         this.localRepositoryId = localRepositoryId;
     }
-
-
-
 
 }

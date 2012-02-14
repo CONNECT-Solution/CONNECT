@@ -39,9 +39,9 @@ import javax.xml.ws.Service;
  * 
  * @author Neil Webb
  */
-public class NotificationMessageSender
-{
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NotificationMessageSender.class);
+public class NotificationMessageSender {
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(NotificationMessageSender.class);
 
     private static Service cachedService = null;
     private static WebServiceProxyHelper oProxyHelper = null;
@@ -53,82 +53,63 @@ public class NotificationMessageSender
 
     /**
      * Send a notify message to a remote gateway.
-     *
+     * 
      * @param notifyMessage Notify message to be sent
      * @param assertion Assertion to be used when sending the message.
      * @param endpointAddress URL to the remote gateway
      */
-    public void sendNotify(NotificationMessageHolderType notifyMessage, AssertionType assertion, String endpointAddress)
-    {
-        if(assertion == null)
-        {
+    public void sendNotify(NotificationMessageHolderType notifyMessage, AssertionType assertion, String endpointAddress) {
+        if (assertion == null) {
             log.warn("NotificationMessageSender - The assertion was null for the entity notify message");
-        }
-        else
-        {
+        } else {
             log.warn("NotificationMessageSender - The assertion was not null for the entity notify message");
         }
-        
-        try
-        { // Call Web Service Operation            
+
+        try { // Call Web Service Operation
             org.oasis_open.docs.wsn.b_2.Notify notify = new org.oasis_open.docs.wsn.b_2.Notify();
             notify.getNotificationMessage().add(notifyMessage);
 
             org.oasis_open.docs.wsn.bw_2.NotificationConsumer port = getPort(endpointAddress, assertion);
             port.notify(notify);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error sending Notify: " + ex.getMessage(), ex);
         }
     }
 
-    protected org.oasis_open.docs.wsn.bw_2.NotificationConsumer getPort(String url, AssertionType assertIn)
-    {
+    protected org.oasis_open.docs.wsn.bw_2.NotificationConsumer getPort(String url, AssertionType assertIn) {
         org.oasis_open.docs.wsn.bw_2.NotificationConsumer oPort = null;
         try {
             Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-            if (oService != null)
-            {
+            if (oService != null) {
                 log.debug("subscribe() Obtained service - creating port.");
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-                            org.oasis_open.docs.wsn.bw_2.NotificationConsumer.class);
+                        org.oasis_open.docs.wsn.bw_2.NotificationConsumer.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort,
-                        url, NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED, WS_ADDRESSING_ACTION, assertIn);
-             }
-            else
-            {
+                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+                        NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED, WS_ADDRESSING_ACTION, assertIn);
+            } else {
                 log.error("Unable to obtain serivce - no port created.");
             }
-        } catch (Throwable t)
-            {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+        }
         return oPort;
     }
 
-    private WebServiceProxyHelper getWebServiceProxyHelper()
-    {
-        if (oProxyHelper == null)
-        {
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
             oProxyHelper = new WebServiceProxyHelper();
         }
         return oProxyHelper;
     }
 
-    private Service getService(String wsdl, String uri, String service)
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    private Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
                 cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }

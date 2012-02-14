@@ -36,27 +36,26 @@ import javax.xml.ws.soap.Addressing;
 
 /**
  * This is an Entity service for Document Query Deferred Request message
+ * 
  * @author Mark Goldman
  */
-@WebService(serviceName = "EntityDocQueryDeferredRequest",
-            portName = "EntityDocQueryDeferredRequestPortSoap",
-            endpointInterface = "gov.hhs.fha.nhinc.entitydocquerydeferredrequest.EntityDocQueryDeferredRequestPortType",
-            targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest",
-            wsdlLocation = "WEB-INF/wsdl/EntityDocQueryDeferredReq/EntityDocQueryDeferredRequest.wsdl")
+@WebService(serviceName = "EntityDocQueryDeferredRequest", portName = "EntityDocQueryDeferredRequestPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitydocquerydeferredrequest.EntityDocQueryDeferredRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest", wsdlLocation = "WEB-INF/wsdl/EntityDocQueryDeferredReq/EntityDocQueryDeferredRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class EntityDocQueryDeferredReq extends EntityDocQueryDeferredReqImpl {
 
-  @Resource
-  private WebServiceContext context;
+    @Resource
+    private WebServiceContext context;
 
-  /**
-   * The Entity Secured Method implementation for RespondingGatewayCrossGatewayQuery makes call to actual implementation
-   * @param respondingGatewayCrossGatewayQueryRequest
-   * @return DocQueryAcknowledgementsType
-   */
-  public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
-          RespondingGatewayCrossGatewayQueryRequestType body) {
-      return respondingGatewayCrossGatewayQuery(body, context);
-  }
+    /**
+     * The Entity Secured Method implementation for RespondingGatewayCrossGatewayQuery makes call to actual
+     * implementation
+     * 
+     * @param respondingGatewayCrossGatewayQueryRequest
+     * @return DocQueryAcknowledgementsType
+     */
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(
+            RespondingGatewayCrossGatewayQueryRequestType body) {
+        return respondingGatewayCrossGatewayQuery(body, context);
+    }
 }

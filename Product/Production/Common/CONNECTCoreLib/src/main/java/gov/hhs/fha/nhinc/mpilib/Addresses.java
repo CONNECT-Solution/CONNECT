@@ -31,13 +31,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
-public class Addresses extends ArrayList<Address>
-        implements java.io.Serializable {
+public class Addresses extends ArrayList<Address> implements java.io.Serializable {
     private static Log log = LogFactory.getLog(Addresses.class);
-    static final long serialVersionUID =5100000000000000000L;
+    static final long serialVersionUID = 5100000000000000000L;
 
     public Addresses() {
         log.info("PhoneNumbers Initialized");

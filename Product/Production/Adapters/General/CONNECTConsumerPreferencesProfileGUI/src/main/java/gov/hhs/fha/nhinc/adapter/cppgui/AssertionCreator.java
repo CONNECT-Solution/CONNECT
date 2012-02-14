@@ -40,8 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class creates a generic assertion class.  Some services need this class
- * to proceed.
+ * This class creates a generic assertion class. Some services need this class to proceed.
  * 
  * @author westberg
  */
@@ -84,7 +83,8 @@ public class AssertionCreator {
         try {
             userPerson.setGivenName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_FIRST));
             userPerson.setFamilyName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_LAST));
-            userPerson.setSecondNameOrInitials(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_MIDDLE));
+            userPerson.setSecondNameOrInitials(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,
+                    PROPERTY_KEY_USER_MIDDLE));
             userHc.setName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_ORG));
             user.setUserName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_NAME));
             userRole.setCode(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_CODE));
@@ -94,12 +94,16 @@ public class AssertionCreator {
 
             purposeCoded.setCode(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_CODE));
             purposeCoded.setCodeSystem(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_SYSTEM));
-            purposeCoded.setCodeSystemName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
+            purposeCoded.setCodeSystemName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,
+                    PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
             purposeCoded.setDisplayName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_DISPLAY));
 
-//            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SIGN));
-//            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_EXPIRE));
-//            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_ACCESS_CONSENT));
+            // assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,
+            // PROPERTY_KEY_SIGN));
+            // assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,
+            // PROPERTY_KEY_EXPIRE));
+            // assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,
+            // PROPERTY_KEY_ACCESS_CONSENT));
 
         } catch (PropertyAccessException ex) {
             log.error("Universal Client can not access property: " + ex.getMessage());

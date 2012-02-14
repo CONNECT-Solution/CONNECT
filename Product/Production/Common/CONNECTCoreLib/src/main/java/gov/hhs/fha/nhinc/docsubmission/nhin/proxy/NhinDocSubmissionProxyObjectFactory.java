@@ -25,9 +25,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.proxy;
+
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class NhinDocSubmissionProxyObjectFactory extends ComponentProxyObjectFactory {

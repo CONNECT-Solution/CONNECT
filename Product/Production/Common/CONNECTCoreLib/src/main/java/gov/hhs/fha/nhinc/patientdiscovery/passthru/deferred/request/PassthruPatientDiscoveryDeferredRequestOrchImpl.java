@@ -37,49 +37,47 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
-public class PassthruPatientDiscoveryDeferredRequestOrchImpl
-{
+public class PassthruPatientDiscoveryDeferredRequestOrchImpl {
 
     private Log log = null;
 
-    public PassthruPatientDiscoveryDeferredRequestOrchImpl()
-    {
+    public PassthruPatientDiscoveryDeferredRequestOrchImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected PatientDiscoveryAuditor createAuditLogger()
-    {
+    protected PatientDiscoveryAuditor createAuditLogger() {
         return new PatientDiscoveryAuditLogger();
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message,
-            AssertionType assertion, NhinTargetSystemType targets)
-    {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
+            NhinTargetSystemType targets) {
         log.debug("Entering PassthruPatientDiscoveryDeferredRequestOrchImpl.processPatientDiscoveryAsyncReq with message: "
                 + message + " assertion: " + assertion + " targets: " + targets);
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
 
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
-        //PatientDiscoveryAuditLogger auditLog = createAuditLogger();
+        // PatientDiscoveryAuditLogger auditLog = createAuditLogger();
 
-        //AcknowledgementType ack = auditLog.auditNhin201305(message, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        // AcknowledgementType ack = auditLog.auditNhin201305(message, assertion,
+        // NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         NhinPatientDiscoveryDeferredReqProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryDeferredReqProxyObjectFactory();
         NhinPatientDiscoveryDeferredReqProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryAsyncReqProxy();
 
-        log.debug("Invoking " + proxy + ".respondingGatewayPRPAIN201305UV02 with message: "
-                + message + " assertion: " + assertion + " targets: " + targets);
+        log.debug("Invoking " + proxy + ".respondingGatewayPRPAIN201305UV02 with message: " + message + " assertion: "
+                + assertion + " targets: " + targets);
         response = proxy.respondingGatewayPRPAIN201305UV02(message, assertion, targets);
 
         // Audit the Patient Discovery Response Message received on the Nhin Interface
-        //ack = auditLog.auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        // ack = auditLog.auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+        // NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
-        log.debug("Exiting PassthruPatientDiscoveryDeferredRequestOrchImpl.processPatientDiscoveryAsyncReq with response: " + response);
+        log.debug("Exiting PassthruPatientDiscoveryDeferredRequestOrchImpl.processPatientDiscoveryAsyncReq with response: "
+                + response);
         return response;
     }
 }

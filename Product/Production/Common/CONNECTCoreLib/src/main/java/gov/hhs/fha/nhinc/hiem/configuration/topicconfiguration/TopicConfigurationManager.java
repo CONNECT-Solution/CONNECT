@@ -44,7 +44,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class TopicConfigurationManager {
@@ -55,7 +55,7 @@ public class TopicConfigurationManager {
     private static final String CRLF = System.getProperty("line.separator");
 
     // Variables for managing the topic configuration XML file.
-    //-------------------------------------------------------
+    // -------------------------------------------------------
     private static final String TOPIC_CONFIG_XML_FILE_NAME = "hiemTopicConfiguration.xml";
     private static String m_sPropertyFileDir = "";
     private static String m_sInternalXMLFileDir = "";
@@ -64,12 +64,11 @@ public class TopicConfigurationManager {
     private static boolean m_bFailedToLoadEnvVar = false;
     private static boolean m_bInternalLoaded = false;
 
-
     static {
         String sValue = PropertyAccessor.getPropertyFileLocation();
         if ((sValue != null) && (sValue.length() > 0)) {
             // Set it up so that we always have a "/" at the end - in case
-            //------------------------------------------------------------
+            // ------------------------------------------------------------
             if ((sValue.endsWith("/")) || (sValue.endsWith("\\"))) {
                 m_sPropertyFileDir = sValue;
             } else {
@@ -115,7 +114,8 @@ public class TopicConfigurationManager {
                 log.debug("comparing to config topic [topicConfig.topic='" + topic + "']");
 
                 Element configurationTopicNode = XmlUtility.convertXmlToElement(topic);
-                log.debug("config topic converted to Element and then reseralized '" + XmlUtility.serializeNodeIgnoreFaults(configurationTopicNode) + "'");
+                log.debug("config topic converted to Element and then reseralized '"
+                        + XmlUtility.serializeNodeIgnoreFaults(configurationTopicNode) + "'");
 
                 RootTopicExtractor rootTopicExtractor = new RootTopicExtractor();
                 String dialect = rootTopicExtractor.getDialectFromTopicExpression(topic);
@@ -143,7 +143,7 @@ public class TopicConfigurationManager {
 
     private static void loadTopicConfigurations() throws ConfigurationException {
         // We can only proceed if we know where the files are...
-        //--------------------------------------------------------
+        // --------------------------------------------------------
         if (m_bFailedToLoadEnvVar) {
             throw new ConfigurationException("Failed to load environment variable for configuration directory");
         }
@@ -154,7 +154,8 @@ public class TopicConfigurationManager {
             sTopicConfigXml = StringUtil.readTextFile(m_sInternalXMLFileDir);
             File fInternalFile = new File(m_sInternalXMLFileDir);
         } catch (Exception e) {
-            String sErrorMessage = "Failed to read from file: '" + m_sInternalXMLFileDir + "'.  Error: " + e.getMessage();
+            String sErrorMessage = "Failed to read from file: '" + m_sInternalXMLFileDir + "'.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage);
             throw new ConfigurationException(sErrorMessage, e);
         }

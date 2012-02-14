@@ -67,7 +67,8 @@ public class DocQuerySender {
     private QualifiedSubjectIdentifierType oSubjectId;
     private AdhocQueryRequest oOriginalQueryRequest;
 
-    public DocQuerySender(String transactionId, AssertionType assertion, QualifiedSubjectIdentifierType subjectId, AdhocQueryRequest originalQueryRequest, String localAssigningAuthorityId, String uniquePatientId) {
+    public DocQuerySender(String transactionId, AssertionType assertion, QualifiedSubjectIdentifierType subjectId,
+            AdhocQueryRequest originalQueryRequest, String localAssigningAuthorityId, String uniquePatientId) {
         log = createLogger();
         sLocalHomeCommunity = getLocalHomeCommunityId();
         oOriginalQueryRequest = originalQueryRequest;
@@ -93,7 +94,8 @@ public class DocQuerySender {
             sHomeCommunity = sLocalHomeCommunity;
         } else {
             try {
-                sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+                sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                        NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
             } catch (PropertyAccessException ex) {
                 log.error(ex.getMessage());
             }
@@ -113,7 +115,8 @@ public class DocQuerySender {
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         String assigningAuthority = oSubjectId.getAssigningAuthorityIdentifier();
 
-        HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(assigningAuthority, sLocalAssigningAuthorityId, sLocalHomeCommunity);
+        HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(assigningAuthority,
+                sLocalAssigningAuthorityId, sLocalHomeCommunity);
         String sTargetHomeCommunityId = null;
         if (targetCommunity != null) {
             targetSystem.setHomeCommunity(targetCommunity);
@@ -121,7 +124,8 @@ public class DocQuerySender {
         }
         // Replace the patient id in the document query message
         DocumentQueryTransform transform = createDocumentTransform();
-        AdhocQueryRequest adhocQueryRequest = transform.replaceAdhocQueryPatientId(oOriginalQueryRequest, sLocalHomeCommunity, oSubjectId.getAssigningAuthorityIdentifier(), oSubjectId.getSubjectIdentifier());
+        AdhocQueryRequest adhocQueryRequest = transform.replaceAdhocQueryPatientId(oOriginalQueryRequest,
+                sLocalHomeCommunity, oSubjectId.getAssigningAuthorityIdentifier(), oSubjectId.getSubjectIdentifier());
         AdhocQueryResponse queryResults = null;
         if (isValidPolicy(adhocQueryRequest, oAssertion, targetCommunity)) {
             try {
@@ -136,7 +140,8 @@ public class DocQuerySender {
                 RegistryErrorList regErrList = new RegistryErrorList();
                 RegistryError regErr = new RegistryError();
                 regErrList.getRegistryError().add(regErr);
-                regErr.setCodeContext("Fault encountered processing internal document query for community " + sTargetHomeCommunityId);
+                regErr.setCodeContext("Fault encountered processing internal document query for community "
+                        + sTargetHomeCommunityId);
                 regErr.setErrorCode("XDSRegistryNotAvailable");
                 regErr.setSeverity("Error");
                 queryResults.setRegistryErrorList(regErrList);
@@ -168,11 +173,13 @@ public class DocQuerySender {
 
     /**
      * Policy Check verification done here...
+     * 
      * @param queryRequest
      * @param assertion
      * @return boolean
      */
-    private boolean isValidPolicy(AdhocQueryRequest queryRequest, AssertionType assertion, HomeCommunityType targetCommunity) {
+    private boolean isValidPolicy(AdhocQueryRequest queryRequest, AssertionType assertion,
+            HomeCommunityType targetCommunity) {
         boolean isValid = false;
         AdhocQueryRequestEventType checkPolicy = new AdhocQueryRequestEventType();
         AdhocQueryRequestMessageType checkPolicyMessage = new AdhocQueryRequestMessageType();

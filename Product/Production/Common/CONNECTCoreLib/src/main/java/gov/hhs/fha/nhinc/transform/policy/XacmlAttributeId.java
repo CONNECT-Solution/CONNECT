@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.transform.policy;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class XacmlAttributeId {

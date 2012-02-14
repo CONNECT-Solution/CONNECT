@@ -39,7 +39,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public class DocRetrieveTransformHelper {
@@ -50,8 +50,8 @@ public class DocRetrieveTransformHelper {
 
     public static CheckPolicyRequestType transformDocRetrieveToCheckPolicy(DocRetrieveEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
-        //TODO: Need to handle DocumentSet
-        //DocRetrieveMessageType docRetrieve = event.getMessage();
+        // TODO: Need to handle DocumentSet
+        // DocRetrieveMessageType docRetrieve = event.getMessage();
         RequestType request = new RequestType();
 
         if (InboundOutboundChecker.IsInbound(event.getDirection())) {
@@ -61,9 +61,9 @@ public class DocRetrieveTransformHelper {
             request.setAction(ActionHelper.actionFactory(ActionOutValue));
         }
 
-
         SubjectHelper subjHelp = new SubjectHelper();
-        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
+                .getAssertion());
         request.getSubject().add(subject);
         DocRetrieveMessageType docMessage = event.getMessage();
         RetrieveDocumentSetRequestType retrieveDocumentSetRequest = docMessage.getRetrieveDocumentSetRequest();
@@ -92,9 +92,14 @@ public class DocRetrieveTransformHelper {
         log.debug("getResource - documentId: " + documentId);
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();
-        resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, homeCommunityId));
-        resource.getAttribute().add(attrHelper.attributeFactory(Constants.RespositoryAttributeId, Constants.DataTypeString, repositoryUniqueId));
-        resource.getAttribute().add(attrHelper.attributeFactory(Constants.DocumentAttributeId, Constants.DataTypeString, documentId));
+        resource.getAttribute().add(
+                attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
+                        homeCommunityId));
+        resource.getAttribute().add(
+                attrHelper.attributeFactory(Constants.RespositoryAttributeId, Constants.DataTypeString,
+                        repositoryUniqueId));
+        resource.getAttribute().add(
+                attrHelper.attributeFactory(Constants.DocumentAttributeId, Constants.DataTypeString, documentId));
         return resource;
     }
 }

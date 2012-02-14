@@ -24,75 +24,110 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdb.model;
-
-import java.io.Serializable;
-
-/**
- *
- * @author richard.ettema
- */
-public class Phonenumber implements Serializable {
-
-    /**
-     * Attribute phonenumberId.
-     */
-    private Long phonenumberId;
-
-    /**
-     * Attribute patient.
-     */
-    private Patient patient;
-
-    /**
-     * Attribute value.
-     */
-    private String value;
-
-
-    /**
-     * @return phonenumberId
-     */
-    public Long getPhonenumberId() {
-        return phonenumberId;
-    }
-
-    /**
-     * @param phonenumberId new value for phonenumberId
-     */
-    public void setPhonenumberId(Long phonenumberId) {
-        this.phonenumberId = phonenumberId;
-    }
-
-    /**
-     * @return patient
-     */
-    public Patient getPatient() {
-        if (this.patient == null) {
-            this.patient = new Patient();
-        }
-        return patient;
-    }
-
-    /**
-     * @param patient new value for patient
-     */
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    /**
-     * @return value
-     */
-    public String getValue() {
-        return value;
-    }
-
-    /**
-     * @param value new value for value
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
-
+package gov.hhs.fha.nhinc.patientdb.model;
+
+import java.io.Serializable;
+
+/**
+ * 
+ * 
+ * 
+ * @author richard.ettema
+ */
+
+public class Phonenumber implements Serializable {
+
+    /**
+     * 
+     * Attribute phonenumberId.
+     */
+
+    private Long phonenumberId;
+
+    /**
+     * 
+     * Attribute patient.
+     */
+
+    private Patient patient;
+
+    /**
+     * 
+     * Attribute value.
+     */
+
+    private String value;
+
+    /**
+     * 
+     * @return phonenumberId
+     */
+
+    public Long getPhonenumberId() {
+
+        return phonenumberId;
+
+    }
+
+    /**
+     * 
+     * @param phonenumberId new value for phonenumberId
+     */
+
+    public void setPhonenumberId(Long phonenumberId) {
+
+        this.phonenumberId = phonenumberId;
+
+    }
+
+    /**
+     * 
+     * @return patient
+     */
+
+    public Patient getPatient() {
+
+        if (this.patient == null) {
+
+            this.patient = new Patient();
+
+        }
+
+        return patient;
+
+    }
+
+    /**
+     * 
+     * @param patient new value for patient
+     */
+
+    public void setPatient(Patient patient) {
+
+        this.patient = patient;
+
+    }
+
+    /**
+     * 
+     * @return value
+     */
+
+    public String getValue() {
+
+        return value;
+
+    }
+
+    /**
+     * 
+     * @param value new value for value
+     */
+
+    public void setValue(String value) {
+
+        this.value = value;
+
+    }
+
 }

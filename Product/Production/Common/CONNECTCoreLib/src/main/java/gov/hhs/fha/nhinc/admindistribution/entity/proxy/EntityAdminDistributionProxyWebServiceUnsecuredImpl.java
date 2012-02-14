@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.admindistribution.entity.proxy;
+
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -38,8 +39,9 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
@@ -65,7 +67,6 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
         return LogFactory.getLog(getClass());
     }
 
-
     protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
@@ -81,7 +82,6 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
         if (NullChecker.isNotNullish(url)) {
             AdministrativeDistributionPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion, apiLevel);
 
-
             RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
             message.setEDXLDistribution(body);
             message.setNhinTargetCommunities(target);
@@ -92,14 +92,14 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
             } catch (Exception ex) {
                 log.error("Unable to send message: " + ex.getMessage());
             }
-        }
-        else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME + ").  The URL is null.");
+        } else {
+            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
+                    + ").  The URL is null.");
         }
     }
 
     /**
-     *
+     * 
      * @param url
      * @param serviceAction
      * @param wsAddressingAction
@@ -122,13 +122,12 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         try {
-            String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0)) ?
-                    WSDL_FILE : WSDL_FILE_G1;
+            String wsdlFile = (apiLevel.equals(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0)) ? WSDL_FILE : WSDL_FILE_G1;
             return proxyHelper.createService(wsdlFile, NAMESPACE_URI, SERVICE_LOCAL_PART);
         } catch (Throwable t) {
             log.error("Error creating service: " + t.getMessage(), t);

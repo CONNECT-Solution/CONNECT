@@ -45,19 +45,18 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class XDRPolicyChecker {
     private static Log log = null;
 
-    public XDRPolicyChecker()
-    {
+    public XDRPolicyChecker() {
         log = createLogger();
     }
 
-    public boolean checkXDRRequestPolicy(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion, String senderHCID, String receiverHCID, String direction) {
-
+    public boolean checkXDRRequestPolicy(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion,
+            String senderHCID, String receiverHCID, String direction) {
 
         XDREventType policyCheckReq = new XDREventType();
         XDRMessageType policyMsg = new XDRMessageType();
@@ -81,8 +80,7 @@ public class XDRPolicyChecker {
         return invokePolicyEngine(policyCheckReq);
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
@@ -94,15 +92,13 @@ public class XDRPolicyChecker {
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         AssertionType assertion = null;
-        if(policyReq != null)
-        {
+        if (policyReq != null) {
             assertion = policyReq.getAssertion();
         }
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             policyIsValid = true;
         }
 
@@ -110,7 +106,7 @@ public class XDRPolicyChecker {
     }
 
     /**
-     *
+     * 
      * @param message
      * @param assertion
      * @param senderHCID
@@ -118,10 +114,12 @@ public class XDRPolicyChecker {
      * @param direction
      * @return
      */
-    public boolean checkXDRResponsePolicy(RegistryResponseType message, AssertionType assertion, String senderHCID, String receiverHCID, String direction) {
+    public boolean checkXDRResponsePolicy(RegistryResponseType message, AssertionType assertion, String senderHCID,
+            String receiverHCID, String direction) {
         createLogger().debug("Entering checkXDRResponsePolicy");
 
-        XDRResponseEventType policyCheckReq = createXDRResponseEventType(message, assertion, senderHCID, receiverHCID, direction);
+        XDRResponseEventType policyCheckReq = createXDRResponseEventType(message, assertion, senderHCID, receiverHCID,
+                direction);
 
         boolean isPolicyValid = false;
 
@@ -132,12 +130,10 @@ public class XDRPolicyChecker {
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             isPolicyValid = true;
         }
-
 
         createLogger().debug("Exiting checkXDRResponsePolicy");
 
@@ -145,7 +141,7 @@ public class XDRPolicyChecker {
     }
 
     /**
-     *
+     * 
      * @param message
      * @param assertion
      * @param senderHCID
@@ -153,7 +149,8 @@ public class XDRPolicyChecker {
      * @param direction
      * @return
      */
-    private XDRResponseEventType createXDRResponseEventType(RegistryResponseType message, AssertionType assertion, String senderHCID, String receiverHCID, String direction) {
+    private XDRResponseEventType createXDRResponseEventType(RegistryResponseType message, AssertionType assertion,
+            String senderHCID, String receiverHCID, String direction) {
         XDRResponseEventType policyCheckReq = new XDRResponseEventType();
         XDRResponseMessageType policyMsg = new XDRResponseMessageType();
 
@@ -176,4 +173,3 @@ public class XDRPolicyChecker {
         return policyCheckReq;
     }
 }
-

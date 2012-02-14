@@ -40,8 +40,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * PerformanceManager contains methods to consolidate, coordinate and manage
- * dao level functions.
+ * PerformanceManager contains methods to consolidate, coordinate and manage dao level functions.
+ * 
  * @author richard.ettema
  */
 public class PerformanceManager {
@@ -59,6 +59,7 @@ public class PerformanceManager {
 
     /**
      * Singleton instance returned...
+     * 
      * @return PerformanceManager
      */
     public static PerformanceManager getPerformanceManagerInstance() {
@@ -72,6 +73,7 @@ public class PerformanceManager {
 
     /**
      * Log new performance repository log record with initial start time
+     * 
      * @param starttime
      * @param servicetype
      * @param messagetype
@@ -79,7 +81,8 @@ public class PerformanceManager {
      * @param communityid
      * @return Long - Generated id from SQL INSERT
      */
-    public Long logPerformanceStart(Timestamp starttime, String servicetype, String messagetype, String direction, String communityid) {
+    public Long logPerformanceStart(Timestamp starttime, String servicetype, String messagetype, String direction,
+            String communityid) {
         log.debug("PerformanceManager.logPerformanceStart() - Begin");
 
         Long newId = null;
@@ -95,12 +98,10 @@ public class PerformanceManager {
             if (PerfrepositoryDao.getPerfrepositoryDaoInstance().insertPerfrepository(perfRecord)) {
                 newId = perfRecord.getId();
                 log.info("PerformanceManager.logPerformanceStart() - New Performance Log Id = " + newId);
-            }
-            else {
+            } else {
                 log.warn("PerformanceManager.logPerformanceStart() - ERROR Inserting New Performance Log Record");
             }
-        }
-        else {
+        } else {
             log.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
         }
 
@@ -111,6 +112,7 @@ public class PerformanceManager {
 
     /**
      * Update stop time and duration for known started performance repository log record
+     * 
      * @param id
      * @param starttime
      * @param stoptime
@@ -132,8 +134,7 @@ public class PerformanceManager {
                 if (starttime != null && stoptime != null) {
                     duration = (stoptime.getTime() - starttime.getTime());
                     log.info("PerformanceManager.logPerformanceStop() - Performance Duration = " + duration);
-                }
-                else {
+                } else {
                     status = -1;
                     duration = null;
                     log.warn("PerformanceManager.logPerformanceStop() - ERROR Calculating Performance Duration - starttime and/or stoptime null");
@@ -149,8 +150,7 @@ public class PerformanceManager {
                     log.warn("PerformanceManager.logPerformanceStop() - ERROR Updating Performance Log Record");
                 }
             }
-        }
-        else {
+        } else {
             log.warn("PerformanceManager.logPerformanceStop() - WARN Performance Log Id NULL or Zero(0)");
         }
 
@@ -161,15 +161,20 @@ public class PerformanceManager {
 
     /*
      * Return performance count data list for this gateway
+     * 
      * @param beginTime
+     * 
      * @param endTime
+     * 
      * @return countDataList
      */
     public List<CountDataType> getPerfrepositoryCountData(Calendar beginTime, Calendar endTime) {
 
         log.debug("getPerfrepositoryCountData() method start: beginTime ==" + beginTime + " :::   endTime==" + endTime);
 
-        List<CountDataType> countDataList = PerfrepositoryDao.getPerfrepositoryDaoInstance().getPerfrepositoryCountRange(new Timestamp(beginTime.getTimeInMillis()), new Timestamp(endTime.getTimeInMillis()));
+        List<CountDataType> countDataList = PerfrepositoryDao.getPerfrepositoryDaoInstance()
+                .getPerfrepositoryCountRange(new Timestamp(beginTime.getTimeInMillis()),
+                        new Timestamp(endTime.getTimeInMillis()));
 
         log.debug("getPerfrepositoryCountData() method end");
 
@@ -178,15 +183,20 @@ public class PerformanceManager {
 
     /*
      * Return performance detail data list for this gateway
+     * 
      * @param beginTime
+     * 
      * @param endTime
+     * 
      * @return detailDataList
      */
     public List<DetailDataType> getPerfrepositoryDetailData(Calendar beginTime, Calendar endTime) {
 
         log.debug("getPerfrepositoryDetailData() method start: beginTime ==" + beginTime + " :::   endTime==" + endTime);
 
-        List<DetailDataType> detailDataList = PerfrepositoryDao.getPerfrepositoryDaoInstance().getPerfrepositoryDetailRange(new Timestamp(beginTime.getTimeInMillis()), new Timestamp(endTime.getTimeInMillis()));
+        List<DetailDataType> detailDataList = PerfrepositoryDao.getPerfrepositoryDaoInstance()
+                .getPerfrepositoryDetailRange(new Timestamp(beginTime.getTimeInMillis()),
+                        new Timestamp(endTime.getTimeInMillis()));
 
         log.debug("getPerfrepositoryDetailData() method end");
 
@@ -195,6 +205,7 @@ public class PerformanceManager {
 
     /**
      * Return boolean performance monitor enabled indicator based on gateway property
+     * 
      * @return
      */
     private static boolean IsPerfMonitorEnabled() {
@@ -206,7 +217,8 @@ public class PerformanceManager {
                 match = true;
             }
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + PERF_LOG_ENABLED + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to retrieve " + PERF_LOG_ENABLED + " from property file: "
+                    + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
         return match;

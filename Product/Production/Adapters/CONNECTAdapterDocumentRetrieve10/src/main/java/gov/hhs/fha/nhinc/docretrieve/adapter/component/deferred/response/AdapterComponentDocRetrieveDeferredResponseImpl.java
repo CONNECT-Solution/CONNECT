@@ -24,26 +24,29 @@ import javax.xml.ws.WebServiceContext;
 import java.util.List;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AdapterComponentDocRetrieveDeferredResponseImpl {
 
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse, WebServiceContext context) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveResponse(
+            RespondingGatewayCrossGatewayRetrieveResponseType crossGatewayRetrieveResponse, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, crossGatewayRetrieveResponse.getAssertion());
 
-        return new AdapterComponentDocRetrieveDeferredRespOrchImpl().respondingGatewayCrossGatewayRetrieve(crossGatewayRetrieveResponse.getRetrieveDocumentSetResponse(), assertion);
+        return new AdapterComponentDocRetrieveDeferredRespOrchImpl().respondingGatewayCrossGatewayRetrieve(
+                crossGatewayRetrieveResponse.getRetrieveDocumentSetResponse(), assertion);
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = oAssertionIn;
 
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        // Extract the message id value from the WS-Addressing Header and place
+        // it in the Assertion Class
         if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
-               assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
+                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
             }
         }
 

@@ -41,14 +41,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Expression;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class Retriever {
 
     static Log log = LogFactory.getLog(Retriever.class);
 
-    public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {
+    public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(
+            QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = retrievePatientCorrelation(qualifiedPatientIdentifier);
         log.info("unfiltered list = " + qualifiedPatientIdentifiers.size() + " record(s)");
         qualifiedPatientIdentifiers = filterByIncludeList(qualifiedPatientIdentifiers, includeOnlyAssigningAuthorities);
@@ -56,7 +57,8 @@ public class Retriever {
         return qualifiedPatientIdentifiers;
     }
 
-    private static List<QualifiedPatientIdentifier> filterByIncludeList(List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers, List<String> includeOnlyAssigningAuthorities) {
+    private static List<QualifiedPatientIdentifier> filterByIncludeList(
+            List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers, List<String> includeOnlyAssigningAuthorities) {
         List<QualifiedPatientIdentifier> filteredQualifiedPatientIdentifiers;
 
         if (NullChecker.isNotNullish(includeOnlyAssigningAuthorities)) {
@@ -72,7 +74,8 @@ public class Retriever {
         return filteredQualifiedPatientIdentifiers;
     }
 
-    private static boolean isAssigningAuthorityInList(QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> assigningAuthorities) {
+    private static boolean isAssigningAuthorityInList(QualifiedPatientIdentifier qualifiedPatientIdentifier,
+            List<String> assigningAuthorities) {
         boolean found = false;
         for (String assigningAuthority : assigningAuthorities) {
             if (qualifiedPatientIdentifier.getAssigningAuthorityId().contentEquals(assigningAuthority)) {
@@ -84,27 +87,27 @@ public class Retriever {
         return found;
     }
 
-    public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(QualifiedPatientIdentifier qualifiedPatientIdentifier) {
+    public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(
+            QualifiedPatientIdentifier qualifiedPatientIdentifier) {
         log.debug("-- Begin CorrelatedIdentifiersDao.retrieveAllPatientCorrelation() ---");
 
         if (qualifiedPatientIdentifier == null) {
             throw new IllegalArgumentException("Missing required parameter: qualifiedPatientIdentifier");
         } else if (NullChecker.isNullish(qualifiedPatientIdentifier.getAssigningAuthorityId())) {
-            throw new IllegalArgumentException("Missing required parameter: qualifiedPatientIdentifier.getAssigningAuthorityId");
+            throw new IllegalArgumentException(
+                    "Missing required parameter: qualifiedPatientIdentifier.getAssigningAuthorityId");
         } else if (NullChecker.isNullish(qualifiedPatientIdentifier.getPatientId())) {
             throw new IllegalArgumentException("Missing required parameter: qualifiedPatientIdentifier.getPatientId");
         }
 
         CorrelatedIdentifiers criteria;
 
-        criteria =
-                new CorrelatedIdentifiers();
+        criteria = new CorrelatedIdentifiers();
         criteria.setPatientId(qualifiedPatientIdentifier.getPatientId());
         criteria.setPatientAssigningAuthorityId(qualifiedPatientIdentifier.getAssigningAuthorityId());
         List<CorrelatedIdentifiers> result1 = retrievePatientCorrelation(criteria);
 
-        criteria =
-                new CorrelatedIdentifiers();
+        criteria = new CorrelatedIdentifiers();
         criteria.setCorrelatedPatientId(qualifiedPatientIdentifier.getPatientId());
         criteria.setCorrelatedPatientAssigningAuthorityId(qualifiedPatientIdentifier.getAssigningAuthorityId());
         List<CorrelatedIdentifiers> result2 = retrievePatientCorrelation(criteria);
@@ -115,16 +118,17 @@ public class Retriever {
         for (CorrelatedIdentifiers correlatedIdentifiers : existingCorrelatedIdentifiers) {
             QualifiedPatientIdentifier resultQualifiedPatientIdentifier;
 
-            resultQualifiedPatientIdentifier =
-                    new QualifiedPatientIdentifier();
-            resultQualifiedPatientIdentifier.setAssigningAuthority(correlatedIdentifiers.getPatientAssigningAuthorityId());
+            resultQualifiedPatientIdentifier = new QualifiedPatientIdentifier();
+            resultQualifiedPatientIdentifier.setAssigningAuthority(correlatedIdentifiers
+                    .getPatientAssigningAuthorityId());
             resultQualifiedPatientIdentifier.setPatientId(correlatedIdentifiers.getPatientId());
             if (!AreSame(qualifiedPatientIdentifier, resultQualifiedPatientIdentifier)) {
                 resultQualifiedPatientIdentifiers.add(resultQualifiedPatientIdentifier);
             }
 
             resultQualifiedPatientIdentifier = new QualifiedPatientIdentifier();
-            resultQualifiedPatientIdentifier.setAssigningAuthority(correlatedIdentifiers.getCorrelatedPatientAssigningAuthorityId());
+            resultQualifiedPatientIdentifier.setAssigningAuthority(correlatedIdentifiers
+                    .getCorrelatedPatientAssigningAuthorityId());
             resultQualifiedPatientIdentifier.setPatientId(correlatedIdentifiers.getCorrelatedPatientId());
 
             if (!AreSame(qualifiedPatientIdentifier, resultQualifiedPatientIdentifier)) {
@@ -142,10 +146,12 @@ public class Retriever {
     }
 
     private static boolean AreSame(QualifiedPatientIdentifier a, QualifiedPatientIdentifier b) {
-        return ((a.getAssigningAuthorityId().contentEquals(b.getAssigningAuthorityId())) && (a.getPatientId().contentEquals(b.getPatientId())));
+        return ((a.getAssigningAuthorityId().contentEquals(b.getAssigningAuthorityId())) && (a.getPatientId()
+                .contentEquals(b.getPatientId())));
     }
 
-    private static List<CorrelatedIdentifiers> unionList(List<CorrelatedIdentifiers> list1, List<CorrelatedIdentifiers> list2) {
+    private static List<CorrelatedIdentifiers> unionList(List<CorrelatedIdentifiers> list1,
+            List<CorrelatedIdentifiers> list2) {
         if (list1 == null) {
             list1 = new ArrayList<CorrelatedIdentifiers>();
         }
@@ -163,12 +169,9 @@ public class Retriever {
         CorrelatedIdentifiers criteria;
 
         List<CorrelatedIdentifiers> existingCorrelations;
-        criteria =
-                correlatedIdentifers;
-        existingCorrelations =
-                retrievePatientCorrelation(criteria);
-        exists =
-                NullChecker.isNotNullish(existingCorrelations);
+        criteria = correlatedIdentifers;
+        existingCorrelations = retrievePatientCorrelation(criteria);
+        exists = NullChecker.isNotNullish(existingCorrelations);
 
         if (!exists) {
             criteria = new CorrelatedIdentifiers();
@@ -177,25 +180,22 @@ public class Retriever {
             criteria.setCorrelatedPatientId(correlatedIdentifers.getPatientId());
             criteria.setCorrelatedPatientAssigningAuthorityId(correlatedIdentifers.getPatientAssigningAuthorityId());
 
-            existingCorrelations =
-                    retrievePatientCorrelation(criteria);
-            exists =
-                    NullChecker.isNotNullish(existingCorrelations);
+            existingCorrelations = retrievePatientCorrelation(criteria);
+            exists = NullChecker.isNotNullish(existingCorrelations);
         }
 
         log.debug("correlation exists? = " + exists);
         return exists;
     }
-    public static CorrelatedIdentifiers retrieveSinglePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers)
-    {
+
+    public static CorrelatedIdentifiers retrieveSinglePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         List<CorrelatedIdentifiers> resultSet;
         CorrelatedIdentifiers result = null;
 
         resultSet = retrievePatientCorrelation(correlatedIdentifers);
 
         /*
-         * AEGIS.net, Inc. (c) 2010 - Interop Test Platform
-         * If empty resultSet, attempt retrieve again with reversed ids
+         * AEGIS.net, Inc. (c) 2010 - Interop Test Platform If empty resultSet, attempt retrieve again with reversed ids
          */
         if (resultSet != null && resultSet.size() == 0) {
             CorrelatedIdentifiers criteria = new CorrelatedIdentifiers();
@@ -208,53 +208,47 @@ public class Retriever {
         }
         /* AEGIS.net, Inc. (c) 2010 - Interop Test Platform */
 
-        if(resultSet != null)
-        {
-            if(resultSet.size() == 1)
-            {
+        if (resultSet != null) {
+            if (resultSet.size() == 1) {
                 result = resultSet.get(0);
-            }
-            else if(resultSet.size() > 1)
-            {
+            } else if (resultSet.size() > 1) {
                 log.warn("return more than 1 result");
             }
         }
 
         return result;
 
-
-
     }
+
     private static List<CorrelatedIdentifiers> retrievePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         SessionFactory fact = null;
         Session sess = null;
         List<CorrelatedIdentifiers> result = null;
-//        List<CorrelatedIdentifiers> modifiedResult = null;
+        // List<CorrelatedIdentifiers> modifiedResult = null;
 
         try {
             fact = HibernateUtil.getSessionFactory();
-            sess =
-                    fact.openSession();
+            sess = fact.openSession();
 
             Criteria criteria;
 
-            criteria =
-                    sess.createCriteria(CorrelatedIdentifiers.class);
-
-
-
+            criteria = sess.createCriteria(CorrelatedIdentifiers.class);
 
             if (NullChecker.isNotNullish(correlatedIdentifers.getPatientAssigningAuthorityId())) {
-                log.debug("Retrieving by patientAssigningAuthorityId=" + correlatedIdentifers.getPatientAssigningAuthorityId());
-                criteria.add(Expression.eq("patientAssigningAuthorityId", correlatedIdentifers.getPatientAssigningAuthorityId()));
+                log.debug("Retrieving by patientAssigningAuthorityId="
+                        + correlatedIdentifers.getPatientAssigningAuthorityId());
+                criteria.add(Expression.eq("patientAssigningAuthorityId",
+                        correlatedIdentifers.getPatientAssigningAuthorityId()));
             }
             if (NullChecker.isNotNullish(correlatedIdentifers.getPatientId())) {
                 log.debug("Retrieving by patientId=" + correlatedIdentifers.getPatientId());
                 criteria.add(Expression.eq("patientId", correlatedIdentifers.getPatientId()));
             }
             if (NullChecker.isNotNullish(correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId())) {
-                log.debug("Retrieving by correlatedPatientAssigningAuthorityId=" + correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId());
-                criteria.add(Expression.eq("correlatedPatientAssigningAuthorityId", correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId()));
+                log.debug("Retrieving by correlatedPatientAssigningAuthorityId="
+                        + correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId());
+                criteria.add(Expression.eq("correlatedPatientAssigningAuthorityId",
+                        correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId()));
             }
             if (NullChecker.isNotNullish(correlatedIdentifers.getCorrelatedPatientId())) {
                 log.debug("Retrieving by correlatedPatientId=" + correlatedIdentifers.getCorrelatedPatientId());
@@ -274,17 +268,18 @@ public class Retriever {
             }
         }
 
-        //only non-expired patient correlation records will be returned.
-        //expired correlation records will be removed from the datebase.
-//        modifiedResult = removeExpiredCorrelations(result);
+        // only non-expired patient correlation records will be returned.
+        // expired correlation records will be removed from the datebase.
+        // modifiedResult = removeExpiredCorrelations(result);
 
-//        return modifiedResult;
+        // return modifiedResult;
         return result;
     }
 
     /**
-     * This method removes expired records from the list of records returned from the database
-     * and also removes the expired records from the database.
+     * This method removes expired records from the list of records returned from the database and also removes the
+     * expired records from the database.
+     * 
      * @param result List of correlationIdentifiers objects returned from the database
      * @return Returns a list of correlationIdentifiers that have not expired
      */
@@ -292,24 +287,19 @@ public class Retriever {
         List<CorrelatedIdentifiers> modifiedResult = new ArrayList<CorrelatedIdentifiers>();
         Date now = new Date();
 
-        if (result != null)
-        {
-            //loop through list and remove the expired correlations from list then from db
-            for (CorrelatedIdentifiers correlatedIdentifiers : result)
-            {
-                //do not delete a record if there isn't an expiration date.
+        if (result != null) {
+            // loop through list and remove the expired correlations from list then from db
+            for (CorrelatedIdentifiers correlatedIdentifiers : result) {
+                // do not delete a record if there isn't an expiration date.
                 log.debug("~~~ expirationDate: " + correlatedIdentifiers.getCorrelationExpirationDate());
 
-                if ((correlatedIdentifiers.getCorrelationExpirationDate() == null) ||
-                    (now.before(correlatedIdentifiers.getCorrelationExpirationDate())))
-                {
+                if ((correlatedIdentifiers.getCorrelationExpirationDate() == null)
+                        || (now.before(correlatedIdentifiers.getCorrelationExpirationDate()))) {
                     log.debug("patient correlation record has not expired");
                     modifiedResult.add(correlatedIdentifiers);
-                }
-                else
-                {
+                } else {
                     log.debug("...removing expired patient correlation record...");
-                    //remove expired record from database
+                    // remove expired record from database
                     Storer.removePatientCorrelation(correlatedIdentifiers);
                 }
             }

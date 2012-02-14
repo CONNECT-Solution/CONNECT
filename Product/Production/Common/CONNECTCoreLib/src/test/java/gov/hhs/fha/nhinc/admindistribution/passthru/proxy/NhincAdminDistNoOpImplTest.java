@@ -36,12 +36,14 @@ import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class NhincAdminDistNoOpImplTest {
     private Mockery context;
+
     public NhincAdminDistNoOpImplTest() {
     }
 
@@ -55,7 +57,6 @@ public class NhincAdminDistNoOpImplTest {
         };
     }
 
-
     /**
      * Test of sendAlertMessage method, of class NhincAdminDistNoOpImpl.
      */
@@ -66,8 +67,7 @@ public class NhincAdminDistNoOpImplTest {
         EDXLDistribution body = null;
         AssertionType assertion = null;
         NhinTargetSystemType target = null;
-        PassthruAdminDistributionProxyNoOpImpl instance = new PassthruAdminDistributionProxyNoOpImpl()
-{
+        PassthruAdminDistributionProxyNoOpImpl instance = new PassthruAdminDistributionProxyNoOpImpl() {
 
             @Override
             protected Log createLogger() {

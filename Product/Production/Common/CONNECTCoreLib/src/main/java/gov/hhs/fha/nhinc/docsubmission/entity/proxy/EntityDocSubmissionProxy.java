@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-public interface EntityDocSubmissionProxy
-{
+public interface EntityDocSubmissionProxy {
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo);

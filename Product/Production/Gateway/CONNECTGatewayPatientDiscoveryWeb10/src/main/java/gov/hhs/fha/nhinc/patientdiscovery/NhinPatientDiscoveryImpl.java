@@ -50,105 +50,91 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class NhinPatientDiscoveryImpl extends WebServiceHelper {
 
-	private static Log log = LogFactory.getLog(NhinPatientDiscoveryImpl.class);
+    private static Log log = LogFactory.getLog(NhinPatientDiscoveryImpl.class);
 
-	private Timestamp startTime = null;
-	private Timestamp stopTime = null;
-	private Long logId = null;
-	
-	private GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory;
-	private PatientDiscoveryAuditor auditLogger;
-	
-	public NhinPatientDiscoveryImpl(PatientDiscoveryAuditor auditLogger, GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory) {
-		this.orchestrationFactory = orchestrationFactory;
-		this.auditLogger = auditLogger;
-	}
+    private Timestamp startTime = null;
+    private Timestamp stopTime = null;
+    private Long logId = null;
 
-	public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
-			PRPAIN201305UV02 body, WebServiceContext context) throws PatientDiscoveryException {
-		log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
+    private GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory;
+    private PatientDiscoveryAuditor auditLogger;
 
-		AssertionType assertion = getSamlAssertion(context);
+    public NhinPatientDiscoveryImpl(PatientDiscoveryAuditor auditLogger,
+            GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory) {
+        this.orchestrationFactory = orchestrationFactory;
+        this.auditLogger = auditLogger;
+    }
 
-		start(body);
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, WebServiceContext context)
+            throws PatientDiscoveryException {
+        log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
 
-		PRPAIN201306UV02 response;
-			response = respondingGatewayPRPAIN201305UV02(body,
-					assertion);
-		
-		stop();
+        AssertionType assertion = getSamlAssertion(context);
 
+        start(body);
 
-		// Send response back to the initiating Gateway
-		log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
-		return response;
+        PRPAIN201306UV02 response;
+        response = respondingGatewayPRPAIN201305UV02(body, assertion);
 
-	}
+        stop();
 
+        // Send response back to the initiating Gateway
+        log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
+        return response;
 
-	private void stop() {
+    }
 
-		// Log the end of the nhin performance record
+    private void stop() {
 
-		stopTime = new Timestamp(System.currentTimeMillis());
-		try {
-			PerformanceManager.getPerformanceManagerInstance()
-					.logPerformanceStop(logId, startTime, stopTime);
-		} finally {
-			logId = null;
-			startTime = null;
-			stopTime = null;
-		}
+        // Log the end of the nhin performance record
 
-	}
+        stopTime = new Timestamp(System.currentTimeMillis());
+        try {
+            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, startTime, stopTime);
+        } finally {
+            logId = null;
+            startTime = null;
+            stopTime = null;
+        }
 
-	private void start(PRPAIN201305UV02 body) {
-		String targetCommunityId = getTargetCommunityId(body);
+    }
 
-		// Log the start of the nhin performance record
-		startTime = new Timestamp(System.currentTimeMillis());
-		logId = getPerformanceManager()
-				.logPerformanceStart(startTime,
-						NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,
-						NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-						NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-						targetCommunityId);
-	}
-	
-	protected PerformanceManager getPerformanceManager() {
-		return PerformanceManager.getPerformanceManagerInstance();
-	}
+    private void start(PRPAIN201305UV02 body) {
+        String targetCommunityId = getTargetCommunityId(body);
 
-	private PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
-			PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
-		InboundPatientDiscoveryOrchestration oOrchestrator1 = orchestrationFactory.create();
-		InboundPatientDiscoveryOrchestration oOrchestrator = oOrchestrator1;
+        // Log the start of the nhin performance record
+        startTime = new Timestamp(System.currentTimeMillis());
+        logId = getPerformanceManager().logPerformanceStart(startTime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetCommunityId);
+    }
 
-		PRPAIN201306UV02 response = oOrchestrator
-				.respondingGatewayPRPAIN201305UV02(body, assertion);
-		return response;
-	}
+    protected PerformanceManager getPerformanceManager() {
+        return PerformanceManager.getPerformanceManagerInstance();
+    }
 
-	protected PatientDiscoveryAuditor getAuditLogger() {
-		return auditLogger;
-	}
+    private PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
+            throws PatientDiscoveryException {
+        InboundPatientDiscoveryOrchestration oOrchestrator1 = orchestrationFactory.create();
+        InboundPatientDiscoveryOrchestration oOrchestrator = oOrchestrator1;
 
-	private String getTargetCommunityId(PRPAIN201305UV02 body) {
-		PatientDiscoveryTransforms transforms = getTransforms();
-		String targetCommunityId = transforms
-				.getPatientDiscoveryMessageCommunityId(body,
-						NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-						NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-						NhincConstants.AUDIT_LOG_SYNC_TYPE,
-						NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
-		return targetCommunityId;
-	}
+        PRPAIN201306UV02 response = oOrchestrator.respondingGatewayPRPAIN201305UV02(body, assertion);
+        return response;
+    }
 
-	protected PatientDiscoveryTransforms getTransforms() {
-		return  new PatientDiscoveryTransforms();
-	}
-	
+    protected PatientDiscoveryAuditor getAuditLogger() {
+        return auditLogger;
+    }
 
+    private String getTargetCommunityId(PRPAIN201305UV02 body) {
+        PatientDiscoveryTransforms transforms = getTransforms();
+        String targetCommunityId = transforms.getPatientDiscoveryMessageCommunityId(body,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                NhincConstants.AUDIT_LOG_SYNC_TYPE, NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
+        return targetCommunityId;
+    }
 
+    protected PatientDiscoveryTransforms getTransforms() {
+        return new PatientDiscoveryTransforms();
+    }
 
 }

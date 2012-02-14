@@ -36,13 +36,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class EntityDocQueryDeferredRequestProxyNoOpImpl implements EntityDocQueryDeferredRequestProxy {
-     private static Log log = LogFactory.getLog(EntityDocQueryDeferredRequestProxyNoOpImpl.class);
+    private static Log log = LogFactory.getLog(EntityDocQueryDeferredRequestProxyNoOpImpl.class);
 
-    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public DocQueryAcknowledgementType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("Using NoOp Implementation for Entity Doc Query Deferred Request Service");
         DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

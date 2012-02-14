@@ -55,7 +55,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class Util {
@@ -156,23 +156,19 @@ public class Util {
     public static AssertionType createAssertion() {
         AssertionType result = new AssertionType();
 
-        if(result.getSamlAuthzDecisionStatement() == null)
-        {
+        if (result.getSamlAuthzDecisionStatement() == null) {
             SamlAuthzDecisionStatementType samlAuthDecisionStatement = new SamlAuthzDecisionStatementType();
             result.setSamlAuthzDecisionStatement(samlAuthDecisionStatement);
         }
-        if(result.getSamlAuthzDecisionStatement().getEvidence() == null)
-        {
+        if (result.getSamlAuthzDecisionStatement().getEvidence() == null) {
             SamlAuthzDecisionStatementEvidenceType samlEvedence = new SamlAuthzDecisionStatementEvidenceType();
             result.getSamlAuthzDecisionStatement().setEvidence(samlEvedence);
         }
-        if(result.getSamlAuthzDecisionStatement().getEvidence().getAssertion() == null)
-        {
+        if (result.getSamlAuthzDecisionStatement().getEvidence().getAssertion() == null) {
             SamlAuthzDecisionStatementEvidenceAssertionType samlAssertionType = new SamlAuthzDecisionStatementEvidenceAssertionType();
             result.getSamlAuthzDecisionStatement().getEvidence().setAssertion(samlAssertionType);
         }
-        if(result.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() == null)
-        {
+        if (result.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() == null) {
             SamlAuthzDecisionStatementEvidenceConditionsType samlConditions = new SamlAuthzDecisionStatementEvidenceConditionsType();
             result.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setConditions(samlConditions);
         }
@@ -180,7 +176,8 @@ public class Util {
         result.setAuthorized(true);
         result.setDateOfBirth("19800516");
         result.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore(now());
-        result.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter(expirationDate());
+        result.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
+                .setNotOnOrAfter(expirationDate());
         result.setExplanationNonClaimantSignature("non-null");
         result.setHaveSecondWitnessSignature(true);
         result.setHaveSignature(true);
@@ -291,7 +288,6 @@ public class Util {
 
         result = new gov.hhs.fha.nhinc.common.nhinccommon.UserType();
 
-
         result.setPersonName(createPersonName("Mark", "Q.", "FRANKLIN"));
         result.setOrg(createHomeCommunity());
 
@@ -366,7 +362,7 @@ public class Util {
         String rc = "";
 
         try {
-            rc = new String(value, 0, value.length, "UTF8");//in string
+            rc = new String(value, 0, value.length, "UTF8");// in string
         } catch (Exception ex) {
             log.error("****** UTIL THROWABLE: " + ex.getMessage(), ex);
         }
@@ -377,8 +373,8 @@ public class Util {
         StringBuilder contents = new StringBuilder();
 
         try {
-            //use buffering, reading one line at a time
-            //FileReader always assumes default encoding is OK!
+            // use buffering, reading one line at a time
+            // FileReader always assumes default encoding is OK!
             BufferedReader input = new BufferedReader(new FileReader(aFile));
             try {
                 String line = null;

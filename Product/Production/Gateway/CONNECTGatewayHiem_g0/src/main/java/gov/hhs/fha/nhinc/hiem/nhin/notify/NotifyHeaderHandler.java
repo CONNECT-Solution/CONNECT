@@ -35,13 +35,14 @@ import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
 public class NotifyHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NotifyHeaderHandler.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(NotifyHeaderHandler.class);
 
     @SuppressWarnings("unchecked")
     public Set<QName> getHeaders() {
@@ -49,7 +50,8 @@ public class NotifyHeaderHandler implements SOAPHandler<SOAPMessageContext> {
     }
 
     public boolean handleMessage(SOAPMessageContext context) {
-        new gov.hhs.fha.nhinc.hiem.dte.SoapUtil().extractReferenceParameters(context, NhincConstants.HIEM_NOTIFY_SOAP_HDR_ATTR_TAG);
+        new gov.hhs.fha.nhinc.hiem.dte.SoapUtil().extractReferenceParameters(context,
+                NhincConstants.HIEM_NOTIFY_SOAP_HDR_ATTR_TAG);
         return true;
     }
 
@@ -60,55 +62,56 @@ public class NotifyHeaderHandler implements SOAPHandler<SOAPMessageContext> {
     public void close(MessageContext context) {
     }
 
-//    private void extractReferenceParameters(SOAPMessageContext context)
-//    {
-//        log.debug("******** In handleMessage() *************");
-//        SOAPMessage soapMessage = null;
-//        String soapMessageText = null;
-//        try
-//        {
-//            if(context != null)
-//            {
-//                log.debug("******** Context was not null *************");
-//                soapMessage = context.getMessage();
-//                log.debug("******** After getMessage *************");
-//
-//                if(soapMessage != null)
-//                {
-//                    log.debug("******** Attempting to write out SOAP message *************");
-//                    try
-//                    {
-//                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//                        soapMessage.writeTo(bos);
-//                        soapMessageText = bos.toString();
-//                        log.debug("Captured soap message: " + soapMessageText);
-//                    }
-//                    catch (Throwable t)
-//                    {
-//                        log.debug("Exception writing out the message");
-//                        t.printStackTrace();
-//                    }
-//                }
-//                else
-//                {
-//                    log.debug("SOAPMessage was null");
-//                }
-//            }
-//            else
-//            {
-//                log.debug("SOAPMessageContext was null.");
-//            }
-//        }
-//        catch(Throwable t)
-//        {
-//            log.debug("Error logging the SOAP message: " + t.getMessage());
-//            t.printStackTrace();
-//        }
-//        if(soapMessage != null)
-//        {
-//            @SuppressWarnings("unchecked")
-//            javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest)context.get(MessageContext.SERVLET_REQUEST);
-//            servletRequest.setAttribute(NhincConstants.HIEM_NOTIFY_SOAP_HDR_ATTR_TAG, soapMessage);
-//        }
-//    }
+    // private void extractReferenceParameters(SOAPMessageContext context)
+    // {
+    // log.debug("******** In handleMessage() *************");
+    // SOAPMessage soapMessage = null;
+    // String soapMessageText = null;
+    // try
+    // {
+    // if(context != null)
+    // {
+    // log.debug("******** Context was not null *************");
+    // soapMessage = context.getMessage();
+    // log.debug("******** After getMessage *************");
+    //
+    // if(soapMessage != null)
+    // {
+    // log.debug("******** Attempting to write out SOAP message *************");
+    // try
+    // {
+    // ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    // soapMessage.writeTo(bos);
+    // soapMessageText = bos.toString();
+    // log.debug("Captured soap message: " + soapMessageText);
+    // }
+    // catch (Throwable t)
+    // {
+    // log.debug("Exception writing out the message");
+    // t.printStackTrace();
+    // }
+    // }
+    // else
+    // {
+    // log.debug("SOAPMessage was null");
+    // }
+    // }
+    // else
+    // {
+    // log.debug("SOAPMessageContext was null.");
+    // }
+    // }
+    // catch(Throwable t)
+    // {
+    // log.debug("Error logging the SOAP message: " + t.getMessage());
+    // t.printStackTrace();
+    // }
+    // if(soapMessage != null)
+    // {
+    // @SuppressWarnings("unchecked")
+    // javax.servlet.http.HttpServletRequest servletRequest =
+    // (javax.servlet.http.HttpServletRequest)context.get(MessageContext.SERVLET_REQUEST);
+    // servletRequest.setAttribute(NhincConstants.HIEM_NOTIFY_SOAP_HDR_ATTR_TAG, soapMessage);
+    // }
+    // }
 }

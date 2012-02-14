@@ -39,7 +39,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class DocRetrieveDeferredTransformHelper {
@@ -57,7 +57,7 @@ public class DocRetrieveDeferredTransformHelper {
     }
 
     /**
-     *
+     * 
      * @return Log
      */
     protected Log createLogger() {
@@ -83,7 +83,8 @@ public class DocRetrieveDeferredTransformHelper {
             checkPolicyRequest = new CheckPolicyRequestType();
             RequestType request = new RequestType();
             SubjectHelper subjHelp = new SubjectHelper();
-            SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+            SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
+                    .getAssertion());
             request.getSubject().add(subject);
             if (debugEnabled) {
                 log.debug("transformDocRetrieveDeferredRespToCheckPolicy - adding assertion data");
@@ -95,8 +96,11 @@ public class DocRetrieveDeferredTransformHelper {
             } else if (NhincConstants.POLICYENGINE_INBOUND_DIRECTION.equals(event.getDirection())) {
                 request.setAction(ActionHelper.actionFactory(ActionOutValue));
             }
-            if (event.getMessage() != null && event.getMessage().getRetrieveDocumentSetResponse() != null && event.getMessage().getRetrieveDocumentSetResponse().getDocumentResponse() != null && event.getMessage().getRetrieveDocumentSetResponse().getDocumentResponse().size() > 0) {
-                DocumentResponse documentResponse = event.getMessage().getRetrieveDocumentSetResponse().getDocumentResponse().get(0);
+            if (event.getMessage() != null && event.getMessage().getRetrieveDocumentSetResponse() != null
+                    && event.getMessage().getRetrieveDocumentSetResponse().getDocumentResponse() != null
+                    && event.getMessage().getRetrieveDocumentSetResponse().getDocumentResponse().size() > 0) {
+                DocumentResponse documentResponse = event.getMessage().getRetrieveDocumentSetResponse()
+                        .getDocumentResponse().get(0);
                 request.getResource().add(getResource(documentResponse));
             }
             checkPolicyRequest.setRequest(request);
@@ -138,10 +142,15 @@ public class DocRetrieveDeferredTransformHelper {
         String documentId = documentResponse.getDocumentUniqueId();
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();
-        resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, homeCommunityId));
-        resource.getAttribute().add(attrHelper.attributeFactory(Constants.RespositoryAttributeId, Constants.DataTypeString, repositoryUniqueId));
-        resource.getAttribute().add(attrHelper.attributeFactory(Constants.DocumentAttributeId, Constants.DataTypeString, documentId));
+        resource.getAttribute().add(
+                attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
+                        homeCommunityId));
+        resource.getAttribute().add(
+                attrHelper.attributeFactory(Constants.RespositoryAttributeId, Constants.DataTypeString,
+                        repositoryUniqueId));
+        resource.getAttribute().add(
+                attrHelper.attributeFactory(Constants.DocumentAttributeId, Constants.DataTypeString, documentId));
         return resource;
     }
-    
+
 }

@@ -33,22 +33,21 @@ import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import org.w3c.dom.Node;
 
 /**
- *
+ * 
  * @author rayj
  */
-public class SimpleDialectRootTopicExtractor   implements IRootTopicExtractionStrategy  {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SimpleDialectRootTopicExtractor.class);
+public class SimpleDialectRootTopicExtractor implements IRootTopicExtractionStrategy {
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(SimpleDialectRootTopicExtractor.class);
 
     public String extractRootTopicFromTopicExpressionNode(Node topicExpression) throws SubscriptionRepositoryException {
-        log.debug("begin SimpleDialectRootTopicExtractor.extractRootTopicFromTopicExpressionNode topicExpression='" + XmlUtility.serializeNodeIgnoreFaults(topicExpression) + "'");
+        log.debug("begin SimpleDialectRootTopicExtractor.extractRootTopicFromTopicExpressionNode topicExpression='"
+                + XmlUtility.serializeNodeIgnoreFaults(topicExpression) + "'");
         String rootTopic = null;
         String topicValue = XmlUtility.getNodeValue(topicExpression);
         topicValue = RootTopicExtractorHelper.ReplaceNamespacePrefixesWithNamespaces(topicValue, topicExpression);
         rootTopic = topicValue;
         return rootTopic;
     }
-
-
-
 
 }

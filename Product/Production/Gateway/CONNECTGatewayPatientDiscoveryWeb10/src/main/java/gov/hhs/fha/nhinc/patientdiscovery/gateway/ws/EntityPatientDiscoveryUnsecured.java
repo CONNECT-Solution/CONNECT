@@ -44,35 +44,31 @@ import org.apache.commons.logging.LogFactory;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityPatientDiscoveryUnsecured extends PatientDiscoveryBase {
-	private static final Log log = LogFactory
-			.getLog(EntityPatientDiscoveryUnsecured.class);
+    private static final Log log = LogFactory.getLog(EntityPatientDiscoveryUnsecured.class);
 
-	
-	public EntityPatientDiscoveryUnsecured() {
-		super();
-	}
+    public EntityPatientDiscoveryUnsecured() {
+        super();
+    }
 
-	public EntityPatientDiscoveryUnsecured(
-			PatientDiscoveryServiceFactory serviceFactory) {
-		super(serviceFactory);
-	}
+    public EntityPatientDiscoveryUnsecured(PatientDiscoveryServiceFactory serviceFactory) {
+        super(serviceFactory);
+    }
 
-	protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-		return getServiceFactory().getEntityPatientDiscoveryImpl();
-	}
+    protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
+        return getServiceFactory().getEntityPatientDiscoveryImpl();
+    }
 
-	public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
-			RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
-		log.debug("Begin EntityPatientDiscoveryUnsecured.respondingGatewayPRPAIN201305UV02...");
-		RespondingGatewayPRPAIN201306UV02ResponseType response = null;
+    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
+            RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
+        log.debug("Begin EntityPatientDiscoveryUnsecured.respondingGatewayPRPAIN201305UV02...");
+        RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
-		EntityPatientDiscoveryImpl impl = getEntityPatientDiscoveryImpl();
-		if (impl != null) {
-			response = impl
-					.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request);
-		}
-		log.debug("End EntityPatientDiscoveryUnsecured.respondingGatewayPRPAIN201305UV02...");
-		return response;
-	}
+        EntityPatientDiscoveryImpl impl = getEntityPatientDiscoveryImpl();
+        if (impl != null) {
+            response = impl.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request);
+        }
+        log.debug("End EntityPatientDiscoveryUnsecured.respondingGatewayPRPAIN201305UV02...");
+        return response;
+    }
 
 }

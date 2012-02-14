@@ -27,11 +27,11 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pap;
 
 /**
- *
+ * 
  * @author mastan.ketha
  */
 public class AdapterPAPConstants {
 
     public static final String DOCUMENT_CLASS_CODE = "57017-6";
-    
+
 }

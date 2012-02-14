@@ -35,7 +35,7 @@ import org.uddi.api_v3.FindBusiness;
 import org.uddi.api_v3.GetBusinessDetail;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
@@ -43,7 +43,7 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
     private static Log log = LogFactory.getLog(UDDIFindBusinessProxyHPImpl.class);
 
     /**
-     *
+     * 
      * @return list of businesses from UDDI
      * @throws UDDIFindBusinessException
      */
@@ -53,7 +53,7 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
 
         BusinessList oBusinessList = null;
 
-        try {            
+        try {
             loadProperties();
 
             UDDIInquiryPortType oPort = getUDDIInquiryWebService();
@@ -61,11 +61,11 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
             FindBusiness oSearchParams = new FindBusiness();
             oSearchParams.setMaxRows(100);
 
-            oBusinessList = (BusinessList) getWebServiceProxyHelper().invokePort
-                    (oPort, UDDIInquiryPortType.class, "findBusiness", oSearchParams);
+            oBusinessList = (BusinessList) getWebServiceProxyHelper().invokePort(oPort, UDDIInquiryPortType.class,
+                    "findBusiness", oSearchParams);
         } catch (Exception e) {
-            String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: " +
-                    e.getMessage();
+            String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage, e);
             throw new UDDIFindBusinessException(sErrorMessage, e);
         }
@@ -81,12 +81,12 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
             loadProperties();
             UDDIInquiryPortType port = getUDDIInquiryWebService();
 
-            businessDetail = (BusinessDetail) getWebServiceProxyHelper().invokePort
-                    (port, UDDIInquiryPortType.class, "getBusinessDetail", searchParams);
+            businessDetail = (BusinessDetail) getWebServiceProxyHelper().invokePort(port, UDDIInquiryPortType.class,
+                    "getBusinessDetail", searchParams);
 
         } catch (Exception e) {
-            String sErrorMessage = "Failed to call 'getBusinessDetail' web service on the NHIN UDDI server.  Error: " +
-                    e.getMessage();
+            String sErrorMessage = "Failed to call 'getBusinessDetail' web service on the NHIN UDDI server.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage, e);
             throw new UDDIFindBusinessException(sErrorMessage, e);
         }

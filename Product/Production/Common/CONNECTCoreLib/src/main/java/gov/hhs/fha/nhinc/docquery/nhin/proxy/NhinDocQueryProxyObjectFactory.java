@@ -33,16 +33,14 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class NhinDocQueryProxyObjectFactory extends ComponentProxyObjectFactory {
 
-private static final String CONFIG_FILE_NAME = "NhinDocQueryProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "NhinDocQueryProxyConfig.xml";
     private static final String BEAN_NAME = "nhindocquery";
 
-    protected String getConfigFileName()
-    {
+    protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }
 
-    public NhinDocQueryProxy getNhinDocQueryProxy()
-    {
+    public NhinDocQueryProxy getNhinDocQueryProxy() {
         return getBean(BEAN_NAME, NhinDocQueryProxy.class);
-   }
+    }
 }

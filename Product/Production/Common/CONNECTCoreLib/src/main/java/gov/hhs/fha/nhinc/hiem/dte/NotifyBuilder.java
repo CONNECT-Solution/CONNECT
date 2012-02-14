@@ -35,27 +35,29 @@ import org.w3._2005._08.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class NotifyBuilder {
 
     /**
-     * this is intended to be used to build an "outbound" notification message
-     * based on an "inbound" notify and matching subscribe.  This includes updating
-     * the notify with the subscribe's subscription reference and wrapping
-     * the notification message in a notify
+     * this is intended to be used to build an "outbound" notification message based on an "inbound" notify and matching
+     * subscribe. This includes updating the notify with the subscribe's subscription reference and wrapping the
+     * notification message in a notify
+     * 
      * @param notificationMessage
      * @param subscribe
      * @return
      */
     public Element buildNotifyFromSubscribe(Element notificationMessageElement, Element subscriptionReferenceElement) {
         NotificationMessageMarshaller notificationMessageMarshaller = new NotificationMessageMarshaller();
-        NotificationMessageHolderType notificationMessage = notificationMessageMarshaller.unmarshal(notificationMessageElement);
+        NotificationMessageHolderType notificationMessage = notificationMessageMarshaller
+                .unmarshal(notificationMessageElement);
         notificationMessage.setSubscriptionReference(null);
 
         SubscriptionReferenceMarshaller subscriptionReferenceMarshaller = new SubscriptionReferenceMarshaller();
-        EndpointReferenceType subscriptionReference = subscriptionReferenceMarshaller.unmarshal(subscriptionReferenceElement);
+        EndpointReferenceType subscriptionReference = subscriptionReferenceMarshaller
+                .unmarshal(subscriptionReferenceElement);
         notificationMessage.setSubscriptionReference(subscriptionReference);
 
         Notify notify = new Notify();

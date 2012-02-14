@@ -44,7 +44,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
@@ -53,13 +53,11 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
     public Orchestratable process(Orchestratable message) {
         Orchestratable resp = null;
-        getLogger().debug(
-                "Entering CONNECTNhinOrchestrator for " + message.getServiceName());
+        getLogger().debug("Entering CONNECTNhinOrchestrator for " + message.getServiceName());
         if (message != null) {
             resp = processNotNullMessage(message);
         }
-        getLogger().debug(
-                "Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
+        getLogger().debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
         return resp;
     }
 
@@ -73,21 +71,17 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
             resp = processEnabledMessage(message);
         } else {
             getLogger().debug(message.getServiceName() + " is not enabled. returning a error response");
-            resp = createErrorResponse((InboundOrchestratable) message,
-                    message.getServiceName() + " is not enabled.");
+            resp = createErrorResponse((InboundOrchestratable) message, message.getServiceName() + " is not enabled.");
         }
         // audit again
-        getLogger().debug(
-                "Calling audit response for " + message.getServiceName());
+        getLogger().debug("Calling audit response for " + message.getServiceName());
         auditResponse(message);
-        getLogger().debug(
-                "Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
+        getLogger().debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
         return resp;
     }
 
     public Orchestratable processEnabledMessage(Orchestratable message) {
-        getLogger().debug(
-                message.getServiceName() + " service is enabled. Procesing message...");
+        getLogger().debug(message.getServiceName() + " service is enabled. Procesing message...");
         if (message.isPassthru()) {
             return processPassThruMessage(message);
         } else {
@@ -124,10 +118,8 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     }
 
     private Orchestratable handleFailedPolicyCheck(Orchestratable message) {
-        getLogger().debug(
-                message.getServiceName() + " failed policy check. Returning a error response");
-        return createErrorResponse((InboundOrchestratable) message,
-                message.getServiceName() + " failed policy check.");
+        getLogger().debug(message.getServiceName() + " failed policy check. Returning a error response");
+        return createErrorResponse((InboundOrchestratable) message, message.getServiceName() + " failed policy check.");
     }
 
     protected Log getLogger() {
@@ -144,6 +136,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
         }
         return message;
     }
+
     /*
      * End Delegate Methods
      */
@@ -194,14 +187,19 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
         getLogger().debug("Entering CONNECTNhinOrchestrator.isAuditServiceEnabled(...)");
         boolean serviceEnabled = false;
         try {
-            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.AUDIT_LOG_SERVICE_PROPERTY);
+            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.AUDIT_LOG_SERVICE_PROPERTY);
         } catch (PropertyAccessException ex) {
-            getLogger().error("Error: Failed to retrieve " + NhincConstants.AUDIT_LOG_SERVICE_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            getLogger().error(
+                    "Error: Failed to retrieve " + NhincConstants.AUDIT_LOG_SERVICE_PROPERTY + " from property file: "
+                            + NhincConstants.GATEWAY_PROPERTY_FILE);
             getLogger().error(ex.getMessage(), ex);
         }
-        getLogger().debug("Exiting CONNECTNhinOrchestrator.isAuditServiceEnabled(...) with value of: " + serviceEnabled);
+        getLogger()
+                .debug("Exiting CONNECTNhinOrchestrator.isAuditServiceEnabled(...) with value of: " + serviceEnabled);
         return serviceEnabled;
     }
+
     /*
      * End Audit Methods
      */
@@ -239,6 +237,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
         getLogger().debug("Exiting CONNECTNhinOrchestrator.isPolicyOk(...) with a value of :" + policyIsValid);
         return policyIsValid;
     }
+
     /*
      * End Policy Methods
      */
@@ -248,8 +247,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
      */
     protected Orchestratable delegate(Orchestratable message) {
         Orchestratable resp = null;
-        getLogger().debug(
-                "Entering CONNECTNhinOrchestrator.delegateToNhin(...)");
+        getLogger().debug("Entering CONNECTNhinOrchestrator.delegateToNhin(...)");
         Delegate p = message.getDelegate();
         resp = p.process(message);
         getLogger().debug("Exiting CONNECTNhinOrchestrator.delegateToNhin(...)");

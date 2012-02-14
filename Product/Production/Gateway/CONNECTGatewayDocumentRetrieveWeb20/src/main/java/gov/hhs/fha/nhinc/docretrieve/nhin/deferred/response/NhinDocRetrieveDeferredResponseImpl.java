@@ -16,12 +16,13 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class NhinDocRetrieveDeferredResponseImpl {
 
-    public DocRetrieveAcknowledgementType respondingGatewayDeferredResponseCrossGatewayRetrieve(RetrieveDocumentSetResponseType body, WebServiceContext context) {
+    public DocRetrieveAcknowledgementType respondingGatewayDeferredResponseCrossGatewayRetrieve(
+            RetrieveDocumentSetResponseType body, WebServiceContext context) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class

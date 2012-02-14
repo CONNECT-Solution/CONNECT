@@ -37,11 +37,11 @@ import org.apache.commons.logging.LogFactory;
 import org.uddi.api_v3.BusinessDetail;
 
 /**
- *
+ * 
  * @author kshtabnoy
- *
- * Implementation of ConnectionManagerDAO that stores connection information in local file
- *
+ * 
+ *         Implementation of ConnectionManagerDAO that stores connection information in local file
+ * 
  */
 public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase implements ConnectionManagerDAO {
 

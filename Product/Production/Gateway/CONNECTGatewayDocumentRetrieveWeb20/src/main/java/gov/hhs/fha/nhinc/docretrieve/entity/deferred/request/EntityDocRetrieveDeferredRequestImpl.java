@@ -19,7 +19,7 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class EntityDocRetrieveDeferredRequestImpl {
@@ -30,7 +30,8 @@ public class EntityDocRetrieveDeferredRequestImpl {
      * @param context
      * @return DocRetrieveAcknowledgementType
      */
-    protected DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context) {
+    protected DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(
+            RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, null);
         RetrieveDocumentSetRequestType message = body.getRetrieveDocumentSetRequest();
         NhinTargetCommunitiesType target = body.getNhinTargetCommunities();
@@ -38,12 +39,13 @@ public class EntityDocRetrieveDeferredRequestImpl {
     }
 
     /**
-     *
+     * 
      * @param crossGatewayRetrieveRequest
      * @param context
      * @return DocRetrieveAcknowledgementType
      */
-    protected DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest, WebServiceContext context) {
+    protected DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(
+            RespondingGatewayCrossGatewayRetrieveRequestType crossGatewayRetrieveRequest, WebServiceContext context) {
         RetrieveDocumentSetRequestType message = crossGatewayRetrieveRequest.getRetrieveDocumentSetRequest();
         NhinTargetCommunitiesType target = crossGatewayRetrieveRequest.getNhinTargetCommunities();
         AssertionType assertion = extractAssertionFromContext(context, crossGatewayRetrieveRequest.getAssertion());

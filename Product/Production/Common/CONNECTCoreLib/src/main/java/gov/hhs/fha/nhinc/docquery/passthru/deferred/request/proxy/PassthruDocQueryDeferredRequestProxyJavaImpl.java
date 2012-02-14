@@ -35,25 +35,26 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class PassthruDocQueryDeferredRequestProxyJavaImpl implements PassthruDocQueryDeferredRequestProxy {
 
-    //Logger
+    // Logger
     private static final Log logger = LogFactory.getLog(PassthruDocQueryDeferredRequestProxyJavaImpl.class);
 
-    public DocQueryAcknowledgementType crossGatewayQueryRequest(AdhocQueryRequest msg, AssertionType assertion, NhinTargetSystemType target) {
+    public DocQueryAcknowledgementType crossGatewayQueryRequest(AdhocQueryRequest msg, AssertionType assertion,
+            NhinTargetSystemType target) {
         getLogger().debug("PassthruDocQueryDeferredRequestProxyJavaImpl.respondingGatewayCrossGatewayQuery");
 
         return getPassthruDocQueryDeferredRequestOrchImpl().crossGatewayQueryRequest(msg, assertion, target);
     }
 
-    protected PassthruDocQueryDeferredRequestOrchImpl getPassthruDocQueryDeferredRequestOrchImpl(){
+    protected PassthruDocQueryDeferredRequestOrchImpl getPassthruDocQueryDeferredRequestOrchImpl() {
         return new PassthruDocQueryDeferredRequestOrchImpl();
     }
 
-    protected Log getLogger(){
+    protected Log getLogger() {
         return logger;
     }
 

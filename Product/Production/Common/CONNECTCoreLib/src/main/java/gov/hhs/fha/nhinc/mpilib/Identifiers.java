@@ -31,13 +31,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class Identifiers extends ArrayList<Identifier> implements java.io.Serializable {
     private static Log log = LogFactory.getLog(Identifiers.class);
     static final long serialVersionUID = -917875998116976597L;
-    
+
     public Identifiers() {
         log.info("Identifiers Initiated..");
     }
@@ -51,10 +51,10 @@ public class Identifiers extends ArrayList<Identifier> implements java.io.Serial
 
     @Override
     public boolean add(Identifier identifier) {
-        //check to see if this id already exists
+        // check to see if this id already exists
         Identifier myIdentifier = null;
 
-        if (!doesIdentifierExist(identifier)  ) {
+        if (!doesIdentifierExist(identifier)) {
             myIdentifier = new Identifier(identifier.getId(), identifier.getOrganizationId());
             super.add(myIdentifier);
         }
@@ -64,7 +64,8 @@ public class Identifiers extends ArrayList<Identifier> implements java.io.Serial
     private boolean doesIdentifierExist(Identifier identifier) {
         boolean found = false;
         for (Identifier existingId : this) {
-            if ((existingId.getOrganizationId().contentEquals(identifier.getOrganizationId()) && (existingId.getId().contentEquals(identifier.getId()))))  {
+            if ((existingId.getOrganizationId().contentEquals(identifier.getOrganizationId()) && (existingId.getId()
+                    .contentEquals(identifier.getId())))) {
                 found = true;
             }
         }

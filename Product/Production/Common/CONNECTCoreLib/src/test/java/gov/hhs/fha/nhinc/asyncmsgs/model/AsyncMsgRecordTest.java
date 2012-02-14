@@ -36,7 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AsyncMsgRecordTest {
@@ -115,7 +115,7 @@ public class AsyncMsgRecordTest {
     @Test
     public void testGetInitMessageId() {
         System.out.println("testGetInitMessageId");
-        
+
         AsyncMsgRecord instance = new AsyncMsgRecord();
 
         String result = instance.getMessageId();
@@ -133,7 +133,7 @@ public class AsyncMsgRecordTest {
         AsyncMsgRecord instance = new AsyncMsgRecord();
         Date expResult = new Date();
         instance.setCreationTime(expResult);
-       
+
         Date result = instance.getCreationTime();
 
         assertEquals(expResult, result);
@@ -174,28 +174,28 @@ public class AsyncMsgRecordTest {
     @Test
     public void testGetInitServiceName() {
         System.out.println("testGetInitServiceName");
-        
+
         AsyncMsgRecord instance = new AsyncMsgRecord();
-        
+
         String result = instance.getServiceName();
 
         assertNull(result);
     }
 
-//    /**
-//     * Test of getMsgData and setMsgData methods, of class AsyncMsgRecord.
-//     */
-//    @Test
-//    public void testSetGetMsgData() {
-//        System.out.println("testSetGetMsgData");
-//        AsyncMsgRecord instance = new AsyncMsgRecord();
-//        Blob expResult = null;
-//        instance.setMsgData(expResult);
-//
-//        Blob result = instance.getMsgData();
-//
-//        assertEquals(expResult, result);
-//    }
+    // /**
+    // * Test of getMsgData and setMsgData methods, of class AsyncMsgRecord.
+    // */
+    // @Test
+    // public void testSetGetMsgData() {
+    // System.out.println("testSetGetMsgData");
+    // AsyncMsgRecord instance = new AsyncMsgRecord();
+    // Blob expResult = null;
+    // instance.setMsgData(expResult);
+    //
+    // Blob result = instance.getMsgData();
+    //
+    // assertEquals(expResult, result);
+    // }
 
     /**
      * Test of getMsgData method, of class AsyncMsgRecord.
@@ -203,7 +203,7 @@ public class AsyncMsgRecordTest {
     @Test
     public void testGetInitMsgData() {
         System.out.println("testGetInitMsgData");
-        
+
         AsyncMsgRecord instance = new AsyncMsgRecord();
 
         Blob result = instance.getMsgData();

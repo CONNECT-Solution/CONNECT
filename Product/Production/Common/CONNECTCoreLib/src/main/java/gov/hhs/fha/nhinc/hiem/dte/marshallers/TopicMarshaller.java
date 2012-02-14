@@ -25,13 +25,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.hiem.dte.marshallers;
+
 import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
 import javax.xml.bind.JAXBElement;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import java.io.StringReader;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class TopicMarshaller {
@@ -49,28 +51,25 @@ public class TopicMarshaller {
     public TopicExpressionType unmarshal(String xml) {
         return unmarshal(convertStringToElement(xml));
     }
+
     public TopicExpressionType unmarshal(Element element) {
         Marshaller marshaller = new Marshaller();
         return (TopicExpressionType) marshaller.unmarshallJaxbElement(element, ContextPath);
     }
-    private Element convertStringToElement(String xml)
-    {
+
+    private Element convertStringToElement(String xml) {
         javax.xml.parsers.DocumentBuilderFactory dbf;
         org.w3c.dom.Document doc = null;
 
-        try
-        {
+        try {
             dbf = javax.xml.parsers.DocumentBuilderFactory.newInstance();
             dbf.setNamespaceAware(true);
 
             doc = dbf.newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
 
         }
 
         return doc.getDocumentElement();
     }
 }
-

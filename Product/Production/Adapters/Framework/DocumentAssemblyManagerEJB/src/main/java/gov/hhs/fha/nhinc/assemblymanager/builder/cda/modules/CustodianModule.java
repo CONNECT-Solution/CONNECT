@@ -34,32 +34,32 @@ import org.hl7.v3.POCDMT000040Custodian;
 import org.hl7.v3.POCDMT000040CustodianOrganization;
 
 /**
- *
+ * 
  * @author kim
  */
 public class CustodianModule extends DocumentBuilder {
 
-   public CustodianModule() {
-   }
+    public CustodianModule() {
+    }
 
-   public POCDMT000040Custodian build() throws DocumentBuilderException {
-      POCDMT000040Custodian custodian = new POCDMT000040Custodian();
+    public POCDMT000040Custodian build() throws DocumentBuilderException {
+        POCDMT000040Custodian custodian = new POCDMT000040Custodian();
 
-      POCDMT000040AssignedCustodian assignedCustodian = new POCDMT000040AssignedCustodian();
-      assignedCustodian.setRepresentedCustodianOrganization(createCustodianOrganization());
-      custodian.setAssignedCustodian(assignedCustodian);
+        POCDMT000040AssignedCustodian assignedCustodian = new POCDMT000040AssignedCustodian();
+        assignedCustodian.setRepresentedCustodianOrganization(createCustodianOrganization());
+        custodian.setAssignedCustodian(assignedCustodian);
 
-      return custodian;
-   }
+        return custodian;
+    }
 
-   private POCDMT000040CustodianOrganization createCustodianOrganization() {
-      POCDMT000040CustodianOrganization custodianOrg = new POCDMT000040CustodianOrganization();
+    private POCDMT000040CustodianOrganization createCustodianOrganization() {
+        POCDMT000040CustodianOrganization custodianOrg = new POCDMT000040CustodianOrganization();
 
-      custodianOrg.getId().add(getOrganization());
-      ONExplicit oOrgName = objectFactory.createONExplicit();
-      oOrgName.getContent().add(orgName);
-      custodianOrg.setName(oOrgName);
+        custodianOrg.getId().add(getOrganization());
+        ONExplicit oOrgName = objectFactory.createONExplicit();
+        oOrgName.getContent().add(orgName);
+        custodianOrg.setName(oOrgName);
 
-      return custodianOrg;
-   }
+        return custodianOrg;
+    }
 }

@@ -27,11 +27,11 @@
 package gov.hhs.fha.nhinc.transform.audit;
 
 /**
- *
+ * 
  * @author MFLYNN02
  */
 public class AuditDataTransformConstants {
-    
+
     public static final String EVENT_ACTION_CODE_CREATE = "C";
     public static final String EVENT_ACTION_CODE_READ = "R";
     public static final String EVENT_ACTION_CODE_UPDATE = "U";
@@ -49,7 +49,7 @@ public class AuditDataTransformConstants {
     public static final String PARTICIPANT_OJB_ID_TYPE_CODE_PATIENTNUM = "2";
     public static final String PARTICIPANT_OJB_ID_TYPE_CODE_REPORTNUM = "9";
     public static final String EVENT_ID_CODE_SYS_NAME_DOC = "DCM";
-    public static final String EVENT_ID_CODE_SYS_NAME_SDN = "SDN";    
+    public static final String EVENT_ID_CODE_SYS_NAME_SDN = "SDN";
     public static final String EVENT_ID_CODE_SYS_NAME_SDR = "SDR";
     public static final String EVENT_ID_CODE_SYS_NAME_SDD = "SDD";
     public static final String EVENT_ID_CODE_SYS_NAME_SD = "ESD";
@@ -61,8 +61,10 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_CODE_SYS_NAME_SUB = "SUB";
     public static final String EVENT_ID_CODE_SYS_NAME_UNS = "UNS";
     public static final String EVENT_ID_CODE_SYS_NAME_NOT = "NOT";
-    public static final String EVENT_ID_CODE_SYS_NAME_PRQ = "PRQ"; //Patient Discovery Request - EventID from spec: EV(110112, DCM, "Query")
-    public static final String EVENT_ID_CODE_SYS_NAME_PRS = "PRS"; //Patient Discovery Response - EventID from spec: EV(110112, DCM, "Query")
+    public static final String EVENT_ID_CODE_SYS_NAME_PRQ = "PRQ"; // Patient Discovery Request - EventID from spec:
+                                                                   // EV(110112, DCM, "Query")
+    public static final String EVENT_ID_CODE_SYS_NAME_PRS = "PRS"; // Patient Discovery Response - EventID from spec:
+                                                                   // EV(110112, DCM, "Query")
     public static final String EVENT_ID_CODE_SYS_NAME_XDR = "XDR";
     public static final String EVENT_ID_CODE_SYS_NAME_T63 = "T63";
     public static final String EVENT_ID_DISPLAY_NAME_ADMIN_DIST = "Administrative Distribution";

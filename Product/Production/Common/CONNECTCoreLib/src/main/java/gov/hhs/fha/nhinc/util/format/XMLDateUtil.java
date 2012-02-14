@@ -35,7 +35,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class XMLDateUtil {
@@ -44,7 +44,7 @@ public class XMLDateUtil {
 
     /**
      * Transform a date in a long to a XMLGregorianCalendar
-     *
+     * 
      * @param date long value
      * @return <code>XMLGregorianCalendar</code>
      */
@@ -69,7 +69,7 @@ public class XMLDateUtil {
 
     /**
      * Transform a date in Date to XMLGregorianCalendar
-     *
+     * 
      * @param date value
      * @return <code>XMLGregorianCalendar</code>
      */

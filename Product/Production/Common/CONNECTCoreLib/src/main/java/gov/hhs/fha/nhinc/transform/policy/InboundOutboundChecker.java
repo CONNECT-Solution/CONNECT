@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.transform.policy;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class InboundOutboundChecker {
@@ -41,6 +41,7 @@ public class InboundOutboundChecker {
         }
         return result;
     }
+
     public static boolean IsOutbound(String value) {
         boolean result = false;
         if (NullChecker.isNotNullish(value)) {

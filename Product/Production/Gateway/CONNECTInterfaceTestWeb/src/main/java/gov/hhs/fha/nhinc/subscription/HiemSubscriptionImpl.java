@@ -23,7 +23,7 @@ import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class HiemSubscriptionImpl {
@@ -40,13 +40,14 @@ public class HiemSubscriptionImpl {
         request.setSubscribe(subscribeRequest);
         request.setAssertion(SamlTokenExtractor.GetAssertion(context));
 
-
         String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
 
         if (NullChecker.isNotNullish(homeCommunityId)) {
             NhincNotificationProducerService service = new NhincNotificationProducerService();
             NotificationProducer port = service.getNotificationProducerPort();
-            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
+            ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
+                    javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                    SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SERVICE_NAME));
 
             try {
                 resp = port.subscribe(request);

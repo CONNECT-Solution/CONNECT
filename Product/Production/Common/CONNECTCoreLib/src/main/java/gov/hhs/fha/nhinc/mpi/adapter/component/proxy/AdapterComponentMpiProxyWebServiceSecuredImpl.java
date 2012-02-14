@@ -57,18 +57,16 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
     /**
      * Default constructor.
      */
-    public AdapterComponentMpiProxyWebServiceSecuredImpl()
-    {
+    public AdapterComponentMpiProxyWebServiceSecuredImpl() {
         log = createLogger();
     }
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
@@ -79,39 +77,31 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
      * @param assertion The assertion data.
      * @return The matches that are found.
      */
-    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion)
-    {
+    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion) {
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         String sServiceName = NhincConstants.ADAPTER_COMPONENT_MPI_SECURED_SERVICE_NAME;
 
-        try
-        {
-            if (request != null)
-            {
+        try {
+            if (request != null) {
                 log.debug("Before target system URL look up.");
                 url = oProxyHelper.getUrlLocalHomeCommunity(sServiceName);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
-                if (NullChecker.isNotNullish(url))
-                {
-                    AdapterComponentMpiSecuredPortType port = getPort(url, NhincConstants.ADAPTER_MPI_ACTION, WS_ADDRESSING_ACTION, assertion);
-                    response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, AdapterComponentMpiSecuredPortType.class, "findCandidates", request);
-                }
-                else
-                {
+                if (NullChecker.isNotNullish(url)) {
+                    AdapterComponentMpiSecuredPortType port = getPort(url, NhincConstants.ADAPTER_MPI_ACTION,
+                            WS_ADDRESSING_ACTION, assertion);
+                    response = (PRPAIN201306UV02) oProxyHelper.invokePort(port,
+                            AdapterComponentMpiSecuredPortType.class, "findCandidates", request);
+                } else {
                     log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
-            }
-            else
-            {
+            } else {
                 log.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
-        }
-        catch (Exception e)
-        {
-            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  " +
-                      "Exception: " + e.getMessage(), e);
+        } catch (Exception e) {
+            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
+                    + "Exception: " + e.getMessage(), e);
         }
 
         return response;
@@ -119,19 +109,14 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
@@ -140,26 +125,24 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @param serviceAction The action for the web service.
      * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected AdapterComponentMpiSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-    {
+    protected AdapterComponentMpiSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         AdapterComponentMpiSecuredPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterComponentMpiSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction, wsAddressingAction, assertion);
-        }
-        else
-        {
+            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+                    wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;

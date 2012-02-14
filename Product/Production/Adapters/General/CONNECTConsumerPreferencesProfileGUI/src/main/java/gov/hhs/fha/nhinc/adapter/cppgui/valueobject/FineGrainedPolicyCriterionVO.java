@@ -32,7 +32,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class FineGrainedPolicyCriterionVO {
@@ -42,6 +42,7 @@ public class FineGrainedPolicyCriterionVO {
     /** Creates a new instance of FineGrainedPolicyCriteriaForm */
     public FineGrainedPolicyCriterionVO() {
     }
+
     private String documentTypeCode;
     private String userRole;
     private String purposeOfUse;
@@ -64,8 +65,8 @@ public class FineGrainedPolicyCriterionVO {
     public String getDocumentTypeCode() {
         return documentTypeCode;
     }
-    public String getDocumentTypeCodeDesc()
-    {
+
+    public String getDocumentTypeCodeDesc() {
         return getDescription(CPPConstants.DOCUMENT_TYPE_CODE_PROPERTIES, this.documentTypeCode);
     }
 
@@ -97,7 +98,6 @@ public class FineGrainedPolicyCriterionVO {
         return this.getDescription(CPPConstants.PURPOSE_OF_USE_PROPERTIES, this.purposeOfUse);
     }
 
-
     public void setPurposeOfUse(String purposeOfUse) {
         this.purposeOfUse = purposeOfUse;
     }
@@ -114,24 +114,19 @@ public class FineGrainedPolicyCriterionVO {
         this.userRole = userRole;
     }
 
-
-    private String getDescription(String propertyFile, String propertyName)
-    {
+    private String getDescription(String propertyFile, String propertyName) {
         String description = null;
 
-        try
-        {
-            if((propertyFile == null) || ((propertyFile.trim()).equals(""))){
+        try {
+            if ((propertyFile == null) || ((propertyFile.trim()).equals(""))) {
                 log.error("propertyFile value is null");
-            }else if((propertyName == null) || ((propertyName.trim()).equals(""))){
+            } else if ((propertyName == null) || ((propertyName.trim()).equals(""))) {
                 log.error("propertyName value is null");
-            }else{
+            } else {
                 description = PropertyAccessor.getProperty(propertyFile, propertyName);
             }
-            
-        }
-        catch (Exception e)
-        {
+
+        } catch (Exception e) {
             log.error("Exception while reading the property: " + propertyFile + "." + propertyName, e);
         }
 

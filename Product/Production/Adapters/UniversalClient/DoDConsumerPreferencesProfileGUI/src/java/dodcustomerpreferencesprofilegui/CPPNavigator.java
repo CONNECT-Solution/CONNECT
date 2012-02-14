@@ -32,12 +32,12 @@ import com.sun.webui.jsf.component.TreeNode;
 import javax.faces.FacesException;
 
 /**
- * <p>Fragment bean that corresponds to a similarly named JSP page
- * fragment.  This class contains component definitions (and initialization
- * code) for all components that you have defined on this fragment, as well as
- * lifecycle methods and event handlers where you may add behavior
- * to respond to incoming events.</p>
- *
+ * <p>
+ * Fragment bean that corresponds to a similarly named JSP page fragment. This class contains component definitions (and
+ * initialization code) for all components that you have defined on this fragment, as well as lifecycle methods and
+ * event handlers where you may add behavior to respond to incoming events.
+ * </p>
+ * 
  * @version CPPNavigator.java
  * @version Created on Oct 3, 2009, 7:39:56 PM
  * @author Duane DeCouteau
@@ -47,12 +47,14 @@ public class CPPNavigator extends AbstractFragmentBean {
     // <editor-fold defaultstate="collapsed" desc="Managed Component Definition">
 
     /**
-     * <p>Automatically managed component initialization. <strong>WARNING:</strong>
-     * This method is automatically generated, so any user-specified code inserted
-     * here is subject to being replaced.</p>
+     * <p>
+     * Automatically managed component initialization. <strong>WARNING:</strong> This method is automatically generated,
+     * so any user-specified code inserted here is subject to being replaced.
+     * </p>
      */
     private void _init() throws Exception {
     }
+
     private Tree navTree = new Tree();
 
     public Tree getNavTree() {
@@ -62,6 +64,7 @@ public class CPPNavigator extends AbstractFragmentBean {
     public void setNavTree(Tree t) {
         this.navTree = t;
     }
+
     private TreeNode cppNode = new TreeNode();
 
     public TreeNode getCppNode() {
@@ -71,6 +74,7 @@ public class CPPNavigator extends AbstractFragmentBean {
     public void setCppNode(TreeNode tn) {
         this.cppNode = tn;
     }
+
     private TreeNode cppOptInNode = new TreeNode();
 
     public TreeNode getCppOptInNode() {
@@ -80,6 +84,7 @@ public class CPPNavigator extends AbstractFragmentBean {
     public void setCppOptInNode(TreeNode tn) {
         this.cppOptInNode = tn;
     }
+
     private TreeNode cppOptOutNode = new TreeNode();
 
     public TreeNode getCppOptOutNode() {
@@ -89,6 +94,7 @@ public class CPPNavigator extends AbstractFragmentBean {
     public void setCppOptOutNode(TreeNode tn) {
         this.cppOptOutNode = tn;
     }
+
     private TreeNode providerProvisioningNode = new TreeNode();
 
     public TreeNode getProviderProvisioningNode() {
@@ -98,6 +104,7 @@ public class CPPNavigator extends AbstractFragmentBean {
     public void setProviderProvisioningNode(TreeNode tn) {
         this.providerProvisioningNode = tn;
     }
+
     private TreeNode auditNode = new TreeNode();
 
     public TreeNode getAuditNode() {
@@ -107,18 +114,22 @@ public class CPPNavigator extends AbstractFragmentBean {
     public void setAuditNode(TreeNode tn) {
         this.auditNode = tn;
     }
+
     // </editor-fold>
 
     public CPPNavigator() {
     }
 
     /**
-     * <p>Callback method that is called whenever a page containing
-     * this page fragment is navigated to, either directly via a URL,
-     * or indirectly via page navigation.  Override this method to acquire
-     * resources that will be needed for event handlers and lifecycle methods.</p>
+     * <p>
+     * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
+     * a URL, or indirectly via page navigation. Override this method to acquire resources that will be needed for event
+     * handlers and lifecycle methods.
+     * </p>
      * 
-     * <p>The default implementation does nothing.</p>
+     * <p>
+     * The default implementation does nothing.
+     * </p>
      */
     @Override
     public void init() {
@@ -127,8 +138,7 @@ public class CPPNavigator extends AbstractFragmentBean {
         // Perform application initialization that must complete
         // *before* managed components are initialized
         // TODO - add your own initialiation code here
-        
-        
+
         // <editor-fold defaultstate="collapsed" desc="Visual-Web-managed Component Initialization">
         // Initialize automatically managed components
         // *Note* - this logic should NOT be modified
@@ -136,9 +146,9 @@ public class CPPNavigator extends AbstractFragmentBean {
             _init();
         } catch (Exception e) {
             log("Page1 Initialization Failure", e);
-            throw e instanceof FacesException ? (FacesException) e: new FacesException(e);
+            throw e instanceof FacesException ? (FacesException) e : new FacesException(e);
         }
-        
+
         // </editor-fold>
         // Perform application initialization that must complete
         // *after* managed components are initialized
@@ -146,20 +156,25 @@ public class CPPNavigator extends AbstractFragmentBean {
     }
 
     /**
-     * <p>Callback method that is called after rendering is completed for
-     * this request, if <code>init()</code> was called.  Override this
-     * method to release resources acquired in the <code>init()</code>
-     * resources that will be needed for event handlers and lifecycle methods.</p>
+     * <p>
+     * Callback method that is called after rendering is completed for this request, if <code>init()</code> was called.
+     * Override this method to release resources acquired in the <code>init()</code> resources that will be needed for
+     * event handlers and lifecycle methods.
+     * </p>
      * 
-     * <p>The default implementation does nothing.</p>
+     * <p>
+     * The default implementation does nothing.
+     * </p>
      */
     @Override
     public void destroy() {
     }
 
     /**
-     * <p>Return a reference to the scoped data bean.</p>
-     *
+     * <p>
+     * Return a reference to the scoped data bean.
+     * </p>
+     * 
      * @return reference to the scoped data bean
      */
     protected SessionBean1 getSessionBean1() {
@@ -167,8 +182,10 @@ public class CPPNavigator extends AbstractFragmentBean {
     }
 
     /**
-     * <p>Return a reference to the scoped data bean.</p>
-     *
+     * <p>
+     * Return a reference to the scoped data bean.
+     * </p>
+     * 
      * @return reference to the scoped data bean
      */
     protected ApplicationBean1 getApplicationBean1() {
@@ -176,8 +193,10 @@ public class CPPNavigator extends AbstractFragmentBean {
     }
 
     /**
-     * <p>Return a reference to the scoped data bean.</p>
-     *
+     * <p>
+     * Return a reference to the scoped data bean.
+     * </p>
+     * 
      * @return reference to the scoped data bean
      */
     protected RequestBean1 getRequestBean1() {

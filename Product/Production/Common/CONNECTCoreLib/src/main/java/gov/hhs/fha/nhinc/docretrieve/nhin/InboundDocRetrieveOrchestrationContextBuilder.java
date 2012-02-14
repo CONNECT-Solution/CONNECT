@@ -15,10 +15,11 @@ import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
- *
+ * 
  * @author mweaver
  */
-public class InboundDocRetrieveOrchestrationContextBuilder implements OrchestrationContextBuilder, InboundDocRetrieveContextBuilder {
+public class InboundDocRetrieveOrchestrationContextBuilder implements OrchestrationContextBuilder,
+        InboundDocRetrieveContextBuilder {
 
     private RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
     private AssertionType assertionType;
@@ -60,7 +61,6 @@ public class InboundDocRetrieveOrchestrationContextBuilder implements Orchestrat
         this.auditTransformer = auditTransformer;
     }
 
-
     public InboundDelegate getInboundDelegate() {
         return inboundDelegate;
     }
@@ -69,16 +69,18 @@ public class InboundDocRetrieveOrchestrationContextBuilder implements Orchestrat
         this.inboundDelegate = inboundDelegate;
         return this;
     }
+
     @Override
     public OrchestrationContext build() {
-        return new OrchestrationContext(new InboundDocRetrieveStrategyImpl(), new InboundDocRetrieveOrchestratableImpl(getRetrieveDocumentSetRequestType(), getAssertionType(), getPolicyTransformer(), getAuditTransformer(), getInboundDelegate()));
+        return new OrchestrationContext(new InboundDocRetrieveStrategyImpl(), new InboundDocRetrieveOrchestratableImpl(
+                getRetrieveDocumentSetRequestType(), getAssertionType(), getPolicyTransformer(), getAuditTransformer(),
+                getInboundDelegate()));
     }
 
     @Override
     public void setContextMessage(InboundOrchestratable message) {
-        if (message instanceof InboundDocRetrieveOrchestratableImpl)
-        {
-            setContextMessage((InboundDocRetrieveOrchestratableImpl)message);
+        if (message instanceof InboundDocRetrieveOrchestratableImpl) {
+            setContextMessage((InboundDocRetrieveOrchestratableImpl) message);
         }
     }
 

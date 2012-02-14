@@ -15,12 +15,12 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "NhincProxyDocRetrieveDeferredRequestSecured", portName = "NhincProxyDocRetrieveDeferredRequestSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxydocretrievedeferredsecuredrequest.NhincProxyDocRetrieveDeferredRequestSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredsecuredrequest", wsdlLocation = "WEB-INF/wsdl/PassthruDocRetrieveDeferredRequestSecured/NhincProxyDocRetrieveDeferredReqSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class PassthruDocRetrieveDeferredRequestSecured extends PassthruDocRetrieveDeferredRequestImpl {
 
     @Resource
@@ -31,7 +31,8 @@ public class PassthruDocRetrieveDeferredRequestSecured extends PassthruDocRetrie
      * @param body
      * @return DocRetrieveAcknowledgementType
      */
-    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(RespondingGatewayCrossGatewayRetrieveSecuredRequestType body) {
+    public DocRetrieveAcknowledgementType crossGatewayRetrieveRequest(
+            RespondingGatewayCrossGatewayRetrieveSecuredRequestType body) {
         return crossGatewayRetrieveRequest(body, context);
     }
 }

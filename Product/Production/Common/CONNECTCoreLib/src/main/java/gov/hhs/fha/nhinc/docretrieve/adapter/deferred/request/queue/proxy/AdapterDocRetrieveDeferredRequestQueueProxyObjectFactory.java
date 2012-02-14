@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.queue.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- *
+ * 
  * @author narendra.reddy
  */
 public class AdapterDocRetrieveDeferredRequestQueueProxyObjectFactory extends ComponentProxyObjectFactory {

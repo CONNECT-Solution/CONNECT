@@ -49,11 +49,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class DocQueryResponseProcessor
-{
+public class DocQueryResponseProcessor {
     private static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
     private static final String EBXML_RESPONSE_TYPECODE_CLASS_SCHEME = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
     private Log log = null;
@@ -61,89 +60,67 @@ public class DocQueryResponseProcessor
     private String assigningAuthorityId;
     private String homeCommunityId;
 
-    public DocQueryResponseProcessor()
-    {
+    public DocQueryResponseProcessor() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected PatientConsentHelper getPatientConsentHelper()
-    {
+    protected PatientConsentHelper getPatientConsentHelper() {
         return new PatientConsentHelper();
     }
-    
-    protected void setPatientId(String patientId)
-    {
+
+    protected void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 
-    protected String getPatientId()
-    {
+    protected String getPatientId() {
         return patientId;
     }
 
-    protected void setAssigningAuthorityId(String assigningAuthorityId)
-    {
+    protected void setAssigningAuthorityId(String assigningAuthorityId) {
         this.assigningAuthorityId = assigningAuthorityId;
     }
 
-    protected String getAssigningAuthorityId()
-    {
+    protected String getAssigningAuthorityId() {
         return assigningAuthorityId;
     }
 
-    protected void setHomeCommunityId(String homeCommunityId)
-    {
+    protected void setHomeCommunityId(String homeCommunityId) {
         this.homeCommunityId = homeCommunityId;
     }
 
-    protected String getHomeCommunityId()
-    {
+    protected String getHomeCommunityId() {
         return homeCommunityId;
     }
 
-    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse)
-    {
+    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
+            AdhocQueryResponse adhocQueryResponse) {
         log.debug("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
-        if(adhocQueryRequest == null)
-        {
+        if (adhocQueryRequest == null) {
             log.warn("AdhocQueryRequest was null.");
-        }
-        else if(adhocQueryResponse == null)
-        {
+        } else if (adhocQueryResponse == null) {
             log.warn("AdhocQueryResponse was null.");
 
-        }
-        else
-        {
+        } else {
             extractIdentifiers(adhocQueryRequest);
-            if((patientId != null) && (!patientId.isEmpty()))
-            {
+            if ((patientId != null) && (!patientId.isEmpty())) {
                 PatientConsentHelper patientConsentHelper = getPatientConsentHelper();
-                if(patientConsentHelper == null)
-                {
+                if (patientConsentHelper == null) {
                     log.warn("PatientConsentHelper was null.");
-                }
-                else
-                {
-                    PatientPreferencesType patientPreferences = patientConsentHelper.retrievePatientConsentbyPatientId(patientId, assigningAuthorityId);
-                    if(patientPreferences == null)
-                    {
+                } else {
+                    PatientPreferencesType patientPreferences = patientConsentHelper.retrievePatientConsentbyPatientId(
+                            patientId, assigningAuthorityId);
+                    if (patientPreferences == null) {
                         log.warn("PatientPreferences was null.");
-                    }
-                    else
-                    {
+                    } else {
                         response = filterResults(adhocQueryResponse, patientPreferences);
                     }
                 }
-            }
-            else
-            {
+            } else {
                 log.info("Not a patient-centric query.");
                 response = filterResultsNonPatientCentric(adhocQueryResponse);
             }
@@ -152,27 +129,20 @@ public class DocQueryResponseProcessor
         return response;
     }
 
-    protected void extractIdentifiers(AdhocQueryRequest adhocQueryRequest)
-    {
+    protected void extractIdentifiers(AdhocQueryRequest adhocQueryRequest) {
         log.debug("Begin extractIdentifiers");
-        if(adhocQueryRequest == null)
-        {
+        if (adhocQueryRequest == null) {
             log.warn("AdhocQueryRequest was null.");
-        }
-        else
-        {
+        } else {
             AdhocQueryType adhocQuery = adhocQueryRequest.getAdhocQuery();
-            if(adhocQuery != null)
-            {
+            if (adhocQuery != null) {
                 homeCommunityId = HomeCommunityMap.getCommunityIdForDeferredQDRequest(adhocQuery);
 
                 List<SlotType1> slots = null;
-                if(adhocQuery != null)
-                {
+                if (adhocQuery != null) {
                     slots = adhocQuery.getSlot();
                     List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
-                    if((slotValues != null) && (!slotValues.isEmpty()))
-                    {
+                    if ((slotValues != null) && (!slotValues.isEmpty())) {
                         String formattedPatientId = slotValues.get(0);
                         patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
                         assigningAuthorityId = PatientIdFormatUtil.parseCommunityId(formattedPatientId);
@@ -184,28 +154,19 @@ public class DocQueryResponseProcessor
         log.debug("End extractIdentifiers");
     }
 
-    protected List<String> extractSlotValues(List<SlotType1> slots, String slotName)
-    {
+    protected List<String> extractSlotValues(List<SlotType1> slots, String slotName) {
         log.debug("Begin extractSlotValues");
         List<String> returnValues = null;
-        if(slots != null)
-        {
-            for(SlotType1 slot : slots)
-            {
-                if ((slot.getName() != null) &&
-                    (slot.getName().length() > 0) &&
-                    (slot.getValueList() != null) &&
-                    (slot.getValueList().getValue() != null) &&
-                    (slot.getValueList().getValue().size() > 0))
-                {
+        if (slots != null) {
+            for (SlotType1 slot : slots) {
+                if ((slot.getName() != null) && (slot.getName().length() > 0) && (slot.getValueList() != null)
+                        && (slot.getValueList().getValue() != null) && (slot.getValueList().getValue().size() > 0)) {
 
-                    if(slot.getName().equals(slotName))
-                    {
+                    if (slot.getName().equals(slotName)) {
                         ValueListType valueListType = slot.getValueList();
                         List<String> slotValues = valueListType.getValue();
                         returnValues = new ArrayList<String>();
-                        for(String slotValue : slotValues)
-                        {
+                        for (String slotValue : slotValues) {
                             returnValues.add(slotValue);
                         }
                     }
@@ -217,22 +178,18 @@ public class DocQueryResponseProcessor
         return returnValues;
     }
 
-    protected AdhocQueryResponse filterResultsNonPatientCentric(AdhocQueryResponse adhocQueryResponse)
-    {
+    protected AdhocQueryResponse filterResultsNonPatientCentric(AdhocQueryResponse adhocQueryResponse) {
         log.debug("In filterResultsNonPatientCentric");
         return filterResults(adhocQueryResponse, null);
     }
 
-    protected AdhocQueryResponse filterResults(AdhocQueryResponse adhocQueryResponse, PatientPreferencesType patientPreferences)
-    {
+    protected AdhocQueryResponse filterResults(AdhocQueryResponse adhocQueryResponse,
+            PatientPreferencesType patientPreferences) {
         log.debug("Begin filterResults");
         AdhocQueryResponse response = null;
-        if(adhocQueryResponse == null)
-        {
+        if (adhocQueryResponse == null) {
             log.warn("AdhocQueryResponse was null.");
-        }
-        else
-        {
+        } else {
             ObjectFactory rimObjectFactory = new ObjectFactory();
             response = new AdhocQueryResponse();
             response.setRegistryErrorList(adhocQueryResponse.getRegistryErrorList());
@@ -241,48 +198,37 @@ public class DocQueryResponseProcessor
             long docCount = 0;
 
             RegistryObjectListType sourceRegistryObjectList = adhocQueryResponse.getRegistryObjectList();
-            if(sourceRegistryObjectList != null)
-            {
+            if (sourceRegistryObjectList != null) {
                 List<JAXBElement<? extends IdentifiableType>> olRegObjs = sourceRegistryObjectList.getIdentifiable();
-                for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs)
-                {
-                    if ((oJAXBObj != null) &&
-                            (oJAXBObj.getDeclaredType() != null) &&
-                            (oJAXBObj.getDeclaredType().getCanonicalName() != null) &&
-                            (oJAXBObj.getDeclaredType().getCanonicalName().equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")) &&
-                            (oJAXBObj.getValue() != null))
-                    {
+                for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs) {
+                    if ((oJAXBObj != null)
+                            && (oJAXBObj.getDeclaredType() != null)
+                            && (oJAXBObj.getDeclaredType().getCanonicalName() != null)
+                            && (oJAXBObj.getDeclaredType().getCanonicalName()
+                                    .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"))
+                            && (oJAXBObj.getValue() != null)) {
                         ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
                         PatientPreferencesType workingPatientPreferences = null;
-                        if(patientPreferences == null)
-                        {
+                        if (patientPreferences == null) {
                             workingPatientPreferences = retrievePatientPreferencesForDocument(oExtObj);
-                        }
-                        else
-                        {
+                        } else {
                             workingPatientPreferences = patientPreferences;
                         }
-                        if(documentAllowed(oExtObj, workingPatientPreferences))
-                        {
+                        if (documentAllowed(oExtObj, workingPatientPreferences)) {
                             log.debug("Adding document query response to the list.");
-                            if(registryObjectList == null)
-                            {
+                            if (registryObjectList == null) {
                                 registryObjectList = new RegistryObjectListType();
                                 response.setRegistryObjectList(registryObjectList);
                             }
                             registryObjectList.getIdentifiable().add(rimObjectFactory.createExtrinsicObject(oExtObj));
                             docCount++;
-                        }
-                        else
-                        {
+                        } else {
                             log.debug("Skipping document");
                         }
                     }
                 }
                 response.setTotalResultCount(BigInteger.valueOf(docCount));
-            }
-            else
-            {
+            } else {
                 log.info("RegistryObjectList was null.");
             }
 
@@ -291,36 +237,28 @@ public class DocQueryResponseProcessor
         return response;
     }
 
-    protected PatientPreferencesType retrievePatientPreferencesForDocument(ExtrinsicObjectType oExtObj)
-    {
+    protected PatientPreferencesType retrievePatientPreferencesForDocument(ExtrinsicObjectType oExtObj) {
         PatientPreferencesType patientPreferences = null;
-        if(oExtObj == null)
-        {
+        if (oExtObj == null) {
             log.error("Extrinsic Object was null.");
-        }
-        else
-        {
+        } else {
             String documentId = extractDocumentId(oExtObj);
             String repositoryId = extractRepositoryId(oExtObj);
-            patientPreferences = getPatientConsentHelper().retrievePatientConsentbyDocumentId(homeCommunityId, repositoryId, documentId);
+            patientPreferences = getPatientConsentHelper().retrievePatientConsentbyDocumentId(homeCommunityId,
+                    repositoryId, documentId);
         }
         return patientPreferences;
     }
-    
-    protected String extractDocumentId(ExtrinsicObjectType oExtObj)
-    {
+
+    protected String extractDocumentId(ExtrinsicObjectType oExtObj) {
         log.debug("Begin extractDocumentId");
         String documentId = null;
-        if (!oExtObj.getExternalIdentifier().isEmpty())
-        {
+        if (!oExtObj.getExternalIdentifier().isEmpty()) {
             List<ExternalIdentifierType> olExtId = oExtObj.getExternalIdentifier();
-            for (ExternalIdentifierType oExtId : olExtId)
-            {
-                if ((oExtId.getIdentificationScheme() != null) &&
-                        (oExtId.getIdentificationScheme().equals(CDAConstants.DOCUMENT_ID_IDENT_SCHEME)) &&
-                        (oExtId.getValue() != null) &&
-                        (oExtId.getValue().length() > 0))
-                {
+            for (ExternalIdentifierType oExtId : olExtId) {
+                if ((oExtId.getIdentificationScheme() != null)
+                        && (oExtId.getIdentificationScheme().equals(CDAConstants.DOCUMENT_ID_IDENT_SCHEME))
+                        && (oExtId.getValue() != null) && (oExtId.getValue().length() > 0)) {
                     documentId = oExtId.getValue().trim();
                 }
             }
@@ -329,23 +267,16 @@ public class DocQueryResponseProcessor
         return documentId;
     }
 
-    protected String extractRepositoryId(ExtrinsicObjectType oExtObj)
-    {
+    protected String extractRepositoryId(ExtrinsicObjectType oExtObj) {
         log.debug("Begin extractRepositoryId");
         String repositoryId = null;
-        if (!oExtObj.getSlot().isEmpty())
-        {
+        if (!oExtObj.getSlot().isEmpty()) {
             List<SlotType1> slots = oExtObj.getSlot();
-            for (SlotType1 slot : slots)
-            {
-                if ((slot != null) &&
-                        (CDAConstants.SLOT_NAME_REPOSITORY_UNIQUE_ID.equals(slot.getName())) &&
-                        (slot.getValueList() != null) &&
-                        (!slot.getValueList().getValue().isEmpty()))
-                {
+            for (SlotType1 slot : slots) {
+                if ((slot != null) && (CDAConstants.SLOT_NAME_REPOSITORY_UNIQUE_ID.equals(slot.getName()))
+                        && (slot.getValueList() != null) && (!slot.getValueList().getValue().isEmpty())) {
                     repositoryId = slot.getValueList().getValue().get(0);
-                    if(repositoryId != null)
-                    {
+                    if (repositoryId != null) {
                         repositoryId = repositoryId.trim();
                         break;
                     }
@@ -356,17 +287,14 @@ public class DocQueryResponseProcessor
         return repositoryId;
     }
 
-    protected String extractDocumentType(ExtrinsicObjectType oExtObj)
-    {
+    protected String extractDocumentType(ExtrinsicObjectType oExtObj) {
         log.debug("Begin extractDocumentType");
         String documentType = null;
-        if (!oExtObj.getClassification().isEmpty())
-        {
+        if (!oExtObj.getClassification().isEmpty()) {
             List<ClassificationType> classifications = oExtObj.getClassification();
             for (ClassificationType classification : classifications) {
-                if ((classification != null) &&
-                        (EBXML_RESPONSE_TYPECODE_CLASS_SCHEME.equals(classification.getClassificationScheme())))
-                {
+                if ((classification != null)
+                        && (EBXML_RESPONSE_TYPECODE_CLASS_SCHEME.equals(classification.getClassificationScheme()))) {
                     documentType = classification.getNodeRepresentation();
                     break;
                 }
@@ -376,8 +304,7 @@ public class DocQueryResponseProcessor
         return documentType;
     }
 
-    protected boolean documentAllowed(ExtrinsicObjectType extObject, PatientPreferencesType patientPreferences)
-    {
+    protected boolean documentAllowed(ExtrinsicObjectType extObject, PatientPreferencesType patientPreferences) {
         log.debug("Begin documentAllowed");
         boolean allowed = false;
         String documentTypeCode = extractDocumentType(extObject);

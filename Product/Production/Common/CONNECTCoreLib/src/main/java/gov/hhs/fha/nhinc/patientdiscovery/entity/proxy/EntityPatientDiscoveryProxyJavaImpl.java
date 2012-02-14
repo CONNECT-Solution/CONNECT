@@ -36,40 +36,33 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
- * THIS CLASS IS NOT USED ANYMORE WITH NEW DQ FANOUT EXECUTOR SERVICE IMPL
- * DO NOT USE THIS
+ * THIS CLASS IS NOT USED ANYMORE WITH NEW DQ FANOUT EXECUTOR SERVICE IMPL DO NOT USE THIS
+ * 
  * @author paul.eftis
  */
-public class EntityPatientDiscoveryProxyJavaImpl implements EntityPatientDiscoveryProxy
-{
+public class EntityPatientDiscoveryProxyJavaImpl implements EntityPatientDiscoveryProxy {
     private Log log = null;
 
-    public EntityPatientDiscoveryProxyJavaImpl()
-    {
+    public EntityPatientDiscoveryProxyJavaImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor()
-    {
+    protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
         return new EntityPatientDiscoveryOrchImpl();
     }
 
-    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest, AssertionType assertion, NhinTargetCommunitiesType targetCommunities)
-    {
+    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
+            AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
         log.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
         EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
-        if(processor == null)
-        {
+        if (processor == null) {
             log.warn("EntityPatientDiscoveryProcessor was null");
-        }
-        else
-        {
+        } else {
             RespondingGatewayPRPAIN201305UV02RequestType processorRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
             processorRequest.setPRPAIN201305UV02(pdRequest);
             processorRequest.setAssertion(assertion);

@@ -36,13 +36,14 @@ import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
 public class EntitySubscribeSoapHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(EntitySubscribeSoapHeaderHandler.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(EntitySubscribeSoapHeaderHandler.class);
 
     @SuppressWarnings("unchecked")
     public Set<QName> getHeaders() {

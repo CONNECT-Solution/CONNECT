@@ -72,7 +72,8 @@ public class RootTopicExtractor {
     public static final String DIALECT_CONCRETE_MISSPELLED = "http://doc.oasis-open.org/wsn/t-1/TopicExpression/Concrete";
     public static final String DIALECT_SIMPLE = "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple";
     public static final String DIALECT_SIMPLE_MISSPELLED = "http://doc.oasis-open.org/wsn/t-1/TopicExpression/Simple";
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(RootTopicExtractor.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(RootTopicExtractor.class);
 
     public String extractRootTopicFromSubscribeElement(Element subscribeElement) throws SubscriptionRepositoryException {
         // TODO: Root topic extraction strategy
@@ -85,8 +86,8 @@ public class RootTopicExtractor {
                     rootTopic = extractRootTopicFromTopicExpressionNode(topicExpressionElement);
                 } else {
                     log.warn("subscribe does not have topic expression node");
-//                    RootTopicExtractorReverseCompat compat = new RootTopicExtractorReverseCompat();
-//                    rootTopic = compat.extractReverseCompatRootTopic(subscribeElement);
+                    // RootTopicExtractorReverseCompat compat = new RootTopicExtractorReverseCompat();
+                    // rootTopic = compat.extractReverseCompatRootTopic(subscribeElement);
                 }
 
                 log.debug("Extracted root topic: " + rootTopic);
@@ -110,7 +111,8 @@ public class RootTopicExtractor {
         return rootTopic;
     }
 
-    public String extractRootTopicFromNotificationMessageElement(Element notificationMessageElement) throws SubscriptionRepositoryException {
+    public String extractRootTopicFromNotificationMessageElement(Element notificationMessageElement)
+            throws SubscriptionRepositoryException {
         // TODO: Root topic extraction strategy
         String rootTopic = null;
         if (notificationMessageElement != null) {
@@ -133,7 +135,8 @@ public class RootTopicExtractor {
         return rootTopic;
     }
 
-    public String extractRootTopicFromNotificationMessageXml(String notificationMessageXml) throws SubscriptionRepositoryException {
+    public String extractRootTopicFromNotificationMessageXml(String notificationMessageXml)
+            throws SubscriptionRepositoryException {
         Element notificationMessageElement;
         try {
             notificationMessageElement = XmlUtility.convertXmlToElement(notificationMessageXml);
@@ -144,7 +147,8 @@ public class RootTopicExtractor {
     }
 
     public String extractRootTopicFromTopicExpressionNode(Node topicExpression) throws SubscriptionRepositoryException {
-        log.debug("extractRootTopicFromTopicExpressionNode node='" + XmlUtility.serializeNodeIgnoreFaults(topicExpression) + "'");
+        log.debug("extractRootTopicFromTopicExpressionNode node='"
+                + XmlUtility.serializeNodeIgnoreFaults(topicExpression) + "'");
         String rootTopic = null;
         if (topicExpression != null) {
             IRootTopicExtractionStrategy extractor = null;
@@ -199,7 +203,8 @@ public class RootTopicExtractor {
         return extractTopicExpressionElementFromSubscribeElement(subscribeElement);
     }
 
-    public Element extractTopicExpressionElementFromSubscribeElement(Element subscribeElement) throws XPathExpressionException {
+    public Element extractTopicExpressionElementFromSubscribeElement(Element subscribeElement)
+            throws XPathExpressionException {
         String xpathQuery = "//*[local-name()='Subscribe']/*[local-name()='Filter']/*[local-name()='TopicExpression']";
 
         Element topicExpressionElement = (Element) XmlUtility.performXpathQuery(subscribeElement, xpathQuery);
@@ -212,12 +217,14 @@ public class RootTopicExtractor {
         return topicExpressionElement;
     }
 
-    private Element extractTopicElementFromNotificationMessageXml(String notificationMessageXml) throws XPathExpressionException {
+    private Element extractTopicElementFromNotificationMessageXml(String notificationMessageXml)
+            throws XPathExpressionException {
         String xpathQuery = "//*[local-name()='NotificationMessage']/*[local-name()='Topic']";
         return (Element) XmlUtility.performXpathQuery(notificationMessageXml, xpathQuery);
     }
 
-    public Element extractTopicElementFromNotificationMessageElement(Element notificationMessageElement) throws XPathExpressionException {
+    public Element extractTopicElementFromNotificationMessageElement(Element notificationMessageElement)
+            throws XPathExpressionException {
         String xpathQuery = "//*[local-name()='NotificationMessage']/*[local-name()='Topic']";
         Element topicElement = (Element) XmlUtility.performXpathQuery(notificationMessageElement, xpathQuery);
 

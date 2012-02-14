@@ -39,26 +39,23 @@ import static org.junit.Assert.*;
  * @author Neil Webb
  */
 @Ignore
-public class SubscriptionRepositoryFactoryTest
-{
+public class SubscriptionRepositoryFactoryTest {
     /**
      * Test the creation of a concrete subscription repository service
      */
     @Test
-    public void testSubscriptionFactory()
-    {
+    public void testSubscriptionFactory() {
         System.out.println("Begin testSubscriptionFactory");
-        try
-        {
-            SubscriptionRepositoryService repositoryService = new SubscriptionRepositoryFactory().getSubscriptionRepositoryService();
+        try {
+            SubscriptionRepositoryService repositoryService = new SubscriptionRepositoryFactory()
+                    .getSubscriptionRepositoryService();
             assertNotNull("Subscription service was null", repositoryService);
 
             String serviceClassName = repositoryService.getClass().getName();
             System.out.println("Subscription repository class name: " + serviceClassName);
-            assertEquals("Impl class name", "gov.hhs.fha.nhinc.subscription.repository.service.FileSubscriptionRepository", serviceClassName);
-        }
-        catch (SubscriptionRepositoryException ex)
-        {
+            assertEquals("Impl class name",
+                    "gov.hhs.fha.nhinc.subscription.repository.service.FileSubscriptionRepository", serviceClassName);
+        } catch (SubscriptionRepositoryException ex) {
             ex.printStackTrace();
             fail(ex.getMessage());
         }

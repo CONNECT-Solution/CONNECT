@@ -52,7 +52,7 @@ public class Manager {
     private static Log log = LogFactory.getLog(DataSaver.class);
     public static final String CONST_DEFAULT_SUBSCRIBE_LIST = "subscriptionList.xml";
     private static final String CONST_UNSUBSCRIBE_SERVICE_NAME = "subscriptionmanager";
-            
+
     // Initalize to defalut list
     private static String dataSource = CONST_DEFAULT_SUBSCRIBE_LIST;
 
@@ -139,23 +139,25 @@ public class Manager {
                     myCommunityId = PropertyAccessor.getProperty("gateway", "localHomeCommunityId");
                     if (myCommunityId != null) {
                         try {
-                            url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(myCommunityId, CONST_UNSUBSCRIBE_SERVICE_NAME);
+                            url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(myCommunityId,
+                                    CONST_UNSUBSCRIBE_SERVICE_NAME);
                         } catch (Throwable t) {
                             String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();
                             log.error(sErrorMessage, t);
                         }
                     }
-                    if (url != null &&
-                            url.length() > 0) {
+                    if (url != null && url.length() > 0) {
                         log.info("Returning Endpoint URL: " + url);
                         subscriptionReference.setSubscriptionManagerEndpointAddress(url);
                     } else {
                         log.error("URL not defined for service " + CONST_UNSUBSCRIBE_SERVICE_NAME);
-                        subscriptionReference.setSubscriptionManagerEndpointAddress("https://www.somewhere.org/SubscriptionManager");
+                        subscriptionReference
+                                .setSubscriptionManagerEndpointAddress("https://www.somewhere.org/SubscriptionManager");
                     }
                 } catch (PropertyAccessException ex) {
                     log.error("Failed to retrieve the subscription manager endpoint address: " + ex.getMessage(), ex);
-                    subscriptionReference.setSubscriptionManagerEndpointAddress("https://www.somewhere.org/SubscriptionManager");
+                    subscriptionReference
+                            .setSubscriptionManagerEndpointAddress("https://www.somewhere.org/SubscriptionManager");
                 }
             }
         }
@@ -172,11 +174,16 @@ public class Manager {
      * @param subscriptionRecordList Subscription record list
      */
     public void removeSubscription(SubscriptionReference subRef, SubscriptionRecordList subscriptionRecordList) {
-        if ((subscriptionRecordList != null) && (!subscriptionRecordList.isEmpty()) && (subRef != null) && (!subRef.getReferenceParameters().isEmpty())) {
+        if ((subscriptionRecordList != null) && (!subscriptionRecordList.isEmpty()) && (subRef != null)
+                && (!subRef.getReferenceParameters().isEmpty())) {
             SubscriptionRecordList removeList = new SubscriptionRecordList();
 
             for (SubscriptionRecord subscriptionRecord : subscriptionRecordList) {
-                if ((subscriptionRecord != null) && (subscriptionRecord.getSubscription() != null) && (subscriptionRecord.getSubscription().getSubscriptionReference() != null) && (subRef.getReferenceParameters().containsAll(subscriptionRecord.getSubscription().getSubscriptionReference().getReferenceParameters()))) {
+                if ((subscriptionRecord != null)
+                        && (subscriptionRecord.getSubscription() != null)
+                        && (subscriptionRecord.getSubscription().getSubscriptionReference() != null)
+                        && (subRef.getReferenceParameters().containsAll(subscriptionRecord.getSubscription()
+                                .getSubscriptionReference().getReferenceParameters()))) {
                     removeList.add(subscriptionRecord);
                 }
             }

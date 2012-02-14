@@ -25,16 +25,16 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.fta;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- *
+ * 
  * @author dunnek
  */
 @XmlRootElement
-public class Payload
-{
+public class Payload {
     @XmlElement
     public byte[] payload;
 

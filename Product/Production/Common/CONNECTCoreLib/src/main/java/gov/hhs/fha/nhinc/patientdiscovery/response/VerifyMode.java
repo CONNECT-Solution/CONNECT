@@ -47,7 +47,7 @@ import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class VerifyMode implements ResponseMode {
@@ -71,16 +71,15 @@ public class VerifyMode implements ResponseMode {
         log.debug("begin processResponse");
 
         PRPAIN201306UV02 result = response;
-        
+
         List<II> requestPatientIds = new ArrayList<II>();
         if (localPatientId != null) {
             requestPatientIds.add(localPatientId);
         }
         II patId = patientExistsLocally(requestPatientIds, assertion, response);
 
-        if (patId != null &&
-                NullChecker.isNotNullish(patId.getExtension()) &&
-                NullChecker.isNotNullish(patId.getRoot())) {
+        if (patId != null && NullChecker.isNotNullish(patId.getExtension())
+                && NullChecker.isNotNullish(patId.getRoot())) {
             log.debug("patient exists locally, adding correlation");
             getTrustMode().processResponse(response, assertion, patId);
         } else {
@@ -89,16 +88,16 @@ public class VerifyMode implements ResponseMode {
         return result;
     }
 
-    public PRPAIN201306UV02 processResponse(PRPAIN201305UV02 requestMsg, PRPAIN201306UV02 response, AssertionType assertion) {
+    public PRPAIN201306UV02 processResponse(PRPAIN201305UV02 requestMsg, PRPAIN201306UV02 response,
+            AssertionType assertion) {
         log.debug("begin processResponse");
 
         PRPAIN201306UV02 result = response;
-        
+
         II patId = patientExistsLocally(getPatientIds(requestMsg), assertion, response);
 
-        if (patId != null &&
-                NullChecker.isNotNullish(patId.getExtension()) &&
-                NullChecker.isNotNullish(patId.getRoot())) {
+        if (patId != null && NullChecker.isNotNullish(patId.getExtension())
+                && NullChecker.isNotNullish(patId.getRoot())) {
             log.debug("patient exists locally, adding correlation");
             getTrustMode().processResponse(response, assertion, patId);
         } else {
@@ -119,7 +118,8 @@ public class VerifyMode implements ResponseMode {
         String result = "";
 
         try {
-            result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
         }
@@ -129,17 +129,21 @@ public class VerifyMode implements ResponseMode {
     protected String getSenderCommunityId(PRPAIN201306UV02 response) {
         String hcid = null;
 
-        if (response != null &&
-                response.getSender() != null &&
-                response.getSender().getDevice() != null &&
-                response.getSender().getDevice().getAsAgent() != null &&
-                response.getSender().getDevice().getAsAgent().getValue() != null &&
-                response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                NullChecker.isNotNullish(response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                NullChecker.isNotNullish(response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-            hcid = response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        if (response != null
+                && response.getSender() != null
+                && response.getSender().getDevice() != null
+                && response.getSender().getDevice().getAsAgent() != null
+                && response.getSender().getDevice().getAsAgent().getValue() != null
+                && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                && NullChecker.isNotNullish(response.getSender().getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId())
+                && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                        .getId().get(0) != null
+                && NullChecker.isNotNullish(response.getSender().getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            hcid = response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                    .getId().get(0).getRoot();
         }
 
         return hcid;
@@ -148,14 +152,16 @@ public class VerifyMode implements ResponseMode {
     protected PRPAMT201301UV02Patient extractPatient(PRPAIN201306UV02 response) {
         PRPAMT201301UV02Patient patient = null;
 
-        if (response != null &&
-                response.getControlActProcess() != null &&
-                NullChecker.isNotNullish(response.getControlActProcess().getSubject()) &&
-                response.getControlActProcess().getSubject().get(0) != null &&
-                response.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null) {
-            PRPAMT201310UV02Patient remotePatient = response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
+        if (response != null
+                && response.getControlActProcess() != null
+                && NullChecker.isNotNullish(response.getControlActProcess().getSubject())
+                && response.getControlActProcess().getSubject().get(0) != null
+                && response.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
+                && response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
+                && response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
+                        .getPatient() != null) {
+            PRPAMT201310UV02Patient remotePatient = response.getControlActProcess().getSubject().get(0)
+                    .getRegistrationEvent().getSubject1().getPatient();
             patient = HL7PatientTransforms.createPRPAMT201301UVPatient(remotePatient);
         }
 
@@ -179,13 +185,15 @@ public class VerifyMode implements ResponseMode {
         List<II> requestPatientIds = new ArrayList<II>();
         List<PRPAMT201306UV02LivingSubjectId> requestSubjectIds;
 
-        if (requestMsg != null &&
-                requestMsg.getControlActProcess() != null &&
-                requestMsg.getControlActProcess().getQueryByParameter() != null &&
-                requestMsg.getControlActProcess().getQueryByParameter().getValue() != null &&
-                requestMsg.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
-                NullChecker.isNotNullish(requestMsg.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
-            requestSubjectIds = requestMsg.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
+        if (requestMsg != null
+                && requestMsg.getControlActProcess() != null
+                && requestMsg.getControlActProcess().getQueryByParameter() != null
+                && requestMsg.getControlActProcess().getQueryByParameter().getValue() != null
+                && requestMsg.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null
+                && NullChecker.isNotNullish(requestMsg.getControlActProcess().getQueryByParameter().getValue()
+                        .getParameterList().getLivingSubjectId())) {
+            requestSubjectIds = requestMsg.getControlActProcess().getQueryByParameter().getValue().getParameterList()
+                    .getLivingSubjectId();
             log.debug("query - original Request Ids " + requestSubjectIds.size());
 
             for (PRPAMT201306UV02LivingSubjectId livingPatId : requestSubjectIds) {
@@ -214,13 +222,14 @@ public class VerifyMode implements ResponseMode {
             if (mpiResult != null) {
                 try {
                     log.debug("Received result from mpi.");
-                    if ((mpiResult.getControlActProcess() != null) &&
-                            NullChecker.isNotNullish(mpiResult.getControlActProcess().getSubject())) {
-                        for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subj1 : mpiResult.getControlActProcess().getSubject()) {
-                            if ((subj1.getRegistrationEvent() != null) &&
-                                    (subj1.getRegistrationEvent().getSubject1() != null) &&
-                                    (subj1.getRegistrationEvent().getSubject1().getPatient() != null) &&
-                                    (subj1.getRegistrationEvent().getSubject1().getPatient().getId() != null)) {
+                    if ((mpiResult.getControlActProcess() != null)
+                            && NullChecker.isNotNullish(mpiResult.getControlActProcess().getSubject())) {
+                        for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subj1 : mpiResult.getControlActProcess()
+                                .getSubject()) {
+                            if ((subj1.getRegistrationEvent() != null)
+                                    && (subj1.getRegistrationEvent().getSubject1() != null)
+                                    && (subj1.getRegistrationEvent().getSubject1().getPatient() != null)
+                                    && (subj1.getRegistrationEvent().getSubject1().getPatient().getId() != null)) {
                                 mpiIds.add(subj1.getRegistrationEvent().getSubject1().getPatient().getId().get(0));
                             }
                         }
@@ -229,8 +238,7 @@ public class VerifyMode implements ResponseMode {
                         log.debug("mpiIds size: " + mpiIds.size());
                     }
 
-                    requestIdsSearch:
-                    for (II id : localPatientIds) {
+                    requestIdsSearch: for (II id : localPatientIds) {
                         for (II mpiId : mpiIds) {
                             if (compareId(mpiId, id)) {
                                 patId = mpiId;
@@ -238,7 +246,7 @@ public class VerifyMode implements ResponseMode {
                             }
                         }
                     }
-                    
+
                 } catch (Exception ex) {
                     log.error(ex.getMessage(), ex);
                     patId = null;
@@ -248,7 +256,8 @@ public class VerifyMode implements ResponseMode {
         return patId;
     }
 
-    protected boolean compareId(List<PRPAMT201306UV02LivingSubjectId> localIds, List<PRPAMT201306UV02LivingSubjectId> remoteIds) {
+    protected boolean compareId(List<PRPAMT201306UV02LivingSubjectId> localIds,
+            List<PRPAMT201306UV02LivingSubjectId> remoteIds) {
         boolean result = false;
 
         try {
@@ -290,8 +299,7 @@ public class VerifyMode implements ResponseMode {
             String localRoot = localId.getRoot();
             log.debug("Comparing Root: " + localRoot + " to " + remoteId.getRoot());
             log.debug("Comparing Ext: " + localExt + " to " + remoteId.getExtension());
-            if (remoteId.getExtension().equalsIgnoreCase(localExt) &&
-                    remoteId.getRoot().equalsIgnoreCase(localRoot)) {
+            if (remoteId.getExtension().equalsIgnoreCase(localExt) && remoteId.getRoot().equalsIgnoreCase(localRoot)) {
                 result = true;
             }
 
@@ -308,8 +316,7 @@ public class VerifyMode implements ResponseMode {
             AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
             AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
             log.info("Sending query to the Secured MPI");
-            queryResults =
-                    mpiProxy.findCandidates(query, assertion);
+            queryResults = mpiProxy.findCandidates(query, assertion);
 
         } else {
             log.error("MPI Request is null");

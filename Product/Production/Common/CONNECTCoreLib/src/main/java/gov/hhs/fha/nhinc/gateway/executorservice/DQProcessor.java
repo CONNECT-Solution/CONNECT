@@ -45,36 +45,27 @@ import javax.xml.namespace.QName;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
- * Implements the AdhocQueryResponse (DQClient Response) Aggregation Strategy
- * Each response returned from a CallableRequest comes to processResponse
- * where it is aggregated into the cumulativeResponse
- *
+ * Implements the AdhocQueryResponse (DQClient Response) Aggregation Strategy Each response returned from a
+ * CallableRequest comes to processResponse where it is aggregated into the cumulativeResponse
+ * 
  * No additional processing is required for DQProcessor other than response aggregation
- *
+ * 
  * @author paul.eftis
  */
-public class DQProcessor<Target extends QualifiedSubjectIdentifierType,
-        Request extends AdhocQueryRequest,
-        Response extends AdhocQueryResponse,
-        CumulativeResponse extends AdhocQueryResponse>
-        extends ResponseProcessor<Target, Request, Response, CumulativeResponse>{
+public class DQProcessor<Target extends QualifiedSubjectIdentifierType, Request extends AdhocQueryRequest, Response extends AdhocQueryResponse, CumulativeResponse extends AdhocQueryResponse>
+        extends ResponseProcessor<Target, Request, Response, CumulativeResponse> {
 
     private Log log = LogFactory.getLog(getClass());
 
     private AdhocQueryResponse cumulativeResponse = null;
 
-    private static final QName ExtrinsicObjectQname = new QName(
-            "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0",
+    private static final QName ExtrinsicObjectQname = new QName("urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0",
             "ExtrinsicObject");
-    private static final String XDS_RESPONSE_STATUS_SUCCESS =
-            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
-    private static final String XDS_RESPONSE_STATUS_FAILURE =
-            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+    private static final String XDS_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
+    private static final String XDS_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
 
-
-    public DQProcessor(){
+    public DQProcessor() {
         super();
         // create new cumulativeResponse object
         cumulativeResponse = new AdhocQueryResponse();
@@ -91,35 +82,29 @@ public class DQProcessor<Target extends QualifiedSubjectIdentifierType,
         log.debug("DQProcessor constructed initial cumulativeResponse");
     }
 
-
     @Override
-    public CumulativeResponse getCumulativeResponse(){
-        return (CumulativeResponse)cumulativeResponse;
+    public CumulativeResponse getCumulativeResponse() {
+        return (CumulativeResponse) cumulativeResponse;
     }
 
-
     /**
-     * Synchronization is covered by blocking queue implemented
-     * by the ExecutorCompletionService (i.e. we do not need to synchronize
-     * anything in processResponse or combineResponses)
-     *
-     * In TaskExecutor we have the following:
-     * Future<Result> fut = executorCompletionService.take();
-     * which will block until a result is available.  Once result
-     * is available it will be processed here and complete processing
-     * before the next future is retrieved and processed, so processor does not
-     * have to be concerned with synchronization.
-     *
+     * Synchronization is covered by blocking queue implemented by the ExecutorCompletionService (i.e. we do not need to
+     * synchronize anything in processResponse or combineResponses)
+     * 
+     * In TaskExecutor we have the following: Future<Result> fut = executorCompletionService.take(); which will block
+     * until a result is available. Once result is available it will be processed here and complete processing before
+     * the next future is retrieved and processed, so processor does not have to be concerned with synchronization.
+     * 
      * @param request is not used/needed for DQ processing
      * @param individual is the AdhocQueryResponse response returned from the CallableRequest
      * @param Target t is not used in DQProcessor
      */
     @Override
-    public void processResponse(Request request, Response individual, Target t){
-        try{
+    public void processResponse(Request request, Response individual, Target t) {
+        try {
             log.debug("DQProcessor::processResponse");
             processDQResponse(individual);
-        }catch(Exception e){
+        } catch (Exception e) {
             // add error response for exception to cumulativeResponse
             RegistryError regErr = new RegistryError();
             regErr.setErrorCode("XDSRepositoryError");
@@ -132,19 +117,17 @@ public class DQProcessor<Target extends QualifiedSubjectIdentifierType,
         }
     }
 
-
     /**
-     * Called from CallableRequest for any exception from the WebServiceClient
-     * Generate a new AdhocQueryResponse with the error and the source
-     * of the error
-     *
+     * Called from CallableRequest for any exception from the WebServiceClient Generate a new AdhocQueryResponse with
+     * the error and the source of the error
+     * 
      * @param String error (exception message)
      * @param Request is not used/needed for DQ processing
      * @param Target t that generated the exception/error
      * @return Response AdhocQueryResponse object with the error
      */
     @Override
-    public Response processError(String error, Request r, Target t){
+    public Response processError(String error, Request r, Target t) {
         log.debug("DQProcessor::processError error=" + error);
         AdhocQueryResponse adhocresponse = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
@@ -157,63 +140,57 @@ public class DQProcessor<Target extends QualifiedSubjectIdentifierType,
         regErr.setSeverity("Error");
         regErrList.getRegistryError().add(regErr);
         adhocresponse.setRegistryErrorList(regErrList);
-        return (Response)adhocresponse;
+        return (Response) adhocresponse;
     }
 
-
-
     /**
-     * DQ response processing only requires aggregation of the responses
-     * onto the cumulativeResponse
+     * DQ response processing only requires aggregation of the responses onto the cumulativeResponse
      * 
-     * @param current is the AdhocQueryResponse returned from the CallableRequest
-     * WebServiceClient
+     * @param current is the AdhocQueryResponse returned from the CallableRequest WebServiceClient
      */
     @SuppressWarnings("static-access")
-    private void processDQResponse(AdhocQueryResponse current) throws Exception{
-        if(current == null){
+    private void processDQResponse(AdhocQueryResponse current) throws Exception {
+        if (current == null) {
             throw new Exception("AdhocQueryResponse received was null.");
         }
-        try{
+        try {
             // add the responses from registry object list
-            if(current.getRegistryObjectList() != null){
-                List<JAXBElement<? extends IdentifiableType>> IdentifiableList = current.getRegistryObjectList().getIdentifiable();
-                if(IdentifiableList != null){
-                    for(JAXBElement<? extends IdentifiableType> identifiable : IdentifiableList){
+            if (current.getRegistryObjectList() != null) {
+                List<JAXBElement<? extends IdentifiableType>> IdentifiableList = current.getRegistryObjectList()
+                        .getIdentifiable();
+                if (IdentifiableList != null) {
+                    for (JAXBElement<? extends IdentifiableType> identifiable : IdentifiableList) {
                         ExtrinsicObjectType currentExtrinsicObject = cast(identifiable, ExtrinsicObjectType.class);
                         JAXBElement<ExtrinsicObjectType> identifiableObj = new JAXBElement<ExtrinsicObjectType>(
-                                ExtrinsicObjectQname,
-                                ExtrinsicObjectType.class,
-                                currentExtrinsicObject);
+                                ExtrinsicObjectQname, ExtrinsicObjectType.class, currentExtrinsicObject);
                         cumulativeResponse.getRegistryObjectList().getIdentifiable().add(identifiableObj);
                     }
                 }
             }
 
             // add any registry errors
-            if(current.getRegistryErrorList() != null && current.getRegistryErrorList().getRegistryError() != null
-                    && current.getRegistryErrorList().getRegistryError().size() > 0){
-                for(RegistryError re : current.getRegistryErrorList().getRegistryError()){
+            if (current.getRegistryErrorList() != null && current.getRegistryErrorList().getRegistryError() != null
+                    && current.getRegistryErrorList().getRegistryError().size() > 0) {
+                for (RegistryError re : current.getRegistryErrorList().getRegistryError()) {
                     cumulativeResponse.getRegistryErrorList().getRegistryError().add(re);
                 }
             }
 
             // add any slotlist response data
-            if(current.getResponseSlotList() != null && current.getResponseSlotList().getSlot() != null
-                    && current.getResponseSlotList().getSlot().size() > 0){
-                for(SlotType1 slot : current.getResponseSlotList().getSlot()){
+            if (current.getResponseSlotList() != null && current.getResponseSlotList().getSlot() != null
+                    && current.getResponseSlotList().getSlot().size() > 0) {
+                for (SlotType1 slot : current.getResponseSlotList().getSlot()) {
                     cumulativeResponse.getResponseSlotList().getSlot().add(slot);
                 }
             }
             cumulativeResponse.setTotalResultCount(cumulativeResponse.getTotalResultCount().add(BigInteger.ONE));
             log.debug("DQProcessor::processDQResponse combine next response done cumulativeResponse count="
-                + cumulativeResponse.getTotalResultCount().toString());
-        }catch(Exception ex){
+                    + cumulativeResponse.getTotalResultCount().toString());
+        } catch (Exception ex) {
             ExecutorServiceHelper.getInstance().outputCompleteException(ex);
             throw ex;
         }
     }
-
 
     private <T extends IdentifiableType> T cast(JAXBElement<? extends IdentifiableType> identifiable, Class<T> type) {
         if ((identifiable.getDeclaredType() == type) || identifiable.getValue().getClass() == type) {
@@ -221,6 +198,5 @@ public class DQProcessor<Target extends QualifiedSubjectIdentifierType,
         }
         return null;
     }
-
 
 }

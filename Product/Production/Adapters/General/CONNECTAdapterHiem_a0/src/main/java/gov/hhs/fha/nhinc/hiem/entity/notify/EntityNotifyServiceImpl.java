@@ -41,7 +41,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class EntityNotifyServiceImpl {
@@ -65,7 +65,8 @@ public class EntityNotifyServiceImpl {
             String url = getURL();
             EntityNotificationConsumerSecuredPortType port = getPort(url, assertIn);
 
-            //The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
+            // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method
+            // invocation
             result = port.notify(notifyRequest.getNotify());
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
@@ -78,7 +79,8 @@ public class EntityNotifyServiceImpl {
         String url = "";
 
         try {
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
+            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+                    NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
         }
@@ -93,10 +95,12 @@ public class EntityNotifyServiceImpl {
 
             if (oService != null) {
                 log.debug("EntityNotifyServiceImpl Obtained service - creating port.");
-                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityNotificationConsumerSecuredPortType.class);
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                        EntityNotificationConsumerSecuredPortType.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url, NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED, WS_ADDRESSING_ACTION, assertIn);
+                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+                        NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED, WS_ADDRESSING_ACTION, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

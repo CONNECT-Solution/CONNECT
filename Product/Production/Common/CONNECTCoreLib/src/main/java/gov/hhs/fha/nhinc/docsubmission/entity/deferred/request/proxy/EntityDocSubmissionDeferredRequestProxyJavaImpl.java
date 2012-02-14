@@ -36,16 +36,19 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class EntityDocSubmissionDeferredRequestProxyJavaImpl implements EntityDocSubmissionDeferredRequestProxy {
     private static Log log = LogFactory.getLog(EntityDocSubmissionDeferredRequestProxyJavaImpl.class);
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+            NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         log.debug("Using Java Implementation for Entity Doc Submission Deferred Request Service");
 
-        return new EntityDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBAsyncRequest(request, assertion, targets, urlInfo);
+        return new EntityDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBAsyncRequest(request,
+                assertion, targets, urlInfo);
     }
 
 }

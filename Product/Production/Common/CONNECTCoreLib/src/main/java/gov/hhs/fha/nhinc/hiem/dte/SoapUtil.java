@@ -47,8 +47,8 @@ import com.sun.xml.ws.developer.WSBindingProvider;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 
 /**
- *
- *
+ * 
+ * 
  * @author Neil Webb
  */
 public class SoapUtil {
@@ -93,7 +93,8 @@ public class SoapUtil {
         }
         if (soapMessage != null) {
             @SuppressWarnings("unchecked")
-            javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest) context.get(MessageContext.SERVLET_REQUEST);
+            javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest) context
+                    .get(MessageContext.SERVLET_REQUEST);
             servletRequest.setAttribute(attributeName, soapMessage);
         }
     }
@@ -103,7 +104,8 @@ public class SoapUtil {
         if (context != null) {
             MessageContext msgContext = context.getMessageContext();
             if (msgContext != null) {
-                javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest) msgContext.get(MessageContext.SERVLET_REQUEST);
+                javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest) msgContext
+                        .get(MessageContext.SERVLET_REQUEST);
                 soapMessage = (SOAPMessage) servletRequest.getAttribute(attributeName);
             }
         }
@@ -201,13 +203,13 @@ public class SoapUtil {
         return header;
     }
 
-    public void attachReferenceParameterElements(WSBindingProvider port, ReferenceParametersElements referenceParametersElements) {
+    public void attachReferenceParameterElements(WSBindingProvider port,
+            ReferenceParametersElements referenceParametersElements) {
         List<Header> headers = new ArrayList<Header>();
         if (referenceParametersElements != null) {
             for (Element referenceParametersElement : referenceParametersElements.getElements()) {
 
-                if (validateHeader(referenceParametersElement.getNodeName()))
-                {
+                if (validateHeader(referenceParametersElement.getNodeName())) {
                     log.debug("attaching header " + referenceParametersElement.getNodeName());
                     Header header = Headers.create(referenceParametersElement);
                     headers.add(header);
@@ -216,14 +218,13 @@ public class SoapUtil {
             port.setOutboundHeaders(headers);
         }
     }
-    private boolean validateHeader(String headerName)
-    {
+
+    private boolean validateHeader(String headerName) {
         boolean result = true;
         String testCondition = headerName.toLowerCase();
 
-        if ((testCondition.equals("to")) || testCondition.equals("replyto") || 
-                testCondition.equals("action") || testCondition.equals("messageid"))
-        {
+        if ((testCondition.equals("to")) || testCondition.equals("replyto") || testCondition.equals("action")
+                || testCondition.equals("messageid")) {
             result = false;
             log.warn("Invalid header: " + headerName);
         }

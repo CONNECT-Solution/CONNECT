@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 /**
  * @author Les Westberg
  */
-public class CMInternalConnectionInfo 
-{
+public class CMInternalConnectionInfo {
     private String homeCommunityId;
     private String name;
     private String description;
@@ -42,32 +41,28 @@ public class CMInternalConnectionInfo
     /**
      * Default Constructor.
      */
-    public CMInternalConnectionInfo()
-    {
+    public CMInternalConnectionInfo() {
         clear();
     }
-    
+
     /**
      * Clear the contents of this and set it to a default state.
      */
-    public void clear()
-    {
+    public void clear() {
         homeCommunityId = "";
         name = "";
         description = "";
         services = null;
         states = null;
     }
-    
+
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
+     * Returns true of the contents of the object are the same as the one passed in.
      * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMInternalConnectionInfo oCompare)
-    {
+    public boolean equals(CMInternalConnectionInfo oCompare) {
         boolean descMatch = false;
         boolean nameMatch = false;
         boolean hcidMatch = false;
@@ -76,45 +71,33 @@ public class CMInternalConnectionInfo
         boolean result = false;
 
         // Compare the names
-        if (NullChecker.isNullish(oCompare.name) &&
-                NullChecker.isNullish(this.name)) {
+        if (NullChecker.isNullish(oCompare.name) && NullChecker.isNullish(this.name)) {
             nameMatch = true;
-        }
-        else if (NullChecker.isNullish(oCompare.name) ||
-                NullChecker.isNullish(this.name)) {
+        } else if (NullChecker.isNullish(oCompare.name) || NullChecker.isNullish(this.name)) {
             nameMatch = false;
-        }
-        else {
+        } else {
             if (this.name.equalsIgnoreCase(oCompare.name)) {
                 nameMatch = true;
             }
         }
 
         // Compare the description
-        if (NullChecker.isNullish(oCompare.description) &&
-                NullChecker.isNullish(this.description)) {
+        if (NullChecker.isNullish(oCompare.description) && NullChecker.isNullish(this.description)) {
             descMatch = true;
-        }
-        else if (NullChecker.isNullish(oCompare.description) ||
-                NullChecker.isNullish(this.description)) {
+        } else if (NullChecker.isNullish(oCompare.description) || NullChecker.isNullish(this.description)) {
             descMatch = false;
-        }
-        else {
+        } else {
             if (this.description.equalsIgnoreCase(oCompare.description)) {
                 descMatch = true;
             }
         }
 
         // Compare the home community id
-        if (NullChecker.isNullish(oCompare.homeCommunityId) &&
-                NullChecker.isNullish(this.homeCommunityId)) {
+        if (NullChecker.isNullish(oCompare.homeCommunityId) && NullChecker.isNullish(this.homeCommunityId)) {
             hcidMatch = true;
-        }
-        else if (NullChecker.isNullish(oCompare.homeCommunityId) ||
-                NullChecker.isNullish(this.homeCommunityId)) {
+        } else if (NullChecker.isNullish(oCompare.homeCommunityId) || NullChecker.isNullish(this.homeCommunityId)) {
             hcidMatch = false;
-        }
-        else {
+        } else {
             if (this.homeCommunityId.equalsIgnoreCase(oCompare.homeCommunityId)) {
                 hcidMatch = true;
             }
@@ -123,11 +106,9 @@ public class CMInternalConnectionInfo
         // Compare the services
         if (oCompare.services == null && this.services == null) {
             serviceMatch = true;
-        }
-        else if (oCompare.services == null || this.services == null) {
+        } else if (oCompare.services == null || this.services == null) {
             serviceMatch = false;
-        }
-        else {
+        } else {
             if (this.services.equals(oCompare.services)) {
                 serviceMatch = true;
             }
@@ -136,11 +117,9 @@ public class CMInternalConnectionInfo
         // Compare the states
         if (oCompare.states == null && this.states == null) {
             stateMatch = true;
-        }
-        else if (oCompare.states == null || this.states == null) {
+        } else if (oCompare.states == null || this.states == null) {
             stateMatch = false;
-        }
-        else {
+        } else {
             if (this.states.equals(oCompare.states)) {
                 stateMatch = true;
             }
@@ -148,33 +127,28 @@ public class CMInternalConnectionInfo
 
         if (descMatch == true && nameMatch == true && hcidMatch == true && serviceMatch == true && stateMatch == true) {
             result = true;
-        }
-        else {
+        } else {
             result = false;
         }
 
         return result;
     }
-    
-    
 
     /**
      * Return the description of the connection.
      * 
      * @return The description of the connection.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
     /**
      * Set the description of the connection.
      * 
-     * @param description  The description of the connection.
+     * @param description The description of the connection.
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -183,8 +157,7 @@ public class CMInternalConnectionInfo
      * 
      * @return The home community ID associated with this connection.
      */
-    public String getHomeCommunityId()
-    {
+    public String getHomeCommunityId() {
         return homeCommunityId;
     }
 
@@ -193,8 +166,7 @@ public class CMInternalConnectionInfo
      * 
      * @param homeCommunityId The home community ID associated with this connection.
      */
-    public void setHomeCommunityId(String homeCommunityId)
-    {
+    public void setHomeCommunityId(String homeCommunityId) {
         this.homeCommunityId = homeCommunityId;
     }
 
@@ -203,8 +175,7 @@ public class CMInternalConnectionInfo
      * 
      * @return The name of this home community.
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -213,8 +184,7 @@ public class CMInternalConnectionInfo
      * 
      * @param name The name of this home community.
      */
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -223,8 +193,7 @@ public class CMInternalConnectionInfo
      * 
      * @return The services associated with this home community.
      */
-    public CMInternalConnInfoServices getServices()
-    {
+    public CMInternalConnInfoServices getServices() {
         return services;
     }
 
@@ -233,28 +202,25 @@ public class CMInternalConnectionInfo
      * 
      * @param services The services associated with this home community.
      */
-    public void setServices(CMInternalConnInfoServices services)
-    {
+    public void setServices(CMInternalConnInfoServices services) {
         this.services = services;
     }
 
     /**
      * Return the states associated with this home community.
-     *
+     * 
      * @return The states associated with this home community.
      */
-    public CMInternalConnectionInfoStates getStates()
-    {
+    public CMInternalConnectionInfoStates getStates() {
         return states;
     }
 
     /**
      * Sets the states associated with this home community.
-     *
+     * 
      * @param states The states associated with this home community.
      */
-    public void setStates(CMInternalConnectionInfoStates states)
-    {
+    public void setStates(CMInternalConnectionInfoStates states) {
         this.states = states;
     }
 

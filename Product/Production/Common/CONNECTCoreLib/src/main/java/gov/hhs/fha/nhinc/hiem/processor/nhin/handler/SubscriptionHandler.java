@@ -36,7 +36,6 @@ import org.w3c.dom.Element;
  * 
  * @author Neil Webb
  */
-public interface SubscriptionHandler
-{
+public interface SubscriptionHandler {
     public SubscribeResponse handleSubscribe(Element subscribe) throws SubscribeCreationFailedFault;
 }

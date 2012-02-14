@@ -35,13 +35,13 @@ import javax.xml.transform.dom.DOMSource;
 import org.w3c.dom.Node;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class SourceHelper {
 
     public static Node SourceToXml(Source source) throws Exception {
-        //todo: find more efficient way to transform to node
+        // todo: find more efficient way to transform to node
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         javax.xml.transform.Result streamResult = new javax.xml.transform.stream.StreamResult(bos);
 
@@ -52,6 +52,7 @@ public class SourceHelper {
         Node resultNode = XmlUtility.convertXmlToElement(resultXml);
         return resultNode;
     }
+
     public static Source XmlToSource(Node node) throws Exception {
         Source source = new DOMSource(node);
         return source;

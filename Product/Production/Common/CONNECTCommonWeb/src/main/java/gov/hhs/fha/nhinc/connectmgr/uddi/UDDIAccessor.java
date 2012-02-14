@@ -98,9 +98,9 @@ public class UDDIAccessor {
     // These are business entities that the UDDI will send us that we should ignore.
     // These are configured in the gateway.properties file and will be used to eliminate
     // some of the entries we get back from the UDDI server.
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     private HashSet<String> m_hBusinessToIgnore = new HashSet<String>();
-    private boolean m_bPropsLoaded = false;         // True if the props have been loaded.
+    private boolean m_bPropsLoaded = false; // True if the props have been loaded.
 
     public UDDIAccessor() {
         log = createLogger();
@@ -111,11 +111,9 @@ public class UDDIAccessor {
     }
 
     /**
-     * This method loads information from the gateway.properties file that are
-     * pertinent to this class.
+     * This method loads information from the gateway.properties file that are pertinent to this class.
      */
-    private void loadProperties()
-            throws UDDIAccessorException {
+    private void loadProperties() throws UDDIAccessorException {
         if (!m_bPropsLoaded) {
             try {
                 String sValue = PropertyAccessor.getProperty(GATEWAY_PROPFILE_NAME, UDDI_BUSINESSES_TO_IGNORE);
@@ -131,8 +129,8 @@ public class UDDIAccessor {
                 m_bPropsLoaded = true;
 
             } catch (Exception e) {
-                String sErrorMessage = "Failed to retrieve properties from " + GATEWAY_PROPFILE_NAME +
-                        ".properties file.  Error: " + e.getMessage();
+                String sErrorMessage = "Failed to retrieve properties from " + GATEWAY_PROPFILE_NAME
+                        + ".properties file.  Error: " + e.getMessage();
                 log.error(sErrorMessage, e);
                 throw new UDDIAccessorException(sErrorMessage, e);
             }
@@ -140,8 +138,7 @@ public class UDDIAccessor {
     }
 
     /**
-     * This method craetes a business entity by extracting the information from 
-     * a business info object.
+     * This method craetes a business entity by extracting the information from a business info object.
      * 
      * @param oBusInfo The business information that contains the information.
      * @return The translated information.
@@ -152,16 +149,15 @@ public class UDDIAccessor {
 
         if (oBusInfo != null) {
             // Business Key
-            //-------------
+            // -------------
             if ((oBusInfo.getBusinessKey() != null) && (oBusInfo.getBusinessKey().length() > 0)) {
                 oEntity.setBusinessKey(oBusInfo.getBusinessKey());
                 bHaveData = true;
             }
 
             // Names
-            //------
-            if ((oBusInfo.getName() != null) &&
-                    (oBusInfo.getName().size() > 0)) {
+            // ------
+            if ((oBusInfo.getName() != null) && (oBusInfo.getName().size() > 0)) {
                 CMBusinessNames oNames = new CMBusinessNames();
                 oEntity.setNames(oNames);
                 for (Name oUDDIName : oBusInfo.getName()) {
@@ -170,12 +166,11 @@ public class UDDIAccessor {
                     }
                 }
                 bHaveData = true;
-            }   // if ((oBusInfo.getName() != null) && ...
+            } // if ((oBusInfo.getName() != null) && ...
 
             // Description
-            //------------
-            if ((oBusInfo.getDescription() != null) &&
-                    (oBusInfo.getDescription().size() > 0)) {
+            // ------------
+            if ((oBusInfo.getDescription() != null) && (oBusInfo.getDescription().size() > 0)) {
                 CMBusinessDescriptions oDescripts = new CMBusinessDescriptions();
                 oEntity.setDescriptions(oDescripts);
                 for (Description oUDDIDescript : oBusInfo.getDescription()) {
@@ -186,35 +181,33 @@ public class UDDIAccessor {
                 bHaveData = true;
             }
 
-            // Set up for the services.  - This pass will only put in the service key.
+            // Set up for the services. - This pass will only put in the service key.
             // We will have to do another retrieval to get the rest of the service information.
-            //------------------------------------------------------------------------
-            if ((oBusInfo.getServiceInfos() != null) &&
-                    (oBusInfo.getServiceInfos().getServiceInfo() != null) &&
-                    (oBusInfo.getServiceInfos().getServiceInfo().size() > 0)) {
+            // ------------------------------------------------------------------------
+            if ((oBusInfo.getServiceInfos() != null) && (oBusInfo.getServiceInfos().getServiceInfo() != null)
+                    && (oBusInfo.getServiceInfos().getServiceInfo().size() > 0)) {
                 CMBusinessServices oServices = new CMBusinessServices();
                 for (ServiceInfo oUDDIService : oBusInfo.getServiceInfos().getServiceInfo()) {
                     boolean bHaveServiceData = false;
                     CMBusinessService oService = new CMBusinessService();
 
                     // Service Key
-                    //------------
+                    // ------------
                     if ((oUDDIService.getServiceKey() != null) && (oUDDIService.getServiceKey().length() > 0)) {
                         oService.setServiceKey(oUDDIService.getServiceKey());
                         bHaveServiceData = true;
                     }
 
-                    oService.setInternalWebService(false);      // If it is in UDDI - it is not internal
+                    oService.setInternalWebService(false); // If it is in UDDI - it is not internal
 
                     // Service Name - We will pick this up on the detail.
-                    //---------------------------------------------------
-
+                    // ---------------------------------------------------
 
                     if (bHaveServiceData) {
                         oServices.getBusinessService().add(oService);
                         bHaveData = true;
                     }
-                }   // for (ServiceInfo oUDDIService : oBusInfo.getServiceInfos().getServiceInfo())
+                } // for (ServiceInfo oUDDIService : oBusInfo.getServiceInfos().getServiceInfo())
 
                 if (oServices.getBusinessService().size() > 0) {
                     oEntity.setBusinessServices(oServices);
@@ -230,7 +223,7 @@ public class UDDIAccessor {
     }
 
     /**
-     * This method extracts the business key from the business info object.  
+     * This method extracts the business key from the business info object.
      * 
      * @param oBusInfo The business information object containing the data.
      * @return The key that was extracted.
@@ -238,9 +231,7 @@ public class UDDIAccessor {
     private String extractBusinessKey(BusinessInfo oBusInfo) {
         String sKey = "";
 
-        if ((oBusInfo != null) &&
-                (oBusInfo.getBusinessKey() != null) &&
-                (oBusInfo.getBusinessKey().length() > 0)) {
+        if ((oBusInfo != null) && (oBusInfo.getBusinessKey() != null) && (oBusInfo.getBusinessKey().length() > 0)) {
             sKey = oBusInfo.getBusinessKey();
         }
 
@@ -248,15 +239,14 @@ public class UDDIAccessor {
 
     }
 
-    private void removeIgnoredBusinesses(BusinessList businessList) {        
+    private void removeIgnoredBusinesses(BusinessList businessList) {
         ArrayList<String> ignoredKeyList = new ArrayList<String>();
-        if ((businessList != null) &&
-                (businessList.getBusinessInfos() != null) &&
-                (businessList.getBusinessInfos().getBusinessInfo() != null) &&
-                (businessList.getBusinessInfos().getBusinessInfo().size() > 0)) {
+        if ((businessList != null) && (businessList.getBusinessInfos() != null)
+                && (businessList.getBusinessInfos().getBusinessInfo() != null)
+                && (businessList.getBusinessInfos().getBusinessInfo().size() > 0)) {
             for (BusinessInfo oBusInfo : businessList.getBusinessInfos().getBusinessInfo()) {
                 String sKey = extractBusinessKey(oBusInfo);
-                
+
                 if (m_hBusinessToIgnore.contains(sKey)) {
                     ignoredKeyList.add(sKey);
                 }
@@ -267,8 +257,8 @@ public class UDDIAccessor {
     }
 
     /**
-     * This method returns the business with the specified
-     * business key.  If it does not exist in the list, then null is returned.
+     * This method returns the business with the specified business key. If it does not exist in the list, then null is
+     * returned.
      * 
      * @param oEntities The list of businesses to search.
      * @param sBusinessKey The business key to look for.
@@ -277,13 +267,11 @@ public class UDDIAccessor {
     protected CMBusinessEntity findSpecificBusiness(List<CMBusinessEntity> oaEntities, String sBusinessKey) {
         CMBusinessEntity oEntity = null;
 
-        if ((oaEntities != null) &&
-                (oaEntities.size() > 0)) {
+        if ((oaEntities != null) && (oaEntities.size() > 0)) {
             for (CMBusinessEntity oTempEntity : oaEntities) {
-                if ((oTempEntity.getBusinessKey() != null) &&
-                        (oTempEntity.getBusinessKey().equals(sBusinessKey))) {
+                if ((oTempEntity.getBusinessKey() != null) && (oTempEntity.getBusinessKey().equals(sBusinessKey))) {
                     oEntity = oTempEntity;
-                    break;          // We found it - get out of the loop...
+                    break; // We found it - get out of the loop...
                 }
             }
         }
@@ -292,29 +280,27 @@ public class UDDIAccessor {
     }
 
     /**
-     * This method returns the service with the specified business key and service key.  
-     * If it does not exist in the list, then null is returned.
+     * This method returns the service with the specified business key and service key. If it does not exist in the
+     * list, then null is returned.
      * 
      * @param oEntities The list of businesses to search.
      * @param sBusinessKey The business key for the business entity.
      * @param sServiceKey The service key to look for.
      * @return The item from the list that matches the business key.
      */
-    private CMBusinessService findSpecificService(List<CMBusinessEntity> oaEntities,
-            String sBusinessKey, String sServiceKey) {
+    private CMBusinessService findSpecificService(List<CMBusinessEntity> oaEntities, String sBusinessKey,
+            String sServiceKey) {
         CMBusinessService oService = null;
 
         CMBusinessEntity oEntity = findSpecificBusiness(oaEntities, sBusinessKey);
 
-        if ((oEntity != null) &&
-                (oEntity.getBusinessServices() != null) &&
-                (oEntity.getBusinessServices().getBusinessService() != null) &&
-                (oEntity.getBusinessServices().getBusinessService().size() > 0)) {
+        if ((oEntity != null) && (oEntity.getBusinessServices() != null)
+                && (oEntity.getBusinessServices().getBusinessService() != null)
+                && (oEntity.getBusinessServices().getBusinessService().size() > 0)) {
             for (CMBusinessService oTempService : oEntity.getBusinessServices().getBusinessService()) {
-                if ((oTempService.getServiceKey() != null) &&
-                        (oTempService.getServiceKey().equals(sServiceKey))) {
+                if ((oTempService.getServiceKey() != null) && (oTempService.getServiceKey().equals(sServiceKey))) {
                     oService = oTempService;
-                    break;          // We found it - get out of the loop...
+                    break; // We found it - get out of the loop...
                 }
             }
         }
@@ -323,8 +309,8 @@ public class UDDIAccessor {
     }
 
     /**
-     * This method looks through the set of keyed reference objects for the one that is specified.
-     * Once it finds it, it extracts the keyValue and returns it.
+     * This method looks through the set of keyed reference objects for the one that is specified. Once it finds it, it
+     * extracts the keyValue and returns it.
      * 
      * @param oaKeys The keys to be searched.
      * @param sDesiredKey The key to look for.
@@ -333,12 +319,10 @@ public class UDDIAccessor {
     protected List<String> findAndGetValueFromKeyedReference(List<KeyedReference> oaKeys, String sDesiredKey) {
         List<String> oValues = new ArrayList<String>();
 
-        if ((oaKeys != null) &&
-                (oaKeys.size() > 0)) {
+        if ((oaKeys != null) && (oaKeys.size() > 0)) {
             for (KeyedReference oKey : oaKeys) {
-                if ((oKey.getTModelKey() != null) &&
-                        (oKey.getTModelKey().equals(sDesiredKey)) &&
-                        (oKey.getKeyValue() != null)) {
+                if ((oKey.getTModelKey() != null) && (oKey.getTModelKey().equals(sDesiredKey))
+                        && (oKey.getKeyValue() != null)) {
                     // May be multiple declarations of States; add them all
                     oValues.add(oKey.getKeyValue());
                 }
@@ -349,8 +333,8 @@ public class UDDIAccessor {
     }
 
     /**
-     * This method takes in a list of JAXBElements and searches for a KeyedReference where 
-     * the key is the one specified.  If one is found, it will return the value for it.
+     * This method takes in a list of JAXBElements and searches for a KeyedReference where the key is the one specified.
+     * If one is found, it will return the value for it.
      * 
      * @param oaElement The list of JAXB elements.
      * @param sKey The key to search for.
@@ -359,16 +343,13 @@ public class UDDIAccessor {
     private String findAndGetValueFromJAXBElementKeyedReference(List<KeyedReference> oaElement, String sKey) {
         String sValue = "";
 
-        if ((oaElement == null) ||
-                (oaElement.size() <= 0)) {
+        if ((oaElement == null) || (oaElement.size() <= 0)) {
             return "";
         }
 
         for (KeyedReference oKeyRef : oaElement) {
-            if ((oKeyRef != null) &&
-                    (oKeyRef.getTModelKey() != null) &&
-                    (oKeyRef.getTModelKey().equals(sKey)) &&
-                    (oKeyRef.getKeyValue() != null)) {
+            if ((oKeyRef != null) && (oKeyRef.getTModelKey() != null) && (oKeyRef.getTModelKey().equals(sKey))
+                    && (oKeyRef.getKeyValue() != null)) {
                 sValue = oKeyRef.getKeyValue();
             }
         }
@@ -377,32 +358,26 @@ public class UDDIAccessor {
     }
 
     /**
-     * This method is used to populate the Business Service with the retrieved
-     * uniform service information. If there is a single service name, the
-     * service passed in will be populated with that name.  If there are
-     * multiple aliases for a service name, a copy of the service will be
-     * created and it will be populated with the alias and then added to the
-     * Business Entity structure.
-     *
-     * @param oUDDIService The information on the service as retrieved from the
-     *                     UDDI registry.
-     * @param oEntities The complete list of business entities against which the
-     *                  desired entity is found.  If multiple uniform service
-     *                  names are detected a new service will be added to this
-     *                  entity.
-     * @param oService  The business service which is updated with the uniform
-     *                  service name.  If multiples are detected a copy of this
-     *                  service will be made to form a new one.
+     * This method is used to populate the Business Service with the retrieved uniform service information. If there is
+     * a single service name, the service passed in will be populated with that name. If there are multiple aliases for
+     * a service name, a copy of the service will be created and it will be populated with the alias and then added to
+     * the Business Entity structure.
+     * 
+     * @param oUDDIService The information on the service as retrieved from the UDDI registry.
+     * @param oEntities The complete list of business entities against which the desired entity is found. If multiple
+     *            uniform service names are detected a new service will be added to this entity.
+     * @param oService The business service which is updated with the uniform service name. If multiples are detected a
+     *            copy of this service will be made to form a new one.
      */
-    public void populateUniformServiceNameAndReplicateService(BusinessService oUDDIService, CMBusinessEntities oEntities, CMBusinessService oService) {
-        if ((oUDDIService.getCategoryBag() != null) &&
-                (oUDDIService.getCategoryBag().getKeyedReference() != null) &&
-                (oUDDIService.getCategoryBag().getKeyedReference().size() > 0)) {
+    public void populateUniformServiceNameAndReplicateService(BusinessService oUDDIService,
+            CMBusinessEntities oEntities, CMBusinessService oService) {
+        if ((oUDDIService.getCategoryBag() != null) && (oUDDIService.getCategoryBag().getKeyedReference() != null)
+                && (oUDDIService.getCategoryBag().getKeyedReference().size() > 0)) {
 
             // Uniform Service Name
-            //---------------------
-            List<String> oServiceNames = findAndGetValueFromKeyedReference(oUDDIService.getCategoryBag().getKeyedReference(),
-                    UNIFORM_SERVICE_NAME_KEY);
+            // ---------------------
+            List<String> oServiceNames = findAndGetValueFromKeyedReference(oUDDIService.getCategoryBag()
+                    .getKeyedReference(), UNIFORM_SERVICE_NAME_KEY);
 
             if (oServiceNames != null && oServiceNames.size() > 0) {
 
@@ -423,20 +398,20 @@ public class UDDIAccessor {
                     }
                 }
             } else {
-                log.debug("A Normal Service value is NOT detected for UDDI Service " + oUDDIService.getBusinessKey() + " - " + oUDDIService.getServiceKey());
+                log.debug("A Normal Service value is NOT detected for UDDI Service " + oUDDIService.getBusinessKey()
+                        + " - " + oUDDIService.getServiceKey());
             }
-        }   // if ((oUDDIService.getCategoryBag() != null) &&  ...
+        } // if ((oUDDIService.getCategoryBag() != null) && ...
     }
 
     /**
-     * This method is used to retrieve the data from the UDDI server.  The
-     * data is returned in the form of CMBusinessEntities.
+     * This method is used to retrieve the data from the UDDI server. The data is returned in the form of
+     * CMBusinessEntities.
      * 
      * @return The Business Entities that were retrieved from the UDDI server.
      * 
      */
-    public BusinessDetail retrieveFromUDDIServer()
-            throws UDDIAccessorException {        
+    public BusinessDetail retrieveFromUDDIServer() throws UDDIAccessorException {
         loadProperties();
 
         BusinessList businessList = retrieveBusinessesListFromUDDI();
@@ -446,15 +421,13 @@ public class UDDIAccessor {
     }
 
     /**
-     * This method retrieves the business entities from the UDDI server.
-     * It does not retrieve the services or bindings.  They are retrieved
-     * on other calls.  This only retrieves the business information.
-     *
+     * This method retrieves the business entities from the UDDI server. It does not retrieve the services or bindings.
+     * They are retrieved on other calls. This only retrieves the business information.
+     * 
      * @return the BusinessEntities retrieved from the UDDI server.
      * @throws UDDIAccessorException
      */
-    private BusinessList retrieveBusinessesListFromUDDI()
-            throws UDDIAccessorException {
+    private BusinessList retrieveBusinessesListFromUDDI() throws UDDIAccessorException {
 
         if (log.isDebugEnabled()) {
             log.debug("Retrieving business entities from UDDI using find_business web service call.");
@@ -468,17 +441,16 @@ public class UDDIAccessor {
 
             removeIgnoredBusinesses(businessList);
         } catch (Exception e) {
-            String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: " +
-                    e.getMessage();
+            String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }
 
         return businessList;
     }
-    
-    private BusinessDetail retrieveBusinessDetail(BusinessList businessList)
-            throws UDDIAccessorException {
+
+    private BusinessDetail retrieveBusinessDetail(BusinessList businessList) throws UDDIAccessorException {
 
         if (businessList == null) {
             return null;
@@ -491,10 +463,10 @@ public class UDDIAccessor {
 
             UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
             UDDIFindBusinessProxyBase uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
-            businessDetail = uddiProxy.getBusinessDetail(searchParams);            
-        }
-        catch (Exception e) {
-            String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: " + e.getMessage();
+            businessDetail = uddiProxy.getBusinessDetail(searchParams);
+        } catch (Exception e) {
+            String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }

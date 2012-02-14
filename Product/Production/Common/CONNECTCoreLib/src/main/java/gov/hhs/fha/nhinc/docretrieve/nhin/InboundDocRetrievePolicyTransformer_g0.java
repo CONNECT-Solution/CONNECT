@@ -13,16 +13,15 @@ import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class InboundDocRetrievePolicyTransformer_g0 implements PolicyTransformer {
 
     public CheckPolicyRequestType transform(Orchestratable message, Direction direction) {
         CheckPolicyRequestType policyReq = null;
-        if (message instanceof InboundDocRetrieveOrchestratableImpl)
-        {
-            InboundDocRetrieveOrchestratableImpl NhinDROrchImpl_g0Message = (InboundDocRetrieveOrchestratableImpl)message;
+        if (message instanceof InboundDocRetrieveOrchestratableImpl) {
+            InboundDocRetrieveOrchestratableImpl NhinDROrchImpl_g0Message = (InboundDocRetrieveOrchestratableImpl) message;
             DocRetrieveEventType policyCheckReq = new DocRetrieveEventType();
             if (Direction.INBOUND == direction)
                 policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);

@@ -34,61 +34,51 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
-public class RedactionEngine
-{
+public class RedactionEngine {
     private Log log = null;
 
-    public RedactionEngine()
-    {
+    public RedactionEngine() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected DocQueryResponseProcessor getDocQueryResponseProcessor()
-    {
+    protected DocQueryResponseProcessor getDocQueryResponseProcessor() {
         return new DocQueryResponseProcessor();
     }
 
-    protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor()
-    {
+    protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor() {
         return new DocRetrieveResponseProcessor();
     }
 
-    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest, AdhocQueryResponse adhocQueryResponse)
-    {
+    public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
+            AdhocQueryResponse adhocQueryResponse) {
         log.debug("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
         DocQueryResponseProcessor processor = getDocQueryResponseProcessor();
-        if(processor != null)
-        {
+        if (processor != null) {
             response = processor.filterAdhocQueryResults(adhocQueryRequest, adhocQueryResponse);
-        }
-        else
-        {
+        } else {
             log.warn("DocQueryResponseProcessor was null.");
         }
         log.debug("End filterAdhocQueryResults");
         return response;
     }
 
-    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(RetrieveDocumentSetRequestType retrieveDocumentSetRequest, RetrieveDocumentSetResponseType retrieveDocumentSetResponse)
-    {
+    public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
+            RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
+            RetrieveDocumentSetResponseType retrieveDocumentSetResponse) {
         log.debug("Begin filterRetrieveDocumentSetResults");
         RetrieveDocumentSetResponseType response = null;
         DocRetrieveResponseProcessor processor = getDocRetrieveResponseProcessor();
-        if(processor != null)
-        {
+        if (processor != null) {
             return processor.filterRetrieveDocumentSetReults(retrieveDocumentSetRequest, retrieveDocumentSetResponse);
-        }
-        else
-        {
+        } else {
             log.warn("DocRetrieveResponseProcessor was null.");
         }
         log.debug("End filterRetrieveDocumentSetResults");

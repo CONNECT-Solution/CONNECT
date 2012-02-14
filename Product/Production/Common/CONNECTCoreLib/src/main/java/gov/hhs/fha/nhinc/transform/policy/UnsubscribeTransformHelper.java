@@ -33,7 +33,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public class UnsubscribeTransformHelper {
@@ -52,11 +52,11 @@ public class UnsubscribeTransformHelper {
             request.setAction(ActionHelper.actionFactory(ActionOutValue));
         }
         SubjectHelper subjHelp = new SubjectHelper();
-        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
+                .getAssertion());
 
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
-
 
         request.getSubject().add(subject);
         genericPolicyRequest.setRequest(request);

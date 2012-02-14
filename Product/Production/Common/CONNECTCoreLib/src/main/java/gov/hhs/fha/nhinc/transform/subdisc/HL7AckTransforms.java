@@ -32,7 +32,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class HL7AckTransforms {
@@ -46,6 +46,7 @@ public class HL7AckTransforms {
 
     /**
      * Create acknowledgement accept message from patient discovery request.
+     * 
      * @param request
      * @param ackMsgText
      * @return ackMsg
@@ -63,34 +64,44 @@ public class HL7AckTransforms {
             }
 
             // Set the sender OID to the receiver OID from the original message
-            if (NullChecker.isNotNullish(request.getReceiver()) &&
-                    request.getReceiver().get(0) != null &&
-                    request.getReceiver().get(0).getDevice() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+            if (NullChecker.isNotNullish(request.getReceiver())
+                    && request.getReceiver().get(0) != null
+                    && request.getReceiver().get(0).getDevice() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                            .getValue() != null
+                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId())
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                            .getValue().getId().get(0) != null
+                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot();
             }
 
             // Set the receiver OID to the sender OID from the original message
-            if (request.getSender() != null &&
-                    request.getSender().getDevice() != null &&
-                    request.getSender().getDevice().getAsAgent() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+            if (request.getSender() != null
+                    && request.getSender().getDevice() != null
+                    && request.getSender().getDevice().getAsAgent() != null
+                    && request.getSender().getDevice().getAsAgent().getValue() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId())
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                            .getId().get(0) != null
+                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue().getId().get(0).getRoot();
             }
 
             // Create the ack message
-            ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ACCEPT, ackMsgText, senderOID, receiverOID);
+            ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ACCEPT, ackMsgText, senderOID,
+                    receiverOID);
         }
 
         return ack;
@@ -98,6 +109,7 @@ public class HL7AckTransforms {
 
     /**
      * Create acknowledgement error message from patient discovery request.
+     * 
      * @param request
      * @param ackMsgText
      * @return ackMsg
@@ -115,34 +127,44 @@ public class HL7AckTransforms {
             }
 
             // Set the sender OID to the receiver OID from the original message
-            if (NullChecker.isNotNullish(request.getReceiver()) &&
-                    request.getReceiver().get(0) != null &&
-                    request.getReceiver().get(0).getDevice() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+            if (NullChecker.isNotNullish(request.getReceiver())
+                    && request.getReceiver().get(0) != null
+                    && request.getReceiver().get(0).getDevice() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                            .getValue() != null
+                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId())
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                            .getValue().getId().get(0) != null
+                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot();
             }
 
             // Set the receiver OID to the sender OID from the original message
-            if (request.getSender() != null &&
-                    request.getSender().getDevice() != null &&
-                    request.getSender().getDevice().getAsAgent() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+            if (request.getSender() != null
+                    && request.getSender().getDevice() != null
+                    && request.getSender().getDevice().getAsAgent() != null
+                    && request.getSender().getDevice().getAsAgent().getValue() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId())
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                            .getId().get(0) != null
+                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue().getId().get(0).getRoot();
             }
 
             // Create the ack message
-            ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ERROR, ackMsgText, senderOID, receiverOID);
+            ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ERROR, ackMsgText, senderOID,
+                    receiverOID);
         }
 
         return ack;
@@ -150,6 +172,7 @@ public class HL7AckTransforms {
 
     /**
      * Create acknowledgement accept message from patient discovery response.
+     * 
      * @param request
      * @param ackMsgText
      * @return ackMsg
@@ -167,34 +190,44 @@ public class HL7AckTransforms {
             }
 
             // Set the sender OID to the receiver OID from the original message
-            if (NullChecker.isNotNullish(request.getReceiver()) &&
-                    request.getReceiver().get(0) != null &&
-                    request.getReceiver().get(0).getDevice() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+            if (NullChecker.isNotNullish(request.getReceiver())
+                    && request.getReceiver().get(0) != null
+                    && request.getReceiver().get(0).getDevice() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                            .getValue() != null
+                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId())
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                            .getValue().getId().get(0) != null
+                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot();
             }
 
             // Set the receiver OID to the sender OID from the original message
-            if (request.getSender() != null &&
-                    request.getSender().getDevice() != null &&
-                    request.getSender().getDevice().getAsAgent() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+            if (request.getSender() != null
+                    && request.getSender().getDevice() != null
+                    && request.getSender().getDevice().getAsAgent() != null
+                    && request.getSender().getDevice().getAsAgent().getValue() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId())
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                            .getId().get(0) != null
+                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue().getId().get(0).getRoot();
             }
 
             // Create the ack message
-            ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ACCEPT, ackMsgText, senderOID, receiverOID);
+            ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ACCEPT, ackMsgText, senderOID,
+                    receiverOID);
         }
 
         return ack;
@@ -202,6 +235,7 @@ public class HL7AckTransforms {
 
     /**
      * Create acknowledgement accept message from patient discovery response.
+     * 
      * @param request
      * @param ackMsgText
      * @return ackMsg
@@ -219,34 +253,44 @@ public class HL7AckTransforms {
             }
 
             // Set the sender OID to the receiver OID from the original message
-            if (NullChecker.isNotNullish(request.getReceiver()) &&
-                    request.getReceiver().get(0) != null &&
-                    request.getReceiver().get(0).getDevice() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                    request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+            if (NullChecker.isNotNullish(request.getReceiver())
+                    && request.getReceiver().get(0) != null
+                    && request.getReceiver().get(0).getDevice() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                            .getValue() != null
+                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId())
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                            .getValue().getId().get(0) != null
+                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot();
             }
 
             // Set the receiver OID to the sender OID from the original message
-            if (request.getSender() != null &&
-                    request.getSender().getDevice() != null &&
-                    request.getSender().getDevice().getAsAgent() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
-                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+            if (request.getSender() != null
+                    && request.getSender().getDevice() != null
+                    && request.getSender().getDevice().getAsAgent() != null
+                    && request.getSender().getDevice().getAsAgent().getValue() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId())
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                            .getId().get(0) != null
+                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue().getId().get(0).getRoot();
             }
 
             // Create the ack message
-            ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ERROR, ackMsgText, senderOID, receiverOID);
+            ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ERROR, ackMsgText, senderOID,
+                    receiverOID);
         }
 
         return ack;
@@ -254,6 +298,7 @@ public class HL7AckTransforms {
 
     /**
      * Create acknowledgement message based on specific data values.
+     * 
      * @param localDeviceId
      * @param origMsgId
      * @param msgText
@@ -261,7 +306,8 @@ public class HL7AckTransforms {
      * @param receiverOID
      * @return ackMsg
      */
-    public static MCCIIN000002UV01 createAckMessage(String localDeviceId, II origMsgId, String ackTypeCode, String msgText, String senderOID, String receiverOID) {
+    public static MCCIIN000002UV01 createAckMessage(String localDeviceId, II origMsgId, String ackTypeCode,
+            String msgText, String senderOID, String receiverOID) {
         MCCIIN000002UV01 ackMsg = new MCCIIN000002UV01();
 
         // Validate input parameters
@@ -291,8 +337,9 @@ public class HL7AckTransforms {
         ackMsg.getReceiver().add(HL7ReceiverTransforms.createMCCIMT000200UV01Receiver(receiverOID));
 
         // Create Acknowledgement section if an original message id or message text was specified
-        if (NullChecker.isNotNullish(msgText) ||
-                (origMsgId != null && NullChecker.isNotNullish(origMsgId.getRoot()) && NullChecker.isNotNullish(origMsgId.getExtension()))) {
+        if (NullChecker.isNotNullish(msgText)
+                || (origMsgId != null && NullChecker.isNotNullish(origMsgId.getRoot()) && NullChecker
+                        .isNotNullish(origMsgId.getExtension()))) {
             log.debug("Adding Acknowledgement Section");
             ackMsg.getAcknowledgement().add(createAcknowledgement(origMsgId, ackTypeCode, msgText));
         }
@@ -302,6 +349,7 @@ public class HL7AckTransforms {
 
     /**
      * Create acknowledgement element based on specific data values.
+     * 
      * @param msgId
      * @param msgText
      * @return ack
@@ -324,6 +372,7 @@ public class HL7AckTransforms {
 
     /**
      * Create targetMessage element based on specific data values.
+     * 
      * @param msgId
      * @return targetMsg
      */
@@ -340,6 +389,7 @@ public class HL7AckTransforms {
 
     /**
      * Create acknowledgementDetail element based on specific data values.
+     * 
      * @param msgText
      * @return ackDetail
      */

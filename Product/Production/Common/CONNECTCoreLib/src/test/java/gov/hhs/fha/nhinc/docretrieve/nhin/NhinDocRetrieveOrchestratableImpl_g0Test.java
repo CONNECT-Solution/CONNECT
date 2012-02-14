@@ -36,7 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class NhinDocRetrieveOrchestratableImpl_g0Test {
@@ -66,7 +66,8 @@ public class NhinDocRetrieveOrchestratableImpl_g0Test {
     @Test
     public void testGetRequest() {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
-        InboundDocRetrieveOrchestratableImpl instance = new InboundDocRetrieveOrchestratableImpl(request, null, null, null, null);
+        InboundDocRetrieveOrchestratableImpl instance = new InboundDocRetrieveOrchestratableImpl(request, null, null,
+                null, null);
         RetrieveDocumentSetRequestType expResult = request;
         RetrieveDocumentSetRequestType result = instance.getRequest();
         assertEquals(expResult, result);
@@ -78,7 +79,8 @@ public class NhinDocRetrieveOrchestratableImpl_g0Test {
     @Test
     public void testGetResponse() {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-        InboundDocRetrieveOrchestratableImpl instance = new InboundDocRetrieveOrchestratableImpl(null, null, null, null, null);
+        InboundDocRetrieveOrchestratableImpl instance = new InboundDocRetrieveOrchestratableImpl(null, null, null,
+                null, null);
         instance.setResponse(response);
         RetrieveDocumentSetResponseType expResult = response;
         RetrieveDocumentSetResponseType result = instance.getResponse();
@@ -91,7 +93,8 @@ public class NhinDocRetrieveOrchestratableImpl_g0Test {
     @Test
     public void testSetResponse() {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-        InboundDocRetrieveOrchestratableImpl instance = new InboundDocRetrieveOrchestratableImpl(null, null, null, null, null);
+        InboundDocRetrieveOrchestratableImpl instance = new InboundDocRetrieveOrchestratableImpl(null, null, null,
+                null, null);
         instance.setResponse(response);
     }
 
@@ -100,7 +103,8 @@ public class NhinDocRetrieveOrchestratableImpl_g0Test {
      */
     @Test
     public void testGetServiceName() {
-        InboundDocRetrieveOrchestratableImpl instance = new InboundDocRetrieveOrchestratableImpl(null, null, null, null, null);
+        InboundDocRetrieveOrchestratableImpl instance = new InboundDocRetrieveOrchestratableImpl(null, null, null,
+                null, null);
         String expResult = "NhinDocumentRetrieve_g0";
         String result = instance.getServiceName();
         assertEquals(expResult, result);

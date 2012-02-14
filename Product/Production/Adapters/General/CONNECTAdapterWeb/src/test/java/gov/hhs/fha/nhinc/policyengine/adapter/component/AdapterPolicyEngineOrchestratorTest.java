@@ -39,14 +39,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class AdapterPolicyEngineOrchestratorTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class AdapterPolicyEngineOrchestratorTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -55,24 +53,18 @@ public class AdapterPolicyEngineOrchestratorTest
     final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
 
     @Test
-    public void testGetAdapterComponentPolicyEngineImpl()
-    {
-        try
-        {
-            AdapterPolicyEngineOrchestrator sut = new AdapterPolicyEngineOrchestrator()
-            {
+    public void testGetAdapterComponentPolicyEngineImpl() {
+        try {
+            AdapterPolicyEngineOrchestrator sut = new AdapterPolicyEngineOrchestrator() {
                 @Override
-                protected AdapterComponentPolicyEngineImpl getAdapterComponentPolicyEngineImpl()
-                {
+                protected AdapterComponentPolicyEngineImpl getAdapterComponentPolicyEngineImpl() {
                     return mockServiceImpl;
                 }
             };
 
             AdapterComponentPolicyEngineImpl serviceImpl = sut.getAdapterComponentPolicyEngineImpl();
             assertNotNull("AdapterComponentPolicyEngineImpl was null", serviceImpl);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetAdapterComponentPolicyEngineImpl: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetAdapterComponentPolicyEngineImpl: " + t.getMessage());
@@ -80,24 +72,18 @@ public class AdapterPolicyEngineOrchestratorTest
     }
 
     @Test
-    public void testGetWebServiceContext()
-    {
-        try
-        {
-            AdapterPolicyEngineOrchestrator sut = new AdapterPolicyEngineOrchestrator()
-            {
+    public void testGetWebServiceContext() {
+        try {
+            AdapterPolicyEngineOrchestrator sut = new AdapterPolicyEngineOrchestrator() {
                 @Override
-                protected WebServiceContext getWebServiceContext()
-                {
+                protected WebServiceContext getWebServiceContext() {
                     return mockWebServiceContext;
                 }
             };
 
             WebServiceContext wsContext = sut.getWebServiceContext();
             assertNotNull("WebServiceContext was null", wsContext);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetWebServiceContext: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetWebServiceContext: " + t.getMessage());
@@ -105,27 +91,23 @@ public class AdapterPolicyEngineOrchestratorTest
     }
 
     @Test
-    public void testCheckPolicy()
-    {
-        try
-        {
-            AdapterPolicyEngineOrchestrator sut = new AdapterPolicyEngineOrchestrator()
-            {
+    public void testCheckPolicy() {
+        try {
+            AdapterPolicyEngineOrchestrator sut = new AdapterPolicyEngineOrchestrator() {
                 @Override
-                protected AdapterComponentPolicyEngineImpl getAdapterComponentPolicyEngineImpl()
-                {
+                protected AdapterComponentPolicyEngineImpl getAdapterComponentPolicyEngineImpl() {
                     return mockServiceImpl;
                 }
+
                 @Override
-                protected WebServiceContext getWebServiceContext()
-                {
+                protected WebServiceContext getWebServiceContext() {
                     return mockWebServiceContext;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
-                    oneOf(mockServiceImpl).checkPolicy(with(aNonNull(CheckPolicyRequestType.class)), with(aNonNull(WebServiceContext.class)));
+                    oneOf(mockServiceImpl).checkPolicy(with(aNonNull(CheckPolicyRequestType.class)),
+                            with(aNonNull(WebServiceContext.class)));
                 }
             });
 
@@ -133,9 +115,7 @@ public class AdapterPolicyEngineOrchestratorTest
 
             CheckPolicyResponseType response = sut.checkPolicy(request);
             assertNotNull("CheckPolicyResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCheckPolicy: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCheckPolicy: " + t.getMessage());

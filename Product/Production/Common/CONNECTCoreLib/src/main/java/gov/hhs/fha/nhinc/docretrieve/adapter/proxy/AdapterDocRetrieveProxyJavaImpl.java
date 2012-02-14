@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This is the java implementation of the Adapter Doc Retrieve component proxy.
- *
+ * 
  * @author Les Westberg
  */
 public class AdapterDocRetrieveProxyJavaImpl implements AdapterDocRetrieveProxy {
@@ -51,7 +51,7 @@ public class AdapterDocRetrieveProxyJavaImpl implements AdapterDocRetrieveProxy 
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
     protected Log createLogger() {
@@ -60,16 +60,18 @@ public class AdapterDocRetrieveProxyJavaImpl implements AdapterDocRetrieveProxy 
 
     /**
      * Retrieve the specified document.
-     *
+     * 
      * @param request The identifier(s) if the document(s) to be retrieved.
      * @param assertion The assertion information.
      * @return The retrieved documents.
      */
-    public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request, AssertionType assertion) {
+    public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request,
+            AssertionType assertion) {
         log.debug("Entering AdapterDocRetrieveProxyJavaImpl.retrieveDocumentSet");
 
         AdapterDocRetrieveOrchImpl oOrchestrator = new AdapterDocRetrieveOrchImpl();
-        RetrieveDocumentSetResponseType oResponse = oOrchestrator.respondingGatewayCrossGatewayRetrieve(request, assertion);
+        RetrieveDocumentSetResponseType oResponse = oOrchestrator.respondingGatewayCrossGatewayRetrieve(request,
+                assertion);
 
         log.debug("Leaving AdapterDocRetrieveProxyJavaImpl.retrieveDocumentSet");
 

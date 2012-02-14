@@ -41,7 +41,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class OutboundDocRetrieveDelegate implements OutboundDelegate {
@@ -65,13 +65,14 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
             OutboundDocRetrieveOrchestratable DRMessage = (OutboundDocRetrieveOrchestratable) message;
             // TODO: check connection manager for which endpoint to use
 
-            OutboundDocRetrieveContextBuilder contextBuilder = (OutboundDocRetrieveContextBuilder)OrchestrationContextFactory.getInstance().getBuilder(
-                    DRMessage.getTarget().getHomeCommunity(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+            OutboundDocRetrieveContextBuilder contextBuilder = (OutboundDocRetrieveContextBuilder) OrchestrationContextFactory
+                    .getInstance().getBuilder(DRMessage.getTarget().getHomeCommunity(),
+                            NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
             contextBuilder.setContextMessage(message);
-            OrchestrationContext context = ((OrchestrationContextBuilder)contextBuilder).build();
+            OrchestrationContext context = ((OrchestrationContextBuilder) contextBuilder).build();
 
-            resp = (OutboundOrchestratable)context.execute();
+            resp = (OutboundOrchestratable) context.execute();
         } else {
             getLogger().error("message is not an instance of NhinDocRetrieveOrchestratable!");
         }
@@ -98,8 +99,8 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
             regErr.setSeverity("Error");
             ((OutboundDocRetrieveOrchestratableImpl) message).setResponse(response);
         } else /*
-         * if(message instanceof NhinDocRetrieveOrchestratableImpl_g1)
-         */ {
+                * if(message instanceof NhinDocRetrieveOrchestratableImpl_g1)
+                */{
         }
     }
 

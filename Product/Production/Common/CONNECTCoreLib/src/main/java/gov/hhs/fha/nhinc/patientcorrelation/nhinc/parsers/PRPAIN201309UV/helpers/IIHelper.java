@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import org.hl7.v3.II;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class IIHelper {
@@ -54,6 +54,7 @@ public class IIHelper {
     }
 
     public static II IIFactory(QualifiedSubjectIdentifierType qualifiedSubjectIdentifier) {
-        return IIFactory(qualifiedSubjectIdentifier.getAssigningAuthorityIdentifier(), qualifiedSubjectIdentifier.getSubjectIdentifier());
+        return IIFactory(qualifiedSubjectIdentifier.getAssigningAuthorityIdentifier(),
+                qualifiedSubjectIdentifier.getSubjectIdentifier());
     }
 }

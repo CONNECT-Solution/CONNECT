@@ -35,14 +35,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class PassthruDocQueryProxyJavaImpl implements PassthruDocQueryProxy {
     private static Log log = LogFactory.getLog(PassthruDocQueryProxyJavaImpl.class);
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, 
-            AssertionType assertion, NhinTargetSystemType target) throws Exception{
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion,
+            NhinTargetSystemType target) throws Exception {
         log.debug("Using Java Implementation for Passthru Doc Query Service");
         return new PassthruDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion, target);
     }

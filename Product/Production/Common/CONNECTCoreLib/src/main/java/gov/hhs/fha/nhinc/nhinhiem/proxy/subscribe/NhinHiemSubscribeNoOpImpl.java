@@ -49,27 +49,28 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class NhinHiemSubscribeNoOpImpl implements NhinHiemSubscribeProxy {
 
-    public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
+    public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target)
+            throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
+            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault,
+            SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault,
+            UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
         return buildResponseElement();
     }
 
-    private Element buildResponseElement()
-    {
+    private Element buildResponseElement() {
         Element responseElement = null;
-        try
-        {
+        try {
             Document document = null;
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             document = docBuilder.newDocument();
             responseElement = document.createElementNS("http://docs.oasis-open.org/wsn/b-2", "SubscribeResponse");
-        }
-        catch (ParserConfigurationException ex) {
+        } catch (ParserConfigurationException ex) {
             Logger.getLogger(NhinHiemSubscribeNoOpImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return responseElement;

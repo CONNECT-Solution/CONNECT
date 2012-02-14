@@ -35,7 +35,7 @@ import org.w3c.dom.Node;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class NamespaceContextMapperFromElementTest {
@@ -53,7 +53,8 @@ public class NamespaceContextMapperFromElementTest {
 
     @Test
     public void PerformMappingTest() throws Exception {
-        Element namespacePrefixMappingElement = XmlUtility.convertXmlToElement("<mynode xmlns:prefix='urn:a' xmlns:prefix2='urn:b'></mynode>");
+        Element namespacePrefixMappingElement = XmlUtility
+                .convertXmlToElement("<mynode xmlns:prefix='urn:a' xmlns:prefix2='urn:b'></mynode>");
         NamespaceContext namespaceContext = new NamespaceContextMapperFromElement(namespacePrefixMappingElement);
 
         String xml = "<p:A xmlns:p='urn:a'><p2:B xmlns:p2='urn:b'>data</p2:B></p:A>";

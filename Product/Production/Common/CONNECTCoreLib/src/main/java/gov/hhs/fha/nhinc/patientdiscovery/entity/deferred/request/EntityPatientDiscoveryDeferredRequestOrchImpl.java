@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 
-
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
@@ -87,14 +86,14 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         return new PDDeferredCorrelationDao();
     }
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
+            NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         String ackMsg = "";
         List<UrlInfo> urlInfoList = null;
         PatientDiscovery201305Processor pd201305Processor = getPatientDiscovery201305Processor();
 
-        if (message != null &&
-                assertion != null) {
+        if (message != null && assertion != null) {
 
             AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
 
@@ -105,7 +104,8 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
             unsecureRequest.setNhinTargetCommunities(targets);
             unsecureRequest.setPRPAIN201305UV02(message);
             unsecureRequest.setAssertion(assertion);
-            auditLog.auditEntityDeferred201305(unsecureRequest, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
+            auditLog.auditEntityDeferred201305(unsecureRequest, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                    NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
 
             // Process local unique patient id and home community id to create local aa to hcid mapping
             pd201305Processor.storeLocalMapping(unsecureRequest);
@@ -113,12 +113,14 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
             urlInfoList = getTargets(targets);
 
             // loop through the communities and send request if results were not null
-            if (urlInfoList != null &&
-                    urlInfoList != null) {
+            if (urlInfoList != null && urlInfoList != null) {
 
                 // Log the start of the performance record
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, "Deferred" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
+                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                        "Deferred" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,
+                        NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                        HomeCommunityMap.getLocalHomeCommunityId());
 
                 String messageId = "";
                 if (assertion.getMessageId() != null && assertion.getMessageId().length() > 0) {
@@ -131,14 +133,15 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
                 for (UrlInfo urlInfo : urlInfoList) {
 
-                    //create a new request to send out to each target community
+                    // create a new request to send out to each target community
                     RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
                     PRPAIN201305UV02 new201305 = pd201305Processor.createNewRequest(message, urlInfo.getHcid());
-                    
-                    //Make sure the response modality and response priority codes are set as per the spec
-                    if (new201305.getControlActProcess() != null &&
-                            new201305.getControlActProcess().getQueryByParameter() != null) {
-                        PRPAMT201306UV02QueryByParameter queryParams = new201305.getControlActProcess().getQueryByParameter().getValue();
+
+                    // Make sure the response modality and response priority codes are set as per the spec
+                    if (new201305.getControlActProcess() != null
+                            && new201305.getControlActProcess().getQueryByParameter() != null) {
+                        PRPAMT201306UV02QueryByParameter queryParams = new201305.getControlActProcess()
+                                .getQueryByParameter().getValue();
                         if (queryParams.getResponseModalityCode() == null) {
                             queryParams.setResponseModalityCode(HL7DataTransformHelper.CSFactory("R"));
                         }
@@ -152,7 +155,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                     newRequest.setPRPAIN201305UV02(new201305);
                     newRequest.setNhinTargetCommunities(targets);
 
-                    //check the policy for the outgoing request to the target community
+                    // check the policy for the outgoing request to the target community
                     boolean bIsPolicyOk = checkPolicy(newRequest);
 
                     if (bIsPolicyOk) {
@@ -178,7 +181,8 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                 ack = HL7AckTransforms.createAckErrorFrom201305(message, ackMsg);
             }
 
-            auditLog.auditAck(ack, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+            auditLog.auditAck(ack, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                    NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         }
 
         return ack;
@@ -189,9 +193,11 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
+                    targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            log.error("Failed to obtain target URLs for service " + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
+            log.error("Failed to obtain target URLs for service "
+                    + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
             return null;
         }
 
@@ -210,16 +216,20 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
         PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLog.auditNhinDeferred201305(request, newAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        AcknowledgementType ack = auditLog.auditNhinDeferred201305(request, newAssertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         PassthruPatientDiscoveryDeferredRequestProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryDeferredRequestProxyObjectFactory();
-        PassthruPatientDiscoveryDeferredRequestProxy proxy = patientDiscoveryFactory.getPassthruPatientDiscoveryDeferredRequestProxy();
+        PassthruPatientDiscoveryDeferredRequestProxy proxy = patientDiscoveryFactory
+                .getPassthruPatientDiscoveryDeferredRequestProxy();
 
-        log.debug("Invoking " + proxy + ".processPatientDiscoveryAsyncReq with " + request + " assertion: " + newAssertion + " and target " + oTargetSystemType + " url: " + oTargetSystemType.getUrl());
+        log.debug("Invoking " + proxy + ".processPatientDiscoveryAsyncReq with " + request + " assertion: "
+                + newAssertion + " and target " + oTargetSystemType + " url: " + oTargetSystemType.getUrl());
         resp = proxy.processPatientDiscoveryAsyncReq(request, newAssertion, oTargetSystemType);
 
         // Audit the Patient Discovery Response Message received on the Nhin Interface
-        auditLog.auditAck(resp, newAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        auditLog.auditAck(resp, newAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         return resp;
     }

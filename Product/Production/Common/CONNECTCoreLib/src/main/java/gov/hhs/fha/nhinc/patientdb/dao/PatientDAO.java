@@ -51,6 +51,7 @@ import org.hibernate.Query;
 
 /**
  * PatientDAO Class provides methods to query and update Patient Data to/from MySQL Database using Hibernate
+ * 
  * @author richard.ettema
  */
 public class PatientDAO {
@@ -68,6 +69,7 @@ public class PatientDAO {
 
     /**
      * Singleton instance returned...
+     * 
      * @return PatientDAO
      */
     public static PatientDAO getPatientDAOInstance() {
@@ -80,8 +82,8 @@ public class PatientDAO {
     // =========================
 
     /**
-     * Create a single <code>Patient</code> record.  The generated id
-     * will be available in the patientRecord.
+     * Create a single <code>Patient</code> record. The generated id will be available in the patientRecord.
+     * 
      * @param patientRecord
      * @return boolean
      */
@@ -120,8 +122,8 @@ public class PatientDAO {
     }
 
     /**
-     * Read (Query) the database to get a <code>Patient</code> record based
-     * on a known id.
+     * Read (Query) the database to get a <code>Patient</code> record based on a known id.
+     * 
      * @param id
      * @return Patient
      */
@@ -167,6 +169,7 @@ public class PatientDAO {
 
     /**
      * Update a single <code>Patient</code> record.
+     * 
      * @param patientRecord
      * @return boolean
      */
@@ -206,6 +209,7 @@ public class PatientDAO {
 
     /**
      * Delete a <code>Patient</code> record from the database
+     * 
      * @param patientRecord
      */
     public void delete(Patient patientRecord) {
@@ -236,8 +240,8 @@ public class PatientDAO {
     // ===============================
 
     /**
-     * Fetch all the matching patients from all the community and all assigning authorities
-     * on a known id.
+     * Fetch all the matching patients from all the community and all assigning authorities on a known id.
+     * 
      * @param Patient
      * @return Patient
      */
@@ -274,7 +278,8 @@ public class PatientDAO {
             }
 
             // Build the select with query criteria
-            StringBuffer sqlSelect = new StringBuffer("SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
+            StringBuffer sqlSelect = new StringBuffer(
+                    "SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
             sqlSelect.append(" FROM patientdb.patient p");
             sqlSelect.append(" INNER JOIN patientdb.identifier i ON p.patientId = i.patientId");
             sqlSelect.append(" INNER JOIN patientdb.personname n ON p.patientId = n.patientId");
@@ -402,12 +407,9 @@ public class PatientDAO {
 
             sqlSelect.append(" ORDER BY i.id, i.organizationid");
 
-            Query sqlQuery = session.createSQLQuery(sqlSelect.toString())
-                    .addScalar("patientId", Hibernate.LONG)
-                    .addScalar("dateOfBirth", Hibernate.TIMESTAMP)
-                    .addScalar("gender", Hibernate.STRING)
-                    .addScalar("ssn", Hibernate.STRING)
-                    .addScalar("id", Hibernate.STRING)
+            Query sqlQuery = session.createSQLQuery(sqlSelect.toString()).addScalar("patientId", Hibernate.LONG)
+                    .addScalar("dateOfBirth", Hibernate.TIMESTAMP).addScalar("gender", Hibernate.STRING)
+                    .addScalar("ssn", Hibernate.STRING).addScalar("id", Hibernate.STRING)
                     .addScalar("organizationid", Hibernate.STRING);
 
             int iParam = 0;
@@ -482,8 +484,8 @@ public class PatientDAO {
 
                 int counter = 0;
                 for (Object[] row : result) {
-                    patientIdArray[counter] = (Long)row[0];
-                    dateOfBirthArray[counter] = (Timestamp)row[1];
+                    patientIdArray[counter] = (Long) row[0];
+                    dateOfBirthArray[counter] = (Timestamp) row[1];
                     genderArray[counter] = row[2].toString();
                     ssnArray[counter] = row[3].toString();
                     idArray[counter] = row[4].toString();
@@ -491,7 +493,7 @@ public class PatientDAO {
                     counter++;
                 }
 
-                for (int i=0; i<patientIdArray.length; i++) {
+                for (int i = 0; i < patientIdArray.length; i++) {
                     Patient patientData = new Patient();
                     patientData.setPatientId(patientIdArray[i]);
                     patientData.setDateOfBirth(dateOfBirthArray[i]);
@@ -506,9 +508,12 @@ public class PatientDAO {
                     patientData.getIdentifiers().add(identifierData);
 
                     // Populate demographic data
-                    patientData.setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
-                    patientData.setPersonnames(PersonnameDAO.getPersonnameDAOInstance().findPatientPersonnames(patientIdArray[i]));
-                    patientData.setPhonenumbers(PhonenumberDAO.getPhonenumberDAOInstance().findPatientPhonenumbers(patientIdArray[i]));
+                    patientData
+                            .setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
+                    patientData.setPersonnames(PersonnameDAO.getPersonnameDAOInstance().findPatientPersonnames(
+                            patientIdArray[i]));
+                    patientData.setPhonenumbers(PhonenumberDAO.getPhonenumberDAOInstance().findPatientPhonenumbers(
+                            patientIdArray[i]));
 
                     patientsList.add(patientData);
                 }
@@ -532,6 +537,7 @@ public class PatientDAO {
     // ========================
     /**
      * Return gateway property key perf.monitor.expected.errors value
+     * 
      * @return String gateway property value
      */
     private static boolean isAllowSSNQuery() {
@@ -543,10 +549,12 @@ public class PatientDAO {
                 result = true;
             }
         } catch (PropertyAccessException pae) {
-            log.error("Error: Failed to retrieve " + ALLOW_SSN_QUERY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to retrieve " + ALLOW_SSN_QUERY + " from property file: "
+                    + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(pae.getMessage());
         } catch (NumberFormatException nfe) {
-            log.error("Error: Failed to convert " + ALLOW_SSN_QUERY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to convert " + ALLOW_SSN_QUERY + " from property file: "
+                    + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(nfe.getMessage());
         }
         return result;

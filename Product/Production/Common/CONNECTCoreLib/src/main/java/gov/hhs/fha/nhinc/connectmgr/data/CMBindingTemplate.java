@@ -56,22 +56,19 @@ public class CMBindingTemplate {
     }
 
     /**
-     * Returns true of the contents of the object are the same as the one
-     * passed in.
+     * Returns true of the contents of the object are the same as the one passed in.
      * 
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
     public boolean equals(CMBindingTemplate oCompare) {
-        if ((!this.bindingKey.equals(oCompare.bindingKey)) ||
-                (!this.endpointURL.equals(oCompare.endpointURL)) ||
-                (!this.wsdlURL.equals(oCompare.wsdlURL)) ||
-                (!this.serviceVersion.equals(oCompare.serviceVersion))) {
+        if ((!this.bindingKey.equals(oCompare.bindingKey)) || (!this.endpointURL.equals(oCompare.endpointURL))
+                || (!this.wsdlURL.equals(oCompare.wsdlURL)) || (!this.serviceVersion.equals(oCompare.serviceVersion))) {
             return false;
         }
 
         // If we got here then everything is the same...
-        //----------------------------------------------
+        // ----------------------------------------------
         return true;
     }
 
@@ -131,7 +128,7 @@ public class CMBindingTemplate {
 
     /**
      * Returns the Service Version for this binding.
-     *
+     * 
      * @return The URL for the WSDL for this binding.
      */
     public String getServiceVersion() {
@@ -140,7 +137,7 @@ public class CMBindingTemplate {
 
     /**
      * Sets the Service Version for this binding.
-     *
+     * 
      * @param wsdlURL The URL for the WSDL for this binding.
      */
     public void setServiceVersion(String serviceVersion) {
@@ -149,7 +146,7 @@ public class CMBindingTemplate {
 
     /**
      * Creates a deep copy of this object.
-     *
+     * 
      * @return A copy of this CMBindingTemplate object
      */
     public CMBindingTemplate createCopy() {
