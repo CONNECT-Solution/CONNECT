@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy;
 import gov.hhs.fha.nhinc.adapterpatientdiscovery.AdapterPatientDiscoveryPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 
@@ -87,7 +88,7 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
         try {
             if (body != null) {
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlLocalHomeCommunity(sServiceName);
+                url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(sServiceName, ADAPTER_API_LEVEL.LEVEL_a0);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {

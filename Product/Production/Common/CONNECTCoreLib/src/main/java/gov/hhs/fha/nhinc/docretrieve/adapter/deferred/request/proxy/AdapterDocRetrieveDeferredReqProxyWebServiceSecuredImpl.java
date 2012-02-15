@@ -29,11 +29,8 @@ package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.proxy;
 import gov.hhs.fha.nhinc.adapterdocretrievedeferredreqsecured.AdapterDocRetrieveDeferredRequestSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -41,10 +38,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
-import java.util.Map;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * Created by User: ralph Date: Jul 26, 2010 Time: 2:37:22 PM
@@ -116,10 +110,8 @@ public class AdapterDocRetrieveDeferredReqProxyWebServiceSecuredImpl implements 
         DocRetrieveAcknowledgementType response = null;
 
         try {
-            String url = oProxyHelper
-                    .getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME);
-            AdapterDocRetrieveDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION,
-                    WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+            AdapterDocRetrieveDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if (body == null) {
                 log.error("Message was null");

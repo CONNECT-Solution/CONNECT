@@ -126,20 +126,25 @@ public class WebServiceProxyHelper {
         return url;
     }
 
-    /**
-     * This is a helper class for unit testing purposes only. It allows me to mock out the connection manager call in
-     * the unit test.
-     * 
-     * @param oTargetSystem The target system for the call.
-     * @param sServiceName The name of the service to locate.
-     * @return The endpoint URL.
-     * @throws Exception An exception if one occurs.
-     */
-    protected String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level)
-            throws ConnectionManagerException {
-        String url = ConnectionManagerCache.getInstance().getAdapterEndpontURL(sServiceName, level);
-        return url;
-    }
+	/**
+	 * This is a helper class for unit testing purposes only. It allows me to
+	 * mock out the connection manager call in the unit test.
+	 * 
+	 * @param oTargetSystem
+	 *            The target system for the call.
+	 * @param sServiceName
+	 *            The name of the service to locate.
+	 * @return The endpoint URL.
+	 * @throws Exception
+	 *             An exception if one occurs.
+	 */
+	public String getEndPointFromConnectionManagerByAdapterAPILevel(
+			String sServiceName, ADAPTER_API_LEVEL level)
+			throws ConnectionManagerException {
+		String url = ConnectionManagerCache.getInstance().getAdapterEndpontURL(
+				sServiceName, level);
+		return url;
+	}
 
     /**
      * This is a helper class for unit testing purposes only. It allows me to mock out the connection manager call in

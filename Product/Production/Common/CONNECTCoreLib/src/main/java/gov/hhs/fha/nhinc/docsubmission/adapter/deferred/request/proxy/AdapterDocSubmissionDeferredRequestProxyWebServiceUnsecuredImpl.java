@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adapterxdrrequest.AdapterXDRRequestPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
@@ -107,7 +108,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl imp
 
         try {
             log.debug("Before target system URL look up.");
-            String destURL = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
+            String destURL = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
             if (log.isDebugEnabled()) {
                 log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + destURL);
             }

@@ -34,6 +34,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.Service;
 import javax.xml.namespace.QName;
@@ -86,7 +87,7 @@ public class AdapterMpiProxyWebServiceUnsecuredImpl implements AdapterMpiProxy {
         try {
             if (request != null) {
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlLocalHomeCommunity(sServiceName);
+                url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(sServiceName, ADAPTER_API_LEVEL.LEVEL_a0);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {

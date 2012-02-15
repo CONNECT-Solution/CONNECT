@@ -40,6 +40,7 @@ import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
@@ -116,7 +117,7 @@ public class HiemUnsubscribeAdapterWebServiceProxySecured implements HiemUnsubsc
         }
         if (NullChecker.isNullish(url)) {
             try {
-                url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName);
+                url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
             } catch (ConnectionManagerException ex) {
                 log.warn("exception occurred accessing url from connection manager (getLocalEndpointURLByServiceName)",
                         ex);

@@ -31,8 +31,8 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 import gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreqerror.AdapterPatientDiscoverySecuredAsyncReqErrorPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.entitydocquerydeferredresponsesecured.EntityDocQueryDeferredResponseSecuredPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -117,10 +117,8 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl i
         MCCIIN000002UV01 ack = null;
 
         try {
-            String url = oProxyHelper
-                    .getUrlLocalHomeCommunity(NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME);
-            AdapterPatientDiscoverySecuredAsyncReqErrorPortType port = getPort(url,
-                    NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+            AdapterPatientDiscoverySecuredAsyncReqErrorPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if (request == null) {
                 log.error("Request was null");

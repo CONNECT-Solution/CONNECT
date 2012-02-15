@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy;
 import gov.hhs.fha.nhinc.adaptercomponentxdrsecured.AdapterComponentXDRSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.namespace.QName;
@@ -109,10 +110,8 @@ public class AdapterComponentDocSubmissionProxyWebServiceSecuredImpl implements 
         RegistryResponseType response = null;
 
         try {
-            String url = oProxyHelper
-                    .getUrlLocalHomeCommunity(NhincConstants.ADAPTER_COMPONENT_XDR_SECURED_SERVICE_NAME);
-            AdapterComponentXDRSecuredPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION,
-                    assertion);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_COMPONENT_XDR_SECURED_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+            AdapterComponentXDRSecuredPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if (msg == null) {
                 log.error("Message was null");

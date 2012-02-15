@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adapterdocquerydeferredrequestsecured.AdapterDocQueryDe
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.xml.namespace.QName;
@@ -111,10 +112,8 @@ public class AdapterDocQueryDeferredRequestProxyWebServiceSecuredImpl implements
         DocQueryAcknowledgementType response = null;
 
         try {
-            String url = oProxyHelper
-                    .getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME);
-            AdapterDocQueryDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION,
-                    WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+            AdapterDocQueryDeferredRequestSecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if (msg == null) {
                 log.error("Message was null");

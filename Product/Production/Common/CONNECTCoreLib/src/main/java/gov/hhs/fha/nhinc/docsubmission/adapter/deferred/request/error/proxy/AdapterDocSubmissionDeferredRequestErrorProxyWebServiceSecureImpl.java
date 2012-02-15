@@ -33,6 +33,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.adapterxdrrequesterrorsecured.AdapterXDRRequestErrorSecuredPortType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -104,7 +105,7 @@ public class AdapterDocSubmissionDeferredRequestErrorProxyWebServiceSecureImpl i
 
         try {
             log.debug("Before target system URL look up.");
-            String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
             if (log.isDebugEnabled()) {
                 log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
             }

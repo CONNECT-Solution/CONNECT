@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
@@ -106,7 +107,7 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
 
         try {
             log.debug("Before target system URL look up.");
-            String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
             if (log.isDebugEnabled()) {
                 log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
             }

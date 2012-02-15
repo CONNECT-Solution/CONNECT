@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsResponse
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -116,7 +117,7 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         AdhocQueryResponse response = null;
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.REDACTION_ENGINE_SERVICE_NAME);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.REDACTION_ENGINE_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_QUERY, assertion);
 
             if (adhocQueryRequest == null) {
@@ -150,7 +151,7 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         RetrieveDocumentSetResponseType response = null;
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.REDACTION_ENGINE_SERVICE_NAME);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.REDACTION_ENGINE_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);         
             AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVE, assertion);
 
             if (retrieveDocumentSetRequest == null) {

@@ -41,6 +41,7 @@ import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.w3c.dom.Element;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
@@ -88,8 +89,8 @@ public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribe
     private String getUrl(NhinTargetSystemType target, String serviceName) throws ConnectionManagerException {
         String url = null;
         url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, serviceName);
-        if (NullChecker.isNullish(url)) {
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName);
+        if (NullChecker.isNullish(url)) {            
+            url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
         }
         return url;
     }

@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adapterdocretrievedeferredrequesterror.AdapterDocRetrie
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentRetrieveDeferredRequestErrorType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
@@ -113,9 +114,9 @@ public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl impl
         log.debug("Begin sendToAdapter");
         DocRetrieveAcknowledgementType response = null;
 
-        try {
-            String url = oProxyHelper
-                    .getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME);
+        try
+        {
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             AdapterDocRetrieveDeferredRequestErrorPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
             if (body == null) {

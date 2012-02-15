@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy;
 import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -95,7 +96,8 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
             }
 
             @Override
-            public String getUrlLocalHomeCommunity(String sServiceName) {
+            public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level)
+            {
                 return "url";
             }
 
@@ -178,7 +180,8 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
             }
 
             @Override
-            public String getUrlLocalHomeCommunity(String sServiceName) {
+            public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level)
+            {
                 return "url";
             }
 

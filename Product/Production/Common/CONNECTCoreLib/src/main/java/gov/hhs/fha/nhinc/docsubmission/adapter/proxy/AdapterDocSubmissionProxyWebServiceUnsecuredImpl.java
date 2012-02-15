@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adapterxdr.AdapterXDRPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.namespace.QName;
@@ -108,7 +109,7 @@ public class AdapterDocSubmissionProxyWebServiceUnsecuredImpl implements Adapter
         RegistryResponseType response = null;
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_XDR_SERVICE_NAME);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_XDR_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             AdapterXDRPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
             if (msg == null) {

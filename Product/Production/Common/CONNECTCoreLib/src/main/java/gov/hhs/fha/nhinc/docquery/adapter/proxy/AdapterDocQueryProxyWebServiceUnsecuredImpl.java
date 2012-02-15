@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -108,7 +109,7 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
         AdhocQueryResponse response = null;
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             AdapterDocQueryPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
             if (msg == null) {

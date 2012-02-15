@@ -25,7 +25,7 @@
 						<accessPoint useType="endPoint">https://localhost:8181/QueryForDocumentsDeferredRequest</accessPoint>
 						<categoryBag>
 							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>							
-							<keyedReference tModelKey="apiLevel" keyName="" keyValue="LEVEL_a0"/>
+							<keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
 						</categoryBag>
 					</bindingTemplate>
 				</bindingTemplates>

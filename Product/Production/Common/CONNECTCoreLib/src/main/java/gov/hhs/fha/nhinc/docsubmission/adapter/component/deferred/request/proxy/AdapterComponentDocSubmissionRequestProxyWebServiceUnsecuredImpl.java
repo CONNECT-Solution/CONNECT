@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adaptercomponentxdrrequest.AdapterComponentXDRRequestPo
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -87,7 +88,7 @@ public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl im
         try {
             if (body != null) {
                 log.debug("Before target system URL look up.");
-                endpointUrl = oProxyHelper.getUrlLocalHomeCommunity(sServiceName);
+                endpointUrl = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(sServiceName, ADAPTER_API_LEVEL.LEVEL_a0);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + endpointUrl);
 
                 if (NullChecker.isNotNullish(endpointUrl)) {

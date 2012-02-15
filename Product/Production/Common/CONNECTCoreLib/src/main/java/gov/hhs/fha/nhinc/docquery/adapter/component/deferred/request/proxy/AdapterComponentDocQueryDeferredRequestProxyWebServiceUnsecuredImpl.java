@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adaptercomponentdocquerydeferredrequest.AdapterComponen
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import javax.xml.namespace.QName;
@@ -112,8 +113,8 @@ public class AdapterComponentDocQueryDeferredRequestProxyWebServiceUnsecuredImpl
         DocQueryAcknowledgementType response = null;
 
         try {
-            String url = oProxyHelper
-                    .getUrlLocalHomeCommunity(NhincConstants.ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+
             AdapterComponentDocQueryDeferredRequestPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
             if (msg == null) {

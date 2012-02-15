@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy;
 import gov.hhs.fha.nhinc.adapterxdrresponsesecured.AdapterXDRResponseSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -94,7 +95,8 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
             }
 
             @Override
-            public String getUrlLocalHomeCommunity(String sServiceName) {
+            public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level)
+            {
                 return "url";
             }
 
@@ -177,7 +179,8 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
             }
 
             @Override
-            public String getUrlLocalHomeCommunity(String sServiceName) {
+            public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level)
+            {
                 return "url";
             }
 

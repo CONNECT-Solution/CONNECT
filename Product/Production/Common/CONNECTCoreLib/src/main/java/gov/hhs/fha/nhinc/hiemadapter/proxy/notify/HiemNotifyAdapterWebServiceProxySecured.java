@@ -39,6 +39,7 @@ import gov.hhs.fha.nhinc.hiem.dte.marshallers.NhincCommonAcknowledgementMarshall
 
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Notify;
@@ -111,8 +112,7 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
     private String getUrl() {
         String url = "";
         try {
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
-                    NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
+            url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME
                     + " for local home community");

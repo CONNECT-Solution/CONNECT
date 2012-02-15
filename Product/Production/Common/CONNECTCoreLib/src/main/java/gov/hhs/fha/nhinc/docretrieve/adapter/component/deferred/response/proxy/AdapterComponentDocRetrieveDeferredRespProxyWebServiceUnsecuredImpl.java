@@ -27,10 +27,10 @@
 package gov.hhs.fha.nhinc.docretrieve.adapter.component.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.adaptercomponentdocretrievedeferredresp.AdapterComponentDocRetrieveDeferredRespPortType;
-import gov.hhs.fha.nhinc.adapterdocretrievedeferredresp.AdapterDocRetrieveDeferredResponsePortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -114,8 +114,7 @@ public class AdapterComponentDocRetrieveDeferredRespProxyWebServiceUnsecuredImpl
         DocRetrieveAcknowledgementType response = null;
 
         try {
-            String url = oProxyHelper
-                    .getUrlLocalHomeCommunity(NhincConstants.ADAPTER_COMPONENT_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_COMPONENT_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             AdapterComponentDocRetrieveDeferredRespPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
             if (msg == null) {

@@ -27,12 +27,12 @@
 package gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.xml;
 
 import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducer;
-import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterSubscriptionManager;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import java.io.ByteArrayOutputStream;
@@ -128,8 +128,7 @@ public class HiemSubscribeXmlAdapterWebServiceProxy implements HiemSubscribeXmlA
     private String getUrl(NhinTargetSystemType target, String serviceName) throws ConnectionManagerException {
         String url = null;
         url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, serviceName);
-        if (NullChecker.isNullish(url))
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName);
+        if (NullChecker.isNullish(url)) url = ConnectionManagerCache.getInstance().getAdapterEndpontURL(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
         return url;
     }
 }

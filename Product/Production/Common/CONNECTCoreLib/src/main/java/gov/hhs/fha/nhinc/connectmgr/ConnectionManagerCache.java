@@ -84,7 +84,7 @@ public class ConnectionManagerCache {
     private long m_lInternalFileLastModified = 0;
     // Variables for managing the location of the XML files.
     // -------------------------------------------------------
-    private static String INTERNAL_CONNECTION_API_LEVEL_KEY = "apiLevel";
+    private static String INTERNAL_CONNECTION_API_LEVEL_KEY = "CONNECT:adapter:apilevel";
     private static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
     private static String UDDI_STATE_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
     private static String UDDI_HOME_COMMUNITY_ID_KEY = "uddi:nhin:nhie:homecommunityid";
