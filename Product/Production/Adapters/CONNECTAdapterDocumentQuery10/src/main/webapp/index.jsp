@@ -6,11 +6,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>AdapterDocumentQuery v1.0</title>
+        <title>Query for Document Adapter</title>
     </head>
     <body>
-        <h1>AdapterDocumentQuery</h1>
-        <h2>Spec Version 1.0</h2>
-        <h2>API Version 0</h2>
+        <h1>Query for Document Adapter</h1>
+        <h2>API Level 0</h2>
     </body>
 </html>

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : Jan 22, 2010, 8:52:14 PM
-    Author     : svalluripalli
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -11,9 +6,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Patient Discovery Adapter</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Patient Discovery Adapter</h1>
+        <h2>API Level 0</h2>
     </body>
 </html>
