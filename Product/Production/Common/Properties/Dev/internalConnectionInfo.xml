@@ -1808,9 +1808,15 @@
                 <name xml:lang="en">AdminDistribution</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:AdminDistribution" serviceKey="uddi:testnhincnode:AdminDistribution">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayAdminDistribution/1_0/NhinService/NhinAdminDist</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/1_0/NhinService/NhinAdminDist</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:AdminDistribution" serviceKey="uddi:testnhincnode:AdminDistribution">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/2_0/NhinService/NhinAdminDist</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -2226,9 +2232,10 @@
                 <name xml:lang="en">adapteradmindistsecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapteradmindistsecured" serviceKey="uddi:testnhincnode:adapteradmindistsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTAdapterAdminDistribution/1_0/AdapterAdministrativeDistributionSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistributionSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -2241,9 +2248,10 @@
                 <name xml:lang="en">adapteradmindist</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapteradmindist" serviceKey="uddi:testnhincnode:adapteradmindist">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapterAdminDistribution/1_0/AdapterAdministrativeDistribution</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistribution</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -2256,9 +2264,15 @@
                 <name xml:lang="en">nhincadmindistsecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincadmindistsecured" serviceKey="uddi:testnhincnode:nhincadmindistsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayAdminDistribution/1_0/MsgProxy/NhincProxyAdminDistSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDistSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:nhincadmindistsecured" serviceKey="uddi:testnhincnode:nhincadmindistsecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDistSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -2270,9 +2284,15 @@
                 <name xml:lang="en">nhincadmindist</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincadmindist" serviceKey="uddi:testnhincnode:nhincadmindist">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTGatewayAdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:nhincadmindist" serviceKey="uddi:testnhincnode:nhincadmindist">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDist</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -4141,9 +4161,15 @@
                 <name xml:lang="en">AdminDistribution</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:AdminDistribution" serviceKey="uddi:testnhincnode:AdminDistribution">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayAdminDistribution/1_0/NhinService/NhinAdminDist</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/1_0/NhinService/NhinAdminDist</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:AdminDistribution" serviceKey="uddi:testnhincnode:AdminDistribution">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/2_0/NhinService/NhinAdminDist</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -4559,9 +4585,10 @@
                 <name xml:lang="en">adapteradmindistsecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapteradmindistsecured" serviceKey="uddi:testnhincnode:adapteradmindistsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTAdapterAdminDistribution/1_0/AdapterAdministrativeDistributionSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistributionSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -4574,9 +4601,10 @@
                 <name xml:lang="en">adapteradmindist</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapteradmindist" serviceKey="uddi:testnhincnode:adapteradmindist">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapterAdminDistribution/1_0/AdapterAdministrativeDistribution</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistribution</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -4589,9 +4617,15 @@
                 <name xml:lang="en">nhincadmindistsecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincadmindistsecured" serviceKey="uddi:testnhincnode:nhincadmindistsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayAdminDistribution/1_0/MsgProxy/NhincProxyAdminDistSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDistSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:nhincadmindistsecured" serviceKey="uddi:testnhincnode:nhincadmindistsecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDistSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -4603,9 +4637,15 @@
                 <name xml:lang="en">nhincadmindist</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincadmindist" serviceKey="uddi:testnhincnode:nhincadmindist">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTGatewayAdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:nhincadmindist" serviceKey="uddi:testnhincnode:nhincadmindist">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDist</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
