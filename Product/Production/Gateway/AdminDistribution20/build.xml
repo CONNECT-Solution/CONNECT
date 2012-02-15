@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project basedir="." default="package.create" name="CONNECTGatewayAdminDistrubution_g1">
+<project basedir="." default="package.create" name="AdminDistribution20">
 
 	<property name="dist.type" value="war" />
 	<property name="webtest.hasTests" value="false" />
