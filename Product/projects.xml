@@ -29,8 +29,8 @@
         <should.deploy>true</should.deploy>
     </project>    
     <project>
-	    <name>CONNECTGatewayPatientDiscoveryWeb10</name>
-	    <directory>/Production/Gateway/CONNECTGatewayPatientDiscoveryWeb10</directory>
+	    <name>PatientDiscoveryGateway_10</name>
+	    <directory>/Production/Gateway/PatientDiscovery_10</directory>
 	    <dist.type>war</dist.type>
 	    <should.build>true</should.build>
         <should.deploy>true</should.deploy>
@@ -138,8 +138,8 @@
         <should.deploy>true</should.deploy>
     </project>
 	<project>
-        <name>CONNECTAdapterPatientDiscovery_a0</name>
-        <directory>/Production/Adapters/General/CONNECTAdapterPatientDiscovery_a0</directory>
+        <name>PatientDiscoveryAdapter_a0</name>
+        <directory>/Production/Adapters/PatientDiscovery_a0</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>

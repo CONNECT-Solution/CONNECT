@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project basedir="." default="package.create" name="CONNECTAdapterPatientDiscovery_a0">
+<project basedir="." default="package.create" name="PatientDiscoveryAdapter_a0">
 
     <property name="dist.type" value="war" />
     <property name="webtest.hasTests" value="false" />
@@ -10,7 +10,7 @@
 	<property name="coverage.isneeded" value="false" />
 	
 	<!-- Please make sure that this goes up to the correct directory -->
-    <import file="../../../../build/build.targets.xml" />
+    <import file="../../../build/build.targets.xml" />
 
     <path id="build.classpath">
         <fileset refid="classpath.compile" />
