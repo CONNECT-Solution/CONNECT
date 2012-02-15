@@ -1,4 +1,0 @@
-<jboss-web>
-    <context-root>CONNECTAdapterDocumentRetrieveWeb/1_0</context-root>
-    <class-loading java2ClassLoadingCompliance='true'/>
-</jboss-web>

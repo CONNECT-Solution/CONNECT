@@ -7,9 +7,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Adapter Web</title>
+        <title>Document Submission Adapter</title>
     </head>
     <body>
-        <h1>Adapter Web</h1>
+        <h1>support nwhin spec versions 1.1, 2.0</h1>
+        <h1>connect api version A_0sv</h1>
     </body>
 </html>
