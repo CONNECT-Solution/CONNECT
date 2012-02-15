@@ -92,24 +92,24 @@
         <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>CONNECTGatewayAdminDistribution_g0</name>
-        <directory>/Production/Gateway/CONNECTGatewayAdminDistribution_g0</directory>
+        <name>AdminDistribution10</name>
+        <directory>/Production/Gateway/AdminDistribution10</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>    
 
     <project>
-        <name>CONNECTGatewayAdminDistribution_g1</name>
-        <directory>/Production/Gateway/CONNECTGatewayAdminDistribution_g1</directory>
+        <name>AdminDistribution20</name>
+        <directory>/Production/Gateway/AdminDistribution20</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>    
 
     <project>
-        <name>CONNECTAdapterAdminDistribution_a0</name>
-        <directory>/Production/Adapters/General/CONNECTAdapterAdminDistribution_a0/</directory>
+        <name>AdminDistribution_a0</name>
+        <directory>/Production/Adapters/AdminDistribution_a0/</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
