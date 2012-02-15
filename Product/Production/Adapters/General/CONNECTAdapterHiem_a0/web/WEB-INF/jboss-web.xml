@@ -1,4 +1,4 @@
 <jboss-web>
-    <context-root>CONNECTAdapterHiem_a0</context-root>
+    <context-root>Adapter/HIEM/A_0</context-root>
 </jboss-web>
 

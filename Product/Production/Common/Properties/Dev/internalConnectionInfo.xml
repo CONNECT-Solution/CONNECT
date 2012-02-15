@@ -63,9 +63,9 @@
                 <name xml:lang="en">HIEM</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -77,9 +77,9 @@
                 <name xml:lang="en">notificationconsumer</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:notificationconsumer" serviceKey="uddi:testnhincnode:notificationconsumer">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationConsumerService/HiemNotify</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -91,9 +91,9 @@
                 <name xml:lang="en">subscriptionmanager</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:subscriptionmanager" serviceKey="uddi:testnhincnode:subscriptionmanager">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -235,9 +235,9 @@
                 <name xml:lang="en">nhincproxynotificationconsumersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxynotificationconsumersecured" serviceKey="uddi:testnhincnode:nhincproxynotificationconsumersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxyNotificationConsumerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/NhincProxyNotificationConsumerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -249,9 +249,9 @@
                 <name xml:lang="en">nhincproxynotificationproducersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxynotificationproducersecured" serviceKey="uddi:testnhincnode:nhincproxynotificationproducersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxyNotificationProducerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/NhincProxyNotificationProducerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -263,9 +263,9 @@
                 <name xml:lang="en">nhincproxysubscriptionmanagersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxysubscriptionmanagersecured" serviceKey="uddi:testnhincnode:nhincproxysubscriptionmanagersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxySubscriptionManagerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/NhincProxySubscriptionManagerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -1114,9 +1114,10 @@
                 <name xml:lang="en">entitynotificationconsumer</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitynotificationconsumer" serviceKey="uddi:testnhincnode:entitynotificationconsumer">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapterHiem/1_0/NhincProxyNotificationConsumer</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/HIEM/A_0/NhincProxyNotificationConsumer</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -1128,9 +1129,9 @@
                 <name xml:lang="en">entitynotificationconsumersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitynotificationconsumersecured" serviceKey="uddi:testnhincnode:entitynotificationconsumersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntityNotificationConsumerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/EntityNotificationConsumerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -1142,9 +1143,9 @@
                 <name xml:lang="en">entitynotificationproducersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitynotificationproducersecured" serviceKey="uddi:testnhincnode:entitynotificationproducersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntityNotificationProducerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/EntityNotificationProducerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -1156,9 +1157,9 @@
                 <name xml:lang="en">entitysubscriptionmanagersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitysubscriptionmanagersecured" serviceKey="uddi:testnhincnode:entitysubscriptionmanagersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntitySubscriptionManagerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/EntitySubscriptionManagerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -2416,9 +2417,9 @@
                 <name xml:lang="en">HIEM</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -2430,9 +2431,9 @@
                 <name xml:lang="en">notificationconsumer</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:notificationconsumer" serviceKey="uddi:testnhincnode:notificationconsumer">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/NotificationConsumerService/HiemNotify</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -2444,9 +2445,9 @@
                 <name xml:lang="en">subscriptionmanager</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:subscriptionmanager" serviceKey="uddi:testnhincnode:subscriptionmanager">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -2588,9 +2589,9 @@
                 <name xml:lang="en">nhincproxynotificationconsumersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxynotificationconsumersecured" serviceKey="uddi:testnhincnode:nhincproxynotificationconsumersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxyNotificationConsumerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/NhincProxyNotificationConsumerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -2602,9 +2603,9 @@
                 <name xml:lang="en">nhincproxynotificationproducersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxynotificationproducersecured" serviceKey="uddi:testnhincnode:nhincproxynotificationproducersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxyNotificationProducerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/NhincProxyNotificationProducerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -2616,9 +2617,9 @@
                 <name xml:lang="en">nhincproxysubscriptionmanagersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxysubscriptionmanagersecured" serviceKey="uddi:testnhincnode:nhincproxysubscriptionmanagersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/NhincProxySubscriptionManagerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/NhincProxySubscriptionManagerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -3467,9 +3468,10 @@
                 <name xml:lang="en">entitynotificationconsumer</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitynotificationconsumer" serviceKey="uddi:testnhincnode:entitynotificationconsumer">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapterHiem/1_0/NhincProxyNotificationConsumer</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/HIEM/A_0/NhincProxyNotificationConsumer</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -3481,9 +3483,9 @@
                 <name xml:lang="en">entitynotificationconsumersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitynotificationconsumersecured" serviceKey="uddi:testnhincnode:entitynotificationconsumersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntityNotificationConsumerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/EntityNotificationConsumerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -3495,9 +3497,9 @@
                 <name xml:lang="en">entitynotificationproducersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitynotificationproducersecured" serviceKey="uddi:testnhincnode:entitynotificationproducersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntityNotificationProducerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/EntityNotificationProducerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -3509,9 +3511,9 @@
                 <name xml:lang="en">entitysubscriptionmanagersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitysubscriptionmanagersecured" serviceKey="uddi:testnhincnode:entitysubscriptionmanagersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGatewayHiem/1_0/EntityService/EntitySubscriptionManagerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/EntitySubscriptionManagerSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
