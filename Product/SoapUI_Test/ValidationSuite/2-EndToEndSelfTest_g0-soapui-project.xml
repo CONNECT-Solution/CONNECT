@@ -4737,9 +4737,323 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="3105ba39-a867-45b8-8988-344ad3470d80" keepSession="false" maxResults="0" name="Notify" searchProperties="true">
+
+
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true">
 	<con:settings/>
-	<con:testStep name="Notify" type="request">
+	
+	<con:testStep name="Backup gateway.properties file" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
+
+				def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+
+				File gatewayFile = new File(GatewayPropFile)
+				File gatewayBakFile = new File(GatewayPropFile + ".bak")
+
+				if(gatewayBakFile.exists()) {
+				gatewayBakFile.delete()
+				}
+
+				if(gatewayFile.exists()) {
+				gatewayBakFile &lt;&lt; gatewayFile.asWritable()
+				} else {
+				throw new RuntimeException('Unable to locate gateway.properties')
+				}</script>
+		</con:config>
+	</con:testStep><con:testStep name="update config" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
+
+				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
+
+				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
+				File file = new File(directory,filename);
+				Properties properties = new Properties();
+				FileInputStream frPropFile = new FileInputStream(file);
+				properties.load(frPropFile);
+				properties.setProperty(propertyKey, propertyValue);
+				FileOutputStream fwPropFile = new FileOutputStream(file);
+				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+			properties = null;
+			}
+
+			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
+			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
+			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+	</con:config>
+</con:testStep><con:testStep name="Clear Subscription Table" type="groovy">
+	<con:settings/>
+	<con:config>
+		<script>context.withSql('SubscriptionDB') { sql -> 
+		sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
+		}</script>
+</con:config>
+</con:testStep><con:testStep name="Subscribe" type="request">
+	<con:settings/>
+	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+		<con:operation>Subscribe</con:operation>
+		<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+			<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+			<con:encoding>UTF-8</con:encoding>
+			<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+			<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soapenv:Header/>
+   <soapenv:Body projectName="EndToEndSelfTest" testCase="Subscribe">
+      <urn:SubscribeRequest>
+         <wsnt:Subscribe>
+            <wsnt:ConsumerReference>
+               <wsa:Address>${#Project#NotificationEndpoint}</wsa:Address>
+            </wsnt:ConsumerReference>
+            <wsnt:Filter>
+               <wsnt:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple" xmlns:nhin="http://www.hhs.gov/healthit/nhin">SomeTopic</wsnt:TopicExpression>
+            </wsnt:Filter>
+         </wsnt:Subscribe>
+         <urn:assertion>
+            <nccommon:address xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:addressType>
+                  <nccommon:code>AddrCode</nccommon:code>
+                  <nccommon:codeSystem>AddrCodeSyst</nccommon:codeSystem>
+                  <nccommon:codeSystemName>AddrCodeSystName</nccommon:codeSystemName>
+                  <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+                  <nccommon:displayName>AddrCode</nccommon:displayName>
+                  <nccommon:originalText>AddrCode</nccommon:originalText>
+               </nccommon:addressType>
+               <nccommon:city>AddrCity</nccommon:city>
+               <nccommon:country>AddrCountry</nccommon:country>
+               <nccommon:state>AddrState</nccommon:state>
+               <nccommon:streetAddress>AddrStreet</nccommon:streetAddress>
+               <nccommon:zipCode>AddrZip</nccommon:zipCode>
+            </nccommon:address>
+            <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
+            <nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature>
+            <nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate>
+            <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
+            <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
+            <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
+            <nccommon:haveWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveWitnessSignature>
+            <nccommon:homeCommunity xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:description>HCDescription</nccommon:description>
+               <nccommon:homeCommunityId>HC-1234</nccommon:homeCommunityId>
+               <nccommon:name>HCName</nccommon:name>
+            </nccommon:homeCommunity>
+            <nccommon:personName xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:familyName>Smith</nccommon:familyName>
+               <nccommon:givenName>Sandy</nccommon:givenName>
+               <nccommon:nameType>
+                  <nccommon:code>nameCode</nccommon:code>
+                  <nccommon:codeSystem>nameCodeSyst</nccommon:codeSystem>
+                  <nccommon:codeSystemName>nameCodeSystName</nccommon:codeSystemName>
+                  <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+                  <nccommon:displayName>nameCode</nccommon:displayName>
+                  <nccommon:originalText>nameCode</nccommon:originalText>
+               </nccommon:nameType>
+               <nccommon:secondNameOrInitials>S</nccommon:secondNameOrInitials>
+               <nccommon:fullName>Sandy S. Smith</nccommon:fullName>
+            </nccommon:personName>
+            <nccommon:phoneNumber xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:areaCode>321</nccommon:areaCode>
+               <nccommon:countryCode>1</nccommon:countryCode>
+               <nccommon:extension>5436</nccommon:extension>
+               <nccommon:localNumber>253-6849</nccommon:localNumber>
+               <nccommon:phoneNumberType>
+                  <nccommon:code>phoneCode</nccommon:code>
+                  <nccommon:codeSystem>phoneCodeSyst</nccommon:codeSystem>
+                  <nccommon:codeSystemName>phoneCodeSystName</nccommon:codeSystemName>
+                  <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+                  <nccommon:displayName>phoneCode</nccommon:displayName>
+                  <nccommon:originalText>phoneCode</nccommon:originalText>
+               </nccommon:phoneNumberType>
+            </nccommon:phoneNumber>
+            <nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure>
+            <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:addressType>
+                  <nccommon:code>AddrCode</nccommon:code>
+                  <nccommon:codeSystem>AddrCodeSyst</nccommon:codeSystem>
+                  <nccommon:codeSystemName>AddrCodeSystName</nccommon:codeSystemName>
+                  <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+                  <nccommon:displayName>AddrCode</nccommon:displayName>
+                  <nccommon:originalText>AddrCode</nccommon:originalText>
+               </nccommon:addressType>
+               <nccommon:city>Addr2City</nccommon:city>
+               <nccommon:country>Addr2Country</nccommon:country>
+               <nccommon:state>Addr2State</nccommon:state>
+               <nccommon:streetAddress>Addr2Street</nccommon:streetAddress>
+               <nccommon:zipCode>Addr2Zip</nccommon:zipCode>
+            </nccommon:secondWitnessAddress>
+            <nccommon:secondWitnessName xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:familyName>Smith</nccommon:familyName>
+               <nccommon:givenName>Sammy</nccommon:givenName>
+               <nccommon:nameType>
+                  <nccommon:code>nameCode</nccommon:code>
+                  <nccommon:codeSystem>nameCodeSyst</nccommon:codeSystem>
+                  <nccommon:codeSystemName>nameCodeSystName</nccommon:codeSystemName>
+                  <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+                  <nccommon:displayName>nameCode</nccommon:displayName>
+                  <nccommon:originalText>nameCode</nccommon:originalText>
+               </nccommon:nameType>
+               <nccommon:secondNameOrInitials>s</nccommon:secondNameOrInitials>
+               <nccommon:fullName>Sammy S. Smith</nccommon:fullName>
+            </nccommon:secondWitnessName>
+            <nccommon:secondWitnessPhone xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:areaCode>321</nccommon:areaCode>
+               <nccommon:countryCode>1</nccommon:countryCode>
+               <nccommon:extension>5424</nccommon:extension>
+               <nccommon:localNumber>542-6823</nccommon:localNumber>
+               <nccommon:phoneNumberType>
+                  <nccommon:code>phoneCode</nccommon:code>
+                  <nccommon:codeSystem>phoneCodeSyst</nccommon:codeSystem>
+                  <nccommon:codeSystemName>phoneCodeSystName</nccommon:codeSystemName>
+                  <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+                  <nccommon:displayName>phoneCode</nccommon:displayName>
+                  <nccommon:originalText>phoneCode</nccommon:originalText>
+               </nccommon:phoneNumberType>
+            </nccommon:secondWitnessPhone>
+            <nccommon:SSN xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</nccommon:SSN>
+            <nccommon:uniquePatientId xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</nccommon:uniquePatientId>
+            <nccommon:witnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:addressType>
+                  <nccommon:code>addrCode</nccommon:code>
+                  <nccommon:codeSystem>addrCodeSyst</nccommon:codeSystem>
+                  <nccommon:codeSystemName>addrCodeSystName</nccommon:codeSystemName>
+                  <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+                  <nccommon:displayName>addrCode</nccommon:displayName>
+                  <nccommon:originalText>addrCode</nccommon:originalText>
+               </nccommon:addressType>
+               <nccommon:city>Burnell</nccommon:city>
+               <nccommon:country>USA</nccommon:country>
+               <nccommon:state>FL</nccommon:state>
+               <nccommon:streetAddress>825 North</nccommon:streetAddress>
+               <nccommon:zipCode>32184</nccommon:zipCode>
+            </nccommon:witnessAddress>
+            <nccommon:witnessName xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:familyName>Smith</nccommon:familyName>
+               <nccommon:givenName>Scott</nccommon:givenName>
+               <nccommon:nameType>
+                  <nccommon:code>nameCode</nccommon:code>
+                  <nccommon:codeSystem>nameCodeSyst</nccommon:codeSystem>
+                  <nccommon:codeSystemName>nameCodeSystName</nccommon:codeSystemName>
+                  <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+                  <nccommon:displayName>nameCode</nccommon:displayName>
+                  <nccommon:originalText>nameCode</nccommon:originalText>
+               </nccommon:nameType>
+               <nccommon:secondNameOrInitials>S.</nccommon:secondNameOrInitials>
+               <nccommon:fullName>Scott S. Smith</nccommon:fullName>
+            </nccommon:witnessName>
+            <nccommon:witnessPhone xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:areaCode>321</nccommon:areaCode>
+               <nccommon:countryCode>1</nccommon:countryCode>
+               <nccommon:extension>8432</nccommon:extension>
+               <nccommon:localNumber>985-2239</nccommon:localNumber>
+               <nccommon:phoneNumberType>
+                  <nccommon:code>phoneCode</nccommon:code>
+                  <nccommon:codeSystem>phoneCodeSyst</nccommon:codeSystem>
+                  <nccommon:codeSystemName>phoneCodeSystName</nccommon:codeSystemName>
+                  <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+                  <nccommon:displayName>phoneCode</nccommon:displayName>
+                  <nccommon:originalText>phoneCode</nccommon:originalText>
+               </nccommon:phoneNumberType>
+            </nccommon:witnessPhone>
+            <nccommon:userInfo xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:personName>
+                  <nccommon:familyName>Skagerberg</nccommon:familyName>
+                  <nccommon:givenName>Karl</nccommon:givenName>
+                  <nccommon:nameType>
+                     <nccommon:code>nameCode</nccommon:code>
+                     <nccommon:codeSystem>nameCodeSyst</nccommon:codeSystem>
+                     <nccommon:codeSystemName>nameCodeSystName</nccommon:codeSystemName>
+                     <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+                     <nccommon:displayName>nameCode</nccommon:displayName>
+                     <nccommon:originalText>nameCode</nccommon:originalText>
+                  </nccommon:nameType>
+                  <nccommon:secondNameOrInitials>S</nccommon:secondNameOrInitials>
+                  <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
+               </nccommon:personName>
+               <nccommon:userName>kskagerb</nccommon:userName>
+               <nccommon:role>Pharmacy</nccommon:role>
+               <nccommon:org>
+                  <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
+                  <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
+                  <nccommon:name>${#Project#RemoteHCDescription}</nccommon:name>
+               </nccommon:org>
+               <nccommon:roleCoded>
+                  <nccommon:code>307969004</nccommon:code>
+                  <nccommon:codeSystem>2.16.840.1.113883.6.96</nccommon:codeSystem>
+                  <nccommon:codeSystemName>SNOMED_CT</nccommon:codeSystemName>
+                  <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+                  <nccommon:displayName>Public Health</nccommon:displayName>
+                  <nccommon:originalText>Public Health</nccommon:originalText>
+               </nccommon:roleCoded>
+            </nccommon:userInfo>
+            <nccommon:authorized xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</nccommon:authorized>
+            <nccommon:purposeOfDisclosureCoded xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:code>PUBLICHEALTH</nccommon:code>
+               <nccommon:codeSystem>2.16.840.1.113883.3.18.7.1</nccommon:codeSystem>
+               <nccommon:codeSystemName>nhin-purpose</nccommon:codeSystemName>
+               <nccommon:codeSystemVersion>1.0</nccommon:codeSystemVersion>
+               <nccommon:displayName>Use or disclosure of Psychotherapy Notes</nccommon:displayName>
+               <nccommon:originalText>Use or disclosure of Psychotherapy Notes</nccommon:originalText>
+            </nccommon:purposeOfDisclosureCoded>
+            <nccommon:samlAuthnStatement xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:authInstant>2009-04-16T13:15:39Z</nccommon:authInstant>
+               <nccommon:sessionIndex>987</nccommon:sessionIndex>
+               <nccommon:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</nccommon:authContextClassRef>
+               <nccommon:subjectLocalityAddress>158.147.185.168</nccommon:subjectLocalityAddress>
+               <nccommon:subjectLocalityDNSName>cs.myharris.net</nccommon:subjectLocalityDNSName>
+            </nccommon:samlAuthnStatement>
+            <nccommon:samlAuthzDecisionStatement xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <nccommon:decision>Permit</nccommon:decision>
+               <nccommon:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</nccommon:resource>
+               <nccommon:action>TestSaml</nccommon:action>
+               <nccommon:evidence>
+                  <nccommon:assertion>
+                     <nccommon:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</nccommon:id>
+                     <nccommon:issueInstant>2009-04-16T13:10:39.093Z</nccommon:issueInstant>
+                     <nccommon:version>2.0</nccommon:version>
+                     <nccommon:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</nccommon:issuerFormat>
+                     <nccommon:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</nccommon:issuer>
+                     <nccommon:conditions>
+                        <nccommon:notBefore>2009-04-16T13:10:39.093Z</nccommon:notBefore>
+                        <nccommon:notOnOrAfter>2009-12-31T12:00:00.000Z</nccommon:notOnOrAfter>
+                     </nccommon:conditions>
+                     <nccommon:accessConsentPolicy>urn:oid:1.2.3.4</nccommon:accessConsentPolicy>
+                     <nccommon:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</nccommon:instanceAccessConsentPolicy>
+                  </nccommon:assertion>
+               </nccommon:evidence>
+            </nccommon:samlAuthzDecisionStatement>
+         </urn:assertion>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
+      </urn:SubscribeRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+			<con:assertion type="SOAP Response"/>
+			<con:assertion type="SOAP Fault Assertion"/>
+			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:jmsPropertyConfig/>
+			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+			<con:wsrmConfig version="1.2"/>
+		</con:request>
+	</con:config>
+</con:testStep><con:testStep type="groovy" name="get subscription id"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def holder = groovyUtils.getXmlHolder( "Subscribe#Response" );
+holder.declareNamespace("SubscriptionId", "http://www.hhs.gov/healthit/nhin");
+def subID = holder.getNodeValue( "//SubscriptionId:SubscriptionId");
+
+log.info "subID= ${subID}";
+
+testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", subID );
+</script></con:config></con:testStep><con:testStep name="Notify" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityNotificationConsumerBindingSoap</con:interface>
@@ -4998,28 +5312,56 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 				<con:wsrmConfig version="1.2"/>
 			</con:request>
 		</con:config>
-	</con:testStep>
-	<con:properties>
+	</con:testStep><con:testStep name="Restore gateway.properties file" type="groovy">
+	<con:settings/>
+	<con:config>
+		<script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
+
+			def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+
+			File gatewayFile = new File(GatewayPropFile)
+			File gatewayBakFile = new File(GatewayPropFile + ".bak")
+
+			if(gatewayBakFile.exists()) {
+			gatewayBakFile.renameTo(gatewayFile)
+			} else {
+			throw new RuntimeException('Unable to locate gateway.properties.bak')
+			}</script>
+	</con:config>
+</con:testStep><con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+	def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/master/gateway.properties"
+
+	File gatewayFile = new File(GatewayPropFile)
+	File gatewayBakFile = new File(MasterGatewayPropFile)
+
+	if(gatewayBakFile.exists()) {
+	def reader = gatewayBakFile.newReader()
+	gatewayFile.withWriter { writer ->
+writer &lt;&lt; reader
+}
+reader.close()
+} else {
+throw new RuntimeException('Unable to locate master/gateway.properties')
+}</con:tearDownScript><con:properties>
 		<con:property>
 			<con:name>startDate</con:name>
-			<con:value>2011-06-07T03:37:43Z</con:value>
+			<con:value>2012-02-15T18:25:38Z</con:value>
 		</con:property>
 		<con:property>
 			<con:name>endDate</con:name>
-			<con:value>2011-06-07T03:47:43Z</con:value>
+			<con:value>2012-02-15T18:35:38Z</con:value>
 		</con:property>
 		<con:property>
 			<con:name>sigDate</con:name>
-			<con:value>06/07/2011 03:37:43</con:value>
+			<con:value>02/15/2012 18:25:38</con:value>
 		</con:property>
 		<con:property>
 			<con:name>expireDate</con:name>
-			<con:value>2011-07-07T00:00:00Z</con:value>
+			<con:value>2012-03-16T00:00:00Z</con:value>
 		</con:property>
-	</con:properties>
+	<con:property><con:name>NotifySubscriptionID</con:name><con:value/></con:property></con:properties>
 	<con:reportParameters/>
 </con:testCase>
-
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="77fa6220-7df0-4205-8b0e-d4885ca26e11" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="Backup gateway.properties file" type="groovy">
@@ -5880,8 +6222,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 		</con:property>
 	</con:properties>
 	<con:reportParameters/>
-</con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="846a1055-4695-47e4-92b8-de26f5640118" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="846a1055-4695-47e4-92b8-de26f5640118" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="AdminDist Request" type="request">
 		<con:settings/>
