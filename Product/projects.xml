@@ -92,16 +92,16 @@
         <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>AdminDistribution10</name>
-        <directory>/Production/Gateway/AdminDistribution10</directory>
+        <name>AdminDistributionGateway_10</name>
+        <directory>/Production/Gateway/AdminDistribution_10</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>    
 
     <project>
-        <name>AdminDistribution20</name>
-        <directory>/Production/Gateway/AdminDistribution20</directory>
+        <name>AdminDistributionGateway_20</name>
+        <directory>/Production/Gateway/AdminDistribution_20</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
