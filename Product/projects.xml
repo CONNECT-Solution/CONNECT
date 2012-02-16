@@ -27,14 +27,22 @@
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
-    </project>    
+    </project>
     <project>
-	    <name>PatientDiscoveryGateway_10</name>
-	    <directory>/Production/Gateway/PatientDiscovery_10</directory>
-	    <dist.type>war</dist.type>
-	    <should.build>true</should.build>
+        <name>PatientDiscovery_10</name>
+        <directory>/Production/Gateway/PatientDiscovery_10</directory>
+        <dist.type>war</dist.type>
+        <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
+    <project>
+        <name>PatientDiscovery_a0</name>
+        <directory>/Production/Adapters/PatientDiscovery_a0</directory>
+        <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
+    </project>
+    
     <project>
         <name>CONNECTGatewayDocumentQuery10</name>
         <directory>/Production/Gateway/CONNECTGatewayDocumentQuery10</directory>
@@ -64,21 +72,21 @@
         <should.deploy>true</should.deploy>
     </project>
     <project>
-	    <name>CONNECTGatewayDocumentRetrieveWeb10</name>
+        <name>CONNECTGatewayDocumentRetrieveWeb10</name>
         <directory>/Production/Gateway/CONNECTGatewayDocumentRetrieveWeb10</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
     <project>
-	    <name>CONNECTGatewayDocumentRetrieveWeb20</name>
+        <name>CONNECTGatewayDocumentRetrieveWeb20</name>
         <directory>/Production/Gateway/CONNECTGatewayDocumentRetrieveWeb20</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
     <project>
-	<name>CONNECTAdapterDocumentRetrieve10</name>
+        <name>CONNECTAdapterDocumentRetrieve10</name>
         <directory>/Production/Adapters/CONNECTAdapterDocumentRetrieve10</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
@@ -92,44 +100,41 @@
         <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>AdminDistributionGateway_10</name>
+        <name>AdminDistribution_10</name>
         <directory>/Production/Gateway/AdminDistribution_10</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
-    </project>    
-
+    </project>
     <project>
-        <name>AdminDistributionGateway_20</name>
+        <name>AdminDistribution_20</name>
         <directory>/Production/Gateway/AdminDistribution_20</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
-    </project>    
-
+    </project>
     <project>
         <name>AdminDistribution_a0</name>
         <directory>/Production/Adapters/AdminDistribution_a0/</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
-    </project>    
- 
+    </project>
+    
     <project>
         <name>CONNECTGatewayHiem_g0</name>
         <directory>/Production/Gateway/CONNECTGatewayHiem_g0/</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
-    </project>    
+    </project>
     <project>
         <name>CONNECTAdapterHiem_a0</name>
-        <directory>/Production/Adapters/General/CONNECTAdapterHiem_a0/</directory>
+        <directory>/Production/Adapters/General/CONNECTAdapterHiem_a0</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
-    </project>    
-
+    </project>
     <project>
         <name>CONNECTAdapterWeb</name>
         <directory>/Production/Adapters/General/CONNECTAdapterWeb</directory>
@@ -137,13 +142,6 @@
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
-	<project>
-        <name>PatientDiscoveryAdapter_a0</name>
-        <directory>/Production/Adapters/PatientDiscovery_a0</directory>
-        <dist.type>war</dist.type>
-        <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
-    </project> 	    
     <project>
         <name>CONNECTInterfaceTestWeb</name>
         <directory>/Production/Gateway/CONNECTInterfaceTestWeb</directory>
@@ -164,7 +162,7 @@
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
-]    </project>    
+    </project>
     <project>
         <name>CONNECTAdapterPDPOpenSSO</name>
         <directory>/Production/Adapters/General/CONNECTAdapterPDPOpenSSO</directory>
@@ -235,7 +233,6 @@
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
-    
     <!-- BEGIN Dynamic Document Generation Projects -->
     <project>
         <name>AdapterCommonDataLayerEJB</name>
@@ -250,7 +247,7 @@
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
-    </project>    
+    </project>
     <project>
         <name>DocumentAssemblyManagerEJB</name>
         <directory>/Production/Adapters/Framework/DocumentAssemblyManagerEJB</directory>
@@ -300,49 +297,47 @@
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
-
-  <!--Integration Test-->
+    <!--Integration Test -->
     <project>
-      <name>AdapterFrameworkIntTest</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterFrameworkIntTest</directory>
-      <dist.type>jar</dist.type>
-      <should.build>true</should.build>
+        <name>AdapterFrameworkIntTest</name>
+        <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterFrameworkIntTest</directory>
+        <dist.type>jar</dist.type>
+        <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
     <project>
-      <name>AdapterGeneralIntTest</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/AdapterGeneralIntTest</directory>
-      <dist.type>jar</dist.type>
-      <should.build>true</should.build>
+        <name>AdapterGeneralIntTest</name>
+        <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/AdapterGeneralIntTest</directory>
+        <dist.type>jar</dist.type>
+        <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
     <project>
-      <name>CommonIntTest</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Common/CommonIntTest</directory>
-      <dist.type>jar</dist.type>
-      <should.build>true</should.build>
+        <name>CommonIntTest</name>
+        <directory>/IntegrationTest/JunitIntegrationTests/Common/CommonIntTest</directory>
+        <dist.type>jar</dist.type>
+        <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
     <project>
-      <name>GatewayIntTest</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Gateway/GatewayIntTest</directory>
-      <dist.type>jar</dist.type>
-      <should.build>true</should.build>
+        <name>GatewayIntTest</name>
+        <directory>/IntegrationTest/JunitIntegrationTests/Gateway/GatewayIntTest</directory>
+        <dist.type>jar</dist.type>
+        <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
     <project>
-      <name>HiemSubscriptionRepositoryIntegrationTest</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Gateway/HiemSubscriptionRepositoryIntegrationTest</directory>
-      <dist.type>jar</dist.type>
-      <should.build>true</should.build>
+        <name>HiemSubscriptionRepositoryIntegrationTest</name>
+        <directory>/IntegrationTest/JunitIntegrationTests/Gateway/HiemSubscriptionRepositoryIntegrationTest</directory>
+        <dist.type>jar</dist.type>
+        <should.build>true</should.build>
         <should.deploy>true</should.deploy>
-    </project>  
+    </project>
     <project>
-      <name>LoadTest</name>
-      <directory>/IntegrationTest/JunitIntegrationTests/Gateway/LoadTest</directory>
-      <dist.type>jar</dist.type>
-      <should.build>true</should.build>
+        <name>LoadTest</name>
+        <directory>/IntegrationTest/JunitIntegrationTests/Gateway/LoadTest</directory>
+        <dist.type>jar</dist.type>
+        <should.build>true</should.build>
         <should.deploy>true</should.deploy>
-    </project> 
-    
+    </project>
 </projects>
