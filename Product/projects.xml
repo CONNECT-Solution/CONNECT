@@ -78,22 +78,22 @@
         <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>CONNECTGatewayDocumentRetrieveWeb10</name>
-        <directory>/Production/Gateway/CONNECTGatewayDocumentRetrieveWeb10</directory>
+        <name>DocumentRetrieve_20</name>
+        <directory>/Production/Gateway/DocumentRetrieve_20</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>CONNECTGatewayDocumentRetrieveWeb20</name>
-        <directory>/Production/Gateway/CONNECTGatewayDocumentRetrieveWeb20</directory>
+        <name>DocumentRetrieve_30</name>
+        <directory>/Production/Gateway/DocumentRetrieve_30</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>CONNECTAdapterDocumentRetrieve10</name>
-        <directory>/Production/Adapters/CONNECTAdapterDocumentRetrieve10</directory>
+        <name>DocumentRetrieve_a0</name>
+        <directory>/Production/Adapters/DocumentRetrieve_a0</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
