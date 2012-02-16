@@ -50,11 +50,11 @@ public class ValidationSuiteWsdlRunner {
     private final char slash = File.separatorChar;
 
     private String pathToWsdls;
-    private Boolean setSpecifiedPath;
+    //private Boolean setSpecifiedPath;
 
     public ValidationSuiteWsdlRunner(){
         initialize();
-        this.setSpecifiedPath = false;
+        //this.setSpecifiedPath = false;
         validationFiles = new ArrayList<String>();
         setValidationFiles();
     }
@@ -62,7 +62,7 @@ public class ValidationSuiteWsdlRunner {
     public ValidationSuiteWsdlRunner(String wsdlPath){
         initialize();
         this.pathToWsdls = wsdlPath;
-        this.setSpecifiedPath = true;
+        //this.setSpecifiedPath = true;
         validationFiles = new ArrayList<String>();
         setValidationFiles();
     }
@@ -163,11 +163,7 @@ public class ValidationSuiteWsdlRunner {
                 String attrValue = definitionAttr.getNodeValue();
                 StringTokenizer stringTok = new StringTokenizer(attrValue, "#");
 
-                if(setSpecifiedPath == true){
-                    Attr newDefinitionAttr = doc.createAttribute("definition");
-                    newDefinitionAttr.setValue(pathToWsdls);
-                    attributes.setNamedItem(newDefinitionAttr);
-                }else if(!(attrValue.contains(pathToWsdls))&& attrValue.contains("WSDL path not set.")){
+                if(!(attrValue.contains(pathToWsdls))&& attrValue.contains("WSDL path not set.")){
                     
                     stringTok.nextToken();
                     StringBuilder newPath = new StringBuilder(pathToWsdls);
