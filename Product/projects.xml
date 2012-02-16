@@ -50,15 +50,22 @@
         <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>CONNECTGatewayDocumentSubmission10</name>
-        <directory>/Production/Gateway/CONNECTGatewayDocumentSubmission10</directory>
+        <name>DocumentSubmission_11</name>
+        <directory>/Production/Gateway/DocumentSubmission_11</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>CONNECTGatewayDocumentSubmission20</name>
-        <directory>/Production/Gateway/CONNECTGatewayDocumentSubmission20</directory>
+        <name>DocumentSubmission_20</name>
+        <directory>/Production/Gateway/DocumentSubmission_20</directory>
+        <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
+    </project>
+    <project>
+        <name>DocumentSubmission_a0</name>
+        <directory>/Production/Adapters/DocumentSubmission_a0</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
@@ -91,13 +98,7 @@
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
-    <project>
-        <name>CONNECTAdapterDocumentSubmission10</name>
-        <directory>/Production/Adapters/General/CONNECTAdapterDocumentSubmission10</directory>
-        <dist.type>war</dist.type>
-        <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
-    </project>
+    
     <project>
         <name>AdminDistribution_10</name>
         <directory>/Production/Gateway/AdminDistribution_10</directory>
