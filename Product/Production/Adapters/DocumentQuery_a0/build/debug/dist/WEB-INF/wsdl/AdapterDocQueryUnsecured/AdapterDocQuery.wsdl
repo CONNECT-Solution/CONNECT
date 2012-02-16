@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Adapter Document Query WSDL
+  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocquery" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" name="AdapterDocQuery" targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocquery">
+	<documentation>Adapter Document Query</documentation>
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../schemas/ebRS/query.xsd"/>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="AdapterDocQueryRequestMessage">
+		<part name="RespondingGateway_CrossGatewayQueryRequest" element="nccommonadapter:RespondingGateway_CrossGatewayQueryRequest"/>
+	</message>
+	<message name="AdapterDocQueryResponseMessage">
+		<part name="RespondingGateway_CrossGatewayQueryResponse" element="query:AdhocQueryResponse"/>
+	</message>
+	<portType name="AdapterDocQueryPortType">
+		<operation name="RespondingGateway_CrossGatewayQuery">
+			<input name="RespondingGateway_CrossGatewayQueryRequest" message="tns:AdapterDocQueryRequestMessage"/>
+			<output name="RespondingGateway_CrossGatewayQueryResponse" message="tns:AdapterDocQueryResponseMessage"/>
+		</operation>
+	</portType>
+	<binding name="AdapterDocQueryBindingSoap" type="tns:AdapterDocQueryPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="RespondingGateway_CrossGatewayQuery">
+			<soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
+			<input name="RespondingGateway_CrossGatewayQueryRequest">
+				<soap:body use="literal"/>
+			</input>
+			<output name="RespondingGateway_CrossGatewayQueryResponse">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="AdapterDocQuery">
+		<port name="AdapterDocQueryPortSoap" binding="tns:AdapterDocQueryBindingSoap">
+			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocQuery"/>
+		</port>
+	</service>
+	<plnk:partnerLinkType name="AdapterDocQuery">
+		<!-- A partner link type is automatically generated when a new port type is added. 
+         Partner link types are used by BPEL processes. In a BPEL process, a partner 
+         link represents the interaction between the BPEL process and a partner service. 
+         Each partner link is associated with a partner link type. A partner link type 
+         characterizes the conversational relationship between two services. The 
+         partner link type can have one or two roles.-->
+		<plnk:role name="AdapterDocQueryPortTypeRole" portType="tns:AdapterDocQueryPortType"/>
+	</plnk:partnerLinkType>
+</definitions>
