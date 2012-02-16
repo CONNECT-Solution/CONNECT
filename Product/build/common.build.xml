@@ -33,10 +33,10 @@
 			<param name="project.dist.type" path="dist.type/text()" />
 			<param name="project.should.build" path="should.build/text()" />
 			<actions>
-				<echo message="Creating properties for project: '@{project.name}'." />
-				<echo message='property name="project.@{project.name}.directory" value="${root.project.directory.path}/@{project.directory}"' />
-				<echo message='property name="project.@{project.name}.dist.file" value="@{project.directory}/dist/${build.config}/@{project.name}.@{project.dist.type}"' />
-				<echo message='property name="project.@{project.name}.should.build" value="@{project.should.build}"' />
+				<echo level="debug" message="Creating properties for project: '@{project.name}'." />
+				<echo level="debug" message='property name="project.@{project.name}.directory" value="${root.project.directory.path}/@{project.directory}"' />
+				<echo level="debug" message='property name="project.@{project.name}.dist.file" value="@{project.directory}/dist/${build.config}/@{project.name}.@{project.dist.type}"' />
+				<echo level="debug" message='property name="project.@{project.name}.should.build" value="@{project.should.build}"' />
 				<if>
 					<istrue value="@{project.should.build}" />
 					<then>
@@ -68,7 +68,7 @@
 						</if>
 					</then>
 					<else>
-						<echo message="Project: '@{project.name}' will not be built." />
+						<echo level="debug" message="Project: '@{project.name}' will not be built." />
 					</else>
 				</if>
 			</actions>
