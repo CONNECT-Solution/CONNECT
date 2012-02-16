@@ -10,7 +10,7 @@
 <!-- Entity -->
     <servlet>
         <servlet-name>EntityDocQuerySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.EntityDocQuerySecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocQuerySecured</servlet-name>
@@ -19,7 +19,7 @@
 
     <servlet>
         <servlet-name>EntityDocQueryUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryUnsecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocQueryUnsecured</servlet-name>
@@ -28,7 +28,7 @@
 
     <servlet>
         <servlet-name>EntityDocQueryDeferredReqSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredReqSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.deferred.request.EntityDocQueryDeferredReqSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocQueryDeferredReqSecured</servlet-name>
@@ -37,7 +37,7 @@
 
     <servlet>
         <servlet-name>EntityDocQueryDeferredReq</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.request.EntityDocQueryDeferredReq</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.deferred.request.EntityDocQueryDeferredReq</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocQueryDeferredReq</servlet-name>
@@ -46,7 +46,7 @@
 
     <servlet>
         <servlet-name>EntityDocQueryDeferredResponseSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.response.EntityDocQueryDeferredResponseSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.deferred.response.EntityDocQueryDeferredResponseSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocQueryDeferredResponseSecured</servlet-name>
@@ -55,7 +55,7 @@
 
     <servlet>
         <servlet-name>EntityDocQueryDeferredResponseUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.entity.deferred.response.EntityDocQueryDeferredResponseUnsecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.deferred.response.EntityDocQueryDeferredResponseUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocQueryDeferredResponseUnsecured</servlet-name>
@@ -65,7 +65,7 @@
 <!-- Passthru DocQuery Deferred Request servlet mapping -->
     <servlet>
         <servlet-name>PassthruDocQueryDeferredRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.deferred.request.PassthruDocQueryDeferredRequestSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.deferred.request.PassthruDocQueryDeferredRequestSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PassthruDocQueryDeferredRequestSecured</servlet-name>
@@ -73,7 +73,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>PassthruDocQueryDeferredRequestUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.deferred.request.PassthruDocQueryDeferredRequestUnsecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.deferred.request.PassthruDocQueryDeferredRequestUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PassthruDocQueryDeferredRequestUnsecured</servlet-name>
@@ -81,7 +81,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>PassthruDocQueryDeferredResponseSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.deferred.response.PassthruDocQueryDeferredResponseSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PassthruDocQueryDeferredResponseSecured</servlet-name>
@@ -89,7 +89,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>PassthruDocQueryDeferredResponseUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.deferred.response.PassthruDocQueryDeferredResponseUnsecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.deferred.response.PassthruDocQueryDeferredResponseUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PassthruDocQueryDeferredResponseUnsecured</servlet-name>
@@ -99,7 +99,7 @@
 <!-- NHIN -->
     <servlet>
         <servlet-name>DocQuery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.nhin.DocQuery</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DocQuery</servlet-name>
@@ -107,7 +107,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhinDocQueryDeferredRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.nhin.deferred.request.NhinDocQueryDeferredRequest</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.nhin.deferred.request.NhinDocQueryDeferredRequest</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinDocQueryDeferredRequest</servlet-name>
@@ -115,7 +115,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhinDocQueryDeferredResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.nhin.deferred.response.NhinDocQueryDeferredResponse</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.nhin.deferred.response.NhinDocQueryDeferredResponse</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinDocQueryDeferredResponse</servlet-name>
@@ -125,7 +125,7 @@
 <!-- Proxy -->
     <servlet>
         <servlet-name>NhincProxyDocQuerySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.NhincProxyDocQuerySecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQuerySecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyDocQuerySecured</servlet-name>
@@ -133,7 +133,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhincProxyDocQueryUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery.passthru.NhincProxyDocQueryUnsecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQueryUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyDocQueryUnsecured</servlet-name>
