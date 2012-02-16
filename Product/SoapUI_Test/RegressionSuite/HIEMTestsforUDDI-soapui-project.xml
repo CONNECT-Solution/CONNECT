@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="HIEMTestsforUDDI" resourceRoot="" soapui-version="3.0.1"><con:settings/><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:definitionCache rootPart="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl" type="TEXT"><con:part><con:url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any 
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="HIEMTestsforUDDI" resourceRoot="" soapui-version="3.0.1">
+	<con:settings/>
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+		<con:settings/>
+		<con:definitionCache rootPart="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl" type="TEXT">
+			<con:part>
+				<con:url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any 
 		intellectual property or other rights that might be claimed to 
 		pertain to the implementation or use of the technology described 
 		in this document or the extent to which any license under such 
@@ -294,7 +303,13 @@
          partner link type can have one or two roles.-->
     <plnk:role name="EntitySubscriptionManagerPortTypeRole" portType="tns:EntitySubscriptionManagerPortType"/>
   </plnk:partnerLinkType>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\wsdl\rw-2.wsdl</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</wsdl:definitions>]]></con:content>
+				<con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\wsdl\rw-2.wsdl</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -319,7 +334,13 @@ This document and the information contained herein is provided on an "AS IS" bas
   <wsdl:message name="ResourceUnavailableFault">
     <part name="ResourceUnavailableFault" element="wsrf-r:ResourceUnavailableFault"/>
   </wsdl:message>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\r-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</wsdl:definitions>]]></con:content>
+				<con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\r-2.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -345,7 +366,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="ResourceUnavailableFault" type="wsrf-r:ResourceUnavailableFaultType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director. 
 
@@ -399,7 +426,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
     <xsd:anyAttribute namespace="##other" processContents="lax"/>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
 <!--W3C XML Schema defined in the Web Services Addressing 1.0 specification
     http://www.w3.org/TR/ws-addr-core
 
@@ -521,7 +554,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:sequence>
     <xs:anyAttribute namespace="##other" processContents="lax"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
@@ -652,7 +691,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -1060,7 +1105,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="ResumeFailedFault" type="wsnt:ResumeFailedFaultType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -1187,7 +1238,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </xsd:annotation>
     </xsd:restriction>
   </xsd:simpleType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonEntity.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonEntity.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="NhincCommon.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../../ebRS/rs.xsd"/>
@@ -1367,7 +1424,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequestType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
   <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="../../xmlsoap.org/addressing.xsd"/>
   <xsd:complexType name="QualifiedSubjectIdentifierType">
     <xsd:sequence>
@@ -1627,7 +1690,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="UrlSet" type="tns:UrlSetType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url><con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
 Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
 
 Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
@@ -1765,7 +1834,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
 <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
   <!--Import the rim.xsd file with XML schema mappaing from RIM-->
   <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
@@ -2170,7 +2245,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </complexContent>
   </complexType>
   <element name="StringFilter" type="tns:StringFilterType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
@@ -2704,7 +2785,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </complexContent>
   </complexType>
   <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -2761,7 +2848,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     <attribute name="requestId" type="anyURI" use="optional"/>
   </complexType>
   <element name="RegistryResponse" type="tns:RegistryResponseType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
@@ -2844,7 +2937,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProvideAndRegisterDocumentSetRequest" type="ProvideAndRegisterDocumentSetRequestType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -2971,7 +3070,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url><con:content><![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
 <xs:schema targetNamespace="http://nhinc.services.com/schema/auditmessage" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://nhinc.services.com/schema/auditmessage">
   <xs:complexType name="AuditMessageType">
     <xs:sequence>
@@ -3370,7 +3475,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FindAuditEventsResponse" type="tns:FindAuditEventsResponseType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Subscription.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Subscription.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
@@ -3660,7 +3771,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="MessageTypes" type="tns:MessageTypesType"></xsd:element>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:complexType name="CdcBioPackageSubscriptionCriteriaType">
     <xsd:sequence>
       <xsd:element name="Frequency" minOccurs="0">
@@ -3685,7 +3802,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     <xsd:restriction base="xsd:base64Binary"/>
   </xsd:simpleType>
   <xsd:element name="CdcBioPackagePayload" type="tns:CdcBioPackagePayloadType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../common/Cdc.xsd" namespace="http://www.hhs.gov/healthit/nhin/cdc"/>
@@ -3722,7 +3845,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
@@ -3757,8 +3886,41 @@ No other rights are granted by implication, estoppel or otherwise.-->
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/EntityNotificationProducer</con:endpoint><con:endpoint>http://MHSNHIE3.fedsconnect.org:9080/NhinConnect/EntityNotificationProducer</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer</con:endpoint></con:endpoints><con:operation action="urn:SubscribeCdcBioPackage" anonymous="optional" bindingOperationName="SubscribeCdcBioPackage" inputName="SubscribeCdcBioPackageRequest" isOneWay="false" name="SubscribeCdcBioPackage" outputName="SubscribeCdcBioPackageResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:SubscribeDocument" anonymous="optional" bindingOperationName="SubscribeDocument" inputName="SubscribeDocumentRequest" isOneWay="false" name="SubscribeDocument" outputName="SubscribeDocumentResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:Subscribe" anonymous="optional" bindingOperationName="Subscribe" inputName="SubscribeRequest" isOneWay="false" name="Subscribe" outputName="SubscribeResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:testSuite name="HIEMTestsforUDDI(non-patient centric) TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" id="380d18c7-c343-4d19-bc49-8cab79cd149b" keepSession="false" maxResults="0" name="2 HCIDs in the target XML" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+		</con:definitionCache>
+		<con:endpoints>
+			<con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/EntityNotificationProducer</con:endpoint>
+			<con:endpoint>http://MHSNHIE3.fedsconnect.org:9080/NhinConnect/EntityNotificationProducer</con:endpoint>
+			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer</con:endpoint>
+		</con:endpoints>
+		<con:operation action="urn:SubscribeCdcBioPackage" anonymous="optional" bindingOperationName="SubscribeCdcBioPackage" inputName="SubscribeCdcBioPackageRequest" isOneWay="false" name="SubscribeCdcBioPackage" outputName="SubscribeCdcBioPackageResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+		</con:operation>
+		<con:operation action="urn:SubscribeDocument" anonymous="optional" bindingOperationName="SubscribeDocument" inputName="SubscribeDocumentRequest" isOneWay="false" name="SubscribeDocument" outputName="SubscribeDocumentResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+		</con:operation>
+		<con:operation action="urn:Subscribe" anonymous="optional" bindingOperationName="Subscribe" inputName="SubscribeRequest" isOneWay="false" name="Subscribe" outputName="SubscribeResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+		</con:operation>
+	</con:interface>
+	<con:testSuite name="HIEMTestsforUDDI(non-patient centric) TestSuite">
+		<con:settings/>
+		<con:runType>SEQUENTIAL</con:runType>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="380d18c7-c343-4d19-bc49-8cab79cd149b" keepSession="false" maxResults="0" name="2 HCIDs in the target XML" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -3780,11 +3942,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -3799,11 +3967,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="2 HCIDs in the target XML">
       <urn:SubscribeRequest>
@@ -4048,12 +4235,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:01Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="05035f21-82e4-4d62-8775-f29f884056e0" keepSession="false" maxResults="0" name="1 HCID in the target XML" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:01Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="05035f21-82e4-4d62-8775-f29f884056e0" keepSession="false" maxResults="0" name="1 HCID in the target XML" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -4075,11 +4318,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -4094,11 +4343,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="1 HCID in the target XML">
       <urn:SubscribeRequest>
@@ -4335,12 +4603,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:21Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="0c5608e8-44d7-4cdb-9129-1433ee670322" keepSession="false" maxResults="0" name="1 non-existant HCID in the target XML" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:21Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0c5608e8-44d7-4cdb-9129-1433ee670322" keepSession="false" maxResults="0" name="1 non-existant HCID in the target XML" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -4362,11 +4686,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -4381,11 +4711,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="1 non-existant HCID in the target XML">
       <urn:SubscribeRequest>
@@ -4621,12 +4970,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:23Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="cce5617d-5103-41fa-816a-192454f45d24" keepSession="false" maxResults="0" name="Empty target XML" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:23Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="cce5617d-5103-41fa-816a-192454f45d24" keepSession="false" maxResults="0" name="Empty target XML" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -4648,11 +5053,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -4667,11 +5078,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="Empty target XML">
       <urn:SubscribeRequest>
@@ -4898,12 +5328,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:assertion>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 11 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:25Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="4715b1a1-7dc8-408b-b60d-980a666e658f" keepSession="false" maxResults="0" name="1 region (VA ) - 4.4, 5.5, 7.7 and not 1.1" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:25Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="4715b1a1-7dc8-408b-b60d-980a666e658f" keepSession="false" maxResults="0" name="1 region (VA ) - 4.4, 5.5, 7.7 and not 1.1" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -4925,11 +5411,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -4944,11 +5436,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="1 region (VA ) - 4.4, 5.5, 7.7 and not 1.1">
       <urn:SubscribeRequest>
@@ -5186,12 +5697,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 9 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:30Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="b7923c2a-ecb2-4679-a62a-4f5dced5ccaa" keepSession="false" maxResults="0" name="1 region (FL ) - 6.6 and 7.7" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:30Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="b7923c2a-ecb2-4679-a62a-4f5dced5ccaa" keepSession="false" maxResults="0" name="1 region (FL ) - 6.6 and 7.7" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -5213,11 +5780,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -5232,11 +5805,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="1 region (FL ) - 6.6 and 7.7">
       <urn:SubscribeRequest>
@@ -5474,12 +6066,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:33Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="fb9b8f61-8655-49ff-bc4b-7eea78d13957" keepSession="false" maxResults="0" name="1 region (GA ) - 7.7" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:33Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="fb9b8f61-8655-49ff-bc4b-7eea78d13957" keepSession="false" maxResults="0" name="1 region (GA ) - 7.7" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -5501,11 +6149,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -5520,11 +6174,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="1 region (GA ) - 7.7">
       <urn:SubscribeRequest>
@@ -5762,12 +6435,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:36Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="decf37f2-4b60-4780-b42e-f49aa8f1137c" keepSession="false" maxResults="0" name="1 non-existant region (MA ) - none" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:36Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="decf37f2-4b60-4780-b42e-f49aa8f1137c" keepSession="false" maxResults="0" name="1 non-existant region (MA ) - none" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -5789,11 +6518,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -5808,11 +6543,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="1 non-existant region (MA ) - none">
       <urn:SubscribeRequest>
@@ -6050,12 +6804,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:38Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="790d95a6-f7c4-4845-843e-0b784ff5abe4" keepSession="false" maxResults="0" name="1 region (GA) and 1 HCID (4.4) - 4.4 and 7.7" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:38Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="790d95a6-f7c4-4845-843e-0b784ff5abe4" keepSession="false" maxResults="0" name="1 region (GA) and 1 HCID (4.4) - 4.4 and 7.7" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -6077,11 +6887,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -6096,11 +6912,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="1 region (GA) and 1 HCID (4.4) - 4.4 and 7.7">
       <urn:SubscribeRequest>
@@ -6338,12 +7173,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:39Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="a257b1f6-f1ff-4039-a592-27c6010d66bb" keepSession="false" maxResults="0" name="1 region (GA) and 1 HCID (7.7) from the same region" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:39Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="a257b1f6-f1ff-4039-a592-27c6010d66bb" keepSession="false" maxResults="0" name="1 region (GA) and 1 HCID (7.7) from the same region" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -6365,11 +7256,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -6384,11 +7281,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="1 region (GA) and 1 HCID (7.7) from the same region">
       <urn:SubscribeRequest>
@@ -6626,12 +7542,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:42Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="96c83163-24d5-469c-94f0-b77b787a7d3e" keepSession="false" maxResults="0" name="2 regions ( GA and FL )" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:42Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="96c83163-24d5-469c-94f0-b77b787a7d3e" keepSession="false" maxResults="0" name="2 regions ( GA and FL )" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -6653,11 +7625,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -6672,11 +7650,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="2 regions ( GA and FL )">
       <urn:SubscribeRequest>
@@ -6913,12 +7910,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:44Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="4dde52c1-6b2a-457e-836b-81b2bf97f3de" keepSession="false" maxResults="0" name="1 region ( FL ) + 2HCID - 4.4, 6.6 and 7.7" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:44Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="4dde52c1-6b2a-457e-836b-81b2bf97f3de" keepSession="false" maxResults="0" name="1 region ( FL ) + 2HCID - 4.4, 6.6 and 7.7" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -6940,11 +7993,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -6959,11 +8018,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="1 region ( FL ) + 2HCID - 4.4, 6.6 and 7.7">
       <urn:SubscribeRequest>
@@ -7210,12 +8288,68 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 7 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:47Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="5f73c5a0-af6e-42f3-a60b-a916f0d40cab" keepSession="false" maxResults="0" name="1 region ( VA ) +  1HCID (4.4 ) in the same region - 1.1, 4.4, 5.5, 7.7" searchProperties="true"><con:settings/><con:testStep disabled="true" name="Initialize Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Copy InternalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:47Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5f73c5a0-af6e-42f3-a60b-a916f0d40cab" keepSession="false" maxResults="0" name="1 region ( VA ) +  1HCID (4.4 ) in the same region - 1.1, 4.4, 5.5, 7.7" searchProperties="true">
+			<con:settings/>
+			<con:testStep disabled="true" name="Initialize Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Copy InternalConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -7237,11 +8371,17 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-</script></con:config></con:testStep><con:testStep name="update config" type="groovy"><con:settings/><con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="update config" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
+
    log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
    File file = new File(directory,filename);
    Properties properties = new Properties();
@@ -7256,11 +8396,30 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
 UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);
-</script></con:config></con:testStep><con:testStep name="Clear Subscription Table" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Clear Subscription Table" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
-</script></con:config></con:testStep><con:testStep name="Subscribe" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityNotificationProducerBindingSoap</con:interface><con:operation>Subscribe</con:operation><con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Subscribe" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
+					<con:operation>Subscribe</con:operation>
+					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="HIEMTestsforUDDI" testCase="1 region ( VA ) +  1HCID (4.4 ) in the same region - 1.1, 4.4, 5.5, 7.7">
       <urn:SubscribeRequest>
@@ -7500,11 +8659,246 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Count Subscriptions" type="groovy"><con:settings/><con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Count Subscriptions" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 9 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T16:42:51Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property><con:property><con:name>date</con:name><con:value>05/30/2010 00:00:00</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>hc3description</con:name><con:value>Test3</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>testHCID</con:name><con:value>8.8</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>testHCDescription</con:name><con:value>Test HCID</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>MPIDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config</con:value></con:property><con:property><con:name>hc2description</con:name><con:value>Test2</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>hc4description</con:name><con:value>Test4</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>-f7c1a5d:1204e50e42e:-79eb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubscriptionManager</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>hcid4</con:name><con:value>7.7</con:value></con:property><con:property><con:name>hcid3</con:name><con:value>6.6</con:value></con:property><con:property><con:name>hcid2</con:name><con:value>5.5</con:value></con:property><con:property><con:name>hcid1</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UnsubSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>Region4</con:name><con:value>US-MA</con:value></con:property><con:property><con:name>hc1description</con:name><con:value>Test1</con:value></con:property><con:property><con:name>Region3</con:name><con:value>US-GA</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>Region2</con:name><con:value>US-FL</con:value></con:property><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>Region1</con:name><con:value>US-VA</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationConsumer</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'HIEMTestsforUDDI-soapui-project.properties')
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T16:42:51Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>date</con:name>
+					<con:value>05/30/2010 00:00:00</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:properties/>
+		<con:reportParameters/>
+	</con:testSuite>
+	<con:requirements/>
+	<con:properties>
+		<con:property>
+			<con:name>hc3description</con:name>
+			<con:value>Test3</con:value>
+		</con:property>
+		<con:property>
+			<con:name>MockHost</con:name>
+			<con:value>localhost</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalPatientID</con:name>
+			<con:value>D123401</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalHCID</con:name>
+			<con:value>1.1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>NHINGatewayHost</con:name>
+			<con:value>localhost</con:value>
+		</con:property>
+		<con:property>
+			<con:name>testHCID</con:name>
+			<con:value>8.8</con:value>
+		</con:property>
+		<con:property>
+			<con:name>NHINGatewayConfigDir</con:name>
+			<con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
+		</con:property>
+		<con:property>
+			<con:name>SubscribePatientID</con:name>
+			<con:value>D123401</con:value>
+		</con:property>
+		<con:property>
+			<con:name>SubscriptionDB</con:name>
+			<con:value>subscriptionrepository</con:value>
+		</con:property>
+		<con:property>
+			<con:name>testHCDescription</con:name>
+			<con:value>Test HCID</con:value>
+		</con:property>
+		<con:property>
+			<con:name>RemoteHCID</con:name>
+			<con:value>2.2</con:value>
+		</con:property>
+		<con:property>
+			<con:name>RemotePatientID</con:name>
+			<con:value>D123401</con:value>
+		</con:property>
+		<con:property>
+			<con:name>DBUser</con:name>
+			<con:value>nhincuser</con:value>
+		</con:property>
+		<con:property>
+			<con:name>SubscriptionTable</con:name>
+			<con:value>subscription</con:value>
+		</con:property>
+		<con:property>
+			<con:name>MPIDir</con:name>
+			<con:value>C:/Sun/AppServer/domains/domain1/config</con:value>
+		</con:property>
+		<con:property>
+			<con:name>hc2description</con:name>
+			<con:value>Test2</con:value>
+		</con:property>
+		<con:property>
+			<con:name>SubscriptionManagerEndpointAddress</con:name>
+			<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+		</con:property>
+		<con:property>
+			<con:name>NotificationEndpoint</con:name>
+			<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value>
+		</con:property>
+		<con:property>
+			<con:name>hc4description</con:name>
+			<con:value>Test4</con:value>
+		</con:property>
+		<con:property>
+			<con:name>RemoteAA</con:name>
+			<con:value>2.2</con:value>
+		</con:property>
+		<con:property>
+			<con:name>DBPort</con:name>
+			<con:value>3306</con:value>
+		</con:property>
+		<con:property>
+			<con:name>NotifySubscriptionID</con:name>
+			<con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
+		</con:property>
+		<con:property>
+			<con:name>AAMappingTable</con:name>
+			<con:value>aa_to_home_community_mapping</con:value>
+		</con:property>
+		<con:property>
+			<con:name>PatientCorrelationDB</con:name>
+			<con:value>patientcorrelationdb</con:value>
+		</con:property>
+		<con:property>
+			<con:name>RemoteHCDescription</con:name>
+			<con:value>InternalTest2</con:value>
+		</con:property>
+		<con:property>
+			<con:name>Endpoint-Unsubscribe</con:name>
+			<con:value>http://localhost:8080/CONNECTAdapter/EntitySubscriptionManager</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalAA</con:name>
+			<con:value>1.1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>hcid4</con:name>
+			<con:value>7.7</con:value>
+		</con:property>
+		<con:property>
+			<con:name>hcid3</con:name>
+			<con:value>6.6</con:value>
+		</con:property>
+		<con:property>
+			<con:name>hcid2</con:name>
+			<con:value>5.5</con:value>
+		</con:property>
+		<con:property>
+			<con:name>hcid1</con:name>
+			<con:value>4.4</con:value>
+		</con:property>
+		<con:property>
+			<con:name>UnsubSubscriptionID</con:name>
+			<con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
+		</con:property>
+		<con:property>
+			<con:name>DBPass</con:name>
+			<con:value>nhincpass</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalHCDescription</con:name>
+			<con:value>InternalTest1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>PatientCorrelationTable</con:name>
+			<con:value>correlatedidentifiers</con:value>
+		</con:property>
+		<con:property>
+			<con:name>Region4</con:name>
+			<con:value>US-MA</con:value>
+		</con:property>
+		<con:property>
+			<con:name>hc1description</con:name>
+			<con:value>Test1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>Region3</con:name>
+			<con:value>US-GA</con:value>
+		</con:property>
+		<con:property>
+			<con:name>DBHost</con:name>
+			<con:value>localhost</con:value>
+		</con:property>
+		<con:property>
+			<con:name>NotifySubscriptionManagerEndpointAddress</con:name>
+			<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+		</con:property>
+		<con:property>
+			<con:name>Region2</con:name>
+			<con:value>US-FL</con:value>
+		</con:property>
+		<con:property>
+			<con:name>AAMappingDB</con:name>
+			<con:value>assigningauthoritydb</con:value>
+		</con:property>
+		<con:property>
+			<con:name>SubscriptionEndpoint</con:name>
+			<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value>
+		</con:property>
+		<con:property>
+			<con:name>Region1</con:name>
+			<con:value>US-VA</con:value>
+		</con:property>
+		<con:property>
+			<con:name>Endpoint-Subscribe</con:name>
+			<con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value>
+		</con:property>
+		<con:property>
+			<con:name>Endpoint-Notify</con:name>
+			<con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationConsumer</con:value>
+		</con:property>
+	</con:properties>
+	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'HIEMTestsforUDDI-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
@@ -7556,7 +8950,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
   def port = delegate.findProperty('DBPort')
   def user = delegate.findProperty('DBUser')
   def pass = delegate.findProperty('DBPass')
-  
+
   def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
   def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
   try {
@@ -7564,4 +8958,29 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
   } finally {
     sql.close()
   }
-}</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting><con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase"><con:script>FileUtils.backupConfiguration(context, log);</con:script></con:eventHandlers><con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase"><con:script>FileUtils.restoreConfiguration(context, log)</con:script></con:eventHandlers></con:soapui-project>
+}</con:afterLoadScript>
+	<con:wssContainer/>
+	<con:databaseConnectionContainer/>
+	<con:reporting>
+		<con:reportTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:parameters/>
+	</con:reporting>
+	<con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
+		<con:script>FileUtils.backupConfiguration(context, log);</con:script>
+	</con:eventHandlers>
+	<con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
+		<con:script>FileUtils.restoreConfiguration(context, log)</con:script>
+	</con:eventHandlers>
+</con:soapui-project>

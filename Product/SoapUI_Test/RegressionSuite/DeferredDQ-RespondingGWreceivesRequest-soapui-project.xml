@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="DeferredDQ-RespondingGWreceivesRequest" resourceRoot="" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest}NhincProxyDocQueryDeferredRequestBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequest.wsdl" name="NhincProxyDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest}NhincProxyDocQueryDeferredRequestBindingSoap" definition="WSDL path not set.  #NhincProxyDocQueryDeferredRequest.wsdl" name="NhincProxyDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequest.wsdl" type="TEXT">
       <con:part>
@@ -3786,7 +3786,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery}NhincProxyAuditLogQueryBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl" name="NhincProxyAuditLogQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery}NhincProxyAuditLogQueryBindingSoap" definition="WSDL path not set.  #NhincProxyAuditLogQuery.wsdl" name="NhincProxyAuditLogQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl" type="TEXT">
       <con:part>
@@ -7316,7 +7316,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl" type="TEXT">
       <con:part>
@@ -12026,7 +12026,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterror}AdapterDocQueryDeferredRequestErrorBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestError.wsdl" name="AdapterDocQueryDeferredRequestErrorBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterror}AdapterDocQueryDeferredRequestErrorBindingSoap" definition="WSDL path not set.  #AdapterDocQueryDeferredRequestError.wsdl" name="AdapterDocQueryDeferredRequestErrorBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestError.wsdl" type="TEXT">
       <con:part>
@@ -16665,7 +16665,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequest}AdapterDocQueryDeferredRequestBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequest.wsdl" name="AdapterDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequest}AdapterDocQueryDeferredRequestBindingSoap" definition="WSDL path not set.  #AdapterDocQueryDeferredRequest.wsdl" name="AdapterDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequest.wsdl" type="TEXT">
       <con:part>
@@ -21486,7 +21486,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequestsecured}AdapterDocQueryDeferredRequestSecuredBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestSecured.wsdl" name="AdapterDocQueryDeferredRequestSecuredBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequestsecured}AdapterDocQueryDeferredRequestSecuredBindingSoap" definition="WSDL path not set.  #AdapterDocQueryDeferredRequestSecured.wsdl" name="AdapterDocQueryDeferredRequestSecuredBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestSecured.wsdl" type="TEXT">
       <con:part>
@@ -26217,7 +26217,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured}AdapterDocQueryDeferredRequestErrorSecuredBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestErrorSecured.wsdl" name="AdapterDocQueryDeferredRequestErrorSecuredBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured}AdapterDocQueryDeferredRequestErrorSecuredBindingSoap" definition="WSDL path not set.  #AdapterDocQueryDeferredRequestErrorSecured.wsdl" name="AdapterDocQueryDeferredRequestErrorSecuredBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQueryDeferredRequestErrorSecured.wsdl" type="TEXT">
       <con:part>

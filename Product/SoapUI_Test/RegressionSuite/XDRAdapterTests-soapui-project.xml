@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="XDRAdapter-Tests" resourceRoot="" soapui-version="3.0.1"><con:settings/><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadapterxdr}AdapterXDR_Binding" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDR.wsdl" name="AdapterXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDR.wsdl" type="TEXT"><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDR.wsdl</con:url><con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Repository Actor-->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="XDRAdapter-Tests" resourceRoot="" soapui-version="3.0.1">
+	<con:settings/>
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadapterxdr}AdapterXDR_Binding" definition="WSDL path not set.  #AdapterComponentXDR.wsdl" name="AdapterXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+		<con:settings/>
+		<con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDR.wsdl" type="TEXT">
+			<con:part>
+				<con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDR.wsdl</con:url>
+				<con:content>
+					<![CDATA[<!--This wsdl file is for an XDS.b Document Repository Actor-->
 <definitions name="AdapterXDR" targetNamespace="urn:gov:hhs:fha:nhinc:nhincadapterxdr" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincadapterxdr" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:wsaws="http://www.w3.org/2005/08/addressing" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <documentation>IHE XDR Document Repository</documentation>
   <types>
@@ -49,7 +58,13 @@
       <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterXDR"/>
     </port>
   </service>
-</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+</definitions>]]></con:content>
+				<con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -106,7 +121,13 @@
     <attribute name="requestId" type="anyURI" use="optional"/>
   </complexType>
   <element name="RegistryResponse" type="tns:RegistryResponseType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
@@ -640,7 +661,13 @@
     </complexContent>
   </complexType>
   <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
@@ -771,7 +798,13 @@
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
@@ -854,7 +887,13 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProvideAndRegisterDocumentSetRequest" type="ProvideAndRegisterDocumentSetRequestType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -981,7 +1020,13 @@
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
 <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
   <!--Import the rim.xsd file with XML schema mappaing from RIM-->
   <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
@@ -1386,7 +1431,13 @@
     </complexContent>
   </complexType>
   <element name="StringFilter" type="tns:StringFilterType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\gateway\SamlTokenData.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:samltokendata">
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\gateway\SamlTokenData.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:samltokendata">
   <xsd:complexType name="SamlTokenDataType">
     <xsd:sequence>
       <xsd:element name="action" type="xsd:string"></xsd:element>
@@ -1411,7 +1462,13 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="SamlTokenData" type="tns:SamlTokenDataType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonAdapter.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:context:schema:os">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonAdapter.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:context:schema:os">
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
   <xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd"/>
@@ -2229,7 +2286,13 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="FilterDocRetrieveResultsResponse" type="tns:FilterDocRetrieveResultsResponseType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
   <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="../../xmlsoap.org/addressing.xsd"/>
   <xsd:complexType name="QualifiedSubjectIdentifierType">
     <xsd:sequence>
@@ -2489,7 +2552,13 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="UrlSet" type="tns:UrlSetType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url><con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
 Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
 
 Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
@@ -2627,7 +2696,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url><con:content><![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
 <xs:schema targetNamespace="http://nhinc.services.com/schema/auditmessage" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://nhinc.services.com/schema/auditmessage">
   <xs:complexType name="AuditMessageType">
     <xs:sequence>
@@ -3026,7 +3101,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FindAuditEventsResponse" type="tns:FindAuditEventsResponseType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -3434,7 +3515,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="ResumeFailedFault" type="wsnt:ResumeFailedFaultType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
 <!--W3C XML Schema defined in the Web Services Addressing 1.0 specification
     http://www.w3.org/TR/ws-addr-core
 
@@ -3556,7 +3643,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:sequence>
     <xs:anyAttribute namespace="##other" processContents="lax"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director. 
 
@@ -3610,7 +3703,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
     <xsd:anyAttribute namespace="##other" processContents="lax"/>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -3737,7 +3836,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </xsd:annotation>
     </xsd:restriction>
   </xsd:simpleType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../common/Cdc.xsd" namespace="http://www.hhs.gov/healthit/nhin/cdc"/>
@@ -3774,7 +3879,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:complexType name="CdcBioPackageSubscriptionCriteriaType">
     <xsd:sequence>
       <xsd:element name="Frequency" minOccurs="0">
@@ -3799,7 +3910,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xsd:restriction base="xsd:base64Binary"/>
   </xsd:simpleType>
   <xsd:element name="CdcBioPackagePayload" type="tns:CdcBioPackagePayloadType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
@@ -3834,7 +3951,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\oasis\xacml\access_control-xacml-2.0-context-schema-os.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:xacml:2.0:context:schema:os" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\oasis\xacml\access_control-xacml-2.0-context-schema-os.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:xacml:2.0:context:schema:os" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="urn:oasis:names:tc:xacml:2.0:policy:schema:os" schemaLocation="access_control-xacml-2.0-policy-schema-os.xsd"/>
   <!---->
   <xs:element name="Request" type="xacml-context:RequestType"/>
@@ -3966,7 +4089,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xs:attribute name="Issuer" type="xs:string" use="optional"/>
   </xs:complexType>
   <!---->
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\oasis\xacml\access_control-xacml-2.0-policy-schema-os.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:xacml:2.0:policy:schema:os" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\oasis\xacml\access_control-xacml-2.0-policy-schema-os.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:xacml:2.0:policy:schema:os" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <!---->
   <xs:element name="PolicySet" type="xacml:PolicySetType"/>
   <xs:complexType name="PolicySetType">
@@ -4346,7 +4475,22 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:complexContent>
   </xs:complexType>
   <!---->
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterXDR</con:endpoint></con:endpoints><con:operation action="tns:ProvideAndRegisterDocumentSet-b" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSetb" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSetb" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+		</con:definitionCache>
+		<con:endpoints>
+			<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterXDR</con:endpoint>
+		</con:endpoints>
+		<con:operation action="tns:ProvideAndRegisterDocumentSet-b" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSetb" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSetb" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+			<con:call name="Request 1">
+				<con:settings/>
+				<con:encoding>UTF-8</con:encoding>
+				<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+				<con:request>
+					<![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:Adapter_ProvideAndRegisterDocumentSetRequest>
@@ -4656,7 +4800,15 @@ This document and the information contained herein is provided on an "AS IS" bas
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:Adapter_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/></con:call><con:call name="Request 2"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+</soapenv:Envelope>]]></con:request>
+				<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+			</con:call>
+			<con:call name="Request 2">
+				<con:settings/>
+				<con:encoding>UTF-8</con:encoding>
+				<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+				<con:request>
+					<![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:Adapter_ProvideAndRegisterDocumentSetRequest>
@@ -4966,7 +5118,28 @@ This document and the information contained herein is provided on an "AS IS" bas
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:Adapter_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="XDRAdapter-Tests TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" id="d4004b4f-91ff-45b5-96a2-434ef03ef648" keepSession="false" maxResults="0" name="Success" searchProperties="true"><con:settings/><con:testStep name="Success" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>AdapterXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:request incomingWss="" name="Success" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+</soapenv:Envelope>]]></con:request>
+				<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+				<con:wsrmConfig version="1.2"/>
+			</con:call>
+		</con:operation>
+	</con:interface>
+	<con:testSuite name="XDRAdapter-Tests TestSuite">
+		<con:settings/>
+		<con:runType>SEQUENTIAL</con:runType>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="d4004b4f-91ff-45b5-96a2-434ef03ef648" keepSession="false" maxResults="0" name="Success" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="Success" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
+					<con:request incomingWss="" name="Success" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="XDRAdapter-Tests" testCase="Success">
       <urn:Adapter_ProvideAndRegisterDocumentSetRequest>
@@ -5393,8 +5566,56 @@ This document and the information contained herein is provided on an "AS IS" bas
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:Adapter_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T12:42:44Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="c10d34ef-1d48-4356-a6f5-ff50fb09c49a" keepSession="false" maxResults="0" name="Success - Multiple Documents" searchProperties="true"><con:settings/><con:testStep name="Success - Multiple Documents" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>AdapterXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:request incomingWss="" name="Success - Multiple Documents" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint><con:request><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/@status</path>
+								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T12:42:44Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="c10d34ef-1d48-4356-a6f5-ff50fb09c49a" keepSession="false" maxResults="0" name="Success - Multiple Documents" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="Success - Multiple Documents" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
+					<con:request incomingWss="" name="Success - Multiple Documents" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+						<con:request>
+							<![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body projectName="XDRAdapter-Tests" testCase="Success - Multiple Documents">
       <ns15:Adapter_ProvideAndRegisterDocumentSetRequest xmlns:ns2="urn:ihe:iti:xds-b:2007" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns7="http://nhinc.services.com/schema/auditmessage" xmlns:ns8="urn:gov:hhs:fha:nhinc:gateway:samltokendata" xmlns:ns9="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns10="http://www.w3.org/2005/08/addressing" xmlns:ns11="http://docs.oasis-open.org/wsn/b-2" xmlns:ns12="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns13="http://docs.oasis-open.org/wsn/t-1" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns18="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns19="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns20="http://schemas.xmlsoap.org/ws/2004/08/addressing">
          <ns15:assertion>
@@ -5880,8 +6101,56 @@ This document and the information contained herein is provided on an "AS IS" bas
       </ns15:Adapter_ProvideAndRegisterDocumentSetRequest>
    </S:Body>
 </S:Envelope>
-]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns9='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns9:RegistryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T12:42:45Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="2b5a6a80-1973-4ee3-8e6a-1fb98c80dd8c" keepSession="false" maxResults="0" name="Failure - XDSUnknownPatientId" searchProperties="true"><con:settings/><con:testStep name="Failure - XDSUnknownPatientId" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>AdapterXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:request incomingWss="" name="Failure - XDSUnknownPatientId" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns9='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns9:RegistryResponse[1]/@status</path>
+								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T12:42:45Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="2b5a6a80-1973-4ee3-8e6a-1fb98c80dd8c" keepSession="false" maxResults="0" name="Failure - XDSUnknownPatientId" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="Failure - XDSUnknownPatientId" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
+					<con:request incomingWss="" name="Failure - XDSUnknownPatientId" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="XDRAdapter-Tests" testCase="Failure - XDSUnknownPatientId">
       <urn:Adapter_ProvideAndRegisterDocumentSetRequest>
@@ -6309,12 +6578,92 @@ This document and the information contained herein is provided on an "AS IS" bas
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:Adapter_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/@highestSeverity</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@severity</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@errorCode</path><content>XDSUnknownPatientId</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns9='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns9:RegistryResponse[1]/ns9:RegistryErrorList[1]/ns9:RegistryError[1]/@codeContext</path><content>Patient ID referenced in metadata is not known to the Receiving NHIE</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T12:42:45Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="0754e7cd-4c12-4eb0-b08f-6f2213b2da12" keepSession="false" maxResults="0" name="Failure - XDSPatientIdDoesNotMatch" searchProperties="true"><con:settings/><con:testStep name="Failure - XDSPatientIdDoesNotMatch" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>AdapterXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:request incomingWss="" name="Failure - XDSPatientIdDoesNotMatch" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint><con:request><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/@status</path>
+								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/@highestSeverity</path>
+								<content>ERROR</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@severity</path>
+								<content>ERROR</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@errorCode</path>
+								<content>XDSUnknownPatientId</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns9='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns9:RegistryResponse[1]/ns9:RegistryErrorList[1]/ns9:RegistryError[1]/@codeContext</path>
+								<content>Patient ID referenced in metadata is not known to the Receiving NHIE</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T12:42:45Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0754e7cd-4c12-4eb0-b08f-6f2213b2da12" keepSession="false" maxResults="0" name="Failure - XDSPatientIdDoesNotMatch" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="Failure - XDSPatientIdDoesNotMatch" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
+					<con:request incomingWss="" name="Failure - XDSPatientIdDoesNotMatch" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+						<con:request>
+							<![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body projectName="XDRAdapter-Tests" testCase="Failure - XDSPatientIdDoesNotMatch">
       <ns15:Adapter_ProvideAndRegisterDocumentSetRequest xmlns:ns2="urn:ihe:iti:xds-b:2007" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns7="http://nhinc.services.com/schema/auditmessage" xmlns:ns8="urn:gov:hhs:fha:nhinc:gateway:samltokendata" xmlns:ns9="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns10="http://www.w3.org/2005/08/addressing" xmlns:ns11="http://docs.oasis-open.org/wsn/b-2" xmlns:ns12="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns13="http://docs.oasis-open.org/wsn/t-1" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns18="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns19="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns20="http://schemas.xmlsoap.org/ws/2004/08/addressing">
          <ns15:assertion>
@@ -6800,12 +7149,92 @@ This document and the information contained herein is provided on an "AS IS" bas
       </ns15:Adapter_ProvideAndRegisterDocumentSetRequest>
    </S:Body>
 </S:Envelope>
-]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/@highestSeverity</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@severity</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@errorCode</path><content>XDSPatientIdDoesNotMatch</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@codeContext</path><content>Patient Ids do not match</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T12:42:45Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="21f2e2ae-ac68-4629-897a-9352b279722d" keepSession="false" maxResults="0" name="Failure - XDSMissingDocumentMetadata" searchProperties="true"><con:settings/><con:testStep name="Failure - XDSMissingDocumentMetadata" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>AdapterXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:request incomingWss="" name="Failure - XDSMissingDocumentMetadata" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/@status</path>
+								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/@highestSeverity</path>
+								<content>ERROR</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@severity</path>
+								<content>ERROR</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@errorCode</path>
+								<content>XDSPatientIdDoesNotMatch</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@codeContext</path>
+								<content>Patient Ids do not match</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T12:42:45Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="21f2e2ae-ac68-4629-897a-9352b279722d" keepSession="false" maxResults="0" name="Failure - XDSMissingDocumentMetadata" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="Failure - XDSMissingDocumentMetadata" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
+					<con:request incomingWss="" name="Failure - XDSMissingDocumentMetadata" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="XDRAdapter-Tests" testCase="Failure - XDSMissingDocumentMetadata">
       <urn:Adapter_ProvideAndRegisterDocumentSetRequest>
@@ -7232,12 +7661,92 @@ This document and the information contained herein is provided on an "AS IS" bas
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:Adapter_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/@highestSeverity</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@severity</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@errorCode</path><content>XDSMissingDocumentMetadata</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@codeContext</path><content>Unsupported Mime Type: text/xffffml</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T12:42:45Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="221252c1-3759-42ab-9189-bb50f0e50412" keepSession="false" maxResults="0" name="Failure - XDSMissingDocument" searchProperties="true"><con:settings/><con:testStep name="Failure - XDSMissingDocument" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>AdapterXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:request incomingWss="" name="Failure - XDSMissingDocument" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/@status</path>
+								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/@highestSeverity</path>
+								<content>ERROR</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@severity</path>
+								<content>ERROR</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@errorCode</path>
+								<content>XDSMissingDocumentMetadata</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@codeContext</path>
+								<content>Unsupported Mime Type: text/xffffml</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T12:42:45Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="221252c1-3759-42ab-9189-bb50f0e50412" keepSession="false" maxResults="0" name="Failure - XDSMissingDocument" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="Failure - XDSMissingDocument" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
+					<con:request incomingWss="" name="Failure - XDSMissingDocument" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="XDRAdapter-Tests" testCase="Failure - XDSMissingDocument">
       <urn:Adapter_ProvideAndRegisterDocumentSetRequest>
@@ -7454,12 +7963,92 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:ProvideAndRegisterDocumentSetRequest/>
       </urn:Adapter_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/@highestSeverity</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@severity</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@errorCode</path><content>XDSMissingDocument</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@codeContext</path><content>DocumentList did not contain any documents</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T12:42:45Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="0364af6e-7ebd-401b-b57c-5349951e68cc" keepSession="false" maxResults="0" name="Multiple Failure Messages" searchProperties="true"><con:settings/><con:testStep name="Multiple Failure Messages" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>AdapterXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:request incomingWss="" name="Multiple Failure Messages" outgoingWss="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/@status</path>
+								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/@highestSeverity</path>
+								<content>ERROR</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@severity</path>
+								<content>ERROR</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@errorCode</path>
+								<content>XDSMissingDocument</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@codeContext</path>
+								<content>DocumentList did not contain any documents</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T12:42:45Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0364af6e-7ebd-401b-b57c-5349951e68cc" keepSession="false" maxResults="0" name="Multiple Failure Messages" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="Multiple Failure Messages" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
+					<con:request incomingWss="" name="Multiple Failure Messages" outgoingWss="" wssPasswordType="">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="XDRAdapter-Tests" testCase="Multiple Failure Messages">
       <urn:Adapter_ProvideAndRegisterDocumentSetRequest>
@@ -7887,15 +8476,213 @@ This document and the information contained herein is provided on an "AS IS" bas
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:Adapter_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/@highestSeverity</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@severity</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@errorCode</path><content>XDSMissingDocument</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@codeContext</path><content>Document Id: Document01 exists in metadata with no corresponding attached document</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[2]/@severity</path><content>ERROR</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[2]/@errorCode</path><content>XDSUnknownPatientId</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns9='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns9:RegistryResponse[1]/ns9:RegistryErrorList[1]/ns9:RegistryError[2]/@codeContext</path><content>Patient ID referenced in metadata is not known to the Receiving NHIE</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-30T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-30T12:42:45Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/30/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-30T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>Endpoint-XDRProxy</con:name><con:value>http://localhost:8080/CONNECTAdapter/ProxyXDR_Service</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MPIDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>IncorrectPatientId</con:name><con:value>D1111</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Inbound User</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR1</con:value></con:property><con:property><con:name>Endpoint-Adapter</con:name><con:value>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</con:value></con:property><con:property><con:name>UnknownPatientId</con:name><con:value>1111</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'XDRAdapterTests-soapui-project.properties')
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/@status</path>
+								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/@highestSeverity</path>
+								<content>ERROR</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@severity</path>
+								<content>ERROR</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@errorCode</path>
+								<content>XDSMissingDocument</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[1]/@codeContext</path>
+								<content>Document Id: Document01 exists in metadata with no corresponding attached document</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[2]/@severity</path>
+								<content>ERROR</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns3:RegistryResponse[1]/ns3:RegistryErrorList[1]/ns3:RegistryError[2]/@errorCode</path>
+								<content>XDSUnknownPatientId</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns9='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns9:RegistryResponse[1]/ns9:RegistryErrorList[1]/ns9:RegistryError[2]/@codeContext</path>
+								<content>Patient ID referenced in metadata is not known to the Receiving NHIE</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-30T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-30T12:42:45Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/30/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-30T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:properties/>
+		<con:reportParameters/>
+	</con:testSuite>
+	<con:requirements/>
+	<con:properties>
+		<con:property>
+			<con:name>DBPort</con:name>
+			<con:value>3306</con:value>
+		</con:property>
+		<con:property>
+			<con:name>RemoteHCDescription</con:name>
+			<con:value>InternalTest2</con:value>
+		</con:property>
+		<con:property>
+			<con:name>DQDocID</con:name>
+			<con:value>1.123401.11111</con:value>
+		</con:property>
+		<con:property>
+			<con:name>NHINGatewayConfigDir</con:name>
+			<con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
+		</con:property>
+		<con:property>
+			<con:name>DQPatientID</con:name>
+			<con:value>D123401</con:value>
+		</con:property>
+		<con:property>
+			<con:name>RemoteHCID</con:name>
+			<con:value>2.2</con:value>
+		</con:property>
+		<con:property>
+			<con:name>NHINGatewayHost</con:name>
+			<con:value>localhost</con:value>
+		</con:property>
+		<con:property>
+			<con:name>RemoteAA</con:name>
+			<con:value>2.2</con:value>
+		</con:property>
+		<con:property>
+			<con:name>DBHost</con:name>
+			<con:value>localhost</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalHCID</con:name>
+			<con:value>1.1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalAA</con:name>
+			<con:value>1.1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>Endpoint-XDRProxy</con:name>
+			<con:value>http://localhost:8080/CONNECTAdapter/ProxyXDR_Service</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalPatientID</con:name>
+			<con:value>D123401</con:value>
+		</con:property>
+		<con:property>
+			<con:name>RemotePatientID</con:name>
+			<con:value>D123401</con:value>
+		</con:property>
+		<con:property>
+			<con:name>MPIDir</con:name>
+			<con:value>C:/Sun/AppServer/domains/domain1/config</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalHCDescription</con:name>
+			<con:value>InternalTest1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>IncorrectPatientId</con:name>
+			<con:value>D1111</con:value>
+		</con:property>
+		<con:property>
+			<con:name>DBUser</con:name>
+			<con:value>nhincuser</con:value>
+		</con:property>
+		<con:property>
+			<con:name>DBPass</con:name>
+			<con:value>nhincpass</con:value>
+		</con:property>
+		<con:property>
+			<con:name>MockHost</con:name>
+			<con:value>localhost</con:value>
+		</con:property>
+		<con:property>
+			<con:name>Endpoint-AuditLogQuery</con:name>
+			<con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value>
+		</con:property>
+		<con:property>
+			<con:name>UserID</con:name>
+			<con:value>XDR Inbound User</con:value>
+		</con:property>
+		<con:property>
+			<con:name>PatientId</con:name>
+			<con:value>XDR1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>Endpoint-Adapter</con:name>
+			<con:value>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</con:value>
+		</con:property>
+		<con:property>
+			<con:name>UnknownPatientId</con:name>
+			<con:value>1111</con:value>
+		</con:property>
+	</con:properties>
+	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'XDRAdapterTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
@@ -7939,4 +8726,85 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty 
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting><con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase"><con:script>FileUtils.backupConfiguration(context, log);</con:script></con:eventHandlers><con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase"><con:script>FileUtils.restoreConfiguration(context, log)</con:script></con:eventHandlers></con:soapui-project>
+	</con:afterLoadScript>
+	<con:wssContainer/>
+	<con:databaseConnectionContainer/>
+	<con:reporting>
+		<con:reportTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:parameters/>
+	</con:reporting>
+	<con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
+		<con:script>FileUtils.backupConfiguration(context, log);</con:script>
+	</con:eventHandlers>
+	<con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
+		<con:script>FileUtils.restoreConfiguration(context, log)</con:script>
+	</con:eventHandlers>
+</con:soapui-project>

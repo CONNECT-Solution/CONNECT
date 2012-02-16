@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="DocumentRetrieveXDSErrorValidation" resourceRoot="" soapui-version="3.0.1"><con:settings/><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:definitionCache rootPart="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl" type="TEXT"><con:part><con:url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl</con:url><con:content><![CDATA[<!--Nhinc Proxy Document Retrieve-->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="DocumentRetrieveXDSErrorValidation" resourceRoot="" soapui-version="3.0.1">
+	<con:settings/>
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="WSDL path not set.  #NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+		<con:settings/>
+		<con:definitionCache rootPart="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl" type="TEXT">
+			<con:part>
+				<con:url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl</con:url>
+				<con:content>
+					<![CDATA[<!--Nhinc Proxy Document Retrieve-->
 <definitions name="NhincProxyDocRetrieve" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
   <documentation>Nhinc Proxy document retrieve</documentation>
   <types>
@@ -53,7 +62,13 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+</definitions>]]></con:content>
+				<con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
@@ -136,7 +151,13 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProvideAndRegisterDocumentSetRequest" type="ProvideAndRegisterDocumentSetRequestType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -193,7 +214,13 @@
     <attribute name="requestId" type="anyURI" use="optional"/>
   </complexType>
   <element name="RegistryResponse" type="tns:RegistryResponseType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
@@ -727,7 +754,13 @@
     </complexContent>
   </complexType>
   <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
@@ -858,7 +891,13 @@
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -985,7 +1024,13 @@
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
 <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
   <!--Import the rim.xsd file with XML schema mappaing from RIM-->
   <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
@@ -1390,7 +1435,13 @@
     </complexContent>
   </complexType>
   <element name="StringFilter" type="tns:StringFilterType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonProxy.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonProxy.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../../ebRS/rs.xsd"/>
@@ -1536,7 +1587,13 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequestType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
   <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="../../xmlsoap.org/addressing.xsd"/>
   <xsd:complexType name="QualifiedSubjectIdentifierType">
     <xsd:sequence>
@@ -1796,7 +1853,13 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="UrlSet" type="tns:UrlSetType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url><con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
 Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
 
 Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
@@ -1934,7 +1997,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url><con:content><![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
 <xs:schema targetNamespace="http://nhinc.services.com/schema/auditmessage" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://nhinc.services.com/schema/auditmessage">
   <xs:complexType name="AuditMessageType">
     <xs:sequence>
@@ -2333,7 +2402,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FindAuditEventsResponse" type="tns:FindAuditEventsResponseType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -2741,7 +2816,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="ResumeFailedFault" type="wsnt:ResumeFailedFaultType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
 <!--W3C XML Schema defined in the Web Services Addressing 1.0 specification
     http://www.w3.org/TR/ws-addr-core
 
@@ -2863,7 +2944,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:sequence>
     <xs:anyAttribute namespace="##other" processContents="lax"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director. 
 
@@ -2917,7 +3004,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
     <xsd:anyAttribute namespace="##other" processContents="lax"/>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -3044,7 +3137,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </xsd:annotation>
     </xsd:restriction>
   </xsd:simpleType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Subscription.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Subscription.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
@@ -3334,7 +3433,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="MessageTypes" type="tns:MessageTypesType"></xsd:element>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:complexType name="CdcBioPackageSubscriptionCriteriaType">
     <xsd:sequence>
       <xsd:element name="Frequency" minOccurs="0">
@@ -3359,7 +3464,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xsd:restriction base="xsd:base64Binary"/>
   </xsd:simpleType>
   <xsd:element name="CdcBioPackagePayload" type="tns:CdcBioPackagePayloadType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../common/Cdc.xsd" namespace="http://www.hhs.gov/healthit/nhin/cdc"/>
@@ -3396,7 +3507,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
@@ -3431,7 +3548,25 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieve</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:definitionCache rootPart="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl" type="TEXT"><con:part><con:url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</con:url><con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Repository Actor 
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+		</con:definitionCache>
+		<con:endpoints>
+			<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
+			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
+		</con:endpoints>
+		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+		</con:operation>
+	</con:interface>
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="WSDL path not set.  #AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+		<con:settings/>
+		<con:definitionCache rootPart="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl" type="TEXT">
+			<con:part>
+				<con:url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</con:url>
+				<con:content>
+					<![CDATA[<!--This wsdl file is for an XDS.b Document Repository Actor 
      It can be used 'as is' to support Document Repository Transactions
      using Synchronous Web Services.  
      The wsdl file can also be used to support the Asynchronous 
@@ -3565,7 +3700,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+</definitions>]]></con:content>
+				<con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
@@ -3648,7 +3789,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProvideAndRegisterDocumentSetRequest" type="ProvideAndRegisterDocumentSetRequestType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -3705,7 +3852,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     <attribute name="requestId" type="anyURI" use="optional"/>
   </complexType>
   <element name="RegistryResponse" type="tns:RegistryResponseType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
@@ -4239,7 +4392,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </complexContent>
   </complexType>
   <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
@@ -4370,7 +4529,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -4497,7 +4662,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
 <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
   <!--Import the rim.xsd file with XML schema mappaing from RIM-->
   <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
@@ -4902,7 +5073,28 @@ This document and the information contained herein is provided on an "AS IS" bas
     </complexContent>
   </complexType>
   <element name="StringFilter" type="tns:StringFilterType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/DocumentRepository_Service_Soap12</con:endpoint><con:endpoint>http://localhost:${NhincHttpPort}/DocumentRepository_Service</con:endpoint></con:endpoints><con:operation action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b" anonymous="optional" bindingOperationName="DocumentRepository_ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="DocumentRepository_ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RetrieveDocumentSet" anonymous="optional" bindingOperationName="DocumentRepository_RetrieveDocumentSet" inputName="" isOneWay="false" name="DocumentRepository_RetrieveDocumentSet" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:definitionCache rootPart="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl" type="TEXT"><con:part><con:url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</con:url><con:content><![CDATA[<!--This wsdl file is for an XDS.b Document Repository Actor 
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+		</con:definitionCache>
+		<con:endpoints>
+			<con:endpoint>http://localhost:${NhincHttpPort}/DocumentRepository_Service_Soap12</con:endpoint>
+			<con:endpoint>http://localhost:${NhincHttpPort}/DocumentRepository_Service</con:endpoint>
+		</con:endpoints>
+		<con:operation action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b" anonymous="optional" bindingOperationName="DocumentRepository_ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="DocumentRepository_ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+		</con:operation>
+		<con:operation action="urn:ihe:iti:2007:RetrieveDocumentSet" anonymous="optional" bindingOperationName="DocumentRepository_RetrieveDocumentSet" inputName="" isOneWay="false" name="DocumentRepository_RetrieveDocumentSet" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+		</con:operation>
+	</con:interface>
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="WSDL path not set.  #AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+		<con:settings/>
+		<con:definitionCache rootPart="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl" type="TEXT">
+			<con:part>
+				<con:url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</con:url>
+				<con:content>
+					<![CDATA[<!--This wsdl file is for an XDS.b Document Repository Actor 
      It can be used 'as is' to support Document Repository Transactions
      using Synchronous Web Services.  
      The wsdl file can also be used to support the Asynchronous 
@@ -5036,7 +5228,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+</definitions>]]></con:content>
+				<con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
@@ -5119,7 +5317,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProvideAndRegisterDocumentSetRequest" type="ProvideAndRegisterDocumentSetRequestType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -5176,7 +5380,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     <attribute name="requestId" type="anyURI" use="optional"/>
   </complexType>
   <element name="RegistryResponse" type="tns:RegistryResponseType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
@@ -5710,7 +5920,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </complexContent>
   </complexType>
   <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
@@ -5841,7 +6057,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -5968,7 +6190,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
 <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
   <!--Import the rim.xsd file with XML schema mappaing from RIM-->
   <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
@@ -6373,7 +6601,29 @@ This document and the information contained herein is provided on an "AS IS" bas
     </complexContent>
   </complexType>
   <element name="StringFilter" type="tns:StringFilterType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/DocumentRepository_Service</con:endpoint></con:endpoints><con:operation action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b" anonymous="optional" bindingOperationName="DocumentRepository_ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="DocumentRepository_ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RetrieveDocumentSet" anonymous="optional" bindingOperationName="DocumentRepository_RetrieveDocumentSet" inputName="" isOneWay="false" name="DocumentRepository_RetrieveDocumentSet" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:testSuite name="DocumentRetrieveXDSErrorValidation TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" id="ebc27914-2ff9-4688-a393-d32bf345a3a5" keepSession="false" maxResults="0" name="XDSRegistryError TestCase" searchProperties="true"><con:settings/><con:testStep name="set Mock URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+		</con:definitionCache>
+		<con:endpoints>
+			<con:endpoint>http://localhost:${NhincHttpPort}/DocumentRepository_Service</con:endpoint>
+		</con:endpoints>
+		<con:operation action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b" anonymous="optional" bindingOperationName="DocumentRepository_ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="DocumentRepository_ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+		</con:operation>
+		<con:operation action="urn:ihe:iti:2007:RetrieveDocumentSet" anonymous="optional" bindingOperationName="DocumentRepository_RetrieveDocumentSet" inputName="" isOneWay="false" name="DocumentRepository_RetrieveDocumentSet" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+		</con:operation>
+	</con:interface>
+	<con:testSuite name="DocumentRetrieveXDSErrorValidation TestSuite">
+		<con:settings/>
+		<con:runType>SEQUENTIAL</con:runType>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="ebc27914-2ff9-4688-a393-d32bf345a3a5" keepSession="false" maxResults="0" name="XDSRegistryError TestCase" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="set Mock URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -6382,7 +6632,20 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script></con:config></con:testStep><con:testStep name="Nhinc Doc Retrieve Request" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>NhincProxyDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Nhinc Doc Retrieve Request"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+					<con:request name="Nhinc Doc Retrieve Request">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSRegistryError TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -6611,9 +6874,34 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path><content>XDSRepositoryError</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Mock XDS.b Repository Response" type="mockresponse"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep"><con:interface>DocumentRepository_Binding</con:interface><con:operation>DocumentRepository_RetrieveDocumentSet</con:operation><con:path>/mockXDSRepository</con:path><con:port>18088</con:port><con:response><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path>
+								<content>XDSRepositoryError</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+					<con:interface>DocumentRepository_Binding</con:interface>
+					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
+					<con:path>/mockXDSRepository</con:path>
+					<con:port>18088</con:port>
+					<con:response>
+						<con:settings/>
+						<con:responseContent>
+							<![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns15:RetrieveDocumentSetResponse xmlns:ns2="http://nhinc.services.com/schema/auditmessage" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="http://www.w3.org/2005/08/addressing" xmlns:ns5="http://docs.oasis-open.org/wsn/b-2" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://docs.oasis-open.org/wsn/t-1" xmlns:ns10="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns15="urn:ihe:iti:xds-b:2007" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
          <ns12:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
@@ -6624,7 +6912,15 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
          </ns12:RegistryResponse>
       </ns15:RetrieveDocumentSetResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep name="reset URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent>
+						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+					</con:response>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="reset URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -6634,7 +6930,36 @@ def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdap
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocregistryURL, context, log)
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-14T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-14T17:39:37Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/14/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-13T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="53232109-4583-4658-80ee-3f0d6639d4c2" keepSession="false" maxResults="0" name="XDSRegistryBusy TestCase" searchProperties="true"><con:settings/><con:testStep name="set Mock URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-05-14T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-05-14T17:39:37Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>05/14/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-06-13T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="53232109-4583-4658-80ee-3f0d6639d4c2" keepSession="false" maxResults="0" name="XDSRegistryBusy TestCase" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="set Mock URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -6643,7 +6968,20 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script></con:config></con:testStep><con:testStep name="Nhinc Doc Retrieve Request" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>NhincProxyDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Nhinc Doc Retrieve Request"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+					<con:request name="Nhinc Doc Retrieve Request">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSRegistryBusy TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -6872,9 +7210,34 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path><content>XDSRegistryBusy</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Mock XDS.b Repository Response" type="mockresponse"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep"><con:interface>DocumentRepository_Binding</con:interface><con:operation>DocumentRepository_RetrieveDocumentSet</con:operation><con:path>/mockXDSRepository</con:path><con:port>18088</con:port><con:response><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path>
+								<content>XDSRegistryBusy</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+					<con:interface>DocumentRepository_Binding</con:interface>
+					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
+					<con:path>/mockXDSRepository</con:path>
+					<con:port>18088</con:port>
+					<con:response>
+						<con:settings/>
+						<con:responseContent>
+							<![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns15:RetrieveDocumentSetResponse xmlns:ns2="http://nhinc.services.com/schema/auditmessage" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="http://www.w3.org/2005/08/addressing" xmlns:ns5="http://docs.oasis-open.org/wsn/b-2" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://docs.oasis-open.org/wsn/t-1" xmlns:ns10="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns15="urn:ihe:iti:xds-b:2007" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
          <ns12:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
@@ -6884,7 +7247,15 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
          </ns12:RegistryResponse>
       </ns15:RetrieveDocumentSetResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep name="reset URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent>
+						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+					</con:response>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="reset URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -6894,7 +7265,36 @@ def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdap
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocregistryURL, context, log)
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-14T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-14T17:39:38Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/14/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-13T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="d3730e5f-ed63-4c74-8cab-41c3ad9af515" keepSession="false" maxResults="0" name="XDSRegistryOutOfResources TestCase" searchProperties="true"><con:settings/><con:testStep name="set Mock URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-05-14T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-05-14T17:39:38Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>05/14/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-06-13T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="d3730e5f-ed63-4c74-8cab-41c3ad9af515" keepSession="false" maxResults="0" name="XDSRegistryOutOfResources TestCase" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="set Mock URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -6903,7 +7303,20 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script></con:config></con:testStep><con:testStep name="Nhinc Doc Retrieve Request" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>NhincProxyDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Nhinc Doc Retrieve Request"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+					<con:request name="Nhinc Doc Retrieve Request">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSRegistryOutOfResources TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -7132,9 +7545,34 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path><content>XDSRegistryOutOfResources</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Mock XDS.b Repository Response" type="mockresponse"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep"><con:interface>DocumentRepository_Binding</con:interface><con:operation>DocumentRepository_RetrieveDocumentSet</con:operation><con:path>/mockXDSRepository</con:path><con:port>18088</con:port><con:response><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path>
+								<content>XDSRegistryOutOfResources</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+					<con:interface>DocumentRepository_Binding</con:interface>
+					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
+					<con:path>/mockXDSRepository</con:path>
+					<con:port>18088</con:port>
+					<con:response>
+						<con:settings/>
+						<con:responseContent>
+							<![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns15:RetrieveDocumentSetResponse xmlns:ns2="http://nhinc.services.com/schema/auditmessage" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="http://www.w3.org/2005/08/addressing" xmlns:ns5="http://docs.oasis-open.org/wsn/b-2" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://docs.oasis-open.org/wsn/t-1" xmlns:ns10="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns15="urn:ihe:iti:xds-b:2007" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
          <ns12:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
@@ -7144,7 +7582,15 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
          </ns12:RegistryResponse>
       </ns15:RetrieveDocumentSetResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep name="reset URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent>
+						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+					</con:response>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="reset URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -7154,7 +7600,36 @@ def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdap
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocregistryURL, context, log)
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-14T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-14T17:39:39Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/14/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-13T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="0f6d5b79-dac4-48f6-ace5-917c09447835" keepSession="false" maxResults="0" name="XDSTooManyResults TestCase" searchProperties="true"><con:settings/><con:testStep name="set Mock URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-05-14T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-05-14T17:39:39Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>05/14/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-06-13T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0f6d5b79-dac4-48f6-ace5-917c09447835" keepSession="false" maxResults="0" name="XDSTooManyResults TestCase" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="set Mock URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -7163,7 +7638,20 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script></con:config></con:testStep><con:testStep name="Nhinc Doc Retrieve Request" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>NhincProxyDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Nhinc Doc Retrieve Request"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+					<con:request name="Nhinc Doc Retrieve Request">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSTooManyResults TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -7392,9 +7880,34 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path><content>XDSTooManyResults</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Mock XDS.b Repository Response" type="mockresponse"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep"><con:interface>DocumentRepository_Binding</con:interface><con:operation>DocumentRepository_RetrieveDocumentSet</con:operation><con:path>/mockXDSRepository</con:path><con:port>18088</con:port><con:response><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path>
+								<content>XDSTooManyResults</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+					<con:interface>DocumentRepository_Binding</con:interface>
+					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
+					<con:path>/mockXDSRepository</con:path>
+					<con:port>18088</con:port>
+					<con:response>
+						<con:settings/>
+						<con:responseContent>
+							<![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns15:RetrieveDocumentSetResponse xmlns:ns2="http://nhinc.services.com/schema/auditmessage" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="http://www.w3.org/2005/08/addressing" xmlns:ns5="http://docs.oasis-open.org/wsn/b-2" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://docs.oasis-open.org/wsn/t-1" xmlns:ns10="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns15="urn:ihe:iti:xds-b:2007" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
          <ns12:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
@@ -7404,7 +7917,15 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
          </ns12:RegistryResponse>
       </ns15:RetrieveDocumentSetResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep name="reset URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent>
+						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+					</con:response>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="reset URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -7414,7 +7935,36 @@ def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdap
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocregistryURL, context, log)
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-14T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-14T17:39:40Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/14/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-13T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="edf7a61e-c1de-4946-9b6d-ba16e971745c" keepSession="false" maxResults="0" name="XDSUnknownStoredQuery TestCase" searchProperties="true"><con:settings/><con:testStep name="set Mock URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-05-14T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-05-14T17:39:40Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>05/14/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-06-13T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="edf7a61e-c1de-4946-9b6d-ba16e971745c" keepSession="false" maxResults="0" name="XDSUnknownStoredQuery TestCase" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="set Mock URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -7423,7 +7973,20 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script></con:config></con:testStep><con:testStep name="Nhinc Doc Retrieve Request" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>NhincProxyDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Nhinc Doc Retrieve Request"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+					<con:request name="Nhinc Doc Retrieve Request">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSUnknownStoredQuery TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -7652,9 +8215,34 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path><content>XDSUnknownStoredQuery</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Mock XDS.b Repository Response" type="mockresponse"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep"><con:interface>DocumentRepository_Binding</con:interface><con:operation>DocumentRepository_RetrieveDocumentSet</con:operation><con:path>/mockXDSRepository</con:path><con:port>18088</con:port><con:response><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path>
+								<content>XDSUnknownStoredQuery</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+					<con:interface>DocumentRepository_Binding</con:interface>
+					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
+					<con:path>/mockXDSRepository</con:path>
+					<con:port>18088</con:port>
+					<con:response>
+						<con:settings/>
+						<con:responseContent>
+							<![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns15:RetrieveDocumentSetResponse xmlns:ns2="http://nhinc.services.com/schema/auditmessage" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="http://www.w3.org/2005/08/addressing" xmlns:ns5="http://docs.oasis-open.org/wsn/b-2" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://docs.oasis-open.org/wsn/t-1" xmlns:ns10="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns15="urn:ihe:iti:xds-b:2007" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
          <ns12:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
@@ -7664,7 +8252,15 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
          </ns12:RegistryResponse>
       </ns15:RetrieveDocumentSetResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep name="reset URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent>
+						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+					</con:response>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="reset URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -7674,7 +8270,36 @@ def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdap
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocregistryURL, context, log)
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-14T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-14T17:39:40Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/14/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-13T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="e1bbe1b4-f6ab-4cee-9a47-4ebd046424ea" keepSession="false" maxResults="0" name="XDSStoredQueryMissingParam TestCase" searchProperties="true"><con:settings/><con:testStep name="set Mock URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-05-14T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-05-14T17:39:40Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>05/14/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-06-13T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="e1bbe1b4-f6ab-4cee-9a47-4ebd046424ea" keepSession="false" maxResults="0" name="XDSStoredQueryMissingParam TestCase" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="set Mock URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -7683,7 +8308,20 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script></con:config></con:testStep><con:testStep name="Nhinc Doc Retrieve Request" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>NhincProxyDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Nhinc Doc Retrieve Request"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+					<con:request name="Nhinc Doc Retrieve Request">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSStoredQueryMissingParam TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -7912,9 +8550,34 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path><content>XDSStoredQueryMissingParam</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Mock XDS.b Repository Response" type="mockresponse"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep"><con:interface>DocumentRepository_Binding</con:interface><con:operation>DocumentRepository_RetrieveDocumentSet</con:operation><con:path>/mockXDSRepository</con:path><con:port>18088</con:port><con:response><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path>
+								<content>XDSStoredQueryMissingParam</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+					<con:interface>DocumentRepository_Binding</con:interface>
+					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
+					<con:path>/mockXDSRepository</con:path>
+					<con:port>18088</con:port>
+					<con:response>
+						<con:settings/>
+						<con:responseContent>
+							<![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns15:RetrieveDocumentSetResponse xmlns:ns2="http://nhinc.services.com/schema/auditmessage" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="http://www.w3.org/2005/08/addressing" xmlns:ns5="http://docs.oasis-open.org/wsn/b-2" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://docs.oasis-open.org/wsn/t-1" xmlns:ns10="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns15="urn:ihe:iti:xds-b:2007" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
          <ns12:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
@@ -7924,7 +8587,15 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
          </ns12:RegistryResponse>
       </ns15:RetrieveDocumentSetResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep name="reset URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent>
+						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+					</con:response>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="reset URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -7934,7 +8605,36 @@ def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdap
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocregistryURL, context, log)
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-14T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-14T17:39:41Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/14/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-13T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="62a67620-6f92-4dd7-8c51-705ab554d6f2" keepSession="false" maxResults="0" name="XDSStoredQueryParamNumber TestCase" searchProperties="true"><con:settings/><con:testStep name="set Mock URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-05-14T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-05-14T17:39:41Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>05/14/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-06-13T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="62a67620-6f92-4dd7-8c51-705ab554d6f2" keepSession="false" maxResults="0" name="XDSStoredQueryParamNumber TestCase" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="set Mock URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -7943,7 +8643,20 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script></con:config></con:testStep><con:testStep name="Nhinc Doc Retrieve Request" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>NhincProxyDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Nhinc Doc Retrieve Request"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+					<con:request name="Nhinc Doc Retrieve Request">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSStoredQueryParamNumber TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -8172,9 +8885,34 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path><content>XDSStoredQueryParamNumber</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Mock XDS.b Repository Response" type="mockresponse"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep"><con:interface>DocumentRepository_Binding</con:interface><con:operation>DocumentRepository_RetrieveDocumentSet</con:operation><con:path>/mockXDSRepository</con:path><con:port>18088</con:port><con:response><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@errorCode</path>
+								<content>XDSStoredQueryParamNumber</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+					<con:interface>DocumentRepository_Binding</con:interface>
+					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
+					<con:path>/mockXDSRepository</con:path>
+					<con:port>18088</con:port>
+					<con:response>
+						<con:settings/>
+						<con:responseContent>
+							<![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns15:RetrieveDocumentSetResponse xmlns:ns2="http://nhinc.services.com/schema/auditmessage" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="http://www.w3.org/2005/08/addressing" xmlns:ns5="http://docs.oasis-open.org/wsn/b-2" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://docs.oasis-open.org/wsn/t-1" xmlns:ns10="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns15="urn:ihe:iti:xds-b:2007" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
          <ns12:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
@@ -8184,7 +8922,15 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
          </ns12:RegistryResponse>
       </ns15:RetrieveDocumentSetResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep name="reset URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent>
+						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+					</con:response>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="reset URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -8194,7 +8940,36 @@ def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdap
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocregistryURL, context, log)
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-14T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-14T17:39:42Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/14/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-13T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="33a3dd3b-130f-43e6-b21d-1b7aa9d967e9" keepSession="false" maxResults="0" name="PartialSuccess TestCase" searchProperties="true"><con:settings/><con:testStep name="set Mock URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-05-14T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-05-14T17:39:42Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>05/14/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-06-13T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="33a3dd3b-130f-43e6-b21d-1b7aa9d967e9" keepSession="false" maxResults="0" name="PartialSuccess TestCase" searchProperties="true">
+			<con:settings/>
+			<con:testStep name="set Mock URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -8203,7 +8978,20 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script></con:config></con:testStep><con:testStep name="Nhinc Doc Retrieve Request" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>NhincProxyDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Nhinc Doc Retrieve Request"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, context, log)</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+					<con:request name="Nhinc Doc Retrieve Request">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="PartialSuccess TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -8432,9 +9220,34 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
          </urn:nhinTargetSystem>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:assertion type="XPath Match">
+							<con:configuration>
+								<path>declare namespace ns15='urn:ihe:iti:xds-b:2007';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:PartialSuccess</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Mock XDS.b Repository Response" type="mockresponse"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep"><con:interface>DocumentRepository_Binding</con:interface><con:operation>DocumentRepository_RetrieveDocumentSet</con:operation><con:path>/mockXDSRepository</con:path><con:port>18088</con:port><con:response><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+//ns15:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/@status</path>
+								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:PartialSuccess</content>
+								<allowWildcards>false</allowWildcards>
+								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+					<con:interface>DocumentRepository_Binding</con:interface>
+					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
+					<con:path>/mockXDSRepository</con:path>
+					<con:port>18088</con:port>
+					<con:response>
+						<con:settings/>
+						<con:responseContent>
+							<![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns15:RetrieveDocumentSetResponse xmlns:ns2="http://nhinc.services.com/schema/auditmessage" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="http://www.w3.org/2005/08/addressing" xmlns:ns5="http://docs.oasis-open.org/wsn/b-2" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://docs.oasis-open.org/wsn/t-1" xmlns:ns10="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns15="urn:ihe:iti:xds-b:2007" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
          <ns12:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:PartialSuccess">
@@ -8444,7 +9257,15 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
          </ns12:RegistryResponse>
       </ns15:RetrieveDocumentSetResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep name="reset URL" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent>
+						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+					</con:response>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="reset URL" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -8454,7 +9275,65 @@ def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdap
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocregistryURL, context, log)
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2010-05-14T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-05-14T17:39:43Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/14/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-06-13T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>AuditPatientID</con:name><con:value>D123401</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-05-14T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-05-14T17:39:43Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>05/14/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-06-13T00:00:00Z</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:properties/>
+		<con:reportParameters/>
+	</con:testSuite>
+	<con:requirements/>
+	<con:properties>
+		<con:property>
+			<con:name>Endpoint-DocRetrieve</con:name>
+			<con:value>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalHCDescription</con:name>
+			<con:value>InternalTest1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalHCID</con:name>
+			<con:value>1.1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>NHINGatewayHost</con:name>
+			<con:value>localhost</con:value>
+		</con:property>
+		<con:property>
+			<con:name>MockHost</con:name>
+			<con:value>localhost</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalAA</con:name>
+			<con:value>1.1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>AuditPatientID</con:name>
+			<con:value>D123401</con:value>
+		</con:property>
+	</con:properties>
+	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -8505,7 +9384,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
   def port = delegate.findProperty('DBPort')
   def user = delegate.findProperty('DBUser')
   def pass = delegate.findProperty('DBPass')
-  
+
   def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
   def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
   try {
@@ -8514,4 +9393,35 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     sql.close()
   }
 }
-</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting><con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase"><con:script>FileUtils.backupConfiguration(context, log);</con:script></con:eventHandlers><con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase"><con:script>FileUtils.restoreConfiguration(context, log)</con:script></con:eventHandlers></con:soapui-project>
+	</con:afterLoadScript>
+	<con:wssContainer/>
+	<con:databaseConnectionContainer/>
+	<con:reporting>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:parameters/>
+	</con:reporting>
+	<con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
+		<con:script>FileUtils.backupConfiguration(context, log);</con:script>
+	</con:eventHandlers>
+	<con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
+		<con:script>FileUtils.restoreConfiguration(context, log)</con:script>
+	</con:eventHandlers>
+</con:soapui-project>

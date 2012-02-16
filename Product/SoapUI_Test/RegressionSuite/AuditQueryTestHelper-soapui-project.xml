@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="AuditQueryTestHelper" resourceRoot="" soapui-version="3.0.1"><con:settings/><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityauditlogquery}EntityAuditLogQueryBindingSoap" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl" name="EntityAuditLogQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl" type="TEXT"><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl</con:url><con:content><![CDATA[<definitions name="EntityAuditLogQuery" targetNamespace="urn:gov:hhs:fha:nhinc:entityauditlogquery" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:entityauditlogquery" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="AuditQueryTestHelper" resourceRoot="" soapui-version="3.0.1">
+	<con:settings/>
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityauditlogquery}EntityAuditLogQueryBindingSoap" definition="WSDL path not set.  #EntityAuditLogQuery.wsdl" name="EntityAuditLogQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+		<con:settings/>
+		<con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl" type="TEXT">
+			<con:part>
+				<con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl</con:url>
+				<con:content>
+					<![CDATA[<definitions name="EntityAuditLogQuery" targetNamespace="urn:gov:hhs:fha:nhinc:entityauditlogquery" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:entityauditlogquery" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://services.nhin.com/wsdl/auditlogquery">
       <xsd:import namespace="http://nhinc.services.com/schema/auditmessage" schemaLocation="../schemas/ihe/auditmessage.xsd"/>
@@ -43,7 +52,13 @@
              type can have one or two roles.-->
     <plnk:role name="EntityAuditLogQueryPortTypeRole" portType="tns:EntityAuditLogQueryPortType"/>
   </plnk:partnerLinkType>
-</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url><con:content><![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
+</definitions>]]></con:content>
+				<con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
 <xs:schema targetNamespace="http://nhinc.services.com/schema/auditmessage" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://nhinc.services.com/schema/auditmessage">
   <xs:complexType name="AuditMessageType">
     <xs:sequence>
@@ -442,7 +457,13 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FindAuditEventsResponse" type="tns:FindAuditEventsResponseType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonEntity.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonEntity.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="NhincCommon.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../../ebRS/rs.xsd"/>
@@ -622,7 +643,13 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequestType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
   <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="../../xmlsoap.org/addressing.xsd"/>
   <xsd:complexType name="QualifiedSubjectIdentifierType">
     <xsd:sequence>
@@ -882,7 +909,13 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="UrlSet" type="tns:UrlSetType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url><con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
 Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
 
 Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
@@ -1020,7 +1053,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
 <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
   <!--Import the rim.xsd file with XML schema mappaing from RIM-->
   <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
@@ -1425,7 +1464,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </complexContent>
   </complexType>
   <element name="StringFilter" type="tns:StringFilterType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
@@ -1959,7 +2004,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </complexContent>
   </complexType>
   <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
@@ -2090,7 +2141,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -2147,7 +2204,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     <attribute name="requestId" type="anyURI" use="optional"/>
   </complexType>
   <element name="RegistryResponse" type="tns:RegistryResponseType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
@@ -2230,7 +2293,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProvideAndRegisterDocumentSetRequest" type="ProvideAndRegisterDocumentSetRequestType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -2357,7 +2426,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -2765,7 +2840,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="ResumeFailedFault" type="wsnt:ResumeFailedFaultType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
 <!--W3C XML Schema defined in the Web Services Addressing 1.0 specification
     http://www.w3.org/TR/ws-addr-core
 
@@ -2887,7 +2968,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:sequence>
     <xs:anyAttribute namespace="##other" processContents="lax"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director. 
 
@@ -2941,7 +3028,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
     <xsd:anyAttribute namespace="##other" processContents="lax"/>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -3068,7 +3161,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </xsd:annotation>
     </xsd:restriction>
   </xsd:simpleType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Subscription.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Subscription.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
@@ -3358,7 +3457,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="MessageTypes" type="tns:MessageTypesType"></xsd:element>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:complexType name="CdcBioPackageSubscriptionCriteriaType">
     <xsd:sequence>
       <xsd:element name="Frequency" minOccurs="0">
@@ -3383,7 +3488,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xsd:restriction base="xsd:base64Binary"/>
   </xsd:simpleType>
   <xsd:element name="CdcBioPackagePayload" type="tns:CdcBioPackagePayloadType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../common/Cdc.xsd" namespace="http://www.hhs.gov/healthit/nhin/cdc"/>
@@ -3420,7 +3531,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
@@ -3455,7 +3572,29 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityAuditLogQuery</con:endpoint><con:endpoint>http://ATHC-GFAS:8080/NhinConnect/EntityAuditLogQuery</con:endpoint><con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/EntityAuditLogQuery</con:endpoint><con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/EntityAuditLogQuery</con:endpoint><con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/EntityAuditLogQuery</con:endpoint><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/EntityAuditLogQuery</con:endpoint></con:endpoints><con:operation action="urn:findAuditEvents" anonymous="optional" bindingOperationName="findAuditEvents" inputName="findAuditEventsRequest" isOneWay="false" name="findAuditEvents" outputName="findAuditEventsResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincauditlogquery}NhincAuditLogQueryPortTypeBinding" definition="C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl" name="NhincAuditLogQueryPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl" type="TEXT"><con:part><con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl</con:url><con:content><![CDATA[<definitions name="NhincAuditLogQuery" targetNamespace="urn:gov:hhs:fha:nhinc:nhincauditlogquery" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincauditlogquery" xmlns:audit="http://nhinc.services.com/schema/auditmessage" xmlns:nccommoninternalorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+		</con:definitionCache>
+		<con:endpoints>
+			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityAuditLogQuery</con:endpoint>
+			<con:endpoint>http://ATHC-GFAS:8080/NhinConnect/EntityAuditLogQuery</con:endpoint>
+			<con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/EntityAuditLogQuery</con:endpoint>
+			<con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/EntityAuditLogQuery</con:endpoint>
+			<con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/EntityAuditLogQuery</con:endpoint>
+			<con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/EntityAuditLogQuery</con:endpoint>
+		</con:endpoints>
+		<con:operation action="urn:findAuditEvents" anonymous="optional" bindingOperationName="findAuditEvents" inputName="findAuditEventsRequest" isOneWay="false" name="findAuditEvents" outputName="findAuditEventsResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+		</con:operation>
+	</con:interface>
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincauditlogquery}NhincAuditLogQueryPortTypeBinding" definition="WSDL path not set.  #NhincAuditLogQuery.wsdl" name="NhincAuditLogQueryPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+		<con:settings/>
+		<con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl" type="TEXT">
+			<con:part>
+				<con:url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl</con:url>
+				<con:content>
+					<![CDATA[<definitions name="NhincAuditLogQuery" targetNamespace="urn:gov:hhs:fha:nhinc:nhincauditlogquery" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincauditlogquery" xmlns:audit="http://nhinc.services.com/schema/auditmessage" xmlns:nccommoninternalorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
   <types>
     <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincauditlogquery">
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" schemaLocation="../schemas/nhinc/common/NhincCommonInternalOrch.xsd"/>
@@ -3497,7 +3636,13 @@ In a BPEL process, a partner link represents the interaction between the BPEL pr
 A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
     <plnk:role name="NhincAuditLogQueryPortTypeRole" portType="tns:NhincAuditLogQueryPortType"/>
   </plnk:partnerLinkType>
-</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonInternalOrch.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
+</definitions>]]></con:content>
+				<con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommonInternalOrch.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" xmlns:hl7="urn:hl7-org:v3" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ncsub="urn:gov:hhs:fha:nhinc:common:subscription">
   <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="NhincCommon.xsd"/>
   <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
   <xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd"/>
@@ -3568,7 +3713,13 @@ A partner link type characterizes the conversational relationship between two se
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetRequestType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\NhincCommon.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing">
   <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="../../xmlsoap.org/addressing.xsd"/>
   <xsd:complexType name="QualifiedSubjectIdentifierType">
     <xsd:sequence>
@@ -3828,7 +3979,13 @@ A partner link type characterizes the conversational relationship between two se
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="UrlSet" type="tns:UrlSetType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url><con:content><![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\xmlsoap.org\addressing.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
 Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
 
 Permission to copy, display, perform, modify and distribute the WS-Addressing Specification, 
@@ -3966,7 +4123,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\query.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/query.xsd,v 1.13 2005/03/29 08:52:10 farrukh_najmi Exp $-->
 <schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
   <!--Import the rim.xsd file with XML schema mappaing from RIM-->
   <import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="rim.xsd"/>
@@ -4371,7 +4534,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </complexContent>
   </complexType>
   <element name="StringFilter" type="tns:StringFilterType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rim.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rim.xsd,v 1.20 2005/02/03 19:28:15 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Information Model</documentation>
@@ -4905,7 +5074,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </complexContent>
   </complexType>
   <element name="NotifyAction" type="tns:NotifyActionType" substitutionGroup="tns:Action"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2001\xml.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
    http://www.w3.org/TR/REC-xml for information about this namespace.
@@ -5036,7 +5211,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\rs.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/rs.xsd,v 1.9 2005/01/31 22:33:54 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -5093,7 +5274,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     <attribute name="requestId" type="anyURI" use="optional"/>
   </complexType>
   <element name="RegistryResponse" type="tns:RegistryResponseType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url>
+				<con:content>
+					<![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
@@ -5176,7 +5363,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProvideAndRegisterDocumentSetRequest" type="ProvideAndRegisterDocumentSetRequestType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url><con:content><![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ebRS\lcm.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--$Header: /cvsroot/ebxmlrr/ebxmlrr-spec/misc/3.0/schema/lcm.xsd,v 1.5 2005/01/31 22:28:18 farrukh_najmi Exp $-->
 <schema targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:tns="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
   <annotation>
     <documentation xml:lang="en">The schema for OASIS ebXML Registry Services</documentation>
@@ -5303,7 +5496,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url><con:content><![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
+</schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\auditmessage.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Glen F. Marshall (HL7 Technical Steering Committee)-->
 <xs:schema targetNamespace="http://nhinc.services.com/schema/auditmessage" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://nhinc.services.com/schema/auditmessage">
   <xs:complexType name="AuditMessageType">
     <xs:sequence>
@@ -5702,7 +5901,13 @@ No other rights are granted by implication, estoppel or otherwise.-->
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FindAuditEventsResponse" type="tns:FindAuditEventsResponseType"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\b-2.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -6110,7 +6315,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:element name="ResumeFailedFault" type="wsnt:ResumeFailedFaultType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\www.w3.org\2005\08\addressing\ws-addr.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">-->
 <!--W3C XML Schema defined in the Web Services Addressing 1.0 specification
     http://www.w3.org/TR/ws-addr-core
 
@@ -6232,7 +6443,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xs:sequence>
     <xs:anyAttribute namespace="##other" processContents="lax"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
+</xs:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsrf\bf-2.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementers or users of this specification, can be obtained from the OASIS Executive Director. 
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director. 
 
@@ -6286,7 +6503,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
     <xsd:anyAttribute namespace="##other" processContents="lax"/>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url><con:content><![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\docs.oasis-open.org\wsn\t-1.xsd</con:url>
+				<con:content>
+					<![CDATA[<!--OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
 
 OASIS invites any interested party to bring to its attention any copyrights, patents or patent applications, or other proprietary rights which may cover technology that may be required to implement this specification. Please address the information to the OASIS Executive Director.
 
@@ -6413,7 +6636,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       </xsd:annotation>
     </xsd:restriction>
   </xsd:simpleType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Subscription.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Subscription.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscription" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc" xmlns:subb2obcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:subb2obdoc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
@@ -6703,7 +6932,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="MessageTypes" type="tns:MessageTypesType"></xsd:element>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\Cdc.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="http://www.hhs.gov/healthit/nhin/cdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:complexType name="CdcBioPackageSubscriptionCriteriaType">
     <xsd:sequence>
       <xsd:element name="Frequency" minOccurs="0">
@@ -6728,7 +6963,13 @@ This document and the information contained herein is provided on an "AS IS" bas
     <xsd:restriction base="xsd:base64Binary"/>
   </xsd:simpleType>
   <xsd:element name="CdcBioPackagePayload" type="tns:CdcBioPackagePayloadType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForCdc.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin-cdc="http://www.hhs.gov/healthit/nhin/cdc">
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
   <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" namespace="http://docs.oasis-open.org/wsn/b-2"/>
   <xsd:import schemaLocation="../common/Cdc.xsd" namespace="http://www.hhs.gov/healthit/nhin/cdc"/>
@@ -6765,7 +7006,13 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+			<con:part>
+				<con:url>file:\C:\Projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\nhinc\common\SubscriptionB2OverrideForDocuments.xsd</con:url>
+				<con:content>
+					<![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
@@ -6800,13 +7047,44 @@ This document and the information contained herein is provided on an "AS IS" bas
       <xsd:element name="NotificationMessage" type="tns:NotificationMessageHolderType" maxOccurs="unbounded" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincAuditLogQuery</con:endpoint></con:endpoints><con:operation action="urn:NhincAuditLogQuery" anonymous="optional" bindingOperationName="NhincAuditLogQuery" inputName="NhincAuditLogQueryRequest" isOneWay="false" name="NhincAuditLogQuery" outputName="NhincAuditLogQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:testSuite name="AuditQueryTestHelper TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="false" failTestCaseOnErrors="true" id="a22e9c8b-c4c0-4cad-88f3-a9680042d24e" keepSession="false" maxResults="0" name="FindAuditEvents TestCase" searchProperties="true" timeout="0"><con:settings/><con:testStep name="Copy of Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:testStep name="Generate patient ID for Audit Log Query" type="groovy"><con:settings/><con:config><script>def localAA = context.findProperty('LocalAA')
+</xsd:schema>]]></con:content>
+				<con:type>http://www.w3.org/2001/XMLSchema</con:type>
+			</con:part>
+		</con:definitionCache>
+		<con:endpoints>
+			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincAuditLogQuery</con:endpoint>
+		</con:endpoints>
+		<con:operation action="urn:NhincAuditLogQuery" anonymous="optional" bindingOperationName="NhincAuditLogQuery" inputName="NhincAuditLogQueryRequest" isOneWay="false" name="NhincAuditLogQuery" outputName="NhincAuditLogQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+		</con:operation>
+	</con:interface>
+	<con:testSuite name="AuditQueryTestHelper TestSuite">
+		<con:settings/>
+		<con:runType>SEQUENTIAL</con:runType>
+		<con:testCase failOnError="false" failTestCaseOnErrors="true" id="a22e9c8b-c4c0-4cad-88f3-a9680042d24e" keepSession="false" maxResults="0" name="FindAuditEvents TestCase" searchProperties="true" timeout="0">
+			<con:settings/>
+			<con:testStep name="Copy of Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Generate patient ID for Audit Log Query" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def localAA = context.findProperty('LocalAA')
 def aqPatientID = context.findProperty('AuditPatientID')
 
 context.testCase.setPropertyValue('FullPatientID', "${aqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO");
 
-</script></con:config></con:testStep><con:testStep disabled="true" name="Backup internalConnectionInfo file" type="groovy"><con:settings/><con:config><script>import java.io.File;
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep disabled="true" name="Backup internalConnectionInfo file" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>import java.io.File;
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def propertyList = testRunner.testCase.getTestStepByName( "Test Case Properties" );
@@ -6825,7 +7103,13 @@ if(myFile.exists())
         }
     }
 }
-</script></con:config></con:testStep><con:testStep name="Modify internalConnectionInfo file" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Modify internalConnectionInfo file" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -6837,7 +7121,20 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "2.2", "auditquery", auditQueryURL, context, log)
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockauditquery", mockAuditQueryURL, context, log)
-</script></con:config></con:testStep><con:testStep name="findAuditEvents" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityAuditLogQueryBindingSoap</con:interface><con:operation>findAuditEvents</con:operation><con:request name="findAuditEvents"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#AuditQueryEndpoint}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="findAuditEvents" type="request">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+					<con:interface>EntityAuditLogQueryBindingSoap</con:interface>
+					<con:operation>findAuditEvents</con:operation>
+					<con:request name="findAuditEvents">
+						<con:settings/>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>${#Project#AuditQueryEndpoint}</con:endpoint>
+						<con:request>
+							<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body projectName="AuditQueryTestHelper" testCase="FindAuditEvents TestCase">
       <urn:FindAuditEventsRequest>
@@ -6992,7 +7289,31 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockaudit
          </urn:nhinTargetCommunities>
       </urn:FindAuditEventsRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep name="Mock Response" type="mockresponse"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="findAuditEvents" xsi:type="con:MockResponseStep"><con:interface>NhincAuditLogQueryPortTypeBinding</con:interface><con:operation>NhincAuditLogQuery</con:operation><con:path>/mockNhincAuditLogQuery</con:path><con:port>18089</con:port><con:timeout>10000</con:timeout><con:response><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+</soapenv:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						<con:assertion type="Schema Compliance">
+							<con:configuration>
+								<definition/>
+							</con:configuration>
+						</con:assertion>
+						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Mock Response" type="mockresponse">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="findAuditEvents" xsi:type="con:MockResponseStep">
+					<con:interface>NhincAuditLogQueryPortTypeBinding</con:interface>
+					<con:operation>NhincAuditLogQuery</con:operation>
+					<con:path>/mockNhincAuditLogQuery</con:path>
+					<con:port>18089</con:port>
+					<con:timeout>10000</con:timeout>
+					<con:response>
+						<con:settings/>
+						<con:responseContent>
+							<![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns17:FindAuditEventsResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns4="http://www.w3.org/2005/08/addressing" xmlns:ns5="http://docs.oasis-open.org/wsn/b-2" xmlns:ns6="urn:ihe:iti:xds-b:2007" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns8="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns9="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns10="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns11="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns12="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns13="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns14="http://docs.oasis-open.org/wsn/t-1" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:ns17="http://nhinc.services.com/schema/auditmessage" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscription">
          <ns17:findAuditEventsReturn>
@@ -7030,7 +7351,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockaudit
          </ns17:findAuditEventsReturn>
       </ns17:FindAuditEventsResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep disabled="true" name="Undo mods to internalConnectionInfo file" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent>
+						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+					</con:response>
+				</con:config>
+			</con:testStep>
+			<con:testStep disabled="true" name="Undo mods to internalConnectionInfo file" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -7039,7 +7368,13 @@ def auditQueryURL = "https://" + NHINGatewayHost + ":8181/CONNECTNhinServicesWeb
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "2.2", "auditquery", auditQueryURL, context, log)
-</script></con:config></con:testStep><con:testStep disabled="true" name="Restore internalConnectionInfo file" type="groovy"><con:settings/><con:config><script>import java.io.File;
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep disabled="true" name="Restore internalConnectionInfo file" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>import java.io.File;
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def propertyList = testRunner.testCase.getTestStepByName( "Test Case Properties" );
@@ -7059,8 +7394,18 @@ if(myFile.exists())
     }
     myFile.delete();
 }
-</script></con:config></con:testStep><con:testStep name="Restore Configurations" type="groovy"><con:settings/><con:config><script>FileUtils.InitializeNHINCProperties(context, log);
-</script></con:config></con:testStep><con:setupScript><![CDATA[/*def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:testStep name="Restore Configurations" type="groovy">
+				<con:settings/>
+				<con:config>
+					<script>FileUtils.InitializeNHINCProperties(context, log);
+					</script>
+				</con:config>
+			</con:testStep>
+			<con:setupScript>
+				<![CDATA[/*def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -7103,7 +7448,112 @@ if (sourceMPI && sourceMPI.length() != 0) {
   log.info "mpi"
   FileUtils.MoveFile(destConfigFileLocation, "mpi.xml", backupFileLocation, "mpi.xml", context, log)
   FileUtils.MoveFile(sourceConfigFileLocation, sourceMPI, destConfigFileLocation, "mpi.xml", context, log)
-}*/]]></con:setupScript><con:properties><con:property><con:name>startDate</con:name><con:value>2010-04-26T00:00:00Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2010-04-26T20:48:49Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/26/2010 00:00:00</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2010-05-26T00:00:00Z</con:value></con:property><con:property><con:name>FullPatientID</con:name><con:value>D123401^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property></con:properties><con:reportParameters/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>sourceConfigFileLocation</con:name><con:value>C:/projects/NHINC/Current/Product/Production/Common/Properties</con:value></con:property><con:property><con:name>AuditQueryEndpoint</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>sourceNHINFileLocation</con:name><con:value>C:/Projects/nhinc/Current/Product/IntegrationTest/GatewayConfigFiles</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>c:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>sourceAdapter</con:name><con:value/></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>AuditPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>backupFileLocation</con:name><con:value>C:/Backup/AuditQueryTestHelper</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>sourceMPI</con:name><con:value/></con:property><con:property><con:name>sourceInternalConnection</con:name><con:value>AuditQueryTestHelper_internalConnectionInfo.xml</con:value></con:property><con:property><con:name>destNHINFileLocation</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>sourceConnectionEPR</con:name><con:value/></con:property><con:property><con:name>sourceGateway</con:name><con:value/></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>destConfigFileLocation</con:name><con:value>C:/Sun/AppServer/domains/domain1/config</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+}*/]]>
+			</con:setupScript>
+			<con:properties>
+				<con:property>
+					<con:name>startDate</con:name>
+					<con:value>2010-04-26T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>endDate</con:name>
+					<con:value>2010-04-26T20:48:49Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>sigDate</con:name>
+					<con:value>04/26/2010 00:00:00</con:value>
+				</con:property>
+				<con:property>
+					<con:name>expireDate</con:name>
+					<con:value>2010-05-26T00:00:00Z</con:value>
+				</con:property>
+				<con:property>
+					<con:name>FullPatientID</con:name>
+					<con:value>D123401^^^&amp;amp;1.1&amp;amp;ISO</con:value>
+				</con:property>
+			</con:properties>
+			<con:reportParameters/>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+		</con:testCase>
+		<con:properties/>
+		<con:reportParameters/>
+	</con:testSuite>
+	<con:requirements/>
+	<con:properties>
+		<con:property>
+			<con:name>sourceConfigFileLocation</con:name>
+			<con:value>C:/projects/NHINC/Current/Product/Production/Common/Properties</con:value>
+		</con:property>
+		<con:property>
+			<con:name>AuditQueryEndpoint</con:name>
+			<con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value>
+		</con:property>
+		<con:property>
+			<con:name>sourceNHINFileLocation</con:name>
+			<con:value>C:/Projects/nhinc/Current/Product/IntegrationTest/GatewayConfigFiles</con:value>
+		</con:property>
+		<con:property>
+			<con:name>NHINGatewayConfigDir</con:name>
+			<con:value>c:/Sun/AppServer/domains/domain1/config/nhin</con:value>
+		</con:property>
+		<con:property>
+			<con:name>NHINGatewayHost</con:name>
+			<con:value>localhost</con:value>
+		</con:property>
+		<con:property>
+			<con:name>sourceAdapter</con:name>
+			<con:value/>
+		</con:property>
+		<con:property>
+			<con:name>LocalHCID</con:name>
+			<con:value>1.1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalAA</con:name>
+			<con:value>1.1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>AuditPatientID</con:name>
+			<con:value>D123401</con:value>
+		</con:property>
+		<con:property>
+			<con:name>backupFileLocation</con:name>
+			<con:value>C:/Backup/AuditQueryTestHelper</con:value>
+		</con:property>
+		<con:property>
+			<con:name>LocalHCDescription</con:name>
+			<con:value>InternalTest1</con:value>
+		</con:property>
+		<con:property>
+			<con:name>sourceMPI</con:name>
+			<con:value/>
+		</con:property>
+		<con:property>
+			<con:name>sourceInternalConnection</con:name>
+			<con:value>AuditQueryTestHelper_internalConnectionInfo.xml</con:value>
+		</con:property>
+		<con:property>
+			<con:name>destNHINFileLocation</con:name>
+			<con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
+		</con:property>
+		<con:property>
+			<con:name>sourceConnectionEPR</con:name>
+			<con:value/>
+		</con:property>
+		<con:property>
+			<con:name>sourceGateway</con:name>
+			<con:value/>
+		</con:property>
+		<con:property>
+			<con:name>MockHost</con:name>
+			<con:value>localhost</con:value>
+		</con:property>
+		<con:property>
+			<con:name>destConfigFileLocation</con:name>
+			<con:value>C:/Sun/AppServer/domains/domain1/config</con:value>
+		</con:property>
+	</con:properties>
+	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -7154,7 +7604,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
   def port = delegate.findProperty('DBPort')
   def user = delegate.findProperty('DBUser')
   def pass = delegate.findProperty('DBPass')
-  
+
   def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
   def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
   try {
@@ -7163,4 +7613,81 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     sql.close()
   }
 }
-</con:afterLoadScript><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting><con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase"><con:script>FileUtils.backupConfiguration(context, log);</con:script></con:eventHandlers><con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase"><con:script>FileUtils.restoreConfiguration(context, log)</con:script></con:eventHandlers></con:soapui-project>
+	</con:afterLoadScript>
+	<con:wssContainer/>
+	<con:databaseConnectionContainer/>
+	<con:reporting>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:xmlTemplates/>
+		<con:parameters/>
+	</con:reporting>
+	<con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
+		<con:script>FileUtils.backupConfiguration(context, log);</con:script>
+	</con:eventHandlers>
+	<con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
+		<con:script>FileUtils.restoreConfiguration(context, log)</con:script>
+	</con:eventHandlers>
+</con:soapui-project>

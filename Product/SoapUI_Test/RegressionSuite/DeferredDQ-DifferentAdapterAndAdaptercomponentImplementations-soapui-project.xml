@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" name="DeferredDQ-DifferentAdapterAndAdaptercomponentImplementations" resourceRoot="" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest}EntityDocQueryDeferredRequestBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequest.wsdl" name="EntityDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest}EntityDocQueryDeferredRequestBindingSoap" definition="WSDL path not set.  #EntityDocQueryDeferredRequest.wsdl" name="EntityDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredRequest.wsdl" type="TEXT">
       <con:part>
@@ -3938,7 +3938,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest}NhincProxyDocQueryDeferredRequestBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequest.wsdl" name="NhincProxyDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequest}NhincProxyDocQueryDeferredRequestBindingSoap" definition="fWSDL path not set.  #NhincProxyDocQueryDeferredRequest.wsdl" name="NhincProxyDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredRequest.wsdl" type="TEXT">
       <con:part>
@@ -7724,7 +7724,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse}NhincProxyDocQueryDeferredResponseBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredResponse.wsdl" name="NhincProxyDocQueryDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse}NhincProxyDocQueryDeferredResponseBindingSoap" definition="WSDL path not set.  #NhincProxyDocQueryDeferredResponse.wsdl" name="NhincProxyDocQueryDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQueryDeferredResponse.wsdl" type="TEXT">
       <con:part>
@@ -11616,7 +11616,7 @@ This document and the information contained herein is provided on an "AS IS" bas
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse}EntityDocQueryDeferredResponseBindingSoap" definition="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredResponse.wsdl" name="EntityDocQueryDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse}EntityDocQueryDeferredResponseBindingSoap" definition="WSDL path not set.  #EntityDocQueryDeferredResponse.wsdl" name="EntityDocQueryDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredResponse.wsdl" type="TEXT">
       <con:part>
