@@ -144,12 +144,20 @@ public class ConnectionManagerCache {
         }
     }
 
-    private BusinessEntity mergeBusinessEntityServices(BusinessEntity internalEntity, BusinessEntity uddiEntity)
-            throws ConnectionManagerException {
-        if (getCommunityId(internalEntity).equals(getCommunityId(uddiEntity))) {
-            return internalEntity;
-        } else {
-            return uddiEntity;
+    /**
+     * This method merge the businessServices from the uddiEntity to the internalEntity.
+     * @param internalEntity Internal Business Entity
+     * @param uddiEntity UDDI Business Entity
+     */
+    private void mergeBusinessEntityServices(BusinessEntity internalEntity, BusinessEntity uddiEntity) {
+        Map <String, BusinessService> internalServiceNames = new HashMap<String, BusinessService>();
+        for (BusinessService internalService : internalEntity.getBusinessServices().getBusinessService()) {
+            internalServiceNames.put(internalService.getServiceKey(), internalService);
+        }
+        for (BusinessService uddiService : uddiEntity.getBusinessServices().getBusinessService()) {
+            if (!internalServiceNames.containsKey(uddiService.getServiceKey())) {
+                internalEntity.getBusinessServices().getBusinessService().add(uddiService);
+            }
         }
     }
 
@@ -390,29 +398,27 @@ public class ConnectionManagerCache {
      * @param oEntity The entity to replace...
      */
     private void replaceBusinessEntity(List<BusinessEntity> oEntities, BusinessEntity oEntity) {
-        if ((oEntities == null) || (oEntity == null)) {
-            return; // there is nothing to do...
-        }
-
-        int iCnt = oEntities.size();
-        if (iCnt == 0) {
-            oEntities.add(oEntity);
-            return;
-        }
-        String homeCommunityId = getCommunityId(oEntity);
-        boolean bReplaced = false;
-        for (int i = 0; i < iCnt; i++) {
-            BusinessEntity oLocalEntity = oEntities.get(i);
-            String localHomeCommunityId = getCommunityId(oLocalEntity);
-            if ((localHomeCommunityId != null) && (homeCommunityId != null)
-                    && (localHomeCommunityId.equals(homeCommunityId))) {
-                oEntities.set(i, oEntity);
-                bReplaced = true;
-                break; // We are done - get out of here.
+        if (oEntity != null) {
+            if (oEntities == null) {
+                oEntities = new ArrayList<BusinessEntity>();
             }
-        } // for (int i = 0; i < iCnt; i++)
 
-        if (!bReplaced) {
+            int iCnt = oEntities.size();
+            if (iCnt == 0) {
+                oEntities.add(oEntity);
+                return;
+            }
+            String homeCommunityId = getCommunityId(oEntity);
+            for (int i = 0; i < iCnt; i++) {
+                BusinessEntity oLocalEntity = oEntities.get(i);
+                String localHomeCommunityId = getCommunityId(oLocalEntity);
+                if ((localHomeCommunityId != null) && (homeCommunityId != null)
+                        && (localHomeCommunityId.equals(homeCommunityId))) {
+                    oEntities.set(i, oEntity);
+                    return; // We are done
+                }
+            } // for (int i = 0; i < iCnt; i++)
+
             oEntities.add(oEntity);
         }
     }
@@ -424,19 +430,15 @@ public class ConnectionManagerCache {
      * @throws ConnectionManagerException
      */
     public List<BusinessEntity> getAllBusinessEntities() throws ConnectionManagerException {
-        HashSet<String> hEntities = new HashSet<String>();
-        List<BusinessEntity> oEntities = new ArrayList<BusinessEntity>();
+        List<BusinessEntity> allEntities = new ArrayList<BusinessEntity>();
 
         checkLoaded();
 
         // First get the information from the internal connections.
         // ---------------------------------------------------------
-        Collection<BusinessEntity> colInternConn = m_hInternalConnectInfo.values();
-        for (BusinessEntity oEntity : colInternConn) {
-            String homeComunityId = getCommunityId(oEntity);
-            if ((homeComunityId != null) && (homeComunityId.length() > 0)) {
-                hEntities.add(homeComunityId);
-                oEntities.add(oEntity);
+        for (BusinessEntity internalEntity : m_hInternalConnectInfo.values()) {
+            if (NullChecker.isNotNullish(getCommunityId(internalEntity))) {
+                allEntities.add(internalEntity);
             }
         }
 
@@ -444,26 +446,19 @@ public class ConnectionManagerCache {
         // If it is in the list, then merge the services. If not, then
         // add it as is.
         // -----------------------------------------------------------------------------------
-        Collection<BusinessEntity> colEntity = m_hUDDIConnectInfo.values();
-        for (BusinessEntity oEntity : colEntity) {
-            String homeCommunityId = getCommunityId(oEntity);
-            if ((homeCommunityId != null) && (homeCommunityId.length() > 0)) {
-                if (hEntities.contains(homeCommunityId)) {
-                    BusinessEntity oExistingEntity = extractBusinessEntity(oEntities, homeCommunityId);
-                    if (oExistingEntity != null) {
-                        oExistingEntity = mergeBusinessEntityServices(oExistingEntity, oEntity);
-                        replaceBusinessEntity(oEntities, oExistingEntity);
-                    } else {
-                        // We should never get here - but just in case...
-                        oEntities.add(oEntity);
-                    }
+        for (BusinessEntity uddiEntity : m_hUDDIConnectInfo.values()) {
+            String homeCommunityId = getCommunityId(uddiEntity);
+            if (NullChecker.isNotNullish(homeCommunityId)) {
+                BusinessEntity oExistingEntity = extractBusinessEntity(allEntities, homeCommunityId);
+                if (oExistingEntity != null) {
+                    mergeBusinessEntityServices(oExistingEntity, uddiEntity);
+                    replaceBusinessEntity(allEntities, oExistingEntity);
                 } else {
-                    hEntities.add(homeCommunityId);
-                    oEntities.add(oEntity);
+                    allEntities.add(uddiEntity);
                 }
             }
         }
-        return oEntities;
+        return allEntities;
 
     }
 
@@ -475,7 +470,6 @@ public class ConnectionManagerCache {
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
      */
     public BusinessEntity getBusinessEntity(String sHomeCommunityId) throws ConnectionManagerException {
-        BusinessEntity oReturnEntity = null;
 
         checkLoaded();
 
@@ -495,14 +489,11 @@ public class ConnectionManagerCache {
         }
 
         if ((oInternalEntity != null) && (oUDDIEntity != null)) {
-            oReturnEntity = mergeBusinessEntityServices(oInternalEntity, oUDDIEntity);
-        } else if (oInternalEntity != null) {
-            oReturnEntity = oInternalEntity;
+            mergeBusinessEntityServices(oInternalEntity, oUDDIEntity);
         } else if (oUDDIEntity != null) {
-            oReturnEntity = oUDDIEntity;
+            return oUDDIEntity;
         }
-
-        return oReturnEntity;
+        return oInternalEntity;
     }
 
     /**
@@ -658,8 +649,7 @@ public class ConnectionManagerCache {
         checkLoaded();
 
         // Validation
-        if ((sHomeCommunityId == null) || (sHomeCommunityId.length() <= 0) || (sUniformServiceName == null)
-                || (sUniformServiceName.length() <= 0)) {
+        if (NullChecker.isNullish(sHomeCommunityId) || NullChecker.isNullish(sUniformServiceName)) {
             return null;
         }
 
@@ -680,7 +670,8 @@ public class ConnectionManagerCache {
         // Merge local and remote
         BusinessEntity oCombinedEntity = null;
         if ((internalBusinessEntity != null) && (oUDDIEntity != null)) {
-            oCombinedEntity = mergeBusinessEntityServices(internalBusinessEntity, oUDDIEntity);
+            mergeBusinessEntityServices(internalBusinessEntity, oUDDIEntity);
+            oCombinedEntity = internalBusinessEntity;
         } else if (internalBusinessEntity != null) {
             oCombinedEntity = internalBusinessEntity;
         } else if (oUDDIEntity != null) {
@@ -987,8 +978,7 @@ public class ConnectionManagerCache {
 
         checkLoaded();
 
-        if ((saHomeCommunityId == null) || (saHomeCommunityId.size() <= 0) || (sUniformServiceName == null)
-                || (sUniformServiceName.length() <= 0)) {
+        if (NullChecker.isNullish(saHomeCommunityId) || NullChecker.isNullish(sUniformServiceName)) {
             return null;
         }
 

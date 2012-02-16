@@ -138,6 +138,20 @@ public class ConnectionManagerCacheTest {
         };
     }
 
+    protected ConnectionManagerCache createConnectionManager_Merge() throws ConnectionManagerException {
+        return new ConnectionManagerCache() {
+            @Override
+            protected UddiConnectionInfoDAOFileImpl getUddiConnectionManagerDAO() {
+                return createUddiConnectionInfoDAO("/config/ConnectionManagerCacheTest/smallUddiConnectionInfoTest.xml");
+            }
+
+            @Override
+            protected InternalConnectionInfoDAOFileImpl getInternalConnectionManagerDAO() {
+                return createInternalConnectionInfoDAO("/config/ConnectionManagerCacheTest/smallInternalConnectionInfoTest.xml");
+            }
+        };
+    }
+
     @Test
     public void testGetInstance() {
         ConnectionManagerCache connectionManager = ConnectionManagerCache.getInstance();
@@ -212,6 +226,27 @@ public class ConnectionManagerCacheTest {
             connectionManager = createConnectionManager_Override();
             entities = connectionManager.getAllBusinessEntities();
             assertEquals(3, entities.size());
+            BusinessEntity businessEntity = connectionManager.getBusinessEntity("1.1");
+            assertEquals(3, businessEntity.getBusinessServices().getBusinessService().size());
+
+            // Merge business services
+            connectionManager = createConnectionManager_Merge();
+            entities = connectionManager.getAllBusinessEntities();
+            assertEquals(2, entities.size());
+            
+            // Override 1.1 DQ with internal url
+            businessEntity = connectionManager.getBusinessEntity("1.1");
+            assertEquals(3, businessEntity.getBusinessServices().getBusinessService().size());
+            String url = connectionManager.getEndpointURLByServiceName("1.1", QUERY_FOR_DOCUMENTS_NAME);
+            assertTrue(url.equals("https://localhost:8181/InternalQueryForDocuments"));
+
+            // No override 2.2 DQ from UDDI
+            businessEntity = connectionManager.getBusinessEntity("2.2");
+            assertEquals(1, businessEntity.getBusinessServices().getBusinessService().size());
+            url = connectionManager.getEndpointURLByServiceName("2.2", QUERY_FOR_DOCUMENTS_NAME);
+            assertTrue(url.equals("https://server4:8181/UddiQueryForDocuments"));
+            
+            
         } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetAllBusinessEntities test: " + t.getMessage());
