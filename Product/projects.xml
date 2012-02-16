@@ -42,7 +42,6 @@
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
-    
     <project>
         <name>DocumentQuery_20</name>
         <directory>/Production/Gateway/DocumentQuery_20</directory>
@@ -122,15 +121,15 @@
     </project>
     
     <project>
-        <name>CONNECTGatewayHiem_g0</name>
-        <directory>/Production/Gateway/CONNECTGatewayHiem_g0/</directory>
+        <name>HIEM_20</name>
+        <directory>/Production/Gateway/HIEM_20/</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>CONNECTAdapterHiem_a0</name>
-        <directory>/Production/Adapters/General/CONNECTAdapterHiem_a0</directory>
+        <name>HIEM_a0</name>
+        <directory>/Production/Adapters/HIEM_a0/</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
