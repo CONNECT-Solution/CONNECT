@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This wsdl file is for an XDS.b Document Repository Actor -->
+<definitions xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+             xmlns:ihe="urn:ihe:iti:xds-b:2007"
+             xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+             xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+             xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+             xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+             xmlns:wsaws="http://www.w3.org/2005/08/addressing"
+             xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"
+             xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:xdr="http://www.hhs.gov/healthit/nhin"
+             name="NhincProxyXDRSecuredResponse"
+             targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response">
+    <documentation>IHE XDR Document Repository</documentation>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://www.hhs.gov/healthit/nhin" schemaLocation="../schemas/nhin/xdr.xsd"/>
+            <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../schemas/ebRS/rs.xsd"/>
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+            <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../schemas/ebRS/query.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="ProvideAndRegisterDocumentSet-bAsyncResponse_RequestMessage">
+        <documentation>Provide and Register Document Set Response - Request</documentation>
+        <part name="ProvideAndRegisterAsyncRespRequest" element="nccommonproxy:RespondingGateway_ProvideAndRegisterDocumentSetSecuredResponseRequest"/>
+    </message>
+    <message name="ProvideAndRegisterDocumentSet-bAsyncResponse_ResponseMessage">
+        <documentation>Provide And Register Document Set Response - Response</documentation>
+        <part name="ProvideAndRegisterAsyncRespResponse" element="xdr:XDRAcknowledgement"/>
+    </message>
+    <portType name="ProxyXDRSecuredAsyncResponse_PortType">
+        <operation name="ProvideAndRegisterDocumentSet-bAsyncResponse">
+            <input message="tns:ProvideAndRegisterDocumentSet-bAsyncResponse_RequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request"/>
+            <output message="tns:ProvideAndRegisterDocumentSet-bAsyncResponse_ResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Response"/>
+        </operation>
+    </portType>
+    <binding name="ProxyXDRSecuredAsyncResponse_Binding" type="tns:ProxyXDRSecuredAsyncResponse_PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_SoapPolicy"/>
+        <operation name="ProvideAndRegisterDocumentSet-bAsyncResponse">
+            <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bAsyncResponse"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="ProxyXDRSecuredAsyncResponse_Service">
+        <port name="ProxyXDRSecuredAsyncResponse_Port" binding="tns:ProxyXDRSecuredAsyncResponse_Binding">
+            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyXDRAsyncResponseSecured"/>
+        </port>
+    </service>
+    <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+
+</definitions>
+
+

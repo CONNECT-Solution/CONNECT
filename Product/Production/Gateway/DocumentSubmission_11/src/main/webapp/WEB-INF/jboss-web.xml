@@ -1,0 +1,4 @@
+<jboss-web>
+    <context-root>/Gateway/DocumentSubmission/1_1</context-root>
+    <class-loading java2ClassLoadingCompliance='true'/>
+</jboss-web>

@@ -20,7 +20,7 @@
 <ivy-module version="1.0">
   <info
       organisation="gov.hhs.fha"
-      module="CONNECTAdapterPatientDiscovery_a0"
+      module="PatientDiscoveryAdapter_AO"
       status="integration">
   </info>
 
