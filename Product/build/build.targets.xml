@@ -77,7 +77,7 @@ layer of abstraction
 
   <target name="addentry.deploy.list.xml">    
 	  <xmltask source="${root.project.directory.path}/projects.xml">
-	    <copy path="/projects/project/name[text()='${project.name}']/../should.build/text()" property="project.${project.name}.should.deploy"/>
+	    <copy path="/projects/project/name[text()='${project.name}']/../should.deploy/text()" property="project.${project.name}.should.deploy"/>
 	  </xmltask>
 	  <propertycopy name="should.deploy" from="project.${project.name}.should.deploy" />
     <if>
