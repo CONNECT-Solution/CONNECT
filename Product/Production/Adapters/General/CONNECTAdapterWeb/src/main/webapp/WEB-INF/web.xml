@@ -112,10 +112,6 @@
             <url-pattern>/AdapterPolicyEngineSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>AdapterSecuredAuditLogQuery</web-resource-name>
-            <url-pattern>/AdapterAuditLogQuerySaml</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
             <web-resource-name>AdapterMpiSecured</web-resource-name>
             <url-pattern>/AdapterMpiSecuredService</url-pattern>
         </web-resource-collection>
