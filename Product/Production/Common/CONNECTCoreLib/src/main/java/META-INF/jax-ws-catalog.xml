@@ -25,7 +25,6 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentMpi.wsdl" uri="wsdl/AdapterComponentMpi.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentSecuredMpi.wsdl" uri="wsdl/AdapterComponentSecuredMpi.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl" uri="wsdl/AdapterPolicyEngine.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterReidentification.wsdl" uri="wsdl/AdapterReidentification.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuthentication.wsdl" uri="wsdl/AdapterAuthentication.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl" uri="wsdl/AdapterComponentDocRegistry.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl" uri="wsdl/AdapterComponentDocRepository.wsdl"/>

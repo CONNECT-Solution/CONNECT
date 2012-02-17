@@ -128,7 +128,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
     private Log log = null;
     private UTCDateUtil utcDateUtil = null;
     private static final String REPOSITORY_UNIQUE_ID = "1";
-    private final static int FILECHUNK = 65536;
+    // private final static int FILECHUNK = 65536;
 
     public AdapterComponentDocRepositoryOrchImpl() {
         log = createLogger();
@@ -361,7 +361,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             // loop through binaryDocs list and put them into a hashmap for later use
             // when looping through the metadata - we need to associate the metadata
             // with the document (this is done by looking at the XDS Document id attribute).
-            HashMap docMap = new HashMap();
+            HashMap<String, byte[]> docMap = new HashMap<String, byte[]>();
             for (ProvideAndRegisterDocumentSetRequestType.Document tempDoc : binaryDocs) {
                 docMap.put(tempDoc.getId(), tempDoc.getValue());
             }
@@ -387,7 +387,10 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     extrinsicObject = (ExtrinsicObjectType) tempObj;
                     log.debug("extrinsicObject successfully populated");
 
-                    if (extrinsicObject == null) {
+                    // get the externalIdentifiers so that we can get the docId and patientId
+                    List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType> externalIdentifiers = extrinsicObject
+                            .getExternalIdentifier();
+                    if (externalIdentifiers == null || externalIdentifiers.size() == 0) {
                         RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
                                 .createRegistryError();
                         error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not find a required element");
@@ -395,7 +398,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                                 + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet"); // kludgy?
                         error.setErrorCode(XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA);
                         error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
-                        error.setValue(XDS_MISSING_DOCUMENT_METADATA + "extrinsicObject element is null.");
+                        error.setValue(XDS_MISSING_DOCUMENT_METADATA + "extrinsicObject.getExternalIdentifier() element is null or empty.");
 
                         errorList.getRegistryError().add(error);
 
@@ -406,10 +409,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     } else {
                         // prepare for the translation to the NHINC doc repository
                         gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc = new gov.hhs.fha.nhinc.docrepository.adapter.model.Document();
-
-                        // get the externalIdentifiers so that we can get the docId and patientId
-                        List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType> externalIdentifiers = extrinsicObject
-                                .getExternalIdentifier();
 
                         // extract the docId
                         String documentUniqueId = extractMetadataFromExternalIdentifiers(externalIdentifiers,
@@ -779,7 +778,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                 log.debug("associationType object present");
 
-                if (associationObj == null) {
+                if (NullChecker.isNotNullish(associationObj.getAssociationType())) {
                     RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
                             .createRegistryError();
                     error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not find a required element");
@@ -807,7 +806,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         replacementAssociationExists = false;
                     }
 
-                } // else associationObj is not null
+                } // else associationObj.getAssociationType() is not null
             } // if (tempObj instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AssociationType1)
         } // for (int i = 0; i < identifiableObjectList.size(); i++)
 
@@ -822,10 +821,10 @@ public class AdapterComponentDocRepositoryOrchImpl {
         // query for the doc unique id
         DocumentQueryParams params = new DocumentQueryParams();
         params.setPatientId(sPatId);
-        List<String> lClassCodeList = new ArrayList();
+        List<String> lClassCodeList = new ArrayList<String>();
         lClassCodeList.add(sClassCode);
         params.setClassCodes(lClassCodeList);
-        List<String> lStatus = new ArrayList();
+        List<String> lStatus = new ArrayList<String>();
         lStatus.add(sStatus);
         params.setStatuses(lStatus);
 
@@ -972,7 +971,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 if (returnAllValues) {
                     int listSize = slot.getValueList().getValue().size();
                     int counter = 0;
-                    Iterator iter = slot.getValueList().getValue().iterator();
+                    Iterator<String> iter = slot.getValueList().getValue().iterator();
                     while (iter.hasNext()) {
                         String value = (String) iter.next();
                         slotValues.append(value);
@@ -1014,7 +1013,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1 slot : documentSlots) {
             if (XDS_SOURCE_PATIENT_INFO_SLOT.equals(slot.getName())) {
-                Iterator iter = slot.getValueList().getValue().iterator();
+                Iterator<String> iter = slot.getValueList().getValue().iterator();
                 while (iter.hasNext()) {
                     String nextSlotValue = (String) iter.next();
                     if (nextSlotValue.startsWith(patientInfoName)) {
