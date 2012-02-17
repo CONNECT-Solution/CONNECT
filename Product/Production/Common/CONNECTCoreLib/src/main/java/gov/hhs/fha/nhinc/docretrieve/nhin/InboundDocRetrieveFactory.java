@@ -18,7 +18,7 @@ public class InboundDocRetrieveFactory {
     private InboundDocRetrieveFactory() {
     }
 
-    public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+    public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.ADAPTER_API_LEVEL apiLevel) {
         switch (apiLevel) {
         default:
             return new InboundDocRetrieveOrchestrationContextBuilder();

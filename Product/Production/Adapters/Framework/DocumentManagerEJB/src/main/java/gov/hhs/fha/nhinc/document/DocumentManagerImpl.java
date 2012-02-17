@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.document;
 
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Implements the DocumentManager web serivce.
- * 
+ *
  * @author cmatser
  */
 public class DocumentManagerImpl {
@@ -121,7 +121,7 @@ public class DocumentManagerImpl {
 
     /**
      * Query dynamic document archive.
-     * 
+     *
      * @param body
      * @return
      */
@@ -145,7 +145,7 @@ public class DocumentManagerImpl {
 
     /**
      * Retrieve dynamic document.
-     * 
+     *
      * @param body
      * @return
      */
@@ -161,7 +161,7 @@ public class DocumentManagerImpl {
 
     /**
      * Store dynamic document.
-     * 
+     *
      * @param body
      * @return
      */
@@ -188,7 +188,7 @@ public class DocumentManagerImpl {
      * The dynamic document is archived by first querying for the metadata, then querying for the document itself. With
      * this information, we can re-store the document as a replacement of the original (updating the hasBeenAccessed
      * flag). The hasBeenAccessed flag is our archiving flag.
-     * 
+     *
      * @param body
      * @return
      */
@@ -268,7 +268,7 @@ public class DocumentManagerImpl {
 
     /**
      * Query inbound repository.
-     * 
+     *
      * @param body
      * @return
      */
@@ -289,7 +289,7 @@ public class DocumentManagerImpl {
 
     /**
      * Retrieve the inbound document.
-     * 
+     *
      * @param body
      * @return
      */
@@ -301,7 +301,7 @@ public class DocumentManagerImpl {
 
     /**
      * Store inbound document.
-     * 
+     *
      * @param body
      * @return
      */
@@ -322,7 +322,7 @@ public class DocumentManagerImpl {
 
     /**
      * Query policy repository.
-     * 
+     *
      * @param body
      * @return
      */
@@ -343,7 +343,7 @@ public class DocumentManagerImpl {
 
     /**
      * Store policy.
-     * 
+     *
      * @param body
      * @return
      */
@@ -364,7 +364,7 @@ public class DocumentManagerImpl {
 
     /**
      * Retrieve policy.
-     * 
+     *
      * @param body
      * @return
      */
@@ -376,7 +376,7 @@ public class DocumentManagerImpl {
 
     /**
      * Generate unique Id that can be used for document unique ids.
-     * 
+     *
      * @param request
      * @return
      */
@@ -400,11 +400,11 @@ public class DocumentManagerImpl {
 
     /**
      * Perform the actual query.
-     * 
+     *
      * Before we do, we add a repository Id to the request. This will tell the repository to filter the request
      * appropriately. Unfortunately, this isn't how a real XDS Registry behaves. So when/if we use one, there will need
      * to be a rework done here.
-     * 
+     *
      * @param request
      * @param endpoint
      * @param repositoryId
@@ -433,11 +433,11 @@ public class DocumentManagerImpl {
 
     /**
      * Perform the actual store. A unique Id is inserted if one hasn't already been created.
-     * 
+     *
      * Before we do, we add a repository Id to the request. This will tell the repository to store the request
      * appropriately. Unfortunately, this isn't how a real XDS Registry behaves. So when/if we use one, there will need
      * to be a rework done here.
-     * 
+     *
      * @param request
      * @param endpoint
      * @param repositoryId
@@ -482,10 +482,10 @@ public class DocumentManagerImpl {
 
     /**
      * Perform the actual retrieve.
-     * 
+     *
      * Here we can just forward the request to the repository. For a real XDS server, we would need to call the
      * appropriate repository for the document.
-     * 
+     *
      * @param request
      * @param endpoint
      * @return
@@ -511,7 +511,7 @@ public class DocumentManagerImpl {
     /**
      * Insert a document unique Id if one does not already exist. External Identifier object should at least be in
      * place.
-     * 
+     *
      * @param request
      * @return true if successful, false otherwise
      */
@@ -730,7 +730,7 @@ public class DocumentManagerImpl {
 
     /**
      * Add slot to submission object.
-     * 
+     *
      * @param registry - submission object
      * @param name - slot name
      * @param values - slot values
@@ -751,7 +751,7 @@ public class DocumentManagerImpl {
 
     /**
      * Add classification to submission object.
-     * 
+     *
      * @param registry
      * @param classifiedObject
      * @param classificationScheme
@@ -793,7 +793,7 @@ public class DocumentManagerImpl {
 
     /**
      * Add external identifier on submission object.
-     * 
+     *
      * @param registry
      * @param registryObject
      * @param identificationScheme
@@ -839,7 +839,7 @@ public class DocumentManagerImpl {
 
     /**
      * Before storing, ensure that repositoryID is present.
-     * 
+     *
      * @param request
      * @param repositoryId
      */
@@ -883,7 +883,7 @@ public class DocumentManagerImpl {
 
     /**
      * Before query, ensure repository id present.
-     * 
+     *
      * @param request
      * @param repositoryId
      */
@@ -937,7 +937,7 @@ public class DocumentManagerImpl {
 
             if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
                 try {
-                    sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId,
+                    sEndpointURL = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(sHomeCommunityId,
                             serviceName);
                 } catch (Exception e) {
                     log.error("Failed to retrieve endpoint URL for service:" + serviceName

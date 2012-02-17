@@ -133,7 +133,7 @@ public class HiemNotifyAdapterWebServiceDispatch implements HiemNotifyAdapterPro
         String url = null;
         url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, serviceName);
         if (NullChecker.isNullish(url)) {
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName);
+            url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(serviceName);
         }
         return url;
     }

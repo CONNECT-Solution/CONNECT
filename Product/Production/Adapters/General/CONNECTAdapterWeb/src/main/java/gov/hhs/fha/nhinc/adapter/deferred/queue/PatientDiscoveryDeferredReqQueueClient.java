@@ -74,7 +74,7 @@ public class PatientDiscoveryDeferredReqQueueClient {
             String sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
-            String endpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunity,
+            String endpointURL = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(sHomeCommunity,
                     NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME);
 
             if (endpointURL != null && !endpointURL.isEmpty()) {

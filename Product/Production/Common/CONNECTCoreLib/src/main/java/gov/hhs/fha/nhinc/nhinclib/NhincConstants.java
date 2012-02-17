@@ -50,7 +50,7 @@ public class NhincConstants {
 
     public static enum UDDI_SPEC_VERSION {
 
-        SPEC_1_0("1.0"), SPEC_2_0("2.0");
+        SPEC_1_0("1.0"), SPEC_1_1("1.1"), SPEC_2_0("2.0"), SPEC_3_0("3.0");
         private String value = null;
 
         UDDI_SPEC_VERSION(String value) {
@@ -72,6 +72,37 @@ public class NhincConstants {
             }
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
+    };
+    
+    public static enum NHIN_SERVICE_NAMES {
+    	PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME),
+    	PATIENT_DISCOVERY_DEFERRED_REQUEST(PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
+    	PATIENT_DISCOVERY_DEFERRED_RESPONSE(PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+    	
+    	DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
+    	
+    	DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
+    	
+    	DOCUMENT_SUBMISSION(DOC_SUBMISSION_SERVICE_PROP),
+    	DOCUMENT_SUBMISSION_DEFERRED_REQUEST(DOC_SUBMISSION_DEFERRED_REQ_SERVICE_PROP),
+    	DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(DOC_SUBMISSION_DEFERRED_RESP_SERVICE_PROP),
+    	
+    	ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
+    	
+    	HIEM_SUBSCRIBE(HIEM_SUBSCRIBE_SERVICE_NAME),
+    	HIEM_NOTIFY(HIEM_NOTIFY_SERVICE_NAME),
+    	HIEM_UNSUBSCRIBE(HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME);
+    	
+        private String UDDIServiceName = null;
+
+        NHIN_SERVICE_NAMES(String value) {
+            this.UDDIServiceName = value;
+        }
+        
+    	public String getUDDIServiceName()
+    	{
+    		return this.UDDIServiceName;
+    	}
     };
 
     // Property File Constants
@@ -426,9 +457,9 @@ public class NhincConstants {
     public static final String XDR_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String XDR_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
     public static final String XDR_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    public static final String DOC_SUBMISSION_SERVICE_PROP = "serviceDocumentSubmission";
-    public static final String DOC_SUBMISSION_DEFERRED_REQ_SERVICE_PROP = "serviceDocumentSubmissionDeferredReq";
-    public static final String DOC_SUBMISSION_DEFERRED_RESP_SERVICE_PROP = "serviceDocumentSubmissionDeferredResp";
+    public static final String DOC_SUBMISSION_SERVICE_PROP = "DocumentSubmission";
+    public static final String DOC_SUBMISSION_DEFERRED_REQ_SERVICE_PROP = "DocSubmissionDeferredReq";
+    public static final String DOC_SUBMISSION_DEFERRED_RESP_SERVICE_PROP = "DocSubmissionDeferredResp";
     public static final String DOC_SUBMISSION_PASSTHRU_PROP = "documentSubmissionPassthrough";
     public static final String DOC_SUBMISSION_DEFERRED_REQ_PASSTHRU_PROP = "documentSubmissionDeferredReqPassthrough";
     public static final String DOC_SUBMISSION_DEFERRED_RESP_PASSTHRU_PROP = "documentSubmissionDeferredRespPassthrough";
@@ -482,6 +513,8 @@ public class NhincConstants {
     public static final String ADAPTER_COMPONENT_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adaptercomponentdocretrievedeferredresponse";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adapterdocretrievedeferredresponse";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SECURED_SERVICE_NAME = "adapterdocretrievedeferredresponsesecured";
+    
+    public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
 
     /* -- End Document Retrieve deferred Service Name -- */
     private NhincConstants() {

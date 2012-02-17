@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.entity;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -53,7 +54,7 @@ public class OutboundAdminDistributionDelegate implements OutboundDelegate {
             OutboundAdminDistributionOrchestratable adMessage = (OutboundAdminDistributionOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
-                    adMessage.getTarget().getHomeCommunity(), adMessage.getServiceName());
+                    adMessage.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION);
 
             if (contextBuilder instanceof OutboundAdminDistributionOrchestrationContextBuilder_g0) {
                 ((OutboundAdminDistributionOrchestrationContextBuilder_g0) contextBuilder).init(message);

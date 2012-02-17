@@ -139,7 +139,7 @@ public class Manager {
                     myCommunityId = PropertyAccessor.getProperty("gateway", "localHomeCommunityId");
                     if (myCommunityId != null) {
                         try {
-                            url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(myCommunityId,
+                            url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
                                     CONST_UNSUBSCRIBE_SERVICE_NAME);
                         } catch (Throwable t) {
                             String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();

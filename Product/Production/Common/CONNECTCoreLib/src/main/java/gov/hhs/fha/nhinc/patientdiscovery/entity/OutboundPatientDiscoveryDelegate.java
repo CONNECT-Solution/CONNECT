@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
@@ -74,7 +75,7 @@ public class OutboundPatientDiscoveryDelegate implements OutboundDelegate {
         getLogger().debug("NhinPatientDiscoveryDelegate::process EntityPatientDiscoveryOrchestratable");
 
         OutboundPatientDiscoveryOrchestrationContextBuilder contextBuilder = (OutboundPatientDiscoveryOrchestrationContextBuilder) OrchestrationContextFactory
-                .getInstance().getBuilder(message.getTarget().getHomeCommunity(), message.getServiceName());
+                .getInstance().getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
 
         contextBuilder.setAssertionType(message.getAssertion());
         contextBuilder.setRequest(message.getRequest());

@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -43,10 +44,6 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.Name;
@@ -64,6 +61,7 @@ public class HomeCommunityMapTest {
         }
     };
     final ConnectionManagerCache mockConnectionManager = context.mock(ConnectionManagerCache.class);
+    final ConnectionManagerCacheHelper mockConnectionManagerHelper = context.mock(ConnectionManagerCacheHelper.class);
 
     public HomeCommunityMapTest() {
     }
@@ -91,13 +89,18 @@ public class HomeCommunityMapTest {
                 protected ConnectionManagerCache getConnectionManagerCache() {
                     return mockConnectionManager;
                 }
+                
+                @Override
+                protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
+                    return mockConnectionManagerHelper;
+                }
             };
 
             context.checking(new Expectations() {
                 {
                     exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class)));
                     will(returnValue(createBusinessEntity()));
-                    exactly(1).of(mockConnectionManager).getCommunityId(with(any(BusinessEntity.class)));
+                    exactly(1).of(mockConnectionManagerHelper).getCommunityId(with(any(BusinessEntity.class)));
                     will(returnValue("DoD"));
                 }
             });

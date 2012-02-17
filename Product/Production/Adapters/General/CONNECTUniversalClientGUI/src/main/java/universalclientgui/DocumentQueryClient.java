@@ -185,7 +185,7 @@ public class DocumentQueryClient {
             // Lookup home community id
             String homeCommunity = getHomeCommunityId();
             // Get endpoint url
-            endpointAddress = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunity,
+            endpointAddress = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(homeCommunity,
                     NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
             log.debug("Doc Query endpoint address: " + endpointAddress);
         } catch (PropertyAccessException pae) {

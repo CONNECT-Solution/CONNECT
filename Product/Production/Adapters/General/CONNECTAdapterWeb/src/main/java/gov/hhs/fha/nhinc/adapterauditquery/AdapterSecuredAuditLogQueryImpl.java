@@ -82,7 +82,7 @@ public class AdapterSecuredAuditLogQueryImpl {
 
         try {
             log.debug("NhincConstants.AUDIT_LOG_ADAPTER_SERVICE_NAME: " + NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME);
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+            url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
                     NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME

@@ -157,7 +157,7 @@ public class WebServiceProxyHelper {
      */
     protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
             throws ConnectionManagerException {
-        String url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId, sServiceName);
+        String url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(sHomeCommunityId, sServiceName);
         return url;
     }
 
@@ -170,7 +170,7 @@ public class WebServiceProxyHelper {
      * @throws Exception An exception if one occurs.
      */
     protected String getLocalEndPointFromConnectionManager(String sServiceName) throws ConnectionManagerException {
-        String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(sServiceName);
+        String url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(sServiceName);
         return url;
     }
 

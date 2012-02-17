@@ -147,7 +147,7 @@ public class AdapterDocRepository2Soap12Client {
             // --------------------------------------------
             // Note, set the sEndpointURL to null and comment out the ConnectionMangerCache logic if running outside of
             // GF.
-            String sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+            String sEndpointURL = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
                     NhincConstants.ADAPTER_XDS_REP_SERVICE_NAME);
 
             if ((sEndpointURL == null) || (sEndpointURL.length() <= 0)) {

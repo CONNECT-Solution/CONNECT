@@ -145,7 +145,7 @@ public class PatientDiscoveryClient {
 
             // Get endpoint url
 
-            endpointAddress = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunity,
+            endpointAddress = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(homeCommunity,
                     NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME);
 
             log.debug("Entity Patient Discovery endpoint address: " + endpointAddress);

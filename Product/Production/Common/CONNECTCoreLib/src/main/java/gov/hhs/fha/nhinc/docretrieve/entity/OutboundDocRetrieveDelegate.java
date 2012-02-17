@@ -67,7 +67,7 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
 
             OutboundDocRetrieveContextBuilder contextBuilder = (OutboundDocRetrieveContextBuilder) OrchestrationContextFactory
                     .getInstance().getBuilder(DRMessage.getTarget().getHomeCommunity(),
-                            NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+                            NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
 
             contextBuilder.setContextMessage(message);
             OrchestrationContext context = ((OrchestrationContextBuilder) contextBuilder).build();

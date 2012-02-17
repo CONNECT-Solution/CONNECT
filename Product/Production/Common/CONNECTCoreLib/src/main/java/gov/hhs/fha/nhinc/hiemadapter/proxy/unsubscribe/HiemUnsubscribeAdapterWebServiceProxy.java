@@ -109,7 +109,7 @@ public class HiemUnsubscribeAdapterWebServiceProxy implements HiemUnsubscribeAda
         }
         if (NullChecker.isNullish(url)) {
             try {
-                url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(serviceName);
+                url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(serviceName);
             } catch (ConnectionManagerException ex) {
                 log.warn("exception occurred accessing url from connection manager (getLocalEndpointURLByServiceName)",
                         ex);

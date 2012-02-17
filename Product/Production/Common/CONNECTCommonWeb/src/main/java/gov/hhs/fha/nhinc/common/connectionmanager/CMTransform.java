@@ -55,6 +55,7 @@ import java.util.List;
 
 import gov.hhs.fha.nhinc.connectmgr.data.CMHomeCommunity;
 import gov.hhs.fha.nhinc.connectmgr.CMEprUtil;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.AddressType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.AddressesType;
@@ -995,7 +996,8 @@ public class CMTransform {
      * @return The web service representation.
      */
     public static HomeCommunityType transformBusinessEntityToHomeCommunityType(BusinessEntity businessEntity) {
-        HomeCommunityType homeCommunity = new HomeCommunityType();
+    	ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
+    	HomeCommunityType homeCommunity = new HomeCommunityType();
 
         if (businessEntity == null) {
             return null;
@@ -1014,7 +1016,8 @@ public class CMTransform {
         // TODO: Is the HCID correct? Do we need to trim it?
         homeCommunity.setName(name);
         homeCommunity.setDescription(description);
-        homeCommunity.setHomeCommunityId(ConnectionManagerCache.getInstance().getCommunityId(businessEntity));
+        
+        homeCommunity.setHomeCommunityId(helper.getCommunityId(businessEntity));
 
         return homeCommunity;
     }

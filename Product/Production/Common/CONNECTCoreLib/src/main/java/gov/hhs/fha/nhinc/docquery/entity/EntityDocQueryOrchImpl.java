@@ -50,6 +50,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
@@ -128,8 +129,9 @@ public class EntityDocQueryOrchImpl {
         // quick rig for testing to switch between a0 and a1
         // note that a0 and a1 would be handled by different methods if they were different
         boolean responseIsSpecA0 = true;
-        NhincConstants.GATEWAY_API_LEVEL gatewayLevel = ConnectionManagerCache.getInstance().getApiVersion(
-                getLocalHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
+        NhinEndpointManager nem = new NhinEndpointManager();
+        NhincConstants.GATEWAY_API_LEVEL gatewayLevel = nem.getApiVersion(
+                getLocalHomeCommunityId(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
         switch (gatewayLevel) {
         case LEVEL_g0: {
             responseIsSpecA0 = true;

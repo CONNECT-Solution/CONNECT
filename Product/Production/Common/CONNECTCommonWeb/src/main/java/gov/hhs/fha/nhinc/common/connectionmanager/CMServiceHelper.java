@@ -606,7 +606,7 @@ public class CMServiceHelper {
             HomeCommunityType homeCommunityType = CMTransform
                     .transformBusinessEntityToHomeCommunityType(businessEntity);
 
-            String url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(sHomeCommunityId,
+            String url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(sHomeCommunityId,
                     sServiceName);
             ServiceConnectionInfoType serviceConnectionInfoType = createServiceConnectionInfoType(sServiceName, url);
 

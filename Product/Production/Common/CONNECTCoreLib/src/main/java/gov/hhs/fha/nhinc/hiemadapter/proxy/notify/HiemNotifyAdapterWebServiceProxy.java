@@ -70,7 +70,7 @@ public class HiemNotifyAdapterWebServiceProxy implements HiemNotifyAdapterProxy 
         String url = null;
 
         try {
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+            url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
                     NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME

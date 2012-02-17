@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -59,6 +60,11 @@ public class HomeCommunityMap {
     protected ConnectionManagerCache getConnectionManagerCache() {
         return ConnectionManagerCache.getInstance();
     }
+    
+
+	protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
+		return new ConnectionManagerCacheHelper();
+	}
 
     /**
      * This method retrieves the name of the home community baased on the home community Id.
@@ -68,7 +74,7 @@ public class HomeCommunityMap {
      */
     public String getHomeCommunityName(String sHomeCommunityId) {
         String sHomeCommunityName = "";
-
+        ConnectionManagerCacheHelper helper = getConnectionManagerCacheHelper();
         try {
             ConnectionManagerCache connectionManagerCache = getConnectionManagerCache();
 
@@ -76,7 +82,7 @@ public class HomeCommunityMap {
             if ((oEntity != null) && (oEntity.getName() != null) && (oEntity.getName().size() > 0)
                     && (oEntity.getName().get(0) != null) && (oEntity.getName().get(0).getValue().length() > 0)
                     && (oEntity.getBusinessKey().length() > 0)) {
-                sHomeCommunityName = connectionManagerCache.getCommunityId(oEntity);
+                sHomeCommunityName = helper.getCommunityId(oEntity);
             }
         } catch (Exception e) {
             log.warn("Failed to retrieve textual name for home community ID: " + sHomeCommunityId, e);

@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
@@ -174,16 +175,17 @@ public class ExecutorServiceHelper {
         Throwable cause = ex.getCause();
         if (cause != null) {
             err += "EXCEPTION Cause: " + cause.getClass().getCanonicalName() + "\r\n";
-            if (cause instanceof com.sun.xml.ws.client.ClientTransportException) {
+            /*if (cause instanceof com.sun.xml.ws.client.ClientTransportException) {
                 try {
-                    NhincConstants.GATEWAY_API_LEVEL apiLevel = ConnectionManagerCache.getInstance().getApiVersion(
+                	NhinEndpointManager nem = new NhinEndpointManager();
+                    NhincConstants.GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(
                             target.getHomeCommunity().getHomeCommunityId(), serviceName);
                     String url = (new WebServiceProxyHelper()).getUrlFromTargetSystemByGatewayAPILevel(target,
                             serviceName, apiLevel);
                     err += "EXCEPTION Message: Unable to connect to endpoint url=" + url + "\r\n";
                 } catch (Exception e) {
                 }
-            }
+            }*/
             err += "EXCEPTION Cause Message: " + cause.getMessage();
         }
         return err;

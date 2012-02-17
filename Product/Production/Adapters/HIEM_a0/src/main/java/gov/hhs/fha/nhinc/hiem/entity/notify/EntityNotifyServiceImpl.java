@@ -79,7 +79,7 @@ public class EntityNotifyServiceImpl {
         String url = "";
 
         try {
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+            url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
                     NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);

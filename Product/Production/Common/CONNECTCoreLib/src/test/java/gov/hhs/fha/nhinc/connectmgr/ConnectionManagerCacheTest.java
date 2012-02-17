@@ -57,7 +57,7 @@ public class ConnectionManagerCacheTest {
     private static String RETRIEVE_DOCUMENTS_NAME = "RetrieveDocuments";
     private static String NHIN_TARGET_ENDPOINT_URL_VALUE = "http://localhost:8080/";
     private static String QUERY_FOR_DOCUMENTS_URL = "https://localhost:8181/QueryForDocuments";
-    private static String QUERY_FOR_DOCUMENTS_DEFERRED_NAME = "QueryForDocumentsDeferredRequest";
+    private static String DOC_QUERY_DEFERRED_NAME = "QueryForDocumentsDeferredRequest";
     private static String QUERY_FOR_DOCUMENTS_DEFERRED_URL = "https://localhost:8181/QueryForDocumentsDeferredRequest";
     private static String QUERY_FOR_DOCUMENTS_URL_22 = "https://server2:8181/QueryForDocuments";
     private static String QUERY_FOR_DOCUMENTS_DEFERRED_URL_22 = "https://server2:8181/QueryForDocumentsDeferredRequest";
@@ -205,10 +205,10 @@ public class ConnectionManagerCacheTest {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
             BusinessEntity businessEntity = connectionManager.getBusinessEntity(HCID_1);
-
+            ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
             String HCID_3 = "3.3";
             connectionManager.setCommunityId(businessEntity, HCID_3);
-            String newHCID = connectionManager.getCommunityId(businessEntity);
+            String newHCID = helper.getCommunityId(businessEntity);
             assertTrue(newHCID.equals(HCID_3));
         } catch (Throwable t) {
             t.printStackTrace();
@@ -237,13 +237,13 @@ public class ConnectionManagerCacheTest {
             // Override 1.1 DQ with internal url
             businessEntity = connectionManager.getBusinessEntity("1.1");
             assertEquals(3, businessEntity.getBusinessServices().getBusinessService().size());
-            String url = connectionManager.getEndpointURLByServiceName("1.1", QUERY_FOR_DOCUMENTS_NAME);
+            String url = connectionManager.getDefaultEndpointURLByServiceName("1.1", QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals("https://localhost:8181/InternalQueryForDocuments"));
 
             // No override 2.2 DQ from UDDI
             businessEntity = connectionManager.getBusinessEntity("2.2");
             assertEquals(1, businessEntity.getBusinessServices().getBusinessService().size());
-            url = connectionManager.getEndpointURLByServiceName("2.2", QUERY_FOR_DOCUMENTS_NAME);
+            url = connectionManager.getDefaultEndpointURLByServiceName("2.2", QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals("https://server4:8181/UddiQueryForDocuments"));
             
             
@@ -252,19 +252,31 @@ public class ConnectionManagerCacheTest {
             fail("Error running testGetAllBusinessEntities test: " + t.getMessage());
         }
     }
+    
+    @Test
+    public void testGetBusinessEntityByHCID() {
+        try {
+        	ConnectionManagerCache connectionManager = createConnectionManager();
+        	assertNotNull(connectionManager.getBusinessEntityByHCID(HCID_1));
+        	assertNotNull(connectionManager.getBusinessEntityByHCID(HCID_2));
+        } catch (Throwable t) {
+            t.printStackTrace();
+            fail("Error running getBusinessEntityByHCID test: " + t.getMessage());
+        }
+    }    
 
     @Test
     public void testMerging() {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager_Override();
 
-            String url = connectionManager.getEndpointURLByServiceName(HCID_2, QUERY_FOR_DOCUMENTS_NAME);
+            String url = connectionManager.getDefaultEndpointURLByServiceName(HCID_2, QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(QUERY_FOR_DOCUMENTS_URL_22, url);
 
-            url = connectionManager.getEndpointURLByServiceName(HCID_2, "QueryForDocument");
+            url = connectionManager.getDefaultEndpointURLByServiceName(HCID_2, "QueryForDocument");
             assertEquals(QUERY_FOR_DOCUMENTS_URL_22, url);
 
-            url = connectionManager.getEndpointURLByServiceName(HCID_1, QUERY_FOR_DOCUMENTS_NAME);
+            url = connectionManager.getDefaultEndpointURLByServiceName(HCID_1, QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(QUERY_FOR_DOCUMENTS_URL, url);
         } catch (Throwable t) {
             t.printStackTrace();
@@ -297,18 +309,30 @@ public class ConnectionManagerCacheTest {
         }
     }
 
+    /*@Test
+    public void testGetBusinessServiceByServiceName() {
+    	try {
+        	ConnectionManagerCache connectionManager = createConnectionManager();
+        	assertNotNull(connectionManager.getBusinessEntityByServiceName(HCID_1, QUERY_FOR_DOCUMENTS_NAME));
+        } catch (Throwable t) {
+            t.printStackTrace();
+            fail("Error running testGetBusinessServiceByServiceName test: " + t.getMessage());
+        }
+
+    }*/
+    
     @Test
     public void testGetEndpointURLByServiceName() {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            String url = connectionManager.getEndpointURLByServiceName(HCID_1, QUERY_FOR_DOCUMENTS_NAME);
+            String url = connectionManager.getDefaultEndpointURLByServiceName(HCID_1, QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_URL));
 
-            url = connectionManager.getEndpointURLByServiceName("hcidValue123", QUERY_FOR_DOCUMENTS_NAME);
+            url = connectionManager.getDefaultEndpointURLByServiceName("hcidValue123", QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(""));
 
-            url = connectionManager.getEndpointURLByServiceName(HCID_2, QUERY_FOR_DOCUMENTS_DEFERRED_NAME);
+            url = connectionManager.getDefaultEndpointURLByServiceName(HCID_2, DOC_QUERY_DEFERRED_NAME);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_DEFERRED_URL_22));
         } catch (Throwable t) {
             t.printStackTrace();
@@ -321,13 +345,13 @@ public class ConnectionManagerCacheTest {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            String url = connectionManager.getLocalEndpointURLByServiceName(QUERY_FOR_DOCUMENTS_NAME);
+            String url = connectionManager.getInternalEndpointURLByServiceName(QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_URL));
 
-            url = connectionManager.getLocalEndpointURLByServiceName("serviceNameValue123");
+            url = connectionManager.getInternalEndpointURLByServiceName("serviceNameValue123");
             assertTrue(url.equals(""));
 
-            url = connectionManager.getLocalEndpointURLByServiceName(RETRIEVE_DOCUMENTS_NAME);
+            url = connectionManager.getInternalEndpointURLByServiceName(RETRIEVE_DOCUMENTS_NAME);
             assertTrue(url.equals(""));
         } catch (Throwable t) {
             t.printStackTrace();
@@ -424,7 +448,7 @@ public class ConnectionManagerCacheTest {
             String url = connectionManager.getAdapterEndpontURL(QUERY_FOR_DOCUMENTS_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             assertNull(url);
 
-            url = connectionManager.getAdapterEndpontURL(QUERY_FOR_DOCUMENTS_DEFERRED_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+            url = connectionManager.getAdapterEndpontURL(DOC_QUERY_DEFERRED_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_DEFERRED_URL));
         } catch (Throwable t) {
             t.printStackTrace();

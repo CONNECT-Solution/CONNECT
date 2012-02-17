@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
@@ -53,7 +54,6 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.CS;
@@ -143,8 +143,9 @@ public class EntityPatientDiscoveryOrchImpl {
         // quick rig for testing to switch between a0 and a1
         // note that a0 and a1 would be handled by different methods if they were different
         boolean responseIsSpecA0 = true;
-        NhincConstants.GATEWAY_API_LEVEL gatewayLevel = ConnectionManagerCache.getInstance().getApiVersion(
-                getLocalHomeCommunityId(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        NhinEndpointManager nem = new NhinEndpointManager();
+        NhincConstants.GATEWAY_API_LEVEL gatewayLevel = nem.getApiVersion(
+                getLocalHomeCommunityId(), NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
         switch (gatewayLevel) {
         case LEVEL_g0: {
             responseIsSpecA0 = true;

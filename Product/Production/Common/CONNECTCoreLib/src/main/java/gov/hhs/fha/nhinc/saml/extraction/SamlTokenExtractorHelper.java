@@ -70,7 +70,7 @@ public class SamlTokenExtractorHelper {
 
         if (NullChecker.isNotNullish(homeCommunityId) && NullChecker.isNotNullish(service)) {
             try {
-                url = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunityId, service);
+                url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(homeCommunityId, service);
             } catch (Throwable t) {
                 log.error("Failed to retrieve url.  Error: " + t.getMessage());
             }

@@ -98,7 +98,7 @@ public class EntityUnsubscribeServiceImpl {
         String url = "";
 
         try {
-            url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+            url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
                     NhincConstants.HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME_SECURED);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);

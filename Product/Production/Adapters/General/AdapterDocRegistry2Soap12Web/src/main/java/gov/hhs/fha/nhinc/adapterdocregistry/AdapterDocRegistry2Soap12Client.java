@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.adapterdocregistry;
 
@@ -40,7 +40,7 @@ import com.sun.xml.ws.developer.WSBindingProvider;
 
 /**
  * This class calls a SOAP 1.2 enabled document registry given a SOAP 1.1 registry stored query request message.
- * 
+ *
  * @author Anand Sastry
  */
 public class AdapterDocRegistry2Soap12Client {
@@ -62,11 +62,11 @@ public class AdapterDocRegistry2Soap12Client {
 
     /**
      * This method connects to a soap 1.2 enabled document registry and retrieves metadata.
-     * 
+     *
      * @param body A AdhocQueryRequest object containing key criteria to query for registry metadata.
-     * 
+     *
      * @return Returns a AdhocQueryResponse containing the desired metadata.
-     * 
+     *
      */
 
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentRegistryRegistryStoredQuery(
@@ -98,7 +98,7 @@ public class AdapterDocRegistry2Soap12Client {
      * This method connects to a SOAP 1.2 enabled document registry based on the configuration found in the
      * internalConnectionInfo.xml file, creates the appropriate SOAP 1.2 header and returns a DocumentRegistryPortType
      * object so that a registry stored query request can be made on a SOAP 1.2 enabled document registry.
-     * 
+     *
      * @param action A string representing the soap header action needed to perform a registry stored query.
      * @return Returns a DocumentRegistryPortType object which will enable the registry stored query txn.
      */
@@ -116,7 +116,7 @@ public class AdapterDocRegistry2Soap12Client {
             // --------------------------------------------
             // Note, set the sEndpointURL to null and comment out the ConnectionMangerCache logic if running outside of
             // GF.
-            String sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+            String sEndpointURL = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
                     ADAPTER_XDS_REG_SERVICE_NAME);
 
             if ((sEndpointURL == null) || (sEndpointURL.length() <= 0)) {

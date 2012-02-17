@@ -77,8 +77,8 @@ public class ConnectSubscriptionReferenceHelper {
 
         if (NullChecker.isNotNullish(homeCommunityId)) {
             try {
-                subMgrUrl = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(homeCommunityId,
-                        NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
+                subMgrUrl = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
+                		NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: "
                         + NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME + " for community id: "

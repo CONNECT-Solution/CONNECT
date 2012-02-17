@@ -96,10 +96,10 @@ public class PatientConsentManager {
             String sEndpointURL = "";
             String xdsHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
             if (xdsHomeCommunityId != null && !xdsHomeCommunityId.equals("")) {
-                sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(xdsHomeCommunityId,
+                sEndpointURL = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(xdsHomeCommunityId,
                         CDAConstants.DOC_REGISTRY_SERVICE_NAME);
             } else {
-                sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+                sEndpointURL = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
                         CDAConstants.DOC_REGISTRY_SERVICE_NAME);
             }
 
@@ -141,10 +141,10 @@ public class PatientConsentManager {
             String sEndpointURL = "";
             String xdsHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
             if (xdsHomeCommunityId != null && !xdsHomeCommunityId.equals("")) {
-                sEndpointURL = ConnectionManagerCache.getInstance().getEndpointURLByServiceName(xdsHomeCommunityId,
+                sEndpointURL = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(xdsHomeCommunityId,
                         CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
             } else {
-                sEndpointURL = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(
+                sEndpointURL = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
                         CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
             }
 
@@ -833,7 +833,7 @@ public class PatientConsentManager {
         String sRepositoryId = "";
         String sDocumentUniqueId = "";
         String sConsentXACML = "";
-        List<String> olConsentPdf = new ArrayList();
+        List<String> olConsentPdf = new ArrayList<String>();
     }
 
 }
