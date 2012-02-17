@@ -262,48 +262,6 @@ public class ConnectionManagerCache {
     }
 
     /**
-     * This method will return a list of all home commuinities that are known by the connection manager.
-     * 
-     * @return The list of all home communities known by the connection manager.
-     * @throws ConnectionManagerException
-     */
-    public List<BusinessEntity> getAllCommunities() throws ConnectionManagerException {
-        HashSet<String> hHomeCommunities = new HashSet<String>();
-        ArrayList<BusinessEntity> oaHomeCommunities = new ArrayList<BusinessEntity>();
-        ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
-        checkLoaded();
-
-        // First get the information from the internal connections.
-        // ---------------------------------------------------------
-        Collection<BusinessEntity> businessEntities = m_hInternalConnectInfo.values();
-        for (BusinessEntity businessEntity : businessEntities) {
-            String homeComunityId = helper.getCommunityId(businessEntity);
-            if ((homeComunityId != null) && (homeComunityId.length() > 0)) {
-                hHomeCommunities.add(homeComunityId);
-                oaHomeCommunities.add(businessEntity);
-            }
-        }
-
-        // Next get the information from the UDDI connections - Only add them if we have not
-        // already gotten them from the internal settings.
-        // -----------------------------------------------------------------------------------
-        Collection<BusinessEntity> colEntity = m_hUDDIConnectInfo.values();
-        for (BusinessEntity oEntity : colEntity) {
-            String homeCommunityId = helper.getCommunityId(oEntity);
-            if ((homeCommunityId != null) && (homeCommunityId.length() > 0)
-                    && (!hHomeCommunities.contains(homeCommunityId))) // make sure it is not alrady in the list
-            {
-                hHomeCommunities.add(homeCommunityId);
-                oaHomeCommunities.add(oEntity);
-            }
-        }
-
-        return oaHomeCommunities;
-
-    }
-
-
-    /**
 
     /**
      * This method will return a list of all business entities that are known by the connection manager.

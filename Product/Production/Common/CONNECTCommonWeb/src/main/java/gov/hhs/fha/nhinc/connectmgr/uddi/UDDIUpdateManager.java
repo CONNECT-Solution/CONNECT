@@ -39,18 +39,6 @@ public class UDDIUpdateManager {
 
     private static Log log = LogFactory.getLog(UDDIUpdateManager.class);
 
-    // static {
-    // //WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
-    // javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
-    // new javax.net.ssl.HostnameVerifier() {
-    //
-    // public boolean verify(String hostname,
-    // javax.net.ssl.SSLSession sslSession) {
-    // return true;
-    // }
-    // });
-    // }
-
     /**
      * Default constructor.
      */

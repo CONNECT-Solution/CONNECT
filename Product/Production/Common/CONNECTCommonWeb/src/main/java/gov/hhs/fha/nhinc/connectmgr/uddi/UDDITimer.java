@@ -26,12 +26,8 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi;
 
-import java.util.Timer;
-
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,8 +44,7 @@ public class UDDITimer extends Thread {
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_REFRESH_DURATION_PROPERTY = "UDDIRefreshDuration";
     private static final int UDDI_REFRESH_DURATION_DEFAULT = 1800; // (30 minutes)
-
-    // private Timer m_oTimer = new Timer(true); // Timer thread - set up as a daemon.
+    
     private int m_iDurationSeconds = UDDI_REFRESH_DURATION_DEFAULT;
 
     /**
@@ -105,10 +100,6 @@ public class UDDITimer extends Thread {
                     + UDDI_REFRESH_DURATION_DEFAULT + " seconds.  Error: " + e.getMessage();
             log.warn(sErrorMessage, e);
         }
-
-        // UDDITimerTask oUDDITimerTask = new UDDITimerTask();
-        // m_oTimer.schedule(oUDDITimerTask, 0, iDurationSeconds*1000);
-
     }
 
     @Override

@@ -171,7 +171,7 @@ public class ConnectionManagerCacheTest {
     public void testGetAllCommunities_EmptyBusinessDetail() {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager_Empty();
-            assertTrue(connectionManager.getAllCommunities().isEmpty());
+            assertTrue(connectionManager.getAllBusinessEntities().isEmpty());
         } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetAllCommunities_EmptyBusinessDetail test: " + t.getMessage());
@@ -182,7 +182,7 @@ public class ConnectionManagerCacheTest {
     public void testGetAllCommunities_EmptyBusinessEntity() {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager_EmptyBusinessEntity();
-            assertTrue(connectionManager.getAllCommunities().isEmpty());
+            assertTrue(connectionManager.getAllBusinessEntities().isEmpty());
         } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetAllCommunities_EmptyBusinessEntity test: " + t.getMessage());
@@ -193,7 +193,7 @@ public class ConnectionManagerCacheTest {
     public void testGetAllCommunities() {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
-            assertEquals(2, connectionManager.getAllCommunities().size());
+            assertEquals(2, connectionManager.getAllBusinessEntities().size());
         } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetAllCommunities test: " + t.getMessage());

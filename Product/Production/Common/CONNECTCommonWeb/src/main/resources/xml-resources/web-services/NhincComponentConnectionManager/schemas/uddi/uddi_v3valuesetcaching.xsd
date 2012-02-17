@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:uddi-org:vscache_v3" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:uddi_vscache="urn:uddi-org:vscache_v3" xmlns:uddi="urn:uddi-org:api_v3" version="3.0.2" id="uddi_vscache">
+	<!-- 
+	Copyright (c) 2000-2002 by Accenture, Ariba, Inc., Commerce One, Inc. 
+	Fujitsu Limited, Hewlett-Packard Company, i2 Technologies, Inc., 
+	Intel Corporation, International Business Machines Corporation,  
+	Microsoft Corporation, Oracle Corporation, SAP AG, Sun Microsystems, Inc., 
+	and VeriSign, Inc.  All Rights Reserved.
+    
+	Copyright (c) OASIS Open 2002-2004. All Rights Reserved.
+	-->
+	<xsd:import namespace="urn:uddi-org:api_v3" schemaLocation="uddi_v3.xsd"/>
+	<xsd:element name="keyValue" type="uddi:keyValue" final="restriction"/>
+	<xsd:element name="chunkToken" type="uddi_vscache:chunkToken" final="restriction"/>
+	<xsd:simpleType name="chunkToken">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="get_allValidValues" type="uddi_vscache:get_allValidValues" final="restriction"/>
+	<xsd:complexType name="get_allValidValues" final="restriction">
+		<xsd:sequence>
+			<xsd:element ref="uddi:authInfo" minOccurs="0"/>
+			<xsd:element ref="uddi:tModelKey"/>
+			<xsd:element ref="uddi_vscache:chunkToken" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- extraneous complexType here to support extensibility -->
+	<xsd:element name="validValue" type="uddi_vscache:validValue" final="restriction"/>
+	<xsd:complexType name="validValue" final="restriction">
+		<xsd:sequence>
+			<xsd:element ref="uddi_vscache:keyValue"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="validValuesList" type="uddi_vscache:validValuesList" final="restriction"/>
+	<xsd:complexType name="validValuesList" final="restriction">
+		<xsd:sequence>
+			<xsd:element ref="uddi_vscache:chunkToken" minOccurs="0"/>
+			<xsd:element ref="uddi_vscache:validValue" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

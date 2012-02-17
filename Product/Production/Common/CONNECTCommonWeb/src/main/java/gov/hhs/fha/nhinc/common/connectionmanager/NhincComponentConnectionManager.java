@@ -26,171 +26,357 @@
  */
 package gov.hhs.fha.nhinc.common.connectionmanager;
 
+import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.EmptyParameterType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetAdapterEndpointURLRequestType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetAssigningAuthoritiesByHomeCommunityResponseType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetBusinessEntityByServiceNameRequestType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetBusinessEntitySetByServiceNameRequestType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetDefaultEndpointURLByServiceNameRequestType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetEndpointURLFromNhinTargetCommunitiesRequestType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetEndpointURLFromNhinTargetCommunitiesResponseType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetEndpointURLFromNhinTargetRequestType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.HomeCommunityIdList;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.SuccessOrFailType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
+import java.util.List;
+import java.util.Set;
+
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.uddi.api_v3.BusinessDetail;
+import org.uddi.api_v3.BusinessEntity;
+
 /**
  * 
- * @author Sai Valluripalli
+ * @author akong
  */
 @WebService(serviceName = "NhincComponentConnectionManager", portName = "NhincComponentConnectionManagerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentconnectionmanager.NhincComponentConnectionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager", wsdlLocation = "WEB-INF/wsdl/NhincComponentConnectionManager/NhincComponentConnectionManager.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincComponentConnectionManager {
 
-    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType storeAssigningAuthorityToHomeCommunityMapping(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.StoreAssigningAuthorityToHomeCommunityMappingRequestType storeAssigningAuthorityToHomeCommunityMappingRequest) {
-        return CMServiceHelper
-                .storeAssigningAuthorityToHomeCommunityMapping(storeAssigningAuthorityToHomeCommunityMappingRequest);
-    }
+    private static Log log = null;
 
-    public gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunitiesType getAllCommunities(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetAllCommunitiesRequestType getAllCommunitiesRequest) {
-        return CMServiceHelper.getAllCommunities(getAllCommunitiesRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.BusinessEntitiesType getAllBusinessEntities(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetAllBusinessEntitiesRequestType getAllBusinessEntitiesRequest) {
-        return CMServiceHelper.getAllBusinessEntities(getAllBusinessEntitiesRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.BusinessEntityType getBusinessEntity(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetBusinessEntityRequestType getBusinessEntityRequest) {
-        return CMServiceHelper.getBusinessEntity(getBusinessEntityRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.ConnectionInfosType getConnectionInfoSet(
-            gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunitiesType homeCommunities) {
-        return CMServiceHelper.getConnectionInfoSet(homeCommunities);
-    }
-
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.ConnectionInfoEndpointsType getConnectionInfoEndpointSet(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetConnectionInfoEndpointSetRequestType getConnectionInfoEndpointSetRequest) {
-        return CMServiceHelper.getConnectionInfoEndpointSet(getConnectionInfoEndpointSetRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.BusinessEntitiesType getBusinessEntitySet(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetBusinessEntitySetRequestType getBusinessEntitySetRequest) {
-        return CMServiceHelper.getBusinessEntitySet(getBusinessEntitySetRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.ConnectionInfosType getConnectionInfoSetByServiceName(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.HomeCommunitiesWithServiceNameType getConnectionInfoSetByServiceNameRequest) {
-        return CMServiceHelper.getConnectionInfoSetByServiceName(getConnectionInfoSetByServiceNameRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.ConnectionInfoEndpointsType getConnectionInfoEndpointSetByServiceName(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetConnectionInfoEndpointSetByServiceNameRequestType getConnectionInfoEndpointSetByServiceNameRequest) {
-        return CMServiceHelper
-                .getConnectionInfoEndpointSetByServiceName(getConnectionInfoEndpointSetByServiceNameRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.BusinessEntitiesType getBusinessEntitySetByServiceName(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetBusinessEntitySetByServiceNameRequestType getBusinessEntitySetByServiceNameRequest) {
-        return CMServiceHelper.getBusinessEntitySetByServiceName(getBusinessEntitySetByServiceNameRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.ConnectionInfoType getConnectionInfoByServiceName(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.HomeCommunityWithServiceNameType homeCommunityWithServiceName) {
-        return CMServiceHelper.getConnectionInfoByServiceName(homeCommunityWithServiceName);
-    }
-
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.ConnectionInfoEndpointType getConnectionInfoEndpointByServiceName(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetConnectionInfoEndpointByServiceNameRequestType getConnectionInfoEndpointByServiceNameRequest) {
-        return CMServiceHelper.getConnectionInfoEndpointByServiceName(getConnectionInfoEndpointByServiceNameRequest);
+    protected Log getLogger() {
+        if (log == null) {
+            log = LogFactory.getLog(NhincComponentConnectionManager.class);
+        }
+        return log;
     }
 
     /**
-     * This method retrieves the business entity and Connection Information for a specific service at a specific home
-     * community.
+     * This method will return a list of all business entities that are known by the connection manager.
      * 
-     * @param part1 This contains the home community identification and the name of the service that the connection info
-     *            is desired.
-     * @return The connection information for the service at the specified home community.
+     * @param request The only purpose for this parameter is so that the web service has a unique document that identifies
+     *            this operation. The values themselves are not used.
+     * @return The BusinessDetail which contains a list of all business entities known by the connection manager.
      */
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.BusinessEntityType getBusinessEntityByServiceName(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetBusinessEntityByServiceNameRequestType getBusinessEntityByServiceNameRequest) {
-        return CMServiceHelper.getBusinessEntityByServiceName(getBusinessEntityByServiceNameRequest);
+    public BusinessDetail getAllBusinessEntities(EmptyParameterType emptyRequest) {
+        BusinessDetail bDetail = new BusinessDetail();
+        try {
+            List<BusinessEntity> businessEntityList = ConnectionManagerCache.getInstance().getAllBusinessEntities();
+            bDetail.getBusinessEntity().addAll(businessEntityList);
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke getAllBusinessEntities", cme);
+        }
+
+        return bDetail;
     }
 
     /**
-     * This method returns the connection information for all known home communities that support the specified service.
+     * This class returns the business entity information associated with the specified home community ID.
      * 
-     * @param part1 The name of the service that is desired.
-     * @return The connection information for each known home community that supports the specified service.
+     * @param sHomeCommunityId The home community ID that is being searched for.
+     * @return the business entity information for the specified home community.
      */
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.ConnectionInfosType getAllConnectionInfoSetByServiceName(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetAllConnectionInfoSetByServiceNameRequestType getAllConnectionInfoSetByServiceNameRequest) {
-        return CMServiceHelper.getAllConnectionInfoSetByServiceName(getAllConnectionInfoSetByServiceNameRequest);
+    public BusinessEntity getBusinessEntity(String sHomeCommunityId) {
+        BusinessEntity bEntity = new BusinessEntity();;
+        try {
+            bEntity = ConnectionManagerCache.getInstance().getBusinessEntity(sHomeCommunityId);
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke getBusinessEntity", cme);
+        }
+
+        return bEntity;
     }
 
     /**
-     * This method returns the endpoint connection information for all known home communities that support the specified
-     * service.
+     * This method returns a list of business entity information for the set of home communities.
      * 
-     * @param part1 The name of the service that is desired.
-     * @return The endpoint connection information for each known home community that supports the specified service.
+     * @param saHomeCommunityId The set of home communities to be retrieved.
+     * @return The BusinessDetail containing the list of business entities found.
      */
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.ConnectionInfoEndpointsType getAllConnectionInfoEndpointSetByServiceName(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetAllConnectionInfoEndpointSetByServiceNameRequestType getAllConnectionInfoEndpointSetByServiceNameRequest) {
-        return CMServiceHelper
-                .getAllConnectionInfoEndpointSetByServiceName(getAllConnectionInfoEndpointSetByServiceNameRequest);
+    public BusinessDetail getBusinessEntitySet(HomeCommunityIdList homeCommunityIdList) {
+        BusinessDetail bDetail = new BusinessDetail();
+        try {
+            Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getBusinessEntitySet(
+                    homeCommunityIdList.getHomeCommunityId());
+            bDetail.getBusinessEntity().addAll(businessEntitySet);
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke getBusinessEntitySet", cme);
+        }
+
+        return bDetail;
     }
 
     /**
-     * This method returns the business entity and service connection information for all known home communities that
-     * support the specified service.
-     * 
-     * @param part1 The name of the service that is desired.
-     * @return The business entity and service connection information for each known home community that supports the
-     *         specified service.
+     * This method retrieves the business entity that contains the specific home community and service name.
+     *
+     * @param request The request containing the home community ID and the service name 
+     * @return The Business Entity information along with only the requested service. if the service is not found, then
+     *         null is returned.
      */
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.BusinessEntitiesType getAllBusinessEntitySetByServiceName(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetAllBusinessEntitySetByServiceNameRequestType getAllBusinessEntitySetByServiceNameRequest) {
-        return CMServiceHelper.getAllBusinessEntitySetByServiceName(getAllBusinessEntitySetByServiceNameRequest);
+    public BusinessEntity getBusinessEntityByServiceName(GetBusinessEntityByServiceNameRequestType request) {
+        BusinessEntity bEntity = new BusinessEntity();
+        try {
+            bEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(request.getHomeCommunityId(),
+                    request.getServiceName());
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke getBusinessEntityByServiceName", cme);
+        }
+
+        return bEntity;
+    }
+
+    /**
+     * This method returns the url for a specified service and home community id .
+     * 
+      *@param request The request containing the home community ID and the service name
+     * @return The URL for only the requested service at the specified home community. If the service is not found, then
+     *         null is returned.
+     */
+    public String getDefaultEndpointURLByServiceName(GetDefaultEndpointURLByServiceNameRequestType request) {
+        String endpointUrl = null;
+        try {
+            endpointUrl = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
+                    request.getHomeCommunityId(), request.getServiceName());
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke getEndpointURLByServiceName", cme);
+        }
+
+        return endpointUrl;
+    }
+
+    /**
+     * This method returns a local url for a specified service.
+     * 
+     * @param sUniformServiceName The name of the service to locate.
+     * @return The URL for only the requested service at the local home community. If the service is not found, then
+     *         null is returned.
+     */
+    public String getInternalEndpointURLByServiceName(String sUniformServiceName) {
+        String endpointUrl = null;
+        try {
+            endpointUrl = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(sUniformServiceName);
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke getLocalEndpointURLByServiceName", cme);
+        }
+
+        return endpointUrl;
+    }
+
+    /**
+     * This method retrieves the URL from the contents of the NhinTargetSystem type. It will first check to see if the
+     * EPR (Endpoint Reference) is already provided, if so it will extract the URL from the EPR and return it to the
+     * caller. If the EPR is not provided it will check if the URL field is provided, if so it will return the URL to
+     * the caller. If neither an EPR or URL are provided this method will use the home community id and service name
+     * provided to lookup the URL for that service at that particular home community.
+     * 
+     * @param request The request containing the target system information for the community being looked up and the service name
+     * @return The URL to the requested service.
+     */
+    public String getEndpointURLFromNhinTarget(GetEndpointURLFromNhinTargetRequestType request) {
+        String endpointUrl = null;
+        try {
+            endpointUrl = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(
+                    request.getNhinTargetSystem(), request.getServiceName());
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke getEndpointURLFromNhinTarget", cme);
+        }
+
+        return endpointUrl;
+    }
+
+    /**
+     * This method retrieves a set of unique URLs from the contents of the NhinTargetCommunities type. For each
+     * NhinTargetCommunity type it will first check if a Home Community Id is specified. If so then it will add the URL
+     * for the specified service for that home community to the List of URLs. Next it will check if a region (state) is
+     * specified. If so it will obtain a list of URLs for that that service for all communities in the specified state.
+     * Next it will check if a list is specified (this feature is not implemented). If there are no
+     * NhinTargetCommunities specified it will return the list of URLs for the entire NHIN for that service.
+     * 
+     * @param request The request containing the target system information for the community being looked up and the service name
+     * @return A response containing the set of URLs for the requested service and targets.
+     */
+    public GetEndpointURLFromNhinTargetCommunitiesResponseType getEndpointURLFromNhinTargetCommunities(
+            GetEndpointURLFromNhinTargetCommunitiesRequestType request) {
+
+        GetEndpointURLFromNhinTargetCommunitiesResponseType response = new GetEndpointURLFromNhinTargetCommunitiesResponseType();
+        try {
+            List<UrlInfo> urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
+                    request.getNhinTargetCommunities(), request.getServiceName());
+            
+            String hcid, url;
+            UrlInfoType urlInfoType;
+            for (UrlInfo urlInfo : urlInfoList) {
+                hcid = urlInfo.getHcid();
+                url = urlInfo.getUrl();
+                if (NullChecker.isNotNullish(hcid) && NullChecker.isNotNullish(url)) {
+                    urlInfoType = new UrlInfoType();
+                    urlInfoType.setUrl(url);
+                    urlInfoType.setId(hcid);
+                    response.getURLInfos().add(urlInfoType);
+                }
+            }
+
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke getEndpointURLFromNhinTargetCommunities", cme);
+        }
+
+        return response;
+    }
+
+    /**
+     * This method retrieves all the business entities that contains the given service name and home community id
+     * 
+     * @param request The request containing the home community id and service name
+     * @return A BusinessDetail containing the list of business entities
+     */
+    public BusinessDetail getBusinessEntitySetByServiceName(GetBusinessEntitySetByServiceNameRequestType request) {   
+        BusinessDetail bDetail = new BusinessDetail();
+        try {
+            Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getBusinessEntitySetByServiceName(request.getHomeCommunityId(), request.getServiceName());
+            bDetail.getBusinessEntity().addAll(businessEntitySet);
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke getBusinessEntitySetByServiceName", cme);
+        }
+
+        return bDetail;
+    }
+
+    /**
+     * This method retrieves all the business entities that contains the given service name
+     * 
+     * @param sUniformServiceName The service name to lookup
+     * @return A BusinessDetail containing the list of business entities
+     */
+    public BusinessDetail getAllBusinessEntitySetByServiceName(String sUniformServiceName) {
+        BusinessDetail bDetail = new BusinessDetail();
+        try {
+            Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getAllBusinessEntitySetByServiceName(sUniformServiceName);
+            bDetail.getBusinessEntity().addAll(businessEntitySet);
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke getAllBusinessEntitySetByServiceName", cme);
+        }
+
+        return bDetail;
+    }
+
+    /**
+     * This method returns the local adapter endpoint url based on the adapter level and service name
+     * 
+     * @param request The request containing the service name and the adapter level
+     * @return The adapter endpoint url
+     */
+    public String getAdapterEndpointURL(GetAdapterEndpointURLRequestType request) {
+        String endpointUrl = null;
+        try {            
+            ADAPTER_API_LEVEL adapterLevel = ADAPTER_API_LEVEL.valueOf(request.getAdapterLevel());
+            endpointUrl = ConnectionManagerCache.getInstance().getAdapterEndpontURL(request.getServiceName(), adapterLevel);
+        } catch (Exception e) {
+            getLogger().error("Failed to invoke getAdapterEndpointURL", e);
+        }
+
+        return endpointUrl;
     }
 
     /**
      * This method causes the UDDI service information to be refreshed.
      * 
-     * @param part1 The only purpose for this parameter is so that the web service has a unique document that identifies
+     * @param request The only purpose for this parameter is so that the web service has a unique document that identifies
      *            this operation. The values themselves are not used.
      * @return Whether this succeeded or failed.
      */
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.SuccessOrFailType forceRefreshUDDICache(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.ForceRefreshUDDICacheRequestType forceRefreshUDDICacheRequest) {
-        return CMServiceHelper.forceRefreshUDDICache(forceRefreshUDDICacheRequest);
+    public SuccessOrFailType forceRefreshUDDICache(EmptyParameterType emptyRequest) {
+        SuccessOrFailType response = new SuccessOrFailType();
+        response.setSuccess(true);
+        try {            
+            ConnectionManagerCache.getInstance().forceRefreshUDDICache();
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke forceRefreshUDDICache", cme);
+            response.setSuccess(false);
+        }
+        
+        return response;
     }
 
     /**
      * This method causes the Internal Connection service information to be refreshed.
      * 
-     * @param part1 The only purpose for this parameter is so that the web service has a unique document that identifies
+     * @param request The only purpose for this parameter is so that the web service has a unique document that identifies
      *            this operation. The values themselves are not used.
      * @return Whether this succeeded or failed.
      */
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.SuccessOrFailType forceRefreshInternalConnectCache(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.ForceRefreshInternalConnectCacheRequestType forceRefreshInternalConnectCacheRequest) {
-        return CMServiceHelper.forceRefreshInternalConnectCache(forceRefreshInternalConnectCacheRequest);
+    public SuccessOrFailType forceRefreshInternalConnectCache(EmptyParameterType emptyRequest) {
+        SuccessOrFailType response = new SuccessOrFailType();
+        response.setSuccess(true);
+        try {            
+            ConnectionManagerCache.getInstance().forceRefreshInternalConnectCache();
+        } catch (ConnectionManagerException cme) {
+            getLogger().error("Failed to invoke forceRefreshInternalConnectCache", cme);
+            response.setSuccess(false);
+        }
+        
+        return response;
     }
 
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetAssigningAuthoritiesByHomeCommunityResponseType getAssigningAuthoritiesByHomeCommunity(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetAssigningAuthoritiesByHomeCommunityRequestType getAssigningAuthoritiesByHomeCommunityRequest) {
-        return CMServiceHelper.getAssigningAuthoritiesByHomeCommunity(getAssigningAuthoritiesByHomeCommunityRequest);
+    /**
+     * This method retrieves the assigning authorities of a given home community id
+     * 
+     * @param homeCommunityId The hcid to be used for lookup
+     * @return A response containing a list of assigning authorities associated with the hcid
+     */
+    public GetAssigningAuthoritiesByHomeCommunityResponseType getAssigningAuthoritiesByHomeCommunity(String homeCommunityId) {
+
+        GetAssigningAuthoritiesByHomeCommunityResponseType response = new GetAssigningAuthoritiesByHomeCommunityResponseType();
+        if (NullChecker.isNotNullish(homeCommunityId)) {
+            return null;
+        }
+
+        AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
+        List<String> aaList = mappingDao.getAssigningAuthoritiesByHomeCommunity(homeCommunityId);
+        response.getAssigningAuthoritiesId().addAll(aaList);
+        
+        return response;
     }
 
-    public gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetHomeCommunityByAssigningAuthorityResponseType getHomeCommunityByAssigningAuthority(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetHomeCommunityByAssigningAuthorityRequestType getHomeCommunityByAssigningAuthorityRequest) {
-        return CMServiceHelper.getHomeCommunityByAssigningAuthority(getHomeCommunityByAssigningAuthorityRequest);
-    }
+    /**
+     * This method retrieves the home community id of the given assigning authority
+     * 
+     * @param assigningAuthorityId The assigning authority id to be used for lookup
+     * @return The hcid of the assigning authority
+     */
+    public String getHomeCommunityByAssigningAuthority(String assigningAuthorityId) {
+        
+        String homeCommunityId = null;
+        if (NullChecker.isNotNullish(assigningAuthorityId)) {
+            return null;
+        }
 
-    public gov.hhs.fha.nhinc.common.nhinccommon.EPRType getConnectionInfoEndpontFromNhinTarget(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetConnectionInfoEndpontFromNhinTargetType getConnectionInfoEndpontFromNhinTargetRequest) {
-        return CMServiceHelper.getConnectionInfoEndpontFromNhinTarget(getConnectionInfoEndpontFromNhinTargetRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.nhinccommon.UrlSetType getUrlSetFromNhinTargetCommunities(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetUrlSetByServiceNameType getConnectionInfoEndpontFromNhinTargetRequest) {
-        return CMServiceHelper.getUrlSetFromNhinTargetCommunities(getConnectionInfoEndpontFromNhinTargetRequest);
+        AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
+        homeCommunityId = mappingDao.getHomeCommunityId(assigningAuthorityId);
+        
+        return homeCommunityId;
     }
 
 }
