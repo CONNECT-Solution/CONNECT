@@ -9,7 +9,7 @@
    
     <servlet>
         <servlet-name>EntityPatientDiscoverySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.EntityPatientDiscoverySecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityPatientDiscoverySecured</servlet-name>
@@ -18,7 +18,7 @@
 
     <servlet>
         <servlet-name>EntityPatientDiscoveryUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.EntityPatientDiscoveryUnsecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityPatientDiscoveryUnsecured</servlet-name>
@@ -27,7 +27,7 @@
 
     <servlet>
         <servlet-name>EntityPatientDiscoveryDeferredResponseUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.EntityPatientDiscoveryDeferredResponseUnsecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityPatientDiscoveryDeferredResponseUnsecured</servlet-name>
@@ -36,7 +36,7 @@
 
     <servlet>
         <servlet-name>EntityPatientDiscoveryDeferredResponseSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.EntityPatientDiscoveryDeferredResponseSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityPatientDiscoveryDeferredResponseSecured</servlet-name>
@@ -45,7 +45,7 @@
 
     <servlet>
         <servlet-name>EntityPatientDiscoveryDeferredRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.EntityPatientDiscoveryDeferredRequestSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityPatientDiscoveryDeferredRequestSecured</servlet-name>
@@ -54,7 +54,7 @@
 
     <servlet>
         <servlet-name>EntityPatientDiscoveryDeferredRequestUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.EntityPatientDiscoveryDeferredRequestUnsecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityPatientDiscoveryDeferredRequestUnsecured</servlet-name>
@@ -63,7 +63,7 @@
 
     <servlet>
         <servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.NhincProxyPatientDiscoverySecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
@@ -71,7 +71,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhincProxyPatientDiscovery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.NhincProxyPatientDiscovery</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyPatientDiscovery</servlet-name>
@@ -79,7 +79,7 @@
     </servlet-mapping>
 	<servlet>
          <servlet-name>NhincProxyPatientDiscoveryDeferredRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyPatientDiscoveryDeferredRequestSecured</servlet-name>
@@ -87,7 +87,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhincProxyPatientDiscoveryDeferredRequestUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestUnsecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestUnsecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyPatientDiscoveryDeferredRequestUnsecured</servlet-name>
@@ -95,7 +95,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.NhincProxyPatientDiscoveryAsyncResp</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryAsyncResp</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyPatientDiscoveryAsyncResp</servlet-name>
@@ -103,7 +103,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhincProxyPatientDiscoverySecuredAsyncResp</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.NhincProxyPatientDiscoverySecuredAsyncResp</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecuredAsyncResp</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincProxyPatientDiscoverySecuredAsyncResp</servlet-name>
@@ -112,7 +112,7 @@
     
     <servlet>
             <servlet-name>NhinPatientDiscovery</servlet-name>
-            <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.NhinPatientDiscovery</servlet-class>
+            <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery</servlet-class>
         </servlet>
         <servlet-mapping>
             <servlet-name>NhinPatientDiscovery</servlet-name>
@@ -120,7 +120,7 @@
         </servlet-mapping>
         <servlet>
             <servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
-            <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.NhinPatientDiscoveryAsyncReq</servlet-class>
+            <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryAsyncReq</servlet-class>
         </servlet>
         <servlet-mapping>
             <servlet-name>NhinPatientDiscoveryAsyncReq</servlet-name>
@@ -128,7 +128,7 @@
         </servlet-mapping>
         <servlet>
             <servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
-            <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10._10.gateway.ws.NhinPatientDiscoveryAsyncResp</servlet-class>
+            <servlet-class>gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryAsyncResp</servlet-class>
         </servlet>
         <servlet-mapping>
             <servlet-name>NhinPatientDiscoveryAsyncResp</servlet-name>
