@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="ValidateServices" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="ValidateServices" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     <con:definitionCache rootPart="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl" type="TEXT">
       <con:part>
@@ -1444,12 +1443,12 @@ context.testCase.setPropertyValue('Current Service ID', currentServiceID.toStrin
       </con:testStep>
       <con:testStep name="GetConnectionInfoByServiceName" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
           <con:operation>GetConnectionInfoByServiceName</con:operation>
           <con:request name="GetConnectionInfoByServiceName">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#ConnectionManagerEndpoint}</con:endpoint>
@@ -2713,12 +2712,12 @@ if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileInputStream(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:

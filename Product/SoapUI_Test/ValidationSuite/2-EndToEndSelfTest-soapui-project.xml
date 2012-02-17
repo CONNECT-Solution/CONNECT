@@ -29,7 +29,7 @@
   <con:entry key="Add Settings" value="false"/>
   <con:entry key="Endpoint" value=""/>
 </xml-fragment>]]></con:setting></con:settings>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="WSDL path not set.  #EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -43,7 +43,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityauditlogquery}EntityAuditLogQueryBindingSoap" definition="WSDL path not set.  #EntityAuditLogQuery.wsdl" name="EntityAuditLogQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityauditlogquery}EntityAuditLogQueryBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityAuditLogQuery.wsdl" name="EntityAuditLogQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -58,7 +58,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="WSDL path not set.  #EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -69,7 +69,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubjectdiscovery}EntitySubjectDiscoveryBindingSoap" definition="WSDL path not set.  #EntitySubjectDiscovery.wsdl" name="EntitySubjectDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubjectdiscovery}EntitySubjectDiscoveryBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntitySubjectDiscovery.wsdl" name="EntitySubjectDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -90,7 +90,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -104,7 +104,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -122,7 +122,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="WSDL path not set.  #EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -139,7 +139,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="WSDL path not set.  #EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -489,7 +489,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="WSDL path not set.  #EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -500,7 +500,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="WSDL path not set.  #EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -511,7 +511,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="WSDL path not set.  #EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -855,7 +855,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="WSDL path not set.  #EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -865,7 +865,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredRequestBindingSoap" definition="WSDL path not set.  #EntityDocRetrieveDeferredReq.wsdl" name="EntityDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredRequestBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityDocRetrieveDeferredReq.wsdl" name="EntityDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -1085,7 +1085,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredResponseBindingSoap" definition="WSDL path not set.  #EntityDocRetrieveDeferredResp.wsdl" name="EntityDocRetrieveDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveDeferredResponseBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityDocRetrieveDeferredResp.wsdl" name="EntityDocRetrieveDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -1301,7 +1301,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse}EntityDocQueryDeferredResponseBindingSoap" definition="WSDL path not set.  #EntityDocQueryDeferredResponse.wsdl" name="EntityDocQueryDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredresponse}EntityDocQueryDeferredResponseBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityDocQueryDeferredResponse.wsdl" name="EntityDocQueryDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -1311,7 +1311,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="WSDL path not set.  #EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
@@ -1517,7 +1517,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest}EntityDocQueryDeferredRequestBindingSoap" definition="WSDL path not set.  #EntityDocQueryDeferredRequest.wsdl" name="EntityDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest}EntityDocQueryDeferredRequestBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityDocQueryDeferredRequest.wsdl" name="EntityDocQueryDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>
