@@ -11,7 +11,7 @@
 -->
 	<servlet>
 		<servlet-name>EntityDocRetrieveSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveSecured</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieveSecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EntityDocRetrieveSecured</servlet-name>
@@ -20,7 +20,7 @@
 
 	<servlet>
 		<servlet-name>EntityDocRetrieve</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieve</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EntityDocRetrieve</servlet-name>
@@ -31,7 +31,7 @@
 
 	<servlet>
 		<servlet-name>NhincProxyDocRetrieveUnsecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveUnsecured</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.NhincProxyDocRetrieveUnsecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>NhincProxyDocRetrieveUnsecured</servlet-name>
@@ -39,7 +39,7 @@
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveSecured</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.NhincProxyDocRetrieveSecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
@@ -49,7 +49,7 @@
 
 <servlet>
         <servlet-name>DocRetrieve</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhin.DocRetrieve</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve._20.nhin.DocRetrieve</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DocRetrieve</servlet-name>
@@ -60,7 +60,7 @@
 	<!-- BEGIN: Document Retrieve Deferred Services -->
 	<servlet>
 		<servlet-name>EntityDocRetrieveDeferredReq</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReq</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.deferred.request.EntityDocRetrieveDeferredReq</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EntityDocRetrieveDeferredReq</servlet-name>
@@ -69,7 +69,7 @@
 
 	<servlet>
 		<servlet-name>EntityDocRetrieveDeferredReqSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.request.EntityDocRetrieveDeferredReqSecured</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.deferred.request.EntityDocRetrieveDeferredReqSecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EntityDocRetrieveDeferredReqSecured</servlet-name>
@@ -78,7 +78,7 @@
 
 	<servlet>
 		<servlet-name>EntityDocRetrieveDeferredResp</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredResp</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.deferred.response.EntityDocRetrieveDeferredResp</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EntityDocRetrieveDeferredResp</servlet-name>
@@ -87,7 +87,7 @@
 
 	<servlet>
 		<servlet-name>EntityDocRetrieveDeferredRespSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.deferred.response.EntityDocRetrieveDeferredRespSecured</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.deferred.response.EntityDocRetrieveDeferredRespSecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EntityDocRetrieveDeferredRespSecured</servlet-name>
@@ -97,7 +97,7 @@
 	<!-- Begin Nhinc proxy Document retrieve deferred services -->
 	<servlet>
 		<servlet-name>PassthruDocRetrieveDeferredRequestUnsecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.PassthruDocRetrieveDeferredRequestUnsecured</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.deferred.request.PassthruDocRetrieveDeferredRequestUnsecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PassthruDocRetrieveDeferredRequestUnsecured</servlet-name>
@@ -105,7 +105,7 @@
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>PassthruDocRetrieveDeferredRequestSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.deferred.request.PassthruDocRetrieveDeferredRequestSecured</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.deferred.request.PassthruDocRetrieveDeferredRequestSecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PassthruDocRetrieveDeferredRequestSecured</servlet-name>
@@ -113,7 +113,7 @@
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>PassthruDocRetrieveDeferredResponseUnsecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.PassthruDocRetrieveDeferredResponseUnsecured</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.deferred.response.PassthruDocRetrieveDeferredResponseUnsecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PassthruDocRetrieveDeferredResponseUnsecured</servlet-name>
@@ -122,7 +122,7 @@
 
 	<servlet>
 		<servlet-name>PassthruDocRetrieveDeferredResponseSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve.passthru.deferred.response.PassthruDocRetrieveDeferredResponseSecured</servlet-class>
+		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.deferred.response.PassthruDocRetrieveDeferredResponseSecured</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PassthruDocRetrieveDeferredResponseSecured</servlet-name>
@@ -134,7 +134,7 @@
 	   <!-- BEGIN: Document Retrieve Deferred Services -->
     <servlet>
         <servlet-name>NhinDocRetrieveDeferredRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhin.deferred.request.NhinDocRetrieveDeferredRequest</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve._20.nhin.deferred.request.NhinDocRetrieveDeferredRequest</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinDocRetrieveDeferredRequest</servlet-name>
@@ -142,7 +142,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhinDocRetrieveDeferredResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve.nhin.deferred.response.NhinDocRetrieveDeferredResponse</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve._20.nhin.deferred.response.NhinDocRetrieveDeferredResponse</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinDocRetrieveDeferredResponse</servlet-name>

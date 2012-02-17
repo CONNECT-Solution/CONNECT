@@ -194,7 +194,7 @@
       </wsimport-options>
     </service>
     <service name="NhincAdminDistSecured">
-      <implementation-class>gov.hhs.fha.nhinc.admindistribution.passthru.NhincAdminDistSecured</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDistSecured</implementation-class>
       <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAdminDistSecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincAdminDistSecured.wsdl</local-wsdl-file>
       <service-name>NhincAdminDistSecuredService</service-name>
@@ -218,7 +218,7 @@
       </wsimport-options>
     </service>
     <service name="NhincProxyAdminDist">
-      <implementation-class>gov.hhs.fha.nhinc.admindistribution.passthru.NhincAdminDist</implementation-class>
+      <implementation-class>gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDist</implementation-class>
       <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAdminDist.wsdl</wsdl-url>
       <local-wsdl-file>NhincAdminDist.wsdl</local-wsdl-file>
       <service-name>NhincAdminDistService</service-name>

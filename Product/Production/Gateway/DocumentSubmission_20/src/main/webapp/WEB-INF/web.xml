@@ -9,7 +9,7 @@
 	-->
     <servlet>
         <servlet-name>EntityDocSubmissionSecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.entity.EntityDocSubmissionSecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionSecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocSubmissionSecured_g1</servlet-name>
@@ -18,7 +18,7 @@
 
     <servlet>
         <servlet-name>EntityDocSubmissionUnsecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.entity.EntityDocSubmissionUnsecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocSubmissionUnsecured_g1</servlet-name>
@@ -27,7 +27,7 @@
 
     <servlet>
         <servlet-name>EntityDocSubmissionDeferredRequestSecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocSubmissionDeferredRequestSecured_g1</servlet-name>
@@ -36,7 +36,7 @@
 
     <servlet>
         <servlet-name>EntityDocSubmissionDeferredRequestUnsecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocSubmissionDeferredRequestUnsecured_g1</servlet-name>
@@ -45,7 +45,7 @@
 
     <servlet>
         <servlet-name>EntityDocSubmissionDeferredResponseSecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocSubmissionDeferredResponseSecured_g1</servlet-name>
@@ -54,7 +54,7 @@
 
     <servlet>
         <servlet-name>EntityDocSubmissionDeferredResponseUnsecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityDocSubmissionDeferredResponseUnsecured_g1</servlet-name>
@@ -63,7 +63,7 @@
     
     <servlet>
         <servlet-name>NhinXDR_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.nhin.NhinXDR_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinXDR_g1</servlet-name>
@@ -72,7 +72,7 @@
 
     <servlet>
         <servlet-name>NhinXDRRequest_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.nhin.deferred.request.NhinXDRRequest_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinXDRRequest_g1</servlet-name>
@@ -81,7 +81,7 @@
 
     <servlet>
         <servlet-name>NhinXDRResponse_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.nhin.deferred.response.NhinXDRResponse_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinXDRResponse_g1</servlet-name>
@@ -90,7 +90,7 @@
     
     <servlet>
         <servlet-name>PassthruDocSubmissionDeferredRequestSecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.passthru.deferred.request.PassthruDocSubmissionDeferredRequestSecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestSecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PassthruDocSubmissionDeferredRequestSecured_g1</servlet-name>
@@ -99,7 +99,7 @@
 
     <servlet>
         <servlet-name>PassthruDocSubmissionDeferredRequestUnsecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.passthru.deferred.request.PassthruDocSubmissionDeferredRequestUnsecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestUnsecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PassthruDocSubmissionDeferredRequestUnsecured_g1</servlet-name>
@@ -108,7 +108,7 @@
     
     <servlet>
         <servlet-name>PassthruDocSubmissionDeferredResponseSecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.passthru.deferred.response.PassthruDocSubmissionDeferredResponseSecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseSecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PassthruDocSubmissionDeferredResponseSecured_g1</servlet-name>
@@ -117,7 +117,7 @@
 
     <servlet>
         <servlet-name>PassthruDocSubmissionDeferredResponseUnsecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PassthruDocSubmissionDeferredResponseUnsecured_g1</servlet-name>
@@ -126,7 +126,7 @@
 
     <servlet>
         <servlet-name>PassthruDocSubmissionSecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.passthru.PassthruDocSubmissionSecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionSecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PassthruDocSubmissionSecured_g1</servlet-name>
@@ -135,7 +135,7 @@
 
     <servlet>
         <servlet-name>PassthruDocSubmissionUnsecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission_g1.passthru.PassthruDocSubmissionUnsecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PassthruDocSubmissionUnsecured_g1</servlet-name>

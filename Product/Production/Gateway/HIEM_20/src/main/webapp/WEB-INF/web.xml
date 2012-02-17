@@ -3,7 +3,7 @@
 
     <servlet>
         <servlet-name>HiemNotify</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.nhin.notify.HiemNotify</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.nhin.notify.HiemNotify</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HiemNotify</servlet-name>
@@ -11,7 +11,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>HiemSubscription</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.nhin.subscription.HiemSubscription</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.nhin.subscription.HiemSubscription</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HiemSubscription</servlet-name>
@@ -19,7 +19,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>HiemUnsubscribe</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.nhin.unsubscribe.HiemUnsubscribe</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.nhin.unsubscribe.HiemUnsubscribe</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HiemUnsubscribe</servlet-name>
@@ -27,7 +27,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>ProxyHiemNotifySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemNotifySecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.proxy.ProxyHiemNotifySecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProxyHiemNotifySecured</servlet-name>
@@ -35,7 +35,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>ProxyHiemSubscribeSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemSubscribeSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.proxy.ProxyHiemSubscribeSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProxyHiemSubscribeSecured</servlet-name>
@@ -43,7 +43,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>ProxyHiemUnsubscribeSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.proxy.ProxyHiemUnsubscribeSecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.proxy.ProxyHiemUnsubscribeSecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProxyHiemUnsubscribeSecured</servlet-name>
@@ -51,7 +51,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>EntityNotifySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.notify.EntityNotifySecured</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.notify.EntityNotifySecured</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityNotifySecured</servlet-name>
@@ -60,7 +60,7 @@
 
     <servlet>
         <servlet-name>EntitySubscribeSecuredService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.subscribe.EntitySubscribeSecuredService</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.subscribe.EntitySubscribeSecuredService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntitySubscribeSecuredService</servlet-name>
@@ -69,7 +69,7 @@
 
     <servlet>
         <servlet-name>EntityUnsubscribeSecuredService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.hiem.entity.unsubscribe.EntityUnsubscribeSecuredService</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe.EntityUnsubscribeSecuredService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EntityUnsubscribeSecuredService</servlet-name>
@@ -78,7 +78,7 @@
 
     <servlet>
         <servlet-name>GatewaySubscriptionReferenceRepository</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.subscription.repository.GatewaySubscriptionReferenceRepository</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.subscription.repository.GatewaySubscriptionReferenceRepository</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GatewaySubscriptionReferenceRepository</servlet-name>
@@ -87,7 +87,7 @@
 
     <servlet>
         <servlet-name>GatewaySubscriptionRepository</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.subscription.repository.GatewaySubscriptionRepository</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.subscription.repository.GatewaySubscriptionRepository</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GatewaySubscriptionRepository</servlet-name>
@@ -96,7 +96,7 @@
 
     <servlet>
         <servlet-name>HiemSubscriptionRepositoryUtilService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.subscription.repository.util.HiemSubscriptionRepositoryUtilService</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.subscription.repository.util.HiemSubscriptionRepositoryUtilService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HiemSubscriptionRepositoryUtilService</servlet-name>

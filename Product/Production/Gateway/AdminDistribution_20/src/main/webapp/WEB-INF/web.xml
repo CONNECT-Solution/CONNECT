@@ -3,7 +3,7 @@
 
     <servlet>
         <servlet-name>NhincAdminDistSecured_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.admindistribution_g1.passthru.NhincAdminDistSecured_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.admindistribution._20.passthru.NhincAdminDistSecured_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincAdminDistSecured_g1</servlet-name>
@@ -12,7 +12,7 @@
 
     <servlet>
         <servlet-name>NhincAdminDist_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.admindistribution_g1.passthru.NhincAdminDist_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.admindistribution._20.passthru.NhincAdminDist_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhincAdminDist_g1</servlet-name>
@@ -20,7 +20,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NhinAdministrativeDistribution_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.admindistribution_g1.nhin.NhinAdministrativeDistribution_g1</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.admindistribution._20.nhin.NhinAdministrativeDistribution_g1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NhinAdministrativeDistribution_g1</servlet-name>
