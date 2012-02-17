@@ -181,7 +181,7 @@ public class HiemUnsubscribeImpl {
         try { // Call Web Service Operation
             log.debug("sending unsubscribe from test helper to adapter");
 
-            String url = ConnectionManagerCache.getInstance().getLocalEndpointURLByServiceName(SERVICE_NAME);
+            String url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(SERVICE_NAME);
             log.debug("url=" + url);
 
             log.debug("preparing port");
