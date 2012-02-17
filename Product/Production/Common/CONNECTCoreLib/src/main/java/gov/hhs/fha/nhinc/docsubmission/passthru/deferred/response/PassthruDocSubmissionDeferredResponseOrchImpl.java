@@ -32,8 +32,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegi
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy.NhinDocSubmissionDeferredResponseProxy;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy.NhinDocSubmissionDeferredResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxy;
+import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;

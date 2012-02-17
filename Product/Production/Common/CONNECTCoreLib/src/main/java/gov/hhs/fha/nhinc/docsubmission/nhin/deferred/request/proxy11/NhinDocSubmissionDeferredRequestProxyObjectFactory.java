@@ -24,39 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response;
+package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- * This is the Java implementation for the AdapterComponentXDRResponse service. This is intended to be overridden by the
- * adapter. It really does nothing but returns the ACK message.
- * 
- * @author Les Westberg
+ *
+ * @author JHOPPESC
  */
-public class AdapterComponentDocSubmissionResponseOrchImpl {
-    private static Log log = LogFactory.getLog(AdapterComponentDocSubmissionResponseOrchImpl.class);
+public class NhinDocSubmissionDeferredRequestProxyObjectFactory extends ComponentProxyObjectFactory {
+    private static final String CONFIG_FILE_NAME = "NhinXDRRequestProxy11Config.xml";
+    private static final String BEAN_NAME = "nhinxdrrequest";
 
-    /**
-     * This method receives an AdapterComponentXDRResponse and returns an ACK.
-     * 
-     * @param body The actual response message.
-     * @param assertion The assertion information.
-     * @return The ACK.
-     */
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
-            AssertionType assertion) {
-        log.debug("Entering AdapterComponentXDRResponseOrchImpl.provideAndRegisterDocumentSetBResponse");
-        XDRAcknowledgementType response = new XDRAcknowledgementType();
-        RegistryResponseType regResp = new RegistryResponseType();
-        regResp.setStatus(NhincConstants.XDR_RESP_ACK_STATUS_MSG);
-        response.setMessage(regResp);
-
-        return response;
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
     }
+
+    public NhinDocSubmissionDeferredRequestProxy getNhinDocSubmissionDeferredRequestProxy() {
+        return getBean(BEAN_NAME, NhinDocSubmissionDeferredRequestProxy.class);
+    }
+
 }

@@ -71,20 +71,20 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>NhinXDRRequest_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest_g1</servlet-class>
+        <servlet-name>NhinXDRRequest20</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NhinXDRRequest_g1</servlet-name>
+        <servlet-name>NhinXDRRequest20</servlet-name>
         <url-pattern>/NhinService/XDRRequest_Service</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>NhinXDRResponse_g1</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse_g1</servlet-class>
+        <servlet-name>NhinXDRResponse20</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NhinXDRResponse_g1</servlet-name>
+        <servlet-name>NhinXDRResponse20</servlet-name>
         <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
     </servlet-mapping>
     

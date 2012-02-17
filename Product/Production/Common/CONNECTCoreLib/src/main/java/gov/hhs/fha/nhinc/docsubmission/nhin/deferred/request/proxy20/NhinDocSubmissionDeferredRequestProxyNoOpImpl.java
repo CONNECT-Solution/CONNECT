@@ -24,39 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response;
+package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
- * This is the Java implementation for the AdapterComponentXDRResponse service. This is intended to be overridden by the
- * adapter. It really does nothing but returns the ACK message.
- * 
- * @author Les Westberg
+ *
+ * @author JHOPPESC
  */
-public class AdapterComponentDocSubmissionResponseOrchImpl {
-    private static Log log = LogFactory.getLog(AdapterComponentDocSubmissionResponseOrchImpl.class);
+public class NhinDocSubmissionDeferredRequestProxyNoOpImpl implements NhinDocSubmissionDeferredRequestProxy {
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
-    /**
-     * This method receives an AdapterComponentXDRResponse and returns an ACK.
-     * 
-     * @param body The actual response message.
-     * @param assertion The assertion information.
-     * @return The ACK.
-     */
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
-            AssertionType assertion) {
-        log.debug("Entering AdapterComponentXDRResponseOrchImpl.provideAndRegisterDocumentSetBResponse");
-        XDRAcknowledgementType response = new XDRAcknowledgementType();
+	@Override
+	public RegistryResponseType provideAndRegisterDocumentSetBRequest20(
+			ProvideAndRegisterDocumentSetRequestType request,
+			AssertionType assertion, NhinTargetSystemType targetSystem) {
+        log.debug("Using NoOp Implementation for Nhin Doc Submission Deferred Request Service");
         RegistryResponseType regResp = new RegistryResponseType();
-        regResp.setStatus(NhincConstants.XDR_RESP_ACK_STATUS_MSG);
-        response.setMessage(regResp);
+        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        return regResp;
+	}
 
-        return response;
-    }
 }

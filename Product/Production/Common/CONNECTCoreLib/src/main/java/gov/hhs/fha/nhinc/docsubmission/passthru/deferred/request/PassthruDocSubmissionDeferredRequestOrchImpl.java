@@ -32,8 +32,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegi
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy.NhinDocSubmissionDeferredRequestProxy;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy.NhinDocSubmissionDeferredRequestProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.NhinDocSubmissionDeferredRequestProxy;
+import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.NhinDocSubmissionDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;

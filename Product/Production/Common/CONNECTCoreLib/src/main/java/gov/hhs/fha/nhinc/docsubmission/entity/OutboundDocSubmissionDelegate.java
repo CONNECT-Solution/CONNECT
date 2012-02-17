@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.entity;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
@@ -57,7 +58,7 @@ public class OutboundDocSubmissionDelegate implements OutboundDelegate {
             OutboundDocSubmissionOrchestratable dsMessage = (OutboundDocSubmissionOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
-                    dsMessage.getTarget().getHomeCommunity(), dsMessage.getServiceName());
+                    dsMessage.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
 
             if (contextBuilder instanceof OutboundDocSubmissionOrchestrationContextBuilder_g0) {
                 ((OutboundDocSubmissionOrchestrationContextBuilder_g0) contextBuilder).init(message);
