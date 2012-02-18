@@ -616,7 +616,7 @@
                 <name xml:lang="en">nhincproxydocquery</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxydocquery" serviceKey="uddi:testnhincnode:nhincproxydocquery">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -794,7 +794,7 @@
                 <name xml:lang="en">passthrudocquerydeferredresponse</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:passthrudocquerydeferredresponse" serviceKey="uddi:testnhincnode:passthrudocquerydeferredresponse">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/EntityService/PassthruDocQueryDeferredResponseUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/PassthruDocQueryDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
