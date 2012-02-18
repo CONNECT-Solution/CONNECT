@@ -65,6 +65,9 @@ public class EntityPatientDiscoveryDeferredRequestImpl {
             if (request != null) {
                 PRPAIN201305UV02 msg = request.getPRPAIN201305UV02();
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
+                
+                
+                
                 response = (MCCIIN000002UV01) oHelper.invokeSecureWebService(implOrch, implOrch.getClass(),
                         "processPatientDiscoveryAsyncReq", msg, targets, context);
             } else {

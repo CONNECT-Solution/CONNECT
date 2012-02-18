@@ -671,18 +671,6 @@ public class ConnectionManagerCache {
         return ((oEntities != null) && (oEntities.size() > 0)) ? oEntities : null;
     }
 
-    /*public GATEWAY_API_LEVEL getApiVersion(String homeCommunityId, String serviceName) {
-        GATEWAY_API_LEVEL result = null;
-        try {
-            Set<String> specVersions = getSpecVersions(homeCommunityId, serviceName);
-            result = getHighestGatewayApiLevelSupportedBySpec(specVersions);
-        } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return (result == null) ? GATEWAY_API_LEVEL.LEVEL_g1 : result;
-    }*/
-
     public List<UDDI_SPEC_VERSION> getSpecVersions(String homeCommunityId, NhincConstants.NHIN_SERVICE_NAMES serviceName) {
     	ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
     	List<UDDI_SPEC_VERSION> specVersions = new ArrayList<UDDI_SPEC_VERSION>();
@@ -699,26 +687,7 @@ public class ConnectionManagerCache {
         return specVersions;
     }
 
-    /*private GATEWAY_API_LEVEL getHighestGatewayApiLevelSupportedBySpec(Set<String> specVersions) {
-        GATEWAY_API_LEVEL highestApiLevel = null;
-        GATEWAY_API_LEVEL apiLevel = null;
-        UddiSpecVersionRegistry specRegistry = UddiSpecVersionRegistry.getInstance();
-
-        try {
-            for (String specVersion : specVersions) {
-                apiLevel = specRegistry.getSupportedGatewayAPI(UDDI_SPEC_VERSION.fromString(specVersion), serviceName);
-                if (highestApiLevel == null || apiLevel.ordinal() > highestApiLevel.ordinal()) {
-                    highestApiLevel = apiLevel;
-                }
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return highestApiLevel;
-    } */
-
-    public String getAdapterEndpontURL(String sServiceName, ADAPTER_API_LEVEL level) throws ConnectionManagerException {
+    public String getAdapterEndpointURL(String sServiceName, ADAPTER_API_LEVEL level) throws ConnectionManagerException {
     	ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
         String endpointUrl = null;
         String sHomeCommunityId = null;
@@ -830,7 +799,7 @@ public class ConnectionManagerCache {
      * @return The URL to the requested service.
      * @throws ConnectionManagerException
      */
-    public String getEndpontURLFromNhinTarget(NhinTargetSystemType targetSystem, String serviceName)
+    public String getEndpointURLFromNhinTarget(NhinTargetSystemType targetSystem, String serviceName)
             throws ConnectionManagerException {
         String sEndpointURL = null;
 
@@ -876,7 +845,7 @@ public class ConnectionManagerCache {
      * @return The set of URLs for the requested service and targets.
      * @throws ConnectionManagerException
      */
-    public List<UrlInfo> getEndpontURLFromNhinTargetCommunities(NhinTargetCommunitiesType targets, String serviceName)
+    public List<UrlInfo> getEndpointURLFromNhinTargetCommunities(NhinTargetCommunitiesType targets, String serviceName)
             throws ConnectionManagerException {
     	ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
         List<UrlInfo> endpointUrlList = new ArrayList<UrlInfo>();

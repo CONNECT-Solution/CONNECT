@@ -232,7 +232,7 @@ public class EntityDocQueryDeferredReqOrchImpl {
             throws ConnectionManagerException {
         List<UrlInfo> urlInfoList = null;
 
-        urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targetCommunities,
+        urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(targetCommunities,
                 NhincConstants.NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME);
 
         return urlInfoList;

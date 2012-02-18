@@ -118,7 +118,7 @@ public class AdminDistributionHelper {
 
     public String getAdapterUrl(String adapterServcice, NhincConstants.ADAPTER_API_LEVEL adapterApiLevel) {
         try {
-            return ConnectionManagerCache.getInstance().getAdapterEndpontURL(adapterServcice, adapterApiLevel);
+            return ConnectionManagerCache.getInstance().getAdapterEndpointURL(adapterServcice, adapterApiLevel);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: "
                     + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME);

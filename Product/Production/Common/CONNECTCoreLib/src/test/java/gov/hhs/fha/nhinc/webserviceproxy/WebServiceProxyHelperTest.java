@@ -263,7 +263,7 @@ public class WebServiceProxyHelperTest extends AbstractWebServiceProxyHelpTest {
      * 
      * String expResult = "someurl"; mockingContext.checking(new Expectations() {
      * 
-     * { one(mockedDependency).getEndpontURLFromNhinTarget(with(any( NhinTargetSystemType.class)),
+     * { one(mockedDependency).getEndpointURLFromNhinTarget(with(any( NhinTargetSystemType.class)),
      * with(any(String.class))); will(returnValue("someurl")); } });
      */
     /*
@@ -289,7 +289,7 @@ public class WebServiceProxyHelperTest extends AbstractWebServiceProxyHelpTest {
          * 
          * String expResult = "someurl"; mockingContext.checking(new Expectations() {
          * 
-         * { one(mockedDependency).getEndpontURLFromNhinTarget(with(any( NhinTargetSystemType.class)),
+         * { one(mockedDependency).getEndpointURLFromNhinTarget(with(any( NhinTargetSystemType.class)),
          * with(any(String.class)), with(any(GATEWAY_API_LEVEL.class))); will(returnValue("someurl")); } });
          */
         String expResult = "https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery";
@@ -316,7 +316,7 @@ public class WebServiceProxyHelperTest extends AbstractWebServiceProxyHelpTest {
          * 
          * String expResult = "someurl"; mockingContext.checking(new Expectations() {
          * 
-         * { one(mockedDependency).getEndpontURLFromNhinTarget(with(any( NhinTargetSystemType.class)),
+         * { one(mockedDependency).getEndpointURLFromNhinTarget(with(any( NhinTargetSystemType.class)),
          * with(any(String.class)), with(any(ADAPTER_API_LEVEL.class))); will(returnValue("someurl")); } });
          */
         String expResult = "https://localhost:8181/GatewayDocumentQuery/1_0/NhinService/RespondingGateway_Query_Service/DocQuery";

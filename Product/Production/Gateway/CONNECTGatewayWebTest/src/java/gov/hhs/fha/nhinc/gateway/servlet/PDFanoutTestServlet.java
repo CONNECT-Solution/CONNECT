@@ -184,7 +184,7 @@ public class PDFanoutTestServlet extends HttpServlet {
 
     protected String getEndPointFromConnectionManager(NhinTargetSystemType oTargetSystem, String sServiceName)
             throws ConnectionManagerException {
-        return ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(oTargetSystem, sServiceName);
+        return ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(oTargetSystem, sServiceName);
     }
 
     // @SuppressWarnings("static-access")

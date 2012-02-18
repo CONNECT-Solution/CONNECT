@@ -82,7 +82,7 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
                     targetCommunitites, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs");

@@ -193,7 +193,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
                     targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs for service "
@@ -218,7 +218,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
         AcknowledgementType ack = auditLog.auditNhinDeferred201305(request, newAssertion,
                 NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-
+       
         PassthruPatientDiscoveryDeferredRequestProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryDeferredRequestProxyObjectFactory();
         PassthruPatientDiscoveryDeferredRequestProxy proxy = patientDiscoveryFactory
                 .getPassthruPatientDiscoveryDeferredRequestProxy();

@@ -95,7 +95,7 @@ public class EntityDocQueryOrchImplTest {
 
             // Obtain all the URLs for the targets being sent to
             try {
-                urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(targets,
+                urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(targets,
                         NhincConstants.DOC_QUERY_SERVICE_NAME);
             } catch (Exception ex) {
                 log.error("Failed to obtain target URLs", ex);

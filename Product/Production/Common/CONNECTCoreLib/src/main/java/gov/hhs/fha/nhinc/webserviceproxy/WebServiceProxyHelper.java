@@ -122,7 +122,7 @@ public class WebServiceProxyHelper {
     protected String getEndPointFromConnectionManagerByGatewayAPILevel(NhinTargetSystemType oTargetSystem,
             String sServiceName, GATEWAY_API_LEVEL level) throws ConnectionManagerException {
 
-        String url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(oTargetSystem, sServiceName);
+        String url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(oTargetSystem, sServiceName);
         return url;
     }
 
@@ -141,7 +141,7 @@ public class WebServiceProxyHelper {
 	public String getEndPointFromConnectionManagerByAdapterAPILevel(
 			String sServiceName, ADAPTER_API_LEVEL level)
 			throws ConnectionManagerException {
-		String url = ConnectionManagerCache.getInstance().getAdapterEndpontURL(
+		String url = ConnectionManagerCache.getInstance().getAdapterEndpointURL(
 				sServiceName, level);
 		return url;
 	}

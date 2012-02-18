@@ -389,24 +389,24 @@ public class ConnectionManagerCacheTest {
     }
 
     @Test
-    public void testGetEndpontURLFromNhinTarget() {
+    public void testGetEndpointURLFromNhinTarget() {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            String url = connectionManager.getEndpontURLFromNhinTarget(createNhinTargetSystem(),
+            String url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem(),
                     QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(NHIN_TARGET_ENDPOINT_URL_VALUE));
 
-            url = connectionManager.getEndpontURLFromNhinTarget(createNhinTargetSystem_UrlOnly(),
+            url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_UrlOnly(),
                     QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(NHIN_TARGET_ENDPOINT_URL_VALUE));
 
-            url = connectionManager.getEndpontURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(),
+            url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(),
                     QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_URL));
         } catch (Throwable t) {
             t.printStackTrace();
-            fail("Error running testGetEndpontURLFromNhinTarget test: " + t.getMessage());
+            fail("Error running testGetEndpointURLFromNhinTarget test: " + t.getMessage());
         }
     }
 
@@ -424,35 +424,35 @@ public class ConnectionManagerCacheTest {
     }
 
     @Test
-    public void testGetEndpontURLFromNhinTargetCommunities() {
+    public void testGetEndpointURLFromNhinTargetCommunities() {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            List<UrlInfo> endpointUrlList = connectionManager.getEndpontURLFromNhinTargetCommunities(
+            List<UrlInfo> endpointUrlList = connectionManager.getEndpointURLFromNhinTargetCommunities(
                     createNhinTargetCommunites(), QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(endpointUrlList.get(0).getUrl().equals(QUERY_FOR_DOCUMENTS_URL));
 
-            endpointUrlList = connectionManager.getEndpontURLFromNhinTargetCommunities(null, QUERY_FOR_DOCUMENTS_NAME);
+            endpointUrlList = connectionManager.getEndpointURLFromNhinTargetCommunities(null, QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(2, endpointUrlList.size());
         } catch (Throwable t) {
             t.printStackTrace();
-            fail("Error running testGetEndpontURLFromNhinTargetCommunities test: " + t.getMessage());
+            fail("Error running testGetEndpointURLFromNhinTargetCommunities test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testGetAdapterEndpontURL() {
+    public void testGetAdapterEndpointURL() {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            String url = connectionManager.getAdapterEndpontURL(QUERY_FOR_DOCUMENTS_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+            String url = connectionManager.getAdapterEndpointURL(QUERY_FOR_DOCUMENTS_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             assertNull(url);
 
-            url = connectionManager.getAdapterEndpontURL(DOC_QUERY_DEFERRED_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+            url = connectionManager.getAdapterEndpointURL(DOC_QUERY_DEFERRED_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_DEFERRED_URL));
         } catch (Throwable t) {
             t.printStackTrace();
-            fail("Error running testGetAdapterEndpontURL test: " + t.getMessage());
+            fail("Error running testGetAdapterEndpointURL test: " + t.getMessage());
         }
 
     }

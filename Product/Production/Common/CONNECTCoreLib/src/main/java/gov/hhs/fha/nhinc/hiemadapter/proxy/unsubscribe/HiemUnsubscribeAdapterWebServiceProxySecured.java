@@ -111,9 +111,9 @@ public class HiemUnsubscribeAdapterWebServiceProxySecured implements HiemUnsubsc
     private String getUrl(NhinTargetSystemType target, String serviceName) {
         String url = null;
         try {
-            url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, serviceName);
+            url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target, serviceName);
         } catch (ConnectionManagerException ex) {
-            log.warn("exception occurred accessing url from connection manager (getEndpontURLFromNhinTarget)", ex);
+            log.warn("exception occurred accessing url from connection manager (getEndpointURLFromNhinTarget)", ex);
         }
         if (NullChecker.isNullish(url)) {
             try {

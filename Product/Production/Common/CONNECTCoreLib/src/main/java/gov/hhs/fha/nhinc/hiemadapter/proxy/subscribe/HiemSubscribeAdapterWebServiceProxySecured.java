@@ -88,7 +88,7 @@ public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribe
 
     private String getUrl(NhinTargetSystemType target, String serviceName) throws ConnectionManagerException {
         String url = null;
-        url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, serviceName);
+        url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target, serviceName);
         if (NullChecker.isNullish(url)) {            
             url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
         }

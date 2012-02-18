@@ -198,7 +198,7 @@ public class NhincComponentConnectionManager {
     public String getEndpointURLFromNhinTarget(GetEndpointURLFromNhinTargetRequestType request) {
         String endpointUrl = null;
         try {
-            endpointUrl = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(
+            endpointUrl = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(
                     request.getNhinTargetSystem(), request.getServiceName());
         } catch (ConnectionManagerException cme) {
             getLogger().error("Failed to invoke getEndpointURLFromNhinTarget", cme);
@@ -223,7 +223,7 @@ public class NhincComponentConnectionManager {
 
         GetEndpointURLFromNhinTargetCommunitiesResponseType response = new GetEndpointURLFromNhinTargetCommunitiesResponseType();
         try {
-            List<UrlInfo> urlInfoList = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTargetCommunities(
+            List<UrlInfo> urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
                     request.getNhinTargetCommunities(), request.getServiceName());
             
             String hcid, url;
@@ -292,7 +292,7 @@ public class NhincComponentConnectionManager {
         String endpointUrl = null;
         try {            
             ADAPTER_API_LEVEL adapterLevel = ADAPTER_API_LEVEL.valueOf(request.getAdapterLevel());
-            endpointUrl = ConnectionManagerCache.getInstance().getAdapterEndpontURL(request.getServiceName(), adapterLevel);
+            endpointUrl = ConnectionManagerCache.getInstance().getAdapterEndpointURL(request.getServiceName(), adapterLevel);
         } catch (Exception e) {
             getLogger().error("Failed to invoke getAdapterEndpointURL", e);
         }

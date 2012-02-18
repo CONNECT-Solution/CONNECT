@@ -127,8 +127,8 @@ public class HiemSubscribeXmlAdapterWebServiceProxy implements HiemSubscribeXmlA
 
     private String getUrl(NhinTargetSystemType target, String serviceName) throws ConnectionManagerException {
         String url = null;
-        url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target, serviceName);
-        if (NullChecker.isNullish(url)) url = ConnectionManagerCache.getInstance().getAdapterEndpontURL(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
+        url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target, serviceName);
+        if (NullChecker.isNullish(url)) url = ConnectionManagerCache.getInstance().getAdapterEndpointURL(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
         return url;
     }
 }

@@ -84,7 +84,7 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
 
         if (target != null) {
             try {
-                url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target,
+                url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target,
                         NhincConstants.HIEM_NOTIFY_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_SERVICE_NAME);

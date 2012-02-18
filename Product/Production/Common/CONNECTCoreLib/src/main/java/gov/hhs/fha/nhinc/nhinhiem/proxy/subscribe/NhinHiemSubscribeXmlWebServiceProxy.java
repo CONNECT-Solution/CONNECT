@@ -164,7 +164,7 @@ public class NhinHiemSubscribeXmlWebServiceProxy implements NhinHiemSubscribePro
     private String getUrl(NhinTargetSystemType target) {
         String url = null;
         try {
-            url = ConnectionManagerCache.getInstance().getEndpontURLFromNhinTarget(target,
+            url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target,
                     NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error obtaining endpoint url: " + ex.getMessage(), ex);
