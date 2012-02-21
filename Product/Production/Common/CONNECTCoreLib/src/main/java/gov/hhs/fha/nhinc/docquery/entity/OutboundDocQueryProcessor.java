@@ -323,40 +323,33 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
         AdhocQueryResponse current = individual.getResponse();
         if (current != null) {
             // add the responses from registry object list
-            if (current.getRegistryObjectList() != null) {
-                List<JAXBElement<? extends IdentifiableType>> IdentifiableList = current.getRegistryObjectList()
-                        .getIdentifiable();
-                if (IdentifiableList != null) {
-                    for (JAXBElement<? extends IdentifiableType> identifiable : IdentifiableList) {
-                        ExtrinsicObjectType currentExtrinsicObject = cast(identifiable, ExtrinsicObjectType.class);
-                        JAXBElement<ExtrinsicObjectType> identifiableObj = new JAXBElement<ExtrinsicObjectType>(
-                                ExtrinsicObjectQname, ExtrinsicObjectType.class, currentExtrinsicObject);
-                        cumulativeResponse.getCumulativeResponse().getRegistryObjectList().getIdentifiable()
-                                .add(identifiableObj);
-                    }
+            if(current.getRegistryObjectList() != null){
+                List<JAXBElement<? extends IdentifiableType>> identifiableList = current.getRegistryObjectList().getIdentifiable();
+                if(identifiableList != null && identifiableList.size() > 0){
+                    cumulativeResponse.getCumulativeResponse().getRegistryObjectList().getIdentifiable()
+                            .addAll(identifiableList);
                 }
             }
 
             // add any registry errors
             if (current.getRegistryErrorList() != null && current.getRegistryErrorList().getRegistryError() != null
                     && current.getRegistryErrorList().getRegistryError().size() > 0) {
-                if (cumulativeResponse.getCumulativeResponse() != null) {
-                    if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null
-                            || cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError() == null) {
-                        cumulativeResponse.getCumulativeResponse().setRegistryErrorList(new RegistryErrorList());
-                    }
-                    cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError()
-                            .addAll(current.getRegistryErrorList().getRegistryError());
+                if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null
+                        || cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError() == null) {
+                    cumulativeResponse.getCumulativeResponse().setRegistryErrorList(new RegistryErrorList());
                 }
+                cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError()
+                        .addAll(current.getRegistryErrorList().getRegistryError());
             }
+
 
             // add any slotlist response data
             if (current.getResponseSlotList() != null && current.getResponseSlotList().getSlot() != null
                     && current.getResponseSlotList().getSlot().size() > 0) {
-                for (SlotType1 slot : current.getResponseSlotList().getSlot()) {
-                    cumulativeResponse.getCumulativeResponse().getResponseSlotList().getSlot().add(slot);
-                }
+                cumulativeResponse.getCumulativeResponse().getResponseSlotList().getSlot()
+                        .addAll(current.getResponseSlotList().getSlot());
             }
+
             cumulativeResponse.getCumulativeResponse().setTotalResultCount(
                     cumulativeResponse.getCumulativeResponse().getTotalResultCount().add(BigInteger.ONE));
             log.debug("EntityDocQueryProcessor::aggregateResponse_a0 combine next response done cumulativeResponse count="
@@ -378,40 +371,33 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
         AdhocQueryResponse current = individual.getResponse();
         if (current != null) {
             // add the responses from registry object list
-            if (current.getRegistryObjectList() != null) {
-                List<JAXBElement<? extends IdentifiableType>> IdentifiableList = current.getRegistryObjectList()
-                        .getIdentifiable();
-                if (IdentifiableList != null) {
-                    for (JAXBElement<? extends IdentifiableType> identifiable : IdentifiableList) {
-                        ExtrinsicObjectType currentExtrinsicObject = cast(identifiable, ExtrinsicObjectType.class);
-                        JAXBElement<ExtrinsicObjectType> identifiableObj = new JAXBElement<ExtrinsicObjectType>(
-                                ExtrinsicObjectQname, ExtrinsicObjectType.class, currentExtrinsicObject);
-                        cumulativeResponse.getCumulativeResponse().getRegistryObjectList().getIdentifiable()
-                                .add(identifiableObj);
-                    }
+            if(current.getRegistryObjectList() != null){
+                List<JAXBElement<? extends IdentifiableType>> identifiableList = current.getRegistryObjectList().getIdentifiable();
+                if(identifiableList != null && identifiableList.size() > 0){
+                    cumulativeResponse.getCumulativeResponse().getRegistryObjectList().getIdentifiable()
+                            .addAll(identifiableList);
                 }
             }
 
             // add any registry errors
             if (current.getRegistryErrorList() != null && current.getRegistryErrorList().getRegistryError() != null
                     && current.getRegistryErrorList().getRegistryError().size() > 0) {
-                if (cumulativeResponse.getCumulativeResponse() != null) {
-                    if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null
-                            || cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError() == null) {
-                        cumulativeResponse.getCumulativeResponse().setRegistryErrorList(new RegistryErrorList());
-                    }
-                    cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError()
-                            .addAll(current.getRegistryErrorList().getRegistryError());
+                if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null
+                        || cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError() == null) {
+                    cumulativeResponse.getCumulativeResponse().setRegistryErrorList(new RegistryErrorList());
                 }
+                cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError()
+                        .addAll(current.getRegistryErrorList().getRegistryError());
             }
+
 
             // add any slotlist response data
             if (current.getResponseSlotList() != null && current.getResponseSlotList().getSlot() != null
                     && current.getResponseSlotList().getSlot().size() > 0) {
-                for (SlotType1 slot : current.getResponseSlotList().getSlot()) {
-                    cumulativeResponse.getCumulativeResponse().getResponseSlotList().getSlot().add(slot);
-                }
+                cumulativeResponse.getCumulativeResponse().getResponseSlotList().getSlot()
+                        .addAll(current.getResponseSlotList().getSlot());
             }
+
             cumulativeResponse.getCumulativeResponse().setTotalResultCount(
                     cumulativeResponse.getCumulativeResponse().getTotalResultCount().add(BigInteger.ONE));
             log.debug("EntityDocQueryProcessor::aggregateResponse_a1 combine next response done cumulativeResponse count="

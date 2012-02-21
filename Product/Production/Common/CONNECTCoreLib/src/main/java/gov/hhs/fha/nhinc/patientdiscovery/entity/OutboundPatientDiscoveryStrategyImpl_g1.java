@@ -27,10 +27,13 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -77,9 +80,13 @@ public class OutboundPatientDiscoveryStrategyImpl_g1 extends OutboundPatientDisc
         try {
             NhinPatientDiscoveryProxy proxy = new NhinPatientDiscoveryProxyObjectFactory()
                     .getNhinPatientDiscoveryProxy();
+            String url = (new WebServiceProxyHelper()).getUrlFromTargetSystemByGatewayAPILevel(
+                    message.getTarget(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g1);
+            message.getTarget().setUrl(url);
             getLogger().debug(
-                    "NhinPatientDiscoveryStrategyImpl_g1::executeStrategy sending nhin patient discovery request to "
-                            + " target hcid=" + message.getTarget().getHomeCommunity().getHomeCommunityId());
+                    "NhinPatientDiscoveryStrategyImpl_g1::executeStrategy sending nhin patient discovery request to target hcid="
+                            + message.getTarget().getHomeCommunity().getHomeCommunityId() + " at url="
+                            + message.getTarget().getUrl());
 
             message.setResponse(proxy.respondingGatewayPRPAIN201305UV02(message.getRequest(), message.getAssertion(),
                     message.getTarget()));

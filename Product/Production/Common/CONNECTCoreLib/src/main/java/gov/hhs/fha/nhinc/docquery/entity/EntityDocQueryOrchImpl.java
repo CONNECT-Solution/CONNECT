@@ -35,8 +35,21 @@ import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
+import java.io.StringWriter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.xml.bind.JAXBContext;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -44,6 +57,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
+import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -52,10 +66,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQ
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
-
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-import gov.hhs.fha.nhinc.transform.document.DocumentQueryTransform;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
@@ -63,12 +75,17 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType;
+import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+import gov.hhs.fha.nhinc.transform.document.DocumentTransformConstants;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -85,6 +102,9 @@ public class EntityDocQueryOrchImpl {
     private Log log = null;
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
+
+    private static final String ContextPath = "oasis.names.tc.ebxml_regrep.xsd.rim._3";
+
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
@@ -164,10 +184,6 @@ public class EntityDocQueryOrchImpl {
                 isTargeted = true;
             }
 
-            /*******************************************************************
-             * TODO test/check handling of targets is correct!!!!!!!!!!!!!!!
-             ******************************************************************/
-
             // Obtain all the URLs for the targets being sent to
             try {
                 urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(targets,
@@ -199,15 +215,13 @@ public class EntityDocQueryOrchImpl {
                     RegistryErrorList policyErrList = new RegistryErrorList();
 
                     for (QualifiedSubjectIdentifierType identifier : correlationsResult) {
+                        log.debug("EntityDocQueryOrchImpl correlated target aaid=" + identifier.getAssigningAuthorityIdentifier());
                         NhinTargetSystemType target = new NhinTargetSystemType();
 
                         HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(
                                 identifier.getAssigningAuthorityIdentifier(), localAA, getLocalHomeCommunityId());
-                        String sTargetHomeCommunityId = null;
-                        if (targetCommunity != null) {
-                            target.setHomeCommunity(targetCommunity);
-                            sTargetHomeCommunityId = targetCommunity.getHomeCommunityId();
-                        }
+                        target.setHomeCommunity(targetCommunity);
+                        log.debug("EntityDocQueryOrchImpl correlated target hcid=" + targetCommunity.getHomeCommunityId());
 
                         if (isValidPolicy(adhocQueryRequest, assertion, targetCommunity)) {
                             OutboundDelegate nd = new OutboundDocQueryDelegate();
@@ -217,19 +231,31 @@ public class EntityDocQueryOrchImpl {
                             } else {
                                 np = new OutboundDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
                             }
-                            // Replace the patient id in the document query message
-                            // and clone the original adhocQueryRequest
-                            DocumentQueryTransform transform = new DocumentQueryTransform();
-                            AdhocQueryRequest clonedQueryRequest = transform.replaceAdhocQueryPatientId(
-                                    cloneRequest(adhocQueryRequest), sTargetHomeCommunityId,
-                                    identifier.getAssigningAuthorityIdentifier(), identifier.getSubjectIdentifier());
+
+                            // clone the request
+                            AdhocQueryRequest clonedRequest = cloneRequest(adhocQueryRequest);
+                            // replace the patient id slot
+                            String formattedPatientId = PatientIdFormatUtil.hl7EncodePatientId(
+                                    identifier.getSubjectIdentifier(), identifier.getAssigningAuthorityIdentifier());
+                            List<SlotType1> slotType1 = clonedRequest.getAdhocQuery().getSlot();
+                            Iterator<SlotType1> iterSlotType1 = slotType1.iterator();
+                            while (iterSlotType1.hasNext()) {
+                                SlotType1 slot = iterSlotType1.next();
+                                if ((slot.getName() != null)
+                                        && (slot.getName().equals(DocumentTransformConstants.EBXML_DOCENTRY_PATIENT_ID))) {
+                                    ValueListType slotValueList = new ValueListType();
+                                    slotValueList.getValue().add(formattedPatientId);
+                                    slot.setValueList(slotValueList);
+                                }
+                            }
 
                             OutboundDocQueryOrchestratable message = new OutboundDocQueryOrchestratable(nd, np, null,
-                                    null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, clonedQueryRequest);
+                                    null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, 
+                                    clonedRequest);
                             callableList.add(new NhinCallableRequest<OutboundDocQueryOrchestratable>(message));
 
                             log.debug("EntityDocQueryOrchImpl added NhinCallableRequest" + " for hcid="
-                                    + target.getHomeCommunity().getHomeCommunityId());
+                                    + target.getHomeCommunity().getHomeCommunityId() + " with formattedPatientId=" + formattedPatientId);
                         } else {
                             RegistryError regErr = new RegistryError();
                             regErr.setCodeContext("Policy Check Failed for homeId="
@@ -323,6 +349,58 @@ public class EntityDocQueryOrchImpl {
         }
     }
 
+
+    private AdhocQueryRequest cloneRequest(AdhocQueryRequest request){
+        AdhocQueryRequest newRequest = new AdhocQueryRequest();
+        AdhocQueryType currentQuery = request.getAdhocQuery();
+
+        AdhocQueryType newQuery = new AdhocQueryType();
+        List<SlotType1> newslotList = new ArrayList<SlotType1>();
+        List<SlotType1> slotList = currentQuery.getSlot();
+        for(SlotType1 slot : slotList){
+            SlotType1 newSlot = new SlotType1();
+            newSlot.setName(slot.getName());
+            newSlot.setSlotType(slot.getSlotType());
+
+            ValueListType valueListType = new ValueListType();
+            List<String> valueList = new ArrayList<String>();
+            for(String value : slot.getValueList().getValue()){
+                valueList.add(value);
+            }
+            valueListType.getValue().addAll(valueList);
+            newSlot.setValueList(valueListType);
+
+            newslotList.add(newSlot);
+        }
+        newQuery.getSlot().addAll(newslotList);
+
+        newQuery.getClassification().addAll(currentQuery.getClassification());
+        newQuery.getExternalIdentifier().addAll(currentQuery.getExternalIdentifier());
+
+        newQuery.setDescription(currentQuery.getDescription());
+        newQuery.setHome(currentQuery.getHome());
+        newQuery.setId(currentQuery.getId());
+        newQuery.setLid(currentQuery.getLid());
+        newQuery.setName(currentQuery.getName());
+        newQuery.setObjectType(currentQuery.getObjectType());
+        newQuery.setQueryExpression(currentQuery.getQueryExpression());
+        newQuery.setStatus(currentQuery.getStatus());
+        newQuery.setVersionInfo(currentQuery.getVersionInfo());
+        newRequest.setAdhocQuery(newQuery);
+
+        newRequest.setComment(request.getComment());
+        // newRequest.setFederated(request.isFederated());
+        newRequest.setFederation(request.getFederation());
+        newRequest.setId(request.getId());
+        newRequest.setMaxResults(request.getMaxResults());
+        newRequest.setResponseOption(request.getResponseOption());
+        newRequest.setStartIndex(request.getStartIndex());
+        
+        log.debug("EntityDocQueryOrchImpl::cloneRequest generated new AdhocQueryRequest");
+        return newRequest;
+    }
+
+
     protected String getLocalHomeCommunityId() {
         String sHomeCommunity = null;
         try {
@@ -364,19 +442,6 @@ public class EntityDocQueryOrchImpl {
         return isValid;
     }
 
-    private AdhocQueryRequest cloneRequest(AdhocQueryRequest request) {
-        AdhocQueryRequest newRequest = new AdhocQueryRequest();
-        newRequest.setAdhocQuery(request.getAdhocQuery());
-        newRequest.setComment(request.getComment());
-        newRequest.setFederated(request.isFederated());
-        newRequest.setFederation(request.getFederation());
-        newRequest.setId(request.getId());
-        newRequest.setMaxResults(request.getMaxResults());
-        newRequest.setRequestSlotList(request.getRequestSlotList());
-        newRequest.setResponseOption(request.getResponseOption());
-        newRequest.setStartIndex(request.getStartIndex());
-        return newRequest;
-    }
 
     private AdhocQueryResponse createErrorResponse(String codeContext) {
         AdhocQueryResponse response = new AdhocQueryResponse();

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -76,16 +77,19 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
 
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion,
             NhinTargetSystemType target) throws Exception {
-        String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
         try {
             if (request != null && target != null) {
+
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
-                        NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
-                log.debug("After target system URL look up. URL for service: "
-                        + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
+                String url = target.getUrl();
+                if (NullChecker.isNullish(url)) {
+                    url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
+                        target.getHomeCommunity().getHomeCommunityId(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+                    log.debug("After target system URL look up. URL for service: "
+                            + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
+                }
 
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION,

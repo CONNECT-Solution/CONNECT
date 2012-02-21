@@ -26,12 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docrepository.DocumentProcessHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -39,9 +41,11 @@ import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 import java.sql.Timestamp;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -130,8 +134,14 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
         AdhocQueryResponse response = new AdhocQueryResponse();
 
         try {
-            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
-                    NhincConstants.DOC_QUERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+            String url = target.getUrl();
+            if (NullChecker.isNullish(url)) {
+                url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
+                        target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
+                log.debug("After target system URL look up. URL for service: "
+                            + NhincConstants.DOC_QUERY_SERVICE_NAME + " is: " + url);
+            }
+
             RespondingGatewayQueryPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION,
                     assertion);
 

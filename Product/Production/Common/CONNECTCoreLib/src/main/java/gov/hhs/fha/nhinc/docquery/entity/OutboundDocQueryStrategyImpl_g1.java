@@ -31,7 +31,9 @@ import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -79,6 +81,10 @@ public class OutboundDocQueryStrategyImpl_g1 extends OutboundDocQueryStrategy {
                         .getHomeCommunityId());
         try {
             NhinDocQueryProxy proxy = new NhinDocQueryProxyObjectFactory().getNhinDocQueryProxy();
+            String url = (new WebServiceProxyHelper()).getUrlFromTargetSystemByGatewayAPILevel(
+                    message.getTarget(), NhincConstants.DOC_QUERY_SERVICE_NAME,
+                    GATEWAY_API_LEVEL.LEVEL_g1);
+            message.getTarget().setUrl(url);
             getLogger().debug(
                     "NhinDocQueryStrategyImpl_g1::executeStrategy sending nhin doc query request to " + " target hcid="
                             + message.getTarget().getHomeCommunity().getHomeCommunityId() + " at url="
