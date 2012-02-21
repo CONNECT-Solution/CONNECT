@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.webserviceproxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import gov.hhs.fha.nhinc.async.AsyncHeaderCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
@@ -50,8 +49,7 @@ public class WebserviceProxyHelperAddressingHeaders extends AbstractWebServicePr
     final Map<String, Object> mockRequestContext = context.mock(Map.class);
     final HashMap<String, Object> oMap = new HashMap<String, Object>();
     final SamlTokenCreator mockTokenCreator = context.mock(SamlTokenCreator.class);
-    final AsyncHeaderCreator mockAsyncHeaderCreator = context.mock(AsyncHeaderCreator.class);
-
+ 
     final Log mockLog = context.mock(Log.class);
 
     WebServiceProxyHelper oHelper;
@@ -73,23 +71,7 @@ public class WebserviceProxyHelperAddressingHeaders extends AbstractWebServicePr
                 return mockLog;
             }
 
-            @Override
-            protected AsyncHeaderCreator getAsyncHeaderCreator() {
-                return new AsyncHeaderCreator() {
-
-                    @Override
-                    public List createOutboundHeaders(String url, String action, String messageId,
-                            List<String> relatesToIds) {
-
-                        List headers = new ArrayList();
-                        headers.add(url);
-                        headers.add(action);
-                        headers.add(messageId);
-                        headers.addAll(relatesToIds);
-                        return headers;
-                    }
-                };
-            }
+          
 
             @Override
             protected String getMessageId(AssertionType assertion) {

@@ -31,7 +31,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.xml.stream.FactoryConfigurationError;
+import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,12 +47,12 @@ import static org.junit.Assert.*;
 /**
  * This class is used to test the AsyncHeaderCreator class
  */
-public class AsyncHeaderCreatorTest {
+public class AddressingHeaderCreatorTest {
 
     /**
      * Default constructor
      */
-    public AsyncHeaderCreatorTest() {
+    public AddressingHeaderCreatorTest() {
     }
 
     @BeforeClass
@@ -80,8 +85,8 @@ public class AsyncHeaderCreatorTest {
         List<String> relatesToIds = new ArrayList<String>();
         relatesToIds.add(relatesToId);
 
-        AsyncHeaderCreator hdrCreator = new AsyncHeaderCreator();
-        List<Header> createdHeaders = hdrCreator.createOutboundHeaders(url, action, messageId, relatesToIds);
+        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, action, messageId, relatesToIds);
+        List<Header> createdHeaders = hdrCreator.build();
 
         assertNotNull("List of created headers was null", createdHeaders);
         if (createdHeaders != null) {
@@ -114,9 +119,11 @@ public class AsyncHeaderCreatorTest {
     /**
      * Test of createOutboundHeaders method, of class AsyncHeaderCreator. This case has multiple RelatesTo items
      * provided.
+     * @throws FactoryConfigurationError 
+     * @throws XMLStreamException 
      */
     @Test
-    public void testCreateOutboundHeadersMultipleRelatesTo() {
+    public void testCreateOutboundHeadersMultipleRelatesTo() throws XMLStreamException, FactoryConfigurationError {
 
         String url = "TestUrl";
         String action = "TestAction";
@@ -128,14 +135,15 @@ public class AsyncHeaderCreatorTest {
         relatesToIds.add(relatesToId1);
         relatesToIds.add(relatesToId2);
 
-        AsyncHeaderCreator hdrCreator = new AsyncHeaderCreator();
-        List<Header> createdHeaders = hdrCreator.createOutboundHeaders(url, action, messageId, relatesToIds);
-
+        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, action, messageId, relatesToIds);
+        List<Header> createdHeaders = hdrCreator.build();
+    
         assertNotNull("List of created headers was null", createdHeaders);
         if (createdHeaders != null) {
             assertEquals("Number of headers created is not correct", 6, createdHeaders.size());
             for (Header hdr : createdHeaders) {
-                assertNotNull("Created header was null", hdr);
+            	
+	            assertNotNull("Created header was null", hdr);
                 if (hdr != null) {
                     String desiredNS = "http://www.w3.org/2005/08/addressing";
                     assertEquals("Every header should be in the addressing namespace ", desiredNS,
@@ -170,8 +178,8 @@ public class AsyncHeaderCreatorTest {
         String messageId = "TestMessageId";
         String addrAnon = "http://www.w3.org/2005/08/addressing/anonymous";
 
-        AsyncHeaderCreator hdrCreator = new AsyncHeaderCreator();
-        List<Header> createdHeaders = hdrCreator.createOutboundHeaders(url, action, messageId, null);
+        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, action, messageId, null);
+        List<Header> createdHeaders = hdrCreator.build();
 
         assertNotNull("List of created headers was null", createdHeaders);
         if (createdHeaders != null) {
@@ -212,8 +220,8 @@ public class AsyncHeaderCreatorTest {
         List<String> relatesToIds = new ArrayList<String>();
         relatesToIds.add(relatesToId);
 
-        AsyncHeaderCreator hdrCreator = new AsyncHeaderCreator();
-        List<Header> createdHeaders = hdrCreator.createOutboundHeaders(url, action, null, relatesToIds);
+        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, action, null, relatesToIds);
+        List<Header> createdHeaders = hdrCreator.build();
 
         assertNotNull("List of created headers was null", createdHeaders);
         if (createdHeaders != null) {
@@ -254,8 +262,8 @@ public class AsyncHeaderCreatorTest {
         List<String> relatesToIds = new ArrayList<String>();
         relatesToIds.add(relatesToId);
 
-        AsyncHeaderCreator hdrCreator = new AsyncHeaderCreator();
-        List<Header> createdHeaders = hdrCreator.createOutboundHeaders(url, null, messageId, relatesToIds);
+        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, null, messageId, relatesToIds);
+        List<Header> createdHeaders = hdrCreator.build();
 
         assertNotNull("List of created headers was null", createdHeaders);
         if (createdHeaders != null) {
@@ -302,8 +310,8 @@ public class AsyncHeaderCreatorTest {
         List<String> relatesToIds = new ArrayList<String>();
         relatesToIds.add(relatesToId);
 
-        AsyncHeaderCreator hdrCreator = new AsyncHeaderCreator();
-        List<Header> createdHeaders = hdrCreator.createOutboundHeaders(null, action, messageId, relatesToIds);
+        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(null, action, messageId, relatesToIds);
+        List<Header> createdHeaders = hdrCreator.build();
 
         assertNotNull("List of created headers was null", createdHeaders);
         if (createdHeaders != null) {

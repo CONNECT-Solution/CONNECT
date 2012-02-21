@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.webserviceproxy;
 
-import gov.hhs.fha.nhinc.async.AsyncHeaderCreator;
+import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -370,15 +370,7 @@ public class WebServiceProxyHelper {
         return oTokenCreator.CreateRequestContext(oAssertion, sUrl, sServiceAction);
     }
 
-    /**
-     * This method returns an instance of the AsyncHeaderCreator class. This method is here to facilitate mock unit
-     * testing.
-     * 
-     * @return instance of the AsyncHeaderCreator
-     */
-    protected AsyncHeaderCreator getAsyncHeaderCreator() {
-        return new AsyncHeaderCreator();
-    }
+  
 
     /**
      * This method retrieves the message identifier stored in the assertion If the message ID is null or empty, this
@@ -408,7 +400,7 @@ public class WebServiceProxyHelper {
      * @return The list of relatesTo identifiers
      */
     protected List<String> getRelatesTo(AssertionType assertion) {
-        List<String> allRelatesTo = new ArrayList();
+        List<String> allRelatesTo = new ArrayList<String>();
         if (assertion != null && NullChecker.isNotNullish(assertion.getRelatesToList())) {
             allRelatesTo.addAll(assertion.getRelatesToList());
         }
@@ -423,14 +415,16 @@ public class WebServiceProxyHelper {
      * @param assertion The assertion whic contains the messageId and the relatesTo identifiers
      * @return The list of WS-Addressing headers
      */
-    protected List getWSAddressingHeaders(String url, String wsAddressingAction, AssertionType assertion) {
+    protected List<Header> getWSAddressingHeaders(String url, String wsAddressingAction, AssertionType assertion) {
 
-        AsyncHeaderCreator hdrCreator = getAsyncHeaderCreator();
         String messageId = getMessageId(assertion);
         List<String> allRelatesTo = getRelatesTo(assertion);
 
-        List<Header> createdHeaders = hdrCreator
-                .createOutboundHeaders(url, wsAddressingAction, messageId, allRelatesTo);
+        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, wsAddressingAction, messageId, allRelatesTo);
+        
+        
+        List<Header> createdHeaders = hdrCreator.build();
+        
         return createdHeaders;
     }
 
@@ -458,7 +452,7 @@ public class WebServiceProxyHelper {
     }
 
     /**
-     * This method initializes the port for an unsecure interface call and sets various values that are required for
+     * This method initializes the port for an unsecured interface call and sets various values that are required for
      * processing - like timeout, URL, etc.
      * 
      * @param port The port to be initialized.
@@ -543,6 +537,7 @@ public class WebServiceProxyHelper {
         } else {
             log.warn("WS-Addressing information is unavailable, relying on wsdl policy");
         }
+        
         log.info("end initializePort");
     }
 
@@ -554,7 +549,10 @@ public class WebServiceProxyHelper {
      */
     private void setOutboundHeaders(BindingProvider port, String wsAddressingAction, AssertionType assertion) {
         String url = getUrlFormPort(port);
-        List createdHeaders = getWSAddressingHeaders(url, wsAddressingAction, assertion);
+        
+        
+        
+        List<Header> createdHeaders = getWSAddressingHeaders(url, wsAddressingAction, assertion);
         setOutboundHeaders(port, createdHeaders);
     }
 
@@ -789,10 +787,7 @@ public class WebServiceProxyHelper {
             throw new IllegalArgumentException(methodName + " not found for class " + portClass.getCanonicalName());
         }
 
-        // @TODO do we really want to retry a web service call when
-        // an InvocationException is returned, which is what invokePortWithRetry
-        // does???
-        if ((iRetryCount > 0) && (iRetryDelay > 0) && (sExceptionText != null) && (sExceptionText.length() > 0)) {
+       if ((iRetryCount > 0) && (iRetryDelay > 0) && (sExceptionText != null) && (sExceptionText.length() > 0)) {
             oResponse = invokePortWithRetry(portObject, portClass, operationInput, iRetryCount, iRetryDelay, oMethod);
         } // if ((iRetryCount > 0) && (iRetryDelay > 0))
         else {

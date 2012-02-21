@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.webserviceproxy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import gov.hhs.fha.nhinc.async.AsyncHeaderCreator;
+import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -53,7 +53,7 @@ public class WebServiceProxyHelperGetUrlTest extends AbstractWebServiceProxyHelp
     public Map<String, Object> mockRequestContext;
     public HashMap<String, Object> oMap;
     public SamlTokenCreator mockTokenCreator;
-    public AsyncHeaderCreator mockAsyncHeaderCreator;
+    public AddressingHeaderCreator mockAsyncHeaderCreator;
     public Log mockLog = context.mock(Log.class);
     public WebServiceProxyHelper oHelper;
 
