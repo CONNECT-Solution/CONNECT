@@ -334,7 +334,7 @@
             <then>
 			  <math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
 			  <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
-			  <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.countto.build.count} *************************" level="info"/>
+			  <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
 			  <project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}"/>
 			  <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
 			  <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
