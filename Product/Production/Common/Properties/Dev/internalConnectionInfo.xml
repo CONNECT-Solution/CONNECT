@@ -12,8 +12,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapteradmindistsecured" serviceKey="uddi:testnhincnode:adapteradmindistsecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistributionSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -28,8 +26,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapteradmindist" serviceKey="uddi:testnhincnode:adapteradmindist">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistribution</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -227,8 +223,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdrsecured" serviceKey="uddi:testnhincnode:adapterxdrsecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
- 							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -243,8 +237,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdr" serviceKey="uddi:testnhincnode:adapterxdr">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -259,8 +251,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentxdrsecured" serviceKey="uddi:testnhincnode:adaptercomponentxdrsecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterComponentDocSubmissionSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -275,8 +265,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentxdr" serviceKey="uddi:testnhincnode:adaptercomponentxdr">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterComponentDocSubmissionUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -331,8 +319,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdrrequest" serviceKey="uddi:testnhincnode:adapterxdrrequest">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequest</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -347,8 +333,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdrrequestsecured" serviceKey="uddi:testnhincnode:adapterxdrrequestsecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequestSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -363,8 +347,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentxdrrequest" serviceKey="uddi:testnhincnode:adaptercomponentxdrrequest">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterComponentXDRRequest_Service</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -379,8 +361,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentxdrresponse" serviceKey="uddi:testnhincnode:adaptercomponentxdrresponse">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterComponentXDRResponse_Service</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -395,8 +375,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdrsecuredasyncreqerror" serviceKey="uddi:testnhincnode:adapterxdrsecuredasyncreqerror">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -411,8 +389,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdrrequesterror" serviceKey="uddi:testnhincnode:adapterxdrrequesterror">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequestError</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -487,8 +463,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdrresponsesecured" serviceKey="uddi:testnhincnode:adapterxdrresponsesecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponseSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -503,8 +477,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdrresponse" serviceKey="uddi:testnhincnode:adapterxdrresponse">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponse</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -596,9 +568,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocquery" serviceKey="uddi:testnhincnode:adapterdocquery">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDocQueryUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -613,9 +582,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocquerysecured" serviceKey="uddi:testnhincnode:adapterdocquerysecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -672,9 +638,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocquerydeferredrequest" serviceKey="uddi:testnhincnode:adapterdocquerydeferredrequest">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDocQueryDeferredRequestUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -689,9 +652,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocquerydeferredrequestsecured" serviceKey="uddi:testnhincnode:adapterdocquerydeferredrequestsecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentQuery/A_0/AdapterDocQueryDeferredRequestSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                         </categoryBag>
                     </bindingTemplate>
@@ -706,9 +666,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentdocquerydeferredrequest" serviceKey="uddi:testnhincnode:adaptercomponentdocquerydeferredrequest">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterComponentDocQueryDeferredRequestUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -723,9 +680,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocquerydeferredrequesterror" serviceKey="uddi:testnhincnode:adapterdocquerydeferredrequesterror">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDocQueryDeferredRequestErrorUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -740,9 +694,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocquerydeferredrequesterrorsecured" serviceKey="uddi:testnhincnode:adapterdocquerydeferredrequesterrorsecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentQuery/A_0/AdapterDocQueryDeferredRequestErrorSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -757,9 +708,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocquerydeferredresponse" serviceKey="uddi:testnhincnode:adapterdocquerydeferredresponse">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDocQueryDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -774,9 +722,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocquerydeferredresponsesecured" serviceKey="uddi:testnhincnode:adapterdocquerydeferredresponsesecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentQuery/A_0/AdapterDocQueryDeferredResponseSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -791,9 +736,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentdocquerydeferredresponse" serviceKey="uddi:testnhincnode:adaptercomponentdocquerydeferredresponse">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterComponentDocQueryDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -920,9 +862,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocquerydeferredreqqueueprocess" serviceKey="uddi:testnhincnode:adapterdocquerydeferredreqqueueprocess">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDocQueryDeferredReqQueueProcess</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -960,8 +899,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequest" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequest">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -976,8 +913,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequestsecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequestsecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -992,8 +927,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterror" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterror">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestErrorUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1008,8 +941,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterrorsecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterrorsecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestErrorSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1024,8 +955,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrieve" serviceKey="uddi:testnhincnode:adapterdocretrieve">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1040,8 +969,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievesecured" serviceKey="uddi:testnhincnode:adapterdocretrievesecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                         </categoryBag>
                     </bindingTemplate>
@@ -1276,8 +1203,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredresponse" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredresponse">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredResponse</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1292,8 +1217,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredresponsesecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredresponsesecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredResponseSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1308,8 +1231,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentdocretrievedeferredrequest" serviceKey="uddi:testnhincnode:adaptercomponentdocretrievedeferredrequest">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterComponentDocRetrieveDeferredRequestUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1324,8 +1245,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentdocretrievedeferredresponse" serviceKey="uddi:testnhincnode:adaptercomponentdocretrievedeferredresponse">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterComponentDocRetrieveDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1340,8 +1259,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredreqqueueprocess" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredreqqueueprocess">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredReqQueueProcess</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1459,7 +1376,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapternotificationproducersecured" serviceKey="uddi:testnhincnode:adapternotificationproducersecured">
                         <accessPoint useType="endPoint">https://localhost:8181/NhinConnect/AdapterNotificationProducer</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1474,7 +1390,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapternotificationconsumersecured" serviceKey="uddi:testnhincnode:adapternotificationconsumersecured">
                         <accessPoint useType="endPoint">https://localhost:8181/NhinConnect/AdapterNotificationConsumer</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1489,7 +1404,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptersubscriptionmanagersecured" serviceKey="uddi:testnhincnode:adaptersubscriptionmanagersecured">
                         <accessPoint useType="endPoint">https://localhost:8181/NhinConnect/AdapterSubscriptionManager</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1504,7 +1418,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitynotificationconsumer" serviceKey="uddi:testnhincnode:entitynotificationconsumer">
                         <accessPoint useType="endPoint">http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                              <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                         </categoryBag>
                     </bindingTemplate>
@@ -1589,7 +1502,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapternotificationconsumer" serviceKey="uddi:testnhincnode:adapternotificationconsumer">
                         <accessPoint useType="endPoint">http://localhost:8080/AdapterNotificationConsumer/AdapterFTAService</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1604,7 +1516,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapternotificationconsumerpassthrough" serviceKey="uddi:testnhincnode:adapternotificationconsumerpassthrough">
                         <accessPoint useType="endPoint">http://localhost:8080/AdapterNotificationConsumer/AdapterFTAService</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1818,9 +1729,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterpatientdiscovery" serviceKey="uddi:testnhincnode:adapterpatientdiscovery">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1835,9 +1743,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterpatientdiscoverysecured" serviceKey="uddi:testnhincnode:adapterpatientdiscoverysecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoverySecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1852,9 +1757,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterpatientdiscoveryasyncreq" serviceKey="uddi:testnhincnode:adapterpatientdiscoveryasyncreq">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1869,9 +1771,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterpatientdiscoverysecuredasyncreq" serviceKey="uddi:testnhincnode:adapterpatientdiscoverysecuredasyncreq">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1886,9 +1785,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterpatientdiscoveryasyncresp" serviceKey="uddi:testnhincnode:adapterpatientdiscoveryasyncresp">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1903,9 +1799,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterpatientdiscoverysecuredasyncresp" serviceKey="uddi:testnhincnode:adapterpatientdiscoverysecuredasyncresp">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredResponseSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1920,9 +1813,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterpatientdiscoveryasyncreqerror" serviceKey="uddi:testnhincnode:adapterpatientdiscoveryasyncreqerror">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestErrorUnsecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1937,9 +1827,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterpatientdiscoverysecuredasyncreqerror" serviceKey="uddi:testnhincnode:adapterpatientdiscoverysecuredasyncreqerror">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestErrorSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1954,9 +1841,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterpatientdiscoverydeferredreqqueueprocess" serviceKey="uddi:testnhincnode:adapterpatientdiscoverydeferredreqqueueprocess">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredReqQueueProcess</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -1972,9 +1856,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:mpi" serviceKey="uddi:testnhincnode:mpi">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterMpiService</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -2006,9 +1887,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:mpisecured" serviceKey="uddi:testnhincnode:mpisecured">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/PatientDiscovery/A_0/AdapterMpiSecuredService</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -2023,9 +1901,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentmpiservice" serviceKey="uddi:testnhincnode:adaptercomponentmpiservice">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterComponentMpiService</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -2040,9 +1915,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentmpisecuredservice" serviceKey="uddi:testnhincnode:adaptercomponentmpisecuredservice">
                         <accessPoint useType="endPoint">https://localhost:8181/Adapter/PatientDiscovery/A_0/AdapterComponentMpiSecuredService</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -2119,7 +1991,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:policyengineservice" serviceKey="uddi:testnhincnode:policyengineservice">
                         <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -2134,7 +2005,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:policyengineservicesecured" serviceKey="uddi:testnhincnode:policyengineservicesecured">
                         <accessPoint useType="endPoint">https://localhost:8181/CONNECTAdapter/AdapterPolicyEngineSecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -2177,7 +2047,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterpolicyengineorchestrator" serviceKey="uddi:testnhincnode:adapterpolicyengineorchestrator">
                         <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapter/AdapterPolicyEngineOrchestrator</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -2195,7 +2064,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdsbdocrepositorysoap12" serviceKey="uddi:testnhincnode:adapterxdsbdocrepositorysoap12">
                         <accessPoint useType="endPoint">http://localhost:50967/axis2/services/xdsrepositoryb</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -2210,7 +2078,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdsbdocrepository" serviceKey="uddi:testnhincnode:adapterxdsbdocrepository">
                         <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapter/DocumentRepository_Service</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
@@ -2300,7 +2167,6 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterredactionengine" serviceKey="uddi:testnhincnode:adapterredactionengine">
                         <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>

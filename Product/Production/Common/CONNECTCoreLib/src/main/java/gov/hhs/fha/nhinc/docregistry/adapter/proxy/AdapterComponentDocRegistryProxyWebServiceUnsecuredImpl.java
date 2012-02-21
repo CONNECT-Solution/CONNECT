@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docregistry.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.DocumentRegistryPortType;
@@ -113,10 +114,8 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
         AdhocQueryResponse response = null;
 
         try {
-            String xdsbHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
-                    NhincConstants.XDS_HOME_COMMUNITY_ID_PROPERTY);
-            String url = oProxyHelper.getUrlFromHomeCommunity(xdsbHomeCommunityId,
-                    NhincConstants.ADAPTER_DOC_REGISTRY_SERVICE_NAME);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(
+                    NhincConstants.ADAPTER_DOC_REGISTRY_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             DocumentRegistryPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
             if (msg == null) {
