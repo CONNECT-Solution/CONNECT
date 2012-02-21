@@ -78,6 +78,46 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincadmindist" keyValue="nhincadmindist"/>
                 </categoryBag>
             </businessService>
+			<businessService serviceKey="uddi:testnhincnode:admindistservice" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">admindistservice</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:admindistservice" serviceKey="uddi:testnhincnode:admindistservice">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:admindistservice" serviceKey="uddi:testnhincnode:admindistservice">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="admindistservice" keyValue="admindistservice"/>
+                </categoryBag>
+            </businessService>
+			<businessService serviceKey="uddi:testnhincnode:admindistsecuredservice" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">admindistsecuredservice</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:admindistsecuredservice" serviceKey="uddi:testnhincnode:admindistsecuredservice">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/1_0/AdministrativeDistributionSecured_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:admindistsecuredservice" serviceKey="uddi:testnhincnode:admindistsecuredservice">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/2_0/AdministrativeDistributionSecured_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="admindistsecuredservice" keyValue="admindistsecuredservice"/>
+                </categoryBag>
+            </businessService>
 
             <!--  Document Submission  -->
 
@@ -289,7 +329,7 @@
                 <name xml:lang="en">adapterxdrrequest</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdrrequest" serviceKey="uddi:testnhincnode:adapterxdrrequest">
-                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequest</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequest</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
 							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
@@ -461,7 +501,7 @@
                 <name xml:lang="en">adapterxdrresponse</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdrresponse" serviceKey="uddi:testnhincnode:adapterxdrresponse">
-                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponse</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponse</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
 							<keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
@@ -616,7 +656,7 @@
                 <name xml:lang="en">nhincproxydocquery</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxydocquery" serviceKey="uddi:testnhincnode:nhincproxydocquery">
-                        <accessPoint useType="endPoint">https://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -766,7 +806,7 @@
                 <name xml:lang="en">passthrudocquerydeferredrequest</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:passthrudocquerydeferredrequest" serviceKey="uddi:testnhincnode:passthrudocquerydeferredrequest">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/EntityService/PassthruDocQueryDeferredRequestUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/PassthruDocQueryDeferredRequestUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -794,7 +834,7 @@
                 <name xml:lang="en">passthrudocquerydeferredresponse</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:passthrudocquerydeferredresponse" serviceKey="uddi:testnhincnode:passthrudocquerydeferredresponse">
-                        <accessPoint useType="endPoint">https://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/PassthruDocQueryDeferredResponseUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/PassthruDocQueryDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -822,7 +862,7 @@
                 <name xml:lang="en">entitydocquerydeferredresponse</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitydocquerydeferredresponse" serviceKey="uddi:testnhincnode:entitydocquerydeferredresponse">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryDeferredResponseUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -850,7 +890,7 @@
                 <name xml:lang="en">entitydocquerydeferredrequest</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitydocquerydeferredrequest" serviceKey="uddi:testnhincnode:entitydocquerydeferredrequest">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryDeferredRequestUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryDeferredRequestUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -901,6 +941,12 @@
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/2_0/EntityService/NhincProxyDocRetrieveSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:nhincproxydocretrievesecured" serviceKey="uddi:testnhincnode:nhincproxydocretrievesecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/3_0/EntityService/NhincProxyDocRetrieveSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -1125,6 +1171,12 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                         </categoryBag>
                     </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:entitydocretrieveproxy" serviceKey="uddi:testnhincnode:entitydocretrieveproxy">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitydocretrieveproxy" keyValue="entitydocretrieveproxy"/>
@@ -1139,6 +1191,12 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                         </categoryBag>
                     </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:entitydocretrievesecured" serviceKey="uddi:testnhincnode:entitydocretrievesecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieveSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitydocretrievesecured" keyValue="entitydocretrievesecured"/>
@@ -1148,9 +1206,15 @@
                 <name xml:lang="en">nhincproxydocretrieve</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxydocretrieve" serviceKey="uddi:testnhincnode:nhincproxydocretrieve">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieve</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:nhincproxydocretrieve" serviceKey="uddi:testnhincnode:nhincproxydocretrieve">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentRetrieve/3_0/NhincProxyDocRetrieveUnsecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -1167,6 +1231,12 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                         </categoryBag>
                     </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:nhincproxydocretrievedeferredrequest" serviceKey="uddi:testnhincnode:nhincproxydocretrievedeferredrequest">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/NhincProxyDocRetrieveDeferredRequest</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxydocretrievedeferredrequest" keyValue="nhincproxydocretrievedeferredrequest"/>
@@ -1179,6 +1249,12 @@
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/2_0/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:nhincproxydocretrievedeferredrequestsecured" serviceKey="uddi:testnhincnode:nhincproxydocretrievedeferredrequestsecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/3_0/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -1195,6 +1271,12 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                         </categoryBag>
                     </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:nhincproxydocretrievedeferredresponsesecured" serviceKey="uddi:testnhincnode:nhincproxydocretrievedeferredresponsesecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/3_0/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxydocretrievedeferredresponsesecured" keyValue="nhincproxydocretrievedeferredresponsesecured"/>
@@ -1207,6 +1289,12 @@
                         <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/NhincProxyDocRetrieveDeferredResponse</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:nhincproxydocretrievedeferredresponse" serviceKey="uddi:testnhincnode:nhincproxydocretrievedeferredresponse">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/NhincProxyDocRetrieveDeferredResponse</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -1223,6 +1311,12 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                         </categoryBag>
                     </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:entitydocretrievedeferredrequest" serviceKey="uddi:testnhincnode:entitydocretrievedeferredrequest">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieveDeferredRequest</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitydocretrievedeferredrequest" keyValue="entitydocretrievedeferredrequest"/>
@@ -1235,6 +1329,12 @@
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieveDeferredRequestSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:entitydocretrievedeferredrequestsecured" serviceKey="uddi:testnhincnode:entitydocretrievedeferredrequestsecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieveDeferredRequestSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -1251,6 +1351,12 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                         </categoryBag>
                     </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:entitydocretrievedeferredresponse" serviceKey="uddi:testnhincnode:entitydocretrievedeferredresponse">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieveDeferredResponse</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitydocretrievedeferredresponse" keyValue="entitydocretrievedeferredresponse"/>
@@ -1263,6 +1369,12 @@
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieveDeferredResponseSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:testnhincnode:entitydocretrievedeferredresponsesecured" serviceKey="uddi:testnhincnode:entitydocretrievedeferredresponsesecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieveDeferredResponseSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -1350,6 +1462,26 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterdocretrievedeferredreqqueueprocess" keyValue="adapterdocretrievedeferredreqqueueprocess"/>
                 </categoryBag>
             </businessService>
+			<businessService serviceKey="uddi:testnhincnode:adapterdocretrievedeferredresponseunsecured" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">adapterdocretrievedeferredresponseunsecured</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredresponseunsecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredresponseunsecured">
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredResponseUnsecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterdocretrievedeferredresponseunsecured" keyValue="adapterdocretrievedeferredresponseunsecured"/>
+                </categoryBag>
+            </businessService>
+			
+			
+			
+			
 
             <!--  HIEM  -->
 
@@ -1357,7 +1489,7 @@
                 <name xml:lang="en">nhincproxynotificationconsumersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxynotificationconsumersecured" serviceKey="uddi:testnhincnode:nhincproxynotificationconsumersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/NhincProxyNotificationConsumerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhincProxyNotificationConsumerSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -1367,11 +1499,25 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxynotificationconsumersecured" keyValue="nhincproxynotificationconsumersecured"/>
                 </categoryBag>
             </businessService>
+            <businessService serviceKey="uddi:testnhincnode:nhincproxynotificationconsumer" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">nhincproxynotificationconsumer</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxynotificationconsumer" serviceKey="uddi:testnhincnode:nhincproxynotificationconsumer">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/HIEM/2_0/NhincProxyNotificationConsumer</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxynotificationconsumer" keyValue="nhincproxynotificationconsumer"/>
+                </categoryBag>
+            </businessService>
             <businessService serviceKey="uddi:testnhincnode:nhincproxynotificationproducersecured" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">nhincproxynotificationproducersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxynotificationproducersecured" serviceKey="uddi:testnhincnode:nhincproxynotificationproducersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/NhincProxyNotificationProducerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhincProxyNotificationProducerSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -1381,11 +1527,25 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxynotificationproducersecured" keyValue="nhincproxynotificationproducersecured"/>
                 </categoryBag>
             </businessService>
+            <businessService serviceKey="uddi:testnhincnode:nhincproxynotificationproducer" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">nhincproxynotificationproducer</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxynotificationproducer" serviceKey="uddi:testnhincnode:nhincproxynotificationproducer">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/HIEM/2_0/NhincProxyNotificationProducer</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxynotificationproducer" keyValue="nhincproxynotificationproducer"/>
+                </categoryBag>
+            </businessService>
             <businessService serviceKey="uddi:testnhincnode:nhincproxysubscriptionmanagersecured" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">nhincproxysubscriptionmanagersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxysubscriptionmanagersecured" serviceKey="uddi:testnhincnode:nhincproxysubscriptionmanagersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/NhincProxySubscriptionManagerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhincProxySubscriptionManagerSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -1393,6 +1553,20 @@
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxysubscriptionmanagersecured" keyValue="nhincproxysubscriptionmanagersecured"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:testnhincnode:nhincproxysubscriptionmanager" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">nhincproxysubscriptionmanager</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:nhincproxysubscriptionmanager" serviceKey="uddi:testnhincnode:nhincproxysubscriptionmanager">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/HIEM/2_0/NhincProxySubscriptionManager</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxysubscriptionmanager" keyValue="nhincproxysubscriptionmanager"/>
                 </categoryBag>
             </businessService>
             <businessService serviceKey="uddi:testnhincnode:adapternotificationproducersecured" businessKey="uddi:testnhieonenode:1.1">
@@ -1444,7 +1618,7 @@
                 <name xml:lang="en">entitynotificationconsumer</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitynotificationconsumer" serviceKey="uddi:testnhincnode:entitynotificationconsumer">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/HIEM/2_0/EntityService/EntityNotificationConsumer</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                              <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
@@ -1459,7 +1633,7 @@
                 <name xml:lang="en">entitynotificationconsumersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitynotificationconsumersecured" serviceKey="uddi:testnhincnode:entitynotificationconsumersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/EntityNotificationConsumerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityNotificationConsumerSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -1473,7 +1647,7 @@
                 <name xml:lang="en">entitynotificationproducersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitynotificationproducersecured" serviceKey="uddi:testnhincnode:entitynotificationproducersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/EntityNotificationProducerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityNotificationProducerSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -1483,11 +1657,25 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitynotificationproducersecured" keyValue="entitynotificationproducersecured"/>
                 </categoryBag>
             </businessService>
+            <businessService serviceKey="uddi:testnhincnode:entitynotificationproducer" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">entitynotificationproducer</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:entitynotificationproducer" serviceKey="uddi:testnhincnode:entitynotificationproducer">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitynotificationproducer" keyValue="entitynotificationproducer"/>
+                </categoryBag>
+            </businessService>
             <businessService serviceKey="uddi:testnhincnode:entitysubscriptionmanagersecured" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">entitysubscriptionmanagersecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:entitysubscriptionmanagersecured" serviceKey="uddi:testnhincnode:entitysubscriptionmanagersecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntityService/EntitySubscriptionManagerSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/EntitySubscriptionManagerSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -1495,6 +1683,20 @@
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitysubscriptionmanagersecured" keyValue="entitysubscriptionmanagersecured"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:testnhincnode:entitysubscriptionmanager" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">entitysubscriptionmanager</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:entitysubscriptionmanager" serviceKey="uddi:testnhincnode:entitysubscriptionmanager">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitysubscriptionmanager" keyValue="entitysubscriptionmanager"/>
                 </categoryBag>
             </businessService>
             <businessService serviceKey="uddi:testnhincnode:adapternotificationconsumer" businessKey="uddi:testnhieonenode:1.1">
@@ -1527,6 +1729,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapternotificationconsumerpassthrough" keyValue="adapternotificationconsumerpassthrough"/>
                 </categoryBag>
             </businessService>
+			
 
             <!--  Patient Discovery  -->
 
@@ -1897,6 +2100,23 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="mpi" keyValue="mpi"/>
                 </categoryBag>
             </businessService>
+			<businessService serviceKey="uddi:testnhincnode:mpimanager" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">mpimanager</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:mpimanager" serviceKey="uddi:testnhincnode:mpimanager">
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterMpiManagerService</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="mpimanager" keyValue="mpimanager"/>
+                </categoryBag>
+            </businessService>
             <businessService serviceKey="uddi:testnhincnode:mpisecured" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">mpisecured</name>
                 <bindingTemplates>
@@ -2206,8 +2426,63 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterredactionengine" keyValue="adapterredactionengine"/>
                 </categoryBag>
             </businessService>
-        </businessServices>
+			
+			<!--  Provide and Register Document  -->
 
+            <businessService serviceKey="uddi:testnhincnode:docprovideandregister" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">docprovideandregister</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:docprovideandregister" serviceKey="uddi:testnhincnode:docprovideandregister">
+                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapter/AdapterDocProvideAndRegisterservice</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="docprovideandregister" keyValue="docprovideandregister"/>
+                </categoryBag>
+            </businessService>
+			
+			<!--  Deferred Queue Manager  -->
+
+            <businessService serviceKey="uddi:testnhincnode:deferredqueuemanager" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">deferredqueuemanager</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:deferredqueuemanager" serviceKey="uddi:testnhincnode:deferredqueuemanager">
+                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapter/DeferredQueueManager</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="deferredqueuemanager" keyValue="deferredqueuemanager"/>
+                </categoryBag>
+            </businessService>
+			
+			<!--  Performance Log Query  -->
+
+            <businessService serviceKey="uddi:testnhincnode:entityperformancelogquery" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">entityperformancelogquery</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:entityperformancelogquery" serviceKey="uddi:testnhincnode:entityperformancelogquery">
+                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapter/EntityPerformanceLogQuery</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entityperformancelogquery" keyValue="entityperformancelogquery"/>
+                </categoryBag>
+            </businessService>
+			
+			
+        </businessServices>
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="1.1"/>
         </identifierBag>
