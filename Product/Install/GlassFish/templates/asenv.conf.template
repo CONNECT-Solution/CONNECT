@@ -6,7 +6,7 @@
 #if AS_HOME is empty, set to default
 if [[ ${AS_HOME} = "" ]]
 then
-   export AS_ENV="/nhin/SUNWappserver"
+   export AS_HOME="/nhin/SUNWappserver"
 fi
 
 #if JAVA_HOME is empty, check to see if standard folder exists
