@@ -137,7 +137,14 @@
     </servlet-mapping>
 
     <security-constraint>
-        
+        <web-resource-collection>
+	    <web-resource-name>NhinXDR</web-resource-name>
+	    <url-pattern>/DocumentRepositoryXDR_Service</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>PassthruDocSubmissionSecured</web-resource-name>
+	    <url-pattern>/EntityService/PassthruDocSubmissionSecured</url-pattern>
+        </web-resource-collection>        
          <web-resource-collection>
             <web-resource-name>EntityAuditLogQuery</web-resource-name>
             <url-pattern>/EntityService/EntityAuditLogQuerySecured</url-pattern>
