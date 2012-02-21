@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumerSecured.wsdl" uri="wsdl/EntityNotificationConsumerSecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagementSecured.wsdl" uri="wsdl/EntitySubscriptionManagementSecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/rw-2.wsdl" uri="wsdl/rw-2.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumerSecured.wsdl" uri="wsdl/NhincProxyNotificationConsumerSecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagementSecured.wsdl" uri="wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
-</catalog>

@@ -24,40 +24,32 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.hiem.entity.proxy;
+package gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe;
 
-import java.util.Collections;
-import java.util.Set;
-import javax.xml.namespace.QName;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.soap.SOAPHandler;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
-import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault;
+import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault;
+import javax.annotation.Resource;
+import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
+import javax.jws.HandlerChain;
+import javax.xml.ws.BindingType;
 
 /**
  * 
- * @author rayj
+ * @author Sai Valluripalli
  */
-public class ProxyHiemUnsubscribeHeaderHandler implements SOAPHandler<SOAPMessageContext> {
+@WebService(serviceName = "EntitySubscriptionManager", portName = "EntitySubscriptionManagerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntitySubscriptionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl")
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file = "EntityUnsubscribeSoapHeaderHandler.xml")
+public class EntityUnsubscribeService {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(ProxyHiemUnsubscribeHeaderHandler.class);
+    @Resource
+    private WebServiceContext context;
 
-    @SuppressWarnings("unchecked")
-    public Set<QName> getHeaders() {
-        return Collections.EMPTY_SET;
+    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.UnsubscribeRequestType unsubscribeRequest)
+            throws ResourceUnknownFault, UnableToDestroySubscriptionFault {
+        return new EntityUnsubscribeServiceImpl().unsubscribe(unsubscribeRequest, context);
     }
 
-    public boolean handleMessage(SOAPMessageContext context) {
-        new SoapUtil().extractReferenceParameters(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
-        return true;
-    }
-
-    public boolean handleFault(SOAPMessageContext context) {
-        return true;
-    }
-
-    public void close(MessageContext context) {
-    }
 }

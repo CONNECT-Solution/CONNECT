@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.hiem._20.entity.subscribe;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentRequestSecuredType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentResponseType;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidFilterFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidMessageContentExpressionFault;
@@ -60,6 +61,11 @@ public class EntitySubscribeServiceImpl {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
             .getLog(EntitySubscribeServiceImpl.class);
 
+    public SubscribeDocumentResponseType subscribeDocument(SubscribeDocumentRequestType arg0) {
+        // TODO implement this method
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
+    
     public SubscribeDocumentResponseType subscribeDocument(SubscribeDocumentRequestSecuredType arg0) {
         // TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
@@ -81,25 +87,56 @@ public class EntitySubscribeServiceImpl {
         log.debug("In subscribe");
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
-        SubscribeResponse response = null;
         Subscribe subscribe = subscribeRequest.getSubscribe();
-
         NhinTargetCommunitiesType targetCommunitites = subscribeRequest.getNhinTargetCommunities();
         Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
 
-        EntitySubscribeProcessor processor = new EntitySubscribeProcessor();
-        try {
-            response = processor.processSubscribe(subscribe, subscribeElement, assertion, targetCommunitites);
-        } catch (org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault ex) {
-            throw new TopicNotSupportedFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
-        } catch (org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault ex) {
-            throw new InvalidTopicExpressionFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
-        } catch (org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault ex) {
-            throw new SubscribeCreationFailedFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
-        } catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
-            throw new ResourceUnknownFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
-        }
-
+        SubscribeResponse response = null;
+    	try {
+    		response = subscribe(subscribe, subscribeElement, assertion, targetCommunitites);
+    	} catch (org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault ex) {
+    		throw new TopicNotSupportedFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+    	} catch (org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault ex) {
+    		throw new InvalidTopicExpressionFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+    	} catch (org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault ex) {
+    		throw new SubscribeCreationFailedFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+    	} catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
+    		throw new ResourceUnknownFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+    	}
         return response;
+    }
+    
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestType subscribeRequest,
+            WebServiceContext context) throws gov.hhs.fha.nhinc.entitysubscriptionmanagement.TopicNotSupportedFault, gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidTopicExpressionFault, gov.hhs.fha.nhinc.entitysubscriptionmanagement.SubscribeCreationFailedFault, gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault {
+        log.debug("In subscribe");
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+
+        Subscribe subscribe = subscribeRequest.getSubscribe();
+        NhinTargetCommunitiesType targetCommunitites = subscribeRequest.getNhinTargetCommunities();
+        Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
+
+        SubscribeResponse response = null;
+    	try {
+    		response = subscribe(subscribe, subscribeElement, assertion, targetCommunitites);
+    	} catch (org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault ex) {
+    		throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.TopicNotSupportedFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+    	} catch (org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault ex) {
+    		throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidTopicExpressionFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+    	} catch (org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault ex) {
+    		throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.SubscribeCreationFailedFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+    	} catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
+    		throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+    	}
+        return response;
+    }
+    
+    private org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(Subscribe subscribe, Element subscribeElement, 
+    		AssertionType assertion, NhinTargetCommunitiesType targetCommunitites) throws org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault, org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault, org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault, org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault {
+    	SubscribeResponse response = null;
+    	EntitySubscribeProcessor processor = new EntitySubscribeProcessor();
+    	
+    	response = processor.processSubscribe(subscribe, subscribeElement, assertion, targetCommunitites);
+    	return response;
     }
 }

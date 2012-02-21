@@ -24,8 +24,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.hiem.entity.proxy;
+package gov.hhs.fha.nhinc.hiem._20.entity.proxy;
 
+import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.ResourceUnknownFault;
+import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnableToDestroySubscriptionFault;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
@@ -36,16 +38,18 @@ import javax.xml.ws.BindingType;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "NhincProxyNotificationConsumer", portName = "NhincProxyNotificationConsumerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxynotificationconsumer.NhincProxyNotificationConsumerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer", wsdlLocation = "WEB-INF/wsdl/ProxyHiemNotify/NhincProxyNotificationConsumer.wsdl")
+@WebService(serviceName = "NhincProxySubscriptionManager", portName = "NhincProxySubscriptionManagerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxySubscriptionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/ProxyHiemSubscribe/NhincProxySubscriptionManagement.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@HandlerChain(file = "ProxyHiemNotifyHeaderHandler.xml")
-public class ProxyHiemNotify {
+@HandlerChain(file = "ProxyHiemUnsubscribeHeaderHandler.xml")
+public class ProxyHiemUnsubscribe {
 
     @Resource
     private WebServiceContext context;
 
-    public void notify(gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestType notifyRequest) {
-        new ProxyHiemNotifyImpl().notify(notifyRequest, context);
+    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType unsubscribeRequest)
+            throws ResourceUnknownFault, UnableToDestroySubscriptionFault {
+        return new ProxyHiemUnsubscribeImpl().unsubscribe(unsubscribeRequest, context);
     }
 
 }

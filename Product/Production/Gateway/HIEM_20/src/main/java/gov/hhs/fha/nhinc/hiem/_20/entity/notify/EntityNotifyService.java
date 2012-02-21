@@ -24,32 +24,41 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.hiem.entity.proxy;
+package gov.hhs.fha.nhinc.hiem._20.entity.notify;
 
-import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.ResourceUnknownFault;
-import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnableToDestroySubscriptionFault;
 import javax.annotation.Resource;
-import javax.jws.WebService;
-import javax.xml.ws.WebServiceContext;
 import javax.jws.HandlerChain;
+import javax.jws.WebService;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
 
 /**
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "NhincProxySubscriptionManager", portName = "NhincProxySubscriptionManagerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxySubscriptionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/ProxyHiemSubscribe/NhincProxySubscriptionManagement.wsdl")
+@WebService(serviceName = "EntityNotificationConsumer", portName = "EntityNotificationConsumerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitynotificationconsumer", wsdlLocation = "WEB-INF/wsdl/EntityNotifyService/EntityNotificationConsumer.wsdl")
+@HandlerChain(file = "EntityNotifySoapHeaderHandler.xml")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@HandlerChain(file = "ProxyHiemUnsubscribeHeaderHandler.xml")
-public class ProxyHiemUnsubscribe {
+public class EntityNotifyService {
 
     @Resource
     private WebServiceContext context;
 
-    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType unsubscribeRequest)
-            throws ResourceUnknownFault, UnableToDestroySubscriptionFault {
-        return new ProxyHiemUnsubscribeImpl().unsubscribe(unsubscribeRequest, context);
+    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType notifySubscribersOfDocument(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifySubscribersOfDocumentRequestType notifySubscribersOfDocumentRequest) {
+        // TODO implement this method
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType notifySubscribersOfCdcBioPackage(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifySubscribersOfCdcBioPackageRequestType notifySubscribersOfCdcBioPackageRequest) {
+        // TODO implement this method
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType notify(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType notifyRequest) {
+        return new EntityNotifyServiceImpl().notify(notifyRequest, context);
     }
 
 }

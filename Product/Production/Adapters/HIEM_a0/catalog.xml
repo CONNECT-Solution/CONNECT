@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl" uri="src/main/resources/xml-resources/web-services/ProxyHiemNotify/wsdl/NhincProxyNotificationConsumer.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl" uri="src/main/resources/xml-resources/web-services/ProxyHiemSubscribe/wsdl/NhincProxySubscriptionManagement.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/rw-2.wsdl" uri="src/main/resources/xml-resources/web-services/ProxyHiemSubscribe/wsdl/rw-2.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsrf/r-2.xsd" uri="src/main/resources/xml-resources/web-services/ProxyHiemSubscribe/schemas/docs.oasis-open.org/wsrf/r-2.xsd"/>
-</catalog>

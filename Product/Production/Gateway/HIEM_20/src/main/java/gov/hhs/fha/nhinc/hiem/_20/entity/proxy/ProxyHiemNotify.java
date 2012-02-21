@@ -24,39 +24,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.hiem.entity.notify;
+package gov.hhs.fha.nhinc.hiem._20.entity.proxy;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
-import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.jws.HandlerChain;
+import javax.xml.ws.BindingType;
 
 /**
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "EntityNotificationConsumer", portName = "EntityNotificationConsumerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitynotificationconsumer", wsdlLocation = "WEB-INF/wsdl/EntityNotifyService/EntityNotificationConsumer.wsdl")
+@WebService(serviceName = "NhincProxyNotificationConsumer", portName = "NhincProxyNotificationConsumerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxynotificationconsumer.NhincProxyNotificationConsumerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer", wsdlLocation = "WEB-INF/wsdl/ProxyHiemNotify/NhincProxyNotificationConsumer.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityNotifyService {
+@HandlerChain(file = "ProxyHiemNotifyHeaderHandler.xml")
+public class ProxyHiemNotify {
 
     @Resource
     private WebServiceContext context;
 
-    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType notifySubscribersOfDocument(
-            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifySubscribersOfDocumentRequestType notifySubscribersOfDocumentRequest) {
-        // TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
-    }
-
-    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType notifySubscribersOfCdcBioPackage(
-            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifySubscribersOfCdcBioPackageRequestType notifySubscribersOfCdcBioPackageRequest) {
-        // TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
-    }
-
-    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType notify(
-            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType notifyRequest) {
-        return new EntityNotifyServiceImpl().notify(notifyRequest, context);
+    public void notify(gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestType notifyRequest) {
+        new ProxyHiemNotifyImpl().notify(notifyRequest, context);
     }
 
 }

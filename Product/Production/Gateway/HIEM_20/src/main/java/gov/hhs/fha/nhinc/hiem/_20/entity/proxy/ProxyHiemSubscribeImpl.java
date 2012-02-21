@@ -73,7 +73,7 @@ public class ProxyHiemSubscribeImpl {
         Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
 
         // Audit the Audit Log Query Request Message sent on the Nhin Interface
-        AcknowledgementType ack = audit(subscribeRequest);
+        audit(subscribeRequest);
 
         NhinHiemSubscribeProxyObjectFactory hiemSubscribeFactory = new NhinHiemSubscribeProxyObjectFactory();
         NhinHiemSubscribeProxy proxy = hiemSubscribeFactory.getNhinHiemSubscribeProxy();

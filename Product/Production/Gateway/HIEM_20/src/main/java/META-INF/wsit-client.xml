@@ -7,4 +7,8 @@
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     <import location="AdapterPolicyEngineSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured"/>
     <import location="NhinSubscription.xml" namespace="http://docs.oasis-open.org/wsn/bw-2"/>
+    <import location="EntityNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"/>
+    <import location="NhincProxyNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured"/>
+    <import location="NhincProxySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement"/>
+    <import location="EntitySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured"/>
 </definitions>
