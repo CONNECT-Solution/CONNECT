@@ -13,6 +13,9 @@
     <property name="metro.install.ant.script" value="${temp.dir}/metro/metro-on-glassfish.xml"/>
     <property name="sql.scripts.dir" value="${basedir}/../DBScripts/nhincdb"/>
     
+    <delete dir="${temp.dir}"/>
+    <mkdir dir="${temp.dir}"/>
+    
     <available file="${glassfish.install.dir}" type="dir" property="glassfish.install.dir.exists"/>
 
     <target name="determine.os">
@@ -49,9 +52,7 @@
     
     <target name="install.glassfish.with.metro">
     	<echo message="installing glassfish."/>
-        <delete dir="${temp.dir}"/>
         <delete dir="${glassfish.install.dir}"/>
-        <mkdir dir="${temp.dir}"/>
         <unzip src="${glassfish.zip.file}" dest="${temp.dir}"/>
         <move todir="${glassfish.install.dir}">
             <fileset dir="${temp.dir}/glassfish"/>
