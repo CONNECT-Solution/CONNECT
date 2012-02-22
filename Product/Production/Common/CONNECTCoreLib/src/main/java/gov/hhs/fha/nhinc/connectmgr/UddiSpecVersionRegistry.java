@@ -109,7 +109,7 @@ public class UddiSpecVersionRegistry {
     		// Document Submission
     		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> DSApiToSpecMap = new HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>();
     		ArrayList<UDDI_SPEC_VERSION> DSG0SpecVersions = new ArrayList<UDDI_SPEC_VERSION>();
-    		DSG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_1);
+    		DSG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_1_0);
     		DSApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, DSG0SpecVersions);
     		ArrayList<UDDI_SPEC_VERSION> DSG1SpecVersions = new ArrayList<UDDI_SPEC_VERSION>();
     		DSG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
@@ -117,7 +117,7 @@ public class UddiSpecVersionRegistry {
     		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION, DSApiToSpecMap);
     		
     		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> DSSpecToApiMap = new HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>();
-    		DSSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_1_1, GATEWAY_API_LEVEL.LEVEL_g0);
+    		DSSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_1_1_0, GATEWAY_API_LEVEL.LEVEL_g0);
     		DSSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g1);
     		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION, DSSpecToApiMap);
     		

@@ -50,7 +50,7 @@ public class NhincConstants {
 
     public static enum UDDI_SPEC_VERSION {
 
-        SPEC_1_0("1.0"), SPEC_1_1("1.1"), SPEC_2_0("2.0"), SPEC_3_0("3.0");
+        SPEC_1_0("1.0"), SPEC_1_1_0("1.1.0"), SPEC_2_0("2.0"), SPEC_3_0("3.0");
         private String value = null;
 
         UDDI_SPEC_VERSION(String value) {

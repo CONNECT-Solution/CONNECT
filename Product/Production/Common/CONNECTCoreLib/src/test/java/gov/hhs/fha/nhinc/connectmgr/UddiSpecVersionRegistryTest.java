@@ -54,7 +54,7 @@ public class UddiSpecVersionRegistryTest {
 		list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
 		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_2_0));
 		list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_1_1));
+		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_1_1_0));
 		list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.HIEM_NOTIFY);
 		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_2_0));
 		list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
@@ -110,7 +110,7 @@ public class UddiSpecVersionRegistryTest {
 	
 	@Test
 	public void getSupportedGatewayAPI_1_1() {
-		UDDI_SPEC_VERSION spec = UDDI_SPEC_VERSION.SPEC_1_1;
+		UDDI_SPEC_VERSION spec = UDDI_SPEC_VERSION.SPEC_1_1_0;
 		GATEWAY_API_LEVEL api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
 		assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g0);
 	}
