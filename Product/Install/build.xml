@@ -5,6 +5,7 @@
     
     <tstamp/>
 
+    <property environment="env"/>
     <property file="local.install.properties"/>
     <property name="glassfish.install.dir" value="${glassfish.install.dir.root}/${glassfish.install.dir.name}"/>
     <property name="temp.dir" value="${basedir}/.installer.temp"/>
@@ -12,6 +13,7 @@
     <property name="metro.zip.file" value="${basedir}/metro-2.1.1.zip"/>
     <property name="metro.install.ant.script" value="${temp.dir}/metro/metro-on-glassfish.xml"/>
     <property name="sql.scripts.dir" value="${basedir}/../DBScripts/nhincdb"/>
+    <property name="thirdparty.dir" value="../../ThirdParty"/>
     
     <delete dir="${temp.dir}"/>
     <mkdir dir="${temp.dir}"/>
@@ -64,11 +66,34 @@
         </replace>
         <replace file="${glassfish.install.ant.script}" token="requires JDK 1.5 or higher" value="requires JDK 1.7"/>
         <ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}"/>
-    	<echo message="installing metro into glassfish."/>
+        <echo message="dfunkt"/>
+        <replaceregexp byline="true">
+		  <regexp pattern="AS_JAVA=&quot;(.*)&quot;"/>
+		  <substitution expression="AS_JAVA=&quot;${env.JAVA_HOME}&quot;"/>
+		  <fileset dir="${glassfish.install.dir}/config">
+			<include name="asenv.bat"/>
+			<include name="asenv.conf"/>
+		  </fileset>
+		</replaceregexp>
+    	<echo message="installing metro 2.1 into glassfish."/>
         <unzip src="${metro.zip.file}" dest="${temp.dir}"/>
         <ant antfile="${metro.install.ant.script}" dir="${temp.dir}/metro" target="install">
             <property name="as.home" value="${glassfish.install.dir}"/>
         </ant>
+    	<echo message="installing CONNECT 3rd party dependencies into glassfish server lib."/>
+        <copy todir="${glassfish.install.dir}/lib" overwrite="true" flatten="true">
+        	<fileset dir="${thirdparty.dir}">
+      			<include name="C3PO/*.jar"/>
+      			<include name="log4j/*.jar"/>
+      			<include name="HibernateLibraries/*.jar"/>
+      			<include name="MySQLDB/*.jar"/>
+      			<include name="XStream/*.jar"/>
+      			<include name="XStream/*.txt"/>
+      			<include name="SpringFramework/*.jar"/>
+      			<include name="Xerces/*.jar"/>
+      			<include name="OpenSSO/*.jar"/>
+    		</fileset>
+        </copy>
     	<echo message="setting up self-signed certificates and trustores/keystores."/>
         <exec failonerror="true" executable="keytool" dir="${temp.dir}">
             <arg line="-v -genkey -keyalg RSA -keysize 1024 -keystore gateway.jks -keypass changeit -storepass changeit -validity 365 -alias gateway -dname &quot;cn=localhost&quot;"/>
@@ -88,14 +113,19 @@
         <replace file="${glassfish.install.dir}/domains/domain1/config/domain.xml" token="s1as" value="gateway"/>
         <replace file="${glassfish.install.dir}/domains/domain1/config/domain.xml">
             <replacetoken><![CDATA[<jvm-options>-Djavax.net.ssl.keyStore=${com.sun.aas.instanceRoot}/config/keystore.jks</jvm-options>]]></replacetoken>
-            <replacevalue><![CDATA[<jvm-options>-Djavax.net.ssl.keyStore=${com.sun.aas.instanceRoot}/config/gateway.jks</jvm-options>
+            <replacevalue><![CDATA[<jvm-options>-Dnhinc.properties.dir=${basedir}/../Production/Common/Properties/Dev</jvm-options>
+    <jvm-options>-Djavax.net.ssl.keyStore=${com.sun.aas.instanceRoot}/config/gateway.jks</jvm-options>
     <jvm-options>-Djavax.net.ssl.trustStorePassword=changeit</jvm-options>
     <jvm-options>-DSERVER_KEY_ALIAS=gateway</jvm-options>
     <jvm-options>-DCLIENT_KEY_ALIAS=gateway</jvm-options>]]></replacevalue>
         </replace>
+        <replace file="${glassfish.install.dir}/domains/domain1/config/domain.xml" value="${basedir}">
+            <replacetoken><![CDATA[${basedir}]]></replacetoken>
+        </replace>
     </target>
     
     <target name="install.databases">
+    	<echo message="installing MySQL databases and connection users."/>
         <exec failonerror="true" executable="mysql" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/dropall.sql">
             <arg value="-v" />
             <arg value="-uroot" />
@@ -134,14 +164,17 @@ FLUSH PRIVILEGES;
     </target>
     
     <target name="build.connect" unless="skip.build">
+    	<echo message="building CONNECT."/>
     	<ant antfile="${basedir}/../build.xml" dir="${basedir}/..">
     		<target name="clean"/>
     		<target name="package.create"/>
             <property name="as.home" value="${glassfish.install.dir}"/>
+            <property name="source.install" value="true"/>
         </ant>
     </target>
     
     <target name="deploy.connect" unless="skip.deploy">
+    	<echo message="deploying CONNECT."/>
     	<ant antfile="${basedir}/../build.xml" dir="${basedir}/.." target="deploy">
     		<property name="glassfish.home" value="${glassfish.install.dir}"/>
     	</ant>
