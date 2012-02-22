@@ -26,17 +26,23 @@
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.adapterdocqueryreqqueueprocess.AdapterDocQueryDeferredReqQueueProcess;
 import gov.hhs.fha.nhinc.adapterdocqueryreqqueueprocess.AdapterDocQueryDeferredReqQueueProcessPortType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.gateway.adapterdocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessRequestType;
 import gov.hhs.fha.nhinc.gateway.adapterdocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.gateway.adapterdocqueryreqqueueprocess.SuccessOrFailType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
 import java.util.Map;
+
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,21 +54,30 @@ public class QueryForDocumentsDeferredReqQueueClient {
 
     private static final Log log = LogFactory.getLog(QueryForDocumentsDeferredReqQueueClient.class);
 
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocqueryreqqueueprocess";
+    private static final String SERVICE_LOCAL_PART = "AdapterDocQueryDeferredReqQueueProcess";
+    private static final String PORT_LOCAL_PART = "AdapterDocQueryDeferredReqQueueProcessPort";
+    private static final String WSDL_FILE = "AdapterDocQueryDeferredReqQueueProcess.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterdocqueryreqqueueprocess:ProcessDocQueryDeferredReqQueue";
+    private static final String SERVICE_NAME = NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME;
+        
+    private WebServiceProxyHelper proxyHelper;
+
     /**
      * Default constructor
      */
     public QueryForDocumentsDeferredReqQueueClient() {
+        proxyHelper = new WebServiceProxyHelper();
     }
 
     /**
-     * Send queue process request for a deferred patient discovery queue record
+     * Send queue process request for a deferred doc query queue record
      * 
      * @param messageId
      * @return queue process response
      */
     public DocQueryDeferredReqQueueProcessResponseType processDocQueryDeferredReqQueue(String messageId) {
 
-        AdapterDocQueryDeferredReqQueueProcess service = new AdapterDocQueryDeferredReqQueueProcess();
         String msgText = "";
 
         DocQueryDeferredReqQueueProcessResponseType response = new DocQueryDeferredReqQueueProcessResponseType();
@@ -71,15 +86,11 @@ public class QueryForDocumentsDeferredReqQueueClient {
         response.setSuccessOrFail(sof);
 
         try {
-            String sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
-            String endpointURL = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(sHomeCommunity,
-                    NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME);
-
-            if (endpointURL != null && !endpointURL.isEmpty()) {
-                AdapterDocQueryDeferredReqQueueProcessPortType port = service
-                        .getAdapterDocQueryDeferredReqQueueProcessPort();
+            String endpointURL = getUrl(SERVICE_NAME);
+            
+            if (NullChecker.isNotNullish(endpointURL)) {
+                AdapterDocQueryDeferredReqQueueProcessPortType port = getPort(endpointURL, SERVICE_NAME);
 
                 BindingProvider bp = (BindingProvider) port;
                 // (Optional) Configure RequestContext with endpoint's URL
@@ -88,9 +99,11 @@ public class QueryForDocumentsDeferredReqQueueClient {
 
                 DocQueryDeferredReqQueueProcessRequestType request = new DocQueryDeferredReqQueueProcessRequestType();
                 request.setMessageId(messageId);
-                response = port.processDocQueryDeferredReqQueue(request);
+                response = (DocQueryDeferredReqQueueProcessResponseType) proxyHelper.invokePort(
+                        port, AdapterDocQueryDeferredReqQueueProcessPortType.class,
+                        "processDocQueryDeferredReqQueue", request);
             } else {
-                msgText = "Endpoint URL not found for home community [" + sHomeCommunity + "] and service name ["
+                msgText = "Endpoint URL not found for local home community and service name ["
                         + NhincConstants.ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME + "]";
                 log.error(msgText);
                 response.setResponse(msgText);
@@ -106,6 +119,41 @@ public class QueryForDocumentsDeferredReqQueueClient {
         }
 
         return response;
+    }
+
+    private Service getService() {
+        try {
+
+            return proxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+        }
+        return null;
+    }
+    
+    private String getUrl(String serviceName) throws ConnectionManagerException {
+        return proxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(
+                serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
+    }
+
+    /**
+     * This method retrieves and initializes the port.
+     * 
+     * @param url The URL for the web service.
+     * @return The port object for the web service.
+     */
+    private AdapterDocQueryDeferredReqQueueProcessPortType getPort(String url, String serviceName) {
+        AdapterDocQueryDeferredReqQueueProcessPortType port = null;
+        Service service = getService();
+        if (service != null) {
+            log.debug("Obtained service - creating port.");
+
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocQueryDeferredReqQueueProcessPortType.class);
+            proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, WS_ADDRESSING_ACTION, null);
+        } else {
+            log.error("Unable to obtain serivce - no port created.");
+        }
+        return port;
     }
 
 }
