@@ -129,13 +129,6 @@
         <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>HIEM_a0</name>
-        <directory>/Production/Adapters/HIEM_a0/</directory>
-        <dist.type>war</dist.type>
-        <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
-    </project>
-    <project>
         <name>CONNECTAdapterWeb</name>
         <directory>/Production/Adapters/General/CONNECTAdapterWeb</directory>
         <dist.type>war</dist.type>
