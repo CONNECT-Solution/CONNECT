@@ -167,7 +167,7 @@ class FileUtils {
                     float bindingTemplateVersion = 0;
                     Element latestVersionBindingTemplate = null;
                     
-                    if(!serviceName.toLowerCase().contains("adapter")){
+                    if(bindingTemplatesList.getLength() > 1){
                         for(int bindingNodeIndex = 0; bindingNodeIndex < bindingTemplatesList.getLength(); bindingNodeIndex++){
                             Element currBindingTemplate = (Element)bindingTemplatesList.item(bindingNodeIndex);
                             Element bindingCategoryBag = (Element)currBindingTemplate.getElementsByTagName("categoryBag").item(0);
