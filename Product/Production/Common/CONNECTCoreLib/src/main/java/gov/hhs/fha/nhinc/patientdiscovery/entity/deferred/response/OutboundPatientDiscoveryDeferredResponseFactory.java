@@ -26,18 +26,37 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response;
 
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyObjectFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-public class EntityPatientDiscoveryDeferredResponseOrchFactory implements
-        GenericFactory<EntityPatientDiscoveryDeferredResponseOrch> {
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory;
 
-    @Override
-    public EntityPatientDiscoveryDeferredResponseOrch create() {
-        return new EntityPatientDiscoveryDeferredResponseOrchImpl(               
-                PatientDiscovery201306PolicyChecker.getInstance());
+/**
+ * @author akong
+ * 
+ */
+public class OutboundPatientDiscoveryDeferredResponseFactory {
+    
+    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryDeferredResponseFactory.class);
+    
+    private static OutboundPatientDiscoveryDeferredResponseFactory instance = new OutboundPatientDiscoveryDeferredResponseFactory();
 
+    private OutboundPatientDiscoveryDeferredResponseFactory() {
     }
 
+    public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        switch (apiLevel) {
+        case LEVEL_g0:
+            return new OutboundPatientDiscoveryDeferredResponseOrchestrationContextBuilder_g0();       
+        default:
+            log.warn("Unexpected api level received " + apiLevel.toString() + ".  Defaulting to g0");
+            return new OutboundPatientDiscoveryDeferredResponseOrchestrationContextBuilder_g0();
+        }
+    }
+
+    public static OutboundPatientDiscoveryDeferredResponseFactory getInstance() {
+        return instance;
+    }
 }

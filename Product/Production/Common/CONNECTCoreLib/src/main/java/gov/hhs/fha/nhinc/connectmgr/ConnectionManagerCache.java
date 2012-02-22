@@ -738,11 +738,16 @@ public class ConnectionManagerCache {
         if (highestSpec == null) {
         	return sEndpointURL;
         }
+        
+        if (log.isInfoEnabled()) {
+            log.info("Attempting to find binding template with spec version (" + highestSpec.toString() + ").");
+        }
+        
         BindingTemplate bindingTemplate = helper.findBindingTemplateByKey(oService, UDDI_SPEC_VERSION_KEY, highestSpec.toString());
         // we have no info on which binding template/endpoint "version" to use so just take the first.
         if (bindingTemplate == null || bindingTemplate.getAccessPoint() == null)
         {
-        	log.error("No binding templates found for home community: " + sHomeCommunityId + " and service anem: " + sUniformServiceName);
+        	log.error("No binding templates found for home community: " + sHomeCommunityId + " and service name: " + sUniformServiceName);
         	return sEndpointURL;
         }
         

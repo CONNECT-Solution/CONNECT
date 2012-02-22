@@ -81,12 +81,9 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
 
         RespondingGatewayPRPAIN201305UV02RequestType auditRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         auditRequest.setAssertion(assertion);
-        // set targetList with individual target for hcid
-        NhinTargetCommunitiesType targetList = new NhinTargetCommunitiesType();
-        NhinTargetCommunityType target = new NhinTargetCommunityType();
-        HomeCommunityType home = new HomeCommunityType();
-        home.setHomeCommunityId(hcid);
-        target.setHomeCommunity(home);
+        
+        NhinTargetCommunitiesType targetList = new NhinTargetCommunitiesType();        
+        NhinTargetCommunityType target = createNhinTargetCommunityType(hcid);        
         targetList.getNhinTargetCommunity().add(target);
         auditRequest.setNhinTargetCommunities(targetList);
         auditRequest.setPRPAIN201305UV02(request);
@@ -99,14 +96,21 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
         RespondingGatewayPRPAIN201306UV02ResponseType auditResponse = new RespondingGatewayPRPAIN201306UV02ResponseType();
         CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
         communityResponse.setPRPAIN201306UV02(response);
-        NhinTargetCommunityType target = new NhinTargetCommunityType();
-        HomeCommunityType home = new HomeCommunityType();
-        home.setHomeCommunityId(hcid);
-        target.setHomeCommunity(home);
+        
+        NhinTargetCommunityType target = createNhinTargetCommunityType(hcid);       
         communityResponse.setNhinTargetCommunity(target);
         auditResponse.getCommunityResponse().add(communityResponse);
         new PatientDiscoveryAuditLogger().auditEntity201306(auditResponse, assertion,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
+    
+    protected NhinTargetCommunityType createNhinTargetCommunityType(String hcid) {
+        NhinTargetCommunityType target = new NhinTargetCommunityType();
+        HomeCommunityType home = new HomeCommunityType();
+        home.setHomeCommunityId(hcid);
+        target.setHomeCommunity(home);
+        
+        return target;
     }
 
 }

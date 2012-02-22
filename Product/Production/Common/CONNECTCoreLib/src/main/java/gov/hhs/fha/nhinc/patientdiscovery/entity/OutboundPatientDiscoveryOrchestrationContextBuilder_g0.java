@@ -47,10 +47,10 @@ public class OutboundPatientDiscoveryOrchestrationContextBuilder_g0 extends
      */
     @Override
     protected OutboundPatientDiscoveryOrchestratable getOrchestratable() {
-        OutboundPatientDiscoveryOrchestratable_a0 orch_a0 = new OutboundPatientDiscoveryOrchestratable_a0(
+        OutboundPatientDiscoveryOrchestratable orch = new OutboundPatientDiscoveryOrchestratable(
                 getNhinDelegate(), getProcessor(), getAuditTransformer(), getPolicyTransformer(), getAssertionType(),
                 getServiceName(), getTargetSystemType(), getRequest());
-        return orch_a0;
+        return orch;
     }
 
 }

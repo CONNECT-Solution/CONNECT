@@ -24,20 +24,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyObjectFactory;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 
-public class EntityPatientDiscoveryDeferredResponseOrchFactory implements
-        GenericFactory<EntityPatientDiscoveryDeferredResponseOrch> {
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ * @author akong
+ * 
+ */
+public class OutboundPatientDiscoveryDeferredRequestOrchestrationContextBuilder_g0 extends
+        OutboundPatientDiscoveryDeferredRequestOrchestrationContextBuilder {
+
+    private static Log log = LogFactory
+            .getLog(OutboundPatientDiscoveryDeferredRequestOrchestrationContextBuilder_g0.class);
 
     @Override
-    public EntityPatientDiscoveryDeferredResponseOrch create() {
-        return new EntityPatientDiscoveryDeferredResponseOrchImpl(               
-                PatientDiscovery201306PolicyChecker.getInstance());
+    public OrchestrationContext build() {
+        log.debug("begin build");
+        return new OrchestrationContext(new OutboundPatientDiscoveryDeferredRequestStrategyImpl_g0(),
+                new OutboundPatientDiscoveryDeferredRequestOrchestratable(getNhinDelegate(), getRequest(), getTarget(),
+                        getAssertionType()));
+    }
 
+    @Override
+    public Log getLog() {
+        return log;
     }
 
 }

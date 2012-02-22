@@ -37,6 +37,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 
 import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
  * Patient Discovery implementation of OutboundOrchestratableMessage
@@ -51,9 +53,10 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
     private PolicyTransformer policyTransformer = null;
     private AssertionType assertion = null;
     private String serviceName = null;
-
     private NhinTargetSystemType target = null;
     private PRPAIN201305UV02 request = null;
+    private PRPAIN201306UV02 response = null;
+    private RespondingGatewayPRPAIN201306UV02ResponseType cumulativeResponse = null;
 
     public OutboundPatientDiscoveryOrchestratable() {
     }
@@ -67,7 +70,6 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
         this.policyTransformer = pt;
         this.assertion = a;
         this.serviceName = name;
-
         this.target = t;
         this.request = r;
     }
@@ -76,9 +78,8 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
         return delegate;
     }
 
-    // NOT USED.......use getResponseProcessor instead
     public NhinAggregator getAggregator() {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public OutboundResponseProcessor getResponseProcessor() {
@@ -115,6 +116,22 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
 
     public boolean isPassthru() {
         return false;
+    }
+    
+    public PRPAIN201306UV02 getResponse() {
+        return response;
+    }
+
+    public void setResponse(PRPAIN201306UV02 r) {
+        response = r;
+    }
+
+    public RespondingGatewayPRPAIN201306UV02ResponseType getCumulativeResponse() {
+        return cumulativeResponse;
+    }
+
+    public void setCumulativeResponse(RespondingGatewayPRPAIN201306UV02ResponseType r) {
+        cumulativeResponse = r;
     }
 
 }

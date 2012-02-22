@@ -24,33 +24,39 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdiscovery.entity;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseFactory;
 
 /**
- * PatientDiscovery OrchestrationContext for g1 endpoint
- * 
- * @author paul.eftis
+ * @author akong
+ *
  */
-public class OutboundPatientDiscoveryOrchestrationContextBuilder_g1 extends
-        OutboundPatientDiscoveryOrchestrationContextBuilder {
+public class OutboundPatientDiscoveryDeferredRequestFactory {
+    
+    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryDeferredRequestFactory.class);
+    
+    private static OutboundPatientDiscoveryDeferredRequestFactory instance = new OutboundPatientDiscoveryDeferredRequestFactory();
 
-    /**
-     * @return strategy for g1
-     */
-    @Override
-    protected OutboundPatientDiscoveryStrategy getStrategy() {
-        return new OutboundPatientDiscoveryStrategyImpl_g1();
+    private OutboundPatientDiscoveryDeferredRequestFactory() {
     }
 
-    /**
-     * @return OutboundPatientDiscoveryOrchestratable for g1
-     */
-    @Override
-    protected OutboundPatientDiscoveryOrchestratable getOrchestratable() {
-        OutboundPatientDiscoveryOrchestratable_a1 orch_a1 = new OutboundPatientDiscoveryOrchestratable_a1(
-                getNhinDelegate(), getProcessor(), getAuditTransformer(), getPolicyTransformer(), getAssertionType(),
-                getServiceName(), getTargetSystemType(), getRequest());
-        return orch_a1;
+    public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        switch (apiLevel) {
+        case LEVEL_g0:
+            return new OutboundPatientDiscoveryDeferredRequestOrchestrationContextBuilder_g0();
+        default:
+            log.warn("Unexpected api level received " + apiLevel.toString() + ".  Defaulting to g0");
+            return new OutboundPatientDiscoveryDeferredRequestOrchestrationContextBuilder_g0();
+        }
     }
 
+    public static OutboundPatientDiscoveryDeferredRequestFactory getInstance() {
+        return instance;
+    }
 }

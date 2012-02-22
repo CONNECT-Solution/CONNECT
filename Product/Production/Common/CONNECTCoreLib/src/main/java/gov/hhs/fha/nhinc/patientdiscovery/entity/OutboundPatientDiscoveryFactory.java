@@ -50,11 +50,10 @@ public class OutboundPatientDiscoveryFactory {
         log.debug("EntityPatientDiscoveryFactory has apiLevel=" + apiLevel.toString());
         switch (apiLevel) {
         case LEVEL_g0:
-            return new OutboundPatientDiscoveryOrchestrationContextBuilder_g0();
-        case LEVEL_g1:
-            return new OutboundPatientDiscoveryOrchestrationContextBuilder_g1();
+            return new OutboundPatientDiscoveryOrchestrationContextBuilder_g0();        
         default:
-            return new OutboundPatientDiscoveryOrchestrationContextBuilder_g1();
+            log.warn("Unexpected api level received " + apiLevel.toString() + ".  Defaulting to g0");
+            return new OutboundPatientDiscoveryOrchestrationContextBuilder_g0();
         }
     }
 

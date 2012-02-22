@@ -88,14 +88,6 @@ public class OutboundPatientDiscoveryDelegate implements OutboundDelegate {
         OutboundPatientDiscoveryOrchestratable response = (OutboundPatientDiscoveryOrchestratable) contextBuilder
                 .build().execute();
 
-        if (response instanceof OutboundPatientDiscoveryOrchestratable_a0) {
-            getLogger().debug("NhinPatientDiscoveryDelegate::process returning a0 result");
-        } else if (response instanceof OutboundPatientDiscoveryOrchestratable_a0) {
-            getLogger().debug("NhinPatientDiscoveryDelegate::process returning a1 result");
-        } else {
-            getLogger().error("NhinPatientDiscoveryDelegate::process has unknown response!!!");
-        }
-
         return response;
     }
 

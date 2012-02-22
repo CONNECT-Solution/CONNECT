@@ -452,8 +452,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
     }
 
     public PRPAIN201305UV02 createNewRequest(PRPAIN201305UV02 request, String targetCommunityId) {
-        PRPAIN201305UV02 newRequest = new PRPAIN201305UV02();
-        newRequest = request;
+        PRPAIN201305UV02 newRequest = request;
 
         if (request != null && NullChecker.isNotNullish(targetCommunityId)) {
             // the new request will have the target community as the only receiver

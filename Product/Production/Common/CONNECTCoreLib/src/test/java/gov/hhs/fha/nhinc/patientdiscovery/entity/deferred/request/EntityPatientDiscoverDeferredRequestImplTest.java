@@ -87,7 +87,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest {
         EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
 
             @Override
-            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities) {
+            protected List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {
                 List<UrlInfo> urlInfo = new ArrayList<UrlInfo>();
 
                 UrlInfo target = new UrlInfo();
@@ -198,7 +198,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest {
         EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
 
             @Override
-            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities) {
+            protected List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {
                 return null;
             }
 
@@ -302,7 +302,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest {
         EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
 
             @Override
-            protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities) {
+            protected List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {
                 List<UrlInfo> urlInfo = new ArrayList<UrlInfo>();
 
                 UrlInfo target = new UrlInfo();

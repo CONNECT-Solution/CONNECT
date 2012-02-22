@@ -310,7 +310,7 @@ public class PatientDiscoveryAuditLogger implements PatientDiscoveryAuditor {
      * java.lang.String)
      */
     @Override
-    public AcknowledgementType auditEntity201306(RespondingGatewayPRPAIN201306UV02RequestType request,
+    public AcknowledgementType auditEntityDeferred201306(RespondingGatewayPRPAIN201306UV02RequestType request,
             AssertionType assertion, String direction) {
         AcknowledgementType ack = new AcknowledgementType();
 

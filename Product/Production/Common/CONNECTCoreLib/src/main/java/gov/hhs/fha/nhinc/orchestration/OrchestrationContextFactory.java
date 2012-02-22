@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.orchestration;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionFactory;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseFactory;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -50,57 +52,64 @@ public class OrchestrationContextFactory {
         return INSTANCE;
     }
 
-    public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType, NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-    	NhinEndpointManager nem = new NhinEndpointManager();
-        NhincConstants.GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(
-                homeCommunityType.getHomeCommunityId(), serviceName);
+    public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType,
+            NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+        NhinEndpointManager nem = new NhinEndpointManager();
+        NhincConstants.GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(homeCommunityType.getHomeCommunityId(),
+                serviceName);
         return getBuilder(apiLevel, serviceName);
     }
-    
+
     public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType, String serviceName) {
-    	AdapterEndpointManager aem = new AdapterEndpointManager();
+        AdapterEndpointManager aem = new AdapterEndpointManager();
         NhincConstants.ADAPTER_API_LEVEL apiLevel = aem.getApiVersion(serviceName);
         return getBuilder(apiLevel, serviceName);
     }
 
-    private OrchestrationContextBuilder getBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel, NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+    private OrchestrationContextBuilder getBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel,
+            NhincConstants.NHIN_SERVICE_NAMES serviceName) {
 
-    	switch (serviceName)
-    	{
-    	case PATIENT_DISCOVERY:
-    	case PATIENT_DISCOVERY_DEFERRED_REQUEST:
-    	case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
-    		return OutboundPatientDiscoveryFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-    	case DOCUMENT_QUERY:
-    		return OutboundDocQueryFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-    	case DOCUMENT_RETRIEVE:
-    		return OutboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-    	case DOCUMENT_SUBMISSION:
-    		return OutboundDocSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-    	case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
-    		return OutboundDocSubmissionDeferredRequestFactory.getInstance()
-                    .createOrchestrationContextBuilder(apiLevel);
-    	case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
-    		return OutboundDocSubmissionDeferredResponseFactory.getInstance().createOrchestrationContextBuilder(
+        switch (serviceName) {
+        case PATIENT_DISCOVERY:
+            return OutboundPatientDiscoveryFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        case PATIENT_DISCOVERY_DEFERRED_REQUEST:
+            return OutboundPatientDiscoveryDeferredRequestFactory.getInstance().createOrchestrationContextBuilder(
                     apiLevel);
-    	case ADMINISTRATIVE_DISTRIBUTION:
-    		return OutboundAdminDistributionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-    	case HIEM_SUBSCRIBE:
-    	case HIEM_NOTIFY:
-    	case HIEM_UNSUBSCRIBE:
-    	}
-        
-        /*if (NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)) {
-            return InboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);*/
+        case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
+            return OutboundPatientDiscoveryDeferredResponseFactory.getInstance().createOrchestrationContextBuilder(
+                    apiLevel);
+        case DOCUMENT_QUERY:
+            return OutboundDocQueryFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        case DOCUMENT_RETRIEVE:
+            return OutboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        case DOCUMENT_SUBMISSION:
+            return OutboundDocSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
+            return OutboundDocSubmissionDeferredRequestFactory.getInstance()
+                    .createOrchestrationContextBuilder(apiLevel);
+        case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
+            return OutboundDocSubmissionDeferredResponseFactory.getInstance().createOrchestrationContextBuilder(
+                    apiLevel);
+        case ADMINISTRATIVE_DISTRIBUTION:
+            return OutboundAdminDistributionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        case HIEM_SUBSCRIBE:
+        case HIEM_NOTIFY:
+        case HIEM_UNSUBSCRIBE:
+        }
+
+        /*
+         * if (NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)) { return
+         * InboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+         */
 
         return null;
     }
-    
+
     private OrchestrationContextBuilder getBuilder(NhincConstants.ADAPTER_API_LEVEL apiLevel, String serviceName) {
-        
+
         if (NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)) {
             return InboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         }
-        return null;	
+        return null;
     }
 }

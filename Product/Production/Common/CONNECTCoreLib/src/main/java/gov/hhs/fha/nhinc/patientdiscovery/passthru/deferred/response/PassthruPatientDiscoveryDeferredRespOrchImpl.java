@@ -33,6 +33,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxyObjectFactory;
 import org.apache.commons.logging.Log;
@@ -60,31 +62,33 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
             NhinTargetSystemType targetSystem) {
         log.debug("Begin - proxyProcessPatientDiscoveryAsyncResp");
 
-        MCCIIN000002UV01 response = null;
-        // Audit the Patient Discovery Request Message sent on the Nhin Interface
-        PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
-        auditLog.auditNhinDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-
-        NhinPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryDeferredRespProxyObjectFactory();
-        NhinPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryAsyncRespProxy();
-
-        RespondingGatewayPRPAIN201306UV02RequestType nhinResponse = new RespondingGatewayPRPAIN201306UV02RequestType();
-        nhinResponse.setPRPAIN201306UV02(request);
-        nhinResponse.setAssertion(assertion);
-        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
-        NhinTargetCommunityType target = new NhinTargetCommunityType();
-        target.setHomeCommunity(targetSystem.getHomeCommunity());
-        targets.getNhinTargetCommunity().add(target);
-        nhinResponse.setNhinTargetCommunities(targets);
-
-        response = proxy.respondingGatewayPRPAIN201306UV02(request, assertion, targetSystem);
-
-        // Audit the Patient Discovery Response Message received on the Nhin Interface
-        auditLog.auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-
+        auditRequestToNhin(request, assertion);
+        
+        OutboundPatientDiscoveryDeferredResponseDelegate pdRespDelegate = new OutboundPatientDiscoveryDeferredResponseDelegate();
+        OutboundPatientDiscoveryDeferredResponseOrchestratable pdRespOrchestratable = new OutboundPatientDiscoveryDeferredResponseOrchestratable(
+                pdRespDelegate);
+        pdRespOrchestratable.setAssertion(assertion);
+        pdRespOrchestratable.setRequest(request);
+        pdRespOrchestratable.setTarget(targetSystem);
+        MCCIIN000002UV01 response = ((OutboundPatientDiscoveryDeferredResponseOrchestratable) pdRespDelegate
+                .process(pdRespOrchestratable)).getResponse();
+        
+        
+        auditResponseFromNhin(response, assertion);
+        
         log.debug("End - proxyProcessPatientDiscoveryAsyncResp");
 
         return response;
+    }
+    
+    protected void auditRequestToNhin(PRPAIN201306UV02 request, AssertionType assertion) {
+        PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
+        auditLog.auditNhinDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    protected void auditResponseFromNhin(MCCIIN000002UV01 resp, AssertionType assertion) {
+        PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
+        auditLog.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 }

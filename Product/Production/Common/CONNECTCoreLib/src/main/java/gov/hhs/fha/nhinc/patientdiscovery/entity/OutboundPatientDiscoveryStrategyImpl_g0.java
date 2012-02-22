@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyObjectFactory;
@@ -60,20 +59,16 @@ public class OutboundPatientDiscoveryStrategyImpl_g0 extends OutboundPatientDisc
      */
     @Override
     public void execute(OutboundPatientDiscoveryOrchestratable message) {
-        if (message instanceof OutboundPatientDiscoveryOrchestratable_a0) {
-            executeStrategy((OutboundPatientDiscoveryOrchestratable_a0) message);
+        if (message instanceof OutboundPatientDiscoveryOrchestratable) {
+            executeStrategy((OutboundPatientDiscoveryOrchestratable) message);
         } else {
             // shouldn't get here
-            getLogger()
-                    .error("NhinPatientDiscoveryStrategyImpl_g0 EntityPatientDiscoveryOrchestratable was not an EntityPatientDiscoveryOrchestratable_a0!!!");
-            // throw new
-            // Exception("OutboundPatientDiscoveryStrategyImpl_g0 OutboundPatientDiscoveryOrchestratable was not an OutboundPatientDiscoveryOrchestratable_a0!!!");
+            getLogger().error("message was not an OutboundPatientDiscoveryOrchestratable");
         }
     }
 
-    @SuppressWarnings("static-access")
-    public void executeStrategy(OutboundPatientDiscoveryOrchestratable_a0 message) {
-        getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy");
+    public void executeStrategy(OutboundPatientDiscoveryOrchestratable message) {
+        getLogger().debug("begin executeStrategy");
         auditRequestMessage(message.getRequest(), message.getAssertion(), message.getTarget().getHomeCommunity()
                 .getHomeCommunityId());
         try {
@@ -84,20 +79,19 @@ public class OutboundPatientDiscoveryStrategyImpl_g0 extends OutboundPatientDisc
                     GATEWAY_API_LEVEL.LEVEL_g0);
             message.getTarget().setUrl(url);
             getLogger().debug(
-                    "NhinPatientDiscoveryStrategyImpl_g0::executeStrategy sending nhin patient discovery request to target hcid="
-                            + message.getTarget().getHomeCommunity().getHomeCommunityId() + " at url="
-                            + message.getTarget().getUrl());
-
+                    "executeStrategy sending nhin patient discovery request to "
+                            + " target hcid=" + message.getTarget().getHomeCommunity().getHomeCommunityId() 
+                            + " at url=" + url);
             message.setResponse(proxy.respondingGatewayPRPAIN201305UV02(message.getRequest(), message.getAssertion(),
                     message.getTarget()));
-            getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy returning response");
+            getLogger().debug("executeStrategy returning response");
         } catch (Exception ex) {
             String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, message.getTarget(),
                     message.getServiceName());
             OutboundResponseProcessor processor = message.getResponseProcessor();
-            message.setResponse(((OutboundPatientDiscoveryOrchestratable_a0) processor.processErrorResponse(message,
+            message.setResponse(((OutboundPatientDiscoveryOrchestratable) processor.processErrorResponse(message,
                     err)).getResponse());
-            getLogger().debug("NhinPatientDiscoveryStrategyImpl_g0::executeStrategy returning error response");
+            getLogger().debug("executeStrategy returning error response");
         }
         auditResponseMessage(message.getResponse(), message.getAssertion(), message.getTarget().getHomeCommunity()
                 .getHomeCommunityId());

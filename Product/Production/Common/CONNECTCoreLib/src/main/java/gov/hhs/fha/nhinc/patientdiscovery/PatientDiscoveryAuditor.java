@@ -164,7 +164,7 @@ public interface PatientDiscoveryAuditor {
      * @param _interface Indicates which interface component is being logged??
      * @return Returns an acknowledgement object indicating whether the audit was successfully completed.
      */
-    public AcknowledgementType auditEntity201306(RespondingGatewayPRPAIN201306UV02RequestType request,
+    public AcknowledgementType auditEntityDeferred201306(RespondingGatewayPRPAIN201306UV02RequestType request,
             AssertionType assertion, String direction);
 
     public AcknowledgementType auditAck(MCCIIN000002UV01 request, AssertionType assertion, String direction,
