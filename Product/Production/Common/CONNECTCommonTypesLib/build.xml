@@ -8,7 +8,6 @@
   <property name="deploy.isDeployable" value="true"/>
   <property name="build.generated.dir" value="build.generated"/>
   <property name="build.wsdl.output.dir" value="build.wsdl.output.dir"/>
-  <property name="thirdparty.dir" value="../../../../ThirdParty"/>
 
   <!-- Please make sure that this goes up to the correct directory -->
   <import file="../../../build/build.targets.xml" />
@@ -159,13 +158,13 @@
 		<arg value="${wsdl.file}"/>
 		<jvmarg line="-Xmx1024m -Xms1024m"/>
 		<classpath>
-			<pathelement path="${thirdparty.dir}/AntExtraLibs/agilex-ant-tasks.jar"/>
-			<pathelement path="${thirdparty.dir}/AntExtraLibs/webservices-rt.jar"/>
-			<pathelement path="${thirdparty.dir}/AntExtraLibs/jaxb-impl.jar"/>
-			<pathelement path="${thirdparty.dir}/AntExtraLibs/jaxb-xjc.jar"/>
-			<pathelement path="${thirdparty.dir}/AntExtraLibs/jaxws-api.jar"/>
-			<pathelement path="${thirdparty.dir}/AntExtraLibs/jaxws-rt.jar"/>
-			<pathelement path="${thirdparty.dir}/AntExtraLibs/jaxws-tools.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/webservices-rt.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxb-impl.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxb-xjc.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxws-api.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxws-rt.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxws-tools.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/agilex-ant-tasks.jar"/>
 		</classpath>
 	    </java>
           </sequential>
