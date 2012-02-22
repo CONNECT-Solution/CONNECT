@@ -309,7 +309,7 @@ class FileUtils {
       def masterDir = new File(masterDirFile)
       def confDir = new File(System.env['NHINC_PROPERTIES_DIR'])
       
-      def files2restore = ["internalConnectionInfo.xml","adapter.properties","gateway.properties","hiemTopicConfiguration.xml","XDSUniqueIds.properties","PCConfiguration.xml","uddiConnectionInfo.xml"]
+      def files2restore = ["internalConnectionInfo.xml","adapter.properties","gateway.properties","hiemTopicConfiguration.xml","XDSUniqueIds.properties","PCConfiguration.xml"]
       
 	  files2restore.each{
         def file2restore = new File(masterDir, it)
