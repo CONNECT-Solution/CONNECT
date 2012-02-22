@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="PolicyEngineInteractions" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="PolicyEngineInteractions" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
 	<con:settings>
 
 	</con:settings>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="file:/C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 
 		
@@ -15,7 +14,7 @@
 			
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="file:/C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="WSDL path not set.  #NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 
 		
@@ -29,7 +28,7 @@
 			
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="file:/C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="WSDL path not set.  #NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 
 		
@@ -41,7 +40,7 @@
 			
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform}NhincInternalComponentPolicyEngineTransformPortTypeBinding" definition="file:/C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl" name="NhincInternalComponentPolicyEngineTransformPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform}NhincInternalComponentPolicyEngineTransformPortTypeBinding" definition="WSDL path not set.  #NhincComponentInternalPolicyEngineTransform.wsdl" name="NhincInternalComponentPolicyEngineTransformPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 
 		
@@ -109,7 +108,7 @@
 			<con:settings/>
 			<con:testStep name="message" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincInternalComponentPolicyEngineTransformPortTypeBinding</con:interface>
 					<con:operation>TransformAdhocQueryToCheckPolicy</con:operation>
 					<con:request name="message">
@@ -1275,7 +1274,7 @@ assert(ActualDataType==ExpectedDataType);</scriptText>
 			<con:settings/>
 			<con:testStep name="message - empty assertion" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincInternalComponentPolicyEngineTransformPortTypeBinding</con:interface>
 					<con:operation>TransformAdhocQueryToCheckPolicy</con:operation>
 					<con:request name="message - empty assertion">
@@ -1353,7 +1352,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
 			</con:testStep>
 			<con:testStep name="send request" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="send request">
@@ -2249,7 +2248,7 @@ assert(ActualDataType==ExpectedDataType);</scriptText>
 			</con:testStep>
 			<con:testStep name="mock policy engine" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="send request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="send request" xsi:type="con:MockResponseStep">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPolicyEngine</con:path>
@@ -2306,7 +2305,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2351,7 +2350,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2396,7 +2395,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2441,7 +2440,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2486,7 +2485,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2531,7 +2530,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2576,7 +2575,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2622,7 +2621,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2667,7 +2666,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2712,7 +2711,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2757,7 +2756,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2803,7 +2802,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2848,7 +2847,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2893,7 +2892,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2938,7 +2937,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -2984,7 +2983,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3030,7 +3029,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3076,7 +3075,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 //log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 def ExpectedValue='Execute';
-//log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+//log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (ExpectedValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3122,7 +3121,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3168,7 +3167,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3214,7 +3213,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3260,7 +3259,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3306,7 +3305,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 //assert (AssertionValue==XacmlValue);
 assert (XacmlValue == '2001-01-01T06:00:00.000Z')
 
@@ -3353,7 +3352,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 //assert (AssertionValue==XacmlValue);
 assert (XacmlValue == '2009-05-07T02:00:17.000Z')
 
@@ -3400,7 +3399,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3446,7 +3445,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3492,7 +3491,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3537,7 +3536,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3581,7 +3580,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3627,13 +3626,13 @@ assert(XacmlAttributeCount=="1");
 def XacmlValueExtension = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue/hl7:PatientId/@extension"]
 def ExpectedExtension = '1.1';
 log.info('XacmlAttributeValue(' + FieldName + '@extension)=' + XacmlValueExtension);
-//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) => ' + (AssertionValue==XacmlValueExtension));
+//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) =&gt; ' + (AssertionValue==XacmlValueExtension));
 assert(XacmlValueExtension==ExpectedExtension);
 
 def XacmlValueRoot = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue/hl7:PatientId/@root"]
 def ExpectedRoot = '500000000';
 log.info('XacmlAttributeValue(' + FieldName + '@root)=' + XacmlValueRoot);
-//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) => ' + (AssertionValue==XacmlValueExtension));
+//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) =&gt; ' + (AssertionValue==XacmlValueExtension));
 assert(XacmlValueRoot==ExpectedRoot);
 
 def ActualDataType = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3679,7 +3678,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3725,7 +3724,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -3810,7 +3809,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
 			</con:testStep>
 			<con:testStep name="send request" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="send request">
@@ -4695,7 +4694,7 @@ assert(ActualDataType==ExpectedDataType);</scriptText>
 			</con:testStep>
 			<con:testStep name="mock policy engine" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="send request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="send request" xsi:type="con:MockResponseStep">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPolicyEngine</con:path>
@@ -4752,7 +4751,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -4797,7 +4796,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -4842,7 +4841,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -4887,7 +4886,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -4932,7 +4931,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -4977,7 +4976,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5022,7 +5021,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5068,7 +5067,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5113,7 +5112,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5158,7 +5157,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5203,7 +5202,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5249,7 +5248,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5294,7 +5293,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5339,7 +5338,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5384,7 +5383,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5430,7 +5429,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5477,7 +5476,7 @@ def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:A
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
 def AssertionValue='https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve';
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5523,7 +5522,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 //log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 def ExpectedValue='Execute';
-//log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+//log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (ExpectedValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5569,7 +5568,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5615,7 +5614,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5661,7 +5660,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5707,7 +5706,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5753,7 +5752,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 //assert (AssertionValue==XacmlValue);
 assert (XacmlValue == '2001-01-01T06:00:00.000Z')
 
@@ -5800,7 +5799,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 //assert (AssertionValue==XacmlValue);
 assert (XacmlValue == '2009-05-07T02:00:17.000Z')
 
@@ -5847,7 +5846,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5893,7 +5892,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5939,7 +5938,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -5984,7 +5983,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -6028,7 +6027,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:Subject/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -6073,13 +6072,13 @@ assert(XacmlAttributeCount=="1");
 def XacmlValueExtension = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue/hl7:PatientId/@extension"]
 def ExpectedExtension='500000000';
 log.info('XacmlAttributeValue(' + FieldName + '@extension)=' + XacmlValueExtension);
-//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) => ' + (AssertionValue==XacmlValueExtension));
+//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) =&gt; ' + (AssertionValue==XacmlValueExtension));
 assert (ExpectedExtension==XacmlValueExtension);
 
 def XacmlValueRoot = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue/hl7:PatientId/@root"]
 def ExpectedRoot='1.1';
 log.info('XacmlAttributeValue(' + FieldName + '@root)=' + XacmlValueRoot);
-//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) => ' + (AssertionValue==XacmlValueExtension));
+//log.info('XacmlAttributeValue(' + FieldName + '@extension) == ' + 'AssertionValue(' + FieldName + '@extension) =&gt; ' + (AssertionValue==XacmlValueExtension));
 assert (ExpectedRoot==XacmlValueRoot);
 
 def ActualDataType = mockRequestHolder["//xacml:Resource/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -6125,7 +6124,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -6171,7 +6170,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') => ' + (AssertionValue==XacmlValue));
+log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
 def ActualDataType = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/@DataType"];
@@ -6262,12 +6261,12 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
