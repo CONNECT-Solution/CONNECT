@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.AdapterEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
@@ -101,18 +102,7 @@ public class WebServiceProxyHelper {
     }
 
     /**
-     * This is a helper class for unit testing purposes only. It allows me to mock out the connection manager call in
-     * the unit test.
-     * 
-     * @param oTargetSystem The target system for the call.
-     * @param sServiceName The name of the service to locate.
-     * @return The endpoint URL.
-     * @throws Exception An exception if one occurs.
-     */
-
-    /**
-     * This is a helper class for unit testing purposes only. It allows me to mock out the connection manager call in
-     * the unit test.
+     * This method returns the URL endpoint of the passed in service name from the given target
      * 
      * @param oTargetSystem The target system for the call.
      * @param sServiceName The name of the service to locate.
@@ -127,13 +117,12 @@ public class WebServiceProxyHelper {
     }
 
 	/**
-	 * This is a helper class for unit testing purposes only. It allows me to
-	 * mock out the connection manager call in the unit test.
+	 * This method returns the URL endpoint of the passed in adapter service name with the given api level
 	 * 
-	 * @param oTargetSystem
-	 *            The target system for the call.
 	 * @param sServiceName
 	 *            The name of the service to locate.
+	 * @param level
+     *            The adapter api level.      
 	 * @return The endpoint URL.
 	 * @throws Exception
 	 *             An exception if one occurs.
@@ -146,9 +135,43 @@ public class WebServiceProxyHelper {
 		return url;
 	}
 
+	/**
+     * This method returns the URL endpoint of the passed in adapter service name
+     * 
+     * @param sServiceName
+     *            The name of the service to locate.
+     * @return The endpoint URL.
+     * @throws Exception
+     *             An exception if one occurs.
+     */
+    public String getAdapterEndPointFromConnectionManager(String sServiceName)
+            throws ConnectionManagerException {
+        AdapterEndpointManager adapterEndpointManager = new AdapterEndpointManager();
+        ADAPTER_API_LEVEL level = adapterEndpointManager.getApiVersion(sServiceName);
+        
+        return getEndPointFromConnectionManagerByAdapterAPILevel(sServiceName, level);
+    }
+    
     /**
-     * This is a helper class for unit testing purposes only. It allows me to mock out the connection manager call in
-     * the unit test.
+     * This method returns the URL endpoint of the passed in adapter service name
+     * 
+     * @param sServiceName
+     *            The name of the service to locate.
+     * @return The endpoint URL.
+     * @throws Exception
+     *             An exception if one occurs.
+     */
+    public String getAdapterEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
+            throws ConnectionManagerException {
+        AdapterEndpointManager adapterEndpointManager = new AdapterEndpointManager();
+        ADAPTER_API_LEVEL level = adapterEndpointManager.getApiVersion(sServiceName);
+        
+        String url = ConnectionManagerCache.getInstance().getAdapterEndpointURL(sHomeCommunityId, sServiceName, level);
+        return url;
+    }
+
+    /**
+     * This method returns the endpoint url of the passed in service name with the given hcid
      * 
      * @param sHomeCommunityId The home community Id for the target system.
      * @param sServiceName The name of the service to locate.
@@ -162,8 +185,7 @@ public class WebServiceProxyHelper {
     }
 
     /**
-     * This is a helper class for unit testing purposes only. It allows me to mock out the connection manager call in
-     * the unit test. This
+     * This method returns the endpoint url of the passed in service name in the local gateway (hcid)
      * 
      * @param sServiceName The name of the service to locate.
      * @return The endpoint URL.

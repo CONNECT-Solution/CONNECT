@@ -71,7 +71,7 @@ public class AdapterDocumentRepositoryWebServiceProxy implements AdapterDocument
                         + ADAPTER_PROPERTY_FILE_NAME + ".properties file: " + xdsbHomeCommunityId);
             }
             if (NullChecker.isNotNullish(xdsbHomeCommunityId)) {
-                url = oProxyHelper.getUrlFromHomeCommunity(xdsbHomeCommunityId,
+                url = oProxyHelper.getAdapterEndPointFromConnectionManager(xdsbHomeCommunityId,
                         NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
             }
 
@@ -96,7 +96,7 @@ public class AdapterDocumentRepositoryWebServiceProxy implements AdapterDocument
             String xdsbHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE_NAME,
                     XDS_HOME_COMMUNITY_ID_PROPERTY);
             if (xdsbHomeCommunityId != null && !xdsbHomeCommunityId.equals("")) {
-                url = oProxyHelper.getUrlFromHomeCommunity(xdsbHomeCommunityId,
+                url = oProxyHelper.getAdapterEndPointFromConnectionManager(xdsbHomeCommunityId,
                         NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
             }
 

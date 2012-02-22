@@ -87,7 +87,7 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl implements AdapterDo
         try {
             if (request != null) {
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlLocalHomeCommunity(sServiceName);
+                url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {

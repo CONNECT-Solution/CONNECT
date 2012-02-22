@@ -73,7 +73,7 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
         getLogger().debug("NhinDocQueryDelegate::process EntityDocQueryOrchestratable");
 
         OutboundDocQueryOrchestrationContextBuilder contextBuilder = (OutboundDocQueryOrchestrationContextBuilder) OrchestrationContextFactory
-                .getInstance().getBuilder(message.getTarget().getHomeCommunity(), message.getServiceName());
+                .getInstance().getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
 
         contextBuilder.setAssertionType(message.getAssertion());
         contextBuilder.setRequest(message.getRequest());

@@ -235,7 +235,7 @@ public class ConnectionManagerCache {
         long lUDDILastModified = 0;
         long lInternalLastModified = 0;
 
-        // Find out our refrhes timing from the properties file.
+        // Find out our refresh timing from the properties file.
         // -------------------------------------------------------
         try {
             lUDDILastModified = getUddiConnectionManagerDAO().getLastModified();
@@ -368,45 +368,6 @@ public class ConnectionManagerCache {
         }
     }
 
-    /*private BindingTemplate findMostCompatibleBindingTemplate(BusinessEntity businessEntity, String serviceName,
-            GATEWAY_API_LEVEL apiLevel) {
-        BindingTemplate bindingTemplate = null;
-        if (businessEntity != null && businessEntity.getBusinessServices() != null
-                && businessEntity.getBusinessKey() != null) {
-            Map<String, BindingTemplate> templatesBySpecVersion = getSpecVersionToBindingTemplateMap(businessEntity,
-                    serviceName);
-            // 1.0, bindintemplate
-            // 2.0, bindingtemplate
-            bindingTemplate = getHighestSpecVersionSupported(apiLevel, templatesBySpecVersion);
-        }
-        return bindingTemplate;
-    }*/
-
-
-
-
-
-    // if api level is g0 ==> spec 1
-    // if api level is g1 ==> spec 1, spec 2
-    /*private BindingTemplate getHighestSpecVersionSupported(GATEWAY_API_LEVEL apiLevel,
-            Map<String, BindingTemplate> specVersionToTemplateMap) {
-        ArrayList<UDDI_SPEC_VERSION> supportedSpecs = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(apiLevel);
-        UDDI_SPEC_VERSION highestSpec = null;
-        for (UDDI_SPEC_VERSION supportedSpec : supportedSpecs) {
-            if (specVersionToTemplateMap.containsKey(supportedSpec.toString())) {
-                if (highestSpec == null || supportedSpec.ordinal() > highestSpec.ordinal()) {
-                    highestSpec = supportedSpec;
-                }
-            }
-        }
-
-        if (highestSpec != null) {
-            return specVersionToTemplateMap.get(highestSpec.toString());
-        }
-
-        return null;
-    }*/
-
     /**
      * This method retrieves the business entity that containts the specific home community and service name. Also note:
      * This currently does not deal with version. If there are multiple versions of the same serviec, this will return
@@ -459,13 +420,8 @@ public class ConnectionManagerCache {
             return null; // We found nothing...
         }
 
-        // Now lets see if it has the service we are looking for.
-        // --------------------------------------------------------
-        //if (findMostCompatibleBindingTemplate(oCombinedEntity, sUniformServiceName,
-        //        getApiVersion(sHomeCommunityId, sUniformServiceName)) != null) {
-            return oCombinedEntity;
-        //}
-        //return null;
+        return oCombinedEntity;
+
     }
          
      public BusinessEntity getBusinessEntityByHCID(String sHomeCommunityId)
@@ -687,9 +643,22 @@ public class ConnectionManagerCache {
         return specVersions;
     }
 
-    public String getAdapterEndpointURL(String sServiceName, ADAPTER_API_LEVEL level) throws ConnectionManagerException {
-    	ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
+    public String getAdapterEndpointURL(String sHomeCommunityId, String sServiceName, ADAPTER_API_LEVEL level)
+            throws ConnectionManagerException {
+        ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
         String endpointUrl = null;
+
+        BusinessEntity oEntity = getBusinessEntityByServiceName(sHomeCommunityId, sServiceName);
+        BindingTemplate template = helper.findBindingTemplateByCategoryBagNameValue(oEntity, sServiceName,
+                INTERNAL_CONNECTION_API_LEVEL_KEY, level.toString());
+        if (template != null) {
+            endpointUrl = template.getAccessPoint().getValue();
+        }
+        
+        return endpointUrl;
+    }
+    
+    public String getAdapterEndpointURL(String sServiceName, ADAPTER_API_LEVEL level) throws ConnectionManagerException {
         String sHomeCommunityId = null;
         try {
             sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
@@ -698,13 +667,8 @@ public class ConnectionManagerCache {
             log.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE, ex);
         }
-        BusinessEntity oEntity = getBusinessEntityByServiceName(sHomeCommunityId, sServiceName);
-        BindingTemplate template = helper.findBindingTemplateByCategoryBagNameValue(oEntity, sServiceName,
-                INTERNAL_CONNECTION_API_LEVEL_KEY, level.toString());
-        if (template != null) {
-            endpointUrl = template.getAccessPoint().getValue();
-        }
-        return endpointUrl;
+        
+        return getAdapterEndpointURL(sHomeCommunityId, sServiceName, level);
     }
     
     /**

@@ -83,9 +83,9 @@ public class NhincConstants {
     	
     	DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
     	
-    	DOCUMENT_SUBMISSION(DOC_SUBMISSION_SERVICE_PROP),
-    	DOCUMENT_SUBMISSION_DEFERRED_REQUEST(DOC_SUBMISSION_DEFERRED_REQ_SERVICE_PROP),
-    	DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(DOC_SUBMISSION_DEFERRED_RESP_SERVICE_PROP),
+    	DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME),
+    	DOCUMENT_SUBMISSION_DEFERRED_REQUEST(NHINC_XDR_REQUEST_SERVICE_NAME),
+    	DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(NHINC_XDR_RESPONSE_SERVICE_NAME),
     	
     	ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
     	
@@ -457,9 +457,9 @@ public class NhincConstants {
     public static final String XDR_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String XDR_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
     public static final String XDR_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    public static final String DOC_SUBMISSION_SERVICE_PROP = "DocumentSubmission";
-    public static final String DOC_SUBMISSION_DEFERRED_REQ_SERVICE_PROP = "DocSubmissionDeferredReq";
-    public static final String DOC_SUBMISSION_DEFERRED_RESP_SERVICE_PROP = "DocSubmissionDeferredResp";
+    public static final String DOC_SUBMISSION_SERVICE_PROP = "serviceDocumentSubmission";
+    public static final String DOC_SUBMISSION_DEFERRED_REQ_SERVICE_PROP = "serviceDocumentSubmissionDeferredReq";
+    public static final String DOC_SUBMISSION_DEFERRED_RESP_SERVICE_PROP = "serviceDocumentSubmissionDeferredResp";
     public static final String DOC_SUBMISSION_PASSTHRU_PROP = "documentSubmissionPassthrough";
     public static final String DOC_SUBMISSION_DEFERRED_REQ_PASSTHRU_PROP = "documentSubmissionDeferredReqPassthrough";
     public static final String DOC_SUBMISSION_DEFERRED_RESP_PASSTHRU_PROP = "documentSubmissionDeferredRespPassthrough";

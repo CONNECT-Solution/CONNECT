@@ -47,7 +47,7 @@ public class AdapterEndpointManager {
     	ADAPTER_API_LEVEL result = null;
         try {
             Set<ADAPTER_API_LEVEL> apiLevels = getAdapterAPILevelsByServiceName(serviceName);
-            result = getHighestGatewayApiLevelSupportedBySpec(apiLevels);
+            result = getHighestGatewayApiLevel(apiLevels);
         } catch (Exception ex) {
             Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,7 +55,7 @@ public class AdapterEndpointManager {
         return (result == null) ? ADAPTER_API_LEVEL.LEVEL_a1 : result;
     }
     
-    private ADAPTER_API_LEVEL getHighestGatewayApiLevelSupportedBySpec(Set<ADAPTER_API_LEVEL> apiLevels) {
+    private ADAPTER_API_LEVEL getHighestGatewayApiLevel(Set<ADAPTER_API_LEVEL> apiLevels) {
     	ADAPTER_API_LEVEL highestApiLevel = null;
 
         try {
