@@ -52,9 +52,17 @@ import org.apache.commons.logging.LogFactory;
 public class DocumentRetrieveClient {
     private static final String PROPERTY_FILE_NAME = "gateway";
     private static final String PROPERTY_LOCAL_HOME_COMMUNITY = "localHomeCommunityId";
-    private static Log log = LogFactory.getLog(DocumentRetrieveClient.class);
+    private static Log log = null;
     private static EntityDocRetrieve service = new EntityDocRetrieve();
 
+    private Log getLog() {
+        if (log == null) {
+            log = LogFactory.getLog(getClass());
+        }
+        return log;
+    }
+    
+    
     public String retriveDocument(DocumentInformation documentInformation) {
 
         EntityDocRetrievePortType port = getPort(getEntityDocumentRetrieveProxyAddress());
@@ -147,11 +155,11 @@ public class DocumentRetrieveClient {
             // Get endpoint url
             endpointAddress = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(homeCommunity,
                     NhincConstants.ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME);
-            log.debug("Doc Retrive endpoint address: " + endpointAddress);
+            getLog().debug("Doc Retrive endpoint address: " + endpointAddress);
         } catch (PropertyAccessException pae) {
-            log.error("Exception encountered retrieving the local home community: " + pae.getMessage(), pae);
+            getLog().error("Exception encountered retrieving the local home community: " + pae.getMessage(), pae);
         } catch (ConnectionManagerException cme) {
-            log.error(
+            getLog().error(
                     "Exception encountered retrieving the entity doc query connection endpoint address: "
                             + cme.getMessage(), cme);
         }
