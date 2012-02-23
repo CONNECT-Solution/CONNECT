@@ -136,6 +136,7 @@ class FileUtils {
         try
             {
               DocumentBuilder builder = factory.newDocumentBuilder();
+			   builder.isNamespaceAware(false);
               doc = builder.parse(fullPath);
             }
         catch (Exception e) {
@@ -252,14 +253,16 @@ class FileUtils {
 
       //initialize StreamResult with File object to save to file
       DOMSource source = new DOMSource(doc);
-      transformer.transform(source, new StreamResult(new FileOutputStream(fullPath)));
+	  FileOutputStream fileOutput = new FileOutputStream(fullPath);
+      transformer.transform(source, new StreamResult(fileOutput));
+	  fileOutput.close();
     }
     catch(Exception e)
     {
-      //log.error("Exception writing out connection info file: " + e.getMessage(), e);
+      log.error("Exception writing out connection info file: " + e.getMessage(), e);
     }
 
-		//log.info("end CreateOrUpdateConnection");
+		log.info("end CreateOrUpdateConnection");
 	}
 	
   static InitializeNHINCProperties(context, log) {}
