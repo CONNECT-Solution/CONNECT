@@ -394,28 +394,38 @@ public class ConnectionManagerCache {
         }
 
         BusinessEntity internalBusinessEntity = null;
-        BusinessEntity oUDDIEntity = null;
+        BusinessEntity uddiEntity = null;
+        BusinessService bService = null;
 
-        // load internal connections
+        // check the internal connections for the service
         if (m_hInternalConnectInfo.containsKey(sHomeCommunityId)) {
-            BusinessEntity businessEntity = m_hInternalConnectInfo.get(sHomeCommunityId);
-            internalBusinessEntity = businessEntity;
+            internalBusinessEntity = m_hInternalConnectInfo.get(sHomeCommunityId);
+            
+            bService = helper.getBusinessServiceByServiceName(internalBusinessEntity, sUniformServiceName);
+            if (bService == null) {
+                internalBusinessEntity = null;
+            }              
         }
 
-        // get UDDI from cache
+        // check the uddi connections for the service
         if (m_hUDDIConnectInfo.containsKey(sHomeCommunityId)) {
-            oUDDIEntity = m_hUDDIConnectInfo.get(sHomeCommunityId);
+            uddiEntity = m_hUDDIConnectInfo.get(sHomeCommunityId);
+        
+            bService = helper.getBusinessServiceByServiceName(uddiEntity, sUniformServiceName);
+            if (bService == null) {
+                uddiEntity = null;
+            }        
         }
 
         // Merge local and remote
         BusinessEntity oCombinedEntity = null;
-        if ((internalBusinessEntity != null) && (oUDDIEntity != null)) {
-        	helper.mergeBusinessEntityServices(internalBusinessEntity, oUDDIEntity);
+        if ((internalBusinessEntity != null) && (uddiEntity != null)) {
+        	helper.mergeBusinessEntityServices(internalBusinessEntity, uddiEntity);
             oCombinedEntity = internalBusinessEntity;
         } else if (internalBusinessEntity != null) {
             oCombinedEntity = internalBusinessEntity;
-        } else if (oUDDIEntity != null) {
-            oCombinedEntity = oUDDIEntity;
+        } else if (uddiEntity != null) {
+            oCombinedEntity = uddiEntity;
         } else {
             return null; // We found nothing...
         }

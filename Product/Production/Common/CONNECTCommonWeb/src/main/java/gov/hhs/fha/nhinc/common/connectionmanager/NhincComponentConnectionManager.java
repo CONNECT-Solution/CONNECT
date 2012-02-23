@@ -85,7 +85,9 @@ public class NhincComponentConnectionManager {
         BusinessDetail bDetail = new BusinessDetail();
         try {
             List<BusinessEntity> businessEntityList = ConnectionManagerCache.getInstance().getAllBusinessEntities();
-            bDetail.getBusinessEntity().addAll(businessEntityList);
+            if (businessEntityList != null) {
+                bDetail.getBusinessEntity().addAll(businessEntityList);
+            }
         } catch (ConnectionManagerException cme) {
             getLogger().error("Failed to invoke getAllBusinessEntities", cme);
         }
@@ -121,7 +123,9 @@ public class NhincComponentConnectionManager {
         try {
             Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getBusinessEntitySet(
                     homeCommunityIdList.getHomeCommunityId());
-            bDetail.getBusinessEntity().addAll(businessEntitySet);
+            if (businessEntitySet != null) {
+                bDetail.getBusinessEntity().addAll(businessEntitySet);
+            }
         } catch (ConnectionManagerException cme) {
             getLogger().error("Failed to invoke getBusinessEntitySet", cme);
         }
@@ -256,7 +260,9 @@ public class NhincComponentConnectionManager {
         BusinessDetail bDetail = new BusinessDetail();
         try {
             Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getBusinessEntitySetByServiceName(request.getHomeCommunityId(), request.getServiceName());
-            bDetail.getBusinessEntity().addAll(businessEntitySet);
+            if (businessEntitySet != null) {
+                bDetail.getBusinessEntity().addAll(businessEntitySet);
+            }
         } catch (ConnectionManagerException cme) {
             getLogger().error("Failed to invoke getBusinessEntitySetByServiceName", cme);
         }
@@ -274,7 +280,9 @@ public class NhincComponentConnectionManager {
         BusinessDetail bDetail = new BusinessDetail();
         try {
             Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getAllBusinessEntitySetByServiceName(sUniformServiceName);
-            bDetail.getBusinessEntity().addAll(businessEntitySet);
+            if (businessEntitySet != null) {
+                bDetail.getBusinessEntity().addAll(businessEntitySet);
+            }
         } catch (ConnectionManagerException cme) {
             getLogger().error("Failed to invoke getAllBusinessEntitySetByServiceName", cme);
         }
@@ -349,7 +357,7 @@ public class NhincComponentConnectionManager {
     public GetAssigningAuthoritiesByHomeCommunityResponseType getAssigningAuthoritiesByHomeCommunity(String homeCommunityId) {
 
         GetAssigningAuthoritiesByHomeCommunityResponseType response = new GetAssigningAuthoritiesByHomeCommunityResponseType();
-        if (NullChecker.isNotNullish(homeCommunityId)) {
+        if (NullChecker.isNullish(homeCommunityId)) {
             return null;
         }
 
@@ -369,7 +377,7 @@ public class NhincComponentConnectionManager {
     public String getHomeCommunityByAssigningAuthority(String assigningAuthorityId) {
         
         String homeCommunityId = null;
-        if (NullChecker.isNotNullish(assigningAuthorityId)) {
+        if (NullChecker.isNullish(assigningAuthorityId)) {
             return null;
         }
 
