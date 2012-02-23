@@ -286,9 +286,15 @@ public class PropertyAccessor implements IPropertyAcessor {
      * @throws PropertyAccessException If an error occurs during the load process, this exception is thrown.
      */
     private static void checkForRefreshAndLoad(String sPropertyFile) throws PropertyAccessException {
+        Date dtNow = new Date();
         RefreshInfo oInfo = m_hNextRefresh.get(sPropertyFile);
 
-        if (oInfo == null) {
+        if (oInfo != null) {
+            if ((oInfo.m_oRefreshMode == RefreshInfo.Mode.ALWAYS)
+                    || ((oInfo.m_oRefreshMode == RefreshInfo.Mode.PERIODIC)) && (oInfo.m_dtRefreshDate.before(dtNow))) {
+                loadPropertyFile(sPropertyFile, oInfo);
+            }
+        } else if (oInfo == null) {
             loadPropertyFile(sPropertyFile, oInfo); // This means that this is
                                                     // the first time property
                                                     // file has been accessed
@@ -728,4 +734,5 @@ public class PropertyAccessor implements IPropertyAcessor {
         Date m_dtRefreshDate;
         int m_iRefreshMilliseconds;
     }
+
 }
