@@ -173,11 +173,21 @@ class FileUtils {
                             Element currBindingTemplate = (Element)bindingTemplatesList.item(bindingNodeIndex);
                             Element bindingCategoryBag = (Element)currBindingTemplate.getElementsByTagName("categoryBag").item(0);
                             Element bindingKeyedRef = (Element)bindingCategoryBag.getElementsByTagName("keyedReference").item(0);
-                            float currVersion = new Float(bindingKeyedRef.getAttribute("keyValue"));
-                            if(currVersion > bindingTemplateVersion){
-                                bindingTemplateVersion = currVersion;
-                                latestVersionBindingTemplate = currBindingTemplate;
-                            }
+                            String currVersionString = bindingKeyedRef.getAttribute("keyValue");
+							if(currVersionString.contains("LEVEL"){
+								if(latestVersionBindingTemplate != null){
+									if(currVersionString.equals("LEVEL_a1"){
+										latestVersionBindingTemplate = currBindingTemplate;
+									}//else template is prior version and doesn't need to be set
+								}//else it's the first item and the bindingtemplate hasn't been set
+							}
+							else{
+								float currVersion = new Float(currVersionString);
+								if(currVersion > bindingTemplateVersion){
+									bindingTemplateVersion = currVersion;
+									latestVersionBindingTemplate = currBindingTemplate;
+								}
+							}
                         }
                     }else{
                         latestVersionBindingTemplate = (Element)bindingTemplatesList.item(0);
