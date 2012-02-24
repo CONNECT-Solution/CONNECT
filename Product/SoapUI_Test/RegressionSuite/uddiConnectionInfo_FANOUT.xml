@@ -722,22 +722,22 @@
 		</categoryBag>
 	</businessEntity>
 
-	<!--  Gateway 3.3 -->
-
+	<!-- Gateway 3.3 -->
+	
 	<businessEntity businessKey="uddi:testnhincnode:3.3">
-		<name xml:lang="en">DoD</name>
-		<businessServices>
-		</businessServices>
-		<identifierBag>
-			<keyedReference keyName="" keyValue="3.3" tModelKey="uddi:nhin:nhie:homecommunityid"/>
-		</identifierBag>
-		<categoryBag>
-			<keyedReference keyName="New York" keyValue="US-NY"
+        <name xml:lang="en">DoD</name>
+        <businessServices>
+		
+		 </businessServices>
+
+        <identifierBag>
+            <keyedReference keyName="" keyValue="3.3" tModelKey="uddi:nhin:nhie:homecommunityid"/>
+        </identifierBag>
+        <categoryBag>
+            <keyedReference keyName="Virginia" keyValue="US-VA"
                          tModelKey="uddi:uddi.org:ubr:categorization:iso3166"/>
-			<keyedReference keyName="Virginia" keyValue="US-VA"
-                         tModelKey="uddi:uddi.org:ubr:categorization:iso3166"/>
-		</categoryBag>
-	</businessEntity>
+        </categoryBag>
+    </businessEntity>
 
 	<!--   Gateway 4.4 -->
 
