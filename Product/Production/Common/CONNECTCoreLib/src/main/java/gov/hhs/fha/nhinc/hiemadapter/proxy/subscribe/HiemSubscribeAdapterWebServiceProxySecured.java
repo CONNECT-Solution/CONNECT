@@ -70,16 +70,22 @@ public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribe
         log.debug("start secured subscribe");
 
         String url = getUrl(target, NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME);
-        AdapterNotificationProducerPortSecuredType port = getPort(url, assertion);
+        if (NullChecker.isNotNullish(url)) {
+            AdapterNotificationProducerPortSecuredType port = getPort(url, assertion);
 
-        WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
-        Subscribe subscribe = subscribeMarshaller.unmarshalUnsubscribeRequest(subscribeElement);
+            WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
+            Subscribe subscribe = subscribeMarshaller.unmarshalUnsubscribeRequest(subscribeElement);
 
-        // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
-        response = port.subscribe(subscribe);
+            // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method
+            // invocation
+            response = port.subscribe(subscribe);
 
-        SubscribeResponseMarshaller subscribeResponseMarshaller = new SubscribeResponseMarshaller();
-        responseElement = subscribeResponseMarshaller.marshal(response);
+            SubscribeResponseMarshaller subscribeResponseMarshaller = new SubscribeResponseMarshaller();
+            responseElement = subscribeResponseMarshaller.marshal(response);
+        } else {
+            log.error("Failed to call the web service (" + NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME
+                    + ").  The URL is null.");
+        }
 
         log.debug("end secured subscribe");
 
@@ -90,7 +96,7 @@ public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribe
         String url = null;
         url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target, serviceName);
         if (NullChecker.isNullish(url)) {            
-            url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
+            url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
         }
         return url;
     }

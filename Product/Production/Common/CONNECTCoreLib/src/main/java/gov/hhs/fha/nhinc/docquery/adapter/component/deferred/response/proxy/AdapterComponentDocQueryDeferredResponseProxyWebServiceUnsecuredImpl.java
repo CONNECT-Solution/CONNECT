@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adaptercomponentdocquerydeferredresponse.AdapterCompone
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
@@ -114,24 +115,30 @@ public class AdapterComponentDocQueryDeferredResponseProxyWebServiceUnsecuredImp
         DocQueryAcknowledgementType response = null;
 
         try {
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+            String url = oProxyHelper
+                    .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME);
+            if (NullChecker.isNotNullish(url)) {
+                AdapterComponentDocQueryDeferredResponsePortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
-            AdapterComponentDocQueryDeferredResponsePortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+                if (msg == null) {
+                    log.error("Message was null");
+                } else if (assertion == null) {
+                    log.error("AssertionType was null");
+                } else if (port == null) {
+                    log.error("port was null");
+                } else {
+                    RespondingGatewayCrossGatewayQueryResponseType request = new RespondingGatewayCrossGatewayQueryResponseType();
+                    request.setAdhocQueryResponse(msg);
+                    request.setAssertion(assertion);
 
-            if (msg == null) {
-                log.error("Message was null");
-            } else if (assertion == null) {
-                log.error("AssertionType was null");
-            } else if (port == null) {
-                log.error("port was null");
+                    response = (DocQueryAcknowledgementType) oProxyHelper.invokePort(port,
+                            AdapterComponentDocQueryDeferredResponsePortType.class,
+                            "respondingGatewayCrossGatewayQuery", request);
+                }
             } else {
-                RespondingGatewayCrossGatewayQueryResponseType request = new RespondingGatewayCrossGatewayQueryResponseType();
-                request.setAdhocQueryResponse(msg);
-                request.setAssertion(assertion);
-
-                response = (DocQueryAcknowledgementType) oProxyHelper.invokePort(port,
-                        AdapterComponentDocQueryDeferredResponsePortType.class, "respondingGatewayCrossGatewayQuery",
-                        request);
+                log.error("Failed to call the web service ("
+                        + NhincConstants.ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME
+                        + ").  The URL is null.");
             }
         } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);

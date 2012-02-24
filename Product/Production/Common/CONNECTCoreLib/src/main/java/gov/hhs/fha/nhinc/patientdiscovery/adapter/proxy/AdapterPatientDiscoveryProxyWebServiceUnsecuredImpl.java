@@ -88,7 +88,7 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
         try {
             if (body != null) {
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(sServiceName, ADAPTER_API_LEVEL.LEVEL_a0);
+                url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {

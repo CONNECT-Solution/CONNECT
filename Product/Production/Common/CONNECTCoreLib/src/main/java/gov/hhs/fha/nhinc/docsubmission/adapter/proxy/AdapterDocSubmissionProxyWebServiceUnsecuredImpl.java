@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adapterxdr.AdapterXDRPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -109,21 +110,26 @@ public class AdapterDocSubmissionProxyWebServiceUnsecuredImpl implements Adapter
         RegistryResponseType response = null;
 
         try {
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_XDR_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
-            AdapterXDRPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_XDR_SERVICE_NAME);
+            if (NullChecker.isNotNullish(url)) {
+                AdapterXDRPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
-            if (msg == null) {
-                log.error("Message was null");
-            } else if (assertion == null) {
-                log.error("assertion was null");
-            } else if (port == null) {
-                log.error("port was null");
+                if (msg == null) {
+                    log.error("Message was null");
+                } else if (assertion == null) {
+                    log.error("assertion was null");
+                } else if (port == null) {
+                    log.error("port was null");
+                } else {
+                    AdapterProvideAndRegisterDocumentSetRequestType request = new AdapterProvideAndRegisterDocumentSetRequestType();
+                    request.setProvideAndRegisterDocumentSetRequest(msg);
+                    request.setAssertion(assertion);
+                    response = (RegistryResponseType) oProxyHelper.invokePort(port, AdapterXDRPortType.class,
+                            "provideAndRegisterDocumentSetb", request);
+                }
             } else {
-                AdapterProvideAndRegisterDocumentSetRequestType request = new AdapterProvideAndRegisterDocumentSetRequestType();
-                request.setProvideAndRegisterDocumentSetRequest(msg);
-                request.setAssertion(assertion);
-                response = (RegistryResponseType) oProxyHelper.invokePort(port, AdapterXDRPortType.class,
-                        "provideAndRegisterDocumentSetb", request);
+                log.error("Failed to call the web service (" + NhincConstants.ADAPTER_XDR_SERVICE_NAME
+                        + ").  The URL is null.");
             }
         } catch (Exception ex) {
             log.error("Error sending Adapter Doc Submission Unsecured message: " + ex.getMessage(), ex);

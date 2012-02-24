@@ -87,7 +87,7 @@ public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl i
         try {
             if (body != null) {
                 log.debug("Before target system URL look up.");
-                endpointUrl = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(sServiceName, ADAPTER_API_LEVEL.LEVEL_a0);
+                endpointUrl = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + endpointUrl);
 
                 if (NullChecker.isNotNullish(endpointUrl)) {

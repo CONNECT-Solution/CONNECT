@@ -103,14 +103,12 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         log.debug("Begin PolicyEngineWebServiceProxySecuredImpl.checkPolicy");
         CheckPolicyResponseType response = null;
-        String serviceName = NhincConstants.POLICYENGINE_SERVICE_SECURED_NAME;
 
         try {
             log.debug("Before target system URL look up.");
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
-            if (log.isDebugEnabled()) {
-                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
-            }
+            String serviceName = NhincConstants.POLICYENGINE_SERVICE_SECURED_NAME;
+            String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
+            log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
                 CheckPolicyRequestSecuredType securedRequest = new CheckPolicyRequestSecuredType();

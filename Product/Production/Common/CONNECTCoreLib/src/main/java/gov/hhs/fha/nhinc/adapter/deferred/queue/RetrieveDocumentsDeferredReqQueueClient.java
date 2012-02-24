@@ -131,8 +131,7 @@ public class RetrieveDocumentsDeferredReqQueueClient {
     }
     
     protected String getUrl(String serviceName) throws ConnectionManagerException {
-        return proxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(
-                serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
+        return proxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
     }
 
     /**

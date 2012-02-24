@@ -103,10 +103,8 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl im
 
         try {
             log.debug("Before target system URL look up.");
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
-            if (log.isDebugEnabled()) {
-                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
-            }
+            String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
+            log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
                 AdapterRegistryResponseType wsRequest = new AdapterRegistryResponseType();

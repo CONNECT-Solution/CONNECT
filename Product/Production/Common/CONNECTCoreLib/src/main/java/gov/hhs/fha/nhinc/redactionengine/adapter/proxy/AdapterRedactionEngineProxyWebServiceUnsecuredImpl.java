@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsResponse
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -117,24 +118,29 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         AdhocQueryResponse response = null;
 
         try {
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.REDACTION_ENGINE_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
-            AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_QUERY, assertion);
+            String serviceName = NhincConstants.REDACTION_ENGINE_SERVICE_NAME;
+            String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
+            if (NullChecker.isNotNullish(url)) {
+                AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_QUERY, assertion);
 
-            if (adhocQueryRequest == null) {
-                log.error("adhocQueryRequest was null");
-            } else if (adhocQueryResponse == null) {
-                log.error("adhocQueryResponse was null");
-            } else if (port == null) {
-                log.error("port was null");
+                if (adhocQueryRequest == null) {
+                    log.error("adhocQueryRequest was null");
+                } else if (adhocQueryResponse == null) {
+                    log.error("adhocQueryResponse was null");
+                } else if (port == null) {
+                    log.error("port was null");
+                } else {
+                    FilterDocQueryResultsRequestType filterDocQueryResultsRequest = new FilterDocQueryResultsRequestType();
+                    filterDocQueryResultsRequest.setAdhocQueryRequest(adhocQueryRequest);
+                    filterDocQueryResultsRequest.setAdhocQueryResponse(adhocQueryResponse);
+
+                    FilterDocQueryResultsResponseType filteredResponse = (FilterDocQueryResultsResponseType) oProxyHelper
+                            .invokePort(port, AdapterComponentRedactionEnginePortType.class, "filterDocQueryResults",
+                                    filterDocQueryResultsRequest);
+                    response = filteredResponse.getAdhocQueryResponse();
+                }
             } else {
-                FilterDocQueryResultsRequestType filterDocQueryResultsRequest = new FilterDocQueryResultsRequestType();
-                filterDocQueryResultsRequest.setAdhocQueryRequest(adhocQueryRequest);
-                filterDocQueryResultsRequest.setAdhocQueryResponse(adhocQueryResponse);
-
-                FilterDocQueryResultsResponseType filteredResponse = (FilterDocQueryResultsResponseType) oProxyHelper
-                        .invokePort(port, AdapterComponentRedactionEnginePortType.class, "filterDocQueryResults",
-                                filterDocQueryResultsRequest);
-                response = filteredResponse.getAdhocQueryResponse();
+                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception ex) {
             log.error("Error calling filterDocQueryResults: " + ex.getMessage(), ex);
@@ -151,24 +157,29 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         RetrieveDocumentSetResponseType response = null;
 
         try {
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.REDACTION_ENGINE_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);         
-            AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVE, assertion);
+            String serviceName = NhincConstants.REDACTION_ENGINE_SERVICE_NAME;
+            String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
+            if (NullChecker.isNotNullish(url)) {
+                AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVE, assertion);
 
-            if (retrieveDocumentSetRequest == null) {
-                log.error("retrieveDocumentSetRequest was null");
-            } else if (retrieveDocumentSetResponse == null) {
-                log.error("retrieveDocumentSetResponse was null");
-            } else if (port == null) {
-                log.error("port was null");
+                if (retrieveDocumentSetRequest == null) {
+                    log.error("retrieveDocumentSetRequest was null");
+                } else if (retrieveDocumentSetResponse == null) {
+                    log.error("retrieveDocumentSetResponse was null");
+                } else if (port == null) {
+                    log.error("port was null");
+                } else {
+                    FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
+                    filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocumentSetRequest);
+                    filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retrieveDocumentSetResponse);
+
+                    FilterDocRetrieveResultsResponseType filteredResponse = (FilterDocRetrieveResultsResponseType) oProxyHelper
+                            .invokePort(port, AdapterComponentRedactionEnginePortType.class,
+                                    "filterDocRetrieveResults", filterDocRetrieveResultsRequest);
+                    response = filteredResponse.getRetrieveDocumentSetResponse();
+                }
             } else {
-                FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
-                filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocumentSetRequest);
-                filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retrieveDocumentSetResponse);
-
-                FilterDocRetrieveResultsResponseType filteredResponse = (FilterDocRetrieveResultsResponseType) oProxyHelper
-                        .invokePort(port, AdapterComponentRedactionEnginePortType.class, "filterDocRetrieveResults",
-                                filterDocRetrieveResultsRequest);
-                response = filteredResponse.getRetrieveDocumentSetResponse();
+                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception ex) {
             log.error("Error calling filterDocRetrieveResults: " + ex.getMessage(), ex);

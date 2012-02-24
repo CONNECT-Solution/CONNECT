@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy;
 import gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncresp.AdapterPatientDiscoveryAsyncRespPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -112,24 +113,30 @@ public class AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl imp
         log.debug("Begin processPatientDiscoveryAsyncReqError");
         MCCIIN000002UV01 ack = null;
 
-        try
-        {
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_RESP_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
-            AdapterPatientDiscoveryAsyncRespPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+        try {
+            String url = oProxyHelper
+                    .getAdapterEndPointFromConnectionManager(NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_RESP_SERVICE_NAME);
+            if (NullChecker.isNotNullish(url)) {
+                AdapterPatientDiscoveryAsyncRespPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION,
+                        WS_ADDRESSING_ACTION, assertion);
 
-            if (request == null) {
-                log.error("Request was null");
-            } else if (assertion == null) {
-                log.error("assertion was null");
-            } else if (port == null) {
-                log.error("port was null");
+                if (request == null) {
+                    log.error("Request was null");
+                } else if (assertion == null) {
+                    log.error("assertion was null");
+                } else if (port == null) {
+                    log.error("port was null");
+                } else {
+                    RespondingGatewayPRPAIN201306UV02RequestType msg = new RespondingGatewayPRPAIN201306UV02RequestType();
+                    msg.setAssertion(assertion);
+                    msg.setPRPAIN201306UV02(request);
+
+                    ack = (MCCIIN000002UV01) oProxyHelper.invokePort(port,
+                            AdapterPatientDiscoveryAsyncRespPortType.class, "processPatientDiscoveryAsyncResp", msg);
+                }
             } else {
-                RespondingGatewayPRPAIN201306UV02RequestType msg = new RespondingGatewayPRPAIN201306UV02RequestType();
-                msg.setAssertion(assertion);
-                msg.setPRPAIN201306UV02(request);
-
-                ack = (MCCIIN000002UV01) oProxyHelper.invokePort(port, AdapterPatientDiscoveryAsyncRespPortType.class,
-                        "processPatientDiscoveryAsyncResp", msg);
+                log.error("Failed to call the web service ("
+                        + NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_RESP_SERVICE_NAME + ").  The URL is null.");
             }
         } catch (Exception ex) {
             log.error("Error calling processPatientDiscoveryAsyncResp: " + ex.getMessage(), ex);

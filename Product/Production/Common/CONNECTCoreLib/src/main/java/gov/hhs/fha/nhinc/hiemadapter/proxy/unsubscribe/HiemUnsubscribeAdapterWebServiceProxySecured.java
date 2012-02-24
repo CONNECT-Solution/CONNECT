@@ -76,32 +76,37 @@ public class HiemUnsubscribeAdapterWebServiceProxySecured implements HiemUnsubsc
         log.debug("start secured unsubscribe");
         String url = getUrl(target, NhincConstants.HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_SECURED_NAME);
 
-        AdapterSubscriptionManagerPortSecuredType port = getPort(url, assertion);
+        if (NullChecker.isNullish(url)) {
+            AdapterSubscriptionManagerPortSecuredType port = getPort(url, assertion);
 
-        if (port != null) {
-            log.debug("attaching reference parameter headers");
-            SoapUtil soapUtil = new SoapUtil();
-            soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
+            if (port != null) {
+                log.debug("attaching reference parameter headers");
+                SoapUtil soapUtil = new SoapUtil();
+                soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
 
-            log.debug("unmarshalling unsubscribe element");
-            WsntUnsubscribeMarshaller unsubscribeMarshaller = new WsntUnsubscribeMarshaller();
-            Unsubscribe subscribe = unsubscribeMarshaller.unmarshal(unsubscribeElement);
+                log.debug("unmarshalling unsubscribe element");
+                WsntUnsubscribeMarshaller unsubscribeMarshaller = new WsntUnsubscribeMarshaller();
+                Unsubscribe subscribe = unsubscribeMarshaller.unmarshal(unsubscribeElement);
 
-            log.debug("building unsubscribe message");
-            UnsubscribeRequestType adapterUnsubscribeRequest = new UnsubscribeRequestType();
-            adapterUnsubscribeRequest.setUnsubscribe(subscribe);
-            adapterUnsubscribeRequest.setAssertion(assertion);
+                log.debug("building unsubscribe message");
+                UnsubscribeRequestType adapterUnsubscribeRequest = new UnsubscribeRequestType();
+                adapterUnsubscribeRequest.setUnsubscribe(subscribe);
+                adapterUnsubscribeRequest.setAssertion(assertion);
 
-            log.debug("invoking unsubscribe port");
-            // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method
-            // invocation
-            UnsubscribeResponse response = port.unsubscribe(subscribe);
+                log.debug("invoking unsubscribe port");
+                // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method
+                // invocation
+                UnsubscribeResponse response = port.unsubscribe(subscribe);
 
-            log.debug("building response");
-            WsntUnsubscribeResponseMarshaller unsubscribeResponseMarshaller = new WsntUnsubscribeResponseMarshaller();
-            responseElement = unsubscribeResponseMarshaller.marshal(response);
+                log.debug("building response");
+                WsntUnsubscribeResponseMarshaller unsubscribeResponseMarshaller = new WsntUnsubscribeResponseMarshaller();
+                responseElement = unsubscribeResponseMarshaller.marshal(response);
+            } else {
+                throw new RuntimeException("Unable to create adapter port");
+            }
         } else {
-            throw new RuntimeException("Unable to create adapter port");
+            log.error("Failed to call the web service (" + NhincConstants.HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_SECURED_NAME
+                    + ").  The URL is null.");
         }
 
         log.debug("end secured unsubscribe");
@@ -117,7 +122,7 @@ public class HiemUnsubscribeAdapterWebServiceProxySecured implements HiemUnsubsc
         }
         if (NullChecker.isNullish(url)) {
             try {
-                url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
+                url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
             } catch (ConnectionManagerException ex) {
                 log.warn("exception occurred accessing url from connection manager (getLocalEndpointURLByServiceName)",
                         ex);

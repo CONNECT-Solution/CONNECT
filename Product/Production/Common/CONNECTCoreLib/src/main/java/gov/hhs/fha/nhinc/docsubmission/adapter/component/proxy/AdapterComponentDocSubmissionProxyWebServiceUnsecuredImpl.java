@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adaptercomponentxdr.AdapterComponentXDRPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -109,21 +110,27 @@ public class AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl implement
         RegistryResponseType response = null;
 
         try {
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_COMPONENT_XDR_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
-            AdapterComponentXDRPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper
+                    .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_COMPONENT_XDR_SERVICE_NAME);
+            if (NullChecker.isNotNullish(url)) {
+                AdapterComponentXDRPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
-            if (msg == null) {
-                log.error("Message was null");
-            } else if (assertion == null) {
-                log.error("assertion was null");
-            } else if (port == null) {
-                log.error("port was null");
+                if (msg == null) {
+                    log.error("Message was null");
+                } else if (assertion == null) {
+                    log.error("assertion was null");
+                } else if (port == null) {
+                    log.error("port was null");
+                } else {
+                    AdapterProvideAndRegisterDocumentSetRequestType request = new AdapterProvideAndRegisterDocumentSetRequestType();
+                    request.setProvideAndRegisterDocumentSetRequest(msg);
+                    request.setAssertion(assertion);
+                    response = (RegistryResponseType) oProxyHelper.invokePort(port, AdapterComponentXDRPortType.class,
+                            "provideAndRegisterDocumentSetb", request);
+                }
             } else {
-                AdapterProvideAndRegisterDocumentSetRequestType request = new AdapterProvideAndRegisterDocumentSetRequestType();
-                request.setProvideAndRegisterDocumentSetRequest(msg);
-                request.setAssertion(assertion);
-                response = (RegistryResponseType) oProxyHelper.invokePort(port, AdapterComponentXDRPortType.class,
-                        "provideAndRegisterDocumentSetb", request);
+                log.error("Failed to call the web service (" + NhincConstants.ADAPTER_COMPONENT_XDR_SERVICE_NAME
+                        + ").  The URL is null.");
             }
         } catch (Exception ex) {
             log.error("Error sending Adapter Component Doc Submission Unsecured message: " + ex.getMessage(), ex);

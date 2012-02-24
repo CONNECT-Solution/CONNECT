@@ -117,29 +117,36 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl i
         MCCIIN000002UV01 ack = null;
 
         try {
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
-            AdapterPatientDiscoverySecuredAsyncReqErrorPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME);
+            if (NullChecker.isNotNullish(url)) {
+                AdapterPatientDiscoverySecuredAsyncReqErrorPortType port = getPort(url,
+                        NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
-            if (request == null) {
-                log.error("Request was null");
-            } else if (response == null) {
-                log.error("Response was null");
-            } else if (NullChecker.isNullish(errMsg)) {
-                log.error("errMsg was null");
-            } else if (port == null) {
-                log.error("port was null");
+                if (request == null) {
+                    log.error("Request was null");
+                } else if (response == null) {
+                    log.error("Response was null");
+                } else if (NullChecker.isNullish(errMsg)) {
+                    log.error("errMsg was null");
+                } else if (port == null) {
+                    log.error("port was null");
+                } else {
+                    AsyncAdapterPatientDiscoveryErrorSecuredRequestType securedRequest = new AsyncAdapterPatientDiscoveryErrorSecuredRequestType();
+                    securedRequest.setPRPAIN201305UV02(request);
+                    securedRequest.setErrorMsg(errMsg);
+                    securedRequest.setPRPAIN201306UV02(response);
+
+                    ack = (MCCIIN000002UV01) oProxyHelper.invokePort(port,
+                            AdapterPatientDiscoverySecuredAsyncReqErrorPortType.class,
+                            "processPatientDiscoveryAsyncReqError", securedRequest);
+                }
             } else {
-                AsyncAdapterPatientDiscoveryErrorSecuredRequestType securedRequest = new AsyncAdapterPatientDiscoveryErrorSecuredRequestType();
-                securedRequest.setPRPAIN201305UV02(request);
-                securedRequest.setErrorMsg(errMsg);
-                securedRequest.setPRPAIN201306UV02(response);
-
-                ack = (MCCIIN000002UV01) oProxyHelper.invokePort(port,
-                        AdapterPatientDiscoverySecuredAsyncReqErrorPortType.class,
-                        "processPatientDiscoveryAsyncReqError", securedRequest);
+                log.error("Failed to call the web service ("
+                        + NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME
+                        + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error calling processPatientDiscoveryAsyncReqError: " + ex.getMessage(), ex);
+          log.error("Error calling processPatientDiscoveryAsyncReqError: " + ex.getMessage(), ex);
             ack = HL7AckTransforms.createAckFrom201305(request, errMsg);
         }
 

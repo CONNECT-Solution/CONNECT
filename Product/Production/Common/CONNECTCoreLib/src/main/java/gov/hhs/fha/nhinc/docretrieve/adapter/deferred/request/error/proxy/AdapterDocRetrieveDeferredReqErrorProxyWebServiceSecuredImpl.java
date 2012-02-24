@@ -114,23 +114,31 @@ public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceSecuredImpl implem
         DocRetrieveAcknowledgementType response = null;
 
         try {
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SECURED_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
-            AdapterDocRetrieveDeferredRequestErrorSecuredPortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION, WS_ADDRESSING_ACTION, assertion);
+            String url = oProxyHelper
+                    .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SECURED_SERVICE_NAME);
+            if (NullChecker.isNotNullish(url)) {
+                AdapterDocRetrieveDeferredRequestErrorSecuredPortType port = getPort(url,
+                        NhincConstants.DOC_RETRIEVE_ACTION, WS_ADDRESSING_ACTION, assertion);
 
-            if (body == null) {
-                log.error("Message was null");
-            } else if (NullChecker.isNullish(errMsg)) {
-                log.error("errMsg was null");
-            } else if (port == null) {
-                log.error("port was null");
+                if (body == null) {
+                    log.error("Message was null");
+                } else if (NullChecker.isNullish(errMsg)) {
+                    log.error("errMsg was null");
+                } else if (port == null) {
+                    log.error("port was null");
+                } else {
+                    AdapterDocumentRetrieveDeferredRequestErrorSecuredType request = new AdapterDocumentRetrieveDeferredRequestErrorSecuredType();
+                    request.setRetrieveDocumentSetRequest(body);
+                    request.setErrorMsg(errMsg);
+
+                    response = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port,
+                            AdapterDocRetrieveDeferredRequestErrorSecuredPortType.class,
+                            "crossGatewayRetrieveRequestError", request);
+                }
             } else {
-                AdapterDocumentRetrieveDeferredRequestErrorSecuredType request = new AdapterDocumentRetrieveDeferredRequestErrorSecuredType();
-                request.setRetrieveDocumentSetRequest(body);
-                request.setErrorMsg(errMsg);
-
-                response = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port,
-                        AdapterDocRetrieveDeferredRequestErrorSecuredPortType.class,
-                        "crossGatewayRetrieveRequestError", request);
+                log.error("Failed to call the web service ("
+                        + NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SECURED_SERVICE_NAME
+                        + ").  The URL is null.");
             }
         } catch (Exception ex) {
             log.error("Error calling crossGatewayRetrieveRequestError: " + ex.getMessage(), ex);

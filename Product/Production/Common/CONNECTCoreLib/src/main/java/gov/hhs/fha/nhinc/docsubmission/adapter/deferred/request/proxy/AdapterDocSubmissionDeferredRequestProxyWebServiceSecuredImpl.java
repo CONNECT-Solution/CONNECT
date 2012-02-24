@@ -104,10 +104,8 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl imple
 
         try {
             log.debug("Before target system destination URL look up.");
-            String destURL = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
-            if (log.isDebugEnabled()) {
-                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + destURL);
-            }
+            String destURL = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
+            log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + destURL);
 
             if (NullChecker.isNotNullish(destURL)) {
                 AdapterProvideAndRegisterDocumentSetSecuredRequestType wsRequest = new AdapterProvideAndRegisterDocumentSetSecuredRequestType();

@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.hiemadapter.proxy.notify;
 
 import com.sun.xml.ws.developer.WSBindingProvider;
+
+import gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredPortType;
 import gov.hhs.fha.nhinc.adapternotificationconsumersecured.AdapterNotificationConsumerPortSecureType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -39,9 +41,11 @@ import gov.hhs.fha.nhinc.hiem.dte.marshallers.NhincCommonAcknowledgementMarshall
 
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.oasis_open.docs.wsn.b_2.Notify;
 import org.w3c.dom.*;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
@@ -74,26 +78,31 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
         log.debug("start secured notify");
 
         String url = getUrl();
-        AdapterNotificationConsumerPortSecureType port = getPort(url, assertion);
+        if (NullChecker.isNotNullish(url)) {
+            AdapterNotificationConsumerPortSecureType port = getPort(url, assertion);
 
-        WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
-        Notify notify = subscribeMarshaller.unmarshalNotifyRequest(notifyElement);
+            WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
+            Notify notify = subscribeMarshaller.unmarshalNotifyRequest(notifyElement);
 
-        SamlTokenCreator tokenCreator = new SamlTokenCreator();
-        Map requestContext = tokenCreator.CreateRequestContext(assertion, url,
-                NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
-        ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            SamlTokenCreator tokenCreator = new SamlTokenCreator();
+            Map requestContext = tokenCreator.CreateRequestContext(assertion, url,
+                    NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
-        log.debug("attaching reference parameter headers");
-        SoapUtil soapUtil = new SoapUtil();
-        soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
+            log.debug("attaching reference parameter headers");
+            SoapUtil soapUtil = new SoapUtil();
+            soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
 
-        // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method invocation
-        response = port.notify(notify);
+            // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method
+            // invocation
+            response = port.notify(notify);
 
-        NhincCommonAcknowledgementMarshaller acknowledgementMarshaller = new NhincCommonAcknowledgementMarshaller();
-        responseElement = acknowledgementMarshaller.marshal(response);
-
+            NhincCommonAcknowledgementMarshaller acknowledgementMarshaller = new NhincCommonAcknowledgementMarshaller();
+            responseElement = acknowledgementMarshaller.marshal(response);
+        } else {
+            log.error("Failed to call the web service (" + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME
+                    + ").  The URL is null.");
+        }
         log.debug("end secured notify");
 
         return responseElement;
@@ -110,9 +119,9 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
     }
 
     private String getUrl() {
-        String url = "";
+        String url = null;
         try {
-            url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+            url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME
                     + " for local home community");

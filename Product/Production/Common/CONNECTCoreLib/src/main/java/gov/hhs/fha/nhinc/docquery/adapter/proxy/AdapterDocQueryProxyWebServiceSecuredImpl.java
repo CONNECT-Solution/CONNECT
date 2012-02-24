@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docquery.adapter.proxy;
 import gov.hhs.fha.nhinc.adapterdocquerysecured.AdapterDocQuerySecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.namespace.QName;
@@ -109,17 +110,23 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl implements AdapterDocQuer
         AdhocQueryResponse response = null;
 
         try {
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
-            AdapterDocQuerySecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION,
-                    assertion);
+            String url = oProxyHelper
+                    .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME);
+            if (NullChecker.isNotNullish(url)) {
+                AdapterDocQuerySecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION,
+                        WS_ADDRESSING_ACTION, assertion);
 
-            if (msg == null) {
-                log.error("Message was null");
-            } else if (port == null) {
-                log.error("port was null");
+                if (msg == null) {
+                    log.error("Message was null");
+                } else if (port == null) {
+                    log.error("port was null");
+                } else {
+                    response = (AdhocQueryResponse) oProxyHelper.invokePort(port, AdapterDocQuerySecuredPortType.class,
+                            "respondingGatewayCrossGatewayQuery", msg);
+                }
             } else {
-                response = (AdhocQueryResponse) oProxyHelper.invokePort(port, AdapterDocQuerySecuredPortType.class,
-                        "respondingGatewayCrossGatewayQuery", msg);
+                log.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME
+                        + ").  The URL is null.");
             }
         } catch (Exception ex) {
             log.error("Error sending Adapter Doc Query Secured message: " + ex.getMessage(), ex);
