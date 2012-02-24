@@ -897,13 +897,13 @@
                 <name xml:lang="en">adapterdocretrievedeferredrequest</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequest" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequest">
-                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredRequestUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequest" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequest">
-                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredRequestUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a1"/> 
                         </categoryBag>
@@ -917,13 +917,13 @@
                 <name xml:lang="en">adapterdocretrievedeferredrequestsecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequestsecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequestsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredRequestSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
 					<bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequestsecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequestsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredRequestSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a1"/> 
                         </categoryBag>
@@ -937,13 +937,13 @@
                 <name xml:lang="en">adapterdocretrievedeferredrequesterror</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterror" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterror">
-                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestErrorUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredRequestErrorUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
 					<bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterror" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterror">
-                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestErrorUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredRequestErrorUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a1"/> 
                         </categoryBag>
@@ -957,13 +957,13 @@
                 <name xml:lang="en">adapterdocretrievedeferredrequesterrorsecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterrorsecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterrorsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestErrorSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredRequestErrorSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
 					<bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterrorsecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredrequesterrorsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredRequestErrorSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredRequestErrorSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a1"/> 
                         </categoryBag>
@@ -1239,13 +1239,13 @@
                 <name xml:lang="en">adapterdocretrievedeferredresponsesecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredresponsesecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredresponsesecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredResponseSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredResponseSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
 					<bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredresponsesecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredresponsesecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredResponseSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredResponseSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a1"/> 
                         </categoryBag>
@@ -1279,13 +1279,13 @@
                 <name xml:lang="en">adaptercomponentdocretrievedeferredresponse</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentdocretrievedeferredresponse" serviceKey="uddi:testnhincnode:adaptercomponentdocretrievedeferredresponse">
-                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterComponentDocRetrieveDeferredResponseUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterComponentDocRetrieveDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
 					<bindingTemplate bindingKey="uddi:testnhincnode:adaptercomponentdocretrievedeferredresponse" serviceKey="uddi:testnhincnode:adaptercomponentdocretrievedeferredresponse">
-                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterComponentDocRetrieveDeferredResponseUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterComponentDocRetrieveDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a1"/> 
                         </categoryBag>
@@ -1299,13 +1299,13 @@
                 <name xml:lang="en">adapterdocretrievedeferredreqqueueprocess</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredreqqueueprocess" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredreqqueueprocess">
-                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredReqQueueProcess</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredReqQueueProcess</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
 					<bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredreqqueueprocess" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredreqqueueprocess">
-                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredReqQueueProcess</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredReqQueueProcess</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a1"/> 
                         </categoryBag>
@@ -1319,13 +1319,13 @@
                 <name xml:lang="en">adapterdocretrievedeferredresponseunsecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredresponseunsecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredresponseunsecured">
-                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredResponseUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
 					<bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredresponseunsecured" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredresponseunsecured">
-                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieveDeferredResponseUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a1"/> 
                         </categoryBag>
