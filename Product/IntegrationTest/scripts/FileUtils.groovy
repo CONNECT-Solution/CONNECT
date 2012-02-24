@@ -132,11 +132,11 @@ class FileUtils {
 		String fullPath = directory + "/" + fileName;
 		log.info("Path to connection info file: " + fullPath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
         Document doc = null;
         try
             {
               DocumentBuilder builder = factory.newDocumentBuilder();
-			   builder.isNamespaceAware(false);
               doc = builder.parse(fullPath);
             }
         catch (Exception e) {
@@ -196,32 +196,32 @@ class FileUtils {
           if(!serviceNodeFound)
           {
             // Create new service and add it to the services node
-            Element serviceElement = doc.createElement("businessService");
+            Element serviceElement = doc.createElementNS("urn:uddi-org:api_v3", "businessService");
             serviceElement.setAttribute("serviceKey", "uddi:testnhincnode:"+serviceName);
             serviceElement.setAttribute("businessKey", "uddi:testnhieonenode:"+communityId);
 
-            Element name = doc.createElement("name");
+            Element name = doc.createElementNS("urn:uddi-org:api_v3", "name");
             name.setAttribute("xml:lang", "en");
             name.setTextContent(serviceName);
             serviceElement.appendChild(name);
 
-            Element bindingTemplates = doc.createElement("bindingTemplates");
-            Element bindingTemplate = doc.createElement("bindingTemplate");
+            Element bindingTemplates = doc.createElementNS("urn:uddi-org:api_v3","bindingTemplates");
+            Element bindingTemplate = doc.createElementNS("urn:uddi-org:api_v3", "bindingTemplate");
             bindingTemplate.setAttribute("bindingKey", "uddi:testnhincnode:"+serviceName);
             bindingTemplate.setAttribute("serviceKey", "uddi:testnhincnode:"+serviceName);
-            Element accessPoint = doc.createElement("accessPoint");
+            Element accessPoint = doc.createElementNS("urn:uddi-org:api_v3", "accessPoint");
             accessPoint.setAttribute("useType", "endPoint");
             accessPoint.setTextContent(serviceUrl);
-            Element btCategoryBags = doc.createElement("categoryBags");
+            Element btCategoryBags = doc.createElementNS("urn:uddi-org:api_v3", "categoryBags");
             
             if(serviceName.toLowerCase().contains("adapter")){
-                Element keyedRefAdap = doc.createElement("keyedReference");
+                Element keyedRefAdap = doc.createElementNS("urn:uddi-org:api_v3", "keyedReference");
                 keyedRefAdap.setAttribute("tModelKey", "CONNECT:adapter:apilevel");
                 keyedRefAdap.setAttribute("keyName", "");
                 keyedRefAdap.setAttribute("keyValue", "LEVEL_a0");
                 btCategoryBags.appendChild(keyedRefAdap);
             }else {
-                Element btKeyedReference = doc.createElement("keyedReference");
+                Element btKeyedReference = doc.createElementNS("urn:uddi-org:api_v3", "keyedReference");
                 btKeyedReference.setAttribute("tModelKey","uddi:nhin:versionofservice");
                 btKeyedReference.setAttribute("keyValue",defaultVersion);
                 btCategoryBags.appendChild(btKeyedReference);
@@ -230,8 +230,8 @@ class FileUtils {
             bindingTemplate.appendChild(btCategoryBags);
             bindingTemplates.appendChild(bindingTemplate);
 
-            Element categoryBag = doc.createElement("categoryBag");
-            Element keyedReference = doc.createElement("keyedReference");
+            Element categoryBag = doc.createElementNS("urn:uddi-org:api_v3", "categoryBag");
+            Element keyedReference = doc.createElementNS("urn:uddi-org:api_v3", "keyedReference");
             keyedReference.setAttribute("tModelKey", "uddi:nhin:standard-servicenames");
             keyedReference.setAttribute("keyName", serviceName);
             keyedReference.setAttribute("keyValue", serviceName);
@@ -246,24 +246,25 @@ class FileUtils {
           break;
         }
     }
-    try
+try
     {
       Transformer transformer = TransformerFactory.newInstance().newTransformer();
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
       //initialize StreamResult with File object to save to file
       DOMSource source = new DOMSource(doc);
-	  FileOutputStream fileOutput = new FileOutputStream(fullPath);
-      transformer.transform(source, new StreamResult(fileOutput));
-	  fileOutput.close();
+   FileOutputStream fileOutput = new FileOutputStream(fullPath);
+   StreamResult stream = new StreamResult(fileOutput);
+      transformer.transform(source, stream);
+	fileOutput.finalize();
+	fileOutput.close();
+	log.info("Done createorupdate: " + fileName);
     }
     catch(Exception e)
     {
       log.error("Exception writing out connection info file: " + e.getMessage(), e);
     }
-
-		log.info("end CreateOrUpdateConnection");
-	}
+}
 	
   static InitializeNHINCProperties(context, log) {}
   
