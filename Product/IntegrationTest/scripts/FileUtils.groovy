@@ -179,7 +179,7 @@ class FileUtils {
 									if(currVersionString.equals("LEVEL_a1")){
 										latestVersionBindingTemplate = currBindingTemplate;
 									}//else template is prior version and doesn't need to be set
-								}//else it's the first item and the bindingtemplate hasn't been set
+								}else latestVersionBindingTemplate = currBindingTemplate;
 							}
 							else{
 								float currVersion = new Float(currVersionString);
