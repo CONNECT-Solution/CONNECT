@@ -212,7 +212,7 @@ class FileUtils {
             Element accessPoint = doc.createElementNS("urn:uddi-org:api_v3", "accessPoint");
             accessPoint.setAttribute("useType", "endPoint");
             accessPoint.setTextContent(serviceUrl);
-            Element btCategoryBags = doc.createElementNS("urn:uddi-org:api_v3", "categoryBags");
+            Element btCategoryBags = doc.createElementNS("urn:uddi-org:api_v3", "categoryBag");
             
             if(serviceName.toLowerCase().contains("adapter")){
                 Element keyedRefAdap = doc.createElementNS("urn:uddi-org:api_v3", "keyedReference");
@@ -222,7 +222,8 @@ class FileUtils {
                 btCategoryBags.appendChild(keyedRefAdap);
             }else {
                 Element btKeyedReference = doc.createElementNS("urn:uddi-org:api_v3", "keyedReference");
-                btKeyedReference.setAttribute("tModelKey","uddi:nhin:versionofservice");
+                btKeyedReference.setAttribute("keyName", "");
+				btKeyedReference.setAttribute("tModelKey","uddi:nhin:versionofservice");
                 btKeyedReference.setAttribute("keyValue",defaultVersion);
                 btCategoryBags.appendChild(btKeyedReference);
             }
