@@ -174,9 +174,9 @@ class FileUtils {
                             Element bindingCategoryBag = (Element)currBindingTemplate.getElementsByTagName("categoryBag").item(0);
                             Element bindingKeyedRef = (Element)bindingCategoryBag.getElementsByTagName("keyedReference").item(0);
                             String currVersionString = bindingKeyedRef.getAttribute("keyValue");
-							if(currVersionString.contains("LEVEL"){
+							if(currVersionString.contains("LEVEL")){
 								if(latestVersionBindingTemplate != null){
-									if(currVersionString.equals("LEVEL_a1"){
+									if(currVersionString.equals("LEVEL_a1")){
 										latestVersionBindingTemplate = currBindingTemplate;
 									}//else template is prior version and doesn't need to be set
 								}//else it's the first item and the bindingtemplate hasn't been set
@@ -267,7 +267,7 @@ try
    FileOutputStream fileOutput = new FileOutputStream(fullPath);
    StreamResult stream = new StreamResult(fileOutput);
       transformer.transform(source, stream);
-	fileOutput.finalize();
+	//fileOutput.finalize();
 	fileOutput.close();
 	log.info("Done createorupdate: " + fileName);
     }
