@@ -67,11 +67,10 @@
 					<con:interface>DocumentRepository_Binding</con:interface>
 					<con:operation>DocumentRepository_ProvideAndRegisterDocumentSet-b</con:operation>
 					<con:request name="Store Document">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRepository}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
    <soapenv:Header/>
    <soapenv:Body projectName="DocRegistryAndRepository" testCase="ProvideAndRegisterTest">
       <xdsb:ProvideAndRegisterDocumentSetRequest xmlns:xdsb="urn:ihe:iti:xds-b:2007">
@@ -319,7 +318,7 @@
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -345,19 +344,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T04:25:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T17:43:54Z</con:value>
+					<con:value>2012-02-25T04:35:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 04:25:27</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>

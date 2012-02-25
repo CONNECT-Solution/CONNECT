@@ -166,8 +166,7 @@
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -176,8 +175,7 @@ def mockHost = context.findProperty("MockHost");
 def mockPEURL = "http://" + mockHost + ":18088/mockPolicyEngine";
 def InitiatingHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, InitiatingHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="Generate patient ID for Doc Query" type="groovy">
 				<con:settings/>
@@ -195,11 +193,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="Document Query">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="NhincPolicyEngineTest" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -473,7 +470,7 @@ assert (documentID == msgDocID);
 log.info documentID + " " + msgDocID</scriptText>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocquery/NhincProxyDocQueryPortType/RespondingGateway_CrossGatewayQueryRequest" mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocquery/NhincProxyDocQueryPortType/RespondingGateway_CrossGatewayQueryRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -488,8 +485,7 @@ log.info documentID + " " + msgDocID</scriptText>
 					<con:timeout>60000</con:timeout>
 					<con:response>
 						<con:settings/>
-						<con:responseContent><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:policy:schema:os">
+						<con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:policy:schema:os">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:CheckPolicyResponse>
@@ -515,38 +511,23 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="RestoreInterrnalConnectionInfo" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("MockHost");
-def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def InitiatingHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", PEURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-04-26T00:00:00Z</con:value>
+					<con:value>2012-02-24T20:55:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-04-27T00:00:46Z</con:value>
+					<con:value>2012-02-24T21:05:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>04/26/2010 00:00:00</con:value>
+					<con:value>02/24/2012 20:55:29</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-05-26T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -567,8 +548,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -577,8 +557,7 @@ def mockHost = context.findProperty("MockHost");
 def mockPEURL = "http://" + mockHost + ":18088/mockPolicyEngine";
 def InitiatingHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, InitiatingHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="Generate HCID for Doc Retrieve" type="groovy">
 				<con:settings/>
@@ -595,11 +574,10 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 					<con:request name="Document Retrieve">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
-						</con:settings>
+						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="NhincPolicyEngineTest" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -850,7 +828,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 								<definition/>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -865,8 +843,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 					<con:timeout>60000</con:timeout>
 					<con:response>
 						<con:settings/>
-						<con:responseContent><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:policy:schema:os">
+						<con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:policy:schema:os">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:CheckPolicyResponse>
@@ -892,22 +869,7 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="RestoreInterrnalConnectionInfo" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("MockHost");
-def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def InitiatingHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", PEURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>DocumentUniqueId</con:name>
@@ -915,19 +877,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-04-26T00:00:00Z</con:value>
+					<con:value>2012-02-24T20:55:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-04-27T00:00:47Z</con:value>
+					<con:value>2012-02-24T21:05:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>04/26/2010 00:00:00</con:value>
+					<con:value>02/24/2012 20:55:30</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-05-26T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedLocalHCID</con:name>
@@ -3497,7 +3459,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 			<con:reportParameters/>
 			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="8a684085-93ef-4627-9bd2-878f6defa6e0" keepSession="false" maxResults="0" name="Audit Log Query" searchProperties="true">
+		<con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="8a684085-93ef-4627-9bd2-878f6defa6e0" keepSession="false" maxResults="0" name="Audit Log Query" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="Intialize Configurations" type="groovy">
 				<con:settings/>
@@ -3537,11 +3499,10 @@ context.testCase.setPropertyValue('FullPatientID', "${aqPatientID}^^^&amp;amp;${
 					<con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
 					<con:operation>findAuditEvents</con:operation>
 					<con:request name="Audit Log Query">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="NhincPolicyEngineTest" testCase="Audit Log Query">
       <urn:FindAuditEventsRequest>
@@ -3782,7 +3743,7 @@ context.testCase.setPropertyValue('FullPatientID', "${aqPatientID}^^^&amp;amp;${
 								<definition/>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery/NhincProxyAuditLogQueryPortType/findAuditEventsRequest" mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery/NhincProxyAuditLogQueryPortType/findAuditEventsRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -3797,8 +3758,7 @@ context.testCase.setPropertyValue('FullPatientID', "${aqPatientID}^^^&amp;amp;${
 					<con:timeout>60000</con:timeout>
 					<con:response>
 						<con:settings/>
-						<con:responseContent><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:policy:schema:os">
+						<con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:policy:schema:os">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:CheckPolicyResponse>
@@ -3873,7 +3833,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 	<con:properties>
 		<con:property>
 			<con:name>Endpoint-DocQuery</con:name>
-			<con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQueryUnsecured</con:value>
+			<con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</con:value>
 		</con:property>
 		<con:property>
 			<con:name>MockHost</con:name>
@@ -3973,7 +3933,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 		</con:property>
 		<con:property>
 			<con:name>Endpoint-DocRetrieve</con:name>
-			<con:value>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</con:value>
+			<con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured</con:value>
 		</con:property>
 		<con:property>
 			<con:name>LocalConfigDir</con:name>

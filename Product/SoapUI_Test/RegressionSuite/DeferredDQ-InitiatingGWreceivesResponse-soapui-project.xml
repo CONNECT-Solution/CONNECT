@@ -501,8 +501,7 @@
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -511,8 +510,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":18089/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
       </con:testStep>
       <con:testStep name="send request" type="request">
         <con:settings/>
@@ -2429,37 +2427,23 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep name="reset URL" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
-      </con:testStep>
+      
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-31T13:12:53Z</con:value>
+          <con:value>2012-02-25T02:08:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-31T13:22:53Z</con:value>
+          <con:value>2012-02-25T02:18:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2010 13:12:53</con:value>
+          <con:value>02/25/2012 02:08:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-30T00:00:00Z</con:value>
+          <con:value>2012-03-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2468,8 +2452,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -2478,8 +2461,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":18089/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
       </con:testStep>
       <con:testStep name="send request" type="request">
         <con:settings/>
@@ -4396,21 +4378,7 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep name="reset URL" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
-      </con:testStep>
+      
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -4879,27 +4847,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","serviceDocumentQuery
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Reset gateway.properties" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
-   properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","serviceDocumentQueryDeferredResp","true",context,log);</script>
-        </con:config>
-      </con:testStep>
+      
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -5368,27 +5316,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryDeferre
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Reset gateway.properties" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
-   properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryDeferredRespPassthrough","false",context,log);</script>
-        </con:config>
-      </con:testStep>
+      
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -5908,11 +5836,11 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
     
     
     
-    <con:property><con:name>Endpoint-DeferredDocQuery</con:name><con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocQueryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
+    <con:property><con:name>Endpoint-DeferredDocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/PassthruDocQueryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
     
     
     
-  <con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value></con:property></con:properties>
+  <con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

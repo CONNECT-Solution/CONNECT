@@ -917,19 +917,19 @@
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-16T22:51:57Z</con:value>
+          <con:value>2012-02-24T22:30:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-16T23:01:57Z</con:value>
+          <con:value>2012-02-24T22:40:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/16/2010 22:51:57</con:value>
+          <con:value>02/24/2012 22:30:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-15T00:00:00Z</con:value>
+          <con:value>2012-03-25T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -958,8 +958,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       </con:testStep>
       <con:testStep name="ModifyInterrnalConnectionInfoPE" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -969,8 +968,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
       </con:testStep>
       <con:testStep name="DocRetrieveDefResponse" type="request">
         <con:settings/>
@@ -2767,19 +2765,19 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-16T22:53:24Z</con:value>
+          <con:value>2012-02-24T22:30:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-16T23:03:24Z</con:value>
+          <con:value>2012-02-24T22:40:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/16/2010 22:53:24</con:value>
+          <con:value>02/24/2012 22:30:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-15T00:00:00Z</con:value>
+          <con:value>2012-03-25T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2808,8 +2806,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       </con:testStep>
       <con:testStep name="ModifyInterrnalConnectionInfoPE" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -2819,8 +2816,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
       </con:testStep>
       <con:testStep name="DocRetrieveDefResponse" type="request">
         <con:settings/>
@@ -4617,19 +4613,19 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-16T22:53:51Z</con:value>
+          <con:value>2012-02-24T22:30:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-16T23:03:51Z</con:value>
+          <con:value>2012-02-24T22:40:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/16/2010 22:53:51</con:value>
+          <con:value>02/24/2012 22:30:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-15T00:00:00Z</con:value>
+          <con:value>2012-03-25T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4924,19 +4920,19 @@ log.info nowDate;</script>
 assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-16T22:54:31Z</con:value>
+          <con:value>2012-02-24T22:30:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-16T23:04:31Z</con:value>
+          <con:value>2012-02-24T22:40:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/16/2010 22:54:31</con:value>
+          <con:value>02/24/2012 22:30:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-15T00:00:00Z</con:value>
+          <con:value>2012-03-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4944,7 +4940,7 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
         </con:property>
         <con:property>
           <con:name>DocRetDefUserID</con:name>
-          <con:value>DocfRetrieveDefUserMon Aug 16 22:59:31 UTC 2010</con:value>
+          <con:value>DocfRetrieveDefUserFri Feb 24 22:35:24 UTC 2012</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4974,7 +4970,7 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
     
     
     
-  <con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property></con:properties>
+  <con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

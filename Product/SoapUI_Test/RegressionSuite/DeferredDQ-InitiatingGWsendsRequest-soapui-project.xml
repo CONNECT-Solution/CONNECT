@@ -8,198 +8,7 @@
     <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQueryDeferredRequest</con:endpoint></con:endpoints>
     <con:operation action="" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="AcknowledgementMessage" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
-      <con:call name="Request 1">
-        <con:settings/>
-        <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>${#Project#Endpoint-DeferredDocQuery}</con:endpoint>
-        <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header/>
-   <soap:Body>
-      <urn:RespondingGateway_CrossGatewayQueryRequest>
-         <urn1:AdhocQueryRequest>
-            <urn1:ResponseOption/>
-            <urn2:AdhocQuery id="?"/>
-         </urn1:AdhocQueryRequest>
-         <urn:assertion>
-            <urn3:address>
-               <urn3:addressType>
-                  <urn3:code>?</urn3:code>
-                  <urn3:codeSystem>?</urn3:codeSystem>
-                  <urn3:codeSystemName>?</urn3:codeSystemName>
-                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
-                  <urn3:displayName>?</urn3:displayName>
-                  <urn3:originalText>?</urn3:originalText>
-               </urn3:addressType>
-               <urn3:city>?</urn3:city>
-               <urn3:country>?</urn3:country>
-               <urn3:state>?</urn3:state>
-               <urn3:streetAddress>?</urn3:streetAddress>
-               <urn3:zipCode>?</urn3:zipCode>
-            </urn3:address>
-            <urn3:dateOfBirth>?</urn3:dateOfBirth>
-            <urn3:explanationNonClaimantSignature>?</urn3:explanationNonClaimantSignature>
-            <urn3:haveSecondWitnessSignature>?</urn3:haveSecondWitnessSignature>
-            <urn3:haveSignature>?</urn3:haveSignature>
-            <urn3:haveWitnessSignature>?</urn3:haveWitnessSignature>
-            <urn3:homeCommunity>
-               <urn3:description>?</urn3:description>
-               <urn3:homeCommunityId>?</urn3:homeCommunityId>
-               <urn3:name>?</urn3:name>
-            </urn3:homeCommunity>
-            <urn3:personName>
-               <urn3:familyName>?</urn3:familyName>
-               <urn3:givenName>?</urn3:givenName>
-               <urn3:nameType>
-                  <urn3:code>?</urn3:code>
-                  <urn3:codeSystem>?</urn3:codeSystem>
-                  <urn3:codeSystemName>?</urn3:codeSystemName>
-                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
-                  <urn3:displayName>?</urn3:displayName>
-                  <urn3:originalText>?</urn3:originalText>
-               </urn3:nameType>
-               <urn3:secondNameOrInitials>?</urn3:secondNameOrInitials>
-               <urn3:fullName>?</urn3:fullName>
-               <urn3:prefix>?</urn3:prefix>
-               <urn3:suffix>?</urn3:suffix>
-            </urn3:personName>
-            <urn3:phoneNumber>
-               <urn3:areaCode>?</urn3:areaCode>
-               <urn3:countryCode>?</urn3:countryCode>
-               <urn3:extension>?</urn3:extension>
-               <urn3:localNumber>?</urn3:localNumber>
-               <urn3:phoneNumberType>
-                  <urn3:code>?</urn3:code>
-                  <urn3:codeSystem>?</urn3:codeSystem>
-                  <urn3:codeSystemName>?</urn3:codeSystemName>
-                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
-                  <urn3:displayName>?</urn3:displayName>
-                  <urn3:originalText>?</urn3:originalText>
-               </urn3:phoneNumberType>
-            </urn3:phoneNumber>
-            <urn3:secondWitnessAddress>
-               <urn3:addressType>
-                  <urn3:code>?</urn3:code>
-                  <urn3:codeSystem>?</urn3:codeSystem>
-                  <urn3:codeSystemName>?</urn3:codeSystemName>
-                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
-                  <urn3:displayName>?</urn3:displayName>
-                  <urn3:originalText>?</urn3:originalText>
-               </urn3:addressType>
-               <urn3:city>?</urn3:city>
-               <urn3:country>?</urn3:country>
-               <urn3:state>?</urn3:state>
-               <urn3:streetAddress>?</urn3:streetAddress>
-               <urn3:zipCode>?</urn3:zipCode>
-            </urn3:secondWitnessAddress>
-            <urn3:secondWitnessName>
-               <urn3:familyName>?</urn3:familyName>
-               <urn3:givenName>?</urn3:givenName>
-               <urn3:nameType>
-                  <urn3:code>?</urn3:code>
-                  <urn3:codeSystem>?</urn3:codeSystem>
-                  <urn3:codeSystemName>?</urn3:codeSystemName>
-                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
-                  <urn3:displayName>?</urn3:displayName>
-                  <urn3:originalText>?</urn3:originalText>
-               </urn3:nameType>
-               <urn3:secondNameOrInitials>?</urn3:secondNameOrInitials>
-               <urn3:fullName>?</urn3:fullName>
-               <urn3:prefix>?</urn3:prefix>
-               <urn3:suffix>?</urn3:suffix>
-            </urn3:secondWitnessName>
-            <urn3:secondWitnessPhone>
-               <urn3:areaCode>?</urn3:areaCode>
-               <urn3:countryCode>?</urn3:countryCode>
-               <urn3:extension>?</urn3:extension>
-               <urn3:localNumber>?</urn3:localNumber>
-               <urn3:phoneNumberType>
-                  <urn3:code>?</urn3:code>
-                  <urn3:codeSystem>?</urn3:codeSystem>
-                  <urn3:codeSystemName>?</urn3:codeSystemName>
-                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
-                  <urn3:displayName>?</urn3:displayName>
-                  <urn3:originalText>?</urn3:originalText>
-               </urn3:phoneNumberType>
-            </urn3:secondWitnessPhone>
-            <urn3:SSN>?</urn3:SSN>
-            <!--1 or more repetitions:-->
-            <urn3:uniquePatientId>?</urn3:uniquePatientId>
-            <urn3:witnessAddress>
-               <urn3:addressType>
-                  <urn3:code>?</urn3:code>
-                  <urn3:codeSystem>?</urn3:codeSystem>
-                  <urn3:codeSystemName>?</urn3:codeSystemName>
-                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
-                  <urn3:displayName>?</urn3:displayName>
-                  <urn3:originalText>?</urn3:originalText>
-               </urn3:addressType>
-               <urn3:city>?</urn3:city>
-               <urn3:country>?</urn3:country>
-               <urn3:state>?</urn3:state>
-               <urn3:streetAddress>?</urn3:streetAddress>
-               <urn3:zipCode>?</urn3:zipCode>
-            </urn3:witnessAddress>
-            <urn3:witnessName>
-               <urn3:familyName>?</urn3:familyName>
-               <urn3:givenName>?</urn3:givenName>
-               <urn3:nameType>
-                  <urn3:code>?</urn3:code>
-                  <urn3:codeSystem>?</urn3:codeSystem>
-                  <urn3:codeSystemName>?</urn3:codeSystemName>
-                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
-                  <urn3:displayName>?</urn3:displayName>
-                  <urn3:originalText>?</urn3:originalText>
-               </urn3:nameType>
-               <urn3:secondNameOrInitials>?</urn3:secondNameOrInitials>
-               <urn3:fullName>?</urn3:fullName>
-               <urn3:prefix>?</urn3:prefix>
-               <urn3:suffix>?</urn3:suffix>
-            </urn3:witnessName>
-            <urn3:witnessPhone>
-               <urn3:areaCode>?</urn3:areaCode>
-               <urn3:countryCode>?</urn3:countryCode>
-               <urn3:extension>?</urn3:extension>
-               <urn3:localNumber>?</urn3:localNumber>
-               <urn3:phoneNumberType>
-                  <urn3:code>?</urn3:code>
-                  <urn3:codeSystem>?</urn3:codeSystem>
-                  <urn3:codeSystemName>?</urn3:codeSystemName>
-                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
-                  <urn3:displayName>?</urn3:displayName>
-                  <urn3:originalText>?</urn3:originalText>
-               </urn3:phoneNumberType>
-            </urn3:witnessPhone>
-            <urn3:userInfo>
-               <urn3:personName>
-                  <urn3:familyName>?</urn3:familyName>
-                  <urn3:givenName>?</urn3:givenName>
-                  <urn3:nameType>
-                     <urn3:code>?</urn3:code>
-                     <urn3:codeSystem>?</urn3:codeSystem>
-                     <urn3:codeSystemName>?</urn3:codeSystemName>
-                     <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
-                     <urn3:displayName>?</urn3:displayName>
-                     <urn3:originalText>?</urn3:originalText>
-                  </urn3:nameType>
-                  <urn3:secondNameOrInitials>?</urn3:secondNameOrInitials>
-                  <urn3:fullName>?</urn3:fullName>
-                  <urn3:prefix>?</urn3:prefix>
-                  <urn3:suffix>?</urn3:suffix>
-               </urn3:personName>
-               <urn3:userName>?</urn3:userName>
-               <urn3:org>
-                  <urn3:description>?</urn3:description>
-                  <urn3:homeCommunityId>?</urn3:homeCommunityId>
-                  <urn3:name>?</urn3:name>
-               </urn3:org>
-            </urn3:userInfo>
-            <urn3:authorized>?</urn3:authorized>
-         </urn:assertion>
-      </urn:RespondingGateway_CrossGatewayQueryRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-        <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocquerydeferredrequest/EntityDocQueryDeferredRequestPortType/RespondingGateway_CrossGatewayQueryRequest" mustUnderstand="NONE" version="200508"/>
-      </con:call>
+      
     </con:operation>
   </con:interface>
   <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
@@ -210,287 +19,7 @@
     </con:endpoints>
     <con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
-      <con:call name="Request 1">
-        <con:settings/>
-        <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint>
-        <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:context:schema:os">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:CheckPolicyRequest>
-         <urn:assertion>
-            <urn1:address>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:address>
-            <urn1:dateOfBirth>?</urn1:dateOfBirth>
-            <urn1:dateOfSignature>?</urn1:dateOfSignature>
-            <urn1:expirationDate>?</urn1:expirationDate>
-            <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>?</urn1:haveSignature>
-            <urn1:haveWitnessSignature>?</urn1:haveWitnessSignature>
-            <urn1:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn1:homeCommunity>
-            <urn1:personName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-            </urn1:personName>
-            <urn1:phoneNumber>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>?</urn1:purposeOfDisclosure>
-            <urn1:secondWitnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:secondWitnessAddress>
-            <urn1:secondWitnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-            </urn1:secondWitnessName>
-            <urn1:secondWitnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:secondWitnessPhone>
-            <urn1:SSN>?</urn1:SSN>
-            <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>?</urn1:uniquePatientId>
-            <urn1:witnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:witnessAddress>
-            <urn1:witnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-            </urn1:witnessName>
-            <urn1:witnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:witnessPhone>
-            <urn1:userInfo>
-               <urn1:personName>
-                  <urn1:familyName>?</urn1:familyName>
-                  <urn1:givenName>?</urn1:givenName>
-                  <urn1:nameType>
-                     <urn1:code>?</urn1:code>
-                     <urn1:codeSystem>?</urn1:codeSystem>
-                     <urn1:codeSystemName>?</urn1:codeSystemName>
-                     <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                     <urn1:displayName>?</urn1:displayName>
-                     <urn1:originalText>?</urn1:originalText>
-                     <!--Zero or more repetitions:-->
-                     <urn1:translation/>
-                  </urn1:nameType>
-                  <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               </urn1:personName>
-               <urn1:userName>?</urn1:userName>
-               <urn1:role>?</urn1:role>
-               <urn1:org>
-                  <urn1:description>?</urn1:description>
-                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
-                  <urn1:name>?</urn1:name>
-               </urn1:org>
-               <!--Optional:-->
-               <urn1:roleCoded>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:roleCoded>
-            </urn1:userInfo>
-            <urn1:authorized>?</urn1:authorized>
-            <!--Optional:-->
-            <urn1:purposeOfDisclosureCoded>
-               <urn1:code>?</urn1:code>
-               <urn1:codeSystem>?</urn1:codeSystem>
-               <urn1:codeSystemName>?</urn1:codeSystemName>
-               <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-               <urn1:displayName>?</urn1:displayName>
-               <urn1:originalText>?</urn1:originalText>
-               <!--Zero or more repetitions:-->
-               <urn1:translation/>
-            </urn1:purposeOfDisclosureCoded>
-            <!--Optional:-->
-            <urn1:claimFormRef>?</urn1:claimFormRef>
-            <!--Optional:-->
-            <urn1:claimFormRaw>cid:878096191505</urn1:claimFormRaw>
-         </urn:assertion>
-         <urn:request>
-            <!--1 or more repetitions:-->
-            <urn2:Subject SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
-               <!--Zero or more repetitions:-->
-               <urn2:Attribute AttributeId="?" DataType="?" Issuer="?">
-                  <!--1 or more repetitions:-->
-                  <urn2:AttributeValue>
-                     e
-                     <!--You may enter ANY elements at this point-->
-                     gero
-                  </urn2:AttributeValue>
-               </urn2:Attribute>
-            </urn2:Subject>
-            <!--1 or more repetitions:-->
-            <urn2:Resource>
-               <!--Optional:-->
-               <urn2:ResourceContent>
-                  cum
-                  <!--You may enter ANY elements at this point-->
-                  sonoras
-               </urn2:ResourceContent>
-               <!--Zero or more repetitions:-->
-               <urn2:Attribute AttributeId="?" DataType="?" Issuer="?">
-                  <!--1 or more repetitions:-->
-                  <urn2:AttributeValue>
-                     aeoliam
-                     <!--You may enter ANY elements at this point-->
-                     quae
-                  </urn2:AttributeValue>
-               </urn2:Attribute>
-            </urn2:Resource>
-            <urn2:Action>
-               <!--Zero or more repetitions:-->
-               <urn2:Attribute AttributeId="?" DataType="?" Issuer="?">
-                  <!--1 or more repetitions:-->
-                  <urn2:AttributeValue>
-                     ventos
-                     <!--You may enter ANY elements at this point-->
-                     verrantque
-                  </urn2:AttributeValue>
-               </urn2:Attribute>
-            </urn2:Action>
-            <urn2:Environment>
-               <!--Zero or more repetitions:-->
-               <urn2:Attribute AttributeId="?" DataType="?" Issuer="?">
-                  <!--1 or more repetitions:-->
-                  <urn2:AttributeValue>
-                     temperat
-                     <!--You may enter ANY elements at this point-->
-                     per
-                  </urn2:AttributeValue>
-               </urn2:Attribute>
-            </urn2:Environment>
-         </urn:request>
-      </urn:CheckPolicyRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-        <con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterpolicyengine/AdapterPolicyEnginePortType/CheckPolicyRequest" mustUnderstand="NONE" version="200508"/>
-        <con:wsrmConfig version="1.2"/>
-      </con:call>
+      
     </con:operation>
   </con:interface>
   
@@ -817,21 +346,7 @@ context.withSql('PatientCorrelationDB') { sql -&gt;
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="reset URL" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
-      </con:testStep>
+      
       <con:properties>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -839,19 +354,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-22T22:25:35Z</con:value>
+          <con:value>2012-02-25T01:47:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-22T22:35:35Z</con:value>
+          <con:value>2012-02-25T01:57:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/22/2010 22:25:35</con:value>
+          <con:value>02/25/2012 01:47:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-21T00:00:00Z</con:value>
+          <con:value>2012-03-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1188,21 +703,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="reset URL" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
-      </con:testStep>
+      
       <con:properties>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1210,19 +711,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-22T22:27:47Z</con:value>
+          <con:value>2012-02-25T01:47:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-22T22:37:47Z</con:value>
+          <con:value>2012-02-25T01:57:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/22/2010 22:27:47</con:value>
+          <con:value>02/25/2012 01:47:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-21T00:00:00Z</con:value>
+          <con:value>2012-03-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1557,21 +1058,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="reset URL" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
-      </con:testStep>
+      
       <con:properties>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1579,19 +1066,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-22T22:28:48Z</con:value>
+          <con:value>2012-02-25T01:47:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-22T22:38:48Z</con:value>
+          <con:value>2012-02-25T01:57:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/22/2010 22:28:48</con:value>
+          <con:value>02/25/2012 01:47:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-21T00:00:00Z</con:value>
+          <con:value>2012-03-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1632,8 +1119,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
       </con:testStep>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -1642,8 +1128,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":18089/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
       </con:testStep>
       <con:testStep name="send request" type="request">
         <con:settings/>
@@ -3405,21 +2890,7 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep name="reset URL" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
-      </con:testStep>
+      
       <con:properties>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3427,19 +2898,19 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-22T22:35:45Z</con:value>
+          <con:value>2012-02-25T01:47:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-22T22:45:45Z</con:value>
+          <con:value>2012-02-25T01:57:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/22/2010 22:35:45</con:value>
+          <con:value>02/25/2012 01:47:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-21T00:00:00Z</con:value>
+          <con:value>2012-03-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3480,8 +2951,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
       </con:testStep>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -3490,8 +2960,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":18089/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
       </con:testStep>
       <con:testStep name="send request" type="request">
         <con:settings/>
@@ -5253,37 +4722,23 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep name="reset URL" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
-      </con:testStep>
+      
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-22T22:34:25Z</con:value>
+          <con:value>2012-02-25T01:47:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-22T22:44:25Z</con:value>
+          <con:value>2012-02-25T01:57:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/22/2010 22:34:25</con:value>
+          <con:value>02/25/2012 01:47:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-21T00:00:00Z</con:value>
+          <con:value>2012-03-26T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5641,19 +5096,19 @@ context.testCase.setPropertyValue('UserId',"${DDQUserID}${nowDate}1");</script>
 assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-16T19:52:13Z</con:value>
+          <con:value>2012-02-25T01:47:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-16T20:02:13Z</con:value>
+          <con:value>2012-02-25T01:57:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/16/2012 19:52:13</con:value>
+          <con:value>02/25/2012 01:47:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-17T00:00:00Z</con:value>
+          <con:value>2012-03-26T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5661,7 +5116,7 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>DeferredDQThu Feb 16 19:57:14 UTC 20121</con:value>
+          <con:value>DeferredDQSat Feb 25 01:52:32 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5686,7 +5141,7 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
     <con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DDQUserID</con:name><con:value>DeferredDQ</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property>
     
     
-    <con:property><con:name>Endpoint-DeferredDocQuery</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestUnsecured</con:value></con:property>
+    <con:property><con:name>Endpoint-DeferredDocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryDeferredRequestUnsecured</con:value></con:property>
     <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property>
     <con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property>
       <con:name>PatientCorrelationTable</con:name>
@@ -5696,7 +5151,7 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
     
     
     <con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property>
-  <con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value></con:property></con:properties>
+  <con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

@@ -1009,19 +1009,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:27:15Z</con:value>
+					<con:value>2012-02-24T20:20:32Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:37:15Z</con:value>
+					<con:value>2012-02-24T20:30:32Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:27:15</con:value>
+					<con:value>02/24/2012 20:20:32</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1031,8 +1031,7 @@
 			<con:settings/>
 			<con:testStep name="ModifyInterrnalConnectionInfoforMockAdapter" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -1043,8 +1042,7 @@ def mockAdapterRespURL = "http://" + mockHost + ":11211/mockAdapterUnsecuredResp
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequest", mockAdapterRespURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequest", mockAdapterRespURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
@@ -1057,8 +1055,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="NHINCRespGWReceiveDocRetrieveDefReqTest" testCase="NHINCProxyDocRetrieveDefReqPassthrough">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -1323,8 +1320,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdo
 					<con:timeout>30000</con:timeout>
 					<con:response>
 						<con:settings/>
-						<con:responseContent><![CDATA[
-							<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+						<con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns13:DocRetrieveAcknowledgement xmlns:ns2="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="http://docs.oasis-open.org/wsn/t-1" xmlns:ns5="http://nhinc.services.com/schema/auditmessage" xmlns:ns6="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns7="http://www.w3.org/2005/08/addressing" xmlns:ns8="http://docs.oasis-open.org/wsn/b-2" xmlns:ns9="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns10="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns12="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns13="http://www.hhs.gov/healthit/nhin" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns15="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns16="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns17="urn:ihe:iti:xds-b:2007" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns19="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns20="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns21="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
          <ns13:message status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted"/>
@@ -1358,19 +1354,19 @@ declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:27:16Z</con:value>
+					<con:value>2012-02-24T20:20:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:37:16Z</con:value>
+					<con:value>2012-02-24T20:30:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:27:16</con:value>
+					<con:value>02/24/2012 20:20:34</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1380,8 +1376,7 @@ declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:settings/>
 			<con:testStep name="ModifyInterrnalConnectionInfoPE" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -1392,8 +1387,7 @@ def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
@@ -3147,19 +3141,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:27:17Z</con:value>
+					<con:value>2012-02-24T20:20:35Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:37:17Z</con:value>
+					<con:value>2012-02-24T20:30:35Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:27:17</con:value>
+					<con:value>02/24/2012 20:20:35</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3169,8 +3163,7 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:settings/>
 			<con:testStep name="ModifyInterrnalConnectionInfoforMockAdapter" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -3181,13 +3174,11 @@ def mockAdapterRespURL = "http://" + mockHost + ":11233/mockAdapterUnsecuredResp
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequest", mockAdapterRespURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequest", mockAdapterRespURL,"LEVEL_a1", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfoPE" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -3198,8 +3189,7 @@ def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
@@ -4995,19 +4985,19 @@ declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:27:18Z</con:value>
+					<con:value>2012-02-24T20:20:36Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:37:18Z</con:value>
+					<con:value>2012-02-24T20:30:36Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:27:18</con:value>
+					<con:value>02/24/2012 20:20:36</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5017,8 +5007,7 @@ declare namespace ns20='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:settings/>
 			<con:testStep name="ModifyInterrnalConnectionInfoPE" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -5028,8 +5017,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
@@ -6783,19 +6771,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:27:18Z</con:value>
+					<con:value>2012-02-24T20:20:37Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:37:18Z</con:value>
+					<con:value>2012-02-24T20:30:37Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:27:18</con:value>
+					<con:value>02/24/2012 20:20:37</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6805,8 +6793,7 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:settings/>
 			<con:testStep name="ModifyInterrnalConnectionInfoforMockAdapterError" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -6817,16 +6804,14 @@ def mockAdapterErrorRespURL = "http://" + mockHost + ":11235/AdapterMockRespErro
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterror", mockAdapterErrorRespURL, context, log)
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterror", mockAdapterErrorRespURL, "LEVEL_a1", context, log)
 
 //The secure endpoint   - https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecuredService
-//The unsecure endpoint - http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</script>
-				</con:config>
+//The unsecure endpoint - http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</script></con:config>
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfoPE" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -6836,8 +6821,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
@@ -6850,8 +6834,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="NHINCRespGWReceiveDocRetrieveDefReqTest" testCase="NHINCProxyDocRetrieveDefReqDenyPE">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -7107,8 +7090,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 					<con:timeout>30000</con:timeout>
 					<con:response>
 						<con:settings/>
-						<con:responseContent><![CDATA[
-							<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+						<con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns15:CheckPolicyResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="http://nhinc.services.com/schema/auditmessage" xmlns:ns8="http://www.w3.org/2005/08/addressing" xmlns:ns9="http://docs.oasis-open.org/wsn/b-2" xmlns:ns10="urn:ihe:iti:xds-b:2007" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns12="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns13="http://docs.oasis-open.org/wsn/t-1" xmlns:ns14="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns18="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns19="http://schemas.xmlsoap.org/ws/2004/08/addressing">
          <ns15:response>
@@ -8589,8 +8571,7 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 					<con:timeout>30000</con:timeout>
 					<con:response>
 						<con:settings/>
-						<con:responseContent><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin">
+						<con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin">
    <soap:Header/>
    <soap:Body>
       <nhin:DocRetrieveAcknowledgement>
@@ -8614,19 +8595,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:27:19Z</con:value>
+					<con:value>2012-02-24T20:20:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:37:19Z</con:value>
+					<con:value>2012-02-24T20:30:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:27:19</con:value>
+					<con:value>02/24/2012 20:20:39</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -8913,19 +8894,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:27:20Z</con:value>
+					<con:value>2012-02-24T20:20:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:37:20Z</con:value>
+					<con:value>2012-02-24T20:30:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:27:20</con:value>
+					<con:value>02/24/2012 20:20:40</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -8935,8 +8916,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
 			<con:settings/>
 			<con:testStep name="ModifyInterrnalConnectionInfoforMockAdapterError" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -8947,11 +8927,10 @@ def mockAdapterErrorRespURL = "http://" + mockHost + ":11235/AdapterMockRespErro
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterror", mockAdapterErrorRespURL, context, log)
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterdocretrievedeferredrequesterror", mockAdapterErrorRespURL, "LEVEL_a1", context, log)
 
 //The secure endpoint   - https://localhost:8181/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorSecuredService
-//The unsecure endpoint - http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</script>
-				</con:config>
+//The unsecure endpoint - http://localhost:8080/CONNECTAdapter/AdapterDocRetrieveDeferredRequestErrorService</script></con:config>
 			</con:testStep>
 			<con:testStep name="Set Service Enabled Mode" type="groovy">
 				<con:settings/>
@@ -9239,8 +9218,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
 					<con:timeout>30000</con:timeout>
 					<con:response>
 						<con:settings/>
-						<con:responseContent><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin">
+						<con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin">
    <soap:Header/>
    <soap:Body>
       <nhin:DocRetrieveAcknowledgement>
@@ -9264,19 +9242,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:27:21Z</con:value>
+					<con:value>2012-02-24T20:20:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:37:21Z</con:value>
+					<con:value>2012-02-24T20:30:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:27:21</con:value>
+					<con:value>02/24/2012 20:20:42</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -9297,7 +9275,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
 		</con:property>
 		<con:property>
 			<con:name>Endpoint-DocRetrieve</con:name>
-			<con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredRequest</con:value>
+			<con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/NhincProxyDocRetrieveDeferredRequest</con:value>
 		</con:property>
 		<con:property>
 			<con:name>NHINGatewayConfigDir</con:name>
@@ -9355,7 +9333,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
 			<con:name>LocalHCDescription</con:name>
 			<con:value>InternalTest1</con:value>
 		</con:property>
-	</con:properties>
+	<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

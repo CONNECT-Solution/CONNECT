@@ -9,221 +9,7 @@
 		</con:endpoints>
 		<con:operation action="urn:CrossGatewayRetrieveRequest" anonymous="optional" bindingOperationName="CrossGatewayRetrieveRequest" inputName="CrossGatewayRetrieveRequest" isOneWay="false" name="CrossGatewayRetrieveRequest" outputName="CrossGatewayRetrieveAcknowledgement" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
-				</con:settings>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-				<con:request><![CDATA[
-					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soap:Header/>
-   <soap:Body>
-      <urn:RespondingGateway_CrossGatewayRetrieveRequest>
-         <urn1:RetrieveDocumentSetRequest>
-            <!--1 or more repetitions:-->
-            <urn1:DocumentRequest>
-               <urn1:RepositoryUniqueId>?</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>?</urn1:DocumentUniqueId>
-            </urn1:DocumentRequest>
-         </urn1:RetrieveDocumentSetRequest>
-         <urn:assertion>
-            <urn2:address>
-               <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
-            </urn2:address>
-            <urn2:dateOfBirth>?</urn2:dateOfBirth>
-            <urn2:explanationNonClaimantSignature>?</urn2:explanationNonClaimantSignature>
-            <urn2:haveSecondWitnessSignature>?</urn2:haveSecondWitnessSignature>
-            <urn2:haveSignature>?</urn2:haveSignature>
-            <urn2:haveWitnessSignature>?</urn2:haveWitnessSignature>
-            <urn2:homeCommunity>
-               <urn2:description>?</urn2:description>
-               <urn2:homeCommunityId>?</urn2:homeCommunityId>
-               <urn2:name>?</urn2:name>
-            </urn2:homeCommunity>
-            <urn2:personName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
-               <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-               <urn2:fullName>?</urn2:fullName>
-               <urn2:prefix>?</urn2:prefix>
-               <urn2:suffix>?</urn2:suffix>
-            </urn2:personName>
-            <urn2:phoneNumber>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
-               <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:phoneNumberType>
-            </urn2:phoneNumber>
-            <urn2:secondWitnessAddress>
-               <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
-            </urn2:secondWitnessAddress>
-            <urn2:secondWitnessName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
-               <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-               <urn2:fullName>?</urn2:fullName>
-               <urn2:prefix>?</urn2:prefix>
-               <urn2:suffix>?</urn2:suffix>
-            </urn2:secondWitnessName>
-            <urn2:secondWitnessPhone>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
-               <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:phoneNumberType>
-            </urn2:secondWitnessPhone>
-            <urn2:SSN>?</urn2:SSN>
-            <!--1 or more repetitions:-->
-            <urn2:uniquePatientId>?</urn2:uniquePatientId>
-            <urn2:witnessAddress>
-               <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
-            </urn2:witnessAddress>
-            <urn2:witnessName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
-               <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-               <urn2:fullName>?</urn2:fullName>
-               <urn2:prefix>?</urn2:prefix>
-               <urn2:suffix>?</urn2:suffix>
-            </urn2:witnessName>
-            <urn2:witnessPhone>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
-               <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:phoneNumberType>
-            </urn2:witnessPhone>
-            <urn2:userInfo>
-               <urn2:personName>
-                  <urn2:familyName>?</urn2:familyName>
-                  <urn2:givenName>?</urn2:givenName>
-                  <urn2:nameType>
-                     <urn2:code>?</urn2:code>
-                     <urn2:codeSystem>?</urn2:codeSystem>
-                     <urn2:codeSystemName>?</urn2:codeSystemName>
-                     <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                     <urn2:displayName>?</urn2:displayName>
-                     <urn2:originalText>?</urn2:originalText>
-                  </urn2:nameType>
-                  <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-                  <urn2:fullName>?</urn2:fullName>
-                  <urn2:prefix>?</urn2:prefix>
-                  <urn2:suffix>?</urn2:suffix>
-               </urn2:personName>
-               <urn2:userName>?</urn2:userName>
-               <urn2:org>
-                  <urn2:description>?</urn2:description>
-                  <urn2:homeCommunityId>?</urn2:homeCommunityId>
-                  <urn2:name>?</urn2:name>
-               </urn2:org>
-            </urn2:userInfo>
-            <urn2:authorized>?</urn2:authorized>
-         </urn:assertion>
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn2:epr>
-               <urn2:EndpointReference>
-                  <add:Address>?</add:Address>
-               </urn2:EndpointReference>
-            </urn2:epr>
-            <urn2:homeCommunity>
-               <urn2:description>?</urn2:description>
-               <urn2:homeCommunityId>?</urn2:homeCommunityId>
-               <urn2:name>?</urn2:name>
-            </urn2:homeCommunity>
-            <urn2:url>?</urn2:url>
-         </urn:nhinTargetSystem>
-      </urn:RespondingGateway_CrossGatewayRetrieveRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-				<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-				<con:jmsPropertyConfig/>
-				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrieveRequestPortType/CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
-				<con:wsrmConfig version="1.2"/>
-			</con:call>
+			
 		</con:operation>
 	</con:interface>
 	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
@@ -234,288 +20,7 @@
 		</con:endpoints>
 		<con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:context:schema:os">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:CheckPolicyRequest>
-         <urn:assertion>
-            <urn1:address>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:address>
-            <urn1:dateOfBirth>?</urn1:dateOfBirth>
-            <urn1:dateOfSignature>?</urn1:dateOfSignature>
-            <urn1:expirationDate>?</urn1:expirationDate>
-            <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>?</urn1:haveSignature>
-            <urn1:haveWitnessSignature>?</urn1:haveWitnessSignature>
-            <urn1:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn1:homeCommunity>
-            <urn1:personName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-            </urn1:personName>
-            <urn1:phoneNumber>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>?</urn1:purposeOfDisclosure>
-            <urn1:secondWitnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:secondWitnessAddress>
-            <urn1:secondWitnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-            </urn1:secondWitnessName>
-            <urn1:secondWitnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:secondWitnessPhone>
-            <urn1:SSN>?</urn1:SSN>
-            <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>?</urn1:uniquePatientId>
-            <urn1:witnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:witnessAddress>
-            <urn1:witnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-            </urn1:witnessName>
-            <urn1:witnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:witnessPhone>
-            <urn1:userInfo>
-               <urn1:personName>
-                  <urn1:familyName>?</urn1:familyName>
-                  <urn1:givenName>?</urn1:givenName>
-                  <urn1:nameType>
-                     <urn1:code>?</urn1:code>
-                     <urn1:codeSystem>?</urn1:codeSystem>
-                     <urn1:codeSystemName>?</urn1:codeSystemName>
-                     <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                     <urn1:displayName>?</urn1:displayName>
-                     <urn1:originalText>?</urn1:originalText>
-                     <!--Zero or more repetitions:-->
-                     <urn1:translation/>
-                  </urn1:nameType>
-                  <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               </urn1:personName>
-               <urn1:userName>?</urn1:userName>
-               <urn1:role>?</urn1:role>
-               <urn1:org>
-                  <urn1:description>?</urn1:description>
-                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
-                  <urn1:name>?</urn1:name>
-               </urn1:org>
-               <!--Optional:-->
-               <urn1:roleCoded>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:roleCoded>
-            </urn1:userInfo>
-            <urn1:authorized>?</urn1:authorized>
-            <!--Optional:-->
-            <urn1:purposeOfDisclosureCoded>
-               <urn1:code>?</urn1:code>
-               <urn1:codeSystem>?</urn1:codeSystem>
-               <urn1:codeSystemName>?</urn1:codeSystemName>
-               <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-               <urn1:displayName>?</urn1:displayName>
-               <urn1:originalText>?</urn1:originalText>
-               <!--Zero or more repetitions:-->
-               <urn1:translation/>
-            </urn1:purposeOfDisclosureCoded>
-            <!--Optional:-->
-            <urn1:claimFormRef>?</urn1:claimFormRef>
-            <!--Optional:-->
-            <urn1:claimFormRaw>cid:878096191505</urn1:claimFormRaw>
-         </urn:assertion>
-         <urn:request>
-            <!--1 or more repetitions:-->
-            <urn2:Subject SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
-               <!--Zero or more repetitions:-->
-               <urn2:Attribute AttributeId="?" DataType="?" Issuer="?">
-                  <!--1 or more repetitions:-->
-                  <urn2:AttributeValue>
-                     e
-                     <!--You may enter ANY elements at this point-->
-                     gero
-                  </urn2:AttributeValue>
-               </urn2:Attribute>
-            </urn2:Subject>
-            <!--1 or more repetitions:-->
-            <urn2:Resource>
-               <!--Optional:-->
-               <urn2:ResourceContent>
-                  cum
-                  <!--You may enter ANY elements at this point-->
-                  sonoras
-               </urn2:ResourceContent>
-               <!--Zero or more repetitions:-->
-               <urn2:Attribute AttributeId="?" DataType="?" Issuer="?">
-                  <!--1 or more repetitions:-->
-                  <urn2:AttributeValue>
-                     aeoliam
-                     <!--You may enter ANY elements at this point-->
-                     quae
-                  </urn2:AttributeValue>
-               </urn2:Attribute>
-            </urn2:Resource>
-            <urn2:Action>
-               <!--Zero or more repetitions:-->
-               <urn2:Attribute AttributeId="?" DataType="?" Issuer="?">
-                  <!--1 or more repetitions:-->
-                  <urn2:AttributeValue>
-                     ventos
-                     <!--You may enter ANY elements at this point-->
-                     verrantque
-                  </urn2:AttributeValue>
-               </urn2:Attribute>
-            </urn2:Action>
-            <urn2:Environment>
-               <!--Zero or more repetitions:-->
-               <urn2:Attribute AttributeId="?" DataType="?" Issuer="?">
-                  <!--1 or more repetitions:-->
-                  <urn2:AttributeValue>
-                     temperat
-                     <!--You may enter ANY elements at this point-->
-                     per
-                  </urn2:AttributeValue>
-               </urn2:Attribute>
-            </urn2:Environment>
-         </urn:request>
-      </urn:CheckPolicyRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterpolicyengine/AdapterPolicyEnginePortType/CheckPolicyRequest" mustUnderstand="NONE" version="200508"/>
-				<con:wsrmConfig version="1.2"/>
-			</con:call>
+			
 		</con:operation>
 	</con:interface>
 	
@@ -528,205 +33,7 @@
 		</con:endpoints>
 		<con:operation action="urn:CrossGatewayRetrieveRequest" anonymous="optional" bindingOperationName="CrossGatewayRetrieveRequest" inputName="CrossGatewayRetrieveRequestMessage" isOneWay="false" name="CrossGatewayRetrieveRequest" outputName="CrossGatewayRetrieveAcknowledgement" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequest</con:endpoint>
-				<con:request><![CDATA[
-					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header/>
-   <soap:Body>
-      <urn:RespondingGateway_CrossGatewayRetrieveRequest>
-         <urn1:RetrieveDocumentSetRequest>
-            <!--1 or more repetitions:-->
-            <urn1:DocumentRequest>
-               <urn1:RepositoryUniqueId>?</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>?</urn1:DocumentUniqueId>
-            </urn1:DocumentRequest>
-         </urn1:RetrieveDocumentSetRequest>
-         <urn:assertion>
-            <urn2:address>
-               <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
-            </urn2:address>
-            <urn2:dateOfBirth>?</urn2:dateOfBirth>
-            <urn2:explanationNonClaimantSignature>?</urn2:explanationNonClaimantSignature>
-            <urn2:haveSecondWitnessSignature>?</urn2:haveSecondWitnessSignature>
-            <urn2:haveSignature>?</urn2:haveSignature>
-            <urn2:haveWitnessSignature>?</urn2:haveWitnessSignature>
-            <urn2:homeCommunity>
-               <urn2:description>?</urn2:description>
-               <urn2:homeCommunityId>?</urn2:homeCommunityId>
-               <urn2:name>?</urn2:name>
-            </urn2:homeCommunity>
-            <urn2:personName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
-               <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-               <urn2:fullName>?</urn2:fullName>
-               <urn2:prefix>?</urn2:prefix>
-               <urn2:suffix>?</urn2:suffix>
-            </urn2:personName>
-            <urn2:phoneNumber>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
-               <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:phoneNumberType>
-            </urn2:phoneNumber>
-            <urn2:secondWitnessAddress>
-               <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
-            </urn2:secondWitnessAddress>
-            <urn2:secondWitnessName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
-               <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-               <urn2:fullName>?</urn2:fullName>
-               <urn2:prefix>?</urn2:prefix>
-               <urn2:suffix>?</urn2:suffix>
-            </urn2:secondWitnessName>
-            <urn2:secondWitnessPhone>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
-               <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:phoneNumberType>
-            </urn2:secondWitnessPhone>
-            <urn2:SSN>?</urn2:SSN>
-            <!--1 or more repetitions:-->
-            <urn2:uniquePatientId>?</urn2:uniquePatientId>
-            <urn2:witnessAddress>
-               <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
-            </urn2:witnessAddress>
-            <urn2:witnessName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
-               <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-               <urn2:fullName>?</urn2:fullName>
-               <urn2:prefix>?</urn2:prefix>
-               <urn2:suffix>?</urn2:suffix>
-            </urn2:witnessName>
-            <urn2:witnessPhone>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
-               <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:phoneNumberType>
-            </urn2:witnessPhone>
-            <urn2:userInfo>
-               <urn2:personName>
-                  <urn2:familyName>?</urn2:familyName>
-                  <urn2:givenName>?</urn2:givenName>
-                  <urn2:nameType>
-                     <urn2:code>?</urn2:code>
-                     <urn2:codeSystem>?</urn2:codeSystem>
-                     <urn2:codeSystemName>?</urn2:codeSystemName>
-                     <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                     <urn2:displayName>?</urn2:displayName>
-                     <urn2:originalText>?</urn2:originalText>
-                  </urn2:nameType>
-                  <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-                  <urn2:fullName>?</urn2:fullName>
-                  <urn2:prefix>?</urn2:prefix>
-                  <urn2:suffix>?</urn2:suffix>
-               </urn2:personName>
-               <urn2:userName>?</urn2:userName>
-               <urn2:org>
-                  <urn2:description>?</urn2:description>
-                  <urn2:homeCommunityId>?</urn2:homeCommunityId>
-                  <urn2:name>?</urn2:name>
-               </urn2:org>
-            </urn2:userInfo>
-            <urn2:authorized>?</urn2:authorized>
-         </urn:assertion>
-      </urn:RespondingGateway_CrossGatewayRetrieveRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-				<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-				<con:jmsPropertyConfig/>
-				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreq/AdapterDocRetrieveDeferredRequestPortType/CrossGatewayRetrieveRequestMessage" mustUnderstand="NONE" version="200508"/>
-				<con:wsrmConfig version="1.2"/>
-			</con:call>
+			
 		</con:operation>
 	</con:interface>
 	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrequesterror}AdapterDocRetrieveDeferredRequestErrorBinding" definition="WSDL path not set.  #AdapterDocRetrieveDeferredReqError.wsdl" name="AdapterDocRetrieveDeferredRequestErrorBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
@@ -737,202 +44,7 @@
 		</con:endpoints>
 		<con:operation action="tns:CrossGatewayRetrieveRequestError" anonymous="optional" bindingOperationName="CrossGatewayRetrieveRequestError" inputName="" isOneWay="false" name="CrossGatewayRetrieveRequestError" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>https://localhost:${HttpsDefaultPort}/AdapterDocRetrieveDeferredRequestError</con:endpoint>
-				<con:request><![CDATA[
-					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:ihe:iti:xds-b:2007">
-   <soap:Header/>
-   <soap:Body>
-      <urn:AdapterDocumentRetrieveDeferredRequestError>
-         <urn:assertion>
-            <urn1:address>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:address>
-            <urn1:dateOfBirth>?</urn1:dateOfBirth>
-            <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>?</urn1:haveSignature>
-            <urn1:haveWitnessSignature>?</urn1:haveWitnessSignature>
-            <urn1:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn1:homeCommunity>
-            <urn1:personName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:personName>
-            <urn1:phoneNumber>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:phoneNumber>
-            <urn1:secondWitnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:secondWitnessAddress>
-            <urn1:secondWitnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:secondWitnessName>
-            <urn1:secondWitnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:secondWitnessPhone>
-            <urn1:SSN>?</urn1:SSN>
-            <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>?</urn1:uniquePatientId>
-            <urn1:witnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:witnessAddress>
-            <urn1:witnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:witnessName>
-            <urn1:witnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:witnessPhone>
-            <urn1:userInfo>
-               <urn1:personName>
-                  <urn1:familyName>?</urn1:familyName>
-                  <urn1:givenName>?</urn1:givenName>
-                  <urn1:nameType>
-                     <urn1:code>?</urn1:code>
-                     <urn1:codeSystem>?</urn1:codeSystem>
-                     <urn1:codeSystemName>?</urn1:codeSystemName>
-                     <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                     <urn1:displayName>?</urn1:displayName>
-                     <urn1:originalText>?</urn1:originalText>
-                  </urn1:nameType>
-                  <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-                  <urn1:fullName>?</urn1:fullName>
-                  <urn1:prefix>?</urn1:prefix>
-                  <urn1:suffix>?</urn1:suffix>
-               </urn1:personName>
-               <urn1:userName>?</urn1:userName>
-               <urn1:org>
-                  <urn1:description>?</urn1:description>
-                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
-                  <urn1:name>?</urn1:name>
-               </urn1:org>
-            </urn1:userInfo>
-            <urn1:authorized>?</urn1:authorized>
-         </urn:assertion>
-         <urn:RetrieveDocumentSetRequest>
-            <!--1 or more repetitions:-->
-            <urn2:DocumentRequest>
-               <urn2:RepositoryUniqueId>?</urn2:RepositoryUniqueId>
-               <urn2:DocumentUniqueId>?</urn2:DocumentUniqueId>
-            </urn2:DocumentRequest>
-         </urn:RetrieveDocumentSetRequest>
-      </urn:AdapterDocumentRetrieveDeferredRequestError>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrequest:CrossGatewayRetrieveRequestErrorMessage" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
 	</con:interface>
 	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreq}AdapterDocRetrieveDeferredRequestBindingSoap" definition="WSDL path not set.  #AdapterDocRetrieveDeferredReq.wsdl" name="AdapterDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
@@ -943,207 +55,7 @@
 		</con:endpoints>
 		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="CrossGatewayRetrieveRequest" inputName="CrossGatewayRetrieveRequestMessage" isOneWay="false" name="CrossGatewayRetrieveRequest" outputName="CrossGatewayRetrieveAcknowledgement" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequest</con:endpoint>
-				<con:request><![CDATA[
-					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header/>
-   <soap:Body>
-      <urn:RespondingGateway_CrossGatewayRetrieveRequest>
-         <urn1:RetrieveDocumentSetRequest>
-            <!--1 or more repetitions:-->
-            <urn1:DocumentRequest>
-               <urn1:RepositoryUniqueId>?</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>?</urn1:DocumentUniqueId>
-            </urn1:DocumentRequest>
-         </urn1:RetrieveDocumentSetRequest>
-         <urn:assertion>
-            <urn2:address>
-               <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
-            </urn2:address>
-            <urn2:dateOfBirth>?</urn2:dateOfBirth>
-            <urn2:explanationNonClaimantSignature>?</urn2:explanationNonClaimantSignature>
-            <urn2:haveSecondWitnessSignature>?</urn2:haveSecondWitnessSignature>
-            <urn2:haveSignature>?</urn2:haveSignature>
-            <urn2:haveWitnessSignature>?</urn2:haveWitnessSignature>
-            <urn2:homeCommunity>
-               <urn2:description>?</urn2:description>
-               <urn2:homeCommunityId>?</urn2:homeCommunityId>
-               <urn2:name>?</urn2:name>
-            </urn2:homeCommunity>
-            <urn2:personName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
-               <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-               <urn2:fullName>?</urn2:fullName>
-               <urn2:prefix>?</urn2:prefix>
-               <urn2:suffix>?</urn2:suffix>
-            </urn2:personName>
-            <urn2:phoneNumber>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
-               <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:phoneNumberType>
-            </urn2:phoneNumber>
-            <urn2:secondWitnessAddress>
-               <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
-            </urn2:secondWitnessAddress>
-            <urn2:secondWitnessName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
-               <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-               <urn2:fullName>?</urn2:fullName>
-               <urn2:prefix>?</urn2:prefix>
-               <urn2:suffix>?</urn2:suffix>
-            </urn2:secondWitnessName>
-            <urn2:secondWitnessPhone>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
-               <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:phoneNumberType>
-            </urn2:secondWitnessPhone>
-            <urn2:SSN>?</urn2:SSN>
-            <!--1 or more repetitions:-->
-            <urn2:uniquePatientId>?</urn2:uniquePatientId>
-            <urn2:witnessAddress>
-               <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
-            </urn2:witnessAddress>
-            <urn2:witnessName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
-               <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-               <urn2:fullName>?</urn2:fullName>
-               <urn2:prefix>?</urn2:prefix>
-               <urn2:suffix>?</urn2:suffix>
-            </urn2:witnessName>
-            <urn2:witnessPhone>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
-               <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
-               </urn2:phoneNumberType>
-            </urn2:witnessPhone>
-            <urn2:userInfo>
-               <urn2:personName>
-                  <urn2:familyName>?</urn2:familyName>
-                  <urn2:givenName>?</urn2:givenName>
-                  <urn2:nameType>
-                     <urn2:code>?</urn2:code>
-                     <urn2:codeSystem>?</urn2:codeSystem>
-                     <urn2:codeSystemName>?</urn2:codeSystemName>
-                     <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                     <urn2:displayName>?</urn2:displayName>
-                     <urn2:originalText>?</urn2:originalText>
-                  </urn2:nameType>
-                  <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
-                  <urn2:fullName>?</urn2:fullName>
-                  <urn2:prefix>?</urn2:prefix>
-                  <urn2:suffix>?</urn2:suffix>
-               </urn2:personName>
-               <urn2:userName>?</urn2:userName>
-               <urn2:org>
-                  <urn2:description>?</urn2:description>
-                  <urn2:homeCommunityId>?</urn2:homeCommunityId>
-                  <urn2:name>?</urn2:name>
-               </urn2:org>
-            </urn2:userInfo>
-            <urn2:authorized>?</urn2:authorized>
-            <!--1 or more repetitions:-->
-            <urn2:relatesToList>?</urn2:relatesToList>
-         </urn:assertion>
-      </urn:RespondingGateway_CrossGatewayRetrieveRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-				<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-				<con:jmsPropertyConfig/>
-				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreq/AdapterDocRetrieveDeferredRequestPortType/CrossGatewayRetrieveRequestMessage" mustUnderstand="NONE" version="200508"/>
-				<con:wsrmConfig version="1.2"/>
-			</con:call>
+			
 		</con:operation>
 	</con:interface>
 	<con:testSuite name="NHINCRespGWReceiveDocRetrieveDefReqAtJavaImplAdapTestSuite">
@@ -1423,19 +335,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T19:14:12Z</con:value>
+					<con:value>2012-02-24T20:30:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T19:24:12Z</con:value>
+					<con:value>2012-02-24T20:40:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 19:14:12</con:value>
+					<con:value>02/24/2012 20:30:29</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1731,19 +643,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T19:14:12Z</con:value>
+					<con:value>2012-02-24T20:30:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T19:24:12Z</con:value>
+					<con:value>2012-02-24T20:40:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 19:14:12</con:value>
+					<con:value>02/24/2012 20:30:30</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1771,8 +683,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfoPE" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -1783,8 +694,7 @@ def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
@@ -3538,19 +2448,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T19:14:13Z</con:value>
+					<con:value>2012-02-24T20:30:31Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T19:24:13Z</con:value>
+					<con:value>2012-02-24T20:40:31Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 19:14:13</con:value>
+					<con:value>02/24/2012 20:30:31</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3578,8 +2488,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfoPE" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -3589,8 +2498,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
@@ -5344,19 +4252,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T19:14:43Z</con:value>
+					<con:value>2012-02-24T20:30:33Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T19:24:43Z</con:value>
+					<con:value>2012-02-24T20:40:33Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 19:14:43</con:value>
+					<con:value>02/24/2012 20:30:33</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5643,19 +4551,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T19:15:14Z</con:value>
+					<con:value>2012-02-24T20:30:35Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T19:25:14Z</con:value>
+					<con:value>2012-02-24T20:40:35Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 19:15:14</con:value>
+					<con:value>02/24/2012 20:30:35</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5969,19 +4877,19 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
 assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T19:15:15Z</con:value>
+					<con:value>2012-02-24T20:30:37Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T19:25:15Z</con:value>
+					<con:value>2012-02-24T20:40:37Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 19:15:15</con:value>
+					<con:value>02/24/2012 20:30:37</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -5989,7 +4897,7 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 				</con:property>
 				<con:property>
 					<con:name>DocRetDefUserID</con:name>
-					<con:value>DocfRetrieveDefUserMon Aug 23 19:20:15 UTC 2010</con:value>
+					<con:value>DocfRetrieveDefUserFri Feb 24 20:35:37 UTC 2012</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6068,7 +4976,7 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 			<con:name>DocRetPatientID</con:name>
 			<con:value>D123401</con:value>
 		</con:property>
-	<con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property></con:properties>
+	<con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

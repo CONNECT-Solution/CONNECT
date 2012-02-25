@@ -42,7 +42,7 @@
       <con:endpoint>${#Project#Endpoint-EntityXDRResponse}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRAsyncRequest</con:endpoint>
     </con:endpoints>
-    <con:operation action="tns:ProvideAndRegisterDocumentSet-bAsyncRequest" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
   </con:interface>
@@ -345,8 +345,7 @@
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -354,8 +353,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
       </con:testStep>
       <con:testStep name="EntityXDRresponse - Request" type="request">
         <con:settings/>
@@ -624,13 +622,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
               </con:configuration>
             </con:assertion>
             <con:assertion name="Match content of [@status]" type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns20='http://www.hhs.gov/healthit/nhin';
-//ns20:XDRAcknowledgement[1]/ns20:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns20='http://www.hhs.gov/healthit/nhin';
+//ns20:XDRAcknowledgement[1]/ns20:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -2119,36 +2112,23 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep name="Reset PE URL" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
-      </con:testStep>
+      
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-30T15:41:08Z</con:value>
+          <con:value>2012-02-24T22:23:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-30T17:46:08Z</con:value>
+          <con:value>2012-02-25T00:28:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/30/2010 15:41:08</con:value>
+          <con:value>02/24/2012 22:23:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-29T00:00:00Z</con:value>
+          <con:value>2012-03-25T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2157,8 +2137,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -2166,8 +2145,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
       </con:testStep>
       <con:testStep name="EntityXDRresponse - Request" type="request">
         <con:settings/>
@@ -3931,36 +3909,23 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
           </con:assertion>
         </con:config>
       </con:testStep>
-      <con:testStep name="Reset PE URL" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-        </con:config>
-      </con:testStep>
+      
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T19:31:19Z</con:value>
+          <con:value>2012-02-24T22:23:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T21:36:19Z</con:value>
+          <con:value>2012-02-25T00:28:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 19:31:19</con:value>
+          <con:value>02/24/2012 22:23:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-26T00:00:00Z</con:value>
+          <con:value>2012-03-25T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4222,13 +4187,8 @@ context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${lo
               </con:configuration>
             </con:assertion>
             <con:assertion name="Match content of [@status]" type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns20='http://www.hhs.gov/healthit/nhin';
-//ns20:XDRAcknowledgement[1]/ns20:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns20='http://www.hhs.gov/healthit/nhin';
+//ns20:XDRAcknowledgement[1]/ns20:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -4243,23 +4203,23 @@ context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${lo
 assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-27T19:31:42Z</con:value>
+          <con:value>2012-02-24T22:23:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-27T21:36:42Z</con:value>
+          <con:value>2012-02-25T00:28:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2010 19:31:42</con:value>
+          <con:value>02/24/2012 22:23:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-26T00:00:00Z</con:value>
+          <con:value>2012-03-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserFri Aug 27 19:36:42 UTC 2010</con:value>
+          <con:value>XDR Request Inbound UserFri Feb 24 22:28:37 UTC 2012</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4307,7 +4267,7 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
     </con:property>
     <con:property>
       <con:name>Endpoint-NhincProxyXDRRequest</con:name>
-      <con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>NHINGatewayHost</con:name>
@@ -4323,7 +4283,7 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
     </con:property>
     <con:property>
       <con:name>Endpoint-EntityXDRRequest</con:name>
-      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>LocalHCDescription</con:name>
@@ -4331,9 +4291,9 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
     </con:property>
     <con:property>
       <con:name>Endpoint-EntityXDRResponse</con:name>
-      <con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
     </con:property>
-  </con:properties>
+  <con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'EntitySendingXDRAsyncResponseTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()

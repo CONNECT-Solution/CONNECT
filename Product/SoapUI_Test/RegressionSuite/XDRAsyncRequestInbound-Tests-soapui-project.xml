@@ -363,344 +363,9 @@
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRResponse</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint>
 		</con:endpoints>
-		<con:operation action="tns:ProvideAndRegisterDocumentSet-bAsyncResponse" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRResponse</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
-         <urn:assertion>
-            <urn1:address>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:address>
-            <urn1:dateOfBirth>?</urn1:dateOfBirth>
-            <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>?</urn1:haveSignature>
-            <urn1:haveWitnessSignature>?</urn1:haveWitnessSignature>
-            <urn1:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn1:homeCommunity>
-            <urn1:personName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:personName>
-            <urn1:phoneNumber>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:phoneNumber>
-            <urn1:secondWitnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:secondWitnessAddress>
-            <urn1:secondWitnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:secondWitnessName>
-            <urn1:secondWitnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:secondWitnessPhone>
-            <urn1:SSN>?</urn1:SSN>
-            <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>?</urn1:uniquePatientId>
-            <urn1:witnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:witnessAddress>
-            <urn1:witnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:witnessName>
-            <urn1:witnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:witnessPhone>
-            <urn1:userInfo>
-               <urn1:personName>
-                  <urn1:familyName>?</urn1:familyName>
-                  <urn1:givenName>?</urn1:givenName>
-                  <urn1:nameType>
-                     <urn1:code>?</urn1:code>
-                     <urn1:codeSystem>?</urn1:codeSystem>
-                     <urn1:codeSystemName>?</urn1:codeSystemName>
-                     <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                     <urn1:displayName>?</urn1:displayName>
-                     <urn1:originalText>?</urn1:originalText>
-                     <!--Zero or more repetitions:-->
-                     <urn1:translation/>
-                  </urn1:nameType>
-                  <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-                  <urn1:fullName>?</urn1:fullName>
-                  <urn1:prefix>?</urn1:prefix>
-                  <urn1:suffix>?</urn1:suffix>
-               </urn1:personName>
-               <urn1:userName>?</urn1:userName>
-               <urn1:org>
-                  <urn1:description>?</urn1:description>
-                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
-                  <urn1:name>?</urn1:name>
-               </urn1:org>
-               <!--Optional:-->
-               <urn1:roleCoded>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:roleCoded>
-            </urn1:userInfo>
-            <urn1:authorized>?</urn1:authorized>
-            <!--Optional:-->
-            <urn1:purposeOfDisclosureCoded>
-               <urn1:code>?</urn1:code>
-               <urn1:codeSystem>?</urn1:codeSystem>
-               <urn1:codeSystemName>?</urn1:codeSystemName>
-               <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-               <urn1:displayName>?</urn1:displayName>
-               <urn1:originalText>?</urn1:originalText>
-               <!--Zero or more repetitions:-->
-               <urn1:translation/>
-            </urn1:purposeOfDisclosureCoded>
-            <!--Optional:-->
-            <urn1:samlAuthnStatement>
-               <!--Optional:-->
-               <urn1:authInstant>?</urn1:authInstant>
-               <!--Optional:-->
-               <urn1:sessionIndex>?</urn1:sessionIndex>
-               <!--Optional:-->
-               <urn1:authContextClassRef>?</urn1:authContextClassRef>
-               <!--Optional:-->
-               <urn1:subjectLocalityAddress>?</urn1:subjectLocalityAddress>
-               <!--Optional:-->
-               <urn1:subjectLocalityDNSName>?</urn1:subjectLocalityDNSName>
-            </urn1:samlAuthnStatement>
-            <!--Optional:-->
-            <urn1:samlAuthzDecisionStatement>
-               <!--Optional:-->
-               <urn1:decision>?</urn1:decision>
-               <!--Optional:-->
-               <urn1:resource>?</urn1:resource>
-               <!--Optional:-->
-               <urn1:action>?</urn1:action>
-               <!--Optional:-->
-               <urn1:evidence>
-                  <!--Optional:-->
-                  <urn1:assertion>
-                     <!--Optional:-->
-                     <urn1:id>?</urn1:id>
-                     <!--Optional:-->
-                     <urn1:issueInstant>?</urn1:issueInstant>
-                     <!--Optional:-->
-                     <urn1:version>?</urn1:version>
-                     <!--Optional:-->
-                     <urn1:issuer>?</urn1:issuer>
-                     <!--Optional:-->
-                     <urn1:issuerFormat>?</urn1:issuerFormat>
-                     <!--Optional:-->
-                     <urn1:conditions>
-                        <!--Optional:-->
-                        <urn1:notBefore>?</urn1:notBefore>
-                        <!--Optional:-->
-                        <urn1:notOnOrAfter>?</urn1:notOnOrAfter>
-                     </urn1:conditions>
-                     <!--Optional:-->
-                     <urn1:accessConsentPolicy>?</urn1:accessConsentPolicy>
-                     <!--Optional:-->
-                     <urn1:instanceAccessConsentPolicy>?</urn1:instanceAccessConsentPolicy>
-                  </urn1:assertion>
-               </urn1:evidence>
-            </urn1:samlAuthzDecisionStatement>
-            <!--Optional:-->
-            <urn1:samlSignature>
-               <!--Optional:-->
-               <urn1:keyInfo>
-                  <!--Optional:-->
-                  <urn1:rsaKeyValueModulus>cid:94948575752</urn1:rsaKeyValueModulus>
-                  <!--Optional:-->
-                  <urn1:rsaKeyValueExponent>cid:1204574493350</urn1:rsaKeyValueExponent>
-               </urn1:keyInfo>
-               <!--Optional:-->
-               <urn1:signatureValue>cid:546547820641</urn1:signatureValue>
-            </urn1:samlSignature>
-         </urn:assertion>
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-                  <!--Optional:-->
-                  <add:ReferenceProperties>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceProperties>
-                  <!--Optional:-->
-                  <add:ReferenceParameters>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceParameters>
-                  <!--Optional:-->
-                  <add:PortType>?</add:PortType>
-                  <!--Optional:-->
-                  <add:ServiceName PortName="?">?</add:ServiceName>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:EndpointReference>
-            </urn1:epr>
-            <urn1:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
-         </urn:nhinTargetSystem>
-         <urn:RegistryResponse status="?" requestId="?">
-            <!--Optional:-->
-            <urn2:ResponseSlotList>
-               <!--Zero or more repetitions:-->
-               <urn3:Slot name="?" slotType="?">
-                  <urn3:ValueList>
-                     <urn3:Value>?</urn3:Value>
-                  </urn3:ValueList>
-               </urn3:Slot>
-            </urn2:ResponseSlotList>
-            <!--Optional:-->
-            <urn2:RegistryErrorList highestSeverity="?">
-               <!--1 or more repetitions:-->
-               <urn2:RegistryError codeContext="?" errorCode="?" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" location="?">?</urn2:RegistryError>
-            </urn2:RegistryErrorList>
-         </urn:RegistryResponse>
-      </urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-bResponse" mustUnderstand="NONE" version="200508"/>
-				<con:wsrmConfig version="1.2"/>
-			</con:call>
+			
 		</con:operation>
 	</con:interface>
 	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
@@ -1470,19 +1135,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-30T17:43:43Z</con:value>
+					<con:value>2012-02-24T15:50:28Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-30T17:53:43Z</con:value>
+					<con:value>2012-02-24T16:00:28Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/30/2010 17:43:43</con:value>
+					<con:value>02/24/2012 15:50:28</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-29T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1492,8 +1157,7 @@
 			<con:settings/>
 			<con:testStep name="Set PolicyEngine Mock" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -1501,8 +1165,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="NhincXDRRequest" type="request">
 				<con:settings/>
@@ -1515,8 +1178,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-NhincProxyXDRRequest}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="XDRAsyncRequestInboundTest" testCase="PolicyCheck - Deny">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -1981,8 +1643,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 					<con:timeout>30000</con:timeout>
 					<con:response outgoingWss="">
 						<con:settings/>
-						<con:responseContent><![CDATA[
-							<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+						<con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns15:CheckPolicyResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="http://nhinc.services.com/schema/auditmessage" xmlns:ns8="http://www.w3.org/2005/08/addressing" xmlns:ns9="http://docs.oasis-open.org/wsn/b-2" xmlns:ns10="urn:ihe:iti:xds-b:2007" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns12="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns13="http://docs.oasis-open.org/wsn/t-1" xmlns:ns14="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns18="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns19="http://schemas.xmlsoap.org/ws/2004/08/addressing">
          <ns15:response>
@@ -3452,36 +3113,23 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="reset URL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-30T17:36:02Z</con:value>
+					<con:value>2012-02-24T15:50:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-30T17:46:02Z</con:value>
+					<con:value>2012-02-24T16:00:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/30/2010 17:36:02</con:value>
+					<con:value>02/24/2012 15:50:29</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-29T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3990,23 +3638,23 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserThu Aug 26 17:01:06 UTC 2010</con:value>
+					<con:value>XDR Request Inbound UserFri Feb 24 15:55:31 UTC 2012</con:value>
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-26T16:56:06Z</con:value>
+					<con:value>2012-02-24T15:50:31Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-26T17:06:06Z</con:value>
+					<con:value>2012-02-24T16:00:31Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/26/2010 16:56:06</con:value>
+					<con:value>02/24/2012 15:50:31</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-25T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4017,16 +3665,15 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 			<con:testStep name="EntityXDRresponse - Request" type="request">
 				<con:settings/>
 				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
-					<con:interface>ProxyXDRAsyncRequest_Binding</con:interface>
-					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
+					<con:interface>EntityXDRAsyncResponse_Binding</con:interface>
+					<con:operation>ProvideAndRegisterDocumentSet-bAsyncResponse</con:operation>
 					<con:request name="EntityXDRresponse - Request" useWsAddressing="false">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-EntityXDRResponse}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soapenv:Header xmlns:add="http://www.w3.org/2005/08/addressing">
       <add:Action>urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResp_Request</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
@@ -4236,13 +3883,8 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Fault Assertion"/>
 						<con:assertion name="Verify Message Content" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns15='http://www.hhs.gov/healthit/nhin';
-//ns15:XDRAcknowledgement[1]/ns15:message[1]/@status</path>
-								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
+							<con:configuration><path>declare namespace ns15='http://www.hhs.gov/healthit/nhin';
+//ns15:XDRAcknowledgement[1]/ns15:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
 						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 						<con:jmsPropertyConfig/>
@@ -4254,19 +3896,19 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-26T16:56:08Z</con:value>
+					<con:value>2012-02-24T15:50:32Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-26T17:06:08Z</con:value>
+					<con:value>2012-02-24T16:00:32Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/26/2010 16:56:08</con:value>
+					<con:value>02/24/2012 15:50:32</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-25T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4276,8 +3918,7 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 			<con:settings/>
 			<con:testStep name="Set PolicyEngine Mock" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -4285,14 +3926,13 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1883/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="EntityXDRresponse - Request" type="request">
 				<con:settings/>
 				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
-					<con:interface>ProxyXDRAsyncRequest_Binding</con:interface>
-					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
+					<con:interface>EntityXDRAsyncResponse_Binding</con:interface>
+					<con:operation>ProvideAndRegisterDocumentSet-bAsyncResponse</con:operation>
 					<con:request name="EntityXDRresponse - Request" useWsAddressing="false">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@follow-redirects">false</con:setting>
@@ -4300,8 +3940,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-EntityXDRResponse}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soapenv:Header xmlns:add="http://www.w3.org/2005/08/addressing">
       <add:Action>urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResp_Request</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
@@ -4572,8 +4211,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
 					<con:timeout>30000</con:timeout>
 					<con:response outgoingWss="">
 						<con:settings/>
-						<con:responseContent><![CDATA[
-							<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+						<con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns15:CheckPolicyResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="http://nhinc.services.com/schema/auditmessage" xmlns:ns8="http://www.w3.org/2005/08/addressing" xmlns:ns9="http://docs.oasis-open.org/wsn/b-2" xmlns:ns10="urn:ihe:iti:xds-b:2007" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns12="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns13="http://docs.oasis-open.org/wsn/t-1" xmlns:ns14="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns18="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns19="http://schemas.xmlsoap.org/ws/2004/08/addressing">
          <ns15:response>
@@ -6043,36 +5681,23 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Reset URL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-30T17:50:42Z</con:value>
+					<con:value>2012-02-24T15:50:33Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-30T18:00:42Z</con:value>
+					<con:value>2012-02-24T16:00:33Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/30/2010 17:50:42</con:value>
+					<con:value>02/24/2012 15:50:33</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-29T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6105,16 +5730,15 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 			<con:testStep name="EntityXDRresponse - Request" type="request">
 				<con:settings/>
 				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
-					<con:interface>ProxyXDRAsyncRequest_Binding</con:interface>
-					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
+					<con:interface>EntityXDRAsyncResponse_Binding</con:interface>
+					<con:operation>ProvideAndRegisterDocumentSet-bAsyncResponse</con:operation>
 					<con:request name="EntityXDRresponse - Request" useWsAddressing="false">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-EntityXDRResponse}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soapenv:Header xmlns:add="http://www.w3.org/2005/08/addressing">
       <add:Action>urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResp_Request</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
@@ -6361,13 +5985,8 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 						<con:assertion type="SOAP Fault Assertion"/>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion name="Verify Message Content" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns15='http://www.hhs.gov/healthit/nhin';
-//ns15:XDRAcknowledgement[1]/ns15:message[1]/@status</path>
-								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
+							<con:configuration><path>declare namespace ns15='http://www.hhs.gov/healthit/nhin';
+//ns15:XDRAcknowledgement[1]/ns15:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
 						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 						<con:jmsPropertyConfig/>
@@ -6388,23 +6007,23 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserThu Aug 26 17:03:58 UTC 2010</con:value>
+					<con:value>XDR Request Inbound UserFri Feb 24 15:55:34 UTC 2012</con:value>
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-26T16:58:58Z</con:value>
+					<con:value>2012-02-24T15:50:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-26T17:08:58Z</con:value>
+					<con:value>2012-02-24T16:00:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/26/2010 16:58:58</con:value>
+					<con:value>02/24/2012 15:50:34</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-25T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6509,13 +6128,13 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 		</con:property>
 		<con:property>
 			<con:name>Endpoint-NhincProxyXDRRequest</con:name>
-			<con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value>
+			<con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value>
 		</con:property>
 		<con:property>
 			<con:name>Endpoint-EntityXDRResponse</con:name>
-			<con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
+			<con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
 		</con:property>
-	</con:properties>
+	<con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'XDRAsyncRequestInbound-Tests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()

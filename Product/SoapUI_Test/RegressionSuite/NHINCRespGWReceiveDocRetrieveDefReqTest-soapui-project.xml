@@ -1423,19 +1423,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:36:41Z</con:value>
+					<con:value>2012-02-24T16:11:01Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:46:41Z</con:value>
+					<con:value>2012-02-24T16:21:01Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:36:41</con:value>
+					<con:value>02/24/2012 16:11:01</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1729,19 +1729,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:36:42Z</con:value>
+					<con:value>2012-02-24T16:11:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:46:42Z</con:value>
+					<con:value>2012-02-24T16:21:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:36:42</con:value>
+					<con:value>02/24/2012 16:11:07</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1767,8 +1767,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfoPE" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 //**** mockHost is localhost because Groovy script resides in local machine ****
@@ -1777,8 +1776,7 @@ def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
@@ -3532,19 +3530,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:36:42Z</con:value>
+					<con:value>2012-02-24T16:11:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:46:42Z</con:value>
+					<con:value>2012-02-24T16:21:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:36:42</con:value>
+					<con:value>02/24/2012 16:11:13</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3570,8 +3568,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'documentRetrieveDeferre
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfoPE" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 //**** mockHost is localhost because Groovy script resides in local machine ****
@@ -3579,8 +3576,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
@@ -5334,19 +5330,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:36:43Z</con:value>
+					<con:value>2012-02-24T16:11:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:46:43Z</con:value>
+					<con:value>2012-02-24T16:21:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:36:43</con:value>
+					<con:value>02/24/2012 16:11:19</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5632,19 +5628,19 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'serviceDocumentRetrieve
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:36:44Z</con:value>
+					<con:value>2012-02-24T16:11:25Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:46:44Z</con:value>
+					<con:value>2012-02-24T16:21:25Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:36:44</con:value>
+					<con:value>02/24/2012 16:11:25</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5956,19 +5952,19 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
 assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-23T17:36:45Z</con:value>
+					<con:value>2012-02-24T16:11:31Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-23T17:46:45Z</con:value>
+					<con:value>2012-02-24T16:21:31Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2010 17:36:45</con:value>
+					<con:value>02/24/2012 16:11:31</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-22T00:00:00Z</con:value>
+					<con:value>2012-03-25T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -5976,7 +5972,7 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
 				</con:property>
 				<con:property>
 					<con:name>DocRetDefUserID</con:name>
-					<con:value>DocfRetrieveDefUserMon Aug 23 17:41:45 UTC 2010</con:value>
+					<con:value>DocfRetrieveDefUserFri Feb 24 16:16:31 UTC 2012</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -7821,75 +7817,24 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 	</con:testSuite>
 	<con:requirements/>
 	<con:properties>
-		<con:property>
-			<con:name>RemoteAA</con:name>
-			<con:value>2.2</con:value>
-		</con:property>
-		<con:property>
-			<con:name>DRRepoID</con:name>
-			<con:value>1</con:value>
-		</con:property>
-		<con:property>
-			<con:name>Endpoint-DocRetrieve</con:name>
-			<con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocRetrieveDeferredRequest</con:value>
-		</con:property>
-		<con:property>
-			<con:name>LocalPatientID</con:name>
-			<con:value>D123401</con:value>
-		</con:property>
-		<con:property>
-			<con:name>LocalAA</con:name>
-			<con:value>1.1</con:value>
-		</con:property>
-		<con:property>
-			<con:name>RemoteHCID</con:name>
-			<con:value>2.2</con:value>
-		</con:property>
-		<con:property>
-			<con:name>DRDocID</con:name>
-			<con:value>1.123407.777777</con:value>
-		</con:property>
-		<con:property>
-			<con:name>RemoteHCDescription</con:name>
-			<con:value>InternalTest2</con:value>
-		</con:property>
-		<con:property>
-			<con:name>LocalHCID</con:name>
-			<con:value>1.1</con:value>
-		</con:property>
-		<con:property>
-			<con:name>RemotePatientID</con:name>
-			<con:value>D123401</con:value>
-		</con:property>
-		<con:property>
-			<con:name>LocalHCDescription</con:name>
-			<con:value>InternalTest1</con:value>
-		</con:property>
-		<con:property>
-			<con:name>NHINGatewayHost</con:name>
-			<con:value>localhost</con:value>
-		</con:property>
-		<con:property>
-			<con:name>Endpoint-AuditLogQuery</con:name>
-			<con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value>
-		</con:property>
-		<con:property>
-			<con:name>MockHost</con:name>
-			<con:value>localhost</con:value>
-		</con:property>
-		<con:property>
-			<con:name>NHINGatewayConfigDir</con:name>
-			<con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
-		</con:property>
-		<con:property>
-			<con:name>DocRetUserID</con:name>
-			<con:value>DocfRetrieveDefUser</con:value>
-		</con:property>
-		<con:property>
-			<con:name>DocRetPatientID</con:name>
-			<con:value>D123401</con:value>
-		</con:property>
-	</con:properties>
+		
+		<con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property>
+		<con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property>
+		
+		<con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property>
+		
+		
+		
+		
+		
+		
+		<con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DocRetPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DocRetUserID</con:name><con:value>DocfRetrieveDefUser</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/NhincProxyDocRetrieveDeferredRequest</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
+		
+		
+		
+		
+		
+	<con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

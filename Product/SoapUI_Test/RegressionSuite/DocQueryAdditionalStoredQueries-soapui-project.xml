@@ -40,8 +40,7 @@
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -50,8 +49,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="FindDocuments" type="request">
 				<con:settings/>
@@ -1375,38 +1373,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:55:23Z</con:value>
+					<con:value>2012-02-25T01:48:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:07</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1416,8 +1399,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -1426,8 +1408,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="FindSubmissionSets" type="request">
 				<con:settings/>
@@ -2751,38 +2732,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:12Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:02Z</con:value>
+					<con:value>2012-02-25T01:48:12Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:12</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2792,8 +2758,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -2802,8 +2767,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="FindFolders" type="request">
 				<con:settings/>
@@ -4127,38 +4091,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:03Z</con:value>
+					<con:value>2012-02-25T01:48:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:19</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4168,8 +4117,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -4178,8 +4126,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="GetAll" type="request">
 				<con:settings/>
@@ -5533,38 +5480,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:04Z</con:value>
+					<con:value>2012-02-25T01:48:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:27</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5574,8 +5506,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -5584,8 +5515,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="GetDocuments" type="request">
 				<con:settings/>
@@ -6894,38 +6824,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:06Z</con:value>
+					<con:value>2012-02-25T01:48:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:29</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6935,8 +6850,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -6945,8 +6859,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="GetFolders" type="request">
 				<con:settings/>
@@ -8255,38 +8168,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:07Z</con:value>
+					<con:value>2012-02-25T01:48:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:34</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -8296,8 +8194,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -8306,8 +8203,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="GetFoldersForDocument" type="request">
 				<con:settings/>
@@ -9616,38 +9512,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:36Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:08Z</con:value>
+					<con:value>2012-02-25T01:48:36Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:36</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -9657,8 +9538,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -9667,8 +9547,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="GetAssociations" type="request">
 				<con:settings/>
@@ -10977,38 +10856,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:38Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:10Z</con:value>
+					<con:value>2012-02-25T01:48:38Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:38</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -11018,8 +10882,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -11028,8 +10891,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="GetDocumentsAndAssociations" type="request">
 				<con:settings/>
@@ -12353,38 +12215,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:11Z</con:value>
+					<con:value>2012-02-25T01:48:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:40</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -12394,8 +12241,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -12404,8 +12250,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="GetSubmissionSets" type="request">
 				<con:settings/>
@@ -13714,38 +13559,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:12Z</con:value>
+					<con:value>2012-02-25T01:48:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:42</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -13755,8 +13585,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -13765,8 +13594,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="GetSubmissionSetAndContents" type="request">
 				<con:settings/>
@@ -15075,38 +14903,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:45Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:14Z</con:value>
+					<con:value>2012-02-25T01:48:45Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:45</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -15116,8 +14929,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -15126,8 +14938,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="GetFolderAndContents" type="request">
 				<con:settings/>
@@ -16436,38 +16247,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:16Z</con:value>
+					<con:value>2012-02-25T01:48:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:48</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -16477,8 +16273,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 			<con:settings/>
 			<con:testStep name="setURL" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -16487,8 +16282,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", context, log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="GetRelatedDocuments" type="request">
 				<con:settings/>
@@ -17797,38 +17591,23 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="resetURL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/DocumentRegistry_Service";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-02-25T01:38:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T11:56:17Z</con:value>
+					<con:value>2012-02-25T01:48:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>02/25/2012 01:38:50</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-03-26T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -17861,7 +17640,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxd
 		</con:property>
 		<con:property>
 			<con:name>Endpoint-DocQuery</con:name>
-			<con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/NhincProxyDocQueryUnsecured</con:value>
+			<con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</con:value>
 		</con:property>
 		<con:property>
 			<con:name>AuditPatientID</con:name>

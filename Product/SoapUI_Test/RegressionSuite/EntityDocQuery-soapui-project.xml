@@ -15,7 +15,7 @@
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4906f58e-5725-4a79-8ab1-c86eb8822975" keepSession="false" maxResults="0" name="Document Query Fanout" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Backup gateway.properties file" type="groovy">
+      <con:testStep disabled="true" name="Backup gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -35,7 +35,7 @@ if(gatewayFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config" type="groovy">
+      <con:testStep disabled="true" name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
@@ -69,8 +69,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -81,12 +80,13 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   def remoteAA2 = context.findProperty( "RemoteAA2" )
   def remotePatientID1 = context.findProperty("RemotePatientID1")
   def remotePatientID2 = context.findProperty("RemotePatientID2")
-  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId, CorrelationExpirationDate) " + 
-                   "values (?, ?, ?, ?, ?,?)"
-  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1,'2012-12-21 00:00:00'])
-  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2,'2012-12-21 00:00:00'])
-}</script>
-        </con:config>
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
+//  sql.executeUpdate(insertSql, [1, remoteAA1, remotePatientID1, localAA, localPatientID])
+//  sql.executeUpdate(insertSql, [2, remoteAA2, remotePatientID2, localAA, localPatientID])
+}</script></con:config>
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
@@ -128,7 +128,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+            <con:settings/>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -360,15 +360,15 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
 
-	<!--<urn:NhinTargetCommunities>
+   <!--      <urn:NhinTargetCommunities>
             <urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
-                  <urn3:description>DoD</urn3:description>
-                  <urn3:homeCommunityId>3.3</urn3:homeCommunityId>
-                  <urn3:name>DoD</urn3:name>
+                  <urn3:description></urn3:description>
+                  <urn3:homeCommunityId></urn3:homeCommunityId>
+                  <urn3:name></urn3:name>
                </urn3:homeCommunity>
                <urn3:list/>
-               <urn3:region></urn3:region>
+               <urn3:region>US-NY</urn3:region>
             </urn3:nhinTargetCommunity>
          </urn:NhinTargetCommunities> -->
 
@@ -395,7 +395,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Restore gateway.properties file" type="groovy">
+      <con:testStep disabled="true" name="Restore gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -414,19 +414,19 @@ if(gatewayBakFile.exists()) {
       </con:testStep>
       <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:properties>
+//FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
+//FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-24T06:50:49Z</con:value>
+          <con:value>2012-02-24T04:08:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-24T07:00:49Z</con:value>
+          <con:value>2012-02-24T04:18:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/24/2012 06:50:49</con:value>
+          <con:value>02/24/2012 04:08:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -438,12 +438,12 @@ FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destCo
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+    <con:tearDownScript>//FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);
-FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
+//FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);
+//FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
 </con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9c7bc51e-43ca-4c8d-83da-068f42cbfc00" keepSession="false" maxResults="0" name="Document Query Fanout - bad endpoint" searchProperties="true">
       <con:settings/>
@@ -752,18 +752,20 @@ runSQL(2, host, port, db, user, pass, table, remoteAA2, remoteHCID2);</script>
       </con:testStep>
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL1 = "https://" + Host2 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docQueryURL2 = "https://" + Host3 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/BadEndpoint";
+def docQueryURL2 = "https://" + Host3 + ":8181/RespondingGateway_Query_Service/DocQuer";
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1,"2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2,"2.0", context, log)</script></con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocument", docQueryURL1, context, log)
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)</script>
+        </con:config>
       </con:testStep>
       <con:testStep disabled="true" name="set doc query properties" type="transfer">
         <con:settings/>
@@ -1166,25 +1168,22 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:properties>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-24T06:50:57Z</con:value>
+          <con:value>2010-08-30T20:56:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-24T07:00:57Z</con:value>
+          <con:value>2010-08-30T21:06:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/24/2012 06:50:57</con:value>
+          <con:value>08/30/2010 20:56:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-25T00:00:00Z</con:value>
+          <con:value>2010-09-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1192,13 +1191,7 @@ FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destCo
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);
-FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-</con:tearDownScript></con:testCase>
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eb2fe928-9168-4d20-a4ae-d1cbba57db99" keepSession="false" maxResults="0" name="Document Query SingleEndpoint" searchProperties="true">
       <con:settings/>
       <con:testStep disabled="true" name="Test Case Properties" type="properties">
@@ -1865,19 +1858,19 @@ FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFil
 FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-24T06:51:00Z</con:value>
+          <con:value>2012-02-23T23:16:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-24T07:01:00Z</con:value>
+          <con:value>2012-02-23T23:26:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/24/2012 06:51:00</con:value>
+          <con:value>02/23/2012 23:16:51</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-25T00:00:00Z</con:value>
+          <con:value>2012-03-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2160,19 +2153,21 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL1 = "https://" + Host2 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docQueryURL2 = "https://" + Host3 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL2 = "https://" + Host3 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1,"2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2,"2.0", context, log)</script></con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocument", docQueryURL1, context, log)
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)</script>
+        </con:config>
       </con:testStep>
       <con:testStep disabled="true" name="set doc query properties" type="transfer">
         <con:settings/>
@@ -2567,25 +2562,22 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:properties>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-24T06:51:04Z</con:value>
+          <con:value>2010-08-30T20:56:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-24T07:01:04Z</con:value>
+          <con:value>2010-08-30T21:06:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/24/2012 06:51:04</con:value>
+          <con:value>08/30/2010 20:56:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-25T00:00:00Z</con:value>
+          <con:value>2010-09-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2593,13 +2585,7 @@ FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destCo
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);
-FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-</con:tearDownScript></con:testCase>
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="c7f8f863-a545-48d3-86c2-d7a329f2cb10" keepSession="false" maxResults="0" name="Document Query State Fanout Multiple Communities" searchProperties="true">
       <con:settings/>
       <con:testStep disabled="true" name="Test Case Properties" type="properties">
@@ -2868,19 +2854,21 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL1 = "https://" + Host2 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docQueryURL2 = "https://" + Host3 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL2 = "https://" + Host3 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1,"2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2,"2.0", context, log)</script></con:config>
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocument", docQueryURL1, context, log)
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)</script>
+        </con:config>
       </con:testStep>
       <con:testStep disabled="true" name="set doc query properties" type="transfer">
         <con:settings/>
@@ -3253,7 +3241,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -3275,25 +3263,22 @@ if(gatewayBakFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:properties>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-24T06:51:08Z</con:value>
+          <con:value>2010-08-30T20:56:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-24T07:01:08Z</con:value>
+          <con:value>2010-08-30T21:06:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/24/2012 06:51:08</con:value>
+          <con:value>08/30/2010 20:56:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-25T00:00:00Z</con:value>
+          <con:value>2010-09-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3301,15 +3286,16 @@ FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destCo
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:properties/>
+    <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
+FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);
 FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-</con:tearDownScript></con:testCase>
-    <con:properties/>
-    <con:setupScript/><con:tearDownScript/><con:reportParameters/>
+</con:tearDownScript><con:reportParameters/>
   </con:testSuite>
   <con:requirements/>
   <con:properties>

@@ -3792,20 +3792,18 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
 
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("GatewayConfigurationDirectory");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-FileUtils.UpdateProperty(destConfigFileLocation,"gateway.properties","serviceDocumentQuery","true",context,log);
-FileUtils.UpdateProperty(destConfigFileLocation,"gateway.properties","localHomeCommunityId","1.1",context,log);
+//FileUtils.UpdateProperty(destConfigFileLocation,"gateway.properties","serviceDocumentQuery","true",context,log);
+//FileUtils.UpdateProperty(destConfigFileLocation,"gateway.properties","localHomeCommunityId","1.1",context,log);
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineservice","http://localhost:18084/mockPolicyEngine",context,log);
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation,"1.1","policyengineservice","http://localhost:18084/mockPolicyEngine", "LEVEL_a0", context,log);
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="send request" type="request">
 				<con:settings/>
@@ -3813,11 +3811,10 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
 					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="send request">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#NhincProxyDocRetrieveEndpoint}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="PolicyEngineInteractions" testCase="inbound doc retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -4687,7 +4684,7 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#base64Binary';
 assert(ActualDataType==ExpectedDataType);</scriptText>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -4702,8 +4699,7 @@ assert(ActualDataType==ExpectedDataType);</scriptText>
 					<con:timeout>30000</con:timeout>
 					<con:response>
 						<con:settings/>
-						<con:responseContent><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os">
+						<con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:CheckPolicyResponse>
@@ -5441,8 +5437,7 @@ log.debug('Finished checking ' + FieldName);
 						</con:configuration>
 					</con:assertion>
 					<con:assertion name="AuthzDecisionStatementResource" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementResource';
+						<con:configuration><scriptText>def FieldName='AuthzDecisionStatementResource';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:resource';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource';
 def XacmlAttributeParent='Resource';
@@ -5475,7 +5470,7 @@ assert(XacmlAttributeCount=="1");
 def XacmlValue = mockRequestHolder["//xacml:" + XacmlAttributeParent + "/xacml:Attribute[@AttributeId='" + XacmlAttributeId + "']/xacml:AttributeValue"];
 log.info('XacmlAttributeValue(' + FieldName + ')=' + XacmlValue);
 
-def AssertionValue='https://localhost:8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve';
+def AssertionValue='https://localhost:8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve';
 log.info('XacmlAttributeValue(' + FieldName + ') == ' + 'AssertionValue(' + FieldName + ') =&gt; ' + (AssertionValue==XacmlValue));
 assert (AssertionValue==XacmlValue);
 
@@ -5484,8 +5479,7 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);
-							</scriptText>
-						</con:configuration>
+							</scriptText></con:configuration>
 					</con:assertion>
 					<con:assertion name="AuthzDecisionStatementAction" type="GroovyScriptAssertion">
 						<con:configuration>
@@ -6213,20 +6207,7 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Update config - remove mock" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = context.findProperty("GatewayConfigurationDirectory");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-FileUtils.UpdateProperty(destConfigFileLocation,"gateway.properties","serviceDocumentQuery","true",context,log);
-FileUtils.UpdateProperty(destConfigFileLocation,"gateway.properties","localHomeCommunityId","1.1",context,log);
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineservice","http://localhost:8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine",context,log);</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties/>
 			<con:reportParameters/>
 			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
