@@ -39,7 +39,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -172,7 +171,7 @@ public class ConnectionManagerCache {
 
 
     /**
-     * This method is used to load the UDDI Connection Infomration form the uddiConnectionInfo.xml file.
+     * This method is used to load the UDDI Connection Information form the uddiConnectionInfo.xml file.
      */
     private void loadInternalConnectionInfo() throws ConnectionManagerException {
 
@@ -477,13 +476,13 @@ public class ConnectionManagerCache {
     /**
      * This method retrieves a set of URLs for that that service for all communities in the specified region or state.
      * 
-     * @param urlList List of URLs to add state URL information to
+     * @param urlSet A set of unique URLs to add state URL information to
      * @param region Region or State name to filter on.
      * @param serviceName The name of the service to locate who URL is being requested.
      * @return void.
      * @throws ConnectionManagerException
      */
-    private void filterByRegion(List<UrlInfo> urlList, String region, String serviceName)
+    private void filterByRegion(Set<UrlInfo> urlSet, String region, String serviceName)
             throws ConnectionManagerException {
     	ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
         Set<BusinessEntity> entities = getAllBusinessEntitySetByServiceName(serviceName);
@@ -499,46 +498,13 @@ public class ConnectionManagerCache {
                                 UrlInfo entry = new UrlInfo();
                                 entry.setHcid(hcid);
                                 entry.setUrl(url);
-                                urlList.add(entry);
+                                urlSet.add(entry);
                             }
                         }
                     }
                 }
             }
         }
-        return;
-    }
-
-    /**
-     * This method will remove duplicate URLs from a URL list.
-     * 
-     * @param urlList List of URLs to remove duplicates from.
-     * @return The set of unique URLs.
-     */
-    private void createUniqueList(List<UrlInfo> urlList) {
-        List<UrlInfo> tempList = new ArrayList<UrlInfo>();
-        boolean foundDup = false;
-
-        // Find the duplicates
-        for (UrlInfo entry : urlList) {
-            foundDup = false;
-            for (UrlInfo temp : tempList) {
-                if (temp.equals(entry)) {
-                    foundDup = true;
-                    break;
-                }
-            }
-            if (foundDup == false) {
-                tempList.add(entry);
-            }
-        }
-
-        // Remove the duplicates
-        urlList.clear();
-        for (UrlInfo temp : tempList) {
-            urlList.add(temp);
-        }
-
         return;
     }
 
@@ -826,9 +792,9 @@ public class ConnectionManagerCache {
      */
     public List<UrlInfo> getEndpointURLFromNhinTargetCommunities(NhinTargetCommunitiesType targets, String serviceName)
             throws ConnectionManagerException {
-    	ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
-        List<UrlInfo> endpointUrlList = new ArrayList<UrlInfo>();
-
+    	ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper(); 
+        Set<UrlInfo> endpointUrlSet = new HashSet<UrlInfo>();
+        
         if (targets != null && NullChecker.isNotNullish(targets.getNhinTargetCommunity())) {
             for (NhinTargetCommunityType target : targets.getNhinTargetCommunity()) {
                 if (target.getHomeCommunity() != null
@@ -841,13 +807,13 @@ public class ConnectionManagerCache {
                         UrlInfo entry = new UrlInfo();
                         entry.setHcid(target.getHomeCommunity().getHomeCommunityId());
                         entry.setUrl(endpt);
-                        endpointUrlList.add(entry);
+                        endpointUrlSet.add(entry);
                     }
                 }
 
                 if (target.getRegion() != null) {
                     log.info("Looking up URL by region");
-                    filterByRegion(endpointUrlList, target.getRegion(), serviceName);
+                    filterByRegion(endpointUrlSet, target.getRegion(), serviceName);
                 }
 
                 if (target.getList() != null) {
@@ -865,14 +831,14 @@ public class ConnectionManagerCache {
                     UrlInfo entry = new UrlInfo();
                     entry.setHcid(hcid);
                     entry.setUrl(endpt);
-                    endpointUrlList.add(entry);
+                    endpointUrlSet.add(entry);
                 }
 
             }
         }
 
+        List<UrlInfo> endpointUrlList = new ArrayList<UrlInfo>(endpointUrlSet);
         if (endpointUrlList != null) {
-            createUniqueList(endpointUrlList);
             printURLList(endpointUrlList);
         }
 

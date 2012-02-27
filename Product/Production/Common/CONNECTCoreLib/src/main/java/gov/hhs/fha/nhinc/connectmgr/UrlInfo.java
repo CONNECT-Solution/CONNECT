@@ -46,4 +46,29 @@ public class UrlInfo {
         this.url = url;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 1;
+        hash = hash * 31 + (getHcid() == null ? 0 : getHcid().hashCode());
+        hash = hash * 31 + (getUrl() == null ? 0 : getUrl().hashCode());
+        return hash;
+    }
+    
+    @Override
+    public boolean equals(Object that){        
+        if ( this == that ) return true;
+        if ( !(that instanceof UrlInfo) ) return false;
+        UrlInfo thatUrlInfo = (UrlInfo) that;
+        
+        if (!this.getUrl().equals(thatUrlInfo.getUrl())) {
+            return false;
+        }
+        
+        if (!this.getHcid().equals(thatUrlInfo.getHcid())) {
+            return false;
+        }
+        
+        return true;
+      }
+    
 }

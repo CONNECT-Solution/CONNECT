@@ -422,6 +422,24 @@ public class ConnectionManagerCacheTest {
 
         return targetCommunities;
     }
+    
+    protected NhinTargetCommunitiesType createNhinTargetCommunitesWithDuplicateTargetCommunities() {
+        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
+        NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
+        HomeCommunityType homeCommunity = new HomeCommunityType();
+        homeCommunity.setHomeCommunityId(HCID_1);
+        targetCommunity.setHomeCommunity(homeCommunity);
+        targetCommunity.setRegion(FL_REGION_VALUE);
+        targetCommunity.setList("Unimplemented");
+        targetCommunities.getNhinTargetCommunity().add(targetCommunity);
+        
+        NhinTargetCommunityType targetCommunityStateOnly = new NhinTargetCommunityType();
+        targetCommunityStateOnly.setRegion(FL_REGION_VALUE);
+        targetCommunityStateOnly.setList("Unimplemented");
+        targetCommunities.getNhinTargetCommunity().add(targetCommunityStateOnly);
+        
+        return targetCommunities;
+    }
 
     @Test
     public void testGetEndpointURLFromNhinTargetCommunities() {
@@ -433,12 +451,29 @@ public class ConnectionManagerCacheTest {
             assertTrue(endpointUrlList.get(0).getUrl().equals(QUERY_FOR_DOCUMENTS_URL));
 
             endpointUrlList = connectionManager.getEndpointURLFromNhinTargetCommunities(null, QUERY_FOR_DOCUMENTS_NAME);
-            assertEquals(2, endpointUrlList.size());
+            assertEquals(2, endpointUrlList.size());                        
+            
         } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetEndpointURLFromNhinTargetCommunities test: " + t.getMessage());
         }
     }
+    
+    @Test
+    public void testGetEndpointURLFromNhinTargetCommunitiesUniqueness() {
+        try {
+            ConnectionManagerCache connectionManager = createConnectionManager();
+                        
+            List<UrlInfo> endpointUrlList = connectionManager.getEndpointURLFromNhinTargetCommunities(
+                    createNhinTargetCommunitesWithDuplicateTargetCommunities(), QUERY_FOR_DOCUMENTS_NAME);
+            assertEquals(1, endpointUrlList.size());
+            
+        } catch (Throwable t) {
+            t.printStackTrace();
+            fail("Error running testGetEndpointURLFromNhinTargetCommunities test: " + t.getMessage());
+        }
+    }
+    
 
     @Test
     public void testGetAdapterEndpointURL() {
