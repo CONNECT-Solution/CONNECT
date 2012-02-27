@@ -1871,7 +1871,7 @@ assert (docData.size() != 0)</scriptText>
     
     
     
-    <con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/NhincProxyDocRetrieveUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyAdminDist</con:name><con:value>http://localhost:8080/CONNECTGatewayAdminDistribution/2_0/MsgProxy/NhincProxyAdminDist</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property>
+    <con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/NhincProxyDocRetrieveUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDist</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property>
     
     
     

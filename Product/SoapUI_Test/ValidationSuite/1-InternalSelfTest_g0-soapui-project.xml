@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="InternalSelfTest_g0" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="InternalSelfTest_g0" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" definition="WSDL path not set.  #NhincProxySubscriptionManagement.wsdl" name="NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -1137,22 +1137,96 @@
           </con:request>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+log.info context.expand(context.testCase.testSuite.project.resourceRoot);
+def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
+
+def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
+def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+	
+	if(sourceFile.exists())
+			{
+				def reader = sourceFile.newReader();
+				destinationFile.withWriter 
+				{ writer ->       
+					writer &lt;&lt; reader;   
+				}   
+				reader.close();
+			} 
+			else {
+			   log.info("unable to find source file " + sourceFile);
+			}   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);
+
+MoveFile(g0InternalFile, sourceInternalFile, log);
+MoveFile(g0UddiFile, sourceUddiFile, log);
+
+</con:setupScript><con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+	
+	if(sourceFile.exists())
+			{
+				def reader = sourceFile.newReader();
+				destinationFile.withWriter 
+				{ writer ->       
+					writer &lt;&lt; reader;   
+				}   
+				reader.close();
+			} 
+			else {
+			   log.info("unable to find source file " + sourceFile);
+			}   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+			if(file.exists()) {    
+			   log.info("deleting file " + file);
+			   file.delete(); 
+			} else {
+			   log.info("file not found, skipping delete for " + file);
+			}
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);
+</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-13T05:03:05Z</con:value>
+          <con:value>2012-02-27T17:34:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-13T05:13:05Z</con:value>
+          <con:value>2012-02-27T17:44:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/13/2011 05:03:05</con:value>
+          <con:value>02/27/2012 17:34:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-13T00:00:00Z</con:value>
+          <con:value>2012-03-28T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3293,26 +3367,100 @@ assert (docData.size() != 0)</scriptText>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+log.info context.expand(context.testCase.testSuite.project.resourceRoot);
+def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
+
+def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
+def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+	
+	if(sourceFile.exists())
+			{
+				def reader = sourceFile.newReader();
+				destinationFile.withWriter 
+				{ writer ->       
+					writer &lt;&lt; reader;   
+				}   
+				reader.close();
+			} 
+			else {
+			   log.info("unable to find source file " + sourceFile);
+			}   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);
+
+MoveFile(g0InternalFile, sourceInternalFile, log);
+MoveFile(g0UddiFile, sourceUddiFile, log);
+
+</con:setupScript><con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+	
+	if(sourceFile.exists())
+			{
+				def reader = sourceFile.newReader();
+				destinationFile.withWriter 
+				{ writer ->       
+					writer &lt;&lt; reader;   
+				}   
+				reader.close();
+			} 
+			else {
+			   log.info("unable to find source file " + sourceFile);
+			}   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+			if(file.exists()) {    
+			   log.info("deleting file " + file);
+			   file.delete(); 
+			} else {
+			   log.info("file not found, skipping delete for " + file);
+			}
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);
+</con:tearDownScript><con:properties>
         <con:property>
           <con:name>DocumentUniqueId</con:name>
           <con:value>555555555</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-13T05:04:16Z</con:value>
+          <con:value>2012-02-27T17:46:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-13T05:14:16Z</con:value>
+          <con:value>2012-02-27T17:56:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/13/2011 05:04:16</con:value>
+          <con:value>02/27/2012 17:46:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-13T00:00:00Z</con:value>
+          <con:value>2012-03-28T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>CorrectedLocalHCID</con:name>
@@ -4011,7 +4159,7 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="groovy" name="get subscription id"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+      </con:testStep><con:testStep name="get subscription id" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def holder = groovyUtils.getXmlHolder( "Subscribe#Response" );
 holder.declareNamespace("SubscriptionId", "http://www.hhs.gov/healthit/nhin");
 def subID = holder.getNodeValue( "//SubscriptionId:SubscriptionId");
@@ -5110,22 +5258,96 @@ if(gatewayBakFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>15000</delay></con:config></con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+log.info context.expand(context.testCase.testSuite.project.resourceRoot);
+def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
+
+def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
+def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+	
+	if(sourceFile.exists())
+			{
+				def reader = sourceFile.newReader();
+				destinationFile.withWriter 
+				{ writer ->       
+					writer &lt;&lt; reader;   
+				}   
+				reader.close();
+			} 
+			else {
+			   log.info("unable to find source file " + sourceFile);
+			}   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);
+
+MoveFile(g0InternalFile, sourceInternalFile, log);
+MoveFile(g0UddiFile, sourceUddiFile, log);
+
+</con:setupScript><con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+	
+	if(sourceFile.exists())
+			{
+				def reader = sourceFile.newReader();
+				destinationFile.withWriter 
+				{ writer ->       
+					writer &lt;&lt; reader;   
+				}   
+				reader.close();
+			} 
+			else {
+			   log.info("unable to find source file " + sourceFile);
+			}   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+			if(file.exists()) {    
+			   log.info("deleting file " + file);
+			   file.delete(); 
+			} else {
+			   log.info("file not found, skipping delete for " + file);
+			}
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);
+</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-13T05:04:34Z</con:value>
+          <con:value>2012-02-27T17:52:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-13T05:14:34Z</con:value>
+          <con:value>2012-02-27T18:02:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/13/2011 05:04:34</con:value>
+          <con:value>02/27/2012 17:52:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-13T00:00:00Z</con:value>
+          <con:value>2012-03-28T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
