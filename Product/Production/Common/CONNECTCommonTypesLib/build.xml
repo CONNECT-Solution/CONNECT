@@ -6,8 +6,8 @@
   <property name="unittest.hasTests" value="false" />
   <property name="deploy.type" value="shared" />
   <property name="deploy.isDeployable" value="true"/>
-  <property name="build.generated.dir" value="build.generated"/>
-  <property name="build.wsdl.output.dir" value="build.wsdl.output.dir"/>
+  <property name="build.generated.dir" value="build/generated/client"/>
+  <property name="build.wsdl.output.dir" value="build/wsdl"/>
 
   <!-- Please make sure that this goes up to the correct directory -->
   <import file="../../../build/build.targets.xml" />
@@ -87,23 +87,26 @@
   <target name="-compile.source">
     <echo message="compile.source for ${project.name}" level="info"/>
     <mkdir dir="${build.classes.dir}" />
-    <mkdir dir="${build.generated.dir}/generated/client"/>
+    <mkdir dir="${build.generated.dir}"/>
     <mkdir dir="${build.wsdl.output.dir}"/>
     <call target="generate.proxies.xjc"/>
     <call target="generate.proxies.wsdl"/>
     <call target="copy.util.src"/>
-    <javac srcdir="${build.generated.dir}/generated/client" destdir="${build.classes.dir}"/>
+    <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}"/>
+    <copy todir="${build.classes.dir}/META-INF/wsdl" overwrite="true">
+		<path refid="wsdl.list" />
+	</copy>
   </target>
 
   <target name="-quick.compile.source">
     <echo message="quick compile.source for ${project.name}" level="info"/>
     <mkdir dir="${build.classes.dir}" />
     <call target="copy.util.src"/>
-    <javac srcdir="${build.generated.dir}/generated/client" destdir="${build.classes.dir}"/>
+    <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}"/>
   </target>
 
   <target name="copy.util.src">
-    <copy todir="${build.generated.dir}/generated/client" overwrite="true">
+    <copy todir="${build.generated.dir}" overwrite="true">
       <fileset dir="src/main/java">
         <include name="**/*.java"/>
       </fileset>
@@ -119,7 +122,7 @@
       </sourcefiles>
       <targetfiles path="${build.dir.root}/compilexjc.flag"/>
       <sequential>
-        <xjc destdir="${build.generated.dir}/generated/client" >
+        <xjc destdir="${build.generated.dir}" >
           <arg value="-xmlschema"/>
           <schema dir="../Interfaces/src/schemas">
             <patternset refid="schema.list"/>
@@ -151,11 +154,11 @@
 		<arg value="-Xnocompile"/>
 		<arg value="-keep"/>	
 		<arg value="-s"/>
-		<arg value="${build.generated.dir}/generated/client"/>
+		<arg value="${build.generated.dir}"/>
 		<arg value="-verbose"/>			
 		<arg value="@{wsdl.file.path}"/>			
 		<arg value="-wsdllocation"/>
-		<arg value="${wsdl.file}"/>
+		<arg value="META-INF/wsdl/${wsdl.file}"/>
 		<jvmarg line="-Xmx1024m -Xms1024m"/>
 		<classpath>
 			<pathelement path="${env.ANT_HOME}/lib/webservices-rt.jar"/>
