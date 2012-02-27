@@ -61,6 +61,7 @@
     <attribute name="verbose" default="false" />
     <attribute name="genreport" default="${called.from.main.build}" />
     <attribute name="classpathrefid" default="junitrun.classpath"/>
+    <attribute name="nhinc.properties.dir"/>
     <element name="tests"/>
     <sequential>
       <var unset="true" name="reportdir" />
@@ -82,7 +83,8 @@
         <sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.file}" />
 
         <env key="CLASSPATH" value="${cp}"/>
-	<jvmarg value="-XX:-UseSplitVerifier"/>        
+	    <jvmarg value="-XX:-UseSplitVerifier"/>
+	    <jvmarg value="-Dnhinc.properties.dir=@{nhinc.properties.dir}"/>        
         <formatter type="xml" />
         <formatter usefile="false" type="plain" />
 
