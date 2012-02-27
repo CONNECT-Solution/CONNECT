@@ -123,33 +123,33 @@
         <servlet-name>AdapterPatientDiscoveryDeferredRequestErrorUnsecured</servlet-name>
         <url-pattern>/AdapterPatientDiscoveryDeferredRequestErrorUnsecured</url-pattern>
     </servlet-mapping>
-
-    
-
-    
-
-
     <!-- End: XDR Request and Response services-->
 
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>AdapterPatientDiscoverySecured</web-resource-name>
-            <url-pattern>/AdapterPatientDiscoverySecured</url-pattern>
-        </web-resource-collection>
+	    <web-resource-name>AdapterMpiSecured</web-resource-name>
+	    <url-pattern>/AdapterMpiSecuredService</url-pattern>
+	</web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>AdapterPatientDiscoveryDeferredReqSecured</web-resource-name>
-            <url-pattern>/AdapterPatientDiscoveryDeferredReqSecured</url-pattern>
-        </web-resource-collection>
+	    <web-resource-name>AdapterComponentMpiSecured</web-resource-name>
+	    <url-pattern>/AdapterComponentMpiSecuredService</url-pattern>
+	</web-resource-collection>		
         <web-resource-collection>
-            <web-resource-name>AdapterPatientDiscoveryDeferredRespSecured</web-resource-name>
-            <url-pattern>/AdapterPatientDiscoveryDeferredRespSecured</url-pattern>
-        </web-resource-collection>
+	    <web-resource-name>AdapterPatientDiscoverySecured</web-resource-name>
+	    <url-pattern>/AdapterPatientDiscoverySecured</url-pattern>
+	</web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>AdapterPatientDiscoveryDeferredRequestErrorSecured</web-resource-name>
-            <url-pattern>/AdapterPatientDiscoveryDeferredRequestErrorSecured</url-pattern>
-        </web-resource-collection>
-        <!-- End: XDR Request and Response services-->
-
+	    <web-resource-name>AdapterPatientDiscoveryDeferredRequestSecured</web-resource-name>
+	    <url-pattern>/AdapterPatientDiscoveryDeferredRequestSecured</url-pattern>
+	</web-resource-collection>	
+        <web-resource-collection>
+	    <web-resource-name>AdapterPatientDiscoveryDeferredResponseSecured</web-resource-name>
+	    <url-pattern>/AdapterPatientDiscoveryDeferredResponseSecured</url-pattern>
+	</web-resource-collection>
+        <web-resource-collection>
+	    <web-resource-name>AdapterPatientDiscoveryDeferredRequestErrorSecured</web-resource-name>
+	    <url-pattern>/AdapterPatientDiscoveryDeferredRequestErrorSecured</url-pattern>
+	</web-resource-collection>
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>

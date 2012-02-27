@@ -111,14 +111,6 @@
             <web-resource-name>AdapterPolicyEngineSecured</web-resource-name>
             <url-pattern>/AdapterPolicyEngineSecured</url-pattern>
         </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>AdapterMpiSecured</web-resource-name>
-            <url-pattern>/AdapterMpiSecuredService</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>AdapterComponentMpiSecured</web-resource-name>
-            <url-pattern>/AdapterComponentMpiSecuredService</url-pattern>
-        </web-resource-collection>
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>

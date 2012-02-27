@@ -152,42 +152,14 @@
 	    <url-pattern>/EntityService/PassthruDocSubmissionSecured</url-pattern>
         </web-resource-collection>        
         <web-resource-collection>
-            <web-resource-name>EntityAuditLogQuery</web-resource-name>
-            <url-pattern>/EntityService/EntityAuditLogQuerySecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntityNotifySecured</web-resource-name>
-            <url-pattern>/EntityService/EntityNotificationConsumerSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntitySubscribeSecuredService</web-resource-name>
-            <url-pattern>/EntityService/EntityNotificationProducerSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntityUnsubscribeSecuredService</web-resource-name>
-            <url-pattern>/EntityService/EntitySubscriptionManagerSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntityPatientDiscoverySecured</web-resource-name>
-            <url-pattern>/EntityService/EntityPatientDiscoverySecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntityPatientDiscoveryDeferredReqQueueSecured</web-resource-name>
-            <url-pattern>/EntityService/EntityPatientDiscoveryDeferredReqQueueSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntityPatientDiscoveryDeferredResponseSecured</web-resource-name>
-            <url-pattern>/EntityService/EntityPatientDiscoveryDeferredResponseSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntityPatientDiscoveryDeferredRequestSecured</web-resource-name>
-            <url-pattern>/EntityService/EntityPatientDiscoveryDeferredRequestSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
             <web-resource-name>EntityDocSubmissionSecured</web-resource-name>
             <url-pattern>/EntityService/EntityDocSubmissionSecured</url-pattern>
         </web-resource-collection>
     <!-- Start: XDR Request and Response services-->
+        <web-resource-collection>
+            <web-resource-name>PassthruDocSubmissionDeferredRequestSecured</web-resource-name>
+            <url-pattern>/EntityService/PassthruDocSubmissionDeferredRequestSecured</url-pattern>
+        </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>EntityDocSubmissionDeferredRequestSecured</web-resource-name>
             <url-pattern>/EntityService/EntityDocSubmissionDeferredRequestSecured</url-pattern>
@@ -196,15 +168,19 @@
             <web-resource-name>EntityDocSubmissionDeferredResponseSecured</web-resource-name>
             <url-pattern>/EntityService/EntityDocSubmissionDeferredResponseSecured</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>PassthruDocSubmissionDeferredResponseSecured</web-resource-name>
+            <url-pattern>/EntityService/PassthruDocSubmissionDeferredResponseSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinXDRRequest20</web-resource-name>
+            <url-pattern>/NhinService/XDRRequest_Service</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinXDRResponse20</web-resource-name>
+            <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
+        </web-resource-collection>        
     <!-- End: XDR Request and Response services-->
-        <web-resource-collection>
-            <web-resource-name>AuditRepository</web-resource-name>
-            <url-pattern>/GatewayService/AuditRepositoryManagerSecuredService</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>PatientCorrelationServiceSecured</web-resource-name>
-            <url-pattern>/GatewayService/PatientCorrelationServiceSecured</url-pattern>
-        </web-resource-collection>
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>

@@ -103,6 +103,8 @@
         <servlet-name>ProxyHiemUnsubscribeSecured</servlet-name>
         <url-pattern>/EntityService/NhincProxySubscriptionManagerSecured</url-pattern>
     </servlet-mapping>
+    
+    
     <servlet>
         <servlet-name>EntityNotifySecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.notify.EntityNotifySecured</servlet-class>
@@ -181,10 +183,6 @@
         <web-resource-collection>
             <web-resource-name>ProxyHiemUnsubscribeSecured</web-resource-name>
             <url-pattern>/EntityService/NhincProxySubscriptionManagerSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntityAdministrativeDistributionSecured</web-resource-name>
-            <url-pattern>/EntityService/AdministrativeDistributionSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>EntityNotifySecured</web-resource-name>
