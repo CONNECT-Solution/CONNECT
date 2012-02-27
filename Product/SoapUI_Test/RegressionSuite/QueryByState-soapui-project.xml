@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="QueryByState" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="QueryByState" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="WSDL path not set.  #NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="file:/C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -9,427 +10,63 @@
 		</con:endpoints>
 		<con:operation action="urn:ForceRefreshInternalConnectCache" anonymous="optional" bindingOperationName="ForceRefreshInternalConnectCache" inputName="ForceRefreshInternalConnectCacheRequest" isOneWay="false" name="ForceRefreshInternalConnectCache" outputName="ForceRefreshInternalConnectCacheResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:ForceRefreshInternalConnectCacheRequest>
-         <!--Optional:-->
-         <urn:emptyParam>?</urn:emptyParam>
-      </urn:ForceRefreshInternalConnectCacheRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:ForceRefreshInternalConnectCache" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
 		<con:operation action="urn:ForceRefreshUDDICache" anonymous="optional" bindingOperationName="ForceRefreshUDDICache" inputName="ForceRefreshUDDICacheRequest" isOneWay="false" name="ForceRefreshUDDICache" outputName="ForceRefreshUDDICacheResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:ForceRefreshUDDICacheRequest>
-         <!--Optional:-->
-         <urn:emptyParam>?</urn:emptyParam>
-      </urn:ForceRefreshUDDICacheRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:ForceRefreshUDDICache" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
 		<con:operation action="urn:GetAllBusinessEntities" anonymous="optional" bindingOperationName="GetAllBusinessEntities" inputName="GetAllBusinessEntitiesRequest" isOneWay="false" name="GetAllBusinessEntities" outputName="GetAllBusinessEntitiesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetAllBusinessEntitiesRequest>
-         <!--Optional:-->
-         <urn:emptyParam>?</urn:emptyParam>
-      </urn:GetAllBusinessEntitiesRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetAllBusinessEntities" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
 		<con:operation action="urn:GetAllBusinessEntitySetByServiceName" anonymous="optional" bindingOperationName="GetAllBusinessEntitySetByServiceName" inputName="GetAllBusinessEntitySetByServiceNameRequest" isOneWay="false" name="GetAllBusinessEntitySetByServiceName" outputName="GetAllBusinessEntitySetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetAllBusinessEntitySetByServiceNameRequest>
-         <!--Optional:-->
-         <urn:serviceName>?</urn:serviceName>
-      </urn:GetAllBusinessEntitySetByServiceNameRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetAllBusinessEntitySetByServiceName" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
-		<con:operation action="urn:GetAllCommunities" anonymous="optional" bindingOperationName="GetAllCommunities" inputName="GetAllCommunitiesRequest" isOneWay="false" name="GetAllCommunities" outputName="GetAllCommunitiesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetAllCommunitiesRequest>
-         <!--Optional:-->
-         <urn:emptyParam>?</urn:emptyParam>
-      </urn:GetAllCommunitiesRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetAllCommunities" mustUnderstand="NONE" version="200508"/>
-			</con:call>
-		</con:operation>
-		<con:operation action="urn:GetAllConnectionInfoEndpointSetByServiceName" anonymous="optional" bindingOperationName="GetAllConnectionInfoEndpointSetByServiceName" inputName="GetAllConnectionInfoEndpointSetByServiceNameRequest" isOneWay="false" name="GetAllConnectionInfoEndpointSetByServiceName" outputName="GetAllConnectionInfoEndpointSetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetAllConnectionInfoEndpointSetByServiceNameRequest>
-         <!--Optional:-->
-         <urn:serviceName>?</urn:serviceName>
-      </urn:GetAllConnectionInfoEndpointSetByServiceNameRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetAllConnectionInfoEndpointSetByServiceName" mustUnderstand="NONE" version="200508"/>
-			</con:call>
-		</con:operation>
-		<con:operation action="urn:GetAllConnectionInfoSetByServiceName" anonymous="optional" bindingOperationName="GetAllConnectionInfoSetByServiceName" inputName="GetAllConnectionInfoSetByServiceNameRequest" isOneWay="false" name="GetAllConnectionInfoSetByServiceName" outputName="GetAllConnectionInfoSetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetAllConnectionInfoSetByServiceNameRequest>
-         <!--Optional:-->
-         <urn:serviceName>?</urn:serviceName>
-      </urn:GetAllConnectionInfoSetByServiceNameRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetAllConnectionInfoSetByServiceName" mustUnderstand="NONE" version="200508"/>
-			</con:call>
-		</con:operation>
+		
+		
+		
 		<con:operation action="urn:GetAssigningAuthoritiesByHomeCommunity" anonymous="optional" bindingOperationName="GetAssigningAuthoritiesByHomeCommunity" inputName="GetAssigningAuthoritiesByHomeCommunityRequest" isOneWay="false" name="GetAssigningAuthoritiesByHomeCommunity" outputName="GetAssigningAuthoritiesByHomeCommunityResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetAssigningAuthoritiesByHomeCommunityRequest>
-         <urn:HomeCommunity>
-            <urn1:description>?</urn1:description>
-            <urn1:homeCommunityId>?</urn1:homeCommunityId>
-            <urn1:name>?</urn1:name>
-         </urn:HomeCommunity>
-      </urn:GetAssigningAuthoritiesByHomeCommunityRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetAssigningAuthoritiesByHomeCommunity" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
 		<con:operation action="urn:GetBusinessEntity" anonymous="optional" bindingOperationName="GetBusinessEntity" inputName="GetBusinessEntityRequest" isOneWay="false" name="GetBusinessEntity" outputName="GetBusinessEntityResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetBusinessEntityRequest>
-         <!--Optional:-->
-         <urn:homeCommunity>
-            <urn1:description>?</urn1:description>
-            <urn1:homeCommunityId>?</urn1:homeCommunityId>
-            <urn1:name>?</urn1:name>
-         </urn:homeCommunity>
-         <!--Optional:-->
-         <urn:assigningAuthority>
-            <urn1:assigningAuthorityId>?</urn1:assigningAuthorityId>
-         </urn:assigningAuthority>
-      </urn:GetBusinessEntityRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetBusinessEntity" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
 		<con:operation action="urn:GetBusinessEntityByServiceName" anonymous="optional" bindingOperationName="GetBusinessEntityByServiceName" inputName="GetBusinessEntityByServiceNameRequest" isOneWay="false" name="GetBusinessEntityByServiceName" outputName="GetBusinessEntityByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetBusinessEntityByServiceNameRequest>
-         <!--Optional:-->
-         <urn:homeCommunityWithServiceName>
-            <!--Optional:-->
-            <urn:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn:homeCommunity>
-            <urn:serviceName>?</urn:serviceName>
-            <!--Optional:-->
-            <urn:assigningAuthority>
-               <urn1:assigningAuthorityId>?</urn1:assigningAuthorityId>
-            </urn:assigningAuthority>
-         </urn:homeCommunityWithServiceName>
-      </urn:GetBusinessEntityByServiceNameRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetBusinessEntityByServiceName" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
 		<con:operation action="urn:GetBusinessEntitySet" anonymous="optional" bindingOperationName="GetBusinessEntitySet" inputName="GetBusinessEntitySetRequest" isOneWay="false" name="GetBusinessEntitySet" outputName="GetBusinessEntitySetResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetBusinessEntitySetRequest>
-         <!--Optional:-->
-         <urn:homeCommunities>
-            <!--Zero or more repetitions:-->
-            <urn1:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn1:homeCommunity>
-         </urn:homeCommunities>
-         <!--Optional:-->
-         <urn:assigningAuthorities>
-            <!--Zero or more repetitions:-->
-            <urn1:assigningAuthority>
-               <urn1:assigningAuthorityId>?</urn1:assigningAuthorityId>
-            </urn1:assigningAuthority>
-         </urn:assigningAuthorities>
-      </urn:GetBusinessEntitySetRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetBusinessEntitySet" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
 		<con:operation action="urn:GetBusinessEntitySetByServiceName" anonymous="optional" bindingOperationName="GetBusinessEntitySetByServiceName" inputName="GetBusinessEntitySetByServiceNameRequest" isOneWay="false" name="GetBusinessEntitySetByServiceName" outputName="GetBusinessEntitySetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetBusinessEntitySetByServiceNameRequest>
-         <!--Optional:-->
-         <urn:homeCommunitiesWithServiceName>
-            <!--Optional:-->
-            <urn:HomeCommunities>
-               <!--Zero or more repetitions:-->
-               <urn1:homeCommunity>
-                  <urn1:description>?</urn1:description>
-                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
-                  <urn1:name>?</urn1:name>
-               </urn1:homeCommunity>
-            </urn:HomeCommunities>
-            <urn:serviceName>?</urn:serviceName>
-            <!--Optional:-->
-            <urn:assigningAuthorities>
-               <!--Zero or more repetitions:-->
-               <urn1:assigningAuthority>
-                  <urn1:assigningAuthorityId>?</urn1:assigningAuthorityId>
-               </urn1:assigningAuthority>
-            </urn:assigningAuthorities>
-         </urn:homeCommunitiesWithServiceName>
-      </urn:GetBusinessEntitySetByServiceNameRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetBusinessEntitySetByServiceName" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
-		<con:operation action="urn:GetConnectionInfoByServiceName" anonymous="optional" bindingOperationName="GetConnectionInfoByServiceName" inputName="GetConnectionInfoByServiceNameRequest" isOneWay="false" name="GetConnectionInfoByServiceName" outputName="GetConnectionInfoByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		
+		
+		
+		
+		
+		
+		
+		<con:operation action="urn:GetHomeCommunityByAssigningAuthority" anonymous="optional" bindingOperationName="GetHomeCommunityByAssigningAuthority" inputName="GetHomeCommunityByAssigningAuthorityRequest" isOneWay="false" name="GetHomeCommunityByAssigningAuthority" outputName="GetHomeCommunityByAssigningAuthorityResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:HomeCommunityWithServiceName>
-         <!--Optional:-->
-         <urn:homeCommunity>
-            <urn1:description>?</urn1:description>
-            <urn1:homeCommunityId>?</urn1:homeCommunityId>
-            <urn1:name>?</urn1:name>
-         </urn:homeCommunity>
-         <urn:serviceName>?</urn:serviceName>
-         <!--Optional:-->
-         <urn:assigningAuthority>
-            <urn1:assigningAuthorityId>?</urn1:assigningAuthorityId>
-         </urn:assigningAuthority>
-      </urn:HomeCommunityWithServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetConnectionInfoByServiceName" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
-		<con:operation action="urn:GetConnectionInfoEndpointByServiceName" anonymous="optional" bindingOperationName="GetConnectionInfoEndpointByServiceName" inputName="GetConnectionInfoEndpointByServiceNameRequest" isOneWay="false" name="GetConnectionInfoEndpointByServiceName" outputName="GetConnectionInfoEndpointByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:operation action="urn:GetEndpointURLFromNhinTargetCommunities" anonymous="optional" bindingOperationName="GetEndpointURLFromNhinTargetCommunities" inputName="GetEndpointURLFromNhinTargetCommunitiesRequest" isOneWay="false" name="GetEndpointURLFromNhinTargetCommunities" outputName="GetEndpointURLFromNhinTargetCommunitiesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetConnectionInfoEndpointByServiceNameRequest>
-         <!--Optional:-->
-         <urn:homeCommunityWithServiceName>
-            <!--Optional:-->
-            <urn:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn:homeCommunity>
-            <urn:serviceName>?</urn:serviceName>
-            <!--Optional:-->
-            <urn:assigningAuthority>
-               <urn1:assigningAuthorityId>?</urn1:assigningAuthorityId>
-            </urn:assigningAuthority>
-         </urn:homeCommunityWithServiceName>
-      </urn:GetConnectionInfoEndpointByServiceNameRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetConnectionInfoEndpointByServiceName" mustUnderstand="NONE" version="200508"/>
-			</con:call>
+			
 		</con:operation>
-		<con:operation action="urn:GetConnectionInfoEndpointSet" anonymous="optional" bindingOperationName="GetConnectionInfoEndpointSet" inputName="GetConnectionInfoEndpointSetRequest" isOneWay="false" name="GetConnectionInfoEndpointSet" outputName="GetConnectionInfoEndpointSetResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetConnectionInfoEndpointSetRequest>
-         <!--Optional:-->
-         <urn:homeCommunities>
-            <!--Zero or more repetitions:-->
-            <urn1:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn1:homeCommunity>
-         </urn:homeCommunities>
-         <!--Optional:-->
-         <urn:assigningAuthorities>
-            <!--Zero or more repetitions:-->
-            <urn1:assigningAuthority>
-               <urn1:assigningAuthorityId>?</urn1:assigningAuthorityId>
-            </urn1:assigningAuthority>
-         </urn:assigningAuthorities>
-      </urn:GetConnectionInfoEndpointSetRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetConnectionInfoEndpointSet" mustUnderstand="NONE" version="200508"/>
-			</con:call>
-		</con:operation>
-		<con:operation action="urn:GetConnectionInfoEndpointSetByServiceName" anonymous="optional" bindingOperationName="GetConnectionInfoEndpointSetByServiceName" inputName="GetConnectionInfoEndpointSetByServiceNameRequest" isOneWay="false" name="GetConnectionInfoEndpointSetByServiceName" outputName="GetConnectionInfoEndpointSetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetConnectionInfoEndpointSetByServiceNameRequest>
-         <!--Optional:-->
-         <urn:homeCommunitiesWithServiceName>
-            <!--Optional:-->
-            <urn:HomeCommunities>
-               <!--Zero or more repetitions:-->
-               <urn1:homeCommunity>
-                  <urn1:description>?</urn1:description>
-                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
-                  <urn1:name>?</urn1:name>
-               </urn1:homeCommunity>
-            </urn:HomeCommunities>
-            <urn:serviceName>?</urn:serviceName>
-            <!--Optional:-->
-            <urn:assigningAuthorities>
-               <!--Zero or more repetitions:-->
-               <urn1:assigningAuthority>
-                  <urn1:assigningAuthorityId>?</urn1:assigningAuthorityId>
-               </urn1:assigningAuthority>
-            </urn:assigningAuthorities>
-         </urn:homeCommunitiesWithServiceName>
-      </urn:GetConnectionInfoEndpointSetByServiceNameRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetConnectionInfoEndpointSetByServiceName" mustUnderstand="NONE" version="200508"/>
-			</con:call>
-		</con:operation>
-		<con:operation action="GetConnectionInfoEndpontFromNhinTarget" anonymous="optional" bindingOperationName="GetConnectionInfoEndpontFromNhinTarget" inputName="GetConnectionInfoEndpontFromNhinTargetRequest" isOneWay="false" name="GetConnectionInfoEndpontFromNhinTarget" outputName="GetConnectionInfoEndpontFromNhinTargetResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetConnectionInfoEndpontFromNhinTargetRequest>
+		
+	<con:operation isOneWay="false" action="urn:GetDefaultEndpointURLByServiceName" name="GetDefaultEndpointURLByServiceName" bindingOperationName="GetDefaultEndpointURLByServiceName" type="Request-Response" outputName="GetDefaultEndpointURLByServiceNameResponse" inputName="GetDefaultEndpointURLByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetInternalEndpointURLByServiceName" name="GetInternalEndpointURLByServiceName" bindingOperationName="GetInternalEndpointURLByServiceName" type="Request-Response" outputName="GetInternalEndpointURLByServiceNameResponse" inputName="GetInternalEndpointURLByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetEndpointURLFromNhinTarget" name="GetEndpointURLFromNhinTarget" bindingOperationName="GetEndpointURLFromNhinTarget" type="Request-Response" outputName="GetEndpointURLFromNhinTargetResponse" inputName="GetEndpointURLFromNhinTargetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetRequest>
          <urn:NhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->
             <urn1:epr>
@@ -458,157 +95,15 @@
             <urn1:url>?</urn1:url>
          </urn:NhinTargetSystem>
          <urn:serviceName>?</urn:serviceName>
-      </urn:GetConnectionInfoEndpontFromNhinTargetRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="GetConnectionInfoEndpontFromNhinTarget" mustUnderstand="NONE" version="200508"/>
-			</con:call>
-		</con:operation>
-		<con:operation action="urn:GetConnectionInfoSet" anonymous="optional" bindingOperationName="GetConnectionInfoSet" inputName="GetConnectionInfoSetRequest" isOneWay="false" name="GetConnectionInfoSet" outputName="GetConnectionInfoSetResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:HomeCommunities>
-         <!--Zero or more repetitions:-->
-         <urn:homeCommunity>
-            <urn:description>?</urn:description>
-            <urn:homeCommunityId>?</urn:homeCommunityId>
-            <urn:name>?</urn:name>
-         </urn:homeCommunity>
-      </urn:HomeCommunities>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetConnectionInfoSet" mustUnderstand="NONE" version="200508"/>
-			</con:call>
-		</con:operation>
-		<con:operation action="urn:GetConnectionInfoSetByServiceName" anonymous="optional" bindingOperationName="GetConnectionInfoSetByServiceName" inputName="GetConnectionInfoSetByServiceNameRequest" isOneWay="false" name="GetConnectionInfoSetByServiceName" outputName="GetConnectionInfoSetByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:HomeCommunitiesWithServiceName>
-         <!--Optional:-->
-         <urn:HomeCommunities>
-            <!--Zero or more repetitions:-->
-            <urn1:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn1:homeCommunity>
-         </urn:HomeCommunities>
-         <urn:serviceName>?</urn:serviceName>
-         <!--Optional:-->
-         <urn:assigningAuthorities>
-            <!--Zero or more repetitions:-->
-            <urn1:assigningAuthority>
-               <urn1:assigningAuthorityId>?</urn1:assigningAuthorityId>
-            </urn1:assigningAuthority>
-         </urn:assigningAuthorities>
-      </urn:HomeCommunitiesWithServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetConnectionInfoSetByServiceName" mustUnderstand="NONE" version="200508"/>
-			</con:call>
-		</con:operation>
-		<con:operation action="urn:GetHomeCommunityByAssigningAuthority" anonymous="optional" bindingOperationName="GetHomeCommunityByAssigningAuthority" inputName="GetHomeCommunityByAssigningAuthorityRequest" isOneWay="false" name="GetHomeCommunityByAssigningAuthority" outputName="GetHomeCommunityByAssigningAuthorityResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetHomeCommunityByAssigningAuthorityRequest>
-         <urn:AssigningAuthorities>
-            <urn1:assigningAuthorityId>?</urn1:assigningAuthorityId>
-         </urn:AssigningAuthorities>
-      </urn:GetHomeCommunityByAssigningAuthorityRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:GetHomeCommunityByAssigningAuthority" mustUnderstand="NONE" version="200508"/>
-			</con:call>
-		</con:operation>
-		<con:operation action="GetUrlSetFromNhinTargetCommunities" anonymous="optional" bindingOperationName="GetUrlSetFromNhinTargetCommunities" inputName="GetUrlSetFromNhinTargetCommunitiesRequest" isOneWay="false" name="GetUrlSetFromNhinTargetCommunities" outputName="GetUrlSetFromNhinTargetCommunitiesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:GetUrlSetByServiceName>
-         <urn:NhinTargetCommunities>
-            <!--1 or more repetitions:-->
-            <urn1:nhinTargetCommunity>
-               <urn1:homeCommunity>
-                  <urn1:description>?</urn1:description>
-                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
-                  <urn1:name>?</urn1:name>
-               </urn1:homeCommunity>
-               <urn1:list>?</urn1:list>
-               <urn1:region>?</urn1:region>
-            </urn1:nhinTargetCommunity>
-         </urn:NhinTargetCommunities>
-         <urn:service>?</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="GetUrlSetFromNhinTargetCommunities" mustUnderstand="NONE" version="200508"/>
-			</con:call>
-		</con:operation>
-		<con:operation action="urn:StoreAssigningAuthorityToHomeCommunityMapping" anonymous="optional" bindingOperationName="StoreAssigningAuthorityToHomeCommunityMapping" inputName="StoreAssigningAuthorityToHomeCommunityMappingRequest" isOneWay="false" name="StoreAssigningAuthorityToHomeCommunityMapping" outputName="StoreAssigningAuthorityToHomeCommunityMappingResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:StoreAssigningAuthorityToHomeCommunityRequest>
-         <urn:AssigningAuthority>
-            <urn1:assigningAuthorityId>?</urn1:assigningAuthorityId>
-         </urn:AssigningAuthority>
-         <urn:HomeCommunity>
-            <urn1:description>?</urn1:description>
-            <urn1:homeCommunityId>?</urn1:homeCommunityId>
-            <urn1:name>?</urn1:name>
-         </urn:HomeCommunity>
-      </urn:StoreAssigningAuthorityToHomeCommunityRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:StoreAssigningAuthorityToHomeCommunityMapping" mustUnderstand="NONE" version="200508"/>
-			</con:call>
-		</con:operation>
-	</con:interface>
+      </urn:GetEndpointURLFromNhinTargetRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetEndpointURLFromNhinTargetRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:GetAdapterEndpointURL" name="GetAdapterEndpointURL" bindingOperationName="GetAdapterEndpointURL" type="Request-Response" outputName="GetAdapterEndpointURLResponse" inputName="GetAdapterEndpointURLRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface>
 	<con:testSuite name="QueryByState TestSuite">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="4f065352-c415-4633-977a-7620a6711b2f" keepSession="false" maxResults="0" name="UDDI file - by HCID" searchProperties="true">
 			<con:settings/>
-			<con:testStep disabled="true" name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
 				<con:settings/>
 				<con:config>
@@ -667,180 +162,220 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Single HCID" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single HCID">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="UDDI file - by HCID">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>4.4</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-               <urn1:region/>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-        <urn:service>QueryForDocuments</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>QueryForDocuments</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns1:UrlSet[1]/ns1:url[1]</path>
-								<content>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
+						<con:assertion type="XPath Match" name="url match">
+							<con:configuration><path>declare namespace ns6='urn:gov:hhs:fha:nhinc:common:nhinccommon';
+declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
+
+//ns5:URLInfos[1]/ns6:url[1]</path><content>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper4.4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:assertion type="XPath Match"><con:configuration><path>declare namespace ns6='urn:gov:hhs:fha:nhinc:common:nhinccommon';
+declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
+
+//ns5:URLInfos[1]/ns6:id[1]</path><content>4.4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Multiple HCIDs" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple HCIDs">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="UDDI file - by HCID">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
-            <urn1:nhinTargetCommunity>
+	    <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>6.6</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-               <urn1:region/>
             </urn1:nhinTargetCommunity>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                   <urn1:homeCommunityId>4.4</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>4.4</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-               <urn1:region/>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>QueryForDocuments</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>QueryForDocuments</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
 						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns1:UrlSet[1]/ns1:url[1]</path>
-								<content>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper6.6</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
+							<con:configuration><path>declare namespace S='http://www.w3.org/2003/05/soap-envelope';
+declare namespace ns4='http://schemas.xmlsoap.org/ws/2004/08/addressing';
+declare namespace ns2='urn:uddi-org:api_v3';
+declare namespace ns6='urn:gov:hhs:fha:nhinc:common:nhinccommon';
+declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
+declare namespace ns3='http://www.w3.org/2000/09/xmldsig#';
+declare namespace ns1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
+//ns5:URLInfos[1]/ns1:url[1]</path><content>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper6.6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
 						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns1:UrlSet[1]/ns1:url[2]</path>
-								<content>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
+							<con:configuration><path>declare namespace S='http://www.w3.org/2003/05/soap-envelope';
+declare namespace ns4='http://schemas.xmlsoap.org/ws/2004/08/addressing';
+declare namespace ns2='urn:uddi-org:api_v3';
+declare namespace ns6='urn:gov:hhs:fha:nhinc:common:nhinccommon';
+declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
+declare namespace ns3='http://www.w3.org/2000/09/xmldsig#';
+declare namespace ns1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
+//ns5:URLInfos[2]/ns6:url[1]</path><content>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper4.4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Single HCID ( only in UDDI )" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single HCID ( only in UDDI )">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="UDDI file - by HCID">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>6.6</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-               <urn1:region/>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-        <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
 						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery6.6</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
+							<con:configuration><path>declare namespace ns6='urn:gov:hhs:fha:nhinc:common:nhinccommon';
+declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
+
+//ns5:URLInfos[1]/ns6:url[1]</path><content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery6.6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Restore Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:properties/>
+			
+			<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties/>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="630f6f5f-5fa8-4d99-a30c-2b39fd8391e2" keepSession="false" maxResults="0" name="UDDI file - by Region" searchProperties="true">
 			<con:settings/>
-			<con:testStep disabled="true" name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
 				<con:settings/>
 				<con:config>
@@ -899,15 +434,14 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Multiple Regions" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple Regions">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body projectName="QueryByState" testCase="UDDI file - by Region">
       <urn:GetUrlSetByServiceName>
@@ -983,16 +517,16 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Single Region" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single Region">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -1064,9 +598,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Multiple Regions ( one from UDDI and one from ICI )" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple Regions ( one from UDDI and one from ICI )">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -1153,26 +687,78 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Restore Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:properties/>
+			
+			<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties/>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="f9a1e465-20a1-4f61-9e5a-69ab80df360c" keepSession="false" maxResults="0" name="UDDI file - by region + HCID in the same tag" searchProperties="true">
 			<con:settings/>
-			<con:testStep disabled="true" name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
 				<con:settings/>
 				<con:config>
@@ -1231,9 +817,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and associating HCID" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and associating HCID">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -1304,9 +890,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and non-associated HCID" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and non-associated HCID">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -1384,26 +970,78 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Restore Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:properties/>
+			
+			<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties/>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="73228566-f4f5-4da1-8a48-10314572f144" keepSession="false" maxResults="0" name="UDDI file - by region + HCID in a different tag" searchProperties="true">
 			<con:settings/>
-			<con:testStep disabled="true" name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
 				<con:settings/>
 				<con:config>
@@ -1462,9 +1100,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and associating HCID" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and associating HCID">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -1544,9 +1182,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and non-associated HCID" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and non-associated HCID">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -1633,26 +1271,78 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Restore Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:properties/>
+			
+			<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties/>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="c09e77f8-1a65-4030-bf5d-c60b49af4fd0" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by HCID" searchProperties="true">
 			<con:settings/>
-			<con:testStep disabled="true" name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
 				<con:settings/>
 				<con:config>
@@ -1711,9 +1401,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Single HCID" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single HCID">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -1757,9 +1447,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Multiple HCIDs" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple HCIDs">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -1819,26 +1509,78 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Restore Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:properties/>
+			
+			<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties/>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="2e1a8cdd-95a9-42bb-a518-dce9c8aeb974" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region" searchProperties="true">
 			<con:settings/>
-			<con:testStep disabled="true" name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
 				<con:settings/>
 				<con:config>
@@ -1897,9 +1639,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Single Region" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single Region">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -1943,9 +1685,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Multiple Regions" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple Regions">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -2032,26 +1774,78 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Restore Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:properties/>
+			
+			<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties/>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="6f71882a-7bce-4a7c-947e-9a0dfabdcbac" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region + HCID in the same tag" searchProperties="true">
 			<con:settings/>
-			<con:testStep disabled="true" name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
 				<con:settings/>
 				<con:config>
@@ -2110,9 +1904,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and associating HCID" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and associating HCID">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -2183,9 +1977,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and non-associating HCID" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and non-associating HCID">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -2245,26 +2039,78 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Restore Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:properties/>
+			
+			<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties/>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="23cf96e9-846d-4636-83ca-684ebd72771d" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region + HCID in a different tag" searchProperties="true">
 			<con:settings/>
-			<con:testStep disabled="true" name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
 				<con:settings/>
 				<con:config>
@@ -2323,9 +2169,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and associating HCID" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and associating HCID">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -2396,9 +2242,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and non-associated HCID" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and non-associated HCID">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -2476,26 +2322,78 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Restore Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:properties/>
+			
+			<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties/>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="93d90bd5-3049-4261-9981-f58ce4469271" keepSession="false" maxResults="0" name="ICI and UDDI" searchProperties="true">
 			<con:settings/>
-			<con:testStep disabled="true" name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
 				<con:settings/>
 				<con:config>
@@ -2554,9 +2452,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region in both UDDI anad ICI" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region in both UDDI anad ICI">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -2628,9 +2526,9 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="HCID in both UDDI and ICI" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetUrlSetFromNhinTargetCommunities</con:operation>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="HCID in both UDDI and ICI">
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
@@ -2673,16 +2571,74 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Restore Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:properties/>
+			
+			<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties/>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer ->       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>
@@ -2726,12 +2682,12 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value -&gt;
+	props.each { key, value ->
 	    project.setPropertyValue(key, value)
 	}
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
 return delegate.getProperty(propertyName) ?:
 delegate.testCase.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:

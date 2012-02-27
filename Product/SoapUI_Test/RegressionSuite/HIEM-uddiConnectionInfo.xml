@@ -305,6 +305,20 @@
 	<businessEntity businessKey="uddi:testnhincnode:4.4">
         <name xml:lang="en">DoD</name>
 		<businessServices>
+			<businessService serviceKey="uddi:testnhincnode:notificationproducer" businessKey="uddi:testnhieonenode:4.4">
+                <name xml:lang="en">HIEM</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationproducer" keyValue="notificationproducer"/>
+                </categoryBag>
+            </businessService>
         </businessServices>
 		
         <identifierBag>
@@ -320,6 +334,20 @@
 	<businessEntity businessKey="uddi:testnhincnode:5.5">
         <name xml:lang="en">DoD</name>
 		<businessServices>
+			<businessService serviceKey="uddi:testnhincnode:notificationproducer" businessKey="uddi:testnhieonenode:5.5">
+                <name xml:lang="en">HIEM</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationproducer" keyValue="notificationproducer"/>
+                </categoryBag>
+            </businessService>
         </businessServices>
 		
         <identifierBag>
@@ -335,6 +363,20 @@
 	<businessEntity businessKey="uddi:testnhincnode:6.6">
         <name xml:lang="en">DoD</name>
 		<businessServices>
+			<businessService serviceKey="uddi:testnhincnode:notificationproducer" businessKey="uddi:testnhieonenode:6.6">
+                <name xml:lang="en">HIEM</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationproducer" keyValue="notificationproducer"/>
+                </categoryBag>
+            </businessService>
         </businessServices>
 		
         <identifierBag>
@@ -350,6 +392,20 @@
 	<businessEntity businessKey="uddi:testnhincnode:7.7">
         <name xml:lang="en">DoD</name>
 		<businessServices>
+			<businessService serviceKey="uddi:testnhincnode:notificationproducer" businessKey="uddi:testnhieonenode:7.7">
+                <name xml:lang="en">HIEM</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationproducer" keyValue="notificationproducer"/>
+                </categoryBag>
+            </businessService>
         </businessServices>
 		
         <identifierBag>

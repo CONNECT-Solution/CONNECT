@@ -361,5 +361,4 @@
 			<keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Georgia" keyValue="US-GA"/>
         </categoryBag>
     </businessEntity>
-
 </businessDetail>
