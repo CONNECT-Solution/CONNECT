@@ -1230,7 +1230,7 @@
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
                     </bindingTemplate>
-					<bindingTemplates>
+
                     <bindingTemplate bindingKey="uddi:testnhincnode:adapterdocretrievedeferredresponse" serviceKey="uddi:testnhincnode:adapterdocretrievedeferredresponse">
                         <accessPoint useType="endPoint">http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredResponseUnsecured</accessPoint>
                         <categoryBag>
