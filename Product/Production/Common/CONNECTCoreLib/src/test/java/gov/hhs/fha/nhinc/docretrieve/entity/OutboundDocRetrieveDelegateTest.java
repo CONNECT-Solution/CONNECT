@@ -26,13 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * 
@@ -76,10 +78,17 @@ public class OutboundDocRetrieveDelegateTest {
     @Test
     public void testCreateErrorResponse() {
         System.out.println("createErrorResponse");
-        OutboundOrchestratable message = null;
-        String error = "";
+        OutboundDocRetrieveOrchestratableImpl message = null;
+        String errorCode = "XDSDocumentUniqueIdError";
+        String errorContext = "Document id not found";
         OutboundDocRetrieveDelegate instance = new OutboundDocRetrieveDelegate();
-        instance.createErrorResponse(message, error);
+        instance.createErrorResponse(message, errorCode, errorContext);
+        assertNull(message);
+        
+        message = new OutboundDocRetrieveOrchestratableImpl(null, null, null, null, instance, null, null);
+        instance.createErrorResponse(message, errorCode, errorContext);
+        assertEquals(message.getResponse().getRegistryResponse().getStatus(),
+                "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
     }
 
 }

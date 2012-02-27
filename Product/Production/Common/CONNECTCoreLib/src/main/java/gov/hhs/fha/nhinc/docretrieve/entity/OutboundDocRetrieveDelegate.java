@@ -63,45 +63,59 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
         OutboundOrchestratable resp = null;
         if (message instanceof OutboundDocRetrieveOrchestratable) {
             OutboundDocRetrieveOrchestratable DRMessage = (OutboundDocRetrieveOrchestratable) message;
-            // TODO: check connection manager for which endpoint to use
+            try {
+                OutboundDocRetrieveContextBuilder contextBuilder = (OutboundDocRetrieveContextBuilder) OrchestrationContextFactory
+                        .getInstance().getBuilder(DRMessage.getTarget().getHomeCommunity(),
+                                NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
 
-            OutboundDocRetrieveContextBuilder contextBuilder = (OutboundDocRetrieveContextBuilder) OrchestrationContextFactory
-                    .getInstance().getBuilder(DRMessage.getTarget().getHomeCommunity(),
-                            NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
+                contextBuilder.setContextMessage(message);
+                OrchestrationContext context = ((OrchestrationContextBuilder) contextBuilder).build();
 
-            contextBuilder.setContextMessage(message);
-            OrchestrationContext context = ((OrchestrationContextBuilder) contextBuilder).build();
-
-            resp = (OutboundOrchestratable) context.execute();
+                resp = (OutboundOrchestratable) context.execute();
+                checkResult(resp);
+            } catch (Throwable t) {
+                log.error("Error occured sending doc query to NHIN target: " + t.getMessage(), t);
+                createErrorResponse(DRMessage, "XDSRepositoryError", "Processing NHIN Proxy document retrieve");
+            }
         } else {
             getLogger().error("message is not an instance of NhinDocRetrieveOrchestratable!");
         }
         return resp;
     }
 
-    public void createErrorResponse(OutboundOrchestratable message, String error) {
+    /**
+     * Check for document retrieve response result.
+     * 
+     * @param response
+     * @return response or error response
+     */
+    private void checkResult(OutboundOrchestratable message) {
+        if (message instanceof OutboundDocRetrieveOrchestratableImpl) {
+            RetrieveDocumentSetResponseType response = ((OutboundDocRetrieveOrchestratableImpl) message).getResponse();
+            if (response.getDocumentResponse() == null || response.getDocumentResponse().isEmpty()) {
+                createErrorResponse(message, "XDSDocumentUniqueIdError", "Document id not found");
+            }
+        }
+    }
+
+    protected void createErrorResponse(OutboundOrchestratable message, String errorCode, String errorContext) {
         if (message == null) {
             getLogger().debug("NhinOrchestratable was null");
             return;
         }
 
-        if (message instanceof OutboundDocRetrieveOrchestratableImpl) {
-            RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-            RegistryResponseType responseType = new RegistryResponseType();
-            response.setRegistryResponse(responseType);
-            responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-            RegistryErrorList regErrList = new RegistryErrorList();
-            responseType.setRegistryErrorList(regErrList);
-            RegistryError regErr = new RegistryError();
-            regErrList.getRegistryError().add(regErr);
-            regErr.setCodeContext(error);
-            regErr.setErrorCode("XDSRepositoryError");
-            regErr.setSeverity("Error");
-            ((OutboundDocRetrieveOrchestratableImpl) message).setResponse(response);
-        } else /*
-                * if(message instanceof NhinDocRetrieveOrchestratableImpl_g1)
-                */{
-        }
+        RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
+        RegistryResponseType responseType = new RegistryResponseType();
+        response.setRegistryResponse(responseType);
+        responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+        RegistryErrorList regErrList = new RegistryErrorList();
+        responseType.setRegistryErrorList(regErrList);
+        RegistryError regErr = new RegistryError();
+        regErrList.getRegistryError().add(regErr);
+        regErr.setCodeContext(errorContext);
+        regErr.setErrorCode(errorCode);
+        regErr.setSeverity("Error");
+        ((OutboundDocRetrieveOrchestratableImpl) message).setResponse(response);
     }
 
     private Log getLogger() {

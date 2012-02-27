@@ -60,7 +60,6 @@ public class NhincProxyDocRetrieveOrchImpl {
         RetrieveDocumentSetResponseType response = null;
 
         // Note: auditing occurs in the orchestrator strategy.
-        try {
             OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
             OutboundDocRetrieveOrchestratableImpl message = new OutboundDocRetrieveOrchestratableImpl(request,
                     assertion, null, null, delegate, null, targetSystem);
@@ -69,20 +68,6 @@ public class NhincProxyDocRetrieveOrchImpl {
             OutboundDocRetrieveOrchestratableImpl orchResponse = (OutboundDocRetrieveOrchestratableImpl) orchestrator
                     .process(message);
             response = orchResponse.getResponse();
-        } catch (Throwable t) {
-            log.error("Error occured sending doc query to NHIN target: " + t.getMessage(), t);
-            response = new RetrieveDocumentSetResponseType();
-            RegistryResponseType responseType = new RegistryResponseType();
-            response.setRegistryResponse(responseType);
-            responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-            RegistryErrorList regErrList = new RegistryErrorList();
-            responseType.setRegistryErrorList(regErrList);
-            RegistryError regErr = new RegistryError();
-            regErrList.getRegistryError().add(regErr);
-            regErr.setCodeContext("Processing NHIN Proxy document retrieve");
-            regErr.setErrorCode("XDSRepositoryError");
-            regErr.setSeverity("Error");
-        }
 
         log.debug("End NhincProxyDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve(...)");
         return response;
