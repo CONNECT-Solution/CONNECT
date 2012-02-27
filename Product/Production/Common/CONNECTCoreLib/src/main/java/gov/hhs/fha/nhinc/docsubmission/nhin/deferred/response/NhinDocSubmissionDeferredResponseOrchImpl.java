@@ -61,7 +61,7 @@ public class NhinDocSubmissionDeferredResponseOrchImpl {
             AssertionType assertion) {
         XDRAcknowledgementType result = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
-        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        regResp.setStatus(NhincConstants.XDR_RESP_ACK_STATUS_MSG);
         result.setMessage(regResp);
 
         getLogger().debug("Entering provideAndRegisterDocumentSetBResponse");
