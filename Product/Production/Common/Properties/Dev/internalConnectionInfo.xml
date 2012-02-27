@@ -2293,7 +2293,8 @@
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="1.1"/>
         </identifierBag>
         <categoryBag>
-            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Florida" keyValue="US-FL"/>
+			<keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="New York" keyValue="US-NY"/>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
 </businessDetail>
