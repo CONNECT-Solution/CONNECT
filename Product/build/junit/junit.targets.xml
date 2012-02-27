@@ -3,8 +3,6 @@
 
 	<import file="junit.properties.xml" />
 	<import file="junit.macros.xml" />
-	
-	<property name="properties.dir" location="../../Common/Properties/Dev"/>
 
 	<target name="junit.help">
 			
@@ -21,7 +19,7 @@
 		<if>
 			<istrue value="${unittest.hasTests}" />
 			<then>
-				<junitrun reportfile="${unittest.report.dir}/UnitTests.xml" testtype="unit" verbose="${debug}" nhinc.properties.dir="${properties.dir}">
+				<junitrun reportfile="${unittest.report.dir}/UnitTests.xml" testtype="unit" verbose="${debug}">
 					<tests>
 						<fileset refid="junitrun.tests" />
 					</tests>
@@ -47,7 +45,7 @@
 		<if>
 			<istrue value="${webtest.hasTests}" />
 			<then>
-				<junitrun reportfile="${project.dir}/web-test-reports/WebTests.xml" testtype="web" verbose="${debug}" nhinc.properties.dir="${properties.dir}">
+				<junitrun reportfile="${project.dir}/web-test-reports/WebTests.xml" testtype="web" verbose="${debug}">
 					<tests>
 						<fileset refid="junitrun.tests" />
 					</tests>
@@ -73,7 +71,7 @@
 		<if>
 			<istrue value="${integrationtest.hasTests}" />
 			<then>
-				<junitrun reportfile="${integrationtest.report.dir}/IntegrationTests.xml" testtype="integration" verbose="${debug}" nhinc.properties.dir="${properties.dir}">
+				<junitrun reportfile="${integrationtest.report.dir}/IntegrationTests.xml" testtype="integration" verbose="${debug}">
 					<tests>
 						<fileset refid="junitrun.tests" />
 					</tests>

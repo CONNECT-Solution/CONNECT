@@ -103,7 +103,7 @@
     </condition>
   </target>
 
-  <target name="-deploy.glassfish.asadmin" depends="-deploy.create.glassfish.password.file">
+  <target name="-deploy.glassfish.asadmin">
     <condition property="ASADMIN" value="${glassfish.home}/bin/asadmin">
       <os family="Unix" />
     </condition>
@@ -122,7 +122,7 @@
     <parallel>
       <sequential>
         <exec dir="${glassfish.home}/bin" executable="cmd.exe" spawn="true" os="${os.name}" failonerror="false" >
-          <arg line="/c asadmin.bat start-domain --passwordfile ${deploy.glassfish.password.file.path} --user ${deployment.glassfish.server.username} ${deployment.glassfish.domain.name}"/>
+          <arg line="/c asadmin.bat start-domain --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} ${deployment.glassfish.domain.name}"/>
         </exec>
       </sequential>
     </parallel>
@@ -130,14 +130,15 @@
 
   <target name="-deploy.glassfish.start.server.notwin" depends="-deploy.glassfish.asadmin" unless="win">
     <exec executable="${ASADMIN}">
-      <arg line="start-domain ${deployment.glassfish.domain.name}"/>
-    </exec>
+      <arg line="start-domain --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} ${deployment.glassfish.domain.name}"/>
+    </exec>  	
   </target>
 
-  <target name="deploy.glassfish.stop.server" depends="-deploy.glassfish.asadmin">
-    <exec executable="${ASADMIN}">
-      <arg line="stop-domain ${deployment.glassfish.domain.name}"/>
-    </exec> 
+  <target name="deploy.glassfish.stop.server">
+    <sun-appserv-admin
+      explicitcommand="stop-domain ${deployment.glassfish.domain.name}"
+      asinstalldir="${glassfish.home}"
+      />
   </target>
 
   <target name="deploy.ejbs.to.glassfish">
@@ -208,15 +209,7 @@
 					  </not>
 					  <then>
 				         <echo message="war '@{war.name}' will be deployed."/>
-						  <if>
-							<istrue value="${source.install}" />
-							<then>
-							  <propertycopy override="true" name="deployment.glassfish.war.file.path" from="project.@{war.name}.dist.file" />
-							</then>
-							<else>
-					        <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war"/>
-							</else>
-						  </if>
+					     <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war"/>
 					     <var name="deployment.glassfish.war.name" value="@{war.name}"/>
 					     <runtarget target="${target}"/>
 					  </then>
@@ -259,15 +252,7 @@
 					</not>
 					<then>
 				  	  <echo message="shared lib '@{shared.name}' will be deployed."/>
-					  <if>
-					    <istrue value="${source.install}" />
-					    <then>
-					      <propertycopy override="true" name="deployment.glassfish.shared.lib.file.path" from="project.@{shared.name}.dist.file" />
-					    </then>
-					    <else>
-					      <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
-					    </else>
-					  </if>
+					  <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
 					  <runtarget target="${target}"/>
 					</then>
 					<else>
@@ -326,28 +311,48 @@
     <copy todir="${deployment.binaries.dir}" file="${dist.file}" overwrite="true"/>
   </target>
 
-  <target name="deploy.ejb.to.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
-    <exec executable="${ASADMIN}">
-	  <arg line="deploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.ejb.file.path}"/>
-	</exec>
+  <target name="deploy.ejb.to.glassfish" depends="-deploy.create.glassfish.password.file">
+    <sun-appserv-deploy
+        user="${deployment.glassfish.server.username}"
+        passwordfile="${deploy.glassfish.password.file.path}"
+        host="${deployment.glassfish.server}"
+        port="${deployment.glassfish.admin.port}"
+        file="${deployment.glassfish.ejb.file.path}"
+        asinstalldir="${glassfish.home}"
+        />
   </target>
 
-  <target name="undeploy.ejb.from.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
-    <exec executable="${ASADMIN}">
-	  <arg line="undeploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.ejb.name}"/>
-	</exec>
+  <target name="undeploy.ejb.from.glassfish" depends="-deploy.create.glassfish.password.file">
+    <sun-appserv-undeploy
+        user="${deployment.glassfish.server.username}"
+        passwordfile="${deploy.glassfish.password.file.path}"
+        host="${deployment.glassfish.server}"
+        port="${deployment.glassfish.admin.port}"
+        name="${deployment.glassfish.ejb.name}"
+        asinstalldir="${glassfish.home}"
+        />
   </target>
 
-  <target name="deploy.war.to.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
-    <exec executable="${ASADMIN}">
-	  <arg line="deploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.war.file.path}"/>
-	</exec>
+  <target name="deploy.war.to.glassfish" depends="-deploy.create.glassfish.password.file">
+    <sun-appserv-deploy
+        user="${deployment.glassfish.server.username}"
+        passwordfile="${deploy.glassfish.password.file.path}"
+        host="${deployment.glassfish.server}"
+        port="${deployment.glassfish.admin.port}"
+        file="${deployment.glassfish.war.file.path}"
+        asinstalldir="${glassfish.home}"
+        />
   </target>
 
-  <target name="undeploy.war.from.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
-    <exec executable="${ASADMIN}">
-	  <arg line="undeploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.war.name}"/>
-	</exec>
+  <target name="undeploy.war.from.glassfish" depends="-deploy.create.glassfish.password.file">
+    <sun-appserv-undeploy
+        user="${deployment.glassfish.server.username}"
+        passwordfile="${deploy.glassfish.password.file.path}"
+        host="${deployment.glassfish.server}"
+        port="${deployment.glassfish.admin.port}"
+        name="${deployment.glassfish.war.name}"
+        asinstalldir="${glassfish.home}"
+        />
   </target>
 
   <target name="deploy.shared.lib.to.glassfish">
@@ -364,14 +369,28 @@
     <copy file="${deployment.executable.file.path}" todir="deployment.executables.home" overwrite="true" />
   </target>
 
-  <target name="-delete.glassfish.domain" depends="-deploy.glassfish.asadmin" unless="win">
+  <target name="-delete.glassfish.domain">
     <if>
       <available file="${deployment.glassfish.domain.home}" type="dir"/>
       <then>
-		<runtarget target="deploy.glassfish.stop.server"/>
-		<exec executable="${ASADMIN}">
-		  <arg line="delete-domain ${deployment.glassfish.domain.name}"/>
-		</exec>
+        <trycatch property="error">
+          <try>
+            <runtarget target="deploy.glassfish.stop.server"/>
+            <sun-appserv-admin 
+            explicitcommand="delete-domain ${deployment.glassfish.domain.name}"
+            asinstalldir="${glassfish.home}"
+            />
+          </try>
+          <catch>
+            <echo message="${error}"/>
+            <!-- if delete-domain or stop-domain command failed, try to delete domain directory -->
+            <!-- workaround for locked domain1/conf/.domain-registry.system file on Windows -->
+            <sleep minutes="1"/>
+            <delete includeemptydirs="true" verbose="true">
+              <fileset dir="${deployment.glassfish.domain.home}" defaultexcludes="false"/>
+            </delete>
+          </catch>
+        </trycatch>
       </then>
     </if>
   </target>
@@ -408,25 +427,12 @@
           tofile="${glassfish.home}/bin/asant.bat" overwrite="true"/>
   </target>
 
-  <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin, copy.conf.file">
-    <if>
-      <istrue value="${use.non.defaults}"/>
-      <then>
-        <replace dir="${glassfish.home}" value="${glassfish.home}">
-          <replacefilter token="/nhin/SUNWappserver"/>
-          <replacefilter token="C:\Sun\AppServer"/>
-          <replacefilter token="$AS_HOME"/>
-          <replacefilter token="%AS_HOME%"/>
-          <replacefilter token="$JAVA_HOME" value="${java.home}/.."/>
-          <replacefilter token="%JAVA_HOME%" value="${java.home}/.."/>
-        </replace>
-        <chmod dir="${glassfish.home}/bin" perm="+x" includes="*"/>
-      </then>
-    </if>
+  <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file, copy.conf.file">
     <propertyregex property="deploy.glassfish.domain.template" input="${deployment.domain.template.file.path}" regexp="\\" replace="/" defaultValue="${deployment.domain.template.file.path}"/>
-	<exec executable="${ASADMIN}">
-	  <arg line="create-domain --template ${deploy.glassfish.domain.template} --echo=true --passwordfile ${deploy.glassfish.password.file.path} --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --savemasterpassword=true ${deployment.glassfish.domain.name}"/>
-	</exec>
+    <sun-appserv-admin 
+        explicitcommand='create-domain --template ${deploy.glassfish.domain.template} --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
+        asinstalldir="${glassfish.home}"
+        />
   </target>
 
   <target name="-backup.glassfish.domain.configuration">
