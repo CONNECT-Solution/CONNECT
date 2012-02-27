@@ -778,7 +778,9 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                 log.debug("associationType object present");
 
-                if (NullChecker.isNotNullish(associationObj.getAssociationType())) {
+                
+                
+                if (NullChecker.isNullish(associationObj.getAssociationType())) {
                     RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
                             .createRegistryError();
                     error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not find a required element");
