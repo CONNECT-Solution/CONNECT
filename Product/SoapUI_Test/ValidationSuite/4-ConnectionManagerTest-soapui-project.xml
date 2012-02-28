@@ -685,8 +685,7 @@ count(//ns5:businessEntity)</path>
       <urn:HomeCommunityIdListType>
          <!--1 or more repetitions:-->
          <urn:HomeCommunityId>1.1</urn:HomeCommunityId>
-         <urn:HomeCommunityId>2.2</urn:HomeCommunityId>
-      </urn:HomeCommunityIdListType>
+         </urn:HomeCommunityIdListType>
    </soap:Body>
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Fault Assertion"/>
@@ -694,16 +693,7 @@ count(//ns5:businessEntity)</path>
 			<con:configuration>
 				<path>declare namespace ns5='urn:uddi-org:api_v3';
 count(//ns5:businessDetail/ns5:businessEntity)</path>
-				<content>2</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="XPath Match (HCID 2.2)" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:uddi-org:api_v3';
-//ns5:businessEntity[1]/ns5:identifierBag[1]/ns5:keyedReference[1]/@keyValue</path>
-				<content>2.2</content>
+				<content>1</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
@@ -711,12 +701,12 @@ count(//ns5:businessDetail/ns5:businessEntity)</path>
 		<con:assertion name="XPath Match (HCID 1.1)" type="XPath Match">
 			<con:configuration>
 				<path>declare namespace ns5='urn:uddi-org:api_v3';
-//ns5:businessEntity[2]/ns5:identifierBag[1]/ns5:keyedReference[1]/@keyValue</path>
+//ns5:businessEntity[1]/ns5:identifierBag[1]/ns5:keyedReference[1]/@keyValue</path>
 				<content>1.1</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
-		</con:assertion>
+		</con:assertion>		
 		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetBusinessEntitySetRequest" mustUnderstand="NONE" version="200508"/>
@@ -897,7 +887,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
                   <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
                <urn1:list>?</urn1:list>
-               <urn1:region>US-FL</urn1:region>
+               <urn1:region>US-NY</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
          <urn:serviceName>AdminDistribution</urn:serviceName>
