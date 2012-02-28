@@ -63,41 +63,7 @@
 			
 		</con:operation>
 		
-	<con:operation isOneWay="false" action="urn:GetDefaultEndpointURLByServiceName" name="GetDefaultEndpointURLByServiceName" bindingOperationName="GetDefaultEndpointURLByServiceName" type="Request-Response" outputName="GetDefaultEndpointURLByServiceNameResponse" inputName="GetDefaultEndpointURLByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetInternalEndpointURLByServiceName" name="GetInternalEndpointURLByServiceName" bindingOperationName="GetInternalEndpointURLByServiceName" type="Request-Response" outputName="GetInternalEndpointURLByServiceNameResponse" inputName="GetInternalEndpointURLByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetEndpointURLFromNhinTarget" name="GetEndpointURLFromNhinTarget" bindingOperationName="GetEndpointURLFromNhinTarget" type="Request-Response" outputName="GetEndpointURLFromNhinTargetResponse" inputName="GetEndpointURLFromNhinTargetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soap:Header/>
-   <soap:Body>
-      <urn:GetEndpointURLFromNhinTargetRequest>
-         <urn:NhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-                  <!--Optional:-->
-                  <add:ReferenceProperties>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceProperties>
-                  <!--Optional:-->
-                  <add:ReferenceParameters>
-                     <!--You may enter ANY elements at this point-->
-                  </add:ReferenceParameters>
-                  <!--Optional:-->
-                  <add:PortType>?</add:PortType>
-                  <!--Optional:-->
-                  <add:ServiceName PortName="?">?</add:ServiceName>
-                  <!--You may enter ANY elements at this point-->
-               </urn1:EndpointReference>
-            </urn1:epr>
-            <urn1:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
-         </urn:NhinTargetSystem>
-         <urn:serviceName>?</urn:serviceName>
-      </urn:GetEndpointURLFromNhinTargetRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetEndpointURLFromNhinTargetRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:GetAdapterEndpointURL" name="GetAdapterEndpointURL" bindingOperationName="GetAdapterEndpointURL" type="Request-Response" outputName="GetAdapterEndpointURLResponse" inputName="GetAdapterEndpointURLRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface>
+	<con:operation isOneWay="false" action="urn:GetDefaultEndpointURLByServiceName" name="GetDefaultEndpointURLByServiceName" bindingOperationName="GetDefaultEndpointURLByServiceName" type="Request-Response" outputName="GetDefaultEndpointURLByServiceNameResponse" inputName="GetDefaultEndpointURLByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetInternalEndpointURLByServiceName" name="GetInternalEndpointURLByServiceName" bindingOperationName="GetInternalEndpointURLByServiceName" type="Request-Response" outputName="GetInternalEndpointURLByServiceNameResponse" inputName="GetInternalEndpointURLByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetEndpointURLFromNhinTarget" name="GetEndpointURLFromNhinTarget" bindingOperationName="GetEndpointURLFromNhinTarget" type="Request-Response" outputName="GetEndpointURLFromNhinTargetResponse" inputName="GetEndpointURLFromNhinTargetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAdapterEndpointURL" name="GetAdapterEndpointURL" bindingOperationName="GetAdapterEndpointURL" type="Request-Response" outputName="GetAdapterEndpointURLResponse" inputName="GetAdapterEndpointURLRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface>
 	<con:testSuite name="QueryByState TestSuite">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
@@ -239,27 +205,9 @@ declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
 </soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration><path>declare namespace S='http://www.w3.org/2003/05/soap-envelope';
-declare namespace ns4='http://schemas.xmlsoap.org/ws/2004/08/addressing';
-declare namespace ns2='urn:uddi-org:api_v3';
-declare namespace ns6='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
-declare namespace ns3='http://www.w3.org/2000/09/xmldsig#';
-declare namespace ns1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns5:URLInfos[1]/ns1:url[1]</path><content>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper6.6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration><path>declare namespace S='http://www.w3.org/2003/05/soap-envelope';
-declare namespace ns4='http://schemas.xmlsoap.org/ws/2004/08/addressing';
-declare namespace ns2='urn:uddi-org:api_v3';
-declare namespace ns6='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
-declare namespace ns3='http://www.w3.org/2000/09/xmldsig#';
-declare namespace ns1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns5:URLInfos[2]/ns6:url[1]</path><content>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper4.4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
-						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper6.6</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -432,6 +380,46 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
+			<con:testStep name="Single Region" type="request">
+				<con:settings/>
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
+					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
+					<con:request name="Single Region">
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:encoding>UTF-8</con:encoding>
+						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+         <urn:NhinTargetCommunities>
+            <!--1 or more repetitions:-->
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
+               </urn1:homeCommunity>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-VA</urn1:region>
+            </urn1:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+						<con:assertion type="SOAP Response"/>
+						<con:assertion type="SOAP Fault Assertion"/>
+						
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery5.5</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery5.5</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:wsrmConfig version="1.2"/>
+					</con:request>
+				</con:config>
+			</con:testStep>
 			<con:testStep name="Multiple Regions" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -441,157 +429,43 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="UDDI file - by Region">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+   <soap:Header/>
+   <soap:Body projectName="QueryByState" testCase="UDDI file - by Region">
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-VA</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-VA</urn1:region>
             </urn1:nhinTargetCommunity>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
+               <urn1:list>?</urn1:list>
                <urn1:region>US-FL</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[4]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[5]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery6.6</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
-						<con:wsrmConfig version="1.2"/>
-					</con:request>
-				</con:config>
-			</con:testStep>
-			<con:testStep name="Single Region" type="request">
-				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
-					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
-					<con:request name="Single Region">
-						<con:settings/>
-						<con:encoding>UTF-8</con:encoding>
-						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="UDDI file - by Region">
-      <urn:GetUrlSetByServiceName>
-         <urn:NhinTargetCommunities>
-            <!--1 or more repetitions:-->
-            <urn1:nhinTargetCommunity>
-               <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
-               </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-VA</urn1:region>
-            </urn1:nhinTargetCommunity>
-         </urn:NhinTargetCommunities>
-         <!-- <urn:service>QueryForDocuments</urn:service> -->
-<urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-						<con:assertion type="SOAP Response"/>
-						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[4]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery6.6</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -602,87 +476,46 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple Regions ( one from UDDI and one from ICI )">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="UDDI file - by Region">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+   <soap:Header/>
+   <soap:Body projectName="QueryByState" testCase="UDDI file - by Region">
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-FL</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-AZ</urn1:region>
             </urn1:nhinTargetCommunity>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-               <urn1:region>US-AZ</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-FL</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery6.6</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[4]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[5]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery6.6</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -815,75 +648,42 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Region and associating HCID" type="request">
+			<con:testStep name="Region and associated HCID" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
-					<con:request name="Region and associating HCID">
-						<con:settings/>
+					<con:request name="Region and associated HCID">
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="UDDI file - by region + HCID in the same tag">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>4.4</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-VA</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-VA</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[4]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -894,78 +694,37 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and non-associated HCID">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="UDDI file - by region + HCID in the same tag">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>6.6</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-VA</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-VA</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery6.6</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[4]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[5]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1104,78 +863,45 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and associating HCID">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="UDDI file - by region + HCID in a different tag">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+   <soap:Header/>
+   <soap:Body projectName="QueryByState" testCase="UDDI file - by Region">
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>4.4</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region/>
+               <urn1:list>?</urn1:list>
+               <urn1:region></urn1:region>
             </urn1:nhinTargetCommunity>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-VA</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-VA</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[4]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1186,87 +912,46 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and non-associated HCID">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="UDDI file - by region + HCID in a different tag">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+   <soap:Header/>
+   <soap:Body projectName="QueryByState" testCase="UDDI file - by Region">
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>6.6</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region/>
+               <urn1:list>?</urn1:list>
+               <urn1:region></urn1:region>
             </urn1:nhinTargetCommunity>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-VA</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-VA</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery6.6</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[4]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[5]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1405,42 +1090,33 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single HCID">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="InternalConnectionInfo file - by HCID">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-               <urn1:region/>
+               <urn1:list>?</urn1:list>
+               <urn1:region>?</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1451,60 +1127,43 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple HCIDs">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="InternalConnectionInfo file - by HCID">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
-                        <urn1:nhinTargetCommunity>
+            <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>4.4</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-               <urn1:region/>
+               <urn1:list>?</urn1:list>
+               <urn1:region>?</urn1:region>
             </urn1:nhinTargetCommunity>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>8.8</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-               <urn1:region/>
+               <urn1:list>?</urn1:list>
+               <urn1:region>?</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1643,42 +1302,33 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single Region">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="InternalConnectionInfo file - by Region">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-MD</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-MD</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1689,87 +1339,54 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple Regions">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="InternalConnectionInfo file - by Region">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-VA</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-VA</urn1:region>
             </urn1:nhinTargetCommunity>
-         <urn1:nhinTargetCommunity>
+            <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
+               <urn1:list>?</urn1:list>
                <urn1:region>US-AZ</urn1:region>
             </urn1:nhinTargetCommunity>
-            <urn1:nhinTargetCommunity> 
+            <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
+               <urn1:list>?</urn1:list>
                <urn1:region>US-MD</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[4]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token/><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1902,139 +1519,81 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Region and associating HCID" type="request">
+			<con:testStep name="Region and associated HCID" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
-					<con:request name="Region and associating HCID">
-						<con:settings/>
+					<con:request name="Region and associated HCID">
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="InternalConnectionInfo file - by region + HCID in the same tag">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-VA</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-VA</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[4]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Region and non-associating HCID" type="request">
+			<con:testStep name="Region and non-associated HCID" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
-					<con:request name="Region and non-associating HCID">
-						<con:settings/>
+					<con:request name="Region and non-associated HCID">
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="InternalConnectionInfo file - by region + HCID in the same tag">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>6.6</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-VA</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-VA</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>subjectdiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery6.6</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery5.5</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -2173,69 +1732,44 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and associating HCID">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="InternalConnectionInfo file - by region + HCID in a different tag">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region/>
+               <urn1:list>?</urn1:list>
+               <urn1:region>?</urn1:region>
             </urn1:nhinTargetCommunity>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-AZ</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-AZ</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -2246,78 +1780,45 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and non-associated HCID">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="InternalConnectionInfo file - by region + HCID in a different tag">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region/>
+               <urn1:list>?</urn1:list>
+               <urn1:region>?</urn1:region>
             </urn1:nhinTargetCommunity>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-AZ</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-AZ</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <urn:service>subjectdiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery2.2</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[4]</path>
-								<content>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -2456,70 +1957,36 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region in both UDDI anad ICI">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="ICI and UDDI">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
-                  <urn1:homeCommunityId/>
-                  <urn1:name/>
+                  <urn1:description>?</urn1:description>
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-                <urn1:region>US-VA</urn1:region>
+               <urn1:list>?</urn1:list>
+               <urn1:region>US-VA</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-         <!-- <urn:service>QueryForDocuments</urn:service> -->
-<urn:service>PatientDiscovery</urn:service>
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[2]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[3]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[4]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						
+						
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -2530,43 +1997,33 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="HCID in both UDDI and ICI">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body projectName="QueryByState" testCase="ICI and UDDI">
-      <urn:GetUrlSetByServiceName>
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
          <urn:NhinTargetCommunities>
             <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description/>
+                  <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>4.4</urn1:homeCommunityId>
-                  <urn1:name/>
+                  <urn1:name>?</urn1:name>
                </urn1:homeCommunity>
-               <urn1:list/>
-               <urn1:region/>
+               <urn1:list>?</urn1:list>
+               <urn1:region>?</urn1:region>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-        <!-- <urn:service>QueryForDocuments</urn:service> -->
-<urn:service>PatientDiscovery</urn:service> 
-      </urn:GetUrlSetByServiceName>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+         <urn:serviceName>PatientDiscovery</urn:serviceName>
+      </urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns2:UrlSet[1]/ns2:url[1]</path>
-								<content>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						
+						<con:assertion type="Simple Contains"><con:configuration><token>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
