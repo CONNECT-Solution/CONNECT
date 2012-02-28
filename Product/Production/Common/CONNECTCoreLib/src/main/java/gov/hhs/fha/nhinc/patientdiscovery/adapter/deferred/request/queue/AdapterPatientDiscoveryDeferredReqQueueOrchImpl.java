@@ -144,25 +144,31 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         java.util.List<UrlInfo> urlInfoList = null;
 
         if (targets != null) {
-            urlInfoList = getTargets(targets);
+            urlInfoList = getTargetEndpoints(targets);
         }
 
-        if (urlInfoList != null && NullChecker.isNotNullish(urlInfoList) && urlInfoList.get(0) != null
+        if (NullChecker.isNotNullish(urlInfoList) && urlInfoList.get(0) != null
                 && NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
 
-            targetSystem.setUrl(urlInfoList.get(0).getUrl());
-
+            UrlInfo urlInfo = urlInfoList.get(0);            
+            targetSystem.setUrl(urlInfo.getUrl());
+            
+            HomeCommunityType homeCommunity = new HomeCommunityType();
+            homeCommunity.setHomeCommunityId(urlInfo.getHcid());
+            targetSystem.setHomeCommunity(homeCommunity);
+            
             PassthruPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryDeferredRespProxyObjectFactory();
             PassthruPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.create();
 
             resp = proxy.proxyProcessPatientDiscoveryAsyncResp(respMsg, assertion, targetSystem);
-
+        } else {
+            log.error("Failed to send response to the Nhin as no target endpoints can be found.");
         }
 
         return resp;
     }
 
-    protected List<UrlInfo> getTargets(NhinTargetCommunitiesType targetCommunities) {
+    protected List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {
         List<UrlInfo> urlInfoList = null;
 
         // Obtain all the URLs for the targets being sent to
