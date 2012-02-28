@@ -25,76 +25,6 @@
         <servlet-name>EntityDocQueryUnsecured</servlet-name>
         <url-pattern>/EntityService/EntityDocQueryUnsecured</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocQueryDeferredReqSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.deferred.request.EntityDocQueryDeferredReqSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocQueryDeferredReqSecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocQueryDeferredRequestSecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocQueryDeferredReq</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.deferred.request.EntityDocQueryDeferredReq</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocQueryDeferredReq</servlet-name>
-        <url-pattern>/EntityService/EntityDocQueryDeferredRequestUnsecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocQueryDeferredResponseSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.deferred.response.EntityDocQueryDeferredResponseSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocQueryDeferredResponseSecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocQueryDeferredResponseSecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocQueryDeferredResponseUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.deferred.response.EntityDocQueryDeferredResponseUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocQueryDeferredResponseUnsecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocQueryDeferredResponseUnsecured</url-pattern>
-    </servlet-mapping>
-
-<!-- Passthru DocQuery Deferred Request servlet mapping -->
-    <servlet>
-        <servlet-name>PassthruDocQueryDeferredRequestSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.deferred.request.PassthruDocQueryDeferredRequestSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PassthruDocQueryDeferredRequestSecured</servlet-name>
-        <url-pattern>/EntityService/PassthruDocQueryDeferredRequestSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>PassthruDocQueryDeferredRequestUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.deferred.request.PassthruDocQueryDeferredRequestUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PassthruDocQueryDeferredRequestUnsecured</servlet-name>
-        <url-pattern>/EntityService/PassthruDocQueryDeferredRequestUnsecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>PassthruDocQueryDeferredResponseSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.deferred.response.PassthruDocQueryDeferredResponseSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PassthruDocQueryDeferredResponseSecured</servlet-name>
-        <url-pattern>/EntityService/PassthruDocQueryDeferredResponseSecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>PassthruDocQueryDeferredResponseUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.deferred.response.PassthruDocQueryDeferredResponseUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PassthruDocQueryDeferredResponseUnsecured</servlet-name>
-        <url-pattern>/EntityService/PassthruDocQueryDeferredResponseUnsecured</url-pattern>
-    </servlet-mapping>
     
 <!-- NHIN -->
     <servlet>
@@ -104,22 +34,6 @@
     <servlet-mapping>
         <servlet-name>DocQuery</servlet-name>
         <url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinDocQueryDeferredRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.nhin.deferred.request.NhinDocQueryDeferredRequest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinDocQueryDeferredRequest</servlet-name>
-        <url-pattern>/NhinService/DocQueryDeferredRequestService</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinDocQueryDeferredResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.nhin.deferred.response.NhinDocQueryDeferredResponse</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinDocQueryDeferredResponse</servlet-name>
-        <url-pattern>/NhinService/DocQueryDeferredResponseService</url-pattern>
     </servlet-mapping>
     
 <!-- Proxy -->
@@ -146,28 +60,8 @@
             <url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>NhinDocQueryDeferredRequest</web-resource-name>
-            <url-pattern>/NhinService/DocQueryDeferredRequestService</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhinDocQueryDeferredResponse</web-resource-name>
-            <url-pattern>/NhinService/DocQueryDeferredResponseService</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
             <web-resource-name>EntityDocQuerySecured</web-resource-name>
             <url-pattern>/EntityService/EntityDocQuerySecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntityDocQueryDeferredReqSecured</web-resource-name>
-            <url-pattern>/EntityService/EntityDocQueryDeferredRequestSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntityDocQueryDeferredResponseSecured</web-resource-name>
-            <url-pattern>/EntityService/EntityDocQueryDeferredResponseSecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>PassthruDocQueryDeferredResponseSecured</web-resource-name>
-            <url-pattern>/EntityService/PassthruDocQueryDeferredResponseSecured</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>NhincProxyDocQuerySecured</web-resource-name>

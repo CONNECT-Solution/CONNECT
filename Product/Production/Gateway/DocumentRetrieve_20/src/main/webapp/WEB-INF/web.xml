@@ -47,7 +47,7 @@
 	</servlet-mapping>
 
 
-<servlet>
+	<servlet>
         <servlet-name>DocRetrieve</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docretrieve._20.nhin.DocRetrieve</servlet-class>
     </servlet>
