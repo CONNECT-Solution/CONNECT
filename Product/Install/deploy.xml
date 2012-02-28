@@ -664,8 +664,7 @@
 				<file name="XDSUniqueIds.properties" />
 			</filelist>
 		</copy>
-		<java jar="${basedir}/Install/@{jarfile}" fork="true"/>
-		<echo>Sucess:  Validation Suite WSDL paths modified.</echo>
+		<java jar="${deployment.dir}/ValidationSuite/@{jarfile}" fork="true" dir="${deployment.dir}/ValidationSuite"/>
 	</sequential>
   </macrodef>
   

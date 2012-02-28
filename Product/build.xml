@@ -100,7 +100,8 @@
   <target name="copy.deployable.artifacts">
     <delete dir="${deployment.binaries.dir}"/>
     <mkdir dir="${deployment.binaries.dir}"/>
-	<mkdir dir="${deployment.dir}/Install"/>
+	<delete dir="${deployment.dir}/ValidationSuite"/>
+	<mkdir dir="${deployment.dir}/ValidationSuite"/>
 	
     <runtarget target="create.deploy.list.xml"/>
 
@@ -112,10 +113,8 @@
       <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src"/>
     </copy>
 	
-	 <copy todir="${deployment.dir}/Install" verbose="true" overwrite="true">
-      <fileset dir="${root.project.directory.path}/Install">
-		<include name="SetValidationSuiteWsdlPath.jar"/>
-	  </fileset>
+	<copy todir="${deployment.dir}/ValidationSuite" verbose="true" overwrite="true">
+	  <fileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" />
     </copy>
 
     <var name="do-to-target" value="copy.deployable.artifacts"/>
