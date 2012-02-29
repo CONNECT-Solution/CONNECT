@@ -26,34 +26,31 @@
  */
 package gov.hhs.fha.nhinc.hiemadapter.proxy.notify;
 
-import com.sun.xml.ws.developer.WSBindingProvider;
-
-import gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredPortType;
 import gov.hhs.fha.nhinc.adapternotificationconsumersecured.AdapterNotificationConsumerPortSecureType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.NhincCommonAcknowledgementMarshaller;
-
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201306UV02;
-import org.oasis_open.docs.wsn.b_2.Notify;
-import org.w3c.dom.*;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
 import java.util.Map;
+
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.oasis_open.docs.wsn.b_2.Notify;
+import org.w3c.dom.Element;
+
+import com.sun.xml.ws.developer.WSBindingProvider;
 
 /**
  * 
@@ -77,7 +74,7 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
 
         log.debug("start secured notify");
 
-        String url = getUrl();
+        String url = getWebServiceProxyHelper().getAdapterEndPointFromConnectionManager(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
         if (NullChecker.isNotNullish(url)) {
             AdapterNotificationConsumerPortSecureType port = getPort(url, assertion);
 
@@ -116,19 +113,6 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
     public Element notifySubscribersOfCdcBioPackage(Element cdcNotify, AssertionType assertion,
             NhinTargetSystemType target) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    private String getUrl() {
-        String url = null;
-        try {
-            url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME
-                    + " for local home community");
-            log.error(ex.getMessage());
-        }
-
-        return url;
     }
 
     protected AdapterNotificationConsumerPortSecureType getPort(String url, AssertionType assertIn) {

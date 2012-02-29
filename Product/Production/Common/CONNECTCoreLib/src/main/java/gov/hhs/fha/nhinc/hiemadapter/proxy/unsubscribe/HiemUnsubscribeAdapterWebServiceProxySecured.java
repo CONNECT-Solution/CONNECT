@@ -26,31 +26,30 @@
  */
 package gov.hhs.fha.nhinc.hiemadapter.proxy.unsubscribe;
 
-import com.sun.xml.ws.developer.WSBindingProvider;
-
 import gov.hhs.fha.nhinc.adaptersubscriptionmanagementsecured.AdapterSubscriptionManagerPortSecuredType;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.UnsubscribeRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.w3c.dom.Element;
+
+import com.sun.xml.ws.developer.WSBindingProvider;
 
 /**
  * 
@@ -74,7 +73,13 @@ public class HiemUnsubscribeAdapterWebServiceProxySecured implements HiemUnsubsc
         Element responseElement = null;
 
         log.debug("start secured unsubscribe");
-        String url = getUrl(target, NhincConstants.HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_SECURED_NAME);
+        String url;
+        try {
+            url = getWebServiceProxyHelper().getAdapterEndPointFromConnectionManager(NhincConstants.HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_SECURED_NAME);
+        } catch (ConnectionManagerException e) {
+            log.error("Error getting url for: " + NhincConstants.HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_SECURED_NAME + " - " + e.getMessage());
+            throw new RuntimeException("Unable to get url for: " + NhincConstants.HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_SECURED_NAME);
+        }
 
         if (NullChecker.isNullish(url)) {
             AdapterSubscriptionManagerPortSecuredType port = getPort(url, assertion);
@@ -111,24 +116,6 @@ public class HiemUnsubscribeAdapterWebServiceProxySecured implements HiemUnsubsc
 
         log.debug("end secured unsubscribe");
         return responseElement;
-    }
-
-    private String getUrl(NhinTargetSystemType target, String serviceName) {
-        String url = null;
-        try {
-            url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target, serviceName);
-        } catch (ConnectionManagerException ex) {
-            log.warn("exception occurred accessing url from connection manager (getEndpointURLFromNhinTarget)", ex);
-        }
-        if (NullChecker.isNullish(url)) {
-            try {
-                url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-            } catch (ConnectionManagerException ex) {
-                log.warn("exception occurred accessing url from connection manager (getLocalEndpointURLByServiceName)",
-                        ex);
-            }
-        }
-        return url;
     }
 
     private AdapterSubscriptionManagerPortSecuredType getPort(String url, AssertionType assertIn) {

@@ -27,26 +27,30 @@
 package gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe;
 
 import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducer;
-import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterSubscriptionManager;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+
 import java.io.ByteArrayOutputStream;
+
 import javax.xml.namespace.QName;
-import javax.xml.transform.Source;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
-import org.w3c.dom.*;
+import javax.xml.ws.Dispatch;
+import javax.xml.ws.Service;
+
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * 
@@ -56,6 +60,7 @@ public class HiemSubscribeAdapterWebServiceDispatch implements HiemSubscribeAdap
 
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
             .getLog(HiemSubscribeAdapterWebServiceDispatch.class);
+    private static WebServiceProxyHelper oProxyHelper = null;
 
     public Element subscribe(Element subscribe, AssertionType assertion, NhinTargetSystemType target) throws Exception {
         Document subscribeRequestDocument = buildSubscribeRequestMessage(subscribe, assertion);
@@ -113,17 +118,15 @@ public class HiemSubscribeAdapterWebServiceDispatch implements HiemSubscribeAdap
             NhinTargetSystemType target) throws ConnectionManagerException {
         Dispatch<Source> dispatch = null;
         dispatch = service.createDispatch(portQName, Source.class, Service.Mode.PAYLOAD);
-        String url = getUrl(target, serviceName);
+        String url = getWebServiceProxyHelper().getAdapterEndPointFromConnectionManager(serviceName);
         dispatch.getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         return dispatch;
     }
 
-    private String getUrl(NhinTargetSystemType target, String serviceName) throws ConnectionManagerException {
-        String url = null;
-        url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target, serviceName);
-        if (NullChecker.isNullish(url)) {
-            url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(serviceName);
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
+            oProxyHelper = new WebServiceProxyHelper();
         }
-        return url;
+        return oProxyHelper;
     }
 }

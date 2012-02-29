@@ -26,25 +26,24 @@
  */
 package gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe;
 
+import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducerPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducerPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-import org.w3c.dom.Element;
-import org.oasis_open.docs.wsn.b_2.Subscribe;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.oasis_open.docs.wsn.b_2.Subscribe;
+import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
+import org.w3c.dom.Element;
 
 /**
  * 
@@ -67,7 +66,7 @@ public class HiemSubscribeAdapterWebServiceProxy implements HiemSubscribeAdapter
         Element responseElement = null;
         SubscribeResponse response = null;
 
-        String url = getUrl(target, NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME);
+        String url = getWebServiceProxyHelper().getAdapterEndPointFromConnectionManager(NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME);
         AdapterNotificationProducerPortType port = getPort(url, assertion);
 
         WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
@@ -84,15 +83,6 @@ public class HiemSubscribeAdapterWebServiceProxy implements HiemSubscribeAdapter
         responseElement = subscribeResponseMarshaller.marshal(response);
 
         return responseElement;
-    }
-
-    private String getUrl(NhinTargetSystemType target, String serviceName) throws ConnectionManagerException {
-        String url = null;
-        url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target, serviceName);
-        if (NullChecker.isNullish(url)) {
-            url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(serviceName);
-        }
-        return url;
     }
 
     private AdapterNotificationProducerPortType getPort(String url, AssertionType assertIn) {

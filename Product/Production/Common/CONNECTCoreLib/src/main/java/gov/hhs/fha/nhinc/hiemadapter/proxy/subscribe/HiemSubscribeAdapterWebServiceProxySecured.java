@@ -26,25 +26,24 @@
  */
 package gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe;
 
-import javax.xml.namespace.QName;
+import gov.hhs.fha.nhinc.adaptersubscriptionmanagementsecured.AdapterNotificationProducerPortSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.adaptersubscriptionmanagementsecured.AdapterNotificationProducerPortSecuredType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
+import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-import org.w3c.dom.Element;
-import org.oasis_open.docs.wsn.b_2.Subscribe;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.oasis_open.docs.wsn.b_2.Subscribe;
+import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
+import org.w3c.dom.Element;
 
 /**
  * 
@@ -69,7 +68,7 @@ public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribe
 
         log.debug("start secured subscribe");
 
-        String url = getUrl(target, NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME);
+        String url = getWebServiceProxyHelper().getAdapterEndPointFromConnectionManager(NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME);
         if (NullChecker.isNotNullish(url)) {
             AdapterNotificationProducerPortSecuredType port = getPort(url, assertion);
 
@@ -90,15 +89,6 @@ public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribe
         log.debug("end secured subscribe");
 
         return responseElement;
-    }
-
-    private String getUrl(NhinTargetSystemType target, String serviceName) throws ConnectionManagerException {
-        String url = null;
-        url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target, serviceName);
-        if (NullChecker.isNullish(url)) {            
-            url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-        }
-        return url;
     }
 
     protected AdapterNotificationProducerPortSecuredType getPort(String url, AssertionType assertIn) {

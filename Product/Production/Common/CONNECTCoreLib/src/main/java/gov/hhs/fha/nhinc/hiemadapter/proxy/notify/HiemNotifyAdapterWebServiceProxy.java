@@ -26,27 +26,28 @@
  */
 package gov.hhs.fha.nhinc.hiemadapter.proxy.notify;
 
-import com.sun.xml.ws.developer.WSBindingProvider;
 import gov.hhs.fha.nhinc.adapternotificationconsumer.AdapterNotificationConsumerPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.NotifyRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.NhincCommonAcknowledgementMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Notify;
-import org.w3c.dom.*;
-import javax.xml.ws.Service;
+import org.w3c.dom.Element;
+
+import com.sun.xml.ws.developer.WSBindingProvider;
 
 /**
  * 
@@ -67,16 +68,7 @@ public class HiemNotifyAdapterWebServiceProxy implements HiemNotifyAdapterProxy 
             AssertionType assertion, NhinTargetSystemType target) throws Exception {
         Element responseElement = null;
         AcknowledgementType response = null;
-        String url = null;
-
-        try {
-            url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
-                    NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME
-                    + " for local home community");
-            log.error(ex.getMessage());
-        }
+        String url = getWebServiceProxyHelper().getAdapterEndPointFromConnectionManager(NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME);
 
         AdapterNotificationConsumerPortType port = getPort(url, assertion);
 
