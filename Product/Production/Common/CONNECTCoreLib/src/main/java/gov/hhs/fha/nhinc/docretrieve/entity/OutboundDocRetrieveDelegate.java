@@ -72,7 +72,6 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
                 OrchestrationContext context = ((OrchestrationContextBuilder) contextBuilder).build();
 
                 resp = (OutboundOrchestratable) context.execute();
-                checkResult(resp);
             } catch (Throwable t) {
                 log.error("Error occured sending doc query to NHIN target: " + t.getMessage(), t);
                 createErrorResponse(DRMessage, "XDSRepositoryError", "Processing NHIN Proxy document retrieve");
@@ -81,21 +80,6 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
             getLogger().error("message is not an instance of NhinDocRetrieveOrchestratable!");
         }
         return resp;
-    }
-
-    /**
-     * Check for document retrieve response result.
-     * 
-     * @param response
-     * @return response or error response
-     */
-    private void checkResult(OutboundOrchestratable message) {
-        if (message instanceof OutboundDocRetrieveOrchestratableImpl) {
-            RetrieveDocumentSetResponseType response = ((OutboundDocRetrieveOrchestratableImpl) message).getResponse();
-            if (response.getDocumentResponse() == null || response.getDocumentResponse().isEmpty()) {
-                createErrorResponse(message, "XDSDocumentUniqueIdError", "Document id not found");
-            }
-        }
     }
 
     protected void createErrorResponse(OutboundOrchestratable message, String errorCode, String errorContext) {

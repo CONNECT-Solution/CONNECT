@@ -212,9 +212,12 @@ public class AdapterComponentDocRepositoryOrchImpl {
             }
 
         }
-        RegistryResponseType regResponse = new RegistryResponseType();
-        regResponse.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
-        response.setRegistryResponse(regResponse);
+        
+        if (response.getRegistryResponse() == null) {
+        	RegistryResponseType regResponse = new RegistryResponseType();
+        	regResponse.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
+        	response.setRegistryResponse(regResponse);
+        }
         return response;
     }
 
@@ -308,6 +311,14 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 }
             } else {
                 log.info("loadDocumentResponses - no response messages returned.");
+                registryResponse.setStatus(responseStatus);
+                RegistryErrorList regErrList = new RegistryErrorList();
+                registryResponse.setRegistryErrorList(regErrList);
+                RegistryError regErr = new RegistryError();
+                regErrList.getRegistryError().add(regErr);
+                regErr.setCodeContext("Document id not found");
+                regErr.setErrorCode("XDSDocumentUniqueIdError");
+                regErr.setSeverity("Error");
             }
 
             registryResponse.setStatus(responseStatus);
