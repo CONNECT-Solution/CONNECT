@@ -114,7 +114,9 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                         HomeCommunityMap.getLocalHomeCommunityId());
 
                 II patientId = pd201305Processor.extractPatientIdFrom201305(message);
-                createMessageIdToPatientIdCorrelation(assertion.getMessageId(), patientId);
+                if (patientId != null) {
+                	createMessageIdToPatientIdCorrelation(assertion.getMessageId(), patientId);
+                }
                 
                 for (UrlInfo urlInfo : urlInfoList) {
 
