@@ -26,19 +26,18 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
-import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratableImpl;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactory;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,71 +47,89 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundDocRetrieveDelegate implements OutboundDelegate {
 
-    private static Log log = LogFactory.getLog(OutboundDocRetrieveDelegate.class);
+	private static Log log = LogFactory
+			.getLog(OutboundDocRetrieveDelegate.class);
 
-    public OutboundDocRetrieveDelegate() {
-    }
+	public OutboundDocRetrieveDelegate() {
+	}
 
-    @Override
-    public Orchestratable process(Orchestratable message) {
-        if (message instanceof OutboundOrchestratable) {
-            return process((OutboundOrchestratable) message);
-        }
-        return null;
-    }
+	@Override
+	public Orchestratable process(Orchestratable message) {
+		if (message instanceof OutboundOrchestratable) {
+			return process((OutboundOrchestratable) message);
+		}
+		return null;
+	}
 
-    public OutboundOrchestratable process(OutboundOrchestratable message) {
-        OutboundOrchestratable resp = null;
-        if (message instanceof OutboundDocRetrieveOrchestratable) {
-            OutboundDocRetrieveOrchestratable DRMessage = (OutboundDocRetrieveOrchestratable) message;
-            try {
-                OutboundDocRetrieveContextBuilder contextBuilder = (OutboundDocRetrieveContextBuilder) OrchestrationContextFactory
-                        .getInstance().getBuilder(DRMessage.getTarget().getHomeCommunity(),
-                                NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
+	public OutboundOrchestratable process(OutboundOrchestratable message) {
+		OutboundOrchestratable resp = null;
+		if (message instanceof OutboundDocRetrieveOrchestratable) {
+			resp = process((OutboundDocRetrieveOrchestratable) message);
+		}
+			return resp;
+	}
 
-                contextBuilder.setContextMessage(message);
-                OrchestrationContext context = ((OrchestrationContextBuilder) contextBuilder).build();
+	public OutboundOrchestratable process(
+			OutboundDocRetrieveOrchestratable message) {
+		OutboundOrchestratable resp = null;
+		try {
+			OutboundDocRetrieveContextBuilder contextBuilder = (OutboundDocRetrieveContextBuilder) OrchestrationContextFactory
+					.getInstance()
+					.getBuilder(message.getTarget().getHomeCommunity(),
+							NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
 
-                resp = (OutboundOrchestratable) context.execute();
-            } catch (Throwable t) {
-                log.error("Error occured sending doc query to NHIN target: " + t.getMessage(), t);
-                createErrorResponse(DRMessage, "XDSRepositoryError", "Processing NHIN Proxy document retrieve");
-            }
-        } else {
-            getLogger().error("message is not an instance of NhinDocRetrieveOrchestratable!");
-        }
-        return resp;
-    }
+			contextBuilder.setContextMessage(message);
+			OrchestrationContext context = ((OrchestrationContextBuilder) contextBuilder)
+					.build();
 
-    protected void createErrorResponse(OutboundOrchestratable message, String errorCode, String errorContext) {
-        if (message == null) {
-            getLogger().debug("NhinOrchestratable was null");
-            return;
-        }
+			resp = (OutboundOrchestratable) context.execute();
+		} catch (Throwable t) {
+			log.error(
+					"Error occured sending doc query to NHIN target: "
+							+ t.getMessage(), t);
+			message.setResponse(createErrorResponse(message, "XDSRepositoryError",
+					"Processing NHIN Proxy document retrieve"));
+		}
+		return resp;
+	}
 
-        RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-        RegistryResponseType responseType = new RegistryResponseType();
-        response.setRegistryResponse(responseType);
-        responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-        RegistryErrorList regErrList = new RegistryErrorList();
-        responseType.setRegistryErrorList(regErrList);
-        RegistryError regErr = new RegistryError();
-        regErrList.getRegistryError().add(regErr);
-        regErr.setCodeContext(errorContext);
-        regErr.setErrorCode(errorCode);
-        regErr.setSeverity("Error");
-        ((OutboundDocRetrieveOrchestratableImpl) message).setResponse(response);
-    }
+	protected RetrieveDocumentSetResponseType createErrorResponse(OutboundDocRetrieveOrchestratable message,
+			String errorCode, String errorContext) {
+		if (message == null) {
+			getLogger().debug("NhinOrchestratable was null");
+			return null;
+		}
 
-    private Log getLogger() {
-        return log;
-    }
+		RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
+		RegistryResponseType responseType = new RegistryResponseType();
+		response.setRegistryResponse(responseType);
+		responseType
+				.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+		RegistryErrorList regErrList = new RegistryErrorList();
+		responseType.setRegistryErrorList(regErrList);
+		RegistryError regErr = new RegistryError();
+		regErrList.getRegistryError().add(regErr);
+		regErr.setCodeContext(errorContext);
+		regErr.setErrorCode(errorCode);
+		regErr.setSeverity("Error");
+		return response;
+	}
+
+	private Log getLogger() {
+		return log;
+	}
 
 	@Override
 	public void createErrorResponse(OutboundOrchestratable message, String error) {
-		createErrorResponse(message, "XDSRepositoryError", error);
-		
+		if (message instanceof OutboundDocRetrieveOrchestratable) {
+			createErrorResponse((OutboundDocRetrieveOrchestratable)message, error);
+		}
+
+	}
+	
+	public void createErrorResponse(OutboundDocRetrieveOrchestratable message, String error) {
+			createErrorResponse((OutboundDocRetrieveOrchestratable)message, "XDSRepositoryError", error);
+	
 	}
 
-	
 }

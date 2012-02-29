@@ -37,6 +37,8 @@ import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,6 +48,7 @@ import java.util.logging.Logger;
  */
 public class OutboundDocRetrieveOrchestratable implements OutboundOrchestratable {
     protected RetrieveDocumentSetRequestType request = null;
+    protected RetrieveDocumentSetResponseType response = null;
     protected NhinTargetSystemType target = null;
     private AssertionType _assertion = null;
     private final String serviceName = NhincConstants.DOC_RETRIEVE_SERVICE_NAME;
@@ -135,6 +138,14 @@ public class OutboundDocRetrieveOrchestratable implements OutboundOrchestratable
     @Override
     public OutboundDelegate getDelegate() {
         return getNhinDelegate();
+    }
+    
+    public RetrieveDocumentSetResponseType getResponse() {
+        return response;
+    }
+
+    public void setResponse(RetrieveDocumentSetResponseType response) {
+        this.response = response;
     }
 
 }

@@ -11,6 +11,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAggregator_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAuditTransformer_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratableImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratorImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrievePolicyTransformer_a0;
@@ -68,7 +69,7 @@ public class EntityDocRetreiveImpl {
         AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
         OutboundDelegate nd = new OutboundDocRetrieveDelegate();
         NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-        OutboundDocRetrieveOrchestratableImpl EntityDROrchImpl = new OutboundDocRetrieveOrchestratableImpl(body,
+        OutboundDocRetrieveOrchestratable EntityDROrchImpl = new OutboundDocRetrieveOrchestratableImpl(body,
                 assertion, pt, at, nd, na, null);
         OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
         oOrchestrator.process(EntityDROrchImpl);

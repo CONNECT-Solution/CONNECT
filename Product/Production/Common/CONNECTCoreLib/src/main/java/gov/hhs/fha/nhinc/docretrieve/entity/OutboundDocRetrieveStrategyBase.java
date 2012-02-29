@@ -17,6 +17,7 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -46,8 +47,8 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
             return;
         }
 
-        if (message instanceof OutboundDocRetrieveOrchestratableImpl) {
-            OutboundDocRetrieveOrchestratableImpl NhinDRMessage = (OutboundDocRetrieveOrchestratableImpl) message;
+        if (message instanceof OutboundDocRetrieveOrchestratable) {
+            OutboundDocRetrieveOrchestratable NhinDRMessage = (OutboundDocRetrieveOrchestratable) message;
             String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(NhinDRMessage.getRequest());
 
             getLogger().debug("Calling audit log for doc retrieve request (a0) sent to nhin (g0)");

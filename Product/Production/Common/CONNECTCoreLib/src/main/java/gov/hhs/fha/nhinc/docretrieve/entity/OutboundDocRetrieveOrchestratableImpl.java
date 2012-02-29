@@ -12,15 +12,13 @@ import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
  * 
  * @author mweaver
  */
 public class OutboundDocRetrieveOrchestratableImpl extends OutboundDocRetrieveOrchestratable {
-    private RetrieveDocumentSetResponseType response;
-
+    
     public OutboundDocRetrieveOrchestratableImpl(RetrieveDocumentSetRequestType body, AssertionType assertion,
             PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd, NhinAggregator na,
             NhinTargetSystemType target) {
@@ -30,12 +28,6 @@ public class OutboundDocRetrieveOrchestratableImpl extends OutboundDocRetrieveOr
         super.setTarget(target);
     }
 
-    public RetrieveDocumentSetResponseType getResponse() {
-        return response;
-    }
-
-    public void setResponse(RetrieveDocumentSetResponseType response) {
-        this.response = response;
-    }
+   
 
 }

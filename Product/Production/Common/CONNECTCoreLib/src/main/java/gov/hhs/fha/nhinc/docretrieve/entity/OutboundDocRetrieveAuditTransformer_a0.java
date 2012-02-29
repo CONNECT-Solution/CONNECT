@@ -47,8 +47,8 @@ public class OutboundDocRetrieveAuditTransformer_a0 implements AuditTransformer 
 
     public LogEventRequestType transformRequest(Orchestratable message) {
         LogEventRequestType auditLogMsg = null;
-        if (message instanceof OutboundDocRetrieveOrchestratableImpl) {
-            OutboundDocRetrieveOrchestratableImpl EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratableImpl) message;
+        if (message instanceof OutboundDocRetrieveOrchestratable) {
+            OutboundDocRetrieveOrchestratable EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratable) message;
 
             DocRetrieveMessageType DRAuditTransformerMessage = new DocRetrieveMessageType();
             DRAuditTransformerMessage.setRetrieveDocumentSetRequest(EntityDROrchImp_g0Message.getRequest());
@@ -67,8 +67,8 @@ public class OutboundDocRetrieveAuditTransformer_a0 implements AuditTransformer 
 
     public LogEventRequestType transformResponse(Orchestratable message) {
         LogEventRequestType auditLogMsg = null;
-        if (message instanceof OutboundDocRetrieveOrchestratableImpl) {
-            OutboundDocRetrieveOrchestratableImpl EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratableImpl) message;
+        if (message instanceof OutboundDocRetrieveOrchestratable) {
+            OutboundDocRetrieveOrchestratable EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratable) message;
 
             DocRetrieveResponseMessageType DRAuditTransformerMessage = new DocRetrieveResponseMessageType();
             DRAuditTransformerMessage.setRetrieveDocumentSetResponse(EntityDROrchImp_g0Message.getResponse());
