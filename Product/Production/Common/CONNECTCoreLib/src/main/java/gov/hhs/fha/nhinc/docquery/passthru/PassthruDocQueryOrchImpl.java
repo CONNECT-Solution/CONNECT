@@ -43,6 +43,7 @@ import java.sql.Timestamp;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
@@ -119,16 +120,20 @@ public class PassthruDocQueryOrchImpl {
     }
 
     private AdhocQueryResponse generateErrorResponse(NhinTargetSystemType target, String error) {
-        AdhocQueryResponse adhocresponse = new AdhocQueryResponse();
+        AdhocQueryResponse adhocResponse = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
-        adhocresponse.setStatus(XDS_RESPONSE_STATUS_FAILURE);
+        adhocResponse.setStatus(XDS_RESPONSE_STATUS_FAILURE);
         RegistryError regErr = new RegistryError();
         regErr.setErrorCode("XDSRepositoryError");
         regErr.setCodeContext("Error from target homeId=" + target.getHomeCommunity().getHomeCommunityId());
         regErr.setValue(error);
         regErr.setSeverity("Error");
         regErrList.getRegistryError().add(regErr);
-        adhocresponse.setRegistryErrorList(regErrList);
-        return adhocresponse;
+        adhocResponse.setRegistryErrorList(regErrList);
+        
+        RegistryObjectListType regObjList = new RegistryObjectListType();
+        adhocResponse.setRegistryObjectList(regObjList);
+        
+        return adhocResponse;
     }
 }
