@@ -350,6 +350,10 @@ public class PropertyAccessor implements IPropertyAcessor {
     public String getProperty(String sPropertyName) throws PropertyAccessException {
         return getProperty(propertyFileName, sPropertyName);
     }
+    
+    public boolean getPropertyBoolean(String sPropertName) throws PropertyAccessException {
+    	return getPropertyBoolean(propertyFileName, sPropertName);
+    }
 
     /**
      * This will return true if the property value is: T, t, or any case combination of "TRUE" and it will return false

@@ -77,4 +77,13 @@ public class OutboundDocSubmissionDeferredRequestDelegate implements OutboundDel
     private Log getLogger() {
         return log;
     }
+
+	/* (non-Javadoc)
+	 * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable, java.lang.String)
+	 */
+	@Override
+	public void createErrorResponse(OutboundOrchestratable message, String error) {
+		// TODO Auto-generated method stub
+		
+	}
 }

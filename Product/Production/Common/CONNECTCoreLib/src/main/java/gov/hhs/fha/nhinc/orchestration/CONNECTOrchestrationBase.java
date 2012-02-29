@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
@@ -49,211 +50,291 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
-    private static final Log logger = LogFactory.getLog(CONNECTOrchestrationBase.class);
+	private static final Log logger = LogFactory
+			.getLog(CONNECTOrchestrationBase.class);
 
-    public Orchestratable process(Orchestratable message) {
-        Orchestratable resp = null;
-        getLogger().debug("Entering CONNECTNhinOrchestrator for " + message.getServiceName());
-        if (message != null) {
-            resp = processNotNullMessage(message);
-        }
-        getLogger().debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
-        return resp;
-    }
+	private IPropertyAcessor propertyAcessor;
 
-    public Orchestratable processNotNullMessage(Orchestratable message) {
-        Orchestratable resp = null;
-        // audit
-        getLogger().debug("Calling audit for " + message.getServiceName());
-        auditRequest(message);
+	/**
+	 * 
+	 */
+	public CONNECTOrchestrationBase() {
+		propertyAcessor = new PropertyAccessor(
+				NhincConstants.GATEWAY_PROPERTY_FILE);
+	}
 
-        if (message.isEnabled()) {
-            resp = processEnabledMessage(message);
-        } else {
-            getLogger().debug(message.getServiceName() + " is not enabled. returning a error response");
-            resp = createErrorResponse((InboundOrchestratable) message, message.getServiceName() + " is not enabled.");
-        }
-        // audit again
-        getLogger().debug("Calling audit response for " + message.getServiceName());
-        auditResponse(message);
-        getLogger().debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
-        return resp;
-    }
+	/**
+		 * 
+		 */
+	public CONNECTOrchestrationBase(IPropertyAcessor propertyAccesor) {
+		propertyAcessor = propertyAccesor;
+	}
 
-    public Orchestratable processEnabledMessage(Orchestratable message) {
-        getLogger().debug(message.getServiceName() + " service is enabled. Procesing message...");
-        if (message.isPassthru()) {
-            return processPassThruMessage(message);
-        } else {
-            getLogger().debug(message.getServiceName() + "is not in passthrough mode. Calling internal processing");
-            return processIfPolicyIsOk(message);
-        }
-    }
+	public Orchestratable process(Orchestratable message) {
+		Orchestratable resp = null;
+		getLogger().debug(
+				"Entering CONNECTNhinOrchestrator for "
+						+ message.getServiceName());
+		if (message != null) {
+			resp = processNotNullMessage(message);
+		}
+		getLogger().debug(
+				"Returning from CONNECTNhinOrchestrator for "
+						+ message.getServiceName());
+		return resp;
+	}
 
-    protected abstract Orchestratable processIfPolicyIsOk(Orchestratable message);
+	public Orchestratable processNotNullMessage(Orchestratable message) {
+		Orchestratable resp = null;
+		// audit
+		getLogger().debug("Calling audit for " + message.getServiceName());
+		auditRequest(message);
 
-    public Orchestratable processPassThruMessage(Orchestratable message) {
-        getLogger().debug(message.getServiceName() + " is in passthrough mode. Sending directly to adapter");
-        return delegate(message);
-    }
+		if (message.isEnabled()) {
+			resp = processEnabledMessage(message);
+		} else {
+			getLogger().debug(
+					message.getServiceName()
+							+ " is not enabled. returning a error response");
+			resp = createErrorResponse((InboundOrchestratable) message,
+					message.getServiceName() + " is not enabled.");
+		}
+		// audit again
+		getLogger().debug(
+				"Calling audit response for " + message.getServiceName());
+		auditResponse(message);
+		getLogger().debug(
+				"Returning from CONNECTNhinOrchestrator for "
+						+ message.getServiceName());
+		return resp;
+	}
 
-    public Orchestratable processInboundIfPolicyIsOk(Orchestratable message) {
+	public Orchestratable processEnabledMessage(Orchestratable message) {
+		getLogger().debug(
+				message.getServiceName()
+						+ " service is enabled. Procesing message...");
+		if (message.isPassthru()) {
+			return processPassThruMessage(message);
+		} else {
+			getLogger()
+					.debug(message.getServiceName()
+							+ "is not in passthrough mode. Calling internal processing");
+			return processIfPolicyIsOk(message);
+		}
+	}
 
-        if (isPolicyOk(message, PolicyTransformer.Direction.INBOUND)) {
-            // if true, sent to adapter
-            return delegate(message);
-        } else {
-            return handleFailedPolicyCheck(message);
-        }
-    }
+	protected abstract Orchestratable processIfPolicyIsOk(Orchestratable message);
 
-    public Orchestratable processOutboundIfPolicyIsOk(Orchestratable message) {
+	public Orchestratable processPassThruMessage(Orchestratable message) {
+		getLogger()
+				.debug(message.getServiceName()
+						+ " is in passthrough mode. Sending directly to adapter");
+		return delegate(message);
+	}
 
-        if (isPolicyOk(message, PolicyTransformer.Direction.OUTBOUND)) {
-            // if true, sent to adapter
-            return delegate(message);
-        } else {
-            return handleFailedPolicyCheck(message);
-        }
-    }
+	public Orchestratable processInboundIfPolicyIsOk(Orchestratable message) {
 
-    private Orchestratable handleFailedPolicyCheck(Orchestratable message) {
-        getLogger().debug(message.getServiceName() + " failed policy check. Returning a error response");
-        return createErrorResponse((InboundOrchestratable) message, message.getServiceName() + " failed policy check.");
-    }
+		if (isPolicyOk(message, PolicyTransformer.Direction.INBOUND)) {
+			// if true, sent to adapter
+			return delegate(message);
+		} else {
+			return handleFailedPolicyCheck((InboundOrchestratable)message);
+		}
+	}
 
-    protected Log getLogger() {
-        return logger;
-    }
+	public Orchestratable processOutboundIfPolicyIsOk(Orchestratable message) {
 
-    /*
-     * Begin Delegate Methods
-     */
-    protected Orchestratable createErrorResponse(InboundOrchestratable message, String error) {
-        if (message != null && message.getAdapterDelegate() != null) {
-            InboundDelegate delegate = message.getAdapterDelegate();
-            delegate.createErrorResponse(message, error);
-        }
-        return message;
-    }
+		if (isPolicyOk(message, PolicyTransformer.Direction.OUTBOUND)) {
+			// if true, sent to adapter
+			return delegate(message);
+		} else {
+			return handleFailedPolicyCheck((OutboundOrchestratable)message);
+		}
+	}
 
-    /*
-     * End Delegate Methods
-     */
+	private Orchestratable handleFailedPolicyCheck(InboundOrchestratable message) {
+		getLogger().debug(
+				message.getServiceName()
+						+ " failed policy check. Returning a error response");
+		return createErrorResponse( message,
+				message.getServiceName() + " failed policy check.");
+	}
+	
+	private Orchestratable handleFailedPolicyCheck(OutboundOrchestratable message) {
+		getLogger().debug(
+				message.getServiceName()
+						+ " failed policy check. Returning a error response");
+		return createErrorResponse( message,
+				message.getServiceName() + " failed policy check.");
+	}
 
-    /*
-     * Begin Audit Methods
-     */
-    protected AcknowledgementType auditRequest(Orchestratable message) {
-        AcknowledgementType resp = null;
 
-        if (message != null && message.getAuditTransformer() != null) {
-            AuditTransformer transformer = message.getAuditTransformer();
-            LogEventRequestType auditLogMsg = transformer.transformRequest(message);
-            resp = audit(auditLogMsg, message.getAssertion());
-        }
-        return resp;
-    }
+	protected Log getLogger() {
+		return logger;
+	}
 
-    protected AcknowledgementType auditResponse(Orchestratable message) {
-        AcknowledgementType resp = null;
+	/*
+	 * Begin Delegate Methods
+	 */
+	protected Orchestratable createErrorResponse(InboundOrchestratable message,
+			String error) {
+		if (message != null && message.getAdapterDelegate() != null) {
+			InboundDelegate delegate = message.getAdapterDelegate();
+			delegate.createErrorResponse(message, error);
+		}
+		return message;
+	}
+	
+	
+	/*
+	 * Begin Delegate Methods
+	 */
+	protected Orchestratable createErrorResponse(OutboundOrchestratable message,
+			String error) {
+		if (message != null && message.getDelegate() != null) {
+			OutboundDelegate delegate = message.getDelegate();
+			delegate.createErrorResponse(message, error);
+		}
+		return message;
+	}
 
-        if (message != null && message.getAuditTransformer() != null) {
-            AuditTransformer transformer = message.getAuditTransformer();
-            LogEventRequestType auditLogMsg = transformer.transformResponse(message);
-            resp = audit(auditLogMsg, message.getAssertion());
-        }
-        return resp;
-    }
+	/*
+	 * End Delegate Methods
+	 */
 
-    private AcknowledgementType audit(LogEventRequestType message, AssertionType assertion) {
-        getLogger().debug("Entering CONNECTNhinOrchestrator.audit(...)");
-        AcknowledgementType ack = null;
-        try {
-            if (isAuditServiceEnabled()) {
-                AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-                AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+	/*
+	 * Begin Audit Methods
+	 */
+	protected AcknowledgementType auditRequest(Orchestratable message) {
+		AcknowledgementType resp = null;
 
-                ack = proxy.auditLog(message, assertion);
-            }
-        } catch (Exception exc) {
-            getLogger().error("Error: Failed to Audit message.", exc);
-        }
-        getLogger().debug("Exiting AuditRCONNECTNhinOrchestratorepositoryLogger.audit(...)");
-        return ack;
-    }
+		if (message != null && message.getAuditTransformer() != null) {
+			AuditTransformer transformer = message.getAuditTransformer();
+			LogEventRequestType auditLogMsg = transformer
+					.transformRequest(message);
+			resp = audit(auditLogMsg, message.getAssertion());
+		}
+		return resp;
+	}
 
-    protected boolean isAuditServiceEnabled() {
-        getLogger().debug("Entering CONNECTNhinOrchestrator.isAuditServiceEnabled(...)");
-        boolean serviceEnabled = false;
-        try {
-            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.AUDIT_LOG_SERVICE_PROPERTY);
-        } catch (PropertyAccessException ex) {
-            getLogger().error(
-                    "Error: Failed to retrieve " + NhincConstants.AUDIT_LOG_SERVICE_PROPERTY + " from property file: "
-                            + NhincConstants.GATEWAY_PROPERTY_FILE);
-            getLogger().error(ex.getMessage(), ex);
-        }
-        getLogger()
-                .debug("Exiting CONNECTNhinOrchestrator.isAuditServiceEnabled(...) with value of: " + serviceEnabled);
-        return serviceEnabled;
-    }
+	protected AcknowledgementType auditResponse(Orchestratable message) {
+		AcknowledgementType resp = null;
 
-    /*
-     * End Audit Methods
-     */
+		if (message != null && message.getAuditTransformer() != null) {
+			AuditTransformer transformer = message.getAuditTransformer();
+			LogEventRequestType auditLogMsg = transformer
+					.transformResponse(message);
+			resp = audit(auditLogMsg, message.getAssertion());
+		}
+		return resp;
+	}
 
-    /*
-     * Begin Policy Methods
-     */
-    protected boolean isPolicyOk(Orchestratable message, PolicyTransformer.Direction direction) {
-        getLogger().debug("Entering CONNECTNhinOrchestrator.isPolicyOk(...)");
-        boolean policyIsValid = false;
+	private AcknowledgementType audit(LogEventRequestType message,
+			AssertionType assertion) {
+		getLogger().debug("Entering CONNECTNhinOrchestrator.audit(...)");
+		AcknowledgementType ack = null;
+		try {
+			if (isAuditServiceEnabled()) {
+				AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+				AuditRepositoryProxy proxy = auditRepoFactory
+						.getAuditRepositoryProxy();
 
-        try {
-            PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
-            PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
+				ack = proxy.auditLog(message, assertion);
+			}
+		} catch (Exception exc) {
+			getLogger().error("Error: Failed to Audit message.", exc);
+		}
+		getLogger()
+				.debug("Exiting AuditRCONNECTNhinOrchestratorepositoryLogger.audit(...)");
+		return ack;
+	}
 
-            PolicyTransformer transformer = message.getPolicyTransformer();
-            CheckPolicyRequestType policyReq = transformer.transform(message, direction);
+	protected boolean isAuditServiceEnabled() {
+		getLogger().debug(
+				"Entering CONNECTNhinOrchestrator.isAuditServiceEnabled(...)");
+		boolean serviceEnabled = false;
+		try {
+			serviceEnabled = propertyAcessor
+					.getPropertyBoolean(NhincConstants.AUDIT_LOG_SERVICE_PROPERTY);
 
-            if (policyReq != null && message.getAssertion() != null) {
-                CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, message.getAssertion());
+		} catch (PropertyAccessException ex) {
+			getLogger().error(
+					"Error: Failed to retrieve "
+							+ NhincConstants.AUDIT_LOG_SERVICE_PROPERTY
+							+ " from property file: "
+							+ NhincConstants.GATEWAY_PROPERTY_FILE);
+			getLogger().error(ex.getMessage(), ex);
+		}
+		getLogger().debug(
+				"Exiting CONNECTNhinOrchestrator.isAuditServiceEnabled(...) with value of: "
+						+ serviceEnabled);
+		return serviceEnabled;
+	}
 
-                if (policyResp.getResponse() != null && policyResp.getResponse().getResult() != null) {
-                    // we are expecting only 1 result, if we get more we are only paying attention to the first result
-                    for (ResultType r : policyResp.getResponse().getResult()) {
-                        if (r.getDecision() == DecisionType.PERMIT) {
-                            policyIsValid = true;
-                        }
-                        break;
-                    }
-                }
-            }
-        } catch (Exception exc) {
-            getLogger().error("Error: Failed to check policy.", exc);
-        }
-        getLogger().debug("Exiting CONNECTNhinOrchestrator.isPolicyOk(...) with a value of :" + policyIsValid);
-        return policyIsValid;
-    }
+	/*
+	 * End Audit Methods
+	 */
 
-    /*
-     * End Policy Methods
-     */
+	/*
+	 * Begin Policy Methods
+	 */
+	protected boolean isPolicyOk(Orchestratable message,
+			PolicyTransformer.Direction direction) {
+		getLogger().debug("Entering CONNECTNhinOrchestrator.isPolicyOk(...)");
+		boolean policyIsValid = false;
 
-    /*
-     * Begin Delegate Methods
-     */
-    protected Orchestratable delegate(Orchestratable message) {
-        Orchestratable resp = null;
-        getLogger().debug("Entering CONNECTNhinOrchestrator.delegateToNhin(...)");
-        Delegate p = message.getDelegate();
-        resp = p.process(message);
-        getLogger().debug("Exiting CONNECTNhinOrchestrator.delegateToNhin(...)");
-        return resp;
-    }
-    /*
-     * End Delegate Methods
-     */
+		try {
+			PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
+			PolicyEngineProxy policyProxy = policyEngFactory
+					.getPolicyEngineProxy();
+
+			PolicyTransformer transformer = message.getPolicyTransformer();
+			CheckPolicyRequestType policyReq = transformer.transform(message,
+					direction);
+
+			if (policyReq != null && message.getAssertion() != null) {
+				CheckPolicyResponseType policyResp = policyProxy.checkPolicy(
+						policyReq, message.getAssertion());
+
+				if (policyResp.getResponse() != null
+						&& policyResp.getResponse().getResult() != null) {
+					// we are expecting only 1 result, if we get more we are
+					// only paying attention to the first result
+					for (ResultType r : policyResp.getResponse().getResult()) {
+						if (r.getDecision() == DecisionType.PERMIT) {
+							policyIsValid = true;
+						}
+						break;
+					}
+				}
+			}
+		} catch (Exception exc) {
+			getLogger().error("Error: Failed to check policy.", exc);
+		}
+		getLogger().debug(
+				"Exiting CONNECTNhinOrchestrator.isPolicyOk(...) with a value of :"
+						+ policyIsValid);
+		return policyIsValid;
+	}
+
+	/*
+	 * End Policy Methods
+	 */
+
+	/*
+	 * Begin Delegate Methods
+	 */
+	protected Orchestratable delegate(Orchestratable message) {
+		Orchestratable resp = null;
+		getLogger().debug(
+				"Entering CONNECTNhinOrchestrator.delegateToNhin(...)");
+		Delegate p = message.getDelegate();
+		resp = p.process(message);
+		getLogger()
+				.debug("Exiting CONNECTNhinOrchestrator.delegateToNhin(...)");
+		return resp;
+	}
+	/*
+	 * End Delegate Methods
+	 */
 }

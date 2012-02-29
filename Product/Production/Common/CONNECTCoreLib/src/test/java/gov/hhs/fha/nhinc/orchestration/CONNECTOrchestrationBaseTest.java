@@ -28,9 +28,15 @@ package gov.hhs.fha.nhinc.orchestration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer.Direction;
+import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 import org.apache.commons.logging.Log;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,24 +48,13 @@ import org.junit.Test;
  * @author mweaver
  */
 public class CONNECTOrchestrationBaseTest {
+	
+	 Mockery context = new JUnit4Mockery();
+     OutboundOrchestratable outboundMessage = context.mock(OutboundOrchestratable.class);
+     IPropertyAcessor propertyAcessor = context.mock(IPropertyAcessor.class);
+     OutboundDelegate outboundDelegate = context.mock(OutboundDelegate.class);
 
     public CONNECTOrchestrationBaseTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     /**
@@ -67,7 +62,7 @@ public class CONNECTOrchestrationBaseTest {
      */
     @Test
     public void testGetLogger() {
-        CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();
+        CONNECTOrchestrationBase instance = new DenyCONNECTOrchestrationBaseImpl();
         Log expResult = null;
         Log result = instance.getLogger();
         try {
@@ -83,7 +78,7 @@ public class CONNECTOrchestrationBaseTest {
     @Test
     public void testAuditRequest() {
         Orchestratable message = null;
-        CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();
+        CONNECTOrchestrationBase instance = new DenyCONNECTOrchestrationBaseImpl();
         instance.auditRequest(message);
         // there was no error, so success
         // TODO: make a better test
@@ -92,7 +87,7 @@ public class CONNECTOrchestrationBaseTest {
     @Test
     public void testAuditResponse() {
         Orchestratable message = null;
-        CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();
+        CONNECTOrchestrationBase instance = new DenyCONNECTOrchestrationBaseImpl();
         instance.auditResponse(message);
         // there was no error, so success
         // TODO: make a better test
@@ -100,10 +95,24 @@ public class CONNECTOrchestrationBaseTest {
 
     /**
      * Test of isAuditServiceEnabled method, of class CONNECTOrchestrationBase.
+     * @throws PropertyAccessException 
      */
     @Test
-    public void testIsAuditServiceEnabled() {
-        CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();
+    public void testIsAuditServiceEnabled() throws PropertyAccessException {
+    	
+    	context.checking(new Expectations() {{
+    		allowing(propertyAcessor).getPropertyBoolean(NhincConstants.AUDIT_LOG_SERVICE_PROPERTY);
+    		will(returnValue(true));
+        }});
+    	
+        CONNECTOrchestrationBase instance = new CONNECTOrchestrationBase(propertyAcessor) {
+			
+			@Override
+			protected Orchestratable processIfPolicyIsOk(Orchestratable message) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
         boolean expResult = true;
         boolean result = instance.isAuditServiceEnabled();
         assertEquals(expResult, result);
@@ -116,13 +125,37 @@ public class CONNECTOrchestrationBaseTest {
     public void testIsPolicyOk() {
         Orchestratable message = null;
         Direction direction = null;
-        CONNECTOrchestrationBase instance = new CONNECTOrchestrationBaseImpl();
+        CONNECTOrchestrationBase instance = new DenyCONNECTOrchestrationBaseImpl();
         boolean expResult = false;
         boolean result = instance.isPolicyOk(message, direction);
         assertEquals(expResult, result);
     }
 
-    public class CONNECTOrchestrationBaseImpl extends CONNECTOrchestrationBase {
+    
+    
+    @Test
+    public void testOutboundPolicyFailed() throws PropertyAccessException {
+    	
+    	context.checking(new Expectations() {{
+    		allowing(propertyAcessor).getPropertyBoolean(NhincConstants.AUDIT_LOG_SERVICE_PROPERTY);
+    		will(returnValue(true));
+    		
+    		allowing(outboundMessage).getServiceName();
+    		
+    		allowing(outboundMessage).getDelegate();
+    		will(returnValue(outboundDelegate));
+    		
+    		oneOf(outboundDelegate).createErrorResponse(with(same(outboundMessage)), with(any(String.class)));
+        }});
+    	
+    	
+    	DenyCONNECTOrchestrationBaseImpl instance = new DenyCONNECTOrchestrationBaseImpl();
+    	instance.processOutboundIfPolicyIsOk(outboundMessage);
+    }
+    
+    
+    
+    public class DenyCONNECTOrchestrationBaseImpl extends CONNECTOrchestrationBase {
 
         @Override
         protected Orchestratable processIfPolicyIsOk(Orchestratable message) {

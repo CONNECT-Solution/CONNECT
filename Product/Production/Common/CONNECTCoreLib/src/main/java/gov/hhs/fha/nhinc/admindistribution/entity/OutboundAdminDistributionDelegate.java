@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admindistribution.entity;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.*;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -72,4 +73,13 @@ public class OutboundAdminDistributionDelegate implements OutboundDelegate {
     private Log getLogger() {
         return log;
     }
+
+	/* (non-Javadoc)
+	 * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable, java.lang.String)
+	 */
+	@Override
+	public void createErrorResponse(OutboundOrchestratable message, String error) {
+		// TODO Auto-generated method stub
+		
+	}
 }
