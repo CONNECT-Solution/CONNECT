@@ -204,10 +204,7 @@ public class EntityDocQueryOrchImpl {
                         .retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted, getLocalHomeCommunityId());
 
                 if (NullChecker.isNotNullish(correlationsResult)) {
-                    /************************************************************************
-                     * We replaced the 3.2.1 connect code here with the new 3.3 concurrent fanout impl Note that all
-                     * response processing is done in the OutboundResponseProcessor
-                     ***********************************************************************/
+
                     List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList = new ArrayList<NhinCallableRequest<OutboundDocQueryOrchestratable>>();
                     String transactionId = (UUID.randomUUID()).toString();
 
@@ -220,7 +217,11 @@ public class EntityDocQueryOrchImpl {
 
                         HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(
                                 identifier.getAssigningAuthorityIdentifier(), localAA, getLocalHomeCommunityId());
-                        target.setHomeCommunity(targetCommunity);
+                        String sTargetHomeCommunityId = null;
+                        if (targetCommunity != null) {
+                            target.setHomeCommunity(targetCommunity);
+                            sTargetHomeCommunityId = targetCommunity.getHomeCommunityId();
+                        }                        
                         log.debug("EntityDocQueryOrchImpl correlated target hcid=" + targetCommunity.getHomeCommunityId());
 
                         if (isValidPolicy(adhocQueryRequest, assertion, targetCommunity)) {
@@ -248,7 +249,11 @@ public class EntityDocQueryOrchImpl {
                                     slot.setValueList(slotValueList);
                                 }
                             }
-
+                            // set the home community id to the target hcid
+                            if (NullChecker.isNotNullish(sTargetHomeCommunityId)) {
+                                clonedRequest.getAdhocQuery().setHome(sTargetHomeCommunityId);
+                            }
+                            
                             OutboundDocQueryOrchestratable message = new OutboundDocQueryOrchestratable(nd, np, null,
                                     null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, 
                                     clonedRequest);
