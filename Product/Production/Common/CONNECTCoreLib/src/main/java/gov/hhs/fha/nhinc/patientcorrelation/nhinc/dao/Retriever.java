@@ -190,7 +190,7 @@ public class Retriever {
 
     public static CorrelatedIdentifiers retrieveSinglePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         List<CorrelatedIdentifiers> resultSet;
-        CorrelatedIdentifiers result = null;
+        CorrelatedIdentifiers result = new CorrelatedIdentifiers();
 
         resultSet = retrievePatientCorrelation(correlatedIdentifers);
 
@@ -209,11 +209,10 @@ public class Retriever {
         /* AEGIS.net, Inc. (c) 2010 - Interop Test Platform */
 
         if (resultSet != null) {
-            if (resultSet.size() == 1) {
-                result = resultSet.get(0);
-            } else if (resultSet.size() > 1) {
+            if (resultSet.size() > 1) {
                 log.warn("return more than 1 result");
             }
+            result = resultSet.get(0);
         }
 
         return result;

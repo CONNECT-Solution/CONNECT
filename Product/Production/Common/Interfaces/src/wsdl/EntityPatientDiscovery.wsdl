@@ -46,7 +46,6 @@ name="EntityPatientDiscovery" targetNamespace="urn:gov:hhs:fha:nhinc:entitypatie
 	<wsp:Policy wsu:Id="Entity_PatientDiscovery_SoapPolicy">
 	        <wsp:ExactlyOne>
 	            <wsp:All>
-                	<wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
                     </wsp:All>
                 </wsp:ExactlyOne>
         </wsp:Policy>        

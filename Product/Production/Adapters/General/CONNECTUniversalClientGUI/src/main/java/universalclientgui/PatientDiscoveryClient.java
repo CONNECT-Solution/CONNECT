@@ -32,6 +32,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
 import javax.xml.ws.Service;
 import javax.xml.namespace.QName;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -60,7 +62,8 @@ public class PatientDiscoveryClient {
     private static final String SERVICE_LOCAL_PART = "EntityPatientDiscovery";
     private static final String PORT_LOCAL_PART = "EntityPatientDiscoveryPortSoap";
     private static final String WSDL_FILE = "EntityPatientDiscovery.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage";
+    private static final String WS_ADDRESSING_ACTION = "urn:RespondingGateway_PRPA_IN201305UV02";
+    private static final String SERVICE_NAME = NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME;
 
     private static Log log = null;
     private static Service cachedService = null;
@@ -107,8 +110,7 @@ public class PatientDiscoveryClient {
     }
 
     protected String getEndpointURL() throws ConnectionManagerException, PropertyAccessException {
-        return ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(getHomeCommunityId(),
-                NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME);
+        return ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(SERVICE_NAME);
     }
 
     /**
@@ -150,9 +152,12 @@ public class PatientDiscoveryClient {
             request.setPRPAIN201305UV02(request201305);
 
             String url = getEndpointURL();
-            EntityPatientDiscoveryPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-
-            port.respondingGatewayPRPAIN201305UV02(request);
+            if (NullChecker.isNotNullish(url)) {
+                EntityPatientDiscoveryPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+                oProxyHelper.invokePort(port, EntityPatientDiscoveryPortType.class, "respondingGatewayPRPAIN201305UV02", request);
+            } else {
+                log.error("Error getting URL for: " + SERVICE_NAME + "url is null");
+            }
 
         } catch (Exception ex) {
             getLog().error("Exception in patient discovery", ex);

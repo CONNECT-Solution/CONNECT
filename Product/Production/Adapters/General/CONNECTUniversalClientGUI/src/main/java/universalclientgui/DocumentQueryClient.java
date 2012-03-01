@@ -29,8 +29,12 @@ package universalclientgui;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,12 +74,14 @@ public class DocumentQueryClient {
     private static final String DOCUMENT_STATUS_APPROVED = "('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')";
     private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmss";
     private static final String REGULAR_DATE_FORMAT = "MM/dd/yyyy";
+    
     private static Service cachedService = null;
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entitydocquery";
     private static final String SERVICE_LOCAL_PART = "EntityDocQuery";
     private static final String PORT_LOCAL_PART = "EntityDocQueryPortSoap";
     private static final String WSDL_FILE = "EntityDocQuery.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest";
+    private static final String WS_ADDRESSING_ACTION = "urn:RespondingGateway_CrossGatewayQuery";
+    private static final String SERVICE_NAME = NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**
@@ -89,14 +95,20 @@ public class DocumentQueryClient {
 
         String url;
         try {
-            url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
-            EntityDocQueryPortType port = getPort(url, WS_ADDRESSING_ACTION, null);
+            url = getUrl();
+            if (NullChecker.isNotNullish(url)) {
+                EntityDocQueryPortType port = getPort(url, WS_ADDRESSING_ACTION, null);
 
-            RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest(patientSearchData, creationFromDate, creationToDate);
+                RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest(patientSearchData,
+                        creationFromDate, creationToDate);
 
-            AdhocQueryResponse response = port.respondingGatewayCrossGatewayQuery(request);
+                AdhocQueryResponse response = (AdhocQueryResponse) oProxyHelper.invokePort(port,
+                        EntityDocQueryPortType.class, "respondingGatewayCrossGatewayQuery", request);
 
-            return convertAdhocQueryResponseToDocInfoBO(response);
+                return convertAdhocQueryResponseToDocInfoBO(response);
+            } else {
+                log.error("Error getting URL for " + SERVICE_NAME);
+            }
         } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
         }
@@ -178,6 +190,10 @@ public class DocumentQueryClient {
         request.setAssertion(assertionCreator.createAssertion());
 
         return request;
+    }
+
+    protected String getUrl() throws ConnectionManagerException {
+        return ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(SERVICE_NAME);
     }
 
     /**

@@ -26,22 +26,27 @@
  */
 package universalclientgui;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrievePortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
+
 import java.util.List;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -50,28 +55,35 @@ import org.apache.commons.logging.LogFactory;
  * @author patlollav
  */
 public class DocumentRetrieveClient {
-    private static final String PROPERTY_FILE_NAME = "gateway";
-    private static final String PROPERTY_LOCAL_HOME_COMMUNITY = "localHomeCommunityId";
-    private static Log log = null;
-    private static EntityDocRetrieve service = new EntityDocRetrieve();
+    private static Log log = LogFactory.getLog(DocumentRetrieveClient.class);;
+    private static Service cachedService = null;
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entitydocretrieve";
+    private static final String SERVICE_LOCAL_PART = "EntityDocRetrieve";
+    private static final String PORT_LOCAL_PART = "EntityDocRetrievePortSoap";
+    private static final String WSDL_FILE = "EntityDocRetrieve.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "urn:RespondingGateway_CrossGatewayRetrieve";
+    private static final String SERVICE_NAME = NhincConstants.ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME;
+    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-    private Log getLog() {
-        if (log == null) {
-            log = LogFactory.getLog(getClass());
-        }
-        return log;
-    }
-    
-    
     public String retriveDocument(DocumentInformation documentInformation) {
+        try {
+            String url = getUrl();
+            if (NullChecker.isNotNullish(url)) {
+                EntityDocRetrievePortType port = getPort(url, WS_ADDRESSING_ACTION, null);
 
-        EntityDocRetrievePortType port = getPort(getEntityDocumentRetrieveProxyAddress());
+                RespondingGatewayCrossGatewayRetrieveRequestType request = createCrossGatewayRetrieveRequest(documentInformation);
 
-        RespondingGatewayCrossGatewayRetrieveRequestType request = createCrossGatewayRetrieveRequest(documentInformation);
+                RetrieveDocumentSetResponseType response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(
+                        port, EntityDocRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
 
-        RetrieveDocumentSetResponseType response = port.respondingGatewayCrossGatewayRetrieve(request);
-
-        return extractDocument(response);
+                return extractDocument(response);
+            } else {
+                log.error("Error getting URL for " + SERVICE_NAME);
+            }
+        } catch (Exception ex) {
+            log.error("Error calling respondingGatewayCrossGatewayRetrieve: " + ex.getMessage(), ex);
+        }
+        return null;
     }
 
     private String extractDocument(RetrieveDocumentSetResponseType response) {
@@ -142,56 +154,44 @@ public class DocumentRetrieveClient {
 
     }
 
-    /**
-     * 
-     * @return
-     */
-    private String getEntityDocumentRetrieveProxyAddress() {
-        String endpointAddress = null;
-
-        try {
-            // Lookup home community id
-            String homeCommunity = getHomeCommunityId();
-            // Get endpoint url
-            endpointAddress = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(homeCommunity,
-                    NhincConstants.ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME);
-            getLog().debug("Doc Retrive endpoint address: " + endpointAddress);
-        } catch (PropertyAccessException pae) {
-            getLog().error("Exception encountered retrieving the local home community: " + pae.getMessage(), pae);
-        } catch (ConnectionManagerException cme) {
-            getLog().error(
-                    "Exception encountered retrieving the entity doc query connection endpoint address: "
-                            + cme.getMessage(), cme);
-        }
-        return endpointAddress;
+    protected String getUrl() throws ConnectionManagerException {
+        return ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(SERVICE_NAME);
     }
 
     /**
-     * 
-     * @param url
-     * @return
+     * Retrieve the service class for this web service.
+     *
+     * @return The service class for this web service.
      */
-    private EntityDocRetrievePortType getPort(String url) {
-        if (service == null) {
-            service = new EntityDocRetrieve();
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
+                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
+            } catch (Throwable t) {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
         }
+        return cachedService;
+    }
 
-        EntityDocRetrievePortType port = service.getEntityDocRetrievePortSoap();
+    /**
+     * This method retrieves and initializes the port.
+     *
+     * @param url The URL for the web service.
+     * @return The port object for the web service.
+     */
+    protected EntityDocRetrievePortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
+        EntityDocRetrievePortType port = null;
+        Service service = getService();
+        if (service != null) {
+            log.debug("Obtained service - creating port.");
 
-        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(
-                javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityDocRetrievePortType.class);
+            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
+            log.error("Unable to obtain serivce - no port created.");
+        }
         return port;
-    }
-
-    /**
-     * Retrieve the local home community id
-     * 
-     * @return Local home community id
-     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
-     */
-    private String getHomeCommunityId() throws PropertyAccessException {
-        return PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_LOCAL_HOME_COMMUNITY);
     }
 
 }
