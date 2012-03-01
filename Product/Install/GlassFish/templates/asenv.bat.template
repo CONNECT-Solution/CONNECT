@@ -3,26 +3,26 @@ rem Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
 rem Use is subject to license terms.
 rem
 
-set AS_ANT=C:\Sun\AppServer\lib\ant
-set AS_ANT_LIB=C:\Sun\AppServer\lib\ant\lib
-set AS_WEBSERVICES_LIB=C:\Sun\AppServer\lib
-set AS_PERL=C:\Sun\AppServer\lib\perl
-set AS_NSS=C:\Sun\AppServer\lib
+set AS_ANT=C:\Oracle\glassfish\lib\ant
+set AS_ANT_LIB=C:\Oracle\glassfish\lib\ant\lib
+set AS_WEBSERVICES_LIB=C:\Oracle\glassfish\lib
+set AS_PERL=C:\Oracle\glassfish\lib\perl
+set AS_NSS=C:\Oracle\glassfish\lib
 set AS_NSS_BIN=C:\Mozilla\nss-3.12.4\bin
-set AS_IMQ_LIB=C:\Sun\AppServer\imq\lib
-set AS_IMQ_BIN=C:\Sun\AppServer\imq\bin
-set AS_CONFIG=C:\Sun\AppServer\config
-set AS_INSTALL=C:\Sun\AppServer
+set AS_IMQ_LIB=C:\Oracle\glassfish\imq\lib
+set AS_IMQ_BIN=C:\Oracle\glassfish\imq\bin
+set AS_CONFIG=C:\Oracle\glassfish\config
+set AS_INSTALL=C:\Oracle\glassfish
 set AS_JAVA=C:\Java\jdk1.7.0_02
-set AS_ACC_CONFIG=C:\Sun\AppServer\domains\nssdomain\config\sun-acc.xml
-set AS_JHELP=C:\Sun\AppServer\lib
-set AS_ICU_LIB=C:\Sun\AppServer\bin
-set AS_DEF_DOMAINS_PATH=C:\Sun\AppServer\domains
-set AS_JDMK_HOME=C:\Sun\AppServer\lib\SUNWjdmk\5.1
+set AS_ACC_CONFIG=C:\Oracle\glassfish\domains\nssdomain\config\sun-acc.xml
+set AS_JHELP=C:\Oracle\glassfish\lib
+set AS_ICU_LIB=C:\Oracle\glassfish\bin
+set AS_DEF_DOMAINS_PATH=C:\Oracle\glassfish\domains
+set AS_JDMK_HOME=C:\Oracle\glassfish\lib\SUNWjdmk\5.1
 set AS_NATIVE_LAUNCHER=false
 set AS_NATIVE_LAUNCHER_LIB_PREFIX=\jre\bin\client
-set AS_WEBCONSOLE_LIB=C:\Sun\AppServer\lib
-set AS_JATO_LIB=C:\Sun\AppServer\lib
+set AS_WEBCONSOLE_LIB=C:\Oracle\glassfish\lib
+set AS_JATO_LIB=C:\Oracle\glassfish\lib
 set AS_HADB=Does not exist
-set AS_DERBY_INSTALL=C:\Sun\AppServer\javadb
-set AS_MFWK_HOME=C:\Sun\AppServer\lib\SUNWmfwkAS
+set AS_DERBY_INSTALL=C:\Oracle\glassfish\javadb
+set AS_MFWK_HOME=C:\Oracle\glassfish\lib\SUNWmfwkAS

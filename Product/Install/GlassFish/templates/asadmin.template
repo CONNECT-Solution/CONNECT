@@ -4,7 +4,7 @@
 # Use is subject to license terms.
 #
 
-. "/nhin/SUNWappserver/config/asenv.conf"
+. "/nhin/glassfish/config/asenv.conf"
 
 LD_LIBRARY_PATH="$AS_NSS":"$AS_INSTALL/lib":"$AS_ICU_LIB":"$LD_LIBRARY_PATH";export LD_LIBRARY_PATH
 
