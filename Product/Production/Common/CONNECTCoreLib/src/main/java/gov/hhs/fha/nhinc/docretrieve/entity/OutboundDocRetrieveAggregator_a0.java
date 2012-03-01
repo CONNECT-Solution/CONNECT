@@ -61,7 +61,7 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
                     RegistryResponseType rrt = new RegistryResponseType();
                     to_a0.getResponse().setRegistryResponse(rrt);
                 }
-
+                
                 if (from_a0.getResponse() == null
                         || from_a0.getResponse().getRegistryResponse() == null
                         || NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE.equalsIgnoreCase(from_a0.getResponse()
@@ -85,7 +85,9 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
                                     .getRegistryError());
                 }
 
-                to_a0.getResponse().getDocumentResponse().addAll(from_a0.getResponse().getDocumentResponse());
+                if (from_a0.getResponse() != null) {
+                    to_a0.getResponse().getDocumentResponse().addAll(from_a0.getResponse().getDocumentResponse());
+                } 
             } /*
                * else if (from instanceof EntityDocRetrieveOrchestratableImpl_a1) {
                * 

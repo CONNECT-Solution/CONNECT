@@ -87,17 +87,16 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
 			log.error(
 					"Error occured sending doc query to NHIN target: "
 							+ t.getMessage(), t);
-			message.setResponse(createErrorResponse(message, "XDSRepositoryError",
-					"Processing NHIN Proxy document retrieve"));
+			createErrorResponse(message, "XDSRepositoryError", "Processing NHIN Proxy document retrieve");
 		}
 		return resp;
 	}
 
-	protected RetrieveDocumentSetResponseType createErrorResponse(OutboundDocRetrieveOrchestratable message,
+	protected void createErrorResponse(OutboundDocRetrieveOrchestratable message,
 			String errorCode, String errorContext) {
 		if (message == null) {
 			getLogger().debug("NhinOrchestratable was null");
-			return null;
+			return;
 		}
 
 		RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
@@ -112,7 +111,8 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
 		regErr.setCodeContext(errorContext);
 		regErr.setErrorCode(errorCode);
 		regErr.setSeverity("Error");
-		return response;
+		
+		message.setResponse(response);
 	}
 
 	private Log getLogger() {
