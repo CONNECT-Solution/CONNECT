@@ -84,6 +84,7 @@ public class NhinDocSubmissionDeferredResponseOrchImpl {
                     getLogger().debug("Policy Check Succeeded");
                     result = forwardToAgency(body, assertion);
                 } else {
+                	regResp.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
                     getLogger().error("Policy Check Failed");
                 }
             } else {
