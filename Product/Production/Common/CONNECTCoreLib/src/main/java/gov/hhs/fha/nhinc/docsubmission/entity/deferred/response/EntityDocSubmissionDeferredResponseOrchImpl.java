@@ -95,11 +95,9 @@ public class EntityDocSubmissionDeferredResponseOrchImpl {
 
                 log.debug("Sending request from entity service to NHIN proxy service");
                 response = callNhinXDRResponseProxy(proxyRequest, assertion);
-                
-                
+            } else {
                 regResp.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
                 response.setMessage(regResp);
-            } else {
                 log.error("Policy check unsuccessful");
 
             }
