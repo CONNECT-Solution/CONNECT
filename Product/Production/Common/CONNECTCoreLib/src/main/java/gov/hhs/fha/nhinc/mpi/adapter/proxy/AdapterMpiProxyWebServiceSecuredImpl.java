@@ -35,6 +35,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.Service;
 import javax.xml.namespace.QName;
@@ -77,8 +78,9 @@ public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
      * @param request The information to use for matching.
      * @param assertion The assertion data.
      * @return The matches that are found.
+     * @throws PatientDiscoveryException 
      */
-    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion) {
+    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion) throws PatientDiscoveryException {
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         String sServiceName = NhincConstants.ADAPTER_MPI_SECURED_SERVICE_NAME;
@@ -103,6 +105,7 @@ public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
         } catch (Exception e) {
             log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
                     + "Exception: " + e.getMessage(), e);
+            throw new PatientDiscoveryException(e.fillInStackTrace());
         }
 
         return response;

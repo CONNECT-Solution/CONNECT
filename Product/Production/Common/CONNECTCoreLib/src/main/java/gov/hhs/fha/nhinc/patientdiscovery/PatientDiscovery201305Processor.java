@@ -73,7 +73,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
      * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
      */
     @Override
-    public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion) {
+    public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion) throws PatientDiscoveryException {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
         // Set the sender and receiver OID for the response
@@ -244,11 +244,11 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         log.debug("End storeLocalMapping");
     }
 
-    protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) {
+    protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) throws PatientDiscoveryException {
         return queryMpiForPatients(query, assertion);
     }
 
-    public PRPAIN201306UV02 queryMpiForPatients(PRPAIN201305UV02 query, AssertionType assertion) {
+    public PRPAIN201306UV02 queryMpiForPatients(PRPAIN201305UV02 query, AssertionType assertion) throws PatientDiscoveryException {
         PRPAIN201306UV02 queryResults = new PRPAIN201306UV02();
 
         if (query != null) {

@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.mpi.adapter.proxy;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 
 /**
  * Component proxy interface for AdapterMpi service.
@@ -42,6 +43,7 @@ public interface AdapterMpiProxy {
      * @param request The information to use for matching.
      * @param assertion The assertion data.
      * @return The matches that are found.
+     * @throws PatientDiscoveryException 
      */
-    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion);
+    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion) throws PatientDiscoveryException;
 }

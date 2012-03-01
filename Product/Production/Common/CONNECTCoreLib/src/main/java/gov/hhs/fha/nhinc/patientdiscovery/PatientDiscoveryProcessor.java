@@ -39,7 +39,8 @@ public interface PatientDiscoveryProcessor {
      * @param request
      * @param assertion
      * @return org.hl7.PRPAIN201306UV02
+     * @throws PatientDiscoveryException 
      */
-    public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion);
+    public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion) throws PatientDiscoveryException;
 
 }
