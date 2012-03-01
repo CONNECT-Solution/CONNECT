@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxy;
 import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
@@ -316,7 +317,11 @@ public class VerifyMode implements ResponseMode {
             AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
             AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
             log.info("Sending query to the Secured MPI");
-            queryResults = mpiProxy.findCandidates(query, assertion);
+            try {
+				queryResults = mpiProxy.findCandidates(query, assertion);
+			} catch (PatientDiscoveryException e) {
+				log.error("Error queries MPI in verify mode.", e);
+			}
 
         } else {
             log.error("MPI Request is null");

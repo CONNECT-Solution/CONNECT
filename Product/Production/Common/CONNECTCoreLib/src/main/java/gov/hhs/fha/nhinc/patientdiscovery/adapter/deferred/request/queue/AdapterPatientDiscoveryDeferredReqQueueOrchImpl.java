@@ -46,6 +46,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.Passt
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -112,27 +113,32 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
 
         // "process" the request and send a response out to the Nhin.
         PatientDiscoveryProcessor msgProcessor = new PatientDiscovery201305Processor();
-        PRPAIN201306UV02 resp = msgProcessor.process201305(request.getPRPAIN201305UV02(), request.getAssertion());
+        PRPAIN201306UV02 resp;
+		try {
+			resp = msgProcessor.process201305(request.getPRPAIN201305UV02(), request.getAssertion());
+			
+			// Generate a new response assertion
+	        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
+	        AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(request.getAssertion());
+	        // Original request message id is now set as the relates to id
+	        newAssertion.getRelatesToList().add(request.getAssertion().getMessageId());
+	        // Generate a new unique response assertion Message ID
+	        newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
+	        // Set user info homeCommunity
+	        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+	        HomeCommunityType homeCommunityType = new HomeCommunityType();
+	        homeCommunityType.setHomeCommunityId(homeCommunityId);
+	        homeCommunityType.setName(homeCommunityId);
+	        newAssertion.setHomeCommunity(homeCommunityType);
+	        if (newAssertion.getUserInfo() != null && newAssertion.getUserInfo().getOrg() != null) {
+	            newAssertion.getUserInfo().getOrg().setHomeCommunityId(homeCommunityId);
+	            newAssertion.getUserInfo().getOrg().setName(homeCommunityId);
+	        }
 
-        // Generate a new response assertion
-        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-        AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(request.getAssertion());
-        // Original request message id is now set as the relates to id
-        newAssertion.getRelatesToList().add(request.getAssertion().getMessageId());
-        // Generate a new unique response assertion Message ID
-        newAssertion.setMessageId(AsyncMessageIdCreator.generateMessageId());
-        // Set user info homeCommunity
-        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-        HomeCommunityType homeCommunityType = new HomeCommunityType();
-        homeCommunityType.setHomeCommunityId(homeCommunityId);
-        homeCommunityType.setName(homeCommunityId);
-        newAssertion.setHomeCommunity(homeCommunityType);
-        if (newAssertion.getUserInfo() != null && newAssertion.getUserInfo().getOrg() != null) {
-            newAssertion.getUserInfo().getOrg().setHomeCommunityId(homeCommunityId);
-            newAssertion.getUserInfo().getOrg().setName(homeCommunityId);
-        }
-
-        ack = sendToNhin(resp, newAssertion, request.getNhinTargetCommunities());
+	        ack = sendToNhin(resp, newAssertion, request.getNhinTargetCommunities());
+		} catch (PatientDiscoveryException e) {
+			log.error("Error occurred while processing Patient Discovery Deferred Request", e);
+		}
 
         return ack;
     }
