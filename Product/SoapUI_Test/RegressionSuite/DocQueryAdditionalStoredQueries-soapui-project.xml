@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="DocQueryAdditionalStoredQueries" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="DocQueryAdditionalStoredQueries" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="file:/C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="WSDL path not set.  #NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -12,7 +11,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="file:/C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="WSDL path not set.  #AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -54,7 +53,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="FindDocuments" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="FindDocuments">
@@ -340,7 +339,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="FindDocuments" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="FindDocuments" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -1413,7 +1412,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="FindSubmissionSets" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="FindSubmissionSets">
@@ -1699,7 +1698,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="FindSubmissionSets" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="FindSubmissionSets" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -2772,7 +2771,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="FindFolders" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="FindFolders">
@@ -3058,7 +3057,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="FindFolders" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="FindFolders" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -4131,7 +4130,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="GetAll" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="GetAll">
@@ -4427,7 +4426,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="GetAll" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="GetAll" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -5520,7 +5519,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="GetDocuments" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="GetDocuments">
@@ -5801,7 +5800,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="GetDocuments" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="GetDocuments" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -6864,7 +6863,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="GetFolders" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="GetFolders">
@@ -7145,7 +7144,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="GetFolders" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="GetFolders" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -8208,7 +8207,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="GetFoldersForDocument" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="GetFoldersForDocument">
@@ -8489,7 +8488,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="GetFoldersForDocument" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="GetFoldersForDocument" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -9552,7 +9551,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="GetAssociations" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="GetAssociations">
@@ -9833,7 +9832,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="GetAssociations" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="GetAssociations" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -10896,7 +10895,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="GetDocumentsAndAssociations" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="GetDocumentsAndAssociations">
@@ -11182,7 +11181,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="GetDocumentsAndAssociations" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="GetDocumentsAndAssociations" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -12255,7 +12254,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="GetSubmissionSets" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="GetSubmissionSets">
@@ -12536,7 +12535,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="GetSubmissionSets" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="GetSubmissionSets" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -13599,7 +13598,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="GetSubmissionSetAndContents" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="GetSubmissionSetAndContents">
@@ -13880,7 +13879,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="GetSubmissionSetAndContents" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="GetSubmissionSetAndContents" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -14943,7 +14942,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="GetFolderAndContents" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="GetFolderAndContents">
@@ -15224,7 +15223,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="GetFolderAndContents" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="GetFolderAndContents" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -16287,7 +16286,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="GetRelatedDocuments" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="GetRelatedDocuments">
@@ -16568,7 +16567,7 @@ assert docCount.toInteger() == 6;
 			</con:testStep>
 			<con:testStep name="findDocumentsDocQueryResponse" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="GetRelatedDocuments" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="GetRelatedDocuments" xsi:type="con:MockResponseStep">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:path>/mockDocQuery</con:path>
@@ -17653,7 +17652,7 @@ def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -17661,11 +17660,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -17686,14 +17685,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')

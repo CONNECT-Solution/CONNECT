@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="HIEMPatientCentricUDDItests" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="HIEMPatientCentricUDDItests" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
 	<con:settings/>
 	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincsubscription}NotificationProducerBinding" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\NhincSubscription.wsdl" name="NotificationProducerBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincsubscription}NotificationProducerBinding" definition="WSDL path not set.  #NhincSubscription.wsdl" name="NotificationProducerBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -12,7 +11,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -28,7 +27,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:hiemsubscriptionrepositoryutil}HiemSubscriptionRepositoryUtilPortTypeBinding" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\HiemSubscriptionRepositoryUtil.wsdl" name="HiemSubscriptionRepositoryUtilPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:hiemsubscriptionrepositoryutil}HiemSubscriptionRepositoryUtilPortTypeBinding" definition="WSDL path not set.  #HiemSubscriptionRepositoryUtil.wsdl" name="HiemSubscriptionRepositoryUtilPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -136,7 +135,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -149,7 +148,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -161,7 +160,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -170,7 +169,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -423,7 +422,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -444,7 +443,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -494,7 +493,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -584,7 +583,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -597,7 +596,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -609,7 +608,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -626,7 +625,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -635,7 +634,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -888,7 +887,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -909,7 +908,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -959,7 +958,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1049,7 +1048,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -1062,7 +1061,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -1074,7 +1073,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID  in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -1091,7 +1090,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AAMappingDB') { sql -> 
+					<script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
 
   sql.execute('delete from ' + table)
@@ -1124,7 +1123,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -1133,11 +1132,11 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
@@ -1385,7 +1384,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -1406,7 +1405,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1456,7 +1455,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1546,7 +1545,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -1559,7 +1558,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -1571,7 +1570,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -1580,7 +1579,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -1851,7 +1850,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -1872,7 +1871,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1922,7 +1921,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -2012,7 +2011,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -2025,7 +2024,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -2037,7 +2036,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -2053,7 +2052,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AAMappingDB') { sql -> 
+					<script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
 
   sql.execute('delete from ' + table)
@@ -2086,7 +2085,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -2095,7 +2094,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -2366,7 +2365,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -2387,7 +2386,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -2437,7 +2436,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -2527,7 +2526,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -2540,7 +2539,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -2552,7 +2551,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -2569,7 +2568,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -2578,7 +2577,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -2849,7 +2848,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -2870,7 +2869,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -2920,7 +2919,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -3010,7 +3009,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -3023,7 +3022,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -3035,7 +3034,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -3054,7 +3053,7 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
 			<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AAMappingDB') { sql -> 
+					<script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
 
   sql.execute('delete from ' + table)
@@ -3087,7 +3086,7 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -3096,7 +3095,7 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -3367,7 +3366,7 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -3388,7 +3387,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -3438,7 +3437,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -3528,7 +3527,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -3541,7 +3540,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -3553,7 +3552,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -3572,7 +3571,7 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -3581,7 +3580,7 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -3843,7 +3842,7 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -3864,7 +3863,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -3914,7 +3913,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -4004,7 +4003,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -4017,7 +4016,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -4029,7 +4028,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -4038,7 +4037,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -4300,7 +4299,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -4321,7 +4320,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -4371,7 +4370,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -4461,7 +4460,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -4474,7 +4473,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -4486,7 +4485,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -4502,7 +4501,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -4511,7 +4510,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -4782,7 +4781,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -4803,7 +4802,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -4853,7 +4852,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -4943,7 +4942,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -4956,7 +4955,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -4968,7 +4967,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -4977,7 +4976,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -5250,7 +5249,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -5271,7 +5270,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -5321,7 +5320,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -5411,7 +5410,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -5424,7 +5423,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -5436,7 +5435,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -5452,7 +5451,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -5461,7 +5460,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -5734,7 +5733,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -5755,7 +5754,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -5805,7 +5804,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -5895,7 +5894,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -5908,7 +5907,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -5920,7 +5919,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID  in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -5933,7 +5932,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 }
 
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -5949,7 +5948,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AAMappingDB') { sql -> 
+					<script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
 
   sql.execute('delete from ' + table)
@@ -5982,7 +5981,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -5991,7 +5990,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -6264,7 +6263,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -6291,7 +6290,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -6341,7 +6340,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -6431,7 +6430,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -6444,7 +6443,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -6456,7 +6455,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -6465,7 +6464,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -6736,7 +6735,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -6763,7 +6762,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -6813,7 +6812,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -6903,7 +6902,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -6916,7 +6915,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -6928,7 +6927,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -6944,7 +6943,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -6953,7 +6952,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -7224,7 +7223,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -7245,7 +7244,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -7295,7 +7294,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -7385,7 +7384,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -7398,7 +7397,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -7410,7 +7409,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID  in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -7423,7 +7422,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 }
 
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -7439,7 +7438,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AAMappingDB') { sql -> 
+					<script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
 
   sql.execute('delete from ' + table)
@@ -7472,7 +7471,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -7481,7 +7480,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -7752,7 +7751,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -7773,7 +7772,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -7823,7 +7822,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -7913,7 +7912,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -7926,7 +7925,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -7938,7 +7937,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID  in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -7954,7 +7953,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AAMappingDB') { sql -> 
+					<script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
 
   sql.execute('delete from ' + table)
@@ -7987,7 +7986,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -7996,7 +7995,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -8267,7 +8266,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -8288,7 +8287,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -8338,7 +8337,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -8428,7 +8427,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -8441,7 +8440,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -8453,7 +8452,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:testStep name="Add Correlation for HCID  in the UDDI" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -8465,7 +8464,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
   sql.executeUpdate(insertSql, [localAA, localPatientID, uddiVA1, remotePatientID])
 }
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -8477,7 +8476,7 @@ context.withSql('PatientCorrelationDB') { sql ->
   sql.executeUpdate(insertSql, [localAA, localPatientID, uddiGA1, remotePatientID])
 }
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -8493,7 +8492,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AAMappingDB') { sql -> 
+					<script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
 
   sql.execute('delete from ' + table)
@@ -8526,7 +8525,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
@@ -8535,7 +8534,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -8817,7 +8816,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:testStep name="Count Subscriptions" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+					<script>context.withSql('SubscriptionDB') { sql -&gt; 
   assert 7 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 }
 					</script>
@@ -8838,7 +8837,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -8888,7 +8887,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -8975,7 +8974,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -8983,11 +8982,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -9010,14 +9009,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')

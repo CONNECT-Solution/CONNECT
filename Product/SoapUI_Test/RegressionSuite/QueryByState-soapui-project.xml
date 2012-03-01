@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="QueryByState" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="QueryByState" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="file:/C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="WSDL path not set.  #NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -63,7 +62,7 @@
 			
 		</con:operation>
 		
-	<con:operation isOneWay="false" action="urn:GetDefaultEndpointURLByServiceName" name="GetDefaultEndpointURLByServiceName" bindingOperationName="GetDefaultEndpointURLByServiceName" type="Request-Response" outputName="GetDefaultEndpointURLByServiceNameResponse" inputName="GetDefaultEndpointURLByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetInternalEndpointURLByServiceName" name="GetInternalEndpointURLByServiceName" bindingOperationName="GetInternalEndpointURLByServiceName" type="Request-Response" outputName="GetInternalEndpointURLByServiceNameResponse" inputName="GetInternalEndpointURLByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetEndpointURLFromNhinTarget" name="GetEndpointURLFromNhinTarget" bindingOperationName="GetEndpointURLFromNhinTarget" type="Request-Response" outputName="GetEndpointURLFromNhinTargetResponse" inputName="GetEndpointURLFromNhinTargetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAdapterEndpointURL" name="GetAdapterEndpointURL" bindingOperationName="GetAdapterEndpointURL" type="Request-Response" outputName="GetAdapterEndpointURLResponse" inputName="GetAdapterEndpointURLRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface>
+	<con:operation action="urn:GetDefaultEndpointURLByServiceName" bindingOperationName="GetDefaultEndpointURLByServiceName" inputName="GetDefaultEndpointURLByServiceNameRequest" isOneWay="false" name="GetDefaultEndpointURLByServiceName" outputName="GetDefaultEndpointURLByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:GetInternalEndpointURLByServiceName" bindingOperationName="GetInternalEndpointURLByServiceName" inputName="GetInternalEndpointURLByServiceNameRequest" isOneWay="false" name="GetInternalEndpointURLByServiceName" outputName="GetInternalEndpointURLByServiceNameResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:GetEndpointURLFromNhinTarget" anonymous="optional" bindingOperationName="GetEndpointURLFromNhinTarget" inputName="GetEndpointURLFromNhinTargetRequest" isOneWay="false" name="GetEndpointURLFromNhinTarget" outputName="GetEndpointURLFromNhinTargetResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:GetAdapterEndpointURL" bindingOperationName="GetAdapterEndpointURL" inputName="GetAdapterEndpointURLRequest" isOneWay="false" name="GetAdapterEndpointURL" outputName="GetAdapterEndpointURLResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface>
 	<con:testSuite name="QueryByState TestSuite">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
@@ -128,11 +127,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Single HCID" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single HCID">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -155,7 +154,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 </soap:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match" name="url match">
+						<con:assertion name="url match" type="XPath Match">
 							<con:configuration><path>declare namespace ns6='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
 
@@ -171,11 +170,11 @@ declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
 			</con:testStep>
 			<con:testStep name="Multiple HCIDs" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple HCIDs">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -214,11 +213,11 @@ declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
 			</con:testStep>
 			<con:testStep name="Single HCID ( only in UDDI )" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single HCID ( only in UDDI )">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -267,7 +266,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -296,7 +295,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -382,11 +381,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Single Region" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single Region">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -422,11 +421,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Multiple Regions" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple Regions">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
@@ -472,11 +471,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Multiple Regions ( one from UDDI and one from ICI )" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple Regions ( one from UDDI and one from ICI )">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
@@ -535,7 +534,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -564,7 +563,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -650,11 +649,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and associated HCID" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and associated HCID">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -690,11 +689,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and non-associated HCID" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and non-associated HCID">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -744,7 +743,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -773,7 +772,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -859,11 +858,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and associating HCID" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and associating HCID">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
@@ -908,11 +907,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and non-associated HCID" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and non-associated HCID">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
@@ -971,7 +970,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1000,7 +999,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1086,11 +1085,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Single HCID" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single HCID">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1123,11 +1122,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Multiple HCIDs" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple HCIDs">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1183,7 +1182,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1212,7 +1211,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1298,11 +1297,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Single Region" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Single Region">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1335,11 +1334,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Multiple Regions" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Multiple Regions">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1406,7 +1405,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1435,7 +1434,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1521,11 +1520,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and associated HCID" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and associated HCID">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1561,11 +1560,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and non-associated HCID" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and non-associated HCID">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1613,7 +1612,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1642,7 +1641,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1728,11 +1727,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and associating HCID" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and associating HCID">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1776,11 +1775,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region and non-associated HCID" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region and non-associated HCID">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1838,7 +1837,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1867,7 +1866,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1953,11 +1952,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="Region in both UDDI anad ICI" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="Region in both UDDI anad ICI">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1993,11 +1992,11 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 			</con:testStep>
 			<con:testStep name="HCID in both UDDI and ICI" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 					<con:request name="HCID in both UDDI and ICI">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -2043,7 +2042,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -2072,7 +2071,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -2139,12 +2138,12 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
 return delegate.getProperty(propertyName) ?:
 delegate.testCase.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:

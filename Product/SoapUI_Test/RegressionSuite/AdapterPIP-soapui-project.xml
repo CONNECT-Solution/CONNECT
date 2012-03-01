@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="AdapterPIP" resourceRoot="${projectDir}" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="AdapterPIP" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.5.1">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpip}AdapterPIPBindingSoap" definition="C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/AdapterPIP.wsdl" name="AdapterPIPBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpip}AdapterPIPBindingSoap" definition="WSDL path not set.  #AdapterPIP.wsdl" name="AdapterPIPBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:definitionCache/><con:endpoints>
@@ -17,7 +16,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="WSDL path not set.  #AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:definitionCache/><con:endpoints>
@@ -46,7 +45,7 @@
 			<con:settings/>
 			<con:testStep name="StorePtConsent - false" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>StorePtConsent</con:operation>
 					<con:request name="StorePtConsent - false">
@@ -78,7 +77,7 @@
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByPtId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtId</con:operation>
 					<con:request name="RetrievePtConsentByPtId">
@@ -121,7 +120,7 @@
 //def col = context.findProperty('col')
 def val = context.findProperty('PatientId')
 
-context.withSql('DocRepositoryDB') { sql -> 
+context.withSql('DocRepositoryDB') { sql -&gt; 
 sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 }
 
@@ -153,7 +152,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			<con:settings/>
 			<con:testStep name="StorePtConsent - true" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>StorePtConsent</con:operation>
 					<con:request name="StorePtConsent - true">
@@ -185,7 +184,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByPtId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtId</con:operation>
 					<con:request name="RetrievePtConsentByPtId">
@@ -227,7 +226,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 					<script>def table = context.findProperty('DocumentTable')
 def val = context.findProperty('PatientId')
 
-context.withSql('DocRepositoryDB') { sql -> 
+context.withSql('DocRepositoryDB') { sql -&gt; 
 sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 }
 
@@ -260,7 +259,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			<con:settings/>
 			<con:testStep name="StorePtConsent - true" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>StorePtConsent</con:operation>
 					<con:request name="StorePtConsent - true">
@@ -292,7 +291,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByPtId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtId</con:operation>
 					<con:request name="RetrievePtConsentByPtId">
@@ -334,7 +333,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 					<script>def table = context.findProperty('DocumentTable')
 def val = context.findProperty('PatientId')
 
-context.withSql('DocRepositoryDB') { sql -> 
+context.withSql('DocRepositoryDB') { sql -&gt; 
 sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 }
 
@@ -371,7 +370,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 					<script>def table = context.findProperty('DocumentTable')
 def val = context.findProperty('PatientId')
 
-context.withSql('DocRepositoryDB') { sql -> 
+context.withSql('DocRepositoryDB') { sql -&gt; 
 sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 }
 
@@ -382,7 +381,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="StorePtConsent - minimal" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>StorePtConsent</con:operation>
 					<con:request name="StorePtConsent - minimal">
@@ -418,7 +417,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByPtId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtId</con:operation>
 					<con:request name="RetrievePtConsentByPtId">
@@ -474,7 +473,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="QueryByPatientId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtDocId</con:operation>
 					<con:request name="QueryByPatientId">
@@ -730,7 +729,7 @@ declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					<script>def table = context.findProperty('DocumentTable')
 def val = context.findProperty('PatientId')
 
-context.withSql('DocRepositoryDB') { sql -> 
+context.withSql('DocRepositoryDB') { sql -&gt; 
 sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 }
 
@@ -770,7 +769,7 @@ def val = context.findProperty('PatientId')
 def eventtable = context.findProperty('EventCodeTable')
 def eventval = context.findProperty('EventCode')
 
-context.withSql('DocRepositoryDB') { sql -> 
+context.withSql('DocRepositoryDB') { sql -&gt; 
 sql.execute("delete from " + table + " where SourcePatientId = '" + val + "'")
 sql.execute("delete from " + eventtable + " where EventCode like '%" + eventval + "%'")
 }
@@ -782,7 +781,7 @@ sql.execute("delete from " + eventtable + " where EventCode like '%" + eventval 
 			</con:testStep>
 			<con:testStep name="StorePtConsent - full" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>StorePtConsent</con:operation>
 					<con:request name="StorePtConsent - full">
@@ -868,7 +867,7 @@ sql.execute("delete from " + eventtable + " where EventCode like '%" + eventval 
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByPtId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtId</con:operation>
 					<con:request name="RetrievePtConsentByPtId">
@@ -924,7 +923,7 @@ sql.execute("delete from " + eventtable + " where EventCode like '%" + eventval 
 			</con:testStep>
 			<con:testStep name="QueryByPatientId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtDocId</con:operation>
 					<con:request name="QueryByPatientId">
@@ -1372,7 +1371,7 @@ def val = context.findProperty('PatientId')
 def eventtable = context.findProperty('EventCodeTable')
 def eventval = context.findProperty('EventCode')
 
-context.withSql('DocRepositoryDB') { sql -> 
+context.withSql('DocRepositoryDB') { sql -&gt; 
 sql.execute("delete from " + table + " where SourcePatientId = '" + val + "'")
 sql.execute("delete from " + eventtable + " where EventCode like '%" + eventval + "%'")
 }
@@ -1411,7 +1410,7 @@ sql.execute("delete from " + eventtable + " where EventCode like '%" + eventval 
 					<script>def table = context.findProperty('DocumentTable')
 def val = context.findProperty('PatientId')
 
-context.withSql('DocRepositoryDB') { sql -> 
+context.withSql('DocRepositoryDB') { sql -&gt; 
 sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 }
 
@@ -1420,7 +1419,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="StorePtConsent - fine\binary" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>StorePtConsent</con:operation>
 					<con:request name="StorePtConsent - fine\binary">
@@ -1494,7 +1493,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByPtId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtId</con:operation>
 					<con:request name="RetrievePtConsentByPtId">
@@ -1550,7 +1549,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByDocId - Fine" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtDocId</con:operation>
 					<con:request name="RetrievePtConsentByDocId - Fine">
@@ -1576,7 +1575,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByDocId - Binary1" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtDocId</con:operation>
 					<con:request name="RetrievePtConsentByDocId - Binary1">
@@ -1602,7 +1601,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByDocId - Binary2" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtDocId</con:operation>
 					<con:request name="RetrievePtConsentByDocId - Binary2">
@@ -1628,7 +1627,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="QueryByPatientId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtDocId</con:operation>
 					<con:request name="QueryByPatientId">
@@ -1874,7 +1873,7 @@ declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					<script>def table = context.findProperty('DocumentTable')
 def val = context.findProperty('PatientId')
 
-context.withSql('DocRepositoryDB') { sql -> 
+context.withSql('DocRepositoryDB') { sql -&gt; 
 sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 }
 
@@ -1911,7 +1910,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 					<script>def table = context.findProperty('DocumentTable')
 def val = context.findProperty('PatientId')
 
-context.withSql('DocRepositoryDB') { sql -> 
+context.withSql('DocRepositoryDB') { sql -&gt; 
 sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 }
 
@@ -1921,7 +1920,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="StorePtConsent - fine\binary" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>StorePtConsent</con:operation>
 					<con:request name="StorePtConsent - fine\binary">
@@ -2089,7 +2088,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByPtId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtId</con:operation>
 					<con:request name="RetrievePtConsentByPtId">
@@ -2145,7 +2144,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByDocId - Fine" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtDocId</con:operation>
 					<con:request name="RetrievePtConsentByDocId - Fine">
@@ -2171,7 +2170,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="RetrievePtConsentByDocId - Binary1" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtDocId</con:operation>
 					<con:request name="RetrievePtConsentByDocId - Binary1">
@@ -2197,7 +2196,7 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			</con:testStep>
 			<con:testStep name="QueryByPatientId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>RetrievePtConsentByPtDocId</con:operation>
 					<con:request name="QueryByPatientId">
@@ -2693,7 +2692,7 @@ declare namespace ns7='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					<script>def table = context.findProperty('DocumentTable')
 def val = context.findProperty('PatientId')
 
-context.withSql('DocRepositoryDB') { sql -> 
+context.withSql('DocRepositoryDB') { sql -&gt; 
 sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 }
 
@@ -2744,7 +2743,7 @@ def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -2752,11 +2751,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -2777,14 +2776,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')

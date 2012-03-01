@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="EntityDocQuery" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="EntityDocQuery" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="c:/nhinc/interfaces/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="WSDL path not set.  #EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:endpoints>
@@ -16,7 +15,7 @@
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4906f58e-5725-4a79-8ab1-c86eb8822975" keepSession="false" maxResults="0" name="Document Query Fanout" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Backup gateway.properties file" type="groovy" disabled="true">
+      <con:testStep disabled="true" name="Backup gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -36,7 +35,7 @@ if(gatewayFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config" type="groovy" disabled="true">
+      <con:testStep disabled="true" name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
@@ -52,7 +51,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -70,7 +69,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -92,7 +91,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -125,7 +124,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -396,7 +395,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Restore gateway.properties file" type="groovy" disabled="true">
+      <con:testStep disabled="true" name="Restore gateway.properties file" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
@@ -450,7 +449,7 @@ def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
       <con:settings/>
       <con:testStep disabled="true" name="Test Case Properties" type="properties">
         <con:settings/>
-        <con:config createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
           <con:source>EntityDocQuery-soapui-project.properties</con:source>
           <con:properties>
             <con:property>
@@ -620,7 +619,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -675,7 +674,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -735,7 +734,7 @@ runSQL(2, host, port, db, user, pass, table, remoteAA2, remoteHCID2);</script>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -770,7 +769,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocum
       </con:testStep>
       <con:testStep disabled="true" name="set doc query properties" type="transfer">
         <con:settings/>
-        <con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
           <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>endpointTransfer</con:name>
             <con:sourceType>Endpoint-DocQuery</con:sourceType>
@@ -873,7 +872,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -1197,7 +1196,7 @@ if(gatewayBakFile.exists()) {
       <con:settings/>
       <con:testStep disabled="true" name="Test Case Properties" type="properties">
         <con:settings/>
-        <con:config createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
           <con:source>EntityDocQuery-soapui-project.properties</con:source>
           <con:properties>
             <con:property>
@@ -1367,7 +1366,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -1422,7 +1421,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -1442,7 +1441,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -1469,7 +1468,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep>
       <con:testStep disabled="true" name="set doc query properties" type="transfer">
         <con:settings/>
-        <con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
           <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>endpointTransfer</con:name>
             <con:sourceType>Endpoint-DocQuery</con:sourceType>
@@ -1572,11 +1571,11 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1890,7 +1889,7 @@ FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",cont
       <con:settings/>
       <con:testStep disabled="true" name="Test Case Properties" type="properties">
         <con:settings/>
-        <con:config createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
           <con:source>EntityDocQuery-soapui-project.properties</con:source>
           <con:properties>
             <con:property>
@@ -2060,7 +2059,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -2115,7 +2114,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -2136,7 +2135,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -2172,7 +2171,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocum
       </con:testStep>
       <con:testStep disabled="true" name="set doc query properties" type="transfer">
         <con:settings/>
-        <con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
           <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>endpointTransfer</con:name>
             <con:sourceType>Endpoint-DocQuery</con:sourceType>
@@ -2275,7 +2274,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -2591,7 +2590,7 @@ if(gatewayBakFile.exists()) {
       <con:settings/>
       <con:testStep disabled="true" name="Test Case Properties" type="properties">
         <con:settings/>
-        <con:config createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
           <con:source>EntityDocQuery-soapui-project.properties</con:source>
           <con:properties>
             <con:property>
@@ -2761,7 +2760,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -2816,7 +2815,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -2837,7 +2836,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -2873,7 +2872,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocum
       </con:testStep>
       <con:testStep disabled="true" name="set doc query properties" type="transfer">
         <con:settings/>
-        <con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
           <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
             <con:name>endpointTransfer</con:name>
             <con:sourceType>Endpoint-DocQuery</con:sourceType>
@@ -2976,7 +2975,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -3334,7 +3333,7 @@ def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -3342,11 +3341,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -3367,14 +3366,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')

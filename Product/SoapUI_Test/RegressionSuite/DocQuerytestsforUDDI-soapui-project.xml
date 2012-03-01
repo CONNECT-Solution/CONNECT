@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="DocQueryTestsForUDDI" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="DocQueryTestsForUDDI" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
   <con:description/><con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="file:/C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="WSDL path not set.  #EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:endpoints>
@@ -16,7 +15,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincdocquery}NhincDocQueryPortTypeBinding" definition="file:/C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/NhincDocQuery.wsdl" name="NhincDocQueryPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincdocquery}NhincDocQueryPortTypeBinding" definition="WSDL path not set.  #NhincDocQuery.wsdl" name="NhincDocQueryPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:endpoints>
@@ -66,7 +65,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -85,7 +84,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -95,7 +94,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -111,7 +110,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -143,12 +142,12 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
@@ -487,7 +486,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -506,7 +505,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -516,7 +515,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -548,7 +547,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -906,7 +905,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -925,7 +924,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -935,7 +934,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -967,7 +966,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -1339,7 +1338,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -1358,7 +1357,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -1368,7 +1367,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -1384,7 +1383,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -1416,11 +1415,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1780,7 +1779,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -1799,7 +1798,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -1809,7 +1808,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -1828,7 +1827,7 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -1874,7 +1873,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -2145,7 +2144,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             </con:assertion>
             <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -2231,7 +2230,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -2250,7 +2249,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -2260,7 +2259,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -2279,7 +2278,7 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -2323,7 +2322,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -2587,7 +2586,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             </con:assertion>
             <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -2707,7 +2706,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -2726,7 +2725,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -2736,7 +2735,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -2768,7 +2767,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -3105,7 +3104,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -3124,7 +3123,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -3134,7 +3133,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -3150,7 +3149,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -3182,7 +3181,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -3498,7 +3497,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -3553,7 +3552,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -3563,7 +3562,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -3576,7 +3575,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }
 
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -3592,7 +3591,7 @@ context.withSql('PatientCorrelationDB') { sql ->
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -3641,11 +3640,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -3916,7 +3915,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             </con:assertion>
             <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -4001,7 +4000,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -4019,7 +4018,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   sql.execute('delete from ' + table)
 }</script></con:config>
@@ -4027,7 +4026,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -4072,11 +4071,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -4425,7 +4424,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -4444,7 +4443,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -4454,7 +4453,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -4486,11 +4485,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -4883,7 +4882,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -4902,7 +4901,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -4912,7 +4911,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -4928,7 +4927,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -4960,11 +4959,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -5347,7 +5346,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -5366,7 +5365,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -5376,7 +5375,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -5388,7 +5387,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   sql.executeUpdate(insertSql, [localAA, localPatientID, uddiVA1, remotePatientID])
 }
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -5400,7 +5399,7 @@ context.withSql('PatientCorrelationDB') { sql ->
   sql.executeUpdate(insertSql, [localAA, localPatientID, uddiVA2, remotePatientID])
 }
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -5416,7 +5415,7 @@ context.withSql('PatientCorrelationDB') { sql ->
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -5460,12 +5459,12 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
@@ -5737,7 +5736,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             </con:assertion>
             <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -5846,7 +5845,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -5865,7 +5864,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -5875,7 +5874,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -5891,7 +5890,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -5935,11 +5934,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -6210,7 +6209,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             </con:assertion>
             <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -6317,7 +6316,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -6336,7 +6335,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -6346,7 +6345,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -6358,7 +6357,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   sql.executeUpdate(insertSql, [localAA, localPatientID, uddiVA1, remotePatientID])
 }
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -6370,7 +6369,7 @@ context.withSql('PatientCorrelationDB') { sql ->
   sql.executeUpdate(insertSql, [localAA, localPatientID, uddiGA1, remotePatientID])
 }
 
-context.withSql('PatientCorrelationDB') { sql -> 
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -6386,7 +6385,7 @@ context.withSql('PatientCorrelationDB') { sql ->
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -6436,11 +6435,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -6720,7 +6719,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             </con:assertion>
             <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -6769,7 +6768,7 @@ def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5d62165c-7a92-4211-b4a8-22f1793f3c0c" keepSession="false" maxResults="0" name="Empty Target XML - Correlation for HCID IN UDDI file" searchProperties="true" disabled="true">
+    <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="5d62165c-7a92-4211-b4a8-22f1793f3c0c" keepSession="false" maxResults="0" name="Empty Target XML - Correlation for HCID IN UDDI file" searchProperties="true">
       <con:settings/>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
@@ -6808,7 +6807,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -6827,7 +6826,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -6837,7 +6836,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -6853,7 +6852,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -6897,7 +6896,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -7152,7 +7151,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             </con:assertion>
             <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -7204,7 +7203,7 @@ def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5c44df01-4f70-48d3-8930-a31ac9100e8e" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true" disabled="true">
+    <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="5c44df01-4f70-48d3-8930-a31ac9100e8e" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
@@ -7243,7 +7242,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -7262,7 +7261,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -7272,7 +7271,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -7288,7 +7287,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -> 
+          <script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -7332,7 +7331,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
@@ -7603,7 +7602,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             </con:assertion>
             <con:assertion disabled="true" type="Simple Contains">
               <con:configuration>
-                <token>&lt;ns5:RegistryObjectList/></token>
+                <token>&lt;ns5:RegistryObjectList/&gt;</token>
                 <ignoreCase>false</ignoreCase>
                 <useRegEx>false</useRegEx>
               </con:configuration>
@@ -7655,7 +7654,7 @@ def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7c286477-8a88-4aad-ab67-d6968f946de2" keepSession="false" maxResults="0" name="State Happy Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true" disabled="true">
+    <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="7c286477-8a88-4aad-ab67-d6968f946de2" keepSession="false" maxResults="0" name="State Happy Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
@@ -7712,7 +7711,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -7731,7 +7730,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -7740,7 +7739,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
@@ -7754,7 +7753,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('AAMappingDB') { sql -> 
+        <con:config><script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -7800,11 +7799,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -8210,7 +8209,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -8218,11 +8217,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -8243,14 +8242,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')

@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="PatientDiscoveryTestforUDDI-Multiple Mocks" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="PatientDiscoveryTestforUDDI-Multiple Mocks" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="WSDL path not set.  #EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -12,7 +11,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="WSDL path not set.  #NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -22,7 +21,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="C:\Sun\AppServer\domains\domain1\config\nhin\wsdl\AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -114,7 +113,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -125,7 +124,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -154,7 +153,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "7.7", "mockpatientdi
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -463,7 +462,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse6" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse6</con:path>
@@ -599,7 +598,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse7" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse7</con:path>
@@ -736,7 +735,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count correlations (2)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 
@@ -746,7 +745,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count mapping (2)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 
@@ -854,7 +853,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -865,7 +864,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -894,7 +893,7 @@ def patientdiscoveryURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTe
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -1195,7 +1194,7 @@ def patientdiscoveryURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTe
 			<con:testStep name="count correlations (0)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 
@@ -1205,7 +1204,7 @@ def patientdiscoveryURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTe
 			<con:testStep name="count mapping (0)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 
@@ -1312,7 +1311,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -1323,7 +1322,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -1350,7 +1349,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "7.7", "mockpatientdi
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -1664,7 +1663,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse7" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse7</con:path>
@@ -1801,7 +1800,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count correlations (1)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 
@@ -1811,7 +1810,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count mapping (1)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 
@@ -1919,7 +1918,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -1930,7 +1929,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -1961,7 +1960,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "7.7", "mockpatientdi
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -2277,7 +2276,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse4" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse4</con:path>
@@ -2413,7 +2412,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse6" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse6</con:path>
@@ -2549,7 +2548,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse7" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse7</con:path>
@@ -2686,7 +2685,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count correlations (3)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 					</script>
@@ -2695,7 +2694,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count mapping (3)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 
@@ -2803,7 +2802,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -2814,7 +2813,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -2849,7 +2848,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "7.7", "mockpatientdi
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -3170,7 +3169,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse4" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse4</con:path>
@@ -3306,7 +3305,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse5" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse5</con:path>
@@ -3442,7 +3441,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse6" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse6</con:path>
@@ -3578,7 +3577,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse7" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse7</con:path>
@@ -3715,7 +3714,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count correlations (4)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 4 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 					</script>
@@ -3724,7 +3723,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count mapping (4)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 4 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 					</script>
@@ -3830,7 +3829,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -3841,7 +3840,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -3870,7 +3869,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "7.7", "mockpatientdi
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -4182,7 +4181,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse6" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse6</con:path>
@@ -4318,7 +4317,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse7" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse7</con:path>
@@ -4455,7 +4454,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count correlations (2)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 
@@ -4465,7 +4464,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count mapping (2)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 
@@ -4572,7 +4571,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -4583,7 +4582,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -4612,7 +4611,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "7.7", "mockpatientdi
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -4924,7 +4923,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse6" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse6</con:path>
@@ -5060,7 +5059,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse7" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse7</con:path>
@@ -5197,7 +5196,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count correlations (2)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 					</script>
@@ -5206,7 +5205,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count mapping (2)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 					</script>
@@ -5312,7 +5311,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -5323,7 +5322,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -5356,7 +5355,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "7.7", "mockpatientdi
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -5686,7 +5685,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse4" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse4</con:path>
@@ -5822,7 +5821,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse5" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse5</con:path>
@@ -5958,7 +5957,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse7" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse7</con:path>
@@ -6095,7 +6094,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count correlations (3)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 					</script>
@@ -6104,7 +6103,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count mapping (3)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 					</script>
@@ -6210,7 +6209,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -6221,7 +6220,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -6254,7 +6253,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "7.7", "mockpatientdi
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -6563,7 +6562,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse4" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse4</con:path>
@@ -6699,7 +6698,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse5" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse5</con:path>
@@ -6835,7 +6834,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse7" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse7</con:path>
@@ -6972,7 +6971,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count correlations (3)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 					</script>
@@ -6981,7 +6980,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count mapping (3)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 					</script>
@@ -7087,7 +7086,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -7098,7 +7097,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -7122,7 +7121,7 @@ def patientdiscoveryURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTe
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -7428,7 +7427,7 @@ def patientdiscoveryURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTe
 			<con:testStep name="count correlations (0)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 					</script>
@@ -7437,7 +7436,7 @@ def patientdiscoveryURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTe
 			<con:testStep name="count mapping (0)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 					</script>
@@ -7475,7 +7474,7 @@ def patientdiscoveryURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTe
 			<con:settings/>
 			<con:testStep disabled="true" name="EntityPatientDiscovery Test Case Properties" type="properties">
 				<con:settings/>
-				<con:config createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
 					<con:source>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/PatientDiscoveryUDDIWithMultipleMocks-soapui-project.properties</con:source>
 					<con:target/>
 					<con:properties>
@@ -7736,7 +7735,7 @@ def patientdiscoveryURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTe
 			</con:testStep>
 			<con:testStep disabled="true" name="EntityPatientDiscovery Property Transfer" type="transfer">
 				<con:settings/>
-				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>PatientDiscoveryEndPoint</con:name>
 						<con:sourceType>PatientDiscoveryEndpoint</con:sourceType>
@@ -7964,7 +7963,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -7975,7 +7974,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -8010,7 +8009,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "7.7", "mockpatientdi
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -8314,7 +8313,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse4" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse4</con:path>
@@ -8450,7 +8449,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse5" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse5</con:path>
@@ -8586,7 +8585,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse6" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse6</con:path>
@@ -8722,7 +8721,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse7" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse7</con:path>
@@ -8859,7 +8858,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count correlations (4)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 4 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 					</script>
@@ -8868,7 +8867,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count mapping (5)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 					</script>
@@ -8974,7 +8973,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear correlations table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   sql.execute('delete from ' + table)
@@ -8985,7 +8984,7 @@ FileUtils.UpdateProperty(destDir, 'gateway.properties', 'patientDiscoveryRespons
 			<con:testStep name="clear AAtoHCIDmapping table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   def table = context.findProperty('AssigningauthoritytohomecommunitymappingTable')
 
   sql.execute('delete from ' + table)
@@ -9014,7 +9013,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "7.7", "mockpatientdi
 			</con:testStep>
 			<con:testStep name="EntityPatientDiscoveryRequest" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="EntityPatientDiscoveryRequest">
@@ -9334,7 +9333,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse6" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse6</con:path>
@@ -9470,7 +9469,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			</con:testStep>
 			<con:testStep name="NHINCProxyPatientDiscoveryMockResponse7" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="EntityPatientDiscoveryRequest" xsi:type="con:MockResponseStep">
 					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
 					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
 					<con:path>/EntityPatientDiscoveryMockResponse7</con:path>
@@ -9607,7 +9606,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count correlations (2)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -> 
+					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }
 					</script>
@@ -9616,7 +9615,7 @@ count(//ns3:RespondingGateway_PRPA_IN201306UV02Response[1]/ns3:communityResponse
 			<con:testStep name="count mapping (2)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('AssigningauthorityDB') { sql -> 
+					<script>context.withSql('AssigningauthorityDB') { sql -&gt; 
   assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AssigningauthoritytohomecommunitymappingTable'))[0]
 }
 					</script>
@@ -9727,7 +9726,7 @@ def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -9735,11 +9734,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -9760,14 +9759,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
