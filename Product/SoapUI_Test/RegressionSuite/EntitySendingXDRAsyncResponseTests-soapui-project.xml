@@ -2117,19 +2117,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T19:52:10Z</con:value>
+          <con:value>2012-02-28T19:20:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T21:57:10Z</con:value>
+          <con:value>2012-02-28T21:25:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 19:52:10</con:value>
+          <con:value>02/28/2012 19:20:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-29T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3914,19 +3914,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T19:52:19Z</con:value>
+          <con:value>2012-02-28T19:21:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T21:57:19Z</con:value>
+          <con:value>2012-02-28T21:26:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 19:52:19</con:value>
+          <con:value>02/28/2012 19:21:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-29T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4204,23 +4204,23 @@ context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${lo
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-24T22:23:37Z</con:value>
+          <con:value>2012-02-28T19:21:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T00:28:37Z</con:value>
+          <con:value>2012-02-28T21:26:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/24/2012 22:23:37</con:value>
+          <con:value>02/28/2012 19:21:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-25T00:00:00Z</con:value>
+          <con:value>2012-03-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserFri Feb 24 22:28:37 UTC 2012</con:value>
+          <con:value>XDR Request Inbound UserTue Feb 28 19:26:02 UTC 2012</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project name="DocQueryTestsForUDDI" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
-  <con:settings/>
+  <con:description/><con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="file:/C:/Sun/AppServer/domains/domain1/config/nhin/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
@@ -421,19 +421,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:03Z</con:value>
+          <con:value>2012-02-29T23:39:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:03Z</con:value>
+          <con:value>2012-02-29T23:49:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:03</con:value>
+          <con:value>02/29/2012 23:39:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -840,19 +840,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:04Z</con:value>
+          <con:value>2012-02-29T23:39:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:04Z</con:value>
+          <con:value>2012-02-29T23:49:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:04</con:value>
+          <con:value>02/29/2012 23:39:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1273,19 +1273,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:05Z</con:value>
+          <con:value>2012-02-29T23:39:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:05Z</con:value>
+          <con:value>2012-02-29T23:49:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:05</con:value>
+          <con:value>02/29/2012 23:39:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1714,19 +1714,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:06Z</con:value>
+          <con:value>2012-02-29T23:46:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:06Z</con:value>
+          <con:value>2012-02-29T23:56:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:06</con:value>
+          <con:value>02/29/2012 23:46:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2165,19 +2165,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:07Z</con:value>
+          <con:value>2012-02-29T23:39:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:07Z</con:value>
+          <con:value>2012-02-29T23:49:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:07</con:value>
+          <con:value>02/29/2012 23:39:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2641,19 +2641,19 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:09Z</con:value>
+          <con:value>2012-02-29T23:39:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:09Z</con:value>
+          <con:value>2012-02-29T23:49:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:09</con:value>
+          <con:value>02/29/2012 23:39:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3039,19 +3039,19 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:10Z</con:value>
+          <con:value>2012-02-29T23:39:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:10Z</con:value>
+          <con:value>2012-02-29T23:49:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:10</con:value>
+          <con:value>02/29/2012 23:39:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3453,19 +3453,19 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:11Z</con:value>
+          <con:value>2012-02-29T23:39:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:11Z</con:value>
+          <con:value>2012-02-29T23:49:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:11</con:value>
+          <con:value>02/29/2012 23:39:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3935,19 +3935,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:12Z</con:value>
+          <con:value>2012-02-29T23:39:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:12Z</con:value>
+          <con:value>2012-02-29T23:49:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:12</con:value>
+          <con:value>02/29/2012 23:39:33</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4338,19 +4338,19 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:14Z</con:value>
+          <con:value>2012-02-29T23:39:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:14Z</con:value>
+          <con:value>2012-02-29T23:49:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:14</con:value>
+          <con:value>02/29/2012 23:39:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4796,19 +4796,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:15Z</con:value>
+          <con:value>2012-02-29T23:39:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:15Z</con:value>
+          <con:value>2012-02-29T23:49:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:15</con:value>
+          <con:value>02/29/2012 23:39:38</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5260,19 +5260,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:16Z</con:value>
+          <con:value>2012-02-29T23:39:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:16Z</con:value>
+          <con:value>2012-02-29T23:49:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:16</con:value>
+          <con:value>02/29/2012 23:39:41</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5759,19 +5759,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:17Z</con:value>
+          <con:value>2012-02-29T23:39:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:17Z</con:value>
+          <con:value>2012-02-29T23:49:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:17</con:value>
+          <con:value>02/29/2012 23:39:42</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6230,19 +6230,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:19Z</con:value>
+          <con:value>2012-02-29T23:39:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:19Z</con:value>
+          <con:value>2012-02-29T23:49:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:19</con:value>
+          <con:value>02/29/2012 23:39:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6742,19 +6742,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-27T14:59:21Z</con:value>
+          <con:value>2012-02-29T23:39:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-27T15:09:21Z</con:value>
+          <con:value>2012-02-29T23:49:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/27/2012 14:59:21</con:value>
+          <con:value>02/29/2012 23:39:51</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-28T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>

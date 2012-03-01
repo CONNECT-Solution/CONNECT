@@ -121,7 +121,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T14:36:05Z"/>
+            <urn:creationTime value="2012-02-28T18:15:25Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -243,7 +243,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T14:36:05Z"/>
+            <urn:creationTime value="2012-02-28T18:15:25Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -371,7 +371,7 @@
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T14:36:05Z"/>
+            <urn:creationTime value="2012-02-28T18:15:25Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -436,15 +436,15 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-28T14:36:05Z</con:value>
+					<con:value>2012-02-28T18:15:25Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-28T14:46:05Z</con:value>
+					<con:value>2012-02-28T18:25:25Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/28/2012 14:36:05</con:value>
+					<con:value>02/28/2012 18:15:25</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
@@ -549,7 +549,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T16:13:05Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -669,7 +669,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T16:13:05Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -797,7 +797,7 @@
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T16:13:05Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -862,15 +862,15 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-28T16:13:05Z</con:value>
+					<con:value>2012-02-28T18:15:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-28T16:23:05Z</con:value>
+					<con:value>2012-02-28T18:25:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/28/2012 16:13:05</con:value>
+					<con:value>02/28/2012 18:15:26</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
@@ -975,7 +975,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T15:48:46Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -1105,7 +1105,7 @@
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T15:48:46Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -1172,15 +1172,15 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-28T15:48:46Z</con:value>
+					<con:value>2012-02-28T18:15:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-28T15:58:46Z</con:value>
+					<con:value>2012-02-28T18:25:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/28/2012 15:48:46</con:value>
+					<con:value>02/28/2012 18:15:26</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
@@ -1293,7 +1293,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T16:15:33Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -1421,7 +1421,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T16:15:33Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -1548,7 +1548,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T16:15:33Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -1674,7 +1674,7 @@
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T16:15:33Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -1747,15 +1747,15 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-28T16:15:33Z</con:value>
+					<con:value>2012-02-28T18:15:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-28T16:25:33Z</con:value>
+					<con:value>2012-02-28T18:25:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/28/2012 16:15:33</con:value>
+					<con:value>02/28/2012 18:15:26</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
@@ -1862,14 +1862,13 @@
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soapenv:Header/>
    <soapenv:Body projectName="PatientCorrelation" testCase="Multiple results">
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20100816131655"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -1991,14 +1990,13 @@
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soapenv:Header/>
    <soapenv:Body projectName="PatientCorrelation" testCase="Multiple results">
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20100816131655"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -2022,7 +2020,7 @@
                      <urn:subject1 typeCode="SBJ">
                         <urn:patient classCode="PAT">
                            <urn:id root="1.1" extension="D123401"/>
-                           <urn:id root="2.2" extension="500000000"/>
+                           <urn:id root="2.2" extension="IHS50000"/>
                            <urn:statusCode code="active"/>
                         </urn:patient>
                      </urn:subject1>
@@ -2119,14 +2117,13 @@
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soapenv:Header/>
    <soapenv:Body projectName="PatientCorrelation" testCase="Multiple results">
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20100816131655"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -2149,8 +2146,8 @@
                      <urn:statusCode code="active"/>
                      <urn:subject1 typeCode="SBJ">
                         <urn:patient classCode="PAT">
-                           <urn:id root="1.1" extension="D123401"/>
-                           <urn:id root="2.2" extension="500000000"/>
+                           <urn:id root="1.1" extension="D123402"/>
+                           <urn:id root="2.2" extension="500000001"/>
                            <urn:statusCode code="active"/>
                         </urn:patient>
                      </urn:subject1>
@@ -2245,14 +2242,13 @@
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soapenv:Header/>
    <soapenv:Body projectName="PatientCorrelation" testCase="Multiple results">
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20100816131655"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -2275,8 +2271,8 @@
                      <urn:statusCode code="active"/>
                      <urn:subject1 typeCode="SBJ">
                         <urn:patient classCode="PAT">
-                           <urn:id root="1.1" extension="D123401"/>
-                           <urn:id root="2.2" extension="500000000"/>
+                           <urn:id root="1.1" extension="D123402"/>
+                           <urn:id root="2.2" extension="IHS50001"/>
                            <urn:statusCode code="active"/>
                         </urn:patient>
                      </urn:subject1>
@@ -2371,14 +2367,13 @@
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soapenv:Header/>
    <soapenv:Body projectName="PatientCorrelation" testCase="Multiple results">
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20100816131655"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -2401,8 +2396,8 @@
                      <urn:statusCode code="active"/>
                      <urn:subject1 typeCode="SBJ">
                         <urn:patient classCode="PAT">
-                           <urn:id root="1.1" extension="D123401"/>
-                           <urn:id root="2.2" extension="500000000"/>
+                           <urn:id root="1.1" extension="D123403"/>
+                           <urn:id root="2.2" extension="500000002"/>
                            <urn:statusCode code="active"/>
                         </urn:patient>
                      </urn:subject1>
@@ -2497,14 +2492,13 @@
 						<con:settings/>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soapenv:Header/>
    <soapenv:Body projectName="PatientCorrelation" testCase="Multiple results">
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20100816131655"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -2527,8 +2521,8 @@
                      <urn:statusCode code="active"/>
                      <urn:subject1 typeCode="SBJ">
                         <urn:patient classCode="PAT">
-                           <urn:id root="1.1" extension="D123401"/>
-                           <urn:id root="2.2" extension="500000000"/>
+                           <urn:id root="1.1" extension="D123403"/>
+                           <urn:id root="2.2" extension="IHS50002"/>
                            <urn:statusCode code="active"/>
                         </urn:patient>
                      </urn:subject1>
@@ -2550,8 +2544,8 @@
 				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>SubjectIdentifier</con:name>
-						<con:sourceType xsi:nil="true"/>
-						<con:sourceStep>Add6</con:sourceStep>
+						<con:sourceType>RemoteSubjectID3</con:sourceType>
+						<con:sourceStep>#TestCase#</con:sourceStep>
 						<con:sourcePath/>
 						<con:targetType>Request</con:targetType>
 						<con:targetStep>Retrieve</con:targetStep>
@@ -2560,8 +2554,8 @@
 					</con:transfers>
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>AssigningAuthorityIdentifier</con:name>
-						<con:sourceType xsi:nil="true"/>
-						<con:sourceStep>Add6</con:sourceStep>
+						<con:sourceType>RemoteAAID</con:sourceType>
+						<con:sourceStep>#TestCase#</con:sourceStep>
 						<con:sourcePath/>
 						<con:targetType>Request</con:targetType>
 						<con:targetStep>Retrieve</con:targetStep>
@@ -2570,8 +2564,8 @@
 					</con:transfers>
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>CreationTime</con:name>
-						<con:sourceType xsi:nil="true"/>
-						<con:sourceStep>Add6</con:sourceStep>
+						<con:sourceType>startDate</con:sourceType>
+						<con:sourceStep>#TestCase#</con:sourceStep>
 						<con:targetType>Request</con:targetType>
 						<con:targetStep>Retrieve</con:targetStep>
 						<con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -2579,8 +2573,8 @@
 					</con:transfers>
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalAssigningAuthorityIdentifier</con:name>
-						<con:sourceType xsi:nil="true"/>
-						<con:sourceStep>Add6</con:sourceStep>
+						<con:sourceType>LocalAAID</con:sourceType>
+						<con:sourceStep>#TestCase#</con:sourceStep>
 						<con:targetType>Request</con:targetType>
 						<con:targetStep>Retrieve</con:targetStep>
 						<con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -2588,8 +2582,8 @@
 					</con:transfers>
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>RemoteAssigningAuthorityIdentifier</con:name>
-						<con:sourceType xsi:nil="true"/>
-						<con:sourceStep>Add6</con:sourceStep>
+						<con:sourceType>RemoteAAID</con:sourceType>
+						<con:sourceStep>#TestCase#</con:sourceStep>
 						<con:sourcePath xsi:nil="true"/>
 						<con:targetType>Request</con:targetType>
 						<con:targetStep>Retrieve</con:targetStep>
@@ -2598,8 +2592,8 @@
 					</con:transfers>
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>QueryAssigningAuthorityIdentifier</con:name>
-						<con:sourceType xsi:nil="true"/>
-						<con:sourceStep>Add6</con:sourceStep>
+						<con:sourceType>LocalAAID</con:sourceType>
+						<con:sourceStep>#TestCase#</con:sourceStep>
 						<con:targetType>Request</con:targetType>
 						<con:targetStep>Retrieve</con:targetStep>
 						<con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -2607,8 +2601,8 @@
 					</con:transfers>
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>QuerySubjectIdentifier</con:name>
-						<con:sourceType xsi:nil="true"/>
-						<con:sourceStep>Add6</con:sourceStep>
+						<con:sourceType>LocalSubjectID3</con:sourceType>
+						<con:sourceStep>#TestCase#</con:sourceStep>
 						<con:targetType>Request</con:targetType>
 						<con:targetStep>Retrieve</con:targetStep>
 						<con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -2621,17 +2615,16 @@
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>RetrievePatientCorrelations</con:operation>
 					<con:request name="Retrieve">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soapenv:Header/>
    <soapenv:Body projectName="PatientCorrelation" testCase="Multiple results">
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="20100503195028"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -2673,42 +2666,22 @@
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
 						<con:assertion name="LocalPatientIDExtension" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@extension</path>
-								<content>${SelectedPatientData#LocalSubjectID}</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
+							<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@extension</path><content>D123402</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
 						<con:assertion name="LocalPatientIDRoot" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@root</path>
-								<content>${SelectedPatientData#LocalAssigningAuthorityID}</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
+							<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@root</path><content>1.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
 						<con:assertion name="ParamListRemotePatientIDExtension" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@extension</path>
-								<content>${SelectedPatientData#RemoteSubjectID}</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
+							<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@extension</path><content>500000001</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
 						<con:assertion name="ParamListRemotePatientIDRoot" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path>
-								<content>${SelectedPatientData#RemoteAssigningAuthorityID}</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
+							<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path><content>2.2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -2716,19 +2689,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-21T04:09:56Z</con:value>
+					<con:value>2012-02-28T18:15:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-21T04:19:56Z</con:value>
+					<con:value>2012-02-28T18:25:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/21/2012 04:09:56</con:value>
+					<con:value>02/28/2012 18:15:26</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-22T00:00:00Z</con:value>
+					<con:value>2012-03-29T00:00:00Z</con:value>
 				</con:property>
 			<con:property><con:name>RemoteSubjectID1</con:name><con:value>500000000</con:value></con:property><con:property><con:name>RemoteSubjectID2</con:name><con:value>IHS50000</con:value></con:property><con:property><con:name>RemoteSubjectID3</con:name><con:value>500000001</con:value></con:property><con:property><con:name>RemoteSubjectID4</con:name><con:value>IHS50001</con:value></con:property><con:property><con:name>RemoteSubjectID5</con:name><con:value>500000002</con:value></con:property><con:property><con:name>RemoteSubjectID6</con:name><con:value>IHS50002</con:value></con:property><con:property><con:name>RemoteAAID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>LocalSubjectID1</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalSubjectID2</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalSubjectID3</con:name><con:value>D123402</con:value></con:property><con:property><con:name>LocalSubjectID4</con:name><con:value>D123402</con:value></con:property><con:property><con:name>LocalSubjectID5</con:name><con:value>D123403</con:value></con:property><con:property><con:name>LocalSubjectID6</con:name><con:value>D123403</con:value></con:property><con:property><con:name>LocalAAID</con:name><con:value>1.1</con:value></con:property></con:properties>
 			<con:reportParameters/>
@@ -2832,7 +2805,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T18:06:57Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -2961,7 +2934,7 @@
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T18:06:57Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -3027,15 +3000,15 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-28T18:06:57Z</con:value>
+					<con:value>2012-02-28T18:15:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-28T18:16:57Z</con:value>
+					<con:value>2012-02-28T18:25:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/28/2012 18:06:57</con:value>
+					<con:value>02/28/2012 18:15:26</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
@@ -3142,7 +3115,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T18:11:46Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -3262,7 +3235,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T18:11:46Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -3388,7 +3361,7 @@
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="2012-02-28T18:11:46Z"/>
+            <urn:creationTime value="2012-02-28T18:15:26Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -3454,15 +3427,15 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-28T18:11:46Z</con:value>
+					<con:value>2012-02-28T18:15:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-28T18:21:46Z</con:value>
+					<con:value>2012-02-28T18:25:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/28/2012 18:11:46</con:value>
+					<con:value>02/28/2012 18:15:26</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>

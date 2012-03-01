@@ -70,7 +70,7 @@
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="4f065352-c415-4633-977a-7620a6711b2f" keepSession="false" maxResults="0" name="UDDI file - by HCID" searchProperties="true">
 			<con:settings/>
 			
-			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
+			<con:testStep name="copy internalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -98,7 +98,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
+			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -324,7 +324,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="630f6f5f-5fa8-4d99-a30c-2b39fd8391e2" keepSession="false" maxResults="0" name="UDDI file - by Region" searchProperties="true">
 			<con:settings/>
 			
-			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
+			<con:testStep name="copy internalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -352,7 +352,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
+			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -592,7 +592,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="f9a1e465-20a1-4f61-9e5a-69ab80df360c" keepSession="false" maxResults="0" name="UDDI file - by region + HCID in the same tag" searchProperties="true">
 			<con:settings/>
 			
-			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
+			<con:testStep name="copy internalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -620,7 +620,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
+			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -801,7 +801,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="73228566-f4f5-4da1-8a48-10314572f144" keepSession="false" maxResults="0" name="UDDI file - by region + HCID in a different tag" searchProperties="true">
 			<con:settings/>
 			
-			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
+			<con:testStep name="copy internalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -829,7 +829,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
+			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -1028,7 +1028,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="c09e77f8-1a65-4030-bf5d-c60b49af4fd0" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by HCID" searchProperties="true">
 			<con:settings/>
 			
-			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
+			<con:testStep name="copy internalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -1056,7 +1056,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
+			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -1240,7 +1240,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="2e1a8cdd-95a9-42bb-a518-dce9c8aeb974" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region" searchProperties="true">
 			<con:settings/>
 			
-			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
+			<con:testStep name="copy internalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -1268,7 +1268,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
+			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -1463,7 +1463,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="6f71882a-7bce-4a7c-947e-9a0dfabdcbac" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region + HCID in the same tag" searchProperties="true">
 			<con:settings/>
 			
-			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
+			<con:testStep name="copy internalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -1491,7 +1491,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
+			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -1670,7 +1670,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="23cf96e9-846d-4636-83ca-684ebd72771d" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region + HCID in a different tag" searchProperties="true">
 			<con:settings/>
 			
-			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
+			<con:testStep name="copy internalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -1698,7 +1698,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
+			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -1895,7 +1895,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="93d90bd5-3049-4261-9981-f58ce4469271" keepSession="false" maxResults="0" name="ICI and UDDI" searchProperties="true">
 			<con:settings/>
 			
-			<con:testStep name="Copy InternalConfigurationInfo" type="groovy">
+			<con:testStep name="copy internalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -1923,7 +1923,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Copy UDDIConfigurationInfo" type="groovy">
+			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )

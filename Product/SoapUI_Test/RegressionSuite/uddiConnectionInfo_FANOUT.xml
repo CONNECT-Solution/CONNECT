@@ -802,4 +802,19 @@
                          tModelKey="uddi:uddi.org:ubr:categorization:iso3166"/>
 		</categoryBag>
 	</businessEntity>
+
+	<!--   Gateway 8.8 -->
+
+	<businessEntity businessKey="uddi:testnhincnode:8.8">
+		<name xml:lang="en">Entity_8_8</name>
+		<businessServices>
+		</businessServices>
+		<identifierBag>
+			<keyedReference keyName="" keyValue="8.8" tModelKey="uddi:nhin:nhie:homecommunityid"/>
+		</identifierBag>
+		<categoryBag>
+			<keyedReference keyName="Florida" keyValue="US-FL"
+                         tModelKey="uddi:uddi.org:ubr:categorization:iso3166"/>
+		</categoryBag>
+	</businessEntity>
 </businessDetail>

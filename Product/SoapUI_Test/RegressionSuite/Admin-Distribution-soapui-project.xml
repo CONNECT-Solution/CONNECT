@@ -419,23 +419,23 @@ assert (count > 0);</script></con:config></con:testStep>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:14:26Z</con:value>
+          <con:value>2012-02-29T03:30:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:24:26Z</con:value>
+          <con:value>2012-02-29T03:40:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:14:26</con:value>
+          <con:value>02/29/2012 03:30:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:19:26 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:35:27 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -820,23 +820,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:14:46Z</con:value>
+          <con:value>2012-02-29T03:30:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:24:46Z</con:value>
+          <con:value>2012-02-29T03:40:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:14:46</con:value>
+          <con:value>02/29/2012 03:30:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:19:46 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:35:47 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1232,23 +1232,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:15:06Z</con:value>
+          <con:value>2012-02-29T03:31:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:25:06Z</con:value>
+          <con:value>2012-02-29T03:41:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:15:06</con:value>
+          <con:value>02/29/2012 03:31:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:20:06 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:36:07 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1673,23 +1673,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:15:26Z</con:value>
+          <con:value>2012-02-29T03:31:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:25:26Z</con:value>
+          <con:value>2012-02-29T03:41:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:15:26</con:value>
+          <con:value>02/29/2012 03:31:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:20:27 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:36:27 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2034,23 +2034,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:15:47Z</con:value>
+          <con:value>2012-02-29T03:31:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:25:47Z</con:value>
+          <con:value>2012-02-29T03:41:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:15:47</con:value>
+          <con:value>02/29/2012 03:31:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:20:47 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:36:47 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2399,23 +2399,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:16:07Z</con:value>
+          <con:value>2012-02-29T03:32:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:26:07Z</con:value>
+          <con:value>2012-02-29T03:42:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:16:07</con:value>
+          <con:value>02/29/2012 03:32:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:21:07 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:37:08 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2794,36 +2794,39 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep type="groovy" name="verify audit events"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>45000</delay></con:config></con:testStep><con:testStep type="groovy" name="verify audit events"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:16:27Z</con:value>
+          <con:value>2012-02-29T03:32:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:26:27Z</con:value>
+          <con:value>2012-02-29T03:42:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:16:27</con:value>
+          <con:value>02/29/2012 03:32:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:21:27 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:37:28 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="237d62e0-94dc-48ef-b47e-6e03c8fbfd7b" keepSession="false" maxResults="0" name="EntityRequest - Policy engine deny" searchProperties="true">
       <con:settings/>
+      <con:testStep type="groovy" name="clear audit table"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+  sql.execute('delete from ' + context.findProperty('AuditTable'))
+}</script></con:config></con:testStep>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
         <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -2834,8 +2837,7 @@ def mockPEURL = "http://" + mockHost + ":18082/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
-      </con:testStep>
-      <con:testStep name="send request" type="request">
+      </con:testStep><con:testStep name="send request" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
@@ -3193,6 +3195,8 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Delay" disabled="true"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep>
+      
       <con:testStep name="Mock Policy Engine" type="mockresponse">
         <con:settings/>
         <con:config startStep="send request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -4683,24 +4687,22 @@ declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
             </con:configuration>
           </con:assertion>
         </con:config>
-      </con:testStep>
-      
-      <con:properties>
+      </con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:16:47Z</con:value>
+          <con:value>2012-02-29T03:33:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:26:47Z</con:value>
+          <con:value>2012-02-29T03:43:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:16:47</con:value>
+          <con:value>02/29/2012 03:33:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5078,19 +5080,19 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:16:58Z</con:value>
+          <con:value>2012-02-29T03:33:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:26:58Z</con:value>
+          <con:value>2012-02-29T03:43:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:16:58</con:value>
+          <con:value>02/29/2012 03:33:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5524,23 +5526,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:16:59Z</con:value>
+          <con:value>2012-02-29T03:33:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:26:59Z</con:value>
+          <con:value>2012-02-29T03:43:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:16:59</con:value>
+          <con:value>02/29/2012 03:33:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:21:59 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:38:13 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5970,23 +5972,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:17:34Z</con:value>
+          <con:value>2012-02-29T03:33:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:27:34Z</con:value>
+          <con:value>2012-02-29T03:43:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:17:34</con:value>
+          <con:value>02/29/2012 03:33:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:22:34 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:38:34 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6458,23 +6460,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:17:54Z</con:value>
+          <con:value>2012-02-29T03:33:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:27:54Z</con:value>
+          <con:value>2012-02-29T03:43:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:17:54</con:value>
+          <con:value>02/29/2012 03:33:54</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:22:54 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:38:54 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6915,23 +6917,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:18:15Z</con:value>
+          <con:value>2012-02-29T03:34:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:28:15Z</con:value>
+          <con:value>2012-02-29T03:44:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:18:15</con:value>
+          <con:value>02/29/2012 03:34:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:23:15 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:39:14 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -7322,23 +7324,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:18:35Z</con:value>
+          <con:value>2012-02-29T03:34:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:28:35Z</con:value>
+          <con:value>2012-02-29T03:44:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:18:35</con:value>
+          <con:value>02/29/2012 03:34:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:23:35 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:39:34 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -7733,23 +7735,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:18:55Z</con:value>
+          <con:value>2012-02-29T03:34:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:28:55Z</con:value>
+          <con:value>2012-02-29T03:44:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:18:55</con:value>
+          <con:value>02/29/2012 03:34:54</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistSat Feb 25 03:23:55 UTC 20121</con:value>
+          <con:value>admindistWed Feb 29 03:39:54 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9664,19 +9666,19 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:19:15Z</con:value>
+          <con:value>2012-02-29T03:35:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:29:15Z</con:value>
+          <con:value>2012-02-29T03:45:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:19:15</con:value>
+          <con:value>02/29/2012 03:35:15</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10102,19 +10104,19 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-25T03:19:31Z</con:value>
+          <con:value>2012-02-29T03:35:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-25T03:29:31Z</con:value>
+          <con:value>2012-02-29T03:45:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/25/2012 03:19:31</con:value>
+          <con:value>02/29/2012 03:35:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-26T00:00:00Z</con:value>
+          <con:value>2012-03-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10128,7 +10130,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
     
     
     
-    <con:property><con:name>ADUserID</con:name><con:value>admindist</con:value></con:property><con:property><con:name>AQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AQUserID</con:name><con:value>kkagerberg</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-NhincProxyAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property>
+    <con:property><con:name>ADUserID</con:name><con:value>admindist</con:value></con:property><con:property><con:name>AQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AQUserID</con:name><con:value>kkagerberg</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-NhincProxyAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:value></con:property>
     
     
     
@@ -10143,7 +10145,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
     
     
     
-  <con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property></con:properties>
+  <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
