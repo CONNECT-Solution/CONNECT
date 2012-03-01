@@ -144,8 +144,8 @@ public class EntityDocQueryOrchImpl {
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
 
-        AdhocQueryResponse response = null;
-
+        AdhocQueryResponse response = new AdhocQueryResponse();
+        
         // quick rig for testing to switch between a0 and a1
         // note that a0 and a1 would be handled by different methods if they were different
         boolean responseIsSpecA0 = true;
@@ -275,15 +275,18 @@ public class EntityDocQueryOrchImpl {
                     // note that if responseIsSpecA0 taskexecutor is set to return OutboundDocQueryOrchestratable_a0
                     // else taskexecutor set to return OutboundDocQueryOrchestratable_a1
                     OutboundDocQueryOrchestratable_a0 orchResponse_g0 = null;
-                    OutboundDocQueryOrchestratable_a1 orchResponse_g1 = null;
+                    OutboundDocQueryOrchestratable_a1 orchResponse_g1 = null;                    
                     if (responseIsSpecA0) {
-                        NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable>(
-                                ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor
-                                        : regularExecutor, callableList, transactionId);
-                        dqexecutor.executeTask();
-                        orchResponse_g0 = (OutboundDocQueryOrchestratable_a0) dqexecutor.getFinalResponse();
-                        response = orchResponse_g0.getCumulativeResponse();
-
+                        if (callableList.size() > 0) {
+                            NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable>(
+                                    ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(
+                                            correlationsResult.size()) ? largejobExecutor : regularExecutor,
+                                    callableList, transactionId);
+                            dqexecutor.executeTask();
+                            orchResponse_g0 = (OutboundDocQueryOrchestratable_a0) dqexecutor.getFinalResponse();
+                            response = orchResponse_g0.getCumulativeResponse();
+                        }
+                        
                         // add any errors from policyErrList to response
                         if (response != null && policyErrList.getRegistryError() != null
                                 && !policyErrList.getRegistryError().isEmpty()) {
@@ -295,13 +298,16 @@ public class EntityDocQueryOrchImpl {
                             }
                         }
                     } else {
-                        NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable>(
-                                ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor
-                                        : regularExecutor, callableList, transactionId);
-                        dqexecutor.executeTask();
-                        orchResponse_g1 = (OutboundDocQueryOrchestratable_a1) dqexecutor.getFinalResponse();
-                        response = orchResponse_g1.getCumulativeResponse();
-
+                        if (callableList.size() > 0) {
+                            NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable>(
+                                    ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(
+                                            correlationsResult.size()) ? largejobExecutor : regularExecutor,
+                                    callableList, transactionId);
+                            dqexecutor.executeTask();
+                            orchResponse_g1 = (OutboundDocQueryOrchestratable_a1) dqexecutor.getFinalResponse();
+                            response = orchResponse_g1.getCumulativeResponse();
+                        }
+                        
                         // add any errors from policyErrList to response
                         if (response != null && policyErrList.getRegistryError() != null
                                 && !policyErrList.getRegistryError().isEmpty()) {
