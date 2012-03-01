@@ -163,11 +163,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 					<con:interface>EntityDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="Document Query">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body projectName="EntityPolicyEngineTest" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -378,11 +377,15 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
-						<con:assertion disabled="true" type="Schema Compliance">
-							<con:configuration/>
-						</con:assertion>
+						
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:assertion type="XPath Match"><con:configuration><path>declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+
+
+//ns13:AdhocQueryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+
+//ns13:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@codeContext</path><content>Fault encountered processing internal document query exception=null</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -397,8 +400,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 					<con:timeout>60000</con:timeout>
 					<con:response>
 						<con:settings/>
-						<con:responseContent><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:policy:schema:os">
+						<con:responseContent><![CDATA[soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:policy:schema:os">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:CheckPolicyResponse>
@@ -428,19 +430,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-28T19:30:44Z</con:value>
+					<con:value>2012-03-01T09:26:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-28T19:40:44Z</con:value>
+					<con:value>2012-03-01T09:36:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/28/2012 19:30:44</con:value>
+					<con:value>03/01/2012 09:26:13</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-29T00:00:00Z</con:value>
+					<con:value>2012-03-31T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -639,7 +641,11 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:assertion type="XPath Match"><con:configuration><path>declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+
+//ns4:RegistryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+
+//ns4:RegistryResponse[1]/ns4:RegistryErrorList[1]/ns4:RegistryError[1]/@codeContext</path><content>RetrieveDocuments failed policy check.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -684,19 +690,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-28T20:14:27Z</con:value>
+					<con:value>2012-03-01T09:26:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-28T20:24:27Z</con:value>
+					<con:value>2012-03-01T09:36:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/28/2012 20:14:27</con:value>
+					<con:value>03/01/2012 09:26:13</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-29T00:00:00Z</con:value>
+					<con:value>2012-03-31T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>correctedRemoteHCID</con:name>
@@ -1035,19 +1041,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-28T19:30:46Z</con:value>
+					<con:value>2012-03-01T09:26:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-28T19:40:46Z</con:value>
+					<con:value>2012-03-01T09:36:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/28/2012 19:30:46</con:value>
+					<con:value>03/01/2012 09:26:15</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-29T00:00:00Z</con:value>
+					<con:value>2012-03-31T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1615,23 +1621,23 @@ log.info "SubscriptionID: " + subscriptionID;
 			</con:testStep><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-28T20:51:51Z</con:value>
+					<con:value>2012-03-01T09:26:16Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-28T21:01:51Z</con:value>
+					<con:value>2012-03-01T09:36:16Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/28/2012 20:51:51</con:value>
+					<con:value>03/01/2012 09:26:16</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-29T00:00:00Z</con:value>
+					<con:value>2012-03-31T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>NotifySubscriptionID</con:name>
-					<con:value>6043cb3a-159c-4237-973a-c426d5769b56</con:value>
+					<con:value>151fe851-527e-48a0-977f-95ff5bbf4059</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
