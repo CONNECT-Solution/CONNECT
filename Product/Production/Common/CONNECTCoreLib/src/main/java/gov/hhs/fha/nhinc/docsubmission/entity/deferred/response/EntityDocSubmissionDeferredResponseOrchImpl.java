@@ -61,7 +61,7 @@ public class EntityDocSubmissionDeferredResponseOrchImpl {
         log.info("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
-        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        regResp.setStatus(NhincConstants.XDR_RESP_ACK_STATUS_MSG);
         response.setMessage(regResp);
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
         provideAndRegisterDocumentSetSecuredResponseRequest.setNhinTargetCommunities(targets);
@@ -95,6 +95,10 @@ public class EntityDocSubmissionDeferredResponseOrchImpl {
 
                 log.debug("Sending request from entity service to NHIN proxy service");
                 response = callNhinXDRResponseProxy(proxyRequest, assertion);
+                
+                
+                regResp.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
+                response.setMessage(regResp);
             } else {
                 log.error("Policy check unsuccessful");
 
@@ -115,7 +119,7 @@ public class EntityDocSubmissionDeferredResponseOrchImpl {
         log.debug("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
-        regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+        regResp.setStatus(NhincConstants.XDR_RESP_ACK_STATUS_MSG);
         response.setMessage(regResp);
 
         PassthruDocSubmissionDeferredResponseProxyObjectFactory factory = new PassthruDocSubmissionDeferredResponseProxyObjectFactory();
