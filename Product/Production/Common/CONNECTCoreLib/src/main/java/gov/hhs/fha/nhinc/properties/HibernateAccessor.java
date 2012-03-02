@@ -26,15 +26,10 @@
  */
 package gov.hhs.fha.nhinc.properties;
 
-import java.io.FileReader;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
 import java.io.File;
 
-import java.text.SimpleDateFormat;
-import java.util.Properties;
-import java.util.Date;
-
-import java.util.Iterator;
-import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -44,20 +39,18 @@ import org.apache.commons.logging.LogFactory;
  */
 public class HibernateAccessor {
     private static Log log = LogFactory.getLog(PropertyAccessor.class);
-    private static final String CRLF = System.getProperty("line.separator");
     private static String m_sPropertyFileDir = "";
     private static boolean m_bFailedToLoadEnvVar = false;
 
     static {
         String sValue = PropertyAccessor.getPropertyFileLocation();
-        if ((sValue != null) && (sValue.length() > 0)) {
+        if (NullChecker.isNotNullish(sValue)) {
             // Set it up so that we always have a "/" at the end - in case
             // ------------------------------------------------------------
-            if ((sValue.endsWith("/")) || (sValue.endsWith("\\"))) {
+            if (sValue.endsWith(File.separator)) {
                 m_sPropertyFileDir = sValue;
             } else {
-                String sFileSeparator = System.getProperty("file.separator");
-                m_sPropertyFileDir = sValue + sFileSeparator;
+                m_sPropertyFileDir = sValue + File.separator;
             }
         } else {
             log.error("Failed to load Hibernate Directory");
@@ -66,12 +59,11 @@ public class HibernateAccessor {
     }
 
     public static File getHibernateFile(String hibernateFileName) throws PropertyAccessException {
-        String sFileSeparator = System.getProperty("file.separator");
         checkEnvVarSet();
 
-        File result = new File(m_sPropertyFileDir + "hibernate" + sFileSeparator + hibernateFileName);
+        File result = new File(m_sPropertyFileDir + "hibernate" + File.separator + hibernateFileName);
 
-        if (result == null) {
+        if (!result.exists()) {
             throw new PropertyAccessException("Unable to locate " + hibernateFileName);
         }
         return result;
