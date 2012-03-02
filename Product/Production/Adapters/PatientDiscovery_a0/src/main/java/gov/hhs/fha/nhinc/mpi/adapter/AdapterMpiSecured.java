@@ -26,12 +26,23 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter;
 
+import gov.hhs.fha.nhinc.adaptermpi.FindCandidatesSecuredFault;
+import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
+
 import javax.annotation.Resource;
 import javax.jws.WebService;
+import javax.xml.namespace.QName;
+import javax.xml.soap.SOAPConstants;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPFactory;
+import javax.xml.soap.SOAPFault;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.SOAPFaultException;
+
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.springframework.remoting.soap.SoapFaultException;
 
 /**
  * This class is the implementation of the Secured AdapterMPI service.
@@ -51,9 +62,21 @@ public class AdapterMpiSecured {
      * @param findCandidatesRequest The query data.
      * @return The results from the MPI query.
      */
-    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest) {
-        AdapterMpiImpl oImpl = new AdapterMpiImpl();
-        PRPAIN201306UV02 oResponse = oImpl.query(true, findCandidatesRequest, context);
+    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest) throws FindCandidatesSecuredFault{
+    	PRPAIN201306UV02 oResponse = null;
+
+    	try {
+    		AdapterMpiImpl oImpl = new AdapterMpiImpl();
+            oResponse = oImpl.query(true, findCandidatesRequest, context);
+    	}
+    	catch (Exception e)
+    	{
+    		PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
+        	type.setErrorCode("920");
+        	type.setMessage(e.getLocalizedMessage());
+        	FindCandidatesSecuredFault fault = new FindCandidatesSecuredFault(e.getMessage(), type);
+        	throw fault;
+    	}
         return oResponse;
     }
 }

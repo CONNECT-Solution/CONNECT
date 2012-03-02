@@ -16,6 +16,7 @@
         <operation name="FindCandidates">
             <input name="FindCandidatesSecuredRequest" message="tns:FindCandidatesSecuredRequest"/>
             <output name="FindCandidatesSecuredResponse" message="tns:FindCandidatesSecuredResponse"/>
+            <fault name="AdapterMPISecuredFault" message="tns:FindCandidatesSecuredResponse"/>
         </operation>
     </portType>
     <binding name="AdapterMpiSecuredPortTypeBinding" type="tns:AdapterMpiSecuredPortType">
@@ -31,6 +32,10 @@
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#FindCandidates_Binding_Soap_Output_Policy"/>
             </output>
+            <fault name="AdapterMPISecuredFault">
+	        <soap:fault use="literal"/>
+	        <wsp:PolicyReference URI="#FindCandidates_Binding_Soap_Output_Policy"/>
+            </fault>
         </operation>
     </binding>
     <service name="AdapterMpiSecuredService">
