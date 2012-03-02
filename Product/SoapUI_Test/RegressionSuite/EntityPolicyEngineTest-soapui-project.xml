@@ -385,7 +385,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 //ns13:AdhocQueryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 
-//ns13:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@codeContext</path><content>Fault encountered processing internal document query exception=null</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+//ns13:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@codeContext</path><content>Policy Check Failed for homeId=2.2 and aaId=2.2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
