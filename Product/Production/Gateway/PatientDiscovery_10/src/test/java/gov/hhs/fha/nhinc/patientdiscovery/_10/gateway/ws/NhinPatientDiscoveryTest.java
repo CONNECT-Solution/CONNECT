@@ -59,7 +59,7 @@ public class NhinPatientDiscoveryTest {
     }
 
     @Test
-    public void testMockService() throws PatientDiscoveryException {
+    public void testMockService() throws PatientDiscoveryException, PRPAIN201305UV02Fault {
 
         final PRPAIN201305UV02 mockBody = context.mock(PRPAIN201305UV02.class);
         final PRPAIN201306UV02 expectedResponse = context.mock(PRPAIN201306UV02.class);
@@ -79,13 +79,7 @@ public class NhinPatientDiscoveryTest {
             }
         });
 
-        PRPAIN201306UV02 actualResponse = null;
-		try {
-			actualResponse = patientDiscovery.respondingGatewayPRPAIN201305UV02(mockBody);
-		} catch (PRPAIN201305UV02Fault e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        PRPAIN201306UV02 actualResponse = patientDiscovery.respondingGatewayPRPAIN201305UV02(mockBody);
 
         assertSame(expectedResponse, actualResponse);
 

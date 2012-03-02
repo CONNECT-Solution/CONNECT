@@ -26,9 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
+import gov.hhs.fha.nhinc.adaptermpi.FindCandidatesSecuredFault;
 import gov.hhs.fha.nhinc.hiem.processor.faults.SoapFaultFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 
 import javax.jws.WebService;
 import javax.xml.soap.SOAPFactory;
@@ -57,11 +60,15 @@ public class NhinPatientDiscovery extends PatientDiscoveryBase {
         super(serviceFactory);
     }
 
-    public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body) {
+    public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body) throws PRPAIN201305UV02Fault {
         try {
             return getNhinPatientDiscoveryService().respondingGatewayPRPAIN201305UV02(body, context);
         } catch (PatientDiscoveryException e) {
-            throw new RuntimeException(e.getMessage(), e.fillInStackTrace());
+    		PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
+        	type.setErrorCode("920");
+        	type.setMessage(e.getLocalizedMessage());
+        	PRPAIN201305UV02Fault fault = new PRPAIN201305UV02Fault(e.getMessage(), type);
+        	throw fault;
         }
     }
 

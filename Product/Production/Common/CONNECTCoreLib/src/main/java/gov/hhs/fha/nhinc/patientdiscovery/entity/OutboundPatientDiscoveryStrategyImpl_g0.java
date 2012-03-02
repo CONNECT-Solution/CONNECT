@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * Implements the PatientDiscovery strategy for spec g0 endpoint
@@ -86,11 +87,7 @@ public class OutboundPatientDiscoveryStrategyImpl_g0 extends OutboundPatientDisc
                     message.getTarget()));
             getLogger().debug("executeStrategy returning response");
         } catch (Exception ex) {
-            String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, message.getTarget(),
-                    message.getServiceName());
-            OutboundResponseProcessor processor = message.getResponseProcessor();
-            message.setResponse(((OutboundPatientDiscoveryOrchestratable) processor.processErrorResponse(message,
-                    err)).getResponse());
+            message.setResponse(new PRPAIN201306UV02());
             getLogger().debug("executeStrategy returning error response");
         }
         auditResponseMessage(message.getResponse(), message.getAssertion(), message.getTarget().getHomeCommunity()

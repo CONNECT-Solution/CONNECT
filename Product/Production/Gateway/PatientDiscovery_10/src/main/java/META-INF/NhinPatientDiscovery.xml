@@ -12,7 +12,8 @@
    xmlns:wsaws="http://www.w3.org/2005/08/addressing" 
    xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" 
    xmlns:sc1="http://schemas.sun.com/2006/03/wss/client" 
-   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy">
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+   xmlns:nhin="http://www.hhs.gov/healthit/nhin">
     <wsdl:documentation>
      Example WSDL for XCPD Responding Gateway
     </wsdl:documentation>
@@ -27,7 +28,11 @@
                 targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
       <!-- Include the message schema -->
             <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
-        </xsd:schema></wsdl:types>
+        </xsd:schema>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adaptermpi">
+             <xsd:import schemaLocation="../schemas/nhin/PatientDiscoveryFault.xsd" namespace="http://www.hhs.gov/healthit/nhin"/>
+        </xsd:schema>
+    </wsdl:types>
 
     <wsdl:message name="PRPA_IN201305UV02_Message">
         <wsdl:part name="Body" element="hl7:PRPA_IN201305UV02"/>
@@ -35,13 +40,17 @@
     <wsdl:message name="PRPA_IN201306UV02_Message">
         <wsdl:part name="Body" element="hl7:PRPA_IN201306UV02"/>
     </wsdl:message>
- 
+     <wsdl:message name="PRPA_IN201305UV02_Fault">
+        <wsdl:part name="PatientDiscoveryFault" element="nhin:PatientDiscoveryFault"/>
+    </wsdl:message>
+    
     <wsdl:portType name="RespondingGateway_PortType">
         <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
             <wsdl:input message="tns:PRPA_IN201305UV02_Message"
                    wsaw:Action="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery"/>
             <wsdl:output message="tns:PRPA_IN201306UV02_Message"
                     wsaw:Action="urn:hl7-org:v3:PRPA_IN201306UV02:CrossGatewayPatientDiscovery"/>
+            <wsdl:fault name="PRPA_IN201305UV02_Fault" message="tns:PRPA_IN201305UV02_Fault"/>
         </wsdl:operation>
     </wsdl:portType>
 
@@ -56,6 +65,9 @@
             <wsdl:output>
                 <soap:body use="literal"/>
             </wsdl:output>
+            <wsdl:fault name="PRPA_IN201305UV02_Fault">
+	        	<soap:fault name="PRPA_IN201305UV02_Fault" use="literal"/>
+            </wsdl:fault> 
         </wsdl:operation>
     </wsdl:binding>
 
