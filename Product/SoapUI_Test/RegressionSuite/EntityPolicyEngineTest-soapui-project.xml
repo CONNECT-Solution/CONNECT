@@ -400,7 +400,7 @@ declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					<con:timeout>60000</con:timeout>
 					<con:response>
 						<con:settings/>
-						<con:responseContent><![CDATA[soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:policy:schema:os">
+						<con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:policy:schema:os">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:CheckPolicyResponse>

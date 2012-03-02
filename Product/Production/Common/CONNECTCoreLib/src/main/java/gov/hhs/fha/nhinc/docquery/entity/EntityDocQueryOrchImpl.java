@@ -103,7 +103,7 @@ public class EntityDocQueryOrchImpl {
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
 
-    private static final String ContextPath = "oasis.names.tc.ebxml_regrep.xsd.rim._3";
+    private static final String RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
 
 
     /**
@@ -285,10 +285,13 @@ public class EntityDocQueryOrchImpl {
                             dqexecutor.executeTask();
                             orchResponse_g0 = (OutboundDocQueryOrchestratable_a0) dqexecutor.getFinalResponse();
                             response = orchResponse_g0.getCumulativeResponse();
+                        } else {
+                            log.debug("No callable requests were sent out.  Setting response to failure.");
+                            response.setStatus(RESPONSE_STATUS_FAILURE);
                         }
                         
                         // add any errors from policyErrList to response
-                        if (response != null && policyErrList.getRegistryError() != null
+                        if (policyErrList.getRegistryError() != null
                                 && !policyErrList.getRegistryError().isEmpty()) {
                             if (response.getRegistryErrorList() == null) {
                                 response.setRegistryErrorList(policyErrList);
@@ -306,10 +309,13 @@ public class EntityDocQueryOrchImpl {
                             dqexecutor.executeTask();
                             orchResponse_g1 = (OutboundDocQueryOrchestratable_a1) dqexecutor.getFinalResponse();
                             response = orchResponse_g1.getCumulativeResponse();
+                        } else {
+                            log.debug("No callable requests were sent out.  Setting response to failure.");
+                            response.setStatus(RESPONSE_STATUS_FAILURE);
                         }
                         
                         // add any errors from policyErrList to response
-                        if (response != null && policyErrList.getRegistryError() != null
+                        if (policyErrList.getRegistryError() != null
                                 && !policyErrList.getRegistryError().isEmpty()) {
                             if (response.getRegistryErrorList() == null) {
                                 response.setRegistryErrorList(policyErrList);
@@ -458,7 +464,7 @@ public class EntityDocQueryOrchImpl {
         AdhocQueryResponse response = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
         response.setRegistryErrorList(regErrList);
-        response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+        response.setStatus(RESPONSE_STATUS_FAILURE);
         RegistryError regErr = new RegistryError();
         regErrList.getRegistryError().add(regErr);
         regErr.setCodeContext(codeContext);
