@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
+import gov.hhs.fha.nhinc.adaptercomponentmpi.FindCandidatesSecuredFault;
+import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
+
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -40,12 +43,24 @@ import org.hl7.v3.PRPAIN201306UV02;
 @WebService(serviceName = "AdapterComponentMpiSecuredService", portName = "AdapterComponentMpiSecuredPort", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentmpi", wsdlLocation = "WEB-INF/wsdl/AdapterComponentMpiSecured/AdapterComponentSecuredMpi.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterComponentMpiSecured {
-    @Resource
-    private WebServiceContext context;
+	@Resource
+	private WebServiceContext context;
 
-    public org.hl7.v3.PRPAIN201306UV02 findCandidates(org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest) {
-        AdapterComponentMpiImpl oImpl = new AdapterComponentMpiImpl();
-        PRPAIN201306UV02 oResponse = oImpl.query(true, findCandidatesRequest, context);
-        return oResponse;
-    }
+	public org.hl7.v3.PRPAIN201306UV02 findCandidates(
+			PRPAIN201305UV02 findCandidatesRequest)
+			throws FindCandidatesSecuredFault {
+		AdapterComponentMpiImpl oImpl = new AdapterComponentMpiImpl();
+		try {
+			PRPAIN201306UV02 oResponse = oImpl.query(true,
+					findCandidatesRequest, context);
+			return oResponse;
+		} catch (Exception e) {
+			PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
+			type.setErrorCode("920");
+			type.setMessage(e.getLocalizedMessage());
+			FindCandidatesSecuredFault fault = new FindCandidatesSecuredFault(
+					e.getMessage(), type);
+			throw fault;
+		}
+	}
 }
