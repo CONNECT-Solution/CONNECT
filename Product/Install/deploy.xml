@@ -395,19 +395,6 @@
     </if>
   </target>
 
-    <chmod perm="ugo+x">
-      <fileset dir="${glassfish.home}/bin"/>
-    </chmod>
-
-    <chmod perm="ugo+x">
-      <fileset dir="${glassfish.home}/lib">
-        <include name="*.so"/>
-        <include name="appserv"/>
-        <include name="appservLauncher"/>
-      </fileset>
-    </chmod>
-  </target>
-
   <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file">
     <propertyregex property="deploy.glassfish.domain.template" input="${deployment.domain.template.file.path}" regexp="\\" replace="/" defaultValue="${deployment.domain.template.file.path}"/>
     <sun-appserv-admin 
