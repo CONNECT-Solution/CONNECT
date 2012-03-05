@@ -395,16 +395,6 @@
     </if>
   </target>
 
-  <target name="copy.conf.file" depends="-deploy.setup.init,copy.conf.windows.file,copy.conf.unix.file" />
-
-  <target name="copy.conf.unix.file" if="unix">
-    <copy file="${script.root.directory}/GlassFish/templates/asenv.conf.template" 
-          tofile="${glassfish.home}/config/asenv.conf" overwrite="true"/>
-    <copy file="${script.root.directory}/GlassFish/templates/asadmin.template" 
-          tofile="${glassfish.home}/bin/asadmin" overwrite="true"/>
-    <copy file="${script.root.directory}/GlassFish/templates/asant.template" 
-          tofile="${glassfish.home}/bin/asant" overwrite="true"/>
-
     <chmod perm="ugo+x">
       <fileset dir="${glassfish.home}/bin"/>
     </chmod>
@@ -418,16 +408,7 @@
     </chmod>
   </target>
 
-  <target name="copy.conf.windows.file" if="windows">
-    <copy file="${script.root.directory}/GlassFish/templates/asenv.bat.template" 
-          tofile="${glassfish.home}/config/asenv.bat" overwrite="true"/>
-    <copy file="${script.root.directory}/GlassFish/templates/asadmin.bat.template" 
-          tofile="${glassfish.home}/bin/asadmin.bat" overwrite="true"/>
-    <copy file="${script.root.directory}/GlassFish/templates/asant.bat.template" 
-          tofile="${glassfish.home}/bin/asant.bat" overwrite="true"/>
-  </target>
-
-  <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file, copy.conf.file">
+  <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file">
     <propertyregex property="deploy.glassfish.domain.template" input="${deployment.domain.template.file.path}" regexp="\\" replace="/" defaultValue="${deployment.domain.template.file.path}"/>
     <sun-appserv-admin 
         explicitcommand='create-domain --template ${deploy.glassfish.domain.template} --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
