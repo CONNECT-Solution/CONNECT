@@ -32,6 +32,10 @@ public class PatientDiscoveryException extends Exception {
         super(t);
     }
 
+    public PatientDiscoveryException(String errorMsg) {
+        this(new Exception(errorMsg));
+    }
+    
     /**
 	 * 
 	 */

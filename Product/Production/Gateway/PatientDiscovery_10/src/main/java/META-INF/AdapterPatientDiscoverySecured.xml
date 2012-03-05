@@ -16,7 +16,8 @@
                   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" 
                   xmlns:sc="http://schemas.sun.com/2006/03/wss/server" 
                   xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"
-                  xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" 
+                  xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+                  xmlns:nhin="http://www.hhs.gov/healthit/nhin"
                   name="AdapterPatientDiscoverySecured" 
                   targetNamespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecured">
 	<wsdl:documentation>
@@ -27,6 +28,9 @@
 			<xsd:include schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
 			<xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
 		</xsd:schema>
+		<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecured">
+			<xsd:import schemaLocation="../schemas/nhin/PatientDiscoveryFault.xsd" namespace="http://www.hhs.gov/healthit/nhin"/>
+		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="RespondingGateway_PRPA_IN201305UV02RequestSecuredMessage">
 		<wsdl:part name="RespondingGateway_PRPA_IN201305UV02Request" element="hl7:RespondingGateway_PRPA_IN201305UV02Request"/>
@@ -34,10 +38,14 @@
 	<wsdl:message name="RespondingGateway_PRPA_IN201306UV02ResponseSecuredMessage">
 		<wsdl:part name="RespondingGateway_PRPA_IN201306UV02Response" element="hl7:PRPA_IN201306UV02"/>
 	</wsdl:message>
+	<wsdl:message name="AdapterPatientDiscoverySecuredFault">
+        <wsdl:part name="PatientDiscoveryFault" element="nhin:PatientDiscoveryFault"/>
+    </wsdl:message>
 	<wsdl:portType name="AdapterPatientDiscoverySecuredPortType">
 		<wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
 			<wsdl:input name="RespondingGateway_PRPA_IN201305UV02RequestSecured" message="tns:RespondingGateway_PRPA_IN201305UV02RequestSecuredMessage"/>
 			<wsdl:output name="RespondingGateway_PRPA_IN201306UV02ResponseSecured" message="tns:RespondingGateway_PRPA_IN201306UV02ResponseSecuredMessage"/>
+		    <wsdl:fault name="AdapterPatientDiscoverySecuredFault" message="tns:AdapterPatientDiscoverySecuredFault"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="AdapterPatientDiscoverySecuredBindingSoap" type="tns:AdapterPatientDiscoverySecuredPortType">
@@ -51,6 +59,9 @@
 			<wsdl:output name="RespondingGateway_PRPA_IN201306UV02ResponseSecured">
 				<soap:body use="literal"/>
 			</wsdl:output>
+			<wsdl:fault name="AdapterPatientDiscoverySecuredFault">
+                <soap:fault name="AdapterPatientDiscoverySecuredFault" use="literal"/>
+            </wsdl:fault>
 		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:service name="AdapterPatientDiscoverySecured">

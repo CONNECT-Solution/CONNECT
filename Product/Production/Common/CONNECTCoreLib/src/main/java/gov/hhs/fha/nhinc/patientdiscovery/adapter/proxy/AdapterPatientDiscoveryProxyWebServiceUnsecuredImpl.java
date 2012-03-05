@@ -102,10 +102,12 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
                     response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, AdapterPatientDiscoveryPortType.class,
                             "respondingGatewayPRPAIN201305UV02", request);
                 } else {
-                    log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
+                    throw new PatientDiscoveryException("Failed to call the adapter web service (" + sServiceName
+                            + ").  The URL is null.");
                 }
             } else {
-                log.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
+                throw new PatientDiscoveryException("Failed to call the web service (" + sServiceName
+                        + ").  The input parameter is null.");
             }
         } catch (Exception e) {
             log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
