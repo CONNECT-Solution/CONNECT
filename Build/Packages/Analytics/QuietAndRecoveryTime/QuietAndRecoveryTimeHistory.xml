@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<!DOCTYPE quiettimes [
-  <!ENTITY content SYSTEM "..\..\..\Artifacts\QuietAndRecoveryTimeHistoryContents.xml">
-]>
-<quiettimes>
-  &content;
-</quiettimes>
