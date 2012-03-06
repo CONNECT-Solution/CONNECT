@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Analytics.BuildTime" >
+  <fileset id="Analytics.BuildTimeHistory">
+    <include name="${Analytics.PackageDirectory}\BuildTime\BuildTimeHistoryChartData.xml"/>
+  </fileset>
+
+  <target name="Analytics.BuildTimeHistory">
+    <echo message="Generating BuildTimeHistory"/>
+    <delete>
+      <fileset>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryTotal.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryCompile.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryProduceSourceUpdate.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryThirdPartySourceUpdate.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryUnitTests.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryXAxis.xml"/>
+      </fileset>
+    </delete>
+    <property name="Analytics.XmlInputFileName" value="${Analytics.ContentDirectoryPath}\MainAnalyticsReport.xml"/>
+    <property name="Analytics.XslFilePath" value="${Analytics.PackageDirectory}\BuildTime\BuildTimeHistory.xsl"/>
+    <property name="Analytics.XmlReportFileName" value="BuildHistoryXAxis.xml"/>
+    <property name="Analytics.CopyFileSetRefId" value="Analytics.BuildTimeHistory"/>
+    <property name="Analytics.Append" value="false"/>
+    <call target="Analytics.CompileReport" failonerror="false"/>
+  </target>
+</project>

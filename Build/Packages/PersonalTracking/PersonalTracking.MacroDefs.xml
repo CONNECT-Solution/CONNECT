@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="PersonalTracking.MacroDefs">
+
+  <macrodef name="cmd">
+    <elements>
+      <element name="value" require="true" type="NAnt.Core.Types.TextElement"/>
+      <element name="environment" require="true" type="NAnt.Core.Types.EnvironmentSet"/>
+    </elements>
+    <sequential>
+
+      <largeproperty name="NewLine">
+        <value>
+          <![CDATA[
+]]>
+        </value>
+      </largeproperty>
+      <largeproperty name="input">
+        <element name="value"/>
+      </largeproperty>
+      <property name="input" value="${input}${NewLine}exit /b %ERRORLEVEL%"/>
+      <exec program="cmd" verbose="true" stdin="${input}">
+        <element name="environment"/>
+      </exec>
+    </sequential>
+  </macrodef>
+  
+</project>

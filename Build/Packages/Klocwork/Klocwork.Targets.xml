@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Klocwork">
+
+  <target name="Klocwork.CreateBuildSpecification">
+
+    <ant
+      antbat="kwant.exe"
+      target="package.create"
+      buildfile="${Ant.Build.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\kwant_log.xml">
+      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <args>
+        <arg line="-o ${Common.Directory.Product.Path}\${Klocwork.Build.Specification}"/>
+        <arg line="-Dcompile.debug=${Compile.Debug}"/>
+      </args>
+    </ant>
+  </target>
+
+  <target name="Klocwork.RunAnalysis">
+    <setenv>
+      <environment refid="${Common.EnvironmentVariables.RefId}" />
+    </setenv>
+    <exec program="kwbuildproject"
+				  commandline='--force  --jobs-num auto --verbose ${Klocwork.Build.Specification} --tables-directory ${Klocwork.Tables.Directory.Path}'
+				  workingdir='${Common.Directory.Product.Path}' verbose="true"/>
+  </target>
+
+  <target name="Klocwork.LoadAnalysisResults">
+    <setenv>
+      <environment refid="${Common.EnvironmentVariables.RefId}" />
+    </setenv>
+    <property name="klocwork.build.name" value="${string::replace(CCNetLabel, '.', '_')}"/>
+    <exec program="kwadmin"
+				  commandline='--verbose load ${Klocwork.Project.Name} ${Klocwork.Tables.Directory.Path} --name ${klocwork.build.name} --copy-sources'
+				  workingdir='${Common.Directory.Product.Path}' verbose="true"/>
+  </target>
+
+</project>

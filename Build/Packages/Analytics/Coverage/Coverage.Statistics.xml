@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE Builds [
+  <!ENTITY % entities SYSTEM "entities.dtd">
+
+  %entities;
+
+  
+  <!ENTITY content SYSTEM "CoverageContent.xml">
+]>
+<Builds>
+  &content;
+</Builds>

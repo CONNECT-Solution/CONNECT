@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Analytics.QuietAndRecoveryTime" >
+  <fileset id="Analytics.QuietAndRecoveryTimeHistory">
+    <include name="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistory.xml"/>
+  </fileset>
+
+  <target name="Analytics.QuietAndRecoveryTimeHistory">
+    <echo message="Generating QuietAndRecoveryTimeHistory"/>
+    <property name="Analytics.XmlInputFileName" value="${Analytics.PackageDirectory}\Basic\MainAnalyticsReport.xml"/>
+    <property name="Analytics.XslFilePath" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistoryPublisher.xsl"/>
+    <property name="Analytics.XmlReportFileName" value="QuietAndRecoveryTimeHistoryContents.xml"/>
+    <property name="Analytics.CopyFileSetRefId" value="Analytics.QuietAndRecoveryTimeHistory"/>
+    <property name="Analytics.Append" value="false"/>
+    <call target="Analytics.CompileReport"/>
+  </target>
+
+  <fileset id="Analytics.QuietTimeHistoryChartData">
+    <include name="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietTimeHistoryChartData.xml"/>
+  </fileset>
+
+  <target name="Analytics.QuietTimeHistoryChartData">
+    <echo message="Generating QuietTimeHistoryChartData"/>
+    <delete>
+      <fileset>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeHistoryXAxis.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeMaxHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeMinHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeOpenHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeCloseHistoryDurations.xml"/>
+      </fileset>
+    </delete>
+    <property name="Analytics.XmlInputFileName" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistory.xml"/>
+    <property name="Analytics.XslFilePath" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietTimeHistoryChartDataPublisher.xsl"/>
+    <property name="Analytics.XmlReportFileName" value="QuietTimeHistoryXAxis.xml"/>
+    <property name="Analytics.CopyFileSetRefId" value="Analytics.QuietTimeHistoryChartData"/>
+    <property name="Analytics.Append" value="false"/>
+    <call target="Analytics.CompileReport"/>
+  </target>
+
+  <fileset id="Analytics.QuietTimeHistoryLineChartData">
+    <include name="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietTimeHistoryLineChartData.xml"/>
+  </fileset>
+
+  <target name="Analytics.QuietTimeHistoryLineChartData">
+    <echo message="Generating QuietTimeHistoryLineChartData"/>
+    <delete>
+      <fileset>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeHistoryLineXAxis.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeHistoryDurations.xml"/>
+      </fileset>
+    </delete>
+    <property name="Analytics.XmlInputFileName" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistory.xml"/>
+    <property name="Analytics.XslFilePath" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietTimeHistoryLineChartDataPublisher.xsl"/>
+    <property name="Analytics.XmlReportFileName" value="QuietTimeHistoryLineXAxis.xml"/>
+    <property name="Analytics.CopyFileSetRefId" value="Analytics.QuietTimeHistoryLineChartData"/>
+    <property name="Analytics.Append" value="false"/>
+
+    <property name="Analytics.QuietTimeHistoryLineChartData.Data" value=""/>
+    <xmlpeek property="Analytics.QuietTimeHistoryLineChartData.Data"
+      file="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistory.xml"
+      nodeindex="0"
+      xpath="/quiettimes/quiettime[position() > last()-200 and 121 > @duration and (between/build[@possition = 1]/@hourofday > 7) and (18 > between/build[@possition = 2]/@hourofday)]"
+      failonerror="False"/>
+
+    <call if="${Analytics.QuietTimeHistoryLineChartData.Data != ''}" target="Analytics.CompileReport"/>
+  </target>
+
+  <fileset id="Analytics.RecoveryTimeHistoryChartData">
+    <include name="${Analytics.PackageDirectory}\QuietAndRecoveryTime\RecoveryTimeHistoryChartData.xml"/>
+  </fileset>
+
+  <target name="Analytics.RecoveryTimeHistoryChartData">
+    <echo message="Generating RecoveryTimeHistoryChartData"/>
+    <delete>
+      <fileset>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeHistoryXAxis.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeMaxHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeMinHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeOpenHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeCloseHistoryDurations.xml"/>
+      </fileset>
+    </delete>
+    <property name="Analytics.XmlInputFileName" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistory.xml"/>
+    <property name="Analytics.XslFilePath" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\RecoveryTimeHistoryChartDataPublisher.xsl"/>
+    <property name="Analytics.XmlReportFileName" value="RecoveryTimeHistoryXAxis.xml"/>
+    <property name="Analytics.CopyFileSetRefId" value="Analytics.RecoveryTimeHistoryChartData"/>
+    <property name="Analytics.Append" value="false"/>
+    <call target="Analytics.CompileReport"/>
+  </target>
+
+  <fileset id="Analytics.RecoveryTimeHistoryLineChartData">
+    <include name="${Analytics.PackageDirectory}\QuietAndRecoveryTime\RecoveryTimeHistoryLineChartData.xml"/>
+  </fileset>
+
+  <target name="Analytics.RecoveryTimeHistoryLineChartData">
+    <echo message="Generating RecoveryTimeHistoryLineChartData"/>
+    <delete>
+      <fileset>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeHistoryLineXAxis.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeHistoryDurations.xml"/>
+      </fileset>
+    </delete>
+    <property name="Analytics.XmlInputFileName" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistory.xml"/>
+    <property name="Analytics.XslFilePath" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\RecoveryTimeHistoryLineChartDataPublisher.xsl"/>
+    <property name="Analytics.XmlReportFileName" value="RecoveryTimeHistoryLineXAxis.xml"/>
+    <property name="Analytics.CopyFileSetRefId" value="Analytics.RecoveryTimeHistoryLineChartData"/>
+    <property name="Analytics.Append" value="false"/>
+
+    <property name="Analytics.RecoveryTimeHistoryLineChartData.Data" value=""/>
+    <xmlpeek property="Analytics.RecoveryTimeHistoryLineChartData.Data"
+      file="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistory.xml"
+      nodeindex="0"
+      xpath="/quiettimes/recoverytime[position() > last()-200 and 121 > @duration and (between/build[@possition = 1]/@hourofday > 7) and (18 > between/build[@possition = 2]/@hourofday)]"
+      failonerror="False"/>
+
+    <call if="${Analytics.RecoveryTimeHistoryLineChartData.Data != ''}" target="Analytics.CompileReport"/>
+  </target>
+</project>

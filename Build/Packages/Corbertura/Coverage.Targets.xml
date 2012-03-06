@@ -1,0 +1,172 @@
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Coverage">
+
+  <target name="Coverage.Write.Threshold.Files">
+    <foreach item="File" property="Coverage.Report.File.Path">
+      <in>
+        <items>
+          <include name="${Common.Directory.Product.Path}\integrationtest\**\coverage-reports\coverage.xml"/>
+        </items>
+      </in>
+      <do>
+        <property name="Project.Directory.Path" value="${string::replace(Coverage.Report.File.Path, '\coverage-reports\coverage.xml', '')}"/>
+        <property name="Coverage.Threshold.File.Path" value="${Project.Directory.Path}\coverage.thresholds.xml"/>
+
+        <delete file="${Coverage.Threshold.File.Path}" if="${file::exists(Coverage.Threshold.File.Path)}"/>
+
+        <ifnot test="${file::exists(Coverage.Threshold.File.Path)}">
+          <property name="Coverage.Threshold.File.Content.Body" value=""/>
+
+          <loopthrough property="Coverage.Class">
+            <items>
+              <xmlquery
+                file="${Coverage.Report.File.Path}"
+                query="//class/@name"
+              />
+            </items>
+            <do>
+              <xmlpeek
+                file="${Coverage.Report.File.Path}"
+                xpath="//class[@name='${Coverage.Class}']/@line-rate"
+                property="Coverage.LineRate"
+              />
+              <xmlpeek
+                file="${Coverage.Report.File.Path}"
+                xpath="//class[@name='${Coverage.Class}']/@branch-rate"
+                property="Coverage.BranchRate"
+              />
+              <xmlpeek
+                file="${Coverage.Report.File.Path}"
+                xpath="count(//class[@name='${Coverage.Class}']/lines/line)"
+                property="Coverage.LineCount"
+              />
+              <xmlpeek
+                file="${Coverage.Report.File.Path}"
+                xpath="count(//class[@name='${Coverage.Class}']/lines/line[@hits > 0])"
+                property="Coverage.LinesExecuted"
+              />
+              <xmlpeek
+                file="${Coverage.Report.File.Path}"
+                xpath="count(//class[@name='${Coverage.Class}']/lines/line/conditions/condition) * 2"
+                property="Coverage.BranchCount"
+              />
+              <xmlpeek
+                file="${Coverage.Report.File.Path}"
+                xpath="(count(//class[@name='${Coverage.Class}']/lines/line/conditions/condition[@coverage = '100%']) * 2) + count(//class[@name='${Coverage.Class}']/lines/line/conditions/condition[@coverage = '50%'])"
+                property="Coverage.BranchsExecuted"
+              />
+
+              <echo message="Class ${Coverage.Class}, BranchRate ${Coverage.BranchRate}, LineRate ${Coverage.LineRate}, LineCount ${Coverage.LineCount}, BranchCount ${Coverage.BranchCount}, LinesExecuted ${Coverage.LinesExecuted}, BranchsExecuted ${Coverage.BranchsExecuted}"/>
+
+              <largeproperty name="Coverage.Threshold.File.Content.Body">
+                <value expand="True" xml="True">
+                  ${Coverage.Threshold.File.Content.Body}
+                  <threshold class="${Coverage.Class}" branchrate="${Coverage.BranchRate}" linerate="${Coverage.LineRate}" linecount="${Coverage.LineCount}" branchcount="${Coverage.BranchCount}" linesexecuted="${Coverage.LinesExecuted}" branchsexecuted="${Coverage.BranchsExecuted}"/>
+                </value>
+              </largeproperty>
+            </do>
+          </loopthrough>
+          <write file="${Coverage.Threshold.File.Path}">
+            <text expand="True" xml="False">
+              <![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<thresholds>
+  ${Coverage.Threshold.File.Content.Body}
+</thresholds>]]>
+            </text>
+          </write>
+        </ifnot>
+      </do>
+    </foreach>
+  </target>
+  
+	<target name="Coverage.PublishReports">
+    <ant
+          target="coverage.write.report"
+          buildfile="${Ant.Build.File.Path}"
+          logfile="${Ant.Log.Directory.Path}\coverage.writereport_log.xml"
+        >
+      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <args>
+        <arg line="-Dcompile.debug=${Compile.Debug}"/>
+      </args>
+    </ant>
+
+    <copy 
+      overwrite="true" 
+      tofile="${Coverage.Report.File.Path}"
+      file="${Common.Directory.Product.Path}\coverage-reports\coverage.xml"
+    />
+    
+    <copy
+      file="${Common.Directory.Product.Path}\coverage-reports\coverage.xml"
+      todir="${Common.Directory.Artifact.Path}"
+    />
+
+    <copy
+      todir="${Common.Directory.Artifact.Path}\CoverageReport"
+      >
+      <fileset basedir="${Common.Directory.Product.Path}\coverage-reports">
+        <include name="**\*"/>
+        <exclude name="*.xml"/>
+        <exclude name="*.ser"/>
+      </fileset>
+    </copy>
+	</target>
+
+	<target name="Coverage.ShowReport" if="${file::exists(Common.Directory.Product.Path + '\coverage-reports\coverage.check.failure')}">
+    <foreach item="Line" in="${Common.Directory.Product.Path}\coverage-reports\coverage.check.failure" property="Coverage.Failing.Project.Name">
+      <ifthenelse test="${file::exists(Common.Directory.Production.Path+ '\' + Coverage.Failing.Project.Name + '\coverage-reports\index.html')}">
+        <then>
+          <property name="Coverage.Failing.Report.File.Path" value="${Common.Directory.Production.Path}\${Coverage.Failing.Project.Name}\coverage-reports\index.html"/>
+        </then>
+        <else>
+          <property name="Coverage.Failing.Report.File.Path" value="${Common.Directory.Product.Path}\integrationtest\${Coverage.Failing.Project.Name}\coverage-reports\index.html"/>
+        </else>
+      </ifthenelse>
+      <asyncexec program="cmd" commandline='/C "${Coverage.Failing.Report.File.Path}"' createnowindow="false" redirectoutput="false" useshellexecute="true" waitforexit="false" />  
+    </foreach>
+	</target>
+
+  <target name="Coverage.Check.ShowReport">
+
+    <xmlpeek
+      file="${Ant.Log.File.Path}"
+      xpath="boolean(//antbuildresults//target[@name='-coverage.check.project']//message[@level='Error'])"
+      property="Coverage.HasFailures"
+    />
+    
+    <property name="Common.ShowReport.XmlFile" value="${Ant.Log.File.Path}"/>
+    <property name="Common.ShowReport.HtmlFile" value="${Ant.Log.Directory.Path}\Coverage.Chech.Report.html"/>
+    <property name="Common.ShowReport.XslFile" value="${Package.Corbertura.Directory.Path}\CoverageDisplaySummary.xsl"/>
+    <property name="Common.ShowReport.DetailsFilePath" value=""/>
+
+    <call target="Common.ShowReport" if="${Coverage.HasFailures}"/>
+  </target>
+
+	<target name="Coverage.SetUp">
+    <delete dir="${Coverage.Report.Directory.Path}" if="${directory::exists(Coverage.Report.Directory.Path)}" verbose="true"/>
+    <mkdir dir="${Coverage.Report.Directory.Path}" verbose="true"/>
+	</target>
+
+	<target name="Coverage.TearDown">
+
+	</target>
+  
+  <target name="Personal.UnitTest" if="${target::exists('UnitTest::Personal.UnitTest')}" override="True">
+    <trycatch>
+      <try>
+        <call target="UnitTest::Personal.UnitTest"/>
+      </try>
+      <finally>
+        <call target="Personal.Coverage"/>
+      </finally>
+    </trycatch>
+  </target>
+
+  <target name="Personal.Coverage">
+    <call target="Coverage.SetUp"/>
+    <call target="Coverage.Check.ShowReport"/>
+    <call target="Coverage.ShowReport"/>
+    <call target="Coverage.TearDown"/>
+  </target>
+
+</project>

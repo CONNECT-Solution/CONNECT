@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SourceModificationReport.Properties">
+
+  <property name="SourceModificationReport.OldSourcePath" value="${Common.Directory.Artifact.Path}\OldSource"/>
+  <property name="SourceModificationReport.NewSourcePath" value="${Common.Directory.Artifact.Path}\NewSource"/>
+  
+  <property name="SourceModificationReport.ReportDirectory" value="${Common.Directory.Build.Path}\SourceModificationReports\${CCNetProject}" />
+  <property name="SourceModificationReport.ReportFile" value="${SourceModificationReport.ReportDirectory}\SourceModificationReport.xml" />
+
+</project>

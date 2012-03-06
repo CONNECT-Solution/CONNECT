@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.Coverage.Scripts">
+
+  <property name="Alerts.Coverage.PreviousPropertiesFilePath" value="${Common.Directory.Packages.Path}\Alerts\Coverage\${CCNetProject}.Previous.Properties.xml"/>
+  <ifthenelse test="${file::exists(Alerts.Coverage.PreviousPropertiesFilePath)}">
+    <then>
+      <include buildfile="${Alerts.Coverage.PreviousPropertiesFilePath}" />
+    </then>
+    <else>
+      <echo level="Warning" message="File Does Not Exist: ${Alerts.Coverage.PreviousPropertiesFilePath}"/>
+    </else>
+  </ifthenelse>
+
+  <property name="Alerts.Coverage.DiffReport.Content" value=""/>
+  <property name="Alerts.Coverage.IncreasedCoverage" value=""/>
+  <property name="Alerts.Coverage.DecreasedCoverage" value=""/>
+  
+  <!-- Begin Previous Properties -->
+  <property name="Alerts.Coverage.Previous.Line.Rate" value="NaN" overwrite="false"/>
+  <property name="Alerts.Coverage.Previous.Branch.Rate" value="NaN" overwrite="false"/>
+  <property name="Alerts.Coverage.Previous.ReportFilePath" value="notset" overwrite="false"/>
+  <!-- End Previous Properties -->
+
+  <target name="Alerts.Coverage" if="${CCNetIntegrationStatus == 'Success'}">
+
+		<property name="Alerts.Coverage.Line.Rate" value="notset"/>
+    <property name="Alerts.Coverage.Branch.Rate" value="notset"/>
+    <property name="Alerts.Coverage.ReportFilePath" value="${Common.Directory.Artifact.Path}\coverage.xml"/>
+    
+    <xmlpeek
+			file="${Alerts.Coverage.ReportFilePath}"
+			xpath="/coverage/@line-rate"
+			property="Alerts.Coverage.Line.Rate"
+			failonerror="false"
+		/>
+
+    <xmlpeek
+			file="${Alerts.Coverage.ReportFilePath}"
+			xpath="/coverage/@branch-rate"
+			property="Alerts.Coverage.Branch.Rate"
+			failonerror="false"
+		/>
+
+    <saveproperties file="${Alerts.Coverage.PreviousPropertiesFilePath}" format="Include" unless="${Alerts.Coverage.Previous.ReportFilePath == 'notset'}">
+      <property name="Alerts.Coverage.Previous.ReportFilePath" value="${Alerts.Coverage.ReportFilePath}"/>
+    </saveproperties>
+
+    <echo message="Coverage Line Rate is ${Alerts.Coverage.Line.Rate}"/>
+    <echo message="Previous Coverage Line Rate is ${Alerts.Coverage.Previous.Line.Rate}"/>
+    <echo message="Coverage Branch Rate is ${Alerts.Coverage.Branch.Rate}"/>
+    <echo message="Previous Coverage Branch Rate is ${Alerts.Coverage.Previous.Branch.Rate}"/>
+    
+    <if test="${Alerts.Coverage.Line.Rate != 'notset' and Alerts.Coverage.Branch.Rate != 'notset'}">
+      <saveproperties file="${Alerts.Coverage.PreviousPropertiesFilePath}" format="Include" >
+        <property name="Alerts.Coverage.Previous.Line.Rate" value="${Alerts.Coverage.Line.Rate}"/>
+        <property name="Alerts.Coverage.Previous.Branch.Rate" value="${Alerts.Coverage.Branch.Rate}"/>
+        <property name="Alerts.Coverage.Previous.ReportFilePath" value="${Alerts.Coverage.ReportFilePath}"/>
+      </saveproperties>
+    </if>
+
+    <property name="Alerts.SendMessage.ToList" value="${Alerts.Developer.Email}" />
+    <property name="Alerts.SendMessage.CCList" value="${Alerts.Message.CCList}" />
+
+    <if test="${Alerts.Coverage.Previous.Line.Rate != 'NaN' and Alerts.Coverage.Line.Rate != 'notset' and Alerts.Coverage.Previous.Branch.Rate != 'NaN' and Alerts.Coverage.Branch.Rate != 'notset'}">
+      
+      <call target="Alerts.Coverage.GenerateReport" if="${Alerts.Coverage.Previous.ReportFilePath != 'notset' and Alerts.Coverage.ReportFilePath != 'notset' and (double::parse(Alerts.Coverage.Line.Rate) != double::parse(Alerts.Coverage.Previous.Line.Rate) or double::parse(Alerts.Coverage.Branch.Rate) != double::parse(Alerts.Coverage.Previous.Branch.Rate))}"/>
+
+      <ifnot test="${Alerts.Coverage.IncreasedCoverage==''}">
+        <property name="Alerts.Coverage.Message" value="The coverage has been raised"/>
+        <property name="Alerts.Coverage.Message.Spin" value="positive" />
+        <property name="Alerts.Coverage.DiffReport.Content" value="${Alerts.Coverage.Increased.Report.Content}"/>
+        <call target="Alerts.Coverage.GenerateThankYou"/>
+        <call target="Alerts.SendMessage"/>
+        <call target="Alerts.Coverage.WriteToReportAppender"/>
+      </ifnot>
+      <ifnot test="${Alerts.Coverage.DecreasedCoverage==''}">
+        <property name="Alerts.Coverage.Message" value="The coverage has been lowered"/>
+        <property name="Alerts.Coverage.Message.Spin" value="negative" />
+        <property name="Alerts.Coverage.DiffReport.Content" value="${Alerts.Coverage.Decreased.Report.Content}"/>
+        <call target="Alerts.Coverage.GenerateWarning"/>
+        <call target="Alerts.SendMessage"/>
+        <call target="Alerts.Coverage.WriteToReportAppender"/>
+      </ifnot>
+    </if>
+  </target>
+  
+  <target name="Alerts.Coverage.GenerateReport">
+    <strings id="Alerts.Coverage.CurrentList"/>
+
+    <xmlpeek
+      file="${Alerts.Coverage.ReportFilePath}"
+      xpath="count(//class)"
+      property="Alerts.Coverage.NodeIndex"
+    />
+    <while condition="${int::parse(Alerts.Coverage.NodeIndex) > 0}">
+      <do>
+        <loglevel level="None">
+          <do>
+            <xmlpeek
+              file="${Alerts.Coverage.ReportFilePath}"
+              xpath="(//class)[${Alerts.Coverage.NodeIndex}]/@name"
+              property="classname"
+            />
+
+            <xmlpeek
+              file="${Alerts.Coverage.ReportFilePath}"
+              xpath="(//class)[${Alerts.Coverage.NodeIndex}]/@line-rate"
+              property="line-rate"
+            />
+
+            <xmlpeek
+              file="${Alerts.Coverage.ReportFilePath}"
+              xpath="count((//class)[${Alerts.Coverage.NodeIndex}]/lines/line)"
+              property="line-count"
+            />
+
+            <xmlpeek
+              file="${Alerts.Coverage.ReportFilePath}"
+              xpath="(//class)[${Alerts.Coverage.NodeIndex}]/@branch-rate"
+              property="branch-rate"
+            />
+
+            <xmlpeek
+              file="${Alerts.Coverage.ReportFilePath}"
+              xpath="count((//class)[${Alerts.Coverage.NodeIndex}]/lines/line/conditions/condition)"
+              property="branch-count"
+            />
+          </do>
+        </loglevel>
+        <property name="branch-count" value="${int::parse(branch-count) * 2}"/>
+
+        <property name="classname" value="${string::replace(classname, '$', '.dollar.')}"/>
+
+        <function execute="${stringlist::add('Alerts.Coverage.CurrentList', classname)}"/>
+        <property name="Alerts.Coverage.Current.${classname}.Line.Rate" value="${line-rate}"/>
+        <property name="Alerts.Coverage.Current.${classname}.Line.Count" value="${line-count}"/>
+        <property name="Alerts.Coverage.Current.${classname}.Line.Executed.Count" value="${math::round(int::parse(line-count) * double::parse(line-rate))}"/>
+        <property name="Alerts.Coverage.Current.${classname}.Branch.Rate" value="${branch-rate}"/>
+        <property name="Alerts.Coverage.Current.${classname}.Branch.Count" value="${branch-count}"/>
+        <property name="Alerts.Coverage.Current.${classname}.Branch.Executed.Count" value="${math::round(int::parse(branch-count) * double::parse(branch-rate))}"/>
+        
+        <property name="Alerts.Coverage.NodeIndex" value="${int::parse(Alerts.Coverage.NodeIndex) - 1}"/>
+      </do>
+    </while>
+
+    <strings id="Alerts.Coverage.PreviousList"/>
+
+    <xmlpeek
+      file="${Alerts.Coverage.Previous.ReportFilePath}"
+      xpath="count(//class)"
+      property="Alerts.Coverage.NodeIndex"
+    />
+    <while condition="${int::parse(Alerts.Coverage.NodeIndex) > 0}">
+      <do>
+        <loglevel level="None">
+          <do>
+            <xmlpeek
+              file="${Alerts.Coverage.Previous.ReportFilePath}"
+              xpath="(//class)[${Alerts.Coverage.NodeIndex}]/@name"
+              property="classname"
+            />
+
+            <xmlpeek
+              file="${Alerts.Coverage.Previous.ReportFilePath}"
+              xpath="(//class)[${Alerts.Coverage.NodeIndex}]/@line-rate"
+              property="line-rate"
+            />
+
+            <xmlpeek
+              file="${Alerts.Coverage.Previous.ReportFilePath}"
+              xpath="count((//class)[${Alerts.Coverage.NodeIndex}]/lines/line)"
+              property="line-count"
+            />
+
+            <xmlpeek
+              file="${Alerts.Coverage.Previous.ReportFilePath}"
+              xpath="(//class)[${Alerts.Coverage.NodeIndex}]/@branch-rate"
+              property="branch-rate"
+            />
+
+            <xmlpeek
+              file="${Alerts.Coverage.Previous.ReportFilePath}"
+              xpath="count((//class)[${Alerts.Coverage.NodeIndex}]/lines/line/conditions/condition)"
+              property="branch-count"
+            />
+          </do>
+        </loglevel>
+        <property name="branch-count" value="${int::parse(branch-count) * 2}"/>
+
+        <property name="classname" value="${string::replace(classname, '$', '.dollar.')}"/>
+        
+        <function execute="${stringlist::add('Alerts.Coverage.PreviousList', classname)}"/>
+        <property name="Alerts.Coverage.Previous.${classname}.Line.Count" value="${line-count}"/>
+        <property name="Alerts.Coverage.Previous.${classname}.Line.Rate" value="${line-rate}"/>
+        <property name="Alerts.Coverage.Previous.${classname}.Line.Executed.Count" value="${math::round(int::parse(line-count) * double::parse(line-rate))}"/>
+        <property name="Alerts.Coverage.Previous.${classname}.Branch.Rate" value="${branch-rate}"/>
+        <property name="Alerts.Coverage.Previous.${classname}.Branch.Count" value="${branch-count}"/>
+        <property name="Alerts.Coverage.Previous.${classname}.Branch.Executed.Count" value="${math::round(int::parse(branch-count) * double::parse(branch-rate))}"/>
+
+        <property name="Alerts.Coverage.NodeIndex" value="${int::parse(Alerts.Coverage.NodeIndex) - 1}"/>
+      </do>
+    </while>
+
+    <property name="Alerts.Coverage.DiffReport.Content" value=""/>
+    <property name="Alerts.Coverage.IncreasedCoverage" value=""/>
+    <property name="Alerts.Coverage.DecreasedCoverage" value=""/>
+    
+    <property name="Alerts.Coverage.Line.Count.Difference.Threshold" value="10"/>
+    <property name="Alerts.Coverage.Line.Rate.Difference.Threshold" value="0.01"/>
+    <property name="Alerts.Coverage.Branch.Count.Difference.Threshold" value="4"/>
+    <property name="Alerts.Coverage.Branch.Rate.Difference.Threshold" value="0.01"/>
+    
+    <loopthrough property="ClassName">
+      <items>
+        <strings refid="Alerts.Coverage.CurrentList"/>
+      </items>
+      <do>
+        <if test="${stringlist::contains('Alerts.Coverage.PreviousList', ClassName)}">
+          <property name="Alerts.Coverage.Current.Class.Line.Rate"                 value="${property::value('Alerts.Coverage.Current.' + ClassName + '.Line.Rate')}"/>
+          <property name="Alerts.Coverage.Current.Class.Line.Count"                value="${property::value('Alerts.Coverage.Current.' + ClassName + '.Line.Count')}"/>
+          <property name="Alerts.Coverage.Current.Class.Line.Executed.Count"       value="${property::value('Alerts.Coverage.Current.' + ClassName + '.Line.Executed.Count')}"/>
+          <property name="Alerts.Coverage.Current.Class.Branch.Rate"               value="${property::value('Alerts.Coverage.Current.' + ClassName + '.Branch.Rate')}"/>
+          <property name="Alerts.Coverage.Current.Class.Branch.Count"              value="${property::value('Alerts.Coverage.Current.' + ClassName + '.Branch.Count')}"/>
+          <property name="Alerts.Coverage.Current.Class.Branch.Executed.Count"     value="${property::value('Alerts.Coverage.Current.' + ClassName + '.Branch.Executed.Count')}"/>
+
+          <largeproperty name="echo">
+            <value expand="true" xml="False">
+              <![CDATA[
+                  Alerts.Coverage.Current.Class.Line.Rate==${Alerts.Coverage.Current.Class.Line.Rate}
+                  Alerts.Coverage.Current.Class.Line.Count==${Alerts.Coverage.Current.Class.Line.Count}
+                  Alerts.Coverage.Current.Class.Line.Executed.Count==${Alerts.Coverage.Current.Class.Line.Executed.Count}
+                  Alerts.Coverage.Current.Class.Branch.Rate==${Alerts.Coverage.Current.Class.Branch.Rate}
+                  Alerts.Coverage.Current.Class.Branch.Count==${Alerts.Coverage.Current.Class.Branch.Count}
+                  Alerts.Coverage.Current.Class.Branch.Executed.Count==${Alerts.Coverage.Current.Class.Branch.Executed.Count}
+            ]]></value>
+          </largeproperty>
+          <echo message="${echo}"/>
+          
+          <property name="Alerts.Coverage.Previous.Class.Line.Rate"                value="${property::value('Alerts.Coverage.Previous.' + ClassName + '.Line.Rate')}"/>
+          <property name="Alerts.Coverage.Previous.Class.Line.Count"               value="${property::value('Alerts.Coverage.Previous.' + ClassName + '.Line.Count')}"/>
+          <property name="Alerts.Coverage.Previous.Class.Line.Executed.Count"      value="${property::value('Alerts.Coverage.Previous.' + ClassName + '.Line.Executed.Count')}"/>
+          <property name="Alerts.Coverage.Previous.Class.Branch.Rate"              value="${property::value('Alerts.Coverage.Previous.' + ClassName + '.Branch.Rate')}"/>
+          <property name="Alerts.Coverage.Previous.Class.Branch.Count"             value="${property::value('Alerts.Coverage.Previous.' + ClassName + '.Branch.Count')}"/>
+          <property name="Alerts.Coverage.Previous.Class.Branch.Executed.Count"    value="${property::value('Alerts.Coverage.Previous.' + ClassName + '.Branch.Executed.Count')}"/>
+
+          <largeproperty name="echo">
+            <value expand="true" xml="False">
+              <![CDATA[
+                  Alerts.Coverage.Previous.Class.Line.Rate==${Alerts.Coverage.Previous.Class.Line.Rate}
+                  Alerts.Coverage.Previous.Class.Line.Count==${Alerts.Coverage.Previous.Class.Line.Count}
+                  Alerts.Coverage.Previous.Class.Line.Executed.Count==${Alerts.Coverage.Previous.Class.Line.Executed.Count}
+                  Alerts.Coverage.Previous.Class.Branch.Rate==${Alerts.Coverage.Previous.Class.Branch.Rate}
+                  Alerts.Coverage.Previous.Class.Branch.Count==${Alerts.Coverage.Previous.Class.Branch.Count}
+                  Alerts.Coverage.Previous.Class.Branch.Executed.Count==${Alerts.Coverage.Previous.Class.Branch.Executed.Count}
+            ]]>
+            </value>
+          </largeproperty>
+          <echo message="${echo}"/>
+
+          <property name="Alerts.Coverage.Line.Rate.Difference"       value="${double::parse(Alerts.Coverage.Current.Class.Line.Rate) - double::parse(Alerts.Coverage.Previous.Class.Line.Rate)}"/>
+          <property name="Alerts.Coverage.Line.Count.Difference"      value="${int::parse(Alerts.Coverage.Current.Class.Line.Count) - int::parse(Alerts.Coverage.Previous.Class.Line.Count)}"/>
+          <property name="Alerts.Coverage.Lines.Executed.Difference"  value="${int::parse(Alerts.Coverage.Current.Class.Line.Executed.Count) - int::parse(Alerts.Coverage.Previous.Class.Line.Executed.Count)}"/>
+          <property name="Alerts.Coverage.Lines.Executed.Diffential"  value="${int::parse(Alerts.Coverage.Lines.Executed.Difference) - int::parse(Alerts.Coverage.Line.Count.Difference)}"/>
+
+          <property name="Alerts.Coverage.Branch.Rate.Difference"       value="${double::parse(Alerts.Coverage.Current.Class.Branch.Rate) - double::parse(Alerts.Coverage.Previous.Class.Branch.Rate)}"/>
+          <property name="Alerts.Coverage.Branch.Count.Difference"      value="${int::parse(Alerts.Coverage.Current.Class.Branch.Count) - int::parse(Alerts.Coverage.Previous.Class.Branch.Count)}"/>
+          <property name="Alerts.Coverage.Branch.Executed.Difference"   value="${int::parse(Alerts.Coverage.Current.Class.Branch.Executed.Count) - int::parse(Alerts.Coverage.Previous.Class.Branch.Executed.Count)}"/>
+          <property name="Alerts.Coverage.Branch.Executed.Diffential"   value="${int::parse(Alerts.Coverage.Branch.Executed.Difference) - int::parse(Alerts.Coverage.Branch.Count.Difference)}"/>
+
+          <property name="ClassName" value="${string::replace(ClassName, '.dollar.', '$')}"/>
+
+          <if test="${double::parse(Alerts.Coverage.Line.Rate.Difference) > double::parse(Alerts.Coverage.Line.Rate.Difference.Threshold) or (int::parse(Alerts.Coverage.Lines.Executed.Diffential) > int::parse(Alerts.Coverage.Line.Count.Difference.Threshold))}">
+            <largeproperty name="Alerts.Coverage.IncreasedCoverage">
+              <value expand="true" xml="true">
+                ${Alerts.Coverage.IncreasedCoverage}
+                <li>${ClassName} - Line coverage increased by ${Alerts.Coverage.Lines.Executed.Diffential} lines.</li>
+              </value>
+            </largeproperty>
+          </if>
+          <if test="${double::parse(Alerts.Coverage.Branch.Rate.Difference) > double::parse(Alerts.Coverage.Branch.Rate.Difference.Threshold) or (int::parse(Alerts.Coverage.Branch.Executed.Diffential) > int::parse(Alerts.Coverage.Branch.Count.Difference.Threshold))}">
+            <largeproperty name="Alerts.Coverage.IncreasedCoverage">
+              <value expand="true" xml="true">
+                ${Alerts.Coverage.IncreasedCoverage}
+                <li>${ClassName} - Branch coverage increased by ${Alerts.Coverage.Branch.Executed.Diffential} branches.</li>
+              </value>
+            </largeproperty>
+          </if>
+
+          <if test="${(double::parse(Alerts.Coverage.Line.Rate.Difference) * -1) > double::parse(Alerts.Coverage.Line.Rate.Difference.Threshold) or ((int::parse(Alerts.Coverage.Lines.Executed.Diffential) * -1) > int::parse(Alerts.Coverage.Line.Count.Difference.Threshold))}">
+            <largeproperty name="Alerts.Coverage.DecreasedCoverage">
+              <value expand="true" xml="true">
+                ${Alerts.Coverage.DecreasedCoverage}
+                <li>${ClassName} - Line coverage decreased by ${int::parse(Alerts.Coverage.Lines.Executed.Diffential) * -1} lines.</li>
+              </value>
+            </largeproperty>
+          </if>
+          <if test="${(double::parse(Alerts.Coverage.Branch.Rate.Difference) * -1) > double::parse(Alerts.Coverage.Branch.Rate.Difference.Threshold) or ((int::parse(Alerts.Coverage.Branch.Executed.Diffential) * -1) > int::parse(Alerts.Coverage.Branch.Count.Difference.Threshold))}">
+            <largeproperty name="Alerts.Coverage.DecreasedCoverage">
+              <value expand="true" xml="true">
+                ${Alerts.Coverage.DecreasedCoverage}
+                <li>${ClassName} - Branch coverage decreased by ${int::parse(Alerts.Coverage.Branch.Executed.Diffential) * -1} branches.</li>
+              </value>
+            </largeproperty>
+          </if>
+        </if>
+      </do>
+    </loopthrough>
+
+    <ifnot test="${Alerts.Coverage.IncreasedCoverage==''}">
+      <largeproperty name="Alerts.Coverage.Increased.Report.Content">
+        <value expand="true" xml="true">
+          <p>Coverage increased on the following!</p>
+          <ul>
+            ${Alerts.Coverage.IncreasedCoverage}
+          </ul>
+        </value>
+      </largeproperty>
+    </ifnot>
+
+    <ifnot test="${Alerts.Coverage.DecreasedCoverage==''}">
+      <largeproperty name="Alerts.Coverage.Decreased.Report.Content">
+        <value expand="true" xml="true">
+          <p>Coverage decreased on the following!</p>
+          <ul>
+            ${Alerts.Coverage.DecreasedCoverage}
+          </ul>
+        </value>
+      </largeproperty>
+    </ifnot>
+  </target>
+
+  <target name="Alerts.Coverage.WriteToReportAppender">
+    <write
+      file="${Alerts.ReportAppenderFilePath}"
+      append="true"
+    >
+      <text expand="true" xml="true">
+        <alert name="Coverage">
+          <messages>
+            <message spin="${Alerts.Coverage.Message.Spin}">${Alerts.Coverage.Message}</message>
+          </messages>
+          <details>${Alerts.Coverage.DiffReport.Content}</details>
+        </alert>
+      </text>
+    </write>
+  </target>
+
+  <target name="Alerts.Coverage.GenerateThankYou">
+    <property name="Alerts.SendMessage.Subject" value="${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}: Thanks For Increasing the ${Alert.Coverage.Type} Code Coverage" />
+    
+    <largeproperty name="Alerts.SendMessage.Content">
+      <value expand="true" xml="true">
+        <html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}</a>
+            </p>
+
+            <p>${Alerts.Developer.Name},</p>
+            <p>Thank you for increasing the code coverage.</p>
+            <br/>
+            ${Alerts.Coverage.Increased.Report.Content}
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>
+      </value>
+    </largeproperty>
+  </target>
+
+  <target name="Alerts.Coverage.GenerateWarning">
+    <property name="Alerts.SendMessage.Subject" value="${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}: Did You Mean to Decrease the ${Alert.Coverage.Type} Code Coverage?" />
+
+    <largeproperty name="Alerts.SendMessage.Content">
+      <value expand="true" xml="true">
+        <html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}</a>
+            </p>
+
+            <p>${Alerts.Developer.Name},</p>
+            <p>Please take note that you have decreased the code coverage.</p>
+            <br/>
+            ${Alerts.Coverage.Decreased.Report.Content}
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>
+      </value>
+    </largeproperty>
+  </target>
+  
+</project>

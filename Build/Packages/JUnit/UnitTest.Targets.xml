@@ -1,0 +1,99 @@
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="UnitTest">
+  
+	<target name="UnitTest.RunTests">
+    <function execute="${property::destroy('UnitTest.Failed')}"/>
+    <trycatch>
+      <try>
+        <trycatch>
+          <try>
+            <ant
+              target="unittest.run"
+              buildfile="${Ant.Build.File.Path}"
+              logfile="${Ant.Log.Directory.Path}\unittest_log.xml"
+            >
+              <environment refid="${Common.EnvironmentVariables.RefId}"/>
+              <args>
+                <arg line="-Dcompile.debug=${Compile.Debug}"/>
+              </args>
+            </ant>
+
+            <property name="UnitTest.Failed" value="false"/>
+          </try>
+          <catch property="exception">
+            <property name="UnitTest.Failed" value="true"/>
+          </catch>
+        </trycatch>
+
+        <ant
+          target="unittest.write.report"
+          buildfile="${Ant.Build.File.Path}"
+          logfile="${Ant.Log.Directory.Path}\unittest.report_log.xml"
+        >
+          <environment refid="${Common.EnvironmentVariables.RefId}"/>
+          <args>
+            <arg line="-Dcompile.debug=${Compile.Debug}"/>
+          </args>
+        </ant>
+        
+        <property name="UnitTest.Failed" value="false" overwrite="false"/>
+      </try>
+      <catch property="exception">
+        <property name="UnitTest.Failed" value="true"/>
+      </catch>
+    </trycatch>
+    
+		<copy failonerror="false" overwrite="true" flatten="true" todir="${UnitTestReportsDirectoryPath}" verbose="true">
+			<fileset basedir="${Common.Directory.Product.Path}\unit-test-reports">
+				<include name="UnitTests.xml" />
+			</fileset>
+		</copy>
+
+    <copy
+			file='${UnitTestReportsDirectoryPath}\UnitTests.xml'
+			todir='${Common.Directory.Artifact.Path}'
+			if="${UnitTest.PublishXmlReport and file::exists(UnitTestReportsDirectoryPath + '\UnitTests.xml')}"
+		/>
+
+    <if test="${UnitTest.Failed}">
+      <fail message="Something went wrong while executing the unit tests.  Please check the Ant Report."/>
+    </if>
+	</target>
+
+	<target name="UnitTest.ShowReport">
+		<property name="Common.ShowReport.XmlFile" value="${UnitTestReportsDirectoryPath}\unittests.xml"/>
+		<property name="Common.ShowReport.HtmlFile" value="${UnitTestReportsDirectoryPath}\TestReport.html"/>
+		<property name="Common.ShowReport.XslFile" value="${Common.Directory.Packages.Path}\JUnit\junit-noframes.xsl"/>
+		<property name="Common.ShowReport.DetailsFilePath" value=""/>
+
+		<call target="Common.ShowReport"/>
+	</target>
+
+	<target name="UnitTest.SetUp">
+    <delete dir="${UnitTestReportsDirectoryPath}" if="${directory::exists(UnitTestReportsDirectoryPath)}" verbose="true"/>
+    <mkdir dir="${UnitTestReportsDirectoryPath}" verbose="true"/>
+	</target>
+
+	<target name="UnitTest.TearDown">
+
+	</target>
+  
+  <target name="Personal.UnitTest">
+    <trycatch>
+      <try>
+        <call target="UnitTest.SetUp"/>
+
+        <property name="Ant.Log.File.Path" value="${Ant.Log.Directory.Path}\unittest_log.xml"/>
+        <call target="UnitTest.RunTests"/>
+      </try>
+      <catch property="ExceptionMessage">
+        <call target="UnitTest.ShowReport"/>
+        <call target="Ant.ShowReport"/>
+        <fail message="Please see the report opened in your browser for more detail.${NewLine}${ExceptionMessage}"/>
+      </catch>
+      <finally>
+        <call target="UnitTest.TearDown"/>
+      </finally>
+    </trycatch>
+  </target>
+
+</project>

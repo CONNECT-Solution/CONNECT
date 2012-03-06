@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Analytics.UnitTests">
+
+  <fileset id="Analytics.UnitTests">
+    <include name="${Common.Directory.Packages.Path}\Analytics\UnitTests\UnitTests.Statistics.xml"/>
+  </fileset>
+  
+  <property name="Analytics.UnitTests.Success" value="False"/>
+
+  <target name="Analytics.UnitTests">
+    <echo message="Generating UnitTests"/>
+
+    <property name="Analytics.XmlInputFileName" value="${Common.Directory.Artifact.Path}\unittests.xml"/>
+
+    <ifnot test="${file::exists(Analytics.XmlInputFileName)}">
+      <property name="Analytics.XmlInputFileName" value="${Common.Directory.Artifact.Path}\${string::replace(ProjectName, ' ', '_')}UnitTests.xml"/>
+    </ifnot>
+
+    <ifnot test="${file::exists(Analytics.XmlInputFileName)}">
+      <property name="Analytics.XmlInputFileName" value="${Common.Directory.Artifact.Path}\IntegrationTests.xml"/>
+    </ifnot>
+
+    <echo message="${Analytics.XmlInputFileName}"/>
+
+    <if test="${file::exists(Analytics.XmlInputFileName)}">
+      <property name="Analytics.XslFilePath" value="${Common.Directory.Packages.Path}\Analytics\UnitTests\UnitTests.Publisher.xsl"/>
+      <property name="Analytics.XmlReportFileName" value="UnitTestsContent.xml"/>
+      <property name="Analytics.CopyFileSetRefId" value="Analytics.UnitTests"/>
+      <property name="Analytics.Append" value="true"/>
+      <call target="Analytics.CompileReport" failonerror="false"/>
+      <property name="Analytics.UnitTests.Success" value="True"/>
+    </if>
+  </target>
+
+  <fileset id="Analytics.UnitTestsCountsLineChartData">
+    <include name="${Common.Directory.Packages.Path}\Analytics\UnitTests\UnitTestsCountsLineChartData.xml"/>
+  </fileset>
+
+  <target name="Analytics.UnitTestsCountsLineChartData" if="${Analytics.UnitTests.Success}">
+    <property name="Analytics.UnitTests.Success" value="False"/>
+    <echo message="Generating UnitTestsCountsLineChartData"/>
+    <delete>
+      <fileset>
+        <include name="${Analytics.ContentDirectoryPath}\UnitTestsCountsHistoryLineXAxis.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\UnitTestsCountsHistoryTotal.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\UnitTestsCountsHistoryPassed.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\UnitTestsCountsHistoryIgnored.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\UnitTestsCountsHistoryFailed.xml"/>
+      </fileset>
+    </delete>
+    <property name="Analytics.XmlInputFileName" value="${Analytics.ContentDirectoryPath}\UnitTests.Statistics.xml"/>
+    <property name="Analytics.XslFilePath" value="${Common.Directory.Packages.Path}\Analytics\UnitTests\UnitTestsCountsLineChartData.Publisher.xsl"/>
+    <property name="Analytics.XmlReportFileName" value="UnitTestsCountsHistoryLineXAxis.xml"/>
+    <property name="Analytics.CopyFileSetRefId" value="Analytics.UnitTestsCountsLineChartData"/>
+    <property name="Analytics.Append" value="false"/>
+
+    <property name="Analytics.UnitTestsCountsLineChartData.Data" value=""/>
+    <xmlpeek property="Analytics.UnitTestsCountsLineChartData.Data"
+      file="${Analytics.ContentDirectoryPath}\UnitTests.Statistics.xml"
+      nodeindex="0"
+      xpath="/Builds/integration[position() > last()-200]"
+      failonerror="False"/>
+
+    <call if="${Analytics.UnitTestsCountsLineChartData.Data != ''}" target="Analytics.CompileReport"/>
+  </target>
+  
+</project>

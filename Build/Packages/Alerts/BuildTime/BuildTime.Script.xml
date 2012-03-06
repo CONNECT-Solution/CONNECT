@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.BuildTime.Script">
+
+	<property name="Alerts.BuildTime.AbsoluteThreshold" value="00:21:00"/>
+  <property name="Alerts.BuildTime.IncreaseThreshold" value="00:03:00"/>
+
+  <property name="Alerts.BuildTime.PreviousPropertiesFilePath" value="${Common.Directory.Packages.Path}\Alerts\BuildTime\${CCNetProject}.Previous.Properties.xml"/>
+  <ifthenelse test="${file::exists(Alerts.BuildTime.PreviousPropertiesFilePath)}">
+    <then>
+      <include buildfile="${Alerts.BuildTime.PreviousPropertiesFilePath}" />
+    </then>
+    <else>
+      <echo level="Warning" message="File Does Not Exist: ${Alerts.BuildTime.PreviousPropertiesFilePath}"/>
+    </else>
+  </ifthenelse>
+
+  <!-- Begin Previous Properties -->
+  <property name="Alerts.BuildTime.PreviousAbsolute" value="NaN" overwrite="false"/>
+  <!-- End Previous Properties -->
+
+  <property name="Alerts.BuildTime.ChartUrl" value="http://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/${Common.Directory.Packages.Name}/Analytics/charts.swf?library_path=/${ProjectName}-${ProjectCodeLineName}/${Common.Directory.Packages.Name}/Analytics/charts_library&amp;xml_source=/${ProjectName}-${ProjectCodeLineName}/${Common.Directory.ArtifactRoot.Name}/${Common.Directory.Artifact.Name}/BuildTimeHistoryChartData.xml"/>
+  
+  <target name="Alerts.BuildTime" if="${CCNetIntegrationStatus == 'Success'}">
+    <xmlpeek
+      file="${Alerts.BuildLog}"
+      xpath="/cruisecontrol/build/@buildtime"
+      property="Alerts.BuildTime.CurrentAbsolute"
+		/>
+
+    <property name="Alerts.SendMessage.ToList" value="${Alerts.Message.CCList}" />
+    <property name="Alerts.SendMessage.CCList" value="" />
+
+    <echo message="Alerts.BuildTime.CurrentAbsolute = '${Alerts.BuildTime.CurrentAbsolute}'"/>
+
+    <ifthenelse test="${timespan::parse(Alerts.BuildTime.CurrentAbsolute) > timespan::parse(Alerts.BuildTime.AbsoluteThreshold)}">
+      <then>
+        <call target="Alerts.BuildTime.GenerateAbsoluteWarning"/>
+        <call target="Alerts.SendMessage"/>
+      </then>
+    </ifthenelse>
+
+    <if test="${Alerts.BuildTime.PreviousAbsolute != 'NaN'}">
+      <property name="Alerts.BuildTime.CurrentIncrease" value="${timespan::parse(Alerts.BuildTime.CurrentAbsolute)-timespan::parse(Alerts.BuildTime.PreviousAbsolute)}" />
+      <ifthenelse test="${timespan::parse(Alerts.BuildTime.CurrentIncrease) > timespan::parse(Alerts.BuildTime.IncreaseThreshold)}">
+        <then>
+          <call target="Alerts.BuildTime.GenerateIncreaseWarning"/>
+          <call target="Alerts.SendMessage"/>
+        </then>
+      </ifthenelse>
+    </if>
+
+    <saveproperties file="${Alerts.BuildTime.PreviousPropertiesFilePath}" format="Include">
+      <property name="Alerts.BuildTime.PreviousAbsolute" value="${Alerts.BuildTime.CurrentAbsolute}"/>
+    </saveproperties>
+  </target>
+
+  <target name="Alerts.BuildTime.GenerateIncreaseWarning">
+    <property name="Alerts.SendMessage.Subject" value="${CCNetProject} ${CCNetLabel}: Build Duration Has Jumped!" />
+
+    <property name="Alerts.BuildTime.WaringTableBody" value=""/>
+
+    <largeproperty name="Alerts.SendMessage.Content">
+      <value expand="true" xml="true">
+        <html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${CCNetProject} ${CCNetLabel}</a>
+            </p>
+
+            <p>Build Master,</p>
+            <p>Please take note that the build duration has increased in execess of ${Alerts.BuildTime.IncreaseThreshold}.  The current build duration is ${Alerts.BuildTime.CurrentAbsolute} increasing by ${Alerts.BuildTime.CurrentIncrease}.  The previous build duration was ${Alerts.BuildTime.PreviousAbsolute}</p>
+            <br/>
+            <div>
+              <OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+                 codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+                 WIDTH="400"
+                 HEIGHT="250"
+                 id="charts"
+                 ALIGN=""
+              >
+                <PARAM NAME="movie" value="${Alerts.BuildTime.ChartUrl}">
+                </PARAM>
+                <PARAM NAME="quality" VALUE="high"/>
+                <PARAM NAME="bgcolor" VALUE="#666666"/>
+
+                <EMBED
+                   quality="high"
+                   bgcolor="#666666"
+                   WIDTH="700"
+                   HEIGHT="350"
+                   NAME="charts"
+                   ALIGN=""
+                   swLiveConnect="true"
+                   TYPE="application/x-shockwave-flash"
+                   PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"
+                   src="${Alerts.BuildTime.ChartUrl}"
+                >
+                </EMBED>
+              </OBJECT>
+            </div>
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>
+      </value>
+    </largeproperty>
+  </target>
+
+  <target name="Alerts.BuildTime.GenerateAbsoluteWarning">
+    <property name="Alerts.SendMessage.Subject" value="${CCNetProject} ${CCNetLabel}: Build Running Too Long!" />
+
+    <largeproperty name="Alerts.SendMessage.Content">
+      <value expand="true" xml="true">
+        <html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${CCNetProject} ${CCNetLabel}</a>
+            </p>
+
+            <p>Build Master,</p>
+            <p>Please take note that the build duration has execeeded ${Alerts.BuildTime.AbsoluteThreshold}.  The current build duration is ${Alerts.BuildTime.CurrentAbsolute}.</p>
+            <br/>
+            <div>
+              <OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+                 codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+                 WIDTH="400"
+                 HEIGHT="250"
+                 id="charts"
+                 ALIGN=""
+              >
+                <PARAM NAME="movie" value="${Alerts.BuildTime.ChartUrl}">
+                </PARAM>
+                <PARAM NAME="quality" VALUE="high"/>
+                <PARAM NAME="bgcolor" VALUE="#666666"/>
+
+                <EMBED
+                   quality="high"
+                   bgcolor="#666666"
+                   WIDTH="700"
+                   HEIGHT="350"
+                   NAME="charts"
+                   ALIGN=""
+                   swLiveConnect="true"
+                   TYPE="application/x-shockwave-flash"
+                   PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"
+                   src="${Alerts.BuildTime.ChartUrl}"
+                >
+                </EMBED>
+              </OBJECT>
+            </div>
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>
+      </value>
+    </largeproperty>
+  </target>
+	
+</project>

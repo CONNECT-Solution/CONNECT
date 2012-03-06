@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SourceModificationReport">
+
+	<!-- The following properties are for internal use only -->
+	<property name="Private.SourceModificationReport.OldSourceModificationReportFile" value="${SourceModificationReport.ReportDirectory}\OldSourceModificationReport.xml" />
+
+	<!-- The following properties are outputs -->
+	<property name="SourceModificationReport.OldestModificationTime" value=""/>
+
+	<!-- ************* Targets ************* -->
+
+	<target name="SourceModificationReport.GetOldestModificationTime">
+		<script language="VB">
+			<references>
+				<include name="${Tools.NAnt.Bin}\ThoughtWorks.CruiseControl.Core.dll" />
+			</references>
+			<imports >
+				<import namespace="System.Xml"/>
+			</imports >
+			<code>
+				<![CDATA[
+
+					Public Shared Sub ScriptMain(ByVal project As NAnt.Core.Project)
+						Dim pd As PropertyDictionary = project.Properties
+            Dim OldestModificationTime As DateTime = DateTime.Now.Subtract(New TimeSpan(100, 0, 0, 0))
+            Dim HoldOldestModificationTime as DateTime = OldestModificationTime
+						Dim ModificationList As ThoughtWorks.CruiseControl.Remote.Modification()
+						ModificationList = Deserialize(GetType(ThoughtWorks.CruiseControl.Remote.Modification()), pd("SourceModificationReport.ReportFile"))
+						
+            For Each modification As ThoughtWorks.CruiseControl.Remote.Modification In ModificationList
+						  If OldestModificationTime.CompareTo(modification.ModifiedTime) < 0 Then
+                OldestModificationTime = modification.ModifiedTime
+              End If
+            Next
+            If HoldOldestModificationTime.ToString = OldestModificationTime.ToString Then
+              OldestModificationTime = DateTime.Now()
+            End If
+            pd("SourceModificationReport.OldestModificationTime") = OldestModificationTime.ToString
+					End Sub
+					
+					Private Shared Function Deserialize(ByVal ObjectType As System.Type, ByVal SourceFile As String) As Object
+						Dim mySerializer As System.Xml.Serialization.XmlSerializer = New System.Xml.Serialization.XmlSerializer(ObjectType)
+						Dim myFileStream As System.IO.FileStream
+				
+						Try
+							myFileStream = New System.IO.FileStream(SourceFile, System.IO.FileMode.Open, IO.FileAccess.Read)
+							return mySerializer.Deserialize(myFileStream)
+						Finally
+							If Not myFileStream Is Nothing Then
+								myFileStream.Close()
+							End If
+						End Try
+					End Function
+				
+      ]]>
+			</code>
+		</script>
+	</target>
+
+	<target name="SourceModificationReport.ConsolidateReports" >
+		<if test="${CCNetLastIntegrationStatus   != 'Success' and file::exists(Private.SourceModificationReport.OldSourceModificationReportFile)}" >
+			<script language="VB">
+				<references>
+					<include name="${Tools.NAnt.Bin}\ThoughtWorks.CruiseControl.Core.dll" />
+				</references>
+				<imports >
+					<import namespace="System.Xml"/>
+				</imports >
+				<code>
+					<![CDATA[
+
+					Public Shared Sub ScriptMain(ByVal project As NAnt.Core.Project)
+						Dim pd As PropertyDictionary = project.Properties
+						Dim NewModificationList As ThoughtWorks.CruiseControl.Remote.Modification()
+						Dim OldModificationList As ThoughtWorks.CruiseControl.Remote.Modification()
+						NewModificationList = Deserialize(GetType(ThoughtWorks.CruiseControl.Remote.Modification()), pd("SourceModificationReport.ReportFile"))
+						OldModificationList = Deserialize(GetType(ThoughtWorks.CruiseControl.Remote.Modification()), pd("Private.SourceModificationReport.OldSourceModificationReportFile"))
+						Dim CombineModificationList(NewModificationList.Length + OldModificationList.Length - 1) As ThoughtWorks.CruiseControl.Remote.Modification
+						Dim Count As Integer
+						For Each modi As ThoughtWorks.CruiseControl.Remote.Modification In NewModificationList
+							CombineModificationList(Count) = modi
+							Count += 1
+						Next
+						For Each modi As ThoughtWorks.CruiseControl.Remote.Modification In OldModificationList
+							CombineModificationList(Count) = modi
+							Count += 1
+						Next
+						Serialize(CombineModificationList, pd("SourceModificationReport.ReportFile"))
+					End Sub
+					
+					Private Shared Function Deserialize(ByVal ObjectType As System.Type, ByVal SourceFile As String) As Object
+						Dim mySerializer As System.Xml.Serialization.XmlSerializer = New System.Xml.Serialization.XmlSerializer(ObjectType)
+						Dim myFileStream As System.IO.FileStream
+				
+						Try
+							myFileStream = New System.IO.FileStream(SourceFile, System.IO.FileMode.Open, IO.FileAccess.Read)
+							return mySerializer.Deserialize(myFileStream)
+						Finally
+							If Not myFileStream Is Nothing Then
+								myFileStream.Close()
+							End If
+						End Try
+					End Function
+					
+					Private Shared Sub Serialize(ByVal SourceObject As Object, ByVal SourceFile As String)
+							Dim stream As System.IO.FileStream
+							Try
+								stream = New System.IO.FileStream(SourceFile, System.IO.FileMode.Create, IO.FileAccess.Write)
+								Dim serializer As System.Xml.Serialization.XmlSerializer = _
+									New System.Xml.Serialization.XmlSerializer(SourceObject.GetType)
+								serializer.Serialize(stream, SourceObject)
+							Finally
+								If Not stream Is Nothing Then
+									stream.Close()
+								End If
+							End Try
+					End Sub
+				]]>
+				</code>
+			</script>
+		</if>
+		<copy
+		  file="${SourceModificationReport.ReportFile}"
+			  tofile="${Private.SourceModificationReport.OldSourceModificationReportFile}"
+			  verbose="true"
+		/>
+    <copy todir="${Common.Directory.Artifact.Path}" file="${SourceModificationReport.ReportFile}" if="${file::exists(SourceModificationReport.ReportFile)}" />
+	</target>
+
+	<target name="SourceModificationReport.PublishOldSource">
+		<mkdir dir="${SourceModificationReport.OldSourcePath}" unless="${directory::exists(SourceModificationReport.OldSourcePath)}"/>
+
+		<copy todir="${SourceModificationReport.OldSourcePath}" verbose="true">
+			<fileset basedir="${Common.Directory.Product.Path}" refid="SourceModificationReport.ModificationList" />
+		</copy>
+	</target>
+
+	<target name="SourceModificationReport.PublishNewSource">
+		<mkdir dir="${SourceModificationReport.NewSourcePath}" unless="${directory::exists(SourceModificationReport.NewSourcePath)}"/>
+
+		<copy todir="${SourceModificationReport.NewSourcePath}">
+			<fileset refid="SourceModificationReport.ModificationList" />
+		</copy>
+	</target>
+
+	<target name="SourceModificationReport.CreateModificationList">
+		<fileset  basedir="${Common.Directory.Product.Path}" id="SourceModificationReport.ModificationList" />
+
+    <if test="${file::exists(SourceModificationReport.ReportFile)}">
+		  <xmlquery
+		    file="${SourceModificationReport.ReportFile}"
+        id="FileNames"
+        query="//Modification/FileName"
+      />
+
+		  <property name="index" value="0" />
+
+		  <loopthrough property="FileName">
+			  <items>
+				  <xmlquery refid="FileNames" />
+			  </items>
+			  <do>
+
+				  <xmlpeek
+				    file="${SourceModificationReport.ReportFile}"
+				    property="DirtySCPath"
+				    xpath="//Modification/FolderName"
+				    nodeindex="${index}"
+          />
+
+				  <trycatch>
+					  <try>
+						  <regex input="${DirtySCPath}" pattern=".*${ProjectCodeLineName}(/|\\)${Common.Directory.Product.Name}(/|\\|)(?'CleanSCPath'.*)"/>
+						  <property name="PartialModificationFilePath" value="${path::combine(CleanSCPath, FileName)}"/>
+						  <property name="ModificationFilePath" value="${path::combine(Common.Directory.Product.Path, PartialModificationFilePath)}"/>
+
+						  <echo message="Adding ${ModificationFilePath} to modification list."/>
+
+						  <function execute="${fileset::include-add('SourceModificationReport.ModificationList', ModificationFilePath)}"/>
+					  </try>
+					  <catch/>
+				  </trycatch>
+
+				  <property name="index" value="${int::parse(index) + 1}" />
+			  </do>
+		  </loopthrough>
+    </if>
+  </target>
+
+	<target name="SourceModificationReport.SetUp">
+		<mkdir unless="${directory::exists(SourceModificationReport.ReportDirectory)}" dir="${SourceModificationReport.ReportDirectory}"/>
+
+		<call target="SourceModificationReport.CreateModificationList"/>
+	</target>
+
+	<target name="SourceModificationReport.TearDown">
+
+	</target>
+
+</project>

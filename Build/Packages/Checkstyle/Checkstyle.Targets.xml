@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Checkstyle">
+
+  <target name="Checkstyle.Run">
+    <ant
+          target="checkstyle"
+          buildfile="${Ant.Build.File.Path}"
+          logfile="${Ant.Log.Directory.Path}\checkstyle_log.xml"
+          listenerFile="${path::get-directory-name(CCNetListenerFile)}/CheckStyleListener.txt"
+    >
+      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <args/>
+    </ant>
+
+    <copy todir="${Common.Directory.Artifact.Path}\CheckstyleReport" if="${Checkstyle.PublishReport}" failonerror="True" verbose="True">
+      <fileset basedir="${Common.Directory.Product.Path}\CheckstyleReport">
+        <include name="*.xml"/>
+        <include name="*.html"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="Checkstyle.SetUp">
+  </target>
+
+  <target name="Checkstyle.TearDown">
+  </target>
+
+  <target name="Checkstyle.Main">
+    <trycatch>
+      <try>
+        <call target="Checkstyle.SetUp"/>
+        <call target="Checkstyle.Run"/>
+      </try>
+      <finally>
+        <call target="Checkstyle.TearDown"/>
+      </finally>
+    </trycatch>
+  </target>
+
+</project>

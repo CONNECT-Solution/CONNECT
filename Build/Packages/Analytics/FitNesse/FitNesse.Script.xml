@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Analytics.FitNesse">
+
+  <fileset id="Analytics.FitNesse">
+    <include name="${Common.Directory.Packages.Path}\Analytics\FitNesse\FitNesse.Statistics.xml"/>
+  </fileset>
+  
+  <strings id="FitNesseSuites">
+    <string value="RegressionSuite"/>
+    <string value="DevelopmentIterationSuite"/>
+    <string value="BugSuite"/>
+  </strings>
+  
+  <property name="Analytics.FitNesse.Success" value="False"/>
+
+  <target name="Analytics.FitNesse">
+    <echo message="Generating FitNesse"/>
+
+    <property name="Analytics.XslFilePath" value="${Common.Directory.Packages.Path}\Analytics\FitNesse\FitNesse.Publisher.xsl"/>
+    
+    <property name="Analytics.CopyFileSetRefId" value="Analytics.FitNesse"/>
+    <property name="Analytics.Append" value="true"/>
+
+    <loopthrough property="FitNesseSuite">
+      <items>
+        <strings refid="FitNesseSuites"/>
+      </items>
+      <do>
+        <property name="Analytics.XmlReportFileName" value="${FitNesseSuite}FitNesseContent.xml"/>
+        <property name="Analytics.XmlInputFileName" value="${Common.Directory.Artifact.Path}\${FitNesseSuite}FitNesseReport.xml"/>
+
+        <if test="${file::exists(Analytics.XmlInputFileName)}">
+          <write file="${Common.Directory.Packages.Path}\Analytics\FitNesse\FitNesse.dtd">
+            <text expand="true" xml="false">
+              <![CDATA[<!ENTITY FitNesseSuite '${FitNesseSuite}'>]]>
+            </text>
+          </write>
+          <write file="${Analytics.ContentDirectoryPath}\FitNesse.dtd" >
+            <text expand="true" xml="false">
+              <![CDATA[<!ENTITY FitNesseSuite '${FitNesseSuite}'>]]>
+            </text>
+          </write>
+
+          <function execute="${filterchain::replacestring-add('Analytics.CompileReport.XmlFileToCopy.filterchain', '&amp;FitNesseSuite;', FitNesseSuite)}"/>
+
+          <trycatch>
+            <try>
+              <call target="Analytics.CompileReport"/>
+              <move file="${Common.Directory.Artifact.Path}\FitNesse.Statistics.xml" tofile="${Common.Directory.Artifact.Path}\${FitNesseSuite}FitNesse.Statistics.xml" overwrite="true" />
+              <property name="Analytics.FitNesse.${FitNesseSuite}.Success" value="True"/>
+            </try>
+            <catch property="exception">
+              <echo level="Error" message="${exception}"/>
+            </catch>
+          </trycatch>
+        </if>
+      </do>
+    </loopthrough>
+  </target>
+
+  <fileset id="Analytics.FitNesseCountsLineChartData">
+    <include name="${Common.Directory.Packages.Path}\Analytics\FitNesse\FitNesseCountsLineChartData.xml"/>
+  </fileset>
+  
+
+  <target name="Analytics.FitNesseCountsLineChartData">
+    <loopthrough property="FitNesseSuite">
+      <items>
+        <strings refid="FitNesseSuites"/>
+      </items>
+      <do>
+        <if test="${property::exists('Analytics.FitNesse.' + FitNesseSuite + '.Success') and property::get-value('Analytics.FitNesse.' + FitNesseSuite + '.Success')}">
+          <property name="Analytics.FitNesse.${FitNesseSuite}.Success" value="False"/>
+          <echo message="Generating ${FitNesseSuite}FitNesseCountsLineChartData"/>
+
+          <delete>
+            <fileset>
+              <include name="${Analytics.ContentDirectoryPath}\FitNesseCountsHistoryLineXAxis.xml"/>
+              <include name="${Analytics.ContentDirectoryPath}\FitNesseCountsHistoryTotal.xml"/>
+              <include name="${Analytics.ContentDirectoryPath}\FitNesseCountsHistoryPassed.xml"/>
+              <include name="${Analytics.ContentDirectoryPath}\FitNesseCountsHistoryException.xml"/>
+              <include name="${Analytics.ContentDirectoryPath}\FitNesseCountsHistoryFailed.xml"/>
+              <include name="${Analytics.ContentDirectoryPath}\FitNesseCountsHistoryTitle.xml"/>
+            </fileset>
+          </delete>
+          
+          <property name="Analytics.XmlInputFileName" value="${Common.Directory.Artifact.Path}\${FitNesseSuite}FitNesse.Statistics.xml"/>
+          <property name="Analytics.XslFilePath" value="${Common.Directory.Packages.Path}\Analytics\FitNesse\FitNesseCountsLineChartData.Publisher.xsl"/>
+          <property name="Analytics.XmlReportFileName" value="FitNesseCountsHistoryLineXAxis.xml"/>
+          <property name="Analytics.CopyFileSetRefId" value="Analytics.FitNesseCountsLineChartData"/>
+          <property name="Analytics.Append" value="false"/>
+
+          <property name="Analytics.FitNesseCountsLineChartData.Data" value=""/>
+          <xmlpeek 
+            property="Analytics.FitNesseCountsLineChartData.Data"
+            file="${Common.Directory.Artifact.Path}\${FitNesseSuite}FitNesse.Statistics.xml"
+            nodeindex="0"
+            xpath="/Builds/integration[position() > last()-200]"
+            failonerror="False"
+          />
+
+          <write file="${Common.Directory.Packages.Path}\Analytics\FitNesse\FitNesse.dtd">
+            <text expand="true" xml="false">
+              <![CDATA[<!ENTITY FitNesseSuite '${FitNesseSuite}'>]]>
+            </text>
+          </write>
+          <write file="${Analytics.ContentDirectoryPath}\FitNesse.dtd" >
+            <text expand="true" xml="false">
+              <![CDATA[<!ENTITY FitNesseSuite '${FitNesseSuite}'>]]>
+            </text>
+          </write>
+
+          <function execute="${filterchain::replacestring-add('Analytics.CompileReport.XmlFileToCopy.filterchain', '&amp;FitNesseSuite;', FitNesseSuite)}"/>
+
+          <trycatch>
+            <try>
+              <call if="${Analytics.FitNesseCountsLineChartData.Data != ''}" target="Analytics.CompileReport"/>
+              <move file="${Common.Directory.Artifact.Path}\FitNesseCountsLineChartData.xml" tofile="${Common.Directory.Artifact.Path}\${FitNesseSuite}FitNesseCountsLineChartData.xml" overwrite="true"/>
+            </try>
+            <catch property="exception">
+              <echo level="Error" message="${exception}"/>
+            </catch>
+          </trycatch>
+        </if>
+      </do>
+    </loopthrough>
+  </target>
+  
+</project>

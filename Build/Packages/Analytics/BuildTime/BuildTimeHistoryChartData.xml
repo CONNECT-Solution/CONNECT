@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chart [
+  <!ENTITY % entities SYSTEM "entities.dtd">
+
+  %entities;
+
+  
+  <!ENTITY XAxis                    SYSTEM    "BuildHistoryXAxis.xml">
+  <!ENTITY Total                    SYSTEM    "BuildHistoryTotal.xml">
+  <!ENTITY Compile                  SYSTEM    "BuildHistoryCompile.xml">
+  <!ENTITY ProductSourceUpdate      SYSTEM    "BuildHistoryProduceSourceUpdate.xml">
+  <!ENTITY ThirdPartySourceUpdate   SYSTEM    "BuildHistoryThirdPartySourceUpdate.xml">
+  <!ENTITY UnitTests                SYSTEM    "BuildHistoryUnitTests.xml">
+]>
+<chart>
+
+  <chart_data>
+    <row>
+      <null/>
+      &XAxis;
+    </row>
+    <row>
+      <string>Total</string>
+      &Total;
+    </row>
+    <row>
+      <string>Compile</string>
+      &Compile;
+    </row>
+    <row>
+      <string>Product Source Update</string>
+      &ProductSourceUpdate;
+    </row>
+    <row>
+      <string>Third Party Source Update</string>
+      &ThirdPartySourceUpdate;
+    </row>
+    <row>
+      <string>UnitTests</string>
+      &UnitTests;
+  </row>
+  </chart_data>
+
+  <chart_type>
+    <string>line</string>
+    <string>line</string>
+    <string>area</string>
+    <string>area</string>
+    <string>area</string>
+  </chart_type>
+  <axis_category skip='50' />
+
+  <draw>
+    <text color='000000' rotation='-90' size='35' x='5' y='275' width='200' height='80' h_align='center'>Seconds</text>
+  </draw>
+</chart>

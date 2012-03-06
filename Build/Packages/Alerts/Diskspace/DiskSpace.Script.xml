@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.DiskSpace.Script">
+
+	<property name="DiskSpaceThreshold" value="2"/>
+
+  <target name="Alerts.DiskSpace">
+
+		<property name="DiskSpace" value="${drive::get-avalible-space(path::get-path-root(Common.Directory.CodeLine.Path)) / 1024 / 1024 / 1024}"/>
+
+    <echo message="DiskSpace is ${DiskSpace}"/>
+
+    <property name="Alerts.SendMessage.ToList" value="${Alerts.Developer.Email}" />
+    <property name="Alerts.SendMessage.CCList" value="${Alerts.Message.CCList}" />
+
+    <ifthenelse test="${int::parse(DiskSpaceThreshold) > int::parse(DiskSpace)}">
+      <then>
+        <call target="Alerts.DiskSpace.GenerateWarning"/>
+        <call target="Alerts.SendMessage"/>
+      </then>
+    </ifthenelse>
+  </target>
+
+  <target name="Alerts.DiskSpace.GenerateWarning">
+    <property name="Alerts.SendMessage.Subject" value="${CCNetProject} ${CCNetLabel}: Running out of disk space!" />
+
+    <largeproperty name="Alerts.SendMessage.Content">
+      <value expand="true" xml="true">
+        <html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${CCNetProject} ${CCNetLabel}</a>
+            </p>
+
+            <p>Build Master,</p>
+            <p>Please take note that there are ${DiskSpace} Gigs left avalible on the ${path::get-path-root(Common.Directory.CodeLine.Path)} drive.</p>
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>
+      </value>
+    </largeproperty>
+  </target>
+
+	<script language="C#" prefix="drive" >
+		<imports>
+			<import namespace="System.IO" />
+		</imports>
+
+		<code>
+			<![CDATA[
+         [Function("get-avalible-space")]
+         public static long GetAvalibleSpace(string drive)
+         {
+                 return new DriveInfo(drive).AvailableFreeSpace;
+         }
+      ]]>
+		</code>
+	</script>
+	
+</project>

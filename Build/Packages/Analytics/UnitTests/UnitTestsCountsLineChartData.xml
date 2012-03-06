@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chart [
+  <!ENTITY % entities SYSTEM "entities.dtd">
+
+  %entities;
+
+  
+  <!ENTITY XAxis    SYSTEM    "UnitTestsCountsHistoryLineXAxis.xml">
+  <!ENTITY Total    SYSTEM    "UnitTestsCountsHistoryTotal.xml">
+  <!ENTITY Passed   SYSTEM    "UnitTestsCountsHistoryPassed.xml">
+  <!ENTITY Ignored  SYSTEM    "UnitTestsCountsHistoryIgnored.xml">
+  <!ENTITY Failed   SYSTEM    "UnitTestsCountsHistoryFailed.xml">
+]>
+<chart>
+
+  <chart_data>
+    <row>
+      <null/>
+      &XAxis;
+    </row>
+    <row>
+      <string>Total</string>
+      &Total;
+    </row>
+    <row>
+      <string>Passed</string>
+      &Passed;
+    </row>
+    <row>
+      <string>Ignored</string>
+      &Ignored;
+    </row>
+    <row>
+      <string>Failed</string>
+      &Failed;
+    </row>
+  </chart_data>
+
+  <chart_type>line</chart_type>
+  <axis_category skip='50' />
+
+  <draw>
+    <text color='000000' rotation='-90' size='35' x='5' y='275' width='200' height='80' h_align='center'>Count</text>
+  </draw>
+</chart>

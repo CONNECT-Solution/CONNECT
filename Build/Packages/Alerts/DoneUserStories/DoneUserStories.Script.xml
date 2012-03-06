@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.DoneUserStories.Scripts">
+
+  <target name="Alerts.DoneUserStories">
+    <loadtasks assembly="${PackagesDirectory}\TargetProcess\bin\CIFactory.TargetProcess.NAnt.Tasks.dll" />
+
+    <ifthenelse test="${file::exists(PackagesDirectory + '\TargetProcess\TargetProcess.Credentials.xml')}">
+      <then>
+        <include buildfile="${PackagesDirectory}\TargetProcess\TargetProcess.Credentials.xml" />
+      </then>
+      <else>
+        <echo level="Warning" message="${PackagesDirectory}\TargetProcess\TargetProcess.Credentials.xml was not found. This might be okay, if say you are running a personal build."/>
+      </else>
+    </ifthenelse>
+
+    <connectioninformation
+      id="TargetProcess.ConnectionInformation"
+      rootserviceurl="http://tp.nhiegateway.org/TargetProcess2"
+      username="${TP.Username}"
+      password="${TP.Password}"
+	/>
+
+    <property name="TargetProcess.ReportFilePath" value="${Common.Project.TempDirectory}\TargetProcesss.xml" />
+
+    <strings id="stories"/>
+    <targetprocessgetcurrentuserstories project="NHIE-Gateway" userstorylistref="stories">
+      <connectioninformation refid ="TargetProcess.ConnectionInformation"/>
+    </targetprocessgetcurrentuserstories>
+
+    <targetprocessreport reportfilepath ="${TargetProcess.ReportFilePath}">
+      <connectioninformation refid ="TargetProcess.ConnectionInformation"/>
+      <storyids refid="stories"/>
+    </targetprocessreport>
+
+    <strings id="TargetProcess.UT.DefaultTestNames">
+      <string value="include the unit test name, soapui test name, document reference/link"/>
+      <string value="y"/>
+      <string value="yes"/>
+      <string value="true"/>
+    </strings>
+
+    <strings id="TargetProcess.UT.ExemptTestNames">
+      <string value="n"/>
+      <string value="no"/>
+      <string value="none"/>
+      <string value="false"/>
+      <string value="nan"/>
+      <string value="na"/>
+      <string value="-"/>
+      
+      <!--The 'All tests pass' is exempt and should later be made into a special case!-->
+      <string value="All tests pass"/>
+      
+      <string value=""/>
+    </strings>
+
+    <largeproperty name="NewLine">
+      <value>
+        <![CDATA[
+]]>
+      </value>
+    </largeproperty>
+
+    <xmlpeek
+      file="${TargetProcess.ReportFilePath}"
+      xpath="count(//Entity[CustomField[Name = 'UT']/Value = 'true' and @State = 'Done']/@Id)"
+      property="TargetProcess.DoneUserStoryCount"
+    />
+
+    <xmlpeek
+      file="${TargetProcess.ReportFilePath}"
+      xpath="count(//Entity[CustomField[Name = 'UT']/Value = 'true'])"
+      property="TargetProcess.UserStoryCount"
+    />
+
+    <largeproperty name="Email.Content.Begining">
+      <value expand="true" xml="false">
+        <![CDATA[<html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}</a>
+            </p>
+            
+            <p>All,</p>
+            <p>Out of ${TargetProcess.UserStoryCount} user stories in this sprint that requier tests ${TargetProcess.DoneUserStoryCount} are marked as 'Done'.</p>]]>
+      </value>
+    </largeproperty>
+    <property name="Report.Content" value=""/>
+
+    <property name="IssuesFound" value="false"/>
+    <property name="IssueCount" value="0"/>
+
+    <xmlquery
+      file="${TargetProcess.ReportFilePath}"
+      query="//Entity[CustomField[Name = 'UT']/Value = 'true' and @State = 'Done']/@Id"
+      id="TargetProcess.DoneUserStories"
+    />
+
+    <loopthrough property="TargetProcess.DoneUserStoryId">
+      <items>
+        <xmlquery refid="TargetProcess.DoneUserStories" />
+      </items>
+      <do>
+        <xmlpeek
+          file="${TargetProcess.ReportFilePath}"
+          xpath="//Entity[@Id = '${TargetProcess.DoneUserStoryId}']/@Name"
+          property="TargetProcess.DoneUserStoryName"
+        />
+        <xmlpeek
+          file="${TargetProcess.ReportFilePath}"
+          xpath="//Entity[@Id = '${TargetProcess.DoneUserStoryId}']/@HyperLink"
+          property="TargetProcess.DoneUserStoryHyperLink"
+        />
+
+        <function execute="${property::destroy('TargetProcess.UT.IsMissing')}"/>
+        <function execute="${property::destroy('TargetProcess.UT.NotExecuted')}"/>
+        <function execute="${property::destroy('TargetProcess.UT.Failed')}"/>
+
+        <echo message="${TargetProcess.DoneUserStoryName} - ${TargetProcess.DoneUserStoryId}"/>
+
+        <property name="Story.Issues" value=""/>
+
+        <property name="Confirmation.Count" value="0"/>
+        <xmlpeek
+          file="${TargetProcess.ReportFilePath}"
+          xpath="count(/TargetProcess/Entity[@Id = '${TargetProcess.DoneUserStoryId}']/Description/span[text()='Confirmation']/following-sibling::table/tbody/tr)"
+          property="Confirmation.Count"
+          outerxml="true"
+          failonerror="false"
+        />
+
+        <while condition="${int::parse(Confirmation.Count) > 1}">
+          <do>
+            <xmlpeek
+              file="${TargetProcess.ReportFilePath}"
+              xpath="/TargetProcess/Entity[@Id = '${TargetProcess.DoneUserStoryId}']/Description/span[text()='Confirmation']/following-sibling::table/tbody/tr[${Confirmation.Count}]/td[3]/descendant-or-self::*/text()"
+              property="TargetProcess.UT.Name"
+              outerxml="true"
+            />
+            <echo message="${TargetProcess.UT.Name}"/>
+            <xmlpeek
+              file="${TargetProcess.ReportFilePath}"
+              xpath="/TargetProcess/Entity[@Id = '${TargetProcess.DoneUserStoryId}']/Description/span[text()='Confirmation']/following-sibling::table/tbody/tr[${Confirmation.Count}]/td[2]/descendant-or-self::*/text()"
+              property="TargetProcess.UT.Confirmation"
+              outerxml="true"
+            />
+
+            <echo message="${TargetProcess.UT.Confirmation}"/>
+            <switch value="True">
+              <case value ="${stringlist::contains('TargetProcess.UT.ExemptTestNames', string::trim(string::to-lower(TargetProcess.UT.Name)))}" break="true">
+                <echo message="Ignoring test name: '${string::trim(TargetProcess.UT.Name)}'."/>
+              </case>
+              <case value ="${stringlist::contains('TargetProcess.UT.DefaultTestNames', string::trim(string::to-lower(TargetProcess.UT.Name))) or not string::contains(string::to-lower(TargetProcess.UT.Name), '.')}" break="true">
+                <property name="TargetProcess.UT.IsMissing" value="true"/>
+                <echo message="This is not a valid test: '${string::trim(TargetProcess.UT.Name)}'."/>
+                
+                <largeproperty name="Story.Issues">
+                  <value expand ="true" xml="true">
+                    ${Story.Issues}
+                    <tr style="border: inherit;">
+                      <td style="border: inherit;">${string::trim(TargetProcess.UT.Confirmation)}</td>
+                      <td style="border: inherit;">${string::trim(TargetProcess.UT.Name)}</td>
+                      <td style="border: inherit;">No tests defined</td>
+                    </tr>
+                  </value>
+                </largeproperty>
+              </case>
+              <default>
+                <property name="TargetProcess.UT.IsMissing" value="false" overwrite="false"/>
+
+                <echo message="Looking up execution status of: '${string::trim(TargetProcess.UT.Name)}'."/>
+
+                <property name="TargetProcess.TestStatusToGet" value="${string::trim(TargetProcess.UT.Name)}"/>
+                <call target="TargetProcess.GetTestStatus"/>
+              </default>
+            </switch>
+            <property name="Confirmation.Count" value="${int::parse(Confirmation.Count) - 1}"/>
+          </do>
+        </while>
+
+        <property name="TargetProcess.UT.IsMissing" value="true" overwrite="false"/>
+
+        <if test="${property::exists('TargetProcess.UT.NotExecuted') or property::exists('TargetProcess.UT.Failed') or bool::parse(TargetProcess.UT.IsMissing)}">
+          <largeproperty name="Report.Content">
+            <value expand="true" xml="false">
+            <![CDATA[${Report.Content}
+<p>
+  <a href="${TargetProcess.DoneUserStoryHyperLink}">
+    ${TargetProcess.DoneUserStoryId} - ${TargetProcess.DoneUserStoryName}
+  </a>
+</p>
+<table border="1" cellpadding="0" cellspacing="0" width="90%" style="border-style: solid; border-collapse: collapse; border-color: #403F8D; border-width: thin; color: #403F8D;">
+ <tbody style="border: inherit;">
+   <tr style="border: inherit;">
+    <th style="border: inherit;">
+      Confirmation
+    </th>
+    <th style="border: inherit;">
+      Unit Test
+    </th>
+    <th style="border: inherit;">
+      Issue
+    </th>
+   </tr>
+   ${Story.Issues}
+  </tbody>
+ </table>]]></value>
+          </largeproperty>
+          <property name="IssuesFound" value="true"/>
+          <property name="IssueCount" value="${int::parse(IssueCount) + 1}"/>
+        </if>
+
+        <if test="${property::exists('TargetProcess.UT.NotExecuted')}">
+          <echo message="It is ${TargetProcess.UT.NotExecuted} that some tests were not executed or have not been coded!"/>
+        </if>
+        <if test="${property::exists('TargetProcess.UT.Failed')}">
+          <echo message="It is ${TargetProcess.UT.Failed} that some tests failed!" />
+        </if>
+        <echo message="It is ${TargetProcess.UT.IsMissing} that some tests are missing!"/>
+        <echo message="*******************************"/>
+      </do>
+    </loopthrough>
+
+    <ifthenelse test="${IssuesFound}">
+      <then>
+        <property name="Alerts.SendMessage.Subject" value="${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}: ${IssueCount} User Stories have Issues" />
+
+        <largeproperty name="Alerts.SendMessage.Content">
+          <value expand="true" xml="false">
+            <![CDATA[${Email.Content.Begining}
+            ${Report.Content}
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>]]>
+          </value>
+        </largeproperty>
+
+        <property name="Alerts.DoneUserStories.Message" value="${IssueCount} User Stories have issues!"/>
+
+        <call target="Alerts.DoneUserStories.WriteToReportAppender"/>
+      </then>
+      <else>
+        <property name="Alerts.SendMessage.Subject" value="${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}: All User Stories are Good" />
+
+        <largeproperty name="Alerts.SendMessage.Content">
+          <value expand="true" xml="false">
+            <![CDATA[${Email.Content.Begining}
+            <p>All user stories are in good order.</p>
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>]]>
+          </value>
+        </largeproperty>
+      </else>
+    </ifthenelse>
+
+    <if test="${CCNetProject == ProjectName + '-' + ProjectCodeLineName + '-Release'}">
+      <property name="Alerts.SendMessage.ToList" value="jay.flowers@agilex.com;greg.pfister@agilex.com;brian.mowbray@agilex.com"/>
+      <property name="Alerts.SendMessage.CCList" value=""/>
+      <call target="Alerts.SendMessage"/>
+    </if>
+
+  </target>
+
+  <target name="Alerts.DoneUserStories.WriteToReportAppender">
+    <write
+      file="${Alerts.ReportAppenderFilePath}"
+      append="true"
+    >
+      <text expand="true" xml="true">
+        <alert name="DoneUserStories">
+          <messages>
+            <message spin="negative">${Alerts.DoneUserStories.Message}</message>
+          </messages>
+          <statistics>
+            <statistic name="UserStoryCount" value="${TargetProcess.UserStoryCount}" />
+            <statistic name="DoneUserStoryCount" value="${TargetProcess.DoneUserStoryCount}" />
+          </statistics>
+          <details>${Report.Content}</details>
+        </alert>
+      </text>
+    </write>
+  </target>
+
+  <target name="TargetProcess.GetTestStatus">
+    <regex input ="${TargetProcess.TestStatusToGet}" pattern ="(?'ClassName'\w+)\.(?'TestName'\w+)"/>
+
+    <xmlpeek
+      file="${Alerts.BuildLog}"
+      property="TargetProcess.TestStatus.Exists"
+      xpath="boolean(//testsuite[@name = '${ClassName}']/testcase[@name = '${TestName}'])"
+    />
+    <xmlpeek
+      file="${Alerts.BuildLog}"
+      property="TargetProcess.TestStatus.Failed"
+      xpath="boolean(//testsuite[@name = '${ClassName}']/testcase[@name = '${TestName}' and (boolean(failure) or boolean(error))])"
+    />
+
+    <echo message="It is ${TargetProcess.TestStatus.Exists} that the test('${TargetProcess.TestStatusToGet}') exists and it is ${TargetProcess.TestStatus.Failed} that it execution failed."/>
+    <ifthenelse test="${TargetProcess.TestStatus.Exists}">
+      <then>
+        <property name="TargetProcess.UT.NotExecuted" value="false" overwrite="false"/>
+        <ifthenelse test="${TargetProcess.TestStatus.Failed}">
+          <then>
+            <property name="TargetProcess.UT.Failed" value="true"/>
+
+            <largeproperty name="Story.Issues">
+              <value expand ="true" xml="true">
+                ${Story.Issues}
+                <tr style="border: inherit;">
+                  <td style="border: inherit;">${string::trim(TargetProcess.UT.Confirmation)}</td>
+                  <td style="border: inherit;">${string::trim(TargetProcess.UT.Name)}</td>
+                  <td style="border: inherit;">Failed</td>
+                </tr>
+              </value>
+            </largeproperty>
+          </then>
+          <else>
+            <property name="TargetProcess.UT.Failed" value="false" overwrite="false"/>
+          </else>
+        </ifthenelse>
+      </then>
+      <else>
+        <property name="TargetProcess.UT.NotExecuted" value="true"/>
+
+        <largeproperty name="Story.Issues">
+          <value expand ="true" xml="true">
+            ${Story.Issues}
+            <tr style="border: inherit;">
+              <td style="border: inherit;">${string::trim(TargetProcess.UT.Confirmation)}</td>
+              <td style="border: inherit;">${string::trim(TargetProcess.UT.Name)}</td>
+              <td style="border: inherit;">Does not exist / not executed</td>
+            </tr>
+          </value>
+        </largeproperty>
+      </else>
+    </ifthenelse>
+  </target>
+
+  <script language="C#" prefix="property" >
+    <code>
+      <![CDATA[
+         [Function("destroy")]
+         public void Destroy(string propertyName)
+         {
+                 Project.Properties.Remove(propertyName);
+         }
+      ]]>
+    </code>
+  </script>
+
+</project>

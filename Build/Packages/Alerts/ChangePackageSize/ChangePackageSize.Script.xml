@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.ChangePackageSize.Scripts">
+
+  <property name="Alerts.ChangePackageSize.ExceedsPositiveLineCountDifference" value="20"/>
+  <property name="Alerts.ChangePackageSize.ExceedsNegativeLineCountDifference" value="20"/>
+  <property name="Alerts.ChangePackageSize.ExceedsFileCount" value="4"/>
+
+  <property name="Alerts.ChangePackageSize.PreviousPropertiesFilePath" value="${Common.Directory.Packages.Path}\Alerts\ChangePackageSize\${CCNetProject}.Previous.Properties.xml"/>
+  <include buildfile="${Alerts.ChangePackageSize.PreviousPropertiesFilePath}" if="${file::exists(Alerts.ChangePackageSize.PreviousPropertiesFilePath)}"/>
+
+  <!-- Begin Previous Properties -->
+  <property name="Alerts.ChangePackageSize.Previous.LineCount" value="NaN" overwrite="false"/>
+  <!-- End Previous Properties -->
+
+  <target name="Alerts.ChangePackageSize">
+    <call target="Private.Alerts.ChangePackageSize.GetLineCount"/>
+    <call target="Private.Alerts.ChangePackageSize.GetFileCount"/>
+
+    <property name="Alerts.SendMessage.ToList" value="${Alerts.Developer.Email}" />
+    <property name="Alerts.SendMessage.CCList" value="${Alerts.Message.CCList}" />
+
+    <ifnot test="${Alerts.ChangePackageSize.Previous.LineCount == 'NaN'}">
+
+      <property name="Alerts.ChangePackageSize.LineCountDifference" value="${int::parse(Alerts.ChangePackageSize.LineCount) - int::parse(Alerts.ChangePackageSize.Previous.LineCount)}"/>
+
+      <ifthenelse test="${int::parse(Alerts.ChangePackageSize.LineCountDifference) > 0}">
+        <then>
+          <if test="${int::parse(Alerts.ChangePackageSize.LineCountDifference) >= int::parse(Alerts.ChangePackageSize.ExceedsPositiveLineCountDifference)}">
+            <call target="Private.Alerts.ChangePackageSize.GenerateWarning"/>
+            <call target="Alerts.SendMessage"/>
+          </if>
+        </then>
+        <elseifs>
+          <elseif test="${0 > int::parse(Alerts.ChangePackageSize.LineCountDifference)}">
+            <if test="${(int::parse(Alerts.ChangePackageSize.LineCountDifference) * -1) >= int::parse(Alerts.ChangePackageSize.ExceedsNegativeLineCountDifference)}">
+              <call target="Private.Alerts.ChangePackageSize.GenerateThankYou"/>
+              <call target="Alerts.SendMessage"/>
+            </if>
+          </elseif>
+        </elseifs>
+      </ifthenelse>
+    </ifnot>
+
+    <ifthenelse test="${int::parse(Alerts.ChangePackageSize.FileCount) > int::parse(Alerts.ChangePackageSize.ExceedsFileCount)}">
+      <then>
+        <call target="Private.Alerts.ChangePackageSize.GenerateWarning"/>
+        <call target="Alerts.SendMessage"/>
+      </then>
+    </ifthenelse>
+
+    <saveproperties file="${Alerts.ChangePackageSize.PreviousPropertiesFilePath}" format="Include">
+      <property name="Alerts.ChangePackageSize.Previous.LineCount" value="${Alerts.ChangePackageSize.LineCount}"/>
+    </saveproperties>
+  </target>
+
+  <target name="Private.Alerts.ChangePackageSize.GetLineCount">
+    <property name="Alerts.ChangePackageSize.LineCount" value="0"/>
+
+    <xmlquery
+      file="${Alerts.BuildLog}"
+      query="//code-summaries/code-summary/linecount/@label"
+      id="LanguageLineCounts"
+    />
+
+    <loopthrough property="LanguageLabel">
+      <items>
+        <xmlquery refid="LanguageLineCounts"/>
+      </items>
+      <do>
+        <xmlpeek
+          file="${Alerts.BuildLog}"
+          xpath="//code-summaries/code-summary/linecount[@label = '${LanguageLabel}']/@totalLineCount"
+          property="totalLineCount"
+        />
+
+        <xmlpeek
+          file="${Alerts.BuildLog}"
+          xpath="//code-summaries/code-summary/linecount[@label = '${LanguageLabel}']/@emptyLineCount"
+          property="emptyLineCount"
+        />
+
+        <xmlpeek
+          file="${Alerts.BuildLog}"
+          xpath="//code-summaries/code-summary/linecount[@label = '${LanguageLabel}']/@commentLineCount"
+          property="commentLineCount"
+        />
+
+        <property name="Alerts.ChangePackageSize.LineCount" value="${int::parse(Alerts.ChangePackageSize.LineCount) + int::parse(totalLineCount) - int::parse(emptyLineCount) - int::parse(commentLineCount)}"/>
+
+      </do>
+    </loopthrough>
+  </target>
+
+  <target name="Private.Alerts.ChangePackageSize.GetFileCount">
+    <property name="Alerts.ChangePackageSize.FileCount" value="0"/>
+
+    <xmlquery
+      file="${Alerts.BuildLog}"
+      query="//modifications/modification/filename"
+      id="ModificationList"
+    />
+
+    <loopthrough property="Modification">
+      <items>
+        <xmlquery refid="ModificationList"/>
+      </items>
+      <do>
+        <property name="Alerts.ChangePackageSize.FileCount" value="${int::parse(Alerts.ChangePackageSize.FileCount) + 1}"/>
+      </do>
+    </loopthrough>
+  </target>
+
+  <target name="Private.Alerts.ChangePackageSize.GenerateThankYou">
+    <property name="Alerts.SendMessage.Subject" value="${CCNetLabel}: Thanks For Reducing the Lines of Code" />
+
+    <largeproperty name="Alerts.SendMessage.Content">
+      <value expand="true" xml="true">
+        <html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${CCNetLabel}</a>
+            </p>
+
+            <p>${Alerts.Developer.Name},</p>
+            <p>Thank you for reducing the number of lines of code from ${Alerts.ChangePackageSize.Previous.LineCount} to ${Alerts.ChangePackageSize.LineCount}.</p>
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>
+      </value>
+    </largeproperty>
+  </target>
+
+  <target name="Private.Alerts.ChangePackageSize.GenerateWarning">
+    <property name="Alerts.SendMessage.Subject" value="${CCNetLabel}: Did You Mean to Submit Such a Large Change Package?" />
+
+    <largeproperty name="Alerts.SendMessage.Content">
+      <value expand="true" xml="true">
+        <html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${CCNetLabel}</a>
+            </p>
+
+            <p>${Alerts.Developer.Name},</p>
+            <p>
+              Please take note that you submited a larger change package than is recommended.
+              The number of lines added was atleast ${Alerts.ChangePackageSize.LineCountDifference}
+              and the number of files affected was ${Alerts.ChangePackageSize.FileCount}.
+            </p>
+            <p>
+              The Alerts is ${Alerts.ChangePackageSize.ExceedsPositiveLineCountDifference} lines and/or ${Alerts.ChangePackageSize.ExceedsFileCount} files.
+            </p>
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>
+      </value>
+    </largeproperty>
+  </target>
+
+</project>

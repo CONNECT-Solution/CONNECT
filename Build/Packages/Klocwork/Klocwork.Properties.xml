@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Klocwork.Properties">
+
+  <property name="Klocwork.Tables.Directory.Path" value="C:\Klocwork\nhin"/>
+  <property name="Klocwork.Build.Specification" value="nhin_kwinject.out"/>
+  <property name="Klocwork.Project.Name" value="CONNECT31"/>
+  
+</project>

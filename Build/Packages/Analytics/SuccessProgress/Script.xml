@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Analytics.SuccessProgress" >
+  <fileset id="Analytics.SuccessProgressReport">
+    <include name="${Analytics.PackageDirectory}\SuccessProgress\SuccessProgress.xml"/>
+  </fileset>
+
+  <target name="Analytics.SuccessProgressReport">
+    <echo message="Generating SuccessProgressReport"/>
+    <property name="Analytics.XmlInputFileName" value="${Analytics.ContentDirectoryPath}\MainAnalyticsReport.xml"/>
+    <property name="Analytics.XslFilePath" value="${Analytics.PackageDirectory}\SuccessProgress\SuccessProgress.xsl"/>
+    <property name="Analytics.XmlReportFileName" value="SuccessProgressXAxis.xml"/>
+    <property name="Analytics.CopyFileSetRefId" value="Analytics.SuccessProgressReport"/>
+    <property name="Analytics.Append" value="true"/>
+    <call target="Analytics.CompileReport"/>
+  </target>
+</project>

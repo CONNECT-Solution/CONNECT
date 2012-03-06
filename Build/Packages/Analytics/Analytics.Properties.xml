@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Analytics.Properties">
+
+  <ifnot test="${property::exists('CCNetLogFilePath')}">
+    <property name="CCNetLogFilePath" value="log${string::replace(CCNetBuildDate, '-', '')}${string::replace(CCNetBuildTime, ':', '')}"/>
+    <if test="${CCNetIntegrationStatus == 'Success'}">
+      <property name="CCNetLogFilePath" value="${CCNetLogFilePath}Lbuild.${CCNetLabel}"/>
+    </if>
+    <property name="CCNetLogFilePath" value="${CCNet.Server.Directory.Path}\${CCNetProject}\Artifacts\buildlogs\${CCNetLogFilePath}.xml"/>
+  </ifnot>
+
+  <property name="Analytics.BuildLog" value="${CCNetLogFilePath}"/>
+  <property name="Analytics.PackageDirectory" value="${Common.Directory.Packages.Path}\Analytics"/>
+  <property name="Analytics.ContentDirectoryPath" value="${Common.Directory.ArtifactRoot.Path}\${CCNetProject}"/>
+  
+  <fileset id="Analytics.DeleteFileSet">
+    <include name="${Analytics.ContentDirectoryPath}\SuccessProgressXAxis.xml"/>
+    <include name="${Analytics.ContentDirectoryPath}\SuccessProgressSuccessful.xml"/>
+    <include name="${Analytics.ContentDirectoryPath}\SuccessProgressFailed.xml"/>
+    <include name="${Analytics.ContentDirectoryPath}\SuccessProgressException.xml"/>
+    <include name="${Analytics.ContentDirectoryPath}\MainAnalyticsReportContent.xml"/>
+    <include name="${Analytics.ContentDirectoryPath}\UnitTestsContent.xml"/>
+    <include name="${Analytics.ContentDirectoryPath}\FitNesseContent.xml"/>
+    <include name="${Analytics.ContentDirectoryPath}\CoverageContent.xml"/>
+  </fileset>
+
+  <property name="Analytics.DeleteFileSetRefId" value="Analytics.DeleteFileSet"/>
+
+  <strings id="Analytics.TargetListId">
+    <string value="Analytics.MainReport"/>
+    <string value="Analytics.SuccessProgressReport"/>
+    <string value="Analytics.BuildTimeHistory"/>
+    <string value="Analytics.UnitTests"/>
+    <string value="Analytics.UnitTestsCountsLineChartData"/>
+  </strings>
+
+  <property name="Analytics.TargetListRefId" value="Analytics.TargetListId"/>
+
+  <include buildfile="${Package.Analytics.Directory.Path}\Basic\Script.xml"/>
+  <include buildfile="${Package.Analytics.Directory.Path}\BuildTime\Script.xml"/>
+  <include buildfile="${Package.Analytics.Directory.Path}\SuccessProgress\Script.xml"/>
+  <include buildfile="${Package.Analytics.Directory.Path}\UnitTests\UnitTests.Script.xml"/>
+
+  <if test="${file::exists(Common.Directory.Packages.Path + '\Corbertura\Coverage.Properties.xml')}">
+    <include buildfile="${Package.Analytics.Directory.Path}\Coverage\Coverage.Script.xml"/>
+    <function execute="${stringlist::add('Analytics.TargetListId', 'Analytics.Coverage')}"/>
+    <function execute="${stringlist::add('Analytics.TargetListId', 'Analytics.CoveragePercentLineChartData')}"/>
+  </if>
+
+  <if test="${file::exists(Common.Directory.Packages.Path + '\FitNesse\FitNesse.Properties.xml')}">
+    <include buildfile="${Package.Analytics.Directory.Path}\FitNesse\FitNesse.Script.xml"/>
+    <function execute="${stringlist::add('Analytics.TargetListId', 'Analytics.FitNesse')}"/>
+    <function execute="${stringlist::add('Analytics.TargetListId', 'Analytics.FitNesseCountsLineChartData')}"/>
+  </if>
+
+  <if test="${file::exists(Common.Directory.Packages.Path + '\Simian\Simian.Properties.xml')}">
+    <include buildfile="${Package.Analytics.Directory.Path}\Simian\Simian.Script.xml"/>
+    <function execute="${stringlist::add('Analytics.TargetListId', 'Analytics.Simian')}"/>
+    <function execute="${stringlist::add('Analytics.TargetListId', 'Analytics.SimianChart')}"/>
+  </if>
+
+</project>

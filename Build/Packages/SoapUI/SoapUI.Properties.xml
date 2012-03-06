@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SoapUI.Properties">
+  
+  <property name="SoapUI.Intermediate.Report.Directory.Path" value="${Common.Directory.Product.Path}\soapui-test-reports" overwrite="false"/>
+  <property name="SoapUI.Intermediate.Report.File.Path" value="${SoapUI.Intermediate.Report.Directory.Path}\SoapUITests.xml" overwrite="false"/>
+  
+  <property name="SoapUI.Report.Directory.Path" value="${Common.Project.Common.Directory.Transient.Path}\SoapUITestReports" overwrite="false"/>
+  <property name="SoapUI.Report.File.Path" value="${SoapUI.Report.Directory.Path}\SoapUITests.xml" overwrite="false"/>
+
+  <property name="SoapUI.Suites.Directory.Path" value="${Common.Directory.Product.Path}\SoapUI_Test"/>
+
+</project>

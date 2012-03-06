@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="UnitTest.Properties">
+
+  <property name="UnitTest.PublishXmlReport" value="true" overwrite="false"/>
+  <property name="UnitTestReportsDirectoryPath" value="${Common.Project.Common.Directory.Transient.Path}\UnitTestReports"/>
+  
+</project>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chart [
+  <!ENTITY entities SYSTEM    "entities.dtd">
+  <!ENTITY FitNesse SYSTEM    "FitNesse.dtd">  
+  <!ENTITY XAxis    SYSTEM    "FitNesseCountsHistoryLineXAxis.xml">
+  <!ENTITY Total    SYSTEM    "FitNesseCountsHistoryTotal.xml">
+  <!ENTITY Passed   SYSTEM    "FitNesseCountsHistoryPassed.xml">
+  <!ENTITY Ignored  SYSTEM    "FitNesseCountsHistoryException.xml">
+  <!ENTITY Failed   SYSTEM    "FitNesseCountsHistoryFailed.xml">
+  <!ENTITY Title    SYSTEM    "FitNesseCountsHistoryTitle.xml">
+]>
+<chart>
+
+  <chart_data>
+    <row>
+      <null/>
+      &XAxis;
+    </row>
+    <row>
+      <string>Total</string>
+      &Total;
+    </row>
+    <row>
+      <string>Passed</string>
+      &Passed;
+    </row>
+    <row>
+      <string>Exception</string>
+      &Ignored;
+    </row>
+    <row>
+      <string>Failed</string>
+      &Failed;
+    </row>
+  </chart_data>
+
+  <chart_type>line</chart_type>
+  <axis_category skip='50' />
+  <series_color>
+    <color>333399</color>
+    <color>41B32D</color>
+    <color>000000</color>
+    <color>D13535</color>
+  </series_color>
+
+  <draw>
+    &Title;
+    <text color='000000' rotation='-90' size='35' x='5' y='275' width='200' height='80' h_align='center'>Count</text>
+  </draw>
+</chart>

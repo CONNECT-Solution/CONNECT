@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.UnitTests.Scripts">
+
+  <property name="Alerts.UnitTests.PreviousPropertiesFilePath" value="${Common.Directory.Packages.Path}\Alerts\UnitTests\${CCNetProject}.Previous.Properties.xml"/>
+  <ifthenelse test="${file::exists(Alerts.UnitTests.PreviousPropertiesFilePath)}">
+    <then>
+      <include buildfile="${Alerts.UnitTests.PreviousPropertiesFilePath}" />
+    </then>
+    <else>
+      <echo level="Warning" message="File Does Not Exist: ${Alerts.UnitTests.PreviousPropertiesFilePath}"/>
+    </else>
+  </ifthenelse>
+  
+
+  <!-- Begin Previous Properties -->
+  <property name="Alerts.UnitTests.Previous.Count" value="NaN" overwrite="false"/>
+  <property name="Alerts.UnitTests.Previous.ReportFilePath" value="notset" overwrite="false"/>
+  <!-- End Previous Properties -->
+
+  <target name="Alerts.UnitTests" if="${CCNetIntegrationStatus == 'Success'}">
+
+		<property name="Alerts.UnitTests.Count" value="notset"/>
+    <property name="Alerts.UnitTests.ReportFilePath" value="notset"/>
+    <property name="Alerts.UnitTests.GenerateReport.Target" value="notset"/>
+
+		<switch value="True">
+			<case value="${directory::exists(Common.Directory.Packages.Path + '\MSTest')}" break="true">
+        <property name="Alerts.UnitTests.GenerateReport.Target" value="Alerts.UnitTests.GenerateReport.MSTest"/>
+        <xmlpeek
+					file="${Alerts.BuildLog}"
+					xpath="//Tests/TestRun/result/totalTestCount"
+					property="Alerts.UnitTests.Count"
+					nodeindex="0"
+					failonerror="false"
+				/>			 
+			</case>
+			<case value="${directory::exists(Common.Directory.Packages.Path + '\DotNetUnitTest')}" break="true">
+        <property name="Alerts.UnitTests.ReportFilePath" value="${Common.Directory.Artifact.Path}\${string::replace(ProjectName, ' ', '_')}UnitTests.xml"/>
+        <property name="Alerts.UnitTests.GenerateReport.Target" value="Alerts.UnitTests.GenerateReport.MbUnit"/>
+				<xmlpeek
+					file="${Alerts.UnitTests.ReportFilePath}"
+					xpath="sum(//report-result/counter/@run-count)"
+					property="Alerts.UnitTests.Count"
+					nodeindex="0"
+					failonerror="false"
+				/>
+			</case>
+      <case value="${directory::exists(Common.Directory.Packages.Path + '\JUnit')}" break="true">
+        <property name="Alerts.UnitTests.ReportFilePath" value="${Common.Directory.Artifact.Path}\unittests.xml"/>
+        <property name="Alerts.UnitTests.GenerateReport.Target" value="Alerts.UnitTests.GenerateReport.JUnit"/>
+        <xmlpeek
+					file="${Alerts.UnitTests.ReportFilePath}"
+					xpath="count(//testcase)"
+					property="Alerts.UnitTests.Count"
+					nodeindex="0"
+					failonerror="false"
+				/>
+      </case>
+			<default>
+        <fail message="I can't figure out what unit test package we are using!" />
+			</default>
+		</switch>
+
+    <saveproperties file="${Alerts.UnitTests.PreviousPropertiesFilePath}" format="Include" unless="${Alerts.UnitTests.Previous.ReportFilePath == 'notset'}">
+      <property name="Alerts.UnitTests.Previous.ReportFilePath" value="${Alerts.UnitTests.ReportFilePath}"/>
+    </saveproperties>
+
+    <xmlquery id="ProjectPaths"
+      file="${Alerts.BuildLog}" 
+      query="//modification/project" 
+    />
+
+    <echo message="Unit Test Count is ${Alerts.UnitTests.Count}"/>
+    <echo message="Previous Unit Test Count is ${Alerts.UnitTests.Previous.Count}"/>
+    
+    <saveproperties file="${Alerts.UnitTests.PreviousPropertiesFilePath}" format="Include" unless="${Alerts.UnitTests.Count == 'notset'}">
+      <property name="Alerts.UnitTests.Previous.Count" value="${Alerts.UnitTests.Count}"/>
+      <property name="Alerts.UnitTests.Previous.ReportFilePath" value="${Alerts.UnitTests.ReportFilePath}"/>
+    </saveproperties>
+
+    <property name="Alerts.SendMessage.ToList" value="${Alerts.Developer.Email}" />
+    <property name="Alerts.SendMessage.CCList" value="${Alerts.Message.CCList}" />
+
+    <if test="${Alerts.UnitTests.Previous.Count != 'NaN' and Alerts.UnitTests.Count != 'notset'}">
+      <call target="${Alerts.UnitTests.GenerateReport.Target}" if="${Alerts.UnitTests.GenerateReport.Target != 'notset' and Alerts.UnitTests.Previous.ReportFilePath != 'notset' and Alerts.UnitTests.ReportFilePath != 'notset' and int::parse(Alerts.UnitTests.Count) != int::parse(Alerts.UnitTests.Previous.Count)}"/>
+      <ifthenelse test="${int::parse(Alerts.UnitTests.Count) > int::parse(Alerts.UnitTests.Previous.Count)}">
+        <then>
+          <property name="Alerts.UnitTests.Message" value="${int::parse(Alerts.UnitTests.Count) - int::parse(Alerts.UnitTests.Previous.Count)} test(s) have been added!"/>
+          <property name="Alerts.UnitTests.Message.Spin" value="positive" />
+          <call target="Alerts.UnitTests.GenerateThankYou"/>
+          <call target="Alerts.SendMessage"/>
+          <call target="Alerts.UnitTests.WriteToReportAppender"/>
+        </then>
+        <elseif if="${int::parse(Alerts.UnitTests.Previous.Count) > int::parse(Alerts.UnitTests.Count)}">
+          <property name="Alerts.UnitTests.Message" value="${int::parse(Alerts.UnitTests.Previous.Count) - int::parse(Alerts.UnitTests.Count)} test(s) have been removed!"/>
+          <property name="Alerts.UnitTests.Message.Spin" value="negative" />
+          <call target="Alerts.UnitTests.GenerateWarning"/>
+          <call target="Alerts.SendMessage"/>
+          <call target="Alerts.UnitTests.WriteToReportAppender"/>
+        </elseif>
+      </ifthenelse>
+    </if>
+  </target>
+
+  <target name="Alerts.UnitTests.GenerateReport.MSTest">
+    <largeproperty name="Alerts.UnitTests.DiffReport.Content">
+      <value expand="true" xml="true">
+        <p>Not yet implemented!</p>
+      </value>
+    </largeproperty>
+  </target>
+  
+  <target name="Alerts.UnitTests.GenerateReport.MbUnit">
+    <largeproperty name="Alerts.UnitTests.DiffReport.Content">
+      <value expand="true" xml="true">
+        <p>Not yet implemented!</p>
+      </value>
+    </largeproperty>
+  </target>
+  
+  <target name="Alerts.UnitTests.GenerateReport.JUnit">
+    <strings id="Alerts.UnitTests.CurrentList"/>
+    
+    <property name="Alerts.UnitTests.NodeIndex" value="${Alerts.UnitTests.Count}"/>
+    <while condition="${int::parse(Alerts.UnitTests.NodeIndex) > 0}">
+      <do>
+        <xmlpeek
+          file="${Alerts.UnitTests.ReportFilePath}"
+          xpath="(//testcase)[${Alerts.UnitTests.NodeIndex}]/@classname"
+          property="classname"
+        />
+
+        <xmlpeek
+          file="${Alerts.UnitTests.ReportFilePath}"
+          xpath="(//testcase)[${Alerts.UnitTests.NodeIndex}]/@name"
+          property="testname"
+        />
+
+        <function execute="${stringlist::add('Alerts.UnitTests.CurrentList', classname + '.' + testname)}"/>
+        
+        <property name="Alerts.UnitTests.NodeIndex" value="${int::parse(Alerts.UnitTests.NodeIndex) - 1}"/>
+      </do>
+    </while>
+
+    <strings id="Alerts.UnitTests.PreviousList"/>
+
+    <property name="Alerts.UnitTests.NodeIndex" value="${Alerts.UnitTests.Previous.Count}"/>
+    <while condition="${int::parse(Alerts.UnitTests.NodeIndex) > 0}">
+      <do>
+        <xmlpeek
+          file="${Alerts.UnitTests.Previous.ReportFilePath}"
+          xpath="(//testcase)[${Alerts.UnitTests.NodeIndex}]/@classname"
+          property="classname"
+        />
+
+        <xmlpeek
+          file="${Alerts.UnitTests.Previous.ReportFilePath}"
+          xpath="(//testcase)[${Alerts.UnitTests.NodeIndex}]/@name"
+          property="testname"
+        />
+
+        <function execute="${stringlist::add('Alerts.UnitTests.PreviousList', classname + '.' + testname)}"/>
+
+        <property name="Alerts.UnitTests.NodeIndex" value="${int::parse(Alerts.UnitTests.NodeIndex) - 1}"/>
+      </do>
+    </while>
+
+    <strings id="Alerts.UnitTests.AddedList"/>
+    <loopthrough property="TestFullName">
+      <items>
+        <strings refid="Alerts.UnitTests.CurrentList"/>
+      </items>
+      <do>
+        <ifnot test="${stringlist::contains('Alerts.UnitTests.PreviousList', TestFullName)}">
+          <function execute="${stringlist::add('Alerts.UnitTests.AddedList', TestFullName)}"/>
+        </ifnot>
+      </do>
+    </loopthrough>
+
+    <strings id="Alerts.UnitTests.RemovedList"/>
+    <loopthrough property="TestFullName">
+      <items>
+        <strings refid="Alerts.UnitTests.PreviousList"/>
+      </items>
+      <do>
+        <ifnot test="${stringlist::contains('Alerts.UnitTests.CurrentList', TestFullName)}">
+          <function execute="${stringlist::add('Alerts.UnitTests.RemovedList', TestFullName)}"/>
+        </ifnot>
+      </do>
+    </loopthrough>
+
+    <property name="Alerts.UnitTests.DiffReport.Content" value=""/>
+    
+    <if test="${stringlist::count('Alerts.UnitTests.AddedList') > 0}">
+      <property name="Alerts.UnitTests.AddedTests" value=""/>
+      <loopthrough property="AddedTestName">
+        <items>
+          <strings refid="Alerts.UnitTests.AddedList"/>
+        </items>
+        <do>
+
+          <largeproperty name="Alerts.UnitTests.AddedTests">
+            <value expand="true" xml="true">
+              ${Alerts.UnitTests.AddedTests}
+              <li>${AddedTestName}</li>
+            </value>
+          </largeproperty>
+        </do>
+      </loopthrough>
+      <largeproperty name="Alerts.UnitTests.DiffReport.Content">
+        <value expand="true" xml="true">
+          ${Alerts.UnitTests.DiffReport.Content}
+          <p>The following tests have been added!</p>
+          <ul>
+            ${Alerts.UnitTests.AddedTests}
+          </ul>
+        </value>
+      </largeproperty>
+    </if>
+    
+    <if test="${stringlist::count('Alerts.UnitTests.RemovedList') > 0}">
+      <property name="Alerts.UnitTests.RemovedTests" value=""/>
+      <loopthrough property="RemovedTestName">
+        <items>
+          <strings refid="Alerts.UnitTests.RemovedList"/>
+        </items>
+        <do>
+
+          <largeproperty name="Alerts.UnitTests.RemovedTests">
+            <value expand="true" xml="true">
+              ${Alerts.UnitTests.RemovedTests}
+              <li>${RemovedTestName}</li>
+            </value>
+          </largeproperty>
+        </do>
+      </loopthrough>
+      <largeproperty name="Alerts.UnitTests.DiffReport.Content">
+        <value expand="true" xml="true">
+          ${Alerts.UnitTests.DiffReport.Content}
+          <p>The following tests have been removed!</p>
+          <ul>
+            ${Alerts.UnitTests.RemovedTests}
+          </ul>
+        </value>
+      </largeproperty>
+    </if>
+  </target>
+
+  <target name="Alerts.UnitTests.WriteToReportAppender">
+    <write
+      file="${Alerts.ReportAppenderFilePath}"
+      append="true"
+    >
+      <text expand="true" xml="true">
+        <alert name="UnitTests">
+          <messages>
+            <message spin="${Alerts.UnitTests.Message.Spin}">${Alerts.UnitTests.Message}</message>
+          </messages>
+          <statistics>
+            <statistic name="count" value="${Alerts.UnitTests.Count}" />
+            <statistic name="previouscount" value="${Alerts.UnitTests.Previous.Count}" />
+          </statistics>
+          <details>${Alerts.UnitTests.DiffReport.Content}</details>
+        </alert>
+      </text>
+    </write>
+  </target>
+
+  <target name="Alerts.UnitTests.GenerateThankYou">
+    <property name="Alerts.SendMessage.Subject" value="${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}: Thanks For Adding More Unit Tests" />
+
+    <largeproperty name="Alerts.SendMessage.Content">
+      <value expand="true" xml="true">
+        <html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}</a>
+            </p>
+
+            <p>${Alerts.Developer.Name},</p>
+            <p>Thank you for increasing the number of unit tests from ${Alerts.UnitTests.Previous.Count} to ${Alerts.UnitTests.Count}.</p>
+            <br/>
+            ${Alerts.UnitTests.DiffReport.Content}
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>
+      </value>
+    </largeproperty>
+  </target>
+
+  <target name="Alerts.UnitTests.GenerateWarning">
+    <property name="Alerts.SendMessage.Subject" value="${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}: Did You Mean to Remove Unit Tests?" />
+
+    <largeproperty name="Alerts.SendMessage.Content">
+      <value expand="true" xml="true">
+        <html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}</a>
+            </p>
+
+            <p>${Alerts.Developer.Name},</p>
+            <p>Please take note that you have reduced the number of unit tests from ${Alerts.UnitTests.Previous.Count} to ${Alerts.UnitTests.Count}.</p>
+            <br/>
+            ${Alerts.UnitTests.DiffReport.Content}
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>
+      </value>
+    </largeproperty>
+  </target>
+  
+</project>

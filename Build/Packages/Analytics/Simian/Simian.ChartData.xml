@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chart [
+  <!ENTITY % entities SYSTEM "entities.dtd">
+
+  %entities;
+
+  
+  <!ENTITY XAxis                      SYSTEM     "Simian.XAxis.xml">
+  <!ENTITY DuplicateFileCount         SYSTEM     "Simian.DuplicateFileCount.xml">
+  <!ENTITY DuplicateLineCount         SYSTEM     "Simian.DuplicateLineCount.xml">
+  <!ENTITY DuplicateBlockCount        SYSTEM     "Simian.DuplicateBlockCount.xml">
+  <!ENTITY TotalFileCount             SYSTEM     "Simian.TotalFileCount.xml">
+  <!ENTITY TotalSignificantLineCount  SYSTEM     "Simian.TotalSignificantLineCount.xml">
+]>
+<chart>
+
+  <chart_data>
+    <row>
+      <null/>
+      &XAxis;
+    </row>
+    <row>
+      <string>DuplicateFileCount</string>
+      &DuplicateFileCount;
+    </row>
+    <row>
+      <string>DuplicateLineCount</string>
+      &DuplicateLineCount;
+    </row>
+    <row>
+      <string>DuplicateBlockCount</string>
+      &DuplicateBlockCount;
+    </row>
+    <row>
+      <string>TotalFileCount</string>
+      &TotalFileCount;
+    </row>
+    <row>
+      <string>TotalSignificantLineCount</string>
+      &TotalSignificantLineCount;
+    </row>
+  </chart_data>
+
+  <chart_type>line</chart_type>
+  <axis_category skip='50' />
+
+  <draw>
+    <text color='000000' rotation='-90' size='35' x='5' y='275' width='200' height='80' h_align='center'>Count</text>
+  </draw>
+</chart>
