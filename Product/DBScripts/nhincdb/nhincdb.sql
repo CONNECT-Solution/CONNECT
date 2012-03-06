@@ -124,7 +124,7 @@ CREATE TABLE docrepository.document (
 
 CREATE TABLE docrepository.eventcode (
   eventcodeid int(11) NOT NULL,
-  documentid int(11) NOT NULL COMMENT 'Foriegn key to document table',
+  documentid int(11) NOT NULL COMMENT 'Foreign key to document table',
   EventCode varchar(64) default NULL,
   EventCodeScheme varchar(64) default NULL,
   EventCodeDisplayName varchar(64) default NULL,
