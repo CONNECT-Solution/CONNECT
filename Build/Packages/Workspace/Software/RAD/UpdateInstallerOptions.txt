@@ -1,1 +1,0 @@
--W product.location="${environment::get-variable('ProgramFiles')}\IBM\SDP\runtimes\base_v7"

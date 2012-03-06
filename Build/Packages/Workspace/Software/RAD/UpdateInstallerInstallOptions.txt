@@ -1,5 +1,0 @@
--OPT silentInstallLicenseAcceptance="true"
--OPT disableEarlyPrereqChecking="true"
--OPT installLocation="${environment::get-variable('ProgramFiles')}\IBM\WebSphere\UpdateInstaller"
--OPT traceFormat=ALL
--OPT traceLevel=INFO
