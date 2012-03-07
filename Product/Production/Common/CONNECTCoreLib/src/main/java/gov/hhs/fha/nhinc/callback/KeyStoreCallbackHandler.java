@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.callback;
 
@@ -25,9 +45,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class uses the keystore system properties as established in the 
- * domain.xml file to allow the configuration of the SAML Keystore policy 
- * statements.
+ * This class uses the keystore system properties as established in the domain.xml file to allow the configuration of
+ * the SAML Keystore policy statements.
  */
 public class KeyStoreCallbackHandler implements CallbackHandler {
 
@@ -36,9 +55,8 @@ public class KeyStoreCallbackHandler implements CallbackHandler {
     private static Log log = LogFactory.getLog(KeyStoreCallbackHandler.class);
 
     /**
-     * Creates the callback handler saving the keystore certificates information 
-     * from the keystore file specified by the system properties:
-     * javax.net.ssl.keyStore and javax.net.ssl.keyStorePassword.
+     * Creates the callback handler saving the keystore certificates information from the keystore file specified by the
+     * system properties: javax.net.ssl.keyStore and javax.net.ssl.keyStorePassword.
      */
     public KeyStoreCallbackHandler() {
         log.debug("Entry KeyStoreCallbackHandler Constructor");
@@ -92,11 +110,11 @@ public class KeyStoreCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Implementing the callback, this method provides the keystore information 
-     * or the private key information depending on the type of callback desired 
-     * to the input Callback object.
-     * @param callbacks The Callback which needs to have keystore information 
-     * set, should be either a KeyStoreCallback or a PrivateKeyCallback
+     * Implementing the callback, this method provides the keystore information or the private key information depending
+     * on the type of callback desired to the input Callback object.
+     * 
+     * @param callbacks The Callback which needs to have keystore information set, should be either a KeyStoreCallback
+     *            or a PrivateKeyCallback
      * @throws java.io.IOException
      * @throws javax.security.auth.callback.UnsupportedCallbackException
      */
@@ -105,13 +123,13 @@ public class KeyStoreCallbackHandler implements CallbackHandler {
         for (int i = 0; i < callbacks.length; i++) {
             if (callbacks[i] instanceof KeyStoreCallback) {
                 KeyStoreCallback cb = (KeyStoreCallback) callbacks[i];
-                //print(cb.getRuntimeProperties());
+                // print(cb.getRuntimeProperties());
                 cb.setKeystore(keyStore);
                 log.debug("KeyStoreCallback set keystore");
             } else if (callbacks[i] instanceof PrivateKeyCallback) {
                 try {
                     PrivateKeyCallback cb = (PrivateKeyCallback) callbacks[i];
-                    //print(cb.getRuntimeProperties());
+                    // print(cb.getRuntimeProperties());
                     Key privkey = keyStore.getKey(cb.getAlias(), password.toCharArray());
                     cb.setKey((PrivateKey) privkey);
                     log.debug("PrivateKeyCallback set private key");
@@ -133,11 +151,8 @@ public class KeyStoreCallbackHandler implements CallbackHandler {
         log.debug("Exit KeyStoreCallbackHandler handle callback");
     }
 
-    /*private void print(Map context) {
-    Iterator it = context.keySet().iterator();
-    while (it.hasNext()) {
-    log.debug("Prop " + it.next());
-    }
-    }*/
+    /*
+     * private void print(Map context) { Iterator it = context.keySet().iterator(); while (it.hasNext()) {
+     * log.debug("Prop " + it.next()); } }
+     */
 }
-

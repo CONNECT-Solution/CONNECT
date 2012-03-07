@@ -1,6 +1,28 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
@@ -15,43 +37,47 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class TestHelper {
-    
+
     private static Log log = LogFactory.getLog(TestHelper.class);
 
     public static void AssertPatientIdsAreSame(PRPAIN201306UV02 expected, PRPAIN201306UV02 result) {
         AssertPatientNotNull(expected);
         AssertPatientNotNull(result);
 
-        AssertPatientIdsEqual(expected.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient(),
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient());
+        AssertPatientIdsEqual(expected.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
+                .getPatient(), result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
+                .getPatient());
     }
 
     public static void AssertPatientNamesAreSame(PRPAIN201306UV02 expected, PRPAIN201306UV02 result) {
         AssertPatientPersonNotNull(expected);
         AssertPatientPersonNotNull(result);
 
-        AssertPatientNamesEqual(expected.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue(),
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
+        AssertPatientNamesEqual(expected.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                .getSubject1().getPatient().getPatientPerson().getValue(), result.getControlActProcess().getSubject()
+                .get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
     }
 
     public static void AssertPatientGendersAreSame(PRPAIN201306UV02 expected, PRPAIN201306UV02 result) {
         AssertPatientPersonNotNull(expected);
         AssertPatientPersonNotNull(result);
 
-        AssertPatientGendersEqual(expected.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue(),
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
+        AssertPatientGendersEqual(expected.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                .getSubject1().getPatient().getPatientPerson().getValue(), result.getControlActProcess().getSubject()
+                .get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
     }
 
     public static void AssertPatientBdaysAreSame(PRPAIN201306UV02 expected, PRPAIN201306UV02 result) {
         AssertPatientPersonNotNull(expected);
         AssertPatientPersonNotNull(result);
 
-        AssertPatientBdaysEqual(expected.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue(),
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
+        AssertPatientBdaysEqual(expected.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                .getSubject1().getPatient().getPatientPerson().getValue(), result.getControlActProcess().getSubject()
+                .get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
     }
 
     public static void AssertPatientNamesEqual(PRPAMT201310UV02Person patient1, PRPAMT201310UV02Person patient2) {
@@ -62,14 +88,14 @@ public class TestHelper {
         assertNotNull(patient2.getName().get(0));
         assertNotNull(patient2.getName().get(0).getContent());
 
-        String pat1Name = extractName (patient1.getName().get(0));
+        String pat1Name = extractName(patient1.getName().get(0));
         log.info("Patient 1 name:" + pat1Name);
-        String pat2Name = extractName (patient2.getName().get(0));
+        String pat2Name = extractName(patient2.getName().get(0));
         log.info("Patient 2 name:" + pat2Name);
         assertEquals(pat1Name, pat2Name);
     }
-    
-    private static String extractName (PNExplicit name) {
+
+    private static String extractName(PNExplicit name) {
         String nameString = "";
         Boolean hasName = false;
         List<Serializable> choice = name.getContent();
@@ -90,44 +116,38 @@ public class TestHelper {
                     hasName = true;
                 } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
 
-                    if(givenName == null)
-                    {
+                    if (givenName == null) {
                         givenName = (EnExplicitGiven) oJAXBElement.getValue();
-                    }
-                    else
-                    {
-                        EnExplicitGiven middle =  (EnExplicitGiven) oJAXBElement.getValue();
+                    } else {
+                        EnExplicitGiven middle = (EnExplicitGiven) oJAXBElement.getValue();
                         middleName = middle.getContent();
                     }
                     hasName = true;
-                }else if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
+                } else if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
                     EnExplicitPrefix prefixObj = (EnExplicitPrefix) oJAXBElement.getValue();
-                    prefix =  prefixObj.getContent();
+                    prefix = prefixObj.getContent();
 
-                }   else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
+                } else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
                     EnExplicitSuffix suffixObj = (EnExplicitSuffix) oJAXBElement.getValue();
                     suffix = suffixObj.getContent();
                 }
             }
         }
-        
+
         if (hasName == true) {
             nameString = familyName.getContent() + " " + givenName.getContent();
-            if(middleName != "")
-            {
+            if (middleName != "") {
                 nameString += " " + middleName;
             }
-            if(prefix != "")
-            {
+            if (prefix != "") {
                 nameString += " " + prefix;
             }
-            if(suffix != "")
-            {
+            if (suffix != "") {
                 nameString += " " + suffix;
             }
             System.out.println(nameString);
         }
-        
+
         return nameString;
     }
 
@@ -166,8 +186,10 @@ public class TestHelper {
 
     public static void AssertPatientPersonNotNull(PRPAIN201306UV02 queryResp) {
         AssertPatientNotNull(queryResp);
-        assertNotNull(queryResp.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson());
-        assertNotNull(queryResp.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
+        assertNotNull(queryResp.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
+                .getPatient().getPatientPerson());
+        assertNotNull(queryResp.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
+                .getPatient().getPatientPerson().getValue());
     }
 
     public static void AssertPatientNotNull(PRPAIN201306UV02 queryResp) {
@@ -177,10 +199,12 @@ public class TestHelper {
         assertNotNull(queryResp.getControlActProcess().getSubject().get(0));
         assertNotNull(queryResp.getControlActProcess().getSubject().get(0).getRegistrationEvent());
         assertNotNull(queryResp.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1());
-        assertNotNull(queryResp.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient());
+        assertNotNull(queryResp.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
+                .getPatient());
     }
 
-    public static PRPAIN201305UV02 build201305(String firstName, String lastName, String gender, String birthTime, II subjectId) {
+    public static PRPAIN201305UV02 build201305(String firstName, String lastName, String gender, String birthTime,
+            II subjectId) {
         PRPAIN201305UV02 msg = new PRPAIN201305UV02();
 
         // Set up message header fields
@@ -220,7 +244,8 @@ public class TestHelper {
         return msg;
     }
 
-    private static PRPAIN201305UV02QUQIMT021001UV01ControlActProcess createControlActProcess(String firstName, String lastName, String gender, String birthTime, II subjectId) {
+    private static PRPAIN201305UV02QUQIMT021001UV01ControlActProcess createControlActProcess(String firstName,
+            String lastName, String gender, String birthTime, II subjectId) {
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
@@ -235,7 +260,8 @@ public class TestHelper {
         return controlActProcess;
     }
 
-    private static JAXBElement<PRPAMT201306UV02QueryByParameter> createQueryParams(String firstName, String lastName, String gender, String birthTime, II subjectId) {
+    private static JAXBElement<PRPAMT201306UV02QueryByParameter> createQueryParams(String firstName, String lastName,
+            String gender, String birthTime, II subjectId) {
         PRPAMT201306UV02QueryByParameter params = new PRPAMT201306UV02QueryByParameter();
 
         II id = new II();
@@ -249,15 +275,17 @@ public class TestHelper {
         params.setParameterList(createParamList(firstName, lastName, gender, birthTime, subjectId));
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        JAXBElement<PRPAMT201306UV02QueryByParameter> queryParams = new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
+        JAXBElement<PRPAMT201306UV02QueryByParameter> queryParams = new JAXBElement<PRPAMT201306UV02QueryByParameter>(
+                xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
 
         return queryParams;
     }
 
-    private static PRPAMT201306UV02ParameterList createParamList(String firstName, String lastName, String gender, String birthTime, II subjectId) {
+    private static PRPAMT201306UV02ParameterList createParamList(String firstName, String lastName, String gender,
+            String birthTime, II subjectId) {
         PRPAMT201306UV02ParameterList paramList = new PRPAMT201306UV02ParameterList();
 
-        // Set the Subject Gender Code  
+        // Set the Subject Gender Code
         paramList.getLivingSubjectAdministrativeGender().add(createGender(gender));
 
         // Set the Subject Birth Time
@@ -287,8 +315,7 @@ public class TestHelper {
         ENExplicit name = (ENExplicit) (factory.createENExplicit());
         List namelist = name.getContent();
 
-        if (lastName != null &&
-                lastName.length() > 0) {
+        if (lastName != null && lastName.length() > 0) {
             EnExplicitFamily familyName = new EnExplicitFamily();
             familyName.setPartType("FAM");
             familyName.setContent(lastName);
@@ -296,8 +323,7 @@ public class TestHelper {
             namelist.add(factory.createENExplicitFamily(familyName));
         }
 
-        if (firstName != null &&
-                firstName.length() > 0) {
+        if (firstName != null && firstName.length() > 0) {
             EnExplicitGiven givenName = new EnExplicitGiven();
             givenName.setPartType("GIV");
             givenName.setContent(firstName);
@@ -314,8 +340,7 @@ public class TestHelper {
         PRPAMT201306UV02LivingSubjectBirthTime subjectBirthTime = new PRPAMT201306UV02LivingSubjectBirthTime();
         IVLTSExplicit bday = new IVLTSExplicit();
 
-        if (birthTime != null &&
-                birthTime.length() > 0) {
+        if (birthTime != null && birthTime.length() > 0) {
             bday.setValue(birthTime);
             subjectBirthTime.getValue().add(bday);
         }
@@ -327,8 +352,7 @@ public class TestHelper {
         PRPAMT201306UV02LivingSubjectAdministrativeGender adminGender = new PRPAMT201306UV02LivingSubjectAdministrativeGender();
         CE genderCode = new CE();
 
-        if (gender != null &&
-                gender.length() > 0) {
+        if (gender != null && gender.length() > 0) {
             genderCode.setCode(gender);
             adminGender.getValue().add(genderCode);
         }
@@ -373,7 +397,9 @@ public class TestHelper {
 
         return sender;
     }
-    public static Patient createMpiPatient(String firstName, String lastName, String gender, String birthTime, Identifier subjectId) {
+
+    public static Patient createMpiPatient(String firstName, String lastName, String gender, String birthTime,
+            Identifier subjectId) {
         Patient result = new Patient();
 
         // Set the patient name
@@ -395,7 +421,9 @@ public class TestHelper {
 
         return result;
     }
-    public static Patient createMpiPatient(String firstName, String lastName, String middleName, String gender, String birthTime, Identifier subjectId) {
+
+    public static Patient createMpiPatient(String firstName, String lastName, String middleName, String gender,
+            String birthTime, Identifier subjectId) {
         Patient result = new Patient();
 
         // Set the patient name
@@ -404,7 +432,7 @@ public class TestHelper {
         name.setLastName(lastName);
         name.setMiddleName(middleName);
         result.setName(name);
-        
+
         // Set the patient gender
         result.setGender(gender);
 
@@ -418,7 +446,9 @@ public class TestHelper {
 
         return result;
     }
-    public static Patient createMpiPatient(String firstName, String lastName, String middleName, String gender, String birthTime, Identifier subjectId, String title, String suffix) {
+
+    public static Patient createMpiPatient(String firstName, String lastName, String middleName, String gender,
+            String birthTime, Identifier subjectId, String title, String suffix) {
         Patient result = new Patient();
 
         // Set the patient name

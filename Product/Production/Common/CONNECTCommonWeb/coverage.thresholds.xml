@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
-   <threshold branchcount="434" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="418" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.common.connectionmanager.CMServiceHelper"
-              linecount="392"
+              linecount="382"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="294" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="312" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.common.connectionmanager.CMTransform"
-              linecount="332"
+              linecount="355"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

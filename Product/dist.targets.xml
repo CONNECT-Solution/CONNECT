@@ -31,7 +31,6 @@
   <property name="production.dir" value="${root.project.directory.path}/Production"/>
   <property name="thirdparty.dir" value="${root.project.directory.path}/../ThirdParty"/>
   <property name="thirdparty.zip.filename" value="CONNECT_ThirdParty_Components_${released.version.name}.zip"/>
-  <property name="validation_tests.zip.filename" value="CONNECT_Validation_Tests_${released.version.name}.zip"/>
   
   <!--
     This target should build **all** externally released artifacts from scratch.
@@ -41,8 +40,7 @@
   <target name="dist"
           depends="init,
                    binary_dist,
-                   third_party_dist,
-                   validation_tests_dist"/>
+                   third_party_dist"/>
                    
   <!-- ***** BEGIN INTERNAL TARGETS *********************** -->                   
                    
@@ -113,38 +111,7 @@
       <zipfileset dir="${thirdparty.dir}/AntExtraLibs" prefix="ThirdParty/AntExtraLibs">
         <include name="*.jar"/>
       </zipfileset> 
-	  <zipfileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" prefix="ThirdParty/ValidationSuite">
-        <include name="*.*"/>
-        <exclude name="build.xml"/>
-      </zipfileset>
-      <zipfileset dir="${production.dir}/Common/Properties/Dev" prefix="ThirdParty/ValidationSuite">
-        <include name="mpi.xml"/>
-        <include name="reidentification.xml"/>
-      </zipfileset>
-      <zipfileset dir="${dbscripts.dir}/nhincdb" prefix="ThirdParty/ValidationSuite">
-        <include name="populateTestData.sql"/>
-      </zipfileset>
-	  <zipfileset dir="${root.project.directory.path}/IntegrationTest/scripts" prefix="ThirdParty/ValidationSuite">
-	    <include name="FileUtils.groovy"/>
-	  </zipfileset>
     </zip>
   </target>
   
-  <target name="validation_tests_dist">
-    <zip zipfile="${dist.artifact.dir}/${validation_tests.zip.filename}">
-      <zipfileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" prefix="ValidationSuite">
-        <include name="*.*"/>
-        <exclude name="build.xml"/>
-      </zipfileset>
-      <zipfileset dir="${production.dir}/Common/Properties/Dev" prefix="ValidationSuite">
-        <include name="mpi.xml"/>
-        <include name="reidentification.xml"/>
-      </zipfileset>
-      <zipfileset dir="${dbscripts.dir}/nhincdb" prefix="ValidationSuite">
-        <include name="populateTestData.sql"/>
-      </zipfileset>
-    </zip>
-  </target>
-  
- 
 </project>

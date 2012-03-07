@@ -12,7 +12,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class FTATimerTest {
@@ -31,17 +31,15 @@ public class FTATimerTest {
     @Before
     public void setUp() {
     }
+
     @Test
     public void testRun() {
         System.out.println("run");
 
-        //instance.run();
-        try
-        {
+        // instance.run();
+        try {
             FTATimer.startTimer();
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
 
         }
 

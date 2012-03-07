@@ -6,6 +6,8 @@
   <property name="unittest.hasTests" value="false" />
   <property name="deploy.type" value="shared" />
   <property name="deploy.isDeployable" value="true"/>
+  <property name="build.generated.dir" value="build/generated/client"/>
+  <property name="build.wsdl.output.dir" value="build/wsdl"/>
 
   <!-- Please make sure that this goes up to the correct directory -->
   <import file="../../../build/build.targets.xml" />
@@ -53,34 +55,58 @@
     </fileset>
   </path>
 
-  <taskdef name="WsImportConnect" classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect"/>
-
+  <taskdef name="WsImportConnect" classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect" />
+  
   <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask"/>
-
-  <target name="just.clean">
+  
+  <target name="just.quick.clean">
     <if>
       <not>
         <isset property="delete.commontypes.lib" />
       </not>
       <then>
           <delete dir="${build.dir.root}" failonerror="true" />
-          <delete dir="${lib.dir}" failonerror="true" />
           <delete dir="${dist.root.dir}" failonerror="true" />
       </then>
     </if>
   </target>
-  
+
+  <target name="just.clean" depends="just.quick.clean">
+    <if>
+      <not>
+        <isset property="delete.commontypes.lib" />
+      </not>
+      <then>
+          <delete dir="${lib.dir}" failonerror="true" />
+          <delete dir="${build.generated.dir}" failonerror="true" />
+          <delete dir="${build.wsdl.output.dir}" failonerror="true"/>
+      </then>
+    </if>
+  </target>
+
   <target name="-compile.source">
     <echo message="compile.source for ${project.name}" level="info"/>
-
+    <mkdir dir="${build.classes.dir}" />
+    <mkdir dir="${build.generated.dir}"/>
+    <mkdir dir="${build.wsdl.output.dir}"/>
     <call target="generate.proxies.xjc"/>
     <call target="generate.proxies.wsdl"/>
     <call target="copy.util.src"/>
-    <javac srcdir="${build.dir}/generated/client" destdir="${build.classes.dir}"/>
+    <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}"/>
+    <copy todir="${build.classes.dir}/META-INF/wsdl" overwrite="true">
+		<path refid="wsdl.list" />
+	</copy>
+  </target>
+
+  <target name="-quick.compile.source">
+    <echo message="quick compile.source for ${project.name}" level="info"/>
+    <mkdir dir="${build.classes.dir}" />
+    <call target="copy.util.src"/>
+    <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}"/>
   </target>
 
   <target name="copy.util.src">
-    <copy todir="${build.dir}/generated/client">
+    <copy todir="${build.generated.dir}" overwrite="true">
       <fileset dir="src/main/java">
         <include name="**/*.java"/>
       </fileset>
@@ -88,8 +114,6 @@
   </target>
 
   <target name="generate.proxies.xjc">
-    <mkdir dir="${build.classes.dir}" />
-    <mkdir dir="${build.dir}/generated/client"/>
     <outofdate verbose="true" force="${force.package}">
       <sourcefiles >
         <fileset dir="../Interfaces/src/schemas" >
@@ -98,7 +122,7 @@
       </sourcefiles>
       <targetfiles path="${build.dir.root}/compilexjc.flag"/>
       <sequential>
-        <xjc destdir="${build.dir}/generated/client" >
+        <xjc destdir="${build.generated.dir}" >
           <arg value="-xmlschema"/>
           <schema dir="../Interfaces/src/schemas">
             <patternset refid="schema.list"/>
@@ -108,8 +132,7 @@
       </sequential>
     </outofdate>
   </target>
-
-
+  
   <target name="generate.proxies.wsdl">
     <outofdate verbose="true" force="${force.package}">
       <sourcefiles>
@@ -122,21 +145,36 @@
           <sequential>
             <var name="wsdl.file" unset="true"/>
             <basename property="wsdl.file" file="@{wsdl.file.path}" />
-            <WsImportConnect 
-                xendorsed="true" 
-                sourcedestdir="${build.dir}/generated/client" 
-                extension="true"
-                destdir="${build.classes.dir}" 
-                wsdl="@{wsdl.file.path}" 
-                verbose="true"
-                wsdlLocation="${wsdl.file}"
-                xnocompile="true">
-            </WsImportConnect>			
+	    <java classname="gov.hhs.fha.nhinc.tools.ws.WsImportConnect"
+		   fork="true"
+		   failonerror="true">
+		<arg value="-d"/>
+		<arg value="${build.wsdl.output.dir}"/>
+		<arg value="-extension"/>
+		<arg value="-Xnocompile"/>
+		<arg value="-keep"/>	
+		<arg value="-s"/>
+		<arg value="${build.generated.dir}"/>
+		<arg value="-verbose"/>			
+		<arg value="@{wsdl.file.path}"/>			
+		<arg value="-wsdllocation"/>
+		<arg value="META-INF/wsdl/${wsdl.file}"/>
+		<jvmarg line="-Xmx1024m -Xms1024m"/>
+		<classpath>
+			<pathelement path="${env.ANT_HOME}/lib/webservices-rt.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxb-impl.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxb-xjc.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxws-api.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxws-rt.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/jaxws-tools.jar"/>
+			<pathelement path="${env.ANT_HOME}/lib/agilex-ant-tasks.jar"/>
+		</classpath>
+	    </java>
           </sequential>
         </for>  
         <echo file="${build.dir.root}/compilewsdl.flag" append="false"/>
       </sequential>
     </outofdate>
-  </target>
-
+  </target>  
+  
 </project>

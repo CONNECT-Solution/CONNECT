@@ -46,7 +46,6 @@
     <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <!-- <wsaws:UsingAddressing/> -->
     <wsdl:operation name="Proxy_ProcessPatientDiscoveryAsyncReq">
-      <soap12:operation soapAction="urn:Proxy_ProcessPatientDiscoveryAsyncReq"/>
       <wsdl:input name="Proxy_ProcessPatientDiscoveryAsyncReqRequest" >
         <soap12:body use="literal"/>
       </wsdl:input>

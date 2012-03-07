@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 
@@ -22,7 +42,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class PixRetrieveResponseBuilder {
@@ -42,8 +62,10 @@ public class PixRetrieveResponseBuilder {
     private static final String ProcessingModeCode = "T";
     private static final String ITSVersion = "XML_1.0";
 
-    public static PRPAIN201310UV02 createPixRetrieveResponse(PRPAIN201309UV02 retrievePatientCorrelationsRequest, List<II> resultListII) {
-        PRPAIN201310UV02 message = createTransmissionWrapper(IIHelper.IIFactory(Configuration.getMyCommunityId(), null), IIHelper.IIFactoryCreateNull());
+    public static PRPAIN201310UV02 createPixRetrieveResponse(PRPAIN201309UV02 retrievePatientCorrelationsRequest,
+            List<II> resultListII) {
+        PRPAIN201310UV02 message = createTransmissionWrapper(
+                IIHelper.IIFactory(Configuration.getMyCommunityId(), null), IIHelper.IIFactoryCreateNull());
         message.getAcknowledgement().add(createAck());
         message.setControlActProcess(createControlActProcess(resultListII, retrievePatientCorrelationsRequest));
         return message;
@@ -58,12 +80,14 @@ public class PixRetrieveResponseBuilder {
         return queryAck;
     }
 
-    private static PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent createRegistrationEvent(List<II> patientIds, PRPAIN201309UV02 originalRetrievePatientCorrelationsRequest) {
+    private static PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent createRegistrationEvent(List<II> patientIds,
+            PRPAIN201309UV02 originalRetrievePatientCorrelationsRequest) {
 
         PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent registrationEvent = new PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent();
         registrationEvent.getId().add(IIHelper.IIFactoryCreateNull());
         registrationEvent.setStatusCode(CSHelper.buildCS(StatusCodeValue));
-        PRPAIN201310UV02MFMIMT700711UV01Subject2 subject1 = createSubject1(patientIds, originalRetrievePatientCorrelationsRequest);
+        PRPAIN201310UV02MFMIMT700711UV01Subject2 subject1 = createSubject1(patientIds,
+                originalRetrievePatientCorrelationsRequest);
 
         registrationEvent.setSubject1(subject1);
 
@@ -71,25 +95,27 @@ public class PixRetrieveResponseBuilder {
         return registrationEvent;
     }
 
-    private static PRPAIN201310UV02MFMIMT700711UV01Subject1 createSubject(List<II> patientIds, PRPAIN201309UV02 originalRetrievePatientCorrelationsRequest) {
+    private static PRPAIN201310UV02MFMIMT700711UV01Subject1 createSubject(List<II> patientIds,
+            PRPAIN201309UV02 originalRetrievePatientCorrelationsRequest) {
 
         PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
         subject.getTypeCode().add(SubjectTypeCode);
-        PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent registrationEvent = createRegistrationEvent(patientIds, originalRetrievePatientCorrelationsRequest);
+        PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent registrationEvent = createRegistrationEvent(patientIds,
+                originalRetrievePatientCorrelationsRequest);
 
         subject.setRegistrationEvent(registrationEvent);
-
 
         return subject;
     }
 
-    private static PRPAIN201310UV02MFMIMT700711UV01Subject2 createSubject1(List<II> patientIds, PRPAIN201309UV02 originalRetrievePatientCorrelationsRequest) {
+    private static PRPAIN201310UV02MFMIMT700711UV01Subject2 createSubject1(List<II> patientIds,
+            PRPAIN201309UV02 originalRetrievePatientCorrelationsRequest) {
 
         PRPAIN201310UV02MFMIMT700711UV01Subject2 subject1 = new PRPAIN201310UV02MFMIMT700711UV01Subject2();
         PRPAMT201304UV02Patient patient = createPatient(patientIds);
         subject1.setPatient(patient);
 
-        //TODO: add provider organization
+        // TODO: add provider organization
 
         return subject1;
     }
@@ -100,15 +126,18 @@ public class PixRetrieveResponseBuilder {
         return ack;
     }
 
-    private static PRPAIN201310UV02MFMIMT700711UV01ControlActProcess createControlActProcess(List<II> patientIds, PRPAIN201309UV02 originalRetrievePatientCorrelationsRequest) {
+    private static PRPAIN201310UV02MFMIMT700711UV01ControlActProcess createControlActProcess(List<II> patientIds,
+            PRPAIN201309UV02 originalRetrievePatientCorrelationsRequest) {
         PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setCode(CDHelper.CDFactory(ControlActProcessCode, Constants.HL7_OID));
 
-        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = createSubject(patientIds, originalRetrievePatientCorrelationsRequest);
+        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = createSubject(patientIds,
+                originalRetrievePatientCorrelationsRequest);
         controlActProcess.getSubject().add(subject);
 
-        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = PRPAIN201309UVParser.ExtractQueryId(originalRetrievePatientCorrelationsRequest);
+        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = PRPAIN201309UVParser
+                .ExtractQueryId(originalRetrievePatientCorrelationsRequest);
         controlActProcess.setQueryByParameter(queryByParameter);
 
         controlActProcess.setQueryAck(createQueryAck(controlActProcess));
@@ -137,7 +166,8 @@ public class PixRetrieveResponseBuilder {
         PRPAMT201304UV02Person patientPerson = new PRPAMT201304UV02Person();
         // create patient person element
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<PRPAMT201304UV02Person>(xmlqname, PRPAMT201304UV02Person.class, patientPerson);
+        JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<PRPAMT201304UV02Person>(xmlqname,
+                PRPAMT201304UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPerson.getClassCode().add(PATIENTPERSON_CLASSCODE);
 

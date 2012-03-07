@@ -1,8 +1,0 @@
-<pseudonymMaps>
-  <pseudonymMap>
-    <pseudonymPatientIdAssigningAuthority>1.1.1</pseudonymPatientIdAssigningAuthority>
-    <pseudonymPatientId>D123401</pseudonymPatientId>
-    <realPatientIdAssigningAuthority>1.1.1</realPatientIdAssigningAuthority>
-    <realPatientId>D1234010050</realPatientId>
-  </pseudonymMap>
-</pseudonymMaps>

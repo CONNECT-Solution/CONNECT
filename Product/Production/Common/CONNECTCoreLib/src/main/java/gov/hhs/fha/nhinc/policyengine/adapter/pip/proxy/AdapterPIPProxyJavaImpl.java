@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy;
 
@@ -20,46 +40,39 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This is the concrete implementation for the Java based call to the
- * AdapterPIP.
- *
+ * This is the concrete implementation for the Java based call to the AdapterPIP.
+ * 
  * @author Les Westberg
  */
-public class AdapterPIPProxyJavaImpl implements AdapterPIPProxy
-{
+public class AdapterPIPProxyJavaImpl implements AdapterPIPProxy {
     private Log log = null;
 
-    public AdapterPIPProxyJavaImpl()
-    {
+    public AdapterPIPProxyJavaImpl() {
         log = createLogger();
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
     /**
      * Retrieve the patient consent settings for the given patient ID.
-     *
+     * 
      * @param request The patient ID for which the consent is being retrieved.
      * @return The patient consent information for that patient.
      */
-    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request, AssertionType assertion)
-    {
+    public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request,
+            AssertionType assertion) {
         log.debug("Begin AdapterPIPProxyJavaImpl.retrievePtConsentByPtId");
         RetrievePtConsentByPtIdResponseType oResponse = new RetrievePtConsentByPtIdResponseType();
 
         AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
 
-        try
-        {
+        try {
             oResponse = oAdapterPIPImpl.retrievePtConsentByPtId(request);
-        }
-        catch (Exception e)
-        {
-            String sErrorMessage = "Error occurred calling AdapterPIPProxyJavaImpl.retrievePtConsentByPtId.  Error: " +
-                                   e.getMessage();
+        } catch (Exception e) {
+            String sErrorMessage = "Error occurred calling AdapterPIPProxyJavaImpl.retrievePtConsentByPtId.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
@@ -69,28 +82,23 @@ public class AdapterPIPProxyJavaImpl implements AdapterPIPProxy
     }
 
     /**
-     * Retrieve the patient consent settings for the patient associated with
-     * the given document identifiers.
-     *
+     * Retrieve the patient consent settings for the patient associated with the given document identifiers.
+     * 
      * @param request The doucment identifiers of a document in the repository.
-     * @return The patient consent settings for the patient associated with
-     *         the given document identifiers.
+     * @return The patient consent settings for the patient associated with the given document identifiers.
      */
-    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion)
-    {
+    public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
+            RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion) {
         log.debug("Begin AdapterPIPProxyJavaImpl.retrievePtConsentByPtDocId");
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
 
         AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
 
-        try
-        {
+        try {
             oResponse = oAdapterPIPImpl.retrievePtConsentByPtDocId(request);
-        }
-        catch (Exception e)
-        {
-            String sErrorMessage = "Error occurred calling AdapterPIPProxyJavaImpl.retrievePtConsentByPtDocId.  Error: " +
-                                   e.getMessage();
+        } catch (Exception e) {
+            String sErrorMessage = "Error occurred calling AdapterPIPProxyJavaImpl.retrievePtConsentByPtDocId.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
@@ -101,26 +109,22 @@ public class AdapterPIPProxyJavaImpl implements AdapterPIPProxy
 
     /**
      * Store the patient consent information into the repository.
-     *
+     * 
      * @param request The patient consent settings to be stored.
-     * @return Status of the storage.  Currently this is either "SUCCESS" or
-     *         or the word "FAILED" followed by a ':' followed by the error information.
+     * @return Status of the storage. Currently this is either "SUCCESS" or or the word "FAILED" followed by a ':'
+     *         followed by the error information.
      */
-    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion)
-    {
+    public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion) {
         log.debug("Begin AdapterPIPProxyJavaImpl.storePtConsent");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
 
         AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
 
-        try
-        {
+        try {
             oResponse = oAdapterPIPImpl.storePtConsent(request);
-        }
-        catch (Exception e)
-        {
-            String sErrorMessage = "Error occurred calling AdapterPIPProxyJavaImpl.storePtConsent.  Error: " +
-                                   e.getMessage();
+        } catch (Exception e) {
+            String sErrorMessage = "Error occurred calling AdapterPIPProxyJavaImpl.storePtConsent.  Error: "
+                    + e.getMessage();
             oResponse.setStatus("FAILED: " + sErrorMessage);
             log.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);

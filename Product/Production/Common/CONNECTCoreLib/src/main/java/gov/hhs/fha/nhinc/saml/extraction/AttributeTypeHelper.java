@@ -1,41 +1,50 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.saml.extraction;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
+import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import java.util.ArrayList;
-import org.apache.xerces.dom.ElementNSImpl;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.AttributeStatementType;
+import org.apache.xerces.dom.ElementNSImpl;
 import com.sun.xml.wss.saml.internal.saml20.jaxb20.AttributeType;
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.ConditionsType;
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.EvidenceType;
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.AuthnStatementType;
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.AuthzDecisionStatementType;
-import com.sun.xml.wss.saml.internal.saml20.jaxb20.NameIDType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 
 /**
- *
+ * 
  * @author mweaver
  */
 public class AttributeTypeHelper {
@@ -44,10 +53,9 @@ public class AttributeTypeHelper {
     private static final String EMPTY_STRING = "";
 
     /**
-     * This method takes an attribute and extracts the string value of the
-     * attribute.  If the attribute has multiple values, then it concatenates
-     * all of the values.
-     *
+     * This method takes an attribute and extracts the string value of the attribute. If the attribute has multiple
+     * values, then it concatenates all of the values.
+     * 
      * @param attrib The attribute containing the string value.
      * @return The string value (or if there are multiple values, the concatenated string value.)
      */
@@ -67,7 +75,8 @@ public class AttributeTypeHelper {
                 } else if (o instanceof String) {
                     strBuf.append((String) o + " ");
 
-                    // we DO NOT break here despite the nhin specification because the previous algorithm for handling these Strings handled multiple values. Until I understand
+                    // we DO NOT break here despite the nhin specification because the previous algorithm for handling
+                    // these Strings handled multiple values. Until I understand
                     // why the string values are treated differently I am not going to change this logic.
                 }
             }
@@ -77,9 +86,8 @@ public class AttributeTypeHelper {
     }
 
     /**
-     * This method takes an attribute and extracts the base64Encoded value from the first
-     * attribute value.
-     *
+     * This method takes an attribute and extracts the base64Encoded value from the first attribute value.
+     * 
      * @param attrib The attribute containing the string value.
      * @return The string value (or if there are multiple values, the concatenated string value.)
      */
@@ -87,8 +95,7 @@ public class AttributeTypeHelper {
         byte[] retValue = null;
 
         List attrVals = attrib.getAttributeValue();
-        if ((attrVals != null) &&
-                (attrVals.size() > 0)) {
+        if ((attrVals != null) && (attrVals.size() > 0)) {
             if (attrVals.get(0) instanceof byte[]) {
                 retValue = (byte[]) attrVals.get(0);
             }
@@ -98,10 +105,10 @@ public class AttributeTypeHelper {
     }
 
     /**
-     * The value of the UserName attribute is assumed to be a user's name in
-     * plain text.  The name parts are extracted in this method as the first
-     * word constitutes the first name, the last word constitutes the last name
-     * and all other text in between these words constitute the middle name.
+     * The value of the UserName attribute is assumed to be a user's name in plain text. The name parts are extracted in
+     * this method as the first word constitutes the first name, the last word constitutes the last name and all other
+     * text in between these words constitute the middle name.
+     * 
      * @param attrib The Attribute that has the user name as its value
      * @param assertOut The Assertion element being written to
      */
@@ -111,15 +118,14 @@ public class AttributeTypeHelper {
         // Assumption is that before the 1st space reflects the first name,
         // after the last space is the last name, anything between is the middle name
         List attrVals = attrib.getAttributeValue();
-        if ((attrVals != null) &&
-                (attrVals.size() >= 1)) {
+        if ((attrVals != null) && (attrVals.size() >= 1)) {
             PersonNameType personName = assertOut.getUserInfo().getPersonName();
 
             // Although SAML allows for multiple attribute values, the NHIN Specification
-            // states that for a name there will be one attribute value.  So we will
-            // only look at the first one.  If there are more, the first is the only one
+            // states that for a name there will be one attribute value. So we will
+            // only look at the first one. If there are more, the first is the only one
             // that will be used.
-            //-----------------------------------------------------------------------------
+            // -----------------------------------------------------------------------------
             String completeName = extractAttributeValueString(attrib);
             personName.setFullName(completeName);
             log.debug("Assertion.userInfo.personName.FullName = " + completeName);
@@ -127,7 +133,7 @@ public class AttributeTypeHelper {
             String[] nameTokens = completeName.split("\\s");
             ArrayList<String> nameParts = new ArrayList<String>();
 
-            //remove blank tokens
+            // remove blank tokens
             for (String tok : nameTokens) {
                 if (tok.trim() != null && tok.trim().length() > 0) {
                     nameParts.add(tok);
@@ -158,7 +164,8 @@ public class AttributeTypeHelper {
                 // take off last blank character
                 midName.setLength(midName.length() - 1);
                 personName.setSecondNameOrInitials(midName.toString());
-                log.debug("Assertion.userInfo.personName.secondNameOrInitials = " + personName.getSecondNameOrInitials());
+                log.debug("Assertion.userInfo.personName.secondNameOrInitials = "
+                        + personName.getSecondNameOrInitials());
             }
         } else {
             log.error("User Name attribute is empty: " + attrVals);
@@ -168,12 +175,11 @@ public class AttributeTypeHelper {
     }
 
     /**
-     * The value of the UserRole and PurposeOfUse attributes are formatted
-     * according to the specifications of an nhin:CodedElement.  This method
-     * parses that expected structure to obtain the code, codeSystem,
-     * codeSystemName, and the displayName attributes of that element.
-     * @param attrib The Attribute that has the UserRole or PurposeOfUse as its
-     * value
+     * The value of the UserRole and PurposeOfUse attributes are formatted according to the specifications of an
+     * nhin:CodedElement. This method parses that expected structure to obtain the code, codeSystem, codeSystemName, and
+     * the displayName attributes of that element.
+     * 
+     * @param attrib The Attribute that has the UserRole or PurposeOfUse as its value
      * @param assertOut The Assertion element being written to
      * @param codeId Identifies which coded element this is parsing
      */
@@ -187,38 +193,35 @@ public class AttributeTypeHelper {
         ce.setDisplayName(EMPTY_STRING);
 
         List attrVals = attrib.getAttributeValue();
-        //log.debug("extractNhinCodedElement: " + attrib.getName() + " has " + attrVals.size() + " values");
+        // log.debug("extractNhinCodedElement: " + attrib.getName() + " has " + attrVals.size() + " values");
 
-        if ((attrVals != null) &&
-                (attrVals.size() > 0)) {
+        if ((attrVals != null) && (attrVals.size() > 0)) {
             log.debug("AttributeValue is: " + attrVals.get(0).getClass());
             // According to the NHIN specifications - there should be exactly one value.
             // If there is more than one. We will take only the first one.
-            //---------------------------------------------------------------------------
+            // ---------------------------------------------------------------------------
             NodeList nodelist = null;
             if (attrVals.get(0) instanceof ElementNSImpl) {
                 ElementNSImpl elem = (ElementNSImpl) attrVals.get(0);
                 nodelist = elem.getChildNodes();
             } else {
-                log.error("The value for the " + codeId + " attribute is a: " + attrVals.get(0).getClass() + " expected a ElementNSImpl");
+                log.error("The value for the " + codeId + " attribute is a: " + attrVals.get(0).getClass()
+                        + " expected a ElementNSImpl");
             }
-            if ((nodelist != null) &&
-                    (nodelist.getLength() > 0)) {
+            if ((nodelist != null) && (nodelist.getLength() > 0)) {
                 int numNodes = nodelist.getLength();
                 for (int idx = 0; idx < numNodes; idx++) {
                     if (nodelist.item(idx) instanceof Node) {
-                        //log.debug("Processing index:" + idx + " node as " + nodelist.item(idx).getNodeName());
+                        // log.debug("Processing index:" + idx + " node as " + nodelist.item(idx).getNodeName());
                         Node node = (Node) nodelist.item(idx);
                         NamedNodeMap attrMap = node.getAttributes();
-                        if ((attrMap != null) &&
-                                (attrMap.getLength() > 0)) {
+                        if ((attrMap != null) && (attrMap.getLength() > 0)) {
                             int numMapNodes = attrMap.getLength();
                             for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
-                                //log.debug("Processing attribute index:" + attrIdx + " as " + attrMap.item(attrIdx));
+                                // log.debug("Processing attribute index:" + attrIdx + " as " + attrMap.item(attrIdx));
                                 Node attrNode = attrMap.item(attrIdx);
-                                if ((attrNode != null) &&
-                                        (attrNode.getNodeName() != null) &&
-                                        (!attrNode.getNodeName().isEmpty())) {
+                                if ((attrNode != null) && (attrNode.getNodeName() != null)
+                                        && (!attrNode.getNodeName().isEmpty())) {
                                     if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODE_ID)) {
                                         ce.setCode(attrNode.getNodeValue());
                                         log.debug(codeId + ": ce.Code = " + ce.getCode());
@@ -238,15 +241,15 @@ public class AttributeTypeHelper {
                                 } else {
                                     log.debug("Attribute name can not be processed");
                                 }
-                            }   // for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
-                            } else {
+                            } // for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
+                        } else {
                             log.debug("Attribute map is null");
                         }
                     } else {
                         log.debug("Expected AttributeValue to have a Node child");
                     }
-                }   // for (int idx = 0; idx < numNodes; idx++) {
-                } else {
+                } // for (int idx = 0; idx < numNodes; idx++) {
+            } else {
                 log.error("The AttributeValue for " + codeId + " should have a Child Node");
             }
         } else {

@@ -1,12 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
  *
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
  *
- */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
@@ -33,12 +49,13 @@ import org.hl7.v3.ST;
 import org.hl7.v3.TELExplicit;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class HL7QueryParamsTransforms {
 
-    public static JAXBElement<PRPAMT201306UV02QueryByParameter> createQueryParams(PRPAMT201301UV02Patient patient, String localDeviceId) {
+    public static JAXBElement<PRPAMT201306UV02QueryByParameter> createQueryParams(PRPAMT201301UV02Patient patient,
+            String localDeviceId) {
         PRPAMT201306UV02QueryByParameter params = new PRPAMT201306UV02QueryByParameter();
 
         params.setQueryId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
@@ -49,7 +66,8 @@ public class HL7QueryParamsTransforms {
         params.setParameterList(createParamList(patient));
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        JAXBElement<PRPAMT201306UV02QueryByParameter> queryParams = new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
+        JAXBElement<PRPAMT201306UV02QueryByParameter> queryParams = new JAXBElement<PRPAMT201306UV02QueryByParameter>(
+                xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
 
         return queryParams;
     }
@@ -60,52 +78,39 @@ public class HL7QueryParamsTransforms {
         PRPAMT201301UV02Person person = jaxbPerson.getValue();
 
         // Set the Subject Gender Code
-        if (person != null &&
-                person.getAdministrativeGenderCode() != null &&
-                NullChecker.isNotNullish(person.getAdministrativeGenderCode().getCode())) {
-            paramList.getLivingSubjectAdministrativeGender().add(createGender(person.getAdministrativeGenderCode().getCode()));
+        if (person != null && person.getAdministrativeGenderCode() != null
+                && NullChecker.isNotNullish(person.getAdministrativeGenderCode().getCode())) {
+            paramList.getLivingSubjectAdministrativeGender().add(
+                    createGender(person.getAdministrativeGenderCode().getCode()));
         }
 
         // Set the Subject Birth Time
-        if (person != null &&
-                person.getBirthTime() != null &&
-                NullChecker.isNotNullish(person.getBirthTime().getValue())) {
-           paramList.getLivingSubjectBirthTime().add(createBirthTime(person.getBirthTime().getValue()));
+        if (person != null && person.getBirthTime() != null
+                && NullChecker.isNotNullish(person.getBirthTime().getValue())) {
+            paramList.getLivingSubjectBirthTime().add(createBirthTime(person.getBirthTime().getValue()));
         }
 
         // Set the address
-        if(person != null &&
-                person.getAddr() != null &&
-                person.getAddr().size() > 0)
-        {
+        if (person != null && person.getAddr() != null && person.getAddr().size() > 0) {
             paramList.getPatientAddress().add(createAddress(person.getAddr()));
         }
 
         // Set telephone number
-        if(person != null &&
-                person.getTelecom()!=null &&
-                person.getTelecom().size() > 0)
-        {
+        if (person != null && person.getTelecom() != null && person.getTelecom().size() > 0) {
             paramList.getPatientTelecom().add(createTelecom(person.getTelecom()));
         }
         // Set the Subject Name
-        if (person != null &&
-                person.getName() != null &&
-                person.getName().size() > 0) {
-           paramList.getLivingSubjectName().add(createName(person.getName()));
+        if (person != null && person.getName() != null && person.getName().size() > 0) {
+            paramList.getLivingSubjectName().add(createName(person.getName()));
         }
 
         // Set the subject Id
-        if (patient != null &&
-                patient.getId() != null &&
-                patient.getId().size() > 0 &&
-                patient.getId().get(0) != null) {
+        if (patient != null && patient.getId() != null && patient.getId().size() > 0 && patient.getId().get(0) != null) {
             paramList.getLivingSubjectId().add(createSubjectId(patient.getId().get(0)));
         }
 
         // Set the other ids
-        if (person != null &&
-                NullChecker.isNotNullish(person.getAsOtherIDs())) {
+        if (person != null && NullChecker.isNotNullish(person.getAsOtherIDs())) {
             for (PRPAMT201301UV02OtherIDs otherId : person.getAsOtherIDs()) {
                 for (II id : otherId.getId()) {
                     paramList.getLivingSubjectId().add(createSubjectId(id));
@@ -136,9 +141,9 @@ public class HL7QueryParamsTransforms {
         PRPAMT201306UV02LivingSubjectName subjectName = new PRPAMT201306UV02LivingSubjectName();
 
         for (PNExplicit name : patientNames) {
-           subjectName.getValue().add(HL7DataTransformHelper.ConvertPNToEN(name));
-           ST text = new ST();
-           subjectName.setSemanticsText(text);
+            subjectName.getValue().add(HL7DataTransformHelper.ConvertPNToEN(name));
+            ST text = new ST();
+            subjectName.setSemanticsText(text);
         }
 
         return subjectName;
@@ -148,8 +153,7 @@ public class HL7QueryParamsTransforms {
         PRPAMT201306UV02LivingSubjectBirthTime subjectBirthTime = new PRPAMT201306UV02LivingSubjectBirthTime();
         IVLTSExplicit bday = new IVLTSExplicit();
 
-        if (birthTime != null &&
-                birthTime.length() > 0) {
+        if (birthTime != null && birthTime.length() > 0) {
             bday.setValue(birthTime);
             subjectBirthTime.getValue().add(bday);
             ST text = new ST();
@@ -163,8 +167,7 @@ public class HL7QueryParamsTransforms {
         PRPAMT201306UV02LivingSubjectAdministrativeGender adminGender = new PRPAMT201306UV02LivingSubjectAdministrativeGender();
         CE genderCode = new CE();
 
-        if (gender != null &&
-                gender.length() > 0) {
+        if (gender != null && gender.length() > 0) {
             genderCode.setCode(gender);
             adminGender.getValue().add(genderCode);
 
@@ -175,34 +178,29 @@ public class HL7QueryParamsTransforms {
         return adminGender;
     }
 
-    public static PRPAMT201306UV02PatientAddress createAddress(List<ADExplicit> patientAddress)
-    {
+    public static PRPAMT201306UV02PatientAddress createAddress(List<ADExplicit> patientAddress) {
         PRPAMT201306UV02PatientAddress subjectAddress = null;
         ST text = null;
 
-        if(patientAddress != null)
-        {
+        if (patientAddress != null) {
             subjectAddress = new PRPAMT201306UV02PatientAddress();
             for (ADExplicit address : patientAddress) {
-               subjectAddress.getValue().add(address);
-               text = new ST();
-               subjectAddress.setSemanticsText(text);
+                subjectAddress.getValue().add(address);
+                text = new ST();
+                subjectAddress.setSemanticsText(text);
             }
         }
 
         return subjectAddress;
     }
 
-    public static PRPAMT201306UV02PatientTelecom createTelecom(List<TELExplicit> patientTelecom)
-    {
+    public static PRPAMT201306UV02PatientTelecom createTelecom(List<TELExplicit> patientTelecom) {
         PRPAMT201306UV02PatientTelecom subjectTele = null;
         ST text = null;
 
-        if (patientTelecom != null)
-        {
+        if (patientTelecom != null) {
             subjectTele = new PRPAMT201306UV02PatientTelecom();
-            for(TELExplicit tele : patientTelecom)
-            {
+            for (TELExplicit tele : patientTelecom) {
                 subjectTele.getValue().add(tele);
                 text = new ST();
                 subjectTele.setSemanticsText(text);

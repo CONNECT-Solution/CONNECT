@@ -1,15 +1,31 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.common.connectionmanager.persistence;
+
 import java.io.FileReader;
 import java.io.File;
 
@@ -17,46 +33,37 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
- *
+ * 
  * @author dunnek
  */
-public class HibernateAccessor
-{
+public class HibernateAccessor {
     private static String m_sPropertyFileDir = "";
 
-    static
-    {
+    static {
         m_sPropertyFileDir = PropertyAccessor.getPropertyFileLocation();
     }
 
-    public static File getHibernateFile(String hibernateFileName)
-           throws Exception
-    {
+    public static File getHibernateFile(String hibernateFileName) throws Exception {
         String sFileSeparator = System.getProperty("file.separator");
         checkEnvVarSet();
 
-        File result = new File(m_sPropertyFileDir + "hibernate" +
-                sFileSeparator + hibernateFileName );
+        File result = new File(m_sPropertyFileDir + "hibernate" + sFileSeparator + hibernateFileName);
 
-        if(result == null)
-        {
-            throw new Exception("Unable to locate " +
-                    hibernateFileName);
+        if (result == null) {
+            throw new Exception("Unable to locate " + hibernateFileName);
         }
         return result;
     }
-    private static boolean checkEnvVarSet()
-        throws Exception
-    {
+
+    private static boolean checkEnvVarSet() throws Exception {
         PropertyAccessor.checkEnvVarSet();
 
-        return true;            // We only get here if the env variable was loaded.
+        return true; // We only get here if the env variable was loaded.
     }
 }

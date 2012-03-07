@@ -1,27 +1,31 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  * 
- * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (c) 1997-2010 Oracle and/or its affiliates. All rights reserved.
  * 
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
  * and Distribution License("CDDL") (collectively, the "License").  You
- * may not use this file except in compliance with the License. You can obtain
- * a copy of the License at https://glassfish.dev.java.net/public/CDDL+GPL.html
- * or glassfish/bootstrap/legal/LICENSE.txt.  See the License for the specific
+ * may not use this file except in compliance with the License.  You can
+ * obtain a copy of the License at
+ * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+ * or packager/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
  * 
  * When distributing the software, include this License Header Notice in each
- * file and include the License file at glassfish/bootstrap/legal/LICENSE.txt.
- * Sun designates this particular file as subject to the "Classpath" exception
- * as provided by Sun in the GPL Version 2 section of the License file that
- * accompanied this code.  If applicable, add the following below the License
- * Header, with the fields enclosed by brackets [] replaced by your own
- * identifying information: "Portions Copyrighted [year]
- * [name of copyright owner]"
+ * file and include the License file at packager/legal/LICENSE.txt.
  * 
+ * GPL Classpath Exception:
+ * Oracle designates this particular file as subject to the "Classpath"
+ * exception as provided by Oracle in the GPL Version 2 section of the License
+ * file that accompanied this code.
+ *
+ * Modifications:
+ * If applicable, add the following below the License Header, with the fields
+ * enclosed by brackets [] replaced by your own identifying information:
+ * "Portions Copyright [year] [name of copyright owner]"
+ *
  * Contributor(s):
- * 
  * If you wish your version of this file to be governed by only the CDDL or
  * only the GPL Version 2, indicate your decision by adding "[Contributor]
  * elects to include this software in this distribution under the [CDDL or GPL
@@ -39,13 +43,16 @@ package gov.hhs.fha.nhinc.tools.ws;
 import com.sun.istack.tools.MaskingClassLoader;
 import com.sun.istack.tools.ParallelWorldClassLoader;
 import com.sun.tools.ws.resources.WscompileMessages;
+import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.xjc.api.util.ToolsJarNotFoundException;
 import com.sun.xml.bind.util.Which;
 
 import javax.xml.ws.Service;
 import javax.xml.ws.WebServiceFeature;
+import javax.xml.namespace.QName;
 import java.io.File;
 import java.io.OutputStream;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -80,11 +87,22 @@ public final class InvokerConnect {
             if(Arrays.asList(args).contains("-Xendorsed"))
                 cl = createClassLoader(cl); // perform JDK6 workaround hack
             else {
-                if(!checkIfLoading21API()) {
+                int targetArgIndex = Arrays.asList(args).indexOf("-target"); 
+                Options.Target targetVersion;
+                if (targetArgIndex != -1) {
+                    targetVersion = Options.Target.parse(args[targetArgIndex+1]);
+                } else {
+                    targetVersion = Options.Target.getDefault();
+                }
+                Options.Target loadedVersion = Options.Target.getLoadedAPIVersion();
+
+                //Check if the target version is supported by the loaded API version
+                if (!loadedVersion.isLaterThan(targetVersion)) {
                     if(Service.class.getClassLoader()==null)
-                        System.err.println(WscompileMessages.INVOKER_NEED_ENDORSED());
-                    else
-                        System.err.println(WscompileMessages.WRAPPER_TASK_LOADING_20_API(Which.which(Service.class)));
+                        System.err.println(WscompileMessages.INVOKER_NEED_ENDORSED(loadedVersion.getVersion(), targetVersion.getVersion()));
+                    else {
+                        System.err.println(WscompileMessages.WRAPPER_TASK_LOADING_INCORRECT_API(loadedVersion.getVersion(), Which.which(Service.class), targetVersion.getVersion()));
+                    }
                     return -1;
                 }
                 //find and load tools.jar
@@ -144,12 +162,28 @@ public final class InvokerConnect {
     }
 
     /**
-     * Creates a classloader that can load JAXB/WS 2.1 API and tools.jar,
+    * Returns true if the RI appears to be loading the JAX-WS 2.2 API.
+    */
+   public static boolean checkIfLoading22API() {
+       try {
+           Service.class.getMethod("create",java.net.URL.class, QName.class, WebServiceFeature[].class);
+           // yup. things look good.
+           return true;
+       } catch (NoSuchMethodException e) {
+       } catch (LinkageError e) {
+       }
+       // nope
+       return false;
+   }
+
+
+    /**
+     * Creates a classloader that can load JAXB/WS 2.2 API and tools.jar,
      * and then return a classloader that can RI classes, which can see all those APIs and tools.jar.  
      */
-    public static ClassLoader createClassLoader(ClassLoader cl) throws ClassNotFoundException, MalformedURLException, ToolsJarNotFoundException {
+    public static ClassLoader createClassLoader(ClassLoader cl) throws ClassNotFoundException, IOException, ToolsJarNotFoundException {
 
-        URL[] urls = findIstackAPIs(cl);
+        URL[] urls = findIstack22APIs(cl);
         if(urls.length==0)
             return cl;  // we seem to be able to load everything already. no need for the hack
 
@@ -174,21 +208,20 @@ public final class InvokerConnect {
     }
 
     /**
-     * Creates a classloader for loading JAXB/WS 2.1 jar and tools.jar
+     * Creates a classloader for loading JAXB/WS 2.2 jar and tools.jar
      */
-    private static URL[] findIstackAPIs(ClassLoader cl) throws ClassNotFoundException, MalformedURLException, ToolsJarNotFoundException {
+    private static URL[] findIstack22APIs(ClassLoader cl) throws ClassNotFoundException, IOException, ToolsJarNotFoundException {
         List<URL> urls = new ArrayList<URL>();
 
         if(Service.class.getClassLoader()==null) {
             // JAX-WS API is loaded from bootstrap classloader
-            URL res = cl.getResource("javax/xml/ws/EndpointReference.class");
+            URL res = cl.getResource("javax/xml/ws/EndpointContext.class");
             if(res==null)
-                throw new ClassNotFoundException("There's no JAX-WS 2.1 API in the classpath");
+                throw new ClassNotFoundException("There's no JAX-WS 2.2 API in the classpath");
             urls.add(ParallelWorldClassLoader.toJarUrl(res));
-
-            res = cl.getResource("javax/xml/bind/annotation/XmlSeeAlso.class");
+            res = cl.getResource("javax/xml/bind/JAXBPermission.class");
             if(res==null)
-                throw new ClassNotFoundException("There's no JAXB 2.1 API in the classpath");
+                throw new ClassNotFoundException("There's no JAXB 2.2 API in the classpath");
             urls.add(ParallelWorldClassLoader.toJarUrl(res));
         }
 

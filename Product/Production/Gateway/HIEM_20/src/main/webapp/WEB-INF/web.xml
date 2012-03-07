@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <servlet>
+        <servlet-name>EntityNotifyService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.notify.EntityNotifyService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityNotifyService</servlet-name>
+        <url-pattern>/EntityNotificationConsumer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntitySubscribeService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.subscribe.EntitySubscribeService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntitySubscribeService</servlet-name>
+        <url-pattern>/EntityNotificationProducer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityUnsubscribeService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe.EntityUnsubscribeService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityUnsubscribeService</servlet-name>
+        <url-pattern>/EntitySubscriptionManager</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProxyHiemNotify</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.proxy.ProxyHiemNotify</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyHiemNotify</servlet-name>
+        <url-pattern>/NhincProxyNotificationConsumer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProxyHiemSubscribe</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.proxy.ProxyHiemSubscribe</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyHiemSubscribe</servlet-name>
+        <url-pattern>/NhincProxyNotificationProducer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProxyHiemUnsubscribe</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.proxy.ProxyHiemUnsubscribe</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyHiemUnsubscribe</servlet-name>
+        <url-pattern>/NhincProxySubscriptionManager</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>HiemNotify</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.nhin.notify.HiemNotify</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HiemNotify</servlet-name>
+        <url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>HiemSubscription</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.nhin.subscription.HiemSubscription</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HiemSubscription</servlet-name>
+        <url-pattern>/NhinService/NotificationProducerService/HiemSubscription</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>HiemUnsubscribe</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.nhin.unsubscribe.HiemUnsubscribe</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HiemUnsubscribe</servlet-name>
+        <url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ProxyHiemNotifySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.proxy.ProxyHiemNotifySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyHiemNotifySecured</servlet-name>
+        <url-pattern>/EntityService/NhincProxyNotificationConsumerSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ProxyHiemSubscribeSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.proxy.ProxyHiemSubscribeSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyHiemSubscribeSecured</servlet-name>
+        <url-pattern>/EntityService/NhincProxyNotificationProducerSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ProxyHiemUnsubscribeSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.proxy.ProxyHiemUnsubscribeSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyHiemUnsubscribeSecured</servlet-name>
+        <url-pattern>/EntityService/NhincProxySubscriptionManagerSecured</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>EntityNotifySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.notify.EntityNotifySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityNotifySecured</servlet-name>
+        <url-pattern>/EntityService/EntityNotificationConsumerSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntitySubscribeSecuredService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.subscribe.EntitySubscribeSecuredService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntitySubscribeSecuredService</servlet-name>
+        <url-pattern>/EntityService/EntityNotificationProducerSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityUnsubscribeSecuredService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe.EntityUnsubscribeSecuredService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityUnsubscribeSecuredService</servlet-name>
+        <url-pattern>/EntityService/EntitySubscriptionManagerSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GatewaySubscriptionReferenceRepository</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.subscription.repository.GatewaySubscriptionReferenceRepository</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GatewaySubscriptionReferenceRepository</servlet-name>
+        <url-pattern>/GatewayInternalService/NhincComponentSubscriptionReferenceRepository</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GatewaySubscriptionRepository</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.subscription.repository.GatewaySubscriptionRepository</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GatewaySubscriptionRepository</servlet-name>
+        <url-pattern>/GatewayInternalService/NhincComponentSubscriptionRepository</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>HiemSubscriptionRepositoryUtilService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.hiem._20.subscription.repository.util.HiemSubscriptionRepositoryUtilService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HiemSubscriptionRepositoryUtilService</servlet-name>
+        <url-pattern>/GatewayInternalService/HiemSubscriptionRepositoryUtil</url-pattern>
+    </servlet-mapping>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HiemNotify</web-resource-name>
+            <url-pattern>/NhinService/NotificationConsumerService/HiemNotify</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>HiemSubscription</web-resource-name>
+            <url-pattern>/NhinService/NotificationProducerService/HiemSubscription</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>HiemUnsubscribe</web-resource-name>
+            <url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>ProxyHiemNotifySecured</web-resource-name>
+            <url-pattern>/EntityService/NhincProxyNotificationConsumerSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>ProxyHiemSubscribeSecured</web-resource-name>
+            <url-pattern>/EntityService/NhincProxyNotificationProducerSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>ProxyHiemUnsubscribeSecured</web-resource-name>
+            <url-pattern>/EntityService/NhincProxySubscriptionManagerSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>EntityNotifySecured</web-resource-name>
+            <url-pattern>/EntityService/EntityNotificationConsumerSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>EntitySubscribeSecuredService</web-resource-name>
+            <url-pattern>/EntityService/EntityNotificationProducerSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>EntityUnsubscribeSecuredService</web-resource-name>
+            <url-pattern>/EntityService/EntitySubscriptionManagerSecured</url-pattern>
+        </web-resource-collection>
+
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>CLIENT-CERT</auth-method>
+        <realm-name>certificate</realm-name>
+    </login-config>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>

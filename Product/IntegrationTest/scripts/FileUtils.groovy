@@ -125,88 +125,158 @@ class FileUtils {
 		return propertyValue;
 	}
 
-	static CreateOrUpdateConnection(String directory, String communityId, String serviceName, String serviceUrl, context, log) {
-	    log.info("begin CreateOrUpdateConnection; directory='" + directory + "';community id='" + communityId + "';service name='" + serviceName + "';service url='" + serviceUrl + "';");
-	
-		String fullPath = directory + "/internalConnectionInfo.xml";
+	static CreateOrUpdateConnection(String fileName, String directory, String communityId, String serviceName, String serviceUrl, String defaultVersion, context, log) {
+		
+		log.info("begin CreateOrUpdateConnection; directory='" + directory + "';community id='" + communityId + "';service name='" + serviceName + "';service url='" + serviceUrl + "';");
+
+		String fullPath = directory + "/" + fileName;
 		log.info("Path to connection info file: " + fullPath);
-    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    Document doc = null;
-    try
-    {
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        doc = builder.parse(fullPath);
-    }
-    catch (Exception e) {
-        e.printStackTrace();
-        return;
-    }
-    NodeList connectionInfos = doc.getElementsByTagName("internalConnectionInfo");
-    for (int i = 0; i < connectionInfos.getLength(); i++) {
-      Element connectionInfo = (Element) connectionInfos.item(i);
-      NodeList homeCommunityIds = connectionInfo.getElementsByTagName("homeCommunityId");
-      Element communityIdElement = (Element)homeCommunityIds.item(0);
-      String communityIdValue = communityIdElement.getTextContent();
-      if(communityId.equals(communityIdValue))
-      {
-        NodeList servicesList = connectionInfo.getElementsByTagName("services");
-        Element servicesElement = (Element)servicesList.item(0);
-        NodeList serviceList = servicesElement.getElementsByTagName("service");
-        boolean serviceNodeFound = false;
-        for(int serviceNodeIndex = 0; serviceNodeIndex < serviceList.getLength(); serviceNodeIndex++)
-        {
-            Element serviceElement = (Element)serviceList.item(serviceNodeIndex);
-            Element serviceNameElement = (Element)serviceElement.getElementsByTagName("name").item(0);
-            if(serviceName.equals(serviceNameElement.getTextContent()))
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+        Document doc = null;
+        try
             {
-                serviceNodeFound = true;
-                Element endpointUrlElement = (Element)serviceElement.getElementsByTagName("endpointURL").item(0);
-                if(!serviceUrl.equals(endpointUrlElement.getTextContent()))
-                {
-                    endpointUrlElement.setTextContent(serviceUrl);
-                }
-                break;
+              DocumentBuilder builder = factory.newDocumentBuilder();
+              doc = builder.parse(fullPath);
             }
-          }
+        catch (Exception e) {
+              e.printStackTrace();
+              return;
+            }
+
+        Element businessDetail = (Element)doc.getElementsByTagName("businessDetail").item(0);
+        NodeList businessEntities = businessDetail.getElementsByTagName("businessEntity");
+
+        for (int i = 0; i < businessEntities.getLength(); i++) {
+           Element businessEntity = (Element) businessEntities.item(i);
+           String communityIdValue = businessEntity.getAttribute("businessKey");
+           if(communityIdValue.equals("uddi:testnhincnode:"+communityId))
+            {
+            Element services = (Element) businessEntity.getElementsByTagName("businessServices").item(0);
+            NodeList serviceList = services.getElementsByTagName("businessService");
+            boolean serviceNodeFound = false;
+
+            for(int serviceNodeIndex = 0; serviceNodeIndex < serviceList.getLength(); serviceNodeIndex++)
+            {
+                Element serviceElement = (Element)serviceList.item(serviceNodeIndex);
+                String name = serviceElement.getElementsByTagName("name").item(0).getTextContent();
+                if(serviceName.equals(name))
+                {
+                    serviceNodeFound = true;
+                    Element bindingTemplates = (Element)serviceElement.getElementsByTagName("bindingTemplates").item(0);
+                    NodeList bindingTemplatesList = bindingTemplates.getElementsByTagName("bindingTemplate");
+                    float bindingTemplateVersion = 0;
+                    Element latestVersionBindingTemplate = null;
+                    
+                    if(bindingTemplatesList.getLength() > 1){
+                        for(int bindingNodeIndex = 0; bindingNodeIndex < bindingTemplatesList.getLength(); bindingNodeIndex++){
+                            Element currBindingTemplate = (Element)bindingTemplatesList.item(bindingNodeIndex);
+                            Element bindingCategoryBag = (Element)currBindingTemplate.getElementsByTagName("categoryBag").item(0);
+                            Element bindingKeyedRef = (Element)bindingCategoryBag.getElementsByTagName("keyedReference").item(0);
+                            String currVersionString = bindingKeyedRef.getAttribute("keyValue");
+							if(currVersionString.contains("LEVEL")){
+								if(latestVersionBindingTemplate != null){
+									if(currVersionString.equals("LEVEL_a1")){
+										latestVersionBindingTemplate = currBindingTemplate;
+									}//else template is prior version and doesn't need to be set
+								}else latestVersionBindingTemplate = currBindingTemplate;
+							}
+							else{
+								float currVersion = new Float(currVersionString);
+								if(currVersion > bindingTemplateVersion){
+									bindingTemplateVersion = currVersion;
+									latestVersionBindingTemplate = currBindingTemplate;
+								}
+							}
+                        }
+                    }else{
+                        latestVersionBindingTemplate = (Element)bindingTemplatesList.item(0);
+                    }
+
+                    if(latestVersionBindingTemplate != null){
+                        Element accessPoint = (Element)latestVersionBindingTemplate.getElementsByTagName("accessPoint").item(0);
+                        if(!serviceUrl.equals(accessPoint.getTextContent())){
+                            accessPoint.setTextContent(serviceUrl);
+                        }
+                    }
+                        break;
+                   }
+
+            }
           if(!serviceNodeFound)
           {
             // Create new service and add it to the services node
-            Element serviceElement = doc.createElement("service");
+            Element serviceElement = doc.createElementNS("urn:uddi-org:api_v3", "businessService");
+            serviceElement.setAttribute("serviceKey", "uddi:testnhincnode:"+serviceName);
+            serviceElement.setAttribute("businessKey", "uddi:testnhieonenode:"+communityId);
 
-            Element nameElement = doc.createElement("name");
-            nameElement.setTextContent(serviceName);
-            serviceElement.appendChild(nameElement);
+            Element name = doc.createElementNS("urn:uddi-org:api_v3", "name");
+            name.setAttribute("xml:lang", "en");
+            name.setTextContent(serviceName);
+            serviceElement.appendChild(name);
 
-            Element descriptionElement = doc.createElement("description");
-            descriptionElement.setTextContent(serviceName);
-            serviceElement.appendChild(descriptionElement);
+            Element bindingTemplates = doc.createElementNS("urn:uddi-org:api_v3","bindingTemplates");
+            Element bindingTemplate = doc.createElementNS("urn:uddi-org:api_v3", "bindingTemplate");
+            bindingTemplate.setAttribute("bindingKey", "uddi:testnhincnode:"+serviceName);
+            bindingTemplate.setAttribute("serviceKey", "uddi:testnhincnode:"+serviceName);
+            Element accessPoint = doc.createElementNS("urn:uddi-org:api_v3", "accessPoint");
+            accessPoint.setAttribute("useType", "endPoint");
+            accessPoint.setTextContent(serviceUrl);
+            Element btCategoryBags = doc.createElementNS("urn:uddi-org:api_v3", "categoryBag");
+            
+            if(serviceName.toLowerCase().contains("adapter")){
+                Element keyedRefAdap = doc.createElementNS("urn:uddi-org:api_v3", "keyedReference");
+                keyedRefAdap.setAttribute("tModelKey", "CONNECT:adapter:apilevel");
+                keyedRefAdap.setAttribute("keyName", "");
+                keyedRefAdap.setAttribute("keyValue", "LEVEL_a0");
+                btCategoryBags.appendChild(keyedRefAdap);
+            }else {
+                Element btKeyedReference = doc.createElementNS("urn:uddi-org:api_v3", "keyedReference");
+                btKeyedReference.setAttribute("keyName", "");
+				btKeyedReference.setAttribute("tModelKey","uddi:nhin:versionofservice");
+                btKeyedReference.setAttribute("keyValue",defaultVersion);
+                btCategoryBags.appendChild(btKeyedReference);
+            }
+            bindingTemplate.appendChild(accessPoint);
+            bindingTemplate.appendChild(btCategoryBags);
+            bindingTemplates.appendChild(bindingTemplate);
 
-            Element endpointUrlElement = doc.createElement("endpointURL");
-            endpointUrlElement.setTextContent(serviceUrl);
-            serviceElement.appendChild(endpointUrlElement);
+            Element categoryBag = doc.createElementNS("urn:uddi-org:api_v3", "categoryBag");
+            Element keyedReference = doc.createElementNS("urn:uddi-org:api_v3", "keyedReference");
+            keyedReference.setAttribute("tModelKey", "uddi:nhin:standard-servicenames");
+            keyedReference.setAttribute("keyName", serviceName);
+            keyedReference.setAttribute("keyValue", serviceName);
+            categoryBag.appendChild(keyedReference);
+            
 
-            servicesElement.appendChild(serviceElement);
+            serviceElement.appendChild(bindingTemplates);
+            serviceElement.appendChild(categoryBag);
+
+            services.appendChild(serviceElement);
           }
           break;
         }
     }
-    try
+try
     {
       Transformer transformer = TransformerFactory.newInstance().newTransformer();
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
       //initialize StreamResult with File object to save to file
       DOMSource source = new DOMSource(doc);
-      transformer.transform(source, new StreamResult(new FileOutputStream(fullPath)));
+   FileOutputStream fileOutput = new FileOutputStream(fullPath);
+   StreamResult stream = new StreamResult(fileOutput);
+      transformer.transform(source, stream);
+	//fileOutput.finalize();
+	fileOutput.close();
+	log.info("Done createorupdate: " + fileName);
     }
     catch(Exception e)
     {
       log.error("Exception writing out connection info file: " + e.getMessage(), e);
     }
-
-		log.info("end CreateOrUpdateConnection");
-	}
-
+}
+	
   static InitializeNHINCProperties(context, log) {}
   
   static backupConfiguration(context, log) {
@@ -254,7 +324,7 @@ class FileUtils {
       def masterDir = new File(masterDirFile)
       def confDir = new File(System.env['NHINC_PROPERTIES_DIR'])
       
-      def files2restore = ["internalConnectionInfo.xml","adapter.properties","gateway.properties","hiemTopicConfiguration.xml","XDSUniqueIds.properties","PCConfiguration.xml","uddiConnectionInfo.xml"]
+      def files2restore = ["internalConnectionInfo.xml","adapter.properties","gateway.properties","hiemTopicConfiguration.xml","XDSUniqueIds.properties","PCConfiguration.xml"]
       
 	  files2restore.each{
         def file2restore = new File(masterDir, it)

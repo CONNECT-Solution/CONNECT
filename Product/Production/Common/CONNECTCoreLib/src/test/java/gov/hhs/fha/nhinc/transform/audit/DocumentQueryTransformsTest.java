@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
  *
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
  *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
@@ -41,7 +61,7 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 
 /**
- *
+ * 
  * @author MFLYNN02
  */
 public class DocumentQueryTransformsTest {
@@ -76,7 +96,7 @@ public class DocumentQueryTransformsTest {
         AdhocQueryRequest message = new AdhocQueryRequest();
         UserType userInfo = new UserType();
         AuditData auditData = new AuditData();
-              
+
         AdhocQueryType adhocType = new AdhocQueryType();
         adhocType.setId("test query id");
         SlotType1 slot = new SlotType1();
@@ -85,10 +105,10 @@ public class DocumentQueryTransformsTest {
         slot.setValueList(valueList);
         adhocType.getSlot().add(slot);
         message.setAdhocQuery(adhocType);
-        
+
         HomeCommunityType home = new HomeCommunityType();
         home.setHomeCommunityId("2.16.840.1.113883.3.200");
-        //home.setName("Federal - VA");
+        // home.setName("Federal - VA");
         home.setName("2.16.840.1.113883.3.200");
         userInfo.setOrg(home);
         PersonNameType personName = new PersonNameType();
@@ -97,14 +117,14 @@ public class DocumentQueryTransformsTest {
         userInfo.setPersonName(personName);
         AssertionType assertion = new AssertionType();
         assertion.setUserInfo(userInfo);
-        
+
         adhocMessage.setAdhocQueryRequest(message);
         adhocMessage.setAssertion(assertion);
-        
+
         logMessage.setMessage(adhocMessage);
-        
+
         auditData.setReceiverPatientId("12345");
-        
+
         LogEventRequestType expResult = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
         expResult.setAuditMessage(auditMsg);
@@ -117,38 +137,40 @@ public class DocumentQueryTransformsTest {
         EventIdentificationType eventId = new EventIdentificationType();
         eventId.setEventActionCode(AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE);
         expResult.getAuditMessage().setEventIdentification(eventId);
-        
+
         // Create mock objects
         final Log mockLog = context.mock(Log.class);
 
-        DocumentQueryTransforms transformer = new DocumentQueryTransforms()
-        {
+        DocumentQueryTransforms transformer = new DocumentQueryTransforms() {
             @Override
-            protected Log createLogger()
-            {
+            protected Log createLogger() {
                 return mockLog;
             }
         };
 
         // Set expectations
-        context.checking(new Expectations(){{
-            allowing (mockLog).isDebugEnabled();
-            allowing (mockLog).debug(with(any(String.class)));
-            allowing (mockLog).info(with(any(String.class)));
-        }});
+        context.checking(new Expectations() {
+            {
+                allowing(mockLog).isDebugEnabled();
+                allowing(mockLog).debug(with(any(String.class)));
+                allowing(mockLog).info(with(any(String.class)));
+            }
+        });
 
         LogEventRequestType result = transformer.transformDocQueryReq2AuditMsg(logMessage, home.getHomeCommunityId());
-             
-        assertEquals(expResult.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage().getActiveParticipant().get(0).getUserName());
+
+        assertEquals(expResult.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage()
+                .getActiveParticipant().get(0).getUserName());
         assertEquals(expResult.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID(),
                 result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID());
-        assertEquals(expResult.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage().getEventIdentification().getEventActionCode());
-        
+        assertEquals(expResult.getAuditMessage().getEventIdentification().getEventActionCode(), result
+                .getAuditMessage().getEventIdentification().getEventActionCode());
+
     }
 
     /**
-     * Test of transformDocQueryReq2AuditMsg method of class 
-     * DocumentQueryTransforms for a response generated from a LeafClass query.
+     * Test of transformDocQueryReq2AuditMsg method of class DocumentQueryTransforms for a response generated from a
+     * LeafClass query.
      */
     @Test
     public void testTransformDocQueryResp2AuditMsgLeafClass() {
@@ -163,7 +185,7 @@ public class DocumentQueryTransformsTest {
         AdhocQueryType adhocType = new AdhocQueryType();
         adhocType.setId("test query id");
         message.setRequestId("5555555");
-        
+
         HomeCommunityType home = new HomeCommunityType();
         home.setHomeCommunityId(expectedHomeCommunity);
         home.setName("Federal - DoD");
@@ -173,12 +195,12 @@ public class DocumentQueryTransformsTest {
         personName.setGivenName("Bob");
         userInfo.setPersonName(personName);
         assertion.setUserInfo(userInfo);
-        
+
         adhocMessage.setAdhocQueryResponse(message);
         adhocMessage.setAssertion(assertion);
         logMessage.setMessage(adhocMessage);
         auditData.setReceiverPatientId("999999");
-        
+
         // Build Registry Object List for response
         oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory rimObjFact = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
         RegistryObjectListType registryObjectList = new RegistryObjectListType();
@@ -201,42 +223,45 @@ public class DocumentQueryTransformsTest {
         expResult.setEventIdentification(eventId);
         LogEventRequestType expected = new LogEventRequestType();
         expected.setAuditMessage(expResult);
-        
+
         // Create mock objects
         final Log mockLog = context.mock(Log.class);
 
-        DocumentQueryTransforms transformer = new DocumentQueryTransforms()
-        {
+        DocumentQueryTransforms transformer = new DocumentQueryTransforms() {
             @Override
-            protected Log createLogger()
-            {
+            protected Log createLogger() {
                 return mockLog;
             }
         };
 
         // Set expectations
-        context.checking(new Expectations(){{
-            allowing (mockLog).isDebugEnabled();
-            allowing (mockLog).debug(with(any(String.class)));
-            allowing (mockLog).info(with(any(String.class)));
-        }});
+        context.checking(new Expectations() {
+            {
+                allowing(mockLog).isDebugEnabled();
+                allowing(mockLog).debug(with(any(String.class)));
+                allowing(mockLog).info(with(any(String.class)));
+            }
+        });
 
-        LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage,expectedHomeCommunity);
-             
-        assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage().getActiveParticipant().get(0).getUserName());
-        assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage().getEventIdentification().getEventActionCode());
-        
+        LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage, expectedHomeCommunity);
+
+        assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage()
+                .getActiveParticipant().get(0).getUserName());
+        assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage()
+                .getEventIdentification().getEventActionCode());
+
         // Validate home community id
         assertNotNull("AuditSourceIdentification list", result.getAuditMessage().getAuditSourceIdentification());
-        assertFalse("AuditSourceIdentification list empty", result.getAuditMessage().getAuditSourceIdentification().isEmpty());
+        assertFalse("AuditSourceIdentification list empty", result.getAuditMessage().getAuditSourceIdentification()
+                .isEmpty());
         AuditSourceIdentificationType auditSrcId = result.getAuditMessage().getAuditSourceIdentification().get(0);
         assertNotNull("AuditSourceIdentification object", auditSrcId);
         assertEquals("AuditSourceIdentification empty", expectedHomeCommunity, auditSrcId.getAuditSourceID());
     }
 
     /**
-     * Test of transformDocQueryReq2AuditMsg method of class
-     * DocumentQueryTransforms for a response generated from a ObjectRef query.
+     * Test of transformDocQueryReq2AuditMsg method of class DocumentQueryTransforms for a response generated from a
+     * ObjectRef query.
      */
     @Test
     public void testTransformDocQueryResp2AuditMsgObjectRef() {
@@ -307,31 +332,34 @@ public class DocumentQueryTransformsTest {
         // Create mock objects
         final Log mockLog = context.mock(Log.class);
 
-        DocumentQueryTransforms transformer = new DocumentQueryTransforms()
-        {
+        DocumentQueryTransforms transformer = new DocumentQueryTransforms() {
             @Override
-            protected Log createLogger()
-            {
+            protected Log createLogger() {
                 return mockLog;
             }
         };
 
         // Set expectations
-        context.checking(new Expectations(){{
-            allowing (mockLog).isDebugEnabled();
-            allowing (mockLog).debug(with(any(String.class)));
-            allowing (mockLog).info(with(any(String.class)));
-        }});
+        context.checking(new Expectations() {
+            {
+                allowing(mockLog).isDebugEnabled();
+                allowing(mockLog).debug(with(any(String.class)));
+                allowing(mockLog).info(with(any(String.class)));
+            }
+        });
 
-        LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage,expectedHomeCommunity);
+        LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage, expectedHomeCommunity);
 
-        //result.getAuditMessage().getAuditSourceIdentification().
-        assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage().getActiveParticipant().get(0).getUserName());
-        assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage().getEventIdentification().getEventActionCode());
+        // result.getAuditMessage().getAuditSourceIdentification().
+        assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage()
+                .getActiveParticipant().get(0).getUserName());
+        assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage()
+                .getEventIdentification().getEventActionCode());
 
         // Validate home community id
         assertNotNull("AuditSourceIdentification list", result.getAuditMessage().getAuditSourceIdentification());
-        assertFalse("AuditSourceIdentification list empty", result.getAuditMessage().getAuditSourceIdentification().isEmpty());
+        assertFalse("AuditSourceIdentification list empty", result.getAuditMessage().getAuditSourceIdentification()
+                .isEmpty());
         AuditSourceIdentificationType auditSrcId = result.getAuditMessage().getAuditSourceIdentification().get(0);
         assertNotNull("AuditSourceIdentification object", auditSrcId);
         assertEquals("AuditSourceIdentification empty", expectedHomeCommunity, auditSrcId.getAuditSourceID());

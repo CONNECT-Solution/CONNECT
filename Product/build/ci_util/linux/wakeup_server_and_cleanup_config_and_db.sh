@@ -6,7 +6,6 @@
 
 #refresh all the files after the validaiton suite possibly shanks them
 cp /nhin/ValidationSuite/mpi.xml $AS_HOME/domains/domain1/config/nhin
-cp /nhin/ValidationSuite/reidentification.xml $AS_HOME/domains/domain1/config/nhin
 cp /nhin/NHINC/Dev/adapter.properties $AS_HOME/domains/domain1/config/nhin
 cp /nhin/NHINC/Dev/gateway.properties $AS_HOME/domains/domain1/config/nhin
 cp /nhin/NHINC/Dev/repository.properties $AS_HOME/domains/domain1/config/nhin

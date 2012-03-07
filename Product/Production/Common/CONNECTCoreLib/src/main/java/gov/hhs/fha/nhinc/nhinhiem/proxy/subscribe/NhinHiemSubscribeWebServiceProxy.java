@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe;
 
@@ -25,10 +45,11 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import java.util.Map;
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.InvalidFilterFault;
@@ -52,15 +73,25 @@ import org.oasis_open.docs.wsn.b_2.SubscribeCreationFailedFaultType;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy {
 
     private static Log log = LogFactory.getLog(NhinHiemSubscribeWebServiceProxy.class);
-    static NotificationProducerService nhinService = new NotificationProducerService();
 
-    public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
+    private static Service cachedService = null;
+    private static WebServiceProxyHelper oProxyHelper = null;
+    private static final String NAMESPACE_URI = "http://docs.oasis-open.org/wsn/bw-2";
+    private static final String SERVICE_LOCAL_PART = "NotificationProducerService";
+    private static final String PORT_LOCAL_PART = "NotificationProducerPort";
+    private static final String WSDL_FILE = "NhinSubscription.wsdl";
+
+    public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target)
+            throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
+            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault,
+            SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault,
+            UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
         Element responseElement = null;
         SubscribeResponse response = null;
         String url = null;
@@ -69,7 +100,8 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
         if (target != null) {
             try {
-                url = ConnectionManagerCache.getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
+                url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target,
+                        NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
                 log.error(ex.getMessage());
@@ -79,27 +111,22 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         }
 
         if (NullChecker.isNotNullish(url)) {
-            NotificationProducer port = getPort(url);
-
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.SUBSCRIBE_ACTION);
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            NotificationProducer port = getPort(url, assertion);
 
             WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
             Subscribe subscribe = subscribeMarshaller.unmarshalUnsubscribeRequest(subscribeElement);
 
-            if(checkPolicy(subscribe, assertion))
-            {
+            if (checkPolicy(subscribe, assertion)) {
                 auditInputMessage(subscribe, assertion);
+                // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method
+                // invocation
                 response = port.subscribe(subscribe);
                 auditResponseMessage(response, assertion);
-            }
-            else
-            {
+            } else {
                 SubscribeCreationFailedFaultType faultInfo = null;
                 throw new SubscribeCreationFailedFault("Policy check failed", faultInfo);
             }
-            
+
             SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
             responseElement = responseMarshaller.marshal(response);
             log.debug(XmlUtility.serializeElementIgnoreFaults(responseElement));
@@ -129,9 +156,8 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             policyIsValid = true;
         }
 
@@ -142,25 +168,22 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
     private void auditInputMessage(Subscribe subscribe, AssertionType assertion) {
         log.debug("In NhinHiemSubscribeWebServiceProxy.auditInputMessage");
         AcknowledgementType ack = null;
-        try
-        {
+        try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
             gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType();
             message.setAssertion(assertion);
             message.setSubscribe(subscribe);
 
-            LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
+                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
-            if(auditLogMsg != null)
-            {
+            if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
                 ack = proxy.auditLog(auditLogMsg, assertion);
             }
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error logging subscribe message: " + t.getMessage(), t);
         }
     }
@@ -168,35 +191,62 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
     private void auditResponseMessage(SubscribeResponse response, AssertionType assertion) {
         log.debug("In NhinHiemSubscribeWebServiceProxy.auditResponseMessage");
         AcknowledgementType ack = null;
-        try
-        {
+        try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
             gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType message = new gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType();
             message.setAssertion(assertion);
             message.setSubscribeResponse(response);
 
-            LogEventRequestType auditLogMsg = auditLogger.logSubscribeResponse(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            LogEventRequestType auditLogMsg = auditLogger.logSubscribeResponse(message,
+                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
-            if(auditLogMsg != null)
-            {
+            if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
                 ack = proxy.auditLog(auditLogMsg, assertion);
             }
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error logging subscribe response message: " + t.getMessage(), t);
         }
     }
 
-    private NotificationProducer getPort(String url) {
-        NotificationProducer port = nhinService.getNotificationProducerPort();
+    protected NotificationProducer getPort(String url, AssertionType assertIn) {
+        NotificationProducer oPort = null;
+        try {
+            Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
-        log.info("Setting endpoint address to Nhin Hiem Subscribe Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+            if (oService != null) {
+                log.debug("subscribe() Obtained service - creating port.");
+                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NotificationProducer.class);
 
-        return port;
+                // Initialize secured port
+                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+                        NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
+            } else {
+                log.error("Unable to obtain service - no port created.");
+            }
+        } catch (Throwable t) {
+            log.error("Error creating service: " + t.getMessage(), t);
+        }
+        return oPort;
+    }
+
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
+            oProxyHelper = new WebServiceProxyHelper();
+        }
+        return oProxyHelper;
+    }
+
+    private Service getService(String wsdl, String uri, String service) {
+        if (cachedService == null) {
+            try {
+                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
+            } catch (Throwable t) {
+                log.error("Error creating service: " + t.getMessage(), t);
+            }
+        }
+        return cachedService;
     }
 }

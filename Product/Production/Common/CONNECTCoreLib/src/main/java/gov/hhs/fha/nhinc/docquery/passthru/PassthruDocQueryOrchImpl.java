@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.docquery.passthru;
 
@@ -11,82 +31,109 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+
 import java.sql.Timestamp;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
+ * @paul.eftis updated exception handling to return DQ error response with error/exception detail within DQ response.
  */
 public class PassthruDocQueryOrchImpl {
 
     private static Log log = LogFactory.getLog(PassthruDocQueryOrchImpl.class);
 
+    private static final String XDS_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+
     /**
-     *
+     * 
      * @param body
      * @param assertion
      * @param target
      * @return <code>AdhocQueryResponse</code>
      */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion, NhinTargetSystemType target) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion,
+            NhinTargetSystemType target) {
         log.debug("Entering NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         AdhocQueryResponse response = null;
 
         // The responding home community id is required in the audit log
         String responseCommunityID = null;
-        if (target != null &&
-                target.getHomeCommunity() != null) {
+        if (target != null && target.getHomeCommunity() != null) {
             responseCommunityID = target.getHomeCommunity().getHomeCommunityId();
         }
         log.debug("=====>>>>> responseCommunityID is " + responseCommunityID);
         // Audit the Document Query Request Message sent on the Nhin Interface
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLog.auditDQRequest(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
+        AcknowledgementType ack = auditLog.auditDQRequest(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
 
         try {
             log.debug("Creating NhinDocQueryProxy");
-            NhinDocQueryProxyObjectFactory docQueryFactory = new NhinDocQueryProxyObjectFactory();
-            NhinDocQueryProxy proxy = docQueryFactory.getNhinDocQueryProxy();
-
-            log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
 
             // Log the start of the nhin performance record
             Timestamp starttime = new Timestamp(System.currentTimeMillis());
-            Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, responseCommunityID);
+            Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
+                    NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, responseCommunityID);
 
-            response = proxy.respondingGatewayCrossGatewayQuery(body, assertion, target);
+            OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
+            OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null, null,
+                    null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, body);
+            response = ((OutboundDocQueryOrchestratable) delegate.process(orchestratable)).getResponse();
 
             // Log the end of the nhin performance record
             Timestamp stoptime = new Timestamp(System.currentTimeMillis());
             PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
-        } catch (Throwable t) {
-            log.error("Error sending NHIN Proxy message: " + t.getMessage(), t);
-            response = new AdhocQueryResponse();
-            response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
-
-            RegistryError registryError = new RegistryError();
-            registryError.setCodeContext("Processing NHIN Proxy document retrieve");
-            registryError.setErrorCode("XDSRepositoryError");
-            registryError.setSeverity("Error");
-            response.getRegistryErrorList().getRegistryError().add(registryError);
+        } catch (Exception ex) {
+            log.error("PassthruDocQueryOrchImpl Exception", ex);
+            String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, target,
+                    NhincConstants.DOC_QUERY_SERVICE_NAME);
+            response = generateErrorResponse(target, err);
         }
 
         // Audit the Document Query Response Message received on the Nhin Interface
         AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
         auditMsg.setAdhocQueryResponse(response);
         auditMsg.setAssertion(assertion);
-        ack = auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
+        ack = auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
 
         log.debug("Leaving NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         return response;
+    }
+
+    private AdhocQueryResponse generateErrorResponse(NhinTargetSystemType target, String error) {
+        AdhocQueryResponse adhocResponse = new AdhocQueryResponse();
+        RegistryErrorList regErrList = new RegistryErrorList();
+        adhocResponse.setStatus(XDS_RESPONSE_STATUS_FAILURE);
+        RegistryError regErr = new RegistryError();
+        regErr.setErrorCode("XDSRepositoryError");
+        regErr.setCodeContext("Error from target homeId=" + target.getHomeCommunity().getHomeCommunityId());
+        regErr.setValue(error);
+        regErr.setSeverity("Error");
+        regErrList.getRegistryError().add(regErr);
+        adhocResponse.setRegistryErrorList(regErrList);
+        
+        RegistryObjectListType regObjList = new RegistryObjectListType();
+        adhocResponse.setRegistryObjectList(regObjList);
+        
+        return adhocResponse;
     }
 }

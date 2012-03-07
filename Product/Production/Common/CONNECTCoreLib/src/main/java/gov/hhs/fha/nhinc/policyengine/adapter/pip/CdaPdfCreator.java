@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
@@ -73,7 +93,7 @@ import org.hl7.v3.TSExplicit;
 
 /**
  * This class creates CDA documents from BinaryDocumentPolicyCriteria objects.
- *
+ * 
  * @author Les Westberg
  */
 public class CdaPdfCreator {
@@ -100,12 +120,11 @@ public class CdaPdfCreator {
     }
 
     /**
-     * This class creates an instance of an II with the given
-     * root and extension.
-     *
+     * This class creates an instance of an II with the given root and extension.
+     * 
      * @param sRoot The root value for the II object.
      * @param sExtension The extension for the II object.
-     *
+     * 
      * @return The II object that was constructed.
      */
     private II createII(String sRoot, String sExtension) {
@@ -131,7 +150,7 @@ public class CdaPdfCreator {
 
     /**
      * Create the template ID tag.
-     *
+     * 
      * @return The Template ID tag.
      */
     private II createTemplateId() {
@@ -140,17 +159,18 @@ public class CdaPdfCreator {
 
     /**
      * This returns the home community ID from the gateway.properties file.
-     *
+     * 
      * @return The home community ID.
      * @throws AdapterPIPException This exception is thrown if there is an error.
      */
-    private String getHomeCommunityId()
-            throws AdapterPIPException {
+    private String getHomeCommunityId() throws AdapterPIPException {
         String sHomeCommunityId = null;
         try {
-            sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception e) {
-            String sErrorMessage = "Failed to retrieve home community ID from gateway properties file.  Error: " + e.getMessage();
+            String sErrorMessage = "Failed to retrieve home community ID from gateway properties file.  Error: "
+                    + e.getMessage();
             log.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
@@ -160,12 +180,11 @@ public class CdaPdfCreator {
 
     /**
      * Creates the ID tag for the CDA document.
-     *
+     * 
      * @return The ID tag for the CDA document.
      * @throws AdapterPIPException This exception is thrown if any error occurs.
      */
-    private II createId(String sDocumentUniqueId)
-            throws AdapterPIPException {
+    private II createId(String sDocumentUniqueId) throws AdapterPIPException {
         String sHomeCommunityId = getHomeCommunityId();
         return createII(sHomeCommunityId, sDocumentUniqueId);
 
@@ -173,7 +192,7 @@ public class CdaPdfCreator {
 
     /**
      * This creates the type ID tag and returns it.
-     *
+     * 
      * @return The TypeId tag.
      */
     private POCDMT000040InfrastructureRootTypeId createTypeId() {
@@ -187,7 +206,7 @@ public class CdaPdfCreator {
 
     /**
      * Transform the CE into an HL7 CE type.
-     *
+     * 
      * @param oCe The policy representation of the CE.
      * @return The HL7 representation of the CE.
      */
@@ -216,7 +235,7 @@ public class CdaPdfCreator {
                 bHaveData = true;
             }
 
-        }   // if (oCE != null)
+        } // if (oCE != null)
 
         if (bHaveData) {
             return oHl7Ce;
@@ -228,7 +247,7 @@ public class CdaPdfCreator {
 
     /**
      * This creates an STExplicit with the given string value.
-     *
+     * 
      * @param sValue The value to use when creating the node.
      * @return The STExplicit object containing the value.
      */
@@ -250,7 +269,7 @@ public class CdaPdfCreator {
 
     /**
      * This method transforms the given XMLDate into an HL7 date.
-     *
+     * 
      * @param sHL7Date The date in HL7 format.
      * @return The HL7 date.
      */
@@ -272,7 +291,7 @@ public class CdaPdfCreator {
 
     /**
      * Transform the Ce into an HL7 CS type.
-     *
+     * 
      * @param oCe The policy representation of the CE.
      * @return The HL7 representation of the CS.
      */
@@ -301,7 +320,7 @@ public class CdaPdfCreator {
                 bHaveData = true;
             }
 
-        }   // if (oCs != null)
+        } // if (oCs != null)
 
         if (bHaveData) {
             return oHl7Cs;
@@ -313,7 +332,7 @@ public class CdaPdfCreator {
 
     /**
      * This method creates a CS using the given code.
-     *
+     * 
      * @param sCode The code to put into the CS.
      * @return The CS object to be returned..
      */
@@ -335,7 +354,7 @@ public class CdaPdfCreator {
 
     /**
      * This creates an HL7 address from an AddressType object.
-     *
+     * 
      * @param oAddress The address to get the information from.
      * @return The HL7 address to be returned.
      */
@@ -346,17 +365,18 @@ public class CdaPdfCreator {
 
         if (oAddress != null) {
             // Street
-            //-------
+            // -------
             if (oAddress.getStreetAddress() != null) {
                 AdxpExplicitStreetAddressLine oHL7StreetAddressLine = new AdxpExplicitStreetAddressLine();
                 oHL7StreetAddressLine.setContent(oAddress.getStreetAddress());
-                JAXBElement<AdxpExplicitStreetAddressLine> oElement = oObjectFactory.createADExplicitStreetAddressLine(oHL7StreetAddressLine);
+                JAXBElement<AdxpExplicitStreetAddressLine> oElement = oObjectFactory
+                        .createADExplicitStreetAddressLine(oHL7StreetAddressLine);
                 oHL7Ad.getContent().add(oElement);
                 bHaveData = true;
             }
 
             // City
-            //------
+            // ------
             if (oAddress.getCity() != null) {
                 AdxpExplicitCity oHL7City = new AdxpExplicitCity();
                 oHL7City.setContent(oAddress.getCity());
@@ -366,7 +386,7 @@ public class CdaPdfCreator {
             }
 
             // State
-            //------
+            // ------
             if (oAddress.getState() != null) {
                 AdxpExplicitState oHL7State = new AdxpExplicitState();
                 oHL7State.setContent(oAddress.getState());
@@ -376,7 +396,7 @@ public class CdaPdfCreator {
             }
 
             // Zip Code
-            //----------
+            // ----------
             if (oAddress.getZipCode() != null) {
                 AdxpExplicitPostalCode oHL7Zipcode = new AdxpExplicitPostalCode();
                 oHL7Zipcode.setContent(oAddress.getZipCode());
@@ -386,7 +406,7 @@ public class CdaPdfCreator {
             }
 
             // Country
-            //--------
+            // --------
             if (oAddress.getCountry() != null) {
                 AdxpExplicitCountry oHL7Country = new AdxpExplicitCountry();
                 oHL7Country.setContent(oAddress.getCountry());
@@ -395,7 +415,7 @@ public class CdaPdfCreator {
                 bHaveData = true;
             }
 
-        }   // if (oAddress != null)
+        } // if (oAddress != null)
 
         if (bHaveData) {
             return oHL7Ad;
@@ -407,7 +427,7 @@ public class CdaPdfCreator {
 
     /**
      * This creates an HL7 PN from a PersonNameType object.
-     *
+     * 
      * @param oName The name to get the information from.
      * @return The HL7 PN to be returned.
      */
@@ -418,7 +438,7 @@ public class CdaPdfCreator {
 
         if (oName != null) {
             // Prefix
-            //-------
+            // -------
             if (oName.getPrefix() != null) {
                 EnExplicitPrefix oHL7Prefix = new EnExplicitPrefix();
                 oHL7Prefix.setContent(oName.getPrefix());
@@ -428,7 +448,7 @@ public class CdaPdfCreator {
             }
 
             // Given
-            //------
+            // ------
             if (oName.getGivenName() != null) {
                 EnExplicitGiven oHL7Given = new EnExplicitGiven();
                 oHL7Given.setContent(oName.getGivenName());
@@ -438,7 +458,7 @@ public class CdaPdfCreator {
             }
 
             // Family
-            //--------
+            // --------
             if (oName.getFamilyName() != null) {
                 EnExplicitFamily oHL7Family = new EnExplicitFamily();
                 oHL7Family.setContent(oName.getFamilyName());
@@ -448,7 +468,7 @@ public class CdaPdfCreator {
             }
 
             // Suffix
-            //----------
+            // ----------
             if (oName.getSuffix() != null) {
                 EnExplicitSuffix oHL7Suffix = new EnExplicitSuffix();
                 oHL7Suffix.setContent(oName.getSuffix());
@@ -457,7 +477,7 @@ public class CdaPdfCreator {
                 bHaveData = true;
             }
 
-        }   // if (oName != null)
+        } // if (oName != null)
 
         if (bHaveData) {
             return oHL7Pn;
@@ -469,14 +489,14 @@ public class CdaPdfCreator {
 
     /**
      * This method creates a Record Target from the given data fields.
-     *
+     * 
      * @param sAssigningAuthority The assigning authority for the patient ID.
      * @param sPatientId The patient ID.
      * @param oPatientInfo The patient information from the criterion object.
      * @return The RecordTarget object.
      */
-    private POCDMT000040RecordTarget createRecordTarget(String sAssigningAuthority, String sPatientId, PolicyPatientInfoType oPatientInfo)
-            throws AdapterPIPException {
+    private POCDMT000040RecordTarget createRecordTarget(String sAssigningAuthority, String sPatientId,
+            PolicyPatientInfoType oPatientInfo) throws AdapterPIPException {
         POCDMT000040RecordTarget oRecordTarget = new POCDMT000040RecordTarget();
         boolean bHaveData = false;
 
@@ -484,7 +504,7 @@ public class CdaPdfCreator {
         oRecordTarget.setPatientRole(oPatientRole);
 
         // Patient Assigning Authority and ID
-        //------------------------------------
+        // ------------------------------------
         II oII = createII(sAssigningAuthority, sPatientId);
         if (oII != null) {
             oPatientRole.getId().add(oII);
@@ -493,26 +513,25 @@ public class CdaPdfCreator {
 
         if (oPatientInfo != null) {
             // Patient Address
-            //----------------
-            if ((oPatientInfo.getAddr() != null) &&
-                    (oPatientInfo.getAddr().getAddress() != null) &&
-                    (oPatientInfo.getAddr().getAddress().size() > 0)) {
+            // ----------------
+            if ((oPatientInfo.getAddr() != null) && (oPatientInfo.getAddr().getAddress() != null)
+                    && (oPatientInfo.getAddr().getAddress().size() > 0)) {
                 for (AddressType oAddress : oPatientInfo.getAddr().getAddress()) {
                     ADExplicit oHL7Address = createAD(oAddress);
                     if (oHL7Address != null) {
                         oPatientRole.getAddr().add(oHL7Address);
                         bHaveData = true;
                     }
-                }   // for (AddressType oAddress : oPatientInfo.getAddr().getAddress())
-            }   // if ((oPatientInfo.getAddr() != null) &&
+                } // for (AddressType oAddress : oPatientInfo.getAddr().getAddress())
+            } // if ((oPatientInfo.getAddr() != null) &&
 
             // Fill in the patient tag.
-            //-------------------------
+            // -------------------------
             POCDMT000040Patient oPatientTag = new POCDMT000040Patient();
             boolean bHavePatientTag = false;
 
             // Patient Name
-            //-------------
+            // -------------
             if (oPatientInfo.getName() != null) {
                 PNExplicit oHL7Name = createPN(oPatientInfo.getName());
                 if (oHL7Name != null) {
@@ -522,7 +541,7 @@ public class CdaPdfCreator {
             }
 
             // Gender
-            //--------
+            // --------
             if (oPatientInfo.getGender() != null) {
                 CE oHL7Ce = createCode(oPatientInfo.getGender());
                 if (oHL7Ce != null) {
@@ -532,7 +551,7 @@ public class CdaPdfCreator {
             }
 
             // BirthTime
-            //-----------
+            // -----------
             if (oPatientInfo.getBirthTime() != null) {
                 TSExplicit oHL7BirthTime = createTS(oPatientInfo.getBirthTime());
                 if (oHL7BirthTime != null) {
@@ -545,7 +564,7 @@ public class CdaPdfCreator {
                 oPatientRole.setPatient(oPatientTag);
                 bHaveData = true;
             }
-        }   // if (oPatientInfo != null)
+        } // if (oPatientInfo != null)
 
         if (bHaveData) {
             return oRecordTarget;
@@ -553,13 +572,11 @@ public class CdaPdfCreator {
             return null;
         }
 
-
     }
 
     /**
-     * Create an HL7 ON from the given name.  It will be placed into a single
-     * string value in the object.
-     *
+     * Create an HL7 ON from the given name. It will be placed into a single string value in the object.
+     * 
      * @param sOrgName The name of the organization
      * @return The HL7 ON object that is returned.
      */
@@ -581,14 +598,15 @@ public class CdaPdfCreator {
 
     /**
      * This creates an HL7 organization object with the given data.
-     *
+     * 
      * @param sIdRoot The root attribute for the ID tag.
      * @param sIdExtension The extension attribute for the ID tag.
      * @param sOrgName The name of the organization.
      * @param oAddress The address of the orgnization.
      * @return
      */
-    private POCDMT000040Organization createOrganization(String sIdRoot, String sIdExtension, String sOrgName, AddressType oAddress) {
+    private POCDMT000040Organization createOrganization(String sIdRoot, String sIdExtension, String sOrgName,
+            AddressType oAddress) {
         POCDMT000040Organization oHL7Org = new POCDMT000040Organization();
         boolean bHaveData = false;
 
@@ -619,7 +637,7 @@ public class CdaPdfCreator {
 
     /**
      * Create an HL7 Author from the information in the given author object.
-     *
+     * 
      * @param oAuthor The author information to use when creating the HL7 object.
      * @return The HL7 author object.
      */
@@ -628,7 +646,7 @@ public class CdaPdfCreator {
         boolean bHaveData = false;
 
         // Template ID
-        //-------------
+        // -------------
         II oTemplateId = createII(CDAConstants.TEMPLATE_ID_ROOT_AUTHOR_ORIGINAL, null);
         if (oTemplateId != null) {
             oHL7Author.getTemplateId().add(oTemplateId);
@@ -637,7 +655,7 @@ public class CdaPdfCreator {
         if (oAuthor != null) {
 
             // Time
-            //------
+            // ------
             TSExplicit oTime = createTS(oAuthor.getAuthorTime());
             if (oTime != null) {
                 oHL7Author.setTime(oTime);
@@ -645,12 +663,12 @@ public class CdaPdfCreator {
             }
 
             // Assigned Author
-            //----------------
+            // ----------------
             POCDMT000040AssignedAuthor oAssignedAuthor = new POCDMT000040AssignedAuthor();
             boolean bHaveAssignedAuthorData = false;
 
             // Author ID
-            //----------
+            // ----------
             II oAuthorId = createII(oAuthor.getAuthorIdAssigningAuthority(), oAuthor.getAuthorId());
             if (oAuthorId != null) {
                 oAssignedAuthor.getId().add(oAuthorId);
@@ -658,7 +676,7 @@ public class CdaPdfCreator {
             }
 
             // Name
-            //-----
+            // -----
             PNExplicit oName = createPN(oAuthor.getName());
             if (oName != null) {
                 POCDMT000040Person oAssignedPerson = new POCDMT000040Person();
@@ -668,11 +686,10 @@ public class CdaPdfCreator {
             }
 
             // Represented Organization...
-            //-----------------------------
-            POCDMT000040Organization oRepOrg = createOrganization(oAuthor.getRepresentedOrganizationIdAssigningAuthority(),
-                    oAuthor.getRepresentedOrganizationId(),
-                    oAuthor.getRepresentedOrganizationName(),
-                    null);
+            // -----------------------------
+            POCDMT000040Organization oRepOrg = createOrganization(
+                    oAuthor.getRepresentedOrganizationIdAssigningAuthority(), oAuthor.getRepresentedOrganizationId(),
+                    oAuthor.getRepresentedOrganizationName(), null);
             if (oRepOrg != null) {
                 oAssignedAuthor.setRepresentedOrganization(oRepOrg);
                 bHaveAssignedAuthorData = true;
@@ -692,7 +709,7 @@ public class CdaPdfCreator {
 
     /**
      * Create an SC type with the given value.
-     *
+     * 
      * @param sValue The string value to place in the SC
      * @return The HL7 SC object containing the value.
      */
@@ -715,18 +732,19 @@ public class CdaPdfCreator {
 
     /**
      * Create an HL7 Authoring device node with the given data.
-     *
+     * 
      * @param oAuthoringDeviceCode The authroing device coded data - identifies the device.
      * @param sDeviceManufactureModelName The device manufacutre model and name.
      * @param sDeviceSoftwareName The device software name and version.
      * @return
      */
-    private POCDMT000040AuthoringDevice createAuthoringDevice(CeType oAuthoringDeviceCode, String sDeviceManufactureModelName, String sDeviceSoftwareName) {
+    private POCDMT000040AuthoringDevice createAuthoringDevice(CeType oAuthoringDeviceCode,
+            String sDeviceManufactureModelName, String sDeviceSoftwareName) {
         POCDMT000040AuthoringDevice oHL7AuthoringDevice = new POCDMT000040AuthoringDevice();
         boolean bHaveData = false;
 
         // Code
-        //------
+        // ------
         CE oHL7AuthoringDeviceCode = createCode(oAuthoringDeviceCode);
         if (oHL7AuthoringDeviceCode != null) {
             oHL7AuthoringDevice.setCode(oHL7AuthoringDeviceCode);
@@ -734,7 +752,7 @@ public class CdaPdfCreator {
         }
 
         // Manufacture Model Name
-        //------------------------
+        // ------------------------
         SCExplicit oManufacturerModelName = creteSC(sDeviceManufactureModelName);
         if (oManufacturerModelName != null) {
             oHL7AuthoringDevice.setManufacturerModelName(oManufacturerModelName);
@@ -742,7 +760,7 @@ public class CdaPdfCreator {
         }
 
         // Software Name
-        //---------------
+        // ---------------
         SCExplicit oSoftwareName = creteSC(sDeviceSoftwareName);
         if (oSoftwareName != null) {
             oHL7AuthoringDevice.setSoftwareName(oSoftwareName);
@@ -759,7 +777,7 @@ public class CdaPdfCreator {
 
     /**
      * Create an HL7 Author (Scanner) from the information in the given author object.
-     *
+     * 
      * @param oAuthor The author information to use when creating the HL7 object.
      * @return The HL7 author object.
      */
@@ -768,7 +786,7 @@ public class CdaPdfCreator {
         boolean bHaveData = false;
 
         // Template ID
-        //-------------
+        // -------------
         II oTemplateId = createII(CDAConstants.TEMPLATE_ID_ROOT_AUTHOR_SCANNER, null);
         if (oTemplateId != null) {
             oHL7Author.getTemplateId().add(oTemplateId);
@@ -777,7 +795,7 @@ public class CdaPdfCreator {
 
         if (oAuthor != null) {
             // Time
-            //------
+            // ------
             TSExplicit oTime = createTS(oAuthor.getAuthorTime());
             if (oTime != null) {
                 oHL7Author.setTime(oTime);
@@ -785,12 +803,12 @@ public class CdaPdfCreator {
             }
 
             // Assigned Author
-            //----------------
+            // ----------------
             POCDMT000040AssignedAuthor oAssignedAuthor = new POCDMT000040AssignedAuthor();
             boolean bHaveAssignedAuthorData = false;
 
             // Author ID
-            //----------
+            // ----------
             II oAuthorId = createII(oAuthor.getAuthorIdAssigningAuthority(), oAuthor.getAuthorId());
             if (oAuthorId != null) {
                 oAssignedAuthor.getId().add(oAuthorId);
@@ -798,19 +816,19 @@ public class CdaPdfCreator {
             }
 
             // Assigned Authoring Device
-            //---------------------------
-            POCDMT000040AuthoringDevice oAuthoringDevice = createAuthoringDevice(oAuthor.getAuthoringDevice(), oAuthor.getDeviceManufactureModelName(), oAuthor.getDeviceSoftwareName());
+            // ---------------------------
+            POCDMT000040AuthoringDevice oAuthoringDevice = createAuthoringDevice(oAuthor.getAuthoringDevice(),
+                    oAuthor.getDeviceManufactureModelName(), oAuthor.getDeviceSoftwareName());
             if (oAuthoringDevice != null) {
                 oAssignedAuthor.setAssignedAuthoringDevice(oAuthoringDevice);
                 bHaveAssignedAuthorData = true;
             }
 
             // Represented Organization...
-            //-----------------------------
-            POCDMT000040Organization oRepOrg = createOrganization(oAuthor.getRepresentedOrganizationIdAssigningAuthority(),
-                    null,
-                    oAuthor.getRepresentedOrganizationName(),
-                    oAuthor.getRepresentedOrganizationAddress());
+            // -----------------------------
+            POCDMT000040Organization oRepOrg = createOrganization(
+                    oAuthor.getRepresentedOrganizationIdAssigningAuthority(), null,
+                    oAuthor.getRepresentedOrganizationName(), oAuthor.getRepresentedOrganizationAddress());
             if (oRepOrg != null) {
                 oAssignedAuthor.setRepresentedOrganization(oRepOrg);
                 bHaveAssignedAuthorData = true;
@@ -830,7 +848,7 @@ public class CdaPdfCreator {
 
     /**
      * Create the HL7 data enterer information from the given data.
-     *
+     * 
      * @param oDataEnterer The data enterer information.
      * @return The HL7 Data enterer information.
      */
@@ -838,15 +856,15 @@ public class CdaPdfCreator {
         POCDMT000040DataEnterer oHL7DataEnterer = new POCDMT000040DataEnterer();
         boolean bHaveData = false;
 
-        // Template ID  - If the template ID is the only thing, we consider this object null...
-        //--------------------------------------------------------------------------------------
+        // Template ID - If the template ID is the only thing, we consider this object null...
+        // --------------------------------------------------------------------------------------
         II oTemplateId = createII(CDAConstants.TEMPLATE_ID_ROOT_DATA_ENTERER, null);
         if (oTemplateId != null) {
             oHL7DataEnterer.getTemplateId().add(oTemplateId);
         }
         if (oDataEnterer != null) {
             // Time
-            //------
+            // ------
             TSExplicit oTime = createTS(oDataEnterer.getDataEntererTime());
             if (oTime != null) {
                 oHL7DataEnterer.setTime(oTime);
@@ -857,7 +875,7 @@ public class CdaPdfCreator {
             boolean bHaveAssignedEntityData = false;
 
             // Assigned Entity ID
-            //--------------------
+            // --------------------
             II oId = createII(oDataEnterer.getDataEntererIdAssigningAuthority(), oDataEnterer.getDataEntererId());
             if (oId != null) {
                 oAssignedEntity.getId().add(oId);
@@ -865,7 +883,7 @@ public class CdaPdfCreator {
             }
 
             // Assigned Person/Name
-            //----------------------
+            // ----------------------
             PNExplicit oName = createPN(oDataEnterer.getName());
             if (oName != null) {
                 oAssignedEntity.setAssignedPerson(new POCDMT000040Person());
@@ -888,7 +906,7 @@ public class CdaPdfCreator {
 
     /**
      * Create the HL7 custodian from the given data.
-     *
+     * 
      * @param oCustodian The data to be transformed.
      * @return The HL7 custodian object,
      */
@@ -902,7 +920,7 @@ public class CdaPdfCreator {
 
         if (oCustodian != null) {
             // Id
-            //----
+            // ----
             II oId = createII(oCustodian.getOrganizationIdAssigningAuthority(), oCustodian.getOrganizationId());
             if (oId != null) {
                 oOrg.getId().add(oId);
@@ -910,7 +928,7 @@ public class CdaPdfCreator {
             }
 
             // Name
-            //-----
+            // -----
             ONExplicit oName = createON(oCustodian.getOrganizationName());
             if (oName != null) {
                 oOrg.setName(oName);
@@ -918,7 +936,7 @@ public class CdaPdfCreator {
             }
 
             // Address
-            //--------
+            // --------
             ADExplicit oAddr = createAD(oCustodian.getOrganizationAddress());
             if (oAddr != null) {
                 oOrg.setAddr(oAddr);
@@ -934,7 +952,7 @@ public class CdaPdfCreator {
 
     /**
      * Create an HL7 legal authenticator object from the given data.
-     *
+     * 
      * @param oLegalAuthenticator The legal authenticator data to be placd in the HL7 object.
      * @return The HL7 legal authenticator object to be returned.
      */
@@ -944,7 +962,7 @@ public class CdaPdfCreator {
 
         if (oLegalAuthenticator != null) {
             // Time
-            //------
+            // ------
             TSExplicit oTime = createTS(oLegalAuthenticator.getAuthenticationTime());
             if (oTime != null) {
                 oHL7Auth.setTime(oTime);
@@ -952,7 +970,7 @@ public class CdaPdfCreator {
             }
 
             // Signature code
-            //---------------
+            // ---------------
             CS oSignatureCode = createCS(oLegalAuthenticator.getSignatureCode());
             if (oSignatureCode != null) {
                 oHL7Auth.setSignatureCode(oSignatureCode);
@@ -963,15 +981,16 @@ public class CdaPdfCreator {
             boolean bHaveAssignedEntityData = false;
 
             // Assigned Entity ID
-            //--------------------
-            II oId = createII(oLegalAuthenticator.getAuthenticatorIdAssigningAuthority(), oLegalAuthenticator.getAuthenticatorId());
+            // --------------------
+            II oId = createII(oLegalAuthenticator.getAuthenticatorIdAssigningAuthority(),
+                    oLegalAuthenticator.getAuthenticatorId());
             if (oId != null) {
                 oAssignedEntity.getId().add(oId);
                 bHaveAssignedEntityData = true;
             }
 
             // Assigned Person/Name
-            //----------------------
+            // ----------------------
             PNExplicit oName = createPN(oLegalAuthenticator.getAuthenticatorPersonName());
             if (oName != null) {
                 oAssignedEntity.setAssignedPerson(new POCDMT000040Person());
@@ -993,7 +1012,7 @@ public class CdaPdfCreator {
 
     /**
      * Create a time interval based on the given low and high date.
-     *
+     * 
      * @param sLowHL7Date The lower date of the range.
      * @param sHighHL7Date The higher date of the range.
      * @return The time interval that has been created.
@@ -1004,9 +1023,7 @@ public class CdaPdfCreator {
         org.hl7.v3.ObjectFactory oFactory = new ObjectFactory();
 
         TSExplicit oTSLowDate = createTS(sLowHL7Date);
-        if ((oTSLowDate != null) &&
-                (oTSLowDate.getValue() != null) &&
-                (oTSLowDate.getValue().length() > 0)) {
+        if ((oTSLowDate != null) && (oTSLowDate.getValue() != null) && (oTSLowDate.getValue().length() > 0)) {
             IVXBTSExplicit oLowDateElement = new IVXBTSExplicit();
             oLowDateElement.setValue(oTSLowDate.getValue());
             JAXBElement<IVXBTSExplicit> oLowDateJaxbElement = oFactory.createIVLTSExplicitLow(oLowDateElement);
@@ -1015,9 +1032,7 @@ public class CdaPdfCreator {
         }
 
         TSExplicit oTSHighDate = createTS(sHighHL7Date);
-        if ((oTSHighDate != null) &&
-                (oTSHighDate.getValue() != null) &&
-                (oTSHighDate.getValue().length() > 0)) {
+        if ((oTSHighDate != null) && (oTSHighDate.getValue() != null) && (oTSHighDate.getValue().length() > 0)) {
             IVXBTSExplicit oHighDateElement = new IVXBTSExplicit();
             oHighDateElement.setValue(oTSHighDate.getValue());
             JAXBElement<IVXBTSExplicit> oHighDateJaxbElement = oFactory.createIVLTSExplicitHigh(oHighDateElement);
@@ -1035,7 +1050,7 @@ public class CdaPdfCreator {
 
     /**
      * Create the DocumentationOf tag with the given data.
-     *
+     * 
      * @param oCriterion The object containing the data to be in the documentation of tag.
      * @return The HL7 documentation of object that was created.
      */
@@ -1062,13 +1077,13 @@ public class CdaPdfCreator {
         IVLTSExplicit oTimeInterval = createIVLTS(oCriterion.getStartDate(), oCriterion.getEndDate());
         oServiceEvent.setEffectiveTime(oTimeInterval);
 
-        return oDocOf;      // Always return one of these - even if it is only with our default values.
+        return oDocOf; // Always return one of these - even if it is only with our default values.
 
     }
 
     /**
      * Create the component tag.
-     *
+     * 
      * @param oCriterion The information to be used in the object.
      * @return The component object that was created.
      */
@@ -1084,16 +1099,15 @@ public class CdaPdfCreator {
         oED.setRepresentation(BinaryDataEncoding.B_64);
 
         // MediaType
-        //-----------
+        // -----------
         if (oCriterion.getMimeType() != null) {
             oED.setMediaType(oCriterion.getMimeType());
             bHaveData = true;
         }
 
         // Content
-        //--------
-        if ((oCriterion.getBinaryDocument() != null) &&
-                (oCriterion.getBinaryDocument().length > 0)) {
+        // --------
+        if ((oCriterion.getBinaryDocument() != null) && (oCriterion.getBinaryDocument().length > 0)) {
             String sBinaryDocument = new String(oCriterion.getBinaryDocument());
             oED.getContent().add(sBinaryDocument);
             bHaveData = true;
@@ -1109,16 +1123,15 @@ public class CdaPdfCreator {
 
     /**
      * This method creates a single CDA document from the given BinaryDocumentPolicyCriterionType.
-     *
-     * @param oPtPref This contains the patient preference information. There is some infomration in this
-     *                that is common to each of the criterion that need to be available when we create the CDA
-     *                document.
+     * 
+     * @param oPtPref This contains the patient preference information. There is some infomration in this that is common
+     *            to each of the criterion that need to be available when we create the CDA document.
      * @param oCriterion The binary document criterion containing the data.
      * @return The CDA document returned.
      * @throws AdapterPIPException This exception is thrown if there are any errors.
      */
-    public POCDMT000040ClinicalDocument createCDA(PatientPreferencesType oPtPref, BinaryDocumentPolicyCriterionType oCriterion)
-            throws AdapterPIPException {
+    public POCDMT000040ClinicalDocument createCDA(PatientPreferencesType oPtPref,
+            BinaryDocumentPolicyCriterionType oCriterion) throws AdapterPIPException {
         POCDMT000040ClinicalDocument oCda = new POCDMT000040ClinicalDocument();
         boolean bHaveData = false;
 
@@ -1126,75 +1139,77 @@ public class CdaPdfCreator {
             bHaveData = true;
 
             // Class code and mood code
-            //-------------------------
+            // -------------------------
             oCda.setClassCode(ActClassClinicalDocument.DOCCLIN);
             oCda.getMoodCode().add(CDAConstants.CDA_MOOD_CODE);
 
             // Type ID
-            //---------
+            // ---------
             oCda.setTypeId(createTypeId());
 
             // Template ID
-            //-------------
+            // -------------
             oCda.getTemplateId().add(createTemplateId());
 
             // ID
-            //---
+            // ---
             oCda.setId(createId(oCriterion.getDocumentUniqueId()));
 
             // Code
-            //-----
+            // -----
             oCda.setCode(createCode(oCriterion.getDocumentTypeCode()));
 
             // Title
-            //-------
+            // -------
             oCda.setTitle(createST(oCriterion.getDocumentTitle()));
 
             // EffectiveTime
-            //---------------
+            // ---------------
             oCda.setEffectiveTime(createTS(oCriterion.getEffectiveTime()));
 
             // ConfidentialityCode
-            //---------------------
+            // ---------------------
             oCda.setConfidentialityCode(createCode(oCriterion.getConfidentialityCode()));
 
             // Language Code
-            //--------------
+            // --------------
             oCda.setLanguageCode(createCS(CDAConstants.LANGUAGE_CODE_ENGLISH));
 
             // Record Target
-            //---------------
-            oCda.getRecordTarget().add(createRecordTarget(oPtPref.getAssigningAuthority(), oPtPref.getPatientId(), oCriterion.getPatientInfo()));
+            // ---------------
+            oCda.getRecordTarget().add(
+                    createRecordTarget(oPtPref.getAssigningAuthority(), oPtPref.getPatientId(),
+                            oCriterion.getPatientInfo()));
 
             // Author (Original)
-            //------------------
+            // ------------------
             oCda.getAuthor().add(createAuthorOriginal(oCriterion.getAuthorOriginal()));
 
             // Author (Scanner)
-            //------------------
+            // ------------------
             oCda.getAuthor().add(createAuthorScanner(oCriterion.getAuthorScanner()));
 
             // Data Enterer
-            //--------------
+            // --------------
             oCda.setDataEnterer(createDataEnterer(oCriterion.getDataEnterer()));
 
             // Custodian
-            //----------
+            // ----------
             oCda.setCustodian(createCustodian(oCriterion.getCustodian()));
 
             // Legal Authenticator
-            //---------------------
+            // ---------------------
             oCda.setLegalAuthenticator(createLegalAuthenticator(oCriterion.getLegalAuthenticator()));
 
             // Documentation Of
-            //------------------
+            // ------------------
             oCda.getDocumentationOf().add(createDocumentationOf(oCriterion));
 
             // Component
-            //----------
+            // ----------
             oCda.setComponent(createComponent(oCriterion));
 
-        }   // if (oCriterion != null)
+        } // if (oCriterion != null)
 
         if (bHaveData) {
             return oCda;
@@ -1206,27 +1221,25 @@ public class CdaPdfCreator {
 
     /**
      * This method creates a set of CDA documents from the given BinaryDocumentPolicyCriterion objects.
-     *
+     * 
      * @param oPtPref The patient preferences information for the CDA.
      * @return The list of CDA documents returned.
      * @throws AdapterPIPException This is thrown if any exception occurs in the process.
      */
-    public List<POCDMT000040ClinicalDocument> createCDA(PatientPreferencesType oPtPref)
-            throws AdapterPIPException {
+    public List<POCDMT000040ClinicalDocument> createCDA(PatientPreferencesType oPtPref) throws AdapterPIPException {
         ArrayList<POCDMT000040ClinicalDocument> olCda = new ArrayList<POCDMT000040ClinicalDocument>();
 
-        if ((oPtPref != null) &&
-                (oPtPref.getBinaryDocumentPolicyCriteria() != null) &&
-                (oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null) &&
-                (oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().size() > 0)) {
-            for (BinaryDocumentPolicyCriterionType oCriterion : oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
+        if ((oPtPref != null) && (oPtPref.getBinaryDocumentPolicyCriteria() != null)
+                && (oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null)
+                && (oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().size() > 0)) {
+            for (BinaryDocumentPolicyCriterionType oCriterion : oPtPref.getBinaryDocumentPolicyCriteria()
+                    .getBinaryDocumentPolicyCriterion()) {
                 POCDMT000040ClinicalDocument oCda = createCDA(oPtPref, oCriterion);
                 if (oCda != null) {
                     olCda.add(oCda);
                 }
             }
         }
-
 
         if (olCda.size() > 0) {
             return olCda;

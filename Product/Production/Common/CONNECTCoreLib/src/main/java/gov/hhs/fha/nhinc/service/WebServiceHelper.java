@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.service;
 
@@ -19,12 +39,11 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 
 /**
- * This class is used as a helper in each of the Web Services. The template work
- * for the web service is encapsulated in this helper class.
- *
+ * This class is used as a helper in each of the Web Services. The template work for the web service is encapsulated in
+ * this helper class.
+ * 
  */
-public class WebServiceHelper
-{
+public class WebServiceHelper {
 
     private LoggingContextHelper loggingContextHelper = null;
     private Log log = null;
@@ -32,61 +51,53 @@ public class WebServiceHelper
     /**
      * Default constructor, creates the logger instance.
      */
-    public WebServiceHelper()
-    {
+    public WebServiceHelper() {
         log = createLogger();
     }
 
     /**
      * Create a logger object.
-     *
+     * 
      * @return The logger object.
      */
-    protected Log createLogger()
-    {
-        if (log == null)
-        {
+    protected Log createLogger() {
+        if (log == null) {
             log = LogFactory.getLog(getClass());
         }
         return log;
     }
 
     /**
-     * This method will return the reflection method object for the
-     * given class and methodName.  
-     *
-     * @param webOrchClass  The class containing the method.
+     * This method will return the reflection method object for the given class and methodName.
+     * 
+     * @param webOrchClass The class containing the method.
      * @param methodName The name of the method to find.
      * @return The Method object for that method.
      */
-    protected Method getMethod(Class webOrchClass, String methodName)
-    {
+    protected Method getMethod(Class webOrchClass, String methodName) {
         Method oReturnMethod = null;
 
         // Note that there is an assumption here for what we are working on
         // that names of methods are unique and there is no overloading
-        // of method names.   We are looking only by method name.  Since
+        // of method names. We are looking only by method name. Since
         // these are specifically for web services - we are fine because
         // the method names are unique there.
-        //---------------------------------------------------------------
+        // ---------------------------------------------------------------
         log.debug("Locating reflection method " + webOrchClass + "." + methodName);
         Method[] oaMethod = webOrchClass.getDeclaredMethods();
-        for (Method oMethod : oaMethod)
-        {
-            if (oMethod.getName().equals(methodName))
-            {
+        for (Method oMethod : oaMethod) {
+            if (oMethod.getName().equals(methodName)) {
                 oReturnMethod = oMethod;
             }
-        }   // for (Method oMethod : oaMethod)
+        } // for (Method oMethod : oaMethod)
 
         return oReturnMethod;
     }
 
     /**
-     * This method is used to invoke a method using reflection.  This method's
-     * primary purpose is to allow us to override this for unit testing purposes
-     * and simualate an execption to test that code.
-     *
+     * This method is used to invoke a method using reflection. This method's primary purpose is to allow us to override
+     * this for unit testing purposes and simualate an execption to test that code.
+     * 
      * @param oMethod The reflection method object.
      * @param webOrchObject The instance of the object.
      * @param operationInput The input parameter for the method.
@@ -97,19 +108,18 @@ public class WebServiceHelper
      * @throws IllegalAccessException Exceptions thrown by invoke - passed on.
      * @throws InvocationTargetException Exceptions thrown by invoke - passed on.
      */
-    protected Object invokeTheMethod4(Method oMethod, Object webOrchObject,
-            Object operationInput, AssertionType assertion, Object targets, Object urlInfo)
-            throws IllegalAccessException, InvocationTargetException
-    {
-        log.debug("Invoke with " + operationInput + " assertion " + assertion + " targets " + targets + " url " + urlInfo);
+    protected Object invokeTheMethod4(Method oMethod, Object webOrchObject, Object operationInput,
+            AssertionType assertion, Object targets, Object urlInfo) throws IllegalAccessException,
+            InvocationTargetException {
+        log.debug("Invoke with " + operationInput + " assertion " + assertion + " targets " + targets + " url "
+                + urlInfo);
         return oMethod.invoke(webOrchObject, operationInput, assertion, targets, urlInfo);
     }
 
     /**
-     * This method is used to invoke a method using reflection.  This method's
-     * primary purpose is to allow us to override this for unit testing purposes
-     * and simualate an execption to test that code.
-     *
+     * This method is used to invoke a method using reflection. This method's primary purpose is to allow us to override
+     * this for unit testing purposes and simualate an execption to test that code.
+     * 
      * @param oMethod The reflection method object.
      * @param webOrchObject The instance of the object.
      * @param operationInput The input parameter for the method.
@@ -119,19 +129,16 @@ public class WebServiceHelper
      * @throws IllegalAccessException Exceptions thrown by invoke - passed on.
      * @throws InvocationTargetException Exceptions thrown by invoke - passed on.
      */
-    protected Object invokeTheMethod3(Method oMethod, Object webOrchObject,
-            Object operationInput, AssertionType assertion, Object targets)
-            throws IllegalAccessException, InvocationTargetException
-    {
+    protected Object invokeTheMethod3(Method oMethod, Object webOrchObject, Object operationInput,
+            AssertionType assertion, Object targets) throws IllegalAccessException, InvocationTargetException {
         log.debug("Invoke with " + operationInput + " assertion " + assertion + " targets " + targets);
         return oMethod.invoke(webOrchObject, operationInput, assertion, targets);
     }
 
     /**
-     * This method is used to invoke a method using reflection.  This method's
-     * primary purpose is to allow us to override this for unit testing purposes
-     * and simualate an execption to test that code.
-     *
+     * This method is used to invoke a method using reflection. This method's primary purpose is to allow us to override
+     * this for unit testing purposes and simualate an execption to test that code.
+     * 
      * @param oMethod The reflection method object.
      * @param webOrchObject The instance of the object.
      * @param operationInput The input parameter for the method.
@@ -140,19 +147,16 @@ public class WebServiceHelper
      * @throws IllegalAccessException Exceptions thrown by invoke - passed on.
      * @throws InvocationTargetException Exceptions thrown by invoke - passed on.
      */
-    protected Object invokeTheMethod2(Method oMethod, Object webOrchObject,
-            Object operationInput, AssertionType assertion)
-            throws IllegalAccessException, InvocationTargetException
-    {
+    protected Object invokeTheMethod2(Method oMethod, Object webOrchObject, Object operationInput,
+            AssertionType assertion) throws IllegalAccessException, InvocationTargetException {
         log.debug("Invoke with " + operationInput + " assertion " + assertion);
         return oMethod.invoke(webOrchObject, operationInput, assertion);
     }
 
     /**
-     * This method is used to invoke a method using reflection.  This method's
-     * primary purpose is to allow us to override this for unit testing purposes
-     * and simualate an execption to test that code.
-     *
+     * This method is used to invoke a method using reflection. This method's primary purpose is to allow us to override
+     * this for unit testing purposes and simualate an execption to test that code.
+     * 
      * @param oMethod The reflection method object.
      * @param webOrchObject The instance of the object.
      * @param operationInput The input parameter for the method.
@@ -161,18 +165,16 @@ public class WebServiceHelper
      * @throws InvocationTargetException Exceptions thrown by invoke - passed on.
      */
     protected Object invokeTheMethod1(Method oMethod, Object webOrchObject, Object operationInput)
-            throws IllegalAccessException, InvocationTargetException
-    {
+            throws IllegalAccessException, InvocationTargetException {
         log.debug("Invoke with " + operationInput);
         return oMethod.invoke(webOrchObject, operationInput);
     }
 
     /**
-     * This method will establish the context logging, create the Assertion
-     * object including SAML information and the WS-Addressing messageId and
-     * relatesTo information, invoke the orchestration method, and then clear
-     * the logging context.
-     *
+     * This method will establish the context logging, create the Assertion object including SAML information and the
+     * WS-Addressing messageId and relatesTo information, invoke the orchestration method, and then clear the logging
+     * context.
+     * 
      * @param webOrchObject The instance of the web orchestrator
      * @param webOrchClass The class for the web orchestrator
      * @param methodName The web orchestrator method to call
@@ -182,21 +184,18 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeSecureWebService(Object webOrchObject, Class webOrchClass,
-            String methodName, Object operationInput, Object targets,
-            WebServiceContext context) throws Exception
-    {
+    public Object invokeSecureWebService(Object webOrchObject, Class webOrchClass, String methodName,
+            Object operationInput, Object targets, WebServiceContext context) throws Exception {
         Integer numParam = new Integer(3);
-        return handleInvokeSecureWebService(webOrchObject, webOrchClass,
-                methodName, operationInput, targets, null, context, numParam);
+        return handleInvokeSecureWebService(webOrchObject, webOrchClass, methodName, operationInput, targets, null,
+                context, numParam);
     }
 
     /**
-     * This method will establish the context logging, create the Assertion
-     * object including SAML information and the WS-Addressing messageId and
-     * relatesTo information, invoke the orchestration method, and then clear
-     * the logging context.
-     *
+     * This method will establish the context logging, create the Assertion object including SAML information and the
+     * WS-Addressing messageId and relatesTo information, invoke the orchestration method, and then clear the logging
+     * context.
+     * 
      * @param webOrchObject The instance of the web orchestrator
      * @param webOrchClass The class for the web orchestrator
      * @param methodName The web orchestrator method to call
@@ -207,21 +206,18 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeSecureWebService(Object webOrchObject, Class webOrchClass,
-            String methodName, Object operationInput, Object targets, Object urlInfo,
-            WebServiceContext context) throws Exception
-    {
+    public Object invokeSecureWebService(Object webOrchObject, Class webOrchClass, String methodName,
+            Object operationInput, Object targets, Object urlInfo, WebServiceContext context) throws Exception {
         Integer numParam = new Integer(4);
-        return handleInvokeSecureWebService(webOrchObject, webOrchClass,
-                methodName, operationInput, targets, urlInfo, context, numParam);
+        return handleInvokeSecureWebService(webOrchObject, webOrchClass, methodName, operationInput, targets, urlInfo,
+                context, numParam);
     }
 
     /**
-     * This method will establish the context logging, create the Assertion
-     * object including SAML information and the WS-Addressing messageId and
-     * relatesTo information, invoke the orchestration method, and then clear
-     * the logging context.
-     *
+     * This method will establish the context logging, create the Assertion object including SAML information and the
+     * WS-Addressing messageId and relatesTo information, invoke the orchestration method, and then clear the logging
+     * context.
+     * 
      * @param webOrchObject The instance of the web orchestrator
      * @param webOrchClass The class for the web orchestrator
      * @param methodName The web orchestrator method to call
@@ -233,15 +229,13 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    private Object handleInvokeSecureWebService(Object webOrchObject, Class webOrchClass,
-            String methodName, Object operationInput, Object targets, Object urlInfo,
-            WebServiceContext context, Integer numParam) throws Exception
-    {
+    private Object handleInvokeSecureWebService(Object webOrchObject, Class webOrchClass, String methodName,
+            Object operationInput, Object targets, Object urlInfo, WebServiceContext context, Integer numParam)
+            throws Exception {
 
         Object oResponse = null;
 
-        try
-        {
+        try {
             getLoggingContextHelper().setContext(context);
 
             // Collect assertion
@@ -259,45 +253,37 @@ public class WebServiceHelper
 
             Method oMethod = getMethod(webOrchClass, methodName);
 
-            if (numParam == 4)
-            {
+            if (numParam == 4) {
                 oResponse = invokeTheMethod4(oMethod, webOrchObject, operationInput, assertion, targets, urlInfo);
-            } else
-            {
+            } else {
                 oResponse = invokeTheMethod3(oMethod, webOrchObject, operationInput, assertion, targets);
             }
 
-        } catch (IllegalArgumentException e)
-        {
-            String sErrorMessage = "The method was called with incorrect arguments. " +
-                    "Exception: " + e.getMessage();
+        } catch (IllegalArgumentException e) {
+            String sErrorMessage = "The method was called with incorrect arguments. " + "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             // As near as we can tell based on the way we are using this, I do not
             // believe there is any other exception we will see - but we want to
             // log them if we see them.
-            //---------------------------------------------------------------------
-            String sErrorMessage = "An unexpected exception occurred of type: " +
-                    e.getClass().getCanonicalName() + ". Exception: " +
-                    e.getMessage();
+            // ---------------------------------------------------------------------
+            String sErrorMessage = "An unexpected exception occurred of type: " + e.getClass().getCanonicalName()
+                    + ". Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
 
-        } finally
-        {
+        } finally {
             getLoggingContextHelper().clearContext();
         }
         return oResponse;
     }
 
     /**
-     * This method will establish the context logging, create the Assertion
-     * object including SAML information and the WS-Addressing messageId and
-     * relatesTo information, invoke the orchestration method, and then clear
-     * the logging context.
-     *
+     * This method will establish the context logging, create the Assertion object including SAML information and the
+     * WS-Addressing messageId and relatesTo information, invoke the orchestration method, and then clear the logging
+     * context.
+     * 
      * @param webOrchObject The instance of the web orchestrator
      * @param webOrchClass The class for the web orchestrator
      * @param methodName The web orchestrator method to call
@@ -308,21 +294,18 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeUnsecureWebService(Object webOrchObject, Class webOrchClass,
-            String methodName, Object operationInput, AssertionType assertion,
-            Object targets, WebServiceContext context) throws Exception
-    {
+    public Object invokeUnsecureWebService(Object webOrchObject, Class webOrchClass, String methodName,
+            Object operationInput, AssertionType assertion, Object targets, WebServiceContext context) throws Exception {
         Integer numParam = new Integer(3);
-        return handleInvokeUnsecureWebService(webOrchObject, webOrchClass,
-                methodName, operationInput, assertion, targets, null, context, numParam);
+        return handleInvokeUnsecureWebService(webOrchObject, webOrchClass, methodName, operationInput, assertion,
+                targets, null, context, numParam);
     }
 
     /**
-     * This method will establish the context logging, create the Assertion
-     * object including SAML information and the WS-Addressing messageId and
-     * relatesTo information, invoke the orchestration method, and then clear
-     * the logging context.
-     *
+     * This method will establish the context logging, create the Assertion object including SAML information and the
+     * WS-Addressing messageId and relatesTo information, invoke the orchestration method, and then clear the logging
+     * context.
+     * 
      * @param webOrchObject The instance of the web orchestrator
      * @param webOrchClass The class for the web orchestrator
      * @param methodName The web orchestrator method to call
@@ -334,22 +317,20 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeUnsecureWebService(Object webOrchObject, Class webOrchClass,
-            String methodName, Object operationInput, AssertionType assertion,
-            Object targets, Object urlInfo, WebServiceContext context) throws Exception
-    {
+    public Object invokeUnsecureWebService(Object webOrchObject, Class webOrchClass, String methodName,
+            Object operationInput, AssertionType assertion, Object targets, Object urlInfo, WebServiceContext context)
+            throws Exception {
         Integer numParam = new Integer(4);
-        return handleInvokeUnsecureWebService(webOrchObject, webOrchClass,
-                methodName, operationInput, assertion, targets, urlInfo, context, numParam);
+        return handleInvokeUnsecureWebService(webOrchObject, webOrchClass, methodName, operationInput, assertion,
+                targets, urlInfo, context, numParam);
 
     }
 
     /**
-     * This method will establish the context logging, create the Assertion
-     * object including SAML information and the WS-Addressing messageId and
-     * relatesTo information, invoke the orchestration method, and then clear
-     * the logging context.
-     *
+     * This method will establish the context logging, create the Assertion object including SAML information and the
+     * WS-Addressing messageId and relatesTo information, invoke the orchestration method, and then clear the logging
+     * context.
+     * 
      * @param webOrchObject The instance of the web orchestrator
      * @param webOrchClass The class for the web orchestrator
      * @param methodName The web orchestrator method to call
@@ -362,15 +343,13 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    private Object handleInvokeUnsecureWebService(Object webOrchObject, Class webOrchClass,
-            String methodName, Object operationInput, AssertionType assertion, Object targets,
-            Object urlInfo, WebServiceContext context, Integer numParam) throws Exception
-    {
+    private Object handleInvokeUnsecureWebService(Object webOrchObject, Class webOrchClass, String methodName,
+            Object operationInput, AssertionType assertion, Object targets, Object urlInfo, WebServiceContext context,
+            Integer numParam) throws Exception {
 
         Object oResponse = null;
 
-        try
-        {
+        try {
             getLoggingContextHelper().setContext(context);
 
             // Extract the message id value from the WS-Addressing Header and
@@ -385,45 +364,37 @@ public class WebServiceHelper
 
             Method oMethod = getMethod(webOrchClass, methodName);
 
-            if (numParam == 4)
-            {
+            if (numParam == 4) {
                 oResponse = invokeTheMethod4(oMethod, webOrchObject, operationInput, assertion, targets, urlInfo);
-            } else
-            {
+            } else {
                 oResponse = invokeTheMethod3(oMethod, webOrchObject, operationInput, assertion, targets);
             }
 
-        } catch (IllegalArgumentException e)
-        {
-            String sErrorMessage = "The method was called with incorrect arguments. " +
-                    "Exception: " + e.getMessage();
+        } catch (IllegalArgumentException e) {
+            String sErrorMessage = "The method was called with incorrect arguments. " + "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             // As near as we can tell based on the way we are using this, I do not
             // believe there is any other exception we will see - but we want to
             // log them if we see them.
-            //---------------------------------------------------------------------
-            String sErrorMessage = "An unexpected exception occurred of type: " +
-                    e.getClass().getCanonicalName() + ". Exception: " +
-                    e.getMessage();
+            // ---------------------------------------------------------------------
+            String sErrorMessage = "An unexpected exception occurred of type: " + e.getClass().getCanonicalName()
+                    + ". Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
 
-        } finally
-        {
+        } finally {
             getLoggingContextHelper().clearContext();
         }
         return oResponse;
     }
 
     /**
-     * This method will establish the context logging, create the Assertion
-     * object including SAML information and the WS-Addressing messageId from the
-     * relatesTo information, invoke the orchestration method, and then clear
-     * the logging context.
-     *
+     * This method will establish the context logging, create the Assertion object including SAML information and the
+     * WS-Addressing messageId from the relatesTo information, invoke the orchestration method, and then clear the
+     * logging context.
+     * 
      * @param webOrchObject The instance of the web orchestrator
      * @param webOrchClass The class for the web orchestrator
      * @param methodName The web orchestrator method to call
@@ -432,15 +403,12 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeSecureDeferredResponseWebService(Object webOrchObject,
-            Class webOrchClass, String methodName, Object operationInput,
-            WebServiceContext context) throws Exception
-    {
+    public Object invokeSecureDeferredResponseWebService(Object webOrchObject, Class webOrchClass, String methodName,
+            Object operationInput, WebServiceContext context) throws Exception {
 
         Object oResponse = null;
 
-        try
-        {
+        try {
             getLoggingContextHelper().setContext(context);
 
             // Collect assertion
@@ -450,8 +418,7 @@ public class WebServiceHelper
             List<String> contextRelatesTo = getRelatesToList(context);
 
             // place the first one from the list into the Assertion Class as the message id
-            if (contextRelatesTo != null && !contextRelatesTo.isEmpty())
-            {
+            if (contextRelatesTo != null && !contextRelatesTo.isEmpty()) {
                 log.debug("Setting messageId to first relatesToId: " + contextRelatesTo.get(0));
                 String messageId = contextRelatesTo.get(0);
                 populateAssertionWithMessageId(assertion, messageId);
@@ -461,36 +428,30 @@ public class WebServiceHelper
 
             oResponse = invokeTheMethod2(oMethod, webOrchObject, operationInput, assertion);
 
-        } catch (IllegalArgumentException e)
-        {
-            String sErrorMessage = "The method was called with incorrect arguments. " +
-                    "Exception: " + e.getMessage();
+        } catch (IllegalArgumentException e) {
+            String sErrorMessage = "The method was called with incorrect arguments. " + "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             // As near as we can tell based on the way we are using this, I do not
             // believe there is any other exception we will see - but we want to
             // log them if we see them.
-            //---------------------------------------------------------------------
-            String sErrorMessage = "An unexpected exception occurred of type: " +
-                    e.getClass().getCanonicalName() + ". Exception: " +
-                    e.getMessage();
+            // ---------------------------------------------------------------------
+            String sErrorMessage = "An unexpected exception occurred of type: " + e.getClass().getCanonicalName()
+                    + ". Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
 
-        } finally
-        {
+        } finally {
             getLoggingContextHelper().clearContext();
         }
         return oResponse;
     }
 
     /**
-     * This method will establish the context logging, create the WS-Addressing
-     * messageId from the relatesTo information, invoke the orchestration method,
-     * and then clear the logging context.
-     *
+     * This method will establish the context logging, create the WS-Addressing messageId from the relatesTo
+     * information, invoke the orchestration method, and then clear the logging context.
+     * 
      * @param webOrchObject The instance of the web orchestrator
      * @param webOrchClass The class for the web orchestrator
      * @param methodName The web orchestrator method to call
@@ -500,23 +461,19 @@ public class WebServiceHelper
      * @return The response object from the web orchestrator invocation
      * @throws Exception Any exceptions are passed back up.
      */
-    public Object invokeDeferredResponseWebService(Object webOrchObject,
-            Class webOrchClass, String methodName, AssertionType assertion,
-            Object operationInput, WebServiceContext context) throws Exception
-    {
+    public Object invokeDeferredResponseWebService(Object webOrchObject, Class webOrchClass, String methodName,
+            AssertionType assertion, Object operationInput, WebServiceContext context) throws Exception {
 
         Object oResponse = null;
 
-        try
-        {
+        try {
             getLoggingContextHelper().setContext(context);
 
             // Extract the relatesTo values from the WS-Addressing Header
             List<String> contextRelatesTo = getRelatesToList(context);
 
             // place the first one from the list into the Assertion Class as the message id
-            if (contextRelatesTo != null && !contextRelatesTo.isEmpty())
-            {
+            if (contextRelatesTo != null && !contextRelatesTo.isEmpty()) {
                 log.debug("Setting messageId to first relatesToId: " + contextRelatesTo.get(0));
                 String messageId = contextRelatesTo.get(0);
                 populateAssertionWithMessageId(assertion, messageId);
@@ -525,26 +482,21 @@ public class WebServiceHelper
             Method oMethod = getMethod(webOrchClass, methodName);
             oResponse = invokeTheMethod1(oMethod, webOrchObject, operationInput);
 
-        } catch (IllegalArgumentException e)
-        {
-            String sErrorMessage = "The method was called with incorrect arguments. " +
-                    "Exception: " + e.getMessage();
+        } catch (IllegalArgumentException e) {
+            String sErrorMessage = "The method was called with incorrect arguments. " + "Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             // As near as we can tell based on the way we are using this, I do not
             // believe there is any other exception we will see - but we want to
             // log them if we see them.
-            //---------------------------------------------------------------------
-            String sErrorMessage = "An unexpected exception occurred of type: " +
-                    e.getClass().getCanonicalName() + ". Exception: " +
-                    e.getMessage();
+            // ---------------------------------------------------------------------
+            String sErrorMessage = "An unexpected exception occurred of type: " + e.getClass().getCanonicalName()
+                    + ". Exception: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw e;
 
-        } finally
-        {
+        } finally {
             getLoggingContextHelper().clearContext();
         }
         return oResponse;
@@ -556,8 +508,7 @@ public class WebServiceHelper
      * @param context The web service context used to initialize the assertion
      * @return The assertion object populated with SAML information
      */
-    protected AssertionType getSamlAssertion(WebServiceContext context)
-    {
+    protected AssertionType getSamlAssertion(WebServiceContext context) {
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
         log.debug("Initializing the SAML assertion information: " + assertion);
         return assertion;
@@ -565,11 +516,11 @@ public class WebServiceHelper
 
     /**
      * Extracts the message id from the web service context
+     * 
      * @param context The web service context that contains the message id
      * @return the extracted message id
      */
-    protected String getMessageId(WebServiceContext context)
-    {
+    protected String getMessageId(WebServiceContext context) {
         String messageId = AsyncMessageIdExtractor.GetAsyncMessageId(context);
         log.debug("Extracted messageId: " + messageId + " from the context");
         return messageId;
@@ -577,15 +528,13 @@ public class WebServiceHelper
 
     /**
      * Sets the given messageId into the assertion
+     * 
      * @param assertion The assertion object to populate with the given message id
      * @param messageId The message id
      */
-    protected void populateAssertionWithMessageId(AssertionType assertion, String messageId)
-    {
-        if (assertion != null)
-        {
-            if (messageId != null && !messageId.isEmpty())
-            {
+    protected void populateAssertionWithMessageId(AssertionType assertion, String messageId) {
+        if (assertion != null) {
+            if (messageId != null && !messageId.isEmpty()) {
                 log.debug("Setting assertion messageId: " + messageId);
                 assertion.setMessageId(messageId);
             }
@@ -594,15 +543,14 @@ public class WebServiceHelper
 
     /**
      * Extracts the relatesTo ids from the web service context
+     * 
      * @param context The web service context that contains the ids
      * @return the extracted list of relatesTo ids
      */
-    protected List<String> getRelatesToList(WebServiceContext context)
-    {
+    protected List<String> getRelatesToList(WebServiceContext context) {
         List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
         StringBuffer sBuf = new StringBuffer("Extracting relatesToList: ");
-        for (String relatesToItem : relatesToList)
-        {
+        for (String relatesToItem : relatesToList) {
             sBuf.append(relatesToItem + " ");
         }
         sBuf.append("from the context");
@@ -612,20 +560,17 @@ public class WebServiceHelper
 
     /**
      * Sets the given list of relatesTo ids into the assertion
+     * 
      * @param assertion The assertion object to populate with the given relatesTo ids
      * @param relatesToIds The list of the relatesTo ids
      */
-    protected void populateAssertionWithRelatesToList(AssertionType assertion, List<String> relatesToIds)
-    {
-        if (assertion != null)
-        {
+    protected void populateAssertionWithRelatesToList(AssertionType assertion, List<String> relatesToIds) {
+        if (assertion != null) {
             List<String> relatesToList = assertion.getRelatesToList();
-            if (relatesToList != null && relatesToIds != null)
-            {
+            if (relatesToList != null && relatesToIds != null) {
                 relatesToList.addAll(relatesToIds);
                 StringBuffer sBuf = new StringBuffer("Setting assertion relatesToList: ");
-                for (String relatesToItem : relatesToList)
-                {
+                for (String relatesToItem : relatesToList) {
                     sBuf.append(relatesToItem + " ");
                 }
                 log.debug(sBuf.toString());
@@ -635,12 +580,11 @@ public class WebServiceHelper
 
     /**
      * Accessor for the Logging context helper object, creates this object on first need.
+     * 
      * @return instance of the LoggingContextHelper
      */
-    protected LoggingContextHelper getLoggingContextHelper()
-    {
-        if (loggingContextHelper == null)
-        {
+    protected LoggingContextHelper getLoggingContextHelper() {
+        if (loggingContextHelper == null) {
             loggingContextHelper = new LoggingContextHelper();
         }
         return loggingContextHelper;

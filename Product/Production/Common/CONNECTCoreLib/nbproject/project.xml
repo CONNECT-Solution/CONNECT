@@ -4,6 +4,7 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>CONNECTCoreLib</name>
+            <explicit-platform explicit-source-supported="true"/>
             <source-roots>
                 <root id="src.java.dir" name="Source Packages"/>
                 <root id="src.resources.dir" name="Configuration Files"/>
@@ -13,16 +14,7 @@
                 <root id="test.resources.dir" name="Test Configuration Files"/>
             </test-roots>
         </data>
-        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
-            <reference>
-                <foreign-project>CONNECTCommonTypesLib</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-        </references>
+        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
         <spring-data xmlns="http://www.netbeans.org/ns/spring-data/1">
             <config-files/>
             <config-file-groups/>

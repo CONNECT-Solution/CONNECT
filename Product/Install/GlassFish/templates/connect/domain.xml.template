@@ -181,19 +181,19 @@
         <jvm-options>-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.taglibs=appserv-jstl.jar,jsf-impl.jar</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.taglisteners=jsf-impl.jar</jvm-options>
-        <jvm-options>-XX:NewRatio=2</jvm-options>
+        <jvm-options>-XX:NewRatio=6</jvm-options>
         <jvm-options>-Dcom.sun.xml.ws.transport.http.HttpAdapter.dump=true</jvm-options>
         <jvm-options>-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=true</jvm-options>
         <jvm-options>-Djavax.enterprise.resource.xml.webservices.security.level=FINE</jvm-options>
         <jvm-options>-Djavax.enterprise.resource.webservices.jaxws=FINE</jvm-options>
         <jvm-options>-Dcom.sun.jbi.httpbc.enableClientAuth=true</jvm-options>
-        <jvm-options>-Djavax.net.ssl.keyStorePassword=nhinc123</jvm-options>
+        <jvm-options>-Djavax.net.ssl.keyStorePassword=changeit</jvm-options>
         <jvm-options>-Djavax.net.ssl.trustStorePassword=changeit</jvm-options>
         <jvm-options>-Dsun.rmi.dgc.server.gcInterval=1200000</jvm-options>
         <jvm-options>-Dsun.rmi.dgc.client.gcInterval=1200000</jvm-options>
-        <jvm-options>-Xmx1400m</jvm-options>
-        <jvm-options>-XX:MaxPermSize=132m</jvm-options>
-        <jvm-options>-XX:PermSize=132m</jvm-options>
+        <jvm-options>-Xmx1408m</jvm-options>
+        <jvm-options>-XX:MaxPermSize=128m</jvm-options>
+        <jvm-options>-XX:PermSize=128m</jvm-options>
         <jvm-options>-Dlog4j.configuration=file:${com.sun.aas.instanceRoot}/config/log4j.properties</jvm-options>
         <jvm-options>-Dwsdl.path=file:${com.sun.aas.instanceRoot}/config/nhin/wsdl/</jvm-options>
         <jvm-options>-Dnhinc.properties.dir=${com.sun.aas.instanceRoot}/config/nhin</jvm-options>
@@ -202,7 +202,6 @@
         <jvm-options>-Djavax.net.ssl.trustStoreType=JKS</jvm-options>
         <jvm-options>-Dcom.sun.net.ssl.checkRevocation=true</jvm-options>
         <jvm-options>-Dcom.sun.security.enableCRLDP=true</jvm-options>
-        <jvm-options>-Djava.security.debug=certpath</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=gateway</jvm-options>
         <jvm-options>-DSERVER_KEY_ALIAS=gateway</jvm-options>
         <jvm-options>-DCLIENT_KEY_ALIAS=gateway</jvm-options>

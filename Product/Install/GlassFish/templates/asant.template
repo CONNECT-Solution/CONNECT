@@ -5,7 +5,7 @@
 #
 
 #set appserv specific env variables
-. "/nhin/SUNWappserver/config/asenv.conf"
+. "/nhin/glassfish/config/asenv.conf"
 # Set ANT_HOME
 ANT_HOME="${AS_ANT}"
 # Set JAVA_HOME

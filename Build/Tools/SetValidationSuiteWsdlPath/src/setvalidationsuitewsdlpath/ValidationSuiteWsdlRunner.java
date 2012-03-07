@@ -1,6 +1,8 @@
 package setvalidationsuitewsdlpath;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,25 +45,38 @@ public class ValidationSuiteWsdlRunner {
     private final String jBossHome = "JBOSS_HOME";
     private final String jBossConfig = "NHINC_PROPERTIES_DIR";
 
-    private String[] validationFiles = {"1-InternalSelfTest-soapui-project.xml",
-                                        "2-EndToEndSelfTest-soapui-project.xml",
-                                        "3-ValidateServices-soapui-project.xml"};
+    private List<String> validationFiles;
 
     private final char slash = File.separatorChar;
 
-    private String pathToValidationSuite;
     private String pathToWsdls;
-    private Boolean setSpecifiedPath;
+    //private Boolean setSpecifiedPath;
 
     public ValidationSuiteWsdlRunner(){
         initialize();
-        this.setSpecifiedPath = false;
+        //this.setSpecifiedPath = false;
+        validationFiles = new ArrayList<String>();
+        setValidationFiles();
     }
 
     public ValidationSuiteWsdlRunner(String wsdlPath){
         initialize();
         this.pathToWsdls = wsdlPath;
-        this.setSpecifiedPath = true;
+        //this.setSpecifiedPath = true;
+        validationFiles = new ArrayList<String>();
+        setValidationFiles();
+    }
+
+    private void setValidationFiles(){
+        File directory = new File(".");
+        File[] files = directory.listFiles();
+
+        for(File file : files){
+            if(file.getName().toLowerCase().contains("soapui-project.xml")){
+                System.out.println("Set: " + file.getName());
+                validationFiles.add(file.getName());
+            }//else Don't add file.
+        }
     }
 
     /**
@@ -95,9 +110,9 @@ public class ValidationSuiteWsdlRunner {
         for(String fileName : validationFiles){
             try {
                 
-                Document doc = docBuilder.parse(pathToValidationSuite + slash + fileName);
+                Document doc = docBuilder.parse(fileName);
                 setAttributes(getNodes(doc), doc);
-                xFormer.transform(new DOMSource(doc), new StreamResult(new File(pathToValidationSuite + slash + fileName)));
+                xFormer.transform(new DOMSource(doc), new StreamResult(new File(fileName)));
             } catch (Exception ex) {
                 Logger.getLogger(ValidationSuiteWsdlRunner.class.getName()).log(Level.SEVERE, null, ex);
                 throw new RuntimeException("Failed to set wsdl paths.");
@@ -109,13 +124,7 @@ public class ValidationSuiteWsdlRunner {
      * Sets the paths for where the Validation Suite and the WSDL files are.
      */
     private void setPaths(){
-        if(System.getenv(sourcePath)!=null){
-            pathToValidationSuite = System.getenv(sourcePath) + slash + 
-                    "Product" + slash + "SoapUI_Test" + slash + "ValidationSuite";
-        }else {
-            pathToValidationSuite = System.getenv(binaryPath) + slash + "ValidationSuite";
-        }
-
+ 
         if(pathToWsdls == null){
             if(System.getenv(jBossHome)!= null){
                 pathToWsdls = System.getenv(jBossConfig) + slash + "wsdl" + slash;
@@ -154,11 +163,7 @@ public class ValidationSuiteWsdlRunner {
                 String attrValue = definitionAttr.getNodeValue();
                 StringTokenizer stringTok = new StringTokenizer(attrValue, "#");
 
-                if(setSpecifiedPath == true){
-                    Attr newDefinitionAttr = doc.createAttribute("definition");
-                    newDefinitionAttr.setValue(pathToWsdls);
-                    attributes.setNamedItem(newDefinitionAttr);
-                }else if(!(attrValue.contains(pathToWsdls))&& attrValue.contains("WSDL path not set.")){
+                if(!(attrValue.contains(pathToWsdls))&& attrValue.contains("WSDL path not set.")){
                     
                     stringTok.nextToken();
                     StringBuilder newPath = new StringBuilder(pathToWsdls);

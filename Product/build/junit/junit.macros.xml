@@ -82,7 +82,7 @@
         <sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.file}" />
 
         <env key="CLASSPATH" value="${cp}"/>
-        
+	<jvmarg value="-XX:-UseSplitVerifier"/>        
         <formatter type="xml" />
         <formatter usefile="false" type="plain" />
 

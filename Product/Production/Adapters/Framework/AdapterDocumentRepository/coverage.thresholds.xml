@@ -2,7 +2,7 @@
 <thresholds>
    <threshold branchcount="112" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.repository.dao.DocumentDao"
-              linecount="184"
+              linecount="188"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="28" branchrate="80" branchsexecuted="0"
@@ -42,7 +42,7 @@
               linesexecuted="0"/>
    <threshold branchcount="54" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.repository.service.DocumentService"
-              linecount="71"
+              linecount="75"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

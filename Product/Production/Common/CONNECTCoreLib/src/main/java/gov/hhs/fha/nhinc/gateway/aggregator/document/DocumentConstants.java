@@ -1,19 +1,37 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.gateway.aggregator.document;
 
 /**
- * This class contains constants used when looking at Document related
- * NHIN messages.
+ * This class contains constants used when looking at Document related NHIN messages.
  * 
  * @author Les Westberg
  */
-public class DocumentConstants 
-{
+public class DocumentConstants {
     public static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
     public static final String EBXML_DOCENTRY_CLASS_CODE = "$XDSDocumentEntryClassCode";
     public static final String EBXML_DOCENTRY_CLASS_CODE_SCHEME = "$XDSDocumentEntryClassCodeScheme";
@@ -35,10 +53,10 @@ public class DocumentConstants
     public static final String EBXML_DOCENTRY_STATUS = "$XDSDocumentEntryStatus";
 
     public static final String XDS_QUERY_ID_FIND_DOCUMENTS = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
-    
+
     public static final String XDS_QUERY_RESPONSE_OPTION_RETURN_TYPE_OBJECT_REF = "ObjectRef";
     public static final String XDS_QUERY_RESPONSE_OPTION_RETURN_TYPE_LEAF_CLASS = "LeafClass";
-    
+
     public static final String EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME = "repositoryUniqueId";
     public static final String EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME = "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab";
     public static final String EBXML_RESPONSE_DOCID_NAME = "XDSDocumentEntry.uniqueId";
@@ -69,14 +87,14 @@ public class DocumentConstants
     public static final String EBXML_RESPONSE_SOURCEPATIENTINFO_SLOTNAME = "sourcePatientInfo";
     public static final String EBXML_RESPONSE_URI_SLOTNAME = "URI";
     public static final int EBXML_RESPONSE_URI_LINE_LENGTH = 128;
-    
+
     public static final String XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
-    
+
     public static final String XDS_QUERY_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final String XDS_QUERY_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    
+
     public static final String XDS_RETRIEVE_ERRORCODE_REGISTRY_ERROR = "XDSRegistryError";
     public static final String XDS_RETRIEVE_CODECONTEXT_TIMEDOUT_MSG = "We did not recieve a response to a document query message from this NHIN gateway.";
     public static final String XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR = "XDSRepositoryError";
@@ -85,5 +103,5 @@ public class DocumentConstants
     public static final String SUCCESS_TEXT = "SUCCESS";
     public static final String COMPLETE_TEXT = "COMPLETE";
     public static final String PENDING_TEXT = "PENDING";
-    
+
 }

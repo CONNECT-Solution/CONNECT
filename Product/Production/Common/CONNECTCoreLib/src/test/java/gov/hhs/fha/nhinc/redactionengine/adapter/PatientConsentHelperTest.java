@@ -1,3 +1,29 @@
+/*
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ */
 package gov.hhs.fha.nhinc.redactionengine.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
@@ -22,14 +48,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class PatientConsentHelperTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class PatientConsentHelperTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -40,29 +64,22 @@ public class PatientConsentHelperTest
     final PatientConsentManager mockPatientConsentMgr = context.mock(PatientConsentManager.class);
 
     @Test
-    public void testCreateLogger()
-    {
-        try
-        {
-            PatientConsentHelper patientConsentHelper = new PatientConsentHelper()
-            {
+    public void testCreateLogger() {
+        try {
+            PatientConsentHelper patientConsentHelper = new PatientConsentHelper() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected AdapterPIPImpl getAdapterPIP()
-                {
+                protected AdapterPIPImpl getAdapterPIP() {
                     return mockPIP;
                 }
             };
             Log log = patientConsentHelper.createLogger();
             assertNotNull("Log was null", log);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger test: " + t.getMessage());
@@ -70,29 +87,22 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testGetAdapterPIP()
-    {
-        try
-        {
-            PatientConsentHelper patientConsentHelper = new PatientConsentHelper()
-            {
+    public void testGetAdapterPIP() {
+        try {
+            PatientConsentHelper patientConsentHelper = new PatientConsentHelper() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected AdapterPIPImpl getAdapterPIP()
-                {
+                protected AdapterPIPImpl getAdapterPIP() {
                     return mockPIP;
                 }
             };
             AdapterPIPImpl adapterPIP = patientConsentHelper.getAdapterPIP();
             assertNotNull("AdapterPIPImpl was null", adapterPIP);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetAdapterPIP test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetAdapterPIP test: " + t.getMessage());
@@ -100,25 +110,21 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testRetrievePatientConsentbyPatientIdHappy()
-    {
-        try
-        {
+    public void testRetrievePatientConsentbyPatientIdHappy() {
+        try {
             String patientId = "";
             String assigningAuthorityId = "";
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockPIP).retrievePtConsentByPtId(with(aNonNull(RetrievePtConsentByPtIdRequestType.class)));
                 }
             });
 
-            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, mockPIP);
+            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId,
+                    mockPIP);
             assertNotNull("PatientPreferencesType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRetrievePatientConsentbyPatientIdHappy test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRetrievePatientConsentbyPatientIdHappy test: " + t.getMessage());
@@ -126,25 +132,21 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testRetrievePatientConsentbyPatientIdNullInputs()
-    {
-        try
-        {
+    public void testRetrievePatientConsentbyPatientIdNullInputs() {
+        try {
             String patientId = null;
             String assigningAuthorityId = null;
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockPIP).retrievePtConsentByPtId(with(aNonNull(RetrievePtConsentByPtIdRequestType.class)));
                 }
             });
 
-            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, mockPIP);
+            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId,
+                    mockPIP);
             assertNotNull("PatientPreferencesType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRetrievePatientConsentbyPatientIdNullInputs test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRetrievePatientConsentbyPatientIdNullInputs test: " + t.getMessage());
@@ -152,118 +154,102 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testRetrievePatientConsentbyPatientIdNullAdapterPIPResponse()
-    {
-        try
-        {
+    public void testRetrievePatientConsentbyPatientIdNullAdapterPIPResponse() {
+        try {
             String patientId = null;
             String assigningAuthorityId = null;
 
-            final AdapterPIPImpl adapterPIP = new AdapterPIPImpl()
-            {
+            final AdapterPIPImpl adapterPIP = new AdapterPIPImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected PatientConsentManager getPatientConsentManager()
-                {
+                protected PatientConsentManager getPatientConsentManager() {
                     return mockPatientConsentMgr;
                 }
 
                 @Override
-                public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request)
-                        throws AdapterPIPException
-                {
+                public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(
+                        RetrievePtConsentByPtIdRequestType request) throws AdapterPIPException {
                     return null;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
-            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, adapterPIP);
+            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId,
+                    adapterPIP);
             assertNull("PatientPreferencesType was not null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testRetrievePatientConsentbyPatientIdNullAdapterPIPResponse test: " + t.getMessage());
+        } catch (Throwable t) {
+            System.out.println("Error running testRetrievePatientConsentbyPatientIdNullAdapterPIPResponse test: "
+                    + t.getMessage());
             t.printStackTrace();
             fail("Error running testRetrievePatientConsentbyPatientIdNullAdapterPIPResponse test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testRetrievePatientConsentbyPatientIdWithException()
-    {
-        try
-        {
+    public void testRetrievePatientConsentbyPatientIdWithException() {
+        try {
             String patientId = null;
             String assigningAuthorityId = null;
             final AdapterPIPImpl adapterPIP = new AdapterPIPImpl() {
 
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected PatientConsentManager getPatientConsentManager()
-                {
+                protected PatientConsentManager getPatientConsentManager() {
                     return mockPatientConsentMgr;
                 }
 
                 @Override
-                public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request) throws AdapterPIPException
-                {
+                public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(
+                        RetrievePtConsentByPtIdRequestType request) throws AdapterPIPException {
                     RetrievePtConsentByPtIdResponseType retrieveResponse = new RetrievePtConsentByPtIdResponseType() {
 
                         @Override
-                        public PatientPreferencesType getPatientPreferences()
-                        {
+                        public PatientPreferencesType getPatientPreferences() {
                             throw new RuntimeException();
                         }
                     };
                     return retrieveResponse;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).error(with(any(String.class)), with(aNonNull(RuntimeException.class)));
                 }
             });
-            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId, adapterPIP);
+            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId,
+                    adapterPIP);
             assertNull("PatientPreferencesType was not null", response);
-        }
-        catch (AdapterPIPException ex)
-        {
-            System.out.println("Error running testRetrievePatientConsentbyPatientIdWithException test: " + ex.getMessage());
+        } catch (AdapterPIPException ex) {
+            System.out.println("Error running testRetrievePatientConsentbyPatientIdWithException test: "
+                    + ex.getMessage());
             ex.printStackTrace();
             fail("Error running testRetrievePatientConsentbyPatientIdWithException test: " + ex.getMessage());
         }
     }
 
-    public PatientPreferencesType testRetrievePatientConsentbyPatientId(String patientId, String assigningAuthorityId, final AdapterPIPImpl adapterPIP) throws AdapterPIPException
-    {
+    public PatientPreferencesType testRetrievePatientConsentbyPatientId(String patientId, String assigningAuthorityId,
+            final AdapterPIPImpl adapterPIP) throws AdapterPIPException {
         PatientPreferencesType response = null;
-        PatientConsentHelper patientConsentHelper = new PatientConsentHelper()
-        {
+        PatientConsentHelper patientConsentHelper = new PatientConsentHelper() {
             @Override
-            protected Log createLogger()
-            {
+            protected Log createLogger() {
                 return mockLog;
             }
 
             @Override
-            protected AdapterPIPImpl getAdapterPIP()
-            {
+            protected AdapterPIPImpl getAdapterPIP() {
                 return adapterPIP;
             }
         };
@@ -273,25 +259,22 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testRetrievePatientConsentbyDocumentIdHappy()
-    {
-        try
-        {
+    public void testRetrievePatientConsentbyDocumentIdHappy() {
+        try {
             String homeCommunityId = "";
             String repositoryId = "";
             String documentId = "";
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockPIP).retrievePtConsentByPtDocId(with(aNonNull(RetrievePtConsentByPtDocIdRequestType.class)));
+                    oneOf(mockPIP).retrievePtConsentByPtDocId(
+                            with(aNonNull(RetrievePtConsentByPtDocIdRequestType.class)));
                 }
             });
-            PatientPreferencesType patientPreferences = testRetrievePatientConsentbyDocumentId(homeCommunityId, repositoryId, documentId, mockPIP);
+            PatientPreferencesType patientPreferences = testRetrievePatientConsentbyDocumentId(homeCommunityId,
+                    repositoryId, documentId, mockPIP);
             assertNotNull("PatientPreferencesType was null", patientPreferences);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRetrievePatientConsentbyDocumentIdHappy test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRetrievePatientConsentbyDocumentIdHappy test: " + t.getMessage());
@@ -299,25 +282,22 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testRetrievePatientConsentbyDocumentIdNullInputs()
-    {
-        try
-        {
+    public void testRetrievePatientConsentbyDocumentIdNullInputs() {
+        try {
             String homeCommunityId = null;
             String repositoryId = null;
             String documentId = null;
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockPIP).retrievePtConsentByPtDocId(with(aNonNull(RetrievePtConsentByPtDocIdRequestType.class)));
+                    oneOf(mockPIP).retrievePtConsentByPtDocId(
+                            with(aNonNull(RetrievePtConsentByPtDocIdRequestType.class)));
                 }
             });
-            PatientPreferencesType patientPreferences = testRetrievePatientConsentbyDocumentId(homeCommunityId, repositoryId, documentId, mockPIP);
+            PatientPreferencesType patientPreferences = testRetrievePatientConsentbyDocumentId(homeCommunityId,
+                    repositoryId, documentId, mockPIP);
             assertNotNull("PatientPreferencesType was null", patientPreferences);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRetrievePatientConsentbyDocumentId test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRetrievePatientConsentbyDocumentId test: " + t.getMessage());
@@ -325,45 +305,37 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testRetrievePatientConsentbyDocumentIdNullAdapterPIPResponse()
-    {
-        try
-        {
+    public void testRetrievePatientConsentbyDocumentIdNullAdapterPIPResponse() {
+        try {
             String homeCommunityId = null;
             String repositoryId = null;
             String documentId = null;
-            final AdapterPIPImpl adapterPIP = new AdapterPIPImpl()
-            {
+            final AdapterPIPImpl adapterPIP = new AdapterPIPImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected PatientConsentManager getPatientConsentManager()
-                {
+                protected PatientConsentManager getPatientConsentManager() {
                     return mockPatientConsentMgr;
                 }
 
                 @Override
-                public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request)
-                        throws AdapterPIPException
-                {
+                public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
+                        RetrievePtConsentByPtDocIdRequestType request) throws AdapterPIPException {
                     return null;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
-            PatientPreferencesType patientPreferences = testRetrievePatientConsentbyDocumentId(homeCommunityId, repositoryId, documentId, adapterPIP);
+            PatientPreferencesType patientPreferences = testRetrievePatientConsentbyDocumentId(homeCommunityId,
+                    repositoryId, documentId, adapterPIP);
             assertNull("PatientPreferencesType was not null", patientPreferences);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRetrievePatientConsentbyDocumentId test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRetrievePatientConsentbyDocumentId test: " + t.getMessage());
@@ -371,99 +343,82 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testRetrievePatientConsentbyDocumentIdWithException()
-    {
-        try
-        {
+    public void testRetrievePatientConsentbyDocumentIdWithException() {
+        try {
             String homeCommunityId = null;
             String repositoryId = null;
             String documentId = null;
-            final AdapterPIPImpl adapterPIP = new AdapterPIPImpl()
-            {
+            final AdapterPIPImpl adapterPIP = new AdapterPIPImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
 
                 @Override
-                protected PatientConsentManager getPatientConsentManager()
-                {
+                protected PatientConsentManager getPatientConsentManager() {
                     return mockPatientConsentMgr;
                 }
 
                 @Override
-                public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(RetrievePtConsentByPtDocIdRequestType request)
-                        throws AdapterPIPException
-                {
-                    RetrievePtConsentByPtDocIdResponseType retrieveResponse = new RetrievePtConsentByPtDocIdResponseType()
-                    {
+                public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
+                        RetrievePtConsentByPtDocIdRequestType request) throws AdapterPIPException {
+                    RetrievePtConsentByPtDocIdResponseType retrieveResponse = new RetrievePtConsentByPtDocIdResponseType() {
                         @Override
-                        public PatientPreferencesType getPatientPreferences()
-                        {
+                        public PatientPreferencesType getPatientPreferences() {
                             throw new RuntimeException();
                         }
                     };
                     return retrieveResponse;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).error(with(any(String.class)), with(aNonNull(RuntimeException.class)));
                 }
             });
-            PatientPreferencesType patientPreferences = testRetrievePatientConsentbyDocumentId(homeCommunityId, repositoryId, documentId, adapterPIP);
+            PatientPreferencesType patientPreferences = testRetrievePatientConsentbyDocumentId(homeCommunityId,
+                    repositoryId, documentId, adapterPIP);
             assertNull("PatientPreferencesType was not null", patientPreferences);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRetrievePatientConsentbyDocumentId test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRetrievePatientConsentbyDocumentId test: " + t.getMessage());
         }
     }
 
-    public PatientPreferencesType testRetrievePatientConsentbyDocumentId(String homeCommunityId, String repositoryId, String documentId, final AdapterPIPImpl adapterPIP)
-    {
+    public PatientPreferencesType testRetrievePatientConsentbyDocumentId(String homeCommunityId, String repositoryId,
+            String documentId, final AdapterPIPImpl adapterPIP) {
         PatientPreferencesType response = null;
-            PatientConsentHelper patientConsentHelper = new PatientConsentHelper()
-            {
-                @Override
-                protected Log createLogger()
-                {
-                    return mockLog;
-                }
+        PatientConsentHelper patientConsentHelper = new PatientConsentHelper() {
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
 
-                @Override
-                protected AdapterPIPImpl getAdapterPIP()
-                {
-                    return adapterPIP;
-                }
-            };
+            @Override
+            protected AdapterPIPImpl getAdapterPIP() {
+                return adapterPIP;
+            }
+        };
 
-            response = patientConsentHelper.retrievePatientConsentbyDocumentId(homeCommunityId, repositoryId, documentId);
+        response = patientConsentHelper.retrievePatientConsentbyDocumentId(homeCommunityId, repositoryId, documentId);
         return response;
     }
 
     @Test
-    public void testDocumentSharingAllowedOptInPermitType()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedOptInPermitType() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             CeType ceType = new CeType();
@@ -480,16 +435,16 @@ public class PatientConsentHelperTest
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
             ptPreferences.setOptIn(true);
 
-            context.checking(new Expectations(){{
-                ignoring(mockLog).debug(with(any(String.class)));
-            }});
+            context.checking(new Expectations() {
+                {
+                    ignoring(mockLog).debug(with(any(String.class)));
+                }
+            });
 
             assertNotNull(testSubject.documentSharingAllowed("testing", ptPreferences));
             assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedOptInPermitType test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedOptInPermitType test: " + t.getMessage());
@@ -497,22 +452,18 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedOptInDenyType()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedOptInDenyType() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             CeType ceType = new CeType();
@@ -529,16 +480,16 @@ public class PatientConsentHelperTest
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
             ptPreferences.setOptIn(true);
 
-            context.checking(new Expectations(){{
-                ignoring(mockLog).debug(with(any(String.class)));
-            }});
+            context.checking(new Expectations() {
+                {
+                    ignoring(mockLog).debug(with(any(String.class)));
+                }
+            });
 
             assertNotNull(testSubject.documentSharingAllowed("testing", ptPreferences));
             assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedOptInDenyType test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedOptInDenyType test: " + t.getMessage());
@@ -546,22 +497,18 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedOptOutPermitType()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedOptOutPermitType() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             CeType ceType = new CeType();
@@ -578,16 +525,16 @@ public class PatientConsentHelperTest
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
             ptPreferences.setOptIn(false);
 
-            context.checking(new Expectations(){{
-                ignoring(mockLog).debug(with(any(String.class)));
-            }});
+            context.checking(new Expectations() {
+                {
+                    ignoring(mockLog).debug(with(any(String.class)));
+                }
+            });
 
             assertNotNull(testSubject.documentSharingAllowed("testing", ptPreferences));
             assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), true);
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedOptOutPermitType test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedOptOutPermitType test: " + t.getMessage());
@@ -595,22 +542,18 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedOptOutDenyType()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedOptOutDenyType() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             CeType ceType = new CeType();
@@ -627,16 +570,16 @@ public class PatientConsentHelperTest
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
             ptPreferences.setOptIn(false);
 
-            context.checking(new Expectations(){{
-                ignoring(mockLog).debug(with(any(String.class)));
-            }});
+            context.checking(new Expectations() {
+                {
+                    ignoring(mockLog).debug(with(any(String.class)));
+                }
+            });
 
             assertNotNull(testSubject.documentSharingAllowed("testing", ptPreferences));
             assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedOptOutDenyType test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedOptOutDenyType test: " + t.getMessage());
@@ -644,36 +587,36 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedShouldFail()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedShouldFail() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
-            context.checking(new Expectations(){{
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).error("Invalid documentType");
-                allowing(mockLog).error("Patient preferences was null");
-                allowing(mockLog).error("Error retrieving Fine Grained Policy Criteria");
-            }});
+            context.checking(new Expectations() {
+                {
+                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error("Invalid documentType");
+                    allowing(mockLog).error("Patient preferences was null");
+                    allowing(mockLog).error("Error retrieving Fine Grained Policy Criteria");
+                }
+            });
 
             assertEquals(testSubject.documentSharingAllowed(null, null), false);
             PatientPreferencesType ptPreferences = new PatientPreferencesType();
-            assertFalse("Test with only patient preferences instantiated", testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertFalse("Test with only patient preferences instantiated",
+                    testSubject.documentSharingAllowed("testing", ptPreferences));
             FineGrainedPolicyCriteriaType fineGrainedPolicy = new FineGrainedPolicyCriteriaType();
             ptPreferences.setFineGrainedPolicyCriteria(fineGrainedPolicy);
-            assertFalse("Test with default fine grained policy", testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertFalse("Test with default fine grained policy",
+                    testSubject.documentSharingAllowed("testing", ptPreferences));
             fineGrainedPolicy.getFineGrainedPolicyCriterion().add(null);
             assertFalse("Test with null criterion", testSubject.documentSharingAllowed("testing", ptPreferences));
             FineGrainedPolicyCriterionType policyCrtiterion = new FineGrainedPolicyCriterionType();
@@ -682,7 +625,8 @@ public class PatientConsentHelperTest
             CeType ceTypeCd = new CeType();
             ceTypeCd.setCode("testing1");
             policyCrtiterion.setDocumentTypeCode(ceTypeCd);
-            assertFalse("Test with no document match and no default criterion", testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertFalse("Test with no document match and no default criterion",
+                    testSubject.documentSharingAllowed("testing", ptPreferences));
             fineGrainedPolicy.getFineGrainedPolicyCriterion().clear();
             ceTypeCd.setCode("testing1");
             policyCrtiterion.setDocumentTypeCode(ceTypeCd);
@@ -693,11 +637,10 @@ public class PatientConsentHelperTest
             policyCrtiterion1.setPermit(true);
             fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion);
             fineGrainedPolicy.getFineGrainedPolicyCriterion().add(policyCrtiterion1);
-            assertTrue("Test with document match should pass", testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertTrue("Test with document match should pass",
+                    testSubject.documentSharingAllowed("testing", ptPreferences));
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedShouldFail test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedShouldFail test: " + t.getMessage());
@@ -705,28 +648,23 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedNullPatientPreferences()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedNullPatientPreferences() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             PatientPreferencesType ptPreferences = null;
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).error("Patient preferences was null");
@@ -735,32 +673,27 @@ public class PatientConsentHelperTest
 
             assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testDocumentSharingAllowedNullPatientPreferences test: " + t.getMessage());
+        } catch (Throwable t) {
+            System.out
+                    .println("Error running testDocumentSharingAllowedNullPatientPreferences test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedNullPatientPreferences test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testDocumentSharingAllowedNullDocType()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedNullDocType() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             CeType ceType = new CeType();
@@ -775,8 +708,7 @@ public class PatientConsentHelperTest
             PatientPreferencesType ptPreferences = new PatientPreferencesType();
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).error("Invalid documentType");
@@ -785,9 +717,7 @@ public class PatientConsentHelperTest
 
             assertEquals(testSubject.documentSharingAllowed(null, ptPreferences), false);
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedNullDocType test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedNullDocType test: " + t.getMessage());
@@ -795,22 +725,18 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedEmptyDocType()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedEmptyDocType() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             CeType ceType = new CeType();
@@ -825,8 +751,7 @@ public class PatientConsentHelperTest
             PatientPreferencesType ptPreferences = new PatientPreferencesType();
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).error("Invalid documentType");
@@ -835,9 +760,7 @@ public class PatientConsentHelperTest
 
             assertEquals(testSubject.documentSharingAllowed("", ptPreferences), false);
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedEmptyDocType test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedEmptyDocType test: " + t.getMessage());
@@ -845,30 +768,25 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedNullPolicyCriteria()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedNullPolicyCriteria() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             FineGrainedPolicyCriteriaType findGrainedPolicy = null;
             PatientPreferencesType ptPreferences = new PatientPreferencesType();
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).error("Error retrieving Fine Grained Policy Criteria");
@@ -877,9 +795,7 @@ public class PatientConsentHelperTest
 
             assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedNullPolicyCriteria test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedNullPolicyCriteria test: " + t.getMessage());
@@ -887,22 +803,18 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedPolicyCriteriaEmpty()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedPolicyCriteriaEmpty() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
@@ -910,8 +822,7 @@ public class PatientConsentHelperTest
             PatientPreferencesType ptPreferences = new PatientPreferencesType();
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).error("Error retrieving Fine Grained Policy Criteria");
@@ -920,9 +831,7 @@ public class PatientConsentHelperTest
 
             assertEquals(testSubject.documentSharingAllowed("testing", ptPreferences), false);
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedPolicyCriteriaEmpty test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedPolicyCriteriaEmpty test: " + t.getMessage());
@@ -930,22 +839,18 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedNullPolicyCriterion()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedNullPolicyCriterion() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             FineGrainedPolicyCriterionType criterionType = null;
@@ -956,19 +861,17 @@ public class PatientConsentHelperTest
             PatientPreferencesType ptPreferences = new PatientPreferencesType();
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
 
             // Default is false
-            assertFalse("Document sharing allowed was not false", testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertFalse("Document sharing allowed was not false",
+                    testSubject.documentSharingAllowed("testing", ptPreferences));
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedNullPolicyCriterion test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedNullPolicyCriterion test: " + t.getMessage());
@@ -976,22 +879,18 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedMissingPolicyCriterionDocType()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedMissingPolicyCriterionDocType() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
@@ -1002,65 +901,58 @@ public class PatientConsentHelperTest
             PatientPreferencesType ptPreferences = new PatientPreferencesType();
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
 
             // Default is false - this is the default criterion which when not set is false
-            assertFalse("Default criterion value was not false", testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertFalse("Default criterion value was not false",
+                    testSubject.documentSharingAllowed("testing", ptPreferences));
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testDocumentSharingAllowedMissingPolicyCriterionDocType test: " + t.getMessage());
+        } catch (Throwable t) {
+            System.out.println("Error running testDocumentSharingAllowedMissingPolicyCriterionDocType test: "
+                    + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedMissingPolicyCriterionDocType test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testDocumentSharingAllowedDefaultCriterionTrue()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedDefaultCriterionTrue() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             FineGrainedPolicyCriterionType criterionType = new FineGrainedPolicyCriterionType();
             criterionType.setPermit(true);
-            
+
             FineGrainedPolicyCriteriaType findGrainedPolicy = new FineGrainedPolicyCriteriaType();
             findGrainedPolicy.getFineGrainedPolicyCriterion().add(criterionType);
 
             PatientPreferencesType ptPreferences = new PatientPreferencesType();
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
 
-            assertTrue("Default criterion value was not true", testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertTrue("Default criterion value was not true",
+                    testSubject.documentSharingAllowed("testing", ptPreferences));
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedDefaultCriterionTrue test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedDefaultCriterionTrue test: " + t.getMessage());
@@ -1068,22 +960,18 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedNoMatch()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedNoMatch() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             CeType ceType = new CeType();
@@ -1098,19 +986,17 @@ public class PatientConsentHelperTest
             PatientPreferencesType ptPreferences = new PatientPreferencesType();
             ptPreferences.setFineGrainedPolicyCriteria(findGrainedPolicy);
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
 
             // Default is false
-            assertFalse("No match on criterion was not false", testSubject.documentSharingAllowed("willnotexiest", ptPreferences));
+            assertFalse("No match on criterion was not false",
+                    testSubject.documentSharingAllowed("willnotexiest", ptPreferences));
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedNoMatch test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedNoMatch test: " + t.getMessage());
@@ -1118,36 +1004,32 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedOptIn()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedOptIn() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             PatientPreferencesType ptPreferences = new PatientPreferencesType();
             ptPreferences.setOptIn(true);
 
-            context.checking(new Expectations(){{
-                ignoring(mockLog).debug(with(any(String.class)));
-            }});
+            context.checking(new Expectations() {
+                {
+                    ignoring(mockLog).debug(with(any(String.class)));
+                }
+            });
 
             assertTrue("Doc type check for global opt in", testSubject.documentSharingAllowed("testing", ptPreferences));
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedOptIn test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedOptIn test: " + t.getMessage());
@@ -1155,36 +1037,33 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testDocumentSharingAllowedOptOut()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testDocumentSharingAllowedOptOut() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
-                    @Override
-                    protected AdapterPIPImpl getAdapterPIP()
-                    {
-                        return mockPIP;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
+
+                @Override
+                protected AdapterPIPImpl getAdapterPIP() {
+                    return mockPIP;
+                }
             };
 
             PatientPreferencesType ptPreferences = new PatientPreferencesType();
             ptPreferences.setOptIn(false);
 
-            context.checking(new Expectations(){{
-                ignoring(mockLog).debug(with(any(String.class)));
-            }});
+            context.checking(new Expectations() {
+                {
+                    ignoring(mockLog).debug(with(any(String.class)));
+                }
+            });
 
-            assertFalse("Doc type check for global opt out", testSubject.documentSharingAllowed("testing", ptPreferences));
+            assertFalse("Doc type check for global opt out",
+                    testSubject.documentSharingAllowed("testing", ptPreferences));
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testDocumentSharingAllowedOptOut test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testDocumentSharingAllowedOptOut test: " + t.getMessage());
@@ -1192,21 +1071,16 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testIsDefaultFineGrainedPolicyTrue()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testIsDefaultFineGrainedPolicyTrue() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
             };
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     ignoring(mockLog).debug(with(any(String.class)));
                 }
@@ -1214,11 +1088,10 @@ public class PatientConsentHelperTest
 
             FineGrainedPolicyCriterionType criterion = new FineGrainedPolicyCriterionType();
 
-            assertTrue("Default fine grained policy check not true", testSubject.isDefaultFineGrainedPolicyCriterion(criterion));
+            assertTrue("Default fine grained policy check not true",
+                    testSubject.isDefaultFineGrainedPolicyCriterion(criterion));
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testIsDefaultFineGrainedPolicyTrue test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testIsDefaultFineGrainedPolicyTrue test: " + t.getMessage());
@@ -1226,21 +1099,16 @@ public class PatientConsentHelperTest
     }
 
     @Test
-    public void testIsDefaultFineGrainedPolicyFalse()
-    {
-        try
-        {
-            PatientConsentHelper testSubject = new PatientConsentHelper()
-            {
+    public void testIsDefaultFineGrainedPolicyFalse() {
+        try {
+            PatientConsentHelper testSubject = new PatientConsentHelper() {
                 @Override
-                    protected Log createLogger()
-                    {
-                        return mockLog;
-                    }
+                protected Log createLogger() {
+                    return mockLog;
+                }
             };
 
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     ignoring(mockLog).debug(with(any(String.class)));
                 }
@@ -1251,11 +1119,10 @@ public class PatientConsentHelperTest
             docTypeCE.setCode("Test Code");
             criterion.setDocumentTypeCode(docTypeCE);
 
-            assertFalse("Default fine grained policy check not false", testSubject.isDefaultFineGrainedPolicyCriterion(criterion));
+            assertFalse("Default fine grained policy check not false",
+                    testSubject.isDefaultFineGrainedPolicyCriterion(criterion));
             context.assertIsSatisfied();
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testIsDefaultFineGrainedPolicyFalse test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testIsDefaultFineGrainedPolicyFalse test: " + t.getMessage());
@@ -1263,4 +1130,3 @@ public class PatientConsentHelperTest
     }
 
 }
-

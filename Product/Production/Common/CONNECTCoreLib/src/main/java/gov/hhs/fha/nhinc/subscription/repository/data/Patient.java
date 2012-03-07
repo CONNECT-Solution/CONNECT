@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.subscription.repository.data;
 
@@ -13,58 +33,48 @@ import java.io.Serializable;
  * 
  * @author Neil Webb
  */
-public class Patient implements Serializable
-{
+public class Patient implements Serializable {
     private static final long serialVersionUID = -4817108979630447814L;
     private String patientId;
     private Community assigningAuthority;
 
-    public String getPatientId()
-    {
+    public String getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(String patientId)
-    {
+    public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 
-    public Community getAssigningAuthority()
-    {
+    public Community getAssigningAuthority() {
         return assigningAuthority;
     }
 
-    public void setAssigningAuthority(Community assigningAuthority)
-    {
+    public void setAssigningAuthority(Community assigningAuthority) {
         this.assigningAuthority = assigningAuthority;
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass())
-        {
+        if (getClass() != obj.getClass()) {
             return false;
         }
         final Patient other = (Patient) obj;
-        if (this.patientId != other.patientId && (this.patientId == null || !this.patientId.equals(other.patientId)))
-        {
+        if (this.patientId != other.patientId && (this.patientId == null || !this.patientId.equals(other.patientId))) {
             return false;
         }
-        if (this.assigningAuthority != other.assigningAuthority && (this.assigningAuthority == null || !this.assigningAuthority.equals(other.assigningAuthority)))
-        {
+        if (this.assigningAuthority != other.assigningAuthority
+                && (this.assigningAuthority == null || !this.assigningAuthority.equals(other.assigningAuthority))) {
             return false;
         }
         return true;
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int hash = 7;
         hash = 89 * hash + (this.patientId != null ? this.patientId.hashCode() : 0);
         hash = 89 * hash + (this.assigningAuthority != null ? this.assigningAuthority.hashCode() : 0);

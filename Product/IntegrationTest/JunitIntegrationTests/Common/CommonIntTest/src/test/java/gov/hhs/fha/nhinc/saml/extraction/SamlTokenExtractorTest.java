@@ -55,7 +55,7 @@ public class SamlTokenExtractorTest
 
     /**
      * This creates an XML Stream reader from the example xml file.
-     * 
+     *
      * @return The XML Stream reader repreenting the XML example.
      */
     private XMLStreamReader getSamlAssertionStreamReader()
@@ -191,8 +191,8 @@ public class SamlTokenExtractorTest
         assertNotNull("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions was null.", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions());
         assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions.NotBefore", "2009-09-01T21:42:23.000Z", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore());
         assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions.NotOnOrAfter", "2009-10-01T22:42:23.000Z", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter());
-        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy", "urn:oid:1.2.3.4", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy());
-        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy", "urn:oid:1.2.3.4.123456789", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy());
+        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy", "urn:oid:1.2.3.4", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().get(0));
+        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy", "urn:oid:1.2.3.4.123456789", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().get(0));
 
 
 

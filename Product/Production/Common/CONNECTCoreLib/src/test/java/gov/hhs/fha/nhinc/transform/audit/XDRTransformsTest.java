@@ -1,8 +1,29 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.transform.audit;
 
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
@@ -31,8 +52,9 @@ import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 /**
- *
+ * 
  * @author dunnek
  */
 public class XDRTransformsTest {
@@ -42,7 +64,7 @@ public class XDRTransformsTest {
     private static final String CONST_HCID = "1.1";
     private static final String CONST_HC_NAME = "Home COmmunity";
     private static final String CONST_HC_DESC = "HC Description";
-    
+
     public XDRTransformsTest() {
     }
 
@@ -64,13 +86,12 @@ public class XDRTransformsTest {
         };
     }
 
-
     @After
     public void tearDown() {
     }
+
     @Test
-    public void testTransformResponseToAuditMsg_Null()
-    {
+    public void testTransformResponseToAuditMsg_Null() {
         System.out.println("testTransformResponseToAuditMsg_Null");
         AssertionType assertion = createAssertion();
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
@@ -80,37 +101,38 @@ public class XDRTransformsTest {
         assertNull(result);
 
     }
-     @Test
-    public void testTransformResponseToAuditMsg_Empty()
-    {
+
+    @Test
+    public void testTransformResponseToAuditMsg_Empty() {
         System.out.println("testTransformResponseToAuditMsg_Empty");
         AssertionType assertion = createAssertion();
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         String _interface = "interface";
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
-        LogEventRequestType result = instance.transformResponseToAuditMsg(new RegistryResponseType(), assertion, direction, _interface);
+        LogEventRequestType result = instance.transformResponseToAuditMsg(new RegistryResponseType(), assertion,
+                direction, _interface);
         assertNotNull(result);
 
     }
-     @Test
-    public void testTransformResponseToAuditMsg_NotEmpty()
-    {
+
+    @Test
+    public void testTransformResponseToAuditMsg_NotEmpty() {
         System.out.println("testTransformResponseToAuditMsg_Empty");
         AssertionType assertion = createAssertion();
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         String _interface = "interface";
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
         RegistryResponseType response = new RegistryResponseType();
-        
+
         LogEventRequestType result = instance.transformResponseToAuditMsg(response, assertion, direction, _interface);
         assertNotNull(result);
         assertEquals(_interface, result.getInterface());
         assertEquals(direction, result.getDirection());
 
     }
-     @Test
-    public void testTransformResponseToAuditMsg_Success()
-    {
+
+    @Test
+    public void testTransformResponseToAuditMsg_Success() {
         System.out.println("testTransformResponseToAuditMsg_Empty");
         AssertionType assertion = createAssertion();
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
@@ -124,12 +146,13 @@ public class XDRTransformsTest {
         assertEquals(direction, result.getDirection());
 
     }
+
     /**
      * Test of transformRequestToAuditMsg method, of class XDRTransforms.
      */
     @Test
     public void testTransformRequestToAuditMsg_XDS_null() {
-        
+
         System.out.println("transformRequestToAuditMsg");
         ProvideAndRegisterDocumentSetRequestType request = null;
         AssertionType assertion = null;
@@ -142,8 +165,9 @@ public class XDRTransformsTest {
         assertEquals(expResult, result);
 
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
+
     @Test
     public void testTransformRequestToAuditMsg_XDS_empty() {
 
@@ -155,11 +179,12 @@ public class XDRTransformsTest {
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
         LogEventRequestType expResult = new LogEventRequestType();
         LogEventRequestType result = instance.transformRequestToAuditMsg(request, assertion, direction, _interface);
-        
+
         assertNotNull(result);
         // TODO review the generated test code and remove the default call to fail.
 
     }
+
     @Test
     public void testTransformRequestToAuditMsg_XDS_NotEmpty() {
 
@@ -178,21 +203,22 @@ public class XDRTransformsTest {
         assertNotNull(result.getAuditMessage().getActiveParticipant());
         assertNotNull(result.getAuditMessage().getAuditSourceIdentification());
 
-        assertEquals(1,result.getAuditMessage().getActiveParticipant().size());
+        assertEquals(1, result.getAuditMessage().getActiveParticipant().size());
 
         assertEquals(1, result.getAuditMessage().getActiveParticipant().size());
         assertEquals(1, result.getAuditMessage().getAuditSourceIdentification().size());
 
         assertEquals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, result.getDirection());
         assertEquals(_interface, result.getInterface());
-             
-        assertEquals(CONST_USER_NAME,result.getAuditMessage().getActiveParticipant().get(0).getUserID());
+
+        assertEquals(CONST_USER_NAME, result.getAuditMessage().getActiveParticipant().get(0).getUserID());
 
         assertNotNull(result.getAuditMessage());
         assertNotNull(result.getAuditMessage().getAuditSourceIdentification());
 
         assertEquals(CONST_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
-        assertEquals(CONST_HC_NAME, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID());
+        assertEquals(CONST_HC_NAME, result.getAuditMessage().getAuditSourceIdentification().get(0)
+                .getAuditEnterpriseSiteID());
         // TODO review the generated test code and remove the default call to fail.
 
     }
@@ -214,6 +240,7 @@ public class XDRTransformsTest {
         // TODO review the generated test code and remove the default call to fail.
 
     }
+
     @Test
     public void testTransformProxyRequestToAuditMsg_XDS_empty() {
 
@@ -221,18 +248,20 @@ public class XDRTransformsTest {
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType proxyRequest = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
         proxyRequest.setProvideAndRegisterDocumentSetRequest(request);
-        
+
         AssertionType assertion = createAssertion();
         String direction = "";
         String _interface = "";
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
         LogEventRequestType expResult = new LogEventRequestType();
-        LogEventRequestType result = instance.transformRequestToAuditMsg(proxyRequest, assertion, direction, _interface);
+        LogEventRequestType result = instance
+                .transformRequestToAuditMsg(proxyRequest, assertion, direction, _interface);
 
         assertNotNull(result);
         // TODO review the generated test code and remove the default call to fail.
 
     }
+
     @Test
     public void testTransformProxyRequestToAuditMsg_XDS_NotEmpty() {
 
@@ -240,13 +269,14 @@ public class XDRTransformsTest {
         ProvideAndRegisterDocumentSetRequestType request = new XDRMessageHelper().getSampleMessage();
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType proxyRequest = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
         proxyRequest.setProvideAndRegisterDocumentSetRequest(request);
-        
+
         AssertionType assertion = createAssertion();
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         String _interface = "interface";
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
         LogEventRequestType expResult = new LogEventRequestType();
-        LogEventRequestType result = instance.transformRequestToAuditMsg(proxyRequest, assertion, direction, _interface);
+        LogEventRequestType result = instance
+                .transformRequestToAuditMsg(proxyRequest, assertion, direction, _interface);
 
         assertNotNull(result);
         assertNotNull(result.getAuditMessage());
@@ -254,7 +284,7 @@ public class XDRTransformsTest {
         assertNotNull(result.getAuditMessage().getActiveParticipant());
         assertNotNull(result.getAuditMessage().getAuditSourceIdentification());
 
-        assertEquals(1,result.getAuditMessage().getActiveParticipant().size());
+        assertEquals(1, result.getAuditMessage().getActiveParticipant().size());
 
         assertEquals(1, result.getAuditMessage().getActiveParticipant().size());
         assertEquals(1, result.getAuditMessage().getAuditSourceIdentification().size());
@@ -262,18 +292,19 @@ public class XDRTransformsTest {
         assertEquals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, result.getDirection());
         assertEquals(_interface, result.getInterface());
 
-        assertEquals(CONST_USER_NAME,result.getAuditMessage().getActiveParticipant().get(0).getUserID());
+        assertEquals(CONST_USER_NAME, result.getAuditMessage().getActiveParticipant().get(0).getUserID());
 
         assertNotNull(result.getAuditMessage());
         assertNotNull(result.getAuditMessage().getAuditSourceIdentification());
 
         assertEquals(CONST_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
-        assertEquals(CONST_HC_NAME, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID());
+        assertEquals(CONST_HC_NAME, result.getAuditMessage().getAuditSourceIdentification().get(0)
+                .getAuditEnterpriseSiteID());
         // TODO review the generated test code and remove the default call to fail.
 
     }
 
-   @Test
+    @Test
     public void testTransformEntityRequestToAuditMsg_XDS_null() {
 
         System.out.println("transformRequestToAuditMsg");
@@ -290,69 +321,67 @@ public class XDRTransformsTest {
         // TODO review the generated test code and remove the default call to fail.
 
     }
-   /*
-    @Test
-    public void testTransformEntityRequestToAuditMsg_XDS_empty() {
 
-        System.out.println("transformRequestToAuditMsg");
-        ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
-        gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType entityRequest = new gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-        entityRequest.setProvideAndRegisterDocumentSetRequest(request);
-        
-        AssertionType assertion = createAssertion();
-        String direction = "";
-        String _interface = "";
-        XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
-        LogEventRequestType expResult = new LogEventRequestType();
-        LogEventRequestType result = instance.transformRequestToAuditMsg(entityRequest, assertion, direction, _interface);
-
-        assertNotNull(result);
-        // TODO review the generated test code and remove the default call to fail.
-
-    }
-    @Test
-    public void testTransformEntityRequestToAuditMsg_XDS_NotEmpty() {
-
-        System.out.println("transformRequestToAuditMsg");
-        ProvideAndRegisterDocumentSetRequestType request = new XDRMessageHelper().getSampleMessage();
-        gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType entityRequest = new gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-        entityRequest.setProvideAndRegisterDocumentSetRequest(request);
-
-        AssertionType assertion = createAssertion();
-        String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
-        String _interface = "interface";
-        XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
-        LogEventRequestType expResult = new LogEventRequestType();
-        LogEventRequestType result = instance.transformRequestToAuditMsg(entityRequest, assertion, direction, _interface);
-
-        assertNotNull(result);
-        assertNotNull(result.getAuditMessage());
-        assertNotNull(result.getAuditMessage().getAuditSourceIdentification());
-        assertNotNull(result.getAuditMessage().getActiveParticipant());
-        assertNotNull(result.getAuditMessage().getAuditSourceIdentification());
-
-        assertEquals(1,result.getAuditMessage().getActiveParticipant().size());
-
-        assertEquals(1, result.getAuditMessage().getActiveParticipant().size());
-        assertEquals(1, result.getAuditMessage().getAuditSourceIdentification().size());
-
-        assertEquals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, result.getDirection());
-        assertEquals(_interface, result.getInterface());
-
-        assertEquals(CONST_USER_NAME,result.getAuditMessage().getActiveParticipant().get(0).getUserID());
-
-        assertNotNull(result.getAuditMessage());
-        assertNotNull(result.getAuditMessage().getAuditSourceIdentification());
-
-        assertEquals(CONST_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
-        assertEquals(CONST_HC_NAME, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID());
-        // TODO review the generated test code and remove the default call to fail.
-
-    }
-*/
+    /*
+     * @Test public void testTransformEntityRequestToAuditMsg_XDS_empty() {
+     * 
+     * System.out.println("transformRequestToAuditMsg"); ProvideAndRegisterDocumentSetRequestType request = new
+     * ProvideAndRegisterDocumentSetRequestType();
+     * gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType
+     * entityRequest = new
+     * gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+     * entityRequest.setProvideAndRegisterDocumentSetRequest(request);
+     * 
+     * AssertionType assertion = createAssertion(); String direction = ""; String _interface = ""; XDRTransforms
+     * instance = createTransformsClass_OverrideRequiredFields(); LogEventRequestType expResult = new
+     * LogEventRequestType(); LogEventRequestType result = instance.transformRequestToAuditMsg(entityRequest, assertion,
+     * direction, _interface);
+     * 
+     * assertNotNull(result); // TODO review the generated test code and remove the default call to fail.
+     * 
+     * }
+     * 
+     * @Test public void testTransformEntityRequestToAuditMsg_XDS_NotEmpty() {
+     * 
+     * System.out.println("transformRequestToAuditMsg"); ProvideAndRegisterDocumentSetRequestType request = new
+     * XDRMessageHelper().getSampleMessage();
+     * gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType
+     * entityRequest = new
+     * gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+     * entityRequest.setProvideAndRegisterDocumentSetRequest(request);
+     * 
+     * AssertionType assertion = createAssertion(); String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
+     * String _interface = "interface"; XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
+     * LogEventRequestType expResult = new LogEventRequestType(); LogEventRequestType result =
+     * instance.transformRequestToAuditMsg(entityRequest, assertion, direction, _interface);
+     * 
+     * assertNotNull(result); assertNotNull(result.getAuditMessage());
+     * assertNotNull(result.getAuditMessage().getAuditSourceIdentification());
+     * assertNotNull(result.getAuditMessage().getActiveParticipant());
+     * assertNotNull(result.getAuditMessage().getAuditSourceIdentification());
+     * 
+     * assertEquals(1,result.getAuditMessage().getActiveParticipant().size());
+     * 
+     * assertEquals(1, result.getAuditMessage().getActiveParticipant().size()); assertEquals(1,
+     * result.getAuditMessage().getAuditSourceIdentification().size());
+     * 
+     * assertEquals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, result.getDirection()); assertEquals(_interface,
+     * result.getInterface());
+     * 
+     * assertEquals(CONST_USER_NAME,result.getAuditMessage().getActiveParticipant().get(0).getUserID());
+     * 
+     * assertNotNull(result.getAuditMessage()); assertNotNull(result.getAuditMessage().getAuditSourceIdentification());
+     * 
+     * assertEquals(CONST_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
+     * assertEquals(CONST_HC_NAME,
+     * result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID()); // TODO review the
+     * generated test code and remove the default call to fail.
+     * 
+     * }
+     */
     @Test
     public void testAreRequiredXDSfieldsNull_empty() {
-        
+
         System.out.println("areRequiredXDSfieldsNull_empty");
         ProvideAndRegisterDocumentSetRequestType body = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
@@ -360,8 +389,9 @@ public class XDRTransformsTest {
         boolean expResult = true;
         boolean result = instance.areRequiredXDSfieldsNull(body, assertion);
         assertEquals(expResult, result);
-         
+
     }
+
     @Test
     public void testAreRequiredXDSfieldsNull_null() {
 
@@ -374,6 +404,7 @@ public class XDRTransformsTest {
         assertEquals(expResult, result);
 
     }
+
     /**
      * Test of areRequiredUserTypeFieldsNull method, of class XDRTransforms.
      */
@@ -387,6 +418,7 @@ public class XDRTransformsTest {
         assertEquals(expResult, result);
 
     }
+
     @Test
     public void testAreRequiredUserTypeFieldsNull_null() {
         System.out.println("areRequiredUserTypeFieldsNull");
@@ -397,6 +429,7 @@ public class XDRTransformsTest {
         assertEquals(expResult, result);
 
     }
+
     @Test
     public void testAreRequiredUserTypeFieldsNull_NotEmpty() {
         System.out.println("areRequiredUserTypeFieldsNull");
@@ -409,23 +442,23 @@ public class XDRTransformsTest {
         assertEquals(expResult, result);
 
     }
+
     @Test
-    public void testAreRequiredResponseFieldsNull_Null()
-    {
+    public void testAreRequiredResponseFieldsNull_Null() {
         System.out.println("testAreRequiredResponseFieldsNull_Null");
 
         XDRTransforms instance = createTransformsClass_OverrideUserTypeCheck();
         AssertionType assertion = createAssertion();
-        
+
         boolean expResult = true;
         boolean result = instance.areRequiredResponseFieldsNull(null, assertion);
 
         assertEquals(expResult, result);
 
     }
-     @Test
-    public void testAreRequiredResponseFieldsNull_Empty()
-    {
+
+    @Test
+    public void testAreRequiredResponseFieldsNull_Empty() {
         System.out.println("testAreRequiredResponseFieldsNull_Empty");
 
         XDRTransforms instance = createTransformsClass_OverrideUserTypeCheck();
@@ -437,9 +470,9 @@ public class XDRTransformsTest {
         assertEquals(expResult, result);
 
     }
+
     @Test
-    public void testAreRequiredResponseFieldsNull_NotEmpty()
-    {
+    public void testAreRequiredResponseFieldsNull_NotEmpty() {
         System.out.println("testAreRequiredResponseFieldsNull_NotEmpty");
 
         XDRTransforms instance = createTransformsClass_OverrideUserTypeCheck();
@@ -448,7 +481,7 @@ public class XDRTransformsTest {
         RegistryResponseType response = new RegistryResponseType();
 
         response.setStatus("Success");
-        
+
         boolean expResult = false;
         boolean result = instance.areRequiredResponseFieldsNull(response, assertion);
 
@@ -456,11 +489,9 @@ public class XDRTransformsTest {
 
     }
 
-
-    private XDRTransforms createTransformsClass()
-    {
+    private XDRTransforms createTransformsClass() {
         final Log mockLogger = context.mock(Log.class);
-        //TestHelper helper = new TestHelper();
+        // TestHelper helper = new TestHelper();
 
         XDRTransforms result = new XDRTransforms() {
 
@@ -476,16 +507,16 @@ public class XDRTransformsTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).error(with(any(String.class)));
-                //never(mockLogger).error("Error");
+                // never(mockLogger).error("Error");
                 will(returnValue(null));
             }
         });
         return result;
     }
-    private XDRTransforms createTransformsClass_OverrideUserTypeCheck()
-    {
+
+    private XDRTransforms createTransformsClass_OverrideUserTypeCheck() {
         final Log mockLogger = context.mock(Log.class);
-        //TestHelper helper = new TestHelper();
+        // TestHelper helper = new TestHelper();
 
         XDRTransforms result = new XDRTransforms() {
 
@@ -493,6 +524,7 @@ public class XDRTransformsTest {
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
             protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
                 return false;
@@ -505,16 +537,16 @@ public class XDRTransformsTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).error(with(any(String.class)));
-                //never(mockLogger).error("Error");
+                // never(mockLogger).error("Error");
                 will(returnValue(null));
             }
         });
         return result;
     }
-    private XDRTransforms createTransformsClass_OverrideRequiredFields()
-    {
+
+    private XDRTransforms createTransformsClass_OverrideRequiredFields() {
         final Log mockLogger = context.mock(Log.class);
-        //TestHelper helper = new TestHelper();
+        // TestHelper helper = new TestHelper();
 
         XDRTransforms result = new XDRTransforms() {
 
@@ -522,17 +554,20 @@ public class XDRTransformsTest {
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
             protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
                 return false;
             }
+
             @Override
-            protected boolean areRequiredXDSfieldsNull(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+            protected boolean areRequiredXDSfieldsNull(ProvideAndRegisterDocumentSetRequestType body,
+                    AssertionType assertion) {
                 return false;
             }
+
             @Override
-            protected boolean areRequiredResponseFieldsNull(RegistryResponseType response, AssertionType assertion)
-            {
+            protected boolean areRequiredResponseFieldsNull(RegistryResponseType response, AssertionType assertion) {
                 return false;
             }
 
@@ -543,14 +578,14 @@ public class XDRTransformsTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).error(with(any(String.class)));
-                //never(mockLogger).error("Error");
+                // never(mockLogger).error("Error");
                 will(returnValue(null));
             }
         });
         return result;
     }
-    private HomeCommunityType createHomeCommunity()
-    {
+
+    private HomeCommunityType createHomeCommunity() {
         HomeCommunityType hc = new HomeCommunityType();
         hc.setDescription(CONST_HC_DESC);
         hc.setHomeCommunityId(CONST_HCID);
@@ -558,19 +593,19 @@ public class XDRTransformsTest {
 
         return hc;
     }
-    private AssertionType createAssertion()
-    {
+
+    private AssertionType createAssertion() {
         AssertionType assertion = new AssertionType();
         assertion.setUserInfo(new UserType());
 
-        assertion.getUserInfo().setUserName(CONST_USER_NAME);        
+        assertion.getUserInfo().setUserName(CONST_USER_NAME);
 
         assertion.getUserInfo().setOrg(createHomeCommunity());
 
         return assertion;
     }
-    private ProvideAndRegisterDocumentSetRequestType createProvideAndRegisterRequest()
-    {
+
+    private ProvideAndRegisterDocumentSetRequestType createProvideAndRegisterRequest() {
         ProvideAndRegisterDocumentSetRequestType result = new ProvideAndRegisterDocumentSetRequestType();
 
         return result;

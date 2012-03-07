@@ -31,40 +31,44 @@
 			<param name="project.name" path="name/text()" />
 			<param name="project.directory" path="directory/text()" />
 			<param name="project.dist.type" path="dist.type/text()" />
+			<param name="project.should.build" path="should.build/text()" />
 			<actions>
+				<echo level="debug" message="Creating properties for project: '@{project.name}'." />
+				<echo level="debug" message='property name="project.@{project.name}.directory" value="${root.project.directory.path}/@{project.directory}"' />
+				<echo level="debug" message='property name="project.@{project.name}.dist.file" value="@{project.directory}/dist/${build.config}/@{project.name}.@{project.dist.type}"' />
+				<echo level="debug" message='property name="project.@{project.name}.should.build" value="@{project.should.build}"' />
 				<if>
-					<istrue value="${debug}" />
+					<istrue value="@{project.should.build}" />
 					<then>
-						<echo message="Creating properties for project: '@{project.name}'." />
-						<echo message='property name="project.@{project.name}.directory" value="${root.project.directory.path}/@{project.directory}"' />
-						<echo message='property name="project.@{project.name}.dist.file" value="@{project.directory}/dist/${build.config}/@{project.name}.@{project.dist.type}"' />
-					</then>
-				</if>
+				        <property name="project.@{project.name}.build.dir" location="${root.project.directory.path}/@{project.directory}/build/${build.config}" />
+				        <property name="project.@{project.name}.build.dist.root" location="${root.project.directory.path}/@{project.directory}/build/${build.config}/dist" />
+				        <if>
+				            <equals arg1="@{project.dist.type}" arg2="war" />
+				            <then>
+				                <property name="project.@{project.name}.build.classes.dir" location="${root.project.directory.path}/@{project.directory}/build/${build.config}/dist/WEB-INF/classes" />
+				            </then>
+				            <else>
+				                <property name="project.@{project.name}.build.classes.dir" location="${root.project.directory.path}/@{project.directory}/build/${build.config}/dist" />
+				            </else>
+				        </if>
 
-				<property name="project.@{project.name}.build.dir" location="${root.project.directory.path}/@{project.directory}/build/${build.config}" />
-				<property name="project.@{project.name}.build.dist.root" location="${root.project.directory.path}/@{project.directory}/build/${build.config}/dist" />
-				<if>
-					<equals arg1="@{project.dist.type}" arg2="war" />
-					<then>
-						<property name="project.@{project.name}.build.classes.dir" location="${root.project.directory.path}/@{project.directory}/build/${build.config}/dist/WEB-INF/classes" />
+						<property name="project.@{project.name}.directory" location="${root.project.directory.path}/@{project.directory}" />
+						<property name="project.@{project.name}.build.file" location="${root.project.directory.path}/@{project.directory}/build.xml" />
+						<property name="project.@{project.name}.dist.file" location="${root.project.directory.path}/@{project.directory}/dist/${build.config}/@{project.name}.@{project.dist.type}" />
+		
+						<available file="${root.project.directory.path}/@{project.directory}/build.xml" property="build.available" value="true" />
+						<if>
+							<isset property="build.available" />
+							<then>
+								<!-- Good -->
+							</then>
+							<else>
+								<echo level="warning" message="Could not find build.xml in ${root.project.directory.path}/@{project.directory}!" />
+							</else>
+						</if>
 					</then>
 					<else>
-						<property name="project.@{project.name}.build.classes.dir" location="${root.project.directory.path}/@{project.directory}/build/${build.config}/dist" />
-					</else>
-				</if>
-
-				<property name="project.@{project.name}.directory" location="${root.project.directory.path}/@{project.directory}" />
-				<property name="project.@{project.name}.build.file" location="${root.project.directory.path}/@{project.directory}/build.xml" />
-				<property name="project.@{project.name}.dist.file" location="${root.project.directory.path}/@{project.directory}/dist/${build.config}/@{project.name}.@{project.dist.type}" />
-
-				<available file="${root.project.directory.path}/@{project.directory}/build.xml" property="build.available" value="true" />
-				<if>
-					<isset property="build.available" />
-					<then>
-						<!-- Good -->
-					</then>
-					<else>
-						<echo level="warning" message="Could not find build.xml in ${root.project.directory.path}/@{project.directory}!" />
+						<echo level="debug" message="Project: '@{project.name}' will not be built." />
 					</else>
 				</if>
 			</actions>

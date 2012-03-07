@@ -75,7 +75,6 @@
     <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_SoapPolicy"/>
     <operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
-      <soap12:operation soapAction="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b"/>
       <input>
         <soap12:body use="literal"/>
         <wsp:PolicyReference

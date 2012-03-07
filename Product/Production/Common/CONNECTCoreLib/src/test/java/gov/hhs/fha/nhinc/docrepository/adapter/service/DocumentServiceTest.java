@@ -1,3 +1,29 @@
+/*
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ */
 package gov.hhs.fha.nhinc.docrepository.adapter.service;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -26,19 +52,18 @@ import static org.junit.Assert.*;
  * 
  * @author Neil Webb
  */
-public class DocumentServiceTest
-{
- 
+public class DocumentServiceTest {
+
     @Test
-    public void confirmTestSubjectFindByIdReturnsDocumentWithDocumentId(){
+    public void confirmTestSubjectFindByIdReturnsDocumentWithDocumentId() {
         Mockery mockery = new Mockery();
         final Document testDocument = new Document();
         final SessionFactory mockSessionFactory = mockery.mock(SessionFactory.class);
         final org.hibernate.classic.Session mockSession = mockery.mock(org.hibernate.classic.Session.class);
         final Log mockLog = mockery.mock(Log.class);
-        
-        DocumentDao testSubject = new DocumentDao(){
-            
+
+        DocumentDao testSubject = new DocumentDao() {
+
             protected SessionFactory getSessionFactory() {
                 return mockSessionFactory;
             }
@@ -48,27 +73,29 @@ public class DocumentServiceTest
             }
         };
 
-        mockery.checking(new Expectations(){{
-            one(mockLog).debug("Performing document retrieve using id: 1");
-            one(mockSessionFactory).openSession();
-            will(returnValue(mockSession));
-            one(mockSession).get(Document.class, 1L);
-            will(returnValue(with(any(Document.class))));
-            one(mockLog).isDebugEnabled();
-            one(mockSession).close();
-            will(returnValue(with(any(Document.class))));
-        }});
+        mockery.checking(new Expectations() {
+            {
+                one(mockLog).debug("Performing document retrieve using id: 1");
+                one(mockSessionFactory).openSession();
+                will(returnValue(mockSession));
+                one(mockSession).get(Document.class, 1L);
+                will(returnValue(with(any(Document.class))));
+                one(mockLog).isDebugEnabled();
+                one(mockSession).close();
+                will(returnValue(with(any(Document.class))));
+            }
+        });
         testSubject.findById(1L);
-        
+
         mockery.assertIsSatisfied();
     }
 
     @Test
-    public void confirmTestSubjectFindByIdFAILSToReturnDocumentWithDocumentId(){
+    public void confirmTestSubjectFindByIdFAILSToReturnDocumentWithDocumentId() {
         Mockery mockery = new Mockery();
         final Log mockLog = mockery.mock(Log.class);
 
-        DocumentDao testSubject = new DocumentDao(){
+        DocumentDao testSubject = new DocumentDao() {
 
             protected SessionFactory getSessionFactory() {
                 return null;
@@ -79,23 +106,25 @@ public class DocumentServiceTest
             }
         };
 
-        mockery.checking(new Expectations(){{
-            one(mockLog).debug("Performing document retrieve using id: 1");
-            one(mockLog).error("Session factory was null");
-            one(mockLog).isDebugEnabled();
-        }});
+        mockery.checking(new Expectations() {
+            {
+                one(mockLog).debug("Performing document retrieve using id: 1");
+                one(mockLog).error("Session factory was null");
+                one(mockLog).isDebugEnabled();
+            }
+        });
         testSubject.findById(1L);
 
         mockery.assertIsSatisfied();
     }
 
     @Test
-    public void confirmTestSubjectFindByIdFAILSBecauseSessionIsNULL(){
+    public void confirmTestSubjectFindByIdFAILSBecauseSessionIsNULL() {
         Mockery mockery = new Mockery();
         final Log mockLog = mockery.mock(Log.class);
         final SessionFactory mockSessionFactory = mockery.mock(SessionFactory.class);
 
-        DocumentDao testSubject = new DocumentDao(){
+        DocumentDao testSubject = new DocumentDao() {
 
             protected SessionFactory getSessionFactory() {
                 return mockSessionFactory;
@@ -106,27 +135,29 @@ public class DocumentServiceTest
             }
         };
 
-        mockery.checking(new Expectations(){{
-            one(mockLog).debug("Performing document retrieve using id: 1");
-            one(mockSessionFactory).openSession();
-            will(returnValue(null));
-            one(mockLog).error("Failed to obtain a session from the sessionFactory");
-            one(mockLog).isDebugEnabled();
-        }});
+        mockery.checking(new Expectations() {
+            {
+                one(mockLog).debug("Performing document retrieve using id: 1");
+                one(mockSessionFactory).openSession();
+                will(returnValue(null));
+                one(mockLog).error("Failed to obtain a session from the sessionFactory");
+                one(mockLog).isDebugEnabled();
+            }
+        });
         testSubject.findById(1L);
 
         mockery.assertIsSatisfied();
     }
+
     /**
      * Test of DocumentService operations.
      */
-    @Ignore //TODO: Move this test to Integration Test Suite
+    @Ignore
+    // TODO: Move this test to Integration Test Suite
     @Test
-    public void testDocumentOperations()
-    {
+    public void testDocumentOperations() {
         System.out.println("Start testDocumentOperations");
-        try
-        {
+        try {
             DocumentService docService = new DocumentService();
             Document document = null;
 
@@ -171,7 +202,7 @@ public class DocumentServiceTest
             Date serviceStopTime = new SimpleDateFormat("yyyyMMddhhmmss").parse("20060606060606");
             String status = "status";
             String comments = "comments";
-            String hash = null; //"hash";
+            String hash = null; // "hash";
             String facilityCode = "facilityCode";
             String facilityCodeScheme = "facilityCodeScheme";
             String facilityCodeDisplayName = "facilityCodeDisplayName";
@@ -196,9 +227,10 @@ public class DocumentServiceTest
             String typeCodeScheme = "typeCodeScheme";
             String typeCodeDisplayName = "typeCodeDisplayName";
             String documentUri = "documentUri";
-//            String rawData = "rawData";
+            // String rawData = "rawData";
             String rawData = sampleC32();
-            String sCompareHash = SHA1HashCode.calculateSHA1(rawData);  // Calculate the hash code for comparison later...
+            String sCompareHash = SHA1HashCode.calculateSHA1(rawData); // Calculate the hash code for comparison
+                                                                       // later...
 
             retrieved.setDocumentUniqueId(documentUniqueId);
             retrieved.setDocumentTitle(documentTitle);
@@ -284,14 +316,18 @@ public class DocumentServiceTest
             assertEquals("After update - availablityStatus", availablityStatus, retrieved.getAvailablityStatus());
             assertEquals("After update - classCode", classCode, retrieved.getClassCode());
             assertEquals("After update - classCodeScheme", classCodeScheme, retrieved.getClassCodeScheme());
-            assertEquals("After update - classCodeDisplayName", classCodeDisplayName, retrieved.getClassCodeDisplayName());
+            assertEquals("After update - classCodeDisplayName", classCodeDisplayName,
+                    retrieved.getClassCodeDisplayName());
             assertEquals("After update - confidentialityCode", confidentialityCode, retrieved.getConfidentialityCode());
-            assertEquals("After update - confidentialityCodeScheme", confidentialityCodeScheme, retrieved.getConfidentialityCodeScheme());
-            assertEquals("After update - confidentialityCodeDisplayName", confidentialityCodeDisplayName, retrieved.getConfidentialityCodeDisplayName());
+            assertEquals("After update - confidentialityCodeScheme", confidentialityCodeScheme,
+                    retrieved.getConfidentialityCodeScheme());
+            assertEquals("After update - confidentialityCodeDisplayName", confidentialityCodeDisplayName,
+                    retrieved.getConfidentialityCodeDisplayName());
             assertEquals("After update - creationTime", creationTime, retrieved.getCreationTime());
             assertEquals("After update - formatCode", formatCode, retrieved.getFormatCode());
             assertEquals("After update - formatCodeScheme", formatCodeScheme, retrieved.getFormatCodeScheme());
-            assertEquals("After update - formatCodeDisplayName", formatCodeDisplayName, retrieved.getFormatCodeDisplayName());
+            assertEquals("After update - formatCodeDisplayName", formatCodeDisplayName,
+                    retrieved.getFormatCodeDisplayName());
             assertEquals("After update - patientId", patientId, retrieved.getPatientId());
             assertEquals("After update - serviceStartTime", serviceStartTime, retrieved.getServiceStartTime());
             assertEquals("After update - serviceStopTime", serviceStopTime, retrieved.getServiceStopTime());
@@ -300,17 +336,23 @@ public class DocumentServiceTest
             assertEquals("After update - hash", sCompareHash, retrieved.getHash());
             assertEquals("After update - facilityCode", facilityCode, retrieved.getFacilityCode());
             assertEquals("After update - facilityCodeScheme", facilityCodeScheme, retrieved.getFacilityCodeScheme());
-            assertEquals("After update - facilityCodeDisplayName", facilityCodeDisplayName, retrieved.getFacilityCodeDisplayName());
-            assertEquals("After update - intendedRecipientPerson", intendedRecipientPerson, retrieved.getIntendedRecipientPerson());
-            assertEquals("After update - intendedRecipientOrganization", intendedRecipientOrganization, retrieved.getIntendedRecipientOrganization());
+            assertEquals("After update - facilityCodeDisplayName", facilityCodeDisplayName,
+                    retrieved.getFacilityCodeDisplayName());
+            assertEquals("After update - intendedRecipientPerson", intendedRecipientPerson,
+                    retrieved.getIntendedRecipientPerson());
+            assertEquals("After update - intendedRecipientOrganization", intendedRecipientOrganization,
+                    retrieved.getIntendedRecipientOrganization());
             assertEquals("After update - languageCode", languageCode, retrieved.getLanguageCode());
             assertEquals("After update - legalAuthenticator", legalAuthenticator, retrieved.getLegalAuthenticator());
             assertEquals("After update - mimeType", mimeType, retrieved.getMimeType());
             assertEquals("After update - parentDocumentId", parentDocumentId, retrieved.getParentDocumentId());
-            assertEquals("After update - parentDocumentRelationship", parentDocumentRelationship, retrieved.getParentDocumentRelationship());
+            assertEquals("After update - parentDocumentRelationship", parentDocumentRelationship,
+                    retrieved.getParentDocumentRelationship());
             assertEquals("After update - practiceSetting", practiceSetting, retrieved.getPracticeSetting());
-            assertEquals("After update - practiceSettingScheme", practiceSettingScheme, retrieved.getPracticeSettingScheme());
-            assertEquals("After update - practiceSettingDisplayName", practiceSettingDisplayName, retrieved.getPracticeSettingDisplayName());
+            assertEquals("After update - practiceSettingScheme", practiceSettingScheme,
+                    retrieved.getPracticeSettingScheme());
+            assertEquals("After update - practiceSettingDisplayName", practiceSettingDisplayName,
+                    retrieved.getPracticeSettingDisplayName());
             assertEquals("After update - size", size, retrieved.getSize());
             assertEquals("After update - sourcePatientId", sourcePatientId, retrieved.getSourcePatientId());
             assertEquals("After update - pid3", pid3, retrieved.getPid3());
@@ -329,194 +371,222 @@ public class DocumentServiceTest
             assertNotNull("After update - audit codes null", eventCodes);
             assertEquals("After update - audit codes size", 2, eventCodes.size());
 
-//            Iterator<EventCode> iter = eventCodes.iterator();
-//            while(iter.hasNext())
-//            {
-//                EventCode code = iter.next();
-//                assertNotNull("After insert - contained event code was null", code);
-//                assertNotNull("After insert - event code id was null", code.getEventCodeId());
-//                assertEquals("After insert - eventCode1", eventCode1, code.getEventCode());
-//                assertEquals("After insert - eventCodeScheme1", eventCodeScheme1, code.getEventCodeScheme());
-//                assertEquals("After insert - eventCodeDisplayName1", eventCodeDisplayName1, code.getEventCodeDisplayName());
-//            }
+            // Iterator<EventCode> iter = eventCodes.iterator();
+            // while(iter.hasNext())
+            // {
+            // EventCode code = iter.next();
+            // assertNotNull("After insert - contained event code was null", code);
+            // assertNotNull("After insert - event code id was null", code.getEventCodeId());
+            // assertEquals("After insert - eventCode1", eventCode1, code.getEventCode());
+            // assertEquals("After insert - eventCodeScheme1", eventCodeScheme1, code.getEventCodeScheme());
+            // assertEquals("After insert - eventCodeDisplayName1", eventCodeDisplayName1,
+            // code.getEventCodeDisplayName());
+            // }
 
             // Query by patient id only
-            DocumentQueryParams queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, null, null, null, null);
+            DocumentQueryParams queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null,
+                    null, null, null, null, null);
             List<Document> queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by patient id results null", queryResults);
             assertFalse("Query by patient id results empty", queryResults.isEmpty());
 
             // Query by class code
-            queryParams = buildQueryParams(patientId, classCode, null, null, null, null, null, null, null, null, null, null, null);
+            queryParams = buildQueryParams(patientId, classCode, null, null, null, null, null, null, null, null, null,
+                    null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by class code results null", queryResults);
             assertFalse("Query by class code results empty", queryResults.isEmpty());
 
             // Query by class code scheme
-            queryParams = buildQueryParams(patientId, null, classCodeScheme, null, null, null, null, null, null, null, null, null, null);
+            queryParams = buildQueryParams(patientId, null, classCodeScheme, null, null, null, null, null, null, null,
+                    null, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by class code scheme results null", queryResults);
             assertFalse("Query by class code scheme results empty", queryResults.isEmpty());
 
             // Query by creation date from
             Date creationTimeFrom = new SimpleDateFormat("MM/dd/yyyy.HH:mm:ss").parse("04/04/2004.04:04:03");
-            queryParams = buildQueryParams(patientId, null, null, creationTimeFrom, null, null, null, null, null, null, null, null, null);
+            queryParams = buildQueryParams(patientId, null, null, creationTimeFrom, null, null, null, null, null, null,
+                    null, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by creation date from null results null", queryResults);
             assertFalse("Query by creation date from results empty", queryResults.isEmpty());
 
             // Query by creation date to
             Date creationTimeTo = new SimpleDateFormat("MM/dd/yyyy.HH:mm:ss").parse("04/04/2004.04:04:05");
-            queryParams = buildQueryParams(patientId, null, null, null, creationTimeTo, null, null, null, null, null, null, null, null);
+            queryParams = buildQueryParams(patientId, null, null, null, creationTimeTo, null, null, null, null, null,
+                    null, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by creation date to results null", queryResults);
             assertFalse("Query by creation date to results empty", queryResults.isEmpty());
 
             // Query by creation date from and to
-            queryParams = buildQueryParams(patientId, null, null, creationTimeFrom, creationTimeTo, null, null, null, null, null, null, null, null);
+            queryParams = buildQueryParams(patientId, null, null, creationTimeFrom, creationTimeTo, null, null, null,
+                    null, null, null, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by creation date from and to results null", queryResults);
             assertFalse("Query by creation date from and to results empty", queryResults.isEmpty());
 
             // Query by service start date from
             Date serviceStartTimeFrom = new SimpleDateFormat("yyyyMMddhhmmss").parse("20050505050504");
-            queryParams = buildQueryParams(patientId, null, null, null, null, serviceStartTimeFrom, null, null, null, null, null, null, null);
+            queryParams = buildQueryParams(patientId, null, null, null, null, serviceStartTimeFrom, null, null, null,
+                    null, null, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by service start date from results null", queryResults);
             assertFalse("Query by service start date from results empty", queryResults.isEmpty());
 
             // Query by service start date to
             Date serviceStartTimeTo = new SimpleDateFormat("yyyyMMddhhmmss").parse("20050505050506");
-            queryParams = buildQueryParams(patientId, null, null, null, null, null, serviceStartTimeTo, null, null, null, null, null, null);
+            queryParams = buildQueryParams(patientId, null, null, null, null, null, serviceStartTimeTo, null, null,
+                    null, null, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by service start date to results null", queryResults);
             assertFalse("Query by service start date to results empty", queryResults.isEmpty());
 
             // Query by service start date from and to
-            queryParams = buildQueryParams(patientId, null, null, null, null, serviceStartTimeFrom, serviceStartTimeTo, null, null, null, null, null, null);
+            queryParams = buildQueryParams(patientId, null, null, null, null, serviceStartTimeFrom, serviceStartTimeTo,
+                    null, null, null, null, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by service start date from and to results null", queryResults);
             assertFalse("Query by service start date from and to results empty", queryResults.isEmpty());
 
             // Query by service stop time from
             Date serviceStopTimeFrom = new SimpleDateFormat("yyyyMMddhhmmss").parse("20060606060605");
-            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, serviceStopTimeFrom, null, null, null, null, null);
+            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, serviceStopTimeFrom, null,
+                    null, null, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by service stop time from results null", queryResults);
             assertFalse("Query by service stop time from results empty", queryResults.isEmpty());
 
             // Query by service stop time to
             Date serviceStopTimeTo = new SimpleDateFormat("yyyyMMddhhmmss").parse("20060606060607");
-            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, serviceStopTimeTo, null, null, null, null);
+            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, serviceStopTimeTo,
+                    null, null, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by service stop time to results null", queryResults);
             assertFalse("Query by service stop time to results empty", queryResults.isEmpty());
 
             // Query by service stop time from and to
-            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, serviceStopTimeFrom, serviceStopTimeTo, null, null, null, null);
+            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, serviceStopTimeFrom,
+                    serviceStopTimeTo, null, null, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by service stop time from and to results null", queryResults);
             assertFalse("Query by service stop time from and to results empty", queryResults.isEmpty());
 
             // Query by status
-            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, status, null, null, null);
+            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, status, null,
+                    null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by status results null", queryResults);
             assertFalse("Query by status results empty", queryResults.isEmpty());
 
             // Query by document unique id
-            queryParams = buildQueryParams(null, null, null, null, null, null, null, null, null, null, documentUniqueId, null, null);
+            queryParams = buildQueryParams(null, null, null, null, null, null, null, null, null, null,
+                    documentUniqueId, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by document unique id results null", queryResults);
             assertFalse("Query by document unique id results empty", queryResults.isEmpty());
 
             // Query by all parameters
-            queryParams = buildQueryParams(patientId, classCode, classCodeScheme, creationTimeFrom, creationTimeTo, serviceStartTimeFrom, serviceStartTimeTo, serviceStopTimeFrom, serviceStopTimeTo, status, documentUniqueId, null, null);
+            queryParams = buildQueryParams(patientId, classCode, classCodeScheme, creationTimeFrom, creationTimeTo,
+                    serviceStartTimeFrom, serviceStartTimeTo, serviceStopTimeFrom, serviceStopTimeTo, status,
+                    documentUniqueId, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by all parameters results null", queryResults);
             assertFalse("Query by all parameters results empty", queryResults.isEmpty());
 
             // Query with invalid patient id - Should return null or empty list - not exception
-            queryParams = buildQueryParams("invalidpatientid", classCode, classCodeScheme, creationTimeFrom, creationTimeTo, serviceStartTimeFrom, serviceStartTimeTo, serviceStopTimeFrom, serviceStopTimeTo, status, documentUniqueId, null, null);
+            queryParams = buildQueryParams("invalidpatientid", classCode, classCodeScheme, creationTimeFrom,
+                    creationTimeTo, serviceStartTimeFrom, serviceStartTimeTo, serviceStopTimeFrom, serviceStopTimeTo,
+                    status, documentUniqueId, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertTrue("Query using invalid patient id not empty", ((queryResults == null) || (queryResults.isEmpty())));
 
             // Query by creation date from (inclusive)
-            queryParams = buildQueryParams(patientId, null, null, creationTime, null, null, null, null, null, null, null, null, null);
+            queryParams = buildQueryParams(patientId, null, null, creationTime, null, null, null, null, null, null,
+                    null, null, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by creation date from (inclusive) results null", queryResults);
             assertFalse("Query by creation date from (inclusive) results empty", queryResults.isEmpty());
 
             // Query by Full Event Code 1
-            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, null, null, eventCode1, eventCodeScheme1);
+            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, null, null,
+                    eventCode1, eventCodeScheme1);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by Full Event Code 1 results null", queryResults);
             assertFalse("Query by Full Event Code 1 results empty", queryResults.isEmpty());
-            //assertEquals("Query by Full Event Code 1 results not 1", 1, queryResults.size());
+            // assertEquals("Query by Full Event Code 1 results not 1", 1, queryResults.size());
 
             // Query by Event Code 1
-            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, null, null, eventCode1, null);
+            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, null, null,
+                    eventCode1, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by Event Code 1 results null", queryResults);
             assertFalse("Query by Event Code 1 results empty", queryResults.isEmpty());
-            //assertEquals("Query by Event Code 1 results not 1", 1, queryResults.size());
+            // assertEquals("Query by Event Code 1 results not 1", 1, queryResults.size());
 
             // Query by Event Code Scheme 1
-            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, null, null, null, eventCodeScheme1);
+            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, null, null, null,
+                    eventCodeScheme1);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by Event Code Scheme 1 results null", queryResults);
             assertFalse("Query by Event Code Scheme 1 results empty", queryResults.isEmpty());
-            //assertEquals("Query by Event Code Scheme 1 results not 1", 1, queryResults.size());
+            // assertEquals("Query by Event Code Scheme 1 results not 1", 1, queryResults.size());
 
             // Query by full Event Code 2
-            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, null, null, eventCode2, eventCodeScheme2);
+            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, null, null,
+                    eventCode2, eventCodeScheme2);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by full Event Code 2 results null", queryResults);
             assertFalse("Query by full Event Code 2 results empty", queryResults.isEmpty());
-            //assertEquals("Query by full Event Code 2 results not 1", 1, queryResults.size());
+            // assertEquals("Query by full Event Code 2 results not 1", 1, queryResults.size());
 
             // Query by Event Code 2
-            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, null, null, eventCode2, null);
+            queryParams = buildQueryParams(patientId, null, null, null, null, null, null, null, null, null, null,
+                    eventCode2, null);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by Event Code 2 results null", queryResults);
             assertFalse("Query by Event Code 2 results empty", queryResults.isEmpty());
-            //assertEquals("Query by Event Code 2 results not 1", 1, queryResults.size());
+            // assertEquals("Query by Event Code 2 results not 1", 1, queryResults.size());
 
             // Query by Event Code 1 and all params
-            queryParams = buildQueryParams(patientId, classCode, classCodeScheme, creationTimeFrom, creationTimeTo, serviceStartTimeFrom, serviceStartTimeTo, serviceStopTimeFrom, serviceStopTimeTo, status, documentUniqueId, eventCode1, eventCodeScheme1);
+            queryParams = buildQueryParams(patientId, classCode, classCodeScheme, creationTimeFrom, creationTimeTo,
+                    serviceStartTimeFrom, serviceStartTimeTo, serviceStopTimeFrom, serviceStopTimeTo, status,
+                    documentUniqueId, eventCode1, eventCodeScheme1);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by Event Code 1 and all params results null", queryResults);
             assertFalse("Query by Event Code 1 and all params results empty", queryResults.isEmpty());
-            //assertEquals("Query by Event Code 1 and all params results not 1", 1, queryResults.size());
+            // assertEquals("Query by Event Code 1 and all params results not 1", 1, queryResults.size());
 
             // Query by Event Code 2 and all params
-            queryParams = buildQueryParams(patientId, classCode, classCodeScheme, creationTimeFrom, creationTimeTo, serviceStartTimeFrom, serviceStartTimeTo, serviceStopTimeFrom, serviceStopTimeTo, status, documentUniqueId, eventCode2, eventCodeScheme2);
+            queryParams = buildQueryParams(patientId, classCode, classCodeScheme, creationTimeFrom, creationTimeTo,
+                    serviceStartTimeFrom, serviceStartTimeTo, serviceStopTimeFrom, serviceStopTimeTo, status,
+                    documentUniqueId, eventCode2, eventCodeScheme2);
             queryResults = docService.documentQuery(queryParams);
             assertNotNull("Query by Event Code 2 and all params results null", queryResults);
             assertFalse("Query by Event Code 2 and all params results empty", queryResults.isEmpty());
-            //assertEquals("Query by Event Code 2 and all params results not 1", 1, queryResults.size());
+            // assertEquals("Query by Event Code 2 and all params results not 1", 1, queryResults.size());
 
             // Delete
             docService.deleteDocument(retrieved);
             retrieved = docService.getDocument(documentId);
             assertNull("Document not null after delete", retrieved);
 
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
             fail("testDocumentOperations: " + t.getMessage());
         }
         System.out.println("End testDocumentOperations");
     }
 
-    private DocumentQueryParams buildQueryParams(String patientId, String classCode, String classCodeScheme, Date creationTimeFrom, Date creationTimeTo, Date serviceStartTimeFrom, Date serviceStartTimeTo, Date serviceStopTimeFrom, Date serviceStopTimeTo, String status, String documentUniqueId, String eventCode, String eventCodeScheme)
-    {
+    private DocumentQueryParams buildQueryParams(String patientId, String classCode, String classCodeScheme,
+            Date creationTimeFrom, Date creationTimeTo, Date serviceStartTimeFrom, Date serviceStartTimeTo,
+            Date serviceStopTimeFrom, Date serviceStopTimeTo, String status, String documentUniqueId, String eventCode,
+            String eventCodeScheme) {
         DocumentQueryParams params = new DocumentQueryParams();
 
         params.setPatientId(patientId);
-        if(classCode != null)
-        {
+        if (classCode != null) {
             List<String> classCodes = new ArrayList<String>();
             classCodes.add(classCode);
             params.setClassCodes(classCodes);
@@ -528,20 +598,17 @@ public class DocumentServiceTest
         params.setServiceStartTimeTo(serviceStartTimeTo);
         params.setServiceStopTimeFrom(serviceStopTimeFrom);
         params.setServiceStopTimeTo(serviceStopTimeTo);
-        if(status != null)
-        {
+        if (status != null) {
             List<String> statuses = new ArrayList<String>();
             statuses.add(status);
             params.setStatuses(statuses);
         }
-        if (documentUniqueId != null)
-        {
+        if (documentUniqueId != null) {
             List<String> documentUniqueIds = new ArrayList<String>();
             documentUniqueIds.add(documentUniqueId);
             params.setDocumentUniqueId(documentUniqueIds);
         }
-        if(NullChecker.isNotNullish(eventCode))
-        {
+        if (NullChecker.isNotNullish(eventCode)) {
             EventCodeParam ecParam = new EventCodeParam();
             ecParam.setEventCode(eventCode);
             ecParam.setEventCodeScheme(eventCodeScheme);
@@ -553,8 +620,7 @@ public class DocumentServiceTest
         return params;
     }
 
-    private String sampleC32()
-    {
+    private String sampleC32() {
         StringBuffer sb = new StringBuffer();
 
         sb.append("<ClinicalDocument xsi:schemaLocation=\"urn:hl7-org:v3 http://xreg2.nist.gov:8080/hitspValidation/schema/cdar2c32/infrastructure/cda/C32_CDA.xsd\" xmlns:sdtc=\"urn:hl7-org:sdtc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"urn:hl7-org:v3\">");

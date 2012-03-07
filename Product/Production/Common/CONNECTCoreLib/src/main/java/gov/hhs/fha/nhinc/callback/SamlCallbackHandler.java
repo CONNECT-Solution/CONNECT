@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.callback;
 
@@ -40,24 +60,25 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class implements the CallbackHandler which is invoked upon sending a
- * message requiring the SAML Assertion Token.  It accesses the information
- * stored in NMProperties in order to build up the required token elements.
+ * This class implements the CallbackHandler which is invoked upon sending a message requiring the SAML Assertion Token.
+ * It accesses the information stored in NMProperties in order to build up the required token elements.
  */
 public class SamlCallbackHandler implements CallbackHandler {
 
     private static Log log = LogFactory.getLog(SamlCallbackHandler.class);
     // Valid Evidence Assertion versions
     private static final String ASSERTION_VERSION_2_0 = "2.0";
-    private static final String[] VALID_ASSERTION_VERSION_ARRAY = {ASSERTION_VERSION_2_0};
-    private static final List<String> VALID_ASSERTION_VERSION_LIST = Collections.unmodifiableList(Arrays.asList(VALID_ASSERTION_VERSION_ARRAY));
+    private static final String[] VALID_ASSERTION_VERSION_ARRAY = { ASSERTION_VERSION_2_0 };
+    private static final List<String> VALID_ASSERTION_VERSION_LIST = Collections.unmodifiableList(Arrays
+            .asList(VALID_ASSERTION_VERSION_ARRAY));
     // Valid Authorization Decision values
     private static final String AUTHZ_DECISION_PERMIT = "Permit";
     private static final String AUTHZ_DECISION_DENY = "Deny";
     private static final String AUTHZ_DECISION_INDETERMINATE = "Indeterminate";
-    private static final String[] VALID_AUTHZ_DECISION_ARRAY = {AUTHZ_DECISION_PERMIT,
-        AUTHZ_DECISION_DENY, AUTHZ_DECISION_INDETERMINATE};
-    private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections.unmodifiableList(Arrays.asList(VALID_AUTHZ_DECISION_ARRAY));
+    private static final String[] VALID_AUTHZ_DECISION_ARRAY = { AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_DENY,
+            AUTHZ_DECISION_INDETERMINATE };
+    private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections.unmodifiableList(Arrays
+            .asList(VALID_AUTHZ_DECISION_ARRAY));
     // Authorization Decision Action is always set to Execute
     private static final String AUTHZ_DECISION_ACTION_EXECUTE = "Execute";
     private static final String AUTHZ_DECISION_ACTION_NS = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
@@ -70,10 +91,10 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static final String ENTITY_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:entity";
     private static final String PERSISTENT_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:persistent";
     private static final String TRANSIENT_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:transient";
-    private static final String[] VALID_NAME_ID_ARRAY = {UNSPECIFIED_NAME_ID,
-        EMAIL_NAME_ID, X509_NAME_ID, WINDOWS_NAME_ID, KERBEROS_NAME_ID,
-        ENTITY_NAME_ID, PERSISTENT_NAME_ID, TRANSIENT_NAME_ID};
-    private static final List<String> VALID_NAME_LIST = Collections.unmodifiableList(Arrays.asList(VALID_NAME_ID_ARRAY));
+    private static final String[] VALID_NAME_ID_ARRAY = { UNSPECIFIED_NAME_ID, EMAIL_NAME_ID, X509_NAME_ID,
+            WINDOWS_NAME_ID, KERBEROS_NAME_ID, ENTITY_NAME_ID, PERSISTENT_NAME_ID, TRANSIENT_NAME_ID };
+    private static final List<String> VALID_NAME_LIST = Collections
+            .unmodifiableList(Arrays.asList(VALID_NAME_ID_ARRAY));
     // Valid Context Class references
     private static final String INTERNET_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:InternetProtocol";
     private static final String INTERNET_PASSWORD_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:InternetProtocolPassword";
@@ -88,12 +109,13 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static final String SPKI_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:SPKI";
     private static final String DIG_SIGN_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:XMLDSig";
     private static final String UNSPECIFIED_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified";
-    private static final String[] VALID_AUTHN_CNTX_CLS_ARRAY = {INTERNET_AUTHN_CNTX_CLS,
-        INTERNET_PASSWORD_AUTHN_CNTX_CLS, PASSWORD_AUTHN_CNTX_CLS, PASSWORD_TRANS_AUTHN_CNTX_CLS,
-        KERBEROS_AUTHN_CNTX_CLS, PREVIOUS_AUTHN_CNTX_CLS, REMOTE_AUTHN_CNTX_CLS, TLS_AUTHN_CNTX_CLS,
-        X509_AUTHN_CNTX_CLS, PGP_AUTHN_CNTX_CLS, SPKI_AUTHN_CNTX_CLS, DIG_SIGN_AUTHN_CNTX_CLS,
-        UNSPECIFIED_AUTHN_CNTX_CLS};
-    private static final List<String> VALID_AUTHN_CNTX_CLS_LIST = Collections.unmodifiableList(Arrays.asList(VALID_AUTHN_CNTX_CLS_ARRAY));
+    private static final String[] VALID_AUTHN_CNTX_CLS_ARRAY = { INTERNET_AUTHN_CNTX_CLS,
+            INTERNET_PASSWORD_AUTHN_CNTX_CLS, PASSWORD_AUTHN_CNTX_CLS, PASSWORD_TRANS_AUTHN_CNTX_CLS,
+            KERBEROS_AUTHN_CNTX_CLS, PREVIOUS_AUTHN_CNTX_CLS, REMOTE_AUTHN_CNTX_CLS, TLS_AUTHN_CNTX_CLS,
+            X509_AUTHN_CNTX_CLS, PGP_AUTHN_CNTX_CLS, SPKI_AUTHN_CNTX_CLS, DIG_SIGN_AUTHN_CNTX_CLS,
+            UNSPECIFIED_AUTHN_CNTX_CLS };
+    private static final List<String> VALID_AUTHN_CNTX_CLS_LIST = Collections.unmodifiableList(Arrays
+            .asList(VALID_AUTHN_CNTX_CLS_ARRAY));
     private static final String AUTHN_SESSION_INDEX = "123456";
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
     public static final String SV_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:authorization-over-ssl";
@@ -107,26 +129,25 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static Element svAssertion;
     private static Element hokAssertion20;
     private static HashMap<String, String> factoryVersionMap = new HashMap<String, String>();
+    private static final String ID_PREFIX = "_";
 
     private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
 
     static {
-        //WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
-        javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
-                new javax.net.ssl.HostnameVerifier() {
+        // WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
+        javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
 
-                    public boolean verify(String hostname,
-                            javax.net.ssl.SSLSession sslSession) {
-                        return true;
-                    }
-                });
+            public boolean verify(String hostname, javax.net.ssl.SSLSession sslSession) {
+                return true;
+            }
+        });
         // Set up versioning mapping - currently only support 2.0
         factoryVersionMap.put(ASSERTION_VERSION_2_0, SAMLAssertionFactory.SAML2_0);
     }
 
     /**
-     * Constructs the callback handler and initializes the keystore and
-     * truststore references to the security certificates
+     * Constructs the callback handler and initializes the keystore and truststore references to the security
+     * certificates
      */
     public SamlCallbackHandler() {
         log.debug("SamlCallbackHandler Constructor -- Begin");
@@ -142,10 +163,10 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * This is the invoked implementation to handle the SAML Token creation upon
-     * notification of an outgoing message needing SAML.  Based on the type of
-     * confirmation method detected on the Callbace it creates either a
+     * This is the invoked implementation to handle the SAML Token creation upon notification of an outgoing message
+     * needing SAML. Based on the type of confirmation method detected on the Callbace it creates either a
      * "Sender Vouches: or a "Holder-ok_Key" variant of the SAML Assertion.
+     * 
      * @param callbacks The SAML Callback
      * @throws java.io.IOException
      * @throws javax.security.auth.callback.UnsupportedCallbackException
@@ -167,7 +188,8 @@ public class SamlCallbackHandler implements CallbackHandler {
                     svAssertion = samlCallback.getAssertionElement();
                 } else {
                     log.error("Unknown SAML Assertion Type: " + samlCallback.getConfirmationMethod());
-                    throw new UnsupportedCallbackException(null, "SAML Assertion Type is not matched:" + samlCallback.getConfirmationMethod());
+                    throw new UnsupportedCallbackException(null, "SAML Assertion Type is not matched:"
+                            + samlCallback.getConfirmationMethod());
                 }
             } else {
                 log.error("Unknown Callback encountered: " + callbacks[i]);
@@ -178,8 +200,8 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Currently not Used.
-     * Creates the "Sender Vouches" variant of the SAML Assertion token.
+     * Currently not Used. Creates the "Sender Vouches" variant of the SAML Assertion token.
+     * 
      * @return The Assertion element
      */
     private Element createSVSAMLAssertion20() {
@@ -189,7 +211,10 @@ public class SamlCallbackHandler implements CallbackHandler {
             SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
 
             // create the assertion id
-            String aID = String.valueOf(UUID.randomUUID());
+            // Per GATEWAY-847 the id attribute should not be allowed to start with a number (UUIDs can). Direction
+            // given from 2011 specification set was to prepend with and underscore.
+            String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
+            log.debug("Assertion ID: " + aID);
 
             // name id of the issuer - For now just use default
             NameID issueId = create509NameID(factory, DEFAULT_NAME);
@@ -199,8 +224,8 @@ public class SamlCallbackHandler implements CallbackHandler {
 
             // name id of the subject - user name
             String uname = "defUser";
-            if (tokenVals.containsKey(SamlConstants.USER_NAME_PROP) &&
-                    tokenVals.get(SamlConstants.USER_NAME_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.USER_NAME_PROP)
+                    && tokenVals.get(SamlConstants.USER_NAME_PROP) != null) {
                 uname = tokenVals.get(SamlConstants.USER_NAME_PROP).toString();
             }
             NameID nmId = factory.createNameID(uname, null, X509_NAME_ID);
@@ -209,8 +234,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             // authentication statement
             List statements = createAuthnStatements(factory);
 
-            assertion = factory.createAssertion(aID, issueId, issueInstant,
-                    null, null, subj, statements);
+            assertion = factory.createAssertion(aID, issueId, issueInstant, null, null, subj, statements);
 
             assertion.setVersion("2.0");
 
@@ -224,6 +248,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Creates the "Holder-of-Key" variant of the SAML Assertion token.
+     * 
      * @return The Assertion element
      */
     private Element createHOKSAMLAssertion20() {
@@ -233,15 +258,19 @@ public class SamlCallbackHandler implements CallbackHandler {
             SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
 
             // create the assertion id
-            String aID = String.valueOf(UUID.randomUUID());
-
+            // Per GATEWAY-847 the id attribute should not be allowed to start with a number (UUIDs can). Direction
+            // given from 2011 specification set was to prepend with and underscore.
+            String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
+            log.debug("Assertion ID: " + aID);
             // name id of the issuer - For now just use default
             NameID issueId = null;
 
-            if (tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP) &&
-                    tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_PROP)) {
-                log.debug(SamlConstants.ASSERTION_ISSUER_PROP + " = " + tokenVals.get(SamlConstants.ASSERTION_ISSUER_PROP));
-                log.debug(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP + " = " + tokenVals.get(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP));
+            if (tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP)
+                    && tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_PROP)) {
+                log.debug(SamlConstants.ASSERTION_ISSUER_PROP + " = "
+                        + tokenVals.get(SamlConstants.ASSERTION_ISSUER_PROP));
+                log.debug(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP + " = "
+                        + tokenVals.get(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP));
 
                 String format = tokenVals.get(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP).toString();
                 if (VALID_NAME_LIST.contains(format.trim())) {
@@ -275,7 +304,8 @@ public class SamlCallbackHandler implements CallbackHandler {
             Document doc = docFactory.newDocumentBuilder().newDocument();
             KeyInfo keyInfo = new KeyInfo(doc);
             keyInfo.addKeyValue(pubKey);
-            SubjectConfirmationData scd = factory.createSubjectConfirmationData(null, null, null, null, null, keyInfo.getElement());
+            SubjectConfirmationData scd = factory.createSubjectConfirmationData(null, null, null, null, null,
+                    keyInfo.getElement());
             SubjectConfirmation scf = factory.createSubjectConfirmation(null, scd, HOK_CONFIRM);
             Subject subj = factory.createSubject(subjId, scf);
 
@@ -308,16 +338,13 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Both the Issuer and the Subject elements have a NameID element which is
-     * formed through this method.  Currently default data is used to specify
-     * the required Issuer information.  However, the Subject information is
-     * defined based on the stored value of the userid.  If this is a legal X509
-     * structute the NameId is constructed in that format, if not it is
-     * constructed as an "Unspecified" format.
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
-     * @param assId Identifies this as default usage case or one with declared
-     * value.
+     * Both the Issuer and the Subject elements have a NameID element which is formed through this method. Currently
+     * default data is used to specify the required Issuer information. However, the Subject information is defined
+     * based on the stored value of the userid. If this is a legal X509 structute the NameId is constructed in that
+     * format, if not it is constructed as an "Unspecified" format.
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @param assId Identifies this as default usage case or one with declared value.
      * @return The constructed NameID element
      * @throws com.sun.xml.wss.saml.SAMLException
      */
@@ -332,12 +359,10 @@ public class SamlCallbackHandler implements CallbackHandler {
         String defC = "US";
 
         String identifier;
-        if (assId != PRIMARY_NAME ||
-                !tokenVals.containsKey(SamlConstants.USER_NAME_PROP) ||
-                tokenVals.get(SamlConstants.USER_NAME_PROP) == null) {
-            identifier = "CN=" + defCN + "," + "OU=" + defOU + "," +
-                    "O=" + defO + "," + "L=" + defL + "," +
-                    "ST=" + defST + "," + "C=" + defC;
+        if (assId != PRIMARY_NAME || !tokenVals.containsKey(SamlConstants.USER_NAME_PROP)
+                || tokenVals.get(SamlConstants.USER_NAME_PROP) == null) {
+            identifier = "CN=" + defCN + "," + "OU=" + defOU + "," + "O=" + defO + "," + "L=" + defL + "," + "ST="
+                    + defST + "," + "C=" + defC;
             nmId = factory.createNameID(identifier, null, X509_NAME_ID);
             log.debug("Create default X509 name: " + identifier);
         } else {
@@ -348,9 +373,10 @@ public class SamlCallbackHandler implements CallbackHandler {
                 log.debug("Create X509 name: " + x509Name);
             } catch (IllegalArgumentException iae) {
                 /* Could also test if email form if we wanted to support that */
-                log.warn("Set format as Unspecified. Invalid X509 format: " +
-                        tokenVals.get(SamlConstants.USER_NAME_PROP) + " " + iae.getMessage());
-                nmId = factory.createNameID(tokenVals.get(SamlConstants.USER_NAME_PROP).toString(), null, UNSPECIFIED_NAME_ID);
+                log.warn("Set format as Unspecified. Invalid X509 format: "
+                        + tokenVals.get(SamlConstants.USER_NAME_PROP) + " " + iae.getMessage());
+                nmId = factory.createNameID(tokenVals.get(SamlConstants.USER_NAME_PROP).toString(), null,
+                        UNSPECIFIED_NAME_ID);
             }
         }
 
@@ -358,31 +384,20 @@ public class SamlCallbackHandler implements CallbackHandler {
         return nmId;
     }
 
-    /*public boolean isValidEmailAddress(String address) {
-    log.debug("SamlCallbackHandler.isValidEmailAddress() " + address + " -- Begin");
-    boolean retBool = false;
-    if (address != null && address.length() > 0) {
-    try {
-    InternetAddress emailAddr = new InternetAddress(address, true);
-    String[] tokens = address.split("@");
-    if (tokens.length == 2 && tokens[0].trim().length() > 0 && tokens[1].trim().length() > 0) {
-    retBool = true;
-    } else {
-    log.debug("Address does not follow the form 'local-part@domain'");
-    }
-    } catch (AddressException ex) {
-    // address does not comply with RFC822
-    log.debug("Address is not of the RFC822 format");
-    }
-    }
-    log.debug("SamlCallbackHandler.isValidEmailAddress() " + retBool + " -- End");
-    return retBool;
-    }*/
+    /*
+     * public boolean isValidEmailAddress(String address) { log.debug("SamlCallbackHandler.isValidEmailAddress() " +
+     * address + " -- Begin"); boolean retBool = false; if (address != null && address.length() > 0) { try {
+     * InternetAddress emailAddr = new InternetAddress(address, true); String[] tokens = address.split("@"); if
+     * (tokens.length == 2 && tokens[0].trim().length() > 0 && tokens[1].trim().length() > 0) { retBool = true; } else {
+     * log.debug("Address does not follow the form 'local-part@domain'"); } } catch (AddressException ex) { // address
+     * does not comply with RFC822 log.debug("Address is not of the RFC822 format"); } }
+     * log.debug("SamlCallbackHandler.isValidEmailAddress() " + retBool + " -- End"); return retBool; }
+     */
     /**
-     * Creates the authentication statement, the attribute statements, and the
-     * authorization decision statements for placement in the SAML Assertion.
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * Creates the authentication statement, the attribute statements, and the authorization decision statements for
+     * placement in the SAML Assertion.
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @param issueInstant The calendar representing the time of Assertion issuance
      * @return A listing of all statements
      * @throws com.sun.xml.wss.saml.SAMLException
@@ -393,10 +408,10 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         // Create Subject Locality
         SubjectLocality subjLoc = null;
-        if (tokenVals.containsKey(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP) &&
-                tokenVals.get(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP) != null &&
-                tokenVals.containsKey(SamlConstants.SUBJECT_LOCALITY_DNS_PROP) &&
-                tokenVals.get(SamlConstants.SUBJECT_LOCALITY_DNS_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP)
+                && tokenVals.get(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP) != null
+                && tokenVals.containsKey(SamlConstants.SUBJECT_LOCALITY_DNS_PROP)
+                && tokenVals.get(SamlConstants.SUBJECT_LOCALITY_DNS_PROP) != null) {
             String inetAddr = tokenVals.get(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP).toString();
             String dnsName = tokenVals.get(SamlConstants.SUBJECT_LOCALITY_DNS_PROP).toString();
             log.debug("Create Subject Locality as " + inetAddr + " in domain: " + dnsName);
@@ -406,15 +421,15 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         AuthnContext authnContext = null;
-        if (tokenVals.containsKey(SamlConstants.AUTHN_CONTEXT_CLASS_PROP) &&
-                tokenVals.get(SamlConstants.AUTHN_CONTEXT_CLASS_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.AUTHN_CONTEXT_CLASS_PROP)
+                && tokenVals.get(SamlConstants.AUTHN_CONTEXT_CLASS_PROP) != null) {
             String cntxCls = tokenVals.get(SamlConstants.AUTHN_CONTEXT_CLASS_PROP).toString();
             if (VALID_AUTHN_CNTX_CLS_LIST.contains(cntxCls.trim())) {
                 log.debug("Create Authentication Context Class as: " + cntxCls);
                 authnContext = factory.createAuthnContext(cntxCls, null);
             } else {
-                log.debug(cntxCls + " is not recognized as valid, " +
-                        "create default Authentication Context Class as: " + UNSPECIFIED_AUTHN_CNTX_CLS);
+                log.debug(cntxCls + " is not recognized as valid, "
+                        + "create default Authentication Context Class as: " + UNSPECIFIED_AUTHN_CNTX_CLS);
                 log.debug("Should be one of: " + VALID_AUTHN_CNTX_CLS_LIST);
                 authnContext = factory.createAuthnContext(UNSPECIFIED_AUTHN_CNTX_CLS, null);
             }
@@ -424,29 +439,29 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         GregorianCalendar issueInstant = calendarFactory();
-        if (tokenVals.containsKey(SamlConstants.AUTHN_INSTANT_PROP) &&
-                tokenVals.get(SamlConstants.AUTHN_INSTANT_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.AUTHN_INSTANT_PROP)
+                && tokenVals.get(SamlConstants.AUTHN_INSTANT_PROP) != null) {
             String authnInstant = tokenVals.get(SamlConstants.AUTHN_INSTANT_PROP).toString();
             try {
-                //times must be in UTC format as specified by the XML Schema type (dateTime)
+                // times must be in UTC format as specified by the XML Schema type (dateTime)
                 DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
                 XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(authnInstant.trim());
                 issueInstant = xmlDate.toGregorianCalendar();
                 log.debug("Setting Authentication instant to: " + xmlDate.toXMLFormat());
             } catch (IllegalArgumentException iaex) {
-                log.debug("Authentication instant: " + authnInstant +
-                        " is not in a valid dateTime format, defaulting to current time");
+                log.debug("Authentication instant: " + authnInstant
+                        + " is not in a valid dateTime format, defaulting to current time");
             } catch (DatatypeConfigurationException ex) {
-                log.debug("Authentication instant: " + authnInstant +
-                        " is not in a valid dateTime format, defaulting to current time");
+                log.debug("Authentication instant: " + authnInstant
+                        + " is not in a valid dateTime format, defaulting to current time");
             }
         } else {
             log.debug("Defaulting Authentication instant to current time");
         }
 
         String sessionIndex = AUTHN_SESSION_INDEX;
-        if (tokenVals.containsKey(SamlConstants.AUTHN_SESSION_INDEX_PROP) &&
-                tokenVals.get(SamlConstants.AUTHN_SESSION_INDEX_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.AUTHN_SESSION_INDEX_PROP)
+                && tokenVals.get(SamlConstants.AUTHN_SESSION_INDEX_PROP) != null) {
             sessionIndex = tokenVals.get(SamlConstants.AUTHN_SESSION_INDEX_PROP).toString();
             log.debug("Setting Authentication session index to: " + sessionIndex);
         } else {
@@ -454,7 +469,8 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         // Create Authentication statement
-        AuthnStatement authState = (com.sun.xml.wss.saml.assertion.saml20.jaxb20.AuthnStatement) factory.createAuthnStatement(issueInstant, subjLoc, authnContext, sessionIndex, null);
+        AuthnStatement authState = (com.sun.xml.wss.saml.assertion.saml20.jaxb20.AuthnStatement) factory
+                .createAuthnStatement(issueInstant, subjLoc, authnContext, sessionIndex, null);
 
         if (authState != null) {
             statements.add(authState);
@@ -463,14 +479,13 @@ public class SamlCallbackHandler implements CallbackHandler {
         statements.addAll(addAssertStatements(factory));
 
         // The authorization Decision Statement is optional
-        if (tokenVals.containsKey(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP) &&
-                tokenVals.get(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP) != null &&
-                "true".equalsIgnoreCase(tokenVals.get(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP).toString()))
-        {
+        if (tokenVals.containsKey(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP)
+                && tokenVals.get(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP) != null
+                && "true".equalsIgnoreCase(tokenVals.get(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP).toString())) {
             // Create resource for Authentication Decision Statement
             String resource = null;
-            if (tokenVals.containsKey(SamlConstants.RESOURCE_PROP) &&
-                    tokenVals.get(SamlConstants.RESOURCE_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.RESOURCE_PROP)
+                    && tokenVals.get(SamlConstants.RESOURCE_PROP) != null) {
                 resource = tokenVals.get(SamlConstants.RESOURCE_PROP).toString();
                 log.debug("Setting Authentication Decision Resource to: " + resource);
             } else {
@@ -479,15 +494,15 @@ public class SamlCallbackHandler implements CallbackHandler {
 
             // Options are Permit, Deny and Indeterminate
             String decision = AUTHZ_DECISION_PERMIT;
-            if (tokenVals.containsKey(SamlConstants.AUTHZ_DECISION_PROP) &&
-                    tokenVals.get(SamlConstants.AUTHZ_DECISION_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.AUTHZ_DECISION_PROP)
+                    && tokenVals.get(SamlConstants.AUTHZ_DECISION_PROP) != null) {
                 String requestedDecision = tokenVals.get(SamlConstants.AUTHZ_DECISION_PROP).toString().trim();
                 if (VALID_AUTHZ_DECISION_LIST.contains(requestedDecision)) {
                     log.debug("Setting Authentication Decision to: " + requestedDecision);
                     decision = requestedDecision;
                 } else {
-                    log.debug(requestedDecision + " is not recognized as valid, " +
-                            "create default Authentication Decision as: " + AUTHZ_DECISION_PERMIT);
+                    log.debug(requestedDecision + " is not recognized as valid, "
+                            + "create default Authentication Decision as: " + AUTHZ_DECISION_PERMIT);
                     log.debug("Should be one of: " + VALID_AUTHZ_DECISION_LIST);
                 }
             } else {
@@ -512,7 +527,8 @@ public class SamlCallbackHandler implements CallbackHandler {
             // Evidence Assertion generation
             Evidence evidence = createEvidence();
 
-            AuthnDecisionStatement authDecState = factory.createAuthnDecisionStatement(resource, decision, actions, evidence);
+            AuthnDecisionStatement authDecState = factory.createAuthnDecisionStatement(resource, decision, actions,
+                    evidence);
             if (authDecState != null) {
                 statements.add(authDecState);
             }
@@ -525,10 +541,9 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Creates the Attribute statements for UserName, UserOrganization,
-     * UserRole, and PurposeOfUse
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      * @throws com.sun.xml.wss.saml.SAMLException
      */
@@ -541,16 +556,15 @@ public class SamlCallbackHandler implements CallbackHandler {
         // Set the User Name Attribute
         List attributeValues1 = new ArrayList();
         StringBuffer nameConstruct = new StringBuffer();
-        if (tokenVals.containsKey(SamlConstants.USER_FIRST_PROP) &&
-                tokenVals.get(SamlConstants.USER_FIRST_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.USER_FIRST_PROP)
+                && tokenVals.get(SamlConstants.USER_FIRST_PROP) != null) {
             nameConstruct.append(tokenVals.get(SamlConstants.USER_FIRST_PROP).toString() + " ");
         }
-        if (tokenVals.containsKey(SamlConstants.USER_MIDDLE_PROP) &&
-                tokenVals.get(SamlConstants.USER_MIDDLE_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.USER_MIDDLE_PROP)
+                && tokenVals.get(SamlConstants.USER_MIDDLE_PROP) != null) {
             nameConstruct.append(tokenVals.get(SamlConstants.USER_MIDDLE_PROP).toString() + " ");
         }
-        if (tokenVals.containsKey(SamlConstants.USER_LAST_PROP) &&
-                tokenVals.get(SamlConstants.USER_LAST_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.USER_LAST_PROP) && tokenVals.get(SamlConstants.USER_LAST_PROP) != null) {
             nameConstruct.append(tokenVals.get(SamlConstants.USER_LAST_PROP).toString() + " ");
         }
         if (nameConstruct.length() > 0) {
@@ -566,8 +580,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         // Set the User Organization Attribute
         List attributeValues2 = new ArrayList();
-        if (tokenVals.containsKey(SamlConstants.USER_ORG_PROP) &&
-                tokenVals.get(SamlConstants.USER_ORG_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.USER_ORG_PROP) && tokenVals.get(SamlConstants.USER_ORG_PROP) != null) {
             log.debug("UserOrg: " + tokenVals.get(SamlConstants.USER_ORG_PROP).toString());
             attributeValues2.add(tokenVals.get(SamlConstants.USER_ORG_PROP).toString());
             attributes.add(factory.createAttribute(SamlConstants.USER_ORG_ATTR, attributeValues2));
@@ -577,8 +590,8 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         // Set the User Organization ID Attribute
         List attributeValues5 = new ArrayList();
-        if (tokenVals.containsKey(SamlConstants.USER_ORG_ID_PROP) &&
-                tokenVals.get(SamlConstants.USER_ORG_ID_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.USER_ORG_ID_PROP)
+                && tokenVals.get(SamlConstants.USER_ORG_ID_PROP) != null) {
             log.debug("UserOrgID: " + tokenVals.get(SamlConstants.USER_ORG_ID_PROP).toString());
             attributeValues5.add(tokenVals.get(SamlConstants.USER_ORG_ID_PROP).toString());
             attributes.add(factory.createAttribute(SamlConstants.USER_ORG_ID_ATTR, attributeValues5));
@@ -588,8 +601,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         // Set the Home Community ID Attribute
         List attributeValues6 = new ArrayList();
-        if (tokenVals.containsKey(SamlConstants.HOME_COM_PROP) &&
-                tokenVals.get(SamlConstants.HOME_COM_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.HOME_COM_PROP) && tokenVals.get(SamlConstants.HOME_COM_PROP) != null) {
             log.debug("HomeCommunityID: " + tokenVals.get(SamlConstants.HOME_COM_PROP).toString());
             attributeValues6.add(tokenVals.get(SamlConstants.HOME_COM_PROP).toString());
             attributes.add(factory.createAttribute(SamlConstants.HOME_COM_ID_ATTR, attributeValues6));
@@ -601,37 +613,41 @@ public class SamlCallbackHandler implements CallbackHandler {
             // Set the User Role Attribute
             List attributeValues3 = new ArrayList();
             final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-            final Element elemURAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "AttibuteValue");
+            final Element elemURAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion",
+                    "AttibuteValue");
             final Element userRole = document.createElementNS(HL7_NS, "hl7:Role");
             elemURAttr.appendChild(userRole);
 
             userRole.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "hl7:CE");
 
-            if (tokenVals.containsKey(SamlConstants.USER_CODE_PROP) &&
-                    tokenVals.get(SamlConstants.USER_CODE_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.USER_CODE_PROP)
+                    && tokenVals.get(SamlConstants.USER_CODE_PROP) != null) {
                 log.debug("User Role Code: " + tokenVals.get(SamlConstants.USER_CODE_PROP));
                 userRole.setAttribute(SamlConstants.CE_CODE_ID, tokenVals.get(SamlConstants.USER_CODE_PROP).toString());
             } else {
                 log.warn("No information provided to fill in user role code attribute");
             }
-            if (tokenVals.containsKey(SamlConstants.USER_SYST_PROP) &&
-                    tokenVals.get(SamlConstants.USER_SYST_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.USER_SYST_PROP)
+                    && tokenVals.get(SamlConstants.USER_SYST_PROP) != null) {
                 log.debug("User Role Code System: " + tokenVals.get(SamlConstants.USER_SYST_PROP).toString());
-                userRole.setAttribute(SamlConstants.CE_CODESYS_ID, tokenVals.get(SamlConstants.USER_SYST_PROP).toString());
+                userRole.setAttribute(SamlConstants.CE_CODESYS_ID, tokenVals.get(SamlConstants.USER_SYST_PROP)
+                        .toString());
             } else {
                 log.warn("No information provided to fill in user role code system attribute");
             }
-            if (tokenVals.containsKey(SamlConstants.USER_SYST_NAME_PROP) &&
-                    tokenVals.get(SamlConstants.USER_SYST_NAME_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.USER_SYST_NAME_PROP)
+                    && tokenVals.get(SamlConstants.USER_SYST_NAME_PROP) != null) {
                 log.debug("User Role Code System Name: " + tokenVals.get(SamlConstants.USER_SYST_NAME_PROP).toString());
-                userRole.setAttribute(SamlConstants.CE_CODESYSNAME_ID, tokenVals.get(SamlConstants.USER_SYST_NAME_PROP).toString());
+                userRole.setAttribute(SamlConstants.CE_CODESYSNAME_ID, tokenVals.get(SamlConstants.USER_SYST_NAME_PROP)
+                        .toString());
             } else {
                 log.warn("No information provided to fill in user role code system name attribute");
             }
-            if (tokenVals.containsKey(SamlConstants.USER_DISPLAY_PROP) &&
-                    tokenVals.get(SamlConstants.USER_DISPLAY_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.USER_DISPLAY_PROP)
+                    && tokenVals.get(SamlConstants.USER_DISPLAY_PROP) != null) {
                 log.debug("User Role Display: " + tokenVals.get(SamlConstants.USER_DISPLAY_PROP).toString());
-                userRole.setAttribute(SamlConstants.CE_DISPLAYNAME_ID, tokenVals.get(SamlConstants.USER_DISPLAY_PROP).toString());
+                userRole.setAttribute(SamlConstants.CE_DISPLAYNAME_ID, tokenVals.get(SamlConstants.USER_DISPLAY_PROP)
+                        .toString());
             } else {
                 log.warn("No information provided to fill in user role display attribute");
             }
@@ -643,8 +659,8 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         try {
             /*
-             * Gateway-347 - Support for both values will remain until NHIN Specs updated
-             * Determine whether to use PurposeOfUse or PuposeForUse
+             * Gateway-347 - Support for both values will remain until NHIN Specs updated Determine whether to use
+             * PurposeOfUse or PuposeForUse
              */
             String purposeAttributeValueName = "hl7:PurposeOfUse";
             if (isPurposeForUseEnabled()) {
@@ -654,31 +670,36 @@ public class SamlCallbackHandler implements CallbackHandler {
             // Add the Purpose Of/For Use Attribute Value
             List attributeValues4 = new ArrayList();
             final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-            final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "AttibuteValue");
+            final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion",
+                    "AttibuteValue");
             final Element purpose = document.createElementNS(HL7_NS, purposeAttributeValueName);
             elemPFUAttr.appendChild(purpose);
 
             purpose.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "hl7:CE");
 
-            if (tokenVals.containsKey(SamlConstants.PURPOSE_CODE_PROP) &&
-                    tokenVals.get(SamlConstants.PURPOSE_CODE_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.PURPOSE_CODE_PROP)
+                    && tokenVals.get(SamlConstants.PURPOSE_CODE_PROP) != null) {
                 log.debug("Purpose Code: " + tokenVals.get(SamlConstants.PURPOSE_CODE_PROP).toString());
-                purpose.setAttribute(SamlConstants.CE_CODE_ID, tokenVals.get(SamlConstants.PURPOSE_CODE_PROP).toString());
+                purpose.setAttribute(SamlConstants.CE_CODE_ID, tokenVals.get(SamlConstants.PURPOSE_CODE_PROP)
+                        .toString());
             }
-            if (tokenVals.containsKey(SamlConstants.PURPOSE_SYST_PROP) &&
-                    tokenVals.get(SamlConstants.PURPOSE_SYST_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.PURPOSE_SYST_PROP)
+                    && tokenVals.get(SamlConstants.PURPOSE_SYST_PROP) != null) {
                 log.debug("Purpose Code System: " + tokenVals.get(SamlConstants.PURPOSE_SYST_PROP).toString());
-                purpose.setAttribute(SamlConstants.CE_CODESYS_ID, tokenVals.get(SamlConstants.PURPOSE_SYST_PROP).toString());
+                purpose.setAttribute(SamlConstants.CE_CODESYS_ID, tokenVals.get(SamlConstants.PURPOSE_SYST_PROP)
+                        .toString());
             }
-            if (tokenVals.containsKey(SamlConstants.PURPOSE_SYST_NAME_PROP) &&
-                    tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.PURPOSE_SYST_NAME_PROP)
+                    && tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP) != null) {
                 log.debug("Purpose Code System Name: " + tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP).toString());
-                purpose.setAttribute(SamlConstants.CE_CODESYSNAME_ID, tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP).toString());
+                purpose.setAttribute(SamlConstants.CE_CODESYSNAME_ID,
+                        tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP).toString());
             }
-            if (tokenVals.containsKey(SamlConstants.PURPOSE_DISPLAY_PROP) &&
-                    tokenVals.get(SamlConstants.PURPOSE_DISPLAY_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.PURPOSE_DISPLAY_PROP)
+                    && tokenVals.get(SamlConstants.PURPOSE_DISPLAY_PROP) != null) {
                 log.debug("Purpose Display: " + tokenVals.get(SamlConstants.PURPOSE_DISPLAY_PROP).toString());
-                purpose.setAttribute(SamlConstants.CE_DISPLAYNAME_ID, tokenVals.get(SamlConstants.PURPOSE_DISPLAY_PROP).toString());
+                purpose.setAttribute(SamlConstants.CE_DISPLAYNAME_ID, tokenVals.get(SamlConstants.PURPOSE_DISPLAY_PROP)
+                        .toString());
             }
             attributeValues4.add(elemPFUAttr);
             attributes.add(factory.createAttribute(SamlConstants.PURPOSE_ROLE_ATTR, attributeValues4));
@@ -692,8 +713,8 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         // Set the Patient ID Attribute
         List attributeValues7 = new ArrayList();
-        if (tokenVals.containsKey(SamlConstants.PATIENT_ID_PROP) &&
-                tokenVals.get(SamlConstants.PATIENT_ID_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.PATIENT_ID_PROP)
+                && tokenVals.get(SamlConstants.PATIENT_ID_PROP) != null) {
             log.debug("PatientID: " + tokenVals.get(SamlConstants.PATIENT_ID_PROP).toString());
             attributeValues7.add(tokenVals.get(SamlConstants.PATIENT_ID_PROP).toString());
             attributes.add(factory.createAttribute(SamlConstants.PATIENT_ID_ATTR, attributeValues7));
@@ -708,29 +729,31 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Returns boolean condition on whether PurposeForUse is enabled
+     * 
      * @return The PurposeForUse enabled setting
      */
     private boolean isPurposeForUseEnabled() {
         boolean match = false;
         try {
             // Use CONNECT utility class to access gateway.properties
-            String purposeForUseEnabled = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, PURPOSE_FOR_USE_DEPRECATED_ENABLED);
+            String purposeForUseEnabled = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    PURPOSE_FOR_USE_DEPRECATED_ENABLED);
             if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
                 match = true;
             }
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + PURPOSE_FOR_USE_DEPRECATED_ENABLED + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error("Error: Failed to retrieve " + PURPOSE_FOR_USE_DEPRECATED_ENABLED + " from property file: "
+                    + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
         return match;
     }
 
     /**
-     * Creates the Evidence element that encompasses the Assertion defining the
-     * authorization form needed in cases where evidence of authorization to
-     * access the medical records must be provided along with the message request
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * Creates the Evidence element that encompasses the Assertion defining the authorization form needed in cases where
+     * evidence of authorization to access the medical records must be provided along with the message request
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @param issueInstant The calendar representing the time of Assertion issuance
      * @return The Evidence element
      * @throws com.sun.xml.wss.saml.SAMLException
@@ -739,15 +762,15 @@ public class SamlCallbackHandler implements CallbackHandler {
         log.debug("SamlCallbackHandler.createEvidence() -- Begin");
 
         String evAssertVersion = ASSERTION_VERSION_2_0;
-        if ((tokenVals.containsKey(SamlConstants.EVIDENCE_VERSION_PROP) &&
-                tokenVals.get(SamlConstants.EVIDENCE_VERSION_PROP) != null)) {
+        if ((tokenVals.containsKey(SamlConstants.EVIDENCE_VERSION_PROP) && tokenVals
+                .get(SamlConstants.EVIDENCE_VERSION_PROP) != null)) {
             String requestedVersion = tokenVals.get(SamlConstants.EVIDENCE_VERSION_PROP).toString();
             if (VALID_ASSERTION_VERSION_LIST.contains(requestedVersion.trim())) {
                 log.debug("Setting Evidence Assertion Version to: " + requestedVersion);
                 evAssertVersion = requestedVersion;
             } else {
-                log.debug(requestedVersion + " is not recognized as valid, " +
-                        "create evidence assertion version as: " + ASSERTION_VERSION_2_0);
+                log.debug(requestedVersion + " is not recognized as valid, " + "create evidence assertion version as: "
+                        + ASSERTION_VERSION_2_0);
                 log.debug("Should be one of: " + VALID_ASSERTION_VERSION_LIST);
             }
         } else {
@@ -759,8 +782,8 @@ public class SamlCallbackHandler implements CallbackHandler {
         List evAsserts = new ArrayList();
         try {
             String evAssertionID = String.valueOf(UUID.randomUUID());
-            if (tokenVals.containsKey(SamlConstants.EVIDENCE_ID_PROP) &&
-                    tokenVals.get(SamlConstants.EVIDENCE_ID_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.EVIDENCE_ID_PROP)
+                    && tokenVals.get(SamlConstants.EVIDENCE_ID_PROP) != null) {
                 evAssertionID = tokenVals.get(SamlConstants.EVIDENCE_ID_PROP).toString();
                 log.debug("Setting Evidence assertion id to: " + evAssertionID);
             } else {
@@ -768,31 +791,31 @@ public class SamlCallbackHandler implements CallbackHandler {
             }
 
             GregorianCalendar issueInstant = calendarFactory();
-            if (tokenVals.containsKey(SamlConstants.EVIDENCE_INSTANT_PROP) &&
-                    tokenVals.get(SamlConstants.EVIDENCE_INSTANT_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.EVIDENCE_INSTANT_PROP)
+                    && tokenVals.get(SamlConstants.EVIDENCE_INSTANT_PROP) != null) {
                 String authnInstant = tokenVals.get(SamlConstants.EVIDENCE_INSTANT_PROP).toString();
                 try {
-                    //times must be in UTC format as specified by the XML Schema type (dateTime)
+                    // times must be in UTC format as specified by the XML Schema type (dateTime)
                     DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
                     XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(authnInstant.trim());
                     issueInstant = xmlDate.toGregorianCalendar();
                     log.debug("Setting Evidence assertion instant to: " + xmlDate.toXMLFormat());
                 } catch (IllegalArgumentException iaex) {
-                    log.debug("Evidence assertion instant: " + authnInstant +
-                            " is not in a valid dateTime format, defaulting to current time");
+                    log.debug("Evidence assertion instant: " + authnInstant
+                            + " is not in a valid dateTime format, defaulting to current time");
                 } catch (DatatypeConfigurationException ex) {
-                    log.debug("Evidence assertion instant: " + authnInstant +
-                            " is not in a valid dateTime format, defaulting to current time");
+                    log.debug("Evidence assertion instant: " + authnInstant
+                            + " is not in a valid dateTime format, defaulting to current time");
                 }
             } else {
                 log.debug("Defaulting Authentication instant to current time");
             }
 
             NameID evIssuerId = null;
-            if (tokenVals.containsKey(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP) &&
-                    tokenVals.get(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP) != null &&
-                    tokenVals.containsKey(SamlConstants.EVIDENCE_ISSUER_PROP) &&
-                    tokenVals.get(SamlConstants.EVIDENCE_ISSUER_PROP) != null) {
+            if (tokenVals.containsKey(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP)
+                    && tokenVals.get(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP) != null
+                    && tokenVals.containsKey(SamlConstants.EVIDENCE_ISSUER_PROP)
+                    && tokenVals.get(SamlConstants.EVIDENCE_ISSUER_PROP) != null) {
 
                 String format = tokenVals.get(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP).toString();
                 if (VALID_NAME_LIST.contains(format.trim())) {
@@ -801,8 +824,7 @@ public class SamlCallbackHandler implements CallbackHandler {
                     log.debug("Setting Evidence Issuer to: " + issuer);
                     evIssuerId = factory.createNameID(issuer, null, format);
                 } else {
-                    log.debug(format + " is not recognized as valid, " +
-                            "create default evidence issuer");
+                    log.debug(format + " is not recognized as valid, " + "create default evidence issuer");
                     log.debug("Should be one of: " + VALID_NAME_LIST);
                     evIssuerId = create509NameID(factory, DEFAULT_NAME);
                 }
@@ -812,16 +834,16 @@ public class SamlCallbackHandler implements CallbackHandler {
             }
 
             GregorianCalendar beginValidTime = calendarFactory();
-            if ((tokenVals.containsKey(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) &&
-                    tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) != null)) {
+            if ((tokenVals.containsKey(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) && tokenVals
+                    .get(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) != null)) {
                 beginValidTime = createCal(tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP).toString());
             } else {
                 log.debug("Defaulting Evidence NotBefore condition to: current time");
             }
 
             GregorianCalendar endValidTime = calendarFactory();
-            if ((tokenVals.containsKey(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) &&
-                    tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) != null)) {
+            if ((tokenVals.containsKey(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) && tokenVals
+                    .get(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) != null)) {
                 endValidTime = createCal(tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP).toString());
             } else {
                 log.debug("Defaulting Evidence NotAfter condition to: current time");
@@ -830,14 +852,15 @@ public class SamlCallbackHandler implements CallbackHandler {
             if (beginValidTime.after(endValidTime)) {
                 // set beginning time to now
                 beginValidTime = calendarFactory();
-                log.warn("The beginning time for the valid evidence should be before the ending time.  " +
-                        "Setting the beginning time to the current system time.");
+                log.warn("The beginning time for the valid evidence should be before the ending time.  "
+                        + "Setting the beginning time to the current system time.");
             }
 
             Conditions conditions = factory.createConditions(beginValidTime, endValidTime, null, null, null, null);
 
             List statements = createEvidenceStatements(factory);
-            Assertion evAssert = factory.createAssertion(evAssertionID, evIssuerId, issueInstant, conditions, null, null, statements);
+            Assertion evAssert = factory.createAssertion(evAssertionID, evIssuerId, issueInstant, conditions, null,
+                    null, statements);
             evAssert.setVersion(evAssertVersion);
             evAsserts.add(evAssert);
         } catch (SAMLException ex) {
@@ -850,15 +873,16 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Creates a calendar object representing the time given.
-     * @param time following the UTC format as specified by the XML Schema type (dateTime)
-     * or for backward compatibility following the simple date form MM/dd/yyyy HH:mm:ss
+     * 
+     * @param time following the UTC format as specified by the XML Schema type (dateTime) or for backward compatibility
+     *            following the simple date form MM/dd/yyyy HH:mm:ss
      * @return The calendar object representing the given time
      */
     private GregorianCalendar createCal(String time) {
 
         GregorianCalendar cal = calendarFactory();
         try {
-            //times must be in UTC format as specified by the XML Schema type (dateTime)
+            // times must be in UTC format as specified by the XML Schema type (dateTime)
             DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
             XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(time.trim());
             cal = xmlDate.toGregorianCalendar();
@@ -874,63 +898,67 @@ public class SamlCallbackHandler implements CallbackHandler {
             log.error("Problem in creating XML Date Factory. Setting default date");
         }
 
-        log.info("Created calendar instance: " + (cal.get(Calendar.MONTH) + 1) +
-                "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR) +
-                " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) +
-                ":" + cal.get(Calendar.SECOND));
+        log.info("Created calendar instance: " + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH)
+                + "/" + cal.get(Calendar.YEAR) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE)
+                + ":" + cal.get(Calendar.SECOND));
         return cal;
     }
 
     /**
-     * Creates the Attribute Statements needed for the Evidence element.  These
-     * include the Attributes for the Access Consent Policy and the Instance
-     * Access Consent Policy
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * Creates the Attribute Statements needed for the Evidence element. These include the Attributes for the Access
+     * Consent Policy and the Instance Access Consent Policy
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of the attribute statements for the Evidence element
      * @throws com.sun.xml.wss.saml.SAMLException
      */
-    private List createEvidenceStatements(
-            SAMLAssertionFactory factory) throws SAMLException {
+    private List createEvidenceStatements(SAMLAssertionFactory factory) throws SAMLException {
         log.debug("SamlCallbackHandler.createEvidenceStatements() -- Begin");
         List statements = new ArrayList();
         List attributes = new ArrayList();
 
         // Set the Access Consent
         List attributeValues1 = new ArrayList();
-        if (tokenVals.containsKey(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP) &&
-                tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP) != null) {
-            log.debug("Setting Evidence Access Consent to: " + tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP).toString());
-            attributeValues1.add(tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP).toString());
+        if (tokenVals.containsKey(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP)
+                && tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP) != null) {
+            log.debug("Setting Evidence Access Consent to: "
+                    + tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP).toString());
+            attributeValues1.addAll((List<String>) tokenVals.get(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP));
         } else {
             log.debug("No Access Consent found for Evidence");
         }
 
-        attributes.add(factory.createAttribute("AccessConsentPolicy", NHIN_NS, attributeValues1));
+        if (!attributeValues1.isEmpty())
+            attributes.add(factory.createAttribute("AccessConsentPolicy", NHIN_NS, attributeValues1));
 
         // Set the Instance Access Consent
         List attributeValues2 = new ArrayList();
-        if (tokenVals.containsKey(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) &&
-                tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) != null) {
-            log.debug("Setting Evidence Instance Access Consent to: " + tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
-            attributeValues2.add(tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
+        if (tokenVals.containsKey(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP)
+                && tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) != null) {
+            log.debug("Setting Evidence Instance Access Consent to: "
+                    + tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
+            attributeValues2.addAll((List<String>) tokenVals.get(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP));
         } else {
             log.debug("No Instance Access Consent found for Evidence");
         }
 
-        attributes.add(factory.createAttribute("InstanceAccessConsentPolicy", NHIN_NS, attributeValues2));
+        if (!attributeValues2.isEmpty())
+            attributes.add(factory.createAttribute("InstanceAccessConsentPolicy", NHIN_NS, attributeValues2));
 
         if (!attributes.isEmpty()) {
             statements.add(factory.createAttributeStatement(attributes));
-        }
+        } else
+            throw new SAMLException(
+                    "At least one AccessConsentPolicy or InstanceAccessConsentPolicy must be provided in the AuthorizationDecisionStatement:Evidence:AttributeStatement");
 
         log.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
         return statements;
     }
 
     /**
-     * Initializes the keystore access using the system properties defined in
-     * the domain.xml javax.net.ssl.keyStore and javax.net.ssl.keyStorePassword
+     * Initializes the keystore access using the system properties defined in the domain.xml javax.net.ssl.keyStore and
+     * javax.net.ssl.keyStorePassword
+     * 
      * @throws java.io.IOException
      */
     private void initKeyStore() throws IOException {
@@ -982,9 +1010,9 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Initializes the truststore access using the system properties defined in
-     * the domain.xml javax.net.ssl.trustStore and
-     * javax.net.ssl.trustStorePassword
+     * Initializes the truststore access using the system properties defined in the domain.xml javax.net.ssl.trustStore
+     * and javax.net.ssl.trustStorePassword
+     * 
      * @throws java.io.IOException
      */
     private void initTrustStore() throws IOException {
@@ -1036,16 +1064,13 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Finds the X509 certificate in the keystore with the client alias as
-     * defined in the domain.xml system property CLIENT_KEY_ALIAS and
-     * establishes the private key on the SignatureKeyCallback request using
-     * this certificate.
+     * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
+     * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
+     * 
      * @param request The SignatureKeyCallback request object
      * @throws java.io.IOException
      */
-    private void getDefaultPrivKeyCert(
-            SignatureKeyCallback.DefaultPrivKeyCertRequest request)
-            throws IOException {
+    private void getDefaultPrivKeyCert(SignatureKeyCallback.DefaultPrivKeyCertRequest request) throws IOException {
         log.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
         String uniqueAlias = null;
         String client_key_alias = System.getProperty("CLIENT_KEY_ALIAS");
@@ -1071,10 +1096,8 @@ public class SamlCallbackHandler implements CallbackHandler {
                         }
                     }
                     if (uniqueAlias != null) {
-                        request.setX509Certificate(
-                                (X509Certificate) keyStore.getCertificate(uniqueAlias));
-                        request.setPrivateKey(
-                                (PrivateKey) keyStore.getKey(uniqueAlias, password.toCharArray()));
+                        request.setX509Certificate((X509Certificate) keyStore.getCertificate(uniqueAlias));
+                        request.setPrivateKey((PrivateKey) keyStore.getKey(uniqueAlias, password.toCharArray()));
                     } else {
                         log.error("Client key alais can not be determined");
                     }
@@ -1103,6 +1126,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Creates a calendar instance set to the current system time in GMT
+     * 
      * @return The calendar instance
      */
     private GregorianCalendar calendarFactory() {

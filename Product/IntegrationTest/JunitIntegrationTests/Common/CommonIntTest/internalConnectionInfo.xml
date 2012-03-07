@@ -9,12 +9,6 @@
 				<description>Service 1 Description</description>
 				<endpointURL>http://www.service1.com</endpointURL>
 				<externalService>true</externalService>
-				<supportsLIFT>true</supportsLIFT>
-				<liftProtocols>
-					<liftProtocol>
-						<name>HTTPS</name>
-					</liftProtocol>
-				</liftProtocols>
 			</service>
 			<service>
 				<name>Service 2 Name</name>
@@ -85,7 +79,6 @@
 				<description>Service 5 Description</description>
 				<endpointURL>http://www.service5.com</endpointURL>
 				<externalService>true</externalService>
-				<supportsLIFT>false</supportsLIFT>
 			</service>
 			<service>
 				<name>Service 6 Name</name>
@@ -104,18 +97,6 @@
 				<name>nhincsubjectdiscovery</name>
 				<description>NHIN-CONNECT Internal Subject Discovery</description>
 				<endpointURL>http://localhost:9080/NhinConnect/NhincSubjectDiscovery</endpointURL>
-				<supportsLIFT>true</supportsLIFT>
-				<liftProtocols>
-					<liftProtocol>
-						<name>HTTPS</name>
-					</liftProtocol>
-					<liftProtocol>
-						<name>FTP</name>
-					</liftProtocol>
-					<liftProtocol>
-						<name>XMPP</name>
-					</liftProtocol>
-				</liftProtocols>
 			</service>
 			<service>
 				<name>nhincdocumentquery</name>

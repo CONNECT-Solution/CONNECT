@@ -1,9 +1,31 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -20,7 +42,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import javax.xml.ws.Service;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class PassthruPatientDiscoveryProxyWebServiceUnsecuredImpl implements PassthruPatientDiscoveryProxy {
@@ -37,63 +59,59 @@ public class PassthruPatientDiscoveryProxyWebServiceUnsecuredImpl implements Pas
     /**
      * Default constructor.
      */
-    public PassthruPatientDiscoveryProxyWebServiceUnsecuredImpl()
-    {
+    public PassthruPatientDiscoveryProxyWebServiceUnsecuredImpl() {
         log = createLogger();
     }
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
-    public PRPAIN201306UV02 PRPAIN201305UV(PRPAIN201305UV02 body, AssertionType assertion, NhinTargetSystemType target) {
+
+    public PRPAIN201306UV02 PRPAIN201305UV(PRPAIN201305UV02 body, AssertionType assertion, NhinTargetSystemType target)
+            throws Exception {
 
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         ProxyPRPAIN201305UVProxyRequestType proxyRequest = new ProxyPRPAIN201305UVProxyRequestType();
 
-        try
-        {
-            if (body != null)
-            {
-                
+        try {
+            if (body != null) {
+
                 proxyRequest.setPRPAIN201305UV02(body);
                 proxyRequest.setAssertion(assertion);
                 proxyRequest.setNhinTargetSystem(target);
 
                 log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME);
-                log.debug("After target system URL look up. URL for service: " + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
+                url = oProxyHelper
+                        .getUrlLocalHomeCommunity(NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME);
+                log.debug("After target system URL look up. URL for service: "
+                        + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
 
-                if (NullChecker.isNotNullish(url))
-                {
-                    NhincProxyPatientDiscoveryPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
-                    response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, NhincProxyPatientDiscoveryPortType.class, "proxyPRPAIN201305UV", proxyRequest);
+                if (NullChecker.isNotNullish(url)) {
+                    NhincProxyPatientDiscoveryPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION,
+                            WS_ADDRESSING_ACTION, assertion);
+                    response = (PRPAIN201306UV02) oProxyHelper.invokePort(port,
+                            NhincProxyPatientDiscoveryPortType.class, "proxyPRPAIN201305UV", proxyRequest);
+                } else {
+                    log.error("Failed to call the web service ("
+                            + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME + ").  The URL is null.");
                 }
-                else
-                {
-                    log.error("Failed to call the web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME + ").  The URL is null.");
-                    response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(proxyRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE,
-                            "Web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME + ") URL is null");
-                }
+            } else {
+                log.error("Failed to call the web service ("
+                        + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME
+                        + ").  The input parameter is null.");
             }
-            else
-            {
-                log.error("Failed to call the web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME + ").  The input parameter is null.");
-                response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(proxyRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE,
-                        "Did not call the web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME + ").  The body of the message was null.");
-            }
-        }
-        catch (Exception e)
-        {
-            log.error("Failed to call the web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME + ").  An unexpected exception occurred.  " +
-                      "Exception: " + e.getMessage(), e);
-            response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(proxyRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE, e.getCause().getLocalizedMessage());
+        } catch (Exception e) {
+            log.error("Failed to call the web service (" + NhincConstants.NHINC_PASSTHRU_PATIENT_DISCOVERY_SERVICE_NAME
+                    + ").  An unexpected exception occurred.  " + "Exception: " + e.getMessage(), e);
+            // response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(proxyRequest.getPRPAIN201305UV02(),
+            // NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+            throw e;
         }
 
         return response;
@@ -101,19 +119,14 @@ public class PassthruPatientDiscoveryProxyWebServiceUnsecuredImpl implements Pas
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
-    protected Service getService()
-    {
-        if (cachedService == null)
-        {
-            try
-            {
+    protected Service getService() {
+        if (cachedService == null) {
+            try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            }
-            catch (Throwable t)
-            {
+            } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
@@ -122,26 +135,24 @@ public class PassthruPatientDiscoveryProxyWebServiceUnsecuredImpl implements Pas
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @param serviceAction The action for the web service.
      * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected NhincProxyPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction, AssertionType assertion)
-    {
+    protected NhincProxyPatientDiscoveryPortType getPort(String url, String serviceAction, String wsAddressingAction,
+            AssertionType assertion) {
         NhincProxyPatientDiscoveryPortType port = null;
         Service service = getService();
-        if (service != null)
-        {
+        if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyPatientDiscoveryPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        }
-        else
-        {
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+        } else {
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;

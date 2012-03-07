@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
@@ -36,7 +56,7 @@ import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType;
 
 /**
- *
+ * 
  * @author MFLYNN02
  */
 public class DocumentQueryTransforms {
@@ -67,7 +87,8 @@ public class DocumentQueryTransforms {
      * @param responseCommunityID
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformDocQueryReq2AuditMsg(LogAdhocQueryRequestType message, String responseCommunityID) {
+    public LogEventRequestType transformDocQueryReq2AuditMsg(LogAdhocQueryRequestType message,
+            String responseCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
         response.setDirection(message.getDirection());
@@ -79,54 +100,61 @@ public class DocumentQueryTransforms {
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
-        if (message != null &&
-                message.getMessage() != null &&
-                message.getMessage().getAssertion() != null &&
-                message.getMessage().getAssertion().getUserInfo() != null) {
+        if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
+                && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
         }
 
-
         // Create Event Identification Section
-        // TODO: Determine what to do with Event Code and Event Code System (either auto-generate or map in AdhocQueryRequest
-        CodedValueType eventId = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_DOCQUERY, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCQUERY);
-        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.EVENT_TYPE_CODE_DOCQUERY, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY_DISPNAME, AuditDataTransformConstants.EVENT_TYPE_CODE_DOCQUERY_DISPNAME);
+        // TODO: Determine what to do with Event Code and Event Code System (either auto-generate or map in
+        // AdhocQueryRequest
+        CodedValueType eventId = AuditDataTransformHelper.createEventId(
+                AuditDataTransformConstants.EVENT_ID_CODE_DOCQUERY,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCQUERY);
+        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(
+                AuditDataTransformConstants.EVENT_TYPE_CODE_DOCQUERY,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY_DISPNAME,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_DOCQUERY_DISPNAME);
 
-        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
+        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(
+                AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE,
+                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
         auditMsg.setEventIdentification(eventIdentification);
 
         eventIdentification.getEventTypeCode().add(eventTypeCode);
 
         // Create Active Participant Section
         if (userInfo != null) {
-            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(userInfo, true);
+            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                    userInfo, true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
         // Create Audit Source Identification Section
         AuditSourceIdentificationType auditSrcId = null;
         if (responseCommunityID != null) {
-            auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(responseCommunityID, responseCommunityID);
+            auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(responseCommunityID,
+                    responseCommunityID);
         } else {
             auditSrcId = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(userInfo);
         }
-        
+
         auditMsg.getAuditSourceIdentification().add(auditSrcId);
 
         String patientId = "";
-        if (message != null &&
-                message.getMessage() != null &&
-                message.getMessage().getAdhocQueryRequest() != null &&
-                message.getMessage().getAdhocQueryRequest().getAdhocQuery() != null &&
-                message.getMessage().getAdhocQueryRequest().getAdhocQuery().getSlot() != null &&
-                message.getMessage().getAdhocQueryRequest().getAdhocQuery().getSlot().size() > 0) {
+        if (message != null && message.getMessage() != null && message.getMessage().getAdhocQueryRequest() != null
+                && message.getMessage().getAdhocQueryRequest().getAdhocQuery() != null
+                && message.getMessage().getAdhocQueryRequest().getAdhocQuery().getSlot() != null
+                && message.getMessage().getAdhocQueryRequest().getAdhocQuery().getSlot().size() > 0) {
             List<SlotType1> slotItemsList = message.getMessage().getAdhocQueryRequest().getAdhocQuery().getSlot();
             for (SlotType1 slotItem : slotItemsList) {
                 if (slotItem != null) {
                     if (PATIENT_ID_SLOT.equals(slotItem.getName())) {
-                        if (slotItem.getValueList() != null &&
-                                slotItem.getValueList().getValue() != null &&
-                                slotItem.getValueList().getValue().size() > 0) {
+                        if (slotItem.getValueList() != null && slotItem.getValueList().getValue() != null
+                                && slotItem.getValueList().getValue().size() > 0) {
                             patientId = slotItem.getValueList().getValue().get(0);
                             break;
                         }
@@ -136,7 +164,8 @@ public class DocumentQueryTransforms {
         }
 
         // Create Participation Object Identification Section
-        ParticipantObjectIdentificationType partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
+        ParticipantObjectIdentificationType partObjId = AuditDataTransformHelper
+                .createParticipantObjectIdentification(patientId);
 
         // Fill in the message field with the contents of the event message
         try {
@@ -164,7 +193,7 @@ public class DocumentQueryTransforms {
     }
 
     /**
-     *
+     * 
      * @param message
      * @return <code>LogEventRequestType</code>
      */
@@ -173,12 +202,13 @@ public class DocumentQueryTransforms {
     }
 
     /**
-     *
+     * 
      * @param message
      * @param requestCommunityID
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformDocQueryResp2AuditMsg(LogAdhocQueryResultRequestType message, String requestCommunityID) {
+    public LogEventRequestType transformDocQueryResp2AuditMsg(LogAdhocQueryResultRequestType message,
+            String requestCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
         response.setDirection(message.getDirection());
@@ -190,92 +220,103 @@ public class DocumentQueryTransforms {
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
-        if (message != null &&
-                message.getMessage() != null &&
-                message.getMessage().getAssertion() != null &&
-                message.getMessage().getAssertion().getUserInfo() != null) {
+        if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
+                && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
             log.info("***** ASSERTION UserInfo UserName contains: " + userInfo.getUserName() + " *****");
-            log.info("***** ASSERTION UserInfo Org HomeCommunityId contains: " + userInfo.getOrg().getHomeCommunityId() + " *****");
+            log.info("***** ASSERTION UserInfo Org HomeCommunityId contains: " + userInfo.getOrg().getHomeCommunityId()
+                    + " *****");
         } else {
             log.info("***** ASSERTION IS NULL *****");
         }
 
         // Create Event Identification Section
         // TODO: Figure out what to do with Event Code and Event Code System
-        CodedValueType eventId = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_DOCQUERY, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCQUERY);
-        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.EVENT_TYPE_CODE_DOCQUERY, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY_DISPNAME, AuditDataTransformConstants.EVENT_TYPE_CODE_DOCQUERY_DISPNAME);
+        CodedValueType eventId = AuditDataTransformHelper.createEventId(
+                AuditDataTransformConstants.EVENT_ID_CODE_DOCQUERY,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCQUERY);
+        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(
+                AuditDataTransformConstants.EVENT_TYPE_CODE_DOCQUERY,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY_DISPNAME,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_DOCQUERY_DISPNAME);
 
-        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
+        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(
+                AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE,
+                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
         auditMsg.setEventIdentification(eventIdentification);
 
         eventIdentification.getEventTypeCode().add(eventTypeCode);
 
         // Create Active Participant Section
         if (userInfo != null) {
-            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(userInfo, true);
+            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                    userInfo, true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
-        if ((message != null) &&
-                (message.getMessage() != null) &&
-                (message.getMessage().getAdhocQueryResponse() != null) &&
-                (message.getMessage().getAdhocQueryResponse().getRegistryObjectList() != null) &&
-                (message.getMessage().getAdhocQueryResponse().getRegistryObjectList().getIdentifiable() != null) &&
-                (message.getMessage().getAdhocQueryResponse().getRegistryObjectList().getIdentifiable().size() > 0)) {
+        if ((message != null) && (message.getMessage() != null)
+                && (message.getMessage().getAdhocQueryResponse() != null)
+                && (message.getMessage().getAdhocQueryResponse().getRegistryObjectList() != null)
+                && (message.getMessage().getAdhocQueryResponse().getRegistryObjectList().getIdentifiable() != null)
+                && (message.getMessage().getAdhocQueryResponse().getRegistryObjectList().getIdentifiable().size() > 0)) {
             // Create Audit Source Identification Section
-            List<JAXBElement<? extends IdentifiableType>> objList = message.getMessage().getAdhocQueryResponse().getRegistryObjectList().getIdentifiable();
+            List<JAXBElement<? extends IdentifiableType>> objList = message.getMessage().getAdhocQueryResponse()
+                    .getRegistryObjectList().getIdentifiable();
             ExtrinsicObjectType oExtObj = null;
             ObjectRefType oObjRef = null;
 
-            // Look for the first ExtrinsicObject type..  We will use that one to extract the data.
-            //-------------------------------------------------------------------------------------
+            // Look for the first ExtrinsicObject type.. We will use that one to extract the data.
+            // -------------------------------------------------------------------------------------
             for (int i = 0; i < objList.size(); i++) {
                 JAXBElement<? extends IdentifiableType> oJAXBObj = objList.get(i);
 
-                if ((oJAXBObj != null) &&
-                        (oJAXBObj.getDeclaredType() != null) &&
-                        (oJAXBObj.getDeclaredType().getCanonicalName() != null) &&
-                        (oJAXBObj.getDeclaredType().getCanonicalName().equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")) &&
-                        (oJAXBObj.getValue() != null)) {
+                if ((oJAXBObj != null)
+                        && (oJAXBObj.getDeclaredType() != null)
+                        && (oJAXBObj.getDeclaredType().getCanonicalName() != null)
+                        && (oJAXBObj.getDeclaredType().getCanonicalName()
+                                .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"))
+                        && (oJAXBObj.getValue() != null)) {
                     oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
-                    break;          // We have what we want let's get out of here...
-                } else if ((oJAXBObj != null) &&
-                        (oJAXBObj.getDeclaredType() != null) &&
-                        (oJAXBObj.getDeclaredType().getCanonicalName() != null) &&
-                        (oJAXBObj.getDeclaredType().getCanonicalName().equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType")) &&
-                        (oJAXBObj.getValue() != null)) {
+                    break; // We have what we want let's get out of here...
+                } else if ((oJAXBObj != null)
+                        && (oJAXBObj.getDeclaredType() != null)
+                        && (oJAXBObj.getDeclaredType().getCanonicalName() != null)
+                        && (oJAXBObj.getDeclaredType().getCanonicalName()
+                                .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType"))
+                        && (oJAXBObj.getValue() != null)) {
                     oObjRef = (ObjectRefType) oJAXBObj.getValue();
-                    break;          // We have what we want let's get out of here...
+                    break; // We have what we want let's get out of here...
                 }
 
-            }   //for (int i = 0; i < objList.size(); i++)
+            } // for (int i = 0; i < objList.size(); i++)
 
-            // Home Community ID                      
-            //-------------------
+            // Home Community ID
+            // -------------------
             String communityId = null;
             if (requestCommunityID != null) {
                 communityId = requestCommunityID;
-                log.debug("=====>>>>> Create Audit Source Identification Section --> requestCommunityID is [" + requestCommunityID + "]");
-            } else if ((oExtObj != null) &&
-                    (oExtObj.getHome() != null) &&
-                    (oExtObj.getHome().length() > 0)) {
+                log.debug("=====>>>>> Create Audit Source Identification Section --> requestCommunityID is ["
+                        + requestCommunityID + "]");
+            } else if ((oExtObj != null) && (oExtObj.getHome() != null) && (oExtObj.getHome().length() > 0)) {
                 communityId = oExtObj.getHome();
             } else if ((oObjRef != null) && (NullChecker.isNotNullish(oObjRef.getHome()))) {
                 communityId = oObjRef.getHome();
             }
             if (communityId != null) {
-                AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityId);
+                AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(
+                        communityId, communityId);
                 auditMsg.getAuditSourceIdentification().add(auditSrcId);
             }
 
             // Patient ID
-            //------------
+            // ------------
             ParticipantObjectIdentificationType partObjId = new ParticipantObjectIdentificationType();
             String documentId = "";
-            if (oExtObj != null &&
-                    oExtObj.getExternalIdentifier() != null &&
-                    oExtObj.getExternalIdentifier().size() > 0) {
+            if (oExtObj != null && oExtObj.getExternalIdentifier() != null
+                    && oExtObj.getExternalIdentifier().size() > 0) {
                 documentId = oExtObj.getExternalIdentifier().get(0).getValue();
             }
             if (userInfo != null) {
@@ -308,18 +349,20 @@ public class DocumentQueryTransforms {
     }
 
     /**
-     *
+     * 
      * @param acknowledgement
      * @param assertion
      * @param direction
      * @param _interface
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformAcknowledgementToAuditMsg(DocQueryAcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface) {
-        return transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction, _interface,null);
+    public LogEventRequestType transformAcknowledgementToAuditMsg(DocQueryAcknowledgementType acknowledgement,
+            AssertionType assertion, String direction, String _interface) {
+        return transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction, _interface, null);
     }
+
     /**
-     *
+     * 
      * @param acknowledgement
      * @param assertion
      * @param direction
@@ -327,7 +370,8 @@ public class DocumentQueryTransforms {
      * @param action
      * @return <code>LogEventRequestType</code>
      */
-    public LogEventRequestType transformAcknowledgementToAuditMsg(DocQueryAcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface,String requestCommunityID) {
+    public LogEventRequestType transformAcknowledgementToAuditMsg(DocQueryAcknowledgementType acknowledgement,
+            AssertionType assertion, String direction, String _interface, String requestCommunityID) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
@@ -345,26 +389,37 @@ public class DocumentQueryTransforms {
 
         auditMsg = new AuditMessageType();
         // Create EventIdentification
-        CodedValueType eventId = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_DOCQUERY, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCQUERY);
-        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.EVENT_TYPE_CODE_DOCQUERY, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY_DISPNAME, AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE_DISPNAME);
-        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_READ, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
+        CodedValueType eventId = AuditDataTransformHelper.createEventId(
+                AuditDataTransformConstants.EVENT_ID_CODE_DOCQUERY,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCQUERY);
+        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(
+                AuditDataTransformConstants.EVENT_TYPE_CODE_DOCQUERY,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCQUERY_DISPNAME,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE_DISPNAME);
+        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(
+                AuditDataTransformConstants.EVENT_ACTION_CODE_READ,
+                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
         auditMsg.setEventIdentification(eventIdentification);
         eventIdentification.getEventTypeCode().add(eventTypeCode);
         auditMsg.setEventIdentification(eventIdentification);
 
         // Create Active Participant Section
         if (assertion.getUserInfo() != null) {
-            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(assertion.getUserInfo(), true);
+            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                    assertion.getUserInfo(), true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
         /* Assign ParticipationObjectIdentification */
         // Create Participation Object Identification Section
         ParticipantObjectIdentificationType partObjId = new ParticipantObjectIdentificationType();
-        if (assertion.getUniquePatientId() != null &&
-                assertion.getUniquePatientId().size() > 0 &&
-                assertion.getUniquePatientId().get(0) != null) {
-            partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(assertion.getUniquePatientId().get(0));
+        if (assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0
+                && assertion.getUniquePatientId().get(0) != null) {
+            partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(assertion.getUniquePatientId()
+                    .get(0));
         }
 
         // Put the contents of the actual message into the Audit Log Message
@@ -375,13 +430,14 @@ public class DocumentQueryTransforms {
         auditMsg.getParticipantObjectIdentification().add(partObjId);
 
         /* Create the AuditSourceIdentifierType object */
-        
+
         // Home Community ID
-        //-------------------
+        // -------------------
         /* Create the AuditSourceIdentifierType object */
         AuditSourceIdentificationType auditSource = null;
         if (requestCommunityID != null) {
-            auditSource = AuditDataTransformHelper.createAuditSourceIdentification(requestCommunityID, requestCommunityID);
+            auditSource = AuditDataTransformHelper.createAuditSourceIdentification(requestCommunityID,
+                    requestCommunityID);
         } else {
             auditSource = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(assertion.getUserInfo());
         }
@@ -395,12 +451,13 @@ public class DocumentQueryTransforms {
     }
 
     /**
-     *
+     * 
      * @param baOutStrm
      * @param acknowledgement
      * @throws RuntimeException
      */
-    private void marshalAcknowledgement(ByteArrayOutputStream baOutStrm, DocQueryAcknowledgementType acknowledgement) throws RuntimeException {
+    private void marshalAcknowledgement(ByteArrayOutputStream baOutStrm, DocQueryAcknowledgementType acknowledgement)
+            throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -408,10 +465,12 @@ public class DocumentQueryTransforms {
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("http://www.hhs.gov/healthit/nhin", "DocQueryAcknowledgementType");
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("http://www.hhs.gov/healthit/nhin",
+                    "DocQueryAcknowledgementType");
             JAXBElement<DocQueryAcknowledgementType> element;
 
-            element = new JAXBElement<DocQueryAcknowledgementType>(xmlqname, DocQueryAcknowledgementType.class, acknowledgement);
+            element = new JAXBElement<DocQueryAcknowledgementType>(xmlqname, DocQueryAcknowledgementType.class,
+                    acknowledgement);
 
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the message.");

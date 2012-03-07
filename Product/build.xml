@@ -11,6 +11,7 @@
   </condition>
 
   <target name="ci" depends="clean, dist, unittest.run, checkstyle.style"/>
+  <target name="dev.ci" depends="quick.clean, quick.package.create, unittest.run, checkstyle.style"/>
 
   <target name="coverage.bless" description="Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.">
     <var name="do-to-target" value="coverage.bless" />
@@ -22,18 +23,40 @@
     <antcall target="do-to-projects" />
   </target>
 
-  <target name="package.create" description="Create the jar|war|ear for all projects: run ant help for more info...">
-    <var name="do-to-target" value="just.package.create" />
+  <target name="quick.source.compile">
+    <var name="do-to-target" value="just.quick.source.compile" />
     <antcall target="do-to-projects" />
   </target>
 
-  <target name="clean" description="Clean all projects: run ant help for more info...">
-    <call target="ivy.clean.project.cache" />
+  <target name="package.create" description="Create the jar|war|ear for all projects: run ant help for more info..." depends="check.project.count">
+    <var name="do-to-target" value="just.package.create" />
+    <antcall target="do-to-projects" />
+  </target>
+  
+  <target name="quick.package.create">
+    <var name="do-to-target" value="just.quick.package.create" />
+    <antcall target="do-to-projects" />
+  </target>
+
+  <target name="clean" description="Clean all projects: run ant help for more info..." depends="clean.ivy.cache, quick.clean">
     <call target="junit.clean" />
     <call target="coverage.clean" />
     <call target="checkstyle.clean" />
     <var name="do-to-target" value="just.clean" />
     <antcall target="do-to-projects" />
+  </target>
+  
+  <target name="quick.clean">
+    <property name="skip.ivy.clean" value="true"/>
+    <call target="junit.clean" />
+    <call target="coverage.clean" />
+    <call target="checkstyle.clean" />
+    <var name="do-to-target" value="just.quick.clean" />
+    <antcall target="do-to-projects" />
+  </target>
+
+  <target name="clean.ivy.cache" unless="skip.ivy.clean">
+    <call target="ivy.clean.project.cache" />
   </target>
 
   <target name="just.clean"  description="please call clean, at the Product level clean now works like just.clean worked...">
@@ -77,7 +100,8 @@
   <target name="copy.deployable.artifacts">
     <delete dir="${deployment.binaries.dir}"/>
     <mkdir dir="${deployment.binaries.dir}"/>
-	<mkdir dir="${deployment.dir}/Install"/>
+	<delete dir="${deployment.dir}/ValidationSuite"/>
+	<mkdir dir="${deployment.dir}/ValidationSuite"/>
 	
     <runtarget target="create.deploy.list.xml"/>
 
@@ -89,10 +113,8 @@
       <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src"/>
     </copy>
 	
-	 <copy todir="${deployment.dir}/Install" verbose="true" overwrite="true">
-      <fileset dir="${root.project.directory.path}/Install">
-		<include name="SetValidationSuiteWsdlPath.jar"/>
-	  </fileset>
+	<copy todir="${deployment.dir}/ValidationSuite" verbose="true" overwrite="true">
+	  <fileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" />
     </copy>
 
     <var name="do-to-target" value="copy.deployable.artifacts"/>
@@ -197,7 +219,8 @@
     <var name="do-to-target" value="just.unittest.run" />
     <antcall target="do-to-projects" />
     <call target="-unittest.product.check"/>
-    <call target="-coverage.product.check"/>
+    <!-- all coverage-related checks should be re-enabled when GATEWAY-1303 is resolved -->
+    <!--call target="-coverage.product.check"/-->
   </target>
 
   <target name="copyright.add" description="Clean all projects: run ant help for more info...">
@@ -255,32 +278,70 @@
       redeploy - calls undeploy the deploy.
     </echo>
   </target>
-
-  <target name="do-to-projects" description="calls the target specified in the property do-to-target on all the projects.">
-    <property name="project.count" value="0" />
+  
+  <target name="check.project.count">
+    <var name="project.count" value="0" />
+    <var name="to.build.count" value="0" />
     <xmltask source="${basedir}/projects.xml">
       <call path="/projects/project">
+		<param name="should.build" path="should.build/text()" />
         <actions>
+          <if>
+            <istrue value="@{should.build}"/>
+            <then>
+              <math result="to.build.count" operand1="${to.build.count}" operation="+" operand2="1" datatype="int" />
+            </then>
+          </if>
           <math result="project.count" operand1="${project.count}" operation="+" operand2="1" datatype="int" />
         </actions>
       </call>
     </xmltask>
+    <script language="javascript"><![CDATA[
+		var projectcount = parseInt(project.getProperty('project.count'));
+		var tobuildcount = parseInt(project.getProperty('to.build.count'));
+		project.setProperty('project.count.greater.than.zero', projectcount > 1);
+		project.setProperty('to.build.count.greater.than.zero', tobuildcount > 0);
+	  ]]>
+	</script>
+		<echo message="project.count =${project.count}=."/>
+		<echo message="to.build.count =${to.build.count}=."/>
+	<if>
+	    <and>
+	      <istrue value="${project.count.greater.than.zero}"/>
+	      <istrue value="${to.build.count.greater.than.zero}"/>
+	    </and>
+	  <then>
+		<echo message="project.count =${project.count}=."/>
+		<echo message="to.build.count =${to.build.count}=."/>
+	  </then>
+	  <else>
+		<fail message="No projects to build."/>
+	  </else>
+	</if>
+  </target>
 
-    <property name="current.project.count" value="0" />
-    <xmltask source="${basedir}/projects.xml">
-      <call path="/projects/project">
-        <param name="project.name" path="name/text()" />
-        <param name="project.directory" path="directory/text()" />
+  <target name="do-to-projects" depends="check.project.count" description="calls the target specified in the property do-to-target on all the projects.">    
+	<property name="current.project.count" value="0" />
+	<xmltask source="${basedir}/projects.xml">
+	  <call path="/projects/project">
+		<param name="project.name" path="name/text()" />
+		<param name="project.directory" path="directory/text()" />
+		<param name="should.build" path="should.build/text()" />
         <actions>
-          <math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
-          <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" level="info"/>
-          <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" level="info"/>
-          <project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}"/>
-          <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" level="info"/>
-          <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" level="info"/>
-        </actions>
-      </call>
-    </xmltask>
+          <if>
+            <istrue value="@{should.build}"/>
+            <then>
+			  <math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
+			  <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
+			  <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
+			  <project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}"/>
+			  <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
+			  <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
+			</then>
+		  </if>
+		</actions>
+	  </call>
+	</xmltask>
   </target>
 
 </project>

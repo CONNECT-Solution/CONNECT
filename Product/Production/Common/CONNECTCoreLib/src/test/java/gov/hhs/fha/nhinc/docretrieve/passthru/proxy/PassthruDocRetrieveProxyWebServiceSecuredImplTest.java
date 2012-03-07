@@ -1,3 +1,29 @@
+/*
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ */
 package gov.hhs.fha.nhinc.docretrieve.passthru.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -19,14 +45,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 @RunWith(JMock.class)
-public class PassthruDocRetrieveProxyWebServiceSecuredImplTest
-{
-    Mockery context = new JUnit4Mockery()
-    {
+public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
+    Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
@@ -40,28 +64,22 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest
     final WebServiceProxyHelper mockWebServiceProxyHelper = context.mock(WebServiceProxyHelper.class);
 
     @Test
-    public void testCreateLogger()
-    {
-        try
-        {
-            PassthruDocRetrieveProxyWebServiceSecuredImpl sut = new PassthruDocRetrieveProxyWebServiceSecuredImpl()
-            {
+    public void testCreateLogger() {
+        try {
+            PassthruDocRetrieveProxyWebServiceSecuredImpl sut = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
             };
             Log log = sut.createLogger();
             assertNotNull("Log was null", log);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateLogger test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateLogger test: " + t.getMessage());
@@ -69,28 +87,22 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest
     }
 
     @Test
-    public void testCreateWebServiceProxyHelper()
-    {
-        try
-        {
-            PassthruDocRetrieveProxyWebServiceSecuredImpl sut = new PassthruDocRetrieveProxyWebServiceSecuredImpl()
-            {
+    public void testCreateWebServiceProxyHelper() {
+        try {
+            PassthruDocRetrieveProxyWebServiceSecuredImpl sut = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
             };
             WebServiceProxyHelper wsProxyHelper = sut.createWebServiceProxyHelper();
             assertNotNull("WebServiceProxyHelper was null", wsProxyHelper);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testCreateWebServiceProxyHelper test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testCreateWebServiceProxyHelper test: " + t.getMessage());
@@ -98,30 +110,25 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest
     }
 
     @Test
-    public void testGetPortNullService()
-    {
-        try
-        {
-            PassthruDocRetrieveProxyWebServiceSecuredImpl sut = new PassthruDocRetrieveProxyWebServiceSecuredImpl()
-            {
+    public void testGetPortNullService() {
+        try {
+            PassthruDocRetrieveProxyWebServiceSecuredImpl sut = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
+
                 @Override
-                protected Service getService()
-                {
+                protected Service getService() {
                     return null;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockLog).error("Unable to obtain serivce - no port created.");
@@ -131,9 +138,7 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest
             String wsAddressingAction = "";
             NhincProxyDocRetrieveSecuredPortType port = sut.getPort(url, wsAddressingAction, mockAssertion);
             assertNull("Port was not null", port);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testGetPortNullService test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testGetPortNullService test: " + t.getMessage());
@@ -141,60 +146,53 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest
     }
 
     @Test
-    public void testRespondingGatewayCrossGatewayRetrieveHappy()
-    {
-        try
-        {
+    public void testRespondingGatewayCrossGatewayRetrieveHappy() {
+        try {
             final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
-            final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper()
-            {
+            final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                public String getUrlLocalHomeCommunity(String serviceName)
-                {
+                public String getUrlLocalHomeCommunity(String serviceName) {
                     return "url";
                 }
+
                 @Override
                 public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-                    throws Exception
-                {
+                        throws Exception {
                     return mockResponse;
                 }
             };
-            PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl()
-            {
+            PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
                 }
+
                 @Override
-                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-                {
+                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction,
+                        AssertionType assertion) {
                     return mockPort;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
-            RetrieveDocumentSetResponseType response = webProxy.respondingGatewayCrossGatewayRetrieve(mockDockRetrieveRequest, mockAssertion, mockTargetSystem);
+            RetrieveDocumentSetResponseType response = webProxy.respondingGatewayCrossGatewayRetrieve(
+                    mockDockRetrieveRequest, mockAssertion, mockTargetSystem);
             assertNotNull("RetrieveDocumentSetResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayCrossGatewayRetrieveHappy test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayCrossGatewayRetrieveHappy test: " + t.getMessage());
@@ -202,178 +200,166 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest
     }
 
     @Test
-    public void testRespondingGatewayCrossGatewayRetrieveNullUrl()
-    {
-        try
-        {
-            final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper()
-            {
+    public void testRespondingGatewayCrossGatewayRetrieveNullUrl() {
+        try {
+            final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                public String getUrlLocalHomeCommunity(String serviceName)
-                {
+                public String getUrlLocalHomeCommunity(String serviceName) {
                     return null;
                 }
             };
-            PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl()
-            {
+            PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
                 }
+
                 @Override
-                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-                {
+                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction,
+                        AssertionType assertion) {
                     return mockPort;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockLog).error("Failed to call the web service (" + NhincConstants.NHINC_PROXY_DOC_RETRIEVE_SECURED_SERVICE_NAME + ").  The URL is null.");
+                    oneOf(mockLog).error(
+                            "Failed to call the web service ("
+                                    + NhincConstants.NHINC_PROXY_DOC_RETRIEVE_SECURED_SERVICE_NAME
+                                    + ").  The URL is null.");
                 }
             });
-            RetrieveDocumentSetResponseType response = webProxy.respondingGatewayCrossGatewayRetrieve(mockDockRetrieveRequest, mockAssertion, mockTargetSystem);
+            RetrieveDocumentSetResponseType response = webProxy.respondingGatewayCrossGatewayRetrieve(
+                    mockDockRetrieveRequest, mockAssertion, mockTargetSystem);
             assertNull("RetrieveDocumentSetResponseType was not null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testRespondingGatewayCrossGatewayRetrieveNullUrl test: " + t.getMessage());
+        } catch (Throwable t) {
+            System.out
+                    .println("Error running testRespondingGatewayCrossGatewayRetrieveNullUrl test: " + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayCrossGatewayRetrieveNullUrl test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testRespondingGatewayCrossGatewayRetrieveNullRequest()
-    {
-        try
-        {
+    public void testRespondingGatewayCrossGatewayRetrieveNullRequest() {
+        try {
             final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
-            final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper()
-            {
+            final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                public String getUrlLocalHomeCommunity(String serviceName)
-                {
+                public String getUrlLocalHomeCommunity(String serviceName) {
                     return "url";
                 }
+
                 @Override
                 public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-                    throws Exception
-                {
+                        throws Exception {
                     return mockResponse;
                 }
             };
-            PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl()
-            {
+            PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
                 }
+
                 @Override
-                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-                {
+                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction,
+                        AssertionType assertion) {
                     return mockPort;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
-            RetrieveDocumentSetResponseType response = webProxy.respondingGatewayCrossGatewayRetrieve(null, mockAssertion, mockTargetSystem);
+            RetrieveDocumentSetResponseType response = webProxy.respondingGatewayCrossGatewayRetrieve(null,
+                    mockAssertion, mockTargetSystem);
             assertNotNull("RetrieveDocumentSetResponseType was null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testRespondingGatewayCrossGatewayRetrieveNullRequest test: " + t.getMessage());
+        } catch (Throwable t) {
+            System.out.println("Error running testRespondingGatewayCrossGatewayRetrieveNullRequest test: "
+                    + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayCrossGatewayRetrieveNullRequest test: " + t.getMessage());
         }
     }
 
     @Test
-    public void testRespondingGatewayCrossGatewayRetrieveException()
-    {
-        try
-        {
-            final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper()
-            {
+    public void testRespondingGatewayCrossGatewayRetrieveException() {
+        try {
+            final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                public String getUrlLocalHomeCommunity(String serviceName)
-                {
+                public String getUrlLocalHomeCommunity(String serviceName) {
                     return "url";
                 }
+
                 @Override
                 public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-                    throws Exception
-                {
+                        throws Exception {
                     throw new IllegalArgumentException("Thrown Exception");
                 }
             };
-            PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl()
-            {
+            PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
                 @Override
-                protected Log createLogger()
-                {
+                protected Log createLogger() {
                     return mockLog;
                 }
+
                 @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper()
-                {
+                protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
                 }
+
                 @Override
-                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction, AssertionType assertion)
-                {
+                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction,
+                        AssertionType assertion) {
                     return mockPort;
                 }
             };
-            context.checking(new Expectations()
-            {
+            context.checking(new Expectations() {
                 {
                     allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockLog).error("Error: Failed to retrieve url for service: " + NhincConstants.NHINC_PROXY_DOC_RETRIEVE_SECURED_SERVICE_NAME + " for local home community");
+                    oneOf(mockLog).error(
+                            "Error: Failed to retrieve url for service: "
+                                    + NhincConstants.NHINC_PROXY_DOC_RETRIEVE_SECURED_SERVICE_NAME
+                                    + " for local home community");
                     oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(IllegalArgumentException.class)));
                 }
             });
-            RetrieveDocumentSetResponseType response = webProxy.respondingGatewayCrossGatewayRetrieve(mockDockRetrieveRequest, mockAssertion, mockTargetSystem);
+            RetrieveDocumentSetResponseType response = webProxy.respondingGatewayCrossGatewayRetrieve(
+                    mockDockRetrieveRequest, mockAssertion, mockTargetSystem);
             assertNull("RetrieveDocumentSetResponseType was not null", response);
-        }
-        catch(Throwable t)
-        {
-            System.out.println("Error running testRespondingGatewayCrossGatewayRetrieveException test: " + t.getMessage());
+        } catch (Throwable t) {
+            System.out.println("Error running testRespondingGatewayCrossGatewayRetrieveException test: "
+                    + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayCrossGatewayRetrieveException test: " + t.getMessage());
         }

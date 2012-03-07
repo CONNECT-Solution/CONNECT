@@ -1,8 +1,29 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import java.util.List;
@@ -39,7 +60,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class HL7PatientTransformsTest {
@@ -53,7 +74,7 @@ public class HL7PatientTransformsTest {
     private String ssn = "123456789";
     private String patId = "1234";
     private String phoneNumber = "7031231234";
-    
+
     public HL7PatientTransformsTest() {
     }
 
@@ -81,6 +102,7 @@ public class HL7PatientTransformsTest {
         PRPAMT201301UV02Patient result = HL7PatientTransforms.createPRPAMT201301UVPatient(patient);
         assertEquals(expResult, result);
     }
+
     @Test
     public void testcreatePRPAMT201301UVPatient_addr() {
         System.out.println("testcreatePRPAMT201301UVPatient_addr");
@@ -96,10 +118,11 @@ public class HL7PatientTransformsTest {
         ADExplicit addr = HL7DataTransformHelper.CreateADExplicit(street, city, state, zip);
 
         patient.getAddr().add(addr);
-        
+
         PRPAMT201301UV02Patient result = HL7PatientTransforms.createPRPAMT201301UVPatient(patient);
         assertEquals(addr, result.getAddr().get(0));
     }
+
     @Test
     public void testcreatePRPAMT201301UVPatient_phone() {
         System.out.println("testcreatePRPAMT201301UVPatient_phone");
@@ -108,13 +131,13 @@ public class HL7PatientTransformsTest {
         String phoneNumber = "7031231234";
         patient = new PRPAMT201302UV02Patient();
 
-        
         TELExplicit phone = HL7DataTransformHelper.createTELExplicit(phoneNumber);
         patient.getTelecom().add(phone);
 
         PRPAMT201301UV02Patient result = HL7PatientTransforms.createPRPAMT201301UVPatient(patient);
         assertEquals(phone, result.getTelecom().get(0));
     }
+
     @Test
     public void testcreatePRPAMT201301UVPatient_phoneMulti() {
         System.out.println("testcreatePRPAMT201301UVPatient_phoneMulti");
@@ -124,10 +147,9 @@ public class HL7PatientTransformsTest {
         String phoneNumber2 = "2021231234";
         patient = new PRPAMT201302UV02Patient();
 
-
         TELExplicit phone = HL7DataTransformHelper.createTELExplicit(phoneNumber);
         TELExplicit phone2 = HL7DataTransformHelper.createTELExplicit(phoneNumber2);
-        
+
         patient.getTelecom().add(phone);
         patient.getTelecom().add(phone2);
 
@@ -137,16 +159,16 @@ public class HL7PatientTransformsTest {
         assertEquals(phone, result.getTelecom().get(0));
         assertEquals(phone2, result.getTelecom().get(1));
     }
+
     @Test
     public void testcreatePRPAMT201301UVPatient_Gender() {
         System.out.println("testcreatePRPAMT201301UVPatient_Gender");
         PRPAMT201302UV02Patient patient = null;
         PRPAMT201302UV02PatientPatientPerson person = null;
 
-
         String gender = "MALE";
         CE genderCE = HL7DataTransformHelper.CEFactory(gender);
-        
+
         patient = new PRPAMT201302UV02Patient();
         person = new PRPAMT201302UV02PatientPatientPerson();
 
@@ -157,12 +179,11 @@ public class HL7PatientTransformsTest {
         PRPAMT201301UV02Patient result = HL7PatientTransforms.createPRPAMT201301UVPatient(patient);
 
         assertEquals(genderCE, result.getPatientPerson().getValue().getAdministrativeGenderCode());
-        
+
     }
 
     @Test
-    public void testCopy201306To201301Params_Gender()
-    {
+    public void testCopy201306To201301Params_Gender() {
         PRPAMT201306UV02ParameterList value = new PRPAMT201306UV02ParameterList();
         String gender = "MALE";
         value.getLivingSubjectAdministrativeGender().add(HL7QueryParamsTransforms.createGender(gender));
@@ -172,9 +193,9 @@ public class HL7PatientTransformsTest {
         TestHelper.assertGenderEquals(gender, result.getPatientPerson().getValue().getAdministrativeGenderCode());
 
     }
+
     @Test
-    public void testCopy201306To201301Params_Telcom()
-    {
+    public void testCopy201306To201301Params_Telcom() {
         PRPAMT201306UV02ParameterList value = new PRPAMT201306UV02ParameterList();
         String phoneNumber = "7031231234";
         TELExplicit phone = HL7DataTransformHelper.createTELExplicit(phoneNumber);
@@ -185,13 +206,13 @@ public class HL7PatientTransformsTest {
 
         PRPAMT201301UV02Patient result = HL7PatientTransforms.create201301Patient(value, null);
 
-        assertEquals(1,result.getPatientPerson().getValue().getTelecom().size());
-        assertEquals(phoneNumber,result.getPatientPerson().getValue().getTelecom().get(0).getValue());
+        assertEquals(1, result.getPatientPerson().getValue().getTelecom().size());
+        assertEquals(phoneNumber, result.getPatientPerson().getValue().getTelecom().get(0).getValue());
 
     }
+
     @Test
-    public void testCopy201306To201301Params_addr()
-    {
+    public void testCopy201306To201301Params_addr() {
         PRPAMT201306UV02ParameterList value = new PRPAMT201306UV02ParameterList();
         PRPAMT201306UV02PatientAddress patAddr = new PRPAMT201306UV02PatientAddress();
 
@@ -211,12 +232,12 @@ public class HL7PatientTransformsTest {
         assertEquals(1, result.getPatientPerson().getValue().getAddr().size());
         assertEquals(addrObject, result.getPatientPerson().getValue().getAddr().get(0));
     }
+
     @Test
     public void testcreatePRPAMT201301UVPatientPerson_addr() {
         System.out.println("testcreatePRPAMT201301UVPatientPerson_addr");
         PRPAMT201302UV02Patient patient = null;
         PRPAMT201302UV02PatientPatientPerson person = null;
-
 
         String street = "123 Main Street";
         String city = "Fairfax";
@@ -228,7 +249,6 @@ public class HL7PatientTransformsTest {
         ADExplicit addr = HL7DataTransformHelper.CreateADExplicit(street, city, state, zip);
 
         patient.getAddr().add(addr);
-
 
         patient = new PRPAMT201302UV02Patient();
         person = new PRPAMT201302UV02PatientPatientPerson();
@@ -243,23 +263,19 @@ public class HL7PatientTransformsTest {
 
     }
 
-
     @Test
     public void testcreatePRPAMT201301UVPatientPerson_phone() {
         System.out.println("testcreatePRPAMT201301UVPatientPerson_addr");
         PRPAMT201302UV02Patient patient = null;
         PRPAMT201302UV02PatientPatientPerson person = null;
 
-
         String phoneNumber = "7031231234";
         patient = new PRPAMT201302UV02Patient();
-
 
         TELExplicit phone = HL7DataTransformHelper.createTELExplicit(phoneNumber);
         patient.getTelecom().add(phone);
 
         patient = new PRPAMT201302UV02Patient();
-
 
         patient = new PRPAMT201302UV02Patient();
         person = new PRPAMT201302UV02PatientPatientPerson();
@@ -284,16 +300,15 @@ public class HL7PatientTransformsTest {
     }
 
     @Test
-    public void testCreateBirthTime_Null()
-    {
+    public void testCreateBirthTime_Null() {
         System.out.println("begin testCreateBirthTime_Null");
         TSExplicit result = HL7PatientTransforms.createBirthTime(null);
 
         assertEquals(null, result);
     }
+
     @Test
-    public void testCreateBirthTime_PRPAMT201306UV02LivingSubjectBirthTime()
-    {
+    public void testCreateBirthTime_PRPAMT201306UV02LivingSubjectBirthTime() {
         System.out.println("begin testCreateBirthTime_PRPAMT201306UV02LivingSubjectBirthTime");
         String birthTime = "19000101";
         PRPAMT201306UV02LivingSubjectBirthTime subjBirthTime = HL7QueryParamsTransforms.createBirthTime(birthTime);
@@ -303,29 +318,29 @@ public class HL7PatientTransformsTest {
     }
 
     @Test
-    public void testCreate201301PatFrom201310Pat()
-    {
+    public void testCreate201301PatFrom201310Pat() {
         JAXBElement<PRPAMT201310UV02Person> person;
         JAXBElement<PRPAMT201301UV02Person> result;
 
-
-        person = HL7PatientTransforms.create201310PatientPerson(patientFirstName,patientLastName,gender, birthTime, ssn);
+        person = HL7PatientTransforms.create201310PatientPerson(patientFirstName, patientLastName, gender, birthTime,
+                ssn);
 
         person.getValue().getId().add(HL7DataTransformHelper.IIFactory(localDeviceId, patId));
-        
+
         result = HL7PatientTransforms.create201301PatientPerson(person.getValue());
 
         TestHelper.assertPatientNameEquals(patientFirstName, patientLastName, result.getValue());
         TestHelper.assertGenderEquals(gender, result.getValue());
         TestHelper.assertSsnEquals(ssn, result.getValue());
-        TestHelper.assertPatientIdEquals(patId, localDeviceId, result.getValue());        
+        TestHelper.assertPatientIdEquals(patId, localDeviceId, result.getValue());
         TestHelper.assertBirthTimeEquals(birthTime, result.getValue());
-         
+
     }
 
- private static JAXBElement<PRPAMT201302UV02PatientPatientPerson> create201302PersonElement(PRPAMT201302UV02PatientPatientPerson person)
-    {
+    private static JAXBElement<PRPAMT201302UV02PatientPatientPerson> create201302PersonElement(
+            PRPAMT201302UV02PatientPatientPerson person) {
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        return new JAXBElement<PRPAMT201302UV02PatientPatientPerson>(xmlqname, PRPAMT201302UV02PatientPatientPerson.class, person);
+        return new JAXBElement<PRPAMT201302UV02PatientPatientPerson>(xmlqname,
+                PRPAMT201302UV02PatientPatientPerson.class, person);
     }
 }

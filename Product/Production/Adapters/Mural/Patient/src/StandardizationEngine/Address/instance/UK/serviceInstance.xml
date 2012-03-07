@@ -1,6 +1,0 @@
-<serviceInstance>
-	<description>Address Standardization: United Kingdom</description>
-	<parameter name="dataType" value="Address"/>
-	<parameter name="variantType" value="UK"/>
-	<componentManagerFactory class="com.sun.mdm.sbme.datatype.address.variant.uk.UKStandardizerFactory"/>
-</serviceInstance>

@@ -65,24 +65,6 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<!-- end patient discovery requestd-->
-	<!-- begin subject reidentification -->
-	<xsd:complexType name="SubjectReidentificationMessageType">
-		<xsd:complexContent>
-			<xsd:extension base="hl7:PIXConsumer_PRPA_IN201309UVRequestType">
-				<xsd:sequence/>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="SubjectReidentificationEventType">
-		<xsd:sequence>
-			<xsd:element name="message" type="tns:SubjectReidentificationMessageType"/>
-			<xsd:element ref="tns:direction"/>
-			<xsd:element ref="tns:interface"/>
-			<xsd:element name="sendingHomeCommunity" type="nccommon:HomeCommunityType"/>
-			<xsd:element name="receivingHomeCommunity" type="nccommon:HomeCommunityType"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	<!-- end subject reidentification -->
 	<!-- begin doc query request -->
 	<xsd:complexType name="AdhocQueryRequestMessageType">
 		<xsd:sequence>

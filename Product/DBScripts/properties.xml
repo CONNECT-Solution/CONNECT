@@ -2,7 +2,7 @@
 <project name="NHINC.Database.Deploy.Properties">
   <property environment="env"/>
   <property name="database.admin.username"        value="root"/>
-  <property name="database.admin.password"        value="NHIE-Gateway"/>
+  <property name="database.admin.password"        value="passw0rd"/>
     
   <property name="database.url"                   value="jdbc:mysql://localhost:3306?autoReconnect=true"/>
   <property name="database.jdbc.driver"           value="com.mysql.jdbc.Driver"/>

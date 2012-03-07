@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 import org.w3c.dom.Document;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class FTATimerTaskTest {
@@ -60,7 +60,6 @@ public class FTATimerTaskTest {
      * Test of run method, of class FTATimerTask.
      */
 
-
     /**
      * Test of getFileContents method, of class FTATimerTask.
      */
@@ -68,7 +67,7 @@ public class FTATimerTaskTest {
     public void testGetFileContents() {
         System.out.println("getFileContents");
         File aFile = new File("unitTest.txt");
-        String expResult = "unitTest"+System.getProperty("line.separator");
+        String expResult = "unitTest" + System.getProperty("line.separator");
         String result = Util.getFileContents(aFile);
         assertEquals(expResult, result);
     }

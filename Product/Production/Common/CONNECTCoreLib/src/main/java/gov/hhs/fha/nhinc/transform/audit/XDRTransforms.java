@@ -1,15 +1,31 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.transform.audit;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -34,55 +50,50 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class XDRTransforms {
     private Log log = null;
 
-    public XDRTransforms()
-    {
+    public XDRTransforms() {
         log = createLogger();
     }
 
-    public LogEventRequestType transformRequestToAuditMsg(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, String direction, String _interface)
-    {
+    public LogEventRequestType transformRequestToAuditMsg(ProvideAndRegisterDocumentSetRequestType request,
+            AssertionType assertion, String direction, String _interface) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
         log.debug("Begin transformRequestToAuditMsg() -- NHIN");
-        if(request == null)
-        {
+        if (request == null) {
             log.error("Requst Object was null");
             return null;
         }
-        if(assertion == null)
-        {
+        if (assertion == null) {
             log.error("Assertion was null");
             return null;
         }
 
-        //check to see that the required fields are not null
+        // check to see that the required fields are not null
         boolean missingReqFields = areRequiredXDSfieldsNull(request, assertion);
 
-        if (missingReqFields)
-        {
+        if (missingReqFields) {
             log.error("One or more required fields was missing");
             return null;
         }
 
         result = new LogEventRequestType();
 
-        String patId = getIdentifiersFromRequest(request); //null values checked from the earlier call to areRequired201305fieldsNull() method
+        String patId = getIdentifiersFromRequest(request); // null values checked from the earlier call to
+                                                           // areRequired201305fieldsNull() method
         auditMsg = new AuditMessageType();
-        
 
         // Create EventIdentification
         CodedValueType eventID = getCodedValueTypeForXDR();
 
         EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
         auditMsg.setEventIdentification(oEventIdentificationType);
-
 
         ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
 
@@ -109,36 +120,39 @@ public class XDRTransforms {
         log.debug("end transformRequestToAuditMsg() -- NHIN");
         return result;
     }
-    public LogEventRequestType transformRequestToAuditMsg(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion, String direction, String _interface)
-    {
+
+    public LogEventRequestType transformRequestToAuditMsg(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+            AssertionType assertion, String direction, String _interface) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
-        if(request == null)
-        {
+        if (request == null) {
             log.error("Requst Object was null");
             return null;
         }
-        if(assertion == null)
-        {
+        if (assertion == null) {
             log.error("Assertion was null");
             return null;
         }
 
-        //check to see that the required fields are not null
-        boolean missingReqFields = areRequiredXDSfieldsNull(request.getProvideAndRegisterDocumentSetRequest(), assertion);
+        // check to see that the required fields are not null
+        boolean missingReqFields = areRequiredXDSfieldsNull(request.getProvideAndRegisterDocumentSetRequest(),
+                assertion);
 
-        if (missingReqFields)
-        {
+        if (missingReqFields) {
             log.error("One or more required fields was missing");
             return null;
         }
 
         result = new LogEventRequestType();
 
-        String patId = getIdentifiersFromRequest(request.getProvideAndRegisterDocumentSetRequest()); //null values checked from the earlier call to areRequired201305fieldsNull() method
+        String patId = getIdentifiersFromRequest(request.getProvideAndRegisterDocumentSetRequest()); // null values
+                                                                                                     // checked from the
+                                                                                                     // earlier call to
+                                                                                                     // areRequired201305fieldsNull()
+                                                                                                     // method
         auditMsg = new AuditMessageType();
-
 
         // Create EventIdentification
         CodedValueType eventID = getCodedValueTypeForXDRProxy();
@@ -146,7 +160,6 @@ public class XDRTransforms {
         EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
         auditMsg.setEventIdentification(oEventIdentificationType);
 
-
         ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
 
         /* Assign ParticipationObjectIdentification */
@@ -171,38 +184,41 @@ public class XDRTransforms {
 
         return result;
     }
-    public LogEventRequestType transformRequestToAuditMsg(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion, String direction, String _interface)
-    {
+
+    public LogEventRequestType transformRequestToAuditMsg(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+            AssertionType assertion, String direction, String _interface) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
         log.debug("Begin transformRequestToAuditMsg() -- Entity");
 
-        if(request == null)
-        {
+        if (request == null) {
             log.error("Requst Object was null");
             return null;
         }
-        if(assertion == null)
-        {
+        if (assertion == null) {
             log.error("Assertion was null");
             return null;
         }
 
-        //check to see that the required fields are not null
-        boolean missingReqFields = areRequiredXDSfieldsNull(request.getProvideAndRegisterDocumentSetRequest(), assertion);
+        // check to see that the required fields are not null
+        boolean missingReqFields = areRequiredXDSfieldsNull(request.getProvideAndRegisterDocumentSetRequest(),
+                assertion);
 
-        if (missingReqFields)
-        {
+        if (missingReqFields) {
             log.error("One or more required fields was missing");
             return null;
         }
 
         result = new LogEventRequestType();
 
-        String patId = getIdentifiersFromRequest(request.getProvideAndRegisterDocumentSetRequest()); //null values checked from the earlier call to areRequired201305fieldsNull() method
+        String patId = getIdentifiersFromRequest(request.getProvideAndRegisterDocumentSetRequest()); // null values
+                                                                                                     // checked from the
+                                                                                                     // earlier call to
+                                                                                                     // areRequired201305fieldsNull()
+                                                                                                     // method
         auditMsg = new AuditMessageType();
-
 
         // Create EventIdentification
         CodedValueType eventID = getCodedValueTypeForXDREntity();
@@ -210,7 +226,6 @@ public class XDRTransforms {
         EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
         auditMsg.setEventIdentification(oEventIdentificationType);
 
-
         ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
 
         /* Assign ParticipationObjectIdentification */
@@ -236,27 +251,25 @@ public class XDRTransforms {
         return result;
     }
 
-    public LogEventRequestType transformRequestToAuditMsg(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion, String direction, String _interface)
-    {
+    public LogEventRequestType transformRequestToAuditMsg(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
+            AssertionType assertion, String direction, String _interface) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
-        if(request == null)
-        {
+        if (request == null) {
             log.error("Requst Object was null");
             return null;
         }
-        if(assertion == null)
-        {
+        if (assertion == null) {
             log.error("Assertion was null");
             return null;
         }
 
-        //check to see that the required fields are not null
+        // check to see that the required fields are not null
         boolean missingReqFields = areRequiredResponseFieldsNull(request.getRegistryResponse(), assertion);
 
-        if (missingReqFields)
-        {
+        if (missingReqFields) {
             log.error("One or more required fields was missing");
             return null;
         }
@@ -294,27 +307,25 @@ public class XDRTransforms {
         return result;
     }
 
-    public LogEventRequestType transformRequestToAuditMsg(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion, String direction, String _interface)
-    {
+    public LogEventRequestType transformRequestToAuditMsg(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
+            AssertionType assertion, String direction, String _interface) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
-        if(request == null)
-        {
+        if (request == null) {
             log.error("Requst Object was null");
             return null;
         }
-        if(assertion == null)
-        {
+        if (assertion == null) {
             log.error("Assertion was null");
             return null;
         }
 
-        //check to see that the required fields are not null
+        // check to see that the required fields are not null
         boolean missingReqFields = areRequiredResponseFieldsNull(request.getRegistryResponse(), assertion);
 
-        if (missingReqFields)
-        {
+        if (missingReqFields) {
             log.error("One or more required fields was missing");
             return null;
         }
@@ -352,27 +363,24 @@ public class XDRTransforms {
         return result;
     }
 
-    public LogEventRequestType transformResponseToAuditMsg(RegistryResponseType response, AssertionType assertion, String direction, String _interface)
-    {
+    public LogEventRequestType transformResponseToAuditMsg(RegistryResponseType response, AssertionType assertion,
+            String direction, String _interface) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
-        if(response == null)
-        {
+        if (response == null) {
             log.error("Requst Object was null");
             return null;
         }
-        if(assertion == null)
-        {
+        if (assertion == null) {
             log.error("Assertion was null");
             return null;
         }
 
-        //check to see that the required fields are not null
+        // check to see that the required fields are not null
         boolean missingReqFields = areRequiredResponseFieldsNull(response, assertion);
 
-        if (missingReqFields)
-        {
+        if (missingReqFields) {
             log.error("One or more required fields was missing");
             return null;
         }
@@ -406,165 +414,142 @@ public class XDRTransforms {
         result.setAuditMessage(auditMsg);
         result.setDirection(direction);
         result.setInterface(_interface);
-        
+
         return result;
 
     }
-    protected Log createLogger()
-    {
+
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
-    protected boolean areRequiredXDSfieldsNull(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion)
-    {
-        try
-        {
-            
-            if(assertion == null)
-            {
+
+    protected boolean areRequiredXDSfieldsNull(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+        try {
+
+            if (assertion == null) {
                 log.error("Assertion object is null");
                 return true;
             }
-            if(body == null)
-            {
+            if (body == null) {
                 log.error("ProvideAndRegisterDocumentSetRequestType object is null");
                 return true;
             }
 
-            if (areRequiredUserTypeFieldsNull(assertion))
-            {
+            if (areRequiredUserTypeFieldsNull(assertion)) {
                 log.error("One of more UserInfo fields from the Assertion object were null.");
                 return true;
             }
 
-            if(body.getSubmitObjectsRequest() == null)
-            {
+            if (body.getSubmitObjectsRequest() == null) {
                 log.error("No Registry Object");
                 return true;
             }
 
-            if(body.getSubmitObjectsRequest().getRegistryObjectList() == null)
-            {
+            if (body.getSubmitObjectsRequest().getRegistryObjectList() == null) {
                 log.error("No Registry Object List");
                 return true;
             }
-            if(body.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable() == null
-            		|| body.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable().isEmpty())
-            {
+            if (body.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable() == null
+                    || body.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable().isEmpty()) {
                 log.error("No Identifiables on Registry Object");
                 return true;
             }
             return false;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Encountered Error: " + ex.getMessage());
             return true;
         }
     }
 
-    protected boolean areRequiredResponseFieldsNull(RegistryResponseType response, AssertionType assertion)
-    {
-         if(assertion == null)
-        {
+    protected boolean areRequiredResponseFieldsNull(RegistryResponseType response, AssertionType assertion) {
+        if (assertion == null) {
             log.error("Assertion object is null");
             return true;
         }
-        if(response == null)
-        {
+        if (response == null) {
             log.error("RegistryResponseType object is null");
             return true;
         }
-        if (areRequiredUserTypeFieldsNull(assertion))
-        {
+        if (areRequiredUserTypeFieldsNull(assertion)) {
             log.error("One of more UserInfo fields from the Assertion object were null.");
             return true;
         }
-        if(response.getStatus() == null)
-        {
+        if (response.getStatus() == null) {
             log.error("Response does not contain a status");
             return true;
         }
-        if(response.getStatus().isEmpty())
-        {
+        if (response.getStatus().isEmpty()) {
             log.error("Response does not contain a status");
             return true;
         }
 
-         return false;
+        return false;
     }
 
-    protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion)
-    {
+    protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
         boolean bReturnVal = false;
 
-        if ((oAssertion != null) &&
-             (oAssertion.getUserInfo() != null))
-        {
-            if (oAssertion.getUserInfo().getUserName() != null)
-            {
-                log.debug("Incomming request.getAssertion.getUserInfo.getUserName: " + oAssertion.getUserInfo().getUserName());
-            }
-            else
-            {
+        if ((oAssertion != null) && (oAssertion.getUserInfo() != null)) {
+            if (oAssertion.getUserInfo().getUserName() != null) {
+                log.debug("Incomming request.getAssertion.getUserInfo.getUserName: "
+                        + oAssertion.getUserInfo().getUserName());
+            } else {
                 log.error("Incomming request.getAssertion.getUserInfo.getUserName was null.");
                 bReturnVal = true;
                 return true;
             }
 
-            if (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null)
-            {
-                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): " + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
-            }
-            else
-            {
+            if (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null) {
+                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): "
+                        + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
+            } else {
                 log.error("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
                 bReturnVal = true;
                 return true;
             }
 
-            if (oAssertion.getUserInfo().getOrg().getName() != null)
-            {
-                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: " + oAssertion.getUserInfo().getOrg().getName());
-            }
-            else
-            {
+            if (oAssertion.getUserInfo().getOrg().getName() != null) {
+                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: "
+                        + oAssertion.getUserInfo().getOrg().getName());
+            } else {
                 log.error("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name was null.");
                 bReturnVal = true;
                 return true;
             }
-        }
-        else
-        {
+        } else {
             log.error("The UserType object or request assertion object containing the assertion user info was null.");
             bReturnVal = true;
             return true;
-        } //else continue
+        } // else continue
 
         return bReturnVal;
     }
+
     private ParticipantObjectIdentificationType getParticipantObjectIdentificationType(String sPatientId) {
         /* Assign ParticipationObjectIdentification */
-        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper.createParticipantObjectIdentification(sPatientId);
+        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
+                .createParticipantObjectIdentification(sPatientId);
         return participantObject;
     }
+
     private ActiveParticipant getActiveParticipant(UserType oUserInfo) {
         // Create Active Participant Section
-        //create a method to call the AuditDataTransformHelper - one expectation
-        AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(oUserInfo, true);
+        // create a method to call the AuditDataTransformHelper - one expectation
+        AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                oUserInfo, true);
         return participant;
     }
-    private String getIdentifiersFromRequest(ProvideAndRegisterDocumentSetRequestType request)
-    {
+
+    private String getIdentifiersFromRequest(ProvideAndRegisterDocumentSetRequestType request) {
         String result = "";
 
-        if(request == null)
-        {
+        if (request == null) {
             log.error(("Incoming ProvideAndRegisterDocumentSetRequestType was null"));
             return null;
         }
 
-        if(request.getSubmitObjectsRequest() == null)
-        
+        if (request.getSubmitObjectsRequest() == null)
+
         {
             log.error(("Incoming ProvideAndRegisterDocumentSetRequestType metadata was null"));
             return null;
@@ -573,39 +558,36 @@ public class XDRTransforms {
         System.out.println(request.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable());
         RegistryObjectListType object = request.getSubmitObjectsRequest().getRegistryObjectList();
 
-        for(int x= 0; x<object.getIdentifiable().size();x++)
-        {
+        for (int x = 0; x < object.getIdentifiable().size(); x++) {
             System.out.println(object.getIdentifiable().get(x).getName());
-            
-            if(object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class))
-            {
+
+            if (object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class)) {
                 RegistryPackageType registryPackage = (RegistryPackageType) object.getIdentifiable().get(x).getValue();
 
                 System.out.println(registryPackage.getSlot().size());
 
-                for(int y=0; y< registryPackage.getExternalIdentifier().size();y++)
-                {                    
-                    String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0).getValue();
-                    if(test.equals("XDSSubmissionSet.patientId"))
-                    {
+                for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
+                    String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)
+                            .getValue();
+                    if (test.equals("XDSSubmissionSet.patientId")) {
                         result = registryPackage.getExternalIdentifier().get(y).getValue();
                     }
 
-                    
                 }
 
-                
             }
         }
-        
 
         return result;
     }
+
     private String getCompositePatientId(String sCommunityId, String sPatientId) {
         sPatientId = AuditDataTransformHelper.createCompositePatientId(sCommunityId, sPatientId);
         return sPatientId;
     }
-    protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm, ProvideAndRegisterDocumentSetRequestType request) throws RuntimeException {
+
+    protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm,
+            ProvideAndRegisterDocumentSetRequestType request) throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
         log.debug("Begin marshalRequestMessage() -- NHIN Interface");
         try {
@@ -614,14 +596,15 @@ public class XDRTransforms {
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:ihe:iti:xds-b:2007", "ProvideAndRegisterDocumentSetRequest");
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:ihe:iti:xds-b:2007",
+                    "ProvideAndRegisterDocumentSetRequest");
             JAXBElement<ProvideAndRegisterDocumentSetRequestType> element;
-            
-//            element = new JAXBElement<ProvideAndRegisterDocumentSetRequestType>(xmlqname, ProvideAndRegisterDocumentSetRequestType.class, request);
+
+            // element = new JAXBElement<ProvideAndRegisterDocumentSetRequestType>(xmlqname,
+            // ProvideAndRegisterDocumentSetRequestType.class, request);
 
             ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
             element = factory.createProvideAndRegisterDocumentSetRequest(request);
-
 
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the ProvideAndRegisterDocumentSetRequestType  message.");
@@ -630,7 +613,11 @@ public class XDRTransforms {
             throw new RuntimeException();
         }
     }
-     protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm, gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) throws RuntimeException {
+
+    protected void marshalRequestMessage(
+            ByteArrayOutputStream baOutStrm,
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request)
+            throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -638,11 +625,14 @@ public class XDRTransforms {
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:ihe:iti:xds-b:2007", "RespondingGatewayProvideAndRegisterDocumentSetSecuredRequest");
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:ihe:iti:xds-b:2007",
+                    "RespondingGatewayProvideAndRegisterDocumentSetSecuredRequest");
             JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType> element;
 
-            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType>(xmlqname, gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class, request);
-
+            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType>(
+                    xmlqname,
+                    gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class,
+                    request);
 
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the message.");
@@ -651,7 +641,11 @@ public class XDRTransforms {
             throw new RuntimeException();
         }
     }
-     protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm, gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) throws RuntimeException {
+
+    protected void marshalRequestMessage(
+            ByteArrayOutputStream baOutStrm,
+            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request)
+            throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -659,11 +653,15 @@ public class XDRTransforms {
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:gov:hhs:fha:nhinc:common:nhinccommonentity", "RespondingGatewayProvideAndRegisterDocumentSetSecuredRequest");
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName(
+                    "urn:gov:hhs:fha:nhinc:common:nhinccommonentity",
+                    "RespondingGatewayProvideAndRegisterDocumentSetSecuredRequest");
             JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType> element;
 
-            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType>(xmlqname, gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class, request);
-
+            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType>(
+                    xmlqname,
+                    gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class,
+                    request);
 
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the message.");
@@ -673,57 +671,66 @@ public class XDRTransforms {
         }
     }
 
-    protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm, gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) throws RuntimeException
-    {
+    protected void marshalRequestMessage(
+            ByteArrayOutputStream baOutStrm,
+            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request)
+            throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
-        try
-        {
+        try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonentity");
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:gov:hhs:fha:nhinc:common:nhinccommonentity", "RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType");
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName(
+                    "urn:gov:hhs:fha:nhinc:common:nhinccommonentity",
+                    "RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType");
             JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType> element;
 
-            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType>(xmlqname, gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class, request);
+            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType>(
+                    xmlqname,
+                    gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class,
+                    request);
 
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType message.");
-        } 
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
     }
 
-    protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm, gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) throws RuntimeException
-    {
+    protected void marshalRequestMessage(
+            ByteArrayOutputStream baOutStrm,
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request)
+            throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
-        try
-        {
+        try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonproxy");
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:gov:hhs:fha:nhinc:common:nhinccommonproxy", "RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType");
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName(
+                    "urn:gov:hhs:fha:nhinc:common:nhinccommonproxy",
+                    "RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType");
             JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType> element;
 
-            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType>(xmlqname, gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class, request);
+            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType>(
+                    xmlqname,
+                    gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class,
+                    request);
 
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType message.");
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
     }
 
-    protected void marshalResponseMessage(ByteArrayOutputStream baOutStrm, RegistryResponseType response) throws RuntimeException {
+    protected void marshalResponseMessage(ByteArrayOutputStream baOutStrm, RegistryResponseType response)
+            throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -731,11 +738,11 @@ public class XDRTransforms {
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0", "RegistryResponse");
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName(
+                    "urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0", "RegistryResponse");
             JAXBElement<RegistryResponseType> element;
 
             element = new JAXBElement<RegistryResponseType>(xmlqname, RegistryResponseType.class, response);
-
 
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the message.");
@@ -745,7 +752,8 @@ public class XDRTransforms {
         }
     }
 
-    protected void marshalAcknowledgement(ByteArrayOutputStream baOutStrm, XDRAcknowledgementType acknowledgement) throws RuntimeException {
+    protected void marshalAcknowledgement(ByteArrayOutputStream baOutStrm, XDRAcknowledgementType acknowledgement)
+            throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -753,11 +761,11 @@ public class XDRTransforms {
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("http://www.hhs.gov/healthit/nhin", "XDRAcknowledgement");
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("http://www.hhs.gov/healthit/nhin",
+                    "XDRAcknowledgement");
             JAXBElement<XDRAcknowledgementType> element;
 
             element = new JAXBElement<XDRAcknowledgementType>(xmlqname, XDRAcknowledgementType.class, acknowledgement);
-
 
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the message.");
@@ -767,118 +775,112 @@ public class XDRTransforms {
         }
     }
 
-    private AuditSourceIdentificationType getAuditSourceIdentificationType(UserType userInfo)
-    {
+    private AuditSourceIdentificationType getAuditSourceIdentificationType(UserType userInfo) {
         AuditSourceIdentificationType result;
 
         String communityId = "";
         String communityName = "";
-        if (userInfo != null && userInfo.getOrg() != null)
-        {
-            if (userInfo.getOrg().getHomeCommunityId() != null)
-            {
+        if (userInfo != null && userInfo.getOrg() != null) {
+            if (userInfo.getOrg().getHomeCommunityId() != null) {
                 communityId = userInfo.getOrg().getHomeCommunityId();
             }
-            if (userInfo.getOrg().getName() != null)
-            {
+            if (userInfo.getOrg().getName() != null) {
                 communityName = userInfo.getOrg().getName();
             }
         }
         result = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityName);
         return result;
     }
+
     private CodedValueType getCodedValueTypeForXDR() {
         // Create EventIdentification
-        CodedValueType eventID = AuditDataTransformHelper
-                .createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR,
-                               AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR);
+        CodedValueType eventID = AuditDataTransformHelper.createEventId(
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR);
         return eventID;
     }
+
     private CodedValueType getCodedValueTypeForXDRProxy() {
         // Create EventIdentification
-        CodedValueType eventID = AuditDataTransformHelper
-                .createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_PROXY,
-                               AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_PROXY);
+        CodedValueType eventID = AuditDataTransformHelper.createEventId(
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_PROXY,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_PROXY);
         return eventID;
     }
+
     private CodedValueType getCodedValueTypeForXDREntity() {
         // Create EventIdentification
-        CodedValueType eventID = AuditDataTransformHelper
-                .createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_ENTITY,
-                               AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_ENTITY);
+        CodedValueType eventID = AuditDataTransformHelper.createEventId(
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_ENTITY,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_ENTITY);
         return eventID;
     }
 
     private CodedValueType getCodedValueTypeForXDRResponse() {
         // Create EventIdentification
-        CodedValueType eventID = AuditDataTransformHelper
-                .createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE,
-                               AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE);
+        CodedValueType eventID = AuditDataTransformHelper.createEventId(
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE);
         return eventID;
     }
 
     private CodedValueType getCodedValueTypeForXDRRequestAcknowledgement() {
         // Create EventIdentification
-        CodedValueType eventID = AuditDataTransformHelper
-                .createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRREQUEST,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRREQUEST,
-                               AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRREQUEST,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRREQUEST);
+        CodedValueType eventID = AuditDataTransformHelper.createEventId(
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRREQUEST,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRREQUEST,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRREQUEST,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRREQUEST);
         return eventID;
     }
 
     private CodedValueType getCodedValueTypeForXDRResponseAcknowledgement() {
         // Create EventIdentification
-        CodedValueType eventID = AuditDataTransformHelper
-                .createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRRESPONSE,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE,
-                               AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRRESPONSE,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE);
+        CodedValueType eventID = AuditDataTransformHelper.createEventId(
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRRESPONSE,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRRESPONSE,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE);
         return eventID;
     }
 
     private EventIdentificationType getEventIdentificationType(CodedValueType eventID) {
-        EventIdentificationType oEventIdentificationType =
-                AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_READ,
-                                                                   AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS,
-                                                                   eventID);
+        EventIdentificationType oEventIdentificationType = AuditDataTransformHelper.createEventIdentification(
+                AuditDataTransformConstants.EVENT_ACTION_CODE_READ,
+                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID);
         return oEventIdentificationType;
     }
-
 
     /**
      * 
      */
-    public LogEventRequestType transformAcknowledgementToAuditMsg(XDRAcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface, String action)
-    {
+    public LogEventRequestType transformAcknowledgementToAuditMsg(XDRAcknowledgementType acknowledgement,
+            AssertionType assertion, String direction, String _interface, String action) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
-        if(acknowledgement == null)
-        {
+        if (acknowledgement == null) {
             log.error("Acknowledgement is null");
             return null;
         }
-        
-        if(assertion == null)
-        {
+
+        if (assertion == null) {
             log.error("Assertion is null");
             return null;
         }
 
-        //check to see that the required fields are not null
+        // check to see that the required fields are not null
         boolean missingReqFields = areRequiredAcknowledgementFieldsNull(acknowledgement, assertion);
 
-        if (missingReqFields)
-        {
+        if (missingReqFields) {
             log.error("One or more required fields was missing");
             return null;
         }
@@ -889,9 +891,9 @@ public class XDRTransforms {
         // Create EventIdentification
         CodedValueType eventID = null;
 
-        if (NhincConstants.XDR_REQUEST_ACTION.equalsIgnoreCase(action)){
+        if (NhincConstants.XDR_REQUEST_ACTION.equalsIgnoreCase(action)) {
             eventID = getCodedValueTypeForXDRRequestAcknowledgement();
-        }else if (NhincConstants.XDR_RESPONSE_ACTION.equalsIgnoreCase(action)){
+        } else if (NhincConstants.XDR_RESPONSE_ACTION.equalsIgnoreCase(action)) {
             eventID = getCodedValueTypeForXDRResponseAcknowledgement();
         }
 
@@ -924,35 +926,31 @@ public class XDRTransforms {
     }
 
     /**
-     *
+     * 
      * @param acknowledgement
      * @param assertion
      * @return
      */
-    protected boolean areRequiredAcknowledgementFieldsNull(XDRAcknowledgementType acknowledgement, AssertionType assertion)
-    {
-        if(assertion == null)
-        {
+    protected boolean areRequiredAcknowledgementFieldsNull(XDRAcknowledgementType acknowledgement,
+            AssertionType assertion) {
+        if (assertion == null) {
             log.error("Assertion object is null");
             return true;
         }
-        if(acknowledgement == null)
-        {
+        if (acknowledgement == null) {
             log.error("Acknowledge object is null");
             return true;
         }
-        if (areRequiredUserTypeFieldsNull(assertion))
-        {
+        if (areRequiredUserTypeFieldsNull(assertion)) {
             log.error("One of more UserInfo fields from the Assertion object were null.");
             return true;
         }
-        if(acknowledgement.getMessage() == null)
-        {
+        if (acknowledgement.getMessage() == null) {
             log.error("Acknowledgement does not contain a message");
             return true;
         }
 
-         return false;
+        return false;
     }
 
 }

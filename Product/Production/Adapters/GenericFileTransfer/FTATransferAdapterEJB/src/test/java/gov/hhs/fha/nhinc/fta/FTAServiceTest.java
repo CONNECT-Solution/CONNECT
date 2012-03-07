@@ -14,10 +14,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * 
  * @author dunnek
  */
-@Ignore //TODO:move test to Integtation test suite
+@Ignore
+// TODO:move test to Integtation test suite
 public class FTAServiceTest {
 
     public FTAServiceTest() {

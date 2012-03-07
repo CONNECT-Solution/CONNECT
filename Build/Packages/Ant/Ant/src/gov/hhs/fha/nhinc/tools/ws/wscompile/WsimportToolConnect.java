@@ -1,27 +1,31 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
+ * Copyright (c) 1997-2010 Oracle and/or its affiliates. All rights reserved.
  *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
  * and Distribution License("CDDL") (collectively, the "License").  You
- * may not use this file except in compliance with the License. You can obtain
- * a copy of the License at https://glassfish.dev.java.net/public/CDDL+GPL.html
- * or glassfish/bootstrap/legal/LICENSE.txt.  See the License for the specific
+ * may not use this file except in compliance with the License.  You can
+ * obtain a copy of the License at
+ * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+ * or packager/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
  *
  * When distributing the software, include this License Header Notice in each
- * file and include the License file at glassfish/bootstrap/legal/LICENSE.txt.
- * Sun designates this particular file as subject to the "Classpath" exception
- * as provided by Sun in the GPL Version 2 section of the License file that
- * accompanied this code.  If applicable, add the following below the License
- * Header, with the fields enclosed by brackets [] replaced by your own
- * identifying information: "Portions Copyrighted [year]
- * [name of copyright owner]"
+ * file and include the License file at packager/legal/LICENSE.txt.
+ *
+ * GPL Classpath Exception:
+ * Oracle designates this particular file as subject to the "Classpath"
+ * exception as provided by Oracle in the GPL Version 2 section of the License
+ * file that accompanied this code.
+ *
+ * Modifications:
+ * If applicable, add the following below the License Header, with the fields
+ * enclosed by brackets [] replaced by your own identifying information:
+ * "Portions Copyright [year] [name of copyright owner]"
  *
  * Contributor(s):
- *
  * If you wish your version of this file to be governed by only the CDDL or
  * only the GPL Version 2, indicate your decision by adding "[Contributor]
  * elects to include this software in this distribution under the [CDDL or GPL
@@ -37,54 +41,64 @@
 
 package gov.hhs.fha.nhinc.tools.ws.wscompile;
 
+import gov.hhs.fha.nhinc.tools.ws.processor.generator.ServiceGeneratorConnect;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.Authenticator;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.jar.JarEntry;
+import java.util.jar.JarOutputStream;
+
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.ws.EndpointReference;
+
+import org.xml.sax.EntityResolver;
+import org.xml.sax.SAXParseException;
+
 import com.sun.codemodel.CodeWriter;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JPackage;
 import com.sun.codemodel.writer.ProgressCodeWriter;
+import com.sun.istack.tools.ParallelWorldClassLoader;
 import com.sun.tools.ws.ToolVersion;
 import com.sun.tools.ws.api.TJavaGeneratorExtension;
 import com.sun.tools.ws.processor.generator.CustomExceptionGenerator;
 import com.sun.tools.ws.processor.generator.SeiGenerator;
-import com.sun.tools.ws.processor.generator.ServiceGenerator;
 import com.sun.tools.ws.processor.model.Model;
 import com.sun.tools.ws.processor.modeler.wsdl.ConsoleErrorReporter;
 import com.sun.tools.ws.processor.modeler.wsdl.WSDLModeler;
+import com.sun.tools.ws.processor.util.DirectoryUtil;
 import com.sun.tools.ws.resources.WscompileMessages;
 import com.sun.tools.ws.resources.WsdlMessages;
-import com.sun.tools.xjc.util.NullStream;
-import com.sun.xml.ws.api.server.Container;
-import com.sun.xml.ws.util.ServiceFinder;
-import com.sun.istack.tools.ParallelWorldClassLoader;
+import com.sun.tools.ws.util.WSDLFetcher;
 import com.sun.tools.ws.wscompile.AbortException;
+import com.sun.tools.ws.wscompile.BadCommandLineException;
 import com.sun.tools.ws.wscompile.DefaultAuthenticator;
+import com.sun.tools.ws.wscompile.ErrorReceiver;
 import com.sun.tools.ws.wscompile.ErrorReceiverFilter;
+import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.ws.wscompile.WSCodeWriter;
 import com.sun.tools.ws.wscompile.WsimportListener;
 import com.sun.tools.ws.wscompile.WsimportOptions;
-import com.sun.tools.ws.wscompile.Options;
-import com.sun.tools.ws.wscompile.BadCommandLineException;
-import com.sun.tools.ws.wscompile.ErrorReceiver;
-//import com.sun.tools.ws.wscompile.JavaCompilerHelper;
-import gov.hhs.fha.nhinc.tools.ws.processor.generator.ServiceGeneratorConnect;
-
-
-import org.xml.sax.SAXParseException;
-
-import org.xml.sax.EntityResolver;
-
-
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.ws.EndpointReference;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.net.Authenticator;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
+import com.sun.tools.ws.wsdl.parser.MetadataFinder;
+import com.sun.tools.ws.wsdl.parser.WSDLInternalizationLogic;
+import com.sun.tools.xjc.util.NullStream;
+import com.sun.xml.ws.api.server.Container;
+import com.sun.xml.ws.util.ServiceFinder;
 
 /**
  * @author Vivek Pandey
@@ -227,7 +241,13 @@ public class WsimportToolConnect {
             		if (bConnectTiming) {
                 	listener.message(oDateFormat.format(new Date()) + " - WsimportTool:Before creation of wsdlModeler:");
                 }
-                WSDLModeler wsdlModeler = new WSDLModeler(options, receiver);
+
+                MetadataFinder forest = new MetadataFinder(new WSDLInternalizationLogic(), options, receiver);
+                forest.parseWSDL();
+                if (forest.isMexMetadata)
+                    receiver.reset();
+
+				WSDLModeler wsdlModeler = new WSDLModeler(options, receiver, forest);
             		if (bConnectTiming) {
                 	listener.message(oDateFormat.format(new Date()) + " - WsimportTool:After creation of wsdlModeler:");
                 }
@@ -242,6 +262,12 @@ public class WsimportToolConnect {
                 if (wsdlModel == null) {
                     listener.message(WsdlMessages.PARSING_PARSE_FAILED());
                     return false;
+                }
+
+                if(options.clientjar != null) {
+                    if( !options.quiet )
+                        listener.message(WscompileMessages.WSIMPORT_FETCHING_METADATA());
+                    options.wsdlLocation = new WSDLFetcher(options,listener).fetchWsdls(forest);
                 }
 
                 //generated code
@@ -305,6 +331,8 @@ public class WsimportToolConnect {
                 //error might have been reported
             }catch (IOException e) {
                 receiver.error(e);
+            }catch (XMLStreamException e) {
+                receiver.error(e);
             }
 
             if (!options.nocompile){
@@ -312,6 +340,16 @@ public class WsimportToolConnect {
                     listener.message(WscompileMessages.WSCOMPILE_COMPILATION_FAILED());
                     return false;
                 }
+            }
+            try {
+                if (options.clientjar != null) {
+                    //add all the generated class files to the list of generated files
+                    addClassesToGeneratedFiles();
+                    jarArtifacts(listener);
+                }
+            } catch (IOException e) {
+                receiver.error(e);
+                return false;
             }
 
         } catch (Options.WeAreDone done) {
@@ -325,7 +363,7 @@ public class WsimportToolConnect {
             return false;
         } finally{
             if(!options.keep){
-                options.removeGeneratedFiles();
+                deleteGeneratedFiles();
             }
         }
 
@@ -333,7 +371,113 @@ public class WsimportToolConnect {
         	listener.message(oDateFormat.format(new Date()) + " - WsimportTool:Exiting Run() method.");
         }
 
+        if(receiver.hadError()) {
+            return false;
+        }
         return true;
+    }
+
+    private void deleteGeneratedFiles() {
+        Set<File> trackedRootPackages = new HashSet<File>();
+
+        if (options.clientjar != null) {
+            //remove all non-java artifacts as they will packaged in jar.
+            Iterable<File> generatedFiles = options.getGeneratedFiles();
+            synchronized (generatedFiles) {
+                for (File file : generatedFiles) {
+                    if (!file.getName().endsWith(".java")) {
+                        file.delete();
+                        trackedRootPackages.add(file.getParentFile());
+
+                    }
+
+                }
+            }
+            //remove empty package dirs
+            for(File pkg:trackedRootPackages) {
+
+                while(pkg.list() != null && pkg.list().length ==0 && !pkg.equals(options.destDir)) {
+                    File parentPkg = pkg.getParentFile();
+                    pkg.delete();
+                    pkg = parentPkg;
+                }
+            }
+        }
+        if(!options.keep) {
+            options.removeGeneratedFiles();
+        }
+
+    }
+
+    private void addClassesToGeneratedFiles() throws IOException {
+        Iterable<File> generatedFiles = options.getGeneratedFiles();
+        final List<File> trackedClassFiles = new ArrayList<File>();
+        for(File f: generatedFiles) {
+            if(f.getName().endsWith(".java")) {
+                String relativeDir = DirectoryUtil.getRelativePathfromCommonBase(f.getParentFile(),options.sourceDir);
+                final String className = f.getName().substring(0,f.getName().indexOf(".java"));
+                File classDir = new File(options.destDir,relativeDir);
+                if(classDir.exists()) {
+                    classDir.listFiles(new FilenameFilter() {
+
+                        public boolean accept(File dir, String name) {
+                            if(name.equals(className+".class") || (name.startsWith(className+"$") && name.endsWith(".class"))) {
+                                trackedClassFiles.add(new File(dir,name));
+                                return true;
+                            }
+                            return false;
+                        }
+                    });
+                }
+            }
+        }
+        for(File f: trackedClassFiles) {
+            options.addGeneratedFile(f);
+        }
+    }
+
+    private void jarArtifacts(WsimportListener listener) throws IOException {
+        File zipFile = new File(options.clientjar);
+        if(!zipFile.isAbsolute()) {
+            zipFile = new File(options.destDir, options.clientjar);
+        }
+
+        if (zipFile.exists()) {
+            //TODO
+        }
+        FileOutputStream fos = null;
+        if( !options.quiet )
+            listener.message(WscompileMessages.WSIMPORT_ARCHIVING_ARTIFACTS(zipFile));
+
+
+        fos = new FileOutputStream(zipFile);
+        JarOutputStream jos = new JarOutputStream(fos);
+
+        String base = options.destDir.getCanonicalPath();
+        for(File f: options.getGeneratedFiles()) {
+            //exclude packaging the java files in the jar
+            if(f.getName().endsWith(".java")) {
+                continue;
+            }
+            if(options.verbose) {
+                listener.message(WscompileMessages.WSIMPORT_ARCHIVE_ARTIFACT(f, options.clientjar));
+            }
+            String entry = f.getCanonicalPath().substring(base.length()+1);
+            BufferedInputStream bis = new BufferedInputStream(
+                            new FileInputStream(f));
+            JarEntry jarEntry = new JarEntry(entry);
+            jos.putNextEntry(jarEntry);
+            int bytesRead;
+            byte[] buffer = new byte[1024];
+            while ((bytesRead = bis.read(buffer)) != -1) {
+                jos.write(buffer, 0, bytesRead);
+            }
+            bis.close();
+
+        }
+
+        jos.close();
+
     }
 
     public void setEntityResolver(EntityResolver resolver){

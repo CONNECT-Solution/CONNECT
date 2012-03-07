@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
@@ -33,15 +53,14 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Transforms for subscribe messages.
- *
+ * 
  * @author webbn
  */
 public class SubscribeTransforms {
     private static Log log = LogFactory.getLog(SubscribeTransforms.class);
     private static final String SLOT_NAME_PATIENT_ID = "$XDSDocumentEntryPatientId";
 
-    public LogEventRequestType transformNhinSubscribeRequestToAuditMessage(LogNhinSubscribeRequestType message)
-    {
+    public LogEventRequestType transformNhinSubscribeRequestToAuditMessage(LogNhinSubscribeRequestType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
         response.setDirection(message.getDirection());
@@ -53,23 +72,25 @@ public class SubscribeTransforms {
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
-        if (message != null &&
-                message.getMessage() != null &&
-                message.getMessage().getAssertion() != null &&
-                message.getMessage().getAssertion().getUserInfo() != null)
-        {
+        if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
+                && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
         }
 
         // Create EventIdentification
         CodedValueType eventID = new CodedValueType();
-        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
-        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
+        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
+        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
+                AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
+                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
 
-        // Create Active Participant Section   
-        if (userInfo != null)
-        {
-            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(userInfo, true);
+        // Create Active Participant Section
+        if (userInfo != null) {
+            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                    userInfo, true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
@@ -78,45 +99,38 @@ public class SubscribeTransforms {
         String communityName = "";
         String patientId = "";
 
-
-        if ((message != null) &&
-                (message.getMessage() != null) &&
-                (message.getMessage().getSubscribe() != null))
-        {
+        if ((message != null) && (message.getMessage() != null) && (message.getMessage().getSubscribe() != null)) {
             PatientInfo patientInfo = extractPatientInfo(message.getMessage().getSubscribe());
 
-            if (patientInfo != null)
-            {
+            if (patientInfo != null) {
                 communityId = patientInfo.getCommunityId();
                 communityName = patientInfo.getCommunityName();
                 patientId = patientInfo.getPatientId();
             }
         }
 
-        if (userInfo != null &&
-                userInfo.getOrg() != null)
-        {
-            if (userInfo.getOrg().getHomeCommunityId() != null)
-            {
+        if (userInfo != null && userInfo.getOrg() != null) {
+            if (userInfo.getOrg().getHomeCommunityId() != null) {
                 communityId = userInfo.getOrg().getHomeCommunityId();
             }
-            if (userInfo.getOrg().getName() != null)
-            {
+            if (userInfo.getOrg().getName() != null) {
                 communityName = userInfo.getOrg().getName();
             }
         }
 
-        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityName);
+        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
+                communityId, communityName);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         /* Assign ParticipationObjectIdentification */
-        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
+        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
+                .createParticipantObjectIdentification(patientId);
 
         // Fill in the message field with the contents of the event message
-        try
-        {
+        try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext(org.oasis_open.docs.wsn.b_2.ObjectFactory.class, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory.class);
+            JAXBContext jc = oHandler.getJAXBContext(org.oasis_open.docs.wsn.b_2.ObjectFactory.class,
+                    oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory.class);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
@@ -125,15 +139,12 @@ public class SubscribeTransforms {
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             log.error("EXCEPTION when marshalling subscribe request: " + e);
             throw new RuntimeException();
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
-
-
 
         response.setAuditMessage(auditMsg);
 
@@ -144,8 +155,7 @@ public class SubscribeTransforms {
         return response;
     }
 
-    public LogEventRequestType transformSubscribeResponseToAuditMessage(LogSubscribeResponseType message)
-    {
+    public LogEventRequestType transformSubscribeResponseToAuditMessage(LogSubscribeResponseType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
         response.setDirection(message.getDirection());
@@ -157,51 +167,50 @@ public class SubscribeTransforms {
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
-        if (message != null &&
-                message.getMessage() != null &&
-                message.getMessage().getAssertion() != null &&
-                message.getMessage().getAssertion().getUserInfo() != null)
-        {
+        if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
+                && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
         }
 
         // Create EventIdentification
         CodedValueType eventID = new CodedValueType();
-        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
-        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
+        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
+        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
+                AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
+                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
 
-        // Create Active Participant Section   
-        if (userInfo != null)
-        {
-            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(userInfo, true);
+        // Create Active Participant Section
+        if (userInfo != null) {
+            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                    userInfo, true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
         String communityId = "";
         String communityName = "";
-        if (userInfo != null &&
-                userInfo.getOrg() != null)
-        {
-            if (userInfo.getOrg().getHomeCommunityId() != null)
-            {
+        if (userInfo != null && userInfo.getOrg() != null) {
+            if (userInfo.getOrg().getHomeCommunityId() != null) {
                 communityId = userInfo.getOrg().getHomeCommunityId();
             }
-            if (userInfo.getOrg().getName() != null)
-            {
+            if (userInfo.getOrg().getName() != null) {
                 communityName = userInfo.getOrg().getName();
             }
         }
 
-        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityName);
+        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
+                communityId, communityName);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         String patientId = "unknown";
         /* Assign ParticipationObjectIdentification */
-        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
+        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
+                .createParticipantObjectIdentification(patientId);
 
         // Fill in the message field with the contents of the event message
-        try
-        {
+        try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("org.oasis_open.docs.wsn.b_2");
             Marshaller marshaller = jc.createMarshaller();
@@ -211,16 +220,12 @@ public class SubscribeTransforms {
             log.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             log.error("EXCEPTION when marshalling subscribe response: " + e);
             throw new RuntimeException();
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
-
-
-
 
         response.setAuditMessage(auditMsg);
 
@@ -231,17 +236,13 @@ public class SubscribeTransforms {
         return response;
     }
 
-    private PatientInfo extractPatientInfo(Subscribe subscribe)
-    {
+    private PatientInfo extractPatientInfo(Subscribe subscribe) {
         PatientInfo patientInfo = new PatientInfo();
-        if (subscribe != null)
-        {
+        if (subscribe != null) {
             AdhocQueryType adhocQuery = getAdhocQuery(subscribe);
-            if (adhocQuery != null)
-            {
+            if (adhocQuery != null) {
                 String formattedPatientId = getFormattedPatientId(adhocQuery);
-                if (NullChecker.isNotNullish(formattedPatientId))
-                {
+                if (NullChecker.isNotNullish(formattedPatientId)) {
                     patientInfo.setPatientId(PatientIdFormatUtil.parsePatientId(formattedPatientId));
                     patientInfo.setCommunityId(PatientIdFormatUtil.parseCommunityId(formattedPatientId));
                 }
@@ -250,33 +251,25 @@ public class SubscribeTransforms {
         return patientInfo;
     }
 
-    private AdhocQueryType getAdhocQuery(Subscribe nhinSubscribe)
-    {
+    private AdhocQueryType getAdhocQuery(Subscribe nhinSubscribe) {
         AdhocQueryType adhocQuery = null;
         log.info("begin getAdhocQuery");
         List<Object> any = nhinSubscribe.getAny();
         log.info("found " + any.size() + " any item(s)");
 
-
-        for (Object anyItem : any)
-        {
+        for (Object anyItem : any) {
             log.info("anyItem=" + anyItem);
-            if (anyItem instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType)
-            {
+            if (anyItem instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType) {
                 adhocQuery = (AdhocQueryType) anyItem;
             }
-            if (anyItem instanceof JAXBElement)
-            {
+            if (anyItem instanceof JAXBElement) {
                 log.info("jaxbelement.getValue=" + ((JAXBElement) anyItem).getValue());
-                if (((JAXBElement) anyItem).getValue() instanceof AdhocQueryType)
-                {
+                if (((JAXBElement) anyItem).getValue() instanceof AdhocQueryType) {
                     adhocQuery = (AdhocQueryType) ((JAXBElement) anyItem).getValue();
-                } else
-                {
+                } else {
                     log.warn("unhandled anyitem jaxbelement value " + ((JAXBElement) anyItem).getValue());
                 }
-            } else
-            {
+            } else {
                 log.warn("unhandled anyitem " + anyItem);
             }
         }
@@ -284,23 +277,16 @@ public class SubscribeTransforms {
         return adhocQuery;
     }
 
-    private String getFormattedPatientId(AdhocQueryType adhocQuery)
-    {
+    private String getFormattedPatientId(AdhocQueryType adhocQuery) {
         String formattedPatientId = null;
         List<SlotType1> slots = adhocQuery.getSlot();
-        if ((slots != null) && !(slots.isEmpty()))
-        {
-            for (SlotType1 slot : slots)
-            {
-                if (SLOT_NAME_PATIENT_ID.equals(slot.getName()))
-                {
-                    if (slot.getValueList() != null)
-                    {
+        if ((slots != null) && !(slots.isEmpty())) {
+            for (SlotType1 slot : slots) {
+                if (SLOT_NAME_PATIENT_ID.equals(slot.getName())) {
+                    if (slot.getValueList() != null) {
                         List<String> slotValues = slot.getValueList().getValue();
-                        for (String value : slotValues)
-                        {
-                            if (NullChecker.isNotNullish(value))
-                            {
+                        for (String value : slotValues) {
+                            if (NullChecker.isNotNullish(value)) {
                                 formattedPatientId = value;
                                 break;
                             }
@@ -312,40 +298,33 @@ public class SubscribeTransforms {
         return formattedPatientId;
     }
 
-    private class PatientInfo
-    {
+    private class PatientInfo {
 
         private String communityId;
         private String communityName;
         private String patientId;
 
-        public String getCommunityId()
-        {
+        public String getCommunityId() {
             return communityId;
         }
 
-        public void setCommunityId(String communityId)
-        {
+        public void setCommunityId(String communityId) {
             this.communityId = communityId;
         }
 
-        public void setCommunityName(String communityName)
-        {
+        public void setCommunityName(String communityName) {
             this.communityName = communityName;
         }
 
-        public String getCommunityName()
-        {
+        public String getCommunityName() {
             return communityName;
         }
 
-        public void setPatientId(String patientId)
-        {
+        public void setPatientId(String patientId) {
             this.patientId = patientId;
         }
 
-        public String getPatientId()
-        {
+        public String getPatientId() {
             return patientId;
         }
     }

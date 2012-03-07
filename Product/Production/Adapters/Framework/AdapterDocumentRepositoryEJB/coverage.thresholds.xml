@@ -2,7 +2,7 @@
 <thresholds>
    <threshold branchcount="222" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.document.DocumentRegistryHelper"
-              linecount="442"
+              linecount="445"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -12,7 +12,7 @@
               linesexecuted="0"/>
    <threshold branchcount="156" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.document.DocumentRepositoryHelper"
-              linecount="455"
+              linecount="458"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

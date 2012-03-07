@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
@@ -27,7 +47,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 public class DocumentRetrieveDeferredTransforms {
@@ -42,7 +62,7 @@ public class DocumentRetrieveDeferredTransforms {
     }
 
     /**
-     *
+     * 
      * @return Log
      */
     protected Log createLogger() {
@@ -57,7 +77,9 @@ public class DocumentRetrieveDeferredTransforms {
      * @param _interface
      * @return LogEventRequestType
      */
-    public LogEventRequestType transformAckResponseToAuditMsg(RegistryResponseType response, RetrieveDocumentSetRequestType retrieveRequest, RetrieveDocumentSetResponseType retrieveResponse, AssertionType assertion, String direction, String _interface, String requestCommunityId) {
+    public LogEventRequestType transformAckResponseToAuditMsg(RegistryResponseType response,
+            RetrieveDocumentSetRequestType retrieveRequest, RetrieveDocumentSetResponseType retrieveResponse,
+            AssertionType assertion, String direction, String _interface, String requestCommunityId) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
@@ -70,7 +92,7 @@ public class DocumentRetrieveDeferredTransforms {
             return null;
         }
 
-        //check to see that the required fields are not null
+        // check to see that the required fields are not null
         boolean missingReqFields = areRequiredResponseFieldsNull(response, assertion);
 
         if (missingReqFields) {
@@ -82,10 +104,20 @@ public class DocumentRetrieveDeferredTransforms {
 
         auditMsg = new AuditMessageType();
         // Create EventIdentification
-        CodedValueType eventId = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_DOCRETRIEVE_REQUEST, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_REQUEST);
-        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE_DISPNAME, AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE_DISPNAME);
+        CodedValueType eventId = AuditDataTransformHelper.createEventId(
+                AuditDataTransformConstants.EVENT_ID_CODE_DOCRETRIEVE_REQUEST,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_REQUEST);
+        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(
+                AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE_DISPNAME,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE_DISPNAME);
 
-        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_READ, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
+        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(
+                AuditDataTransformConstants.EVENT_ACTION_CODE_READ,
+                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
         auditMsg.setEventIdentification(eventIdentification);
 
         eventIdentification.getEventTypeCode().add(eventTypeCode);
@@ -94,34 +126,33 @@ public class DocumentRetrieveDeferredTransforms {
 
         // Create Active Participant Section
         if (assertion.getUserInfo() != null) {
-            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(assertion.getUserInfo(), true);
+            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                    assertion.getUserInfo(), true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
         /* Assign ParticipationObjectIdentification */
         String uniquePatientId = "";
-        if (assertion != null &&
-                assertion.getUniquePatientId() != null &&
-                assertion.getUniquePatientId().size() > 0) {
+        if (assertion != null && assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0) {
             uniquePatientId = assertion.getUniquePatientId().get(0);
-            log.debug("=====>>>>> Create Audit Source Identification Section --> Assertion Unique Patient Id is [" + uniquePatientId + "]");
+            log.debug("=====>>>>> Create Audit Source Identification Section --> Assertion Unique Patient Id is ["
+                    + uniquePatientId + "]");
         }
 
-        // The acknowledgement does not contain the patient or document ids, so we will extract the first document id from the original request
+        // The acknowledgement does not contain the patient or document ids, so we will extract the first document id
+        // from the original request
         String documentId = "";
-        if (retrieveRequest != null &&
-                retrieveRequest.getDocumentRequest() != null &&
-                retrieveRequest.getDocumentRequest().size() > 0 &&
-                retrieveRequest.getDocumentRequest().get(0) != null) {
+        if (retrieveRequest != null && retrieveRequest.getDocumentRequest() != null
+                && retrieveRequest.getDocumentRequest().size() > 0
+                && retrieveRequest.getDocumentRequest().get(0) != null) {
             documentId = retrieveRequest.getDocumentRequest().get(0).getDocumentUniqueId();
-        } else if (retrieveResponse != null &&
-                retrieveResponse.getDocumentResponse() != null &&
-                retrieveResponse.getDocumentResponse().size() > 0 &&
-                retrieveResponse.getDocumentResponse().get(0) != null) {
+        } else if (retrieveResponse != null && retrieveResponse.getDocumentResponse() != null
+                && retrieveResponse.getDocumentResponse().size() > 0
+                && retrieveResponse.getDocumentResponse().get(0) != null) {
             documentId = retrieveResponse.getDocumentResponse().get(0).getDocumentUniqueId();
         } else
-        log.debug("=====>>>>> Create Audit Source Identification Section --> Sent/Received Document Id is [" + documentId + "]");
-
+            log.debug("=====>>>>> Create Audit Source Identification Section --> Sent/Received Document Id is ["
+                    + documentId + "]");
 
         // Create Participation Object Identification Section
         ParticipantObjectIdentificationType partObjId = new ParticipantObjectIdentificationType();
@@ -141,7 +172,8 @@ public class DocumentRetrieveDeferredTransforms {
         /* Create the AuditSourceIdentifierType object */
         AuditSourceIdentificationType auditSrcId = null;
         if (requestCommunityId != null) {
-            auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(requestCommunityId, requestCommunityId);
+            auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(requestCommunityId,
+                    requestCommunityId);
         } else {
             auditSrcId = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(assertion.getUserInfo());
         }
@@ -182,7 +214,8 @@ public class DocumentRetrieveDeferredTransforms {
      * @param response
      * @throws RuntimeException
      */
-    protected void marshalResponseMessage(ByteArrayOutputStream baOutStrm, RegistryResponseType response) throws RuntimeException {
+    protected void marshalResponseMessage(ByteArrayOutputStream baOutStrm, RegistryResponseType response)
+            throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -190,11 +223,11 @@ public class DocumentRetrieveDeferredTransforms {
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0", "RegistryResponse");
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName(
+                    "urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0", "RegistryResponse");
             JAXBElement<RegistryResponseType> element;
 
             element = new JAXBElement<RegistryResponseType>(xmlqname, RegistryResponseType.class, response);
-
 
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the message.");
@@ -243,10 +276,10 @@ public class DocumentRetrieveDeferredTransforms {
     protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
         boolean bReturnVal = false;
 
-        if ((oAssertion != null) &&
-                (oAssertion.getUserInfo() != null)) {
+        if ((oAssertion != null) && (oAssertion.getUserInfo() != null)) {
             if (oAssertion.getUserInfo().getUserName() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getUserName: " + oAssertion.getUserInfo().getUserName());
+                log.debug("Incomming request.getAssertion.getUserInfo.getUserName: "
+                        + oAssertion.getUserInfo().getUserName());
             } else {
                 log.error("Incomming request.getAssertion.getUserInfo.getUserName was null.");
                 bReturnVal = true;
@@ -254,7 +287,8 @@ public class DocumentRetrieveDeferredTransforms {
             }
 
             if (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): " + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
+                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): "
+                        + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
             } else {
                 log.error("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
                 bReturnVal = true;
@@ -262,7 +296,8 @@ public class DocumentRetrieveDeferredTransforms {
             }
 
             if (oAssertion.getUserInfo().getOrg().getName() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: " + oAssertion.getUserInfo().getOrg().getName());
+                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: "
+                        + oAssertion.getUserInfo().getOrg().getName());
             } else {
                 log.error("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name was null.");
                 bReturnVal = true;
@@ -272,7 +307,7 @@ public class DocumentRetrieveDeferredTransforms {
             log.error("The UserType object or request assertion object containing the assertion user info was null.");
             bReturnVal = true;
             return true;
-        } //else continue
+        } // else continue
 
         return bReturnVal;
     }
@@ -286,28 +321,25 @@ public class DocumentRetrieveDeferredTransforms {
      * @param action
      * @return LogEventRequestType
      */
-    public LogEventRequestType transformAcknowledgementToAuditMsg(DocRetrieveAcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface, String action)
-    {
+    public LogEventRequestType transformAcknowledgementToAuditMsg(DocRetrieveAcknowledgementType acknowledgement,
+            AssertionType assertion, String direction, String _interface, String action) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
-        if(acknowledgement == null)
-        {
+        if (acknowledgement == null) {
             log.error("Acknowledgement is null");
             return null;
         }
 
-        if(assertion == null)
-        {
+        if (assertion == null) {
             log.error("Assertion is null");
             return null;
         }
 
-        //check to see that the required fields are not null
+        // check to see that the required fields are not null
         boolean missingReqFields = areRequiredAcknowledgementFieldsNull(acknowledgement, assertion);
 
-        if (missingReqFields)
-        {
+        if (missingReqFields) {
             log.error("One or more required fields was missing");
             return null;
         }
@@ -316,16 +348,27 @@ public class DocumentRetrieveDeferredTransforms {
 
         auditMsg = new AuditMessageType();
         // Create EventIdentification
-        CodedValueType eventId = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_DOCRETRIEVE_REQUEST, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_REQUEST);
-        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE_DISPNAME, AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE_DISPNAME);
-        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_READ, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
+        CodedValueType eventId = AuditDataTransformHelper.createEventId(
+                AuditDataTransformConstants.EVENT_ID_CODE_DOCRETRIEVE_REQUEST,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC,
+                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_REQUEST);
+        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(
+                AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE_DISPNAME,
+                AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE_DISPNAME);
+        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(
+                AuditDataTransformConstants.EVENT_ACTION_CODE_READ,
+                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
         auditMsg.setEventIdentification(eventIdentification);
         eventIdentification.getEventTypeCode().add(eventTypeCode);
         auditMsg.setEventIdentification(eventIdentification);
 
         // Create Active Participant Section
         if (assertion.getUserInfo() != null) {
-            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(assertion.getUserInfo(), true);
+            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
+                    assertion.getUserInfo(), true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
@@ -362,7 +405,8 @@ public class DocumentRetrieveDeferredTransforms {
      * @param acknowledgement
      * @throws RuntimeException
      */
-    protected void marshalAcknowledgement(ByteArrayOutputStream baOutStrm, DocRetrieveAcknowledgementType acknowledgement) throws RuntimeException {
+    protected void marshalAcknowledgement(ByteArrayOutputStream baOutStrm,
+            DocRetrieveAcknowledgementType acknowledgement) throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -370,11 +414,12 @@ public class DocumentRetrieveDeferredTransforms {
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("http://www.hhs.gov/healthit/nhin", "DocRetrieveAcknowledgementType");
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("http://www.hhs.gov/healthit/nhin",
+                    "DocRetrieveAcknowledgementType");
             JAXBElement<DocRetrieveAcknowledgementType> element;
 
-            element = new JAXBElement<DocRetrieveAcknowledgementType>(xmlqname, DocRetrieveAcknowledgementType.class, acknowledgement);
-
+            element = new JAXBElement<DocRetrieveAcknowledgementType>(xmlqname, DocRetrieveAcknowledgementType.class,
+                    acknowledgement);
 
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the message.");
@@ -390,29 +435,25 @@ public class DocumentRetrieveDeferredTransforms {
      * @param assertion
      * @return boolean
      */
-    protected boolean areRequiredAcknowledgementFieldsNull(DocRetrieveAcknowledgementType acknowledgement, AssertionType assertion)
-    {
-        if(assertion == null)
-        {
+    protected boolean areRequiredAcknowledgementFieldsNull(DocRetrieveAcknowledgementType acknowledgement,
+            AssertionType assertion) {
+        if (assertion == null) {
             log.error("Assertion object is null");
             return true;
         }
-        if(acknowledgement == null)
-        {
+        if (acknowledgement == null) {
             log.error("Acknowledge object is null");
             return true;
         }
-        if (areRequiredUserTypeFieldsNull(assertion))
-        {
+        if (areRequiredUserTypeFieldsNull(assertion)) {
             log.error("One of more UserInfo fields from the Assertion object were null.");
             return true;
         }
-        if(acknowledgement.getMessage() == null)
-        {
+        if (acknowledgement.getMessage() == null) {
             log.error("Acknowledgement does not contain a message");
             return true;
         }
 
-         return false;
+        return false;
     }
 }

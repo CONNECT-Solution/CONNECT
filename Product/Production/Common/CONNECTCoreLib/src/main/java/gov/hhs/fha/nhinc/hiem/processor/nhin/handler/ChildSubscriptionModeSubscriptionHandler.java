@@ -1,12 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
- */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.hiem.processor.nhin.handler;
 
@@ -43,7 +59,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  * @author rayj
  */
 class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
@@ -61,7 +77,7 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
 
         // Build subscription item
         log.debug("create nhin->adapter subscription");
-        //serialize childSubscribe to rawChildSubscribe
+        // serialize childSubscribe to rawChildSubscribe
         HiemSubscriptionItem parentSubscriptionItem = createSubscriptionItem(subscribe, "gateway", "nhin");
 
         // Store subscription
@@ -92,11 +108,12 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
         try {
             // Build subscription item
             log.debug("create gateway->adapter subscription");
-            //serialize childSubscribe to rawChildSubscribe
+            // serialize childSubscribe to rawChildSubscribe
             HiemSubscriptionItem childSubscriptionItem = new HiemSubscriptionItem();
             childSubscriptionItem.setSubscribeXML(XmlUtility.serializeElement(childSubscribe));
-            childSubscriptionItem.setSubscriptionReferenceXML(XmlUtility.serializeElement(subscribeResponseElementFromAdapter));
-            childSubscriptionItem.setRootTopic(null);  //gets filled in by repository
+            childSubscriptionItem.setSubscriptionReferenceXML(XmlUtility
+                    .serializeElement(subscribeResponseElementFromAdapter));
+            childSubscriptionItem.setRootTopic(null); // gets filled in by repository
 
             EndpointReferenceMarshaller endpointReferenceMarshaller = new EndpointReferenceMarshaller();
             Element parentSubscriptionElement = endpointReferenceMarshaller.marshal(parentSubscriptionReference);
@@ -122,7 +139,8 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
 
     private Element createChildSubscribe(Element parentSubscribeElement) throws ConfigurationException {
         log.debug("build child subscribe");
-        log.debug("starting with parent subscribe [" + XmlUtility.serializeElementIgnoreFaults(parentSubscribeElement) + "]");
+        log.debug("starting with parent subscribe [" + XmlUtility.serializeElementIgnoreFaults(parentSubscribeElement)
+                + "]");
 
         Element childSubscribeElement = parentSubscribeElement;
         Subscribe childSubscribe = null;
@@ -138,21 +156,26 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
 
         log.debug("creating consumer reference endpoint");
         ConsumerReferenceHelper consumerReferenceHelper = new ConsumerReferenceHelper();
-        EndpointReferenceType consumerReferenceEndpointReference = consumerReferenceHelper.createConsumerReferenceEndpointReference(entityNotificationConsumerAddress);
+        EndpointReferenceType consumerReferenceEndpointReference = consumerReferenceHelper
+                .createConsumerReferenceEndpointReference(entityNotificationConsumerAddress);
 
-//        log.debug("marshall consumer reference to element");
-//        EndpointReferenceMarshaller endpointReferenceMarshaller = new EndpointReferenceMarshaller();
-//        Element consumerReferenceEndpointReferenceElement = endpointReferenceMarshaller.marshal(consumerReferenceEndpointReference);
-//        log.debug("marshalled consumer reference endpoint [" + XmlUtility.serializeElementIgnoreFaults(consumerReferenceEndpointReferenceElement) + "]");
+        // log.debug("marshall consumer reference to element");
+        // EndpointReferenceMarshaller endpointReferenceMarshaller = new EndpointReferenceMarshaller();
+        // Element consumerReferenceEndpointReferenceElement =
+        // endpointReferenceMarshaller.marshal(consumerReferenceEndpointReference);
+        // log.debug("marshalled consumer reference endpoint [" +
+        // XmlUtility.serializeElementIgnoreFaults(consumerReferenceEndpointReferenceElement) + "]");
         log.debug("set consumer reference endpoint");
         childSubscribe.setConsumerReference(consumerReferenceEndpointReference);
 
-//        Element parentConsumerReference = XmlUtility.getSingleChildElement(childSubscribe, "http://docs.oasis-open.org/wsn/b-2", "ConsumerReference");
-//        childSubscribe.removeChild(parentConsumerReference);
-//        consumerReferenceEndpointReferenceElement = (Element) childSubscribe.getOwnerDocument().importNode(consumerReferenceEndpointReferenceElement, true);
-//
-//        log.debug("adding consumer reference endpoint to child subscribe");
-//        childSubscribe.appendChild(consumerReferenceEndpointReferenceElement);
+        // Element parentConsumerReference = XmlUtility.getSingleChildElement(childSubscribe,
+        // "http://docs.oasis-open.org/wsn/b-2", "ConsumerReference");
+        // childSubscribe.removeChild(parentConsumerReference);
+        // consumerReferenceEndpointReferenceElement = (Element)
+        // childSubscribe.getOwnerDocument().importNode(consumerReferenceEndpointReferenceElement, true);
+        //
+        // log.debug("adding consumer reference endpoint to child subscribe");
+        // childSubscribe.appendChild(consumerReferenceEndpointReferenceElement);
 
         log.debug("marshal subscribe to element");
         childSubscribeElement = subscribeMarshaller.marshalSubscribe(childSubscribe);
@@ -163,14 +186,12 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
     }
 
     /**
-     * Use reflection to set the subscription reference. The runtime parameter
-     * type of the setSubscriptionReference method of SubscriptionResponse is
-     * checked and the correct parameter type is created and the method is
-     * invoked with the correct type.
-     *
-     * This is necessary because the buildtime type and runtime type are
-     * different for the method called.
-     *
+     * Use reflection to set the subscription reference. The runtime parameter type of the setSubscriptionReference
+     * method of SubscriptionResponse is checked and the correct parameter type is created and the method is invoked
+     * with the correct type.
+     * 
+     * This is necessary because the buildtime type and runtime type are different for the method called.
+     * 
      * @param response Subscription response method.
      * @param subRef Subscription reference
      */
@@ -192,13 +213,13 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
                                     log.debug("Param type: " + paramType.getName());
                                     if (paramType.isAssignableFrom(EndpointReferenceType.class)) {
                                         log.debug("Param type is EndpointReferenceType");
-                                        Object[] params = {subRef};
+                                        Object[] params = { subRef };
                                         log.debug("Invoking EndpointReferenceType param method");
                                         m.invoke(response, params);
                                         break;
                                     } else if (paramType.isAssignableFrom(W3CEndpointReference.class)) {
                                         log.debug("Param type is W3CEndpointReference");
-                                        Object[] params = {convertEndpointReferenceToW3cEndpointReference(subRef)};
+                                        Object[] params = { convertEndpointReferenceToW3cEndpointReference(subRef) };
                                         log.debug("Invoking W3CEndpointReference param method");
                                         m.invoke(response, params);
                                         break;
@@ -244,9 +265,8 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
             }
             doc.setXmlStandalone(true);
 
-            if ((epr.getReferenceParameters() != null) &&
-                    (epr.getReferenceParameters().getAny() != null) &&
-                    (!epr.getReferenceParameters().getAny().isEmpty())) {
+            if ((epr.getReferenceParameters() != null) && (epr.getReferenceParameters().getAny() != null)
+                    && (!epr.getReferenceParameters().getAny().isEmpty())) {
                 List<Object> refParams = epr.getReferenceParameters().getAny();
                 for (Object o : refParams) {
                     log.debug("Processing a reference parameter");

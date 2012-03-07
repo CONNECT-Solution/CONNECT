@@ -1,0 +1,4 @@
+<jboss-web>
+    <context-root>Gateway/DocumentRetrieve/2_0</context-root>
+    <class-loading java2ClassLoadingCompliance='true'/>
+</jboss-web>

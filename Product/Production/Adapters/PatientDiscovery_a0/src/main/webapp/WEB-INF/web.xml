@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+<servlet>
+        <servlet-name>AdapterMpiSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterMpiSecured</servlet-name>
+        <url-pattern>/AdapterMpiSecuredService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterMpi</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.AdapterMpi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterMpi</servlet-name>
+        <url-pattern>/AdapterMpiService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterComponentMpi</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentMpi</servlet-name>
+        <url-pattern>/AdapterComponentMpiService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterComponentMpiSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterComponentMpiSecured</servlet-name>
+        <url-pattern>/AdapterComponentMpiSecuredService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MpiManager</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adaptermpimanager.MpiManager</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MpiManager</servlet-name>
+        <url-pattern>/AdapterMpiManagerService</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>AdapterPatientDiscoverySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscoverySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoverySecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoverySecured</url-pattern>
+    </servlet-mapping>    
+    <servlet>
+        <servlet-name>AdapterPatientDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscovery</servlet-name>
+        <url-pattern>/AdapterPatientDiscovery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestSecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredRequestSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestUnsecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredRequestUnsecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryDeferredResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryDeferredResponseSecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredResponseSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryDeferredResponseUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryDeferredResponseUnsecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredResponseUnsecured</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryDeferredReqQueueProcess</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueProcess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryDeferredReqQueueProcess</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredReqQueueProcess</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestErrorSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestErrorSecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredRequestErrorSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestErrorUnsecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorUnsecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscoveryDeferredRequestErrorUnsecured</servlet-name>
+        <url-pattern>/AdapterPatientDiscoveryDeferredRequestErrorUnsecured</url-pattern>
+    </servlet-mapping>
+    <!-- End: XDR Request and Response services-->
+
+    <security-constraint>
+        <web-resource-collection>
+	    <web-resource-name>AdapterMpiSecured</web-resource-name>
+	    <url-pattern>/AdapterMpiSecuredService</url-pattern>
+	</web-resource-collection>
+        <web-resource-collection>
+	    <web-resource-name>AdapterComponentMpiSecured</web-resource-name>
+	    <url-pattern>/AdapterComponentMpiSecuredService</url-pattern>
+	</web-resource-collection>		
+        <web-resource-collection>
+	    <web-resource-name>AdapterPatientDiscoverySecured</web-resource-name>
+	    <url-pattern>/AdapterPatientDiscoverySecured</url-pattern>
+	</web-resource-collection>
+        <web-resource-collection>
+	    <web-resource-name>AdapterPatientDiscoveryDeferredRequestSecured</web-resource-name>
+	    <url-pattern>/AdapterPatientDiscoveryDeferredRequestSecured</url-pattern>
+	</web-resource-collection>	
+        <web-resource-collection>
+	    <web-resource-name>AdapterPatientDiscoveryDeferredResponseSecured</web-resource-name>
+	    <url-pattern>/AdapterPatientDiscoveryDeferredResponseSecured</url-pattern>
+	</web-resource-collection>
+        <web-resource-collection>
+	    <web-resource-name>AdapterPatientDiscoveryDeferredRequestErrorSecured</web-resource-name>
+	    <url-pattern>/AdapterPatientDiscoveryDeferredRequestErrorSecured</url-pattern>
+	</web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>CLIENT-CERT</auth-method>
+        <realm-name>certificate</realm-name>
+    </login-config>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

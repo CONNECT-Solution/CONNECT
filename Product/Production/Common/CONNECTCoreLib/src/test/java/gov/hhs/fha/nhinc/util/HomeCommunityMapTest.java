@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
  *
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
  *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.util;
 
@@ -12,62 +32,96 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
+import org.uddi.api_v3.BusinessEntity;
+import org.uddi.api_v3.Name;
 import static org.junit.Assert.*;
 
-
 /**
- *
+ * 
  * @author Arthur Kong
  */
 public class HomeCommunityMapTest {
 
-    private HomeCommunityMap hMap;
+    Mockery context = new JUnit4Mockery() {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
+    final ConnectionManagerCache mockConnectionManager = context.mock(ConnectionManagerCache.class);
+    final ConnectionManagerCacheHelper mockConnectionManagerHelper = context.mock(ConnectionManagerCacheHelper.class);
 
     public HomeCommunityMapTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
+    protected BusinessEntity createBusinessEntity() {
+        BusinessEntity bEntity = new BusinessEntity();
 
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
+        bEntity.setBusinessKey("businessKey");
+        Name name = new Name();
+        name.setValue("123");
+        bEntity.getName().add(name);
 
-    @Before
-    public void setUp() {
-        hMap = new HomeCommunityMap();
-    }
-
-    @After
-    public void tearDown() {
+        return bEntity;
     }
 
     @Test
     public void testGetHomeCommunityName() {
 
-        // The id and name are read from the internalconnections.xml file
-        // whose location is defined in the properties variable
-        String homeCommunityId = "1.1";
-        String homeCommunityName = "DoD";
-        
-        String foundName = hMap.getHomeCommunityName(homeCommunityId);
-        assertEquals(homeCommunityName, foundName);
+        try {
+            String homeCommunityId = "1.1";
+            String homeCommunityName = "DoD";
 
-        homeCommunityId = "123456";
-        foundName = hMap.getHomeCommunityName(homeCommunityId);
-        assertEquals("", foundName);
+            HomeCommunityMap homeMap = new HomeCommunityMap() {
+                @Override
+                protected ConnectionManagerCache getConnectionManagerCache() {
+                    return mockConnectionManager;
+                }
+                
+                @Override
+                protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
+                    return mockConnectionManagerHelper;
+                }
+            };
+
+            context.checking(new Expectations() {
+                {
+                    exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class)));
+                    will(returnValue(createBusinessEntity()));
+                    exactly(1).of(mockConnectionManagerHelper).getCommunityId(with(any(BusinessEntity.class)));
+                    will(returnValue("DoD"));
+                }
+            });
+
+            String foundName = homeMap.getHomeCommunityName(homeCommunityId);
+            assertEquals(homeCommunityName, foundName);
+
+            context.checking(new Expectations() {
+                {
+                    exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class)));
+                    will(returnValue(null));
+                }
+            });
+
+            homeCommunityId = "123456";
+            foundName = homeMap.getHomeCommunityName(homeCommunityId);
+            assertEquals("", foundName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Error running testGetHomeCommunityName test: " + e.getMessage());
+        }
     }
 
     @Test
@@ -128,7 +182,7 @@ public class HomeCommunityMapTest {
         assertion.getUserInfo().setOrg(org);
         communityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         assertEquals(null, communityId);
-        
+
         assertion.getUserInfo().getOrg().setHomeCommunityId("");
         communityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         assertEquals(null, communityId);
@@ -212,7 +266,7 @@ public class HomeCommunityMapTest {
         doc.getDocumentResponse().add(docResponse);
 
         String communityId = HomeCommunityMap.getCommunityIdForDeferredRDResponse(doc);
-        assertEquals("1.1",  communityId);
+        assertEquals("1.1", communityId);
 
         docResponse.setHomeCommunityId("urn:oid:1.1");
         communityId = HomeCommunityMap.getCommunityIdForDeferredRDResponse(doc);

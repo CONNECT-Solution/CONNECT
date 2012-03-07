@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.util;
 
@@ -27,43 +47,35 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 
 /**
- * Utility to load documents from an XML file into the database. 
+ * Utility to load documents from an XML file into the database.
  * 
  * @author Neil Webb
  */
-public class DocumentLoadUtil
-{
+public class DocumentLoadUtil {
     private static final String DATE_FORMAT_STRING = "yyyyMMddhhmmssZ";
     private static Log log = LogFactory.getLog(DocumentLoadUtil.class);
 
-    private static void loadData(String absoluteFilePath) throws Exception
-    {
+    private static void loadData(String absoluteFilePath) throws Exception {
         // Load file into XML
         Document doc = XmlUtil.getDocumentFromFile(absoluteFilePath);
-        if (doc == null)
-        {
+        if (doc == null) {
             throw new Exception("Could not load document from file for: " + absoluteFilePath);
         }
 
         // Traverse the DOM and load documents into database
         NodeList docNodes = doc.getElementsByTagName("Document");
-        if ((docNodes != null) && (docNodes.getLength() > 0))
-        {
-            for (int i = 0; i < docNodes.getLength(); i++)
-            {
+        if ((docNodes != null) && (docNodes.getLength() > 0)) {
+            for (int i = 0; i < docNodes.getLength(); i++) {
                 Node node = docNodes.item(i);
-                if (node instanceof Element)
-                {
-                    storeDocument((Element)node);
+                if (node instanceof Element) {
+                    storeDocument((Element) node);
                 }
             }
         }
     }
 
-    private static void storeDocument(Element documentElement) throws Exception
-    {
-        if (documentElement == null)
-        {
+    private static void storeDocument(Element documentElement) throws Exception {
+        if (documentElement == null) {
             throw new Exception("Document element was null.");
         }
         gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc = new gov.hhs.fha.nhinc.docrepository.adapter.model.Document();
@@ -80,7 +92,8 @@ public class DocumentLoadUtil
         doc.setClassCodeDisplayName(getChildElementStringValue(documentElement, "classCodeDisplayName"));
         doc.setConfidentialityCode(getChildElementStringValue(documentElement, "confidentialityCode"));
         doc.setConfidentialityCodeScheme(getChildElementStringValue(documentElement, "confidentialityCodeScheme"));
-        doc.setConfidentialityCodeDisplayName(getChildElementStringValue(documentElement, "confidentialityCodeDisplayName"));
+        doc.setConfidentialityCodeDisplayName(getChildElementStringValue(documentElement,
+                "confidentialityCodeDisplayName"));
         doc.setFormatCode(getChildElementStringValue(documentElement, "formatCode"));
         doc.setFormatCodeScheme(getChildElementStringValue(documentElement, "formatCodeScheme"));
         doc.setFormatCodeDisplayName(getChildElementStringValue(documentElement, "formatCodeDisplayName"));
@@ -91,7 +104,8 @@ public class DocumentLoadUtil
         doc.setFacilityCodeScheme(getChildElementStringValue(documentElement, "facilityCodeScheme"));
         doc.setFacilityCodeDisplayName(getChildElementStringValue(documentElement, "facilityCodeDisplayName"));
         doc.setIntendedRecipientPerson(getChildElementStringValue(documentElement, "intendedRecipientPerson"));
-        doc.setIntendedRecipientOrganization(getChildElementStringValue(documentElement, "intendedRecipientOrganization"));
+        doc.setIntendedRecipientOrganization(getChildElementStringValue(documentElement,
+                "intendedRecipientOrganization"));
         doc.setLanguageCode(getChildElementStringValue(documentElement, "languageCode"));
         doc.setLegalAuthenticator(getChildElementStringValue(documentElement, "legalAuthenticator"));
         doc.setMimeType(getChildElementStringValue(documentElement, "mimeType"));
@@ -114,11 +128,15 @@ public class DocumentLoadUtil
         doc.setRawData(getChildElementByteArray(documentElement, "rawData"));
 
         // Date fields
-        doc.setCreationTime(parseDate(getChildElementStringValue(documentElement, "creationTime"),DATE_FORMAT_STRING));
-        doc.setServiceStartTime(parseDate(getChildElementStringValue(documentElement, "serviceStartTime"),DATE_FORMAT_STRING));
-        doc.setServiceStopTime(parseDate(getChildElementStringValue(documentElement, "serviceStopTime"),DATE_FORMAT_STRING));
-//        doc.setServiceStartTime(parseDate(getChildElementStringValue(documentElement, "serviceStartTime"), "yyyyMMddhhmmss"));
-//        doc.setServiceStopTime(parseDate(getChildElementStringValue(documentElement, "serviceStopTime"), "yyyyMMddhhmmss"));
+        doc.setCreationTime(parseDate(getChildElementStringValue(documentElement, "creationTime"), DATE_FORMAT_STRING));
+        doc.setServiceStartTime(parseDate(getChildElementStringValue(documentElement, "serviceStartTime"),
+                DATE_FORMAT_STRING));
+        doc.setServiceStopTime(parseDate(getChildElementStringValue(documentElement, "serviceStopTime"),
+                DATE_FORMAT_STRING));
+        // doc.setServiceStartTime(parseDate(getChildElementStringValue(documentElement, "serviceStartTime"),
+        // "yyyyMMddhhmmss"));
+        // doc.setServiceStopTime(parseDate(getChildElementStringValue(documentElement, "serviceStopTime"),
+        // "yyyyMMddhhmmss"));
 
         loadEventCodes(documentElement, doc);
 
@@ -126,68 +144,57 @@ public class DocumentLoadUtil
         docService.saveDocument(doc);
     }
 
-    private static Date parseDate(String value, String dateFormat)
-    {
+    private static Date parseDate(String value, String dateFormat) {
         Date parsedDate = null;
-        if ((value != null) && (dateFormat != null))
-        {
-            try
-            {
+        if ((value != null) && (dateFormat != null)) {
+            try {
                 String formatString = prepareDateFormatString(dateFormat, value);
                 SimpleDateFormat dateFormatter = new SimpleDateFormat(formatString);
                 parsedDate = dateFormatter.parse(value);
-            }
-            catch (Throwable t)
-            {
-                log.error("Error parsing date '" + value + "' using format: '" +
-                    dateFormat + "': " + t.getMessage(), t);
+            } catch (Throwable t) {
+                log.error("Error parsing date '" + value + "' using format: '" + dateFormat + "': " + t.getMessage(), t);
             }
         }
         return parsedDate;
     }
 
     /**
-     * Prepare a date format string based on the length of the date string
-     * to be parsed.
+     * Prepare a date format string based on the length of the date string to be parsed.
+     * 
      * @param dateFormat Date format string (ex. yyyyMMddhhmmssZ)
      * @param dateString Date string to be parsed (ex. 19990205)
      * @return Modified format string based on the date string length (ex. yyyyMMdd)
      */
-    public static String prepareDateFormatString(String dateFormat, String dateString)
-    {
+    public static String prepareDateFormatString(String dateFormat, String dateString) {
         String formatString = dateFormat;
-        if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0) && (dateString.length() < dateFormat.length()))
-        {
+        if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0)
+                && (dateString.length() < dateFormat.length())) {
             formatString = dateFormat.substring(0, dateString.length());
-            if(log.isDebugEnabled())
-            {
+            if (log.isDebugEnabled()) {
                 log.debug("New dateFormat: " + dateFormat);
             }
         }
         return formatString;
     }
 
-    private static void loadEventCodes(Element documentElement, gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc)
-    {
-        if (documentElement != null)
-        {
+    private static void loadEventCodes(Element documentElement,
+            gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc) {
+        if (documentElement != null) {
             NodeList nodes = documentElement.getElementsByTagName("eventCode");
-            if ((nodes != null) && (nodes.getLength() > 0))
-            {
+            if ((nodes != null) && (nodes.getLength() > 0)) {
                 Set<EventCode> eventCodes = new HashSet<EventCode>();
-                for (int i = 0; i < nodes.getLength(); i++)
-                {
+                for (int i = 0; i < nodes.getLength(); i++) {
                     // eventCode element - load data
                     Node node = nodes.item(i);
-                    if (node instanceof Element)
-                    {
-                        Element eventCodeElement = (Element)node;
+                    if (node instanceof Element) {
+                        Element eventCodeElement = (Element) node;
                         EventCode eventCode = new EventCode();
                         eventCode.setDocument(doc);
                         eventCode.setEventCodeId(getChildElementLongValue(eventCodeElement, "codeId"));
                         eventCode.setEventCode(getChildElementStringValue(eventCodeElement, "code"));
                         eventCode.setEventCodeScheme(getChildElementStringValue(eventCodeElement, "codeSchema"));
-                        eventCode.setEventCodeDisplayName(getChildElementStringValue(eventCodeElement, "codeDisplayName"));
+                        eventCode.setEventCodeDisplayName(getChildElementStringValue(eventCodeElement,
+                                "codeDisplayName"));
                         eventCodes.add(eventCode);
                     }
                 }
@@ -196,22 +203,17 @@ public class DocumentLoadUtil
         }
     }
 
-    private static String getChildElementStringValue(Element element, String childElementName)
-    {
+    private static String getChildElementStringValue(Element element, String childElementName) {
         String value = null;
-        if ((element != null) && (childElementName != null))
-        {
-            if(log.isDebugEnabled())
-            {
+        if ((element != null) && (childElementName != null)) {
+            if (log.isDebugEnabled()) {
                 log.debug("Extracting child element '" + childElementName + "' from '" + element.getTagName() + "'");
             }
             NodeList nodes = element.getElementsByTagName(childElementName);
-            if ((nodes != null) && (nodes.getLength() > 0))
-            {
+            if ((nodes != null) && (nodes.getLength() > 0)) {
                 Node node = nodes.item(0);
-                if (node instanceof Element)
-                {
-                    Element childElement = (Element)node;
+                if (node instanceof Element) {
+                    Element childElement = (Element) node;
                     value = childElement.getTextContent();
                 }
             }
@@ -219,31 +221,22 @@ public class DocumentLoadUtil
         return value;
     }
 
-    private static Long getChildElementLongValue(Element element, String childElementName)
-    {
+    private static Long getChildElementLongValue(Element element, String childElementName) {
         Long value = null;
-        if ((element != null) && (childElementName != null))
-        {
-            if(log.isDebugEnabled())
-            {
+        if ((element != null) && (childElementName != null)) {
+            if (log.isDebugEnabled()) {
                 log.debug("Extracting child element '" + childElementName + "' from '" + element.getTagName() + "'");
             }
             NodeList nodes = element.getElementsByTagName(childElementName);
-            if ((nodes != null) && (nodes.getLength() > 0))
-            {
+            if ((nodes != null) && (nodes.getLength() > 0)) {
                 Node node = nodes.item(0);
-                if (node instanceof Element)
-                {
-                    Element childElement = (Element)node;
+                if (node instanceof Element) {
+                    Element childElement = (Element) node;
                     String strVal = childElement.getTextContent();
-                    if (strVal != null)
-                    {
-                        try
-                        {
+                    if (strVal != null) {
+                        try {
                             value = Long.parseLong(strVal);
-                        }
-                        catch (Throwable t)
-                        {
+                        } catch (Throwable t) {
                             log.error("Failed to parse long from '" + strVal + "'", t);
                         }
                     }
@@ -253,32 +246,23 @@ public class DocumentLoadUtil
         return value;
     }
 
-    private static Integer getChildElementIntegerValue(Element element, String childElementName)
-    {
+    private static Integer getChildElementIntegerValue(Element element, String childElementName) {
         Integer value = null;
-        if ((element != null) && (childElementName != null))
-        {
-            if(log.isDebugEnabled())
-            {
+        if ((element != null) && (childElementName != null)) {
+            if (log.isDebugEnabled()) {
                 log.debug("Extracting child element '" + childElementName + "' from '" + element.getTagName() + "'");
             }
             NodeList nodes = element.getElementsByTagName(childElementName);
-            if ((nodes != null) && (nodes.getLength() > 0))
-            {
+            if ((nodes != null) && (nodes.getLength() > 0)) {
                 Node node = nodes.item(0);
-                if (node instanceof Element)
-                {
-                    Element childElement = (Element)node;
+                if (node instanceof Element) {
+                    Element childElement = (Element) node;
                     String strVal = childElement.getTextContent();
-                    if (strVal != null)
-                    {
-                        try
-                        {
+                    if (strVal != null) {
+                        try {
                             value = new Integer(strVal);
-                        }
-                        catch (Throwable t)
-                        {
-                            log.error("Failed to parse integer from '" + strVal + "'",t);
+                        } catch (Throwable t) {
+                            log.error("Failed to parse integer from '" + strVal + "'", t);
                         }
                     }
                 }
@@ -287,25 +271,19 @@ public class DocumentLoadUtil
         return value;
     }
 
-    private static byte[] getChildElementByteArray(Element element, String childElementName)
-    {
+    private static byte[] getChildElementByteArray(Element element, String childElementName) {
         byte[] value = null;
-        if ((element != null) && (childElementName != null))
-        {
-            if(log.isDebugEnabled())
-            {
+        if ((element != null) && (childElementName != null)) {
+            if (log.isDebugEnabled()) {
                 log.debug("Extracting child element '" + childElementName + "' from '" + element.getTagName() + "'");
             }
             NodeList nodes = element.getElementsByTagName(childElementName);
-            if ((nodes != null) && (nodes.getLength() > 0))
-            {
+            if ((nodes != null) && (nodes.getLength() > 0)) {
                 Node node = nodes.item(0);
-                if (node instanceof Element)
-                {
-                    Element childElement = (Element)node;
+                if (node instanceof Element) {
+                    Element childElement = (Element) node;
                     String encStrVal = childElement.getTextContent();
-                    if (encStrVal != null)
-                    {
+                    if (encStrVal != null) {
                         value = encStrVal.getBytes();
                     }
                 }
@@ -316,6 +294,7 @@ public class DocumentLoadUtil
 
     /**
      * This method copies files from input folder to output folder...
+     * 
      * @param source
      * @param dest
      * @throws java.io.IOException
@@ -340,7 +319,7 @@ public class DocumentLoadUtil
             source.deleteOnExit();
         }
     }
-    
+
     /**
      * Method reads bunch of files kept under a folder and move them to different folder after processing..
      */
@@ -376,7 +355,7 @@ public class DocumentLoadUtil
                     destFile = new File(outFilePath, inFileName);
                     try {
                         copyFile(inFile, destFile);
-                    //inFile.delete();
+                        // inFile.delete();
                     } catch (IOException ex) {
                         log.error(ex.getMessage());
                     }
@@ -386,15 +365,14 @@ public class DocumentLoadUtil
             log.info("Input files Not found under the specific directory, Please verify filespath.properties and run again");
         }
     }
-    
+
     /**
-     * Entry point for the document load utility. The absolute path to the
-     * source file is expected as the only parameter.
+     * Entry point for the document load utility. The absolute path to the source file is expected as the only
+     * parameter.
      * 
      * @param args Absolute path to source file as only parameter.
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         log.debug("Begin DocumentLoad");
         try {
             if (args.length == 0) {
@@ -404,8 +382,9 @@ public class DocumentLoadUtil
                 loadData(args[0]);
             }
             if (args.length > 1) {
-                throw new Exception("Only one argument of the absolute path to a " +
-                        "source file is expected or bunch files expected using a propery file, review ReadMe.tx before uploading");
+                throw new Exception(
+                        "Only one argument of the absolute path to a "
+                                + "source file is expected or bunch files expected using a propery file, review ReadMe.tx before uploading");
             }
 
         } catch (Throwable t) {

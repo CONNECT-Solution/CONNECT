@@ -47,11 +47,10 @@ layer of abstraction
   <if>
 	<equals arg1="${calling.anttarget.from.netbeans}" arg2="true"/>
 	<then>
-	  <echo message="loadding........"/>
+	  <echo message="loading........"/>
 	  <import file="netbeans/netbeans.targets.xml" />
 	</then>
   </if>
-
   
   <target name="deploy">
     <call target="create.deploy.list.xml" if="${deploy.isDeployable}"/>
@@ -76,42 +75,71 @@ layer of abstraction
     </xmltask> 
   </target>
 
-  <target name="addentry.deploy.list.xml">
+  <target name="addentry.deploy.list.xml">    
+	  <xmltask source="${root.project.directory.path}/projects.xml">
+	    <copy path="/projects/project/name[text()='${project.name}']/../should.deploy/text()" property="project.${project.name}.should.deploy"/>
+	  </xmltask>
+	  <propertycopy name="should.deploy" from="project.${project.name}.should.deploy" />
+    <if>
+      <istrue value="${should.deploy}"/>
+      <then>
+        <var name="deploy.should.deploy" value="true"/>
+      </then>
+      <else>
+        <var name="deploy.should.deploy" value="false"/>
+      </else>
+    </if>
     <if>
       <istrue value="${deploy.isDeployable}"/>
-    <then>
-      <switch value="${deploy.type}">
-        <case value="war">
-          <var name="deploy.list.entry.xpath" value="/applications/wars"/>
-          <var name="deploy.list.entry" value="&lt;war&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/war&gt;"/>
-          <runtarget target="insert.entry.to.deploy.app.list"/>
-        </case>
-        <case value="shared">
-          <var name="deploy.list.entry.xpath" value="/applications/shared"/>
-          <var name="deploy.list.entry" value="&lt;lib&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/lib&gt;"/>
-          <runtarget target="insert.entry.to.deploy.app.list"/>       
-        </case>
-        <case value="ejb">
-          <var name="deploy.list.entry.xpath" value="/applications/ejbs"/>
-          <var name="deploy.list.entry" value="&lt;ejb&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/ejb&gt;"/>
-          <runtarget target="insert.entry.to.deploy.app.list"/>
-        </case>
-        <case value="executable">
-          <var name="deploy.list.entry.xpath" value="/applications/execs"/>
-          <var name="deploy.list.entry" value="&lt;executable&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/executable&gt;"/>
-          <runtarget target="insert.entry.to.deploy.app.list"/>
-        </case>
-        <default>
-          <fail message="Deploy type ${deploy.type} is not supported."/>
-        </default>
-      </switch>
-    </then>
+		<then>
+		  <switch value="${deploy.type}">
+			<case value="war">
+			  <var name="deploy.list.entry.xpath" value="/applications/wars"/>
+			  <var name="deploy.should.deploy.entry.xpath" value="/applications/wars/war/name[text()='${project.name}']"/>
+			  <var name="deploy.list.entry" value="&lt;war&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/war&gt;"/>
+			  <runtarget target="insert.entry.to.deploy.app.list"/>
+			</case>
+			<case value="shared">
+			  <var name="deploy.list.entry.xpath" value="/applications/shared"/>
+			  <var name="deploy.should.deploy.entry.xpath" value="/applications/shared/lib/name[text()='${project.name}']"/>
+			  <var name="deploy.list.entry" value="&lt;lib&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/lib&gt;"/>
+			  <runtarget target="insert.entry.to.deploy.app.list"/>       
+			</case>
+			<case value="ejb">
+			  <var name="deploy.list.entry.xpath" value="/applications/ejbs"/>
+			  <var name="deploy.should.deploy.entry.xpath" value="/applications/ejbs/ejb/name[text()='${project.name}']"/>
+			  <var name="deploy.list.entry" value="&lt;ejb&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/ejb&gt;"/>
+			  <runtarget target="insert.entry.to.deploy.app.list"/>
+			</case>
+			<case value="executable">
+			  <var name="deploy.list.entry.xpath" value="/applications/execs"/>
+			  <var name="deploy.should.deploy.entry.xpath" value="/applications/execs/executable/name[text()='${project.name}']"/>
+			  <var name="deploy.list.entry" value="&lt;executable&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/executable&gt;"/>
+			  <runtarget target="insert.entry.to.deploy.app.list"/>
+			</case>
+			<default>
+			  <fail message="Deploy type ${deploy.type} is not supported."/>
+			</default>
+		  </switch>
+		</then>
     </if>
   </target>
   
   <target name="insert.entry.to.deploy.app.list">
     <xmltask  source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3">
       <insert path="${deploy.list.entry.xpath}" xml="${deploy.list.entry}"/>
+    </xmltask>
+	<if>
+		<istrue value="${deploy.should.deploy}"/>
+		<then>
+			<var name="deploy.should.deploy.entry" value="&lt;should.deploy&gt;true&lt;/should.deploy&gt;"/>
+		</then>
+		<else>
+			<var name="deploy.should.deploy.entry" value="&lt;should.deploy&gt;false&lt;/should.deploy&gt;"/>
+		</else>
+	</if>
+    <xmltask  source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3">
+      <insert path="${deploy.should.deploy.entry.xpath}" xml="${deploy.should.deploy.entry}" position="after"/>
     </xmltask>
   </target>
   
@@ -125,8 +153,13 @@ layer of abstraction
     <call target="just.clean"/>
   </target>
 
-  <target name="just.clean" description="Clean the project, does not call dependent targets...">
+  <target name="do.ivy.clean" unless="skip.ivy.clean">
     <call target="ivy.clean"/>
+    </target>
+
+  <target name="just.clean" description="Clean the project, does not call dependent targets..." depends="do.ivy.clean, just.quick.clean"/>
+
+  <target name="just.quick.clean" description="Clean the project, does not call dependent targets...">
     <call target="compile.clean"/>
     <call target="package.clean"/>
     <call target="junit.clean"/>
@@ -139,9 +172,19 @@ layer of abstraction
     <call target="just.source.compile"/>
   </target>
 
+  <target name="quick.source.compile">
+    <dependcalls target="quick.source.compile" />
+    <call target="just.quick.source.compile"/>
+  </target>
+
   <target name="just.source.compile" description="Compile the project, does not call dependent targets...">
     <call target="ivy.resolve"/>
     <call target="-compile.source"/>
+    <call target="coverage.instrument.classes" />
+  </target>
+
+  <target name="just.quick.source.compile">
+    <call target="-quick.compile.source"/>
     <call target="coverage.instrument.classes" />
   </target>
 
@@ -165,14 +208,16 @@ layer of abstraction
             <call target="coverage.prepfortests" />
             <call target="-unittest.run"/>
             
-            <call target="-coverage.check.project" />
+            <!-- coverage-related calls needs to be uncommented when GATEWAY-1303 is resolved -->
+            <!--call target="-coverage.check.project" /-->
             <var name="just.unittest.run.is.outofdate" value="true"/>
           </do>
         </run.if.unit.tests.are.out.of.date>
         <if>
           <isfalse value="${just.unittest.run.is.outofdate}"/>
           <then>
-            <call target="-coverage.update.failure.file" />
+            <!-- coverage-related calls needs to be uncommented when GATEWAY-1303 is resolved -->
+            <!--call target="-coverage.update.failure.file" /-->
             <call target="-unittest.update.failure.file" />
           </then>
         </if>
@@ -207,8 +252,19 @@ layer of abstraction
     <call target="just.package.create"/>
   </target>
 
+  <target name="quick.package.create" depends="quick.source.compile">
+    <dependcalls target="quick.package.create"/>
+    <call target="just.quick.package.create"/>
+  </target>
+
   <target name="just.package.create" description="Create the jar|war|ear for the project, does not call any dependent targets...">
     <call target="just.source.compile" once="true"/>
+    <call target="-package.create"/>
+    <call target="coverage.instrument.package"/>
+  </target>
+
+  <target name="just.quick.package.create">
+    <call target="just.quick.source.compile" once="true"/>
     <call target="-package.create"/>
     <call target="coverage.instrument.package"/>
   </target>
@@ -218,16 +274,6 @@ layer of abstraction
   </target>
 
   <target name="scratch.files">
-    <!--    
-        <copy file="${project.dir}/build.xml" overwrite="true" verbose="${debug}">
-             <fileset dir="${project.dir}">
-                 <include name="build_new.xml" />
-             </fileset>
-        </copy>
-        <exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
-          <arg line='/C svn add ${project.dir}/coverage.thresholds.xml'/>
-        </exec>
-    --> 
       <exec dir="${project.dir}" osfamily="windows" executable="cmd.exe" inputstring="">
         <arg line='/C svn move ${project.dir}/build_new.xml ${project.dir}/build.xml'/>
       </exec>

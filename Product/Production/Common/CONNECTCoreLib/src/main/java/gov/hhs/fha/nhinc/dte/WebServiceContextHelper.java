@@ -1,14 +1,29 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.dte;
 
 import java.io.ByteArrayOutputStream;
@@ -19,48 +34,42 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.soap.SOAPMessage;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import org.w3c.dom.Element;
+
 /**
- *
+ * 
  * @author rayj
  */
 
-//todo: delete and use version Neil is writting
+// todo: delete and use version Neil is writting
 public class WebServiceContextHelper {
-        private static Log log = LogFactory.getLog(WebServiceContextHelper.class);
+    private static Log log = LogFactory.getLog(WebServiceContextHelper.class);
 
-        //todo: throw exception
-    public  Element extractSoapMessage(WebServiceContext context)
-    {
+    // todo: throw exception
+    public Element extractSoapMessage(WebServiceContext context) {
         String extractedMessage = null;
         @SuppressWarnings("unchecked")
         MessageContext msgContext = context.getMessageContext();
-        if(msgContext != null)
-        {
-            javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest)msgContext.get(MessageContext.SERVLET_REQUEST);
-            SOAPMessage soapMessage = (SOAPMessage)servletRequest.getAttribute("subscribeSoapMessage");
-            if(soapMessage != null)
-            {
+        if (msgContext != null) {
+            javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest) msgContext
+                    .get(MessageContext.SERVLET_REQUEST);
+            SOAPMessage soapMessage = (SOAPMessage) servletRequest.getAttribute("subscribeSoapMessage");
+            if (soapMessage != null) {
                 log.debug("******** Attempting to write out SOAP message *************");
-                try
-                {
+                try {
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     soapMessage.writeTo(bos);
                     extractedMessage = new String(bos.toByteArray());
                     log.debug("Extracted soap message: " + extractedMessage);
-                }
-                catch (Throwable t)
-                {
+                } catch (Throwable t) {
                     log.debug("Exception writing out the message");
                     t.printStackTrace();
                 }
-            }
-            else
-            {
+            } else {
                 log.debug("SOAPMessage was null");
             }
         }
 
-        Element messageElement=null;
+        Element messageElement = null;
         try {
             messageElement = XmlUtility.convertXmlToElement(extractedMessage);
         } catch (Exception ex) {

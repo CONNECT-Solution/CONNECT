@@ -39,11 +39,11 @@ package gov.hhs.fha.nhinc.tools.ws.processor.generator;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.logging.Logger;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebEndpoint;
 import javax.xml.ws.WebServiceClient;
+import javax.xml.ws.WebServiceException;
 import javax.xml.ws.WebServiceFeature;
 
 import org.xml.sax.Locator;
@@ -55,6 +55,7 @@ import com.sun.codemodel.JCatchBlock;
 import com.sun.codemodel.JClass;
 import com.sun.codemodel.JClassAlreadyExistsException;
 import com.sun.codemodel.JCommentPart;
+import com.sun.codemodel.JConditional;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JDocComment;
 import com.sun.codemodel.JExpr;
@@ -83,8 +84,7 @@ import com.sun.xml.bind.api.JAXBRIContext;
 /**
  * @author WS Development Team
  */
-public class ServiceGeneratorConnect extends GeneratorBase {
-    public static void generate(Model model, WsimportOptions options, ErrorReceiver receiver) {
+public class ServiceGeneratorConnect extends GeneratorBase {    public static void generate(Model model, WsimportOptions options, ErrorReceiver receiver) {
     	ServiceGeneratorConnect serviceGenerator = new ServiceGeneratorConnect(model, options, receiver);
         serviceGenerator.doGeneration();
     }
@@ -115,8 +115,12 @@ public class ServiceGeneratorConnect extends GeneratorBase {
         String wsdlLocationName = serviceFieldName + "_WSDL_LOCATION";
         JFieldVar urlField = cls.field(JMod.PRIVATE | JMod.STATIC | JMod.FINAL, URL.class, wsdlLocationName);
 
+    JFieldVar exField = cls.field(JMod.PRIVATE | JMod.STATIC | JMod.FINAL, WebServiceException.class, serviceFieldName+"_EXCEPTION");
 
-        cls.field(JMod.PRIVATE | JMod.STATIC | JMod.FINAL, Logger.class, "logger", cm.ref(Logger.class).staticInvoke("getLogger").arg(JExpr.dotclass(cm.ref(className)).invoke("getName")));
+
+    String serviceName = serviceFieldName + "_QNAME";
+    cls.field(JMod.PRIVATE | JMod.STATIC | JMod.FINAL, QName.class, serviceName,
+        JExpr._new(cm.ref(QName.class)).arg(service.getName().getNamespaceURI()).arg(service.getName().getLocalPart()));
 
         JClass qNameCls = cm.ref(QName.class);
         JInvocation inv;
@@ -124,26 +128,13 @@ public class ServiceGeneratorConnect extends GeneratorBase {
         inv.arg("namespace");
         inv.arg("localpart");
 
-
-        JBlock staticBlock = cls.init();
-        JVar urlVar = staticBlock.decl(cm.ref(URL.class), "url", JExpr._null());
-        JVar wsdlURL = staticBlock.decl(cm.ref(String.class), "wsdlURL", JExpr._null());
-        JTryBlock tryBlock = staticBlock._try();
-        JVar baseUrl = tryBlock.body().decl(cm.ref(URL.class), "baseUrl");
-        tryBlock.body().assign(baseUrl, JExpr.dotclass(cm.ref(className)).invoke("getResource").arg("."));
-
-        tryBlock.body().assign(wsdlURL, cm.ref(ServicePropertyLoader.class).staticInvoke("getBaseWsdlPath"));
-        tryBlock.body().directStatement(wsdlURL.name() + " = " + wsdlURL.name() + " + \"" + wsdlLocation + "\";");
-        tryBlock.body().directStatement("logger.info(\"WSDL URL: '\" + " + wsdlURL.name() + " + \"'\");");
-        tryBlock.body().assign(urlVar, JExpr._new(cm.ref(URL.class)).arg(baseUrl).arg(wsdlURL));
-
-        JCatchBlock catchBlock = tryBlock._catch(cm.ref(MalformedURLException.class));
-        catchBlock.param("e");
-
-        catchBlock.body().directStatement("logger.warning(\"Failed to create URL for the wsdl Location: '\" + " + wsdlURL.name() + " + \"', retrying as a local file\");");
-        catchBlock.body().directStatement("logger.warning(e.getMessage());");
-
-        staticBlock.assign(urlField, urlVar);
+    if (wsdlLocation.startsWith("http://") || wsdlLocation.startsWith("https://") || wsdlLocation.startsWith("file:/")) {
+        writeAbsWSDLLocation(cls, urlField, exField);
+    } else if (wsdlLocation.startsWith("META-INF/")) {
+        writeClassLoaderResourceWSDLLocation(className, cls, urlField, exField);
+    } else {
+        writeResourceWSDLLocation(className, cls, urlField, exField);
+    }
 
         //write class comment - JAXWS warning
         JDocComment comment = cls.javadoc();
@@ -157,13 +148,56 @@ public class ServiceGeneratorConnect extends GeneratorBase {
             comment.add(doc);
         }
 
-        JMethod constructor = cls.constructor(JMod.PUBLIC);
-        constructor.param(URL.class, "wsdlLocation");
-        constructor.param(QName.class, "serviceName");
-        constructor.body().directStatement("super(wsdlLocation, serviceName);");
+    // Generating constructor
+    // for e.g:  public ExampleService()
+    JMethod constructor1 = cls.constructor(JMod.PUBLIC);
+    String constructor1Str = String.format("super(__getWsdlLocation(), %s);", serviceName);
+    constructor1.body().directStatement(constructor1Str);
 
-        constructor = cls.constructor(JMod.PUBLIC);
-        constructor.body().directStatement("super(" + wsdlLocationName + ", new QName(\"" + service.getName().getNamespaceURI() + "\", \"" + service.getName().getLocalPart() + "\"));");
+    // Generating constructor
+    // for e.g:  public ExampleService(WebServiceFeature ... features)
+    if (options.target.isLaterThan(Options.Target.V2_2)) {
+        JMethod constructor2 = cls.constructor(JMod.PUBLIC);
+        constructor2.varParam(WebServiceFeature.class, "features");
+        String constructor2Str = String.format("super(__getWsdlLocation(), %s, features);", serviceName);
+        constructor2.body().directStatement(constructor2Str);
+    }
+
+    // Generating constructor
+    // for e.g:  public ExampleService(URL wsdlLocation)
+    if (options.target.isLaterThan(Options.Target.V2_2)) {
+        JMethod constructor3 = cls.constructor(JMod.PUBLIC);
+        constructor3.param(URL.class, "wsdlLocation");
+        String constructor3Str = String.format("super(wsdlLocation, %s);", serviceName);
+        constructor3.body().directStatement(constructor3Str);
+    }
+
+    // Generating constructor
+    // for e.g:  public ExampleService(URL wsdlLocation, WebServiceFeature ... features)
+    if (options.target.isLaterThan(Options.Target.V2_2)) {
+        JMethod constructor4 = cls.constructor(JMod.PUBLIC);
+        constructor4.param(URL.class, "wsdlLocation");
+        constructor4.varParam(WebServiceFeature.class, "features");
+        String constructor4Str = String.format("super(wsdlLocation, %s, features);", serviceName);
+        constructor4.body().directStatement(constructor4Str);
+    }
+
+    // Generating constructor
+    // for e.g:  public ExampleService(URL wsdlLocation, QName serviceName)
+    JMethod constructor5 = cls.constructor(JMod.PUBLIC);
+    constructor5.param(URL.class, "wsdlLocation");
+    constructor5.param(QName.class, "serviceName");
+    constructor5.body().directStatement("super(wsdlLocation, serviceName);");
+
+    // Generating constructor
+    // for e.g:  public ExampleService(URL, QName, WebServiceFeature ...)
+    if (options.target.isLaterThan(Options.Target.V2_2)) {
+        JMethod constructor6 = cls.constructor(JMod.PUBLIC);
+        constructor6.param(URL.class, "wsdlLocation");
+        constructor6.param(QName.class, "serviceName");
+        constructor6.varParam(WebServiceFeature.class, "features");
+        constructor6.body().directStatement("super(wsdlLocation, serviceName, features);");
+    }
 
         //@WebService
         JAnnotationUse webServiceClientAnn = cls.annotate(cm.ref(WebServiceClient.class));
@@ -202,24 +236,9 @@ public class ServiceGeneratorConnect extends GeneratorBase {
             if (options.target.isLaterThan(Options.Target.V2_1))
                 writeGetPort(port, retType, cls);
         }
-    }
 
-	private String parseWsdlName(String inputValue) {
-		String wsdlName = inputValue;
-		try {
-			if ((inputValue != null) && (inputValue.endsWith(".wsdl"))) {
-				int lastIndex = inputValue.lastIndexOf("\\");
-				if (lastIndex == -1) {
-					lastIndex = inputValue.lastIndexOf("/");
+    writeGetWsdlLocation(cm.ref(URL.class), cls, urlField, exField);   
 				}
-				wsdlName = "/wsdl/" + inputValue.substring(lastIndex + 1);
-			}
-		} catch (Throwable t) {
-			wsdlName = inputValue;
-		}
-
-		return wsdlName;
-	}
 
     private void writeGetPort(Port port, JType retType, JDefinedClass cls) {
         JMethod m = cls.method(JMod.PUBLIC, retType, port.getPortGetter());
@@ -241,6 +260,105 @@ public class ServiceGeneratorConnect extends GeneratorBase {
         body.directStatement(statement.toString());
         writeWebEndpoint(port, m);
     }
+
+
+/*
+   Generates the code to create URL for absolute WSDL location
+
+   for e.g.:
+   static {
+       URL url = null;
+       WebServiceException e = null;
+       try {
+            url = new URL("http://ExampleService.wsdl");
+       } catch (MalformedURLException ex) {
+            e = new WebServiceException(ex);
+       }
+       EXAMPLESERVICE_WSDL_LOCATION = url;
+       EXAMPLESERVICE_EXCEPTION = e;
+   }
+*/
+private void writeAbsWSDLLocation(JDefinedClass cls, JFieldVar urlField, JFieldVar exField) {
+    JBlock staticBlock = cls.init();
+    JVar urlVar = staticBlock.decl(cm.ref(URL.class), "url", JExpr._null());
+    JVar exVar = staticBlock.decl(cm.ref(WebServiceException.class), "e", JExpr._null());
+    
+    JTryBlock tryBlock = staticBlock._try();
+    tryBlock.body().assign(urlVar, JExpr._new(cm.ref(URL.class)).arg(wsdlLocation));
+    JCatchBlock catchBlock = tryBlock._catch(cm.ref(MalformedURLException.class));
+    catchBlock.param("ex");
+    catchBlock.body().assign(exVar, JExpr._new(cm.ref(WebServiceException.class)).arg(JExpr.ref("ex")));
+
+    staticBlock.assign(urlField, urlVar);
+    staticBlock.assign(exField, exVar);
+}
+
+/*
+   Generates the code to create URL for WSDL location as resource
+
+   for e.g.:
+   static {
+       EXAMPLESERVICE_WSDL_LOCATION = ExampleService.class.getResource(...);
+       Exception e = null;
+       if (EXAMPLESERVICE_WSDL_LOCATION == null) {
+           e = new WebServiceException("...");
+       }
+       EXAMPLESERVICE_EXCEPTION = e;
+   }
+ */
+private void writeResourceWSDLLocation(String className, JDefinedClass cls, JFieldVar urlField, JFieldVar exField) {
+    JBlock staticBlock = cls.init();
+    staticBlock.assign(urlField, JExpr.dotclass(cm.ref(className)).invoke("getResource").arg(wsdlLocation));
+    JVar exVar = staticBlock.decl(cm.ref(WebServiceException.class), "e", JExpr._null());
+    JConditional ifBlock = staticBlock._if(urlField.eq(JExpr._null()));
+    ifBlock._then().assign(exVar, JExpr._new(cm.ref(WebServiceException.class)).arg(
+            "Cannot find "+JExpr.quotify('\'', wsdlLocation)+" wsdl. Place the resource correctly in the classpath."));
+    staticBlock.assign(exField, exVar);
+}
+
+/*
+   Generates the code to create URL for WSDL location as classloader resource
+
+   for e.g.:
+   static {
+       EXAMPLESERVICE_WSDL_LOCATION = ExampleService.class.getClassLoader().getResource(...);
+       Exception e = null;
+       if (EXAMPLESERVICE_WSDL_LOCATION == null) {
+           e = new WebServiceException("...");
+       }
+       EXAMPLESERVICE_EXCEPTION = e;
+   }
+ */
+private void writeClassLoaderResourceWSDLLocation(String className, JDefinedClass cls, JFieldVar urlField, JFieldVar exField) {
+    JBlock staticBlock = cls.init();
+    staticBlock.assign(urlField, JExpr.dotclass(cm.ref(className)).invoke("getClassLoader").invoke("getResource").arg(wsdlLocation));
+    JVar exVar = staticBlock.decl(cm.ref(WebServiceException.class), "e", JExpr._null());
+    JConditional ifBlock = staticBlock._if(urlField.eq(JExpr._null()));
+    ifBlock._then().assign(exVar, JExpr._new(cm.ref(WebServiceException.class)).arg(
+            "Cannot find "+JExpr.quotify('\'', wsdlLocation)+" wsdl. Place the resource correctly in the classpath."));
+    staticBlock.assign(exField, exVar);
+}
+
+
+/*
+   Generates code that gives wsdl URL. If there is an exception in
+   creating the URL, it throws an exception.
+
+   for example:
+
+   private URL __getWsdlLocation() {
+       if (EXAMPLESERVICE_EXCEPTION != null) {
+           throw EXAMPLESERVICE_EXCEPTION;
+       }
+       return EXAMPLESERVICE_WSDL_LOCATION;
+   }
+ */
+private void writeGetWsdlLocation(JType retType, JDefinedClass cls, JFieldVar urlField, JFieldVar exField) {
+    JMethod m = cls.method(JMod.PRIVATE|JMod.STATIC , retType, "__getWsdlLocation");
+    JConditional ifBlock = m.body()._if(exField.ne(JExpr._null()));
+    ifBlock._then()._throw(exField);
+    m.body()._return(urlField);
+}
 
     private void writeDefaultGetPort(Port port, JType retType, JDefinedClass cls) {
         String portGetter = port.getPortGetter();

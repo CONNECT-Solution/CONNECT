@@ -1,12 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
- */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
@@ -26,7 +42,7 @@ import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
 import org.hl7.v3.XActMoodIntentEvent;
 
 /**
- *
+ * 
  * @author vvickers
  */
 public class HL7PRPA201310Transforms {
@@ -49,12 +65,14 @@ public class HL7PRPA201310Transforms {
     public static PRPAIN201310UV02 createFaultPRPA201310() {
         return createPRPA201310("", "", "", "", "", null);
     }
-    
+
     public static PRPAIN201310UV02 createFaultPRPA201310(String senderOID, String receiverOID) {
         return createPRPA201310("", "", "", senderOID, receiverOID, null);
     }
-    
-    public static PRPAIN201310UV02 createPRPA201310(String patientId, String assigningAuthorityId, String localDeviceId, String senderOID, String receiverOID, JAXBElement<PRPAMT201307UV02QueryByParameter> queryParam) {
+
+    public static PRPAIN201310UV02 createPRPA201310(String patientId, String assigningAuthorityId,
+            String localDeviceId, String senderOID, String receiverOID,
+            JAXBElement<PRPAMT201307UV02QueryByParameter> queryParam) {
 
         // Create Transmission header
         PRPAIN201310UV02 ret201310 = createTransmissionWrapper(localDeviceId);
@@ -67,7 +85,8 @@ public class HL7PRPA201310Transforms {
 
         // Create the control act process
         PRPAMT201304UV02Patient patient201304 = createPRPAMT201304UVPatient(patientId, assigningAuthorityId);
-        ret201310.setControlActProcess(createMFMIMT700711UV01ControlActProcess(patient201304, localDeviceId, queryParam));
+        ret201310
+                .setControlActProcess(createMFMIMT700711UV01ControlActProcess(patient201304, localDeviceId, queryParam));
 
         return ret201310;
     }
@@ -78,7 +97,8 @@ public class HL7PRPA201310Transforms {
         message.setITSVersion(HL7Constants.ITS_VERSION);
         message.setId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
         message.setCreationTime(HL7DataTransformHelper.CreationTimeFactory());
-        message.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, INTERACTION_ID_EXTENSION));
+        message.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT,
+                INTERACTION_ID_EXTENSION));
         message.setProcessingCode(HL7DataTransformHelper.CSFactory(PROCESSING_CODE_VALUE));
         message.setProcessingModeCode(HL7DataTransformHelper.CSFactory(PROCESSING_CODE_MODE));
         message.setAcceptAckCode(HL7DataTransformHelper.CSFactory(ACCEPT_ACK_CODE_VALUE));
@@ -90,8 +110,8 @@ public class HL7PRPA201310Transforms {
 
         PRPAMT201304UV02Patient patient = new PRPAMT201304UV02Patient();
         patient.getClassCode().add(PATIENT_CLASS_CODE);
-        if(patientId != null && assigningAuthorityId != null){
-        patient.getId().add(HL7DataTransformHelper.IIFactory(assigningAuthorityId, patientId));
+        if (patientId != null && assigningAuthorityId != null) {
+            patient.getId().add(HL7DataTransformHelper.IIFactory(assigningAuthorityId, patientId));
         } else {
             patient.getId().add(HL7DataTransformHelper.IIFactoryCreateNull());
         }
@@ -100,7 +120,8 @@ public class HL7PRPA201310Transforms {
         PRPAMT201304UV02Person patientPerson = new PRPAMT201304UV02Person();
         // create patient person element
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<PRPAMT201304UV02Person>(xmlqname, PRPAMT201304UV02Person.class, patientPerson);
+        JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<PRPAMT201304UV02Person>(xmlqname,
+                PRPAMT201304UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPerson.getClassCode().add(PATIENT_PERSON_CLASSCODE);
 
@@ -112,7 +133,9 @@ public class HL7PRPA201310Transforms {
         return patient;
     }
 
-    private static PRPAIN201310UV02MFMIMT700711UV01ControlActProcess createMFMIMT700711UV01ControlActProcess(PRPAMT201304UV02Patient patient201304, String localDeviceId, JAXBElement<PRPAMT201307UV02QueryByParameter> queryParam) {
+    private static PRPAIN201310UV02MFMIMT700711UV01ControlActProcess createMFMIMT700711UV01ControlActProcess(
+            PRPAMT201304UV02Patient patient201304, String localDeviceId,
+            JAXBElement<PRPAMT201307UV02QueryByParameter> queryParam) {
         PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
@@ -126,23 +149,27 @@ public class HL7PRPA201310Transforms {
             controlActProcess.setQueryByParameter(createNullQueryByParameter());
         }
 
-        controlActProcess.setQueryAck(createMFMIMT700711UV01QueryAck(controlActProcess.getQueryByParameter().getValue()));
+        controlActProcess
+                .setQueryAck(createMFMIMT700711UV01QueryAck(controlActProcess.getQueryByParameter().getValue()));
 
         return controlActProcess;
     }
 
-    private static PRPAIN201310UV02MFMIMT700711UV01Subject1 createPRPAIN201310UVMFMIMT700711UV01Subject1(PRPAMT201304UV02Patient patient201304, String localDeviceId) {
+    private static PRPAIN201310UV02MFMIMT700711UV01Subject1 createPRPAIN201310UVMFMIMT700711UV01Subject1(
+            PRPAMT201304UV02Patient patient201304, String localDeviceId) {
         PRPAIN201310UV02MFMIMT700711UV01Subject1 subject1 = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
 
         subject1.getTypeCode().add("SUBJ");
         subject1.setContextConductionInd(false);
 
-        subject1.setRegistrationEvent(createPRPAIN201310UVMFMIMT700711UV01RegistrationEvent(patient201304, localDeviceId));
+        subject1.setRegistrationEvent(createPRPAIN201310UVMFMIMT700711UV01RegistrationEvent(patient201304,
+                localDeviceId));
 
         return subject1;
     }
 
-    private static PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent createPRPAIN201310UVMFMIMT700711UV01RegistrationEvent(PRPAMT201304UV02Patient patient201304, String localDeviceId) {
+    private static PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent createPRPAIN201310UVMFMIMT700711UV01RegistrationEvent(
+            PRPAMT201304UV02Patient patient201304, String localDeviceId) {
         PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent regevent = new PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent();
 
         regevent.getClassCode().add(REG_EVENT_CLASS_CODE);
@@ -161,17 +188,17 @@ public class HL7PRPA201310Transforms {
         return regevent;
     }
 
-    private static PRPAIN201310UV02MFMIMT700711UV01Subject2 createPRPAIN201310UVMFMIMT700711UV01Subject2(PRPAMT201304UV02Patient patient201304) {
+    private static PRPAIN201310UV02MFMIMT700711UV01Subject2 createPRPAIN201310UVMFMIMT700711UV01Subject2(
+            PRPAMT201304UV02Patient patient201304) {
         PRPAIN201310UV02MFMIMT700711UV01Subject2 subject = new PRPAIN201310UV02MFMIMT700711UV01Subject2();
 
         subject.setPatient(patient201304);
-
 
         return subject;
     }
 
     private static JAXBElement<PRPAMT201307UV02QueryByParameter> createNullQueryByParameter() {
-        
+
         PRPAMT201307UV02QueryByParameter queryParams = new PRPAMT201307UV02QueryByParameter();
 
         queryParams.setQueryId(HL7MessageIdGenerator.GenerateHL7MessageId(null));
@@ -181,7 +208,8 @@ public class HL7PRPA201310Transforms {
         queryParams.setParameterList(paramList);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        JAXBElement<PRPAMT201307UV02QueryByParameter> params = new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,PRPAMT201307UV02QueryByParameter.class,queryParams);
+        JAXBElement<PRPAMT201307UV02QueryByParameter> params = new JAXBElement<PRPAMT201307UV02QueryByParameter>(
+                xmlqname, PRPAMT201307UV02QueryByParameter.class, queryParams);
 
         return params;
     }
@@ -191,7 +219,7 @@ public class HL7PRPA201310Transforms {
 
         if (queryParam != null) {
             queryAck.setQueryId(queryParam.getQueryId());
-        } 
+        }
         queryAck.setQueryResponseCode(HL7DataTransformHelper.CSFactory(CONTROL_QUERY_RESPONSE_CODE));
         return queryAck;
     }

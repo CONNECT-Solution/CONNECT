@@ -1,8 +1,29 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.admindistribution.nhin;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
@@ -11,10 +32,7 @@ import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributio
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
@@ -23,14 +41,13 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class NhinAdminDistOrchImplTest {
 
-
-
     private Mockery context;
+
     public NhinAdminDistOrchImplTest() {
     }
 
@@ -47,7 +64,7 @@ public class NhinAdminDistOrchImplTest {
     @Test
     public void testSendAlertMessage_ServiceEnabled() {
 
-       System.out.println("testSendAlertMessage_ServiceEnabled");
+        System.out.println("testSendAlertMessage_ServiceEnabled");
         final Log mockLogger = context.mock(Log.class);
         final AdapterAdminDistributionProxy mockAdapter = context.mock(AdapterAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
@@ -57,81 +74,79 @@ public class NhinAdminDistOrchImplTest {
 
         Exception unsupported = null;
 
-        final AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker()
-        {
+        final AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker() {
             @Override
-            public boolean checkIncomingPolicy (EDXLDistribution request, AssertionType assertion) {
+            public boolean checkIncomingPolicy(EDXLDistribution request, AssertionType assertion) {
                 {
                     return true;
                 }
             }
         };
-        
-        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl()
-        {
+
+        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected AdminDistributionAuditLogger getLogger()
-            {
+            protected AdminDistributionAuditLogger getLogger() {
                 return mockAuditLogger;
             }
+
             @Override
-            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy()
-            {
+            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy() {
                 return mockAdapter;
             }
+
             @Override
-            protected boolean isServiceEnabled()
-            {
+            protected boolean isServiceEnabled() {
                 return true;
             }
+
             @Override
-            protected AdminDistributionPolicyChecker getPolicyChecker()
-            {
+            protected AdminDistributionPolicyChecker getPolicyChecker() {
                 return policyChecker;
             }
+
             @Override
-            protected long getSleepPeriod()
-            {
+            protected long getSleepPeriod() {
                 return 1;
             }
-         };
+        };
         context.checking(new Expectations() {
 
             {
-                
+
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 never(mockLogger).warn(with(any(String.class)));
                 never(mockLogger).error(with(any(String.class)));
-                
-                
-                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+
+                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion,
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion,
+                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                 allowing(mockAdapter).sendAlertMessage(body, assertion);
                 will(returnValue(null));
             }
         });
 
-        try
-        {
+        try {
             instance.sendAlertMessage(body, assertion);
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             unsupported = ex;
         }
-        
+
         context.assertIsSatisfied();
         assertNull(unsupported);
     }
+
     @Test
     public void testSendAlertMessage_NoSleep() {
 
-       System.out.println("testSendAlertMessage_NoSleep");
+        System.out.println("testSendAlertMessage_NoSleep");
         final Log mockLogger = context.mock(Log.class);
         final AdapterAdminDistributionProxy mockAdapter = context.mock(AdapterAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
@@ -141,49 +156,47 @@ public class NhinAdminDistOrchImplTest {
 
         Exception unsupported = null;
 
-        final AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker()
-        {
+        final AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker() {
             @Override
-            public boolean checkIncomingPolicy (EDXLDistribution request, AssertionType assertion) {
+            public boolean checkIncomingPolicy(EDXLDistribution request, AssertionType assertion) {
                 {
                     return true;
                 }
             }
         };
 
-        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl()
-        {
+        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected AdminDistributionAuditLogger getLogger()
-            {
+            protected AdminDistributionAuditLogger getLogger() {
                 return mockAuditLogger;
             }
+
             @Override
-            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy()
-            {
+            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy() {
                 return mockAdapter;
             }
+
             @Override
-            protected boolean isServiceEnabled()
-            {
+            protected boolean isServiceEnabled() {
                 return true;
             }
+
             @Override
-            protected AdminDistributionPolicyChecker getPolicyChecker()
-            {
+            protected AdminDistributionPolicyChecker getPolicyChecker() {
                 return policyChecker;
             }
+
             @Override
-            protected long getSleepPeriod()
-            {
+            protected long getSleepPeriod() {
                 return -1;
             }
-         };
+        };
         context.checking(new Expectations() {
 
             {
@@ -191,28 +204,29 @@ public class NhinAdminDistOrchImplTest {
                 allowing(mockLogger).debug(with(any(String.class)));
                 never(mockLogger).warn(with(any(String.class)));
                 never(mockLogger).error(with(any(String.class)));
-                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion,
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion,
+                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                 allowing(mockAdapter).sendAlertMessage(body, assertion);
                 will(returnValue(null));
             }
         });
 
-        try
-        {
+        try {
             instance.sendAlertMessage(body, assertion);
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             unsupported = ex;
         }
 
         context.assertIsSatisfied();
         assertNull(unsupported);
     }
+
     @Test
     public void testSendAlertMessage_Null() {
 
-       System.out.println("testSendAlertMessage_Null");
+        System.out.println("testSendAlertMessage_Null");
         final Log mockLogger = context.mock(Log.class);
         final AdapterAdminDistributionProxy mockAdapter = context.mock(AdapterAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
@@ -222,49 +236,47 @@ public class NhinAdminDistOrchImplTest {
 
         Exception unsupported = null;
 
-        final AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker()
-        {
+        final AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker() {
             @Override
-            public boolean checkIncomingPolicy (EDXLDistribution request, AssertionType assertion) {
+            public boolean checkIncomingPolicy(EDXLDistribution request, AssertionType assertion) {
                 {
                     return true;
                 }
             }
         };
 
-        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl()
-        {
+        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected AdminDistributionAuditLogger getLogger()
-            {
+            protected AdminDistributionAuditLogger getLogger() {
                 return mockAuditLogger;
             }
+
             @Override
-            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy()
-            {
+            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy() {
                 return mockAdapter;
             }
+
             @Override
-            protected boolean isServiceEnabled()
-            {
+            protected boolean isServiceEnabled() {
                 return true;
             }
+
             @Override
-            protected AdminDistributionPolicyChecker getPolicyChecker()
-            {
+            protected AdminDistributionPolicyChecker getPolicyChecker() {
                 return policyChecker;
             }
+
             @Override
-            protected long getSleepPeriod()
-            {
+            protected long getSleepPeriod() {
                 return -1;
             }
-         };
+        };
         context.checking(new Expectations() {
 
             {
@@ -278,12 +290,9 @@ public class NhinAdminDistOrchImplTest {
             }
         });
 
-        try
-        {
+        try {
             instance.sendAlertMessage(null, null);
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             unsupported = ex;
         }
 
@@ -294,7 +303,7 @@ public class NhinAdminDistOrchImplTest {
     @Test
     public void testSendAlertMessage_ServiceDisabled() {
 
-       System.out.println("testSendAlertMessage_ServiceDisabled");
+        System.out.println("testSendAlertMessage_ServiceDisabled");
         final Log mockLogger = context.mock(Log.class);
         final AdapterAdminDistributionProxy mockAdapter = context.mock(AdapterAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
@@ -304,49 +313,47 @@ public class NhinAdminDistOrchImplTest {
 
         Exception unsupported = null;
 
-        final AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker()
-        {
+        final AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker() {
             @Override
-            public boolean checkIncomingPolicy (EDXLDistribution request, AssertionType assertion) {
+            public boolean checkIncomingPolicy(EDXLDistribution request, AssertionType assertion) {
                 {
                     return true;
                 }
             }
         };
 
-        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl()
-        {
+        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected AdminDistributionAuditLogger getLogger()
-            {
+            protected AdminDistributionAuditLogger getLogger() {
                 return mockAuditLogger;
             }
+
             @Override
-            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy()
-            {
+            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy() {
                 return mockAdapter;
             }
+
             @Override
-            protected boolean isServiceEnabled()
-            {
+            protected boolean isServiceEnabled() {
                 return false;
             }
+
             @Override
-            protected AdminDistributionPolicyChecker getPolicyChecker()
-            {
+            protected AdminDistributionPolicyChecker getPolicyChecker() {
                 return policyChecker;
             }
+
             @Override
-            protected long getSleepPeriod()
-            {
+            protected long getSleepPeriod() {
                 return 1;
             }
-         };
+        };
         context.checking(new Expectations() {
 
             {
@@ -356,29 +363,27 @@ public class NhinAdminDistOrchImplTest {
                 oneOf(mockLogger).warn(with(any(String.class)));
                 never(mockLogger).error(with(any(String.class)));
 
-
-                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion,
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
                 never(mockAdapter).sendAlertMessage(body, assertion);
                 will(returnValue(null));
             }
         });
 
-        try
-        {
+        try {
             instance.sendAlertMessage(body, assertion);
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             unsupported = ex;
         }
 
         context.assertIsSatisfied();
         assertNull(unsupported);
     }
+
     @Test
     public void testSendAlertMessage_PolicyFail() {
 
-       System.out.println("testSendAlertMessage_PolicyFail");
+        System.out.println("testSendAlertMessage_PolicyFail");
         final Log mockLogger = context.mock(Log.class);
         final AdapterAdminDistributionProxy mockAdapter = context.mock(AdapterAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);
@@ -388,49 +393,47 @@ public class NhinAdminDistOrchImplTest {
 
         Exception unsupported = null;
 
-        final AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker()
-        {
+        final AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker() {
             @Override
-            public boolean checkIncomingPolicy (EDXLDistribution request, AssertionType assertion) {
+            public boolean checkIncomingPolicy(EDXLDistribution request, AssertionType assertion) {
                 {
                     return false;
                 }
             }
         };
 
-        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl()
-        {
+        NhinAdminDistributionOrchImpl instance = new NhinAdminDistributionOrchImpl() {
 
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
+
             @Override
-            protected AdminDistributionAuditLogger getLogger()
-            {
+            protected AdminDistributionAuditLogger getLogger() {
                 return mockAuditLogger;
             }
+
             @Override
-            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy()
-            {
+            protected AdapterAdminDistributionProxy getAdapterAdminDistProxy() {
                 return mockAdapter;
             }
+
             @Override
-            protected boolean isServiceEnabled()
-            {
+            protected boolean isServiceEnabled() {
                 return true;
             }
+
             @Override
-            protected AdminDistributionPolicyChecker getPolicyChecker()
-            {
+            protected AdminDistributionPolicyChecker getPolicyChecker() {
                 return policyChecker;
             }
+
             @Override
-            protected long getSleepPeriod()
-            {
+            protected long getSleepPeriod() {
                 return 1;
             }
-         };
+        };
         context.checking(new Expectations() {
 
             {
@@ -440,19 +443,16 @@ public class NhinAdminDistOrchImplTest {
                 never(mockLogger).warn(with(any(String.class)));
                 never(mockLogger).error(with(any(String.class)));
 
-
-                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                allowing(mockAuditLogger).auditNhinAdminDist(body, assertion,
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
                 never(mockAdapter).sendAlertMessage(body, assertion);
                 will(returnValue(null));
             }
         });
 
-        try
-        {
+        try {
             instance.sendAlertMessage(body, assertion);
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             unsupported = ex;
         }
 

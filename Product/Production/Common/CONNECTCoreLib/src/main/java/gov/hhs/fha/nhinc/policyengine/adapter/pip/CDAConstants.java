@@ -1,19 +1,37 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
  *
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
  *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
 /**
- * This class is used to hold the CDA constants that are used when creating the
- * CDA document.
- *
+ * This class is used to hold the CDA constants that are used when creating the CDA document.
+ * 
  * @author Les Westberg
  */
-public class CDAConstants
-{
+public class CDAConstants {
     public static final String CDA_CLASS_CODE = "DOCCLIN";
     public static final String CDA_MOOD_CODE = "EVN";
     public static final String TYPE_ID_EXTENSION_POCD_HD000040 = "POCD_HD000040";
@@ -52,7 +70,7 @@ public class CDAConstants
     public static final String METADATA_CLASS_CODE_DISPLAY_NAME = "Privacy Policy";
     public static final String METADATA_FORMAT_CODE_SYSTEM = "1.3.6.1.4.1.19376.1.2.3";
     public static final String METADATA_FORMAT_CODE_XACML = "urn:nhin:names:acp:XACML";
-//    public static final String METADATA_FORMAT_CODE_XACML_DISPLAY_NAME = "Privacy Policy";
+    // public static final String METADATA_FORMAT_CODE_XACML_DISPLAY_NAME = "Privacy Policy";
     public static final String METADATA_FORMAT_CODE_PDF = "urn:ihe:iti:xds-sd:pdf:2008";
     public static final String METADATA_FORMAT_CODE_SCANNED_TEXT = "urn:ihe:iti:xds-sd:text:2008";
     public static final String METADATA_EVENT_CODE_SYSTEM = "N/A";
@@ -61,7 +79,6 @@ public class CDAConstants
     public static final String METADATA_NOT_APPLICABLE_DISPLAY_NAME = "Not Applicable";
     public static final String METADATA_TYPE_CODE = "57017-6"; // Access Consent Policy LOINC Code
     public static final String METADATA_TYPE_CODE_DISPLAY_NAME = "Privacy Policy";
-
 
     public static final String ADHOC_QUERY_REQUEST_BY_DOCUMENT_ID_UUID = "urn:uuid:5c4f972b-d56b-40ac-a5fc-c8ca9b40b9d4";
     public static final String ADHOC_QUERY_REQUEST_BY_PATIENT_ID_UUID = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
@@ -82,7 +99,7 @@ public class CDAConstants
     public static final String DOC_REGISTRY_SERVICE_NAME = "adapterxdsbdocregistry";
     public static final String DOC_REPOSITORY_SERVICE_NAME = "adapterxdsbdocrepository";
 
-    //To build Assertion for Notification
+    // To build Assertion for Notification
     public static final String PERMISSION_DATE = "NotBeforeDate";
     public static final String EXPIRATION_DATE = "NotOnOrAfterDate";
     public static final String FIRST_NAME = "UserFirstName";
@@ -101,9 +118,9 @@ public class CDAConstants
     public static final String INSTANCE_ACCESS_POLICY_CONSENT = "InstanceAccessPolicyConsent";
     public static final String SubscribeeCommunityList_PROPFILE_NAME = "SubscribeeCommunityList";
     public static final String EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME = "urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427";
-    public static final String ENTITY_NOTIFICATION_CONSUMER_ENDPOINT_URL ="EntityNotificationConsumerURL";
+    public static final String ENTITY_NOTIFICATION_CONSUMER_ENDPOINT_URL = "EntityNotificationConsumerURL";
 
-    //Provide Register Transaction constants
+    // Provide Register Transaction constants
     public static final String PROVIDE_REGISTER_SLOT_NAME_PATIENT_ID = "XDSDocumentEntry.patientId";
     public static final String PROVIDE_REGISTER_SLOT_NAME_DOCUMENT_ID = "XDSDocumentEntry.uniqueId";
     public static final String PROVIDE_REGISTER_SLOT_NAME_DOC_SUBMISSION_SET_PATIENT_ID = "XDSSubmissionSet.patientId";
@@ -121,7 +138,6 @@ public class CDAConstants
     public static final String SLOT_NAME_URI = "URI";
     public static final String SLOT_NAME_SIZE = "size";
     public static final String SLOT_NAME_INTENDED_RECIPIENT = "intendedRecipient";
-
 
     public static final String CHARACTER_SET = "UTF-8";
     public static final String EXTERNAL_OBJECT_IDENTIFIER_TYPE = "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:ExternalIdentifier";
@@ -141,7 +157,7 @@ public class CDAConstants
     public static final String XDS_REGISTRY_ASSOCIATION_OBJECT_TYPE = "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Association";
     public static final String XDS_REGISTRY_REGISTRY_PACKAGE_TYPE = "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:RegistryPackage";
     public static final String XDS_REGISTRY_SLOT_NAME_SUBMISSION_TIME = "submissionTime";
-    public static final String XDS_CLASS_CODE_SCHEMA_UUID="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
+    public static final String XDS_CLASS_CODE_SCHEMA_UUID = "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
     public static final String XDS_REGISTRY_CONTENT_TYPE_UUID = "urn:uuid:aa543740-bdda-424e-8c96-df4873be8500";
     public static final String XDS_REGISTRY_ASSOCIATION_TYPE_RPLC = "urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC";
     public static final String XDS_REGISTRY_ASSOCIATION_TYPE_TARGET_OBJECT = "urn:uuid:6f5d07b7-81f4-4865-836a-c2d9134e1687";

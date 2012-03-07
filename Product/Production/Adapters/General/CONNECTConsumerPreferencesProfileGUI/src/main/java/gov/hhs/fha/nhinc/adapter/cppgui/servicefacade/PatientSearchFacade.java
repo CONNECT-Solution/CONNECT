@@ -1,12 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
- */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.adapter.cppgui.servicefacade;
 
@@ -38,7 +54,7 @@ import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 
 /**
- *
+ * 
  * @author patlollav
  */
 public class PatientSearchFacade {
@@ -47,7 +63,7 @@ public class PatientSearchFacade {
 
     /**
      * Search MPI with the given search criteria
-     *
+     * 
      * @param patientSearchCriteria
      * @return patients
      */
@@ -80,8 +96,12 @@ public class PatientSearchFacade {
         II patId = new II();
         patId.setExtension(patientSearchCriteria.getPatientID());
         patId.setRoot(patientSearchCriteria.getAssigningAuthorityID());
-        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(patientSearchCriteria.getFirstName(), patientSearchCriteria.getLastName(), null, null, null), patId);
-        PRPAIN201305UV02 searchPat = HL7PRPA201305Transforms.createPRPA201305(patient, patientSearchCriteria.getOrganizationID(), patientSearchCriteria.getOrganizationID(), patientSearchCriteria.getAssigningAuthorityID());
+        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms
+                .create201301PatientPerson(patientSearchCriteria.getFirstName(), patientSearchCriteria.getLastName(),
+                        null, null, null), patId);
+        PRPAIN201305UV02 searchPat = HL7PRPA201305Transforms.createPRPA201305(patient,
+                patientSearchCriteria.getOrganizationID(), patientSearchCriteria.getOrganizationID(),
+                patientSearchCriteria.getAssigningAuthorityID());
         return searchPat;
     }
 
@@ -106,33 +126,36 @@ public class PatientSearchFacade {
         PRPAMT201310UV02Patient mpiPatResult = null;
         PersonNameType name = null;
         PersonName personName = null;
-        if ((patients != null) &&
-                (patients.getControlActProcess() != null) &&
-                NullChecker.isNotNullish(patients.getControlActProcess().getSubject())) {
-            log.debug("convertPRPAIN201306UVToPatients - patients size: " + patients.getControlActProcess().getSubject().size());
+        if ((patients != null) && (patients.getControlActProcess() != null)
+                && NullChecker.isNotNullish(patients.getControlActProcess().getSubject())) {
+            log.debug("convertPRPAIN201306UVToPatients - patients size: "
+                    + patients.getControlActProcess().getSubject().size());
             for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subj1 : patients.getControlActProcess().getSubject()) {
-                if ((subj1.getRegistrationEvent() != null) &&
-                        (subj1.getRegistrationEvent().getSubject1() != null) &&
-                        (subj1.getRegistrationEvent().getSubject1().getPatient() != null)) {
+                if ((subj1.getRegistrationEvent() != null) && (subj1.getRegistrationEvent().getSubject1() != null)
+                        && (subj1.getRegistrationEvent().getSubject1().getPatient() != null)) {
                     mpiPatResult = subj1.getRegistrationEvent().getSubject1().getPatient();
                     searchPatient = new Patient();
 
-                    if (NullChecker.isNotNullish(mpiPatResult.getId()) &&
-                            mpiPatResult.getId().get(0) != null &&
-                            NullChecker.isNotNullish(mpiPatResult.getId().get(0).getExtension()) &&
-                            NullChecker.isNotNullish(mpiPatResult.getId().get(0).getRoot())) {
-                        log.debug("convertPRPAIN201306UVToPatients - patients getExtension: " + mpiPatResult.getId().get(0).getExtension());
-                        log.debug("convertPRPAIN201306UVToPatients - patients getRoot: " + mpiPatResult.getId().get(0).getRoot());
-                        searchPatient.getIdentifiers().add(mpiPatResult.getId().get(0).getExtension(), mpiPatResult.getId().get(0).getRoot());
+                    if (NullChecker.isNotNullish(mpiPatResult.getId()) && mpiPatResult.getId().get(0) != null
+                            && NullChecker.isNotNullish(mpiPatResult.getId().get(0).getExtension())
+                            && NullChecker.isNotNullish(mpiPatResult.getId().get(0).getRoot())) {
+                        log.debug("convertPRPAIN201306UVToPatients - patients getExtension: "
+                                + mpiPatResult.getId().get(0).getExtension());
+                        log.debug("convertPRPAIN201306UVToPatients - patients getRoot: "
+                                + mpiPatResult.getId().get(0).getRoot());
+                        searchPatient.getIdentifiers().add(mpiPatResult.getId().get(0).getExtension(),
+                                mpiPatResult.getId().get(0).getRoot());
                     }
 
-                    if (mpiPatResult.getPatientPerson() != null &&
-                            mpiPatResult.getPatientPerson().getValue() != null &&
-                            mpiPatResult.getPatientPerson().getValue().getName() != null) {
-                        name = HL7Extractors.translatePNListtoPersonNameType(mpiPatResult.getPatientPerson().getValue().getName());
+                    if (mpiPatResult.getPatientPerson() != null && mpiPatResult.getPatientPerson().getValue() != null
+                            && mpiPatResult.getPatientPerson().getValue().getName() != null) {
+                        name = HL7Extractors.translatePNListtoPersonNameType(mpiPatResult.getPatientPerson().getValue()
+                                .getName());
                         if (name != null) {
-                            log.debug("convertPRPAIN201306UVToPatients - patients name.getGivenName(): " + name.getGivenName());
-                            log.debug("convertPRPAIN201306UVToPatients - patients name.getFamilyName(): " + name.getFamilyName());
+                            log.debug("convertPRPAIN201306UVToPatients - patients name.getGivenName(): "
+                                    + name.getGivenName());
+                            log.debug("convertPRPAIN201306UVToPatients - patients name.getFamilyName(): "
+                                    + name.getFamilyName());
                             personName = new PersonName();
                             personName.setFirstName(name.getGivenName());
                             personName.setLastName(name.getFamilyName());
@@ -156,7 +179,7 @@ public class PatientSearchFacade {
     }
 
     /**
-     *
+     * 
      * @return
      */
     private List<PatientVO> convertMPIPatientToPatientVO(Patients mpiPatients) throws Exception {

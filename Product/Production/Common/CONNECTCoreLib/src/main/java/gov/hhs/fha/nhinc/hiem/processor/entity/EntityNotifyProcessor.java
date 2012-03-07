@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.hiem.processor.entity;
 
@@ -38,7 +58,8 @@ import org.xml.sax.InputSource;
  */
 public class EntityNotifyProcessor {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(EntityNotifyProcessor.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(EntityNotifyProcessor.class);
 
     public void processNotify(Notify notify, AssertionType assertion, String rawNotifyXml) {
         log.debug("Received Notify: " + rawNotifyXml);
@@ -61,7 +82,8 @@ public class EntityNotifyProcessor {
         }
     }
 
-    private void processSingleNotify(Node notificationMessageNode, AssertionType assertion, String rawNotifyXml) throws XPathExpressionException {
+    private void processSingleNotify(Node notificationMessageNode, AssertionType assertion, String rawNotifyXml)
+            throws XPathExpressionException {
         if (assertion == null) {
             log.warn("EntityNotifyProcessor.processSingleNotify - The assertion was null for the entity notify message");
         } else {
@@ -75,26 +97,34 @@ public class EntityNotifyProcessor {
             log.debug("Node name: " + nodeName);
             if (notificationMessageNode instanceof Element) {
                 Element notificationMessageElement = (Element) notificationMessageNode;
-//                NotificationMessageHolderType notifyMessage = buildNotificationMessageHolder(notificationMessageElement);
+                // NotificationMessageHolderType notifyMessage =
+                // buildNotificationMessageHolder(notificationMessageElement);
                 HiemSubscriptionRepositoryService service = new HiemSubscriptionRepositoryService();
                 try {
-                    // TODO: Switch producer to "adapter" when NHIN Subscribe supports forwarding subscription to an adapter
-                    List<HiemSubscriptionItem> subscriptions = service.RetrieveByNotificationMessage(notificationMessageElement, "gateway");
+                    // TODO: Switch producer to "adapter" when NHIN Subscribe supports forwarding subscription to an
+                    // adapter
+                    List<HiemSubscriptionItem> subscriptions = service.RetrieveByNotificationMessage(
+                            notificationMessageElement, "gateway");
                     if (subscriptions != null) {
                         log.info("found " + subscriptions.size() + " matching subscriptions");
 
                         for (HiemSubscriptionItem subscription : subscriptions) {
-                            log.info("processing subscription.  SubscriptionReference=[" + subscription.getSubscriptionReferenceXML() + "]");
+                            log.info("processing subscription.  SubscriptionReference=["
+                                    + subscription.getSubscriptionReferenceXML() + "]");
                             if (subscription.getParentSubscriptionReferenceXML() != null) {
-                                log.info("has parent - retrieving [" + subscription.getParentSubscriptionReferenceXML() + "]");
-                                subscription = service.retrieveByLocalSubscriptionReference(subscription.getParentSubscriptionReferenceXML());
+                                log.info("has parent - retrieving [" + subscription.getParentSubscriptionReferenceXML()
+                                        + "]");
+                                subscription = service.retrieveByLocalSubscriptionReference(subscription
+                                        .getParentSubscriptionReferenceXML());
                             }
                             String endpoint = findNotifyEndpoint(subscription);
                             log.info("endpoint=" + endpoint);
 
                             log.debug("extracting reference parameters from consumer reference");
                             ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-                            ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElementsFromConsumerReference(subscription.getSubscribeXML());
+                            ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+                                    .createReferenceParameterElementsFromConsumerReference(subscription
+                                            .getSubscribeXML());
                             log.debug("extracted reference parameters from consumer reference");
 
                             NhinTargetSystemType targetSystem = new NhinTargetSystemType();
@@ -103,18 +133,21 @@ public class EntityNotifyProcessor {
                             log.debug("building notify");
                             Element subscriptionReferenceElement = null;
                             try {
-                                subscriptionReferenceElement = XmlUtility.convertXmlToElement(subscription.getSubscriptionReferenceXML());
+                                subscriptionReferenceElement = XmlUtility.convertXmlToElement(subscription
+                                        .getSubscriptionReferenceXML());
                             } catch (Exception ex) {
                                 Logger.getLogger(EntityNotifyProcessor.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             NotifyBuilder builder = new NotifyBuilder();
-                            Element notifyElement = builder.buildNotifyFromSubscribe(notificationMessageElement, subscriptionReferenceElement);
-
+                            Element notifyElement = builder.buildNotifyFromSubscribe(notificationMessageElement,
+                                    subscriptionReferenceElement);
 
                             if (log.isDebugEnabled()) {
-                                log.debug("### Notify to send to NHIN: " + XmlUtility.serializeElementIgnoreFaults(notifyElement));
+                                log.debug("### Notify to send to NHIN: "
+                                        + XmlUtility.serializeElementIgnoreFaults(notifyElement));
                             }
-                            NhinHiemNotifyProxy notifyProxy = new NhinHiemNotifyProxyObjectFactory().getNhinHiemNotifyProxy();
+                            NhinHiemNotifyProxy notifyProxy = new NhinHiemNotifyProxyObjectFactory()
+                                    .getNhinHiemNotifyProxy();
                             notifyProxy.notify(notifyElement, referenceParametersElements, assertion, targetSystem);
                         }
                     }
@@ -155,7 +188,8 @@ public class EntityNotifyProcessor {
             InputSource inputSource = new InputSource(new ByteArrayInputStream(rawNotifyXml.getBytes()));
             log.debug("About to perform notification message node xpath query");
 
-            msgNodes = (NodeList) xpath.evaluate("//*[local-name()='Notify']/*[local-name()='NotificationMessage']", inputSource, XPathConstants.NODESET);
+            msgNodes = (NodeList) xpath.evaluate("//*[local-name()='Notify']/*[local-name()='NotificationMessage']",
+                    inputSource, XPathConstants.NODESET);
             if ((msgNodes != null) && (msgNodes.getLength() > 0)) {
                 log.debug("Message node list was not null/empty");
                 for (int i = 0; i < msgNodes.getLength(); i++) {
@@ -169,7 +203,9 @@ public class EntityNotifyProcessor {
                 log.debug("Message node or first child was null");
             }
         } catch (XPathExpressionException ex) {
-            log.error("XPathExpressionException exception encountered loading the notify message body: " + ex.getMessage(), ex);
+            log.error(
+                    "XPathExpressionException exception encountered loading the notify message body: "
+                            + ex.getMessage(), ex);
         }
         return msgNodes;
     }

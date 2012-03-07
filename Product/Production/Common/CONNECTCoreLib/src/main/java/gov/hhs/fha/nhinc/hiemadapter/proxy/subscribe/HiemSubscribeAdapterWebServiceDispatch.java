@@ -1,44 +1,66 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
- */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe;
 
 import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducer;
-import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterSubscriptionManager;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+
 import java.io.ByteArrayOutputStream;
+
 import javax.xml.namespace.QName;
-import javax.xml.transform.Source;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
-import org.w3c.dom.*;
+import javax.xml.ws.Dispatch;
+import javax.xml.ws.Service;
+
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class HiemSubscribeAdapterWebServiceDispatch implements HiemSubscribeAdapterProxy {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(HiemSubscribeAdapterWebServiceDispatch.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
+            .getLog(HiemSubscribeAdapterWebServiceDispatch.class);
+    private static WebServiceProxyHelper oProxyHelper = null;
 
     public Element subscribe(Element subscribe, AssertionType assertion, NhinTargetSystemType target) throws Exception {
         Document subscribeRequestDocument = buildSubscribeRequestMessage(subscribe, assertion);
@@ -60,20 +82,23 @@ public class HiemSubscribeAdapterWebServiceDispatch implements HiemSubscribeAdap
         return resultNode;
     }
 
-    private Document buildSubscribeRequestMessage(Node subscribe, AssertionType assertion) throws ParserConfigurationException, DOMException {
+    private Document buildSubscribeRequestMessage(Node subscribe, AssertionType assertion)
+            throws ParserConfigurationException, DOMException {
         Document document = null;
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
         document = docBuilder.newDocument();
         Element subscribeRequestElement = null;
-        subscribeRequestElement = document.createElementNS("urn:gov:hhs:fha:nhinc:common:nhinccommonadapter", "SubscribeRequest");
+        subscribeRequestElement = document.createElementNS("urn:gov:hhs:fha:nhinc:common:nhinccommonadapter",
+                "SubscribeRequest");
         Node subscribeNode = document.importNode(subscribe, true);
         subscribeRequestElement.appendChild(subscribeNode);
         document.appendChild(subscribeRequestElement);
         return document;
     }
 
-    private Dispatch<Source> getAdapterNotificationProducerDispatch(NhinTargetSystemType target) throws ConnectionManagerException {
+    private Dispatch<Source> getAdapterNotificationProducerDispatch(NhinTargetSystemType target)
+            throws ConnectionManagerException {
         AdapterNotificationProducer adapterNotificationProducerService = null;
         try {
             adapterNotificationProducerService = new AdapterNotificationProducer();
@@ -82,25 +107,26 @@ public class HiemSubscribeAdapterWebServiceDispatch implements HiemSubscribeAdap
             log.error(ex);
         }
 
-        QName portQName = new QName("urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement", "AdapterNotificationProducerPortSoap11");
-        Dispatch<Source> dispatch = getGenericDispath(adapterNotificationProducerService, portQName, NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SERVICE_NAME, target);
+        QName portQName = new QName("urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement",
+                "AdapterNotificationProducerPortSoap11");
+        Dispatch<Source> dispatch = getGenericDispath(adapterNotificationProducerService, portQName,
+                NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SERVICE_NAME, target);
         return dispatch;
     }
 
-    private Dispatch<Source> getGenericDispath(Service service, QName portQName, String serviceName, NhinTargetSystemType target) throws ConnectionManagerException {
+    private Dispatch<Source> getGenericDispath(Service service, QName portQName, String serviceName,
+            NhinTargetSystemType target) throws ConnectionManagerException {
         Dispatch<Source> dispatch = null;
         dispatch = service.createDispatch(portQName, Source.class, Service.Mode.PAYLOAD);
-        String url = getUrl(target, serviceName);
+        String url = getWebServiceProxyHelper().getAdapterEndPointFromConnectionManager(serviceName);
         dispatch.getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         return dispatch;
     }
 
-    private String getUrl(NhinTargetSystemType target, String serviceName) throws ConnectionManagerException {
-        String url = null;
-        url = ConnectionManagerCache.getEndpontURLFromNhinTarget(target, serviceName);
-        if (NullChecker.isNullish(url)) {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(serviceName);
+    private WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (oProxyHelper == null) {
+            oProxyHelper = new WebServiceProxyHelper();
         }
-        return url;
+        return oProxyHelper;
     }
 }

@@ -1,13 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
  *
- * Copyright 2011(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
  *
- */
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy;
 
@@ -54,6 +69,7 @@ import org.w3c.dom.Element;
 
 /**
  * Java implementation of the adapter PDP service.
+ * 
  * @author Mastan.Ketha
  */
 public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
@@ -73,7 +89,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
 
     /**
      * processPDPRequest process the pdp request and evaluates the policy to permit or deny
-     *
+     * 
      * @param pdpRequest
      * @return pdpResponse
      */
@@ -83,15 +99,17 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         EffectType effect = EffectType.DENY;
         PolicyType policyType = new PolicyType();
         try {
-            String serviceType = getAttrValFromPdpRequest(pdpRequest, AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_SERVICE_TYPE, AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
+            String serviceType = getAttrValFromPdpRequest(pdpRequest,
+                    AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_SERVICE_TYPE,
+                    AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
             log.debug("processPDPRequest - serviceType: " + serviceType);
 
             if (serviceType != null) {
-                if ((serviceType.equalsIgnoreCase(AdapterPDPConstants.REQUEST_ACTION_PATIENT_DISCOVERY_OUT)) ||
-                        (serviceType.equalsIgnoreCase(AdapterPDPConstants.REQUEST_ACTION_PATIENT_DISCOVERY_IN)) ||
-                        (serviceType.equalsIgnoreCase(AdapterPDPConstants.REQUEST_ACTION_DOCUMENT_QUERY_OUT)) ||
-                        (serviceType.equalsIgnoreCase(AdapterPDPConstants.REQUEST_ACTION_DOCUMENT_QUERY_IN)) ||
-                        (serviceType.equalsIgnoreCase(AdapterPDPConstants.REQUEST_ACTION_DOCUMENT_RETRIEVE_IN))) {
+                if ((serviceType.equalsIgnoreCase(AdapterPDPConstants.REQUEST_ACTION_PATIENT_DISCOVERY_OUT))
+                        || (serviceType.equalsIgnoreCase(AdapterPDPConstants.REQUEST_ACTION_PATIENT_DISCOVERY_IN))
+                        || (serviceType.equalsIgnoreCase(AdapterPDPConstants.REQUEST_ACTION_DOCUMENT_QUERY_OUT))
+                        || (serviceType.equalsIgnoreCase(AdapterPDPConstants.REQUEST_ACTION_DOCUMENT_QUERY_IN))
+                        || (serviceType.equalsIgnoreCase(AdapterPDPConstants.REQUEST_ACTION_DOCUMENT_RETRIEVE_IN))) {
 
                     DocumentQueryParams params = new DocumentQueryParams();
                     String patientId = getUniquePatientIdFromPdpRequest(pdpRequest, serviceType);
@@ -160,7 +178,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         log.debug("Begin AdapterPDPProxyJavaImpl.getPolicyObject(...) ***");
         log.debug("getPolicyObject - Policy rawData:" + policyStrRawData);
         PolicyType policyType = new PolicyType();
-        
+
         XACMLSerializer xACMLSerializer = new XACMLSerializer();
         try {
             policyType = xACMLSerializer.deserializeConsentXACMLDoc(policyStrRawData);
@@ -201,8 +219,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     } else {
                         log.debug("DataType not found in the Attribute");
                     }
-                    if ((attrId.trim().equals(AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID)) &&
-                            attrDataType.trim().equals(AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING)) {
+                    if ((attrId.trim().equals(AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID))
+                            && attrDataType.trim().equals(AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING)) {
                         Element sidElement = (Element) attribute.getAttributeValues().get(0);
                         attrValue = XMLUtils.getElementValue(sidElement);
                         log.debug("Attriute Value: " + attrValue);
@@ -245,8 +263,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     } else {
                         log.debug("DataType not found in the Attribute");
                     }
-                    if ((attrId.trim().equals(sAttrId)) &&
-                            (attrDataType.trim().equals(sAttrDataType))) {
+                    if ((attrId.trim().equals(sAttrId)) && (attrDataType.trim().equals(sAttrDataType))) {
                         Element sidElement = (Element) attribute.getAttributeValues().get(0);
                         attrValue = XMLUtils.getElementValue(sidElement);
                     }
@@ -269,13 +286,18 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         String uniquePatientId = "";
         if ((serviceType != null) && (serviceType.equalsIgnoreCase("DocumentRetrieveIn"))) {
             log.debug("getPatientIdFromPdpRequest() - serviceType: inside DocumentRetrieveIn");
-            String uniqueDocumentId = getAttrValFromPdpRequest(pdpRequest, AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID, AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
+            String uniqueDocumentId = getAttrValFromPdpRequest(pdpRequest,
+                    AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID,
+                    AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
             log.debug("getPatientIdFromPdpRequest() - DocumentRetrieveIn uniqueDocumentId: " + uniqueDocumentId);
             uniquePatientId = getPatientIdByDocumentUniqueId(uniqueDocumentId);
             log.debug("getUniquePatientIdFromPdpRequest - DocumentRetrieveIn uniquePatientId: " + uniquePatientId);
         } else {
-            String resourceId = getAttrValFromPdpRequest(pdpRequest, AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID, AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
-            String aaId = getAttrValFromPdpRequest(pdpRequest, AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_AA_ID, AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
+            String resourceId = getAttrValFromPdpRequest(pdpRequest,
+                    AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID,
+                    AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
+            String aaId = getAttrValFromPdpRequest(pdpRequest, AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_AA_ID,
+                    AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
 
             uniquePatientId = (resourceId + "^^^&" + aaId + "&ISO");
         }
@@ -318,16 +340,17 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     return EffectType.DENY;
                 }
                 List<RuleType> rules = new ArrayList<RuleType>();
-                //rules = policy.getRule();
-                if ((policy != null) &&
-                        (policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null)) {
-                    log.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: " + policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().size());
+                // rules = policy.getRule();
+                if ((policy != null)
+                        && (policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null)) {
+                    log.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: "
+                            + policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().size());
                     for (Object obj : policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition()) {
                         if (obj instanceof RuleType) {
                             rules.add((RuleType) obj);
                         }
                     }
-                }else{
+                } else {
                     log.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: null");
                 }
                 if ((rules != null) && (rules.size() > 0)) {
@@ -337,8 +360,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     String policyAttrDataType = "";
                     String policyAttrDesAttrId = "";
                     String policyAttrDesAttrDataType = "";
-                    rulesFor:
-                    for (RuleType rule : rules) {
+                    rulesFor: for (RuleType rule : rules) {
                         effect = rule.getEffect();
                         log.debug("Rule Effect value: " + effect);
                         TargetType targetType = new TargetType();
@@ -347,47 +369,62 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                         if (targetType != null) {
                             if (targetType.getSubjects() != null) {
                                 List<SubjectType> subjects = new ArrayList<SubjectType>();
-                                //subjects = rule.getTarget().getSubjects().getSubject();
+                                // subjects = rule.getTarget().getSubjects().getSubject();
                                 subjects = targetType.getSubjects().getSubject();
                                 if ((subjects != null) && (subjects.size() > 0)) {
                                     log.debug("Subjects list size" + subjects.size());
-                                    subjectsFor:
-                                    for (SubjectType subject : subjects) {
+                                    subjectsFor: for (SubjectType subject : subjects) {
                                         isMatch = false;
                                         List<SubjectMatchType> subjectMatchs = new ArrayList<SubjectMatchType>();
                                         subjectMatchs = subject.getSubjectMatch();
                                         if ((subjectMatchs != null) && (subjectMatchs.size() > 0)) {
                                             log.debug("subjectMatchs list size" + subjectMatchs.size());
-                                            subjectMatchsFor:
-                                            for (SubjectMatchType subjectMatch : subjectMatchs) {
+                                            subjectMatchsFor: for (SubjectMatchType subjectMatch : subjectMatchs) {
                                                 policyMatchId = subjectMatch.getMatchId();
                                                 log.debug("SubjectMatch MatchId: " + policyMatchId);
                                                 policyAttrValue = null;
                                                 policyAttrDataType = null;
                                                 if (subjectMatch.getAttributeValue() != null) {
-                                                    if(subjectMatch.getAttributeValue().getContent() != null){
-                                                        policyAttrValue = (String)subjectMatch.getAttributeValue().getContent().get(0);
-                                                    } 
-                                                    policyAttrDataType = (subjectMatch.getAttributeValue().getDataType() == null) ? subjectMatch.getAttributeValue().getDataType() : subjectMatch.getAttributeValue().getDataType().trim();
+                                                    if (subjectMatch.getAttributeValue().getContent() != null) {
+                                                        policyAttrValue = (String) subjectMatch.getAttributeValue()
+                                                                .getContent().get(0);
+                                                    }
+                                                    policyAttrDataType = (subjectMatch.getAttributeValue()
+                                                            .getDataType() == null) ? subjectMatch.getAttributeValue()
+                                                            .getDataType() : subjectMatch.getAttributeValue()
+                                                            .getDataType().trim();
                                                     log.debug("AttributeValue Value: " + policyAttrValue);
                                                     log.debug("AttributeValue DataType: " + policyAttrDataType);
                                                 } else {
                                                     log.debug("AttributeValue is null!");
                                                 }
                                                 if (subjectMatch.getSubjectAttributeDesignator() != null) {
-                                                    policyAttrDesAttrId = (subjectMatch.getSubjectAttributeDesignator().getAttributeId() == null) ? subjectMatch.getSubjectAttributeDesignator().getAttributeId() : subjectMatch.getSubjectAttributeDesignator().getAttributeId().trim();
-                                                    policyAttrDesAttrDataType = (subjectMatch.getSubjectAttributeDesignator().getDataType() == null) ? subjectMatch.getSubjectAttributeDesignator().getDataType() : subjectMatch.getSubjectAttributeDesignator().getDataType().trim();
-                                                    log.debug("SubjectAttributeDesignator DataType: " + policyAttrDesAttrDataType);
-                                                    log.debug("SubjectAttributeDesignator AttributeId: " + policyAttrDesAttrId);
+                                                    policyAttrDesAttrId = (subjectMatch.getSubjectAttributeDesignator()
+                                                            .getAttributeId() == null) ? subjectMatch
+                                                            .getSubjectAttributeDesignator().getAttributeId()
+                                                            : subjectMatch.getSubjectAttributeDesignator()
+                                                                    .getAttributeId().trim();
+                                                    policyAttrDesAttrDataType = (subjectMatch
+                                                            .getSubjectAttributeDesignator().getDataType() == null) ? subjectMatch
+                                                            .getSubjectAttributeDesignator().getDataType()
+                                                            : subjectMatch.getSubjectAttributeDesignator()
+                                                                    .getDataType().trim();
+                                                    log.debug("SubjectAttributeDesignator DataType: "
+                                                            + policyAttrDesAttrDataType);
+                                                    log.debug("SubjectAttributeDesignator AttributeId: "
+                                                            + policyAttrDesAttrId);
                                                     foundMatchingAttributes = false;
-                                                    isMatch = evaluateSubjectMatch(pdpRequest, policyMatchId, policyAttrValue,
-                                                            policyAttrDesAttrId, policyAttrDesAttrDataType);
+                                                    isMatch = evaluateSubjectMatch(pdpRequest, policyMatchId,
+                                                            policyAttrValue, policyAttrDesAttrId,
+                                                            policyAttrDesAttrDataType);
                                                     if (!foundMatchingAttributes) {
                                                         isMatch = false;
                                                         effect = EffectType.DENY;
                                                         statusCodeValue = AdapterPDPConstants.POLICY_RESULT_STATUS_CODE_MISSING_ATTRIBUTE;
-                                                        statusMessageValue = AdapterPDPConstants.POLICY_RESULT_STATUS_MESSAGE_MISSING_ATTRIBUTE + " : " +
-                                                                policyAttrDesAttrId + " is incorrect or its info is missing in request context";
+                                                        statusMessageValue = AdapterPDPConstants.POLICY_RESULT_STATUS_MESSAGE_MISSING_ATTRIBUTE
+                                                                + " : "
+                                                                + policyAttrDesAttrId
+                                                                + " is incorrect or its info is missing in request context";
                                                         break rulesFor;
                                                     }
                                                 } else {
@@ -432,7 +469,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         return effect;
     }
 
-    private boolean evaluateSubjectMatch(Request pdpRequest, String policyMatchId, String policyAttrValue, String policyAttrDesAttrId, String policyAttrDesAttrDataType) {
+    private boolean evaluateSubjectMatch(Request pdpRequest, String policyMatchId, String policyAttrValue,
+            String policyAttrDesAttrId, String policyAttrDesAttrDataType) {
         log.debug("Begin AdapterPDPProxyJavaImpl.evaluateSubjectMatch()");
         boolean isMatch = false;
         List<Subject> subjects = new ArrayList<Subject>();
@@ -457,12 +495,10 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         if (subjects != null) {
             log.debug("Subjects list size:" + subjects.size());
             boolean isAnyAttributeInfoNull = false;
-            subjectsFor:
-            for (Subject subject : subjects) {
+            subjectsFor: for (Subject subject : subjects) {
                 List<Attribute> attributes = new ArrayList<Attribute>();
                 attributes = (List<Attribute>) subject.getAttributes();
-                attributesFor:
-                for (Attribute attribute : attributes) {
+                attributesFor: for (Attribute attribute : attributes) {
                     String requestAttrId = "";
                     String requestAttrDataType = "";
                     String requestAttrValue = "";
@@ -483,7 +519,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     }
                     if (attribute.getAttributeValues() != null) {
                         Element sidElement = (Element) attribute.getAttributeValues().get(0);
-                        requestAttrValue = (XMLUtils.getElementValue(sidElement) == null) ? XMLUtils.getElementValue(sidElement) : XMLUtils.getElementValue(sidElement).trim();
+                        requestAttrValue = (XMLUtils.getElementValue(sidElement) == null) ? XMLUtils
+                                .getElementValue(sidElement) : XMLUtils.getElementValue(sidElement).trim();
                         log.debug("Request Attriute Value: " + requestAttrValue);
                     } else {
                         isAnyAttributeInfoNull = true;
@@ -492,7 +529,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     if (!isAnyAttributeInfoNull) {
                         log.debug("evaluateSubjectMatch - Request AttributeId: " + requestAttrId);
                         log.debug("evaluateSubjectMatch - Request Attribute DataType : " + requestAttrDataType);
-                        if ((policyAttrDesAttrId.equals(requestAttrId)) && (policyAttrDesAttrDataType.equals(requestAttrDataType))) {
+                        if ((policyAttrDesAttrId.equals(requestAttrId))
+                                && (policyAttrDesAttrDataType.equals(requestAttrDataType))) {
                             isMatch = evaluateMatchWithFunction(policyMatchId, policyAttrValue, requestAttrValue);
                             foundMatchingAttributes = true;
                         }
@@ -517,7 +555,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         } else if (policyMatchId.equals(AdapterPDPConstants.MATCHID_FUNCTION_ANYURI_EQUAL)) {
             isMatch = evaluateMatchWithAnyUriEqualFunction(policyAttrValue, requestAttrValue);
         }
-        //log.debug("evaluateMatchWithFunction - isMatch: " + isMatch);
+        // log.debug("evaluateMatchWithFunction - isMatch: " + isMatch);
         return isMatch;
     }
 
@@ -532,15 +570,15 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                 isMatch = true;
             }
         }
-        //log.debug("evaluateMatchWithStringEqualFunction -isMatch: " + isMatch);
+        // log.debug("evaluateMatchWithStringEqualFunction -isMatch: " + isMatch);
         return isMatch;
     }
 
     private boolean evaluateMatchWithAnyUriEqualFunction(String policyAttrValue, String requestAttrValue) {
-        //Need to work on this
+        // Need to work on this
         boolean isMatch = false;
         isMatch = evaluateMatchWithStringEqualFunction(policyAttrValue, requestAttrValue);
-        //log.debug("evaluateMatchWithAnyUriEqualFunction -isMatch: " + isMatch);
+        // log.debug("evaluateMatchWithAnyUriEqualFunction -isMatch: " + isMatch);
 
         return isMatch;
     }

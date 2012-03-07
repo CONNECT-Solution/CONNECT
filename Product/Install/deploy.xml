@@ -155,17 +155,30 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/ejbs/ejb">
         <param name="ejb.name" path="name/text()" />
+		<param name="should.deploy" path="should.deploy/text()" />
         <actions>
-          <if>
-            <not>
-              <isset property="deploy.exclude.ejb.@{ejb.name}"/>
-            </not>
-            <then>
-              <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/@{ejb.name}.jar"/>
-              <var name="deployment.glassfish.ejb.name" value="@{ejb.name}"/>
-              <runtarget target="${target}"/>
-            </then>
-          </if>
+            <if>
+				<istrue value="@{should.deploy}" />
+				<then>
+				  <if>
+					<not>
+					  <isset property="deploy.exclude.ejb.@{ejb.name}"/>
+					</not>
+					<then>
+				      <echo message="ejb '@{ejb.name}' will be deployed."/>
+					  <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/@{ejb.name}.jar"/>
+					  <var name="deployment.glassfish.ejb.name" value="@{ejb.name}"/>
+					  <runtarget target="${target}"/>
+					</then>
+					<else>
+				      <echo message="ejb '@{ejb.name}' will not be deployed."/>
+					</else>
+				  </if>
+				</then>
+				<else>
+				  <echo message="ejb '@{ejb.name}' will not be deployed."/>
+				</else>
+			</if>
         </actions>
       </call>
     </xmltask>
@@ -185,17 +198,30 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/wars/war">
         <param name="war.name" path="name/text()" />
+		<param name="should.deploy" path="should.deploy/text()" />
         <actions>
-          <if>
-            <not>
-              <isset property="deploy.exclude.war.@{war.name}"/>
-            </not>
-            <then>
-              <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war"/>
-              <var name="deployment.glassfish.war.name" value="@{war.name}"/>
-              <runtarget target="${target}"/>
-            </then>
-          </if>
+            <if>
+				<istrue value="@{should.deploy}" />
+				<then>
+				  <if>
+					  <not>
+					      <isset property="deploy.exclude.war.@{war.name}"/>
+					  </not>
+					  <then>
+				         <echo message="war '@{war.name}' will be deployed."/>
+					     <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war"/>
+					     <var name="deployment.glassfish.war.name" value="@{war.name}"/>
+					     <runtarget target="${target}"/>
+					  </then>
+					  <else>
+					    <echo message="war '@{war.name}' will not be deployed."/>
+					  </else>
+				    </if>
+			    </then>
+			    <else>
+				  <echo message="war '@{war.name}' will not be deployed."/>
+			    </else>
+            </if>
         </actions>
       </call>
     </xmltask>
@@ -215,16 +241,29 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/shared/lib">
         <param name="shared.name" path="name/text()" />
+		<param name="should.deploy" path="should.deploy/text()" />
         <actions>
-          <if>
-            <not>
-              <isset property="deploy.exclude.lib.@{shared.name}"/>
-            </not>
-            <then>
-              <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
-              <runtarget target="${target}"/>
-            </then>
-          </if>
+            <if>
+				<istrue value="@{should.deploy}" />
+				<then>
+				  <if>
+					<not>
+					  <isset property="deploy.exclude.lib.@{shared.name}"/>
+					</not>
+					<then>
+				  	  <echo message="shared lib '@{shared.name}' will be deployed."/>
+					  <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
+					  <runtarget target="${target}"/>
+					</then>
+					<else>
+					  <echo message="shared lib '@{shared.name}' will not be deployed."/>
+					</else>
+				  </if>
+				</then>
+			    <else>
+				  <echo message="shared lib '@{shared.name}' will not be deployed."/>
+			    </else>
+			</if>
         </actions>
       </call>
     </xmltask>
@@ -239,16 +278,29 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/execs/executable">
         <param name="shared.name" path="name/text()" />
+		<param name="should.deploy" path="should.deploy/text()" />
         <actions>
-          <if>
-            <not>
-              <isset property="deploy.exclude.lib.@{shared.name}"/>
-            </not>
-            <then>
-              <var name="deployment.executable.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
-              <runtarget target="${target}"/>
-            </then>
-          </if>
+            <if>
+				<istrue value="@{should.deploy}" />
+				<then>
+				  <if>
+					<not>
+					  <isset property="deploy.exclude.lib.@{shared.name}"/>
+					</not>
+					<then>
+					  <echo message="executable '@{shared.name}' will be deployed."/>
+					  <var name="deployment.executable.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
+					  <runtarget target="${target}"/>
+					</then>
+					<else>
+					  <echo message="executable '@{shared.name}' will not be deployed."/>
+					</else>
+				  </if>
+				</then>
+				<else>
+				  <echo message="executable '@{shared.name}' will not be deployed."/>
+				</else>
+			</if>
         </actions>
       </call>
     </xmltask>
@@ -343,39 +395,7 @@
     </if>
   </target>
 
-  <target name="copy.conf.file" depends="-deploy.setup.init,copy.conf.windows.file,copy.conf.unix.file" />
-
-  <target name="copy.conf.unix.file" if="unix">
-    <copy file="${script.root.directory}/GlassFish/templates/asenv.conf.template" 
-          tofile="${glassfish.home}/config/asenv.conf" overwrite="true"/>
-    <copy file="${script.root.directory}/GlassFish/templates/asadmin.template" 
-          tofile="${glassfish.home}/bin/asadmin" overwrite="true"/>
-    <copy file="${script.root.directory}/GlassFish/templates/asant.template" 
-          tofile="${glassfish.home}/bin/asant" overwrite="true"/>
-
-    <chmod perm="ugo+x">
-      <fileset dir="${glassfish.home}/bin"/>
-    </chmod>
-
-    <chmod perm="ugo+x">
-      <fileset dir="${glassfish.home}/lib">
-        <include name="*.so"/>
-        <include name="appserv"/>
-        <include name="appservLauncher"/>
-      </fileset>
-    </chmod>
-  </target>
-
-  <target name="copy.conf.windows.file" if="windows">
-    <copy file="${script.root.directory}/GlassFish/templates/asenv.bat.template" 
-          tofile="${glassfish.home}/config/asenv.bat" overwrite="true"/>
-    <copy file="${script.root.directory}/GlassFish/templates/asadmin.bat.template" 
-          tofile="${glassfish.home}/bin/asadmin.bat" overwrite="true"/>
-    <copy file="${script.root.directory}/GlassFish/templates/asant.bat.template" 
-          tofile="${glassfish.home}/bin/asant.bat" overwrite="true"/>
-  </target>
-
-  <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file, copy.conf.file">
+  <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file">
     <propertyregex property="deploy.glassfish.domain.template" input="${deployment.domain.template.file.path}" regexp="\\" replace="/" defaultValue="${deployment.domain.template.file.path}"/>
     <sun-appserv-admin 
         explicitcommand='create-domain --template ${deploy.glassfish.domain.template} --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
@@ -610,11 +630,9 @@
 				<file name="internalConnectionInfo.xml" />
 				<file name="hiemTopicConfiguration.xml" />
 				<file name="XDSUniqueIds.properties" />
-				<file name="uddiConnectionInfo.xml" />
 			</filelist>
 		</copy>
-		<java jar="${basedir}/Install/@{jarfile}" fork="true"/>
-		<echo>Sucess:  Validation Suite WSDL paths modified.</echo>
+		<java jar="${deployment.dir}/ValidationSuite/@{jarfile}" fork="true" dir="${deployment.dir}/ValidationSuite"/>
 	</sequential>
   </macrodef>
   

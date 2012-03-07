@@ -12,9 +12,6 @@
                     <file>${file.reference.debug-dist-1}</file>
                 </library>
                 <library>
-                    <file>${file.reference.debug-dist}</file>
-                </library>
-                <library>
                     <file>${file.reference.log4j-1.2.15.jar}</file>
                 </library>
                 <library>

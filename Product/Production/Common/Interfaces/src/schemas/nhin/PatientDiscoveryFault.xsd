@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.hhs.gov/healthit/nhin"
+            xmlns:tns="http://www.hhs.gov/healthit/nhin"
+            elementFormDefault="qualified">
+
+    <xsd:complexType name="PatientDiscoveryFaultType">
+        <xsd:sequence>
+            <xsd:element name="errorCode" type="xsd:string"/>
+            <xsd:element name="message" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="PatientDiscoveryFault" type="tns:PatientDiscoveryFaultType"/>
+</xsd:schema>

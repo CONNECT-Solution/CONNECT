@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.docsubmission;
 
@@ -25,19 +45,18 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class XDRPolicyChecker {
     private static Log log = null;
 
-    public XDRPolicyChecker()
-    {
+    public XDRPolicyChecker() {
         log = createLogger();
     }
 
-    public boolean checkXDRRequestPolicy(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion, String senderHCID, String receiverHCID, String direction) {
-
+    public boolean checkXDRRequestPolicy(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion,
+            String senderHCID, String receiverHCID, String direction) {
 
         XDREventType policyCheckReq = new XDREventType();
         XDRMessageType policyMsg = new XDRMessageType();
@@ -61,8 +80,7 @@ public class XDRPolicyChecker {
         return invokePolicyEngine(policyCheckReq);
     }
 
-    protected Log createLogger()
-    {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
@@ -74,15 +92,13 @@ public class XDRPolicyChecker {
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         AssertionType assertion = null;
-        if(policyReq != null)
-        {
+        if (policyReq != null) {
             assertion = policyReq.getAssertion();
         }
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             policyIsValid = true;
         }
 
@@ -90,7 +106,7 @@ public class XDRPolicyChecker {
     }
 
     /**
-     *
+     * 
      * @param message
      * @param assertion
      * @param senderHCID
@@ -98,10 +114,12 @@ public class XDRPolicyChecker {
      * @param direction
      * @return
      */
-    public boolean checkXDRResponsePolicy(RegistryResponseType message, AssertionType assertion, String senderHCID, String receiverHCID, String direction) {
+    public boolean checkXDRResponsePolicy(RegistryResponseType message, AssertionType assertion, String senderHCID,
+            String receiverHCID, String direction) {
         createLogger().debug("Entering checkXDRResponsePolicy");
 
-        XDRResponseEventType policyCheckReq = createXDRResponseEventType(message, assertion, senderHCID, receiverHCID, direction);
+        XDRResponseEventType policyCheckReq = createXDRResponseEventType(message, assertion, senderHCID, receiverHCID,
+                direction);
 
         boolean isPolicyValid = false;
 
@@ -112,12 +130,10 @@ public class XDRPolicyChecker {
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
 
-        if (policyResp.getResponse() != null &&
-                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
-                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
             isPolicyValid = true;
         }
-
 
         createLogger().debug("Exiting checkXDRResponsePolicy");
 
@@ -125,7 +141,7 @@ public class XDRPolicyChecker {
     }
 
     /**
-     *
+     * 
      * @param message
      * @param assertion
      * @param senderHCID
@@ -133,7 +149,8 @@ public class XDRPolicyChecker {
      * @param direction
      * @return
      */
-    private XDRResponseEventType createXDRResponseEventType(RegistryResponseType message, AssertionType assertion, String senderHCID, String receiverHCID, String direction) {
+    private XDRResponseEventType createXDRResponseEventType(RegistryResponseType message, AssertionType assertion,
+            String senderHCID, String receiverHCID, String direction) {
         XDRResponseEventType policyCheckReq = new XDRResponseEventType();
         XDRResponseMessageType policyMsg = new XDRResponseMessageType();
 
@@ -156,4 +173,3 @@ public class XDRPolicyChecker {
         return policyCheckReq;
     }
 }
-

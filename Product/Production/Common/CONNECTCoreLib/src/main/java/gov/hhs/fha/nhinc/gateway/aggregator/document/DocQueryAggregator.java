@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.gateway.aggregator.document;
 
@@ -48,15 +68,12 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
-
 /**
- * This class is used to handle the tasks surrounding aggregating
- * responses to document query messages.
- *
+ * This class is used to handle the tasks surrounding aggregating responses to document query messages.
+ * 
  * @author Les Westberg
  */
-public class DocQueryAggregator
-{
+public class DocQueryAggregator {
     private static Log log = LogFactory.getLog(DocQueryAggregator.class);
     private static String DOC_QUERY_NAME = "documentquery";
     private static String DOC_QUERY_RESPONSE = "AdhocQueryResponse";
@@ -64,33 +81,27 @@ public class DocQueryAggregator
     /**
      * Default constructor
      */
-    public DocQueryAggregator()
-    {
+    public DocQueryAggregator() {
     }
 
     /**
      * This method marshalls the AdhocQueryResponse into an XML string.
-     *
+     * 
      * @param oAdhocQueryRsponse The object to be marshalled.
      * @return The XML representation of the object.
      */
-    public String marshalAdhocQueryResponse(AdhocQueryResponse oAdhocQueryResponse)
-    {
+    public String marshalAdhocQueryResponse(AdhocQueryResponse oAdhocQueryResponse) {
         String sXML = "";
 
-        if (oAdhocQueryResponse != null)
-        {
-            try
-            {
+        if (oAdhocQueryResponse != null) {
+            try {
                 JAXBContextHandler oHandler = new JAXBContextHandler();
                 JAXBContext jc = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.query._3");
                 Marshaller marshaller = jc.createMarshaller();
                 StringWriter swXML = new StringWriter();
                 marshaller.marshal(oAdhocQueryResponse, swXML);
                 sXML = swXML.toString();
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 log.error("Failed to marshall AdhocQueryResponse to XML: " + e.getMessage());
             }
         }
@@ -100,26 +111,21 @@ public class DocQueryAggregator
 
     /**
      * This method unmarshalls the XML into an AdhocQueryResponse object.
-     *
+     * 
      * @param sAdhocQueryResponseXML The XML of the AdhocQueryResponse object to be unmarshalled.
      * @return The AdhocQueryResponse object.
      */
-    public AdhocQueryResponse unmarshalAdhocQueryResponse(String sAdhocQueryResponseXML)
-    {
+    public AdhocQueryResponse unmarshalAdhocQueryResponse(String sAdhocQueryResponseXML) {
         AdhocQueryResponse oAdhocQueryResponse = null;
 
-        if (sAdhocQueryResponseXML != null)
-        {
-            try
-            {
+        if (sAdhocQueryResponseXML != null) {
+            try {
                 JAXBContextHandler oHandler = new JAXBContextHandler();
                 JAXBContext jc = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.query._3");
                 Unmarshaller unmarshaller = jc.createUnmarshaller();
                 StringReader srAdhocQueryResponseXML = new StringReader(sAdhocQueryResponseXML);
-                oAdhocQueryResponse = (AdhocQueryResponse)unmarshaller.unmarshal(srAdhocQueryResponseXML);
-            }
-            catch (Exception e)
-            {
+                oAdhocQueryResponse = (AdhocQueryResponse) unmarshaller.unmarshal(srAdhocQueryResponseXML);
+            } catch (Exception e) {
                 log.error("Failed to marshall AdhocQueryResponse to XML: " + e.getMessage());
             }
         }
@@ -128,207 +134,167 @@ public class DocQueryAggregator
     }
 
     /**
-     * This method is called from the web service to start a transaction.  it
-     * prepares the set of DocQueryMessageKey(s) and then calls the
-     * other startTransaction to do the work.
-     *
+     * This method is called from the web service to start a transaction. it prepares the set of DocQueryMessageKey(s)
+     * and then calls the other startTransaction to do the work.
+     * 
      * @param oRequest The message that was sent to the web service.
      * @return The transaction Id.
      */
-    public String startTransaction (StartTransactionDocQueryRequestType oRequest,
-                                    HashMap<String,String> hAssignAuthHomeCommMap)
-    {
+    public String startTransaction(StartTransactionDocQueryRequestType oRequest,
+            HashMap<String, String> hAssignAuthHomeCommMap) {
         String sTransactionId = "";
 
         // Based on property settings, spin off the garbage collector thread
-        //-------------------------------------------------------------------
+        // -------------------------------------------------------------------
         GarbageCollectorMgr.runGarbageCollection();
 
-        if ((oRequest != null) &&
-            (oRequest.getQualifiedPatientIdentifiers() != null) &&
-            (oRequest.getQualifiedPatientIdentifiers().getQualifiedSubjectIdentifier() != null) &&
-            (oRequest.getQualifiedPatientIdentifiers().getQualifiedSubjectIdentifier().size() > 0))
-        {
+        if ((oRequest != null) && (oRequest.getQualifiedPatientIdentifiers() != null)
+                && (oRequest.getQualifiedPatientIdentifiers().getQualifiedSubjectIdentifier() != null)
+                && (oRequest.getQualifiedPatientIdentifiers().getQualifiedSubjectIdentifier().size() > 0)) {
             ArrayList<DocQueryMessageKey> olKey = new ArrayList<DocQueryMessageKey>();
-            List<QualifiedSubjectIdentifierType> olIds = oRequest.getQualifiedPatientIdentifiers().getQualifiedSubjectIdentifier();
+            List<QualifiedSubjectIdentifierType> olIds = oRequest.getQualifiedPatientIdentifiers()
+                    .getQualifiedSubjectIdentifier();
 
-            for (QualifiedSubjectIdentifierType oId : olIds)
-            {
-                boolean baFound[] = {false, false, false};
+            for (QualifiedSubjectIdentifierType oId : olIds) {
+                boolean baFound[] = { false, false, false };
 
                 DocQueryMessageKey oKey = new DocQueryMessageKey();
-                if (oId.getAssigningAuthorityIdentifier() != null)
-                {
+                if (oId.getAssigningAuthorityIdentifier() != null) {
                     oKey.setAssigningAuthority(oId.getAssigningAuthorityIdentifier());
                     baFound[0] = true;
-                }
-                else
-                {
+                } else {
                     oKey.setAssigningAuthority("");
                     baFound[0] = false;
                 }
 
-                if ((oKey.getAssigningAuthority() != null) &&
-                    (oKey.getAssigningAuthority().length() > 0))
-                {
+                if ((oKey.getAssigningAuthority() != null) && (oKey.getAssigningAuthority().length() > 0)) {
                     HomeCommunityType homeCommunityId = null;
-                    log.debug("Looking up Home Community Id for Assigning Authority Id: " + oKey.getAssigningAuthority());
-                    homeCommunityId = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(oKey.getAssigningAuthority());
+                    log.debug("Looking up Home Community Id for Assigning Authority Id: "
+                            + oKey.getAssigningAuthority());
+                    homeCommunityId = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(oKey
+                            .getAssigningAuthority());
 
-                    if (homeCommunityId != null &&
-                        NullChecker.isNotNullish(homeCommunityId.getHomeCommunityId()) &&
-                        !homeCommunityId.getHomeCommunityId().isEmpty())
-                    {
+                    if (homeCommunityId != null && NullChecker.isNotNullish(homeCommunityId.getHomeCommunityId())
+                            && !homeCommunityId.getHomeCommunityId().isEmpty()) {
                         oKey.setHomeCommunityId(homeCommunityId.getHomeCommunityId());
                         baFound[1] = true;
-                    }
-                    else
-                    {
+                    } else {
                         // MAA Implementation - Removed assumption that HCID equals AA
                         // If no mapping found, do not include
                         log.warn("There was no mapping for this assigning authority to a home community.");
                         baFound[1] = false;
                     }
-                }
-                else
-                {
-                    log.warn("The assigning authority was either null or empty.  " +
-                             "No mapping to home community ID can be done.");
+                } else {
+                    log.warn("The assigning authority was either null or empty.  "
+                            + "No mapping to home community ID can be done.");
                     baFound[1] = false;
                 }
 
-                if (oId.getSubjectIdentifier() != null)
-                {
+                if (oId.getSubjectIdentifier() != null) {
                     oKey.setPatientId(oId.getSubjectIdentifier());
                     baFound[2] = true;
-                }
-                else
-                {
+                } else {
                     oKey.setPatientId("");
                     baFound[2] = false;
                 }
 
                 // We can only build keys when we have all the appropriate identifiers
-                //--------------------------------------------------------------------
-                if (baFound[0] && baFound[1] && baFound[2])
-                {
-                    log.info("All key elements found, add to DocQueryMessageKey list: pid = " + oKey.getPatientId() +
-                            ", aaid = " + oKey.getAssigningAuthority() +
-                            ", hcid = " + oKey.getHomeCommunityId());
+                // --------------------------------------------------------------------
+                if (baFound[0] && baFound[1] && baFound[2]) {
+                    log.info("All key elements found, add to DocQueryMessageKey list: pid = " + oKey.getPatientId()
+                            + ", aaid = " + oKey.getAssigningAuthority() + ", hcid = " + oKey.getHomeCommunityId());
                     olKey.add(oKey);
+                } else {
+                    log.info("One or more missing key elements: pid = " + oKey.getPatientId() + ", aaid = "
+                            + oKey.getAssigningAuthority() + ", hcid = " + oKey.getHomeCommunityId());
                 }
-                else {
-                    log.info("One or more missing key elements: pid = " + oKey.getPatientId() +
-                            ", aaid = " + oKey.getAssigningAuthority() +
-                            ", hcid = " + oKey.getHomeCommunityId());
-                }
-            }   // for (QualifiedSubjectIdentifierType oId : olIds)
+            } // for (QualifiedSubjectIdentifierType oId : olIds)
 
-            if (olKey.size() > 0)
-            {
+            if (olKey.size() > 0) {
                 DocQueryMessageKey oaKey[] = olKey.toArray(new DocQueryMessageKey[0]);
 
                 int count = 0;
                 for (DocQueryMessageKey keyValue : oaKey) {
-                    log.info("Key array [" + count  + "]: pid = " + keyValue.getPatientId() +
-                            ", aaid = " + keyValue.getAssigningAuthority() +
-                            ", hcid = " + keyValue.getHomeCommunityId());
+                    log.info("Key array [" + count + "]: pid = " + keyValue.getPatientId() + ", aaid = "
+                            + keyValue.getAssigningAuthority() + ", hcid = " + keyValue.getHomeCommunityId());
                     count++;
                 }
 
                 sTransactionId = startTransaction(oaKey);
             }
-        }   // if ((oRequest != null) && ...
+        } // if ((oRequest != null) && ...
 
         return sTransactionId;
     }
 
     /**
      * This method sets the response message for the specified message key.
-     *
+     * 
      * @param oRequest The message key and the response message.
      * @return The status of the request, either "SUCCESS" or "FAIL".
      */
-    public String setResponseMsg(SetResponseMsgDocQueryRequestType oRequest)
-    {
+    public String setResponseMsg(SetResponseMsgDocQueryRequestType oRequest) {
         String sStatus = "";
         String sTransactionId = "";
         String sHomeCommunityId = "";
         DocQueryMessageKey oKey = new DocQueryMessageKey();
         String sAdhocQueryResponseXML = "";
 
-        if (oRequest != null)
-        {
+        if (oRequest != null) {
             // Transaction Id
-            //----------------
-            if ((oRequest.getTransactionId() != null) &&
-                (oRequest.getTransactionId().length() > 0))
-            {
+            // ----------------
+            if ((oRequest.getTransactionId() != null) && (oRequest.getTransactionId().length() > 0)) {
                 sTransactionId = oRequest.getTransactionId();
-            }
-            else
-            {
+            } else {
                 String sErrorMessage = "DocQuery Aggregator - setResponseMsg called with no Transaction Id - this is a required data element.";
                 log.error(sErrorMessage);
                 sStatus = DocumentConstants.FAIL_TEXT;
             }
 
             // HomeCommunityId
-            //-----------------
+            // -----------------
             // If the home community is not passed, it will be looked up by the DocQueryMessageKey based
             // on assigning authority.
-            //-------------------------------------------------------------------------------------------
-            if ((oRequest.getHomeCommunityId() != null) &&
-                (oRequest.getHomeCommunityId().length() > 0))
-            {
+            // -------------------------------------------------------------------------------------------
+            if ((oRequest.getHomeCommunityId() != null) && (oRequest.getHomeCommunityId().length() > 0)) {
                 sHomeCommunityId = oRequest.getHomeCommunityId();
             }
             oKey.setHomeCommunityId(sHomeCommunityId);
 
             // Assigning Authority
-            //--------------------
-            if ((oRequest.getQualifiedPatientIdentifier() != null) &&
-                (oRequest.getQualifiedPatientIdentifier().getAssigningAuthorityIdentifier() != null) &&
-                (oRequest.getQualifiedPatientIdentifier().getAssigningAuthorityIdentifier().length() > 0))
-            {
+            // --------------------
+            if ((oRequest.getQualifiedPatientIdentifier() != null)
+                    && (oRequest.getQualifiedPatientIdentifier().getAssigningAuthorityIdentifier() != null)
+                    && (oRequest.getQualifiedPatientIdentifier().getAssigningAuthorityIdentifier().length() > 0)) {
                 oKey.setAssigningAuthority(oRequest.getQualifiedPatientIdentifier().getAssigningAuthorityIdentifier());
-            }
-            else
-            {
+            } else {
                 String sErrorMessage = "DocQuery Aggregator - setResponseMsg called with no assigning authority - this is a required data element.";
                 log.error(sErrorMessage);
                 sStatus = DocumentConstants.FAIL_TEXT;
             }
 
-            //Patient Id
-            //-----------
-            if ((oRequest.getQualifiedPatientIdentifier() != null) &&
-                (oRequest.getQualifiedPatientIdentifier().getSubjectIdentifier() != null) &&
-                (oRequest.getQualifiedPatientIdentifier().getSubjectIdentifier().length() > 0))
-            {
+            // Patient Id
+            // -----------
+            if ((oRequest.getQualifiedPatientIdentifier() != null)
+                    && (oRequest.getQualifiedPatientIdentifier().getSubjectIdentifier() != null)
+                    && (oRequest.getQualifiedPatientIdentifier().getSubjectIdentifier().length() > 0)) {
                 oKey.setPatientId(oRequest.getQualifiedPatientIdentifier().getSubjectIdentifier());
-            }
-            else
-            {
+            } else {
                 String sErrorMessage = "DocQuery Aggregator - setResponseMsg called with no subject identifier - this is a required data element.";
                 log.error(sErrorMessage);
                 sStatus = DocumentConstants.FAIL_TEXT;
             }
 
             // Marshall the AdhocQueryResponse
-            //---------------------------------
-            if (oRequest.getAdhocQueryResponse() != null)
-            {
+            // ---------------------------------
+            if (oRequest.getAdhocQueryResponse() != null) {
                 sAdhocQueryResponseXML = marshalAdhocQueryResponse(oRequest.getAdhocQueryResponse());
             }
 
-            if (!sStatus.equals(DocumentConstants.FAIL_TEXT))
-            {
+            if (!sStatus.equals(DocumentConstants.FAIL_TEXT)) {
                 sStatus = setResponseMsg(sTransactionId, oKey, sAdhocQueryResponseXML);
             }
-        }
-        else
-        {
+        } else {
             sStatus = DocumentConstants.FAIL_TEXT;
         }
 
@@ -336,41 +302,29 @@ public class DocQueryAggregator
     }
 
     /**
-     * This method returns either a status if it is still waiting for results
-     * to come in, or the set of aggregated results.  If the caller passes in
-     * false for the "timed out" parameter, it will only return the results
-     * when all of the expected responses have been recieved.  If they have not
-     * all been received, then it will return a status of "Pending" with no
-     * reesults.  When all are received, it will send a status of "Complete"
-     * along with the aggregated results.   If timedOut is set to true, then
-     * it will pass back the set of aggregated results that was received and
-     * it will place error information in the aggregated results for the ones
-     * that it did not receive.  It will also send back a status of "Incomplete"
-     * with the results.  If timedOut is set to true, but everything had been
-     * received, then it will send back a status of "Complete" with the
-     * aggregated results.
-     *
-     * @param getAggResultsDocQueryRequest Tells whether we are in a timed out
-     *                                     state or not.
-     * @return Returns results if all responses have been received or if
-     *         timedOut is set to true.  Returns status only if we are not
-     *         timedOut and if not all expected results have been received.
+     * This method returns either a status if it is still waiting for results to come in, or the set of aggregated
+     * results. If the caller passes in false for the "timed out" parameter, it will only return the results when all of
+     * the expected responses have been recieved. If they have not all been received, then it will return a status of
+     * "Pending" with no reesults. When all are received, it will send a status of "Complete" along with the aggregated
+     * results. If timedOut is set to true, then it will pass back the set of aggregated results that was received and
+     * it will place error information in the aggregated results for the ones that it did not receive. It will also send
+     * back a status of "Incomplete" with the results. If timedOut is set to true, but everything had been received,
+     * then it will send back a status of "Complete" with the aggregated results.
+     * 
+     * @param getAggResultsDocQueryRequest Tells whether we are in a timed out state or not.
+     * @return Returns results if all responses have been received or if timedOut is set to true. Returns status only if
+     *         we are not timedOut and if not all expected results have been received.
      */
-    public GetAggResultsDocQueryResponseType getAggResults(GetAggResultsDocQueryRequestType oRequest)
-    {
+    public GetAggResultsDocQueryResponseType getAggResults(GetAggResultsDocQueryRequestType oRequest) {
         GetAggResultsDocQueryResponseType oResponse = new GetAggResultsDocQueryResponseType();
 
         String sTransactionId = "";
         boolean bTimedOut = false;
 
-        if ((oRequest != null) &&
-            (oRequest.getTransactionId() != null) &&
-            (oRequest.getTransactionId().trim().length() > 0))
-        {
+        if ((oRequest != null) && (oRequest.getTransactionId() != null)
+                && (oRequest.getTransactionId().trim().length() > 0)) {
             sTransactionId = oRequest.getTransactionId();
-        }
-        else
-        {
+        } else {
             String sErrorMessage = "";
             log.error(sErrorMessage);
             oResponse.setStatus(DocumentConstants.FAIL_TEXT);
@@ -380,22 +334,16 @@ public class DocQueryAggregator
         bTimedOut = oRequest.isTimedOut();
         AdhocQueryResponse oAdhocQueryResponse = null;
 
-        try
-        {
+        try {
             oAdhocQueryResponse = getAggResults(sTransactionId, bTimedOut);
-            if (oAdhocQueryResponse == null)
-            {
+            if (oAdhocQueryResponse == null) {
                 oResponse.setStatus(DocumentConstants.PENDING_TEXT);
                 oResponse.setAdhocQueryResponse(null);
-            }
-            else
-            {
+            } else {
                 oResponse.setStatus(DocumentConstants.COMPLETE_TEXT);
                 oResponse.setAdhocQueryResponse(oAdhocQueryResponse);
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve transaction.  Message: " + e.getMessage();
             log.error(sErrorMessage, e);
             oResponse.setStatus(DocumentConstants.FAIL_TEXT);
@@ -405,28 +353,21 @@ public class DocQueryAggregator
         return oResponse;
     }
 
-
     /**
-     * This method starts a transaction using the set of message keys passed in.
-     * It will create a transaction, with one message for each message key.  The
-     * entries will be written to the AGGREGATOR.AGG_TRANSACTION and
+     * This method starts a transaction using the set of message keys passed in. It will create a transaction, with one
+     * message for each message key. The entries will be written to the AGGREGATOR.AGG_TRANSACTION and
      * AGGREGATOR.AGG_MESSAGE_RESULTS tables.
-     *
-     * @param oaMessageKey The set of message keys.  There will be one row
-     *                     written to the AGG_MESSAGE_RESULTS table for each
-     *                     array item.
-     * @return The transaction Id that was assigned when this transaction was
-     *         started.
+     * 
+     * @param oaMessageKey The set of message keys. There will be one row written to the AGG_MESSAGE_RESULTS table for
+     *            each array item.
+     * @return The transaction Id that was assigned when this transaction was started.
      */
-    public String startTransaction (DocQueryMessageKey[] oaMessageKey)
-    {
+    public String startTransaction(DocQueryMessageKey[] oaMessageKey) {
         String sTransactionId = "";
 
-        if ((oaMessageKey == null) ||
-            (oaMessageKey.length <= 0))
-        {
-            return sTransactionId;          // Nothing in the record to start
-                                            // a transaction for.
+        if ((oaMessageKey == null) || (oaMessageKey.length <= 0)) {
+            return sTransactionId; // Nothing in the record to start
+                                   // a transaction for.
         }
 
         Date dtNow = new Date();
@@ -437,8 +378,7 @@ public class DocQueryAggregator
 
         HashSet<AggMessageResult> hMsgResult = new HashSet<AggMessageResult>();
 
-        for (DocQueryMessageKey oMessageKey : oaMessageKey)
-        {
+        for (DocQueryMessageKey oMessageKey : oaMessageKey) {
             AggMessageResult oMsgResult = new AggMessageResult();
             oMsgResult.setAggTransaction(oTrans);
             oMsgResult.setMessageKey(oMessageKey.createXMLMessageKey());
@@ -453,10 +393,7 @@ public class DocQueryAggregator
         AggTransactionDao oTransDao = new AggTransactionDao();
         oTransDao.save(oTrans);
 
-        if ((oTrans != null) &&
-            (oTrans.getTransactionId() != null) &&
-            (oTrans.getTransactionId().length() > 0))
-        {
+        if ((oTrans != null) && (oTrans.getTransactionId() != null) && (oTrans.getTransactionId().length() > 0)) {
             sTransactionId = oTrans.getTransactionId();
         }
 
@@ -464,46 +401,41 @@ public class DocQueryAggregator
     }
 
     /**
-     * This method retrieves the message result entry in the database and fills in the
-     * response information for that message.  It locates the entry based on the
-     * message key and transaction Id based on the information that was passed in.
-     *
+     * This method retrieves the message result entry in the database and fills in the response information for that
+     * message. It locates the entry based on the message key and transaction Id based on the information that was
+     * passed in.
+     * 
      * @param sTransactionId The transaction Id associated with the message.
      * @param oKey The information that is used for the message key.
      * @param sAdhocQueryResponseXML The AdhocQueryResponse in XML form.
-     * @return The status.  "SUCCESS" or "FAIL".
+     * @return The status. "SUCCESS" or "FAIL".
      */
-    public String setResponseMsg(String sTransactionId, DocQueryMessageKey oKey, String sAdhocQueryResponseXML)
-    {
+    public String setResponseMsg(String sTransactionId, DocQueryMessageKey oKey, String sAdhocQueryResponseXML) {
         String sStatus = DocumentConstants.SUCCESS_TEXT;
         String sMessageKey = oKey.createXMLMessageKey();
 
         AggMessageResultDao oAggMessageResultDao = new AggMessageResultDao();
         AggMessageResult oMsgResult = null;
-        try
-        {
+        try {
             oMsgResult = oAggMessageResultDao.findByMessageKey(sTransactionId, sMessageKey);
-        }
-        catch (Exception e)
-        {
-            String sErrorMessage = "Failed to retrieve AggMessageResult for: TransactionId: " + sTransactionId +
-                                   ", MessageKey: " + oKey.createXMLMessageKey() + ".  Message: " + e.getMessage();
+        } catch (Exception e) {
+            String sErrorMessage = "Failed to retrieve AggMessageResult for: TransactionId: " + sTransactionId
+                    + ", MessageKey: " + oKey.createXMLMessageKey() + ".  Message: " + e.getMessage();
             log.error(sErrorMessage, e);
             sStatus = DocumentConstants.FAIL_TEXT;
-            return sStatus;         // No reason to proceed....
+            return sStatus; // No reason to proceed....
         }
 
-        if (oMsgResult == null)
-        {
-            String sErrorMessage = "Failed to find existing AggMessageResult for: TransactionId: " + sTransactionId +
-                                   ", MessageKey: " + oKey.createXMLMessageKey() + ".  Message response not recorded.";
+        if (oMsgResult == null) {
+            String sErrorMessage = "Failed to find existing AggMessageResult for: TransactionId: " + sTransactionId
+                    + ", MessageKey: " + oKey.createXMLMessageKey() + ".  Message response not recorded.";
             log.error(sErrorMessage);
             sStatus = DocumentConstants.FAIL_TEXT;
-            return sStatus;         // No reason to proceed....
+            return sStatus; // No reason to proceed....
         }
 
         // if we got here - we have the message and we need to fill in the response information...
-        //----------------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------
         oMsgResult.setResponseReceivedTime(new Date());
         oMsgResult.setResponseMessage(sAdhocQueryResponseXML);
         oAggMessageResultDao.save(oMsgResult);
@@ -512,43 +444,34 @@ public class DocQueryAggregator
     }
 
     /**
-     * This method looks through the results to see if all responses have been
-     * received.  If they have, then it returns true.  Otherwise it returns
-     * false.
-     *
+     * This method looks through the results to see if all responses have been received. If they have, then it returns
+     * true. Otherwise it returns false.
+     * 
      * @param oTrans The Transaction with all of the message results.
      * @return TRUE if all responses have been received, FALSE if not.
      */
-    private boolean areResultsReady(AggTransaction oTrans)
-    {
-        if (oTrans == null)
-        {
+    private boolean areResultsReady(AggTransaction oTrans) {
+        if (oTrans == null) {
             return false;
         }
 
-        for (AggMessageResult oMsgResult : oTrans.getAggMessageResults())
-        {
+        for (AggMessageResult oMsgResult : oTrans.getAggMessageResults()) {
             // If we fall through - we are still waiting for results.
-            //-------------------------------------------------------
-            if ((oMsgResult != null) &&
-                (oMsgResult.getResponseReceivedTime() == null))
-            {
+            // -------------------------------------------------------
+            if ((oMsgResult != null) && (oMsgResult.getResponseReceivedTime() == null)) {
                 return false;
             }
         }
-
 
         return true;
     }
 
     /**
-     * This method will create an empty AdhocQueryResponse.  One that would
-     * be returned if there were no results.
-     *
+     * This method will create an empty AdhocQueryResponse. One that would be returned if there were no results.
+     * 
      * @return An AdhocQueryResponse that represents an empty result set.
      */
-    private AdhocQueryResponse createEmptyResult()
-    {
+    private AdhocQueryResponse createEmptyResult() {
         AdhocQueryResponse oAdhocQueryResponse = new AdhocQueryResponse();
 
         oAdhocQueryResponse.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
@@ -558,82 +481,65 @@ public class DocQueryAggregator
     }
 
     /**
-     * This method is used to combine the results together into a single
-     * AdhocQueryResponse.  It will extract the items in the RegistryObjectList
-     * from the various systems and place them into the new response.
-     *
+     * This method is used to combine the results together into a single AdhocQueryResponse. It will extract the items
+     * in the RegistryObjectList from the various systems and place them into the new response.
+     * 
      * @param olMsgResult List of messages to be combined
      * @return The combined AdhocQueryResponse object.
      */
-    private AdhocQueryResponse combineResults(Set<AggMessageResult> olMsgResult)
-    {
+    private AdhocQueryResponse combineResults(Set<AggMessageResult> olMsgResult) {
         AdhocQueryResponse oAdhocQueryResponse = createEmptyResult();
         RegistryObjectListType oRegObjList = oAdhocQueryResponse.getRegistryObjectList();
 
-        for (AggMessageResult oMsgResult : olMsgResult)
-        {
+        for (AggMessageResult oMsgResult : olMsgResult) {
             // If the message contains a response received time, then it means that we
-            // received the response from the remote system.  We need to aggregate the
+            // received the response from the remote system. We need to aggregate the
             // results.
-            //--------------------------------------------------------------------------
-            if (oMsgResult.getResponseReceivedTime() != null)
-            {
+            // --------------------------------------------------------------------------
+            if (oMsgResult.getResponseReceivedTime() != null) {
                 // The response may have been empty - if so - there is nothing to aggregate from here.
-                //-------------------------------------------------------------------------------------
-                if ((oMsgResult.getResponseMessage() != null) &&
-                    (oMsgResult.getResponseMessage().trim().length() > 0))
-                {
+                // -------------------------------------------------------------------------------------
+                if ((oMsgResult.getResponseMessage() != null) && (oMsgResult.getResponseMessage().trim().length() > 0)) {
                     AdhocQueryResponse oTempResponse = unmarshalAdhocQueryResponse(oMsgResult.getResponseMessage());
-                    if ((oTempResponse != null) &&
-                        (oTempResponse.getRegistryObjectList() != null) &&
-                        (oTempResponse.getRegistryObjectList().getIdentifiable() != null) &&
-                        (oTempResponse.getRegistryObjectList().getIdentifiable().size() > 0))
-                    {
-                        List<JAXBElement<? extends IdentifiableType>> olNewRegObjs = oTempResponse.getRegistryObjectList().getIdentifiable();
+                    if ((oTempResponse != null) && (oTempResponse.getRegistryObjectList() != null)
+                            && (oTempResponse.getRegistryObjectList().getIdentifiable() != null)
+                            && (oTempResponse.getRegistryObjectList().getIdentifiable().size() > 0)) {
+                        List<JAXBElement<? extends IdentifiableType>> olNewRegObjs = oTempResponse
+                                .getRegistryObjectList().getIdentifiable();
 
-                        for (JAXBElement<? extends IdentifiableType> oJAXBElement : olNewRegObjs)
-                        {
+                        for (JAXBElement<? extends IdentifiableType> oJAXBElement : olNewRegObjs) {
                             oRegObjList.getIdentifiable().add(oJAXBElement);
-                        }   // for (JAXBElement<? extends IdentifiableType> oJAXBElement : olNewRegObjs)
-                    }   // if ((oTempResponse != null) &&
+                        } // for (JAXBElement<? extends IdentifiableType> oJAXBElement : olNewRegObjs)
+                    } // if ((oTempResponse != null) &&
 
                     // It is possible that there may be error information in this message
                     // that we need to pull out too...
-                    //--------------------------------------------------------------------
-                    if ((oTempResponse != null) &&
-                        (oTempResponse.getRegistryErrorList() != null) &&
-                        (oTempResponse.getRegistryErrorList().getRegistryError() != null) &&
-                        (oTempResponse.getRegistryErrorList().getRegistryError().size() > 0))
-                    {
+                    // --------------------------------------------------------------------
+                    if ((oTempResponse != null) && (oTempResponse.getRegistryErrorList() != null)
+                            && (oTempResponse.getRegistryErrorList().getRegistryError() != null)
+                            && (oTempResponse.getRegistryErrorList().getRegistryError().size() > 0)) {
                         RegistryErrorList oRegErrors = null;
-                        if (oAdhocQueryResponse.getRegistryErrorList() == null)
-                        {
+                        if (oAdhocQueryResponse.getRegistryErrorList() == null) {
                             oRegErrors = new RegistryErrorList();
                             oAdhocQueryResponse.setRegistryErrorList(oRegErrors);
-                        }
-                        else
-                        {
+                        } else {
                             oRegErrors = oAdhocQueryResponse.getRegistryErrorList();
                         }
 
                         List<RegistryError> olRegError = oRegErrors.getRegistryError();
-                        for (RegistryError oRegError : oTempResponse.getRegistryErrorList().getRegistryError())
-                        {
+                        for (RegistryError oRegError : oTempResponse.getRegistryErrorList().getRegistryError()) {
                             olRegError.add(oRegError);
                         }
                     }
-                }   // if ((oMsgResult.getResponseMessage() != null) &&
-            }   // if (oMsgResult.getResponseReceivedTime() != null)
-            else    // This means that this result never received a response - log an error that this one timed out.
+                } // if ((oMsgResult.getResponseMessage() != null) &&
+            } // if (oMsgResult.getResponseReceivedTime() != null)
+            else // This means that this result never received a response - log an error that this one timed out.
             {
                 RegistryErrorList oRegErrors = null;
-                if (oAdhocQueryResponse.getRegistryErrorList() == null)
-                {
+                if (oAdhocQueryResponse.getRegistryErrorList() == null) {
                     oRegErrors = new RegistryErrorList();
                     oAdhocQueryResponse.setRegistryErrorList(oRegErrors);
-                }
-                else
-                {
+                } else {
                     oRegErrors = oAdhocQueryResponse.getRegistryErrorList();
                 }
 
@@ -642,90 +548,70 @@ public class DocQueryAggregator
                 olRegError.add(oRegError);
                 oRegError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REGISTRY_ERROR);
                 oRegError.setCodeContext(DocumentConstants.XDS_RETRIEVE_CODECONTEXT_TIMEDOUT_MSG);
-                if ((oMsgResult.getMessageKey() != null) &&
-                    (oMsgResult.getMessageKey().length() > 0))
-                {
-                    try
-                    {
+                if ((oMsgResult.getMessageKey() != null) && (oMsgResult.getMessageKey().length() > 0)) {
+                    try {
                         DocQueryMessageKey oMessageKey = new DocQueryMessageKey(oMsgResult.getMessageKey());
                         oRegError.setLocation(oMessageKey.getHomeCommunityId());
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         String sErrorMessage = "Failed to parse message key.  Message = " + e.getMessage();
                         log.error(sErrorMessage, e);
-                        //  do not throw an error - we will log it and move on...
+                        // do not throw an error - we will log it and move on...
                     }
-                }   // if ((oMsgResult.getMessageKey() != null) &&
-            }   // else ...
-        }   // for (AggMessageResult oMsgResult : olMsgResult)
-
+                } // if ((oMsgResult.getMessageKey() != null) &&
+            } // else ...
+        } // for (AggMessageResult oMsgResult : olMsgResult)
 
         return oAdhocQueryResponse;
     }
 
     /**
-     * This method returns either an aggregated AdhocQueryResponse if all results
-     * have been retrieved, or if the timed out flag has been passed, or it will
-     * return null if the results are not ready and the timedout flag has not
-     * been set.
-     *
+     * This method returns either an aggregated AdhocQueryResponse if all results have been retrieved, or if the timed
+     * out flag has been passed, or it will return null if the results are not ready and the timedout flag has not been
+     * set.
+     * 
      * @param sTransactionId The transaction ID of the transaction to be aggregated.
-     * @param bTimedOut TRUE if we should stop waiting for results and compile what
-     *                       is available.  FALSE if we should only return them
-     *                       if all expected results have been received.
+     * @param bTimedOut TRUE if we should stop waiting for results and compile what is available. FALSE if we should
+     *            only return them if all expected results have been received.
      * @return The aggregated results.
      */
-    public AdhocQueryResponse getAggResults(String sTransactionId, boolean bTimedOut)
-        throws AggregatorException
-    {
+    public AdhocQueryResponse getAggResults(String sTransactionId, boolean bTimedOut) throws AggregatorException {
         AdhocQueryResponse oResponse = null;
 
         // Retrieve the records and see if everything is ready...
-        //--------------------------------------------------------
+        // --------------------------------------------------------
         AggTransactionDao oAggTransactionDao = new AggTransactionDao();
         AggTransaction oTrans = oAggTransactionDao.findById(sTransactionId);
-        if (oTrans == null)
-        {
-            String sErrorMessage = "Failed to find an aggregator transaction for TransactionId: " +
-                                   sTransactionId;
+        if (oTrans == null) {
+            String sErrorMessage = "Failed to find an aggregator transaction for TransactionId: " + sTransactionId;
             log.error(sErrorMessage);
             throw new AggregatorException(sErrorMessage);
         }
 
         // Make sure this transaction ID is for the right type of transaction.
-        //--------------------------------------------------------------------
-        if ((oTrans.getServiceType() == null) ||
-            ((oTrans.getServiceType() != null) &&
-            (!oTrans.getServiceType().equals(DOC_QUERY_NAME))))
-        {
-            String sErrorMessage = "The specified TransactionId: " + sTransactionId + " is not associated with " +
-                                   " Document Query messages.  It is for: " + oTrans.getServiceType() + ".";
+        // --------------------------------------------------------------------
+        if ((oTrans.getServiceType() == null)
+                || ((oTrans.getServiceType() != null) && (!oTrans.getServiceType().equals(DOC_QUERY_NAME)))) {
+            String sErrorMessage = "The specified TransactionId: " + sTransactionId + " is not associated with "
+                    + " Document Query messages.  It is for: " + oTrans.getServiceType() + ".";
             log.error(sErrorMessage);
             throw new AggregatorException(sErrorMessage);
         }
 
         // If we have timed out, or if the results are ready then aggregate them
         // and return them.
-        //----------------------------------------------------------------------
-        if ((bTimedOut) ||
-            (areResultsReady(oTrans)))
-        {
-            if ((oTrans.getAggMessageResults() != null) &&
-                (oTrans.getAggMessageResults().size() > 0))
-            {
+        // ----------------------------------------------------------------------
+        if ((bTimedOut) || (areResultsReady(oTrans))) {
+            if ((oTrans.getAggMessageResults() != null) && (oTrans.getAggMessageResults().size() > 0)) {
                 oResponse = combineResults(oTrans.getAggMessageResults());
-            }
-            else
-            {
+            } else {
                 // If we got here - it was a transaction with no expected results
                 // create an empty result set and return it.
-                //---------------------------------------------------------------
+                // ---------------------------------------------------------------
                 oResponse = createEmptyResult();
             }
 
             // Delete the entries out of the database...
-            //--------------------------------------------
+            // --------------------------------------------
             oAggTransactionDao.delete(oTrans);
             oTrans = null;
         }

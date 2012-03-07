@@ -1,8 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.docretrieve.adapter.deferred.request.error.proxy;
 
@@ -10,6 +30,7 @@ import gov.hhs.fha.nhinc.adapterdocretrievedeferredrequesterror.AdapterDocRetrie
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDocumentRetrieveDeferredRequestErrorType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
@@ -22,12 +43,10 @@ import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- * Created by
- * User: ralph
- * Date: Jul 26, 2010
- * Time: 2:37:22 PM
+ * Created by User: ralph Date: Jul 26, 2010 Time: 2:37:22 PM
  */
-public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl implements AdapterDocRetrieveDeferredReqErrorProxy {
+public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl implements
+        AdapterDocRetrieveDeferredReqErrorProxy {
 
     private Log log = null;
     private static Service cachedService = null;
@@ -53,18 +72,21 @@ public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl impl
 
     /**
      * This method retrieves and initializes the port.
-     *
+     * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected AdapterDocRetrieveDeferredRequestErrorPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
+    protected AdapterDocRetrieveDeferredRequestErrorPortType getPort(String url, String wsAddressingAction,
+            AssertionType assertion) {
         AdapterDocRetrieveDeferredRequestErrorPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveDeferredRequestErrorPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+                    AdapterDocRetrieveDeferredRequestErrorPortType.class);
+            oProxyHelper
+                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -73,7 +95,7 @@ public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl impl
 
     /**
      * Retrieve the service class for this web service.
-     *
+     * 
      * @return The service class for this web service.
      */
     protected Service getService() {
@@ -87,42 +109,41 @@ public class AdapterDocRetrieveDeferredReqErrorProxyWebServiceUnsecuredImpl impl
         return cachedService;
     }
 
-    public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion, String errMsg) {
+    public DocRetrieveAcknowledgementType sendToAdapter(RetrieveDocumentSetRequestType body, AssertionType assertion,
+            String errMsg) {
         log.debug("Begin sendToAdapter");
         DocRetrieveAcknowledgementType response = null;
 
-        try
-        {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME);
-            AdapterDocRetrieveDeferredRequestErrorPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+        try {
+            String url = oProxyHelper
+                    .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME);
+            if (NullChecker.isNotNullish(url)) {
+                AdapterDocRetrieveDeferredRequestErrorPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
 
-            if(body == null)
-            {
-                log.error("Message was null");
-            }
-            else if(assertion == null)
-            {
-                log.error("AssertionType was null");
-            }
-            else if (NullChecker.isNullish(errMsg)) {
-                log.error("errMsg was null");
-            }
-            else if(port == null)
-            {
-                log.error("port was null");
-            }
-            else
-            {
-                AdapterDocumentRetrieveDeferredRequestErrorType request = new AdapterDocumentRetrieveDeferredRequestErrorType();
-                request.setRetrieveDocumentSetRequest(body);
-                request.setAssertion(assertion);
-                request.setErrorMsg(errMsg);
+                if (body == null) {
+                    log.error("Message was null");
+                } else if (assertion == null) {
+                    log.error("AssertionType was null");
+                } else if (NullChecker.isNullish(errMsg)) {
+                    log.error("errMsg was null");
+                } else if (port == null) {
+                    log.error("port was null");
+                } else {
+                    AdapterDocumentRetrieveDeferredRequestErrorType request = new AdapterDocumentRetrieveDeferredRequestErrorType();
+                    request.setRetrieveDocumentSetRequest(body);
+                    request.setAssertion(assertion);
+                    request.setErrorMsg(errMsg);
 
-                response = (DocRetrieveAcknowledgementType)oProxyHelper.invokePort(port, AdapterDocRetrieveDeferredRequestErrorPortType.class, "crossGatewayRetrieveRequestError", request);
+                    response = (DocRetrieveAcknowledgementType) oProxyHelper.invokePort(port,
+                            AdapterDocRetrieveDeferredRequestErrorPortType.class, "crossGatewayRetrieveRequestError",
+                            request);
+                }
+            } else {
+                log.error("Failed to call the web service ("
+                        + NhincConstants.ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME
+                        + ").  The URL is null.");
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling crossGatewayRetrieveRequestError: " + ex.getMessage(), ex);
             response = new DocRetrieveAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();

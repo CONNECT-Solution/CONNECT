@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <servlet>
+        <servlet-name>NhincAdminDistSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDistSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincAdminDistSecured</servlet-name>
+        <url-pattern>/MsgProxy/NhincProxyAdminDistSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincAdminDist</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDist</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincAdminDist</servlet-name>
+        <url-pattern>/MsgProxy/NhincProxyAdminDist</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhinAdministrativeDistribution</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.admindistribution._10.nhin.NhinAdministrativeDistribution</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinAdministrativeDistribution</servlet-name>
+        <url-pattern>/NhinService/NhinAdminDist</url-pattern>
+    </servlet-mapping>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>NhinAdministrativeDistribution</web-resource-name>
+            <url-pattern>/NhinService/NhinAdminDist</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhincAdminDistSecured</web-resource-name>
+            <url-pattern>/MsgProxy/NhincProxyAdminDistSecured</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>CLIENT-CERT</auth-method>
+        <realm-name>certificate</realm-name>
+    </login-config>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    </web-app>

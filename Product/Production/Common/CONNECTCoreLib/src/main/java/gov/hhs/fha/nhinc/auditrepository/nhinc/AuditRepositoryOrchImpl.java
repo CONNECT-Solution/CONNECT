@@ -1,14 +1,29 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
 import java.util.ArrayList;
@@ -48,7 +63,7 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import javax.xml.ws.WebServiceContext;
 
 /**
- *
+ * 
  * @author mflynn02
  */
 public class AuditRepositoryOrchImpl {
@@ -63,16 +78,16 @@ public class AuditRepositoryOrchImpl {
         log.debug("AuditRepositoryOrchImpl Initialized");
     }
 
-
     /**
-     * This method is the actual implementation method for AuditLogMgr Service to Log the AuditEvents and responses the status of logging
+     * This method is the actual implementation method for AuditLogMgr Service to Log the AuditEvents and responses the
+     * status of logging
+     * 
      * @param mess
      * @return gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType
      */
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {
         log.debug("AuditRepositoryOrchImpl.logAudit() -- Begin");
         AcknowledgementType response = null;
-
 
         ActiveParticipant activeParticipant = null;
         ParticipantObjectIdentificationType participantObjectIdentificationType = null;
@@ -88,7 +103,8 @@ public class AuditRepositoryOrchImpl {
 
         List<ActiveParticipant> activeParticipantList = mess.getAuditMessage().getActiveParticipant();
         EventIdentificationType eventIdentification = mess.getAuditMessage().getEventIdentification();
-        List<ParticipantObjectIdentificationType> participantObjectIdentificationList = mess.getAuditMessage().getParticipantObjectIdentification();
+        List<ParticipantObjectIdentificationType> participantObjectIdentificationList = mess.getAuditMessage()
+                .getParticipantObjectIdentification();
 
         if (activeParticipantList != null && activeParticipantList.size() > 0) {
             activeParticipant = (ActiveParticipant) activeParticipantList.get(0);
@@ -116,7 +132,8 @@ public class AuditRepositoryOrchImpl {
         }
 
         if (participantObjectIdentificationList != null && participantObjectIdentificationList.size() > 0) {
-            participantObjectIdentificationType = (ParticipantObjectIdentificationType) participantObjectIdentificationList.get(0);
+            participantObjectIdentificationType = (ParticipantObjectIdentificationType) participantObjectIdentificationList
+                    .get(0);
             if (participantObjectIdentificationType != null) {
                 eventPatientID = participantObjectIdentificationType.getParticipantObjectID();
                 auditRec.setReceiverPatientId(eventPatientID);
@@ -124,7 +141,8 @@ public class AuditRepositoryOrchImpl {
                 auditRec.setParticipationTypeCode(eventParticipationTypeCode);
                 eventParticipationTypeCodeRole = participantObjectIdentificationType.getParticipantObjectTypeCodeRole();
                 auditRec.setParticipationTypeCodeRole(eventParticipationTypeCodeRole);
-                eventParticipationIDTypeCode = participantObjectIdentificationType.getParticipantObjectIDTypeCode().getCode();
+                eventParticipationIDTypeCode = participantObjectIdentificationType.getParticipantObjectIDTypeCode()
+                        .getCode();
                 auditRec.setParticipationIDTypeCode(eventParticipationIDTypeCode);
             }
         }
@@ -155,7 +173,7 @@ public class AuditRepositoryOrchImpl {
     }
 
     private Blob getBlobFromAuditMessage(com.services.nhinc.schema.auditmessage.AuditMessageType mess) {
-        Blob eventMessage = null; //Not Implemented
+        Blob eventMessage = null; // Not Implemented
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("com.services.nhinc.schema.auditmessage");
@@ -177,6 +195,7 @@ public class AuditRepositoryOrchImpl {
 
     /**
      * This is the actual implementation for AuditLogMgr Service for AuditQuery returns the AuditEventsReponse
+     * 
      * @param query
      * @return FindAuditEventsResponseType
      */
@@ -188,8 +207,8 @@ public class AuditRepositoryOrchImpl {
         }
 
         if (logStatus.equalsIgnoreCase("off")) {
-            log.info("Enable Audit Logging Before Making Query by changing the " +
-                    "value in 'auditlogchoice' properties file");
+            log.info("Enable Audit Logging Before Making Query by changing the "
+                    + "value in 'auditlogchoice' properties file");
             return null;
         }
         FindCommunitiesAndAuditEventsResponseType auditEvents = new FindCommunitiesAndAuditEventsResponseType();
@@ -207,12 +226,13 @@ public class AuditRepositoryOrchImpl {
             endDate = convertXMLGregorianCalendarToDate(xmlEndDate);
         }
 
-        List<AuditRepositoryRecord> responseList = auditLogDao.queryAuditRepositoryOnCriteria(userId, patientId, beginDate, endDate);
-        log.debug ("after query call to logDAO.");
-     /*   if (responseList != null && responseList.size() > 0) {*/
-            log.debug("responseList is not NULL ");
-            auditEvents = buildAuditReponseType(responseList);
-      /*  }*/
+        List<AuditRepositoryRecord> responseList = auditLogDao.queryAuditRepositoryOnCriteria(userId, patientId,
+                beginDate, endDate);
+        log.debug("after query call to logDAO.");
+        /* if (responseList != null && responseList.size() > 0) { */
+        log.debug("responseList is not NULL ");
+        auditEvents = buildAuditReponseType(responseList);
+        /* } */
 
         log.debug("AuditRepositoryOrchImpl.findAudit() -- End");
         return auditEvents;
@@ -220,6 +240,7 @@ public class AuditRepositoryOrchImpl {
 
     /**
      * This method builds the Actual Response from each of the EventLogList coming from Database
+     * 
      * @param eventsList
      * @return CommunitiesAndFindAdutiEventResponse
      */
@@ -241,15 +262,15 @@ public class AuditRepositoryOrchImpl {
                 ActiveParticipant act = (ActiveParticipant) auditMessageType.getActiveParticipant().get(0);
                 response.getFindAuditEventsReturn().add(auditMessageType);
 
-                if (auditMessageType.getAuditSourceIdentification().size() > 0 &&
-                        auditMessageType.getAuditSourceIdentification().get(0) != null &&
-                        auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID() != null &&
-                        auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID().length() > 0) {
-                   String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID();
-                   if (!auditResType.getCommunities().contains(tempCommunity) ) {
-                       auditResType.getCommunities().add(tempCommunity);
-                       log.debug("Adding community " + tempCommunity);
-                   }
+                if (auditMessageType.getAuditSourceIdentification().size() > 0
+                        && auditMessageType.getAuditSourceIdentification().get(0) != null
+                        && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID() != null
+                        && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID().length() > 0) {
+                    String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID();
+                    if (!auditResType.getCommunities().contains(tempCommunity)) {
+                        auditResType.getCommunities().add(tempCommunity);
+                        log.debug("Adding community " + tempCommunity);
+                    }
                 }
             }
         }
@@ -261,6 +282,7 @@ public class AuditRepositoryOrchImpl {
 
     /**
      * This method unmarshalls XML Blob to AuditMessage
+     * 
      * @param auditBlob
      * @return AuditMessageType
      */
@@ -286,20 +308,22 @@ public class AuditRepositoryOrchImpl {
 
     /**
      * This method converts an XMLGregorianCalendar date to java.util.Date
+     * 
      * @param xmlCalDate
      * @return java.util.Date
      */
     private Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar xmlCalDate) {
         Calendar cal = Calendar.getInstance(Locale.getDefault());
-        log.info("cal.getTime() -> "+cal.getTime());
+        log.info("cal.getTime() -> " + cal.getTime());
         cal.setTime(xmlCalDate.toGregorianCalendar().getTime());
         Date eventDate = cal.getTime();
-        log.info("eventDate -> "+eventDate);
+        log.info("eventDate -> " + eventDate);
         return eventDate;
     }
 
     /**
      * This method converts an XMLGregorianCalendar date to java.util.Date
+     * 
      * @param xmlCalDate
      * @return String
      */

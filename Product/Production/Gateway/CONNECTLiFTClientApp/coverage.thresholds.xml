@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<thresholds>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.lift.ClientApp"
-              linecount="28"
-              linerate="80"
-              linesexecuted="0"/>
-</thresholds>

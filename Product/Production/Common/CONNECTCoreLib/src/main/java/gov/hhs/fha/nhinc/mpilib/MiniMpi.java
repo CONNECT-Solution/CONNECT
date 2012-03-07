@@ -1,12 +1,28 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
  *
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
  *
- */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.mpilib;
 
@@ -14,7 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class MiniMpi implements IMPI {
@@ -65,7 +81,7 @@ public class MiniMpi implements IMPI {
 
     private Patients SearchById(Patient searchParams, boolean includeOptOutPatient) {
         Patients results = new Patients();
-        //System.out.println("performing an id search");
+        // System.out.println("performing an id search");
         log.info("performing an id search");
         if (includeOptOutPatient) {
             for (Patient patient : this.getPatients()) {
@@ -84,26 +100,19 @@ public class MiniMpi implements IMPI {
     }
 
     private void ValidateNewPatient(Patient patient) {
-        if(patient.getNames().size() > 0)
-        {
-            for(PersonName name : patient.getNames())
-            {
-                if(!hasDemographicInfo(name))
-                {
+        if (patient.getNames().size() > 0) {
+            for (PersonName name : patient.getNames()) {
+                if (!hasDemographicInfo(name)) {
                     throw new IllegalArgumentException("Must supply a patient name");
                 }
             }
-        }
-        else
-        {
-            if(!hasDemographicInfo(patient.getName()))
-            {
+        } else {
+            if (!hasDemographicInfo(patient.getName())) {
                 throw new IllegalArgumentException("Must supply a patient name");
             }
         }
 
     }
-
 
     public Patient AddUpdate(Patient newPatient) {
         Patient resultPatient = null;
@@ -112,7 +121,7 @@ public class MiniMpi implements IMPI {
         Patients existingPatients = Search(newPatient, true, true);
 
         if (existingPatients.size() == 2) {
-            //throw exception
+            // throw exception
         } else if (existingPatients.size() == 1) {
             resultPatient = existingPatients.get(0);
             resultPatient.getIdentifiers().add(newPatient.getIdentifiers());
@@ -130,8 +139,8 @@ public class MiniMpi implements IMPI {
     }
 
     public void Delete(Patient patient, String homeCommunityId) {
-        log.info("Attemping to Delete identifiers for community: " + homeCommunityId +
-                " for patient: " + patient.getName().getFirstName() + " " + patient.getName().getLastName());
+        log.info("Attemping to Delete identifiers for community: " + homeCommunityId + " for patient: "
+                + patient.getName().getFirstName() + " " + patient.getName().getLastName());
         Patients existingPatients = Search(patient, true, true);
         int patIdx = 0;
         int idIdx = 0;
@@ -157,7 +166,7 @@ public class MiniMpi implements IMPI {
                 patIdx++;
             }
         } else {
-            //System.out.println("ERROR: Patient not found in MPI");
+            // System.out.println("ERROR: Patient not found in MPI");
             log.info("ERROR: Patient not found in MPI");
         }
 
@@ -168,31 +177,27 @@ public class MiniMpi implements IMPI {
         return Search(searchParams, AllowSearchByDemographics, false);
     }
 
-    private boolean hasDemographicInfo(Patient params)
-    {
-        if(params.getNames().size() > 0)
-        {
+    private boolean hasDemographicInfo(Patient params) {
+        if (params.getNames().size() > 0) {
             return hasDemographicInfo(params.getNames().get(0));
-        }
-        else
-        {
+        } else {
             return hasDemographicInfo(params.getName());
         }
     }
-    private boolean hasDemographicInfo(PersonName name)
-    {
+
+    private boolean hasDemographicInfo(PersonName name) {
         boolean result = false;
-        if(name != null)
-        {
-            result =  !(name.getFirstName().contentEquals("") && name.getLastName().contentEquals(""));
+        if (name != null) {
+            result = !(name.getFirstName().contentEquals("") && name.getLastName().contentEquals(""));
         }
 
         return result;
     }
+
     public Patients Search(Patient searchParams, boolean AllowSearchByDemographics, boolean includeOptOutPatient) {
         Patients results = new Patients();
 
-        //if not results, try a demographics search
+        // if not results, try a demographics search
         log.info("should we perform an demographic search?");
         if ((AllowSearchByDemographics) && (hasDemographicInfo(searchParams))) {
             log.info("attempt demographic search");
@@ -206,7 +211,7 @@ public class MiniMpi implements IMPI {
             log.info("no attempt on demographic search");
         }
 
-        //perform a id search
+        // perform a id search
         log.info("should we perform an id search?");
         if ((results.size() == 0) && (searchParams.getIdentifiers().size() > 0)) {
             log.info("attempt id search");
@@ -237,7 +242,7 @@ public class MiniMpi implements IMPI {
 
     private void LoadData() {
         MpiDataSaver mpiDataSaver = new MpiDataSaver();
-        this.setPatients( mpiDataSaver.loadMpi());
+        this.setPatients(mpiDataSaver.loadMpi());
     }
 
     private void LoadData(String fileName) {

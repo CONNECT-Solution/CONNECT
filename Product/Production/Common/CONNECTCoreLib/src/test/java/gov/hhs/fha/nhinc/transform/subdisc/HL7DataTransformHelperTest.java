@@ -1,8 +1,29 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import org.hl7.v3.ADExplicit;
@@ -27,13 +48,13 @@ import java.io.Serializable;
 import java.util.Iterator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class HL7DataTransformHelperTest {
-	  private static class PatientName
-    {
+    private static class PatientName {
         public String FirstName = "";
         public String LastName = "";
         public String MiddleName = "";
@@ -67,7 +88,7 @@ public class HL7DataTransformHelperTest {
     public void testConvertENtoPN() {
         System.out.println("testConvertENtoPN");
         ENExplicit value = TestHelper.createENexplicit("John", "Hubert", "Jones");
-        
+
         PNExplicit result = HL7DataTransformHelper.convertENtoPN(value);
 
         TestHelper.assertPNNameEquals(result, "Jones", "John", "Hubert");
@@ -109,7 +130,8 @@ public class HL7DataTransformHelperTest {
 
         PNExplicit result = HL7DataTransformHelper.convertENtoPN(value);
 
-        // Since the NHIN specification say the first Given name is the first name and the second Given name is the middle name
+        // Since the NHIN specification say the first Given name is the first name and the second Given name is the
+        // middle name
         // in this case the middle name will be treated as the first name.
         TestHelper.assertPNNameEquals(result, "Jones", "Hubert", null);
     }
@@ -124,7 +146,8 @@ public class HL7DataTransformHelperTest {
 
         PNExplicit result = HL7DataTransformHelper.convertENtoPN(value);
 
-        // Since the NHIN specification say the first Given name is the first name and the second Given name is the middle name
+        // Since the NHIN specification say the first Given name is the first name and the second Given name is the
+        // middle name
         // in this case the middle name will be treated as the first name.
         TestHelper.assertPNNameEquals(result, "Jones", null, null);
     }
@@ -152,7 +175,8 @@ public class HL7DataTransformHelperTest {
 
         PNExplicit result = HL7DataTransformHelper.convertENtoPN(value);
 
-        // Since the NHIN specification say the first Given name is the first name and the second Given name is the middle name
+        // Since the NHIN specification say the first Given name is the first name and the second Given name is the
+        // middle name
         // in this case the middle name will be treated as the first name.
         TestHelper.assertPNNameEquals(result, null, "Hubert", null);
     }
@@ -169,7 +193,8 @@ public class HL7DataTransformHelperTest {
 
         TestHelper.assertPNNameEquals(result, null, null, null);
     }
-/**
+
+    /**
      * Test of CreatePNExplicit method, of class HL7DataTransformHelper.
      */
     @Test
@@ -185,6 +210,7 @@ public class HL7DataTransformHelperTest {
         assertEquals(result.FirstName, firstExpectedName);
         assertEquals(result.MiddleName, "");
     }
+
     @Test
     public void testCreateEnExplicit() {
         System.out.println("testCreateEnExplicit");
@@ -194,15 +220,16 @@ public class HL7DataTransformHelperTest {
         String expectedTitle = "Title";
         String expectedSuffix = "Suffix";
 
-        ENExplicit enExplicit = HL7DataTransformHelper.createEnExplicit(firstExpectedName,middleExpectedName, lastExpectedName, expectedTitle, expectedSuffix);
+        ENExplicit enExplicit = HL7DataTransformHelper.createEnExplicit(firstExpectedName, middleExpectedName,
+                lastExpectedName, expectedTitle, expectedSuffix);
 
         PatientName result = extractName(enExplicit);
 
-        assertEquals(lastExpectedName,result.LastName);
+        assertEquals(lastExpectedName, result.LastName);
         assertEquals(firstExpectedName, result.FirstName);
         assertEquals(middleExpectedName, result.MiddleName);
         assertEquals(expectedTitle, result.Title);
-     
+
         assertEquals(expectedSuffix, result.Suffix);
     }
 
@@ -212,15 +239,16 @@ public class HL7DataTransformHelperTest {
         String firstExpectedName = "Joe";
         String middleExpectedName = "Bob";
         String lastExpectedName = "Smith";
-        PNExplicit explicitName = HL7DataTransformHelper.CreatePNExplicit(firstExpectedName, middleExpectedName, lastExpectedName);
-
+        PNExplicit explicitName = HL7DataTransformHelper.CreatePNExplicit(firstExpectedName, middleExpectedName,
+                lastExpectedName);
 
         PatientName result = extractName(explicitName);
-        
+
         assertEquals(result.LastName, lastExpectedName);
         assertEquals(result.FirstName, firstExpectedName);
         assertEquals(result.MiddleName, middleExpectedName);
     }
+
     @Test
     public void testCreatePNExplicit_Title() {
         System.out.println("testCreatePNExplicit_Middle");
@@ -229,10 +257,9 @@ public class HL7DataTransformHelperTest {
         String lastExpectedName = "Smith";
         String expectedTitle = "Title";
         String expectedSuffix = "Suffix";
-        
-        PNExplicit explicitName = HL7DataTransformHelper.CreatePNExplicit(firstExpectedName, 
-                middleExpectedName, lastExpectedName, expectedTitle, expectedSuffix);
 
+        PNExplicit explicitName = HL7DataTransformHelper.CreatePNExplicit(firstExpectedName, middleExpectedName,
+                lastExpectedName, expectedTitle, expectedSuffix);
 
         PatientName result = extractName(explicitName);
 
@@ -242,7 +269,6 @@ public class HL7DataTransformHelperTest {
         assertEquals(expectedTitle, result.Title);
         assertEquals(expectedSuffix, result.Suffix);
     }
-
 
     @Test
     public void testCreateConvertPNToEN() {
@@ -254,9 +280,9 @@ public class HL7DataTransformHelperTest {
         String expectedTitle = "Title";
         String expectedSuffix = "Suffix";
 
-        PNExplicit explicitName = HL7DataTransformHelper.CreatePNExplicit(firstExpectedName,
-                middleExpectedName, lastExpectedName, expectedTitle, expectedSuffix);
-        
+        PNExplicit explicitName = HL7DataTransformHelper.CreatePNExplicit(firstExpectedName, middleExpectedName,
+                lastExpectedName, expectedTitle, expectedSuffix);
+
         ENExplicit enExplicit = HL7DataTransformHelper.ConvertPNToEN(explicitName);
         PatientName result = extractName(enExplicit);
         assertEquals(lastExpectedName, result.LastName);
@@ -267,8 +293,7 @@ public class HL7DataTransformHelperTest {
     }
 
     @Test
-    public void testCreateConvertENToPN()
-    {
+    public void testCreateConvertENToPN() {
         System.out.println("testCreateConvertENToPN");
 
         String firstExpectedName = "Joe";
@@ -277,9 +302,8 @@ public class HL7DataTransformHelperTest {
         String expectedTitle = "Title";
         String expectedSuffix = "Suffix";
 
-        ENExplicit enExplicit = HL7DataTransformHelper.createEnExplicit(
-                firstExpectedName,middleExpectedName, lastExpectedName,
-                expectedTitle, expectedSuffix);
+        ENExplicit enExplicit = HL7DataTransformHelper.createEnExplicit(firstExpectedName, middleExpectedName,
+                lastExpectedName, expectedTitle, expectedSuffix);
 
         PatientName result = extractName(enExplicit);
 
@@ -290,7 +314,8 @@ public class HL7DataTransformHelperTest {
         assertEquals(expectedSuffix, result.Suffix);
 
     }
-    private static PatientName extractName (PNExplicit name) {
+
+    private static PatientName extractName(PNExplicit name) {
         String nameString = "";
         Boolean hasName = false;
         PatientName result = new PatientName();
@@ -311,20 +336,18 @@ public class HL7DataTransformHelperTest {
                     hasName = true;
                 } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                     givenName = (EnExplicitGiven) oJAXBElement.getValue();
-                    if(result.FirstName == "")
-                    {
-                        result.FirstName = givenName.getContent();  ;
-                    }
-                    else
-                    {
-                        result.MiddleName = givenName.getContent();  ;
+                    if (result.FirstName == "") {
+                        result.FirstName = givenName.getContent();
+                        ;
+                    } else {
+                        result.MiddleName = givenName.getContent();
+                        ;
                     }
                     hasName = true;
-                }
-                else if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
+                } else if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
                     EnExplicitPrefix prefix = (EnExplicitPrefix) oJAXBElement.getValue();
                     result.Title = prefix.getContent();
-                }else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
+                } else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
                     EnExplicitSuffix suffix = (EnExplicitSuffix) oJAXBElement.getValue();
                     result.Suffix = suffix.getContent();
                 }
@@ -339,69 +362,49 @@ public class HL7DataTransformHelperTest {
         return result;
     }
 
-    private static PatientName extractName(ENExplicit name)
-    {
+    private static PatientName extractName(ENExplicit name) {
         String lastName = "";
         String firstName = "";
         String middleName = "";
 
         PatientName result = new PatientName();
 
-        for (Object item : name.getContent())
-        {
-            if (item instanceof JAXBElement)
-            {
+        for (Object item : name.getContent()) {
+            if (item instanceof JAXBElement) {
                 JAXBElement oJAXBElement = (JAXBElement) item;
 
-                if (oJAXBElement.getValue() instanceof EnExplicitFamily)
-                {
+                if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
                     EnExplicitFamily familyName = (EnExplicitFamily) oJAXBElement.getValue();
                     result.LastName = familyName.getContent();
-                }
-                else if (oJAXBElement.getValue() instanceof EnFamily)
-                {
+                } else if (oJAXBElement.getValue() instanceof EnFamily) {
                     EnFamily familyName = (EnFamily) oJAXBElement.getValue();
                     result.LastName = familyName.getRepresentation().value();
-                }
-                else if (oJAXBElement.getValue() instanceof EnExplicitGiven)
-                {
+                } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                     EnExplicitGiven givenName = (EnExplicitGiven) oJAXBElement.getValue();
-                    if(result.FirstName == "")
-                    {
+                    if (result.FirstName == "") {
                         result.FirstName = givenName.getContent();
-                    }
-                    else
-                    {
+                    } else {
                         result.MiddleName = givenName.getContent();
                     }
-                }
-                else if (oJAXBElement.getValue() instanceof EnGiven)
-                {
+                } else if (oJAXBElement.getValue() instanceof EnGiven) {
                     EnGiven givenName = (EnGiven) oJAXBElement.getValue();
-                    if(result.FirstName == "")
-                    {
+                    if (result.FirstName == "") {
                         result.FirstName = givenName.getRepresentation().value();
-                    }
-                    else
-                    {
+                    } else {
                         result.MiddleName = givenName.getRepresentation().value();
                     }
-                }
-                else if (oJAXBElement.getValue() instanceof EnExplicitPrefix)
-                {
+                } else if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
                     EnExplicitPrefix prefix = (EnExplicitPrefix) oJAXBElement.getValue();
                     result.Title = prefix.getContent();
-                }
-                else if (oJAXBElement.getValue() instanceof EnExplicitSuffix)
-                {
+                } else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
                     EnExplicitSuffix suffix = (EnExplicitSuffix) oJAXBElement.getValue();
                     result.Suffix = suffix.getContent();
                 }
             }
 
         }
-        
+
         return result;
-    }    
+    }
 
 }
