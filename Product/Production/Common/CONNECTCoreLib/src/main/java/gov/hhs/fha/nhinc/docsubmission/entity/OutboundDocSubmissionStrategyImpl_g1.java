@@ -37,13 +37,13 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * 
- * @author zmelnick
+ * @author akong
  */
-class OutboundDocSubmissionStrategyImpl_g0 implements OrchestrationStrategy {
+class OutboundDocSubmissionStrategyImpl_g1 implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundDocSubmissionStrategyImpl_g0.class);
+    private static Log log = LogFactory.getLog(OutboundDocSubmissionStrategyImpl_g1.class);
 
-    public OutboundDocSubmissionStrategyImpl_g0() {
+    public OutboundDocSubmissionStrategyImpl_g1() {
     }
 
     protected Log getLogger() {
@@ -60,7 +60,7 @@ class OutboundDocSubmissionStrategyImpl_g0 implements OrchestrationStrategy {
     }
 
     public void execute(OutboundDocSubmissionOrchestratable message) {
-        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
+        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
         if (message == null) {
             getLogger().debug("OutboundDocSubmissionOrchestratable was null");
             return;
@@ -70,12 +70,12 @@ class OutboundDocSubmissionStrategyImpl_g0 implements OrchestrationStrategy {
             NhinDocSubmissionProxy nhincDocSubmission = new NhinDocSubmissionProxyObjectFactory()
                     .getNhinDocSubmissionProxy();
             RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetB(message.getRequest(),
-                    message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+                    message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
             message.setResponse(response);
         } else {
             getLogger()
-                    .error("OutboundDocSubmissionOrchestratableImpl_g0 received a message that is not of type OutboundDocSubmissionOrchestratable.");
+                    .error("OutboundDocSubmissionOrchestratableImpl_g1 received a message that is not of type OutboundDocSubmissionOrchestratable.");
         }
-        getLogger().debug("End OutboundDocSubmissionOrchestratableImpl_g0.process");
+        getLogger().debug("End OutboundDocSubmissionOrchestratableImpl_g1.process");
     }
 }

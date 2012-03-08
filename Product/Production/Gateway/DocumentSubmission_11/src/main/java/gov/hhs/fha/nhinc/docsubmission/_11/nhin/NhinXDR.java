@@ -45,13 +45,11 @@ public class NhinXDR {
 
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        // TODO implement this method
         return new NhinDocSubmissionImpl().documentRepositoryProvideAndRegisterDocumentSetB(body, context);
     }
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
-        // TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 

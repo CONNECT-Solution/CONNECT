@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.proxy;
 
+import java.util.HashMap;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -46,17 +48,19 @@ import javax.xml.ws.Service;
  */
 public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmissionProxy {
     private Log log = null;
-    private static Service cachedService = null;
+    private static HashMap<String, Service> cachedServiceMap = new HashMap<String, Service>();
     private static final String NAMESPACE_URI = "urn:ihe:iti:xdr:2007";
     private static final String SERVICE_LOCAL_PART = "DocumentRepositoryXDR_Service";
     private static final String PORT_LOCAL_PART = "DocumentRepositoryXDR_Port_Soap";
-    private static final String WSDL_FILE = "NhinXDR.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b";
-    private WebServiceProxyHelper oProxyHelper = null;
+    private static final String WSDL_FILE_G0 = "NhinXDR.wsdl";
+    private static final String WSDL_FILE_G1 = "NhinXDR20.wsdl";
+    private static final String WS_ADDRESSING_ACTION_G0 = "urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b";
+    private static final String WS_ADDRESSING_ACTION_G1 = "urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b";
+    private WebServiceProxyHelper proxyHelper = null;
 
     public NhinDocSubmissionProxyWebServiceSecuredImpl() {
         log = createLogger();
-        oProxyHelper = createWebServiceProxyHelper();
+        proxyHelper = createWebServiceProxyHelper();
     }
 
     protected Log createLogger() {
@@ -73,18 +77,33 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected DocumentRepositoryXDRPortType getPort(String url, String serviceAction, String wsAddressingAction,
-            AssertionType assertion) {
+    protected DocumentRepositoryXDRPortType getPort(String url, String serviceAction,
+            AssertionType assertion, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         DocumentRepositoryXDRPortType port = null;
-        Service service = getService();
+        Service service;
+        String wsAddressingAction;
+        switch (apiLevel) {
+        case LEVEL_g0:
+            service = getService(WSDL_FILE_G0);
+            wsAddressingAction = WS_ADDRESSING_ACTION_G0;
+            break;
+        case LEVEL_g1:
+            service = getService(WSDL_FILE_G1);
+            wsAddressingAction = WS_ADDRESSING_ACTION_G1;
+            break;
+        default:
+            service = null;
+            wsAddressingAction = null;
+        }
+        
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), DocumentRepositoryXDRPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
+            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
                     wsAddressingAction, assertion);
         } else {
-            log.error("Unable to obtain serivce - no port created.");
+            log.error("Unable to obtain service - no port created.");
         }
         return port;
     }
@@ -94,34 +113,36 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
      * 
      * @return The service class for this web service.
      */
-    protected Service getService() {
+    protected Service getService(String wsdl) {
+        Service cachedService = cachedServiceMap.get(wsdl);
         if (cachedService == null) {
             try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
+                cachedService = proxyHelper.createService(wsdl, NAMESPACE_URI, SERVICE_LOCAL_PART);
+                cachedServiceMap.put(wsdl, cachedService);
             } catch (Throwable t) {
                 log.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
     }
-
+    
+    
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
-            AssertionType assertion, NhinTargetSystemType targetSystem) {
+            AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.debug("Begin provideAndRegisterDocumentSetB");
         RegistryResponseType response = new RegistryResponseType();
 
         try {
-            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
-                    NhincConstants.NHINC_XDR_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
-            DocumentRepositoryXDRPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION,
-                    assertion);
+            String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
+                    NhincConstants.NHINC_XDR_SERVICE_NAME, apiLevel);
+            DocumentRepositoryXDRPortType port = getPort(url, NhincConstants.XDR_ACTION, assertion, apiLevel);
 
             if (request == null) {
                 log.error("Message was null");
             } else if (port == null) {
                 log.error("port was null");
             } else {
-                response = (RegistryResponseType) oProxyHelper.invokePort(port, DocumentRepositoryXDRPortType.class,
+                response = (RegistryResponseType) proxyHelper.invokePort(port, DocumentRepositoryXDRPortType.class,
                         "documentRepositoryProvideAndRegisterDocumentSetB", request);
             }
         } catch (Exception ex) {

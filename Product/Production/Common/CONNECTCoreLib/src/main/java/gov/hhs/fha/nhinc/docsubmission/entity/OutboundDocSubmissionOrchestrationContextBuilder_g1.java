@@ -42,7 +42,7 @@ public class OutboundDocSubmissionOrchestrationContextBuilder_g1 extends
     @Override
     public OrchestrationContext build() {
         log.debug("begin build");
-        return new OrchestrationContext(new OutboundDocSubmissionStrategyImpl_g0(),
+        return new OrchestrationContext(new OutboundDocSubmissionStrategyImpl_g1(),
                 new OutboundDocSubmissionOrchestratable(getNhinDelegate(), getRequest(), getTarget(),
                         getAssertionType()));
     }
