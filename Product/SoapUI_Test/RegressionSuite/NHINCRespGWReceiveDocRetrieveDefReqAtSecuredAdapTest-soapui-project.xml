@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="NHINCRespGWReceiveDocRetrieveDefReqAtSecuredAdapTest" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
 	<con:settings/>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest}NhincProxyDocRetrieveDeferredRequestBindingSoap" definition="WSDL path not set.  #WSDL path not set.  #NhincProxyDocRetrieveDeferredReq.wsdl" name="NhincProxyDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest}NhincProxyDocRetrieveDeferredRequestBindingSoap" definition="WSDL path not set.  #NhincProxyDocRetrieveDeferredReq.wsdl" name="NhincProxyDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -10,7 +10,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -21,7 +21,7 @@
 			
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured}AdapterDocRetrieveDeferredRequestSecuredBindingSoap" definition="WSDL path not set.  #WSDL path not set.  #AdapterDocRetrieveDeferredReqSecured.wsdl" name="AdapterDocRetrieveDeferredRequestSecuredBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="200508" xsi:type="con:WsdlInterface">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured}AdapterDocRetrieveDeferredRequestSecuredBindingSoap" definition="WSDL path not set.  #AdapterDocRetrieveDeferredReqSecured.wsdl" name="AdapterDocRetrieveDeferredRequestSecuredBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="200508" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -33,7 +33,7 @@
 			
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured}AdapterDocRetrieveDeferredRequestErrorSecuredBindingSoap" definition="WSDL path not set.  #WSDL path not set.  #AdapterDocRetrieveDeferredReqErrorSecured.wsdl" name="AdapterDocRetrieveDeferredRequestErrorSecuredBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="200508" xsi:type="con:WsdlInterface">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqerrorsecured}AdapterDocRetrieveDeferredRequestErrorSecuredBindingSoap" definition="WSDL path not set.  #AdapterDocRetrieveDeferredReqErrorSecured.wsdl" name="AdapterDocRetrieveDeferredRequestErrorSecuredBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="200508" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>

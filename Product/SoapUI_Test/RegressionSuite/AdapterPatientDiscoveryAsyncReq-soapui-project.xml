@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="AdapterPatientDiscoveryAsyncReq" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq}AdapterPatientDiscoveryAsyncReqBindingSoap" definition="WSDL path not set.  #WSDL path not set.  #AdapterPatientDiscoveryAsyncReq.wsdl" name="AdapterPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq}AdapterPatientDiscoveryAsyncReqBindingSoap" definition="WSDL path not set.  #AdapterPatientDiscoveryAsyncReq.wsdl" name="AdapterPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:definitionCache/><con:endpoints>

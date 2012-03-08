@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="AdapterPatientDiscoveryAsyncReqQueue" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqqueue}AdapterPatientDiscoveryAsyncReqQueueBindingSoap" definition="WSDL path not set.  #WSDL path not set.  #AdapterPatientDiscoveryAsyncReqQueue.wsdl" name="AdapterPatientDiscoveryAsyncReqQueueBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqqueue}AdapterPatientDiscoveryAsyncReqQueueBindingSoap" definition="WSDL path not set.  #AdapterPatientDiscoveryAsyncReqQueue.wsdl" name="AdapterPatientDiscoveryAsyncReqQueueBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:endpoints>
@@ -358,19 +358,19 @@
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-26T18:25:52Z</con:value>
+          <con:value>2012-03-02T17:22:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-26T18:35:52Z</con:value>
+          <con:value>2012-03-02T17:32:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/26/2010 18:25:52</con:value>
+          <con:value>03/02/2012 17:22:38</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-25T00:00:00Z</con:value>
+          <con:value>2012-04-01T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -381,7 +381,7 @@
   <con:requirements/>
   <con:properties>
     
-  <con:property><con:name>AdapterPatientDiscoveryAsyncReqQueueEndpoint</con:name><con:value>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryUnsecuredAsyncReqQueue</con:value></con:property></con:properties>
+  <con:property><con:name>AdapterPatientDiscoveryAsyncReqQueueEndpoint</con:name><con:value>http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredReqQueueProcess</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

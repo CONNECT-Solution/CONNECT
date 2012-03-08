@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="AdapterPIP" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.5.1">
 	<con:settings/>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpip}AdapterPIPBindingSoap" definition="WSDL path not set.  #WSDL path not set.  #AdapterPIP.wsdl" name="AdapterPIPBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpip}AdapterPIPBindingSoap" definition="WSDL path not set.  #AdapterPIP.wsdl" name="AdapterPIPBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
-		<con:definitionCache/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPIP</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:RetrievePtConsentByPtDocId" anonymous="optional" bindingOperationName="RetrievePtConsentByPtDocId" inputName="RetrievePtConsentByPtDocIdRequest" isOneWay="false" name="RetrievePtConsentByPtDocId" outputName="RetrievePtConsentByPtDocIdResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -16,10 +16,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="WSDL path not set.  #WSDL path not set.  #AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="WSDL path not set.  #AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
-		<con:definitionCache/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:${NhincHttpPort}/DocumentRegistry_Service</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:hl7-org:v3:PRPA_IN201301UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201301UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -49,11 +49,10 @@
 					<con:interface>AdapterPIPBindingSoap</con:interface>
 					<con:operation>StorePtConsent</con:operation>
 					<con:request name="StorePtConsent - false">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-AdapterPIP}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
    <soapenv:Header/>
    <soapenv:Body projectName="AdapterPIP" testCase="RetrievePtConsentByPtId - false">
       <urn:StorePtConsentRequest>
@@ -70,7 +69,7 @@
 							<con:configuration/>
 						</con:assertion>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -130,19 +129,19 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-04-26T00:00:00Z</con:value>
+					<con:value>2012-03-02T17:24:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-04-26T20:39:47Z</con:value>
+					<con:value>2012-03-02T17:34:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>04/26/2010 00:00:00</con:value>
+					<con:value>03/02/2012 17:24:52</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-05-26T00:00:00Z</con:value>
+					<con:value>2012-04-01T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -237,19 +236,19 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-04-26T00:00:00Z</con:value>
+					<con:value>2012-03-02T17:23:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-04-26T20:39:47Z</con:value>
+					<con:value>2012-03-02T17:33:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>04/26/2010 00:00:00</con:value>
+					<con:value>03/02/2012 17:23:14</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-05-26T00:00:00Z</con:value>
+					<con:value>2012-04-01T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -344,19 +343,19 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-04-26T00:00:00Z</con:value>
+					<con:value>2012-03-02T17:23:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-04-26T20:39:47Z</con:value>
+					<con:value>2012-03-02T17:33:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>04/26/2010 00:00:00</con:value>
+					<con:value>03/02/2012 17:23:14</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-05-26T00:00:00Z</con:value>
+					<con:value>2012-04-01T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -741,19 +740,19 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-04-26T00:00:00Z</con:value>
+					<con:value>2012-03-02T17:23:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-04-26T20:39:47Z</con:value>
+					<con:value>2012-03-02T17:33:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>04/26/2010 00:00:00</con:value>
+					<con:value>03/02/2012 17:23:15</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-05-26T00:00:00Z</con:value>
+					<con:value>2012-04-01T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1384,19 +1383,19 @@ sql.execute("delete from " + eventtable + " where EventCode like '%" + eventval 
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-04-26T00:00:00Z</con:value>
+					<con:value>2012-03-02T17:23:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-04-26T20:39:48Z</con:value>
+					<con:value>2012-03-02T17:33:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>04/26/2010 00:00:00</con:value>
+					<con:value>03/02/2012 17:23:15</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-05-26T00:00:00Z</con:value>
+					<con:value>2012-04-01T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1884,19 +1883,19 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-04-26T00:00:00Z</con:value>
+					<con:value>2012-03-02T17:23:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-04-26T20:39:48Z</con:value>
+					<con:value>2012-03-02T17:33:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>04/26/2010 00:00:00</con:value>
+					<con:value>03/02/2012 17:23:15</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-05-26T00:00:00Z</con:value>
+					<con:value>2012-04-01T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2703,19 +2702,19 @@ sql.execute("delete from " + table + " where SourcePatientId='" + val + "'")
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-04-26T00:00:00Z</con:value>
+					<con:value>2012-03-02T17:23:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-04-26T20:40:01Z</con:value>
+					<con:value>2012-03-02T17:33:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>04/26/2010 00:00:00</con:value>
+					<con:value>03/02/2012 17:23:15</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-05-26T00:00:00Z</con:value>
+					<con:value>2012-04-01T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
