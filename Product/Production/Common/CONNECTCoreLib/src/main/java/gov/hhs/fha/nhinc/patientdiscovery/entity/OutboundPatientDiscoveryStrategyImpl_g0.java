@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -87,7 +88,9 @@ public class OutboundPatientDiscoveryStrategyImpl_g0 extends OutboundPatientDisc
                     message.getTarget()));
             getLogger().debug("executeStrategy returning response");
         } catch (Exception ex) {
-            message.setResponse(new PRPAIN201306UV02());
+            PRPAIN201306UV02 response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(message.getRequest(),
+                 NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE, ex.getMessage());
+            message.setResponse(response);
             getLogger().debug("executeStrategy returning error response");
         }
         auditResponseMessage(message.getResponse(), message.getAssertion(), message.getTarget().getHomeCommunity()
