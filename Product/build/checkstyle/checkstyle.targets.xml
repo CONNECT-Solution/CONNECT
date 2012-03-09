@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="checkstyle.targets" xmlns:cs="antlib:com.puppycrawl.tools.checkstyle">
+<project name="checkstyle.targets" basedir=".">
 
-	<import file="checkstyle.properties.xml" />
+    <dirname property="checkstyle.targets.basedir" file="${ant.file.checkstyle.targets}"/>
+    <property name="checkstyle.targets.ant.lib.dir" location="${checkstyle.targets.basedir}/../../../Build/Packages/Ant/Ant/lib"/>
 
-	<target name="checkstyle.help">
-	
-	</target>
+    <taskdef resource="checkstyletask.properties">
+        <classpath>
+            <fileset dir="${checkstyle.targets.ant.lib.dir}/">
+                <include name="*.jar"/>
+            </fileset>
+        </classpath>
+    </taskdef>
 
-	<target name="checkstyle.clean">
-		<delete dir="${checkstyle.report.dir.path}" failonerror="true" />
-	</target>
+    <import file="checkstyle.properties.xml" />
+
+    <target name="checkstyle.help">
+    
+    </target>
+
+    <target name="checkstyle.clean">
+        <delete dir="${checkstyle.report.dir.path}" failonerror="true" />
+    </target>
 
   <!-- -->
   <!-- Run checkstyle and generate error report with links to source code -->
@@ -18,11 +29,11 @@
           description="Runs checkstyle and generates an error report">
     
     <mkdir dir="${checkstyle.report.dir.path}"/>
-    <cs:checkstyle failonviolation="false" config="${checkstyle.configuration.file.path}">
+    <checkstyle failonviolation="false" config="${checkstyle.configuration.file.path}">
       <fileset dir="${checkstyle.src.dir}"
                includes="**/src/**/*.java, **/src/**/*.properties"/>
       <formatter type="xml" toFile="${checkstyle.report.file.path}"/>
-    </cs:checkstyle>
+    </checkstyle>
 
     <xslt basedir="${checkstyle.report.dir.path}"
            destdir="${checkstyle.report.dir.path}"

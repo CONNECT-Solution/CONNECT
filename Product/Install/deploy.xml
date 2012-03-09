@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="nhinc.deployment" default="deploy">
 
-  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+  <dirname property="nhinc.deployment.basedir" file="${ant.file.nhinc.deployment}"/>
+  <property name="nhinc.deployment.thirdparty.dir" location="${nhinc.deployment.basedir}/../../ThirdParty"/>
 
-  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
+  <taskdef resource="net/sf/antcontrib/antlib.xml">
+     <classpath>
+        <fileset dir="${nhinc.deployment.thirdparty.dir}/AntExtraLibs">
+          <include name="ant-contrib-*.jar"/>
+        </fileset>
+      </classpath>
+  </taskdef>
+
+  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
+     <classpath>
+        <fileset dir="${nhinc.deployment.thirdparty.dir}/AntExtraLibs">
+          <include name="xmltask-*.jar"/>
+        </fileset>
+      </classpath>
+  </taskdef>
 
   <import file="settings.xml" />
 
@@ -77,7 +92,7 @@
     <runtarget target="deploy.glassfish.start.server"/>
     <runtarget target="deploy.wars.to.glassfish"/>
     <runtarget target="deploy.ejbs.to.glassfish"/>
-	<run-validationsuite-mod jarfile="SetValidationSuiteWsdlPath.jar"/>
+    <run-validationsuite-mod jarfile="SetValidationSuiteWsdlPath.jar"/>
     <if>
       <isset property="stop.glassfish.after.deploy"/>
       <then>
@@ -103,7 +118,7 @@
     </condition>
   </target>
 
-  <target name="-deploy.glassfish.asadmin">
+  <target name="-deploy.glassfish.asadmin" depends="-deploy.create.glassfish.password.file">
     <condition property="ASADMIN" value="${glassfish.home}/bin/asadmin">
       <os family="Unix" />
     </condition>
@@ -122,7 +137,7 @@
     <parallel>
       <sequential>
         <exec dir="${glassfish.home}/bin" executable="cmd.exe" spawn="true" os="${os.name}" failonerror="false" >
-          <arg line="/c asadmin.bat start-domain --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} ${deployment.glassfish.domain.name}"/>
+          <arg line="/c asadmin.bat start-domain --passwordfile ${deploy.glassfish.password.file.path} --user ${deployment.glassfish.server.username} ${deployment.glassfish.domain.name}"/>
         </exec>
       </sequential>
     </parallel>
@@ -131,14 +146,13 @@
   <target name="-deploy.glassfish.start.server.notwin" depends="-deploy.glassfish.asadmin" unless="win">
     <exec executable="${ASADMIN}">
       <arg line="start-domain --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} ${deployment.glassfish.domain.name}"/>
-    </exec>  	
+    </exec>     
   </target>
 
-  <target name="deploy.glassfish.stop.server">
-    <sun-appserv-admin
-      explicitcommand="stop-domain ${deployment.glassfish.domain.name}"
-      asinstalldir="${glassfish.home}"
-      />
+  <target name="deploy.glassfish.stop.server" depends="-deploy.glassfish.asadmin">
+    <exec executable="${ASADMIN}">
+      <arg line="stop-domain ${deployment.glassfish.domain.name}"/>
+    </exec> 
   </target>
 
   <target name="deploy.ejbs.to.glassfish">
@@ -155,30 +169,30 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/ejbs/ejb">
         <param name="ejb.name" path="name/text()" />
-		<param name="should.deploy" path="should.deploy/text()" />
+        <param name="should.deploy" path="should.deploy/text()" />
         <actions>
             <if>
-				<istrue value="@{should.deploy}" />
-				<then>
-				  <if>
-					<not>
-					  <isset property="deploy.exclude.ejb.@{ejb.name}"/>
-					</not>
-					<then>
-				      <echo message="ejb '@{ejb.name}' will be deployed."/>
-					  <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/@{ejb.name}.jar"/>
-					  <var name="deployment.glassfish.ejb.name" value="@{ejb.name}"/>
-					  <runtarget target="${target}"/>
-					</then>
-					<else>
-				      <echo message="ejb '@{ejb.name}' will not be deployed."/>
-					</else>
-				  </if>
-				</then>
-				<else>
-				  <echo message="ejb '@{ejb.name}' will not be deployed."/>
-				</else>
-			</if>
+                <istrue value="@{should.deploy}" />
+                <then>
+                  <if>
+                    <not>
+                      <isset property="deploy.exclude.ejb.@{ejb.name}"/>
+                    </not>
+                    <then>
+                      <echo message="ejb '@{ejb.name}' will be deployed."/>
+                      <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/@{ejb.name}.jar"/>
+                      <var name="deployment.glassfish.ejb.name" value="@{ejb.name}"/>
+                      <runtarget target="${target}"/>
+                    </then>
+                    <else>
+                      <echo message="ejb '@{ejb.name}' will not be deployed."/>
+                    </else>
+                  </if>
+                </then>
+                <else>
+                  <echo message="ejb '@{ejb.name}' will not be deployed."/>
+                </else>
+            </if>
         </actions>
       </call>
     </xmltask>
@@ -198,29 +212,37 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/wars/war">
         <param name="war.name" path="name/text()" />
-		<param name="should.deploy" path="should.deploy/text()" />
+        <param name="should.deploy" path="should.deploy/text()" />
         <actions>
             <if>
-				<istrue value="@{should.deploy}" />
-				<then>
-				  <if>
-					  <not>
-					      <isset property="deploy.exclude.war.@{war.name}"/>
-					  </not>
-					  <then>
-				         <echo message="war '@{war.name}' will be deployed."/>
-					     <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war"/>
-					     <var name="deployment.glassfish.war.name" value="@{war.name}"/>
-					     <runtarget target="${target}"/>
-					  </then>
-					  <else>
-					    <echo message="war '@{war.name}' will not be deployed."/>
-					  </else>
-				    </if>
-			    </then>
-			    <else>
-				  <echo message="war '@{war.name}' will not be deployed."/>
-			    </else>
+                <istrue value="@{should.deploy}" />
+                <then>
+                  <if>
+                      <not>
+                          <isset property="deploy.exclude.war.@{war.name}"/>
+                      </not>
+                      <then>
+                         <echo message="war '@{war.name}' will be deployed."/>
+                          <if>
+                            <istrue value="${source.install}" />
+                            <then>
+                              <propertycopy override="true" name="deployment.glassfish.war.file.path" from="project.@{war.name}.dist.file" />
+                            </then>
+                            <else>
+                            <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war"/>
+                            </else>
+                          </if>
+                         <var name="deployment.glassfish.war.name" value="@{war.name}"/>
+                         <runtarget target="${target}"/>
+                      </then>
+                      <else>
+                        <echo message="war '@{war.name}' will not be deployed."/>
+                      </else>
+                    </if>
+                </then>
+                <else>
+                  <echo message="war '@{war.name}' will not be deployed."/>
+                </else>
             </if>
         </actions>
       </call>
@@ -241,29 +263,37 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/shared/lib">
         <param name="shared.name" path="name/text()" />
-		<param name="should.deploy" path="should.deploy/text()" />
+        <param name="should.deploy" path="should.deploy/text()" />
         <actions>
             <if>
-				<istrue value="@{should.deploy}" />
-				<then>
-				  <if>
-					<not>
-					  <isset property="deploy.exclude.lib.@{shared.name}"/>
-					</not>
-					<then>
-				  	  <echo message="shared lib '@{shared.name}' will be deployed."/>
-					  <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
-					  <runtarget target="${target}"/>
-					</then>
-					<else>
-					  <echo message="shared lib '@{shared.name}' will not be deployed."/>
-					</else>
-				  </if>
-				</then>
-			    <else>
-				  <echo message="shared lib '@{shared.name}' will not be deployed."/>
-			    </else>
-			</if>
+                <istrue value="@{should.deploy}" />
+                <then>
+                  <if>
+                    <not>
+                      <isset property="deploy.exclude.lib.@{shared.name}"/>
+                    </not>
+                    <then>
+                      <echo message="shared lib '@{shared.name}' will be deployed."/>
+                      <if>
+                        <istrue value="${source.install}" />
+                        <then>
+                          <propertycopy override="true" name="deployment.glassfish.shared.lib.file.path" from="project.@{shared.name}.dist.file" />
+                        </then>
+                        <else>
+                          <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
+                        </else>
+                      </if>
+                      <runtarget target="${target}"/>
+                    </then>
+                    <else>
+                      <echo message="shared lib '@{shared.name}' will not be deployed."/>
+                    </else>
+                  </if>
+                </then>
+                <else>
+                  <echo message="shared lib '@{shared.name}' will not be deployed."/>
+                </else>
+            </if>
         </actions>
       </call>
     </xmltask>
@@ -278,29 +308,29 @@
     <xmltask source="${deploy.application.list.file.path}">
       <call path="/applications/execs/executable">
         <param name="shared.name" path="name/text()" />
-		<param name="should.deploy" path="should.deploy/text()" />
+        <param name="should.deploy" path="should.deploy/text()" />
         <actions>
             <if>
-				<istrue value="@{should.deploy}" />
-				<then>
-				  <if>
-					<not>
-					  <isset property="deploy.exclude.lib.@{shared.name}"/>
-					</not>
-					<then>
-					  <echo message="executable '@{shared.name}' will be deployed."/>
-					  <var name="deployment.executable.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
-					  <runtarget target="${target}"/>
-					</then>
-					<else>
-					  <echo message="executable '@{shared.name}' will not be deployed."/>
-					</else>
-				  </if>
-				</then>
-				<else>
-				  <echo message="executable '@{shared.name}' will not be deployed."/>
-				</else>
-			</if>
+                <istrue value="@{should.deploy}" />
+                <then>
+                  <if>
+                    <not>
+                      <isset property="deploy.exclude.lib.@{shared.name}"/>
+                    </not>
+                    <then>
+                      <echo message="executable '@{shared.name}' will be deployed."/>
+                      <var name="deployment.executable.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
+                      <runtarget target="${target}"/>
+                    </then>
+                    <else>
+                      <echo message="executable '@{shared.name}' will not be deployed."/>
+                    </else>
+                  </if>
+                </then>
+                <else>
+                  <echo message="executable '@{shared.name}' will not be deployed."/>
+                </else>
+            </if>
         </actions>
       </call>
     </xmltask>
@@ -311,48 +341,28 @@
     <copy todir="${deployment.binaries.dir}" file="${dist.file}" overwrite="true"/>
   </target>
 
-  <target name="deploy.ejb.to.glassfish" depends="-deploy.create.glassfish.password.file">
-    <sun-appserv-deploy
-        user="${deployment.glassfish.server.username}"
-        passwordfile="${deploy.glassfish.password.file.path}"
-        host="${deployment.glassfish.server}"
-        port="${deployment.glassfish.admin.port}"
-        file="${deployment.glassfish.ejb.file.path}"
-        asinstalldir="${glassfish.home}"
-        />
+  <target name="deploy.ejb.to.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
+    <exec executable="${ASADMIN}">
+      <arg line="deploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.ejb.file.path}"/>
+    </exec>
   </target>
 
-  <target name="undeploy.ejb.from.glassfish" depends="-deploy.create.glassfish.password.file">
-    <sun-appserv-undeploy
-        user="${deployment.glassfish.server.username}"
-        passwordfile="${deploy.glassfish.password.file.path}"
-        host="${deployment.glassfish.server}"
-        port="${deployment.glassfish.admin.port}"
-        name="${deployment.glassfish.ejb.name}"
-        asinstalldir="${glassfish.home}"
-        />
+  <target name="undeploy.ejb.from.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
+    <exec executable="${ASADMIN}">
+      <arg line="undeploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.ejb.name}"/>
+    </exec>
   </target>
 
-  <target name="deploy.war.to.glassfish" depends="-deploy.create.glassfish.password.file">
-    <sun-appserv-deploy
-        user="${deployment.glassfish.server.username}"
-        passwordfile="${deploy.glassfish.password.file.path}"
-        host="${deployment.glassfish.server}"
-        port="${deployment.glassfish.admin.port}"
-        file="${deployment.glassfish.war.file.path}"
-        asinstalldir="${glassfish.home}"
-        />
+  <target name="deploy.war.to.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
+    <exec executable="${ASADMIN}">
+      <arg line="deploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.war.file.path}"/>
+    </exec>
   </target>
 
-  <target name="undeploy.war.from.glassfish" depends="-deploy.create.glassfish.password.file">
-    <sun-appserv-undeploy
-        user="${deployment.glassfish.server.username}"
-        passwordfile="${deploy.glassfish.password.file.path}"
-        host="${deployment.glassfish.server}"
-        port="${deployment.glassfish.admin.port}"
-        name="${deployment.glassfish.war.name}"
-        asinstalldir="${glassfish.home}"
-        />
+  <target name="undeploy.war.from.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
+    <exec executable="${ASADMIN}">
+      <arg line="undeploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.war.name}"/>
+    </exec>
   </target>
 
   <target name="deploy.shared.lib.to.glassfish">
@@ -369,38 +379,24 @@
     <copy file="${deployment.executable.file.path}" todir="deployment.executables.home" overwrite="true" />
   </target>
 
-  <target name="-delete.glassfish.domain">
+  <target name="-delete.glassfish.domain" depends="-deploy.glassfish.asadmin" unless="win">
     <if>
       <available file="${deployment.glassfish.domain.home}" type="dir"/>
       <then>
-        <trycatch property="error">
-          <try>
-            <runtarget target="deploy.glassfish.stop.server"/>
-            <sun-appserv-admin 
-            explicitcommand="delete-domain ${deployment.glassfish.domain.name}"
-            asinstalldir="${glassfish.home}"
-            />
-          </try>
-          <catch>
-            <echo message="${error}"/>
-            <!-- if delete-domain or stop-domain command failed, try to delete domain directory -->
-            <!-- workaround for locked domain1/conf/.domain-registry.system file on Windows -->
-            <sleep minutes="1"/>
-            <delete includeemptydirs="true" verbose="true">
-              <fileset dir="${deployment.glassfish.domain.home}" defaultexcludes="false"/>
-            </delete>
-          </catch>
-        </trycatch>
+        <runtarget target="deploy.glassfish.stop.server"/>
+        <exec executable="${ASADMIN}">
+          <arg line="delete-domain ${deployment.glassfish.domain.name}"/>
+        </exec>
       </then>
     </if>
   </target>
 
-  <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file">
+  <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
     <propertyregex property="deploy.glassfish.domain.template" input="${deployment.domain.template.file.path}" regexp="\\" replace="/" defaultValue="${deployment.domain.template.file.path}"/>
-    <sun-appserv-admin 
-        explicitcommand='create-domain --template ${deploy.glassfish.domain.template} --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
-        asinstalldir="${glassfish.home}"
-        />
+    <property name="deploy.glassfish.domain.template.path" location="${deploy.glassfish.domain.template}"/>
+    <exec executable="${ASADMIN}">
+      <arg line="create-domain --template ${deploy.glassfish.domain.template.path} --echo=true --passwordfile ${deploy.glassfish.password.file.path} --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --savemasterpassword=true ${deployment.glassfish.domain.name}"/>
+    </exec>
   </target>
 
   <target name="-backup.glassfish.domain.configuration">
@@ -524,7 +520,7 @@
       <then/>
       <else>
         <fail message="AS_HOME environment variable is not set. 
-        	Please create AS_HOME environment variable  pointing to GlassFish Installation folder."/>
+            Please create AS_HOME environment variable  pointing to GlassFish Installation folder."/>
       </else>
     </if>    
   </target>
@@ -535,7 +531,7 @@
       <then/>
       <else>
         <fail message="AS_HOME environment variable is not set. 
-	          Please create AS_HOME environment variable  pointing to GlassFish Installation folder."/>
+              Please create AS_HOME environment variable  pointing to GlassFish Installation folder."/>
       </else>
     </if>    
   </target>
@@ -546,7 +542,7 @@
       <then/>
       <else>
         <fail message="JAVA_HOME environment variable is not set. 
-        	Please create JAVA_HOME environment variable pointing to JRE1.6.0.16"/>
+            Please create JAVA_HOME environment variable pointing to JRE1.6.0.16"/>
       </else>
     </if>
     <if>
@@ -554,7 +550,7 @@
       <then/>
       <else>
         <fail message="Metro is not installed.
-        	Please install Metro and try again."/>
+            Please install Metro and try again."/>
       </else>
     </if>
     <if>
@@ -619,21 +615,21 @@
   
   
   </target><macrodef name="run-validationsuite-mod">
-	<attribute name="jarfile"/>
-	<sequential>
-		<mkdir dir="${deployment.config.home}/master" />
-		<copy todir="${deployment.config.home}/master" verbose="true" overwrite="true">
-			<filelist dir="${deployment.dir}/${deployment.environment.configuration.dir.name}" >
-				<file name="gateway.properties" />
-				<file name="adapter.properties" />
-				<file name="PCConfiguration.xml" />
-				<file name="internalConnectionInfo.xml" />
-				<file name="hiemTopicConfiguration.xml" />
-				<file name="XDSUniqueIds.properties" />
-			</filelist>
-		</copy>
-		<java jar="${deployment.dir}/ValidationSuite/@{jarfile}" fork="true" dir="${deployment.dir}/ValidationSuite"/>
-	</sequential>
+    <attribute name="jarfile"/>
+    <sequential>
+        <mkdir dir="${deployment.config.home}/master" />
+        <copy todir="${deployment.config.home}/master" verbose="true" overwrite="true">
+            <filelist dir="${deployment.dir}/${deployment.environment.configuration.dir.name}" >
+                <file name="gateway.properties" />
+                <file name="adapter.properties" />
+                <file name="PCConfiguration.xml" />
+                <file name="internalConnectionInfo.xml" />
+                <file name="hiemTopicConfiguration.xml" />
+                <file name="XDSUniqueIds.properties" />
+            </filelist>
+        </copy>
+        <java jar="${deployment.dir}/ValidationSuite/@{jarfile}" fork="true" dir="${deployment.dir}/ValidationSuite"/>
+    </sequential>
   </macrodef>
   
 </project>

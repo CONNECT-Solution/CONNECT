@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project basedir="." default="package.create" name="CONNECTCommonTypesLib">
 
+  <dirname property="CONNECTCommonTypesLib.basedir" file="${ant.file.CONNECTCommonTypesLib}"/>
+  <property name="CONNECTCommonTypesLib.thirdparty.dir" location="${CONNECTCommonTypesLib.basedir}/../../../../ThirdParty"/>
+
   <property name="dist.type" value="jar" />
   <property name="coverage.isneeded" value="false" />
   <property name="unittest.hasTests" value="false" />
   <property name="deploy.type" value="shared" />
   <property name="deploy.isDeployable" value="true"/>
-  <property name="build.generated.dir" value="build/generated/client"/>
-  <property name="build.wsdl.output.dir" value="build/wsdl"/>
+  <property name="build.generated.dir" value="build.generated/generated/client"/>
+  <property name="build.wsdl.output.dir" value="build.wsdl.output.dir/wsdl"/>
 
   <!-- Please make sure that this goes up to the correct directory -->
   <import file="../../../build/build.targets.xml" />
@@ -55,9 +58,21 @@
     </fileset>
   </path>
 
-  <taskdef name="WsImportConnect" classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect" />
+  <taskdef name="WsImportConnect" classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect">
+    <classpath>
+      <fileset dir="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs">
+        <include name="*.jar"/>
+      </fileset>
+    </classpath>
+  </taskdef>
   
-  <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask"/>
+  <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+    <classpath>
+      <fileset dir="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs">
+        <include name="*.jar"/>
+      </fileset>
+    </classpath>
+  </taskdef>
   
   <target name="just.quick.clean">
     <if>
@@ -94,8 +109,8 @@
     <call target="copy.util.src"/>
     <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}"/>
     <copy todir="${build.classes.dir}/META-INF/wsdl" overwrite="true">
-		<path refid="wsdl.list" />
-	</copy>
+        <path refid="wsdl.list" />
+    </copy>
   </target>
 
   <target name="-quick.compile.source">
@@ -145,31 +160,31 @@
           <sequential>
             <var name="wsdl.file" unset="true"/>
             <basename property="wsdl.file" file="@{wsdl.file.path}" />
-	    <java classname="gov.hhs.fha.nhinc.tools.ws.WsImportConnect"
-		   fork="true"
-		   failonerror="true">
-		<arg value="-d"/>
-		<arg value="${build.wsdl.output.dir}"/>
-		<arg value="-extension"/>
-		<arg value="-Xnocompile"/>
-		<arg value="-keep"/>	
-		<arg value="-s"/>
-		<arg value="${build.generated.dir}"/>
-		<arg value="-verbose"/>			
-		<arg value="@{wsdl.file.path}"/>			
-		<arg value="-wsdllocation"/>
-		<arg value="META-INF/wsdl/${wsdl.file}"/>
-		<jvmarg line="-Xmx1024m -Xms1024m"/>
-		<classpath>
-			<pathelement path="${env.ANT_HOME}/lib/webservices-rt.jar"/>
-			<pathelement path="${env.ANT_HOME}/lib/jaxb-impl.jar"/>
-			<pathelement path="${env.ANT_HOME}/lib/jaxb-xjc.jar"/>
-			<pathelement path="${env.ANT_HOME}/lib/jaxws-api.jar"/>
-			<pathelement path="${env.ANT_HOME}/lib/jaxws-rt.jar"/>
-			<pathelement path="${env.ANT_HOME}/lib/jaxws-tools.jar"/>
-			<pathelement path="${env.ANT_HOME}/lib/agilex-ant-tasks.jar"/>
-		</classpath>
-	    </java>
+        <java classname="gov.hhs.fha.nhinc.tools.ws.WsImportConnect"
+           fork="true"
+           failonerror="true">
+        <arg value="-d"/>
+        <arg value="${build.wsdl.output.dir}"/>
+        <arg value="-extension"/>
+        <arg value="-Xnocompile"/>
+        <arg value="-keep"/>    
+        <arg value="-s"/>
+        <arg value="${build.generated.dir}"/>
+        <arg value="-verbose"/>         
+        <arg value="@{wsdl.file.path}"/>            
+        <arg value="-wsdllocation"/>
+        <arg value="META-INF/wsdl/${wsdl.file}"/>
+        <jvmarg line="-Xmx1024m -Xms1024m"/>
+        <classpath>
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/agilex-ant-tasks.jar"/>
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/webservices-rt.jar"/>
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxb-impl.jar"/>
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxb-xjc.jar"/>
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxws-api.jar"/>
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxws-rt.jar"/>
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxws-tools.jar"/>
+        </classpath>
+        </java>
           </sequential>
         </for>  
         <echo file="${build.dir.root}/compilewsdl.flag" append="false"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="NHINC" default="ci" basedir=".">
 
-  <import file="build/build.targets.xml" />
+  <import file="build/build.targets.xml"/>
   <import file="dist.targets.xml"/>
   
   <condition property="progress-filepath" value="${temp.directory.path}/ant-progress.txt">
@@ -100,9 +100,8 @@
   <target name="copy.deployable.artifacts">
     <delete dir="${deployment.binaries.dir}"/>
     <mkdir dir="${deployment.binaries.dir}"/>
-	<delete dir="${deployment.dir}/ValidationSuite"/>
-	<mkdir dir="${deployment.dir}/ValidationSuite"/>
-	
+    <delete dir="${deployment.dir}/ValidationSuite"/>
+    <mkdir dir="${deployment.dir}/ValidationSuite"/>    
     <runtarget target="create.deploy.list.xml"/>
 
     <copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
@@ -112,9 +111,9 @@
     <copy todir="${deployment.interfaces.dir}" verbose="true" overwrite="true">
       <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src"/>
     </copy>
-	
-	<copy todir="${deployment.dir}/ValidationSuite" verbose="true" overwrite="true">
-	  <fileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" />
+    
+     <copy todir="${deployment.dir}/ValidationSuite" verbose="true" overwrite="true">
+      <fileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" />
     </copy>
 
     <var name="do-to-target" value="copy.deployable.artifacts"/>
@@ -159,17 +158,17 @@
     </for>
 
     <cobertura-report
-			format="xml"
-			datafile="${basedir}/coverage-reports/coverage.ser"
-			destdir="${basedir}/coverage-reports"
-			srcdir="${coverage.temp.source}"
-		/>
+            format="xml"
+            datafile="${basedir}/coverage-reports/coverage.ser"
+            destdir="${basedir}/coverage-reports"
+            srcdir="${coverage.temp.source}"
+        />
     <cobertura-report
-			format="html"
-			datafile="${basedir}/coverage-reports/coverage.ser"
-			destdir="${basedir}/coverage-reports"
-			srcdir="${coverage.temp.source}"
-		/>
+            format="html"
+            datafile="${basedir}/coverage-reports/coverage.ser"
+            destdir="${basedir}/coverage-reports"
+            srcdir="${coverage.temp.source}"
+        />
   </target>
 
   <target name="soapui.run" description="Run the SoapUI tests for the projects: run ant help for more info...">
@@ -284,7 +283,7 @@
     <var name="to.build.count" value="0" />
     <xmltask source="${basedir}/projects.xml">
       <call path="/projects/project">
-		<param name="should.build" path="should.build/text()" />
+        <param name="should.build" path="should.build/text()" />
         <actions>
           <if>
             <istrue value="@{should.build}"/>
@@ -297,51 +296,51 @@
       </call>
     </xmltask>
     <script language="javascript"><![CDATA[
-		var projectcount = parseInt(project.getProperty('project.count'));
-		var tobuildcount = parseInt(project.getProperty('to.build.count'));
-		project.setProperty('project.count.greater.than.zero', projectcount > 1);
-		project.setProperty('to.build.count.greater.than.zero', tobuildcount > 0);
-	  ]]>
-	</script>
-		<echo message="project.count =${project.count}=."/>
-		<echo message="to.build.count =${to.build.count}=."/>
-	<if>
-	    <and>
-	      <istrue value="${project.count.greater.than.zero}"/>
-	      <istrue value="${to.build.count.greater.than.zero}"/>
-	    </and>
-	  <then>
-		<echo message="project.count =${project.count}=."/>
-		<echo message="to.build.count =${to.build.count}=."/>
-	  </then>
-	  <else>
-		<fail message="No projects to build."/>
-	  </else>
-	</if>
+        var projectcount = parseInt(project.getProperty('project.count'));
+        var tobuildcount = parseInt(project.getProperty('to.build.count'));
+        project.setProperty('project.count.greater.than.zero', projectcount > 1);
+        project.setProperty('to.build.count.greater.than.zero', tobuildcount > 0);
+      ]]>
+    </script>
+        <echo message="project.count =${project.count}=."/>
+        <echo message="to.build.count =${to.build.count}=."/>
+    <if>
+        <and>
+          <istrue value="${project.count.greater.than.zero}"/>
+          <istrue value="${to.build.count.greater.than.zero}"/>
+        </and>
+      <then>
+        <echo message="project.count =${project.count}=."/>
+        <echo message="to.build.count =${to.build.count}=."/>
+      </then>
+      <else>
+        <fail message="No projects to build."/>
+      </else>
+    </if>
   </target>
 
   <target name="do-to-projects" depends="check.project.count" description="calls the target specified in the property do-to-target on all the projects.">    
-	<property name="current.project.count" value="0" />
-	<xmltask source="${basedir}/projects.xml">
-	  <call path="/projects/project">
-		<param name="project.name" path="name/text()" />
-		<param name="project.directory" path="directory/text()" />
-		<param name="should.build" path="should.build/text()" />
+    <property name="current.project.count" value="0" />
+    <xmltask source="${basedir}/projects.xml">
+      <call path="/projects/project">
+        <param name="project.name" path="name/text()" />
+        <param name="project.directory" path="directory/text()" />
+        <param name="should.build" path="should.build/text()" />
         <actions>
           <if>
             <istrue value="@{should.build}"/>
             <then>
-			  <math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
-			  <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
-			  <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
-			  <project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}"/>
-			  <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
-			  <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
-			</then>
-		  </if>
-		</actions>
-	  </call>
-	</xmltask>
+              <math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
+              <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
+              <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
+              <project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}"/>
+              <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
+              <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
+            </then>
+          </if>
+        </actions>
+      </call>
+    </xmltask>
   </target>
 
 </project>

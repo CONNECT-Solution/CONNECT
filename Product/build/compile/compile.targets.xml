@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="compile.targets">
+<project name="compile.targets" basedir=".">
+
+  <dirname property="compile.targets.basedir" file="${ant.file.compile.targets}"/>
+  <property name="compile.targets.thirdparty.dir" location="${compile.targets.basedir}/../../../ThirdParty"/>
 
   <import file="compile.properties.xml" />
 
@@ -31,13 +34,13 @@
         <var name="classpath.item" value="@{classpath.item}" />
         <if>
           <scriptcondition language="javascript">
-						// import statements
-						//
-						importPackage(java.io);
-						importClass(java.io.File);
-						var thing = new
-						File(project.getProperty("classpath.item"));
-						self.setValue(thing.isDirectory());
+                        // import statements
+                        //
+                        importPackage(java.io);
+                        importClass(java.io.File);
+                        var thing = new
+                        File(project.getProperty("classpath.item"));
+                        self.setValue(thing.isDirectory());
           </scriptcondition>
           <then>
             <addfilesettopath refid="source.class.files">
@@ -57,7 +60,7 @@
 
     <var unset="true" name="sourcefiles" />
     <pathconvert targetos="${os.family}" property="sourcefiles"
-			refid="sourcefiles" />
+            refid="sourcefiles" />
 
     <outofdate verbose="${debug}">
       <sourcefiles>
@@ -77,7 +80,12 @@
     </outofdate>
 
     <javac updatedProperty="compile.updated" debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${source.dir}" destdir="${build.classes.dir}" includes="**/*.java">
-	    <classpath refid="build.classpath" />
+        <classpath refid="build.classpath" />
+        <classpath>
+            <fileset dir="${compile.targets.thirdparty.dir}/AntExtraLibs">
+                <include name="*.jar"/>
+            </fileset>
+        </classpath>
     </javac>
 
     <if>
@@ -97,8 +105,8 @@
       <then>
         <mkdir dir="${build.unittest.classes.dir}" />
         <javac debug="${compile.debug}" debuglevel="lines,vars,source"
-					srcdir="${unittest.source.dir}" destdir="${build.unittest.classes.dir}"
-					includes="**/*.java">
+                    srcdir="${unittest.source.dir}" destdir="${build.unittest.classes.dir}"
+                    includes="**/*.java">
           <classpath>
             <path refid="build.classpath" />
             <pathelement path="${build.classes.dir}" />
@@ -140,7 +148,7 @@
 
     <var unset="true" name="sourcefiles" />
     <pathconvert targetos="${os.family}" property="sourcefiles"
-			refid="sourcefiles" />
+            refid="sourcefiles" />
 
     <outofdate verbose="${debug}">
       <sourcefiles>
@@ -171,7 +179,7 @@
               <fileset dir="${source.webcontent.dir}">
                 <include name="**/*" />
               </fileset>
-            </copy>						
+            </copy>                     
           </then>
         </if>
         <if>
@@ -205,7 +213,7 @@
 
         <var unset="true" name="sourcefiles" />
         <pathconvert targetos="${os.family}" property="sourcefiles"
-					refid="sourcefiles" />
+                    refid="sourcefiles" />
 
         <path id="targetfiles">
           <fileset dir="${build.unittest.classes.dir}">
@@ -216,7 +224,7 @@
 
         <var unset="true" name="targetfiles" />
         <pathconvert targetos="${os.family}" property="targetfiles"
-					refid="targetfiles" />
+                    refid="targetfiles" />
 
         <outofdate verbose="${debug}">
           <sourcefiles>
@@ -228,14 +236,14 @@
           <mapper type="identity" />
           <sequential>
             <copy todir="${build.unittest.classes.dir}" overwrite="true"
-							verbose="${debug}">
+                            verbose="${debug}">
               <fileset dir="${unittest.source.dir}">
                 <include name="**/*" />
                 <exclude name="**/*.java" />
               </fileset>
             </copy>
             <copy todir="${build.unittest.classes.dir}" overwrite="true"
-							verbose="${debug}">
+                            verbose="${debug}">
               <fileset dir="${unittest.resources.dir}">
                 <include name="**/*" />
               </fileset>
@@ -266,11 +274,11 @@
       <sequential>    
         <var name="wsdl.item" value="@{wsdl.item}" />
         <propertyregex property="wsdlfile"
-				              input="${wsdl.item}"
-				              regexp="[^\${file.separator}+]+(?=\${file.separator}[^\${file.separator}]+$)"
+                              input="${wsdl.item}"
+                              regexp="[^\${file.separator}+]+(?=\${file.separator}[^\${file.separator}]+$)"
                               select="\0"
-				              casesensitive="false"
-				              override="yes" />
+                              casesensitive="false"
+                              override="yes" />
 
         <mkdir dir="${build.dist.root}/${copy.wsdl.to}/${wsdlfile}"/>
         <mkdir dir="${build.dist.root}/${copy.wsdl.to}/schemas"/>

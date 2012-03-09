@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="nhinc.deployment.settings.win">
   
-  <property name = "deployment.dir" value="${env.NHINC_DEPLOYMENT_DIR}/NHINC"/>
-
-  <property name = "deployment.certificate.home"  value="${env.NHINC_DEPLOYMENT_DIR}/certificates"/> 
-  
   <property name="deployment.glassfish.asadmin.file.path" value="${glassfish.home}/bin/asadmin.bat"/>
   
   <property name="deployment.executables.home" value="C:/CONNECT"/>

@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="build.taskdef" xmlns:ora="antlib:net.sf.incanto">
+<project name="build.taskdef" xmlns:ora="antlib:net.sf.incanto" basedir=".">
 
-	<!-- ###############  Begin Import of Extra Ant Tasks  ############### -->
-	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
-	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
-	<typedef resource="AgilexAnt.properties" />
+    <dirname property="build.taskdef.basedir" file="${ant.file.build.targets}"/>
+    <property name="build.taskdef.thirdparty.dir" location="${build.taskdef.basedir}/../../ThirdParty"/>
+
+    <!-- ###############  Begin Import of Extra Ant Tasks  ############### -->
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+      <classpath>
+        <fileset dir="${build.taskdef.thirdparty.dir}/AntExtraLibs">
+          <include name="ant-contrib-*.jar"/>
+        </fileset>
+      </classpath>
+    </taskdef>
+    <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
+      <classpath>
+        <fileset dir="${build.taskdef.thirdparty.dir}/AntExtraLibs">
+          <include name="xmltask-*.jar"/>
+        </fileset>
+      </classpath>
+    </taskdef>
+    <typedef resource="AgilexAnt.properties">
+      <classpath>
+        <fileset dir="${build.taskdef.thirdparty.dir}/AntExtraLibs">
+          <include name="*.jar"/>
+        </fileset>
+        </classpath>
+    </typedef>
 
   <macrodef name="project">
     <attribute name="name"/>
@@ -20,12 +41,12 @@
       <var name="file" value="@{file}"/>
       <script language="javascript">
         <![CDATA[
-	        self.log('<name>' + project.getProperty("name") + '</name>');
+            self.log('<name>' + project.getProperty("name") + '</name>');
           self.log('<order>' + project.getProperty("order") + '</order>');
-	        self.log('<target>' + project.getProperty("target") + '</target>');
-	        self.log('<dir>' + project.getProperty("dir") + '</dir>');
-	        self.log('<file>' + project.getProperty("file") + '</file>');
-	    ]]>
+            self.log('<target>' + project.getProperty("target") + '</target>');
+            self.log('<dir>' + project.getProperty("dir") + '</dir>');
+            self.log('<file>' + project.getProperty("file") + '</file>');
+        ]]>
       </script>
       <ant dir="@{dir}" antfile="@{file}" inheritAll="false">
         <target name="@{target}" />
@@ -34,128 +55,128 @@
     </sequential>
   </macrodef>
   
-	<macrodef name="call">
-		<attribute name="target"/>
-		<attribute name="if" default="true"/>
-		<attribute name="unless" default="false"/>
-		<attribute name="once" default="false"/>
-		<sequential>
-			<if>
-				<and>
-					<istrue value="@{if}" />
-					<isfalse value="@{unless}" />
-					<or>
-						<and>
-							<istrue value="@{once}"/>
-							<not>
-								<isset property="${ant.project.name}.Target.@{target}.Executed"/>
-							</not>
-						</and>
-						<isfalse value="@{once}"/>
-					</or>
-				</and>
-				<then>
-					<runtarget target="@{target}"/>
-				</then>
-			</if>
-		</sequential>
-	</macrodef>
+    <macrodef name="call">
+        <attribute name="target"/>
+        <attribute name="if" default="true"/>
+        <attribute name="unless" default="false"/>
+        <attribute name="once" default="false"/>
+        <sequential>
+            <if>
+                <and>
+                    <istrue value="@{if}" />
+                    <isfalse value="@{unless}" />
+                    <or>
+                        <and>
+                            <istrue value="@{once}"/>
+                            <not>
+                                <isset property="${ant.project.name}.Target.@{target}.Executed"/>
+                            </not>
+                        </and>
+                        <isfalse value="@{once}"/>
+                    </or>
+                </and>
+                <then>
+                    <runtarget target="@{target}"/>
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
 
   <!--makes sure projects that "i" depend
   on has been called-->
-	<macrodef name="dependcalls">
-		<attribute name="target"/>
-		<sequential>
-			<for param="dependent.project.build.file">
-				<path refid="build.project.dependencies" />
-				<sequential>
-					<available file="@{dependent.project.build.file}" property="build.available" value="true" />
-					<if>
-						<isset property="build.available" />
-						<then>
-							<var unset="true" name="dependent.project.directory" />
-							<dirname file="@{dependent.project.build.file}" property="dependent.project.directory" />
-							<echo message="begin-> ant ${dependent.project.directory}/build.xml @{target}" />
-							<ant dir="${dependent.project.directory}" antfile="build.xml" target="@{target}" inheritall="false" />
-							<echo message="end-> ant @{dependent.project.build.file} @{target}" />
-						</then>
-						<else>
-							<echo level="warning" message="Could not find @{dependent.project.build.file}!" />
-						</else>
-					</if>
-				</sequential>
-			</for>
-		</sequential>
-	</macrodef>
-	
-	<macrodef name="execsql">
-		<attribute name="file" />
-		<sequential>
-		<ora:sqlplus 
-			logon="sys/oracle@XE as sysdba"
-			start="@{file}"
-		/></sequential>
-	</macrodef>
-	
-	<scriptdef name="addincludetofileset" language="javascript">
-		<attribute name="include" />
-		<attribute name="refid"/>
-		<![CDATA[
-			fileset = project.getReference(attributes.get("refid"));
-			fileset.createInclude().setName(attributes.get("include"));
-		]]>
-	</scriptdef>
+    <macrodef name="dependcalls">
+        <attribute name="target"/>
+        <sequential>
+            <for param="dependent.project.build.file">
+                <path refid="build.project.dependencies" />
+                <sequential>
+                    <available file="@{dependent.project.build.file}" property="build.available" value="true" />
+                    <if>
+                        <isset property="build.available" />
+                        <then>
+                            <var unset="true" name="dependent.project.directory" />
+                            <dirname file="@{dependent.project.build.file}" property="dependent.project.directory" />
+                            <echo message="begin-> ant ${dependent.project.directory}/build.xml @{target}" />
+                            <ant dir="${dependent.project.directory}" antfile="build.xml" target="@{target}" inheritall="false" />
+                            <echo message="end-> ant @{dependent.project.build.file} @{target}" />
+                        </then>
+                        <else>
+                            <echo level="warning" message="Could not find @{dependent.project.build.file}!" />
+                        </else>
+                    </if>
+                </sequential>
+            </for>
+        </sequential>
+    </macrodef>
+    
+    <macrodef name="execsql">
+        <attribute name="file" />
+        <sequential>
+        <ora:sqlplus 
+            logon="sys/oracle@XE as sysdba"
+            start="@{file}"
+        /></sequential>
+    </macrodef>
+    
+    <scriptdef name="addincludetofileset" language="javascript">
+        <attribute name="include" />
+        <attribute name="refid"/>
+        <![CDATA[
+            fileset = project.getReference(attributes.get("refid"));
+            fileset.createInclude().setName(attributes.get("include"));
+        ]]>
+    </scriptdef>
   
   <scriptdef name="addfilesettopath" language="javascript">
     <attribute name="refid"/>
     <element name="fileset" type="fileset"/>
     <![CDATA[
-			path = project.getReference(attributes.get("refid"));
-			path.addFileset(elements.get("fileset").get(0));
-		]]>
+            path = project.getReference(attributes.get("refid"));
+            path.addFileset(elements.get("fileset").get(0));
+        ]]>
   </scriptdef>
-	
-	<scriptdef name="changeid" language="javascript">
-		<attribute name="originial"/>
-		<attribute name="new"/>
-		<![CDATA[
-			ref = project.getReference(attributes.get("originial"));
-			project.addReference(attributes.get("new"), ref)
-		]]>
-	</scriptdef>
-	
-	<macrodef name="xmlpeek">
-		<attribute name="file"/>
-		<attribute name="xpath"/>
-		<attribute name="property"/>
-		<sequential>
-			<var name="@{property}" unset="true"/>
-			<xmltask source="@{file}" >
-				<copy path="@{xpath}" property="@{property}" attrValue="true" />
-			</xmltask>
-			<fail unless="@{property}" message="Unable to find xpath value for @{xpath} in file @{file}."/>
-		</sequential>
-	</macrodef>
-	
-	<scriptdef name="converttopercent" language="javascript">
-		<attribute name="name"/>
-		<attribute name="value"/>
-		<![CDATA[
-			var rate = attributes.get("value");
-			var percent = (rate * 100).toFixed(2);
-			
-			varTask = project.createTask("var");
-			varTask.setName(attributes.get("name"));
-			varTask.setUnset(true);
-			varTask.execute();
-			
-			varTask.setUnset(false);
-			varTask.setValue(percent);
-			varTask.execute();
-		]]>
-	</scriptdef>
-	
-	<macrodef name="foreach-line">
+    
+    <scriptdef name="changeid" language="javascript">
+        <attribute name="originial"/>
+        <attribute name="new"/>
+        <![CDATA[
+            ref = project.getReference(attributes.get("originial"));
+            project.addReference(attributes.get("new"), ref)
+        ]]>
+    </scriptdef>
+    
+    <macrodef name="xmlpeek">
+        <attribute name="file"/>
+        <attribute name="xpath"/>
+        <attribute name="property"/>
+        <sequential>
+            <var name="@{property}" unset="true"/>
+            <xmltask source="@{file}" >
+                <copy path="@{xpath}" property="@{property}" attrValue="true" />
+            </xmltask>
+            <fail unless="@{property}" message="Unable to find xpath value for @{xpath} in file @{file}."/>
+        </sequential>
+    </macrodef>
+    
+    <scriptdef name="converttopercent" language="javascript">
+        <attribute name="name"/>
+        <attribute name="value"/>
+        <![CDATA[
+            var rate = attributes.get("value");
+            var percent = (rate * 100).toFixed(2);
+            
+            varTask = project.createTask("var");
+            varTask.setName(attributes.get("name"));
+            varTask.setUnset(true);
+            varTask.execute();
+            
+            varTask.setUnset(false);
+            varTask.setValue(percent);
+            varTask.execute();
+        ]]>
+    </scriptdef>
+    
+    <macrodef name="foreach-line">
     <attribute name="file" />
     <attribute name="var" default="line" />
     <element name="body" implicit="true" />

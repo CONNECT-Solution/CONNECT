@@ -1,115 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="soapui.macros">
-	<taskdef resource="net/sf/antcontrib/antlib.xml" />
-	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" />
-	<macrodef name="soapUILoadTestRunnerCustom">
-		<attribute name="projectName" />
-		<attribute name="projectReportDir" />
-		<attribute name="projectFilePath" />
-		<attribute name="projectConfFilePath" />
-		<sequential>
-			<xmltask source="@{projectConfFilePath}">
-				<call path="/tests/test">
-					<param name="test.name" path="@name" />
-					<param name="test.testcase" path="@testcase" />
-					<param name="test.numberOfIteration" path="@numberOfIteration" />
-					<param name="test.numberOfThreads" path="@numberOfThreads" />
-					<param name="test.properties.file.name" path="testProperties/@filename" />
-					<param name="test.properties.file.deleteOnExit" path="testProperties/@deleteOnExit" default="false" />
-					<actions>
-						<if>
-							<istrue value="${debug}" />
-							<then>
-								<echo message="Reading load test configuration: name='@{test.name}' testcase='@{test.testcase}' numberOfIteration='@{test.numberOfIteration}' numberOfThreads='@{test.numberOfThreads}' test.properties.file.name='@{test.properties.file.name}'." />
-							</then>
-						</if>
-						<soapUIUpdateTestProperties testcase="@{test.name}" projectConfFilePath="@{projectConfFilePath}" testPropFile="@{test.properties.file.name}" />
-						<var name="optionalArg" value="-l&quot;@{test.testCase}&quot; -m&quot;@{test.numberOfIteration}&quot; -n&quot;@{test.numberOfThreads}&quot;" />
-						<soapUILoadTestRunner projectName="@{projectName}" projectReportDir="@{projectReportDir}/@{test.name}" projectFilePath="@{projectFilePath}" optionalArg="${optionalArg}" />
-						<if>
-							<istrue value="@{test.properties.file.deleteOnExit}" />
-							<then>
-								<delete file="@{test.properties.file.name}" />
-							</then>
-						</if>
-					</actions>
-				</call>
-			</xmltask>
-		</sequential>
-	</macrodef>
-	<macrodef name="soapUIUpdateTestProperties">
-		<attribute name="testcase" />
-		<attribute name="testPropFile" />
-		<attribute name="projectConfFilePath" />
-		<sequential>
-			<xmltask source="@{projectConfFilePath}">
-				<call path="/tests/test[@name='@{testcase}']/testProperties/property">
-					<param name="property.name" path="@name" />
-					<param name="property.value" path="text()" />
-					<actions>
-						<if>
-							<istrue value="${debug}" />
-							<then>
-								<echo message="Reading property: '@{property.name}' = '@{property.value}'." />
-							</then>
-						</if>
-						<propertyfile file="@{testPropFile}">
-							<entry key="@{property.name}" value="@{property.value}" />
-						</propertyfile>
-					</actions>
-				</call>
-			</xmltask>
-		</sequential>
-	</macrodef>
-	<macrodef name="soapUILoadTestRunner">
-		<attribute name="projectName" />
-		<attribute name="projectReportDir" />
-		<attribute name="projectFilePath" />
-		<attribute name="optionalArg" default="" />
+<project name="soapui.macros" basedir=".">
 
-		<sequential>
-			<if>
-				<istrue value="${profile}" />
-				<then>
-					<runtarget target="deploy.glassfish.stop.server" />
-					<runtarget target="deploy.glassfish.start.server" />
+    <dirname property="soapui.macros.basedir" file="${ant.file.soapui.macros}"/>
+    <property name="soapui.macros.thirdparty.dir" location="${soapui.macros.basedir}/../../../ThirdParty"/>
 
-					<java jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar" fork="true">
-						<arg value="localhost" />
-						<arg value="10001" />
-						<arg value="start-cpu-sampling" />
-					</java>
-				</then>
-			</if>
-			<exec dir="${soapui.install.bin.directory.path}" osfamily="windows" executable="cmd.exe">
-				<arg line="/c loadtestrunner.bat -r -f&quot;@{projectReportDir}&quot; @{optionalArg} &quot;@{projectFilePath}&quot; -Dproject.name=&quot;@{projectName}&quot;" />
-			</exec>
-			<exec dir="${soapui.install.bin.directory.path}" osfamily="unix" executable="bash">
-				<arg line="loadtestrunner.sh -r -f&quot;@{projectReportDir}&quot; @{optionalArg} &quot;@{projectFilePath}&quot; -Dproject.name=&quot;@{project.name}&quot;" />
-			</exec>
-			<if>
-				<istrue value="${profile}" />
-				<then>
-					<java jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar" fork="true">
-						<arg value="localhost" />
-						<arg value="10001" />
-						<arg value="capture-performance-snapshot" />
-					</java>
-					<java jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar" fork="true">
-						<arg value="localhost" />
-						<arg value="10001" />
-						<arg value="stop-cpu-profiling" />
-					</java>
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+      <classpath>
+        <fileset dir="${soapui.macros.thirdparty.dir}/AntExtraLibs">
+          <include name="ant-contrib-*.jar"/>
+        </fileset>
+      </classpath>
+    </taskdef>
+    <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
+      <classpath>
+        <fileset dir="${soapui.macros.thirdparty.dir}/AntExtraLibs">
+          <include name="xmltask-*.jar"/>
+        </fileset>
+      </classpath>
+    </taskdef>
+    <macrodef name="soapUILoadTestRunnerCustom">
+        <attribute name="projectName" />
+        <attribute name="projectReportDir" />
+        <attribute name="projectFilePath" />
+        <attribute name="projectConfFilePath" />
+        <sequential>
+            <xmltask source="@{projectConfFilePath}">
+                <call path="/tests/test">
+                    <param name="test.name" path="@name" />
+                    <param name="test.testcase" path="@testcase" />
+                    <param name="test.numberOfIteration" path="@numberOfIteration" />
+                    <param name="test.numberOfThreads" path="@numberOfThreads" />
+                    <param name="test.properties.file.name" path="testProperties/@filename" />
+                    <param name="test.properties.file.deleteOnExit" path="testProperties/@deleteOnExit" default="false" />
+                    <actions>
+                        <if>
+                            <istrue value="${debug}" />
+                            <then>
+                                <echo message="Reading load test configuration: name='@{test.name}' testcase='@{test.testcase}' numberOfIteration='@{test.numberOfIteration}' numberOfThreads='@{test.numberOfThreads}' test.properties.file.name='@{test.properties.file.name}'." />
+                            </then>
+                        </if>
+                        <soapUIUpdateTestProperties testcase="@{test.name}" projectConfFilePath="@{projectConfFilePath}" testPropFile="@{test.properties.file.name}" />
+                        <var name="optionalArg" value="-l&quot;@{test.testCase}&quot; -m&quot;@{test.numberOfIteration}&quot; -n&quot;@{test.numberOfThreads}&quot;" />
+                        <soapUILoadTestRunner projectName="@{projectName}" projectReportDir="@{projectReportDir}/@{test.name}" projectFilePath="@{projectFilePath}" optionalArg="${optionalArg}" />
+                        <if>
+                            <istrue value="@{test.properties.file.deleteOnExit}" />
+                            <then>
+                                <delete file="@{test.properties.file.name}" />
+                            </then>
+                        </if>
+                    </actions>
+                </call>
+            </xmltask>
+        </sequential>
+    </macrodef>
+    <macrodef name="soapUIUpdateTestProperties">
+        <attribute name="testcase" />
+        <attribute name="testPropFile" />
+        <attribute name="projectConfFilePath" />
+        <sequential>
+            <xmltask source="@{projectConfFilePath}">
+                <call path="/tests/test[@name='@{testcase}']/testProperties/property">
+                    <param name="property.name" path="@name" />
+                    <param name="property.value" path="text()" />
+                    <actions>
+                        <if>
+                            <istrue value="${debug}" />
+                            <then>
+                                <echo message="Reading property: '@{property.name}' = '@{property.value}'." />
+                            </then>
+                        </if>
+                        <propertyfile file="@{testPropFile}">
+                            <entry key="@{property.name}" value="@{property.value}" />
+                        </propertyfile>
+                    </actions>
+                </call>
+            </xmltask>
+        </sequential>
+    </macrodef>
+    <macrodef name="soapUILoadTestRunner">
+        <attribute name="projectName" />
+        <attribute name="projectReportDir" />
+        <attribute name="projectFilePath" />
+        <attribute name="optionalArg" default="" />
+
+        <sequential>
+            <if>
+                <istrue value="${profile}" />
+                <then>
+                    <runtarget target="deploy.glassfish.stop.server" />
+                    <runtarget target="deploy.glassfish.start.server" />
+
+                    <java jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar" fork="true">
+                        <arg value="localhost" />
+                        <arg value="10001" />
+                        <arg value="start-cpu-sampling" />
+                    </java>
+                </then>
+            </if>
+            <exec dir="${soapui.install.bin.directory.path}" osfamily="windows" executable="cmd.exe">
+                <arg line="/c loadtestrunner.bat -r -f&quot;@{projectReportDir}&quot; @{optionalArg} &quot;@{projectFilePath}&quot; -Dproject.name=&quot;@{projectName}&quot;" />
+            </exec>
+            <exec dir="${soapui.install.bin.directory.path}" osfamily="unix" executable="bash">
+                <arg line="loadtestrunner.sh -r -f&quot;@{projectReportDir}&quot; @{optionalArg} &quot;@{projectFilePath}&quot; -Dproject.name=&quot;@{project.name}&quot;" />
+            </exec>
+            <if>
+                <istrue value="${profile}" />
+                <then>
+                    <java jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar" fork="true">
+                        <arg value="localhost" />
+                        <arg value="10001" />
+                        <arg value="capture-performance-snapshot" />
+                    </java>
+                    <java jar="${yourkitjprofiler.install.directory.path}\lib\yjp-controller-api-redist.jar" fork="true">
+                        <arg value="localhost" />
+                        <arg value="10001" />
+                        <arg value="stop-cpu-profiling" />
+                    </java>
           <tstamp>
             <format property="TODAY_US" pattern="yyyy-MM-dd" locale="en,US"/>
           </tstamp>  
-			    <move file="${user.home}/Snapshots/SunServer-${TODAY_US}.snapshot" 
-			            tofile="@{projectReportDir}.snapshot"/>
-					<delete dir="${user.home}/Snapshots">
-						<include name="**/*" />
-					</delete>
-				</then>
-			</if>
-		</sequential>
-	</macrodef>
+                <move file="${user.home}/Snapshots/SunServer-${TODAY_US}.snapshot" 
+                        tofile="@{projectReportDir}.snapshot"/>
+                    <delete dir="${user.home}/Snapshots">
+                        <include name="**/*" />
+                    </delete>
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
 </project>

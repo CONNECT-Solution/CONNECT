@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="nhinc.deployment.settings">
+<project name="nhinc.deployment.settings" basedir=".">
+
+  <dirname property="nhinc.deployment.settings.basedir" file="${ant.file.nhinc.deployment.settings}"/>
+  <property name="deployment.dir" location="${nhinc.deployment.settings.basedir}/../NHINC"/>
+  <property name="deployment.certificate.home" location="${deployment.dir}/certificates"/>
+  <property name="deployment.glassfish.asadmin.file.path" location="${glassfish.home}/bin/asadmin"/>
+
   <property environment="env"/>
 
   <property name="glassfish.home" value="${env.AS_HOME}"/>

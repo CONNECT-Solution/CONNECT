@@ -12,19 +12,25 @@ layer of abstraction
 
 
 -->
-<project name="build.targets">
+<project name="build.targets" basedir=".">
 
-  <taskdef resource="net/sf/antcontrib/antlib.xml" />
-  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
-  <typedef resource="AgilexAnt.properties" />
+  <dirname property="build.targets.basedir" file="${ant.file.build.targets}"/>
+  <property name="build.targets.basedir.location" location="${build.targets.basedir}"/>
+  <property name="build.targets.thirdparty.dir" location="${build.targets.basedir}/../../ThirdParty"/>
+
   <script language="javascript">
     <![CDATA[
-	    importClass(Packages.com.agilex.ant.TargetListener);
-		
-		var targetListener = new TargetListener();
-		project.setProjectReference(targetListener);
-		project.addBuildListener(targetListener);
-	]]>
+        importClass(Packages.com.agilex.ant.TargetListener);
+        
+        var targetListener = new TargetListener();
+        project.setProjectReference(targetListener);
+        project.addBuildListener(targetListener);
+    ]]>
+    <classpath>
+      <fileset dir="${build.targets.thirdparty.dir}/AntExtraLibs">
+        <include name="agilex-ant-tasks.jar"/>
+      </fileset>
+    </classpath>
   </script>
 
   <import file="properties.build.xml" />
@@ -38,18 +44,18 @@ layer of abstraction
   <import file="junit/junit.targets.xml"/>
   <import file="soapui/soapui.targets.xml"/>
   <import file="corbertura/corbertura.targets.xml"/>
-  <import file="../Install/deploy.xml"/>
+  <import file="${build.targets.basedir.location}/../Install/deploy.xml"/>
   <import file="checkstyle/checkstyle.targets.xml"/>
   <import file="licensetool/license.targets.xml"/>
 
   <property name="calling.anttarget.from.netbeans" value="false"/>
   <!-- The above property is read from netbeans configuration file -->
   <if>
-	<equals arg1="${calling.anttarget.from.netbeans}" arg2="true"/>
-	<then>
-	  <echo message="loading........"/>
-	  <import file="netbeans/netbeans.targets.xml" />
-	</then>
+    <equals arg1="${calling.anttarget.from.netbeans}" arg2="true"/>
+    <then>
+      <echo message="loading........"/>
+      <import file="netbeans/netbeans.targets.xml" />
+    </then>
   </if>
   
   <target name="deploy">
@@ -76,10 +82,10 @@ layer of abstraction
   </target>
 
   <target name="addentry.deploy.list.xml">    
-	  <xmltask source="${root.project.directory.path}/projects.xml">
-	    <copy path="/projects/project/name[text()='${project.name}']/../should.deploy/text()" property="project.${project.name}.should.deploy"/>
-	  </xmltask>
-	  <propertycopy name="should.deploy" from="project.${project.name}.should.deploy" />
+      <xmltask source="${root.project.directory.path}/projects.xml">
+        <copy path="/projects/project/name[text()='${project.name}']/../should.deploy/text()" property="project.${project.name}.should.deploy"/>
+      </xmltask>
+      <propertycopy name="should.deploy" from="project.${project.name}.should.deploy" />
     <if>
       <istrue value="${should.deploy}"/>
       <then>
@@ -91,37 +97,37 @@ layer of abstraction
     </if>
     <if>
       <istrue value="${deploy.isDeployable}"/>
-		<then>
-		  <switch value="${deploy.type}">
-			<case value="war">
-			  <var name="deploy.list.entry.xpath" value="/applications/wars"/>
-			  <var name="deploy.should.deploy.entry.xpath" value="/applications/wars/war/name[text()='${project.name}']"/>
-			  <var name="deploy.list.entry" value="&lt;war&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/war&gt;"/>
-			  <runtarget target="insert.entry.to.deploy.app.list"/>
-			</case>
-			<case value="shared">
-			  <var name="deploy.list.entry.xpath" value="/applications/shared"/>
-			  <var name="deploy.should.deploy.entry.xpath" value="/applications/shared/lib/name[text()='${project.name}']"/>
-			  <var name="deploy.list.entry" value="&lt;lib&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/lib&gt;"/>
-			  <runtarget target="insert.entry.to.deploy.app.list"/>       
-			</case>
-			<case value="ejb">
-			  <var name="deploy.list.entry.xpath" value="/applications/ejbs"/>
-			  <var name="deploy.should.deploy.entry.xpath" value="/applications/ejbs/ejb/name[text()='${project.name}']"/>
-			  <var name="deploy.list.entry" value="&lt;ejb&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/ejb&gt;"/>
-			  <runtarget target="insert.entry.to.deploy.app.list"/>
-			</case>
-			<case value="executable">
-			  <var name="deploy.list.entry.xpath" value="/applications/execs"/>
-			  <var name="deploy.should.deploy.entry.xpath" value="/applications/execs/executable/name[text()='${project.name}']"/>
-			  <var name="deploy.list.entry" value="&lt;executable&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/executable&gt;"/>
-			  <runtarget target="insert.entry.to.deploy.app.list"/>
-			</case>
-			<default>
-			  <fail message="Deploy type ${deploy.type} is not supported."/>
-			</default>
-		  </switch>
-		</then>
+        <then>
+          <switch value="${deploy.type}">
+            <case value="war">
+              <var name="deploy.list.entry.xpath" value="/applications/wars"/>
+              <var name="deploy.should.deploy.entry.xpath" value="/applications/wars/war/name[text()='${project.name}']"/>
+              <var name="deploy.list.entry" value="&lt;war&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/war&gt;"/>
+              <runtarget target="insert.entry.to.deploy.app.list"/>
+            </case>
+            <case value="shared">
+              <var name="deploy.list.entry.xpath" value="/applications/shared"/>
+              <var name="deploy.should.deploy.entry.xpath" value="/applications/shared/lib/name[text()='${project.name}']"/>
+              <var name="deploy.list.entry" value="&lt;lib&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/lib&gt;"/>
+              <runtarget target="insert.entry.to.deploy.app.list"/>       
+            </case>
+            <case value="ejb">
+              <var name="deploy.list.entry.xpath" value="/applications/ejbs"/>
+              <var name="deploy.should.deploy.entry.xpath" value="/applications/ejbs/ejb/name[text()='${project.name}']"/>
+              <var name="deploy.list.entry" value="&lt;ejb&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/ejb&gt;"/>
+              <runtarget target="insert.entry.to.deploy.app.list"/>
+            </case>
+            <case value="executable">
+              <var name="deploy.list.entry.xpath" value="/applications/execs"/>
+              <var name="deploy.should.deploy.entry.xpath" value="/applications/execs/executable/name[text()='${project.name}']"/>
+              <var name="deploy.list.entry" value="&lt;executable&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/executable&gt;"/>
+              <runtarget target="insert.entry.to.deploy.app.list"/>
+            </case>
+            <default>
+              <fail message="Deploy type ${deploy.type} is not supported."/>
+            </default>
+          </switch>
+        </then>
     </if>
   </target>
   
@@ -129,15 +135,15 @@ layer of abstraction
     <xmltask  source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3">
       <insert path="${deploy.list.entry.xpath}" xml="${deploy.list.entry}"/>
     </xmltask>
-	<if>
-		<istrue value="${deploy.should.deploy}"/>
-		<then>
-			<var name="deploy.should.deploy.entry" value="&lt;should.deploy&gt;true&lt;/should.deploy&gt;"/>
-		</then>
-		<else>
-			<var name="deploy.should.deploy.entry" value="&lt;should.deploy&gt;false&lt;/should.deploy&gt;"/>
-		</else>
-	</if>
+    <if>
+        <istrue value="${deploy.should.deploy}"/>
+        <then>
+            <var name="deploy.should.deploy.entry" value="&lt;should.deploy&gt;true&lt;/should.deploy&gt;"/>
+        </then>
+        <else>
+            <var name="deploy.should.deploy.entry" value="&lt;should.deploy&gt;false&lt;/should.deploy&gt;"/>
+        </else>
+    </if>
     <xmltask  source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3">
       <insert path="${deploy.should.deploy.entry.xpath}" xml="${deploy.should.deploy.entry}" position="after"/>
     </xmltask>
@@ -282,22 +288,22 @@ layer of abstraction
   <target name="help">
     <echo taskname="help">
       run ant -p for the short help
-    	
+        
       This project is in a ${build.config} configuration because the property compile.debug is set to ${compile.debug}.
       To control the configuration set the property compile.debug at the command line like so: -Dcompile.debug=[true|false].
 
       Targets available in this project:
 
       clean - deletes all transient directories and files of this project and it's dependent projects.
-    	
+        
       just.clean - cleans just this project.
 
       source.compile - if out-of-date compiles all source files and copies all resources into the ${build.dir}; also compile all dependent projects.
-    	
+        
       just.source.compile - compiles just this project if out-of-date.
 
       package.create - if out-of-date creates ${dist.file}; also creates packages for all dependent projects.
-    	
+        
       just.package.create - packages just this project if out-of-date.
 
       unittest.run - calls source.compile then executes all the tests in ${unittest.source.dir}.
@@ -308,7 +314,7 @@ layer of abstraction
       The default minimum rates, percents required are ${coverage.threshold.linerate}% line coverage
       and ${coverage.threshold.branchrate}% branch coverage.  Exceptions to the default rates are maintained
       in the file ${coverage.thresholds.file}.
-    	
+        
       just.unittest.run - does what unittest.run does minus the compilation.
 
       integrationtest.run - calls source.compile then executes all tests in ${unittest.source.dir}.
@@ -319,14 +325,14 @@ layer of abstraction
       The default minimum rates, percents required are ${coverage.threshold.linerate}% line coverage
       and ${coverage.threshold.branchrate}% branch coverage.  Exceptions to the default rates are maintained
       in the file ${coverage.thresholds.file}.
-    	
+        
       just.integrationtest.run - does what integrationtest.run does minus the compilation.
 
       webtest.run - executes all tests in ${unittest.source.dir}.
       It is ${webtest.hasTests} that this project has web tests..
       
       deploy - calls package.create then deploys the project's package ${dist.file} if the property deploy.isDeployable is set to true, it is currently marked ${deploy.isDeployable}.
-    	
+        
       just.deploy - deploys the project's package ${dist.file} if the property deploy.isDeployable is set to true, it is currently marked ${deploy.isDeployable}.
     
       undeploy - undeploys the project's package ${dist.file} if the property deploy.isDeployable is set to true, it is currently marked ${deploy.isDeployable}.
@@ -339,5 +345,5 @@ layer of abstraction
     <call target="junit.help"/>
     <call target="coverage.help"/>
     <call target="soapui.help"/>
-  </target>	  	
+  </target>     
 </project>
