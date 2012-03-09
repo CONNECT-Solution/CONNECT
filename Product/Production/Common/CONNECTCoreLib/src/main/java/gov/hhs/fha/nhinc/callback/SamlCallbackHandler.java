@@ -760,6 +760,9 @@ public class SamlCallbackHandler implements CallbackHandler {
      */
     private Evidence createEvidence() throws SAMLException, XWSSecurityException {
         log.debug("SamlCallbackHandler.createEvidence() -- Begin");
+        Boolean defaultInstant=false;
+        Boolean defaultBefore=false;
+        Boolean defaultAfter=false;
 
         String evAssertVersion = ASSERTION_VERSION_2_0;
         if ((tokenVals.containsKey(SamlConstants.EVIDENCE_VERSION_PROP) && tokenVals
@@ -809,6 +812,7 @@ public class SamlCallbackHandler implements CallbackHandler {
                 }
             } else {
                 log.debug("Defaulting Authentication instant to current time");
+                defaultInstant=true;
             }
 
             NameID evIssuerId = null;
@@ -839,6 +843,7 @@ public class SamlCallbackHandler implements CallbackHandler {
                 beginValidTime = createCal(tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP).toString());
             } else {
                 log.debug("Defaulting Evidence NotBefore condition to: current time");
+                defaultBefore=true;
             }
 
             GregorianCalendar endValidTime = calendarFactory();
@@ -847,8 +852,13 @@ public class SamlCallbackHandler implements CallbackHandler {
                 endValidTime = createCal(tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP).toString());
             } else {
                 log.debug("Defaulting Evidence NotAfter condition to: current time");
+                defaultAfter=true;
             }
 
+            if (defaultInstant && defaultBefore && defaultAfter) {
+                log.warn("Begin, End, and Instant time all defaulted to current time.  Set end time to future.");
+                endValidTime.set(Calendar.MINUTE, endValidTime.get(Calendar.MINUTE)+5);
+            }
             if (beginValidTime.after(endValidTime)) {
                 // set beginning time to now
                 beginValidTime = calendarFactory();
