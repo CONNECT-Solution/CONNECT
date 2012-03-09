@@ -86,6 +86,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -325,11 +326,28 @@ public class EntityDocQueryOrchImpl {
                             }
                         }
                     }
+                    //Remove instances of "XDSUnknownPatientId" from error list
+                    if(response != null && response.getRegistryErrorList()!= null) {
+                        RegistryErrorList newRegErrorList = new RegistryErrorList();
+                        for (RegistryError oRegError : response.getRegistryErrorList().getRegistryError()) {
+                            RegistryError regErr = new RegistryError();
+                            if(!oRegError.getCodeContext().equals("XDSUnknownPatientId")) {
+                                newRegErrorList.getRegistryError().add(regErr);
+
+                                oRegError.setCodeContext(oRegError.getCodeContext());
+                                oRegError.setErrorCode(oRegError.getErrorCode());
+                                oRegError.setSeverity(oRegError.getSeverity());
+                            }
+                        }
+                        response.setRegistryErrorList(newRegErrorList);
+                    }
 
                     log.debug("EntityDocQueryOrchImpl taskexecutor done and received response");
                 } else {
-                    log.error("No patient correlations found.");
-                    response = createErrorResponse("No patient correlations found.");
+                    log.debug("EntityDocQueryOrchImpl no patient found, return empty list");
+                    RegistryObjectListType regObjList = new RegistryObjectListType();
+                    response.setRegistryObjectList(regObjList);
+                    response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success");
                 }
             } else {
                 log.error("Incomplete doc query message");

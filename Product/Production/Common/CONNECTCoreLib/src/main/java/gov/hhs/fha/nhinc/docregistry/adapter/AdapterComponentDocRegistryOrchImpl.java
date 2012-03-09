@@ -60,6 +60,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
 /**
  * 
@@ -165,6 +167,7 @@ public class AdapterComponentDocRegistryOrchImpl {
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request) {
         log.debug("Begin AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
 
+        Boolean patientIdSet = false;
         oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory queryObjFact = new oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory();
         oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response = queryObjFact.createAdhocQueryResponse();
 
@@ -235,8 +238,10 @@ public class AdapterComponentDocRegistryOrchImpl {
             log.debug("registryStoredQuery- docs.size: is null");
         }
 
+        patientIdSet = (patientId != null && !patientId.isEmpty());
         // Create response
-        loadResponseMessage(response, docs);
+        //loadResponseMessage(response, docs);
+        loadResponseMessage(response, docs, patientIdSet);
 
         log.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
         return response;
@@ -430,16 +435,33 @@ public class AdapterComponentDocRegistryOrchImpl {
     }
 
     public void loadResponseMessage(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response,
-            List<Document> docs) {
+            List<Document> docs, Boolean patientIdSet) {
         RegistryObjectListType regObjList = new RegistryObjectListType();
         response.setRegistryObjectList(regObjList);
 
-        if (NullChecker.isNullish(docs)) {
-            log.debug("loadResponseMessage - docs size: null");
-            response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
-        } else {
-            log.debug("loadResponseMessage - docs size: " + docs.size());
-            response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+         if (NullChecker.isNullish(docs)) {
+             log.debug("loadResponseMessage - docs size: null");
+            //  If the search criteria included the patient ID, we need to return
+            //  XDSUnknownPatientId (GW-186)
+            if(patientIdSet){
+                log.error("XDSUnknownPatientId");
+                createErrorResponse("XDSUnknownPatientId", response);
+            }else {
+                response.setRegistryObjectList(regObjList);
+                response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+            }
+         } else {
+             log.debug("loadResponseMessage - docs size: " + docs.size());
+            //Check here to see if the document count is 0.
+            //  If the search criteria included the patient ID, we need to return
+            //  XDSUnknownPatientId (GW-186)
+            if(docs.size()==0 && patientIdSet) {
+                log.error("XDSUnknownPatientId");
+                createErrorResponse("XDSUnknownPatientId", response);
+            } else {
+                response.setRegistryObjectList(regObjList);
+                response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+            }
 
             oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
 
@@ -1013,6 +1035,19 @@ public class AdapterComponentDocRegistryOrchImpl {
         oNameLocStr.setValue(sLocStrValue);
         log.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- End");
         return oName;
+    }
+
+    private void createErrorResponse(String codeContext, oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse  response) {
+
+        RegistryErrorList regErrList = new RegistryErrorList();
+        response.setRegistryErrorList(regErrList);
+        response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+        RegistryError regErr = new RegistryError();
+        regErrList.getRegistryError().add(regErr);
+        regErr.setCodeContext(codeContext);
+        regErr.setErrorCode("XDSRepositoryError");
+        regErr.setSeverity("Error");
+
     }
 
 }
