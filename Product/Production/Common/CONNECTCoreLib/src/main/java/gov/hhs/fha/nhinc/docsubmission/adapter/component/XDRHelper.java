@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFactory;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -106,11 +107,8 @@ public class XDRHelper {
     public static final String XDS_MISSING_REQUEST_MESSAGE_DATA = "The ProvideAndRegisterDocumentSetRequest message did not contain any data to operate on. No documents will be stored.";
     public static final String XDS_MISSING_DOCUMENT_METADATA = "A document exists in the submission with no corresponding document metadata. Document will not be stored.";
     public static final String XDS_REPOSITORY_ERROR = "An error occurred while storing a document to the repository.";
-    public static final String XDS_ERROR_SEVERITY_WARNING = "WARNING";
-    public static final String XDS_ERROR_SEVERITY_SEVERE = "SEVERE";
-    public static final String XDS_ERROR_SEVERITY_ERROR = "ERROR";
     public static final String XDS_ASSOCIATION_TYPE_REPLACE = "urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC";
-
+    
     public XDRHelper() {
         log = createLogger();
     }
@@ -137,7 +135,7 @@ public class XDRHelper {
 
         log.debug("begin validateDocumentMetaData()");
         if (body == null) {
-            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument, XDS_ERROR_SEVERITY_ERROR,
+            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument, NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                     "ProvideAndRegisterDocumentSetRequestType was null");
 
             result.getRegistryError().add(error);
@@ -146,11 +144,11 @@ public class XDRHelper {
             return processErrorList(result);
         }
         if (body.getDocument() == null) {
-            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument, XDS_ERROR_SEVERITY_ERROR,
+            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument, NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                     "ProvideAndRegisterDocumentSetRequestType did not contain a DocumentList");
             result.getRegistryError().add(error);
         } else if (body.getDocument().size() == 0) {
-            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument, XDS_ERROR_SEVERITY_ERROR,
+            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument, NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                     "DocumentList did not contain any documents");
             result.getRegistryError().add(error);
         }
@@ -172,7 +170,7 @@ public class XDRHelper {
                 if (isSupportedMimeType(mimeType) == false) {
 
                     RegistryError error = createRegistryError(XDR_EC_XDSMissingDocumentMetadata,
-                            XDS_ERROR_SEVERITY_ERROR, "Unsupported Mime Type: " + mimeType);
+                            NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, "Unsupported Mime Type: " + mimeType);
                     result.getRegistryError().add(error);
                 }
                 String docId = extObj.getId();
@@ -180,14 +178,14 @@ public class XDRHelper {
 
                 if (isDocIdPresent(body.getDocument(), docId) == false) {
 
-                    RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument, XDS_ERROR_SEVERITY_ERROR,
+                    RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument, NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                             "Document Id: " + docId + " exists in metadata with no corresponding attached document");
                     result.getRegistryError().add(error);
                 }
                 String localPatId = getPatientId(extObj.getSlot());
 
                 if (localPatId.isEmpty()) {
-                    RegistryError error = createRegistryError(XDR_EC_XDSUnknownPatientId, XDS_ERROR_SEVERITY_ERROR,
+                    RegistryError error = createRegistryError(XDR_EC_XDSUnknownPatientId, NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                             "Patient ID referenced in metadata is not known to the Receiving NHIE");
                     result.getRegistryError().add(error);
                 }
@@ -196,7 +194,7 @@ public class XDRHelper {
         }
 
         if (patientIdsMatch(metaPatIds) == false) {
-            RegistryError error = createRegistryError(XDR_EC_XDSPatientIdDoesNotMatch, XDS_ERROR_SEVERITY_ERROR,
+            RegistryError error = createRegistryError(XDR_EC_XDSPatientIdDoesNotMatch, NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                     "Patient Ids do not match");
             result.getRegistryError().add(error);
         }
@@ -495,15 +493,12 @@ public class XDRHelper {
             break;
         }
         case 1: {
-            result = XDS_ERROR_SEVERITY_WARNING;
+            result = NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_WARNING;
             break;
         }
-        case 2: {
-            result = XDS_ERROR_SEVERITY_SEVERE;
-            break;
-        }
+        case 2: 
         case 3: {
-            result = XDS_ERROR_SEVERITY_ERROR;
+            result = NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR;
             break;
         }
         default: {
@@ -520,12 +515,10 @@ public class XDRHelper {
 
         if (severity.equalsIgnoreCase("")) {
             result = 0;
-        } else if (severity.equalsIgnoreCase(XDS_ERROR_SEVERITY_WARNING)) {
+        } else if (severity.equalsIgnoreCase(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_WARNING)) {
             result = 1;
-        } else if (severity.equalsIgnoreCase(XDS_ERROR_SEVERITY_SEVERE)) {
+        } else if (severity.equalsIgnoreCase(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR)) {
             result = 2;
-        } else if (severity.equalsIgnoreCase(XDS_ERROR_SEVERITY_ERROR)) {
-            result = 3;
         } else {
             result = -1;
         }

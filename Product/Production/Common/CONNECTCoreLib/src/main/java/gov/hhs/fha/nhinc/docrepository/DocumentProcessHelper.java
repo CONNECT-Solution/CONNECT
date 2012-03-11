@@ -70,7 +70,6 @@ public class DocumentProcessHelper {
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
 
     private static final String XDS_ERROR_CODE_MISSING_REQUEST_MESSAGE_DATA = "MISSING_DATA";
-    private static final String XDS_ERROR_SEVERITY_SEVERE = "SEVERE";
     private static final String XDS_MISSING_REQUEST_MESSAGE_DATA_DOCQUERY = "The AdhocQueryResponse message did not contain any data to operate on. No documents will be stored.";
     private static final String XDS_MISSING_REQUEST_MESSAGE_DATA_DOCRETRIEVE = "The AdhocQueryResponse message did not contain any data to operate on. No documents will be stored.";
     private static final String XDS_MISSING_DOCUMENT_METADATA = "A document exists in the submission with no corresponding document metadata. Document will not be stored.";
@@ -153,7 +152,7 @@ public class DocumentProcessHelper {
             error.setCodeContext("AdhocQueryResponse message handler did not find a required element");
             error.setLocation("DocumentProcessHelper.documentRepositoryProvideAndRegisterDocumentSet(AdhocQueryResponse)");
             error.setErrorCode(XDS_ERROR_CODE_MISSING_REQUEST_MESSAGE_DATA);
-            error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
+            error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             error.setValue(XDS_MISSING_REQUEST_MESSAGE_DATA_DOCQUERY + " The AdhocQueryResponse message is null.");
 
             errorList.getRegistryError().add(error);
@@ -213,7 +212,7 @@ public class DocumentProcessHelper {
             error.setCodeContext("RetrieveDocumentSetResponseType message handler did not find a required element");
             error.setLocation("DocumentProcessHelper.documentRepositoryProvideAndRegisterDocumentSet(RetrieveDocumentSetResponseType)");
             error.setErrorCode(XDS_ERROR_CODE_MISSING_REQUEST_MESSAGE_DATA);
-            error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
+            error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             error.setValue(XDS_MISSING_REQUEST_MESSAGE_DATA_DOCRETRIEVE
                     + " The RetrieveDocumentSetResponseType message is null.");
 

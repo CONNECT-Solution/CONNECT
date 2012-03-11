@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
@@ -68,8 +69,7 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
     private static final QName ExtrinsicObjectQname = new QName("urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0",
             "ExtrinsicObject");
-    private static final String XDS_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-
+    
     public OutboundDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL level) {
         cumulativeSpecLevel = level;
     }
@@ -216,7 +216,7 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
             regErr.setCodeContext(e.getMessage());
             regErr.setValue("Exception aggregating response from target homeId="
                     + individual.getTarget().getHomeCommunity().getHomeCommunityId());
-            regErr.setSeverity("Error");
+            regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             if (cumulative instanceof OutboundDocQueryOrchestratable_a0) {
                 OutboundDocQueryOrchestratable_a0 cumulativeResponse = (OutboundDocQueryOrchestratable_a0) cumulative;
                 if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null) {
@@ -273,12 +273,12 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
                 request.getTarget(), request.getRequest());
         AdhocQueryResponse adhocresponse = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
-        adhocresponse.setStatus(XDS_RESPONSE_STATUS_FAILURE);
+        adhocresponse.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         RegistryError regErr = new RegistryError();
         regErr.setErrorCode("XDSRepositoryError");
         regErr.setCodeContext("Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
         regErr.setValue(error);
-        regErr.setSeverity("Error");
+        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         regErrList.getRegistryError().add(regErr);
         adhocresponse.setRegistryErrorList(regErrList);
         response.setResponse(adhocresponse);
@@ -300,12 +300,12 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
                 request.getTarget(), request.getRequest());
         AdhocQueryResponse adhocresponse = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
-        adhocresponse.setStatus(XDS_RESPONSE_STATUS_FAILURE);
+        adhocresponse.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         RegistryError regErr = new RegistryError();
         regErr.setErrorCode("XDSRepositoryError");
         regErr.setCodeContext("Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
         regErr.setValue(error);
-        regErr.setSeverity("Error");
+        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         regErrList.getRegistryError().add(regErr);
         adhocresponse.setRegistryErrorList(regErrList);
         response.setResponse(adhocresponse);

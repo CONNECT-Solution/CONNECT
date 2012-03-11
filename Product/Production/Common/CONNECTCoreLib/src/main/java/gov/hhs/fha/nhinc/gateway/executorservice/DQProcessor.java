@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
@@ -111,7 +112,7 @@ public class DQProcessor<Target extends QualifiedSubjectIdentifierType, Request 
             regErr.setCodeContext(e.getMessage());
             regErr.setValue("Error from target aaId=" + t.getAssigningAuthorityIdentifier()
                     + " and target subjectIdentifier=" + t.getSubjectIdentifier());
-            regErr.setSeverity("Error");
+            regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             cumulativeResponse.getRegistryErrorList().getRegistryError().add(regErr);
             cumulativeResponse.setTotalResultCount(cumulativeResponse.getTotalResultCount().add(BigInteger.ONE));
         }
@@ -137,7 +138,7 @@ public class DQProcessor<Target extends QualifiedSubjectIdentifierType, Request 
         regErr.setCodeContext(error);
         regErr.setValue("Error from target aaId=" + t.getAssigningAuthorityIdentifier()
                 + " and target subjectIdentifier=" + t.getSubjectIdentifier());
-        regErr.setSeverity("Error");
+        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         regErrList.getRegistryError().add(regErr);
         adhocresponse.setRegistryErrorList(regErrList);
         return (Response) adhocresponse;

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.transform.document;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
@@ -59,7 +60,7 @@ public class DocQueryAckTranforms {
             RegistryError regError = new RegistryError();
             regError.setErrorCode(errCode);
             regError.setCodeContext(errText);
-            regError.setSeverity("urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error");
+            regError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             RegistryErrorList errorList = new RegistryErrorList();
             errorList.getRegistryError().add(regError);
             regResp.setRegistryErrorList(errorList);

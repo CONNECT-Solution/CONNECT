@@ -120,8 +120,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
     public static final String XDS_MISSING_REQUEST_MESSAGE_DATA = "The ProvideAndRegisterDocumentSetRequest message did not contain any data to operate on. No documents will be stored.";
     public static final String XDS_MISSING_DOCUMENT_METADATA = "A document exists in the submission with no corresponding document metadata. Document will not be stored.";
     public static final String XDS_REPOSITORY_ERROR = "An error occurred while storing a document to the repository.";
-    public static final String XDS_ERROR_SEVERITY_SEVERE = "SEVERE";
-    public static final String XDS_ERROR_SEVERITY_ERROR = "ERROR";
     public static final String XDS_ASSOCIATION_TYPE_REPLACE = "urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC";
     // private static final String DATE_FORMAT_STRING = "yyyyMMddhhmmss";
     private static final String VALUE_LIST_SEPERATOR = "~";
@@ -318,7 +316,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 regErrList.getRegistryError().add(regErr);
                 regErr.setCodeContext("Document id not found");
                 regErr.setErrorCode("XDSDocumentUniqueIdError");
-                regErr.setSeverity("Error");
+                regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             }
 
             registryResponse.setStatus(responseStatus);
@@ -352,7 +350,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> "
                     + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet; "); // kludgy?
             error.setErrorCode(XDS_ERROR_CODE_MISSING_REQUEST_MESSAGE_DATA);
-            error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
+            error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             error.setValue(XDS_MISSING_REQUEST_MESSAGE_DATA
                     + "ProvideAndRegisterDocumentSetRequestType element is null.");
 
@@ -408,7 +406,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> "
                                 + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet"); // kludgy?
                         error.setErrorCode(XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA);
-                        error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
+                        error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                         error.setValue(XDS_MISSING_DOCUMENT_METADATA + "extrinsicObject.getExternalIdentifier() element is null or empty.");
 
                         errorList.getRegistryError().add(error);
@@ -434,7 +432,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                             error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> "
                                     + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet extractDocumentId"); // kludgy?
                             error.setErrorCode(XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA);
-                            error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
+                            error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                             error.setValue(XDS_MISSING_DOCUMENT_METADATA + "DocumentUniqueId was missing.");
 
                             errorList.getRegistryError().add(error);
@@ -459,7 +457,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                             error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> "
                                     + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet extractPatientId"); // kludgy?
                             error.setErrorCode(XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA);
-                            error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
+                            error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                             error.setValue(XDS_MISSING_DOCUMENT_METADATA + "PatientId was missing.");
 
                             errorList.getRegistryError().add(error);
@@ -739,7 +737,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                             error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> "
                                     + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet storeDocument"); // kludgy?
                             error.setErrorCode(XDS_ERROR_CODE_REPOSITORY_ERROR);
-                            error.setSeverity(XDS_ERROR_SEVERITY_ERROR);
+                            error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                             error.setValue(XDS_REPOSITORY_ERROR + "\n" + "DocumentUniqueId: " + documentUniqueId);
 
                             errorList.getRegistryError().add(error);
@@ -798,7 +796,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> "
                             + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet"); // kludgy?
                     error.setErrorCode(XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA);
-                    error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
+                    error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                     error.setValue(XDS_MISSING_DOCUMENT_METADATA + "associationType element is null.");
 
                     errorList.getRegistryError().add(error);

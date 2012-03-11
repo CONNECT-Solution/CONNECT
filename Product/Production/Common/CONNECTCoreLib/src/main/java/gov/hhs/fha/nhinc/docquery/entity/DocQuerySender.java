@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.gateway.aggregator.SetResponseMsgDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocQueryAggregator;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
@@ -143,9 +144,9 @@ public class DocQuerySender {
                 regErr.setCodeContext("Fault encountered processing internal document query for community "
                         + sTargetHomeCommunityId);
                 regErr.setErrorCode("XDSRegistryNotAvailable");
-                regErr.setSeverity("Error");
+                regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                 queryResults.setRegistryErrorList(regErrList);
-                queryResults.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+                queryResults.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
             }
         } else {
             queryResults = new AdhocQueryResponse();
@@ -154,9 +155,9 @@ public class DocQuerySender {
             regErrList.getRegistryError().add(regErr);
             regErr.setCodeContext("Policy Check Failed");
             regErr.setErrorCode("XDSRepositoryError");
-            regErr.setSeverity("Error");
+            regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             queryResults.setRegistryErrorList(regErrList);
-            queryResults.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            queryResults.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         }
         registerResponseMessage(queryResults, sTargetHomeCommunityId);
     }

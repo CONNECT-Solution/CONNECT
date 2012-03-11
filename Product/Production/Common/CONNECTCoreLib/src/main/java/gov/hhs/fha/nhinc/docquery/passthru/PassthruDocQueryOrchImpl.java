@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
@@ -58,8 +59,6 @@ import org.apache.commons.logging.LogFactory;
 public class PassthruDocQueryOrchImpl {
 
     private static Log log = LogFactory.getLog(PassthruDocQueryOrchImpl.class);
-
-    private static final String XDS_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
 
     /**
      * 
@@ -122,12 +121,12 @@ public class PassthruDocQueryOrchImpl {
     private AdhocQueryResponse generateErrorResponse(NhinTargetSystemType target, String error) {
         AdhocQueryResponse adhocResponse = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
-        adhocResponse.setStatus(XDS_RESPONSE_STATUS_FAILURE);
+        adhocResponse.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         RegistryError regErr = new RegistryError();
         regErr.setErrorCode("XDSRepositoryError");
         regErr.setCodeContext("Error from target homeId=" + target.getHomeCommunity().getHomeCommunityId());
         regErr.setValue(error);
-        regErr.setSeverity("Error");
+        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         regErrList.getRegistryError().add(regErr);
         adhocResponse.setRegistryErrorList(regErrList);
         

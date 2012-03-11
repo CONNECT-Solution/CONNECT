@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docquery.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
@@ -50,7 +51,6 @@ public class AdapterDocQueryOrchImpl {
     private Log log = null;
     private static final String ERROR_CODE_CONTEXT = AdapterDocQueryOrchImpl.class.getName();
     private static final String ERROR_VALUE = "Input has null value";
-    private static final String ERROR_SEVERITY = "Error";
 
     public AdapterDocQueryOrchImpl() {
         log = createLogger();
@@ -99,11 +99,13 @@ public class AdapterDocQueryOrchImpl {
             } else {
                 RegistryErrorList errorList = new RegistryErrorList();
                 response = new AdhocQueryResponse();
+                response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+                
                 RegistryError e = new RegistryError();
                 errorList.getRegistryError().add(e);
                 response.setRegistryErrorList(errorList);
                 e.setValue(ERROR_VALUE);
-                e.setSeverity(ERROR_SEVERITY);
+                e.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                 e.setCodeContext(ERROR_CODE_CONTEXT);
             }
         } catch (Exception exp) {

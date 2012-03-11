@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryHelper;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
@@ -209,9 +210,9 @@ public class DQClient<Target extends QualifiedSubjectIdentifierType, Request ext
                 regErrList.getRegistryError().add(regErr);
                 regErr.setCodeContext("Policy Check Failed");
                 regErr.setErrorCode("XDSRepositoryError");
-                regErr.setSeverity("Error");
+                regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                 adhocQueryResponse.setRegistryErrorList(regErrList);
-                adhocQueryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+                adhocQueryResponse.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
             }
         } catch (Exception e) {
             ExecutorServiceHelper.getInstance().outputCompleteException(e);

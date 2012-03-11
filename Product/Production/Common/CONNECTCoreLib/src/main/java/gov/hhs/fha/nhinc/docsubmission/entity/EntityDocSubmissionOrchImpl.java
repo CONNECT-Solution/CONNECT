@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
@@ -71,14 +72,14 @@ public class EntityDocSubmissionOrchImpl {
             response = getResponseFromTarget(secureRequest, assertion);
         } else {
             RegistryErrorList regErrList = new RegistryErrorList();
-            regErrList.setHighestSeverity("urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error");
+            regErrList.setHighestSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             RegistryError regErr = new RegistryError();
             regErrList.getRegistryError().add(regErr);
             regErr.setCodeContext("Policy Check Failed");
             regErr.setErrorCode("CONNECTPolicyCheckFailed");
-            regErr.setSeverity("urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error");
+            regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             response.setRegistryErrorList(regErrList);
-            response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            response.setStatus(DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
             log.error("Sending Policy Check Deny in the Registry Response");
         }
 
@@ -164,9 +165,9 @@ public class EntityDocSubmissionOrchImpl {
                         + request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity()
                                 .getHomeCommunityId());
                 regErr.setErrorCode("XDSRegistryBusy");
-                regErr.setSeverity("urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error");
+                regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                 nhinResponse.setRegistryErrorList(regErrList);
-                nhinResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+                nhinResponse.setStatus(DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
                 log.error("Fault encountered processing provideAndRegisterDocumentSetB for community "
                         + request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity()
                                 .getHomeCommunityId());

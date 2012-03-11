@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
@@ -97,8 +98,8 @@ public class XDRHelperTest {
         RegistryErrorList result = instance.validateDocumentMetaData(body);
         assertNotNull(result);
         assertEquals(1, result.getRegistryError().size());
-        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
-        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
+        assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
+        assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
         assertEquals(XDRHelper.XDR_EC_XDSMissingDocument, result.getRegistryError().get(0).getErrorCode());
         assertNotNull(result.getRegistryError().get(0).getCodeContext());
 
@@ -177,8 +178,8 @@ public class XDRHelperTest {
         RegistryErrorList result = instance.validateDocumentMetaData(body);
         assertNotNull(result);
         assertEquals(1, result.getRegistryError().size());
-        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
-        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
+        assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
+        assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
         assertEquals(XDRHelper.XDR_EC_XDSMissingDocument, result.getRegistryError().get(0).getErrorCode());
         assertNotNull(result.getRegistryError().get(0).getCodeContext());
 
@@ -194,8 +195,8 @@ public class XDRHelperTest {
         RegistryErrorList result = instance.validateDocumentMetaData(body);
         assertNotNull(result);
         assertEquals(1, result.getRegistryError().size());
-        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
-        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
+        assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
+        assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
         assertNotNull(result.getRegistryError().get(0).getCodeContext());
     }
 
@@ -221,8 +222,8 @@ public class XDRHelperTest {
         RegistryErrorList result = instance.validateDocumentMetaData(body);
         assertNotNull(result);
         assertEquals(1, result.getRegistryError().size());
-        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
-        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
+        assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
+        assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
         assertEquals(XDRHelper.XDR_EC_XDSPatientIdDoesNotMatch, result.getRegistryError().get(0).getErrorCode());
         assertNotNull(result.getRegistryError().get(0).getCodeContext());
     }

@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.component;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.XDRRouting;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
@@ -55,7 +56,7 @@ public class AdapterComponentDocSubmissionOrchImpl {
 
         RegistryResponseType result = null;
 
-        if (errorList.getHighestSeverity().equals(helper.XDS_ERROR_SEVERITY_ERROR)) {
+        if (errorList.getHighestSeverity().equals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR)) {
             result = helper.createErrorResponse(errorList);
         } else {
             log.info(" Request contained " + msg.getDocument().size() + " documents.");

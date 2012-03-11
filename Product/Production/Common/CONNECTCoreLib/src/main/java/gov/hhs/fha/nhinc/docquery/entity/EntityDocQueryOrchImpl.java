@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
 
@@ -103,9 +104,6 @@ public class EntityDocQueryOrchImpl {
     private Log log = null;
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
-
-    private static final String RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
@@ -268,7 +266,7 @@ public class EntityDocQueryOrchImpl {
                                     + target.getHomeCommunity().getHomeCommunityId() + " and aaId="
                                     + identifier.getAssigningAuthorityIdentifier());
                             regErr.setErrorCode("XDSRepositoryError");
-                            regErr.setSeverity("Error");
+                            regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                             policyErrList.getRegistryError().add(regErr);
                         }
                     }
@@ -288,7 +286,7 @@ public class EntityDocQueryOrchImpl {
                             response = orchResponse_g0.getCumulativeResponse();
                         } else {
                             log.debug("No callable requests were sent out.  Setting response to failure.");
-                            response.setStatus(RESPONSE_STATUS_FAILURE);
+                            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
                         }
                         
                         // add any errors from policyErrList to response
@@ -312,7 +310,7 @@ public class EntityDocQueryOrchImpl {
                             response = orchResponse_g1.getCumulativeResponse();
                         } else {
                             log.debug("No callable requests were sent out.  Setting response to failure.");
-                            response.setStatus(RESPONSE_STATUS_FAILURE);
+                            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
                         }
                         
                         // add any errors from policyErrList to response
@@ -485,12 +483,12 @@ public class EntityDocQueryOrchImpl {
         AdhocQueryResponse response = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
         response.setRegistryErrorList(regErrList);
-        response.setStatus(RESPONSE_STATUS_FAILURE);
+        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         RegistryError regErr = new RegistryError();
         regErrList.getRegistryError().add(regErr);
         regErr.setCodeContext(codeContext);
         regErr.setErrorCode("XDSRepositoryError");
-        regErr.setSeverity("Error");
+        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         return response;
     }
 

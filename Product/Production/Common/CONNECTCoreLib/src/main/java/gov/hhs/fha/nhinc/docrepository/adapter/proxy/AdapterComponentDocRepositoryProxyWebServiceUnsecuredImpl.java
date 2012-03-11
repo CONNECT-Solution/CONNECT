@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docrepository.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -129,12 +130,12 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
             response = new RetrieveDocumentSetResponseType();
             RegistryResponseType regResp = new RegistryResponseType();
 
-            regResp.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            regResp.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 
             RegistryError registryError = new RegistryError();
             registryError.setCodeContext("Processing Adapter Doc Query document retrieve");
             registryError.setErrorCode("XDSRepostoryError");
-            registryError.setSeverity("Error");
+            registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             regResp.getRegistryErrorList().getRegistryError().add(registryError);
             response.setRegistryResponse(regResp);
         }

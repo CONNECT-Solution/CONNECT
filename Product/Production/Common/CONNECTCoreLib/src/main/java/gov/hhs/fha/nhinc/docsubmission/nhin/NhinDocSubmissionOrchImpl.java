@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -48,8 +49,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhinDocSubmissionOrchImpl {
 
-    public static final String XDR_RESPONSE_SUCCESS = "Success";
-    public static final String XDR_RESPONSE_FAILURE = "Failure";
     public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed ";
     public static final String XDR_POLICY_ERROR_CONTEXT = "Policy Check Failed";
     private static Log log = null;
@@ -123,7 +122,7 @@ public class NhinDocSubmissionOrchImpl {
     private RegistryResponseType createPositiveAck() {
         RegistryResponseType result = new RegistryResponseType();
 
-        result.setStatus(XDR_RESPONSE_SUCCESS);
+        result.setStatus(DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_SUCCESS);
 
         return result;
     }
@@ -135,9 +134,9 @@ public class NhinDocSubmissionOrchImpl {
         RegistryError policyError = new RegistryError();
         policyError.setErrorCode(XDR_POLICY_ERROR);
         policyError.setCodeContext(XDR_POLICY_ERROR_CONTEXT);
-        policyError.setSeverity("Error");
+        policyError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
 
-        result.setStatus(XDR_RESPONSE_FAILURE);
+        result.setStatus(DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
         result.getRegistryErrorList().getRegistryError().add(policyError);
 
         return result;
