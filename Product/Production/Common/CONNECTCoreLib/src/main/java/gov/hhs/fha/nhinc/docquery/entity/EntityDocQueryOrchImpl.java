@@ -326,17 +326,20 @@ public class EntityDocQueryOrchImpl {
                             }
                         }
                     }
+
+                    RegistryErrorList newRegErrorList = null;
                     //Remove instances of "XDSUnknownPatientId" from error list
                     if(response != null && response.getRegistryErrorList()!= null) {
-                        RegistryErrorList newRegErrorList = new RegistryErrorList();
+                        newRegErrorList = new RegistryErrorList();
+                        
                         for (RegistryError oRegError : response.getRegistryErrorList().getRegistryError()) {
-                            RegistryError regErr = new RegistryError();
                             if(!oRegError.getCodeContext().equals("XDSUnknownPatientId")) {
-                                newRegErrorList.getRegistryError().add(regErr);
+                                RegistryError regErr = new RegistryError();
+                                regErr.setCodeContext(oRegError.getCodeContext());
+                                regErr.setErrorCode(oRegError.getErrorCode());
+                                regErr.setSeverity(oRegError.getSeverity());
 
-                                oRegError.setCodeContext(oRegError.getCodeContext());
-                                oRegError.setErrorCode(oRegError.getErrorCode());
-                                oRegError.setSeverity(oRegError.getSeverity());
+                                newRegErrorList.getRegistryError().add(regErr);
                             }
                         }
                         response.setRegistryErrorList(newRegErrorList);
