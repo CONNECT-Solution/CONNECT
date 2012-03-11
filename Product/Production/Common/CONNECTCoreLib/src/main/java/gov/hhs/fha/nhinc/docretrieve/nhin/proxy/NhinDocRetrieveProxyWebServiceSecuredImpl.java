@@ -34,6 +34,7 @@ import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docrepository.DocumentProcessHelper;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -132,12 +133,12 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                     + "Exception: " + e.getMessage(), e);
             RegistryResponseType regResp = new RegistryResponseType();
 
-            regResp.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            regResp.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
 
             RegistryError registryError = new RegistryError();
             registryError.setCodeContext("Processing Adapter Doc Query document retrieve");
             registryError.setErrorCode("XDSRepostoryError");
-            registryError.setSeverity("Error");
+            registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             if (regResp.getRegistryErrorList() == null) {
                 regResp.setRegistryErrorList(new RegistryErrorList());
             }

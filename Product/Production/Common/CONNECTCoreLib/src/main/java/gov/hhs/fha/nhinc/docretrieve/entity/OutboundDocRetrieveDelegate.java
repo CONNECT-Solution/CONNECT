@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
@@ -103,14 +104,14 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
 		RegistryResponseType responseType = new RegistryResponseType();
 		response.setRegistryResponse(responseType);
 		responseType
-				.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+				.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
 		RegistryErrorList regErrList = new RegistryErrorList();
 		responseType.setRegistryErrorList(regErrList);
 		RegistryError regErr = new RegistryError();
 		regErrList.getRegistryError().add(regErr);
 		regErr.setCodeContext(errorContext);
 		regErr.setErrorCode(errorCode);
-		regErr.setSeverity("Error");
+		regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
 		
 		message.setResponse(response);
 	}

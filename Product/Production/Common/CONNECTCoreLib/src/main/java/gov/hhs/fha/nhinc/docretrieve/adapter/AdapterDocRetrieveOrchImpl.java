@@ -29,9 +29,12 @@ package gov.hhs.fha.nhinc.docretrieve.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxy;
 import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
@@ -86,11 +89,21 @@ public class AdapterDocRetrieveOrchImpl {
             Timestamp stoptime = new Timestamp(System.currentTimeMillis());
             PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
         } catch (Throwable t) {
-            log.error("Error processing an adapter document retrieve message: " + t.getMessage(), t);
+            String errorMsg = "Error processing an adapter document retrieve message: " + t.getMessage();
+            log.error(errorMsg, t);
             response = new RetrieveDocumentSetResponseType();
             RegistryResponseType responseType = new RegistryResponseType();
             response.setRegistryResponse(responseType);
-            responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            responseType.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
+            
+            RegistryError registryError = new RegistryError();
+            registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+            registryError.setCodeContext(errorMsg);
+            registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);            
+            RegistryErrorList registryErrorList = new RegistryErrorList();
+            registryErrorList.getRegistryError().add(registryError);
+            
+            responseType.setRegistryErrorList(registryErrorList);
         }
         log.debug("Leaving AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
         return response;

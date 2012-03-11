@@ -33,6 +33,8 @@ import gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxy;
 import gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyObjectFactory;
 import gov.hhs.fha.nhinc.gateway.aggregator.SetResponseMsgDocRetrieveRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocRetrieveAggregator;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -115,9 +117,9 @@ public class DocRetrieveSender {
                 regErr.setCodeContext("Fault encountered processing internal document retrieve for community "
                         + homeCommunityId);
                 regErr.setErrorCode("XDSRegistryNotAvailable");
-                regErr.setSeverity("Error");
+                regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                 registryResponse.setRegistryErrorList(regErrList);
-                registryResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+                registryResponse.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
                 log.error("Fault encountered processing internal document retrieve for community " + homeCommunityId);
             }
 

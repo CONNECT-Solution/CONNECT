@@ -198,14 +198,14 @@ public class EntityDocRetrieveOrchImpl {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         RegistryResponseType responseType = new RegistryResponseType();
         response.setRegistryResponse(responseType);
-        responseType.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+        responseType.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
         RegistryErrorList regErrList = new RegistryErrorList();
         responseType.setRegistryErrorList(regErrList);
         RegistryError regErr = new RegistryError();
         regErrList.getRegistryError().add(regErr);
         regErr.setCodeContext(codeContext);
         regErr.setErrorCode("XDSRegistryError");
-        regErr.setSeverity("Error");
+        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         return response;
     }
 
