@@ -26,8 +26,18 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
+import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
+import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
+
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -54,23 +64,65 @@ public class NhinDocRetrieveAuditTransformer_g0Test {
 
     @Before
     public void setUp() {
+        mockingContext = new JUnit4Mockery() {
+            {
+                setImposteriser(ClassImposteriser.INSTANCE);
+            }
+        };
+        mockedDependency = mockingContext.mock(AuditRepositoryLogger.class);
     }
 
     @After
     public void tearDown() {
     }
+    
+    private Mockery mockingContext;
+    private AuditRepositoryLogger mockedDependency;
 
+    private InboundDocRetrieveAuditTransformer_g0 createInboundDocRetrieveAuditTransformer_g0() {
+        return new InboundDocRetrieveAuditTransformer_g0() {
+            
+            @Override
+            protected AuditRepositoryLogger getAuditRepositoryLogger() {
+                return mockedDependency;
+            }
+        };
+    }
+    
+
+    private LogEventRequestType mockLogEventRequestType() {
+        LogEventRequestType req = new LogEventRequestType();
+        req.setDirection("Inbound");
+        req.setInterface("Nhin");
+        AssertionType assertion = new AssertionType();
+        HomeCommunityType hcid = new HomeCommunityType();
+        hcid.setHomeCommunityId("1.1");
+        assertion.setHomeCommunity(hcid);
+        req.setAssertion(assertion);
+
+        return req;
+    }
+    
     /**
      * Test of transformRequest method, of class NhinDocRetrieveAuditTransformer_g0.
      */
     @Test
     public void testTransformRequest() {
-        /*
-         * Orchestratable message = null; NhinDocRetrieveAuditTransformer_g0 instance = new
-         * NhinDocRetrieveAuditTransformer_g0(); LogEventRequestType expResult = null; LogEventRequestType result =
-         * instance.transformRequest(message); assertEquals(expResult, result);
-         */
-        // TODO: update this test once we can mock Orchestratable and the LogEventRequestType
+        InboundDocRetrieveOrchestratableFactory factory = new InboundDocRetrieveOrchestratableFactory();
+        Orchestratable message = factory.getNhinDocRetrieveOrchestratableImpl_a0();
+        InboundDocRetrieveAuditTransformer_g0 instance = createInboundDocRetrieveAuditTransformer_g0();
+
+        mockingContext.checking(new Expectations() {
+            {
+                one(mockedDependency).logDocRetrieve(with(any(DocRetrieveMessageType.class)), with(any(String.class)),
+                        with(any(String.class)), with("1.1"));
+                will(returnValue(mockLogEventRequestType()));
+            }
+        });
+        LogEventRequestType result = instance.transformRequest(message);
+        assertEquals("Inbound", result.getDirection());
+        assertEquals("Nhin", result.getInterface());
+        assertEquals("1.1", result.getAssertion().getHomeCommunity().getHomeCommunityId());
     }
 
     /**
@@ -78,12 +130,21 @@ public class NhinDocRetrieveAuditTransformer_g0Test {
      */
     @Test
     public void testTransformResponse() {
-        /*
-         * Orchestratable message = null; NhinDocRetrieveAuditTransformer_g0 instance = new
-         * NhinDocRetrieveAuditTransformer_g0(); LogEventRequestType expResult = null; LogEventRequestType result =
-         * instance.transformResponse(message); assertEquals(expResult, result);
-         */
-        // TODO: update this test once we can mock Orchestratable and the LogEventRequestType
+        InboundDocRetrieveOrchestratableFactory factory = new InboundDocRetrieveOrchestratableFactory();
+        Orchestratable message = factory.getNhinDocRetrieveOrchestratableImpl_a0();
+        InboundDocRetrieveAuditTransformer_g0 instance = createInboundDocRetrieveAuditTransformer_g0();
+
+        mockingContext.checking(new Expectations() {
+            {
+                one(mockedDependency).logDocRetrieveResult(with(any(DocRetrieveResponseMessageType.class)), with(any(String.class)),
+                        with(any(String.class)), with(any(String.class)));
+                will(returnValue(mockLogEventRequestType()));
+            }
+        });
+        LogEventRequestType result = instance.transformResponse(message);
+        assertEquals("Inbound", result.getDirection());
+        assertEquals("Nhin", result.getInterface());
+        assertEquals("1.1", result.getAssertion().getHomeCommunity().getHomeCommunityId());
     }
 
 }

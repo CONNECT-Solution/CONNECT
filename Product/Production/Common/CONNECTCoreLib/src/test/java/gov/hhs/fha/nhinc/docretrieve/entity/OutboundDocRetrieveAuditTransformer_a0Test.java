@@ -87,7 +87,7 @@ public class OutboundDocRetrieveAuditTransformer_a0Test {
 
     private LogEventRequestType mockLogEventRequestType() {
         LogEventRequestType req = new LogEventRequestType();
-        req.setDirection("Inbound");
+        req.setDirection("Outbound");
         req.setInterface("Nhin");
 
         return req;
@@ -110,7 +110,7 @@ public class OutboundDocRetrieveAuditTransformer_a0Test {
             }
         });
         LogEventRequestType result = instance.transformRequest(message);
-        assertEquals("Inbound", result.getDirection());
+        assertEquals("Outbound", result.getDirection());
         assertEquals("Nhin", result.getInterface());
     }
 
@@ -131,7 +131,7 @@ public class OutboundDocRetrieveAuditTransformer_a0Test {
             }
         });
         LogEventRequestType result = instance.transformResponse(message);
-        assertEquals("Inbound", result.getDirection());
+        assertEquals("Outbound", result.getDirection());
         assertEquals("Nhin", result.getInterface());
     }
 }

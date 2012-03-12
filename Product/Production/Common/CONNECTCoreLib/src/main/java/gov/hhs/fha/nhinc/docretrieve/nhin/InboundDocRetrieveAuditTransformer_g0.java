@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
@@ -28,10 +29,9 @@ public class InboundDocRetrieveAuditTransformer_g0 implements AuditTransformer {
             DRAuditTransformerMessage.setRetrieveDocumentSetRequest(NhinDROrchImp_g0Message.getRequest());
             DRAuditTransformerMessage.setAssertion(NhinDROrchImp_g0Message.getAssertion());
 
-            String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(NhinDROrchImp_g0Message
-                    .getRequest());
+            String requestCommunityID = getHCIDfromAssertion(NhinDROrchImp_g0Message.getAssertion());
 
-            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+            AuditRepositoryLogger auditLogger = getAuditRepositoryLogger();
             auditLogMsg = auditLogger.logDocRetrieve(DRAuditTransformerMessage,
                     NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
                     requestCommunityID);
@@ -48,14 +48,22 @@ public class InboundDocRetrieveAuditTransformer_g0 implements AuditTransformer {
             DRAuditTransformerMessage.setRetrieveDocumentSetResponse(NhinDROrchImp_g0Message.getResponse());
             DRAuditTransformerMessage.setAssertion(NhinDROrchImp_g0Message.getAssertion());
 
-            String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(NhinDROrchImp_g0Message
-                    .getRequest());
+            String requestCommunityID = getHCIDfromAssertion(NhinDROrchImp_g0Message.getAssertion());
 
-            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+            AuditRepositoryLogger auditLogger = getAuditRepositoryLogger();
             auditLogMsg = auditLogger.logDocRetrieveResult(DRAuditTransformerMessage,
                     NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
                     requestCommunityID);
         }
         return auditLogMsg;
+    }
+    
+    protected AuditRepositoryLogger getAuditRepositoryLogger() {
+        return new AuditRepositoryLogger();
+    }
+    
+    protected String getHCIDfromAssertion(AssertionType assertion)
+    {
+    	return HomeCommunityMap.getCommunityIdFromAssertion(assertion);
     }
 }
