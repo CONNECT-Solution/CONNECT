@@ -125,14 +125,26 @@ public class ValidationSuiteWsdlRunner {
      */
     private void setPaths(){
  
+        // check system properties first, then check env vars
+ 
         if(pathToWsdls == null){
-            if(System.getenv(jBossHome)!= null){
+            if(System.getProperty(jBossHome)!= null) {
+                pathToWsdls = System.getProperty(jBossConfig) + slash + "wsdl" + slash;
+            }
+            else if(System.getenv(jBossHome)!= null) {
                 pathToWsdls = System.getenv(jBossConfig) + slash + "wsdl" + slash;
             }
-            else if(System.getenv(glassfishHome)!=null){
+            else if(System.getProperty(glassfishHome)!=null) {
+                pathToWsdls = System.getProperty(glassfishHome) + slash + "domains" + slash +
+                    "domain1" + slash + "config" + slash + "nhin" + slash + "wsdl" + slash;
+            }
+            else if(System.getenv(glassfishHome)!=null) {
                 pathToWsdls = System.getenv(glassfishHome) + slash + "domains" + slash +
                     "domain1" + slash + "config" + slash + "nhin" + slash + "wsdl" + slash;
-            }else pathToWsdls = "No Valid WSDL Directory";
+            }
+            else {
+                pathToWsdls = "No Valid WSDL Directory";
+            }
         }
         //else do nothing because already pathToWsdls is already set by command line arg
     }
