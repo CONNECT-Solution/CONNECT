@@ -82,6 +82,11 @@ public class OutboundDocRetrieveAuditTransformer_a0Test {
             protected AuditRepositoryLogger getAuditRepositoryLogger() {
                 return mockedDependency;
             }
+            
+            @Override
+            protected String getLocalHomeCommunityId() {
+            	return "hcid";
+            }
         };
     }
 
@@ -105,7 +110,7 @@ public class OutboundDocRetrieveAuditTransformer_a0Test {
         mockingContext.checking(new Expectations() {
             {
                 one(mockedDependency).logDocRetrieve(with(any(DocRetrieveMessageType.class)), with(any(String.class)),
-                        with(any(String.class)), with(any(String.class)));
+                        with(any(String.class)), with("hcid"));
                 will(returnValue(mockLogEventRequestType()));
             }
         });
@@ -126,7 +131,7 @@ public class OutboundDocRetrieveAuditTransformer_a0Test {
         mockingContext.checking(new Expectations() {
             {
                 one(mockedDependency).logDocRetrieveResult(with(any(DocRetrieveResponseMessageType.class)),
-                        with(any(String.class)), with(any(String.class)), with(any(String.class)));
+                        with(any(String.class)), with(any(String.class)), with("hcid"));
                 will(returnValue(mockLogEventRequestType()));
             }
         });

@@ -44,6 +44,10 @@ public class OutboundDocRetrieveAuditTransformer_a0 implements AuditTransformer 
     protected AuditRepositoryLogger getAuditRepositoryLogger() {
         return new AuditRepositoryLogger();
     }
+    
+    protected String getLocalHomeCommunityId() {
+    	return HomeCommunityMap.getLocalHomeCommunityId();
+    }
 
     public LogEventRequestType transformRequest(Orchestratable message) {
         LogEventRequestType auditLogMsg = null;
@@ -54,12 +58,11 @@ public class OutboundDocRetrieveAuditTransformer_a0 implements AuditTransformer 
             DRAuditTransformerMessage.setRetrieveDocumentSetRequest(EntityDROrchImp_g0Message.getRequest());
             DRAuditTransformerMessage.setAssertion(EntityDROrchImp_g0Message.getAssertion());
 
-            String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(EntityDROrchImp_g0Message
-                    .getRequest());
+            String requestCommunityID = getLocalHomeCommunityId();
 
             AuditRepositoryLogger auditLogger = getAuditRepositoryLogger();
             auditLogMsg = auditLogger.logDocRetrieve(DRAuditTransformerMessage,
-                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
                     requestCommunityID);
         }
         return auditLogMsg;
@@ -74,12 +77,11 @@ public class OutboundDocRetrieveAuditTransformer_a0 implements AuditTransformer 
             DRAuditTransformerMessage.setRetrieveDocumentSetResponse(EntityDROrchImp_g0Message.getResponse());
             DRAuditTransformerMessage.setAssertion(EntityDROrchImp_g0Message.getAssertion());
 
-            String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(EntityDROrchImp_g0Message
-                    .getRequest());
+            String requestCommunityID = getLocalHomeCommunityId();
 
             AuditRepositoryLogger auditLogger = getAuditRepositoryLogger();
             auditLogMsg = auditLogger.logDocRetrieveResult(DRAuditTransformerMessage,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
                     requestCommunityID);
         }
         return auditLogMsg;
