@@ -81,7 +81,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
         message.setAdhocQueryRequest(request);
         message.setAssertion(assertion);
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logAdhocQuery(message, direction, connectInterface);
+        LogEventRequestType auditLogMsg = auditLogger.logAdhocQuery(message, direction, connectInterface, requestCommunityID);
         if (auditLogMsg != null) {
             auditMessage(auditLogMsg, assertion);
         }
@@ -93,7 +93,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
         message.setAdhocQueryResponse(response);
         message.setAssertion(assertion);
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryResult(message, direction, connectInterface);
+        LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryResult(message, direction, connectInterface, requestCommunityID);
         if (auditLogMsg != null) {
             auditMessage(auditLogMsg, assertion);
         }

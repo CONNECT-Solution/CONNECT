@@ -26,68 +26,51 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
-import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
-import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
-
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-
-import java.util.UUID;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Iterator;
-import java.io.StringWriter;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import javax.xml.bind.JAXBContext;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
+import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
+import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
-import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType;
-import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.document.DocumentTransformConstants;
+import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotListType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -130,6 +113,8 @@ public class EntityDocQueryOrchImpl {
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
+    
+   
 
     /**
      * 
@@ -175,8 +160,7 @@ public class EntityDocQueryOrchImpl {
         RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
         request.setAdhocQueryRequest(adhocQueryRequest);
         request.setNhinTargetCommunities(targets);
-        String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetCommunities(targets);
-        auditInitialEntityRequest(request, assertion, auditLog, targetHomeCommunityId);
+        auditInitialEntityRequest(request, assertion, auditLog);
 
         try {
             if (targets != null && NullChecker.isNotNullish(targets.getNhinTargetCommunity())) {
@@ -359,29 +343,28 @@ public class EntityDocQueryOrchImpl {
             response = createErrorResponse("Fault encountered processing internal document query" + " exception="
                     + e.getMessage());
         }
-        auditDocQueryResponse(response, assertion, auditLog, targetHomeCommunityId);
+        auditDocQueryResponse(response, assertion, auditLog);
         log.debug("Exiting EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
         return response;
     }
 
     private void auditInitialEntityRequest(RespondingGatewayCrossGatewayQuerySecuredRequestType request,
-            AssertionType assertion, DocQueryAuditLog auditLog, String targetHomeCommunityId) {
+            AssertionType assertion, DocQueryAuditLog auditLog) {
 
         if (auditLog != null) {
-            auditLog.auditDQRequest(request.getAdhocQueryRequest(), assertion, targetHomeCommunityId,
-                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+			auditLog.auditDQRequest(request.getAdhocQueryRequest(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                     NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, getLocalHomeCommunityId());
         }
     }
 
-    private void auditDocQueryResponse(AdhocQueryResponse response, AssertionType assertion, DocQueryAuditLog auditLog,
-            String targetHomeCommunityId) {
+    private void auditDocQueryResponse(AdhocQueryResponse response, AssertionType assertion, DocQueryAuditLog auditLog) {
 
         if (auditLog != null) {
             AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
             auditMsg.setAdhocQueryResponse(response);
             auditMsg.setAssertion(assertion);
             auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                    NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, targetHomeCommunityId);
+                    NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, getLocalHomeCommunityId());
         }
     }
 
