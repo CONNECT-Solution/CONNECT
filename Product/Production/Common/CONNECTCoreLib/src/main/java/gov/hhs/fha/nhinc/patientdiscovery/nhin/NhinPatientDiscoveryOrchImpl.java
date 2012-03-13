@@ -110,8 +110,9 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
             PatientDiscoveryAuditor auditLogger) throws PatientDiscoveryException {
         PRPAIN201306UV02 response;
         AcknowledgementType ack;
-        // Audit the outgoing Adapter 201305 Message
-        ack = auditLogger.auditAdapter201305(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+
+        // Audit the incoming Nhin 201305 Message
+        ack = auditLogger.auditNhin201305(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         // Log the start of the adapter performance record
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
@@ -127,9 +128,9 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
         PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logAdapterId, starttimeAdapter,
                 stoptimeAdapter);
 
-        // Audit the incoming Adapter 201306 Message - response that came
+        // Audit the outgoing Nhin 201306 Message - response that came
         // back from the adapter.
-        ack = auditLogger.auditAdapter201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        ack = auditLogger.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         return response;
     }
 
@@ -145,7 +146,7 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
         if (isInPassThroughMode()) {
             response = send201305ToAgency(body, assertion);
         } else {
-            response = patientDiscoveryProcessor.process201305(body, assertion);
+            response = process201305(body, assertion);
         }
         return response;
     }
@@ -155,6 +156,15 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
         AdapterPatientDiscoveryProxy proxy = proxyFactory.create();
         PRPAIN201306UV02 adapterResp = proxy.respondingGatewayPRPAIN201305UV02(request, assertion);
         return adapterResp;
+    }
+    
+    protected PRPAIN201306UV02 process201305(PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
+    	PRPAIN201306UV02 adapterResp = null;
+    	AcknowledgementType ack = null;
+    	ack = auditLogger.auditAdapter201305(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    	adapterResp = patientDiscoveryProcessor.process201305(body, assertion);
+    	ack = auditLogger.auditAdapter201306(adapterResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    	return adapterResp;
     }
 
     /**

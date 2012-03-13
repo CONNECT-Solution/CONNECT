@@ -80,11 +80,13 @@ public class NhinPatientDiscoveryOrchImplTest {
 
         context.checking(new Expectations() {
             {
+                oneOf(auditor).auditNhin201305(with(same(body)), with(same(assertion)), with("Inbound"));
                 oneOf(auditor).auditAdapter201305(with(same(body)), with(same(assertion)), with("Outbound"));
                 oneOf(mockProcessor).process201305(with(same(body)), with(same(assertion)));
                 will(returnValue(expectedResponse));
-                oneOf(auditor).auditAdapter201306(with(any(PRPAIN201306UV02.class)), with(same(assertion)),
-                        with("Inbound"));
+                oneOf(auditor).auditAdapter201306(with(any(PRPAIN201306UV02.class)), with(same(assertion)), with("Inbound"));
+                oneOf(auditor).auditNhin201306(with(any(PRPAIN201306UV02.class)), with(same(assertion)),
+                        with("Outbound"));
             }
         });
 
@@ -102,11 +104,11 @@ public class NhinPatientDiscoveryOrchImplTest {
 
         context.checking(new Expectations() {
             {
-                oneOf(auditor).auditAdapter201305(with(same(body)), with(same(assertion)), with("Outbound"));
+                oneOf(auditor).auditNhin201305(with(same(body)), with(same(assertion)), with("Inbound"));
                 oneOf(mockProxy).respondingGatewayPRPAIN201305UV02(with(same(body)), with(same(assertion)));
                 will(returnValue(expectedResponse));
-                oneOf(auditor).auditAdapter201306(with(any(PRPAIN201306UV02.class)), with(same(assertion)),
-                        with("Inbound"));
+                oneOf(auditor).auditNhin201306(with(any(PRPAIN201306UV02.class)), with(same(assertion)),
+                        with("Outbound"));
             }
         });
 
