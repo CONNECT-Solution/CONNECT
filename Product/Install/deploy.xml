@@ -3,6 +3,8 @@
 
   <dirname property="nhinc.deployment.basedir" file="${ant.file.nhinc.deployment}"/>
   <property name="nhinc.deployment.thirdparty.dir" location="${nhinc.deployment.basedir}/../../ThirdParty"/>
+  <property name="nhinc.deployment.properties.dir" value="${nhinc.deployment.basedir}/../Production/Common/Properties/Dev"/>
+  <property name="deployment.config.home" value="${glassfish.home}/domains/domain1/config/nhin"/>
 
   <taskdef resource="net/sf/antcontrib/antlib.xml">
      <classpath>
@@ -22,7 +24,7 @@
 
   <import file="settings.xml" />
 
-  <import file="exclusions.${deployment.environment.configuration.dir.name}.xml" />
+  <import file="exclusions.Dev.xml" />
 
   <taskdef resource="com/sun/tools/appserver/antlib.xml">
     <classpath>
@@ -425,7 +427,7 @@
 
   <target name="-configure.glassfish.domain">
     <copy todir="${deployment.glassfish.domain.config.home}" verbose="true" overwrite="false">
-      <filelist dir="${deployment.dir}/${deployment.environment.configuration.dir.name}">
+      <filelist dir="${nhinc.deployment.properties.dir}">
         <file name="log4j.properties"/>
         <file name="mpi.xml"/>
       </filelist>
@@ -450,7 +452,7 @@
 
   <target name="deploy.nhinc.configuration.to.glassfish">
     <copy todir="${deployment.config.home}" verbose="true" overwrite="true">
-      <fileset dir="${deployment.dir}/${deployment.environment.configuration.dir.name}"/>
+      <fileset dir="${nhinc.deployment.properties.dir}"/>
     </copy>
   </target>
 
@@ -516,7 +518,7 @@
 
   <target name="-verify.win.sw" if="windows">
     <if>
-      <available file="${env.AS_HOME}/bin/asadmin.bat" type="file"/>
+      <available file="${glassfish.home}/bin/asadmin.bat" type="file"/>
       <then/>
       <else>
         <fail message="AS_HOME environment variable is not set. 
@@ -527,7 +529,7 @@
 
   <target name="-verify.nonwin.sw" if="unix">
     <if>
-      <available file="${env.AS_HOME}/bin/asadmin.sh" type="file"/>
+      <available file="${glassfish.home}/bin/asadmin.sh" type="file"/>
       <then/>
       <else>
         <fail message="AS_HOME environment variable is not set. 
@@ -546,7 +548,7 @@
       </else>
     </if>
     <if>
-      <available file="${env.AS_HOME}/lib/webservices-rt_l10n.jar" type="file"/>
+      <available file="${glassfish.home}/lib/webservices-rt_l10n.jar" type="file"/>
       <then/>
       <else>
         <fail message="Metro is not installed.
@@ -554,49 +556,49 @@
       </else>
     </if>
     <if>
-      <available file="${env.AS_HOME}/lib/c3p0-0.9.1.2.jar" type="file"/>
+      <available file="${glassfish.home}/lib/c3p0-0.9.1.2.jar" type="file"/>
       <then/>
       <else>
         <fail message="C3PO Jar file are missing. Please copy $NHINC_THIRDPARTY_DIR\C3PO\*.jar to AS_HOME\lib\."/>
       </else>
     </if>
     <if>
-      <available file="${env.AS_HOME}/lib/log4j-1.2.15.jar" type="file"/>
+      <available file="${glassfish.home}/lib/log4j-1.2.15.jar" type="file"/>
       <then/>
       <else>
         <fail message="log4j Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\log4j\*.jar to AS_HOME\lib\."/>
       </else>
     </if>    
     <if>
-      <available file="${env.AS_HOME}/lib/hibernate3.jar" type="file"/>
+      <available file="${glassfish.home}/lib/hibernate3.jar" type="file"/>
       <then/>
       <else>
         <fail message="Hibernate Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\HibernateLibraries\*.jar to AS_HOME\lib\."/>
       </else>
     </if>   
     <if>
-      <available file="${env.AS_HOME}/lib/mysql-connector-java-5.1.8-bin.jar" type="file"/>
+      <available file="${glassfish.home}/lib/mysql-connector-java-5.1.8-bin.jar" type="file"/>
       <then/>
       <else>
         <fail message="MYSQLDB Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\MYSQLDB\*.jar to AS_HOME\lib\."/>
       </else>
     </if>   
     <if>
-      <available file="${env.AS_HOME}/lib/xstream-1.3.jar" type="file"/>
+      <available file="${glassfish.home}/lib/xstream-1.3.jar" type="file"/>
       <then/>
       <else>
         <fail message="XStream Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\XStream\*.jar to AS_HOME\lib\."/>
       </else>
     </if>  
     <if>
-      <available file="${env.AS_HOME}/lib/spring.jar" type="file"/>
+      <available file="${glassfish.home}/lib/spring.jar" type="file"/>
       <then/>
       <else>
         <fail message="SpringFramework Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\SpringFramework\*.jar to AS_HOME\lib\."/>
       </else>
     </if>  
     <if>
-      <available file="${env.AS_HOME}/lib/xercesImpl.jar" type="file"/>
+      <available file="${glassfish.home}/lib/xercesImpl.jar" type="file"/>
       <then/>
       <else>
         <fail message="Xerces Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\Xerces\*.jar to AS_HOME\lib\."/>
@@ -621,7 +623,7 @@
     <sequential>
         <mkdir dir="${deployment.config.home}/master" />
         <copy todir="${deployment.config.home}/master" verbose="true" overwrite="true">
-            <filelist dir="${deployment.dir}/${deployment.environment.configuration.dir.name}" >
+            <filelist dir="${nhinc.deployment.properties.dir}" >
                 <file name="gateway.properties" />
                 <file name="adapter.properties" />
                 <file name="PCConfiguration.xml" />

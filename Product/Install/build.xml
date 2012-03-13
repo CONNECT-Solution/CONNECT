@@ -186,18 +186,6 @@ FLUSH PRIVILEGES;
     
     <target name="deploy.connect" unless="skip.deploy">
         <echo message="deploying CONNECT."/>
-        <copy todir="${glassfish.install.dir}/domains/domain1/config">
-          <fileset dir="${basedir}/../Production/Common/Properties/Dev">
-            <include name="log4j.properties"/>
-            <include name="mpi.xml"/>
-            <include name="internalConnectionInfo.xml"/>
-          </fileset>
-        </copy>
-        <copy todir="${glassfish.install.dir}/domains/domain1/config/nhin">
-          <fileset dir="${basedir}/../Production/Common/Properties/Dev">
-            <include name="gateway.properties"/>
-          </fileset>
-        </copy>
         <ant antfile="${basedir}/../build.xml" dir="${basedir}/.." target="deploy">
             <property name="glassfish.home" value="${glassfish.install.dir}"/>
         </ant>

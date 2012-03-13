@@ -6,11 +6,6 @@
   <property name="deployment.certificate.home" location="${deployment.dir}/certificates"/>
   <property name="deployment.glassfish.asadmin.file.path" location="${glassfish.home}/bin/asadmin"/>
 
-  <property environment="env"/>
-
-  <property name="glassfish.home" value="${env.AS_HOME}"/>
-  <property name="deployment.config.home" value="${env.NHINC_PROPERTIES_DIR}"/>
-
   <if>
     <isset property="project.name" />
     <then>
