@@ -614,7 +614,9 @@
     <runtarget target="-uncomment.domain.config"/>
   
   
-  </target><macrodef name="run-validationsuite-mod">
+  </target>
+  
+  <macrodef name="run-validationsuite-mod">
     <attribute name="jarfile"/>
     <sequential>
         <mkdir dir="${deployment.config.home}/master" />
@@ -628,7 +630,9 @@
                 <file name="XDSUniqueIds.properties" />
             </filelist>
         </copy>
-        <java jar="${deployment.dir}/ValidationSuite/@{jarfile}" fork="true" dir="${deployment.dir}/ValidationSuite"/>
+        <java jar="${deployment.dir}/ValidationSuite/@{jarfile}" fork="true" dir="${deployment.dir}/ValidationSuite">
+            <sysproperty key="AS_HOME" value="${glassfish.home}"/>
+        </java>
     </sequential>
   </macrodef>
   
