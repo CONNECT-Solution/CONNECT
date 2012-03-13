@@ -164,7 +164,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
         
         // process response (store correlation and handle trust/verify mode)
         ResponseFactory rFactory = new ResponseFactory();
-        return rFactory.getResponseMode().processResponse(params);        
+        return rFactory.getResponseMode().processResponse(params);
     }
     
     protected ProxyPRPAIN201305UVProxySecuredRequestType createRequestFromOrchestratable(OutboundPatientDiscoveryOrchestratable orch) {        

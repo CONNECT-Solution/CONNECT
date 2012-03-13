@@ -78,29 +78,12 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
     abstract public void execute(OutboundPatientDiscoveryOrchestratable message);
 
     protected void auditRequestMessage(PRPAIN201305UV02 request, AssertionType assertion, String hcid) {
-
-        RespondingGatewayPRPAIN201305UV02RequestType auditRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
-        auditRequest.setAssertion(assertion);
-        
-        NhinTargetCommunitiesType targetList = new NhinTargetCommunitiesType();        
-        NhinTargetCommunityType target = createNhinTargetCommunityType(hcid);        
-        targetList.getNhinTargetCommunity().add(target);
-        auditRequest.setNhinTargetCommunities(targetList);
-        auditRequest.setPRPAIN201305UV02(request);
-        new PatientDiscoveryAuditLogger().auditEntity201305(auditRequest, assertion,
+        new PatientDiscoveryAuditLogger().auditNhin201305(request, assertion,
                 NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     protected void auditResponseMessage(PRPAIN201306UV02 response, AssertionType assertion, String hcid) {
-
-        RespondingGatewayPRPAIN201306UV02ResponseType auditResponse = new RespondingGatewayPRPAIN201306UV02ResponseType();
-        CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
-        communityResponse.setPRPAIN201306UV02(response);
-        
-        NhinTargetCommunityType target = createNhinTargetCommunityType(hcid);       
-        communityResponse.setNhinTargetCommunity(target);
-        auditResponse.getCommunityResponse().add(communityResponse);
-        new PatientDiscoveryAuditLogger().auditEntity201306(auditResponse, assertion,
+        new PatientDiscoveryAuditLogger().auditNhin201306(response, assertion,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
     
