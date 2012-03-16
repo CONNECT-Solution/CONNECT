@@ -109,8 +109,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('AAMappingDB') { sql -&gt; 
+        <con:config><script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -130,15 +129,14 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   
   def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
                    "values (1, ?, ?)"
-  sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-  sql.executeUpdate(insertSql, [aa1, hcid1])
-  sql.executeUpdate(insertSql, [aa2, hcid2])
-  sql.executeUpdate(insertSql, [aa3, hcid3])
-  sql.executeUpdate(insertSql, [aa4, hcid4])
+  //sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
+  //sql.executeUpdate(insertSql, [aa1, hcid1])
+  //sql.executeUpdate(insertSql, [aa2, hcid2])
+  //sql.executeUpdate(insertSql, [aa3, hcid3])
+  //sql.executeUpdate(insertSql, [aa4, hcid4])
   sql.executeUpdate(insertSql, [testaa, testhcid])
   
-}</script>
-        </con:config>
+}</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
@@ -420,19 +418,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:07Z</con:value>
+          <con:value>2012-03-16T18:07:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:07Z</con:value>
+          <con:value>2012-03-16T18:17:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:07</con:value>
+          <con:value>03/16/2012 18:07:39</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -447,7 +445,7 @@ def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="887d9364-6c82-4903-8190-46476508147f" keepSession="false" maxResults="0" name="Empty Target XML - No Patient Correlations" searchProperties="true">
+    <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="887d9364-6c82-4903-8190-46476508147f" keepSession="false" maxResults="0" name="Empty Target XML - No Patient Correlations" searchProperties="true">
       <con:settings/>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
@@ -839,19 +837,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:12Z</con:value>
+          <con:value>2012-03-16T18:02:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:12Z</con:value>
+          <con:value>2012-03-16T18:12:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:12</con:value>
+          <con:value>03/16/2012 18:02:39</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -865,8 +863,8 @@ def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
 def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2ac7a10e-f0e6-4d32-b45d-6874809b4e08" keepSession="false" maxResults="0" name="HCID Happy Path - No Patient Correlations" searchProperties="true">
+//FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="2ac7a10e-f0e6-4d32-b45d-6874809b4e08" keepSession="false" maxResults="0" name="HCID Happy Path - No Patient Correlations" searchProperties="true">
       <con:settings/>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
@@ -1272,19 +1270,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:13Z</con:value>
+          <con:value>2012-03-16T18:02:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:13Z</con:value>
+          <con:value>2012-03-16T18:12:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:13</con:value>
+          <con:value>03/16/2012 18:02:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1382,8 +1380,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('AAMappingDB') { sql -&gt; 
+        <con:config><script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -1403,15 +1400,14 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   
   def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
                    "values (1, ?, ?)"
-  sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-  sql.executeUpdate(insertSql, [aa1, hcid1])
-  sql.executeUpdate(insertSql, [aa2, hcid2])
-  sql.executeUpdate(insertSql, [aa3, hcid3])
-  sql.executeUpdate(insertSql, [aa4, hcid4])
+  //sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
+  //sql.executeUpdate(insertSql, [aa1, hcid1])
+  //sql.executeUpdate(insertSql, [aa2, hcid2])
+  //sql.executeUpdate(insertSql, [aa3, hcid3])
+  //sql.executeUpdate(insertSql, [aa4, hcid4])
   sql.executeUpdate(insertSql, [testaa, testhcid])
   
-}</script>
-        </con:config>
+}</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
@@ -1680,14 +1676,9 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 //ns16:AdhocQueryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:assertion name="Severity" type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+              <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@severity</path>
-                <content>Error</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@severity</path><content>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:assertion name="errorCode" type="XPath Match">
               <con:configuration>
@@ -1713,19 +1704,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:46:13Z</con:value>
+          <con:value>2012-03-16T18:07:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:56:13Z</con:value>
+          <con:value>2012-03-16T18:17:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:46:13</con:value>
+          <con:value>03/16/2012 18:07:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2164,19 +2155,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:17Z</con:value>
+          <con:value>2012-03-16T18:07:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:17Z</con:value>
+          <con:value>2012-03-16T18:17:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:17</con:value>
+          <con:value>03/16/2012 18:07:41</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2191,7 +2182,7 @@ def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9e22c57d-13af-4120-ab1d-fe1eae63e18b" keepSession="false" maxResults="0" name="HCID Happy Path - Expired Correlation for HCID IN UDDI file/target XML" searchProperties="true">
+    <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="9e22c57d-13af-4120-ab1d-fe1eae63e18b" keepSession="false" maxResults="0" name="HCID Happy Path - Expired Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
@@ -2246,7 +2237,7 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear Correlation Table" type="groovy">
+      <con:testStep disabled="true" name="Clear Correlation Table" type="groovy">
         <con:settings/>
         <con:config>
           <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
@@ -2256,24 +2247,22 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
+      <con:testStep disabled="true" name="Add Correlation for HCID in the UDDI" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
 
   def localAA = context.findProperty( "LocalAA" )	
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiVA1 = context.findProperty( "UDDIhcid1" )
-   def uddiVA3 = context.findProperty( "UDDIhcid3" )
+  def uddiVA3 = context.findProperty( "UDDIhcid3" )
   def remotePatientID = context.findProperty("RemotePatientID")
   def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId, CorrelationExpirationDate) " + 
                    "values (?, ?, ?, ?, ?, ?)"
                  
 sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatientID,'2010-01-01 00:00:00'])
 
-}</script>
-        </con:config>
+}</script></con:config>
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
@@ -2326,7 +2315,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings/>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -2640,19 +2629,19 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:29Z</con:value>
+          <con:value>2012-03-16T18:02:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:29Z</con:value>
+          <con:value>2012-03-16T18:12:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:29</con:value>
+          <con:value>03/16/2012 18:02:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2667,7 +2656,7 @@ def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0d6f86ae-5976-4334-8822-ac08fdb49c77" keepSession="false" maxResults="0" name="HCID Alt Path - No Patient Correlations" searchProperties="true">
+    <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="0d6f86ae-5976-4334-8822-ac08fdb49c77" keepSession="false" maxResults="0" name="HCID Alt Path - No Patient Correlations" searchProperties="true">
       <con:settings/>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
@@ -3038,19 +3027,19 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:30Z</con:value>
+          <con:value>2012-03-16T18:02:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:30Z</con:value>
+          <con:value>2012-03-16T18:12:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:30</con:value>
+          <con:value>03/16/2012 18:02:51</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3443,7 +3432,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -3452,19 +3441,19 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:32Z</con:value>
+          <con:value>2012-03-16T18:07:44Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:32Z</con:value>
+          <con:value>2012-03-16T18:17:44Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:32</con:value>
+          <con:value>03/16/2012 18:07:44</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3934,19 +3923,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:33Z</con:value>
+          <con:value>2012-03-16T18:07:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:33Z</con:value>
+          <con:value>2012-03-16T18:17:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:33</con:value>
+          <con:value>03/16/2012 18:07:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3961,7 +3950,7 @@ def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
 FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="acb08d49-8426-462e-ba13-d78fc9eb1dbc" keepSession="false" maxResults="0" name="State Happy Path - No Patient Correlations" searchProperties="true">
+    <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="acb08d49-8426-462e-ba13-d78fc9eb1dbc" keepSession="false" maxResults="0" name="State Happy Path - No Patient Correlations" searchProperties="true">
       <con:settings/>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
@@ -4337,19 +4326,19 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:37Z</con:value>
+          <con:value>2012-03-16T18:02:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:37Z</con:value>
+          <con:value>2012-03-16T18:12:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:37</con:value>
+          <con:value>03/16/2012 18:02:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4364,7 +4353,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
 //def destDir = System.env['NHINC_PROPERTIES_DIR'];
 //def destFile = "uddiConnectionInfo.xml";
 //FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="213ffdab-3205-42f3-b9f3-b70f0c097c9e" keepSession="false" maxResults="0" name="State Alt Path - No Patient Correlations" searchProperties="true">
+    <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="213ffdab-3205-42f3-b9f3-b70f0c097c9e" keepSession="false" maxResults="0" name="State Alt Path - No Patient Correlations" searchProperties="true">
       <con:settings/>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
@@ -4795,19 +4784,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:38Z</con:value>
+          <con:value>2012-03-16T18:02:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:38Z</con:value>
+          <con:value>2012-03-16T18:12:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:38</con:value>
+          <con:value>03/16/2012 18:02:58</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4926,8 +4915,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('AAMappingDB') { sql -&gt; 
+        <con:config><script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -4947,15 +4935,14 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   
   def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
                    "values (1, ?, ?)"
-  sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-  sql.executeUpdate(insertSql, [aa1, hcid1])
-  sql.executeUpdate(insertSql, [aa2, hcid2])
-  sql.executeUpdate(insertSql, [aa3, hcid3])
-  sql.executeUpdate(insertSql, [aa4, hcid4])
+  //sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
+  //sql.executeUpdate(insertSql, [aa1, hcid1])
+  //sql.executeUpdate(insertSql, [aa2, hcid2])
+  //sql.executeUpdate(insertSql, [aa3, hcid3])
+  //sql.executeUpdate(insertSql, [aa4, hcid4])
   sql.executeUpdate(insertSql, [testaa, testhcid])
   
-}</script>
-        </con:config>
+}</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
@@ -5226,14 +5213,9 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 //ns16:AdhocQueryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:assertion name="Severity" type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+              <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@severity</path>
-                <content>Error</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@severity</path><content>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:assertion name="errorCode" type="XPath Match">
               <con:configuration>
@@ -5259,19 +5241,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:41Z</con:value>
+          <con:value>2012-03-16T18:07:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:41Z</con:value>
+          <con:value>2012-03-16T18:17:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:41</con:value>
+          <con:value>03/16/2012 18:07:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5744,7 +5726,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             <con:assertion type="XPath Match">
               <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>5</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -5758,19 +5740,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:42Z</con:value>
+          <con:value>2012-03-16T18:07:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:42Z</con:value>
+          <con:value>2012-03-16T18:17:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:42</con:value>
+          <con:value>03/16/2012 18:07:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5778,13 +5760,13 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+    <con:tearDownScript>//FileUtils.restoreToMasterConfiguration(context, log);
 
 def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
 def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+//FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b673cce6-4e31-401e-8fb0-1b98f7e35455" keepSession="false" maxResults="0" name="State Alt Path - Region and associated HCID in target xml results in one response" searchProperties="true">
       <con:settings/>
       
@@ -6229,19 +6211,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:47Z</con:value>
+          <con:value>2012-03-16T18:07:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:47Z</con:value>
+          <con:value>2012-03-16T18:17:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:47</con:value>
+          <con:value>03/16/2012 18:07:53</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6741,19 +6723,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-29T23:39:51Z</con:value>
+          <con:value>2012-03-16T18:07:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-29T23:49:51Z</con:value>
+          <con:value>2012-03-16T18:17:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/29/2012 23:39:51</con:value>
+          <con:value>03/16/2012 18:07:55</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-30T00:00:00Z</con:value>
+          <con:value>2012-04-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
