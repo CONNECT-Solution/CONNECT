@@ -63,6 +63,7 @@
     <copy todir="${install.scripts.staging.dir}">
       <fileset dir="${install.scripts.dir}">
         <include name="**\*"/>
+        <exclude name="**\*.zip"/>
       </fileset>
     </copy>
     <replace file="${install.scripts.staging.dir}/deploy.xml">

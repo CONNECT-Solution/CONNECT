@@ -24,8 +24,6 @@
 
   <import file="settings.xml" />
 
-  <import file="exclusions.Dev.xml" />
-
   <taskdef resource="com/sun/tools/appserver/antlib.xml">
     <classpath>
       <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
