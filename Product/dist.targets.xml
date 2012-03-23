@@ -64,6 +64,8 @@
       <fileset dir="${install.scripts.dir}">
         <include name="**\*"/>
         <exclude name="**\*.zip"/>
+        <exclude name="build.xml"/>
+        <exclude name="*install.properties"/>
       </fileset>
     </copy>
     <replace file="${install.scripts.staging.dir}/deploy.xml">
