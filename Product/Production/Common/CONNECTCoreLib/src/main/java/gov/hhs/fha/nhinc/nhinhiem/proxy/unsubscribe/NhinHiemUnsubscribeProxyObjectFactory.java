@@ -32,8 +32,8 @@ package gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe;
  */
 public class NhinHiemUnsubscribeProxyObjectFactory {
     public NhinHiemUnsubscribeProxy getNhinHiemSubscribeProxy() {
-        NhinHiemUnsubscribeProxy nhinHiemSubscribe = new NhinHiemUnsubscribeWebServiceProxy();
-        return nhinHiemSubscribe;
+        NhinHiemUnsubscribeProxy nhinHiemUnSubscribe = new NhinHiemUnsubscribeWebServiceProxy();
+        return nhinHiemUnSubscribe;
     }
 
 }
