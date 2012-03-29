@@ -21,7 +21,6 @@
     <property name="glassfish.install.dir" value="${glassfish.install.dir.root}/${glassfish.install.dir.name}"/>
     <property name="temp.dir" value="${basedir}/.installer.temp"/>
     <property name="glassfish.install.ant.script" value="${glassfish.install.dir}/setup.xml"/>
-    <property name="metro.zip.file" value="${basedir}/metro-2.1.1.zip"/>
     <property name="metro.install.ant.script" value="${temp.dir}/metro/metro-on-glassfish.xml"/>
     <property name="sql.scripts.dir" value="${basedir}/../DBScripts/nhincdb"/>
     <property name="thirdparty.dir" value="../../ThirdParty"/>
@@ -40,14 +39,19 @@
         </condition>
     </target>
     
-    <target name="setup.properties" depends="setup.properties.mac, setup.properties.windows"/>
-    
-    <target name="setup.properties.mac" if="is.mac">
-        <property name="glassfish.zip.file" value="${basedir}/glassfish-2.1.1.mac.zip"/>
+    <target name="setup" depends="setup.for.mac, setup.for.windows">
+        <property name="metro.zip.file" value="${temp.dir}/metro-2.1.1.zip"/>
+        <get src="https://developer.connectopensource.org/download/attachments/20316168/metro-2.1.1.zip" dest="${metro.zip.file}"/>
     </target>
     
-    <target name="setup.properties.windows"  if="is.windows">
-        <property name="glassfish.zip.file" value="${basedir}/glassfish-2.1.1.windows.zip"/>
+    <target name="setup.for.mac" if="is.mac">
+        <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.mac.zip"/>
+        <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.mac.zip" dest="${glassfish.zip.file}"/>
+    </target>
+    
+    <target name="setup.for.windows"  if="is.windows">
+        <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.windows.zip"/>
+        <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.windows.zip" dest="${glassfish.zip.file}"/>
     </target>
     
     <target name="backup.glassfish.install.dir" if="glassfish.install.dir.exists" unless="skip.backup">
@@ -57,7 +61,7 @@
         </copy>
     </target>
 
-    <target name="install" depends="determine.os, setup.properties, backup.glassfish.install.dir, install.glassfish.with.metro, install.databases, build.connect, deploy.connect, cleanup"/>
+    <target name="install" depends="determine.os, setup, backup.glassfish.install.dir, install.glassfish.with.metro, install.databases, build.connect, deploy.connect, cleanup"/>
     
     <target name="cleanup">
         <delete dir="${temp.dir}"/>
