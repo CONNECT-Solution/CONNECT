@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="soapui.targets">
-  <taskdef name="saxon-xslt" classname="net.sf.saxon.ant.AntTransform" classpath="${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9he.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9-ant.jar"/>
+  <taskdef name="saxon-xslt" classname="net.sf.saxon.ant.AntTransform" classpath="${codeline.directory.path}/ThirdParty/AntExtraLibs/saxon9he.jar;${codeline.directory.path}/ThirdParty/AntExtraLibs/saxon9-ant.jar"/>
 
   <import file="soapui.properties.xml"/>
   <import file="soapui.macros.xml"/>

@@ -11,7 +11,7 @@
       </fileset>
     </classpath>
   </taskdef>
-  <taskdef name="saxon-xslt" classname="net.sf.saxon.ant.AntTransform" classpath="${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9he.jar;${codeline.directory.path}/Build/Packages/Ant/Ant/extra/saxon9-ant.jar"/>  
+  <taskdef name="saxon-xslt" classname="net.sf.saxon.ant.AntTransform" classpath="${codeline.directory.path}/ThirdParty/AntExtraLibs/saxon9he.jar;${codeline.directory.path}/ThirdParty/AntExtraLibs/saxon9-ant.jar"/>  
   <target name="coverage.help">
     
   </target>

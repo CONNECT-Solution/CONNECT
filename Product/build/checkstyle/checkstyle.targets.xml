@@ -2,7 +2,7 @@
 <project name="checkstyle.targets" basedir=".">
 
     <dirname property="checkstyle.targets.basedir" file="${ant.file.checkstyle.targets}"/>
-    <property name="checkstyle.targets.ant.lib.dir" location="${checkstyle.targets.basedir}/../../../Build/Packages/Ant/Ant/lib"/>
+    <property name="checkstyle.targets.ant.lib.dir" location="${checkstyle.targets.basedir}/../../../ThirdParty/AntExtraLibs"/>
 
     <taskdef resource="checkstyletask.properties">
         <classpath>

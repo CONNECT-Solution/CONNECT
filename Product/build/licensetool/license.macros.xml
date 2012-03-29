@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="license.macros" basedir=".">
     <dirname property="license.macros.basedir" file="${ant.file.license.macros}"/>
-    <property name="license.macros.ant.lib.dir" location="${license.macros.basedir}/../../../Build/Packages/Ant/Ant/lib"/>
+    <property name="license.macros.ant.lib.dir" location="${license.macros.basedir}/../../../ThirdParty/AntExtraLibs"/>
     <taskdef name="licensetool" classname="org.jvnet.licensetool.LicenseToolTask">
      <classpath>
         <fileset dir="${license.macros.ant.lib.dir}">
