@@ -87,26 +87,11 @@
 				</ant>
 			</else>
         </if>
-        <delete file="${glassfish.install.dir}/lib/asm-3.1.jar"/>
         <echo message="installing metro 2.1 into glassfish."/>
         <unzip src="${metro.zip.file}" dest="${temp.dir}"/>
         <ant antfile="${metro.install.ant.script}" dir="${temp.dir}/metro" target="install">
             <property name="as.home" value="${glassfish.install.dir}"/>
         </ant>
-        <echo message="installing CONNECT 3rd party dependencies into glassfish server lib."/>
-        <copy todir="${glassfish.install.dir}/lib" overwrite="true" flatten="true">
-            <fileset dir="${thirdparty.dir}">
-                <include name="C3PO/*.jar"/>
-                <include name="log4j/*.jar"/>
-                <include name="HibernateLibraries/*.jar"/>
-                <include name="MySQLDB/*.jar"/>
-                <include name="XStream/*.jar"/>
-                <include name="XStream/*.txt"/>
-                <include name="SpringFramework/*.jar"/>
-                <include name="Xerces/*.jar"/>
-                <include name="OpenSSO/*.jar"/>
-            </fileset>
-        </copy>
         <copy file="${basedir}/GlassFish/templates/connect/domain.selfsigned.xml.template" tofile="${temp.dir}/domain.selfsigned.xml.template" overwrite="true"/>
         <echo message="creating self-signed certificates and trustores/keystores for glassfish."/>
         <exec failonerror="true" executable="keytool" dir="${temp.dir}">
