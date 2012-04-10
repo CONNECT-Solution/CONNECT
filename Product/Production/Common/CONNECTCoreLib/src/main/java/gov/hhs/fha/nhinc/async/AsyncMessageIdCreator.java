@@ -22,6 +22,7 @@ import java.util.UUID;
  * @author JHOPPESC
  */
 public class AsyncMessageIdCreator {
+    private static String UUID_TAG = "urn:uuid:";
 
     public Map CreateRequestContextForMessageId(AssertionType assertion) {
         Map requestContext = new HashMap();
@@ -53,7 +54,7 @@ public class AsyncMessageIdCreator {
     }
 
     public static String generateMessageId() {
-        return UUID.randomUUID().toString();
+        return UUID_TAG + UUID.randomUUID().toString();
     }
 
 }

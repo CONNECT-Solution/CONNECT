@@ -21,7 +21,8 @@ import javax.xml.ws.WebServiceContext;
  * @author JHOPPESC
  */
 public class AsyncMessageIdExtractor {
-
+    private static String UUID_TAG = "urn:uuid:";
+    
     public static String GetAsyncMessageId(WebServiceContext context) {
         String messageId = null;
 
@@ -37,7 +38,7 @@ public class AsyncMessageIdExtractor {
         }
 
         if (messageId == null) {
-            messageId = UUID.randomUUID().toString();
+            messageId = UUID_TAG + UUID.randomUUID().toString();
         }
         return messageId;
     }
