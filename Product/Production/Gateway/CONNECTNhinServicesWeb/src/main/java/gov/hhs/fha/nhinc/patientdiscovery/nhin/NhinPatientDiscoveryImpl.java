@@ -13,10 +13,12 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.INT;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -55,6 +57,14 @@ public class NhinPatientDiscoveryImpl
         // Audit the responding 201306 Message - Response outbound to the NHIN
         ack = auditLogger.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
+        if(response.getControlActProcess().getQueryByParameter().getValue() != null){
+            response.getControlActProcess().getQueryByParameter().setNil(false);
+
+            INT quantity = new INT();
+            quantity.setValue(BigInteger.ONE);
+            response.getControlActProcess().getQueryByParameter().getValue().setInitialQuantity(quantity);
+        }
+        
         // Send response back to the initiating Gateway
         log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
         return response;

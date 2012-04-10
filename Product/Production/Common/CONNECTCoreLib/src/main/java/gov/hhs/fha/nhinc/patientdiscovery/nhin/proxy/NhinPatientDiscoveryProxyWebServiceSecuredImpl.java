@@ -94,6 +94,14 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                     "Exception: " + e.getMessage(), e);
             response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
         }
+		
+		if(response.getControlActProcess().getQueryByParameter().getValue() != null){
+            response.getControlActProcess().getQueryByParameter().setNil(false);
+
+            INT quantity = new INT();
+            quantity.setValue(BigInteger.ONE);
+            response.getControlActProcess().getQueryByParameter().getValue().setInitialQuantity(quantity);
+        }
 
         return response;
     }

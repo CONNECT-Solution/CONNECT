@@ -17,6 +17,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.INT;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
@@ -24,6 +25,7 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import java.math.BigInteger;
 import javax.xml.ws.WebServiceContext;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -61,6 +63,14 @@ public class AdapterMpiImpl {
         AdapterMpiOrchImpl oOrchestrator = new AdapterMpiOrchImpl();
         PRPAIN201306UV02 response = oOrchestrator.query(findCandidatesRequest, assertion);
 
+        if(response.getControlActProcess().getQueryByParameter().getValue() != null){
+            response.getControlActProcess().getQueryByParameter().setNil(false);
+
+            INT quantity = new INT();
+            quantity.setValue(BigInteger.ONE);
+            response.getControlActProcess().getQueryByParameter().getValue().setInitialQuantity(quantity);
+        }
+        
         // Send response back to the initiating Gateway
         log.debug("Exiting AdapterMpiImpl.findCandidates");
         return response;
