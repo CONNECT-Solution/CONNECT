@@ -189,8 +189,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
 
             // create the assertion id
-            String aID = String.valueOf(UUID.randomUUID());
-
+            String aID = createAssertionId();
             // name id of the issuer - For now just use default
             NameID issueId = create509NameID(factory, DEFAULT_NAME);
 
@@ -233,7 +232,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
 
             // create the assertion id
-            String aID = String.valueOf(UUID.randomUUID());
+            String aID = createAssertionId();
 
             // name id of the issuer - For now just use default
             NameID issueId = null;
@@ -758,7 +757,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         List evAsserts = new ArrayList();
         try {
-            String evAssertionID = String.valueOf(UUID.randomUUID());
+            String evAssertionID = createAssertionId();
             if (tokenVals.containsKey(SamlConstants.EVIDENCE_ID_PROP) &&
                     tokenVals.get(SamlConstants.EVIDENCE_ID_PROP) != null) {
                 evAssertionID = tokenVals.get(SamlConstants.EVIDENCE_ID_PROP).toString();
@@ -1109,5 +1108,16 @@ public class SamlCallbackHandler implements CallbackHandler {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
         return calendar;
+    }
+
+     /**
+     * Creates a new UUID and strips out the dashes so resulting String is alphanumeric only. Prefixes with "_".
+     *
+     * @return a String representation of a UUID with the dashes removed
+     */
+    private String createAssertionId() {
+        String id = "_" + UUID.randomUUID().toString().replaceAll("-", "");
+        log.warn("createAssertionId: "+id);
+        return id;
     }
 }
