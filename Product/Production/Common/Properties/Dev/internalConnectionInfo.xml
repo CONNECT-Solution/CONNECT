@@ -1528,21 +1528,6 @@
             </businessService>
 
             <!--  Doc Repository  -->
-
-            <businessService serviceKey="uddi:testnhincnode:adapterxdsbdocrepositorysoap12" businessKey="uddi:testnhieonenode:1.1">
-                <name xml:lang="en">adapterxdsbdocrepositorysoap12</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:testnhincnode:adapterxdsbdocrepositorysoap12" serviceKey="uddi:testnhincnode:adapterxdsbdocrepositorysoap12">
-                        <accessPoint useType="endPoint">http://localhost:50967/axis2/services/xdsrepositoryb</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterxdsbdocrepositorysoap12" keyValue="adapterxdsbdocrepositorysoap12"/>
-                </categoryBag>
-            </businessService>
             <businessService serviceKey="uddi:testnhincnode:adapterxdsbdocrepository" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">adapterxdsbdocrepository</name>
                 <bindingTemplates>
