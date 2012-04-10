@@ -59,9 +59,6 @@ Listed below are the highlights of the many changes and improvements to the CONN
 
 The Coordinating Committee of the NwHIN Exchange approved the revisions to certain production specifications and finalized previous emergent and pilot production specifications on June 29, 2011. CONNECT 3.3 supports the requirements specified in the newly approved versions. A complete analysis of the changes between the previously approved specifications (January 2010) and the newly approved versions (Summer 2011) is available.
 
-For additional information on the Summer 2011 compliance and specifications delta analysis, please see:
-* [CONNECTR33:Nationwide Health Information Specification References]
-* [CONNECTWIKI:Nationwide Health Information Network Specifications Compliance]
 
 
 ### Single Instance Support for Multiple Versions of the Nationwide Health Information Network Specifications&nbsp;
@@ -137,105 +134,7 @@ The significant work contained in the features of this release, especially aroun
 
 ## Resolved JIRA Tickets&nbsp;
 
-The following issues were resolved during this release. The details of these issues can be found in the [CONNECT Issue Tracker|https://issues.connectopensource.org:8443/secure/IssueNavigator.jspa].
-
-
-
-|| Key || Summary ||
-| GATEWAY-406 | Exception handling |
-| GATEWAY-404 | CONNECT timeout issue |
-| GATEWAY-390 | Memory Leak in CONNECT Gateway 2.4.7 running on JBoss |
-| GATEWAY-296 | "Merge 3.0 Hardcoded WSDL fix into 2.4.8" doesn't work without coping WSDL files into [file:$%3Cdiv%20class=] directory |
-| GATEWAY-284 | OCSP Exception |
-| GATEWAY-283 | QD Saml Header Issue |
-| GATEWAY-278 | UDDI Not Refreshing |
-| GATEWAY-271 | Doc Repository Service failed |
-| GATEWAY-269 | Responding Gateway unable to process document query using responding gateway organization identifiers |
-| GATEWAY-1157 | Remove Passthru calls from DocumentSubmission. |
-| GATEWAY-980 | deployment of 3.1 binaries puts lib jars in wrong location |
-| GATEWAY-979 | 3.1 hotfix1 branch is not building correctly |
-| GATEWAY-929 | Invoking Deferred QD Response web service (DocQueryDeferredResponseService) with Metro 2.1.1 results in ActionNotSupported error |
-| GATEWAY-739 | asenv.conf.template has hardcoded paths to directories |
-| GATEWAY-533 | adapterxdsbdocregistry service fails with javax.xml.ws.soap.SOAPFaultException: MustUnderstand headers |
-| GATEWAY-532 | AdapterPEPImpl throws MissingResourceException if HCID list or ORGID list has elements with empty values |
-| GATEWAY-521 | ASENV.BAT update instructions or GlassFish modification. |
-| GATEWAY-420 | Purpose For Use is not captured by the assertion object in the SAML extractor (responding gateway) |
-| GATEWAY-405 | Universal Client Problem With SSN as Patient ID |
-| GATEWAY-402 | Patient Discovery TrustMode incorrectly attempts to get the receiver's home community id from the optional <asAgent> element |
-| GATEWAY-400 | The outbound doc query message is populated with homeCommunityId of the requesting gateway instead of the homeCommunityId of the responding gateway |
-| GATEWAY-394 | Check Policy Request incorrectly attempts to get the receiver's home community id from the optional <asAgent> element |
-| GATEWAY-393 | Patient Discovery Query Params transformation helper class does not set all required elements |
-| GATEWAY-362 | MCCI_IN000002UV01 acknowledgement class used for deferred services is not populating the mandatory Acknowledgement.typeCode attribute |
-| GATEWAY-360 | Connect Build 3.1 build fails with ivy repository error |
-| GATEWAY-359 | WSS0706: Error: No Matching Certificate for : SunPKCS11-NSS RSA public key |
-| GATEWAY-358 | Connect 3.1 build halts or hangs |
-| GATEWAY-343 | SAML Assertion/Issuer does not identify a person. |
-| GATEWAY-342 | SAML Attribute/AttributeValue for Subject is not a person's name - value: "MEGAHIT". |
-| GATEWAY-335 | Order of the SAML elements is incorrect. |
-| GATEWAY-396 | PatientIdFormatUtil.hl7EncodePatientId is wrapping the result in single quotes |
-| GATEWAY-328 | Doc Retrieve sends remote document id to the policy engine in the resource area, should be local patient id |
-| GATEWAY-327 | .MissingResourceException - XACMLRequestProcessor.getInstance.processRequest(pdpRequest, pdpEntity, pepEntity) |
-| GATEWAY-325 | CONNECT 2.4.7 error with CRL |
-| GATEWAY-317 | EntityDocRetrieve interface always returns RegistryResponse status Success |
-| GATEWAY-308 | There 5 Hard coded endpoints inside the code found one is a commented line otherwise 4 needs to be fixed |
-| GATEWAY-302 | SAML - empty AccessConsentPolicy attribute present when it is not required/used. |
-| GATEWAY-300 | Retry when web service call is made is not working correctly |
-| GATEWAY-299 | XDR Response Service does not pass ReleatesTo field through to other interfaces |
-| GATEWAY-277 | SAML: Authorization Decision Statement with no ACP references |
-| GATEWAY-274 | CONNECT 2.4.7 error 403 connecting to Production UDDI |
-| GATEWAY-273 | Gateway gets to an unstable state and then needs a restart |
-| GATEWAY-266 | Authorization timestamps from entity service ignored |
-| GATEWAY-265 | Subject Locality expressed in assertion from entity is not passed to external organizations |
-| GATEWAY-244 | SAML PurposeForUse Attribute should be PurposeOfUse |
-| GATEWAY-236 | The Deferred PD Request outgoing policy check is missing the HCID in absence of livingSubjectID from the request |
-| GATEWAY-235 | Deferred PD - HCID not getting tranfered to Policy engine service on the Responding gateway side |
-| GATEWAY-233 | Mural adapter: suffix is not supported |
-| GATEWAY-200 | OpenSSO authenticate method fails |
-| GATEWAY-164 | Document Query from across multiple communities fails - DocQueryAggregator times out |
-| GATEWAY-114 | Wrong path for AdapterComponentMpi.wsdl in Mural adapter |
-| GATEWAY-85 | Setting Subject Discovery to pass through mode fails due to ClassCastException |
-| GATEWAY-936 | Gateway version 2.4.7 getting two different UDDI files from the validation UDDI from two different gateway servers |
-| GATEWAY-320 | 3.3.1 SAML: Assertion/Subject does not contain a valid identifier for the individual issuing the request. |
-| GATEWAY-313 | HibernateUtil.java file in Subscription and Aggregator are using the file name directly instead of using HibernateAccessor.getHibernateFile() method to do so. |
-| GATEWAY-312 | soapUI ValidationTest fails if CONNECT Code is deployed in different port other than 8080 |
-| GATEWAY-305 | Notify looks for incorrect "Producer" value during subscription search, causing Notfy requests to fail |
-| GATEWAY-303 | new element saml2:Issuer is not showing up when we retrieve the wsdls |
-| GATEWAY-285 | TLS_ECDH Ciphers suites does not work in Windows environments |
-| GATEWAY-261 | Thread locking retry is done based on the exception text in gateway.properties file this is missing in few of the java files |
-| GATEWAY-252 | Interim IDE-Neutral Build Scripts do not work in 2.4.7 |
-| GATEWAY-245 | MPI Adapter looks for mpi.xml file based on user.dir which is not a constant value in the JBoss environment. |
-| GATEWAY-230 | Mural adapter: when patient has middle name, first name field in 201305 is set to middle name |
-| GATEWAY-216 | ant \-f deploy.xml recreate.glassfish.domain is not working on Solaris and Linux |
-| GATEWAY-208 | LiFT XDR Document Submission |
-| GATEWAY-192 | PRPA_IN201306UV02: remove <queryId> element from <queryAck> |
-| GATEWAY-159 | Default deployment location does not use environment variable |
-| GATEWAY-149 | Environment variables on Solaris require two slashes |
-| GATEWAY-138 | Incorrect path references |
-| GATEWAY-127 | WS Addressing Error -- while invoking internal secured services. |
-| GATEWAY-115 | Product Directory Hard-Coded Again |
-| GATEWAY-113 | Add "file:" prefix for FileSystemXmlApplicationContext class |
-| GATEWAY-89 | RED4: WebServiceException while sending outbound Audit Log Query |
-| GATEWAY-67 | NHINC_PROPERTIES_DIR has first character stripped off |
-| GATEWAY-58 | FIPS compliant domain has memory issues |
-| GATEWAY-56 | Schema Compliance Assertion failing for AdapterPIP.wsdl - RequestPtConsentByPtId |
-| GATEWAY-46 | Outbound policy check not done for Audit Log Query |
-| GATEWAY-40 | Query Parameter Filtering Issue |
-| GATEWAY-37 | OpenSSO SoapUI Test |
-| GATEWAY-161 | Environment variable NHINC_PROPERTIES_DIR used inconsistently |
-
-
-
-# Open Issues
-
-The following is a list of open critical and major issues that were not resolved as part of this release.
-
-
-
-|| Key || Summary ||
-| GATEWAY-1395  | HIEM unsubscribe does not perform a policy check and does not audit |
-| GATEWAY-1794 | Document Query Schema compliance error with empty RegistryErrorList |
-| GATEWAY-331 | Connect inbound services (Q4D or RD) do not start properly - it is required to restart the Connect. |
-| GATEWAY-186 | Doc Query: add support for "XDSUnknownPatientId" error when patient is not known |
+The following issues were resolved during this release. The details of these issues can be found in the [CONNECT Issue Tracker](https://issues.connectopensource.org:8443/secure/IssueNavigator.jsp).
 
 # Additional Release Updates
 
