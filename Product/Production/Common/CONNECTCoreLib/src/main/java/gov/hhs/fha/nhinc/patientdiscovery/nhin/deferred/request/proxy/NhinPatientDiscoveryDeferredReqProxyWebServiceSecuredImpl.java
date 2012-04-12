@@ -19,6 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
 
 /**
  *
@@ -101,6 +102,19 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                 url = oProxyHelper.getUrlFromTargetSystem(target, NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME);
                 log.debug("After target system URL look up. URL for service: " + NhincConstants.PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME + " is: " + url);
 
+				
+				if (request.getControlActProcess() != null &&
+					request.getControlActProcess().getAuthorOrPerformer() != null) {
+                    for (QUQIMT021001UV01AuthorOrPerformer authorOrPerformer : request.getControlActProcess().getAuthorOrPerformer()) {
+                        if (authorOrPerformer.getAssignedDevice().getValue() != null) {
+                            if (authorOrPerformer.getAssignedDevice().getValue().getClassCode() == null ||
+                                    authorOrPerformer.getAssignedDevice().getValue().getClassCode().equals("")) {
+                                authorOrPerformer.getAssignedDevice().getValue().setClassCode("ASSIGNED");
+                            }
+                        }
+                    }
+                }
+				
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayDeferredRequestPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
                     response = (MCCIIN000002UV01) oProxyHelper.invokePort(port, RespondingGatewayDeferredRequestPortType.class, "respondingGatewayDeferredPRPAIN201305UV02", request);

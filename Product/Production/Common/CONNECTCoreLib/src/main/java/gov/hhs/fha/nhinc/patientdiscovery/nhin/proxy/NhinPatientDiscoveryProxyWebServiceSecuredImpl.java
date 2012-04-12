@@ -21,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import javax.xml.ws.Service;
+import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
 
 /**
  *
@@ -66,6 +67,18 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
+					if (request.getControlActProcess() != null &&
+						request.getControlActProcess().getAuthorOrPerformer() != null) {
+						for (QUQIMT021001UV01AuthorOrPerformer authorOrPerformer : request.getControlActProcess().getAuthorOrPerformer()) {
+							if (authorOrPerformer.getAssignedDevice().getValue() != null) {
+								if (authorOrPerformer.getAssignedDevice().getValue().getClassCode() == null ||
+										authorOrPerformer.getAssignedDevice().getValue().getClassCode().equals("")) {
+									authorOrPerformer.getAssignedDevice().getValue().setClassCode("ASSIGNED");
+								}
+							}
+						}
+					}
+					
                     // Log the start of the performance record
                     String targetCommunityId = "";
 
