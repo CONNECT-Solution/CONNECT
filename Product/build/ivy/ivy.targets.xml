@@ -9,7 +9,7 @@
         <fileset dir="${ivy.targets.thirdparty.dir}/AntExtraLibs">
           <include name="ivy-*.jar"/>
           <include name="commons-codec-*.jar"/>
-        </fileset>]
+        </fileset>
       </classpath>
     </taskdef>
     <import file="ivy.properties.xml" />
