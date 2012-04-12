@@ -13,6 +13,7 @@
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -20,6 +21,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="QueryForDocuments" keyValue="QueryForDocuments"/>
                 </categoryBag>
             </businessService>
+ 
 
             <!--  Retrieve Documents  -->
 
@@ -51,7 +53,7 @@
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
-                        <categoryBag>
+                        <categoryBag>                        
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
@@ -97,8 +99,8 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -112,8 +114,8 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscoveryDeferredReq" serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredReq">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -127,8 +129,8 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscoveryDeferredResp" serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredResp">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -247,6 +249,7 @@
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -263,7 +266,7 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:RetrieveDocuments" serviceKey="uddi:testnhincnode:RetrieveDocuments">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
 					<bindingTemplate bindingKey="uddi:testnhincnode:RetrieveDocuments" serviceKey="uddi:testnhincnode:RetrieveDocuments">
@@ -285,7 +288,7 @@
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
-                        <categoryBag>
+                        <categoryBag>                     
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
@@ -299,7 +302,7 @@
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:notificationconsumer" serviceKey="uddi:testnhincnode:notificationconsumer">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</accessPoint>
-                        <categoryBag>
+                        <categoryBag>                     
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
@@ -313,7 +316,7 @@
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:subscriptionmanager" serviceKey="uddi:testnhincnode:subscriptionmanager">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</accessPoint>
-                        <categoryBag>
+                        <categoryBag>             
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
@@ -332,6 +335,7 @@
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -346,6 +350,7 @@
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -360,6 +365,7 @@
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
