@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import java.io.FileOutputStream;
 import javax.xml.parsers.DocumentBuilder;
@@ -123,6 +125,95 @@ class FileUtils {
 		String propertyValue = properties.getProperty(propertyKey);
 		properties = null;
 		return propertyValue;
+	}
+
+	static changeSpringConfig(String fileName, String desiredImpltype, log){
+		log.info("begin changeSpringConfig; file='" + fileName + "';desired impl='" + desiredImpltype + "';");
+		
+		//find the config file and insert into document builder
+		String fullPath = System.getenv("NHINC_PROPERTIES_DIR") + "/" + fileName;
+		log.info("Path to config file: " + fullPath);
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		Document doc = null;
+		try{
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			doc = builder.parse(fullPath);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			return;
+		}
+		
+		//grab the description element
+		Element beans = (Element)doc.getElementsByTagName("beans").item(0);
+		Element description = (Element)beans.getElementsByTagName("description").item(0);
+		
+		//find the name of the bean from the description element
+		Pattern p = Pattern.compile("\\{.*\\}");
+		Matcher m = p.matcher(description.getTextContent());
+		m.find();
+		String beanName = m.group().substring(1, m.group().length() - 1);
+		log.info("matched bean name:" + beanName);
+		
+		//get the list of beans and iterate though them
+		NodeList beanList = beans.getElementsByTagName("bean");
+		for (int i = 0; i < beanList.getLength(); i++){
+			Element bean = (Element)beanList.item(i);
+
+			//find the active Spring implementation and modify
+			//to the non-active form
+			if (bean.getAttribute("id").equals(beanName)){
+				NodeList metaList = bean.getElementsByTagName("meta");
+				for (int j = 0; j < metaList.getLength(); j++){
+					Element meta = metaList.item(j);
+					if (meta.getAttribute("key").equals("impltype")){
+						bean.setAttribute("id", beanName.concat(meta.getAttribute("value")));
+					}
+				}
+			}
+			
+			//Search the meta list for the desired implementation type.
+			//If found, change the bean attribute "id" to the beanName. 
+			NodeList metaList = bean.getElementsByTagName("meta");
+			for (int j = 0; j < metaList.getLength(); j++){
+				Element meta = metaList.item(j);
+				
+				//if the desired implementation type is NOT "default"...
+				if (!desiredImpltype.equals("default")){
+					//... search for the desired implementation type and
+					//set the bean to the active form
+					if (meta.getAttribute("key").equals("impltype") && meta.getAttribute("value").equals(desiredImpltype)){
+						bean.setAttribute("id", beanName);
+					}
+				
+				//if the desired implementation type is "default"...
+				}else{
+				//... search for "default" equals "true" and
+				//set the bean to the active form
+					if (meta.getAttribute("key").equals("default") && meta.getAttribute("value").equals("true")){
+						bean.setAttribute("id", beanName);
+					}
+				}
+			}
+		}
+		
+		//write the document
+		try{
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			
+			//initialize StreamResult with File object to save to file
+			DOMSource source = new DOMSource(doc);
+			FileOutputStream fileOutput = new FileOutputStream(fullPath);
+			StreamResult stream = new StreamResult(fileOutput);
+			transformer.transform(source, stream);
+			fileOutput.close();
+			log.info("Done createorupdate: " + fileName);
+		}
+		catch(Exception e){
+			log.error("Exception writing out connection info file: " + e.getMessage(), e);
+		}
 	}
 
 	static CreateOrUpdateConnection(String fileName, String directory, String communityId, String serviceName, String serviceUrl, String defaultVersion, context, log) {

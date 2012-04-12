@@ -7,7 +7,7 @@
     <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant">
       <classpath>
         <fileset dir="${ivy.targets.thirdparty.dir}/AntExtraLibs">
-          <include name="ivy-*.jar"/>
+          <include name="*.jar"/>
         </fileset>
       </classpath>
     </taskdef>
