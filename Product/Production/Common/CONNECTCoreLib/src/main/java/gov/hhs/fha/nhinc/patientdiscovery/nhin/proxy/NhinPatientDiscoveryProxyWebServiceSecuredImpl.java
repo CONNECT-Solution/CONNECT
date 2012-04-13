@@ -23,6 +23,9 @@ import org.hl7.v3.PRPAIN201306UV02;
 import javax.xml.ws.Service;
 import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
 
+import org.hl7.v3.INT;
+import java.math.BigInteger;
+
 /**
  *
  * @author jhoppesc
