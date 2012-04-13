@@ -5,5 +5,9 @@
       <handler-name>gov.hhs.fha.nhinc.hiem.nhin.unsubscribe.HiemUnsubscribeSoapHeaderHandler</handler-name>
       <handler-class>gov.hhs.fha.nhinc.hiem.nhin.unsubscribe.HiemUnsubscribeSoapHeaderHandler</handler-class>
     </handler>
+    <handler>
+      <handler-name>gov.hhs.fha.nhinc.callback.SOAPHeaderHandler</handler-name>
+      <handler-class>gov.hhs.fha.nhinc.callback.SOAPHeaderHandler</handler-class>
+    </handler>
   </handler-chain>
 </handler-chains>
