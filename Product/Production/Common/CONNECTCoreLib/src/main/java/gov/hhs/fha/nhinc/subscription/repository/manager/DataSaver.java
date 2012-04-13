@@ -132,8 +132,12 @@ class DataSaver {
             log.error("Error accessing storage " + fileName + ": " + ex.getMessage());
         } finally {
             try {
-                xdec.close();
-                fis.close();
+            	if (xdec != null) {
+            		xdec.close();
+            	}
+            	if (fis != null) {
+            		fis.close();
+            	}
             } catch (IOException ex) {
                 log.info("Unable to close streams: " + ex.getMessage());
             }
