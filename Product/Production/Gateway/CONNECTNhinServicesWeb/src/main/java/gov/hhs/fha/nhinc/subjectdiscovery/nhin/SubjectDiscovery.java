@@ -9,6 +9,7 @@ package gov.hhs.fha.nhinc.subjectdiscovery.nhin;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.xml.ws.WebServiceContext;
 
 /**
@@ -17,6 +18,7 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "PIXConsumer_Service", portName = "PIXConsumer_Port_Soap", endpointInterface = "ihe.iti.pixv3._2007.PIXConsumerPortType", targetNamespace = "urn:ihe:iti:pixv3:2007", wsdlLocation = "WEB-INF/wsdl/SubjectDiscovery/NhinSubjectDiscovery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file="../../../../../../handler-chain.xml")
 public class SubjectDiscovery
 {
     @Resource

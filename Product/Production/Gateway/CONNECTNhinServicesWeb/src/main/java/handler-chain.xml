@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+    Document   : handler-chain.xml.xml
+    Created on : April 11, 2012, 11:16 AM
+    Author     : rhalfert
+    Description:
+        Creates a jaxws handeler chain. The referred class handles inbound and outbound requests
+-->
+
+
+<javaee:handler-chains xmlns:javaee="http://java.sun.com/xml/ns/javaee" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <javaee:handler-chain>
+        <javaee:handler>
+            <javaee:handler-class>gov.hhs.fha.nhinc.callback.SOAPHeaderHandler</javaee:handler-class>
+        </javaee:handler>
+    </javaee:handler-chain>
+</javaee:handler-chains>

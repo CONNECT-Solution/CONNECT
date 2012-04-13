@@ -15,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import javax.jws.HandlerChain;
 
 /**
  *
@@ -22,6 +23,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 @WebService(serviceName = "findAuditEvents", portName = "AuditLogQuery", endpointInterface = "com.nhin.services.AuditLogQuery", targetNamespace = "http://services.nhin.com", wsdlLocation = "WEB-INF/wsdl/AuditQuery/NhinAuditLogQuery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@HandlerChain(file="../../../../../../handler-chain.xml")
 public class AuditQuery
 {
     @Resource

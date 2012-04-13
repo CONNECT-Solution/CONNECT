@@ -55,6 +55,8 @@ public class WebServiceProxyHelper {
     public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
     public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
     public static final String KEY_URL = javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
+    private static final String UUID_TAG = "urn:uuid:";
+    
     private Log log = null;
 
     /**
@@ -358,7 +360,7 @@ public class WebServiceProxyHelper {
             return assertion.getMessageId();
         } else {
             UUID oUuid = UUID.randomUUID();
-            String sUuid = oUuid.toString();
+            String sUuid = UUID_TAG + oUuid.toString();
             log.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = " + sUuid);
             if (assertion != null) {
                 assertion.setMessageId(sUuid);

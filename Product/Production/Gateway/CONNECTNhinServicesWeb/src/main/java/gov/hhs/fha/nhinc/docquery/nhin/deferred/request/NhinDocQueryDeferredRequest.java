@@ -7,6 +7,7 @@
 package gov.hhs.fha.nhinc.docquery.nhin.deferred.request;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -19,6 +20,7 @@ import javax.xml.ws.soap.Addressing;
 @WebService(serviceName = "RespondingGateway_QueryDeferredRequest_Service", portName = "RespondingGateway_QueryDeferredRequest_Port_Soap", endpointInterface = "ihe.iti.xds_b._2007.RespondingGatewayQueryDeferredRequestPortType", targetNamespace = "urn:ihe:iti:xds-b:2007", wsdlLocation = "WEB-INF/wsdl/NhinDocQueryDeferredRequest/NhinDocQueryDeferredRequest.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 @Addressing(enabled=true)
+@HandlerChain(file="../../../../../../../../handler-chain.xml")
 public class NhinDocQueryDeferredRequest {
 
     @Resource
