@@ -47,6 +47,7 @@ public class DocumentQueryParams {
     private List<String> statuses;
     private List<String> documentUniqueIds;
     private List<EventCodeParam> eventCodeParams;
+    private boolean onDemand = false;
 
     public List<String> getClassCodes() {
         return classCodes;
@@ -143,6 +144,14 @@ public class DocumentQueryParams {
     public void setEventCodeParams(List<EventCodeParam> eventCodeParams) {
         this.eventCodeParams = eventCodeParams;
     }
+    
+    public boolean getOnDemand() {
+        return onDemand;
+    }
+    
+    public void setOnDemandParams(boolean onDemand) {
+        this.onDemand = onDemand;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -231,6 +240,10 @@ public class DocumentQueryParams {
             return false;
         } else if ((this.getEventCodeParams() != null)
                 && (!this.getEventCodeParams().equals(toCheck.getEventCodeParams()))) {
+            return false;
+        }
+        
+        if (this.getOnDemand() != toCheck.getOnDemand()) {
             return false;
         }
 
