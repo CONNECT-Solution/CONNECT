@@ -51,7 +51,7 @@
           <property name="proxiedProtocols" value="ws/tcp"/>
         </http-listener>
         <http-listener id="http-listener-2" address="0.0.0.0" port="%%%HTTP_SSL_PORT%%%" acceptor-threads="1" security-enabled="true" default-virtual-server="server" server-name="" xpowered-by="true" enabled="true" family="inet" blocking-enabled="false">
-          <ssl cert-nickname="s1as" client-auth-enabled="true" ssl2-enabled="false" ssl3-enabled="true" tls-enabled="true" tls-rollback-enabled="true"/>
+          <ssl cert-nickname="gateway" client-auth-enabled="true" ssl2-enabled="false" ssl3-enabled="true" tls-enabled="true" tls-rollback-enabled="true"/>
         </http-listener>
         <http-listener id="admin-listener" address="0.0.0.0" port="%%%ADMIN_PORT%%%" acceptor-threads="1" security-enabled="false" default-virtual-server="__asadmin" server-name="" xpowered-by="true" enabled="true" family="inet" blocking-enabled="false"/>
         <virtual-server id="server" http-listeners="http-listener-1,http-listener-2" hosts="${com.sun.aas.hostName}" state="on" log-file="${com.sun.aas.instanceRoot}/logs/server.log">
@@ -76,16 +76,16 @@
 
         <iiop-listener id="orb-listener-1" address="0.0.0.0" port="%%%ORB_LISTENER_PORT%%%" enabled="true" security-enabled="false"/>
         <iiop-listener id="SSL" address="0.0.0.0" port="%%%ORB_SSL_PORT%%%" security-enabled="true" enabled="true">
-          <ssl cert-nickname="s1as" ssl2-enabled="false" ssl3-enabled="true" tls-enabled="true" tls-rollback-enabled="true" client-auth-enabled="false"/>
+          <ssl cert-nickname="gateway" ssl2-enabled="false" ssl3-enabled="true" tls-enabled="true" tls-rollback-enabled="true" client-auth-enabled="false"/>
         </iiop-listener>
         <iiop-listener id="SSL_MUTUALAUTH" address="0.0.0.0" port="%%%ORB_MUTUALAUTH_PORT%%%" security-enabled="true" enabled="true">
-          <ssl cert-nickname="s1as" client-auth-enabled="true" ssl2-enabled="false" ssl3-enabled="true" tls-enabled="true" tls-rollback-enabled="true"/>
+          <ssl cert-nickname="gateway" client-auth-enabled="true" ssl2-enabled="false" ssl3-enabled="true" tls-enabled="true" tls-rollback-enabled="true"/>
         </iiop-listener>
       </iiop-service>
       <admin-service system-jmx-connector-name="system" type="das-and-server">
         <!-- The JSR 160 "system-jmx-connector" -->
         <jmx-connector accept-all="false" address="0.0.0.0" auth-realm-name="admin-realm" enabled="true" name="system" port="%%%JMX_SYSTEM_CONNECTOR_PORT%%%" protocol="rmi_jrmp" security-enabled="false">
-          <ssl cert-nickname="s1as"/>
+          <ssl cert-nickname="gateway"/>
         </jmx-connector>
         <!-- The JSR 160 "system-jmx-connector" -->
         <das-config dynamic-reload-enabled="true" dynamic-reload-poll-interval-in-seconds="2" autodeploy-enabled="true" autodeploy-polling-interval-in-seconds="2" autodeploy-dir="${com.sun.aas.instanceRoot}/autodeploy" autodeploy-verifier-enabled="false" autodeploy-jsp-precompilation-enabled="false" deploy-xml-validation="full" admin-session-timeout-in-minutes="60"/>
@@ -133,16 +133,16 @@
           <provider-config class-name="com.sun.xml.wss.provider.ClientSecurityAuthModule" provider-id="XWS_ClientProvider" provider-type="client">
             <request-policy auth-source="content"/>
             <response-policy auth-source="content"/>
-            <property name="encryption.key.alias" value="s1as"/>
-            <property name="signature.key.alias" value="s1as"/>
+            <property name="encryption.key.alias" value="gateway"/>
+            <property name="signature.key.alias" value="gateway"/>
             <property name="dynamic.username.password" value="false"/>
             <property name="debug" value="false"/>
           </provider-config>
           <provider-config class-name="com.sun.xml.wss.provider.ClientSecurityAuthModule" provider-id="ClientProvider" provider-type="client">
             <request-policy auth-source="content"/>
             <response-policy auth-source="content"/>
-            <property name="encryption.key.alias" value="s1as"/>
-            <property name="signature.key.alias" value="s1as"/>
+            <property name="encryption.key.alias" value="gateway"/>
+            <property name="signature.key.alias" value="gateway"/>
             <property name="dynamic.username.password" value="false"/>
             <property name="debug" value="false"/>
             <property name="security.config" value="${com.sun.aas.instanceRoot}/config/wss-server-config-1.0.xml"/>
@@ -150,15 +150,15 @@
           <provider-config class-name="com.sun.xml.wss.provider.ServerSecurityAuthModule" provider-id="XWS_ServerProvider" provider-type="server">
             <request-policy auth-source="content"/>
             <response-policy auth-source="content"/>
-            <property name="encryption.key.alias" value="s1as"/>
-            <property name="signature.key.alias" value="s1as"/>
+            <property name="encryption.key.alias" value="gateway"/>
+            <property name="signature.key.alias" value="gateway"/>
             <property name="debug" value="false"/>
           </provider-config>
           <provider-config class-name="com.sun.xml.wss.provider.ServerSecurityAuthModule" provider-id="ServerProvider" provider-type="server">
             <request-policy auth-source="content"/>
             <response-policy auth-source="content"/>
-            <property name="encryption.key.alias" value="s1as"/>
-            <property name="signature.key.alias" value="s1as"/>
+            <property name="encryption.key.alias" value="gateway"/>
+            <property name="signature.key.alias" value="gateway"/>
             <property name="debug" value="false"/>
             <property name="security.config" value="${com.sun.aas.instanceRoot}/config/wss-server-config-1.0.xml"/>
           </provider-config>
@@ -174,7 +174,7 @@
         <jvm-options>-Djava.endorsed.dirs=${com.sun.aas.installRoot}/lib/endorsed</jvm-options>
         <jvm-options>-Djava.security.policy=${com.sun.aas.instanceRoot}/config/server.policy</jvm-options>
         <jvm-options>-Djava.security.auth.login.config=${com.sun.aas.instanceRoot}/config/login.conf</jvm-options>
-        <jvm-options>-Djavax.net.ssl.keyStore=${com.sun.aas.instanceRoot}/config/keystore.jks</jvm-options>
+        <jvm-options>-Djavax.net.ssl.keyStore=${com.sun.aas.instanceRoot}/config/gateway.jks</jvm-options>
         <jvm-options>-Djavax.net.ssl.trustStore=${com.sun.aas.instanceRoot}/config/cacerts.jks</jvm-options>
         <jvm-options>-Djavax.net.ssl.keyStoreType=JKS</jvm-options>
         <jvm-options>-Djavax.net.ssl.trustStoreType=JKS</jvm-options>
@@ -193,8 +193,8 @@
         <jvm-options>-Dcom.sun.jbi.httpbc.enableClientAuth=true</jvm-options>
         <jvm-options>-Djavax.net.ssl.keyStorePassword=changeit</jvm-options>
         <jvm-options>-Djavax.net.ssl.trustStorePassword=changeit</jvm-options>
-        <jvm-options>-DSERVER_KEY_ALIAS=xws-security-server</jvm-options>
-        <jvm-options>-DCLIENT_KEY_ALIAS=xws-security-client</jvm-options>
+        <jvm-options>-DSERVER_KEY_ALIAS=gateway</jvm-options>
+        <jvm-options>-DCLIENT_KEY_ALIAS=gateway</jvm-options>
         <jvm-options>-Dsun.rmi.dgc.server.gcInterval=1200000</jvm-options>
         <jvm-options>-Dsun.rmi.dgc.client.gcInterval=1200000</jvm-options>
         <jvm-options>-Xmx1400m</jvm-options>
