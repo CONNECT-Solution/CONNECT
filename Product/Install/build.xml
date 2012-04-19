@@ -17,7 +17,12 @@
 	</taskdef>
 
     <property environment="env"/>
-    <property file="local.install.properties"/>
+    <property name="properties.file" value="${CONNECT.Automated.Installer.basedir}/local.install.properties"/>
+    
+    <available file="${properties.file}" type="file" property="properties.file.exists"/>
+    <fail unless="properties.file.exists" message="Did not find properties file ${properties.file}"/>
+    
+    <property file="${properties.file}"/>
     <property name="glassfish.install.dir" value="${glassfish.install.dir.root}/${glassfish.install.dir.name}"/>
     <property name="temp.dir" value="${basedir}/.installer.temp"/>
     <property name="glassfish.install.ant.script" value="${glassfish.install.dir}/setup.xml"/>
@@ -62,7 +67,9 @@
     </target>
 
     <target name="install" depends="determine.os, setup, backup.glassfish.install.dir, install.glassfish.with.metro, install.databases, build.connect, deploy.connect, cleanup"/>
-    
+
+	<target name="install-binary" depends="determine.os, setup, backup.glassfish.install.dir, install.glassfish.with.metro, install.databases, deploy.connect.binary, cleanup"/>
+
     <target name="cleanup">
         <delete dir="${temp.dir}"/>
     </target>
@@ -177,6 +184,14 @@ FLUSH PRIVILEGES;
         <echo message="deploying CONNECT."/>
         <ant antfile="${basedir}/../build.xml" dir="${basedir}/.." target="deploy">
             <property name="glassfish.home" value="${glassfish.install.dir}"/>
+        </ant>
+    </target>
+
+    <target name="deploy.connect.binary" unless="skip.deploy">
+        <echo message="deploying CONNECT for binary scenario."/>
+        <ant antfile="${basedir}/deploy.xml" dir="${basedir}" target="deploy">
+            <property name="glassfish.home" value="${glassfish.install.dir}"/>
+            <property name="deployment.dir" value="${basedir}"/>
         </ant>
     </target>
 

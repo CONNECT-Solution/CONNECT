@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="package.targets">
-	
+
 	<import file="package.properties.xml"/>
 
 	<target name="package.help">
-			
+
 	</target>
 
 	<target name="package.clean">
@@ -56,19 +56,19 @@
 		<manifest file="${build.dist.manifest.file}" mode="update">
 			<attribute name="Implementation-Vendor" value="connectopensource.org" />
 			<attribute name="Implementation-Title" value="NHIN CONNECT" />
-      <attribute name="Implementation-Version" value="${ProductVersion}" />
-      <attribute name="Specification-Version" value="${ProductVersion}" />
-    </manifest>
+			<attribute name="Implementation-Version" value="${ProductVersion}" />
+			<attribute name="Specification-Version" value="${ProductVersion}" />
+		</manifest>
 
 		<switch value="${dist.type}">
 			<case value="jar">
-        <mkdir dir="${build.jar.lib.dir}" />
-        <for param="jar.lib">
-          <path refid="jar.libs" />
-          <sequential>
-            <copy file="@{jar.lib}" todir="${build.jar.lib.dir}" />
-          </sequential>
-        </for>				
+				<mkdir dir="${build.jar.lib.dir}" />
+				<for param="jar.lib">
+					<path refid="jar.libs" />
+					<sequential>
+						<copy file="@{jar.lib}" todir="${build.jar.lib.dir}" />
+					</sequential>
+				</for>
 				<jar destfile="${dist.file}" compress="true" basedir="${build.dist.root}" manifest="${build.dist.manifest.file}" excludes="**/*.flag"/>
 			</case>
 			<case value="war">
@@ -82,8 +82,8 @@
 				<war compress="true" destfile="${dist.file}" manifest="${build.dist.manifest.file}">
 					<path refid="war.files" />
 					<fileset dir="${build.dist.root}">
-            <exclude name="**/*.flag"/>
-          </fileset>
+						<exclude name="**/*.flag"/>
+					</fileset>
 				</war>
 			</case>
 			<case value="ear">
@@ -93,9 +93,9 @@
 				</copy>
 				<ear compress="true" destfile="${dist.file}" manifest="${build.dist.manifest.file}" appxml="${build.dist.meta-inf.dir}/application.xml">
 					<path refid="ear.files" />
-          <fileset dir="${build.dist.root}">
-            <exclude name="META-INF/application.xml"/>
-          </fileset>
+					<fileset dir="${build.dist.root}">
+						<exclude name="META-INF/application.xml"/>
+					</fileset>
 				</ear>
 			</case>
 			<default>
