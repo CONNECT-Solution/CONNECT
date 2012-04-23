@@ -164,7 +164,7 @@ public class InternalConnectionInfoFileConverter {
         bEntityName.setLang("en");
 
         businessEntity.getName().add(bEntityName);
-        businessEntity.setBusinessKey("uddi:testnhincnode:" + hcid);
+        businessEntity.setBusinessKey("uddi:localnode:" + hcid);
 
         BusinessServices businessServices = new BusinessServices();
 
@@ -174,8 +174,7 @@ public class InternalConnectionInfoFileConverter {
             String endpoint = service.getEndpointURL();
 
             BusinessService businessService = new BusinessService();
-            businessService.setServiceKey("uddi:testnhincnode:" + serviceName);
-            businessService.setBusinessKey("uddi:testnhieonenode:" + hcid);
+            businessService.setServiceKey("uddi:nhincnode:" + serviceName);
 
             Name name = new Name();
             name.setValue(serviceName);
@@ -183,8 +182,8 @@ public class InternalConnectionInfoFileConverter {
 
             BindingTemplates bindingTemplates = new BindingTemplates();
             BindingTemplate bindingTemplate = new BindingTemplate();
-            bindingTemplate.setBindingKey("uddi:testnhincnode:" + serviceName);
-            bindingTemplate.setServiceKey("uddi:testnhincnode:" + serviceName);
+            bindingTemplate.setBindingKey("uddi:nhincnode:" + serviceName);
+            bindingTemplate.setServiceKey("uddi:nhincnode:" + serviceName);
 
             AccessPoint accessPoint = new AccessPoint();
             accessPoint.setUseType("endPoint");
