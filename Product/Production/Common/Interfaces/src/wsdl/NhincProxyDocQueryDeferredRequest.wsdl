@@ -63,7 +63,7 @@
     <port name="NhincProxyDocQueryDeferredRequestPortSoap"
           binding="tns:NhincProxyDocQueryDeferredRequestBindingSoap">
       <soap:address
-               location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQueryDeferredRequest"/>
+               location="http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/NhincProxyDocQueryDeferredRequest"/>
     </port>
   </service>
 </definitions>

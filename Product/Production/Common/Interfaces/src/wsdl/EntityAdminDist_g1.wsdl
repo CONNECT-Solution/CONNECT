@@ -42,7 +42,7 @@
     </binding>
     <service name="AdministrativeDistribution_Service">
         <port name="AdministrativeDistribution_PortType" binding="tns:AdministrativeDistribution_Binding_Soap12">
-            <soap12:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdministrativeDistribution"/>
+           <soap12:address location="http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="Entity_AdminDist_SoapPolicy">

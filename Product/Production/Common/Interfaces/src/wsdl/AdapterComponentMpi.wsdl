@@ -33,7 +33,7 @@
 	</binding>
 	<service name="AdapterComponentMpiService">
 		<port name="AdapterComponentMpiPort" binding="tns:AdapterComponentMpiPortTypeBinding">
-			<soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/AdapterComponentMpiService"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterComponentMpiService"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="AdapterComponentMpi">

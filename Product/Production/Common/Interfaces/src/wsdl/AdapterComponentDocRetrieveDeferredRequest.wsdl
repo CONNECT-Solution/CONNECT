@@ -50,7 +50,7 @@
 	</binding>
 	<service name="AdapterComponentDocRetrieveReqService">
 		<port name="AdapterComponentDocRetrieveReqPortSoap" binding="tns:AdapterDocRetrieveDeferredRequestBinding">
-			<soap:address location="http://localhost:${NhincHttpPort}/AdapterComponentDocRetrieveReqService"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterComponentDocRetrieveReqService"/>
 		</port>
 	</service>
 	<wsp:Policy wsu:Id="AdapterComponentDocRepositoryPolicy">

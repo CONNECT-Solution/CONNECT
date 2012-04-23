@@ -47,7 +47,7 @@
 	</binding>
 	<service name="EntityXDR_Service">
 		<port name="EntityXDR_Port" binding="tns:EntityXDR_Binding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityXDR"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured"/>
 		</port>
 	</service>
 </definitions>

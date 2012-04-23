@@ -44,7 +44,7 @@
     </binding>
     <service name="RespondingGateway_AdministrativeDistribution">
         <port name="RespondingGateway_AdministrativeDistribution_PortType" binding="tns:RespondingGateway_AdministrativeDistribution_Binding_Soap12">
-            <soap12:address location="https://localhost:${HttpsDefaultPort}/RespondingGateway_AdministrativeDistribution"/>
+            <soap12:address location="https://localhost:${HttpsDefaultPort}/Gateway/AdminDistribution/1_0/NhinService/NhinAdminDist"/>
         </port>
     </service>
     

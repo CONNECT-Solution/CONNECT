@@ -38,7 +38,7 @@
     </wsdl:binding>
     <wsdl:service name="NhincProxyPatientDiscoverySecured">
         <wsdl:port name="NhincProxyPatientDiscoverySecuredPort" binding="tns:NhincProxyPatientDiscoverySecuredBinding">
-            <soap:address location="https://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscoverySecured"/>
+            <soap:address location="https://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityService/NhincProxyPatientDiscoverySecured"/>
         </wsdl:port>
     </wsdl:service>
     <wsp:Policy wsu:Id="NhincPatientDiscoveryProxy_Binding_SoapPolicy">

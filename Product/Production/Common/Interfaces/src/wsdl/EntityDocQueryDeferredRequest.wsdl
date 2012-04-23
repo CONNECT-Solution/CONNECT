@@ -56,7 +56,7 @@
         <port name="EntityDocQueryDeferredRequestPortSoap"
           binding="tns:EntityDocQueryDeferredRequestBindingSoap">
             <soap:address
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQueryDeferredRequest" />
+         location="http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityDocQueryDeferredRequest" />
         </port>
     </service>
 </definitions>

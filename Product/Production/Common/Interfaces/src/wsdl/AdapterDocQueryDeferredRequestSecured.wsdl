@@ -40,7 +40,7 @@
     </binding>
     <service name="AdapterDocQueryDeferredRequestSecured">
         <port name="AdapterDocQueryDeferredRequestSecuredPortSoap" binding="tns:AdapterDocQueryDeferredRequestSecuredBindingSoap">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocQueryDeferredRequestSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQueryDeferredRequestSecured"/>
         </port>
     </service>
     

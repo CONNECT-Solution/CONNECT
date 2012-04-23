@@ -38,7 +38,7 @@
 	</binding>
 	<service name="EntityXDRAsyncResponse_Service">
 		<port name="EntityXDRAsyncResponse_Port" binding="tns:EntityXDRAsyncResponse_Binding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured"/>
 		</port>
 	</service>
 </definitions>

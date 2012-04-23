@@ -63,7 +63,7 @@
   <service name="RespondingGateway_Query_Service">
     <port name="RespondingGateway_Query_Port_Soap"
           binding="ihe:RespondingGateway_Query_Binding_Soap">
-      <soap12:address location="https://localhost:${HttpsDefaultPort}/RespondingGateway_Query_Service"/>
+      <soap12:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery"/>
     </port>
   </service>
   <!-- Define action property on each receiving message -->

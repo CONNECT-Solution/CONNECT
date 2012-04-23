@@ -139,7 +139,7 @@
                binding="tns:AdapterNotificationConsumerSecureBindingSoap">
             <soap:address 
          location=
-            "https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterNotificationConsumerSecured"/>
+            "https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterNotificationConsumer"/>
         </wsdl:port>
     </wsdl:service>
     

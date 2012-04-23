@@ -38,7 +38,7 @@
 	</binding>
 	<service name="ProxyXDRAsyncRequest_Service">
 		<port name="ProxyXDRAsyncRequest_Port" binding="tns:ProxyXDRAsyncRequest_Binding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRAsyncRequest"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured"/>
 		</port>
 	</service>
 </definitions>

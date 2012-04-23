@@ -47,7 +47,7 @@
 	</binding>
 	<service name="ProxyXDR_Service">
 		<port name="ProxyXDR_Port" binding="tns:ProxyXDR_Binding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyXDR"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionUnsecured"/>
 		</port>
 	</service>
 </definitions>

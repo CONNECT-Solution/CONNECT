@@ -292,15 +292,14 @@
     <wsdl:service name="EntityNotificationProducerSecured">
         <wsdl:port name="EntityNotificationProducerSecuredPortSoap" 
                binding="tns:EntityNotificationProducerSecuredBindingSoap">
-            <soap:address 
-         location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityNotificationProducerSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/HIEM/2_0/EntityNotificationProducerSecured"/>
         </wsdl:port>
     </wsdl:service>
     <wsdl:service name="EntitySubscriptionManagerSecured">
         <wsdl:port name="EntitySubscriptionManagerSecuredPortSoap" 
                binding="tns:EntitySubscriptionManagerSecuredBindingSoap">
             <soap:address 
-         location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntitySubscriptionManagerSecured"/>
+         location="https://localhost:${HttpsDefaultPort}/Gateway/HIEM/2_0/EntitySubscriptionManagerSecured"/>
         </wsdl:port>
     </wsdl:service>
     <plnk:partnerLinkType name="EntityNotificationProducer">

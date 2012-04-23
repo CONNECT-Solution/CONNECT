@@ -74,7 +74,7 @@
         <port name="NhincProxyDocRetrieveDeferredResponseSecuredPortSoap"
           binding="tns:NhincProxyDocRetrieveDeferredResponseSecuredBindingSoap">
             <soap:address
-               location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyDocRetrieveDeferredResponseSecured"/>
+               location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveDeferredResponseSecured "/>
         </port>
     </service>
   <wsp:Policy wsu:Id="RespondingGateway_Retrieve_Binding_SoapPolicy">

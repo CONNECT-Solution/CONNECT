@@ -75,7 +75,7 @@
 	
 	<service name="AdapterPIP">
 		<port name="AdapterPIPPortSoap" binding="tns:AdapterPIPBindingSoap">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPIP"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/CONNECTAdapter/AdapterPIP"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="AdapterPIP">

@@ -116,7 +116,7 @@
     </binding>
     <service name="NhincComponentSubscriptionReferenceRepositoryService">
         <port name="NhincComponentSubscriptionReferenceRepositoryPortTypeBindingPort" binding="tns:NhincComponentSubscriptionReferenceRepositoryBinding">
-            <soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentSubscriptionReferenceRepository"/>
+            <soap:address location="http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/GatewayInternalService/NhincComponentSubscriptionReferenceRepository"/>
         </port>
     </service>
     <plnk:partnerLinkType name="NhincComponentSubscriptionReferenceRepository">

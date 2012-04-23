@@ -67,7 +67,7 @@
     </wsdl:binding>
     <wsdl:service name="AdapterPatientDiscoverySecured">
         <wsdl:port name="AdapterPatientDiscoverySecuredPortSoap" binding="tns:AdapterPatientDiscoverySecuredBindingSoap">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterPatientDiscoverySecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoverySecured"/>
         </wsdl:port>
     </wsdl:service>
     <wsp:Policy wsu:Id="Adapter_PatientDiscovery_SoapPolicy">

@@ -39,7 +39,7 @@
     </binding>
     <service name="AdapterDocRetrieveSecured">
         <port name="AdapterDocRetrieveSecuredPortSoap" binding="tns:AdapterDocRetrieveSecuredBindingSoap">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocRetrieveSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveSecured"/>
         </port>
     </service>
     <plnk:partnerLinkType name="AdapterDocRetrieveSecured">

@@ -36,7 +36,7 @@
 	</binding>
 	<service name="AdapterDocQuery">
 		<port name="AdapterDocQueryPortSoap" binding="tns:AdapterDocQueryBindingSoap">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocQuery"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQueryUnsecured"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="AdapterDocQuery">

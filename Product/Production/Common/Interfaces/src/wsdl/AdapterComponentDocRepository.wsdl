@@ -156,7 +156,7 @@
     <port name="DocumentRepository_Port_Soap" 
           binding="ihe:DocumentRepository_Binding">
       <soap:address 
-         location="http://localhost:${NhincHttpPort}/DocumentRepository_Service"/>
+         location="http://localhost:${HttpDefaultPort}/CONNECTAdapter/DocumentRepository_Service"/>
     </port>
   </service>
   

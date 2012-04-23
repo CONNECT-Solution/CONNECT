@@ -34,7 +34,7 @@
 	</wsdl:binding>
 	<wsdl:service name="AdapterPatientDiscoveryAsyncResp">
 		<wsdl:port name="AdapterPatientDiscoveryAsyncRespPortSoap" binding="tns:AdapterPatientDiscoveryAsyncRespBindingSoap">
-			<soap12:address location="http://localhost/NhinConnect/AdapterPatientDiscoveryAsyncResp"/>
+			<soap12:address location="http://localhost:${DefaultHTTPPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredResponseUnsecured"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

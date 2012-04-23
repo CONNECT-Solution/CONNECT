@@ -34,7 +34,7 @@
 	
 	<service name="AdapterMpiManagerService">
 		<port name="AdapterMpiManagerPortTypeBindingPort" binding="tns:AdapterMpiManagerPortTypeBinding">
-			<soap:address location="http://localhost:${NhincHttpPort}/AdapterMpiManagerService"/>
+			<soap:address location="http://localhost:${DefaultHttpPort}/Adapter/PatientDiscovery/A_0/AdapterMpiManagerService"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="AdapterMpiManager">

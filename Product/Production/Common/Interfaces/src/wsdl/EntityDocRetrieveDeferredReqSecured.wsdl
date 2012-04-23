@@ -73,7 +73,7 @@
         <port name="EntityDocRetrieveDeferredRequestSecuredPortSoap"
           binding="tns:EntityDocRetrieveDeferredRequestSecuredBindingSoap">
             <soap:address
-               location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityDocRetrieveDeferredRequestSecured"/>
+               location="https://localhost:${HttpsDefaultPort}//Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieveDeferredRequestSecured"/>
         </port>
     </service>
 

@@ -189,7 +189,7 @@
 	</binding>
 	<service name="NhincComponentInternalPolicyEngineTransformService">
 		<port name="NhincInternalComponentPolicyEngineTransformPort" binding="tns:NhincInternalComponentPolicyEngineTransformPortTypeBinding">
-			<soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/PolicyEngineGatewayTransformationService"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/CONNECTGateway/NhincComponentInternalPolicyEngineTransformService"/>
 		</port>
 	</service>
 	<!--   <message name="TransformSubjectRevokedToCheckPolicyRequestMessage">

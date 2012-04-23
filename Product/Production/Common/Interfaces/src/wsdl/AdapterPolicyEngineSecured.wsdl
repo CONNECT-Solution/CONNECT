@@ -40,7 +40,7 @@
     
     <service name="AdapterPolicyEngineSecured">
         <port name="AdapterPolicyEngineSecuredPortSoap" binding="tns:AdapterPolicyEngineSecuredBindingSoap">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterPolicyEngineSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/CONNECTAdapter/AdapterPolicyEngineSecured"/>
         </port>
     </service>
     <!-- Define action property on each receiving message -->
