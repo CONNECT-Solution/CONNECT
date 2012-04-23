@@ -6,16 +6,9 @@
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig"
  >
     <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
-    <import location="NhinDocQueryDeferredRequest.xml" namespace="urn:ihe:iti:xds-b:2007"/>
-    <import location="NhinDocQueryDeferredResponse.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhincProxyDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"/>
-    <import location="NhincProxyDocQueryDeferredRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredrequestsecured"/>
-    <import location="NhincProxyDocQueryDeferredResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponsesecured"/>
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     <import location="AdapterPolicyEngineSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured"/>
     <import location="AdapterDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerysecured"/>
-    <import location="AdapterDocQueryDeferredRequestErrorSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequesterrorsecured"/>
-    <import location="AdapterDocQueryDeferredResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterDocQueryDeferredResponseSecured"/>
-    <import location="AdapterDocQueryDeferredRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequestsecured"/>
     <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
 </definitions>

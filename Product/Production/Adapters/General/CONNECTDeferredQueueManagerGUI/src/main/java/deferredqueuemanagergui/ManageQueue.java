@@ -35,13 +35,9 @@ import com.sun.webui.jsf.component.TabSet;
 import com.sun.webui.jsf.component.TextField;
 import com.sun.webui.jsf.model.Option;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.PatientDiscoveryDeferredReqQueueClient;
-import gov.hhs.fha.nhinc.adapter.deferred.queue.QueryForDocumentsDeferredReqQueueClient;
-import gov.hhs.fha.nhinc.adapter.deferred.queue.RetrieveDocumentsDeferredReqQueueClient;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.gui.UserSession;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.gui.servicefacade.DeferredQueueManagerFacade;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
-import gov.hhs.fha.nhinc.gateway.adapterdocqueryreqqueueprocess.DocQueryDeferredReqQueueProcessResponseType;
-import gov.hhs.fha.nhinc.gateway.adapterdocretrievereqqueueprocess.DocRetrieveDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.util.Format;
 import java.util.Calendar;
@@ -393,9 +389,7 @@ public class ManageQueue extends AbstractPageBean {
         String asyncMsgId = (String) this.messageId.getText();
         String serviceName = (String) this.serviceName.getText();
         PatientDiscoveryDeferredReqQueueProcessResponseType pdResponse = null;
-        DocQueryDeferredReqQueueProcessResponseType qdResponse = null;
-        DocRetrieveDeferredReqQueueProcessResponseType rdResponse = null;
-
+        
         if (serviceName.trim().equals(PATIENT_DISCOVERY)) {
             PatientDiscoveryDeferredReqQueueClient pdClient = new PatientDiscoveryDeferredReqQueueClient();
             pdResponse = pdClient.processPatientDiscoveryDeferredReqQueue(asyncMsgId);
@@ -406,29 +400,7 @@ public class ManageQueue extends AbstractPageBean {
             } else {
                 this.errorMessages
                         .setText("Unable to process the Patient Discovery Deferred Response, Please contact system administrator for further details.");
-            }
-        } else if (serviceName.trim().equals(QUERY_FOR_DOCUMENT)) {
-            QueryForDocumentsDeferredReqQueueClient qdClient = new QueryForDocumentsDeferredReqQueueClient();
-            qdResponse = qdClient.processDocQueryDeferredReqQueue(asyncMsgId);
-            gov.hhs.fha.nhinc.gateway.adapterdocqueryreqqueueprocess.SuccessOrFailType sfqd = qdResponse
-                    .getSuccessOrFail();
-            if (sfqd.isSuccess()) {
-                this.userInfo.setText("Succesfully Query for Document Deferred Response Msg got Processed.");
-            } else {
-                this.errorMessages
-                        .setText("Unable to process the Query for Document Deferred Response, Please contact system administrator for further details.");
-            }
-        } else if (serviceName.trim().equals(RETRIEVE_DOCUMENT)) {
-            RetrieveDocumentsDeferredReqQueueClient rdClient = new RetrieveDocumentsDeferredReqQueueClient();
-            rdResponse = rdClient.processDocRetrieveDeferredReqQueue(asyncMsgId);
-            gov.hhs.fha.nhinc.gateway.adapterdocretrievereqqueueprocess.SuccessOrFailType sfrd = rdResponse
-                    .getSuccessOrFail();
-            if (sfrd.isSuccess()) {
-                this.userInfo.setText("Succesfully Retrieve for Document Deferred Response Msg got Processed.");
-            } else {
-                this.errorMessages
-                        .setText("Unable to process the Retrieve for Document Deferred Response, Please contact system administrator for further details.");
-            }
+            }        
         }
 
         return null;

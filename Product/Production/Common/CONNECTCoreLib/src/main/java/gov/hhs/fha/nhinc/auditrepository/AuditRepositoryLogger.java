@@ -69,7 +69,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.audit.AdminDistTransforms;
 import gov.hhs.fha.nhinc.transform.audit.DocumentQueryTransforms;
-import gov.hhs.fha.nhinc.transform.audit.DocumentRetrieveDeferredTransforms;
 import gov.hhs.fha.nhinc.transform.audit.DocumentRetrieveTransforms;
 import gov.hhs.fha.nhinc.transform.audit.FindAuditEventsTransforms;
 import gov.hhs.fha.nhinc.transform.audit.NotifyTransforms;
@@ -103,7 +102,6 @@ public class AuditRepositoryLogger {
     private static Log log = LogFactory.getLog(AuditRepositoryLogger.class);
     private PatientDiscoveryTransforms pdAuditTransformer = new PatientDiscoveryTransforms();
     private XDRTransforms xdrAuditTransformer = new XDRTransforms();
-    private DocumentRetrieveDeferredTransforms drAuditTransformer = new DocumentRetrieveDeferredTransforms();
     private AdminDistTransforms adAuditTransformer = new AdminDistTransforms();
     private boolean serviceEnabled = false;
     private DocumentQueryTransforms dqAuditTransforms = new DocumentQueryTransforms();
@@ -1046,25 +1044,4 @@ public class AuditRepositoryLogger {
         return log;
     }
 
-    /**
-     * 
-     * @param message
-     * @param assertion
-     * @param direction
-     * @return LogEventRequestType
-     */
-    public LogEventRequestType logDocRetrieveAckResponse(RegistryResponseType message,
-            RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType response, AssertionType assertion,
-            String direction, String _interface, String requestCommunityId) {
-        log.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
-        LogEventRequestType auditMsg = null;
-
-        if (isServiceEnabled()) {
-            auditMsg = drAuditTransformer.transformAckResponseToAuditMsg(message, request, response, assertion,
-                    direction, _interface, requestCommunityId);
-        }
-
-        log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
-        return auditMsg;
-    }
 }

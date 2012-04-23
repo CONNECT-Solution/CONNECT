@@ -22,9 +22,7 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredRequest.wsdl" uri="wsdl/EntityXDRSecuredRequest.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredResponse.wsdl" uri="wsdl/EntityXDRSecuredResponse.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentRedactionEngine.wsdl" uri="wsdl/AdapterComponentRedactionEngine.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryDeferredReqQueueProcess.wsdl" uri="wsdl/EntityPatientDiscoveryDeferredReqQueueProcess.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQueryDeferredReqQueueProcess.wsdl" uri="wsdl/EntityDocQueryDeferredReqQueueProcess.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveDeferredReqQueueProcess.wsdl" uri="wsdl/EntityDocRetrieveDeferredReqQueueProcess.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryDeferredReqQueueProcess.wsdl" uri="wsdl/EntityPatientDiscoveryDeferredReqQueueProcess.wsdl"/>    
 </catalog>
 
 
