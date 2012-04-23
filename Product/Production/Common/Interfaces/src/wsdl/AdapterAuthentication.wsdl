@@ -36,7 +36,7 @@
 	
 	<service name="AdapterAuthentication">
 		<port name="AdapterAuthenticationPortSoap" binding="tns:AdapterAuthenticationBindingSoap">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterAuthentication"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/CONNECTAdapter/AdapterAuthentication"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="AdapterAuthentication">

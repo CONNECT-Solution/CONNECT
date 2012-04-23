@@ -59,7 +59,7 @@
     <wsdl:service name="EntityPatientDiscoveryAsyncResp">
         <wsdl:port name="EntityPatientDiscoveryAsyncRespPortSoap"
                binding="tns:EntityPatientDiscoveryAsyncRespBindingSoap">
-            <soap12:address location="http://localhost/NhinConnect/EntityPatientDiscoveryAsyncResp"/>
+            <soap12:address location="http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured"/>
         </wsdl:port>
     </wsdl:service>
   

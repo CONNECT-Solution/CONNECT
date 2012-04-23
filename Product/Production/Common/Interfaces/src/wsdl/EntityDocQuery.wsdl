@@ -60,8 +60,7 @@
   <service name="EntityDocQuery">
     <port name="EntityDocQueryPortSoap" 
           binding="tns:EntityDocQueryBindingSoap">
-      <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery" />
+      <soap:address location="http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured" />
     </port>
   </service>
   

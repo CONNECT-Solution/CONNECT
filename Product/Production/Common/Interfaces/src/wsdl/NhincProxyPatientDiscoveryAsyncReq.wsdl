@@ -58,7 +58,7 @@
   <wsdl:service name="NhincProxyPatientDiscoveryAsyncReq">
     <wsdl:port name="NhincProxyPatientDiscoveryAsyncReqPortType"
                binding="tns:NhincProxyPatientDiscoveryAsyncReqBinding">
-      <soap12:address location="http://localhost/NhinConnect/NhincProxyPatientDiscoveryAsyncReq"/>
+      <soap12:address location="http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured"/>
     </wsdl:port>
   </wsdl:service>
 

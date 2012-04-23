@@ -81,7 +81,7 @@
     </binding>
     <service name="HiemSubscriptionRepositoryUtilService">
         <port name="HiemSubscriptionRepositoryUtilPortTypeBindingPort" binding="tns:HiemSubscriptionRepositoryUtilPortTypeBinding">
-            <soap:address location="http://localhost:${HttpDefaultPort}/Nhinc/HiemSubscriptionRepositoryUtilService"/>
+            <soap:address location="http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/GatewayInternalService/HiemSubscriptionRepositoryUtil"/>
         </port>
     </service>
     <plnk:partnerLinkType name="HiemSubscriptionRepositoryUtil">

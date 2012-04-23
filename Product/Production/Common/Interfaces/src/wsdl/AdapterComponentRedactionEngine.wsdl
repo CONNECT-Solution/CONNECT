@@ -70,7 +70,7 @@
     <service name="AdapterComponentRedactionEngineService">
         <port name="AdapterComponentRedactionEnginePortTypeBindingPort"
             binding="tns:AdapterComponentRedactionEnginePortTypeBinding">
-            <soap12:address location="http://localhost:${NhincHttpPort}/CONNECTAdapter/AdapterComponentRedactionService"/>
+            <soap12:address location="http://localhost:${HttpDefaultPort}/CONNECTAdapter/AdapterComponentRedactionEngineService"/>
         </port>
     </service>
     <plnk:partnerLinkType name="AdapterComponentRedactionEngine">

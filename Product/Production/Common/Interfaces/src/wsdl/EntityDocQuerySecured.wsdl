@@ -71,7 +71,7 @@
     <port name="EntityDocQuerySecuredPortSoap"
           binding="tns:EntityDocQuerySecuredBindingSoap">
       <soap:address
-         location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityDocQuerySecured" />
+         location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQuerySecured" />
     </port>
   </service>
 

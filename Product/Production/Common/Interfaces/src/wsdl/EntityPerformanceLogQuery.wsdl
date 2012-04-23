@@ -48,7 +48,7 @@
     
     <service name="EntityPerformanceLogQuery">
         <port name="EntityPerformanceLogQueryPort" binding="tns:EntityPerformanceLogQueryBinding">
-            <soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/EntityPerformanceLogQuery"/>
+            <soap:address location="http://localhost:${HttpDefaultPort}/CONNECTAdapter/EntityPerformanceLogQuery"/>
         </port>
     </service>
     

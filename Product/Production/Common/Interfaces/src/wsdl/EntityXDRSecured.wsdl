@@ -50,7 +50,7 @@
     </binding>
     <service name="EntityXDRSecured_Service">
         <port name="EntityXDRSecured_Port" binding="tns:EntityXDRSecured_Binding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityXDRSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_SoapPolicy">

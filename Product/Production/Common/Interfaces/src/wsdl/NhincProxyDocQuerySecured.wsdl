@@ -40,7 +40,7 @@
     </binding>
     <service name="NhincProxyDocQuerySecured">
         <port name="NhincProxyDocQuerySecuredPortSoap" binding="tns:NhincProxyDocQuerySecuredBindingSoap">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyDocQuerySecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQuerySecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_SoapPolicy">

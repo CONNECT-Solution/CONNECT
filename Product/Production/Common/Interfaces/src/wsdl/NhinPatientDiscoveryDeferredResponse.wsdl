@@ -40,7 +40,7 @@
     </wsdl:binding>
     <wsdl:service name="RespondingGatewayDeferredResp_Service">
         <wsdl:port binding="tns:RespondingGatewayDeferredResponse_Binding" name="RespondingGatewayDeferredResponse_Port">
-            <soap12:address location="https://localhost/NhinConnect/PatientDiscoveryDeferredResponse"/>
+            <soap12:address location="https://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp"/>
         </wsdl:port>
     </wsdl:service>
     <wsp:Policy wsu:Id="RespondingGateway_Binding_SoapPolicy">

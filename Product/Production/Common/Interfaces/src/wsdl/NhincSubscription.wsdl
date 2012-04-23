@@ -203,19 +203,19 @@
   <wsdl:service name="NhincNotificationConsumerService">
     <wsdl:port name="NotificationConsumerPort" binding="tns:NotificationConsumerBinding">
       <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincNotificationConsumer"/>
+         location="http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationConsumer"/>
     </wsdl:port>
   </wsdl:service>
   <wsdl:service name="NhincNotificationProducerService">
     <wsdl:port name="NotificationProducerPort" binding="tns:NotificationProducerBinding">
       <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincNotificationProducer"/>
+         location="http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationProducer"/>
     </wsdl:port>
   </wsdl:service>
   <wsdl:service name="NhincSubscriptionManagerService">
     <wsdl:port name="SubscriptionManagerPort" binding="tns:SubscriptionManagerBinding">
       <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincSubscriptionManager"/>
+         location="http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxySubscriptionManager"/>
     </wsdl:port>
   </wsdl:service>
     <plnk:partnerLinkType name="NhincHiemNotify">

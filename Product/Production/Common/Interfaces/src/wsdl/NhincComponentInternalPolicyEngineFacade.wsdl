@@ -157,7 +157,7 @@
 	</binding>
 	<service name="NhincComponentInternalPolicyEngineFacadeService">
 		<port name="NhincComponentInternalPolicyEngineFacadePort" binding="tns:NhincComponentInternalPolicyEngineFacadePortTypeBinding">
-			<soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/PolicyEngineFacadeService"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayInternalService/PolicyEngineFacadeService"/>
 		</port>
 	</service>
 	<!--   <message name="CheckPolicySubjectRevokedRequestMessage">

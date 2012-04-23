@@ -43,7 +43,7 @@
     </binding>
     <service name="RespondingGateway_Retrieve_Service">
         <port name="RespondingGateway_Retrieve_Port_Soap" binding="ihe:RespondingGateway_Retrieve_Binding_Soap">
-            <soap12:address location="https://localhost:9081/RespondingGateway_Retrieve_Service"/>
+            <soap12:address location="https://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve"/>
         </port>
     </service>
     <!-- Define action property on each receiving message -->

@@ -63,7 +63,7 @@
         <port name="EntityDocRetrievePortSoap" 
           binding="tns:EntityDocRetrieveBindingSoap">
             <soap:address 
-               location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve"/>
+               location="http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve"/>
         </port>
     </service>
     

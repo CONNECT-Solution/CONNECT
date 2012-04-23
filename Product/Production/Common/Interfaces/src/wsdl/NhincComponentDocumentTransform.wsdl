@@ -31,7 +31,7 @@
 	</binding>
 	<service name="NhincComponentDocumentTransformService">
 		<port name="NhincComponentDocumentTransformPortTypeBindingPort" binding="tns:NhincComponentDocumentTransformPortTypeBinding">
-			<soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentDocumentTransform"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/CONNECTCommon/NhincComponentDocumentTransform"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="NhincComponentDocumentTransform">

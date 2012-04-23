@@ -41,7 +41,7 @@
     </binding>
     <service name="AdapterXDRRequestSecured_Service">
         <port name="AdapterXDRRequestSecured_Port_Soap" binding="tns:AdapterXDRRequestSecured_Binding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/AdapterXDRRequestSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequestSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_XDRRequest_Binding_SoapPolicy">

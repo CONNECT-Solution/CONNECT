@@ -41,7 +41,7 @@
     </binding>
     <service name="ProxyXDRSecuredAsyncResponse_Service">
         <port name="ProxyXDRSecuredAsyncResponse_Port" binding="tns:ProxyXDRSecuredAsyncResponse_Binding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyXDRAsyncResponseSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_SoapPolicy">

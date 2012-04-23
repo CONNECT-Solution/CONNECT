@@ -37,7 +37,7 @@
 	
 	<service name="AdapterPEP">
 		<port name="AdapterPEPPortSoap" binding="tns:AdapterPEPBindingSoap">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPEP"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/CONNECTAdapter/AdapterPEP"/>
 		</port>
 	</service>
 	

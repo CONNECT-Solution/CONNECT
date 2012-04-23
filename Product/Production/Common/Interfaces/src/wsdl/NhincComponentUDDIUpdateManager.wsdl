@@ -31,7 +31,7 @@
 	</binding>
 	<service name="NhincComponentUDDIUpdateManager">
 		<port name="NhincComponentUDDIUpdateManagerPortSoap" binding="tns:NhincComponentUDDIUpdateManagerBindingSoap">
-			<soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentUDDIUpdateManager"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/CONNECTCommon/NhincComponentUDDIUpdateManager"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="NhincComponentUDDIUpdateManager">

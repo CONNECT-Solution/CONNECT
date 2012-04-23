@@ -41,7 +41,7 @@
 	</binding>
 	<service name="EntityXDRAsyncRequest_Service">
 		<port name="EntityXDRAsyncRequest_Port" binding="tns:EntityXDRAsyncRequest_Binding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncRequest"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured"/>
 		</port>
 	</service>
 	<wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_SoapPolicy">

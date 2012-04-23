@@ -268,7 +268,7 @@
     <wsdl:port name="NhincProxyNotificationProducerPortSoap" 
                binding="tns:NhincProxyNotificationProducerBindingSoap">
       <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyNotificationProducer"/>
+         location="http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationProducer"/>
     </wsdl:port>
   </wsdl:service>
   
@@ -276,7 +276,7 @@
     <wsdl:port name="NhincProxySubscriptionManagerPortSoap" 
                binding="tns:NhincProxySubscriptionManagerBindingSoap">
       <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxySubscriptionManager"/>
+         location="http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxySubscriptionManager"/>
     </wsdl:port>
   </wsdl:service>
   

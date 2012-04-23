@@ -50,7 +50,7 @@
 	</binding>
 	<service name="PatientCorrelationService">
 		<port name="PatientCorrelationPort" binding="tns:PatientCorrelationBinding">
-			<soap:address location="http://localhost:${NhincHttpPort}/PatientCorrelationService"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayService/PatientCorrelationServiceUnsecured"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="PatientCorrelation">

@@ -53,7 +53,7 @@
     </binding>
     <service name="AdapterComponentMpiSecuredService">
         <port name="AdapterComponentMpiSecuredPort" binding="tns:AdapterComponentMpiSecuredPortTypeBinding">
-            <soap:address location="https://localhost:${NhincHttpPort}/NhinConnect/AdapterComponentMpiSecuredService" />
+            <soap:address location="https://localhost:${HttpDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterComponentMpiSecuredService" />
         </port>
     </service>
     <wsp:Policy wsu:Id="AdapterComponentMpiSecuredPortType_Binding_SoapPolicy">

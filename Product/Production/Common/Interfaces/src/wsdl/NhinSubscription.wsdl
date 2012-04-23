@@ -291,19 +291,19 @@
     <wsdl:service name="NotificationConsumerService">
         <wsdl:port name="NotificationConsumerPort" binding="wsntw:NotificationConsumerBinding">
             <soap:address
-         location="https://localhost:${HttpsDefaultPort}/NotificationProducerService/NotificationConsumerPort"/>
+         location="https://localhost:${HttpsDefaultPort}/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify"/>
         </wsdl:port>
     </wsdl:service>
     <wsdl:service name="NotificationProducerService">
         <wsdl:port name="NotificationProducerPort" binding="wsntw:NotificationProducerBinding">
             <soap:address
-         location="https://localhost:${HttpsDefaultPort}/NotificationProducerService/NotificationProducerPort"/>
+         location="https://localhost:${HttpsDefaultPort}/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription"/>
         </wsdl:port>
     </wsdl:service>
     <wsdl:service name="SubscriptionManagerService">
         <wsdl:port name="SubscriptionManagerPort" binding="wsntw:SubscriptionManagerBinding">
             <soap:address
-         location="https://localhost:${HttpsDefaultPort}/SubscriptionManagerService/SubscriptionManagerPort"/>
+         location="https://localhost:${HttpsDefaultPort}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe"/>
         </wsdl:port>
     </wsdl:service>
   <!-- ===================== Types Definitions ====================== -->

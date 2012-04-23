@@ -93,7 +93,7 @@
                binding="tns:NhincProxyNotificationConsumerBindingSoap">
             <soap:address 
          location=
-            "http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyNotificationConsumer"/>
+            "http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationConsumer"/>
         </wsdl:port>
     </wsdl:service>
     
