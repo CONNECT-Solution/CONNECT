@@ -192,8 +192,8 @@
         <jvm-options>-Dsun.rmi.dgc.server.gcInterval=1200000</jvm-options>
         <jvm-options>-Dsun.rmi.dgc.client.gcInterval=1200000</jvm-options>
         <jvm-options>-Xmx1408m</jvm-options>
-        <jvm-options>-XX:MaxPermSize=128m</jvm-options>
-        <jvm-options>-XX:PermSize=128m</jvm-options>
+        <jvm-options>-XX:MaxPermSize=200m</jvm-options>
+        <jvm-options>-XX:PermSize=200m</jvm-options>
         <jvm-options>-Dlog4j.configuration=file:${com.sun.aas.instanceRoot}/config/log4j.properties</jvm-options>
         <jvm-options>-Dwsdl.path=file:${com.sun.aas.instanceRoot}/config/nhin/wsdl/</jvm-options>
         <jvm-options>-Dnhinc.properties.dir=${com.sun.aas.instanceRoot}/config/nhin</jvm-options>
