@@ -7,9 +7,9 @@
 				</handler-class>
 			</handler>
 			<handler>
-				<handler-name>gov.hhs.fha.nhinc.genericheaderhandler.SOAPHeaderHandler
+				<handler-name>gov.hhs.fha.nhinc.callback.SOAPHeaderHandler
 				</handler-name>
-				<handler-class>gov.hhs.fha.nhinc.genericheaderhandler.SOAPHeaderHandler
+				<handler-class>gov.hhs.fha.nhinc.callback.SOAPHeaderHandler
 				</handler-class>
 			</handler>
 		</handler-chain>
