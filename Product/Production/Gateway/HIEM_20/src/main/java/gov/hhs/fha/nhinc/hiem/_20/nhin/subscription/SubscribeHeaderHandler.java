@@ -52,8 +52,8 @@ public class SubscribeHeaderHandler implements SOAPHandler<SOAPMessageContext> {
     }
 
     public boolean handleMessage(SOAPMessageContext context) {
-    	SOAPHeaderHandler prefixHandler = new SOAPHeaderHandler();
-    	prefixHandler.handleMessage(context);
+    	//SOAPHeaderHandler prefixHandler = new SOAPHeaderHandler();
+    	//prefixHandler.handleMessage(context);
     	extractReferenceParameters(context);
         return true;
     }

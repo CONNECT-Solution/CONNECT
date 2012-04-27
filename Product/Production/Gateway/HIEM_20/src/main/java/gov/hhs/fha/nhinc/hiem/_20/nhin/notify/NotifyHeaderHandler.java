@@ -51,8 +51,8 @@ public class NotifyHeaderHandler implements SOAPHandler<SOAPMessageContext> {
     }
 
     public boolean handleMessage(SOAPMessageContext context) {
-    	SOAPHeaderHandler prefixHandler = new SOAPHeaderHandler();
-    	prefixHandler.handleMessage(context);
+    	//SOAPHeaderHandler prefixHandler = new SOAPHeaderHandler();
+    	//prefixHandler.handleMessage(context);
         new gov.hhs.fha.nhinc.hiem.dte.SoapUtil().extractReferenceParameters(context,
                 NhincConstants.HIEM_NOTIFY_SOAP_HDR_ATTR_TAG);
         return true;

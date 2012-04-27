@@ -59,8 +59,8 @@ public class HiemUnsubscribeSoapHeaderHandler implements SOAPHandler<SOAPMessage
     }
 
     public boolean handleMessage(SOAPMessageContext context) {
-    	SOAPHeaderHandler prefixHandler = new SOAPHeaderHandler();
-    	prefixHandler.handleMessage(context);
+    	//SOAPHeaderHandler prefixHandler = new SOAPHeaderHandler();
+    	//prefixHandler.handleMessage(context);
         new SoapUtil().extractReferenceParameters(context, NhincConstants.HIEM_UNSUBSCRIBE_SOAP_HDR_ATTR_TAG);
         return true;
 
