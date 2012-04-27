@@ -175,16 +175,17 @@ public class EntityPatientDiscoveryOrchImpl {
                         policyErrList.add(communityResponse);
                     }
                 }
-                
+                if (callableList.size() > 0) {
                 log.debug("Executing tasks to concurrently retrieve responses");
                 NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = 
                     new NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable>(
                         ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size()) ? largejobExecutor
                                 : regularExecutor, callableList, transactionId);
                 pdExecutor.executeTask();
-                
-                log.debug("Aggregating all responses");
+                log.debug("Aggregating all responses"); 
                 response = getCumulativeResponse(pdExecutor);               
+               } 
+
                 addPolicyErrorsToResponse(response, policyErrList);
             }
         } catch (Exception e) {           
