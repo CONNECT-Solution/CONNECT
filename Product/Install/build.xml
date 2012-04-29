@@ -42,6 +42,9 @@
         <condition property="is.windows">
             <os family="windows"/>
         </condition>
+        <condition property="is.mac">
+            <os family="linux"/>
+        </condition>
     </target>
     
     <target name="setup" depends="setup.for.mac, setup.for.windows">
