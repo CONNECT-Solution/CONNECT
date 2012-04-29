@@ -43,7 +43,7 @@
             <os family="windows"/>
         </condition>
         <condition property="is.mac">
-            <os family="linux"/>
+            <os family="unix"/>
         </condition>
     </target>
     
