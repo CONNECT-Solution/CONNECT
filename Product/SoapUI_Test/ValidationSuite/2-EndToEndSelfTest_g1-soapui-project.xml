@@ -35,7 +35,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="WSDL path not set.  #EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -49,7 +49,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="WSDL path not set.  #EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRRequest</con:endpoint>
 			<con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:endpoint>
 			<con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
@@ -401,7 +401,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="WSDL path not set.  #EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
 			<con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
 		</con:endpoints>
@@ -750,7 +750,7 @@
 
 	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityXDRAsyncResponse_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityXDRResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:definitionCache/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint>
 			<con:endpoint>${#Project#Endpoint-DSDeferredResp}</con:endpoint>
 		</con:endpoints>
@@ -954,7 +954,7 @@
 	
 	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityAdminDist_g1.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:definitionCache/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdministrativeDistribution</con:endpoint>
 			<con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
 		</con:endpoints>
@@ -1778,7 +1778,7 @@
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns10='http://www.hhs.gov/healthit/nhin';
-					//ns10:XDRAcknowledgement[1]/ns10:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2012-02-07T04:39:56Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-02-07T04:49:56Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/07/2012 04:39:56</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2012-03-08T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase>
+					//ns10:XDRAcknowledgement[1]/ns10:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2012-02-07T04:39:56Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-02-07T04:49:56Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/07/2012 04:39:56</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2012-03-08T00:00:00Z</con:value></con:property></con:properties></con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="3a630f37-d9fc-4fd2-bc44-bc0b04246222" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
@@ -2581,7 +2581,7 @@
 		</con:property>
 	</con:properties>
 	<con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="b512d69c-0d33-46c9-927c-b1e83245a084"><con:settings/><con:testStep type="request" name="AdminDist Request"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdministrativeDistribution_Binding_Soap12</con:interface><con:operation>SendAlertMessage</con:operation><con:request name="AdminDist Request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true"><con:settings/><con:testStep type="request" name="AdminDist Request"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdministrativeDistribution_Binding_Soap12</con:interface><con:operation>SendAlertMessage</con:operation><con:request name="AdminDist Request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="EndToEndSelfTest" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
@@ -2920,7 +2920,7 @@
          </urn2:EDXLDistribution>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2012-04-23T16:31:31Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-04-23T16:41:31Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/23/2012 16:31:31</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2012-05-23T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/></con:testCase><con:properties/>
+</soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/>
 <con:reportParameters/>
 </con:testSuite>
 <con:requirements/>
