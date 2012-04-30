@@ -53,7 +53,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 	private static Log log = LogFactory.getLog(SOAPHeaderHandler.class);
 	private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
 	private static final String MESSAGE_ID_CONTEXT = "com.sun.xml.ws.addressing.response.messageID";
-	private static final String MESSAGE_ID = "messageID";
+	private static final String MESSAGE_ID = "MessageID";
 
 	public Set<QName> getHeaders() {
 		log.debug("SoapHeaderHandler.getHeaders");
