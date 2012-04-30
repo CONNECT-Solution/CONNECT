@@ -95,13 +95,14 @@
             <replacevalue><![CDATA[<contains string="${targeted.java.version}" substring="1.7"/>]]></replacevalue>
         </replace>
         <replace file="${glassfish.install.ant.script}" token="requires JDK 1.5 or higher" value="requires JDK 1.7"/>
+    	<echoproperties/>
 		<if>
 			<istrue value="${is.windows}"/>
 			<then>
-				<ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}" target="-debug"/>
+				<ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}"/>
 			</then>
 			<else>
-				<ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}" target="-debug">
+				<ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}">
 					<property name="java.home" value="${env.JAVA_HOME}"/>
 				</ant>
 			</else>
