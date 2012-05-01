@@ -1,8 +1,0 @@
-!|Import|
-|com.neuri.webfixture|
-|dbfit|
-|dbfit.fixture|
-|com.objectmentor.fixtures|
-
-!|DatabaseEnvironment|oracle|
-|Connect|${DBHOST}|${DBUSER}|${DBPASSWORD}|

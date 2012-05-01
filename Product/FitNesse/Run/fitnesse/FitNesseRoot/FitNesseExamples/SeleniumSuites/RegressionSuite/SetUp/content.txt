@@ -1,4 +1,0 @@
-The Import fixture brings Java packages into scope. Here is imports the package "com.neuri.webfixture".  The Selenium fixture !-PlainSeleniumTest-! is located in the package.
-
-!|Import|
-|com.neuri.webfixture|

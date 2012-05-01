@@ -1,5 +1,0 @@
-!2 Purpose
-This tree of pages holds reusable bits and pieces of tests.  Generally variablized tables that are included with the page inline wiki markup feature:
-'''!-!include TriServRoot.SharedPages.PageName-!.'''
-
-!contents -R2 -g -p -f -h

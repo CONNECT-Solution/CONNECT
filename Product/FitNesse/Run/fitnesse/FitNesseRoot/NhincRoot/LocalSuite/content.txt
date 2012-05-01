@@ -1,6 +1,0 @@
-!2 Purpose
-This suite holds symbolic links to the bug, regression, and development iteration suites.  It defines variables that point to local resources like the app server.  This is were you should execute test from on your machine.
-
-!define Portal.Url {http://localhost:9080/triservweb}
-
-!contents -R2 -g -p -f -h
