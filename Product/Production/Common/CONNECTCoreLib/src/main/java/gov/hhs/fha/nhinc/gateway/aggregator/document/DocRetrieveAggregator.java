@@ -30,6 +30,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -143,13 +144,7 @@ public class DocRetrieveAggregator {
                 try {
                     out = new FileOutputStream(sourceFile);
                     log.debug("Opened the output file successfully");
-                    try {
-                        out.write(responseText.getBytes());
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                        log.error("Failed to write to output file: " + ex.getMessage());
-                        url = null;
-                    }
+                    url = writeResponse(responseText, url, out);
                 } catch (FileNotFoundException ex) {
                     ex.printStackTrace();
                     log.error("Failed to find output file: " + ex.getMessage());
@@ -159,6 +154,17 @@ public class DocRetrieveAggregator {
             log.debug("Storing this large response at file location: " + url);
         } else {
             log.error("Aggregator Large Response Directory property was not set");
+        }
+        return url;
+    }
+
+    private String writeResponse(String responseText, String url, FileOutputStream out) {
+        try {
+            out.write(responseText.getBytes());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            log.error("Failed to write to output file: " + ex.getMessage());
+            url = null;
         }
         return url;
     }
@@ -537,14 +543,7 @@ public class DocRetrieveAggregator {
                                     + ex.getMessage());
                             resultMsg = null;
                         } finally {
-                            if (in != null) {
-                                try {
-                                    in.close();
-                                } catch (IOException ex) {
-                                    log.error("Failed to close FileInputStream on file " + sourceFile.getName()
-                                            + ex.getMessage());
-                                }
-                            }
+                            closeStreamsQuietly(sourceFile, in);
                         }
                     } catch (URISyntaxException e) {
                         resultMsg = oMsgResult.getResponseMessage();
@@ -622,6 +621,17 @@ public class DocRetrieveAggregator {
             }
         } // for (AggMessageResult oMsgResult : olMsgResult)
         return oRetrieveDocumentSetResponse;
+    }
+
+    private void closeStreamsQuietly(File sourceFile, Closeable stream) {
+        if (stream != null) {
+            try {
+                stream.close();
+            } catch (IOException ex) {
+                log.error("Failed to close stream on file " + sourceFile.getName()
+                        + ex.getMessage());
+            }
+        }
     }
 
     /**
