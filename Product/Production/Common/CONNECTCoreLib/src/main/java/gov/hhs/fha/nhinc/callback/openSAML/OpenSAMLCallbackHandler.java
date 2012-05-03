@@ -31,6 +31,7 @@ import com.sun.xml.wss.XWSSecurityException;
 import java.io.*;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableEntryException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.*;
@@ -39,6 +40,8 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.security.cert.Certificate;
+import java.security.interfaces.RSAPublicKey;
+
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
@@ -49,18 +52,31 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.joda.time.DateTime;
 /*import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.Statement;
-import org.opensaml.saml2.core.Subject;*/
+ import org.opensaml.saml2.core.Statement;
+ import org.opensaml.saml2.core.Subject;*/
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Statement;
 import org.opensaml.saml2.core.impl.AssertionBuilder;
 import org.opensaml.saml2.core.impl.IssuerBuilder;
+import org.opensaml.saml2.core.impl.NameIDBuilder;
 import org.opensaml.saml2.core.impl.SubjectBuilder;
+import org.opensaml.saml2.core.impl.SubjectConfirmationBuilder;
+import org.opensaml.saml2.core.impl.SubjectConfirmationDataBuilder;
+import org.opensaml.xml.signature.Exponent;
+import org.opensaml.xml.signature.Modulus;
+import org.opensaml.xml.signature.RSAKeyValue;
+import org.opensaml.xml.signature.impl.ExponentBuilder;
+import org.opensaml.xml.signature.impl.KeyInfoBuilder;
+import org.opensaml.xml.signature.impl.KeyNameBuilder;
+import org.opensaml.xml.signature.impl.KeyValueBuilder;
+import org.opensaml.xml.signature.impl.ModulusBuilder;
+import org.opensaml.xml.signature.impl.RSAKeyValueBuilder;
 import org.w3c.dom.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -267,9 +283,11 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
      */
     private Element createHOKSAMLAssertion20() {
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin");
-        Assertion assertion = null;
+        org.opensaml.saml2.core.Assertion ass = null;
         try {
-            SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
+            
+            AssertionBuilder assBuilder = new AssertionBuilder();
+            ass = assBuilder.buildObject();
 
             // create the assertion id
             // Per GATEWAY-847 the id attribute should not be allowed to start
@@ -278,99 +296,32 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
             // underscore.
             String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
             log.debug("Assertion ID: " + aID);
-            // name id of the issuer - For now just use default
-            NameID issueId = null;
 
-            if (tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP)
-                    && tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_PROP)) {
-                log.debug(SamlConstants.ASSERTION_ISSUER_PROP + " = "
-                        + tokenVals.get(SamlConstants.ASSERTION_ISSUER_PROP));
-                log.debug(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP + " = "
-                        + tokenVals.get(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP));
-
-                String format = tokenVals.get(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP).toString();
-                if (VALID_NAME_LIST.contains(format.trim())) {
-                    log.debug("Setting Assertion Issuer format to: " + format);
-                    String issuer = tokenVals.get(SamlConstants.ASSERTION_ISSUER_PROP).toString();
-                    log.debug("Setting Assertion Issuer to: " + issuer);
-                    issueId = factory.createNameID(issuer, null, format);
-                } else {
-                    log.debug("Not in valid listing of formats: Use default issuer");
-                    issueId = create509NameID(factory, DEFAULT_NAME);
-                }
-            } else {
-                log.debug("Assertion issuer not defined: Use default issuer");
-                issueId = create509NameID(factory, DEFAULT_NAME);
-            }
-
-            // subject information
-            NameID subjId = create509NameID(factory, PRIMARY_NAME);
-
-            // default private key cert request
-            SignatureKeyCallback.DefaultPrivKeyCertRequest request = new SignatureKeyCallback.DefaultPrivKeyCertRequest();
-            getDefaultPrivKeyCert(request);
-            if (request.getX509Certificate() == null) {
-                throw new RuntimeException("Not able to resolve the Default Certificate");
-            }
-            PublicKey pubKey = request.getX509Certificate().getPublicKey();
-            PrivateKey privKey = request.getPrivateKey();
-
-            // subject confirmation
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            Document doc = docFactory.newDocumentBuilder().newDocument();
-            KeyInfo keyInfo = new KeyInfo(doc);
-            keyInfo.addKeyValue(pubKey);
-            SubjectConfirmationData scd = factory.createSubjectConfirmationData(null, null, null, null, null,
-                    keyInfo.getElement());
-            SubjectConfirmation scf = factory.createSubjectConfirmation(null, scd, HOK_CONFIRM);
-            Subject subj = factory.createSubject(subjId, scf);
-
-            // authentication statement
-            List statements = createAuthnStatements(factory);
-
-            // issue instant set to now.
-            GregorianCalendar GCissueInstant = calendarFactory();
-            assertion = factory.createAssertion(aID, issueId, GCissueInstant, null, null, subj, statements);
-            assertion.setVersion("2.0");
-            log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- End");
-            AssertionBuilder assBuilder = new AssertionBuilder();
-            org.opensaml.saml2.core.Assertion ass = assBuilder.buildObject();
-            // assertion Id
+            // set assertion Id
             ass.setID(aID);
-            
+
             // issue instant set to now.
             DateTime issueInstant = new DateTime();
             ass.setIssueInstant(issueInstant);
-            
+
             // set issuer
             ass.setIssuer(createIssuer());
-            
+
             // set subject
             ass.setSubject(createSubject());
-            
+
             // add attribute statements
-            ass.getStatements().addAll(createAttributeStatements());            
-            
-            return assertion.sign(pubKey, privKey);
-        } catch (ParserConfigurationException ex) {
+            ass.getStatements().addAll(createAttributeStatements());
+
+            // TODO: need to sign the message
+        } catch (Exception ex) {
             log.error("Unable to create HOK Assertion: " + ex.getMessage());
             ex.printStackTrace();
-            throw new RuntimeException(ex);
-        } catch (IOException ex) {
-            log.error("Unable to create HOK Assertion: " + ex.getMessage());
-            ex.printStackTrace();
-            throw new RuntimeException(ex);
-        } catch (SAMLException ex) {
-            log.error("Unable to create HOK Assertion: " + ex.getMessage());
-            ex.printStackTrace();
-            throw new RuntimeException(ex);
-        } catch (XWSSecurityException ex) {
-            log.error("Unable to create HOK Assertion: " + ex.getMessage());
-            ex.printStackTrace();
-            throw new RuntimeException(ex);
         }
+        log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- End");
+        return null;
     }
-    
+
     /**
      * @return
      */
@@ -385,11 +336,114 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
     private org.opensaml.saml2.core.Subject createSubject() {
         SubjectBuilder subjectBuilder = new SubjectBuilder();
         org.opensaml.saml2.core.Subject subject = null;
+
+        subject = subjectBuilder.buildObject();
+        String x509Name = "UID=" + tokenVals.get(SamlConstants.USER_NAME_PROP).toString();
+        subject.setNameID(createNameID(X509_NAME_ID, x509Name));
+        subject.getSubjectConfirmations().add(createHoKConfirmation());
         return subject;
     }
 
-    public org.opensaml.saml2.core.Issuer createIssuer()
-    {
+    /**
+     * @return
+     */
+    private org.opensaml.saml2.core.SubjectConfirmation createHoKConfirmation() {
+        SubjectConfirmationBuilder subjectConfirmationBuilder = new SubjectConfirmationBuilder();
+        org.opensaml.saml2.core.SubjectConfirmation subjectConfirmation = subjectConfirmationBuilder.buildObject();
+        subjectConfirmation.setMethod(org.opensaml.saml2.core.SubjectConfirmation.METHOD_HOLDER_OF_KEY);
+        subjectConfirmation.setSubjectConfirmationData(createSubjectConfirmationData());
+
+        return subjectConfirmation;
+    }
+
+    /**
+     * @return
+     */
+    private org.opensaml.saml2.core.SubjectConfirmationData createSubjectConfirmationData() {
+        SubjectConfirmationDataBuilder subjectConfirmationDataBuilder = new SubjectConfirmationDataBuilder();
+        org.opensaml.saml2.core.SubjectConfirmationData subjectConfirmationData = subjectConfirmationDataBuilder
+                .buildObject();
+        subjectConfirmationData.getUnknownAttributes().put(
+                new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi"),
+                "saml:KeyInfoConfirmationDataType");
+
+        KeyInfoBuilder keyInfoBuilder = new KeyInfoBuilder();
+        org.opensaml.xml.signature.KeyInfo ki = keyInfoBuilder.buildObject();
+
+        KeyValueBuilder keyValueBuilder = new KeyValueBuilder();
+        org.opensaml.xml.signature.KeyValue kv = keyValueBuilder.buildObject();
+
+        RSAKeyValueBuilder _RSAKeyValueBuilder = new RSAKeyValueBuilder();
+        RSAKeyValue _RSAKeyValue = _RSAKeyValueBuilder.buildObject();
+
+        ExponentBuilder exponentBuilder = new ExponentBuilder();
+        Exponent arg0 = exponentBuilder.buildObject();
+        
+        ModulusBuilder modulusBuilder = new ModulusBuilder();
+        Modulus arg1 = modulusBuilder.buildObject();
+        
+        KeyStore ks;
+        KeyStore.PrivateKeyEntry pkEntry = null;
+        try {
+            ks = KeyStore.getInstance(KeyStore.getDefaultType());
+            char[] password = "cspass".toCharArray();
+            FileInputStream fis = new FileInputStream("c:/opt/keystores/clientKeystore.jks");
+            ks.load(fis, password);
+            fis.close();
+            pkEntry = (KeyStore.PrivateKeyEntry) ks.getEntry("myclientkey",
+                    new KeyStore.PasswordProtection("ckpass".toCharArray()));
+        } catch (KeyStoreException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (CertificateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (UnrecoverableEntryException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        
+        PrivateKey pk = pkEntry.getPrivateKey();
+        X509Certificate certificate = (X509Certificate) pkEntry.getCertificate();
+        RSAPublicKey RSAPk = (RSAPublicKey)certificate.getPublicKey();
+       
+        arg0.setValue(RSAPk.getPublicExponent().toString());
+        _RSAKeyValue.setExponent(arg0);
+        arg1.setValue(RSAPk.getModulus().toString());
+        _RSAKeyValue.setModulus(arg1);
+        kv.setRSAKeyValue(_RSAKeyValue);
+
+        ki.getKeyValues().add(kv);
+
+        subjectConfirmationData.getUnknownXMLObjects().add(ki);
+
+        return subjectConfirmationData;
+    }
+
+    /**
+     * @return
+     */
+    private org.opensaml.saml2.core.NameID createNameID(String format, String value) {
+        NameIDBuilder nameIDBuilder = new NameIDBuilder();
+        org.opensaml.saml2.core.NameID nameId = nameIDBuilder.buildObject();
+
+        nameId.setFormat(format);
+        nameId.setValue(value);
+
+        return nameId;
+    }
+
+    public org.opensaml.saml2.core.Issuer createIssuer() {
         IssuerBuilder issuerBuilder = new IssuerBuilder();
         Issuer issuer = null;
 
@@ -400,7 +454,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
             log.debug("Setting Assertion Issuer format to: " + format);
             String sIssuer = tokenVals.get(SamlConstants.ASSERTION_ISSUER_PROP).toString();
             log.debug("Setting Assertion Issuer to: " + sIssuer);
-            
+
             if (VALID_NAME_LIST.contains(format.trim())) {
                 issuer = issuerBuilder.buildObject();
                 issuer.setFormat(format);
@@ -416,15 +470,14 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         return issuer;
     }
 
-    protected org.opensaml.saml2.core.Issuer createDefaultIssuer()
-    {
+    protected org.opensaml.saml2.core.Issuer createDefaultIssuer() {
         IssuerBuilder issuerBuilder = new IssuerBuilder();
         Issuer issuer = issuerBuilder.buildObject();
         issuer.setFormat(X509_NAME_ID);
         issuer.setValue(DEFAULT_ISSUER_VALUE);
         return issuer;
     }
-    
+
     /**
      * Both the Issuer and the Subject elements have a NameID element which is formed through this method. Currently
      * default data is used to specify the required Issuer information. However, the Subject information is defined
