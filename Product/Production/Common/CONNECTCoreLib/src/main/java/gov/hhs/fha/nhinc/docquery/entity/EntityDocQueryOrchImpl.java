@@ -174,7 +174,8 @@ public class EntityDocQueryOrchImpl {
             } catch (Exception ex) {
                 log.error("EntityDocQueryOrchImpl Failed to obtain target URLs", ex);
             }
-
+           if ((!isTargeted) || (isTargeted && NullChecker.isNotNullish(urlInfoList))) {
+            RegistryErrorList homeCommunityErrorList = new RegistryErrorList();
             // Validate that the message is not null
             if (adhocQueryRequest != null && adhocQueryRequest.getAdhocQuery() != null
                     && NullChecker.isNotNullish(adhocQueryRequest.getAdhocQuery().getSlot())) {
@@ -238,10 +239,26 @@ public class EntityDocQueryOrchImpl {
                                 clonedRequest.getAdhocQuery().setHome(sTargetHomeCommunityId);
                             }
                             
-                            OutboundDocQueryOrchestratable message = new OutboundDocQueryOrchestratable(nd, np, null,
-                                    null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, 
-                                    clonedRequest);
-                            callableList.add(new NhinCallableRequest<OutboundDocQueryOrchestratable>(message));
+                            for (UrlInfo urlInfo : urlInfoList) { 
+                                    if (urlInfo.getHcid().equals(sTargetHomeCommunityId)) {
+                                        if (NullChecker.isNotNullish(urlInfo.getUrl())) {
+                                            OutboundDocQueryOrchestratable message = new OutboundDocQueryOrchestratable(
+                                                    nd, np, null, null, assertion,
+                                                    NhincConstants.DOC_QUERY_SERVICE_NAME, target, clonedRequest);
+                                            callableList.add(new NhinCallableRequest<OutboundDocQueryOrchestratable>(
+                                                    message));
+
+                                        } else {
+                                            RegistryError regErr = new RegistryError();
+                                            regErr.setCodeContext("No URLs found for targeted DocQueryRequest for homecommunity:"
+                                                    + urlInfo.getHcid());
+                                            regErr.setErrorCode(DocumentConstants.XDS_QUERY_ERRORCODE_HOMECOMMUNITY_ERROR);
+                                            regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+                                            homeCommunityErrorList.getRegistryError().add(regErr);
+
+                                        }
+                                    }
+                                }
 
                             log.debug("EntityDocQueryOrchImpl added NhinCallableRequest" + " for hcid="
                                     + target.getHomeCommunity().getHomeCommunityId() + " with formattedPatientId=" + formattedPatientId);
@@ -319,6 +336,27 @@ public class EntityDocQueryOrchImpl {
                 log.error("Incomplete doc query message");
                 response = createErrorResponse("XDSRepositoryError", "Incomplete/empty adhocquery message");
             }
+              if (homeCommunityErrorList.getRegistryError() != null
+                        && !homeCommunityErrorList.getRegistryError().isEmpty()) {
+                    if (response.getRegistryErrorList() == null) {
+                        response.setRegistryErrorList(homeCommunityErrorList);
+                    } else if (response.getRegistryErrorList().getRegistryError() != null) {
+                        response.getRegistryErrorList().getRegistryError()
+                                .addAll(homeCommunityErrorList.getRegistryError());
+                    }
+                    if (response.getStatus().equals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS)) {
+                        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIALSUCCESS);
+                    }
+                }
+
+            } else {
+                log.error("No URLs found for targeted DocQueryRequest");
+                response = createErrorResponse(DocumentConstants.XDS_QUERY_ERRORCODE_HOMECOMMUNITY_ERROR,
+                        "No URLs found for targeted DocQueryRequest");
+                RegistryObjectListType regObjList = new RegistryObjectListType();
+                response.setRegistryObjectList(regObjList);
+            }
+             
         } catch (Exception e) {
             log.error("Error occured processing doc query on entity interface: " + e.getMessage(), e);
             response = createErrorResponse("XDSRepositoryError", "Fault encountered processing internal document query" + " exception="
