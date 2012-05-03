@@ -56,23 +56,23 @@
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinDocSubmissionDeferredRequestImpl_g1"
+              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinDocSubmissionDeferredRequestImpl20"
               linecount="6"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest_g1"
+              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20"
               linecount="2"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinDocSubmissionDeferredResponseImpl_g1"
+              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinDocSubmissionDeferredResponseImpl20"
               linecount="9"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse_g1"
-              linecount="2"
+              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20"
+              linecount="3"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"

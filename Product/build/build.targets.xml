@@ -214,16 +214,14 @@ layer of abstraction
             <call target="coverage.prepfortests" />
             <call target="-unittest.run"/>
             
-            <!-- coverage-related calls needs to be uncommented when GATEWAY-1303 is resolved -->
-            <!--call target="-coverage.check.project" /-->
+            <call target="-coverage.check.project" />
             <var name="just.unittest.run.is.outofdate" value="true"/>
           </do>
         </run.if.unit.tests.are.out.of.date>
         <if>
           <isfalse value="${just.unittest.run.is.outofdate}"/>
           <then>
-            <!-- coverage-related calls needs to be uncommented when GATEWAY-1303 is resolved -->
-            <!--call target="-coverage.update.failure.file" /-->
+            <call target="-coverage.update.failure.file" />
             <call target="-unittest.update.failure.file" />
           </then>
         </if>

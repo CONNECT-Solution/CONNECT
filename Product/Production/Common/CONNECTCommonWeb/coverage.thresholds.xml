@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
-   <threshold branchcount="418" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.common.connectionmanager.CMServiceHelper"
-              linecount="382"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="312" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.common.connectionmanager.CMTransform"
-              linecount="355"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="20" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.common.connectionmanager.NhincComponentConnectionManager"
-              linecount="23"
+              linecount="118"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -25,11 +15,11 @@
               linecount="105"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="328" branchrate="80" branchsexecuted="0.1"
+   <threshold branchcount="40" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessor"
-              linecount="281"
+              linecount="73"
               linerate="80"
-              linesexecuted="0.31"/>
+              linesexecuted="0.09"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessorException"
               linecount="8"
@@ -50,9 +40,9 @@
               linecount="10"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="20" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="16" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManagerHelper"
-              linecount="92"
+              linecount="84"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
