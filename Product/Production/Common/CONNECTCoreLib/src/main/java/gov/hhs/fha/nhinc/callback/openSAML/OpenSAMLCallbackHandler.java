@@ -47,6 +47,7 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import com.sun.xml.wss.impl.callback.*;
 import com.sun.xml.wss.saml.*;
+
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -57,9 +58,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.joda.time.DateTime;
-/*import org.opensaml.saml2.core.Issuer;
- import org.opensaml.saml2.core.Statement;
- import org.opensaml.saml2.core.Subject;*/
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
+import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Statement;
 import org.opensaml.saml2.core.impl.AssertionBuilder;
@@ -68,15 +70,22 @@ import org.opensaml.saml2.core.impl.NameIDBuilder;
 import org.opensaml.saml2.core.impl.SubjectBuilder;
 import org.opensaml.saml2.core.impl.SubjectConfirmationBuilder;
 import org.opensaml.saml2.core.impl.SubjectConfirmationDataBuilder;
+import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.signature.Exponent;
 import org.opensaml.xml.signature.Modulus;
 import org.opensaml.xml.signature.RSAKeyValue;
 import org.opensaml.xml.signature.impl.ExponentBuilder;
 import org.opensaml.xml.signature.impl.KeyInfoBuilder;
-import org.opensaml.xml.signature.impl.KeyNameBuilder;
 import org.opensaml.xml.signature.impl.KeyValueBuilder;
 import org.opensaml.xml.signature.impl.ModulusBuilder;
 import org.opensaml.xml.signature.impl.RSAKeyValueBuilder;
+import org.opensaml.saml2.core.AuthnStatement;
+import org.opensaml.saml2.core.AuthnContext;
+import org.opensaml.saml2.core.AuthnContextClassRef;
+import org.opensaml.saml2.core.AttributeStatement;
+import org.opensaml.saml2.core.Attribute;
+import org.opensaml.saml2.core.SubjectLocality;
+
 import org.w3c.dom.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -160,6 +169,21 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
 
     private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
     private static final String DEFAULT_ISSUER_VALUE = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
+
+    private static SAMLObjectBuilder<AuthnStatement> authnStatementBuilder;
+
+    private static SAMLObjectBuilder<AuthnContext> authnContextBuilder;
+
+    private static SAMLObjectBuilder<AuthnContextClassRef> authnContextClassRefBuilder;
+
+    private static SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder;
+
+    private static SAMLObjectBuilder<Attribute> attributeBuilder;
+
+    private static SAMLObjectBuilder<SubjectLocality> subjectLocalityBuilder;
+    private static XMLObjectBuilderFactory builderFactory = Configuration.getBuilderFactory();
+
+    private static final DateTimeFormatter XML_DATE_TIME_FORMAT = ISODateTimeFormat.dateTimeNoMillis();
 
     static {
         // WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
@@ -285,7 +309,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin");
         org.opensaml.saml2.core.Assertion ass = null;
         try {
-            
+
             AssertionBuilder assBuilder = new AssertionBuilder();
             ass = assBuilder.buildObject();
 
@@ -325,9 +349,108 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
     /**
      * @return
      */
-    private Collection<? extends Statement> createAttributeStatements() {
-        // TODO Auto-generated method stub
-        return null;
+    @SuppressWarnings("unchecked")
+    private List<Statement> createAttributeStatements() {
+        List<Statement> statements = new ArrayList<Statement>();
+
+        statements.addAll(createAuthenicationStatements());
+
+        return statements;
+    }
+
+    /**
+     * @return
+     */
+    private List<AuthnStatement> createAuthenicationStatements() {
+        List<AuthnStatement> authnStatements = new ArrayList<AuthnStatement>();
+
+        if (authnStatementBuilder == null) {
+            authnStatementBuilder = (SAMLObjectBuilder<AuthnStatement>) builderFactory
+                    .getBuilder(AuthnStatement.DEFAULT_ELEMENT_NAME);
+        }
+        if (authnContextBuilder == null) {
+            authnContextBuilder = (SAMLObjectBuilder<AuthnContext>) builderFactory
+                    .getBuilder(AuthnContext.DEFAULT_ELEMENT_NAME);
+        }
+        if (authnContextClassRefBuilder == null) {
+            authnContextClassRefBuilder = (SAMLObjectBuilder<AuthnContextClassRef>) builderFactory
+                    .getBuilder(AuthnContextClassRef.DEFAULT_ELEMENT_NAME);
+        }
+        if (subjectLocalityBuilder == null) {
+            subjectLocalityBuilder = (SAMLObjectBuilder<SubjectLocality>) builderFactory
+                    .getBuilder(SubjectLocality.DEFAULT_ELEMENT_NAME);
+        }
+
+        AuthnStatement authnStatement = authnStatementBuilder.buildObject();
+
+        AuthnContextClassRef authnContextClassRef = authnContextClassRefBuilder.buildObject();
+
+        String cntxCls = getNullSafeString(tokenVals, SamlConstants.AUTHN_CONTEXT_CLASS_PROP);
+
+        if (cntxCls != null) {
+
+            if (VALID_AUTHN_CNTX_CLS_LIST.contains(cntxCls.trim())) {
+                log.debug("Create Authentication Context Class as: " + cntxCls);
+                authnContextClassRef.setAuthnContextClassRef(cntxCls);
+            } else {
+                log.debug(cntxCls + " is not recognized as valid, "
+                        + "create default Authentication Context Class as: " + UNSPECIFIED_AUTHN_CNTX_CLS);
+                log.debug("Should be one of: " + VALID_AUTHN_CNTX_CLS_LIST);
+                authnContextClassRef.setAuthnContextClassRef(UNSPECIFIED_AUTHN_CNTX_CLS);
+            }
+        } else {
+            log.debug("Create default Authentication Context Class as: " + X509_AUTHN_CNTX_CLS);
+            authnContextClassRef.setAuthnContextClassRef(X509_AUTHN_CNTX_CLS);
+        }
+
+        AuthnContext authnContext = authnContextBuilder.buildObject();
+        authnContext.setAuthnContextClassRef(authnContextClassRef);
+        authnStatement.setAuthnContext(authnContext);
+
+        String sessionIndex = getNullSafeString(tokenVals, SamlConstants.AUTHN_SESSION_INDEX_PROP, AUTHN_SESSION_INDEX);
+        log.debug("Setting Authentication session index to: " + sessionIndex);
+        authnStatement.setSessionIndex(sessionIndex);
+
+        String instantText = getNullSafeString(tokenVals, SamlConstants.AUTHN_INSTANT_PROP);
+
+        DateTime authInstant = new DateTime();
+        if (instantText != null) {
+            authInstant = XML_DATE_TIME_FORMAT.parseDateTime(instantText);
+        } else {
+            log.debug("Defaulting Authentication instant to current time");
+        }
+        authnStatement.setAuthnInstant(authInstant);
+
+        String inetAddr = getNullSafeString(tokenVals, SamlConstants.SUBJECT_LOCALITY_ADDR_PROP);
+        String dnsName = getNullSafeString(tokenVals, SamlConstants.SUBJECT_LOCALITY_DNS_PROP);
+
+        if (inetAddr != null && dnsName != null) {
+
+            log.debug("Create Subject Locality as " + inetAddr + " in domain: " + dnsName);
+
+            SubjectLocality subjectLocality = subjectLocalityBuilder.buildObject();
+            subjectLocality.setDNSName(dnsName);
+            subjectLocality.setAddress(inetAddr);
+
+            authnStatement.setSubjectLocality(subjectLocality);
+        }
+
+        authnStatements.add(authnStatement);
+
+        return authnStatements;
+    }
+
+    private String getNullSafeString(Map map, final String property) {
+
+        return getNullSafeString(map, property, null);
+    }
+
+    private String getNullSafeString(Map map, final String property, String defaultValue) {
+        String value = defaultValue;
+        if (map.containsKey(property) && map.get(property) != null) {
+            value = map.get(property).toString();
+        }
+        return value;
     }
 
     /**
@@ -344,9 +467,6 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         return subject;
     }
 
-    /**
-     * @return
-     */
     private org.opensaml.saml2.core.SubjectConfirmation createHoKConfirmation() {
         SubjectConfirmationBuilder subjectConfirmationBuilder = new SubjectConfirmationBuilder();
         org.opensaml.saml2.core.SubjectConfirmation subjectConfirmation = subjectConfirmationBuilder.buildObject();
@@ -356,9 +476,6 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         return subjectConfirmation;
     }
 
-    /**
-     * @return
-     */
     private org.opensaml.saml2.core.SubjectConfirmationData createSubjectConfirmationData() {
         SubjectConfirmationDataBuilder subjectConfirmationDataBuilder = new SubjectConfirmationDataBuilder();
         org.opensaml.saml2.core.SubjectConfirmationData subjectConfirmationData = subjectConfirmationDataBuilder
@@ -378,10 +495,10 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
 
         ExponentBuilder exponentBuilder = new ExponentBuilder();
         Exponent arg0 = exponentBuilder.buildObject();
-        
+
         ModulusBuilder modulusBuilder = new ModulusBuilder();
         Modulus arg1 = modulusBuilder.buildObject();
-        
+
         KeyStore ks;
         KeyStore.PrivateKeyEntry pkEntry = null;
         try {
@@ -412,11 +529,10 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
             e.printStackTrace();
         }
 
-        
         PrivateKey pk = pkEntry.getPrivateKey();
         X509Certificate certificate = (X509Certificate) pkEntry.getCertificate();
-        RSAPublicKey RSAPk = (RSAPublicKey)certificate.getPublicKey();
-       
+        RSAPublicKey RSAPk = (RSAPublicKey) certificate.getPublicKey();
+
         arg0.setValue(RSAPk.getPublicExponent().toString());
         _RSAKeyValue.setExponent(arg0);
         arg1.setValue(RSAPk.getModulus().toString());
@@ -546,77 +662,6 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
     private List createAuthnStatements(SAMLAssertionFactory factory) throws SAMLException, XWSSecurityException {
         log.debug("SamlCallbackHandler.createAuthnStatements() -- Begin");
         List statements = new ArrayList();
-
-        // Create Subject Locality
-        SubjectLocality subjLoc = null;
-        if (tokenVals.containsKey(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP)
-                && tokenVals.get(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP) != null
-                && tokenVals.containsKey(SamlConstants.SUBJECT_LOCALITY_DNS_PROP)
-                && tokenVals.get(SamlConstants.SUBJECT_LOCALITY_DNS_PROP) != null) {
-            String inetAddr = tokenVals.get(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP).toString();
-            String dnsName = tokenVals.get(SamlConstants.SUBJECT_LOCALITY_DNS_PROP).toString();
-            log.debug("Create Subject Locality as " + inetAddr + " in domain: " + dnsName);
-            subjLoc = factory.createSubjectLocality(inetAddr, dnsName);
-        } else {
-            log.debug("Values for Subject Locality are not provided. This element will not be generated.");
-        }
-
-        AuthnContext authnContext = null;
-        if (tokenVals.containsKey(SamlConstants.AUTHN_CONTEXT_CLASS_PROP)
-                && tokenVals.get(SamlConstants.AUTHN_CONTEXT_CLASS_PROP) != null) {
-            String cntxCls = tokenVals.get(SamlConstants.AUTHN_CONTEXT_CLASS_PROP).toString();
-            if (VALID_AUTHN_CNTX_CLS_LIST.contains(cntxCls.trim())) {
-                log.debug("Create Authentication Context Class as: " + cntxCls);
-                authnContext = factory.createAuthnContext(cntxCls, null);
-            } else {
-                log.debug(cntxCls + " is not recognized as valid, "
-                        + "create default Authentication Context Class as: " + UNSPECIFIED_AUTHN_CNTX_CLS);
-                log.debug("Should be one of: " + VALID_AUTHN_CNTX_CLS_LIST);
-                authnContext = factory.createAuthnContext(UNSPECIFIED_AUTHN_CNTX_CLS, null);
-            }
-        } else {
-            log.debug("Create default Authentication Context Class as: " + X509_AUTHN_CNTX_CLS);
-            authnContext = factory.createAuthnContext(X509_AUTHN_CNTX_CLS, null);
-        }
-
-        GregorianCalendar issueInstant = calendarFactory();
-        if (tokenVals.containsKey(SamlConstants.AUTHN_INSTANT_PROP)
-                && tokenVals.get(SamlConstants.AUTHN_INSTANT_PROP) != null) {
-            String authnInstant = tokenVals.get(SamlConstants.AUTHN_INSTANT_PROP).toString();
-            try {
-                // times must be in UTC format as specified by the XML Schema
-                // type (dateTime)
-                DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
-                XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(authnInstant.trim());
-                issueInstant = xmlDate.toGregorianCalendar();
-                log.debug("Setting Authentication instant to: " + xmlDate.toXMLFormat());
-            } catch (IllegalArgumentException iaex) {
-                log.debug("Authentication instant: " + authnInstant
-                        + " is not in a valid dateTime format, defaulting to current time");
-            } catch (DatatypeConfigurationException ex) {
-                log.debug("Authentication instant: " + authnInstant
-                        + " is not in a valid dateTime format, defaulting to current time");
-            }
-        } else {
-            log.debug("Defaulting Authentication instant to current time");
-        }
-
-        String sessionIndex = AUTHN_SESSION_INDEX;
-        if (tokenVals.containsKey(SamlConstants.AUTHN_SESSION_INDEX_PROP)
-                && tokenVals.get(SamlConstants.AUTHN_SESSION_INDEX_PROP) != null) {
-            sessionIndex = tokenVals.get(SamlConstants.AUTHN_SESSION_INDEX_PROP).toString();
-            log.debug("Setting Authentication session index to: " + sessionIndex);
-        } else {
-            log.debug("Defaulting Authentication session index to: " + sessionIndex);
-        }
-
-        // Create Authentication statement
-        AuthnStatement authState = (com.sun.xml.wss.saml.assertion.saml20.jaxb20.AuthnStatement) factory
-                .createAuthnStatement(issueInstant, subjLoc, authnContext, sessionIndex, null);
-
-        if (authState != null) {
-            statements.add(authState);
-        }
 
         statements.addAll(addAssertStatements(factory));
 
