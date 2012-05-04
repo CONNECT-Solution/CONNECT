@@ -64,21 +64,22 @@ import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Statement;
-import org.opensaml.saml2.core.impl.AssertionBuilder;
-import org.opensaml.saml2.core.impl.IssuerBuilder;
-import org.opensaml.saml2.core.impl.NameIDBuilder;
-import org.opensaml.saml2.core.impl.SubjectBuilder;
-import org.opensaml.saml2.core.impl.SubjectConfirmationBuilder;
-import org.opensaml.saml2.core.impl.SubjectConfirmationDataBuilder;
+/*import org.opensaml.saml2.core.impl.AssertionBuilder;
+ import org.opensaml.saml2.core.impl.IssuerBuilder;
+ import org.opensaml.saml2.core.impl.NameIDBuilder;
+ import org.opensaml.saml2.core.impl.SubjectBuilder;
+ import org.opensaml.saml2.core.impl.SubjectConfirmationBuilder;
+ import org.opensaml.saml2.core.impl.SubjectConfirmationDataBuilder;*/
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.signature.Exponent;
 import org.opensaml.xml.signature.Modulus;
 import org.opensaml.xml.signature.RSAKeyValue;
-import org.opensaml.xml.signature.impl.ExponentBuilder;
-import org.opensaml.xml.signature.impl.KeyInfoBuilder;
-import org.opensaml.xml.signature.impl.KeyValueBuilder;
-import org.opensaml.xml.signature.impl.ModulusBuilder;
-import org.opensaml.xml.signature.impl.RSAKeyValueBuilder;
+/*import org.opensaml.xml.signature.impl.ExponentBuilder;
+ import org.opensaml.xml.signature.impl.KeyInfoBuilder;
+ import org.opensaml.xml.signature.impl.KeyValueBuilder;
+ import org.opensaml.xml.signature.impl.ModulusBuilder;
+ import org.opensaml.xml.signature.impl.RSAKeyValueBuilder;*/
 import org.opensaml.saml2.core.AuthnStatement;
 import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.saml2.core.AuthnContextClassRef;
@@ -214,6 +215,10 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         log.debug("SamlCallbackHandler Constructor -- Begin");
     }
 
+    private XMLObject createOpenSAMLObject(QName qname) {
+        return Configuration.getBuilderFactory().getBuilder(qname).buildObject(qname);
+    }
+
     /**
      * This is the invoked implementation to handle the SAML Token creation upon notification of an outgoing message
      * needing SAML. Based on the type of confirmation method detected on the Callbace it creates either a
@@ -309,9 +314,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin");
         org.opensaml.saml2.core.Assertion ass = null;
         try {
-
-            AssertionBuilder assBuilder = new AssertionBuilder();
-            ass = assBuilder.buildObject();
+            ass = (org.opensaml.saml2.core.Assertion) createOpenSAMLObject(org.opensaml.saml2.core.Assertion.DEFAULT_ELEMENT_NAME);
 
             // create the assertion id
             // Per GATEWAY-847 the id attribute should not be allowed to start
@@ -457,10 +460,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
      * @return
      */
     private org.opensaml.saml2.core.Subject createSubject() {
-        SubjectBuilder subjectBuilder = new SubjectBuilder();
-        org.opensaml.saml2.core.Subject subject = null;
-
-        subject = subjectBuilder.buildObject();
+        org.opensaml.saml2.core.Subject subject = (org.opensaml.saml2.core.Subject) createOpenSAMLObject(org.opensaml.saml2.core.Subject.DEFAULT_ELEMENT_NAME);
         String x509Name = "UID=" + tokenVals.get(SamlConstants.USER_NAME_PROP).toString();
         subject.setNameID(createNameID(X509_NAME_ID, x509Name));
         subject.getSubjectConfirmations().add(createHoKConfirmation());
@@ -468,8 +468,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
     }
 
     private org.opensaml.saml2.core.SubjectConfirmation createHoKConfirmation() {
-        SubjectConfirmationBuilder subjectConfirmationBuilder = new SubjectConfirmationBuilder();
-        org.opensaml.saml2.core.SubjectConfirmation subjectConfirmation = subjectConfirmationBuilder.buildObject();
+        org.opensaml.saml2.core.SubjectConfirmation subjectConfirmation = (org.opensaml.saml2.core.SubjectConfirmation) createOpenSAMLObject(org.opensaml.saml2.core.SubjectConfirmation.DEFAULT_ELEMENT_NAME);
         subjectConfirmation.setMethod(org.opensaml.saml2.core.SubjectConfirmation.METHOD_HOLDER_OF_KEY);
         subjectConfirmation.setSubjectConfirmationData(createSubjectConfirmationData());
 
@@ -477,28 +476,35 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
     }
 
     private org.opensaml.saml2.core.SubjectConfirmationData createSubjectConfirmationData() {
-        SubjectConfirmationDataBuilder subjectConfirmationDataBuilder = new SubjectConfirmationDataBuilder();
-        org.opensaml.saml2.core.SubjectConfirmationData subjectConfirmationData = subjectConfirmationDataBuilder
-                .buildObject();
+        org.opensaml.saml2.core.SubjectConfirmationData subjectConfirmationData = (org.opensaml.saml2.core.SubjectConfirmationData) createOpenSAMLObject(org.opensaml.saml2.core.SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
         subjectConfirmationData.getUnknownAttributes().put(
                 new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi"),
                 "saml:KeyInfoConfirmationDataType");
 
-        KeyInfoBuilder keyInfoBuilder = new KeyInfoBuilder();
-        org.opensaml.xml.signature.KeyInfo ki = keyInfoBuilder.buildObject();
+        org.opensaml.xml.signature.KeyInfo ki = (org.opensaml.xml.signature.KeyInfo) createOpenSAMLObject(org.opensaml.xml.signature.KeyInfo.DEFAULT_ELEMENT_NAME);
+        org.opensaml.xml.signature.KeyValue kv = (org.opensaml.xml.signature.KeyValue) createOpenSAMLObject(org.opensaml.xml.signature.KeyValue.DEFAULT_ELEMENT_NAME);
 
-        KeyValueBuilder keyValueBuilder = new KeyValueBuilder();
-        org.opensaml.xml.signature.KeyValue kv = keyValueBuilder.buildObject();
+        RSAKeyValue _RSAKeyValue = (RSAKeyValue) createOpenSAMLObject(RSAKeyValue.DEFAULT_ELEMENT_NAME);
+        Exponent arg0 = (Exponent) createOpenSAMLObject(Exponent.DEFAULT_ELEMENT_NAME);
+        Modulus arg1 = (Modulus) createOpenSAMLObject(Modulus.DEFAULT_ELEMENT_NAME);
 
-        RSAKeyValueBuilder _RSAKeyValueBuilder = new RSAKeyValueBuilder();
-        RSAKeyValue _RSAKeyValue = _RSAKeyValueBuilder.buildObject();
+        RSAPublicKey RSAPk = (RSAPublicKey)getPublicKey();
 
-        ExponentBuilder exponentBuilder = new ExponentBuilder();
-        Exponent arg0 = exponentBuilder.buildObject();
+        arg0.setValue(RSAPk.getPublicExponent().toString());
+        _RSAKeyValue.setExponent(arg0);
+        arg1.setValue(RSAPk.getModulus().toString());
+        _RSAKeyValue.setModulus(arg1);
+        kv.setRSAKeyValue(_RSAKeyValue);
 
-        ModulusBuilder modulusBuilder = new ModulusBuilder();
-        Modulus arg1 = modulusBuilder.buildObject();
+        ki.getKeyValues().add(kv);
 
+        subjectConfirmationData.getUnknownXMLObjects().add(ki);
+
+        return subjectConfirmationData;
+    }
+    
+    public PublicKey getPublicKey()
+    {
         KeyStore ks;
         KeyStore.PrivateKeyEntry pkEntry = null;
         try {
@@ -529,29 +535,15 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
             e.printStackTrace();
         }
 
-        PrivateKey pk = pkEntry.getPrivateKey();
         X509Certificate certificate = (X509Certificate) pkEntry.getCertificate();
-        RSAPublicKey RSAPk = (RSAPublicKey) certificate.getPublicKey();
-
-        arg0.setValue(RSAPk.getPublicExponent().toString());
-        _RSAKeyValue.setExponent(arg0);
-        arg1.setValue(RSAPk.getModulus().toString());
-        _RSAKeyValue.setModulus(arg1);
-        kv.setRSAKeyValue(_RSAKeyValue);
-
-        ki.getKeyValues().add(kv);
-
-        subjectConfirmationData.getUnknownXMLObjects().add(ki);
-
-        return subjectConfirmationData;
+        return certificate.getPublicKey();
     }
 
     /**
      * @return
      */
     private org.opensaml.saml2.core.NameID createNameID(String format, String value) {
-        NameIDBuilder nameIDBuilder = new NameIDBuilder();
-        org.opensaml.saml2.core.NameID nameId = nameIDBuilder.buildObject();
+        org.opensaml.saml2.core.NameID nameId = (org.opensaml.saml2.core.NameID) createOpenSAMLObject(org.opensaml.saml2.core.NameID.DEFAULT_ELEMENT_NAME);
 
         nameId.setFormat(format);
         nameId.setValue(value);
@@ -560,7 +552,6 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
     }
 
     public org.opensaml.saml2.core.Issuer createIssuer() {
-        IssuerBuilder issuerBuilder = new IssuerBuilder();
         Issuer issuer = null;
 
         if (tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP)
@@ -572,7 +563,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
             log.debug("Setting Assertion Issuer to: " + sIssuer);
 
             if (VALID_NAME_LIST.contains(format.trim())) {
-                issuer = issuerBuilder.buildObject();
+                issuer = (Issuer) createOpenSAMLObject(Issuer.DEFAULT_ELEMENT_NAME);
                 issuer.setFormat(format);
                 issuer.setValue(sIssuer);
             } else {
@@ -587,8 +578,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
     }
 
     protected org.opensaml.saml2.core.Issuer createDefaultIssuer() {
-        IssuerBuilder issuerBuilder = new IssuerBuilder();
-        Issuer issuer = issuerBuilder.buildObject();
+        Issuer issuer = (Issuer) createOpenSAMLObject(Issuer.DEFAULT_ELEMENT_NAME);
         issuer.setFormat(X509_NAME_ID);
         issuer.setValue(DEFAULT_ISSUER_VALUE);
         return issuer;
