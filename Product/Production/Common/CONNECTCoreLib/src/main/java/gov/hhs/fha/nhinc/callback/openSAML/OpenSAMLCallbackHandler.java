@@ -169,7 +169,6 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
     private static final String ID_PREFIX = "_";
 
     private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
-    private static final String DEFAULT_ISSUER_VALUE = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
 
     private static SAMLObjectBuilder<AuthnStatement> authnStatementBuilder;
 
@@ -213,10 +212,6 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
             throw new RuntimeException(e);
         }
         log.debug("SamlCallbackHandler Constructor -- Begin");
-    }
-
-    private XMLObject createOpenSAMLObject(QName qname) {
-        return Configuration.getBuilderFactory().getBuilder(qname).buildObject(qname);
     }
 
     /**
@@ -314,7 +309,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin");
         org.opensaml.saml2.core.Assertion assertion = null;
         try {
-            assertion = (org.opensaml.saml2.core.Assertion) createOpenSAMLObject(org.opensaml.saml2.core.Assertion.DEFAULT_ELEMENT_NAME);
+            assertion = (org.opensaml.saml2.core.Assertion) OpenSAML2ComponentBuilder.getInstance().createAssertion();
 
             // create the assertion id
             // Per GATEWAY-847 the id attribute should not be allowed to start
@@ -347,6 +342,40 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         }
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- End");
         return null;
+    }
+    
+    public org.opensaml.saml2.core.Issuer createIssuer() {
+        Issuer issuer = null;
+
+        if (tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP)
+                && tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_PROP)) {
+
+            String format = tokenVals.get(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP).toString();
+            log.debug("Setting Assertion Issuer format to: " + format);
+            String sIssuer = tokenVals.get(SamlConstants.ASSERTION_ISSUER_PROP).toString();
+            log.debug("Setting Assertion Issuer to: " + sIssuer);
+
+            if (VALID_NAME_LIST.contains(format.trim())) {
+                issuer = (Issuer) OpenSAML2ComponentBuilder.getInstance().createIssuer(format, sIssuer);
+            } else {
+                log.debug("Not in valid listing of formats: Using default issuer");
+                issuer = OpenSAML2ComponentBuilder.getInstance().createDefaultIssuer();
+            }
+        } else {
+            log.debug("Assertion issuer not defined: Using default issuer");
+            issuer = OpenSAML2ComponentBuilder.getInstance().createDefaultIssuer();
+        }
+        return issuer;
+    }
+    
+    /**
+     * @return
+     */
+    private org.opensaml.saml2.core.Subject createSubject() {
+        org.opensaml.saml2.core.Subject subject = null;
+        String x509Name = "UID=" + tokenVals.get(SamlConstants.USER_NAME_PROP).toString();
+        OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name);
+        return subject;
     }
 
     /**
@@ -456,132 +485,6 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         return value;
     }
 
-    /**
-     * @return
-     */
-    private org.opensaml.saml2.core.Subject createSubject() {
-        org.opensaml.saml2.core.Subject subject = (org.opensaml.saml2.core.Subject) createOpenSAMLObject(org.opensaml.saml2.core.Subject.DEFAULT_ELEMENT_NAME);
-        String x509Name = "UID=" + tokenVals.get(SamlConstants.USER_NAME_PROP).toString();
-        subject.setNameID(createNameID(X509_NAME_ID, x509Name));
-        subject.getSubjectConfirmations().add(createHoKConfirmation());
-        return subject;
-    }
-
-    private org.opensaml.saml2.core.SubjectConfirmation createHoKConfirmation() {
-        org.opensaml.saml2.core.SubjectConfirmation subjectConfirmation = (org.opensaml.saml2.core.SubjectConfirmation) createOpenSAMLObject(org.opensaml.saml2.core.SubjectConfirmation.DEFAULT_ELEMENT_NAME);
-        subjectConfirmation.setMethod(org.opensaml.saml2.core.SubjectConfirmation.METHOD_HOLDER_OF_KEY);
-        subjectConfirmation.setSubjectConfirmationData(createSubjectConfirmationData());
-
-        return subjectConfirmation;
-    }
-
-    private org.opensaml.saml2.core.SubjectConfirmationData createSubjectConfirmationData() {
-        org.opensaml.saml2.core.SubjectConfirmationData subjectConfirmationData = (org.opensaml.saml2.core.SubjectConfirmationData) createOpenSAMLObject(org.opensaml.saml2.core.SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
-        subjectConfirmationData.getUnknownAttributes().put(
-                new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi"),
-                "saml:KeyInfoConfirmationDataType");
-
-        org.opensaml.xml.signature.KeyInfo ki = (org.opensaml.xml.signature.KeyInfo) createOpenSAMLObject(org.opensaml.xml.signature.KeyInfo.DEFAULT_ELEMENT_NAME);
-        org.opensaml.xml.signature.KeyValue kv = (org.opensaml.xml.signature.KeyValue) createOpenSAMLObject(org.opensaml.xml.signature.KeyValue.DEFAULT_ELEMENT_NAME);
-
-        RSAKeyValue _RSAKeyValue = (RSAKeyValue) createOpenSAMLObject(RSAKeyValue.DEFAULT_ELEMENT_NAME);
-        Exponent exp = (Exponent) createOpenSAMLObject(Exponent.DEFAULT_ELEMENT_NAME);
-        Modulus mod = (Modulus) createOpenSAMLObject(Modulus.DEFAULT_ELEMENT_NAME);
-
-        RSAPublicKey RSAPk = (RSAPublicKey) getPublicKey();
-
-        exp.setValue(RSAPk.getPublicExponent().toString());
-        _RSAKeyValue.setExponent(exp);
-        mod.setValue(RSAPk.getModulus().toString());
-        _RSAKeyValue.setModulus(mod);
-        
-        kv.setRSAKeyValue(_RSAKeyValue);
-        ki.getKeyValues().add(kv);
-
-        subjectConfirmationData.getUnknownXMLObjects().add(ki);
-
-        return subjectConfirmationData;
-    }
-
-    public PublicKey getPublicKey() {
-        KeyStore ks;
-        KeyStore.PrivateKeyEntry pkEntry = null;
-        try {
-            ks = KeyStore.getInstance(KeyStore.getDefaultType());
-            char[] password = "cspass".toCharArray();
-            FileInputStream fis = new FileInputStream("c:/opt/keystores/clientKeystore.jks");
-            ks.load(fis, password);
-            fis.close();
-            pkEntry = (KeyStore.PrivateKeyEntry) ks.getEntry("myclientkey",
-                    new KeyStore.PasswordProtection("ckpass".toCharArray()));
-        } catch (KeyStoreException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (CertificateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (UnrecoverableEntryException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        X509Certificate certificate = (X509Certificate) pkEntry.getCertificate();
-        return certificate.getPublicKey();
-    }
-
-    /**
-     * @return
-     */
-    private org.opensaml.saml2.core.NameID createNameID(String format, String value) {
-        org.opensaml.saml2.core.NameID nameId = (org.opensaml.saml2.core.NameID) createOpenSAMLObject(org.opensaml.saml2.core.NameID.DEFAULT_ELEMENT_NAME);
-
-        nameId.setFormat(format);
-        nameId.setValue(value);
-
-        return nameId;
-    }
-
-    public org.opensaml.saml2.core.Issuer createIssuer() {
-        Issuer issuer = null;
-
-        if (tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP)
-                && tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_PROP)) {
-
-            String format = tokenVals.get(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP).toString();
-            log.debug("Setting Assertion Issuer format to: " + format);
-            String sIssuer = tokenVals.get(SamlConstants.ASSERTION_ISSUER_PROP).toString();
-            log.debug("Setting Assertion Issuer to: " + sIssuer);
-
-            if (VALID_NAME_LIST.contains(format.trim())) {
-                issuer = (Issuer) createOpenSAMLObject(Issuer.DEFAULT_ELEMENT_NAME);
-                issuer.setFormat(format);
-                issuer.setValue(sIssuer);
-            } else {
-                log.debug("Not in valid listing of formats: Using default issuer");
-                issuer = createDefaultIssuer();
-            }
-        } else {
-            log.debug("Assertion issuer not defined: Using default issuer");
-            issuer = createDefaultIssuer();
-        }
-        return issuer;
-    }
-
-    protected org.opensaml.saml2.core.Issuer createDefaultIssuer() {
-        Issuer issuer = (Issuer) createOpenSAMLObject(Issuer.DEFAULT_ELEMENT_NAME);
-        issuer.setFormat(X509_NAME_ID);
-        issuer.setValue(DEFAULT_ISSUER_VALUE);
-        return issuer;
-    }
 
     /**
      * Both the Issuer and the Subject elements have a NameID element which is formed through this method. Currently
