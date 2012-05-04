@@ -312,9 +312,9 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
      */
     private Element createHOKSAMLAssertion20() {
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin");
-        org.opensaml.saml2.core.Assertion ass = null;
+        org.opensaml.saml2.core.Assertion assertion = null;
         try {
-            ass = (org.opensaml.saml2.core.Assertion) createOpenSAMLObject(org.opensaml.saml2.core.Assertion.DEFAULT_ELEMENT_NAME);
+            assertion = (org.opensaml.saml2.core.Assertion) createOpenSAMLObject(org.opensaml.saml2.core.Assertion.DEFAULT_ELEMENT_NAME);
 
             // create the assertion id
             // Per GATEWAY-847 the id attribute should not be allowed to start
@@ -325,20 +325,20 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
             log.debug("Assertion ID: " + aID);
 
             // set assertion Id
-            ass.setID(aID);
+            assertion.setID(aID);
 
             // issue instant set to now.
             DateTime issueInstant = new DateTime();
-            ass.setIssueInstant(issueInstant);
+            assertion.setIssueInstant(issueInstant);
 
             // set issuer
-            ass.setIssuer(createIssuer());
+            assertion.setIssuer(createIssuer());
 
             // set subject
-            ass.setSubject(createSubject());
+            assertion.setSubject(createSubject());
 
             // add attribute statements
-            ass.getStatements().addAll(createAttributeStatements());
+            assertion.getStatements().addAll(createAttributeStatements());
 
             // TODO: need to sign the message
         } catch (Exception ex) {
@@ -485,26 +485,25 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         org.opensaml.xml.signature.KeyValue kv = (org.opensaml.xml.signature.KeyValue) createOpenSAMLObject(org.opensaml.xml.signature.KeyValue.DEFAULT_ELEMENT_NAME);
 
         RSAKeyValue _RSAKeyValue = (RSAKeyValue) createOpenSAMLObject(RSAKeyValue.DEFAULT_ELEMENT_NAME);
-        Exponent arg0 = (Exponent) createOpenSAMLObject(Exponent.DEFAULT_ELEMENT_NAME);
-        Modulus arg1 = (Modulus) createOpenSAMLObject(Modulus.DEFAULT_ELEMENT_NAME);
+        Exponent exp = (Exponent) createOpenSAMLObject(Exponent.DEFAULT_ELEMENT_NAME);
+        Modulus mod = (Modulus) createOpenSAMLObject(Modulus.DEFAULT_ELEMENT_NAME);
 
-        RSAPublicKey RSAPk = (RSAPublicKey)getPublicKey();
+        RSAPublicKey RSAPk = (RSAPublicKey) getPublicKey();
 
-        arg0.setValue(RSAPk.getPublicExponent().toString());
-        _RSAKeyValue.setExponent(arg0);
-        arg1.setValue(RSAPk.getModulus().toString());
-        _RSAKeyValue.setModulus(arg1);
+        exp.setValue(RSAPk.getPublicExponent().toString());
+        _RSAKeyValue.setExponent(exp);
+        mod.setValue(RSAPk.getModulus().toString());
+        _RSAKeyValue.setModulus(mod);
+        
         kv.setRSAKeyValue(_RSAKeyValue);
-
         ki.getKeyValues().add(kv);
 
         subjectConfirmationData.getUnknownXMLObjects().add(ki);
 
         return subjectConfirmationData;
     }
-    
-    public PublicKey getPublicKey()
-    {
+
+    public PublicKey getPublicKey() {
         KeyStore ks;
         KeyStore.PrivateKeyEntry pkEntry = null;
         try {
