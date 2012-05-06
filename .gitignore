@@ -2,9 +2,12 @@
 .project
 .settings
 .metadata
+.externalToolBuilders/
 build/
 dist/
 lib/
+C:/
+bin/
 unit-test-reports/
 coverage-reports/
 build.generated/
@@ -12,12 +15,10 @@ ivy-cache/
 ivy-project-cache/
 target/
 Product/NHINC/
-Product/Install/deploy.application.list.xml
 Product/Production/Common/Properties/Dev/test*.properties
+Product/Production/Common/CONNECTCoreLib/*test*.properties
 Product/Production/Common/CONNECTCoreLib/testMPI.xml
-C:/
-bin/
-.externalToolBuilders/
+Product/Install/deploy.application.list.xml
 Product/Install/local.install.properties
 Product/Install/install.debug.log
 Product/Install/.backup*/
