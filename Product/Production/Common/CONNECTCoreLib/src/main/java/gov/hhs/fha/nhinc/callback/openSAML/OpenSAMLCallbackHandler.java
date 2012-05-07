@@ -85,6 +85,13 @@ import org.opensaml.saml2.core.Statement;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.SubjectLocality;
 import org.opensaml.xml.XMLObjectBuilderFactory;
+import org.opensaml.xml.io.Marshaller;
+import org.opensaml.xml.io.MarshallerFactory;
+import org.opensaml.xml.signature.KeyInfo;
+import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xml.signature.SignatureException;
+import org.opensaml.xml.signature.Signer;
 import org.w3c.dom.Element;
 
 import com.sun.xml.wss.impl.callback.SAMLCallback;
@@ -281,8 +288,9 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
      */
     private Element createHOKSAMLAssertion20() throws Exception {
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin");
-        org.opensaml.saml2.core.Assertion assertion = null;
+        Element signedAssertion = null;
         try {
+            org.opensaml.saml2.core.Assertion assertion = null;
             assertion = (org.opensaml.saml2.core.Assertion) OpenSAML2ComponentBuilder.getInstance().createAssertion();
 
             // create the assertion id
@@ -309,14 +317,36 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
             // add attribute statements
             assertion.getStatements().addAll(createAttributeStatements());
 
-            // TODO: need to sign the message
+            // sign the message
+            signedAssertion = sign(assertion);
         } catch (Exception ex) {
             log.error("Unable to create HOK Assertion: " + ex.getMessage());
             ex.printStackTrace();
             throw ex;
         }
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- End");
-        return null;
+        return signedAssertion;
+    }
+
+    /**
+     * @param assertion
+     * @throws Exception 
+     */
+    private Element sign(Assertion assertion) throws Exception {
+        Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature();
+        assertion.setSignature(signature);
+               
+        // marshall Assertion Java class into XML
+        MarshallerFactory marshallerFactory = Configuration.getMarshallerFactory();
+        Marshaller marshaller = marshallerFactory.getMarshaller(assertion);
+        Element assertionElement = marshaller.marshall(assertion);
+        try {
+            Signer.signObject(signature);
+        } catch (SignatureException e) {
+            e.printStackTrace();
+            throw new Exception(e);
+        }
+        return assertionElement;
     }
 
     public Issuer createIssuer() {

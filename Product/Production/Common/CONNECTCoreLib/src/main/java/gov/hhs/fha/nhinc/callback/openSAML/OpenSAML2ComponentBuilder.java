@@ -40,11 +40,14 @@ import org.opensaml.xml.schema.XSAny;
 import org.opensaml.xml.schema.XSString;
 import org.opensaml.xml.schema.impl.XSAnyBuilder;
 import org.opensaml.xml.schema.impl.XSStringBuilder;
+import org.opensaml.xml.security.x509.BasicX509Credential;
 import org.opensaml.xml.signature.Exponent;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.KeyValue;
 import org.opensaml.xml.signature.Modulus;
 import org.opensaml.xml.signature.RSAKeyValue;
+import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.SignatureConstants;
 
 /**
  * @author bhumphrey
@@ -303,7 +306,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	public PublicKey getPublicKey() throws Exception {
 	    CertificateManager cm = CertificateManager.getInstance();
 	    
-		X509Certificate certificate = cm.getDefaultPrivKeyCert();
+		X509Certificate certificate = cm.getDefaultCertificate();
 		return certificate.getPublicKey();
 	}
 
@@ -388,34 +391,33 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		if (attributes != null && attributes.size() > 0) {
 
 			AttributeStatement attributeStatement = attributeStatementBuilder
-					.buildObject();
-			for (Attribute attribute : attributes) {
-				attributeStatement.getAttributes().add(attribute);
+.buildObject();
+            for (Attribute attribute : attributes) {
+                attributeStatement.getAttributes().add(attribute);
 
-			}
-			// Add the completed attribute statementBean to the collection
-			attributeStatements.add(attributeStatement);
-		}
+            }
+            // Add the completed attribute statementBean to the collection
+            attributeStatements.add(attributeStatement);
+        }
 
-		return attributeStatements;
-	}
+        return attributeStatements;
+    }
 
-	public Evidence createEvidence(List<Assertion> assertions) {
-		Evidence evidence = evidenceBuilder.buildObject();
-		evidence.getAssertions().addAll(assertions);
-		return evidence;
-	}
+    public Evidence createEvidence(List<Assertion> assertions) {
+        Evidence evidence = evidenceBuilder.buildObject();
+        evidence.getAssertions().addAll(assertions);
+        return evidence;
+    }
 
-	public List<AttributeStatement> createEvidenceStatements(
-			List accessConstentValues,
-			List evidenceInstanceAccessConsentValues, final String namespace) {
-		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+    public List<AttributeStatement> createEvidenceStatements(List accessConstentValues,
+            List evidenceInstanceAccessConsentValues, final String namespace) {
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
 
-		List<Attribute> attributes = new ArrayList<Attribute>();
+        List<Attribute> attributes = new ArrayList<Attribute>();
 
-		if (accessConstentValues != null) {
-			attributes.add(OpenSAML2ComponentBuilder.getInstance()
-					.createAttribute("AccessConsentPolicy", namespace, null,
+        if (accessConstentValues != null) {
+            attributes.add(OpenSAML2ComponentBuilder.getInstance().createAttribute("AccessConsentPolicy", namespace,
+                    null,
 							accessConstentValues));
 		}
 
@@ -431,5 +433,24 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
 		return statements;
 	}
+
+    /**
+     * @throws Exception 
+     * 
+     */
+    public Signature createSignature() throws Exception {
+        BasicX509Credential credential = new BasicX509Credential();
+        CertificateManager cm = CertificateManager.getInstance();
+        
+        credential.setEntityCertificate(cm.getDefaultCertificate());
+        credential.setPrivateKey(cm.getDefaultPrivateKey().getPrivateKey());
+        Signature signature = (Signature) createOpenSAMLObject(Signature.DEFAULT_ELEMENT_NAME);
+        signature.setSigningCredential(credential);
+        signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+        signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
+        KeyInfo keyinfo = (KeyInfo) createOpenSAMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
+        signature.setKeyInfo(keyinfo);
+        return signature;
+    }
 
 }

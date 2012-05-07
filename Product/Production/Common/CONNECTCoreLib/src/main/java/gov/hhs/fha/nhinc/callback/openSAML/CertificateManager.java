@@ -27,13 +27,13 @@ public class CertificateManager {
 
     private CertificateManager() throws Exception {
         if (keyStore == null) {
-            initKeyStore();    
+            initKeyStore();
         }
         if (trustStore == null) {
             initTrustStore();
         }
     }
-    
+
     public static CertificateManager getInstance() throws Exception {
         return new CertificateManager();
     }
@@ -41,7 +41,8 @@ public class CertificateManager {
     /**
      * Initializes the keystore access using the system properties defined in the domain.xml javax.net.ssl.keyStore and
      * javax.net.ssl.keyStorePassword
-     * @throws Exception 
+     * 
+     * @throws Exception
      */
     private void initKeyStore() throws Exception {
         log.debug("SamlCallbackHandler.initKeyStore() -- Begin");
@@ -94,7 +95,8 @@ public class CertificateManager {
     /**
      * Initializes the truststore access using the system properties defined in the domain.xml javax.net.ssl.trustStore
      * and javax.net.ssl.trustStorePassword
-     * @throws Exception 
+     * 
+     * @throws Exception
      */
     private void initTrustStore() throws Exception {
         log.debug("SamlCallbackHandler.initTrustStore() -- Begin");
@@ -149,10 +151,13 @@ public class CertificateManager {
      * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
      * 
      * @param request The SignatureKeyCallback request object
-     * @throws Exception 
+     * @throws Exception
      */
-    public X509Certificate getDefaultPrivKeyCert()
-            throws Exception {
+    public X509Certificate getDefaultCertificate() throws Exception {
+        return (X509Certificate)getDefaultPrivateKey().getCertificate();
+    }
+    
+    public KeyStore.PrivateKeyEntry getDefaultPrivateKey() throws Exception {
         log.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
         X509Certificate cert = null;
         KeyStore.PrivateKeyEntry pkEntry = null;
@@ -164,7 +169,7 @@ public class CertificateManager {
                 try {
                     pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(client_key_alias,
                             new KeyStore.PasswordProtection(password.toCharArray()));
-                    cert = (X509Certificate) pkEntry.getCertificate();
+                    
                 } catch (NoSuchAlgorithmException ex) {
                     log.error("Error initializing Private Key: " + ex);
                     throw new Exception(ex.getMessage());
@@ -185,7 +190,7 @@ public class CertificateManager {
         }
 
         log.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- End");
-        return cert;
+        return pkEntry;
     }
 
 }
