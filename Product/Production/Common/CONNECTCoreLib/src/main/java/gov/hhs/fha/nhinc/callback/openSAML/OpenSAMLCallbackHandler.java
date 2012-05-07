@@ -82,6 +82,7 @@ import org.opensaml.saml2.core.Conditions;
 import org.opensaml.saml2.core.Evidence;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Statement;
+import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.SubjectLocality;
 import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.w3c.dom.Element;
@@ -93,9 +94,8 @@ import com.sun.xml.wss.saml.SAMLAssertionFactory;
 import com.sun.xml.wss.saml.SAMLException;
 
 /**
- * This class implements the CallbackHandler which is invoked upon sending a
- * message requiring the SAML Assertion Token. It accesses the information
- * stored in NMProperties in order to build up the required token elements.
+ * This class implements the CallbackHandler which is invoked upon sending a message requiring the SAML Assertion Token.
+ * It accesses the information stored in NMProperties in order to build up the required token elements.
  */
 public class OpenSAMLCallbackHandler implements CallbackHandler {
 
@@ -161,8 +161,6 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
 
     private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
 
-  
-
     private static final DateTimeFormatter XML_DATE_TIME_FORMAT = ISODateTimeFormat.dateTimeNoMillis();
 
     static {
@@ -180,16 +178,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
      * certificates
      */
     public OpenSAMLCallbackHandler() {
-        log.debug("SamlCallbackHandler Constructor -- Begin");
-        try {
-            initKeyStore();
-            initTrustStore();
-        } catch (IOException e) {
-            log.error("SamlCallbackHandler Exception: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-        log.debug("SamlCallbackHandler Constructor -- Begin");
+
     }
 
     /**
@@ -203,28 +192,34 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
      */
     public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
         log.debug(" **********************************  Handle SAML Callback Begin  **************************");
-        for (int i = 0; i < callbacks.length; i++) {
-            if (callbacks[i] instanceof SAMLCallback) {
-                SAMLCallback samlCallback = (SAMLCallback) callbacks[i];
-                log.debug("=============== Print Runtime properties =============");
-                tokenVals.putAll(samlCallback.getRuntimeProperties());
-                log.debug(tokenVals);
-                log.debug("=============== Completed Print properties =============");
-                if (samlCallback.getConfirmationMethod().equals(SAMLCallback.HOK_ASSERTION_TYPE)) {
-                    samlCallback.setAssertionElement(createHOKSAMLAssertion20());
-                    hokAssertion20 = samlCallback.getAssertionElement();
-                } else if (samlCallback.getConfirmationMethod().equals(SAMLCallback.SV_ASSERTION_TYPE)) {
-        //            samlCallback.setAssertionElement(createSVSAMLAssertion20());
-                    svAssertion = samlCallback.getAssertionElement();
+        try {
+            for (int i = 0; i < callbacks.length; i++) {
+                if (callbacks[i] instanceof SAMLCallback) {
+                    SAMLCallback samlCallback = (SAMLCallback) callbacks[i];
+                    log.debug("=============== Print Runtime properties =============");
+                    tokenVals.putAll(samlCallback.getRuntimeProperties());
+                    log.debug(tokenVals);
+                    log.debug("=============== Completed Print properties =============");
+                    if (samlCallback.getConfirmationMethod().equals(SAMLCallback.HOK_ASSERTION_TYPE)) {
+                        samlCallback.setAssertionElement(createHOKSAMLAssertion20());
+                        hokAssertion20 = samlCallback.getAssertionElement();
+                    } else if (samlCallback.getConfirmationMethod().equals(SAMLCallback.SV_ASSERTION_TYPE)) {
+                        // samlCallback.setAssertionElement(createSVSAMLAssertion20());
+                        svAssertion = samlCallback.getAssertionElement();
+                    } else {
+                        log.error("Unknown SAML Assertion Type: " + samlCallback.getConfirmationMethod());
+                        throw new UnsupportedCallbackException(null, "SAML Assertion Type is not matched:"
+                                + samlCallback.getConfirmationMethod());
+                    }
                 } else {
-                    log.error("Unknown SAML Assertion Type: " + samlCallback.getConfirmationMethod());
-                    throw new UnsupportedCallbackException(null, "SAML Assertion Type is not matched:"
-                            + samlCallback.getConfirmationMethod());
+                    log.error("Unknown Callback encountered: " + callbacks[i]);
+                    throw new UnsupportedCallbackException(null, "Unsupported Callback Type Encountered");
                 }
-            } else {
-                log.error("Unknown Callback encountered: " + callbacks[i]);
-                throw new UnsupportedCallbackException(null, "Unsupported Callback Type Encountered");
             }
+        } catch (Exception ex) {
+            // catching all exceptions and making them IOExceptions. IO picked by flip of coin, neither IOException or
+            // UnsupportedCallbackException are appropriate.
+            throw new IOException(ex);
         }
         log.debug("**********************************  Handle SAML Callback End  **************************");
     }
@@ -234,56 +229,57 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
      * 
      * @return The Assertion element
      */
-//    private Element createSVSAMLAssertion20() {
-//        log.debug("SamlCallbackHandler.createSVSAMLAssertion20() -- Begin");
-//        Assertion assertion = null;
-//        try {
-//            SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
-//
-//            // create the assertion id
-//            // Per GATEWAY-847 the id attribute should not be allowed to start
-//            // with a number (UUIDs can). Direction
-//            // given from 2011 specification set was to prepend with and
-//            // underscore.
-//            String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
-//            log.debug("Assertion ID: " + aID);
-//
-//            // name id of the issuer - For now just use default
-//            NameID issueId = create509NameID(factory, DEFAULT_NAME);
-//
-//            // issue instant
-//            GregorianCalendar issueInstant = calendarFactory();
-//
-//            // name id of the subject - user name
-//            String uname = "defUser";
-//            if (tokenVals.containsKey(SamlConstants.USER_NAME_PROP)
-//                    && tokenVals.get(SamlConstants.USER_NAME_PROP) != null) {
-//                uname = tokenVals.get(SamlConstants.USER_NAME_PROP).toString();
-//            }
-//            NameID nmId = factory.createNameID(uname, null, X509_NAME_ID);
-//            Subject subj = factory.createSubject(nmId, null);
-//
-//            // authentication statement
-//            List statements = createAuthnStatements(factory);
-//
-//            assertion = factory.createAssertion(aID, issueId, issueInstant, null, null, subj, statements);
-//
-//            assertion.setVersion("2.0");
-//
-//            log.debug("createSVSAMLAssertion20 end ()");
-//            return assertion.toElement(null);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw new RuntimeException(e);
-//        }
-//    }
+    // private Element createSVSAMLAssertion20() {
+    // log.debug("SamlCallbackHandler.createSVSAMLAssertion20() -- Begin");
+    // Assertion assertion = null;
+    // try {
+    // SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
+    //
+    // // create the assertion id
+    // // Per GATEWAY-847 the id attribute should not be allowed to start
+    // // with a number (UUIDs can). Direction
+    // // given from 2011 specification set was to prepend with and
+    // // underscore.
+    // String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
+    // log.debug("Assertion ID: " + aID);
+    //
+    // // name id of the issuer - For now just use default
+    // NameID issueId = create509NameID(factory, DEFAULT_NAME);
+    //
+    // // issue instant
+    // GregorianCalendar issueInstant = calendarFactory();
+    //
+    // // name id of the subject - user name
+    // String uname = "defUser";
+    // if (tokenVals.containsKey(SamlConstants.USER_NAME_PROP)
+    // && tokenVals.get(SamlConstants.USER_NAME_PROP) != null) {
+    // uname = tokenVals.get(SamlConstants.USER_NAME_PROP).toString();
+    // }
+    // NameID nmId = factory.createNameID(uname, null, X509_NAME_ID);
+    // Subject subj = factory.createSubject(nmId, null);
+    //
+    // // authentication statement
+    // List statements = createAuthnStatements(factory);
+    //
+    // assertion = factory.createAssertion(aID, issueId, issueInstant, null, null, subj, statements);
+    //
+    // assertion.setVersion("2.0");
+    //
+    // log.debug("createSVSAMLAssertion20 end ()");
+    // return assertion.toElement(null);
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // throw new RuntimeException(e);
+    // }
+    // }
 
     /**
      * Creates the "Holder-of-Key" variant of the SAML Assertion token.
      * 
      * @return The Assertion element
+     * @throws Exception
      */
-    private Element createHOKSAMLAssertion20() {
+    private Element createHOKSAMLAssertion20() throws Exception {
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin");
         org.opensaml.saml2.core.Assertion assertion = null;
         try {
@@ -317,12 +313,13 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         } catch (Exception ex) {
             log.error("Unable to create HOK Assertion: " + ex.getMessage());
             ex.printStackTrace();
+            throw ex;
         }
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- End");
         return null;
     }
-    
-    public org.opensaml.saml2.core.Issuer createIssuer() {
+
+    public Issuer createIssuer() {
         Issuer issuer = null;
 
         if (tokenVals.containsKey(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP)
@@ -345,11 +342,12 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         }
         return issuer;
     }
-    
+
     /**
      * @return
+     * @throws Exception
      */
-    private org.opensaml.saml2.core.Subject createSubject() {
+    private Subject createSubject() throws Exception {
         org.opensaml.saml2.core.Subject subject = null;
         String x509Name = "UID=" + tokenVals.get(SamlConstants.USER_NAME_PROP).toString();
         OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name);
@@ -361,560 +359,469 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
      */
     @SuppressWarnings("unchecked")
     private List<Statement> createAttributeStatements() {
-    	List<Statement> statements = new ArrayList<Statement>();
+        List<Statement> statements = new ArrayList<Statement>();
 
-		statements.addAll(createAuthenicationStatements());
-		statements.addAll(createUserNameAttributeStatements());
-		statements.addAll(createOrganizationAttributeStatements());
-		statements.addAll(createHomeCommunityIdAttributeStatements());
-		statements.addAll(createPatientIdAttributeStatements());
-		statements.addAll(createUserRoleStatements());
-		statements.addAll(createPurposeOfUseStatements());
-		statements.addAll(createAuthenicationDecsionStatements());
-	
-		return statements;
+        statements.addAll(createAuthenicationStatements());
+        statements.addAll(createUserNameAttributeStatements());
+        statements.addAll(createOrganizationAttributeStatements());
+        statements.addAll(createHomeCommunityIdAttributeStatements());
+        statements.addAll(createPatientIdAttributeStatements());
+        statements.addAll(createUserRoleStatements());
+        statements.addAll(createPurposeOfUseStatements());
+        statements.addAll(createAuthenicationDecsionStatements());
+
+        return statements;
     }
 
     /**
-	 * @return
-	 */
-	private List<AuthnStatement> createAuthenicationStatements() {
-
-		List<AuthnStatement> authnStatements = new ArrayList<AuthnStatement>();
-
-		String cntxCls = getNullSafeString(tokenVals,
-				SamlConstants.AUTHN_CONTEXT_CLASS_PROP, X509_AUTHN_CNTX_CLS);
-
-		cntxCls = validate(cntxCls, VALID_AUTHN_CNTX_CLS_LIST,
-				UNSPECIFIED_AUTHN_CNTX_CLS);
-
-		String sessionIndex = getNullSafeString(tokenVals,
-				SamlConstants.AUTHN_SESSION_INDEX_PROP, AUTHN_SESSION_INDEX);
-		log.debug("Setting Authentication session index to: " + sessionIndex);
-
-		DateTime authInstant = getNullSafeDateTime(tokenVals,
-				SamlConstants.AUTHN_INSTANT_PROP, new DateTime());
-
-		String inetAddr = getNullSafeString(tokenVals,
-				SamlConstants.SUBJECT_LOCALITY_ADDR_PROP);
-		String dnsName = getNullSafeString(tokenVals,
-				SamlConstants.SUBJECT_LOCALITY_DNS_PROP);
-
-		AuthnStatement authnStatement = OpenSAML2ComponentBuilder.getInstance()
-				.createAuthenicationStatements(cntxCls, sessionIndex,
-						authInstant, inetAddr, dnsName);
-
-		authnStatements.add(authnStatement);
-
-		return authnStatements;
-	}
-
-	private String getNullSafeString(Map map, final String property) {
-
-		return getNullSafeString(map, property, null);
-	}
-
-	private String getNullSafeString(Map map, final String property,
-			String defaultValue) {
-		String value = defaultValue;
-		if (map.containsKey(property) && map.get(property) != null) {
-			value = map.get(property).toString();
-		}
-		return value;
-	}
-
-	private List getNullSafeList(Map map, final String property) {
-		List list = null;
-		if (map.containsKey(property) && map.get(property) != null) {
-			Object value = map.get(property);
-			if (value instanceof List<?>) {
-				list = (List) value;
-			} else {
-				list = new ArrayList();
-				list.add(value);
-			}
-		}
-
-		return list;
-	}
-
-	private String validate(final String value, List<String> validValues,
-			final String defaultValue) {
-		String validValue = defaultValue;
-		if (validValues.contains(value.trim())) {
-			validValue = value;
-		} else {
-			log.debug(value + " is not recognized as valid, "
-					+ "creating evidence assertion version as: " + defaultValue);
-			log.debug("Should be one of: " + validValues);
-		}
-		return validValue;
-	}
-
-	private DateTime getNullSafeDateTime(Map map, final String property,
-			DateTime defaultValue) {
-		String dateTimeTxt = getNullSafeString(map, property);
-
-		DateTime dateTime = defaultValue;
-		if (dateTimeTxt != null) {
-			dateTime = XML_DATE_TIME_FORMAT.parseDateTime(dateTimeTxt);
-		}
-		return dateTime;
-
-	}
-
-	
-	/**
-	 * @return
-	 */
-	private List<AuthzDecisionStatement> createAuthenicationDecsionStatements() {
-		List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<AuthzDecisionStatement>();
-
-		Boolean hasAuthzStmt = getNullSafeBoolean(tokenVals,
-				SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP, Boolean.FALSE);
-		// The authorization Decision Statement is optional
-		if (hasAuthzStmt) {
-			// Create resource for Authentication Decision Statement
-			String resource = getNullSafeString(tokenVals,
-					SamlConstants.RESOURCE_PROP);
-
-			// Options are Permit, Deny and Indeterminate
-			String decision = getNullSafeString(tokenVals,
-					SamlConstants.AUTHZ_DECISION_PROP, AUTHZ_DECISION_PERMIT);
-
-			decision = validate(decision, VALID_AUTHZ_DECISION_LIST,
-					AUTHZ_DECISION_PERMIT);
-
-			// As of Authorization Framework Spec 2.2 Action is a hard-coded
-			// value
-			// Therefore the value of the ACTION_PROP is no longer used
-			String action = AUTHZ_DECISION_ACTION_EXECUTE;
-
-			Evidence evidence = createEvidence();
-
-			authDecisionStatements.add(OpenSAML2ComponentBuilder.getInstance()
-					.createAuthzDecisionStatement(resource, decision, action,
-							evidence));
-		}
-
-		return authDecisionStatements;
-	}
-	
-	/**
-	 * Creates the Evidence element that encompasses the Assertion defining the
-	 * authorization form needed in cases where evidence of authorization to
-	 * access the medical records must be provided along with the message
-	 * request
-	 * 
-	 * @param factory
-	 *            The factory object used to assist in the construction of the
-	 *            SAML Assertion token
-	 * @param issueInstant
-	 *            The calendar representing the time of Assertion issuance
-	 * @return The Evidence element
-	 */
-	private Evidence createEvidence() {
-		log.debug("SamlCallbackHandler.createEvidence() -- Begin");
-
-		List<Assertion> evidenceAssertions = new ArrayList<Assertion>();
-		String evAssertionID = getNullSafeString(tokenVals,
-				SamlConstants.EVIDENCE_ID_PROP,
-				String.valueOf(UUID.randomUUID()));
-
-		DateTime issueInstant = getNullSafeDateTime(tokenVals,
-				SamlConstants.EVIDENCE_INSTANT_PROP, new DateTime());
-
-		String format = getNullSafeString(tokenVals,
-				SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP);
-		format = validate(format, VALID_NAME_LIST, X509_NAME_ID);
-
-		String issuer = getNullSafeString(tokenVals,
-				SamlConstants.EVIDENCE_ISSUER_PROP);
-
-		org.opensaml.saml2.core.NameID evIssuerId = OpenSAML2ComponentBuilder
-				.getInstance().createNameID(null, format, issuer);
-
-		DateTime beginValidTime = getNullSafeDateTime(tokenVals,
-				SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP,
-				new DateTime());
-
-		DateTime endValidTime = getNullSafeDateTime(tokenVals,
-				SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP,
-				new DateTime().plusMinutes(5));
-
-		if (beginValidTime.isAfter(endValidTime)) {
-			// set beginning time to now
-			beginValidTime = new DateTime();
-			log.warn("The beginning time for the valid evidence should be before the ending time.  "
-					+ "Setting the beginning time to the current system time.");
-		}
-
-		Conditions conditions = OpenSAML2ComponentBuilder.getInstance()
-				.createConditions(beginValidTime, endValidTime, null);
-
-		List<AttributeStatement> statements = createEvidenceStatements();
-
-		Assertion evidenceAssertion = OpenSAML2ComponentBuilder.getInstance()
-				.createAssertion(evAssertionID);
-
-		evidenceAssertion.getAttributeStatements().addAll(statements);
-		evidenceAssertion.setConditions(conditions);
-		evidenceAssertion.setIssueInstant(issueInstant);
-		evidenceAssertion.setIssuer((Issuer) evIssuerId);
-
-		evidenceAssertions.add(evidenceAssertion);
-
-		Evidence evidence = OpenSAML2ComponentBuilder.getInstance()
-				.createEvidence(evidenceAssertions);
-
-		log.debug("SamlCallbackHandler.createEvidence() -- End");
-		return evidence;
-	}
-
-	/**
-	 * Creates the Attribute Statements needed for the Evidence element. These
-	 * include the Attributes for the Access Consent Policy and the Instance
-	 * Access Consent Policy
-	 * 
-	 * @param factory
-	 *            The factory object used to assist in the construction of the
-	 *            SAML Assertion token
-	 * @return The listing of the attribute statements for the Evidence element
-	 */
-	private List<AttributeStatement> createEvidenceStatements() {
-		log.debug("SamlCallbackHandler.createEvidenceStatements() -- Begin");
-		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
-
-		List accessConstentValues = getNullSafeList(tokenVals,
-				SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP);
-		if (accessConstentValues == null) {
-			log.debug("No Access Consent found for Evidence");
-		}
-
-		// Set the Instance Access Consent
-		List evidenceInstanceAccessConsentValues = getNullSafeList(tokenVals,
-				SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP);
-		if (evidenceInstanceAccessConsentValues == null) {
-			log.debug("No Instance Access Consent found for Evidence");
-		}
-
-		statements = OpenSAML2ComponentBuilder.getInstance()
-				.createEvidenceStatements(accessConstentValues,
-						evidenceInstanceAccessConsentValues, NHIN_NS);
-
-		log.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
-		return statements;
-	}
-
-	private Boolean getNullSafeBoolean(Map map, final String property,
-			Boolean defaultValue) {
-		Boolean value = defaultValue;
-		if (map.containsKey(property) && map.get(property) != null) {
-			value = Boolean.valueOf(map.get(property).toString());
-		}
-		return value;
-	}
-	
-	/**
-	 * Creates the Attribute statements for UserName, UserOrganization,
-	 * UserRole, and PurposeOfUse
-	 * 
-	 * @param factory
-	 *            The factory object used to assist in the construction of the
-	 *            SAML Assertion token
-	 * @return The listing of all Attribute statements
-	 */
-	private List<AttributeStatement> createUserNameAttributeStatements() {
-
-		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
-		List<Attribute> attributes = new ArrayList<Attribute>();
-
-		// Set the User Name Attribute
-		List<String> userNameValues = new ArrayList<String>();
-		String nameConstruct = getUserName();
-
-		if (nameConstruct.length() > 0) {
-			log.debug("UserName: " + nameConstruct);
-
-			userNameValues.add(nameConstruct);
-
-			attributes.add(OpenSAML2ComponentBuilder.getInstance()
-					.createAttribute(null, SamlConstants.USERNAME_ATTR, null,
-							userNameValues));
-		} else {
-			log.warn("No information provided to fill in user name attribute");
-		}
-		if (!attributes.isEmpty()) {
-			statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
-		}
-		
-	return statements;
-	}
-	
-	 /** Creates the Attribute statements UserRole
-	 * 
-	 * @param factory
-	 *            The factory object used to assist in the construction of the
-	 *            SAML Assertion token
-	 * @return The listing of all Attribute statements
-	 */
-	private List<AttributeStatement> createUserRoleStatements() {
-		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
-		List<Attribute> attributes = new ArrayList<Attribute>();
-		
-		// Set the User Role Attribute
-				List userRoleAttributeValues = new ArrayList();
-				Map<String, String> userRoleAttributes = new HashMap<String, String>();
-
-				conditionallyAddValue(userRoleAttributes, tokenVals,
-						SamlConstants.USER_CODE_PROP, SamlConstants.CE_CODE_ID);
-				conditionallyAddValue(userRoleAttributes, tokenVals,
-						SamlConstants.USER_SYST_PROP, SamlConstants.CE_CODESYS_ID);
-				conditionallyAddValue(userRoleAttributes, tokenVals,
-						SamlConstants.USER_SYST_NAME_PROP,
-						SamlConstants.CE_CODESYSNAME_ID);
-				conditionallyAddValue(userRoleAttributes, tokenVals,
-						SamlConstants.USER_DISPLAY_PROP,
-						SamlConstants.CE_DISPLAYNAME_ID);
-
-				userRoleAttributeValues.add(OpenSAML2ComponentBuilder
-						.getInstance()
-						.createAttributeValue(HL7_NS, "Role", "hl7", userRoleAttributes));
-
-				attributes.add(OpenSAML2ComponentBuilder.getInstance().createAttribute(
-						null, SamlConstants.USER_ROLE_ATTR, null, userRoleAttributeValues));
-		
-		
-		if (!attributes.isEmpty()) {
-			statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
-		}
-		
-	return statements;
-	
-	
-	}
-	
-	
-	 /** Creates the Attribute statements PurposeOfUse
-		 * 
-		 * @param factory
-		 *            The factory object used to assist in the construction of the
-		 *            SAML Assertion token
-		 * @return The listing of all Attribute statements
-		 */
-		private List<AttributeStatement> createPurposeOfUseStatements() {
-			List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
-			List<Attribute> attributes = new ArrayList<Attribute>();
-			
-			/*
-			 * Gateway-347 - Support for both values will remain until NHIN
-			 * Specs updated Determine whether to use PurposeOfUse or
-			 * PuposeForUse
-			 */
-			String purposeAttributeValueName = "hl7:PurposeOfUse";
-			if (isPurposeForUseEnabled()) {
-				purposeAttributeValueName = "hl7:PurposeForUse";
-			}
-
-			// Add the Purpose Of/For Use Attribute Value
-			
-			List purposeOfUserValues = new ArrayList();
-			Map<String, String> purposeOfUseAttributes = new HashMap<String, String>();
-
-			conditionallyAddValue(purposeOfUseAttributes, tokenVals,
-					SamlConstants.PURPOSE_CODE_PROP, SamlConstants.CE_CODE_ID);
-		
-			conditionallyAddValue(purposeOfUseAttributes, tokenVals,
-					SamlConstants.PURPOSE_SYST_PROP, SamlConstants.CE_CODESYS_ID);
-	
-			conditionallyAddValue(purposeOfUseAttributes, tokenVals,
-					SamlConstants.PURPOSE_SYST_NAME_PROP, SamlConstants.CE_CODESYSNAME_ID);
-
-			conditionallyAddValue(purposeOfUseAttributes, tokenVals,
-					SamlConstants.PURPOSE_DISPLAY_PROP,SamlConstants.CE_DISPLAYNAME_ID);
-
-
-			purposeOfUserValues.add(OpenSAML2ComponentBuilder
-					.getInstance()
-					.createAttributeValue(HL7_NS, purposeAttributeValueName, "hl7", purposeOfUseAttributes));
-			
-			attributes.add(OpenSAML2ComponentBuilder.getInstance().createAttribute(
-					null, SamlConstants.PURPOSE_ROLE_ATTR, null, purposeOfUserValues));
-			
-			
-			
-			if (!attributes.isEmpty()) {
-				statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
-			}
-			
-		return statements;
-		
-		
-		}
-
-
-	/**
-	 * Creates the Attribute statements for UserName, UserOrganization,
-	 * UserRole, and PurposeOfUse
-	 * 
-	 * @param factory
-	 *            The factory object used to assist in the construction of the
-	 *            SAML Assertion token
-	 * @return The listing of all Attribute statements
-	 */
-	private List<AttributeStatement> createOrganizationAttributeStatements() {
-
-		log.debug("SamlCallbackHandler.addAssertStatements() -- Begin");
-		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
-		List<Attribute> attributes = new ArrayList<Attribute>();
-
-		
-		// Set the User Organization ID Attribute
-		conditionallyAddAttribute(attributes, tokenVals,
-				SamlConstants.USER_ORG_PROP, null, SamlConstants.USER_ORG_ATTR,
-				null);
-
-		if (!attributes.isEmpty()) {
-				statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
-			}
-			
-		
-
-		log.debug("SamlCallbackHandler.addAssertStatements() -- End");
-		return statements;
-
-	}
-	
-	/**
-	 * Creates the Attribute statements for UserName, UserOrganization,
-	 * UserRole, and PurposeOfUse
-	 * 
-	 * @param factory
-	 *            The factory object used to assist in the construction of the
-	 *            SAML Assertion token
-	 * @return The listing of all Attribute statements
-	 */
-	private List<AttributeStatement> createHomeCommunityIdAttributeStatements() {
-
-		log.debug("SamlCallbackHandler.addAssertStatements() -- Begin");
-		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
-		List<Attribute> attributes = new ArrayList<Attribute>();
-
-	
-		// Set the Home Community ID Attribute
-		conditionallyAddAttribute(attributes, tokenVals,
-				SamlConstants.HOME_COM_PROP, null,
-				SamlConstants.HOME_COM_ID_ATTR, null);
-		
-	
-			if (!attributes.isEmpty()) {
-				statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
-			}
-			
-		
-
-		log.debug("SamlCallbackHandler.addAssertStatements() -- End");
-		return statements;
-
-	}
-	/**
-	 * Creates the Attribute statements for UserName, UserOrganization,
-	 * UserRole, and PurposeOfUse
-	 * 
-	 * @param factory
-	 *            The factory object used to assist in the construction of the
-	 *            SAML Assertion token
-	 * @return The listing of all Attribute statements
-	 */
-	private List<AttributeStatement> createPatientIdAttributeStatements() {
-
-		log.debug("SamlCallbackHandler.addAssertStatements() -- Begin");
-		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
-		List<Attribute> attributes = new ArrayList<Attribute>();
-
-		
-			
-		
-		// Set the Patient ID Attribute
-		conditionallyAddAttribute(attributes, tokenVals,
-				SamlConstants.PATIENT_ID_PROP, null,
-				SamlConstants.PATIENT_ID_ATTR, null);
-			
-			
-			if (!attributes.isEmpty()) {
-				statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
-			}
-			
-		
-
-		log.debug("SamlCallbackHandler.addAssertStatements() -- End");
-		return statements;
-
-	}
-
-	protected void conditionallyAddAttribute(List<Attribute> attributes,
-			Map map, final String property, final String friendlyName,
-			final String attributeName, final String format) {
-
-		Attribute attribute = null;
-		List<String> attributeValues = getNullSafeList(map, property);
-
-		if (attributeValues != null) {
-
-			attribute = OpenSAML2ComponentBuilder
-					.getInstance()
-					.createAttribute(null, attributeName, null, attributeValues);
-			attributes.add(attribute);
-		} else {
-			log.warn("No information provided to fill in "
-					+ SamlConstants.USER_ORG_ATTR);
-		}
-
-	}
-
-	protected void conditionallyAddValue(Map valueMap, Map map,
-			final String property, final String attributeName) {
-		String value = getNullSafeString(map, property);
-		if (value != null) {
-			valueMap.put(attributeName, value);
-		} else {
-			log.warn("No information provided to fill in user role "
-					+ attributeName);
-		}
-
-	}
-
-	protected String getUserName() {
-		StringBuffer nameConstruct = new StringBuffer();
-
-		String firstName = getNullSafeString(tokenVals,
-				SamlConstants.USER_FIRST_PROP);
-		if (firstName != null) {
-			nameConstruct.append(firstName);
-		}
-
-		String middleName = getNullSafeString(tokenVals,
-				SamlConstants.USER_MIDDLE_PROP);
-		if (middleName != null) {
-			if (nameConstruct.length() > 0) {
-				nameConstruct.append(" ");
-			}
-			nameConstruct.append(middleName);
-		}
-
-		String lastName = getNullSafeString(tokenVals,
-				SamlConstants.USER_LAST_PROP);
-		if (lastName != null) {
-			if (nameConstruct.length() > 0) {
-				nameConstruct.append(" ");
-			}
-			nameConstruct.append(lastName);
-		}
-		return nameConstruct.toString();
-	}
-
-
-   
+     * @return
+     */
+    private List<AuthnStatement> createAuthenicationStatements() {
+
+        List<AuthnStatement> authnStatements = new ArrayList<AuthnStatement>();
+
+        String cntxCls = getNullSafeString(tokenVals, SamlConstants.AUTHN_CONTEXT_CLASS_PROP, X509_AUTHN_CNTX_CLS);
+
+        cntxCls = validate(cntxCls, VALID_AUTHN_CNTX_CLS_LIST, UNSPECIFIED_AUTHN_CNTX_CLS);
+
+        String sessionIndex = getNullSafeString(tokenVals, SamlConstants.AUTHN_SESSION_INDEX_PROP, AUTHN_SESSION_INDEX);
+        log.debug("Setting Authentication session index to: " + sessionIndex);
+
+        DateTime authInstant = getNullSafeDateTime(tokenVals, SamlConstants.AUTHN_INSTANT_PROP, new DateTime());
+
+        String inetAddr = getNullSafeString(tokenVals, SamlConstants.SUBJECT_LOCALITY_ADDR_PROP);
+        String dnsName = getNullSafeString(tokenVals, SamlConstants.SUBJECT_LOCALITY_DNS_PROP);
+
+        AuthnStatement authnStatement = OpenSAML2ComponentBuilder.getInstance().createAuthenicationStatements(cntxCls,
+                sessionIndex, authInstant, inetAddr, dnsName);
+
+        authnStatements.add(authnStatement);
+
+        return authnStatements;
+    }
+
+    private String getNullSafeString(Map map, final String property) {
+
+        return getNullSafeString(map, property, null);
+    }
+
+    private String getNullSafeString(Map map, final String property, String defaultValue) {
+        String value = defaultValue;
+        if (map.containsKey(property) && map.get(property) != null) {
+            value = map.get(property).toString();
+        }
+        return value;
+    }
+
+    private List getNullSafeList(Map map, final String property) {
+        List list = null;
+        if (map.containsKey(property) && map.get(property) != null) {
+            Object value = map.get(property);
+            if (value instanceof List<?>) {
+                list = (List) value;
+            } else {
+                list = new ArrayList();
+                list.add(value);
+            }
+        }
+
+        return list;
+    }
+
+    private String validate(final String value, List<String> validValues, final String defaultValue) {
+        String validValue = defaultValue;
+        if (validValues.contains(value.trim())) {
+            validValue = value;
+        } else {
+            log.debug(value + " is not recognized as valid, " + "creating evidence assertion version as: "
+                    + defaultValue);
+            log.debug("Should be one of: " + validValues);
+        }
+        return validValue;
+    }
+
+    private DateTime getNullSafeDateTime(Map map, final String property, DateTime defaultValue) {
+        String dateTimeTxt = getNullSafeString(map, property);
+
+        DateTime dateTime = defaultValue;
+        if (dateTimeTxt != null) {
+            dateTime = XML_DATE_TIME_FORMAT.parseDateTime(dateTimeTxt);
+        }
+        return dateTime;
+
+    }
+
+    /**
+     * @return
+     */
+    private List<AuthzDecisionStatement> createAuthenicationDecsionStatements() {
+        List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<AuthzDecisionStatement>();
+
+        Boolean hasAuthzStmt = getNullSafeBoolean(tokenVals, SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP, Boolean.FALSE);
+        // The authorization Decision Statement is optional
+        if (hasAuthzStmt) {
+            // Create resource for Authentication Decision Statement
+            String resource = getNullSafeString(tokenVals, SamlConstants.RESOURCE_PROP);
+
+            // Options are Permit, Deny and Indeterminate
+            String decision = getNullSafeString(tokenVals, SamlConstants.AUTHZ_DECISION_PROP, AUTHZ_DECISION_PERMIT);
+
+            decision = validate(decision, VALID_AUTHZ_DECISION_LIST, AUTHZ_DECISION_PERMIT);
+
+            // As of Authorization Framework Spec 2.2 Action is a hard-coded
+            // value
+            // Therefore the value of the ACTION_PROP is no longer used
+            String action = AUTHZ_DECISION_ACTION_EXECUTE;
+
+            Evidence evidence = createEvidence();
+
+            authDecisionStatements.add(OpenSAML2ComponentBuilder.getInstance().createAuthzDecisionStatement(resource,
+                    decision, action, evidence));
+        }
+
+        return authDecisionStatements;
+    }
+
+    /**
+     * Creates the Evidence element that encompasses the Assertion defining the authorization form needed in cases where
+     * evidence of authorization to access the medical records must be provided along with the message request
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @param issueInstant The calendar representing the time of Assertion issuance
+     * @return The Evidence element
+     */
+    private Evidence createEvidence() {
+        log.debug("SamlCallbackHandler.createEvidence() -- Begin");
+
+        List<Assertion> evidenceAssertions = new ArrayList<Assertion>();
+        String evAssertionID = getNullSafeString(tokenVals, SamlConstants.EVIDENCE_ID_PROP,
+                String.valueOf(UUID.randomUUID()));
+
+        DateTime issueInstant = getNullSafeDateTime(tokenVals, SamlConstants.EVIDENCE_INSTANT_PROP, new DateTime());
+
+        String format = getNullSafeString(tokenVals, SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP);
+        format = validate(format, VALID_NAME_LIST, X509_NAME_ID);
+
+        String issuer = getNullSafeString(tokenVals, SamlConstants.EVIDENCE_ISSUER_PROP);
+
+        org.opensaml.saml2.core.NameID evIssuerId = OpenSAML2ComponentBuilder.getInstance().createNameID(null, format,
+                issuer);
+
+        DateTime beginValidTime = getNullSafeDateTime(tokenVals, SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP,
+                new DateTime());
+
+        DateTime endValidTime = getNullSafeDateTime(tokenVals, SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP,
+                new DateTime().plusMinutes(5));
+
+        if (beginValidTime.isAfter(endValidTime)) {
+            // set beginning time to now
+            beginValidTime = new DateTime();
+            log.warn("The beginning time for the valid evidence should be before the ending time.  "
+                    + "Setting the beginning time to the current system time.");
+        }
+
+        Conditions conditions = OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime, endValidTime,
+                null);
+
+        List<AttributeStatement> statements = createEvidenceStatements();
+
+        Assertion evidenceAssertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(evAssertionID);
+
+        evidenceAssertion.getAttributeStatements().addAll(statements);
+        evidenceAssertion.setConditions(conditions);
+        evidenceAssertion.setIssueInstant(issueInstant);
+        evidenceAssertion.setIssuer((Issuer) evIssuerId);
+
+        evidenceAssertions.add(evidenceAssertion);
+
+        Evidence evidence = OpenSAML2ComponentBuilder.getInstance().createEvidence(evidenceAssertions);
+
+        log.debug("SamlCallbackHandler.createEvidence() -- End");
+        return evidence;
+    }
+
+    /**
+     * Creates the Attribute Statements needed for the Evidence element. These include the Attributes for the Access
+     * Consent Policy and the Instance Access Consent Policy
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @return The listing of the attribute statements for the Evidence element
+     */
+    private List<AttributeStatement> createEvidenceStatements() {
+        log.debug("SamlCallbackHandler.createEvidenceStatements() -- Begin");
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+
+        List accessConstentValues = getNullSafeList(tokenVals, SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP);
+        if (accessConstentValues == null) {
+            log.debug("No Access Consent found for Evidence");
+        }
+
+        // Set the Instance Access Consent
+        List evidenceInstanceAccessConsentValues = getNullSafeList(tokenVals,
+                SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP);
+        if (evidenceInstanceAccessConsentValues == null) {
+            log.debug("No Instance Access Consent found for Evidence");
+        }
+
+        statements = OpenSAML2ComponentBuilder.getInstance().createEvidenceStatements(accessConstentValues,
+                evidenceInstanceAccessConsentValues, NHIN_NS);
+
+        log.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
+        return statements;
+    }
+
+    private Boolean getNullSafeBoolean(Map map, final String property, Boolean defaultValue) {
+        Boolean value = defaultValue;
+        if (map.containsKey(property) && map.get(property) != null) {
+            value = Boolean.valueOf(map.get(property).toString());
+        }
+        return value;
+    }
+
+    /**
+     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @return The listing of all Attribute statements
+     */
+    private List<AttributeStatement> createUserNameAttributeStatements() {
+
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<Attribute> attributes = new ArrayList<Attribute>();
+
+        // Set the User Name Attribute
+        List<String> userNameValues = new ArrayList<String>();
+        String nameConstruct = getUserName();
+
+        if (nameConstruct.length() > 0) {
+            log.debug("UserName: " + nameConstruct);
+
+            userNameValues.add(nameConstruct);
+
+            attributes.add(OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.USERNAME_ATTR,
+                    null, userNameValues));
+        } else {
+            log.warn("No information provided to fill in user name attribute");
+        }
+        if (!attributes.isEmpty()) {
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
+        }
+
+        return statements;
+    }
+
+    /**
+     * Creates the Attribute statements UserRole
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @return The listing of all Attribute statements
+     */
+    private List<AttributeStatement> createUserRoleStatements() {
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<Attribute> attributes = new ArrayList<Attribute>();
+
+        // Set the User Role Attribute
+        List userRoleAttributeValues = new ArrayList();
+        Map<String, String> userRoleAttributes = new HashMap<String, String>();
+
+        conditionallyAddValue(userRoleAttributes, tokenVals, SamlConstants.USER_CODE_PROP, SamlConstants.CE_CODE_ID);
+        conditionallyAddValue(userRoleAttributes, tokenVals, SamlConstants.USER_SYST_PROP, SamlConstants.CE_CODESYS_ID);
+        conditionallyAddValue(userRoleAttributes, tokenVals, SamlConstants.USER_SYST_NAME_PROP,
+                SamlConstants.CE_CODESYSNAME_ID);
+        conditionallyAddValue(userRoleAttributes, tokenVals, SamlConstants.USER_DISPLAY_PROP,
+                SamlConstants.CE_DISPLAYNAME_ID);
+
+        userRoleAttributeValues.add(OpenSAML2ComponentBuilder.getInstance().createAttributeValue(HL7_NS, "Role", "hl7",
+                userRoleAttributes));
+
+        attributes.add(OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.USER_ROLE_ATTR,
+                null, userRoleAttributeValues));
+
+        if (!attributes.isEmpty()) {
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
+        }
+
+        return statements;
+
+    }
+
+    /**
+     * Creates the Attribute statements PurposeOfUse
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @return The listing of all Attribute statements
+     */
+    private List<AttributeStatement> createPurposeOfUseStatements() {
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<Attribute> attributes = new ArrayList<Attribute>();
+
+        /*
+         * Gateway-347 - Support for both values will remain until NHIN Specs updated Determine whether to use
+         * PurposeOfUse or PuposeForUse
+         */
+        String purposeAttributeValueName = "hl7:PurposeOfUse";
+        if (isPurposeForUseEnabled()) {
+            purposeAttributeValueName = "hl7:PurposeForUse";
+        }
+
+        // Add the Purpose Of/For Use Attribute Value
+
+        List purposeOfUserValues = new ArrayList();
+        Map<String, String> purposeOfUseAttributes = new HashMap<String, String>();
+
+        conditionallyAddValue(purposeOfUseAttributes, tokenVals, SamlConstants.PURPOSE_CODE_PROP,
+                SamlConstants.CE_CODE_ID);
+
+        conditionallyAddValue(purposeOfUseAttributes, tokenVals, SamlConstants.PURPOSE_SYST_PROP,
+                SamlConstants.CE_CODESYS_ID);
+
+        conditionallyAddValue(purposeOfUseAttributes, tokenVals, SamlConstants.PURPOSE_SYST_NAME_PROP,
+                SamlConstants.CE_CODESYSNAME_ID);
+
+        conditionallyAddValue(purposeOfUseAttributes, tokenVals, SamlConstants.PURPOSE_DISPLAY_PROP,
+                SamlConstants.CE_DISPLAYNAME_ID);
+
+        purposeOfUserValues.add(OpenSAML2ComponentBuilder.getInstance().createAttributeValue(HL7_NS,
+                purposeAttributeValueName, "hl7", purposeOfUseAttributes));
+
+        attributes.add(OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR,
+                null, purposeOfUserValues));
+
+        if (!attributes.isEmpty()) {
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
+        }
+
+        return statements;
+
+    }
+
+    /**
+     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @return The listing of all Attribute statements
+     */
+    private List<AttributeStatement> createOrganizationAttributeStatements() {
+
+        log.debug("SamlCallbackHandler.addAssertStatements() -- Begin");
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<Attribute> attributes = new ArrayList<Attribute>();
+
+        // Set the User Organization ID Attribute
+        conditionallyAddAttribute(attributes, tokenVals, SamlConstants.USER_ORG_PROP, null,
+                SamlConstants.USER_ORG_ATTR, null);
+
+        if (!attributes.isEmpty()) {
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
+        }
+
+        log.debug("SamlCallbackHandler.addAssertStatements() -- End");
+        return statements;
+
+    }
+
+    /**
+     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @return The listing of all Attribute statements
+     */
+    private List<AttributeStatement> createHomeCommunityIdAttributeStatements() {
+
+        log.debug("SamlCallbackHandler.addAssertStatements() -- Begin");
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<Attribute> attributes = new ArrayList<Attribute>();
+
+        // Set the Home Community ID Attribute
+        conditionallyAddAttribute(attributes, tokenVals, SamlConstants.HOME_COM_PROP, null,
+                SamlConstants.HOME_COM_ID_ATTR, null);
+
+        if (!attributes.isEmpty()) {
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
+        }
+
+        log.debug("SamlCallbackHandler.addAssertStatements() -- End");
+        return statements;
+
+    }
+
+    /**
+     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
+     * 
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @return The listing of all Attribute statements
+     */
+    private List<AttributeStatement> createPatientIdAttributeStatements() {
+
+        log.debug("SamlCallbackHandler.addAssertStatements() -- Begin");
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<Attribute> attributes = new ArrayList<Attribute>();
+
+        // Set the Patient ID Attribute
+        conditionallyAddAttribute(attributes, tokenVals, SamlConstants.PATIENT_ID_PROP, null,
+                SamlConstants.PATIENT_ID_ATTR, null);
+
+        if (!attributes.isEmpty()) {
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
+        }
+
+        log.debug("SamlCallbackHandler.addAssertStatements() -- End");
+        return statements;
+
+    }
+
+    protected void conditionallyAddAttribute(List<Attribute> attributes, Map map, final String property,
+            final String friendlyName, final String attributeName, final String format) {
+
+        Attribute attribute = null;
+        List<String> attributeValues = getNullSafeList(map, property);
+
+        if (attributeValues != null) {
+
+            attribute = OpenSAML2ComponentBuilder.getInstance().createAttribute(null, attributeName, null,
+                    attributeValues);
+            attributes.add(attribute);
+        } else {
+            log.warn("No information provided to fill in " + SamlConstants.USER_ORG_ATTR);
+        }
+
+    }
+
+    protected void conditionallyAddValue(Map valueMap, Map map, final String property, final String attributeName) {
+        String value = getNullSafeString(map, property);
+        if (value != null) {
+            valueMap.put(attributeName, value);
+        } else {
+            log.warn("No information provided to fill in user role " + attributeName);
+        }
+
+    }
+
+    protected String getUserName() {
+        StringBuffer nameConstruct = new StringBuffer();
+
+        String firstName = getNullSafeString(tokenVals, SamlConstants.USER_FIRST_PROP);
+        if (firstName != null) {
+            nameConstruct.append(firstName);
+        }
+
+        String middleName = getNullSafeString(tokenVals, SamlConstants.USER_MIDDLE_PROP);
+        if (middleName != null) {
+            if (nameConstruct.length() > 0) {
+                nameConstruct.append(" ");
+            }
+            nameConstruct.append(middleName);
+        }
+
+        String lastName = getNullSafeString(tokenVals, SamlConstants.USER_LAST_PROP);
+        if (lastName != null) {
+            if (nameConstruct.length() > 0) {
+                nameConstruct.append(" ");
+            }
+            nameConstruct.append(lastName);
+        }
+        return nameConstruct.toString();
+    }
 
     /**
      * Both the Issuer and the Subject elements have a NameID element which is formed through this method. Currently
@@ -925,7 +832,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @param assId Identifies this as default usage case or one with declared value.
      * @return The constructed NameID element
-     * @throws com.sun.xml.wss.saml.SAMLException
+     * @throws com.sun.xml.wss.saml.SAMLException derp derp
      */
     private NameID create509NameID(SAMLAssertionFactory factory, int assId) throws SAMLException {
         log.debug("SamlCallbackHandler.create509NameID() -- Begin: " + assId);
@@ -963,10 +870,6 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         return nmId;
     }
 
-   
-
-   
-
     /**
      * Returns boolean condition on whether PurposeForUse is enabled
      * 
@@ -988,8 +891,6 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         }
         return match;
     }
-
-   
 
     /**
      * Creates a calendar object representing the time given.
@@ -1023,177 +924,6 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
                 + "/" + cal.get(Calendar.YEAR) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE)
                 + ":" + cal.get(Calendar.SECOND));
         return cal;
-    }
-
-   
-
-    /**
-     * Initializes the keystore access using the system properties defined in the domain.xml javax.net.ssl.keyStore and
-     * javax.net.ssl.keyStorePassword
-     * 
-     * @throws java.io.IOException
-     */
-    private void initKeyStore() throws IOException {
-        log.debug("SamlCallbackHandler.initKeyStore() -- Begin");
-
-        InputStream is = null;
-        String storeType = System.getProperty("javax.net.ssl.keyStoreType");
-        String password = System.getProperty("javax.net.ssl.keyStorePassword");
-        String storeLoc = System.getProperty("javax.net.ssl.keyStore");
-
-        if (storeType == null) {
-            log.error("javax.net.ssl.keyStoreType is not defined in domain.xml");
-            log.warn("Default to JKS keyStoreType");
-            storeType = "JKS";
-        }
-        if (password != null) {
-            if ("JKS".equals(storeType) && storeLoc == null) {
-                log.error("javax.net.ssl.keyStore is not defined in domain.xml");
-            } else {
-                try {
-                    keyStore = KeyStore.getInstance(storeType);
-                    if ("JKS".equals(storeType)) {
-                        is = new FileInputStream(storeLoc);
-                    }
-                    keyStore.load(is, password.toCharArray());
-                } catch (NoSuchAlgorithmException ex) {
-                    log.error("Error initializing KeyStore: " + ex);
-                    throw new IOException(ex.getMessage());
-                } catch (CertificateException ex) {
-                    log.error("Error initializing KeyStore: " + ex);
-                    throw new IOException(ex.getMessage());
-                } catch (KeyStoreException ex) {
-                    log.error("Error initializing KeyStore: " + ex);
-                    throw new IOException(ex.getMessage());
-                } finally {
-                    try {
-                        if (is != null) {
-                            is.close();
-                        }
-                    } catch (IOException ex) {
-                        log.debug("KeyStoreCallbackHandler " + ex);
-                    }
-                }
-            }
-        } else {
-            log.error("javax.net.ssl.keyStorePassword is not defined in domain.xml");
-        }
-        log.debug("SamlCallbackHandler.initKeyStore() -- End");
-    }
-
-    /**
-     * Initializes the truststore access using the system properties defined in the domain.xml javax.net.ssl.trustStore
-     * and javax.net.ssl.trustStorePassword
-     * 
-     * @throws java.io.IOException
-     */
-    private void initTrustStore() throws IOException {
-        log.debug("SamlCallbackHandler.initTrustStore() -- Begin");
-
-        InputStream is = null;
-        String storeType = System.getProperty("javax.net.ssl.trustStoreType");
-        String password = System.getProperty("javax.net.ssl.trustStorePassword");
-        String storeLoc = System.getProperty("javax.net.ssl.trustStore");
-
-        if (storeType == null) {
-            log.error("javax.net.ssl.trustStoreType is not defined in domain.xml");
-            log.warn("Default to JKS trustStoreType");
-            storeType = "JKS";
-        }
-        if (password != null) {
-            if ("JKS".equals(storeType) && storeLoc == null) {
-                log.error("javax.net.ssl.trustStore is not defined in domain.xml");
-            } else {
-                try {
-                    trustStore = KeyStore.getInstance(storeType);
-                    if ("JKS".equals(storeType)) {
-                        is = new FileInputStream(storeLoc);
-                    }
-                    trustStore.load(is, password.toCharArray());
-                } catch (NoSuchAlgorithmException ex) {
-                    log.error("Error initializing TrustStore: " + ex);
-                    throw new IOException(ex.getMessage());
-                } catch (CertificateException ex) {
-                    log.error("Error initializing TrustStore: " + ex);
-                    throw new IOException(ex.getMessage());
-                } catch (KeyStoreException ex) {
-                    log.error("Error initializing TrustStore: " + ex);
-                    throw new IOException(ex.getMessage());
-                } finally {
-                    try {
-                        if (is != null) {
-                            is.close();
-                        }
-                    } catch (IOException ex) {
-                        log.debug("KeyStoreCallbackHandler " + ex);
-                    }
-                }
-            }
-        } else {
-            log.error("javax.net.ssl.trustStorePassword is not defined in domain.xml");
-        }
-        log.debug("SamlCallbackHandler.initTrustStore() -- End");
-    }
-
-    /**
-     * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
-     * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
-     * 
-     * @param request The SignatureKeyCallback request object
-     * @throws java.io.IOException
-     */
-    private void getDefaultPrivKeyCert(SignatureKeyCallback.DefaultPrivKeyCertRequest request) throws IOException {
-        log.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
-        String uniqueAlias = null;
-        String client_key_alias = System.getProperty("CLIENT_KEY_ALIAS");
-        if (client_key_alias != null) {
-            String password = System.getProperty("javax.net.ssl.keyStorePassword");
-            if (password != null) {
-                try {
-                    Enumeration aliases = keyStore.aliases();
-                    while (aliases.hasMoreElements()) {
-                        String currentAlias = (String) aliases.nextElement();
-                        if (currentAlias.equals(client_key_alias)) {
-                            if (keyStore.isKeyEntry(currentAlias)) {
-                                Certificate thisCertificate = keyStore.getCertificate(currentAlias);
-                                if (thisCertificate != null) {
-                                    if (thisCertificate instanceof X509Certificate) {
-                                        if (uniqueAlias == null) {
-                                            uniqueAlias = currentAlias;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (uniqueAlias != null) {
-                        request.setX509Certificate((X509Certificate) keyStore.getCertificate(uniqueAlias));
-                        request.setPrivateKey((PrivateKey) keyStore.getKey(uniqueAlias, password.toCharArray()));
-                    } else {
-                        log.error("Client key alais can not be determined");
-                    }
-
-                } catch (UnrecoverableKeyException ex) {
-                    log.error("Error initializing Private Key: " + ex);
-                    throw new IOException(ex.getMessage());
-                } catch (NoSuchAlgorithmException ex) {
-                    log.error("Error initializing Private Key: " + ex);
-                    throw new IOException(ex.getMessage());
-                } catch (KeyStoreException ex) {
-                    log.error("Error initializing Private Key: " + ex);
-                    throw new IOException(ex.getMessage());
-                }
-
-            } else {
-                log.error("javax.net.ssl.keyStorePassword is not defined in domain.xml");
-            }
-
-        } else {
-            log.error("CLIENT_KEY_ALIAS is not defined in domain.xml");
-        }
-
-        log.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- End");
     }
 
     /**

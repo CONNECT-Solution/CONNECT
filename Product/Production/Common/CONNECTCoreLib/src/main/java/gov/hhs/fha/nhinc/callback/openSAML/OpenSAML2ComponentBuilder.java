@@ -3,26 +3,13 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
-import gov.hhs.fha.nhinc.callback.SamlConstants;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.namespace.QName;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
-import java.security.UnrecoverableEntryException;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
-
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObjectBuilder;
@@ -266,15 +253,16 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
 	/**
 	 * @return
+	 * @throws Exception 
 	 */
-	public Subject createSubject(String x509Name) {
+	public Subject createSubject(String x509Name) throws Exception {
 		Subject subject = (org.opensaml.saml2.core.Subject) createOpenSAMLObject(Subject.DEFAULT_ELEMENT_NAME);
 		subject.setNameID(createNameID(X509_NAME_ID, x509Name));
 		subject.getSubjectConfirmations().add(createHoKConfirmation());
 		return subject;
 	}
 
-	private SubjectConfirmation createHoKConfirmation() {
+	private SubjectConfirmation createHoKConfirmation() throws Exception {
 		SubjectConfirmation subjectConfirmation = (SubjectConfirmation) createOpenSAMLObject(SubjectConfirmation.DEFAULT_ELEMENT_NAME);
 		subjectConfirmation
 				.setMethod(org.opensaml.saml2.core.SubjectConfirmation.METHOD_HOLDER_OF_KEY);
@@ -284,7 +272,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return subjectConfirmation;
 	}
 
-	private SubjectConfirmationData createSubjectConfirmationData() {
+	private SubjectConfirmationData createSubjectConfirmationData() throws Exception {
 		SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) createOpenSAMLObject(SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
 		subjectConfirmationData.getUnknownAttributes().put(
 				new QName("http://www.w3.org/2001/XMLSchema-instance", "type",
@@ -312,40 +300,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return subjectConfirmationData;
 	}
 
-	public PublicKey getPublicKey() {
-		KeyStore ks;
-		KeyStore.PrivateKeyEntry pkEntry = null;
-		try {
-			ks = KeyStore.getInstance(KeyStore.getDefaultType());
-			char[] password = "cspass".toCharArray();
-			FileInputStream fis = new FileInputStream(
-					"c:/opt/keystores/clientKeystore.jks");
-			ks.load(fis, password);
-			fis.close();
-			pkEntry = (KeyStore.PrivateKeyEntry) ks.getEntry("myclientkey",
-					new KeyStore.PasswordProtection("ckpass".toCharArray()));
-		} catch (KeyStoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (CertificateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnrecoverableEntryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		X509Certificate certificate = (X509Certificate) pkEntry
-				.getCertificate();
+	public PublicKey getPublicKey() throws Exception {
+	    CertificateManager cm = CertificateManager.getInstance();
+	    
+		X509Certificate certificate = cm.getDefaultPrivKeyCert();
 		return certificate.getPublicKey();
 	}
 
