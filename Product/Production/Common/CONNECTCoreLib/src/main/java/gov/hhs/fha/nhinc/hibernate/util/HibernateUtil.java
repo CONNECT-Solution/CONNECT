@@ -59,7 +59,7 @@ public class HibernateUtil {
         File result = null;
 
         try {
-            result = HibernateAccessor.getHibernateFile(NhincConstants.HIBERNATE_AUDIT_REPOSITORY);
+            result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_AUDIT_REPOSITORY);
         } catch (Exception ex) {
             log.error("Unable to load " + NhincConstants.HIBERNATE_AUDIT_REPOSITORY + " " + ex.getMessage(), ex);
         }

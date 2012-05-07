@@ -706,7 +706,7 @@ public class DocRetrieveAggregator {
     private String getLargeFileDirProp() {
         String destDir = null;
         try {
-            destDir = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            destDir = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.AGGREGATOR_LARGE_RESP_DIR_PROP);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.AGGREGATOR_LARGE_RESP_DIR_PROP
@@ -719,7 +719,7 @@ public class DocRetrieveAggregator {
     private long getLargeFileSizeProp() {
         long size = 0;
         try {
-            size = PropertyAccessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
+            size = PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.AGGREGATOR_LARGE_RESP_SIZE_PROP);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.AGGREGATOR_LARGE_RESP_SIZE_PROP

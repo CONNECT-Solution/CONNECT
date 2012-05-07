@@ -131,7 +131,7 @@ public class DocumentManagerImpl {
         String repositoryId = null;
 
         try {
-            repositoryId = PropertyAccessor.getProperty(REPOSITORY_PROPERTY_FILE, DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP);
+            repositoryId = PropertyAccessor.getInstance().getProperty(REPOSITORY_PROPERTY_FILE, DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP);
         } catch (PropertyAccessException e) {
             log.error("Error accessing property:" + DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP + " in file:"
                     + REPOSITORY_PROPERTY_FILE + ".", e);
@@ -171,7 +171,7 @@ public class DocumentManagerImpl {
         String repositoryId = null;
 
         try {
-            repositoryId = PropertyAccessor.getProperty(REPOSITORY_PROPERTY_FILE, DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP);
+            repositoryId = PropertyAccessor.getInstance().getProperty(REPOSITORY_PROPERTY_FILE, DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP);
         } catch (PropertyAccessException e) {
             log.error("Error accessing property:" + DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP + " in file:"
                     + REPOSITORY_PROPERTY_FILE + ".", e);
@@ -278,7 +278,7 @@ public class DocumentManagerImpl {
         String repositoryId = null;
 
         try {
-            repositoryId = PropertyAccessor.getProperty(REPOSITORY_PROPERTY_FILE, INBOUND_DOCUMENT_REPOSITORY_ID_PROP);
+            repositoryId = PropertyAccessor.getInstance().getProperty(REPOSITORY_PROPERTY_FILE, INBOUND_DOCUMENT_REPOSITORY_ID_PROP);
         } catch (PropertyAccessException e) {
             log.error("Error accessing property:" + INBOUND_DOCUMENT_REPOSITORY_ID_PROP + " in file:"
                     + REPOSITORY_PROPERTY_FILE + ".", e);
@@ -311,7 +311,7 @@ public class DocumentManagerImpl {
         String repositoryId = null;
 
         try {
-            repositoryId = PropertyAccessor.getProperty(REPOSITORY_PROPERTY_FILE, INBOUND_DOCUMENT_REPOSITORY_ID_PROP);
+            repositoryId = PropertyAccessor.getInstance().getProperty(REPOSITORY_PROPERTY_FILE, INBOUND_DOCUMENT_REPOSITORY_ID_PROP);
         } catch (PropertyAccessException e) {
             log.error("Error accessing property:" + INBOUND_DOCUMENT_REPOSITORY_ID_PROP + " in file:"
                     + REPOSITORY_PROPERTY_FILE + ".", e);
@@ -332,7 +332,7 @@ public class DocumentManagerImpl {
         String repositoryId = null;
 
         try {
-            repositoryId = PropertyAccessor.getProperty(REPOSITORY_PROPERTY_FILE, POLICY_REPOSITORY_ID_PROP);
+            repositoryId = PropertyAccessor.getInstance().getProperty(REPOSITORY_PROPERTY_FILE, POLICY_REPOSITORY_ID_PROP);
         } catch (PropertyAccessException e) {
             log.error("Error accessing property:" + POLICY_REPOSITORY_ID_PROP + " in file:" + REPOSITORY_PROPERTY_FILE
                     + ".", e);
@@ -353,7 +353,7 @@ public class DocumentManagerImpl {
         String repositoryId = null;
 
         try {
-            repositoryId = PropertyAccessor.getProperty(REPOSITORY_PROPERTY_FILE, POLICY_REPOSITORY_ID_PROP);
+            repositoryId = PropertyAccessor.getInstance().getProperty(REPOSITORY_PROPERTY_FILE, POLICY_REPOSITORY_ID_PROP);
         } catch (PropertyAccessException e) {
             log.error("Error accessing property:" + POLICY_REPOSITORY_ID_PROP + " in file:" + REPOSITORY_PROPERTY_FILE
                     + ".", e);
@@ -386,7 +386,7 @@ public class DocumentManagerImpl {
         String oid = "1.1.1.1.1.1";
 
         try {
-            oid = PropertyAccessor.getProperty(REPOSITORY_PROPERTY_FILE, DOCUMENT_UNIQUE_OID_PROP);
+            oid = PropertyAccessor.getInstance().getProperty(REPOSITORY_PROPERTY_FILE, DOCUMENT_UNIQUE_OID_PROP);
         } catch (PropertyAccessException e) {
             log.error("Error accessing property:" + DOCUMENT_UNIQUE_OID_PROP + " in file:" + REPOSITORY_PROPERTY_FILE
                     + ".", e);
@@ -923,7 +923,7 @@ public class DocumentManagerImpl {
             WebServiceFeature[] wsfeaturearray = wsfeatures.toArray(new WebServiceFeature[0]);
 
             try {
-                sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+                sHomeCommunityId = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
             } catch (Exception e) {
                 log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY + " property from the "
                         + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " + e.getMessage(), e);

@@ -85,7 +85,7 @@ public class PropertyAccessHelper {
             String sPropertyFile = input.getPropertyFile();
             String sPropertyName = input.getPropertyName();
 
-            String sValue = PropertyAccessor.getProperty(sPropertyFile, sPropertyName);
+            String sValue = PropertyAccessor.getInstance().getProperty(sPropertyFile, sPropertyName);
             if (sValue != null) {
                 oOutput.setPropertyValue(sValue);
             }
@@ -110,7 +110,7 @@ public class PropertyAccessHelper {
             String sPropertyFile = input.getPropertyFile();
             String sPropertyName = input.getPropertyName();
 
-            boolean bValue = PropertyAccessor.getPropertyBoolean(sPropertyFile, sPropertyName);
+            boolean bValue = PropertyAccessor.getInstance().getPropertyBoolean(sPropertyFile, sPropertyName);
             oOutput.setPropertyValue(bValue);
         }
 
@@ -130,7 +130,7 @@ public class PropertyAccessHelper {
         if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
             String sPropertyFile = input.getPropertyFile();
 
-            Set<String> setKeys = PropertyAccessor.getPropertyNames(sPropertyFile);
+            Set<String> setKeys = PropertyAccessor.getInstance().getPropertyNames(sPropertyFile);
             if (setKeys != null) {
                 Iterator<String> iterKeys = setKeys.iterator();
                 while (iterKeys.hasNext()) {
@@ -166,7 +166,7 @@ public class PropertyAccessHelper {
         if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
             String sPropertyFile = input.getPropertyFile();
 
-            Properties oProps = PropertyAccessor.getProperties(sPropertyFile);
+            Properties oProps = PropertyAccessor.getInstance().getProperties(sPropertyFile);
             if (oProps != null) {
                 Set<String> setKeys = oProps.stringPropertyNames();
                 if (setKeys != null) {
@@ -206,7 +206,7 @@ public class PropertyAccessHelper {
         if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
             String sPropertyFile = input.getPropertyFile();
 
-            int iValue = PropertyAccessor.getRefreshDuration(sPropertyFile);
+            int iValue = PropertyAccessor.getInstance().getRefreshDuration(sPropertyFile);
             oOutput.setDurationMillis(iValue);
         }
 
@@ -227,7 +227,7 @@ public class PropertyAccessHelper {
         if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
             String sPropertyFile = input.getPropertyFile();
 
-            int iValue = PropertyAccessor.getDurationBeforeNextRefresh(sPropertyFile);
+            int iValue = PropertyAccessor.getInstance().getDurationBeforeNextRefresh(sPropertyFile);
             oOutput.setDurationMillis(iValue);
         }
 
@@ -247,7 +247,7 @@ public class PropertyAccessHelper {
         if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
             String sPropertyFile = input.getPropertyFile();
 
-            PropertyAccessor.forceRefresh(sPropertyFile);
+            PropertyAccessor.getInstance().forceRefresh(sPropertyFile);
 
             // If we got here without an exception, then we refreshed.
             // ----------------------------------------------------------
@@ -268,7 +268,7 @@ public class PropertyAccessHelper {
             throws PropertyAccessException {
         GetPropertyFileLocationResponseType oOutput = new GetPropertyFileLocationResponseType();
 
-        String sLocation = PropertyAccessor.getPropertyFileLocation();
+        String sLocation = PropertyAccessor.getInstance().getPropertyFileLocation();
         oOutput.setLocation(sLocation);
 
         return oOutput;
@@ -288,7 +288,7 @@ public class PropertyAccessHelper {
         if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
             String sPropertyFile = input.getPropertyFile();
 
-            PropertyAccessor.dumpPropsToLog(sPropertyFile);
+            PropertyAccessor.getInstance().dumpPropsToLog(sPropertyFile);
 
             // If we got here without an exception, then we refreshed.
             // ----------------------------------------------------------

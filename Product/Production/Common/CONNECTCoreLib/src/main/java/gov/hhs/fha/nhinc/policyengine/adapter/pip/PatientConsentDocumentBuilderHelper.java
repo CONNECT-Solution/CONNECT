@@ -95,7 +95,7 @@ public class PatientConsentDocumentBuilderHelper {
 
     protected String getPropertiesFilePath() {
         String propertiesFilePath = null;
-        String sValue = PropertyAccessor.getPropertyFileLocation();
+        String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
         if ((sValue != null) && (sValue.length() > 0)) {
             // Set it up so that we always have a "/" at the end - in case
             // ------------------------------------------------------------
@@ -186,7 +186,7 @@ public class PatientConsentDocumentBuilderHelper {
                 CDAConstants.PROVIDE_REGISTER_SLOT_NAME_DOC_SUBMISSION_SET_PATIENT_ID);
         oRegistryPackage.getExternalIdentifier().add(oExtIdTypePatForReg);
 
-        String sSubmissionSetUniqueId = PropertyAccessor.getProperty(FILE_NAME, "submissionsetuniqueid");
+        String sSubmissionSetUniqueId = PropertyAccessor.getInstance().getProperty(FILE_NAME, "submissionsetuniqueid");
         log.debug("sSubmissionSetUniqueId: " + sSubmissionSetUniqueId);
         // getOidFromProperty("submissionsetuniqueid");
         oExtIdTypePatForReg = createExternalIdentifier(oRimObjectFactory,

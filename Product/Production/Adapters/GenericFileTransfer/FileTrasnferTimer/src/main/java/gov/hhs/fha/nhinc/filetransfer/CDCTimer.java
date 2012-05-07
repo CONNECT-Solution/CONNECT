@@ -92,7 +92,7 @@ public class CDCTimer extends Thread {
      * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     private void initialize() throws CDCTimerException, PropertyAccessException {
-        String refreshDuration = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, CDC_REFRESH_DURATION_PROPERTY);
+        String refreshDuration = PropertyAccessor.getInstance().getProperty(ADAPTER_PROPERTY_FILE, CDC_REFRESH_DURATION_PROPERTY);
         if (refreshDuration != null && !refreshDuration.equals("")) {
             m_iDurationSeconds = Integer.parseInt(refreshDuration);
         } else {
@@ -122,7 +122,7 @@ public class CDCTimer extends Thread {
     protected String getMonitorDirectory() {
         String dir = "";
         try {
-            dir = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, "CDCMonitorDir");
+            dir = PropertyAccessor.getInstance().getProperty(ADAPTER_PROPERTY_FILE, "CDCMonitorDir");
         } catch (Exception ex) {
         }
 

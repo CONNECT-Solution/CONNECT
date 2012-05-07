@@ -54,7 +54,7 @@ public class AdapterAuthenticationProxyObjectFactory {
     private static ApplicationContext context = null;
 
     static {
-        String configFile = PropertyAccessor.getPropertyFileURL();
+        String configFile = PropertyAccessor.getInstance().getPropertyFileURL();
 
         context = new FileSystemXmlApplicationContext(configFile + SPRING_CONFIG_FILE);
     }

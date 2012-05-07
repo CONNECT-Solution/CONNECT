@@ -47,7 +47,7 @@ public class NhinDocSubmissionUtils {
     public static boolean isServiceEnabled(String serviceName) {
         boolean serviceEnabled = false;
         try {
-            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, serviceName);
+            serviceEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, serviceName);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + serviceName + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
@@ -66,7 +66,7 @@ public class NhinDocSubmissionUtils {
     public static boolean isInPassThroughMode(String passThruProperty) {
         boolean passThroughModeEnabled = false;
         try {
-            passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            passThroughModeEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     passThruProperty);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + passThruProperty + " from property file: "

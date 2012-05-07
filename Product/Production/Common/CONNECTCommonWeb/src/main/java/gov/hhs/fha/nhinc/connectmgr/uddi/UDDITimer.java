@@ -90,7 +90,7 @@ public class UDDITimer extends Thread {
     private void initialize() throws UDDIAccessorException {
 
         try {
-            String sDuration = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, UDDI_REFRESH_DURATION_PROPERTY);
+            String sDuration = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE, UDDI_REFRESH_DURATION_PROPERTY);
             if ((sDuration != null) && (sDuration.length() > 0)) {
                 m_iDurationSeconds = Integer.parseInt(sDuration);
             }

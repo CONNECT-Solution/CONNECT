@@ -211,7 +211,7 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
     protected void updateSubscribeNotificationConsumerEndpointAddress(Element subscribeElement) {
         try {
             // TODO: Replace Notification endpoint address
-            String notificationConsumerEndpointAddress = PropertyAccessor.getProperty("gateway",
+            String notificationConsumerEndpointAddress = PropertyAccessor.getInstance().getProperty("gateway",
                     "NotificationConsumerEndpointAddress");
             String xpathToAddress = "//*[local-name()='Subscribe']/*[local-name()='ConsumerReference']/*[local-name()='Address']";
             Node targetNode = XpathHelper.performXpathQuery(subscribeElement, xpathToAddress);

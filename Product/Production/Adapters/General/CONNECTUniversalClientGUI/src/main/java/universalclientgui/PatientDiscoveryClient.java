@@ -102,7 +102,7 @@ public class PatientDiscoveryClient {
      */
 
     private String getHomeCommunityId() throws PropertyAccessException {
-        return PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_FILE_KEY_HOME_COMMUNITY);
+        return PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_FILE_KEY_HOME_COMMUNITY);
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -181,7 +181,7 @@ public class PatientDiscoveryClient {
         String localDeviceId = null;
 
         try {
-            localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_FILE_KEY_LOCAL_DEVICE);
+            localDeviceId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_FILE_KEY_LOCAL_DEVICE);
         } catch (PropertyAccessException ex) {
             getLog().error(ex);
         }

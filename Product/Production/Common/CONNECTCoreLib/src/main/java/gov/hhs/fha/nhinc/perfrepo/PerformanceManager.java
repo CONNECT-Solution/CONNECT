@@ -212,7 +212,7 @@ public class PerformanceManager {
         boolean match = false;
         try {
             // Use CONNECT utility class to access gateway.properties
-            String perfEnabled = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, PERF_LOG_ENABLED);
+            String perfEnabled = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, PERF_LOG_ENABLED);
             if (perfEnabled != null && perfEnabled.equalsIgnoreCase("true")) {
                 match = true;
             }

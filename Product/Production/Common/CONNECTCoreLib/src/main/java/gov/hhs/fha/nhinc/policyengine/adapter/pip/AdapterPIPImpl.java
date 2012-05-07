@@ -178,16 +178,18 @@ public class AdapterPIPImpl {
         AssertionType assertion = new AssertionType();
         String svalue = "";
         try {
+            PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
+            
             assertion.setHaveSignature(true);
             assertion.setHaveWitnessSignature(true);
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PERMISSION_DATE);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PERMISSION_DATE);
             if (svalue != null && svalue.length() > 0) {
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
                         .setNotBefore(svalue.trim());
             } else {
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.EXPIRATION_DATE);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.EXPIRATION_DATE);
             if (null != svalue && svalue.length() > 0) {
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
                         .setNotOnOrAfter(svalue.trim());
@@ -196,13 +198,13 @@ public class AdapterPIPImpl {
                         .setNotOnOrAfter("");
             }
             PersonNameType aPersonName = new PersonNameType();
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.FIRST_NAME);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.FIRST_NAME);
             if (null != svalue && svalue.length() > 0) {
                 aPersonName.setGivenName(svalue.trim());
             } else {
                 aPersonName.setGivenName("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.LAST_NAME);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.LAST_NAME);
             if (null != svalue && svalue.length() > 0) {
                 aPersonName.setFamilyName(svalue.trim());
             } else {
@@ -211,7 +213,7 @@ public class AdapterPIPImpl {
             UserType aUser = new UserType();
             aUser.setPersonName(aPersonName);
             HomeCommunityType userHm = new HomeCommunityType();
-            svalue = PropertyAccessor.getProperty(CDAConstants.SubscribeeCommunityList_PROPFILE_NAME, sHid);
+            svalue = propertyAccessor.getProperty(CDAConstants.SubscribeeCommunityList_PROPFILE_NAME, sHid);
             if (null != svalue && svalue.length() > 0) {
                 userHm.setName(svalue.trim());
             } else {
@@ -220,39 +222,39 @@ public class AdapterPIPImpl {
             userHm.setHomeCommunityId(sHid);
             aUser.setOrg(userHm);
             CeType userCe = new CeType();
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_CD);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_CD);
             if (null != svalue && svalue.length() > 0) {
                 userCe.setCode(svalue.trim());
             } else {
                 userCe.setCode("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_CD_SYSTEM);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_CD_SYSTEM);
             if (null != svalue && svalue.length() > 0) {
                 userCe.setCodeSystem(svalue.trim());
             } else {
                 userCe.setCodeSystem("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_CD_SYSTEM_NAME);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_CD_SYSTEM_NAME);
             if (null != svalue && svalue.length() > 0) {
                 userCe.setCodeSystemName(svalue.trim());
             } else {
                 userCe.setCodeSystemName("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_DISPLAY_NAME);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_DISPLAY_NAME);
             if (null != svalue && svalue.length() > 0) {
                 userCe.setDisplayName(svalue.trim());
             } else {
                 userCe.setDisplayName("");
             }
             aUser.setRoleCoded(userCe);
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_NAME);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_NAME);
             if (null != svalue && svalue.length() > 0) {
                 aUser.setUserName(svalue.trim());
             } else {
                 aUser.setUserName("");
             }
             assertion.setUserInfo(aUser);
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.ORG_NAME);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.ORG_NAME);
             HomeCommunityType hm = new HomeCommunityType();
             if (null != svalue && svalue.length() > 0) {
                 hm.setName(svalue.trim());
@@ -261,27 +263,27 @@ public class AdapterPIPImpl {
             }
             assertion.setHomeCommunity(hm);
             CeType ce = new CeType();
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PURPOSE_FOR_USE_ROLE_CD);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PURPOSE_FOR_USE_ROLE_CD);
             if (null != svalue && svalue.length() > 0) {
                 ce.setCode(svalue.trim());
             } else {
                 ce.setCode("");
             }
-            svalue = PropertyAccessor
+            svalue = propertyAccessor
                     .getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PURPOSE_FOR_USE_CODE_SYSTEM);
             if (null != svalue && svalue.length() > 0) {
                 ce.setCodeSystem(svalue.trim());
             } else {
                 ce.setCodeSystem("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
                     CDAConstants.PURPOSE_FOR_USE_CODE_SYSTEM_NAME);
             if (null != svalue && svalue.length() > 0) {
                 ce.setCodeSystemName(svalue.trim());
             } else {
                 ce.setCodeSystemName("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
                     CDAConstants.PURPOSE_FOR_USE_DISPLAY_NAME);
             if (null != svalue && svalue.length() > 0) {
                 ce.setDisplayName(svalue.trim());
@@ -289,7 +291,7 @@ public class AdapterPIPImpl {
                 ce.setDisplayName("");
             }
             assertion.setPurposeOfDisclosureCoded(ce);
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.ACCESS_POLICY_CONSENT);
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.ACCESS_POLICY_CONSENT);
             if (null != svalue && svalue.length() > 0) {
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
                         .add(svalue.trim());
@@ -297,7 +299,7 @@ public class AdapterPIPImpl {
                 // Do not add empty string to AccessConsentPolicy (Can occur 0 times)
                 // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().add("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
+            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
                     CDAConstants.INSTANCE_ACCESS_POLICY_CONSENT);
             if (null != svalue && svalue.length() > 0) {
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy()

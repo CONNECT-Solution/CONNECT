@@ -74,7 +74,7 @@ public class UDDIAccessor {
     private void loadProperties() throws UDDIAccessorException {
         if (!m_bPropsLoaded) {
             try {
-                String sValue = PropertyAccessor.getProperty(GATEWAY_PROPFILE_NAME, UDDI_BUSINESSES_TO_IGNORE);
+                String sValue = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPFILE_NAME, UDDI_BUSINESSES_TO_IGNORE);
                 if ((sValue != null) && (sValue.length() > 0)) {
                     String saBusiness[] = sValue.split(";");
                     if ((saBusiness != null) && (saBusiness.length > 0)) {

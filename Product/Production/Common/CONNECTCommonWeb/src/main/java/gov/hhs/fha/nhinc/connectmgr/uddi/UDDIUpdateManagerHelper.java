@@ -101,7 +101,7 @@ public class UDDIUpdateManagerHelper {
     private void createUddiFileBackupByRenaming() {
         boolean createBackups = true;
         try {
-            createBackups = PropertyAccessor.getPropertyBoolean(GATEWAY_PROPERTY_FILE,
+            createBackups = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
                     UDDI_REFRESH_KEEP_BACKUPS_PROPERTY);
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve property: " + UDDI_REFRESH_KEEP_BACKUPS_PROPERTY + " from "
@@ -144,7 +144,7 @@ public class UDDIUpdateManagerHelper {
     private void addToBackupList(String latestFilename) {
         int maxNumBackup = MAX_NUM_BACKUP;
         try {
-            maxNumBackup = (int) PropertyAccessor.getPropertyLong(GATEWAY_PROPERTY_FILE, UDDI_MAX_NUM_BACKUPS_PROPERTY);
+            maxNumBackup = (int) PropertyAccessor.getInstance().getPropertyLong(GATEWAY_PROPERTY_FILE, UDDI_MAX_NUM_BACKUPS_PROPERTY);
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve property: " + UDDI_MAX_NUM_BACKUPS_PROPERTY + " from "
                     + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to " + MAX_NUM_BACKUP;

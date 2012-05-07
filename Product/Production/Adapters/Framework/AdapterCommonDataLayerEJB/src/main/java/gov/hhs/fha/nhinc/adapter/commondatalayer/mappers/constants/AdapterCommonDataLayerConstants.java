@@ -76,13 +76,15 @@ public class AdapterCommonDataLayerConstants {
 
         try {
 
+            PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
+            
             // static data switches
-            sALLERGIES_TEST = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME, "allergies_test");
-            sPROBLEMS_TEST = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME, "problems_test");
-            sMEDICATIONS_TEST = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME, "medications_test");
-            sPATIENT_INFO_TEST = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME, "patient_info_test");
+            sALLERGIES_TEST = propertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME, "allergies_test");
+            sPROBLEMS_TEST = propertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME, "problems_test");
+            sMEDICATIONS_TEST = propertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME, "medications_test");
+            sPATIENT_INFO_TEST = propertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME, "patient_info_test");
 
-            sEMULATOR_DATA_LOCATION = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME,
+            sEMULATOR_DATA_LOCATION = propertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME,
                     "emulator_data_location");
         } catch (Exception e) {
             e.printStackTrace();

@@ -73,7 +73,7 @@ public abstract class ComponentProxyObjectFactory {
      * @return Property file URL
      */
     protected String getPropertyFileURL() {
-        return PropertyAccessor.getPropertyFileURL();
+        return PropertyAccessor.getInstance().getPropertyFileURL();
     }
 
     /**

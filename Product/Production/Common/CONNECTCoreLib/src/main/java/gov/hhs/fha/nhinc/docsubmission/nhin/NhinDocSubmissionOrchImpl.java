@@ -69,7 +69,7 @@ public class NhinDocSubmissionOrchImpl {
         log.debug(ack.getMessage());
         String localHCID = "";
         try {
-            localHCID = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            localHCID = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             log.error(ex.getMessage());
