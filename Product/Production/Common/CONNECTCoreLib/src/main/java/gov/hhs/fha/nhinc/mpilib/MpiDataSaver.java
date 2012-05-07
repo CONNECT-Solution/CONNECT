@@ -105,7 +105,7 @@ public class MpiDataSaver {
     }
 
     protected String getDefaultMpiFilename() {
-        return ((defaultMpiFilename != null) ? defaultMpiFilename : PropertyAccessor.getPropertyFileLocation()
+        return ((defaultMpiFilename != null) ? defaultMpiFilename : PropertyAccessor.getInstance().getPropertyFileLocation()
                 + File.separator + "mpi.xml");
     }
 

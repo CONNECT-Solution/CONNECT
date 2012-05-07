@@ -78,7 +78,7 @@ public class HL7MessageIdGenerator {
         String defaultLocalId = "";
 
         try {
-            defaultLocalId = PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME);
+            defaultLocalId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME);
         } catch (PropertyAccessException e) {
             log.error(
                     "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",

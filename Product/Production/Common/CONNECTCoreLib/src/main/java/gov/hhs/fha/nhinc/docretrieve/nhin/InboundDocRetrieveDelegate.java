@@ -47,7 +47,7 @@ public class InboundDocRetrieveDelegate implements InboundDelegate {
 
         HomeCommunityType hcid = new HomeCommunityType();
         try {
-            hcid.setHomeCommunityId(PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            hcid.setHomeCommunityId(PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY));
         } catch (PropertyAccessException ex) {
             ex.printStackTrace();

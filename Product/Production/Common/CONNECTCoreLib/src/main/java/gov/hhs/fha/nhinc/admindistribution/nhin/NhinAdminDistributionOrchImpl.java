@@ -139,7 +139,7 @@ public class NhinAdminDistributionOrchImpl {
     protected long getSleepPeriod() {
         String result = "0";
         try {
-            result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            result = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     "administrativeDistributionSleepValue");
             log.debug("administrativeDistributionSleepValue = " + result);
         } catch (Exception ex) {

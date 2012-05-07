@@ -99,7 +99,7 @@ public class CDCTimerTask {
         boolean process = false;
 
         try {
-            process = PropertyAccessor.getPropertyBoolean(ADAPTER_PROPERTY_FILE, CDC_PROCESS_FILES_STATUS);
+            process = PropertyAccessor.getInstance().getPropertyBoolean(ADAPTER_PROPERTY_FILE, CDC_PROCESS_FILES_STATUS);
         } catch (Exception ex) {
             log.error("****** CDCTimerTask THROWABLE: " + ex.getMessage(), ex);
             process = false;
@@ -163,7 +163,7 @@ public class CDCTimerTask {
         log.debug("Begin - CDCFileTransferAdapter.sendNotification() - End");
         try {
             // Create End point Dynamically
-            String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
+            String endpointURL = PropertyAccessor.getInstance().getProperty("adapter", "EntityNotificationConsumerURL");
             log.info("EntityNotificationConsumerURL :" + endpointURL);
 
             NotifyRequestType notifyRequest = new NotifyRequestType();

@@ -65,7 +65,7 @@ public class TopicConfigurationManager {
     private static boolean m_bInternalLoaded = false;
 
     static {
-        String sValue = PropertyAccessor.getPropertyFileLocation();
+        String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
         if ((sValue != null) && (sValue.length() > 0)) {
             // Set it up so that we always have a "/" at the end - in case
             // ------------------------------------------------------------

@@ -35,45 +35,57 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * 
- * @author dunnek
+ * @author akong
  */
 public class HibernateAccessor {
-    private static Log log = LogFactory.getLog(PropertyAccessor.class);
-    private static String m_sPropertyFileDir = "";
-    private static boolean m_bFailedToLoadEnvVar = false;
+    private static Log log = LogFactory.getLog(HibernateAccessor.class);
 
-    static {
-        String sValue = PropertyAccessor.getPropertyFileLocation();
-        if (NullChecker.isNotNullish(sValue)) {
-            // Set it up so that we always have a "/" at the end - in case
-            // ------------------------------------------------------------
-            if (sValue.endsWith(File.separator)) {
-                m_sPropertyFileDir = sValue;
-            } else {
-                m_sPropertyFileDir = sValue + File.separator;
-            }
-        } else {
-            log.error("Failed to load Hibernate Directory");
-            m_bFailedToLoadEnvVar = true;
-        }
+    private static HibernateAccessor instance;
+    
+    private String propertyFileDir = "";
+    private boolean failedToLoadEnvVar = false;
+    
+    protected HibernateAccessor() {
+        loadPropertyFileDir();
     }
-
-    public static File getHibernateFile(String hibernateFileName) throws PropertyAccessException {
+    
+    public static HibernateAccessor getInstance() {
+        if (instance == null) {
+            instance = new HibernateAccessor();
+        }
+        return instance;
+    }
+    
+    public File getHibernateFile(String hibernateFileName) throws PropertyAccessException {
         checkEnvVarSet();
 
-        File result = new File(m_sPropertyFileDir + "hibernate" + File.separator + hibernateFileName);
-
+        File result = new File(propertyFileDir + "hibernate" + File.separator + hibernateFileName);
         if (!result.exists()) {
             throw new PropertyAccessException("Unable to locate " + hibernateFileName);
         }
+        
         return result;
     }
 
-    private static boolean checkEnvVarSet() throws PropertyAccessException {
-        if (m_bFailedToLoadEnvVar) {
+    protected PropertyAccessor getPropertyAccessor() {
+        return PropertyAccessor.getInstance();
+    }
+    
+    private void loadPropertyFileDir() {
+        propertyFileDir = getPropertyAccessor().getPropertyFileLocation();
+        if (NullChecker.isNullish(propertyFileDir)) {
+            log.error("Failed to load Hibernate Directory");
+            failedToLoadEnvVar = true;
+        }
+    }
+    
+    private boolean checkEnvVarSet() throws PropertyAccessException {
+        if (failedToLoadEnvVar) {
             throw new PropertyAccessException("Failed to load Hibernate Directory");
         }
 
-        return true; // We only get here if the env variable was loaded.
+        return true; 
     }
+    
+    
 }

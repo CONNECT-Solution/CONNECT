@@ -77,7 +77,7 @@ public class AdapterEndpointManager {
 		ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
 
         try {
-        	String sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+        	String sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
             BusinessEntity businessEntity = ConnectionManagerCache.getInstance().getBusinessEntity(sHomeCommunityId);
             BusinessService businessService = helper.getBusinessServiceByServiceName(businessEntity, serviceName);

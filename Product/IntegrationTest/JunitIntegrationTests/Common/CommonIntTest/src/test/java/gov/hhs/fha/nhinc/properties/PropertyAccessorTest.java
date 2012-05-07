@@ -85,7 +85,7 @@ public class PropertyAccessorTest
         new File(nhinPropertiesDir).mkdirs();
 
         System.setProperty("nhinc.properties.dir", nhinPropertiesDir );
-        m_sPropertiesDir = PropertyAccessor.getPropertyFileLocation();
+        m_sPropertiesDir = PropertyAccessor.getInstance().getPropertyFileLocation();
 
         // Create some property files to be used for our testing...
         //---------------------------------------------------------
@@ -191,7 +191,7 @@ public class PropertyAccessorTest
         System.out.println("getProperty");
         String sPropertyFile = PROPERTY_FILENAME_NEVER;
         String sPropertyName = PROPERTY_NAME_1;
-        String sValue = PropertyAccessor.getProperty(sPropertyFile, sPropertyName);
+        String sValue = PropertyAccessor.getInstance().getProperty(sPropertyFile, sPropertyName);
         assertEquals(PROPERTY_VALUE_1.trim(), sValue);
     }
 
@@ -207,25 +207,25 @@ public class PropertyAccessorTest
         // Test false one first.
         //----------------------
         String sPropertyName = PROPERTY_NAME_3;
-        boolean bValue = PropertyAccessor.getPropertyBoolean(sPropertyFile, sPropertyName);
+        boolean bValue = PropertyAccessor.getInstance().getPropertyBoolean(sPropertyFile, sPropertyName);
         assertEquals(false, bValue);
 
         // Test "T"
         //---------
         sPropertyName = PROPERTY_NAME_4;
-        bValue = PropertyAccessor.getPropertyBoolean(sPropertyFile, sPropertyName);
+        bValue = PropertyAccessor.getInstance().getPropertyBoolean(sPropertyFile, sPropertyName);
         assertEquals(true, bValue);
 
         // Test "t"
         //---------
         sPropertyName = PROPERTY_NAME_5;
-        bValue = PropertyAccessor.getPropertyBoolean(sPropertyFile, sPropertyName);
+        bValue = PropertyAccessor.getInstance().getPropertyBoolean(sPropertyFile, sPropertyName);
         assertEquals(true, bValue);
 
         // Test "TrUe"
         //-------------
         sPropertyName = PROPERTY_NAME_6;
-        bValue = PropertyAccessor.getPropertyBoolean(sPropertyFile, sPropertyName);
+        bValue = PropertyAccessor.getInstance().getPropertyBoolean(sPropertyFile, sPropertyName);
         assertEquals(true, bValue);
 
     }
@@ -239,7 +239,7 @@ public class PropertyAccessorTest
         System.out.println("getPropertyNames");
 
         String sPropertyFile = PROPERTY_FILENAME_NEVER;
-        Set<String> setKeys = PropertyAccessor.getPropertyNames(sPropertyFile);
+        Set<String> setKeys = PropertyAccessor.getInstance().getPropertyNames(sPropertyFile);
         assertNotNull(setKeys);
 
         boolean bFoundProp[] = {false, false, false, false, false, false};
@@ -294,7 +294,7 @@ public class PropertyAccessorTest
         System.out.println("getProperties");
 
         String sPropertyFile = PROPERTY_FILENAME_NEVER;
-        Properties oProps = PropertyAccessor.getProperties(sPropertyFile);
+        Properties oProps = PropertyAccessor.getInstance().getProperties(sPropertyFile);
         assertNotNull(oProps);
 
         Set<String> setKeys = oProps.stringPropertyNames();
@@ -365,15 +365,15 @@ public class PropertyAccessorTest
         System.out.println("getRefreshDuration");
 
         String sPropertyFile = PROPERTY_FILENAME_NEVER;
-        int iDuration = PropertyAccessor.getRefreshDuration(sPropertyFile);
+        int iDuration = PropertyAccessor.getInstance().getRefreshDuration(sPropertyFile);
         assertEquals(-1, iDuration);
 
         sPropertyFile = PROPERTY_FILENAME_ALWAYS;
-        iDuration = PropertyAccessor.getRefreshDuration(sPropertyFile);
+        iDuration = PropertyAccessor.getInstance().getRefreshDuration(sPropertyFile);
         assertEquals(0, iDuration);
 
         sPropertyFile = PROPERTY_FILENAME_PERIODIC;
-        iDuration = PropertyAccessor.getRefreshDuration(sPropertyFile);
+        iDuration = PropertyAccessor.getInstance().getRefreshDuration(sPropertyFile);
         assertEquals(CACHE_REFRESH_DURATION, Integer.toString(iDuration));
     }
 
@@ -385,15 +385,15 @@ public class PropertyAccessorTest
     {
         System.out.println("durationBeforeNextRefresh");
         String sPropertyFile = PROPERTY_FILENAME_NEVER;
-        int iDuration = PropertyAccessor.getDurationBeforeNextRefresh(sPropertyFile);
+        int iDuration = PropertyAccessor.getInstance().getDurationBeforeNextRefresh(sPropertyFile);
         assertEquals(-1, iDuration);
 
         sPropertyFile = PROPERTY_FILENAME_ALWAYS;
-        iDuration = PropertyAccessor.getDurationBeforeNextRefresh(sPropertyFile);
+        iDuration = PropertyAccessor.getInstance().getDurationBeforeNextRefresh(sPropertyFile);
         assertEquals(0, iDuration);
 
         sPropertyFile = PROPERTY_FILENAME_PERIODIC;
-        iDuration = PropertyAccessor.getDurationBeforeNextRefresh(sPropertyFile);
+        iDuration = PropertyAccessor.getInstance().getDurationBeforeNextRefresh(sPropertyFile);
         assertTrue((iDuration >= 0) && (iDuration <= iCACHE_REFRESH_DURATION));
     }
 
@@ -405,7 +405,7 @@ public class PropertyAccessorTest
     {
         System.out.println("dumpPropsToLog");
         String sPropertyFile = PROPERTY_FILENAME_NEVER;
-        PropertyAccessor.dumpPropsToLog(sPropertyFile);
+        PropertyAccessor.getInstance().dumpPropsToLog(sPropertyFile);
 
         // Only real way to verify this is to look at the log/output.
         //------------------------------------------------------------
@@ -421,19 +421,19 @@ public class PropertyAccessorTest
         String sPropertyFile = PROPERTY_FILENAME_PERIODIC_2;
         String sPropertyName = PROPERTY_NAME_1;
         String sValue = "ANewValue";
-        PropertyAccessor.setProperty(sPropertyFile, sPropertyName, sValue);
+        //PropertyAccessor.getInstance().setProperty(sPropertyFile, sPropertyName, sValue);
 
         // See what happens to this...
         //----------------------------
-        String sRetValue = PropertyAccessor.getProperty(sPropertyFile, sPropertyName);
+        String sRetValue = PropertyAccessor.getInstance().getProperty(sPropertyFile, sPropertyName);
         assertEquals(sValue, sRetValue);
 
         // See what happened to the refresh info...
         //------------------------------------------
-        int iDuration = PropertyAccessor.getRefreshDuration(sPropertyFile);
+        int iDuration = PropertyAccessor.getInstance().getRefreshDuration(sPropertyFile);
         assertEquals(-1, iDuration);
 
-        iDuration = PropertyAccessor.getDurationBeforeNextRefresh(sPropertyFile);
+        iDuration = PropertyAccessor.getInstance().getDurationBeforeNextRefresh(sPropertyFile);
         assertEquals(-1, iDuration);
     }
 
@@ -445,7 +445,7 @@ public class PropertyAccessorTest
     {
         System.out.println("forceRefresh");
         String sPropertyFile = PROPERTY_FILENAME_PERIODIC;
-        PropertyAccessor.forceRefresh(sPropertyFile);
+        PropertyAccessor.getInstance().forceRefresh(sPropertyFile);
 
         // let's sleep for 3 seconds.
         //---------------------------
@@ -457,11 +457,11 @@ public class PropertyAccessorTest
         {
         }
 
-        int iFirstDuration = PropertyAccessor.getDurationBeforeNextRefresh(sPropertyFile);
+        int iFirstDuration = PropertyAccessor.getInstance().getDurationBeforeNextRefresh(sPropertyFile);
 
-        PropertyAccessor.forceRefresh(sPropertyFile);
+        PropertyAccessor.getInstance().forceRefresh(sPropertyFile);
 
-        int iSecondDuration = PropertyAccessor.getDurationBeforeNextRefresh(sPropertyFile);
+        int iSecondDuration = PropertyAccessor.getInstance().getDurationBeforeNextRefresh(sPropertyFile);
 
         // since we had a delay after the first one and no delay after the second one,
         // the second one should be larger than the first.
@@ -479,7 +479,7 @@ public class PropertyAccessorTest
 
         System.out.println("getPropertyFileLocation");
 
-        location = PropertyAccessor.getPropertyFileLocation();
+        location = PropertyAccessor.getInstance().getPropertyFileLocation();
 
         //
         // PropertyAccessor adds a trailing slash, so we need to accont for that in the test.
@@ -496,7 +496,7 @@ public class PropertyAccessorTest
 
         System.out.println("getAbsolutePropertyFileLocation");
 
-        location = PropertyAccessor.getPropertyFileLocation();
+        location = PropertyAccessor.getInstance().getPropertyFileLocation();
 
         //
         // PropertyAccessor adds a trailing slash, so we need to accont for that in the test.
@@ -513,7 +513,7 @@ public class PropertyAccessorTest
 
         System.out.println("getPropertyFileURL");
 
-        location = PropertyAccessor.getPropertyFileURL();
+        location = PropertyAccessor.getInstance().getPropertyFileURL();
 
         //
         // PropertyAccessor adds a trailing slash, so we need to accont for that in the test.

@@ -212,7 +212,7 @@ public class EntityDocQueryHelper {
     private boolean getPropertyBoolean(String sPropertiesFile, String sPropertyName) {
         boolean sPropertyValue = false;
         try {
-            sPropertyValue = PropertyAccessor.getPropertyBoolean(sPropertiesFile, sPropertyName);
+            sPropertyValue = PropertyAccessor.getInstance().getPropertyBoolean(sPropertiesFile, sPropertyName);
         } catch (PropertyAccessException ex) {
             log.error(ex.getMessage());
         }

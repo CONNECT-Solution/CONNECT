@@ -54,7 +54,7 @@ public class SamlTokenExtractorHelper {
         String propName = "localHomeCommunityId";
         String homeCommunityId = "";
         try {
-            homeCommunityId = PropertyAccessor.getProperty(propFile, propName);
+            homeCommunityId = PropertyAccessor.getInstance().getProperty(propFile, propName);
         } catch (PropertyAccessException ex) {
             log.error("SamlTokenExtractorHelper.getHomeCommunityId failed to access property: " + ex.getMessage());
         }

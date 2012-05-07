@@ -59,7 +59,7 @@ public class ConfigurationManager {
     public String getAdapterSubscriptionMode() throws ConfigurationException {
         String value = null;
         try {
-            value = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            value = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_PROPERTY);
         } catch (PropertyAccessException ex) {
             throw new SoapFaultFactory().getConfigurationException("Failed to determine adapter subscription mode ['"
@@ -82,7 +82,7 @@ public class ConfigurationManager {
         boolean serviceEnabled = false;
 
         try {
-            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, service);
+            serviceEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, service);
         } catch (PropertyAccessException ex) {
             throw new SoapFaultFactory().getConfigurationException("Failed to determine if service '" + service
                     + "' is enabled.", ex);
@@ -95,7 +95,7 @@ public class ConfigurationManager {
         boolean passThroughModeEnabled = false;
 
         try {
-            passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, service);
+            passThroughModeEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, service);
         } catch (PropertyAccessException ex) {
             throw new SoapFaultFactory().getConfigurationException("Failed to determine if service '" + service
                     + "' is pass through mode.", ex);

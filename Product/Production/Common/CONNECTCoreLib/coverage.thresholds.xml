@@ -380,11 +380,6 @@
               linecount="12"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateAccessor"
-              linecount="12"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil"
               linecount="15"
@@ -400,7 +395,7 @@
               linecount="1"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="202" branchrate="80" branchsexecuted="1.47"
+   <threshold branchcount="206" branchrate="80" branchsexecuted="1.46"
               class="gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache"
               linecount="333"
               linerate="80"
@@ -595,9 +590,9 @@
               linecount="89"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="68" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="90" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl"
-              linecount="211"
+              linecount="235"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -880,9 +875,9 @@
               linecount="8"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="106" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="108" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docrepository.adapter.util.DocumentLoadUtil"
-              linecount="217"
+              linecount="223"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -2042,7 +2037,7 @@
               linesexecuted="0"/>
    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper"
-              linecount="49"
+              linecount="50"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
@@ -4132,7 +4127,7 @@
               linesexecuted="0"/>
    <threshold branchcount="98" branchrate="80" branchsexecuted="0.02"
               class="gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPImpl"
-              linecount="139"
+              linecount="140"
               linerate="80"
               linesexecuted="0.13"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -4265,11 +4260,11 @@
               linecount="41"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0.07"
               class="gov.hhs.fha.nhinc.properties.HibernateAccessor"
-              linecount="20"
+              linecount="23"
               linerate="80"
-              linesexecuted="0"/>
+              linesexecuted="0.23"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.properties.IPropertyAcessor"
               linecount="0"
@@ -4279,32 +4274,47 @@
               class="gov.hhs.fha.nhinc.properties.PropertyAccessException"
               linecount="8"
               linerate="80"
-              linesexecuted="0.02"/>
-   <threshold branchcount="98" branchrate="80" branchsexecuted="0.33"
+              linesexecuted="0.08"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0.07"
               class="gov.hhs.fha.nhinc.properties.PropertyAccessor"
-              linecount="256"
+              linecount="68"
               linerate="80"
-              linesexecuted="0.9"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.properties.PropertyAccessor$1"
-              linecount="0"
+              linesexecuted="0.68"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0.08"
+              class="gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities"
+              linecount="26"
               linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.properties.PropertyAccessor$RefreshInfo"
-              linecount="2"
+              linesexecuted="0.25"/>
+   <threshold branchcount="34" branchrate="80" branchsexecuted="0.31"
+              class="gov.hhs.fha.nhinc.properties.PropertyFileDAO"
+              linecount="82"
               linerate="80"
-              linesexecuted="0.02"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.properties.PropertyAccessor$RefreshInfo$Mode"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0.02"/>
+              linesexecuted="0.78"/>
    <threshold branchcount="12" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.properties.PropertyFileManager"
               linecount="31"
               linerate="80"
               linesexecuted="0"/>
+   <threshold branchcount="34" branchrate="80" branchsexecuted="0.3"
+              class="gov.hhs.fha.nhinc.properties.PropertyFileRefreshHandler"
+              linecount="82"
+              linerate="80"
+              linesexecuted="0.77"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.properties.PropertyFileRefreshHandler$1"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.properties.PropertyFileRefreshHandler$RefreshInfo"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0.02"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.properties.PropertyFileRefreshHandler$RefreshInfo$Mode"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0.02"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.properties.ServicePropertyAccessor"
               linecount="0"
