@@ -44,6 +44,8 @@ import org.opensaml.saml2.core.Evidence;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
+import org.opensaml.saml2.core.SubjectConfirmation;
+import org.opensaml.saml2.core.SubjectConfirmationData;
 import org.opensaml.saml2.core.SubjectLocality;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilderFactory;
@@ -52,6 +54,8 @@ import org.opensaml.xml.schema.XSString;
 import org.opensaml.xml.schema.impl.XSAnyBuilder;
 import org.opensaml.xml.schema.impl.XSStringBuilder;
 import org.opensaml.xml.signature.Exponent;
+import org.opensaml.xml.signature.KeyInfo;
+import org.opensaml.xml.signature.KeyValue;
 import org.opensaml.xml.signature.Modulus;
 import org.opensaml.xml.signature.RSAKeyValue;
 
@@ -231,9 +235,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	/**
 	 * @return
 	 */
-	private org.opensaml.saml2.core.NameID createNameID(String format,
+	private NameID createNameID(String format,
 			String value) {
-		org.opensaml.saml2.core.NameID nameId = (org.opensaml.saml2.core.NameID) createOpenSAMLObject(org.opensaml.saml2.core.NameID.DEFAULT_ELEMENT_NAME);
+		NameID nameId = (NameID) createOpenSAMLObject(NameID.DEFAULT_ELEMENT_NAME);
 
 		nameId.setFormat(format);
 		nameId.setValue(value);
@@ -270,8 +274,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return subject;
 	}
 
-	private org.opensaml.saml2.core.SubjectConfirmation createHoKConfirmation() {
-		org.opensaml.saml2.core.SubjectConfirmation subjectConfirmation = (org.opensaml.saml2.core.SubjectConfirmation) createOpenSAMLObject(org.opensaml.saml2.core.SubjectConfirmation.DEFAULT_ELEMENT_NAME);
+	private SubjectConfirmation createHoKConfirmation() {
+		SubjectConfirmation subjectConfirmation = (SubjectConfirmation) createOpenSAMLObject(SubjectConfirmation.DEFAULT_ELEMENT_NAME);
 		subjectConfirmation
 				.setMethod(org.opensaml.saml2.core.SubjectConfirmation.METHOD_HOLDER_OF_KEY);
 		subjectConfirmation
@@ -280,14 +284,14 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return subjectConfirmation;
 	}
 
-	private org.opensaml.saml2.core.SubjectConfirmationData createSubjectConfirmationData() {
-		org.opensaml.saml2.core.SubjectConfirmationData subjectConfirmationData = (org.opensaml.saml2.core.SubjectConfirmationData) createOpenSAMLObject(org.opensaml.saml2.core.SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
+	private SubjectConfirmationData createSubjectConfirmationData() {
+		SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) createOpenSAMLObject(SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
 		subjectConfirmationData.getUnknownAttributes().put(
 				new QName("http://www.w3.org/2001/XMLSchema-instance", "type",
 						"xsi"), "saml:KeyInfoConfirmationDataType");
 
-		org.opensaml.xml.signature.KeyInfo ki = (org.opensaml.xml.signature.KeyInfo) createOpenSAMLObject(org.opensaml.xml.signature.KeyInfo.DEFAULT_ELEMENT_NAME);
-		org.opensaml.xml.signature.KeyValue kv = (org.opensaml.xml.signature.KeyValue) createOpenSAMLObject(org.opensaml.xml.signature.KeyValue.DEFAULT_ELEMENT_NAME);
+		KeyInfo ki = (KeyInfo) createOpenSAMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
+		KeyValue kv = (KeyValue) createOpenSAMLObject(KeyValue.DEFAULT_ELEMENT_NAME);
 
 		RSAKeyValue _RSAKeyValue = (RSAKeyValue) createOpenSAMLObject(RSAKeyValue.DEFAULT_ELEMENT_NAME);
 		Exponent exp = (Exponent) createOpenSAMLObject(Exponent.DEFAULT_ELEMENT_NAME);
@@ -348,7 +352,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	/**
 	 * @return
 	 */
-	public org.opensaml.saml2.core.Assertion createAssertion() {
+	public Assertion createAssertion() {
 		Assertion assertion = assertionBuilder.buildObject(
 				Assertion.DEFAULT_ELEMENT_NAME, Assertion.TYPE_NAME);
 		return assertion;
