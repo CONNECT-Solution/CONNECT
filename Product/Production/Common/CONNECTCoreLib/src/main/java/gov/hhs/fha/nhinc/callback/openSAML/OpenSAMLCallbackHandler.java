@@ -63,6 +63,7 @@ import javax.security.auth.x500.X500Principal;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -87,6 +88,7 @@ import org.opensaml.saml2.core.SubjectLocality;
 import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallerFactory;
+import org.opensaml.xml.schema.XSAny;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureConstants;
@@ -652,18 +654,20 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
 
         // Set the User Role Attribute
         List userRoleAttributeValues = new ArrayList();
-        Map<String, String> userRoleAttributes = new HashMap<String, String>();
+        Map<QName, String> userRoleAttributes = new HashMap<QName, String>();
 
-        conditionallyAddValue(userRoleAttributes, tokenVals, SamlConstants.USER_CODE_PROP, SamlConstants.CE_CODE_ID);
-        conditionallyAddValue(userRoleAttributes, tokenVals, SamlConstants.USER_SYST_PROP, SamlConstants.CE_CODESYS_ID);
+        conditionallyAddValue(userRoleAttributes, tokenVals, SamlConstants.USER_CODE_PROP, new QName(SamlConstants.CE_CODE_ID));
+        conditionallyAddValue(userRoleAttributes, tokenVals, SamlConstants.USER_SYST_PROP, new QName(SamlConstants.CE_CODESYS_ID));
         conditionallyAddValue(userRoleAttributes, tokenVals, SamlConstants.USER_SYST_NAME_PROP,
-                SamlConstants.CE_CODESYSNAME_ID);
+                new QName(SamlConstants.CE_CODESYSNAME_ID));
         conditionallyAddValue(userRoleAttributes, tokenVals, SamlConstants.USER_DISPLAY_PROP,
-                SamlConstants.CE_DISPLAYNAME_ID);
+                new QName(SamlConstants.CE_DISPLAYNAME_ID));
 
+        userRoleAttributes.put(new QName("http://www.w3.org/2001/XMLSchema-instance", "type"), "hl7:CE");
+        
         userRoleAttributeValues.add(OpenSAML2ComponentBuilder.getInstance().createAttributeValue(HL7_NS, "Role", "hl7",
                 userRoleAttributes));
-
+   
         attributes.add(OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.USER_ROLE_ATTR,
                 null, userRoleAttributeValues));
 
@@ -697,19 +701,19 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         // Add the Purpose Of/For Use Attribute Value
 
         List purposeOfUserValues = new ArrayList();
-        Map<String, String> purposeOfUseAttributes = new HashMap<String, String>();
+        Map<QName, String> purposeOfUseAttributes = new HashMap<QName, String>();
 
         conditionallyAddValue(purposeOfUseAttributes, tokenVals, SamlConstants.PURPOSE_CODE_PROP,
-                SamlConstants.CE_CODE_ID);
+                new QName(SamlConstants.CE_CODE_ID));
 
         conditionallyAddValue(purposeOfUseAttributes, tokenVals, SamlConstants.PURPOSE_SYST_PROP,
-                SamlConstants.CE_CODESYS_ID);
+        		new QName(SamlConstants.CE_CODESYS_ID));
 
         conditionallyAddValue(purposeOfUseAttributes, tokenVals, SamlConstants.PURPOSE_SYST_NAME_PROP,
-                SamlConstants.CE_CODESYSNAME_ID);
+        		new QName(SamlConstants.CE_CODESYSNAME_ID));
 
         conditionallyAddValue(purposeOfUseAttributes, tokenVals, SamlConstants.PURPOSE_DISPLAY_PROP,
-                SamlConstants.CE_DISPLAYNAME_ID);
+        		new QName(SamlConstants.CE_DISPLAYNAME_ID));
 
         purposeOfUserValues.add(OpenSAML2ComponentBuilder.getInstance().createAttributeValue(HL7_NS,
                 purposeAttributeValueName, "hl7", purposeOfUseAttributes));
@@ -817,7 +821,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
 
     }
 
-    protected void conditionallyAddValue(Map valueMap, Map map, final String property, final String attributeName) {
+    protected void conditionallyAddValue(Map valueMap, Map map, final String property, final Object attributeName) {
         String value = getNullSafeString(map, property);
         if (value != null) {
             valueMap.put(attributeName, value);
