@@ -170,7 +170,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
 
     private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
 
-    private static final DateTimeFormatter XML_DATE_TIME_FORMAT = ISODateTimeFormat.dateTimeNoMillis();
+    private static final DateTimeFormatter XML_DATE_TIME_FORMAT = ISODateTimeFormat.dateTimeParser();
 
     static {
         // WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.

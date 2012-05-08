@@ -102,6 +102,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
 		builderFactory = Configuration.getBuilderFactory();
 
+		attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
+                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
 		authnStatementBuilder = (SAMLObjectBuilder<AuthnStatement>) builderFactory
 				.getBuilder(AuthnStatement.DEFAULT_ELEMENT_NAME);
 		authnContextBuilder = (SAMLObjectBuilder<AuthnContext>) builderFactory
