@@ -288,7 +288,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
      * @return The Assertion element
      * @throws Exception
      */
-    private Element createHOKSAMLAssertion20() throws Exception {
+    public Element createHOKSAMLAssertion20() throws Exception {
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin");
         Element signedAssertion = null;
         try {
@@ -536,8 +536,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
 
         String issuer = getNullSafeString(tokenVals, SamlConstants.EVIDENCE_ISSUER_PROP);
 
-        org.opensaml.saml2.core.NameID evIssuerId = OpenSAML2ComponentBuilder.getInstance().createNameID(null, format,
-                issuer);
+        Issuer evIssuerId = OpenSAML2ComponentBuilder.getInstance().createIssuer(format, issuer);
 
         DateTime beginValidTime = getNullSafeDateTime(tokenVals, SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP,
                 new DateTime());
@@ -562,7 +561,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
         evidenceAssertion.getAttributeStatements().addAll(statements);
         evidenceAssertion.setConditions(conditions);
         evidenceAssertion.setIssueInstant(issueInstant);
-        evidenceAssertion.setIssuer((Issuer) evIssuerId);
+        evidenceAssertion.setIssuer(evIssuerId);
 
         evidenceAssertions.add(evidenceAssertion);
 

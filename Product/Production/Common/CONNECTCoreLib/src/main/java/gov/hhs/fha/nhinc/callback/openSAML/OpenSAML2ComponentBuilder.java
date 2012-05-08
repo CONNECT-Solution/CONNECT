@@ -290,9 +290,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	private SubjectConfirmationData createSubjectConfirmationData()
 			throws Exception {
 		SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) createOpenSAMLObject(SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
-		subjectConfirmationData.getUnknownAttributes().put(
+		/*subjectConfirmationData.getUnknownAttributes().put(
 				new QName("http://www.w3.org/2001/XMLSchema-instance", "type",
-						"xsi"), "saml:KeyInfoConfirmationDataType");
+						"xsi"), "saml:KeyInfoConfirmationDataType");*/
 
 		KeyInfo ki = (KeyInfo) createOpenSAMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
 		KeyValue kv = (KeyValue) createOpenSAMLObject(KeyValue.DEFAULT_ELEMENT_NAME);
