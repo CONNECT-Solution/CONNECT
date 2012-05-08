@@ -67,7 +67,6 @@ public class OpenSAMLComponentBuilderTest {
 				"3f7b3dcf-1674-4ecd-92c8-1544f346baf8");
 
 		Element nameIdElement = marshall(nameid);
-
 		assertEquals("urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
 				nameIdElement.getAttribute("Format"));
 		assertEquals("3f7b3dcf-1674-4ecd-92c8-1544f346baf8", nameIdElement
@@ -77,21 +76,18 @@ public class OpenSAMLComponentBuilderTest {
 
 	}
 
-	@Test
+	@Test 
 	public void testSimpleAttribute() throws MarshallingException {
 		OpenSAML2ComponentBuilder builder = OpenSAML2ComponentBuilder
 				.getInstance();
-		Attribute attribute = builder.createAttribute("friendlyName", "name",
-				"nameFormat");
+		Attribute attribute = builder.createAttribute("friendlyName", "name", "nameFormat");
 		Element attributeElement = marshall(attribute);
 		assertEquals("saml2:Attribute", attributeElement.getNodeName());
-		assertEquals("friendlyName",
-				attributeElement.getAttribute("FriendlyName"));
+		assertEquals("friendlyName", attributeElement.getAttribute("FriendlyName"));
 		assertEquals("nameFormat", attributeElement.getAttribute("NameFormat"));
 
 		assertTrue(attributeElement.getChildNodes().getLength() == 0);
 	}
-
 	@Test
 	public void testAttributeWithValues() throws MarshallingException {
 		OpenSAML2ComponentBuilder builder = OpenSAML2ComponentBuilder
@@ -164,5 +160,6 @@ public class OpenSAMLComponentBuilderTest {
 		assertEquals("defaultUserRoleCode", anyElement.getAttribute("code"));
 
 	}
+
 
 }
