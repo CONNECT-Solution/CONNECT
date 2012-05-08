@@ -12,6 +12,7 @@ import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
+import org.opensaml.DefaultBootstrap;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml2.core.Action;
@@ -34,6 +35,7 @@ import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.SubjectConfirmation;
 import org.opensaml.saml2.core.SubjectConfirmationData;
 import org.opensaml.saml2.core.SubjectLocality;
+import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.schema.XSAny;
@@ -93,6 +95,12 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 			.getBuilderFactory();
 
 	private OpenSAML2ComponentBuilder() {
+	    try {
+            DefaultBootstrap.bootstrap();
+        } catch (ConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
 		builderFactory = Configuration.getBuilderFactory();
 
@@ -144,7 +152,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	}
 
 	private XMLObject createOpenSAMLObject(QName qname) {
-		return builderFactory.getBuilder(qname).buildObject(qname);
+		return Configuration.getBuilderFactory().getBuilder(qname).buildObject(qname);
 	}
 
 	/**
@@ -314,8 +322,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	 * @return
 	 */
 	public Assertion createAssertion() {
-		Assertion assertion = assertionBuilder.buildObject(
-				Assertion.DEFAULT_ELEMENT_NAME, Assertion.TYPE_NAME);
+		Assertion assertion = (Assertion)createOpenSAMLObject(Assertion.DEFAULT_ELEMENT_NAME);
 		return assertion;
 	}
 
