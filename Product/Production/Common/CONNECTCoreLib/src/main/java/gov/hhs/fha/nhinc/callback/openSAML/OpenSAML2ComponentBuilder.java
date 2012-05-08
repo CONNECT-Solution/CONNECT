@@ -4,6 +4,8 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.xml.namespace.QName;
@@ -378,17 +380,41 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return attribute;
 	}
 
+	public XSAny createAny(final String namespace, final String name,
+			final String prefix) {
+		XSAny any = xsAnyBuilder.buildObject(namespace, name, prefix);
+		return any;
+	}
+
+	public XSAny createAny(final String namespace, final String name,
+			final String prefix, Map<QName, String> attributes) {
+
+		XSAny any = createAny(namespace, name, prefix);
+
+		for (QName atrName : attributes.keySet()) {
+			any.getUnknownAttributes().put(atrName,
+					attributes.get(atrName));
+		}
+		return any;
+
+	}
+
 	public XSAny createAttributeValue(final String namespace,
 			final String name, final String prefix,
-			Map<String, String> attributes) {
+			Map<QName, String> attributes) {
+
+		
+		XSAny attribute = createAny(namespace, name, prefix, attributes);
+		return createAttributeValue(Arrays.asList(attribute));
+	}
+	
+
+	public XSAny createAttributeValue(List<XSAny> values) {
 
 		XSAny attributeValue = xsAnyBuilder
-				.buildObject(namespace, name, prefix);
-		for (String atrName : attributes.keySet()) {
-			attributeValue.getUnknownAttributes().put(new QName(atrName),
-					attributes.get(atrName));
+				.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME);
+		attributeValue.getUnknownXMLObjects().addAll(values);
 
-		}
 		return attributeValue;
 	}
 
