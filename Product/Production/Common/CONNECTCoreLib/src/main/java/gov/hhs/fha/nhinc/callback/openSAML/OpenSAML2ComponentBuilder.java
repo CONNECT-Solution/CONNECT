@@ -94,13 +94,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	private static XMLObjectBuilderFactory builderFactory = Configuration
 			.getBuilderFactory();
 
-	private OpenSAML2ComponentBuilder() {
-	    try {
-            DefaultBootstrap.bootstrap();
-        } catch (ConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+	private OpenSAML2ComponentBuilder() throws ConfigurationException {
+		DefaultBootstrap.bootstrap();
 
 		builderFactory = Configuration.getBuilderFactory();
 
@@ -140,19 +135,32 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		stringBuilder = (XSStringBuilder) builderFactory
 				.getBuilder(XSString.TYPE_NAME);
 
+		attributeBuilder = (SAMLObjectBuilder<Attribute>) builderFactory
+				.getBuilder(Attribute.DEFAULT_ELEMENT_NAME);
+
 		xsAnyBuilder = (XSAnyBuilder) builderFactory
 				.getBuilder(XSAny.TYPE_NAME);
 
 	}
 
-	private static OpenSAML2ComponentBuilder INSTANCE = new OpenSAML2ComponentBuilder();
+	private static OpenSAML2ComponentBuilder INSTANCE;
 
 	public static OpenSAML2ComponentBuilder getInstance() {
+		if (INSTANCE == null) {
+			try {
+				INSTANCE = new OpenSAML2ComponentBuilder();
+			} catch (ConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				INSTANCE = null;
+			}
+
+		}
 		return INSTANCE;
 	}
 
 	private XMLObject createOpenSAMLObject(QName qname) {
-		return Configuration.getBuilderFactory().getBuilder(qname).buildObject(qname);
+		return builderFactory.getBuilder(qname).buildObject(qname);
 	}
 
 	/**
@@ -233,14 +241,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	/**
 	 * @return
 	 */
-	private NameID createNameID(String format,
-			String value) {
-		NameID nameId = (NameID) createOpenSAMLObject(NameID.DEFAULT_ELEMENT_NAME);
-
-		nameId.setFormat(format);
-		nameId.setValue(value);
-
-		return nameId;
+	private NameID createNameID(String format, String value) {
+		return createNameID(null, format, value);
 	}
 
 	/**
@@ -256,15 +258,12 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	}
 
 	protected Issuer createDefaultIssuer() {
-		Issuer issuer = (Issuer) createOpenSAMLObject(Issuer.DEFAULT_ELEMENT_NAME);
-		issuer.setFormat(X509_NAME_ID);
-		issuer.setValue(DEFAULT_ISSUER_VALUE);
-		return issuer;
+		return createIssuer(X509_NAME_ID, DEFAULT_ISSUER_VALUE);
 	}
 
 	/**
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public Subject createSubject(String x509Name) throws Exception {
 		Subject subject = (org.opensaml.saml2.core.Subject) createOpenSAMLObject(Subject.DEFAULT_ELEMENT_NAME);
@@ -283,7 +282,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return subjectConfirmation;
 	}
 
-	private SubjectConfirmationData createSubjectConfirmationData() throws Exception {
+	private SubjectConfirmationData createSubjectConfirmationData()
+			throws Exception {
 		SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) createOpenSAMLObject(SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
 		subjectConfirmationData.getUnknownAttributes().put(
 				new QName("http://www.w3.org/2001/XMLSchema-instance", "type",
@@ -312,8 +312,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	}
 
 	public PublicKey getPublicKey() throws Exception {
-	    CertificateManager cm = CertificateManager.getInstance();
-	    
+		CertificateManager cm = CertificateManager.getInstance();
+
 		X509Certificate certificate = cm.getDefaultCertificate();
 		return certificate.getPublicKey();
 	}
@@ -322,7 +322,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	 * @return
 	 */
 	public Assertion createAssertion() {
-		Assertion assertion = (Assertion)createOpenSAMLObject(Assertion.DEFAULT_ELEMENT_NAME);
+		Assertion assertion = (Assertion) createOpenSAMLObject(Assertion.DEFAULT_ELEMENT_NAME);
 		return assertion;
 	}
 
@@ -398,33 +398,34 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		if (attributes != null && attributes.size() > 0) {
 
 			AttributeStatement attributeStatement = attributeStatementBuilder
-.buildObject();
-            for (Attribute attribute : attributes) {
-                attributeStatement.getAttributes().add(attribute);
+					.buildObject();
+			for (Attribute attribute : attributes) {
+				attributeStatement.getAttributes().add(attribute);
 
-            }
-            // Add the completed attribute statementBean to the collection
-            attributeStatements.add(attributeStatement);
-        }
+			}
+			// Add the completed attribute statementBean to the collection
+			attributeStatements.add(attributeStatement);
+		}
 
-        return attributeStatements;
-    }
+		return attributeStatements;
+	}
 
-    public Evidence createEvidence(List<Assertion> assertions) {
-        Evidence evidence = evidenceBuilder.buildObject();
-        evidence.getAssertions().addAll(assertions);
-        return evidence;
-    }
+	public Evidence createEvidence(List<Assertion> assertions) {
+		Evidence evidence = evidenceBuilder.buildObject();
+		evidence.getAssertions().addAll(assertions);
+		return evidence;
+	}
 
-    public List<AttributeStatement> createEvidenceStatements(List accessConstentValues,
-            List evidenceInstanceAccessConsentValues, final String namespace) {
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+	public List<AttributeStatement> createEvidenceStatements(
+			List accessConstentValues,
+			List evidenceInstanceAccessConsentValues, final String namespace) {
+		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
 
-        List<Attribute> attributes = new ArrayList<Attribute>();
+		List<Attribute> attributes = new ArrayList<Attribute>();
 
-        if (accessConstentValues != null) {
-            attributes.add(OpenSAML2ComponentBuilder.getInstance().createAttribute("AccessConsentPolicy", namespace,
-                    null,
+		if (accessConstentValues != null) {
+			attributes.add(OpenSAML2ComponentBuilder.getInstance()
+					.createAttribute("AccessConsentPolicy", namespace, null,
 							accessConstentValues));
 		}
 
@@ -441,23 +442,25 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return statements;
 	}
 
-    /**
-     * @throws Exception 
-     * 
-     */
-    public Signature createSignature() throws Exception {
-        BasicX509Credential credential = new BasicX509Credential();
-        CertificateManager cm = CertificateManager.getInstance();
-        
-        credential.setEntityCertificate(cm.getDefaultCertificate());
-        credential.setPrivateKey(cm.getDefaultPrivateKey().getPrivateKey());
-        Signature signature = (Signature) createOpenSAMLObject(Signature.DEFAULT_ELEMENT_NAME);
-        signature.setSigningCredential(credential);
-        signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
-        signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
-        KeyInfo keyinfo = (KeyInfo) createOpenSAMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
-        signature.setKeyInfo(keyinfo);
-        return signature;
-    }
+	/**
+	 * @throws Exception
+	 * 
+	 */
+	public Signature createSignature() throws Exception {
+		BasicX509Credential credential = new BasicX509Credential();
+		CertificateManager cm = CertificateManager.getInstance();
+
+		credential.setEntityCertificate(cm.getDefaultCertificate());
+		credential.setPrivateKey(cm.getDefaultPrivateKey().getPrivateKey());
+		Signature signature = (Signature) createOpenSAMLObject(Signature.DEFAULT_ELEMENT_NAME);
+		signature.setSigningCredential(credential);
+		signature
+				.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+		signature
+				.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
+		KeyInfo keyinfo = (KeyInfo) createOpenSAMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
+		signature.setKeyInfo(keyinfo);
+		return signature;
+	}
 
 }
