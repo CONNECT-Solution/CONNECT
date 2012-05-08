@@ -7,18 +7,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import gov.hhs.fha.nhinc.callback.SamlConstants;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import org.custommonkey.xmlunit.XMLUnit;
-import org.junit.Before;
 import org.junit.Test;
 import org.opensaml.Configuration;
 import org.opensaml.saml2.core.Attribute;
@@ -123,16 +117,7 @@ public class OpenSAMLComponentBuilderTest {
 		attributeMap.put(new QName("http://www.w3.org/2001/XMLSchema-instance",
 				"type"), "hl7:CE");
 
-		/*
-		 * <saml2:Attribute Name="urn:oasis:names:tc:xacml:2.0:subject:role"> Ê
-		 * Ê Ê Ê Ê Ê Ê Ê Ê<saml2:AttributeValue> Ê Ê Ê Ê Ê Ê Ê Ê Ê Ê <hl7:Role
-		 * code="defaultUserRoleCode" codeSystem="defaultUserRoleCodeSystem"
-		 * codeSystemName="defaultUserRoleCodeSystemName"
-		 * displayName="defaultUserRoleCodeDisplayName" xsi:type="hl7:CE"
-		 * xmlns:hl7="urn:hl7-org:v3"
-		 * xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/> Ê Ê Ê Ê Ê Ê Ê
-		 * Ê Ê</saml2:AttributeValue> Ê Ê Ê Ê Ê Ê Ê </saml2:Attribute>
-		 */
+		
 
 		XSAny any = OpenSAML2ComponentBuilder.getInstance()
 				.createAttributeValue("urn:hl7-org:v3", "Role", "hl7",
