@@ -84,7 +84,7 @@ public class UDDITimerTask {
     public void run() {
         boolean bUDDIActive = true;
         try {
-            bUDDIActive = PropertyAccessor.getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_SWITCH_PROPERTY);
+            bUDDIActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_SWITCH_PROPERTY);
 
             if (bUDDIActive) {
                 if (isLogEnabled()) {

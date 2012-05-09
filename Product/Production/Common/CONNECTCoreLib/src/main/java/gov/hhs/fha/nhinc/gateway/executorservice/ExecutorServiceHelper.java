@@ -78,15 +78,17 @@ public class ExecutorServiceHelper {
     // private constructor to ensure singleton
     private ExecutorServiceHelper() {
         try {
+            PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
+            
             // get executor service pool sizes
-            String concurrentPoolSizeStr = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            String concurrentPoolSizeStr = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.CONCURRENT_POOL_SIZE);
             concurrentPoolSize = Integer.parseInt(concurrentPoolSizeStr);
-            String largejobPoolSizeStr = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            String largejobPoolSizeStr = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.LARGEJOB_POOL_SIZE);
             largejobPoolSize = Integer.parseInt(largejobPoolSizeStr);
             // get large job percentage
-            String largejobSizePercentStr = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            String largejobSizePercentStr = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.LARGEJOB_SIZE_PERCENT);
             largejobSizePercent = Double.parseDouble(largejobSizePercentStr);
         } catch (Exception e) {

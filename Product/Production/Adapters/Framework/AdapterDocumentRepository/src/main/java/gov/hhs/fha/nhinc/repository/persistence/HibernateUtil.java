@@ -101,7 +101,7 @@ public class HibernateUtil
 
         {
 
-            result = HibernateAccessor.getHibernateFile(HIBERNATE_DYNAMIC_DOCUMENT_REPOSITORY);
+            result = HibernateAccessor.getInstance().getHibernateFile(HIBERNATE_DYNAMIC_DOCUMENT_REPOSITORY);
 
         }
 

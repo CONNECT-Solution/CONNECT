@@ -50,7 +50,7 @@ public abstract class AbstractServicePropertyAccessor implements ServiceProperty
     public boolean isServiceEnabled() {
         boolean serviceEnabled = false;
         try {
-            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            serviceEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     getServiceEnabledPropertyName());
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + getServiceEnabledPropertyName() + " from property file: "
@@ -65,7 +65,7 @@ public abstract class AbstractServicePropertyAccessor implements ServiceProperty
     public boolean isInPassThroughMode() {
         boolean passThroughModeEnabled = false;
         try {
-            passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            passThroughModeEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     getPassThruEnabledPropertyName());
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + getPassThruEnabledPropertyName() + " from property file: "

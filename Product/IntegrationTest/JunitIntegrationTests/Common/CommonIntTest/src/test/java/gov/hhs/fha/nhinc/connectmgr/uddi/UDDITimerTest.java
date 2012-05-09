@@ -69,13 +69,13 @@ public class UDDITimerTest {
         System.setProperty("nhinc.properties.dir", System.getenv("NHINC_PROPERTIES_DIR"));
 
         // Create the property file backup
-        gatewayPropFileName = PropertyAccessor.getPropertyFileLocation() + "gateway.properties";
+        gatewayPropFileName = PropertyAccessor.getInstance().getPropertyFileLocation() + "gateway.properties";
         gatewayPropFileBackupName = gatewayPropFileName + "_backup";
 
         copyFile(gatewayPropFileName, gatewayPropFileBackupName);
 
         // Read property file and save off the original settings
-        gatewayPropFileName = PropertyAccessor.getPropertyFileLocation() + "gateway.properties";
+        gatewayPropFileName = PropertyAccessor.getInstance().getPropertyFileLocation() + "gateway.properties";
         File fPropFile = new File(gatewayPropFileName);
         assertTrue(gatewayPropFileName + " does not exist.", fPropFile.exists());
         if (fPropFile.exists()) {
@@ -124,7 +124,7 @@ public class UDDITimerTest {
             invokeProps.setProperty(UDDI_SWITCH_PROPERTY, "false");
             invokeProps.store(fwInvoke, "");
 
-            PropertyAccessor.forceRefresh("gateway");
+            PropertyAccessor.getInstance().forceRefresh("gateway");
 
             // Set expectations
             context.checking(new Expectations() {
@@ -155,7 +155,7 @@ public class UDDITimerTest {
             invokeProps.setProperty(UDDI_SWITCH_PROPERTY, "true");
             invokeProps.store(fwInvoke, "");
 
-            PropertyAccessor.forceRefresh("gateway");
+            PropertyAccessor.getInstance().forceRefresh("gateway");
 
             // Set expectations
             context.checking(new Expectations() {
@@ -184,7 +184,7 @@ public class UDDITimerTest {
             Properties invokeProps = new Properties();
             invokeProps.store(fwInvoke, "");
 
-            PropertyAccessor.forceRefresh("gateway");
+            PropertyAccessor.getInstance().forceRefresh("gateway");
 
             // Set expectations - PropertyAccessor returns false if the boolean property is not found
             context.checking(new Expectations() {

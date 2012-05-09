@@ -319,7 +319,7 @@ public class DeferredQueueManagerHelper {
     private void setGlobalThreshold() {
 
         try {
-            String sGlobalThreshold = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE,
+            String sGlobalThreshold = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE,
                     DEFERRED_QUEUE_GLOBAL_THRESHOLD);
             if ((sGlobalThreshold != null) && (sGlobalThreshold.length() > 0)) {
                 iGlobalThreshold = Integer.parseInt(sGlobalThreshold);

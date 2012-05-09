@@ -66,7 +66,7 @@ public class HibernateUtil {
         File result = null;
 
         try {
-            result = HibernateAccessor.getHibernateFile(NhincConstants.HIBERNATE_PATIENT_CORRELATION);
+            result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_PATIENT_CORRELATION);
         } catch (Exception ex) {
             log.error("Unable to load " + NhincConstants.HIBERNATE_PATIENT_CORRELATION + " " + ex.getMessage(), ex);
         }

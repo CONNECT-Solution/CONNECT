@@ -1624,7 +1624,7 @@ public class DocumentRegistryHelper
         {
 
             homeCommunityId = "urn:oid:"
-                    + PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
+                    + PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
 
         }
 

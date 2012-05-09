@@ -118,7 +118,7 @@ public class EBXMLRequestBuilder {
         String sHomeCommunityId = null;
 
         try {
-            sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
             extrinsic.setHome("urn:oid:" + sHomeCommunityId);
         } catch (PropertyAccessException e) {

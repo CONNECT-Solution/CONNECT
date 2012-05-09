@@ -58,7 +58,7 @@ public class HL7Parser201306 {
 
         II id = new II();
         try {
-            id.setRoot(PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME));
+            id.setRoot(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME));
         } catch (PropertyAccessException e) {
             log.error(
                     "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",

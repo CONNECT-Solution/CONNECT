@@ -273,7 +273,7 @@ public class DocumentProcessHelper {
         boolean demoOperationModeEnabled = false;
 
         try {
-            demoOperationModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            demoOperationModeEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.CONNECT_DEMO_OPERATION_MODE_PROP);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.CONNECT_DEMO_OPERATION_MODE_PROP

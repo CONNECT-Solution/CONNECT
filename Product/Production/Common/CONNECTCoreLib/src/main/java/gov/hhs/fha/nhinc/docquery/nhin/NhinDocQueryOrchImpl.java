@@ -192,7 +192,7 @@ public class NhinDocQueryOrchImpl {
     private boolean isServiceEnabled() {
         boolean serviceEnabled = false;
         try {
-            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            serviceEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.NHINC_DOCUMENT_QUERY_SERVICE_NAME);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.NHINC_DOCUMENT_QUERY_SERVICE_NAME
@@ -211,7 +211,7 @@ public class NhinDocQueryOrchImpl {
     private boolean isInPassThroughMode() {
         boolean passThroughModeEnabled = false;
         try {
-            passThroughModeEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            passThroughModeEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.NHINC_DOCUMENT_QUERY_SERVICE_PASSTHRU_PROPERTY);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.NHINC_DOCUMENT_QUERY_SERVICE_PASSTHRU_PROPERTY

@@ -123,7 +123,7 @@ public class FineGrainedPolicyCriterionVO {
             } else if ((propertyName == null) || ((propertyName.trim()).equals(""))) {
                 log.error("propertyName value is null");
             } else {
-                description = PropertyAccessor.getProperty(propertyFile, propertyName);
+                description = PropertyAccessor.getInstance().getProperty(propertyFile, propertyName);
             }
 
         } catch (Exception e) {

@@ -235,7 +235,7 @@ public class HomeCommunityMap {
         String sHomeCommunity = null;
 
         try {
-            sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             log.error(ex.getMessage());

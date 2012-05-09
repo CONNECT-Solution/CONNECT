@@ -54,7 +54,7 @@ public class ConfigurationManager {
     public Config loadConfiguration() {
         Config result;
 
-        String propertyDir = PropertyAccessor.getPropertyFileLocation();
+        String propertyDir = PropertyAccessor.getInstance().getPropertyFileLocation();
 
         result = loadConfiguration(propertyDir, XDR_CONFIG_FILE);
 

@@ -111,7 +111,7 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
         RetrieveDocumentSetResponseType response = null;
 
         try {
-            String xdsbHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
+            String xdsbHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
                     NhincConstants.XDS_HOME_COMMUNITY_ID_PROPERTY);
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(xdsbHomeCommunityId,
                     NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);

@@ -70,7 +70,7 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
 
     public String getInternalConnectionFileLocation() {
         if (fileLocation == null) {
-            String sValue = PropertyAccessor.getPropertyFileLocation();
+            String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
             if ((sValue != null) && (sValue.length() > 0)) {
                 if (sValue.endsWith(File.separator)) {
                     fileLocation = sValue + INTERNAL_XML_FILE_NAME;

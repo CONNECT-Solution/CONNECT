@@ -55,7 +55,7 @@ public class SubscriptionRepositoryFactory {
         String implClassName = null;
         try {
             log.debug("Retrieving the subscription repository class name");
-            implClassName = PropertyAccessor.getProperty(PROPERTIES_FILE_NAME, IMPL_CLASS_NAME_KEY);
+            implClassName = PropertyAccessor.getInstance().getProperty(PROPERTIES_FILE_NAME, IMPL_CLASS_NAME_KEY);
             log.debug("Retrieved the subscription repository class name: " + implClassName);
         } catch (Throwable t) {
             errorMessage = "An error occured locating the implementation class "

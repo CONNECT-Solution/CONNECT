@@ -75,7 +75,7 @@ public class DeferredQueueTimerTask {
     public void run() {
         boolean bQueueActive = true;
         try {
-            bQueueActive = PropertyAccessor.getPropertyBoolean(GATEWAY_PROPERTY_FILE, DEFERRED_QUEUE_SWITCH_PROPERTY);
+            bQueueActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE, DEFERRED_QUEUE_SWITCH_PROPERTY);
 
             if (bQueueActive) {
                 log.debug("Start: DeferredQueueTimerTask.run method - processing queue entries.");
