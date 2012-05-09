@@ -3,6 +3,7 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
@@ -270,24 +271,27 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	 * @return
 	 * @throws Exception
 	 */
-	public Subject createSubject(String x509Name) throws Exception {
+	public Subject createSubject(String x509Name, RSAPublicKey RSAPk) throws Exception {
 		Subject subject = (org.opensaml.saml2.core.Subject) createOpenSAMLObject(Subject.DEFAULT_ELEMENT_NAME);
 		subject.setNameID(createNameID(X509_NAME_ID, x509Name));
-		subject.getSubjectConfirmations().add(createHoKConfirmation());
+		
+		SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData(RSAPk);
+		SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
+		subject.getSubjectConfirmations().add(subjectConfirmation);
 		return subject;
 	}
 
-	private SubjectConfirmation createHoKConfirmation() throws Exception {
+	private SubjectConfirmation createHoKConfirmation(SubjectConfirmationData subjectConfirmationData) throws Exception {
 		SubjectConfirmation subjectConfirmation = (SubjectConfirmation) createOpenSAMLObject(SubjectConfirmation.DEFAULT_ELEMENT_NAME);
 		subjectConfirmation
 				.setMethod(org.opensaml.saml2.core.SubjectConfirmation.METHOD_HOLDER_OF_KEY);
 		subjectConfirmation
-				.setSubjectConfirmationData(createSubjectConfirmationData());
+				.setSubjectConfirmationData(subjectConfirmationData);
 
 		return subjectConfirmation;
 	}
 
-	private SubjectConfirmationData createSubjectConfirmationData()
+	private SubjectConfirmationData createSubjectConfirmationData(RSAPublicKey RSAPk)
 			throws Exception {
 		SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) createOpenSAMLObject(SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
 		/*subjectConfirmationData.getUnknownAttributes().put(
@@ -301,7 +305,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		Exponent exp = (Exponent) createOpenSAMLObject(Exponent.DEFAULT_ELEMENT_NAME);
 		Modulus mod = (Modulus) createOpenSAMLObject(Modulus.DEFAULT_ELEMENT_NAME);
 
-		RSAPublicKey RSAPk = (RSAPublicKey) getPublicKey();
+		//RSAPublicKey RSAPk = (RSAPublicKey) getPublicKey();
 
 		exp.setValue(RSAPk.getPublicExponent().toString());
 		_RSAKeyValue.setExponent(exp);
@@ -317,7 +321,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	}
 
 	public PublicKey getPublicKey() throws Exception {
-		CertificateManager cm = CertificateManager.getInstance();
+		CertificateManager cm = CertificateManagerImpl.getInstance();
 
 		X509Certificate certificate = cm.getDefaultCertificate();
 		return certificate.getPublicKey();
@@ -472,15 +476,16 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	}
 
 	/**
+	 * @param certificate 
+	 * @param privateKey 
 	 * @throws Exception
 	 * 
 	 */
-	public Signature createSignature() throws Exception {
+	public Signature createSignature(X509Certificate certificate, PrivateKey privateKey) throws Exception {
 		BasicX509Credential credential = new BasicX509Credential();
-		CertificateManager cm = CertificateManager.getInstance();
-
-		credential.setEntityCertificate(cm.getDefaultCertificate());
-		credential.setPrivateKey(cm.getDefaultPrivateKey().getPrivateKey());
+	
+		credential.setEntityCertificate(certificate);
+		credential.setPrivateKey(privateKey);
 		Signature signature = (Signature) createOpenSAMLObject(Signature.DEFAULT_ELEMENT_NAME);
 		signature.setSigningCredential(credential);
 		signature

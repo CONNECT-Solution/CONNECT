@@ -6,6 +6,12 @@ package gov.hhs.fha.nhinc.callback.openSAML;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import java.security.KeyPairGenerator;
+import java.security.KeyStore.PrivateKeyEntry;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPublicKey;
 import java.util.List;
 
 import org.apache.log4j.ConsoleAppender;
@@ -24,41 +30,62 @@ import org.w3c.dom.Element;
  */
 public class HOKSAMLAssertionBuilderTest {
 
+	private static RSAPublicKey publicKey;
+	private static PrivateKey privateKey;
+
 	@BeforeClass
-	static public void setUp() {
-		// WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
-		javax.net.ssl.HttpsURLConnection
-				.setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
+	static public void setUp() throws NoSuchAlgorithmException {
 
-					public boolean verify(String hostname,
-							javax.net.ssl.SSLSession sslSession) {
-						return true;
-					}
-				});
+		Logger rootLogger = Logger.getRootLogger();
+		rootLogger.setLevel(Level.INFO);
+		rootLogger.addAppender(new ConsoleAppender(new PatternLayout(
+				"%-6r [%p] %c - %m%n")));
 		
-		    Logger rootLogger = Logger.getRootLogger();
-		    rootLogger.setLevel(Level.INFO);
-		    rootLogger.addAppender(new ConsoleAppender(
-		               new PatternLayout("%-6r [%p] %c - %m%n")));
+		
+		KeyPairGenerator keyGen;
+			keyGen = KeyPairGenerator.getInstance("RSA");
+			keyGen.initialize(512);
+	    publicKey =  (RSAPublicKey) keyGen.genKeyPair().getPublic();
+	    privateKey = keyGen.genKeyPair().getPrivate();
+	    
 	}
-
+	
+	
 	@Test
 	public void testBuild() throws Exception {
 		HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(
-				getProperties());
-		Element assertion = builder.build();
+				new CertificateManager() {
+					
+					@Override
+					public RSAPublicKey getDefaultPublicKey() {
+						return publicKey;
+				        
+					}
+					
+					@Override
+					public PrivateKey getDefaultPrivateKey() throws Exception {
+						
+						return privateKey;
+					}
+					
+					@Override
+					public X509Certificate getDefaultCertificate() throws Exception {
+						// TODO Auto-generated method stub
+						return null;
+					}
+				});
+		Element assertion = builder.build(getProperties());
 		assertNotNull(assertion);
 	}
-	
-	
+
 	@Test
 	public void testCreateAuthenicationStatement() {
-		List<AuthnStatement> authnStatement = HOKSAMLAssertionBuilder.createAuthenicationStatements(getProperties());
+		List<AuthnStatement> authnStatement = HOKSAMLAssertionBuilder
+				.createAuthenicationStatements(getProperties());
 		assertNotNull(authnStatement);
-		
+
 		assertFalse(authnStatement.isEmpty());
 	}
-	
 
 	CallbackProperties getProperties() {
 		return new CallbackProperties() {
