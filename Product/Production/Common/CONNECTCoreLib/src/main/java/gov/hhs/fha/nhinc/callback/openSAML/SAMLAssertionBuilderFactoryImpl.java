@@ -13,12 +13,12 @@ public class SAMLAssertionBuilderFactoryImpl implements SAMLAssertionBuilderFact
 	
 	
 	@Override
-	public SAMLAssertionBuilder getBuilder(final String confirmationMethod, CallbackProperties properties) {
+	public SAMLAssertionBuilder getBuilder(final String confirmationMethod) {
 		SAMLAssertionBuilder builder = null;
 		if ( confirmationMethod.equals(SAMLCallback.HOK_ASSERTION_TYPE) ) {
-			builder = new HOKSAMLAssertionBuilder(properties);
+			builder = new HOKSAMLAssertionBuilder();
 		} else if (confirmationMethod.equals(SAMLCallback.SV_ASSERTION_TYPE)) {
-			   builder = new SVSAMLAssertionBuilder(properties);
+			   builder = new SVSAMLAssertionBuilder();
 		}
 		return builder;
 	}

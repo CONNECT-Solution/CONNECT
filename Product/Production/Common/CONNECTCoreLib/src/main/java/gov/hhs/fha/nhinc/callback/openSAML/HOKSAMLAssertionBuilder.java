@@ -36,8 +36,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	 /**
 	 * @param properties
 	 */
-	public HOKSAMLAssertionBuilder(CallbackProperties properties) {
-		super(properties);
+	public HOKSAMLAssertionBuilder() {
+	
 	}
 
 
@@ -48,7 +48,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @return The Assertion element
      * @throws Exception
      */
-	 public Element build() throws Exception {
+	 public Element build(CallbackProperties properties) throws Exception {
         log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin");
         Element signedAssertion = null;
         try {
@@ -71,13 +71,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             assertion.setIssueInstant(issueInstant);
 
             // set issuer
-            assertion.setIssuer(createIssuer());
+            assertion.setIssuer(createIssuer(properties));
 
             // set subject
-           assertion.setSubject(createSubject());
+           assertion.setSubject(createSubject(properties));
 
             // add attribute statements
-          assertion.getStatements().addAll(createAttributeStatements());
+          assertion.getStatements().addAll(createAttributeStatements(properties));
 
             // sign the message
            signedAssertion = sign(assertion);
@@ -112,9 +112,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return assertionElement;
     }
 
-    private Issuer createIssuer() {
-        return createIssuer(getProperties());
-    }
     
     
     static Issuer createIssuer(CallbackProperties properties) {
@@ -140,14 +137,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return issuer;
     }
 
-    /**
-     * @return
-     * @throws Exception
-     */
-    private Subject createSubject() throws Exception {
- 
-        return createSubject(getProperties());
-    }
+  
     
     /**
      * @return
@@ -165,10 +155,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @return
      */
     @SuppressWarnings("unchecked")
-    private List<Statement> createAttributeStatements() {
+    private List<Statement> createAttributeStatements(CallbackProperties properties) {
         List<Statement> statements = new ArrayList<Statement>();
 
-        statements.addAll(createAuthenicationStatements());
+        statements.addAll(createAuthenicationStatements(properties));
 //        statements.addAll(createUserNameAttributeStatements());
 //        statements.addAll(createOrganizationAttributeStatements());
 //        statements.addAll(createHomeCommunityIdAttributeStatements());
@@ -180,13 +170,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return statements;
     }
 
-    /**
-     * @return
-     */
-    private List<AuthnStatement> createAuthenicationStatements() {
-
-        return createAuthenicationStatements(getProperties());
-    }
+   
     
     
     

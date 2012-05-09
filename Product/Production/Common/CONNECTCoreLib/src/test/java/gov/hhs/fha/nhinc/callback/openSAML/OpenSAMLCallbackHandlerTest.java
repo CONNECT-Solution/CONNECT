@@ -3,6 +3,7 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 import javax.security.auth.callback.Callback;
@@ -29,6 +30,7 @@ public class OpenSAMLCallbackHandlerTest {
 	final SAMLAssertionBuilderFactory mockAssertionBuilderFactory = context.mock(SAMLAssertionBuilderFactory.class);
 	final SAMLAssertionBuilder mockAssertionBuilder = context.mock(SAMLAssertionBuilder.class);
 	final Element mockElement = context.mock(Element.class);
+	final CallbackProperties mockProperties = context.mock(CallbackProperties.class);
 	
 	@Test
 	public void testHOKAssertionType() throws Exception {
@@ -36,15 +38,15 @@ public class OpenSAMLCallbackHandlerTest {
 		Callback[] callbacks = {mockCallback};
 		
 		context.checking(new Expectations() {{
-		   oneOf(mockAssertionBuilder).build();
+		   oneOf(mockAssertionBuilder).build(mockProperties);
 		   will(returnValue(mockElement));
 			
 			
-		   oneOf(mockAssertionBuilderFactory).getBuilder(with(SAMLCallback.HOK_ASSERTION_TYPE), with(any(CallbackProperties.class)));
+		   oneOf(mockAssertionBuilderFactory).getBuilder(with(SAMLCallback.HOK_ASSERTION_TYPE));
 		   will(returnValue(mockAssertionBuilder));
 			
 		   allowing(mockCallback).getRuntimeProperties();
-		   will(returnValue(new HashMap()));
+		   will(returnValue(Collections.EMPTY_MAP));
 	       allowing(mockCallback).getConfirmationMethod(); 
 	       will(returnValue(SAMLCallback.HOK_ASSERTION_TYPE));
 	       oneOf(mockCallback).getAssertionElement();

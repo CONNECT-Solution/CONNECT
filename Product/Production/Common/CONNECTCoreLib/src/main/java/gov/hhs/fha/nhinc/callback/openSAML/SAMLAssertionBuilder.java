@@ -63,16 +63,6 @@ abstract public class SAMLAssertionBuilder {
     private static final List<String> VALID_AUTHN_CNTX_CLS_LIST = Collections.unmodifiableList(Arrays
             .asList(VALID_AUTHN_CNTX_CLS_ARRAY));
     
-	private CallbackProperties properties;
-	
-	SAMLAssertionBuilder(CallbackProperties properties) {
-		this.properties = properties;
-		
-	}
-	
-	CallbackProperties getProperties() {
-		return properties;
-	}
 	
 	
 	static boolean isValidNameidFormat(final String format) {
@@ -84,6 +74,6 @@ abstract public class SAMLAssertionBuilder {
 	 }
 		 
 	
-	abstract public Element build() throws Exception;
+	abstract public Element build(CallbackProperties properties) throws Exception;
 
 }

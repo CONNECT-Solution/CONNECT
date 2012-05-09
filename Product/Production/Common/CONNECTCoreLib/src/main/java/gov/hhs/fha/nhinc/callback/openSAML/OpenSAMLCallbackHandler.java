@@ -123,7 +123,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
 		CallbackProperties properties = new CallbackMapProperties(samlCallback.getRuntimeProperties());
 		final String confirmationMethod  = samlCallback.getConfirmationMethod();
 		
-		SAMLAssertionBuilder builder = assertionBuilderFactory.getBuilder(confirmationMethod, properties);
+		SAMLAssertionBuilder builder = assertionBuilderFactory.getBuilder(confirmationMethod);
 		
 		if( builder == null ) {
 		    log.error("Unknown SAML Assertion Type: " + confirmationMethod );
@@ -131,7 +131,7 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
 		            + confirmationMethod);
 		}
 		
-		samlCallback.setAssertionElement(builder.build());
+		samlCallback.setAssertionElement(builder.build(properties));
 	}
 
   

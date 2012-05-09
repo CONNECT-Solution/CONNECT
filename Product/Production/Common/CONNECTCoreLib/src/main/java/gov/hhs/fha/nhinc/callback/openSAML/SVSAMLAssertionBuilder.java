@@ -14,15 +14,15 @@ public class SVSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	/**
 	 * @param properties
 	 */
-	SVSAMLAssertionBuilder(CallbackProperties properties) {
-		super(properties);
+	SVSAMLAssertionBuilder() {
+		
 	}
 
 	/* (non-Javadoc)
 	 * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilder#build()
 	 */
 	@Override
-	public Element build() throws Exception {
+	public Element build(CallbackProperties properties) throws Exception {
 	    // log.debug("SamlCallbackHandler.createSVSAMLAssertion20() -- Begin");
 	    // Assertion assertion = null;
 	    // try {

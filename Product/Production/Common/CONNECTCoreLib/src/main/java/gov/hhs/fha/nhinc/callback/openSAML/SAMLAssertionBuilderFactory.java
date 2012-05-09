@@ -9,6 +9,6 @@ package gov.hhs.fha.nhinc.callback.openSAML;
  */
 public interface SAMLAssertionBuilderFactory {
 
-	public abstract SAMLAssertionBuilder getBuilder(final String confirmationMethod, CallbackProperties properties);
+	public abstract SAMLAssertionBuilder getBuilder(final String confirmationMethod);
 
 }
