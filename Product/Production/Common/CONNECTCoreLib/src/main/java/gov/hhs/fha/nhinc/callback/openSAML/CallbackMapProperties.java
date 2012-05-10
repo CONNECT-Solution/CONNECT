@@ -22,7 +22,7 @@ public class CallbackMapProperties implements CallbackProperties {
 
 	private Map<Object, Object> map = new HashMap<Object, Object>();
 	private static final DateTimeFormatter XML_DATE_TIME_FORMAT = ISODateTimeFormat
-			.basicTimeNoMillis();
+			.dateTimeParser();
 
 	public CallbackMapProperties(Map<Object, Object> properties) {
 		map.putAll(properties);
