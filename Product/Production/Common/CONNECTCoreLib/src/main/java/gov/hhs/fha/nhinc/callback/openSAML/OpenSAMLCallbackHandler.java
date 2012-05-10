@@ -27,9 +27,6 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
@@ -47,20 +44,11 @@ import com.sun.xml.wss.impl.callback.SAMLCallback;
 public class OpenSAMLCallbackHandler implements CallbackHandler {
 
     private static Log log = LogFactory.getLog(OpenSAMLCallbackHandler.class);
-    // Valid Authorization Decision values
-    private static final String AUTHZ_DECISION_PERMIT = "Permit";
-    private static final String AUTHZ_DECISION_DENY = "Deny";
-    private static final String AUTHZ_DECISION_INDETERMINATE = "Indeterminate";
-    private static final String[] VALID_AUTHZ_DECISION_ARRAY = { AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_DENY,
-            AUTHZ_DECISION_INDETERMINATE };
-    private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections.unmodifiableList(Arrays
-            .asList(VALID_AUTHZ_DECISION_ARRAY));
+  
    
     
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
     public static final String SV_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:authorization-over-ssl";
-    private static final String NHIN_NS = "http://www.hhs.gov/healthit/nhin";
-    private static final String HL7_NS = "urn:hl7-org:v3";
     private static final int DEFAULT_NAME = 0;
     private static final int PRIMARY_NAME = 1;
  	private SAMLAssertionBuilderFactory assertionBuilderFactory;

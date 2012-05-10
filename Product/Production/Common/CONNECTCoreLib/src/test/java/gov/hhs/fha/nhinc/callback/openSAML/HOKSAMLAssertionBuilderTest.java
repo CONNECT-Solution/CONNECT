@@ -51,9 +51,28 @@ public class HOKSAMLAssertionBuilderTest {
 	}
 	
 	
+	/*
+	 *KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+54          InputStream is = null;
+55          try {
+56              is = new ClassPathResource("/org/springframework/ws/soap/security/xwss/test-keystore.jks").getInputStream();
+57              keyStore.load(is, "password".toCharArray());
+58          }
+59          finally {
+60              if (is != null) {
+61                  is.close();
+62              }
+63          }
+64          certificate = (X509Certificate) keyStore.getCertificate("alias"); 
+	 */
+	
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void testBuild() throws Exception {
-		HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(
+		SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(
 				new CertificateManager() {
 					
 					@Override
@@ -205,7 +224,7 @@ public class HOKSAMLAssertionBuilderTest {
 			}
 
 			@Override
-			public List getEvidenceInstanctAccessConsent() {
+			public List getEvidenceInstantAccessConsent() {
 				// TODO Auto-generated method stub
 				return null;
 			}

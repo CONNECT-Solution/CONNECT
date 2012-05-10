@@ -3,6 +3,9 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,14 +21,31 @@ abstract public class SAMLAssertionBuilder {
 
 	static final String ID_PREFIX = "_";
 	
+	static final String NHIN_NS = "http://www.hhs.gov/healthit/nhin";
+	
+	 
+	  private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
+
+	  
+    
+	
 	 // Authorization Decision Action is always set to Execute
-    private static final String AUTHZ_DECISION_ACTION_EXECUTE = "Execute";
+    static final String AUTHZ_DECISION_ACTION_EXECUTE = "Execute";
     private static final String AUTHZ_DECISION_ACTION_NS = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
+    
+    // Valid Authorization Decision values
+    static final String AUTHZ_DECISION_PERMIT = "Permit";
+    private static final String AUTHZ_DECISION_DENY = "Deny";
+    private static final String AUTHZ_DECISION_INDETERMINATE = "Indeterminate";
+    private static final String[] VALID_AUTHZ_DECISION_ARRAY = { AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_DENY,
+            AUTHZ_DECISION_INDETERMINATE };
+    private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections.unmodifiableList(Arrays
+            .asList(VALID_AUTHZ_DECISION_ARRAY));
     
     // Valid Name Identification values
     private static final String UNSPECIFIED_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
     private static final String EMAIL_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
-    private static final String X509_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
+     static final String X509_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
     private static final String WINDOWS_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
     private static final String KERBEROS_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:kerberos";
     private static final String ENTITY_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:entity";
@@ -73,7 +93,36 @@ abstract public class SAMLAssertionBuilder {
 	        return VALID_AUTHN_CNTX_CLS_LIST.contains(value.trim());
 	 }
 		 
+	static boolean isValidAuthenicationDescision(String decision) {
+		 return VALID_AUTHZ_DECISION_LIST.contains(decision.trim());
+
+	}
 	
+	static boolean isValidIssuerFormat(String format) {
+		return  VALID_NAME_LIST.contains(format);
+
+	}
+	
+	/**
+     * Returns boolean condition on whether PurposeForUse is enabled
+     * 
+     * @return The PurposeForUse enabled setting
+     */
+    static boolean isPurposeForUseEnabled() {
+        boolean match = false;
+        try {
+            // Use CONNECT utility class to access gateway.properties
+            String purposeForUseEnabled = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    PURPOSE_FOR_USE_DEPRECATED_ENABLED);
+            if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
+                match = true;
+            }
+        } catch (PropertyAccessException ex) {
+           match = false;
+        }
+        return match;
+    }
+
 	abstract public Element build(CallbackProperties properties) throws Exception;
 
 }

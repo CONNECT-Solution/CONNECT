@@ -49,7 +49,7 @@ public interface CallbackProperties {
 
 	public abstract List getEvidenceAccessConstent();
 
-	public abstract List getEvidenceInstanctAccessConsent();
+	public abstract List getEvidenceInstantAccessConsent();
 
 	public abstract String getUserCode();
 

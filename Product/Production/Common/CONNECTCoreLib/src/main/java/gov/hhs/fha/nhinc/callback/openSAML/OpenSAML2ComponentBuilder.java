@@ -3,12 +3,15 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
+
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,7 +107,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		builderFactory = Configuration.getBuilderFactory();
 
 		attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
-                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
+				.getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
 		authnStatementBuilder = (SAMLObjectBuilder<AuthnStatement>) builderFactory
 				.getBuilder(AuthnStatement.DEFAULT_ELEMENT_NAME);
 		authnContextBuilder = (SAMLObjectBuilder<AuthnContext>) builderFactory
@@ -271,32 +274,35 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	 * @return
 	 * @throws Exception
 	 */
-	public Subject createSubject(String x509Name, RSAPublicKey RSAPk) throws Exception {
+	public Subject createSubject(String x509Name, RSAPublicKey RSAPk)
+			throws Exception {
 		Subject subject = (org.opensaml.saml2.core.Subject) createOpenSAMLObject(Subject.DEFAULT_ELEMENT_NAME);
 		subject.setNameID(createNameID(X509_NAME_ID, x509Name));
-		
+
 		SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData(RSAPk);
 		SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
 		subject.getSubjectConfirmations().add(subjectConfirmation);
 		return subject;
 	}
 
-	private SubjectConfirmation createHoKConfirmation(SubjectConfirmationData subjectConfirmationData) throws Exception {
+	private SubjectConfirmation createHoKConfirmation(
+			SubjectConfirmationData subjectConfirmationData) throws Exception {
 		SubjectConfirmation subjectConfirmation = (SubjectConfirmation) createOpenSAMLObject(SubjectConfirmation.DEFAULT_ELEMENT_NAME);
 		subjectConfirmation
 				.setMethod(org.opensaml.saml2.core.SubjectConfirmation.METHOD_HOLDER_OF_KEY);
-		subjectConfirmation
-				.setSubjectConfirmationData(subjectConfirmationData);
+		subjectConfirmation.setSubjectConfirmationData(subjectConfirmationData);
 
 		return subjectConfirmation;
 	}
 
-	private SubjectConfirmationData createSubjectConfirmationData(RSAPublicKey RSAPk)
-			throws Exception {
+	private SubjectConfirmationData createSubjectConfirmationData(
+			RSAPublicKey RSAPk) throws Exception {
 		SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) createOpenSAMLObject(SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
-		/*subjectConfirmationData.getUnknownAttributes().put(
-				new QName("http://www.w3.org/2001/XMLSchema-instance", "type",
-						"xsi"), "saml:KeyInfoConfirmationDataType");*/
+		/*
+		 * subjectConfirmationData.getUnknownAttributes().put( new
+		 * QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi"),
+		 * "saml:KeyInfoConfirmationDataType");
+		 */
 
 		KeyInfo ki = (KeyInfo) createOpenSAMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
 		KeyValue kv = (KeyValue) createOpenSAMLObject(KeyValue.DEFAULT_ELEMENT_NAME);
@@ -305,7 +311,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		Exponent exp = (Exponent) createOpenSAMLObject(Exponent.DEFAULT_ELEMENT_NAME);
 		Modulus mod = (Modulus) createOpenSAMLObject(Modulus.DEFAULT_ELEMENT_NAME);
 
-		//RSAPublicKey RSAPk = (RSAPublicKey) getPublicKey();
+		// RSAPublicKey RSAPk = (RSAPublicKey) getPublicKey();
 
 		exp.setValue(RSAPk.getPublicExponent().toString());
 		_RSAKeyValue.setExponent(exp);
@@ -352,7 +358,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return conditions;
 	}
 
-	public Attribute createAttribute(String friendlyName, String name,
+	Attribute createAttribute(String friendlyName, String name,
 			String nameFormat) {
 
 		Attribute attribute = attributeBuilder.buildObject();
@@ -367,7 +373,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return attribute;
 	}
 
-	public Attribute createAttribute(String friendlyName, String name,
+	Attribute createAttribute(String friendlyName, String name,
 			String nameFormat, List<?> values) {
 
 		Attribute attribute = createAttribute(friendlyName, name, nameFormat);
@@ -387,36 +393,32 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return attribute;
 	}
 
-	public XSAny createAny(final String namespace, final String name,
+	XSAny createAny(final String namespace, final String name,
 			final String prefix) {
 		XSAny any = xsAnyBuilder.buildObject(namespace, name, prefix);
 		return any;
 	}
 
-	public XSAny createAny(final String namespace, final String name,
+	XSAny createAny(final String namespace, final String name,
 			final String prefix, Map<QName, String> attributes) {
 
 		XSAny any = createAny(namespace, name, prefix);
 
 		for (QName atrName : attributes.keySet()) {
-			any.getUnknownAttributes().put(atrName,
-					attributes.get(atrName));
+			any.getUnknownAttributes().put(atrName, attributes.get(atrName));
 		}
 		return any;
 
 	}
 
-	public XSAny createAttributeValue(final String namespace,
-			final String name, final String prefix,
-			Map<QName, String> attributes) {
+	XSAny createAttributeValue(final String namespace, final String name,
+			final String prefix, Map<QName, String> attributes) {
 
-		
 		XSAny attribute = createAny(namespace, name, prefix, attributes);
 		return createAttributeValue(Arrays.asList(attribute));
 	}
-	
 
-	public XSAny createAttributeValue(List<XSAny> values) {
+	XSAny createAttributeValue(List<XSAny> values) {
 
 		XSAny attributeValue = xsAnyBuilder
 				.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME);
@@ -425,8 +427,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return attributeValue;
 	}
 
-	public List<AttributeStatement> createAttributeStatement(
-			List<Attribute> attributes) {
+	List<AttributeStatement> createAttributeStatement(List<Attribute> attributes) {
 		List<AttributeStatement> attributeStatements = new ArrayList<AttributeStatement>();
 		if (attributes != null && attributes.size() > 0) {
 
@@ -457,33 +458,94 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		List<Attribute> attributes = new ArrayList<Attribute>();
 
 		if (accessConstentValues != null) {
-			attributes.add(OpenSAML2ComponentBuilder.getInstance()
-					.createAttribute("AccessConsentPolicy", namespace, null,
-							accessConstentValues));
+			attributes.add(createAttribute("AccessConsentPolicy", namespace,
+					null, accessConstentValues));
 		}
 
 		if (evidenceInstanceAccessConsentValues != null) {
-			attributes.add(OpenSAML2ComponentBuilder.getInstance()
-					.createAttribute("InstanceAccessConsentPolicy", namespace,
-							null, evidenceInstanceAccessConsentValues));
+			attributes.add(createAttribute("InstanceAccessConsentPolicy",
+					namespace, null, evidenceInstanceAccessConsentValues));
 		}
 		if (!attributes.isEmpty()) {
-			statements = OpenSAML2ComponentBuilder.getInstance()
-					.createAttributeStatement(attributes);
+			statements = createAttributeStatement(attributes);
 		}
 
 		return statements;
 	}
 
+	public Attribute createUserRoleAttribute(String userCode,
+			String userSystem, String userSystemName, String userDisplay) {
+		Map<QName, String> userRoleAttributes = new HashMap<QName, String>();
+
+		if (userCode != null) {
+			userRoleAttributes.put(new QName(SamlConstants.CE_CODE_ID),
+					userCode);
+		}
+
+		if (userSystem != null) {
+			userRoleAttributes.put(new QName(SamlConstants.CE_CODESYS_ID),
+					userSystem);
+		}
+
+		if (userSystemName != null) {
+			userRoleAttributes.put(new QName(SamlConstants.CE_CODESYSNAME_ID),
+					userSystemName);
+		}
+
+		if (userDisplay != null) {
+			userRoleAttributes.put(new QName(SamlConstants.CE_DISPLAYNAME_ID),
+					userDisplay);
+		}
+
+		userRoleAttributes.put(new QName(
+				"http://www.w3.org/2001/XMLSchema-instance", "type"), "hl7:CE");
+
+		Object attributeValue = OpenSAML2ComponentBuilder.getInstance()
+				.createAttributeValue("urn:hl7-org:v3", "Role", "hl7",
+						userRoleAttributes);
+
+		return OpenSAML2ComponentBuilder.getInstance().createAttribute(null,
+				SamlConstants.USER_ROLE_ATTR, null,
+				Arrays.asList(attributeValue));
+	}
+
+	
+
+	public Attribute createPatientIDAttribute(String patientId) {
+		return createAttribute(null, SamlConstants.PATIENT_ID_ATTR, null,
+				Arrays.asList(patientId));
+	}
+
+	public List<AttributeStatement> createHomeCommunitAttributeStatement(
+			String communityId) {
+		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+		Attribute attribute = createHomeCommunityAttribute(communityId);
+
+		statements.addAll(OpenSAML2ComponentBuilder.getInstance()
+				.createAttributeStatement(Arrays.asList(attribute)));
+
+		return statements;
+	}
+
 	/**
-	 * @param certificate 
-	 * @param privateKey 
+	 * @param communityId
+	 * @return
+	 */
+	Attribute createHomeCommunityAttribute(String communityId) {
+		return createAttribute(null, SamlConstants.HOME_COM_ID_ATTR, null,
+				Arrays.asList(communityId));
+	}
+
+	/**
+	 * @param certificate
+	 * @param privateKey
 	 * @throws Exception
 	 * 
 	 */
-	public Signature createSignature(X509Certificate certificate, PrivateKey privateKey) throws Exception {
+	public Signature createSignature(X509Certificate certificate,
+			PrivateKey privateKey) throws Exception {
 		BasicX509Credential credential = new BasicX509Credential();
-	
+
 		credential.setEntityCertificate(certificate);
 		credential.setPrivateKey(privateKey);
 		Signature signature = (Signature) createOpenSAMLObject(Signature.DEFAULT_ELEMENT_NAME);
@@ -496,5 +558,91 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		signature.setKeyInfo(keyinfo);
 		return signature;
 	}
+
+	/**
+	 * PurposeOfUse attribute statements.
+	 * @param purposeCode
+	 * @param purposeSystem
+	 * @param purposeSystemName
+	 * @param purposeDisplay
+	 * @return
+	 */
+	public List<AttributeStatement> createPurposeOfUseAttributeStatements(
+			String purposeCode, String purposeSystem, String purposeSystemName,
+			String purposeDisplay) {
+
+		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+		Attribute attribute = createPurposeOfUseAttribute(purposeCode,
+				purposeSystem, purposeSystemName, purposeDisplay);
+		statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
+		return statements;
+	}
+
+	/**
+	 * PurposeForUse attribute statements.
+	 * @param purposeCode
+	 * @param purposeSystem
+	 * @param purposeSystemName
+	 * @param purposeDisplay
+	 * @return
+	 */
+	public List<AttributeStatement> createPurposeForUseAttributeStatements(
+			String purposeCode, String purposeSystem, String purposeSystemName,
+			String purposeDisplay) {
+		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+		Attribute attribute = createPurposeForUseAttribute(purposeCode,
+				purposeSystem, purposeSystemName, purposeDisplay);
+		statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
+		return statements;
+	}
+	
+	 Attribute createPurposeOfUseAttribute(String purposeCode,
+				String purposeSystem, String purposeSystemName,
+				String purposeDisplay) {
+			return createPurposeOfUseAttribute(purposeCode, purposeSystem,
+					purposeSystemName, purposeDisplay, "hl7:PurposeOfUse");
+		}
+
+		 Attribute createPurposeForUseAttribute(String purposeCode,
+				String purposeSystem, String purposeSystemName,
+				String purposeDisplay) {
+			return createPurposeOfUseAttribute(purposeCode, purposeSystem,
+					purposeSystemName, purposeDisplay, "hl7:PurposeForUse");
+		}
+
+		Attribute createPurposeOfUseAttribute(String purposeCode,
+				String purposeSystem, String purposeSystemName,
+				String purposeDisplay, String attributeName) {
+			Map<QName, String> purposeOfUseAttributes = new HashMap<QName, String>();
+
+			if (purposeCode != null) {
+				purposeOfUseAttributes.put(new QName(SamlConstants.CE_CODE_ID),
+						purposeCode);
+			}
+
+			if (purposeSystem != null) {
+				purposeOfUseAttributes.put(new QName(SamlConstants.CE_CODESYS_ID),
+						purposeSystem);
+			}
+
+			if (purposeSystemName != null) {
+				purposeOfUseAttributes.put(new QName(
+						SamlConstants.CE_CODESYSNAME_ID), purposeSystemName);
+			}
+
+			if (purposeDisplay != null) {
+				purposeOfUseAttributes.put(new QName(
+						SamlConstants.CE_DISPLAYNAME_ID), purposeDisplay);
+			}
+
+			Object attributeValue = OpenSAML2ComponentBuilder.getInstance()
+					.createAttributeValue("urn:hl7-org:v3", attributeName, "hl7",
+							purposeOfUseAttributes);
+
+			return OpenSAML2ComponentBuilder.getInstance().createAttribute(null,
+					SamlConstants.PURPOSE_ROLE_ATTR, null,
+					Arrays.asList(attributeValue));
+
+		}
 
 }

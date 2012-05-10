@@ -179,7 +179,7 @@ public class CallbackMapProperties implements CallbackProperties {
 	 * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceInstanctAccessConsent()
 	 */
 	@Override
-	public List getEvidenceInstanctAccessConsent() {
+	public List getEvidenceInstantAccessConsent() {
 		return getNullSafeList(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP);
 	}
 
