@@ -732,8 +732,6 @@
     <wsp:Policy wsu:Id="Subscription_Binding_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
-                
                 <sc:KeyStore wspp:visibility="private"
                      aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" 
                      callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
