@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -111,5 +113,9 @@ public class PersonName implements java.io.Serializable {
         result = lastName + ", " + firstName;
 
         return result;
+    }
+    
+    public boolean isValid() {
+        return NullChecker.isNotNullish(getFirstName()) && NullChecker.isNotNullish(getLastName());
     }
 }

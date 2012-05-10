@@ -26,28 +26,18 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+class MpiException extends RuntimeException {
+    static final long serialVersionUID = -8419796581456649328L;
 
-/**
- * 
- * @author rayj
- */
-class UnableToInitializeMpi extends RuntimeException {
-    private static Log log = LogFactory.getLog(UnableToInitializeMpi.class);
-
-    public UnableToInitializeMpi() {
+    public MpiException() {
         super();
-        log.info("UnableToInitializeMpi Initialized with no arguments");
     }
 
-    public UnableToInitializeMpi(String message) {
+    public MpiException(String message) {
         super(message);
-        log.info("UnableToInitializeMpi Initialized with message argument");
     }
 
-    public UnableToInitializeMpi(String message, Throwable cause) {
+    public MpiException(String message, Throwable cause) {
         super(message, cause);
-        log.info("UnableToInitializeMpi Initialized with message and cause arguments");
     }
 }

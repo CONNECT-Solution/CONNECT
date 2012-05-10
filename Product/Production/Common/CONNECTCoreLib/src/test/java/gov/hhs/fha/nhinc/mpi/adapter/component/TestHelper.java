@@ -406,7 +406,7 @@ public class TestHelper {
         PersonName name = new PersonName();
         name.setFirstName(firstName);
         name.setLastName(lastName);
-        result.setName(name);
+        result.getNames().add(name);
 
         // Set the patient gender
         result.setGender(gender);
@@ -431,7 +431,7 @@ public class TestHelper {
         name.setFirstName(firstName);
         name.setLastName(lastName);
         name.setMiddleName(middleName);
-        result.setName(name);
+        result.getNames().add(name);
 
         // Set the patient gender
         result.setGender(gender);
