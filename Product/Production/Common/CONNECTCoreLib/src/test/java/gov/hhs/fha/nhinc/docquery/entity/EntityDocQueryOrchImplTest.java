@@ -16,13 +16,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -128,7 +130,11 @@ public class EntityDocQueryOrchImplTest {
                 urlInfo.setUrl("");
                 urlInfoList.add(urlInfo);
                 return urlInfoList;
+            }
 
+            @Override
+            protected boolean getApiLevel(String localHomeCommunityId, NHIN_SERVICE_NAMES documentQuery) {
+                return true;
             }
 
         };
@@ -203,6 +209,7 @@ public class EntityDocQueryOrchImplTest {
                     List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList, String transactionId,
                     AdhocQueryResponse response, RegistryErrorList policyErrList) throws InterruptedException,
                     ExecutionException {
+
                 if (callableList.size() > 0) {
                     response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
                 } else
@@ -247,6 +254,11 @@ public class EntityDocQueryOrchImplTest {
                 urlInfoList.add(urlInfo1);
                 return urlInfoList;
 
+            }
+
+            @Override
+            protected boolean getApiLevel(String localHomeCommunityId, NHIN_SERVICE_NAMES documentQuery) {
+                return true;
             }
 
         };
