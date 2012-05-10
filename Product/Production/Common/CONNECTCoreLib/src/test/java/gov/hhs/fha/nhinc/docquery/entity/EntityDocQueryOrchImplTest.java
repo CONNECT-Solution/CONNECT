@@ -60,7 +60,7 @@ public class EntityDocQueryOrchImplTest {
     final Log mockLog = context.mock(Log.class);
 
     @Test
-    public void testrespondingGatewayCrossGatewayQuery() {
+    public void testrespondingGatewayCrossGatewayQueryforNullEndPoint() {
 
         AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
         adhocQueryRequest = createRequest();
@@ -108,6 +108,27 @@ public class EntityDocQueryOrchImplTest {
             @Override
             protected Log createLogger() {
                 return mockLog;
+            }
+
+            @Override
+            protected HomeCommunityType getTargetCommunity(String assigningAuthorityIdentifier, String localAA,
+                    String localHomeCommunityId) {
+                HomeCommunityType targetCommunity = new HomeCommunityType();
+                targetCommunity.setHomeCommunityId(assigningAuthorityIdentifier);
+                return targetCommunity;
+
+            }
+
+            @Override
+            protected List<UrlInfo> getEndpointForNhinTargetCommunities(NhinTargetCommunitiesType targets,
+                    String docQueryServiceName) {
+                List<UrlInfo> urlInfoList = new ArrayList<UrlInfo>();
+                UrlInfo urlInfo = new UrlInfo();
+                urlInfo.setHcid("4.4");
+                urlInfo.setUrl("");
+                urlInfoList.add(urlInfo);
+                return urlInfoList;
+
             }
 
         };
@@ -160,9 +181,9 @@ public class EntityDocQueryOrchImplTest {
                 qualSubId.setSubjectIdentifier("D123401");
                 correlationResult.add(qualSubId);
                 QualifiedSubjectIdentifierType qualSubId1 = new QualifiedSubjectIdentifierType();
-                qualSubId1.setAssigningAuthorityIdentifier("6.6");
+                qualSubId1.setAssigningAuthorityIdentifier("2.2");
                 qualSubId1.setSubjectIdentifier("D123401");
-                correlationResult.add(qualSubId);
+                correlationResult.add(qualSubId1);
                 return correlationResult;
             }
 
@@ -182,7 +203,10 @@ public class EntityDocQueryOrchImplTest {
                     List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList, String transactionId,
                     AdhocQueryResponse response, RegistryErrorList policyErrList) throws InterruptedException,
                     ExecutionException {
-                response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+                if (callableList.size() > 0) {
+                    response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+                } else
+                    response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
                 return response;
             }
 
@@ -197,6 +221,32 @@ public class EntityDocQueryOrchImplTest {
             @Override
             protected Log createLogger() {
                 return mockLog;
+            }
+
+            @Override
+            protected HomeCommunityType getTargetCommunity(String assigningAuthorityIdentifier, String localAA,
+                    String localHomeCommunityId) {
+
+                HomeCommunityType targetCommunity = new HomeCommunityType();
+                targetCommunity.setHomeCommunityId(assigningAuthorityIdentifier);
+                return targetCommunity;
+
+            }
+
+            @Override
+            protected List<UrlInfo> getEndpointForNhinTargetCommunities(NhinTargetCommunitiesType targets,
+                    String docQueryServiceName) {
+                List<UrlInfo> urlInfoList = new ArrayList<UrlInfo>();
+                UrlInfo urlInfo = new UrlInfo();
+                urlInfo.setHcid("4.4");
+                urlInfo.setUrl("");
+                urlInfoList.add(urlInfo);
+                UrlInfo urlInfo1 = new UrlInfo();
+                urlInfo1.setHcid("2.2");
+                urlInfo1.setUrl("https://localhost:8080/connect/DocQuery");
+                urlInfoList.add(urlInfo1);
+                return urlInfoList;
+
             }
 
         };
@@ -260,8 +310,9 @@ public class EntityDocQueryOrchImplTest {
         HomeCommunityType homeCommunity1 = new HomeCommunityType();
         homeCommunity1.setHomeCommunityId("2.2");
         targetCommunity1.setHomeCommunity(homeCommunity1);
-        /*targetCommunity.setList("US-FL");
-        targetCommunity.setRegion("Unimplemented");*/
+        /*
+         * targetCommunity.setList("US-FL"); targetCommunity.setRegion("Unimplemented");
+         */
         targetCommunities.getNhinTargetCommunity().add(targetCommunity1);
         return targetCommunities;
     }
