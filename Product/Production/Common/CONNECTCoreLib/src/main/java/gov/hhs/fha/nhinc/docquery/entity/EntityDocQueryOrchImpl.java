@@ -46,6 +46,8 @@ import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
@@ -129,27 +131,8 @@ public class EntityDocQueryOrchImpl {
         log.debug("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
 
         AdhocQueryResponse response = new AdhocQueryResponse();
-
-        // quick rig for testing to switch between a0 and a1
-        // note that a0 and a1 would be handled by different methods if they were different
-        boolean responseIsSpecA0 = true;
-        NhinEndpointManager nem = new NhinEndpointManager();
-        NhincConstants.GATEWAY_API_LEVEL gatewayLevel = nem.getApiVersion(getLocalHomeCommunityId(),
+        boolean responseIsSpecA0 = getApiLevel(getLocalHomeCommunityId(),
                 NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
-        switch (gatewayLevel) {
-        case LEVEL_g0: {
-            responseIsSpecA0 = true;
-            break;
-        }
-        case LEVEL_g1: {
-            responseIsSpecA0 = false;
-            break;
-        }
-        default: {
-            responseIsSpecA0 = true;
-            break;
-        }
-        }
         log.debug("EntityDocQueryOrchImpl set responseIsSpecA0=" + responseIsSpecA0);
 
         List<UrlInfo> urlInfoList = null;
@@ -170,11 +153,7 @@ public class EntityDocQueryOrchImpl {
             // Obtain all the URLs for the targets being sent to
 
             urlInfoList = getEndpointForNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
-            /*
-             * try { urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(targets,
-             * NhincConstants.DOC_QUERY_SERVICE_NAME); } catch (Exception ex) {
-             * log.error("EntityDocQueryOrchImpl Failed to obtain target URLs", ex); }
-             */
+
             if ((!isTargeted) || (isTargeted && NullChecker.isNotNullish(urlInfoList))) {
                 RegistryErrorList homeCommunityErrorList = new RegistryErrorList();
                 // Validate that the message is not null
@@ -291,7 +270,8 @@ public class EntityDocQueryOrchImpl {
                             response = specResponseA0(correlationsResult, callableList, transactionId, response,
                                     policyErrList);
                         } else {
-                            specResponseA1(correlationsResult, callableList, transactionId, response, policyErrList);
+                            response = specResponseA1(correlationsResult, callableList, transactionId, response,
+                                    policyErrList);
                         }
 
                         log.debug("EntityDocQueryOrchImpl taskexecutor done and received response");
@@ -332,6 +312,35 @@ public class EntityDocQueryOrchImpl {
         auditDocQueryResponse(response, assertion, auditLog);
         log.debug("Exiting EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
         return response;
+    }
+
+    /**
+     * @param localHomeCommunityId
+     * @param documentQuery
+     * @return
+     */
+    // quick rig for testing to switch between a0 and a1
+    // note that a0 and a1 would be handled by different methods if they were different
+    protected boolean getApiLevel(String localHomeCommunityId, NHIN_SERVICE_NAMES documentQuery) {
+        boolean responseIsSpecA0 = false;
+        NhinEndpointManager nem = new NhinEndpointManager();
+        NhincConstants.GATEWAY_API_LEVEL gatewayLevel = nem.getApiVersion(getLocalHomeCommunityId(),
+                NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
+        switch (gatewayLevel) {
+        case LEVEL_g0: {
+            responseIsSpecA0 = true;
+            break;
+        }
+        case LEVEL_g1: {
+            responseIsSpecA0 = false;
+            break;
+        }
+        default: {
+            responseIsSpecA0 = true;
+            break;
+        }
+        }
+        return responseIsSpecA0;
     }
 
     /**
