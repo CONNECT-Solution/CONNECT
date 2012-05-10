@@ -600,14 +600,14 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 				String purposeSystem, String purposeSystemName,
 				String purposeDisplay) {
 			return createPurposeOfUseAttribute(purposeCode, purposeSystem,
-					purposeSystemName, purposeDisplay, "hl7:PurposeOfUse");
+					purposeSystemName, purposeDisplay, "PurposeOfUse");
 		}
 
 		 Attribute createPurposeForUseAttribute(String purposeCode,
 				String purposeSystem, String purposeSystemName,
 				String purposeDisplay) {
 			return createPurposeOfUseAttribute(purposeCode, purposeSystem,
-					purposeSystemName, purposeDisplay, "hl7:PurposeForUse");
+					purposeSystemName, purposeDisplay, "PurposeForUse");
 		}
 
 		Attribute createPurposeOfUseAttribute(String purposeCode,
