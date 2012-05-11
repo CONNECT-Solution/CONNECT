@@ -40,8 +40,8 @@
 
     <xsd:complexType name="EntityPerformanceLogQueryRequestType" >
         <xsd:sequence>
-            <xsd:element name="beginTime" type="xsd:date"/>
-            <xsd:element name="endTime" type="xsd:date"/>
+            <xsd:element name="beginTime" type="xsd:dateTime"/>
+            <xsd:element name="endTime" type="xsd:dateTime"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="EntityPerformanceLogQueryRequest" type="tns:EntityPerformanceLogQueryRequestType" />
