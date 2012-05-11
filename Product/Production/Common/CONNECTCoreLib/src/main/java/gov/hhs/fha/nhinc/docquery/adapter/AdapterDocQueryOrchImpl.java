@@ -11,12 +11,18 @@ import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryPr
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.sql.Timestamp;
+import java.util.List;
+import javax.xml.bind.JAXBElement;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import org.apache.commons.logging.Log;
@@ -71,6 +77,46 @@ public class AdapterDocQueryOrchImpl {
                 response = registryProxy.registryStoredQuery(request, assertion);
                 response = callRedactionEngine(request, response, assertion);
 
+                /*
+                 * AEGIS.net, Inc. (c) 2012 - VLER Support
+                 * Richard Ettema | 2012-05-01 | CONNECT Gateway 2110
+                 * Examine the AdhocQueryResponse for present and valid home attributes
+                 */
+                log.info("NhinDocQueryOrchImpl.forwardToAgency - Examine the AdhocQueryResponse for present and valid home attributes");
+                if (response != null &&
+                        response.getRegistryObjectList() != null &&
+                        response.getRegistryObjectList().getIdentifiable() != null &&
+                        response.getRegistryObjectList().getIdentifiable().size() > 0) {
+                    
+                    String communityID = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+                    if (communityID != null && !communityID.startsWith("urn:oid:")) {
+                        communityID = "urn:oid:" + communityID;
+                    }
+                    List<JAXBElement<? extends IdentifiableType>> extrinsicObjects = response.getRegistryObjectList().getIdentifiable();
+
+                    if (extrinsicObjects != null && extrinsicObjects.size() > 0) {
+                        for (JAXBElement<? extends IdentifiableType> jaxb : extrinsicObjects) {
+                            if (jaxb.getValue() instanceof ObjectRefType) {
+                                ObjectRefType objectRef = (ObjectRefType) jaxb.getValue();
+
+                                if (objectRef != null &&
+                                        (objectRef.getHome() == null || objectRef.getHome().isEmpty())) {
+                                    log.info("NhinDocQueryOrchImpl.forwardToAgency - objectRef without valid home attribute found; setting local home community id " + communityID);
+                                    objectRef.setHome(communityID);
+                                }
+                            }
+                            if (jaxb.getValue() instanceof ExtrinsicObjectType) {
+                                ExtrinsicObjectType extrinsicObject = (ExtrinsicObjectType) jaxb.getValue();
+
+                                if (extrinsicObject != null &&
+                                        (extrinsicObject.getHome() == null || extrinsicObject.getHome().isEmpty())) {
+                                    log.info("NhinDocQueryOrchImpl.forwardToAgency - extrinsicObject without valid home attribute found; setting local home community id " + communityID);
+                                    extrinsicObject.setHome(communityID);
+                                }
+                            }
+                        }
+                    }
+                }
                 // Log the end of the adapter performance record
                 Timestamp stoptime = new Timestamp(System.currentTimeMillis());
                 PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
