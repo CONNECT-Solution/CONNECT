@@ -291,7 +291,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	 */
 	static Evidence createEvidence(CallbackProperties properties) {
 		log.debug("SamlCallbackHandler.createEvidence() -- Begin");
-
+                DateTime now = new DateTime();
+                
 		List<Assertion> evidenceAssertions = new ArrayList<Assertion>();
 		String evAssertionID = properties.getEvidenceID();
 		if (evAssertionID == null) {
@@ -314,21 +315,29 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 				.createIssuer(format, issuer);
 
 		DateTime beginValidTime = properties.getEvidenceConditionNotBefore();
-		if (beginValidTime == null) {
-			beginValidTime = new DateTime();
+                if (beginValidTime == null || beginValidTime.isAfter(now)){
+                    beginValidTime = now;
 		}
+
+                //If provided time is after the given issue instant,
+                //  modify it to include the issue instant
+                if (beginValidTime.isAfter(issueInstant)){
+                    if(issueInstant.isAfter(now))
+                        beginValidTime = now;
+                    else
+                        beginValidTime = issueInstant;
+                }
 
 		DateTime endValidTime = properties.getEvidenceConditionNotAfter();
-		if (endValidTime == null) {
-			endValidTime = new DateTime().plusMinutes(5);
+                //Make end datetime at a minimum 5 minutes from now
+		if (endValidTime == null || endValidTime.isBefore(now.plusMinutes(5))) {
+			endValidTime = now.plusMinutes(5);
 		}
 
-		if (beginValidTime.isAfter(endValidTime)) {
-			// set beginning time to now
-			beginValidTime = new DateTime();
-			log.warn("The beginning time for the valid evidence should be before the ending time.  "
-					+ "Setting the beginning time to the current system time.");
-		}
+                //Ensure issueInstant is contained within valid times
+		if(endValidTime.isBefore(issueInstant)){
+                    endValidTime = issueInstant.plusMinutes(5);
+                }
 
 		Conditions conditions = OpenSAML2ComponentBuilder.getInstance()
 				.createConditions(beginValidTime, endValidTime, null);
