@@ -97,11 +97,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 			// set issuer
 			assertion.setIssuer(createIssuer(properties));
 
-			RSAPublicKey publicKey = (RSAPublicKey) certificateManager
-					.getDefaultPublicKey();
-
 			// set subject
-			assertion.setSubject(createSubject(properties, publicKey));
+			assertion.setSubject(createSubject(properties));
 
 			// add attribute statements
 			assertion.getStatements().addAll(
@@ -178,13 +175,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	 * @return
 	 * @throws Exception
 	 */
-	static Subject createSubject(CallbackProperties properties,
-			RSAPublicKey publicKey) throws Exception {
-		org.opensaml.saml2.core.Subject subject = null;
+	static Subject createSubject(CallbackProperties properties) throws Exception {
+		Subject subject = null;
 		String x509Name = "UID=" + properties.getUsername();
 
-		OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name,
-				publicKey);
+		subject = OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name);
 		return subject;
 	}
 
