@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
@@ -332,7 +333,15 @@ public class DocumentDao
                             log.debug("Document query - class code: " + classCode);
                             }
                         }
-                        criteria.add(Expression.in("classCode", classCodes));
+                        List<String> cleanedClassCodes = new ArrayList<String>();
+                        for (String cleanClassCode : classCodes) {
+                            if (cleanClassCode != null && cleanClassCode.length() > 0) {
+                                cleanedClassCodes.add(cleanClassCode);
+                            }
+                        }
+                        if (cleanedClassCodes.size() > 0) {
+                            criteria.add(Expression.in("classCode", cleanedClassCodes));
+                        }
                     }
 
                     if (classCodeScheme != null)
@@ -407,7 +416,15 @@ public class DocumentDao
                                 log.debug("Document query - status: " + status);
                             }
                         }
-                        criteria.add(Expression.in("status", statuses));
+                        List<String> cleanedStatuses = new ArrayList<String>();
+                        for (String cleanStatus : statuses) {
+                            if (cleanStatus != null && cleanStatus.length() > 0) {
+                                cleanedStatuses.add(cleanStatus);
+                            }
+                        }
+                        if (cleanedStatuses.size() > 0) {
+                            criteria.add(Expression.in("status", cleanedStatuses));
+                        }
                     }
 
                     if ((documentUniqueIds != null) && (!documentUniqueIds.isEmpty()))
