@@ -6,13 +6,26 @@ package gov.hhs.fha.nhinc.callback.openSAML;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import java.math.BigInteger;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore.PrivateKeyEntry;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.Principal;
 import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SignatureException;
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateExpiredException;
+import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
@@ -22,6 +35,7 @@ import org.joda.time.DateTime;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.opensaml.saml2.core.AuthnStatement;
+import org.opensaml.xml.signature.impl.X509CertificateBuilder;
 import org.w3c.dom.Element;
 
 /**
@@ -90,7 +104,171 @@ public class HOKSAMLAssertionBuilderTest {
 					@Override
 					public X509Certificate getDefaultCertificate() throws Exception {
 						// TODO Auto-generated method stub
-						return null;
+						return new X509Certificate() {
+							
+							@Override
+							public boolean hasUnsupportedCriticalExtension() {
+								// TODO Auto-generated method stub
+								return false;
+							}
+							
+							@Override
+							public Set<String> getNonCriticalExtensionOIDs() {
+								// TODO Auto-generated method stub
+								return Collections.EMPTY_SET;
+							}
+							
+							@Override
+							public byte[] getExtensionValue(String oid) {
+								// TODO Auto-generated method stub
+								return new byte[1];
+							}
+							
+							@Override
+							public Set<String> getCriticalExtensionOIDs() {
+								// TODO Auto-generated method stub
+								return Collections.EMPTY_SET;
+							}
+							
+							@Override
+							public void verify(PublicKey key, String sigProvider)
+									throws CertificateException, NoSuchAlgorithmException,
+									InvalidKeyException, NoSuchProviderException, SignatureException {
+								// TODO Auto-generated method stub
+								
+							}
+							
+							@Override
+							public void verify(PublicKey key) throws CertificateException,
+									NoSuchAlgorithmException, InvalidKeyException,
+									NoSuchProviderException, SignatureException {
+								// TODO Auto-generated method stub
+								
+							}
+							
+							@Override
+							public String toString() {
+								// TODO Auto-generated method stub
+								return null;
+							}
+							
+							@Override
+							public PublicKey getPublicKey() {
+								// TODO Auto-generated method stub
+								return publicKey;
+							}
+							
+							@Override
+							public byte[] getEncoded() throws CertificateEncodingException {
+								// TODO Auto-generated method stub
+								return new byte[1];
+							}
+							
+							@Override
+							public int getVersion() {
+								// TODO Auto-generated method stub
+								return 0;
+							}
+							
+							@Override
+							public byte[] getTBSCertificate() throws CertificateEncodingException {
+								// TODO Auto-generated method stub
+								return new byte[1];
+							}
+							
+							@Override
+							public boolean[] getSubjectUniqueID() {
+								// TODO Auto-generated method stub
+								return new boolean[1];
+							}
+							
+							@Override
+							public Principal getSubjectDN() {
+								// TODO Auto-generated method stub
+								return null;
+							}
+							
+							@Override
+							public byte[] getSignature() {
+								// TODO Auto-generated method stub
+								return new byte[1];
+							}
+							
+							@Override
+							public byte[] getSigAlgParams() {
+								// TODO Auto-generated method stub
+								return new byte[1];
+							}
+							
+							@Override
+							public String getSigAlgOID() {
+								// TODO Auto-generated method stub
+								return null;
+							}
+							
+							@Override
+							public String getSigAlgName() {
+								// TODO Auto-generated method stub
+								return null;
+							}
+							
+							@Override
+							public BigInteger getSerialNumber() {
+								// TODO Auto-generated method stub
+								return null;
+							}
+							
+							@Override
+							public Date getNotBefore() {
+								// TODO Auto-generated method stub
+								return null;
+							}
+							
+							@Override
+							public Date getNotAfter() {
+								// TODO Auto-generated method stub
+								return null;
+							}
+							
+							@Override
+							public boolean[] getKeyUsage() {
+								// TODO Auto-generated method stub
+								return new boolean[1];
+							}
+							
+							@Override
+							public boolean[] getIssuerUniqueID() {
+								// TODO Auto-generated method stub
+								return new boolean[1];
+							}
+							
+							@Override
+							public Principal getIssuerDN() {
+								// TODO Auto-generated method stub
+								return null;
+							}
+							
+							@Override
+							public int getBasicConstraints() {
+								// TODO Auto-generated method stub
+								return 0;
+							}
+							
+							@Override
+							public void checkValidity(Date date) throws CertificateExpiredException,
+									CertificateNotYetValidException {
+								// TODO Auto-generated method stub
+								
+							}
+							
+							@Override
+							public void checkValidity() throws CertificateExpiredException,
+									CertificateNotYetValidException {
+								// TODO Auto-generated method stub
+								
+							}
+						};
+								
 					}
 				});
 		Element assertion = builder.build(getProperties());
@@ -112,169 +290,169 @@ public class HOKSAMLAssertionBuilderTest {
 			@Override
 			public String getUsername() {
 				// TODO Auto-generated method stub
-				return null;
+				return "userName";
 			}
 
 			@Override
 			public String getUserSystemName() {
 				// TODO Auto-generated method stub
-				return null;
+				return "sytemName";
 			}
 
 			@Override
 			public String getUserSystem() {
 				// TODO Auto-generated method stub
-				return null;
+				return "userSystem";
 			}
 
 			@Override
 			public String getUserOrganization() {
 				// TODO Auto-generated method stub
-				return null;
+				return "uerOrg";
 			}
 
 			@Override
 			public String getUserFullName() {
 				// TODO Auto-generated method stub
-				return null;
+				return "Full Name";
 			}
 
 			@Override
 			public String getUserDisplay() {
 				// TODO Auto-generated method stub
-				return null;
+				return "display";
 			}
 
 			@Override
 			public String getUserCode() {
 				// TODO Auto-generated method stub
-				return null;
+				return "userCode";
 			}
 
 			@Override
 			public String getSubjectLocality() {
 				// TODO Auto-generated method stub
-				return null;
+				return "subject";
 			}
 
 			@Override
 			public String getSubjectDNS() {
 				// TODO Auto-generated method stub
-				return null;
+				return "dns";
 			}
 
 			@Override
 			public String getPurposeSystemName() {
 				// TODO Auto-generated method stub
-				return null;
+				return "systemname";
 			}
 
 			@Override
 			public String getPurposeSystem() {
 				// TODO Auto-generated method stub
-				return null;
+				return "purpose";
 			}
 
 			@Override
 			public String getPurposeDisplay() {
 				// TODO Auto-generated method stub
-				return null;
+				return "disply";
 			}
 
 			@Override
 			public String getPurposeCode() {
 				// TODO Auto-generated method stub
-				return null;
+				return "code";
 			}
 
 			@Override
 			public String getPatientID() {
 				// TODO Auto-generated method stub
-				return null;
+				return "pid";
 			}
 
 			@Override
 			public String getIssuer() {
 				// TODO Auto-generated method stub
-				return null;
+				return "issuer";
 			}
 
 			@Override
 			public String getHomeCommunity() {
 				// TODO Auto-generated method stub
-				return null;
+				return "hci";
 			}
 
 			@Override
 			public String getEvidenceIssuerFormat() {
 				// TODO Auto-generated method stub
-				return null;
+				return "format";
 			}
 
 			@Override
 			public String getEvidenceIssuer() {
 				// TODO Auto-generated method stub
-				return null;
+				return "issuer";
 			}
 
 			@Override
 			public DateTime getEvidenceInstant() {
 				// TODO Auto-generated method stub
-				return null;
+				return new DateTime();
 			}
 
 			@Override
 			public List getEvidenceInstantAccessConsent() {
 				// TODO Auto-generated method stub
-				return null;
+				return Collections.EMPTY_LIST;
 			}
 
 			@Override
 			public String getEvidenceID() {
 				// TODO Auto-generated method stub
-				return null;
+				return "evidence id";
 			}
 
 			@Override
 			public DateTime getEvidenceConditionNotBefore() {
 				// TODO Auto-generated method stub
-				return null;
+				return new DateTime();
 			}
 
 			@Override
 			public DateTime getEvidenceConditionNotAfter() {
 				// TODO Auto-generated method stub
-				return null;
+				return new DateTime();
 			}
 
 			@Override
 			public List getEvidenceAccessConstent() {
 				// TODO Auto-generated method stub
-				return null;
+				return Collections.EMPTY_LIST;
 			}
 
 			@Override
 			public String getAuthnicationResource() {
 				// TODO Auto-generated method stub
-				return null;
+				return "resource";
 			}
 
 			@Override
 			public Boolean getAuthenicationStatementExists() {
 				// TODO Auto-generated method stub
-				return null;
+				return false;
 			}
 
 			@Override
 			public String getAuthenicationSessionIndex() {
 				// TODO Auto-generated method stub
-				return null;
+				return "1";
 			}
 
 			@Override
 			public DateTime getAuthenicationInstant() {
 				// TODO Auto-generated method stub
-				return null;
+				return new DateTime();
 			}
 
 			@Override
@@ -286,13 +464,13 @@ public class HOKSAMLAssertionBuilderTest {
 			@Override
 			public String getAuthenicationContextClass() {
 				// TODO Auto-generated method stub
-				return null;
+				return "cntx";
 			}
 
 			@Override
 			public String getAssertionIssuerFormat() {
 				// TODO Auto-generated method stub
-				return null;
+				return "format";
 			}
 		};
 	}

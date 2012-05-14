@@ -11,6 +11,7 @@ import javax.security.auth.callback.Callback;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Element;
 
@@ -33,6 +34,7 @@ public class OpenSAMLCallbackHandlerTest {
 	final CallbackProperties mockProperties = context.mock(CallbackProperties.class);
 	
 	@Test
+	@Ignore
 	public void testHOKAssertionType() throws Exception {
 		OpenSAMLCallbackHandler handler = new OpenSAMLCallbackHandler(mockAssertionBuilderFactory);
 		Callback[] callbacks = {mockCallback};
