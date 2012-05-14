@@ -88,7 +88,7 @@ public class PropertyAccessHelperTest
     @BeforeClass
     public static void setUpClass() throws Exception
     {
-        m_sPropertiesDir = PropertyAccessor.getPropertyFileLocation();
+        m_sPropertiesDir = PropertyAccessor.getInstance().getPropertyFileLocation();
         
         // Create some property files to be used for our testing...
         //---------------------------------------------------------

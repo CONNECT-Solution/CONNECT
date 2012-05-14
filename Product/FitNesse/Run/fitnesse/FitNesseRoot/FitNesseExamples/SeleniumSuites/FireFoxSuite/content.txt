@@ -1,6 +1,0 @@
-
-This variable controls what browser will be used in this suite of tests.  The value '*chrome' is a special mode of FireFox: it operates in a degraded level of security allowing Javascript more rights.  This can be helpful as it allows more testing scenarios.
-!define Selenium.Browser {*chrome}
-
-This is a symbolic link to .FitNesseExamples.SeleniumSuites.RegressionSuite:
-!contents -R2 -g -p -f -h

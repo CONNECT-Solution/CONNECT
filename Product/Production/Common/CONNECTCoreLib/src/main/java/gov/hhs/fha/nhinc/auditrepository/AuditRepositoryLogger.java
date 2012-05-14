@@ -110,7 +110,7 @@ public class AuditRepositoryLogger {
     public AuditRepositoryLogger() {
         log.debug("Entering AuditRepositoryLogger.isServiceEnabled(...)");
         try {
-            serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            serviceEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.AUDIT_LOG_SERVICE_PROPERTY);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.AUDIT_LOG_SERVICE_PROPERTY

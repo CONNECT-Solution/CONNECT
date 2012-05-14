@@ -3,8 +3,7 @@
 	<handler-chains>
 		<handler-chain>
 			<handler>
-				<handler-class>gov.hhs.fha.nhinc.hiem._20.nhin.notify.NotifyHeaderHandler
-				</handler-class>
+				<handler-class>gov.hhs.fha.nhinc.hiem._20.nhin.notify.NotifyHeaderHandler</handler-class>
 			</handler>
 		</handler-chain>
 	</handler-chains>

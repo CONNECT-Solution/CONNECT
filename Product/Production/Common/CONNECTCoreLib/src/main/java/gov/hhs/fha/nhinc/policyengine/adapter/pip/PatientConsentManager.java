@@ -94,7 +94,7 @@ public class PatientConsentManager {
             // Get the real endpoint URL for this service.
             // --------------------------------------------
             String sEndpointURL = "";
-            String xdsHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
+            String xdsHomeCommunityId = PropertyAccessor.getInstance().getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
             if (xdsHomeCommunityId != null && !xdsHomeCommunityId.equals("")) {
                 sEndpointURL = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(xdsHomeCommunityId,
                         CDAConstants.DOC_REGISTRY_SERVICE_NAME);
@@ -139,7 +139,7 @@ public class PatientConsentManager {
             // Get the real endpoint URL for this service.
             // --------------------------------------------
             String sEndpointURL = "";
-            String xdsHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
+            String xdsHomeCommunityId = PropertyAccessor.getInstance().getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
             if (xdsHomeCommunityId != null && !xdsHomeCommunityId.equals("")) {
                 sEndpointURL = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(xdsHomeCommunityId,
                         CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
@@ -310,7 +310,7 @@ public class PatientConsentManager {
         // If a matching document id is found the target will not be empty
         String sTargetObject = checkCPPMetaFromRepositoryUsingXDSb(oPtPref.getPatientId(),
                 oPtPref.getAssigningAuthority(), sUniqueDocumentId, sMimeType);
-        String sHomeCommunityId = PropertyAccessor.getProperty("gateway", "localHomeCommunityId");
+        String sHomeCommunityId = PropertyAccessor.getInstance().getProperty("gateway", "localHomeCommunityId");
         PatientConsentDocumentBuilderHelper oPatConsentDocBuilderHelper = new PatientConsentDocumentBuilderHelper();
         SubmitObjectsRequest oSubmitObjectRequest = oPatConsentDocBuilderHelper.createSubmitObjectRequest(
                 sTargetObject, sHomeCommunityId, sUniqueDocumentId, sMimeType, oPtPref);

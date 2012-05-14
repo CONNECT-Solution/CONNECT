@@ -144,7 +144,7 @@ public class AdapterDocQuerySecuredImpl {
         oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse out = setupBaseOutput();
 
         try {
-            sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException e) {
             log.error("Failed to read " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY + " property from the "
@@ -574,7 +574,7 @@ public class AdapterDocQuerySecuredImpl {
         String repositoryId = "";
 
         try {
-            repositoryId = PropertyAccessor.getProperty(AdapterConstants.REPOSITORY_PROPERTY_FILE,
+            repositoryId = PropertyAccessor.getInstance().getProperty(AdapterConstants.REPOSITORY_PROPERTY_FILE,
                     AdapterConstants.DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP);
         } catch (PropertyAccessException e) {
             log.error("Error accessing property:" + AdapterConstants.DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP + " in file:"

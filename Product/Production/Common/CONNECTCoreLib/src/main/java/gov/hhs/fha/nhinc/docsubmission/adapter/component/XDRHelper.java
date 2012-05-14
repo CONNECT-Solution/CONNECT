@@ -279,7 +279,7 @@ public class XDRHelper {
         boolean checkIds = false;
 
         try {
-            checkIds = PropertyAccessor.getPropertyBoolean("adapter", "XDR.CheckPatientIdsMatch");
+            checkIds = PropertyAccessor.getInstance().getPropertyBoolean("adapter", "XDR.CheckPatientIdsMatch");
         } catch (Exception ex) {
             log.error("Unable to load XDR.CheckPatientIdsMatch");
         }
@@ -302,10 +302,10 @@ public class XDRHelper {
     }
 
     protected String[] getSupportedMimeTypes() {
-        String[] mimeArray = null;
+        String[] mimeArray = new String[0];
 
         try {
-            String list = PropertyAccessor.getProperty("adapter", "XDR.SupportedMimeTypes");
+            String list = PropertyAccessor.getInstance().getProperty("adapter", "XDR.SupportedMimeTypes");
             mimeArray = list.split(";");
 
         } catch (Exception ex) {

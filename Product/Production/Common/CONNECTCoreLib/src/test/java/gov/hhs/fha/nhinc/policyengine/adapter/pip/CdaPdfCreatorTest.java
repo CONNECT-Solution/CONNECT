@@ -230,7 +230,7 @@ public class CdaPdfCreatorTest {
 
         // get Home Community ID for later comparisons.
         // ----------------------------------------------
-        sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+        sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
     }
 

@@ -159,7 +159,7 @@ public class PatientSearchFacade {
                             personName = new PersonName();
                             personName.setFirstName(name.getGivenName());
                             personName.setLastName(name.getFamilyName());
-                            searchPatient.setName(personName);
+                            searchPatient.getNames().add(personName);
                         }
 
                     } else {
@@ -192,7 +192,7 @@ public class PatientSearchFacade {
         for (Patient patient : mpiPatients) {
             PatientVO patientVO = new PatientVO();
 
-            PersonName name = patient.getName();
+            PersonName name = patient.getNames().get(0);
 
             if (name != null) {
                 patientVO.setFirstName(name.getFirstName());

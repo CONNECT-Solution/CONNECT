@@ -115,7 +115,6 @@
 		    <include name="SpringFramework/*.jar"/>
 		    <include name="Xerces/*.jar"/>
 		    <include name="OpenSSO/*.jar"/>
-		    <include name="UDDIModifierLib/json-*.jar"/>
 		</fileset>
 	  </copy>
   </target>

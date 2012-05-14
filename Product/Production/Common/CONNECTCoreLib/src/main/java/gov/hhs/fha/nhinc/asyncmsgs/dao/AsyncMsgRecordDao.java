@@ -647,7 +647,7 @@ public class AsyncMsgRecordDao {
         String units = null;
 
         try {
-            value = PropertyAccessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
+            value = PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP + " from property file: "
@@ -656,7 +656,7 @@ public class AsyncMsgRecordDao {
         }
 
         try {
-            units = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            units = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP

@@ -42,9 +42,12 @@
         <condition property="is.windows">
             <os family="windows"/>
         </condition>
+        <condition property="is.linux">
+            <os family="unix"/>
+        </condition>
     </target>
     
-    <target name="setup" depends="setup.for.mac, setup.for.windows">
+    <target name="setup" depends="setup.for.mac, setup.for.windows, setup.for.linux">
         <property name="metro.zip.file" value="${temp.dir}/metro-2.1.1.zip"/>
         <get src="https://developer.connectopensource.org/download/attachments/20316168/metro-2.1.1.zip" dest="${metro.zip.file}"/>
     </target>
@@ -52,6 +55,11 @@
     <target name="setup.for.mac" if="is.mac">
         <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.mac.zip"/>
         <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.mac.zip" dest="${glassfish.zip.file}"/>
+    </target>
+    
+    <target name="setup.for.linux" if="is.linux" unless="is.mac">
+        <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.linux.zip"/>
+        <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.linux.zip" dest="${glassfish.zip.file}"/>
     </target>
     
     <target name="setup.for.windows"  if="is.windows">
@@ -87,6 +95,10 @@
             <replacevalue><![CDATA[<contains string="${targeted.java.version}" substring="1.7"/>]]></replacevalue>
         </replace>
         <replace file="${glassfish.install.ant.script}" token="requires JDK 1.5 or higher" value="requires JDK 1.7"/>
+        <replace file="${glassfish.install.ant.script}">
+            <replacetoken><![CDATA[Current Java Version ${java.version}]]></replacetoken>
+            <replacevalue><![CDATA[Current Local Java Home ${local.java.home}, Current Java Version ${java.version}]]></replacevalue>
+        </replace>
 		<if>
 			<istrue value="${is.windows}"/>
 			<then>
@@ -95,6 +107,7 @@
 			<else>
 				<ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}">
 					<property name="java.home" value="${env.JAVA_HOME}"/>
+                    <property name="local.java.home" value="${env.JAVA_HOME}"/>
 				</ant>
 			</else>
         </if>

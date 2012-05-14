@@ -166,7 +166,7 @@ public class CdaPdfCreator {
     private String getHomeCommunityId() throws AdapterPIPException {
         String sHomeCommunityId = null;
         try {
-            sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve home community ID from gateway properties file.  Error: "

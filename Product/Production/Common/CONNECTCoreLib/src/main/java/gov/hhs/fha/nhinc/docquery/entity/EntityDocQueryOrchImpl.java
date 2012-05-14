@@ -46,6 +46,8 @@ import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
@@ -60,6 +62,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -95,6 +98,7 @@ public class EntityDocQueryOrchImpl {
     public EntityDocQueryOrchImpl() {
         // for this default test case, we just create default executor services
         // with a thread pool of 1
+        log = createLogger();
         regularExecutor = Executors.newFixedThreadPool(1);
         largejobExecutor = Executors.newFixedThreadPool(1);
     }
@@ -113,8 +117,6 @@ public class EntityDocQueryOrchImpl {
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
-    
-   
 
     /**
      * 
@@ -129,27 +131,8 @@ public class EntityDocQueryOrchImpl {
         log.debug("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
 
         AdhocQueryResponse response = new AdhocQueryResponse();
-        
-        // quick rig for testing to switch between a0 and a1
-        // note that a0 and a1 would be handled by different methods if they were different
-        boolean responseIsSpecA0 = true;
-        NhinEndpointManager nem = new NhinEndpointManager();
-        NhincConstants.GATEWAY_API_LEVEL gatewayLevel = nem.getApiVersion(
-                getLocalHomeCommunityId(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
-        switch (gatewayLevel) {
-        case LEVEL_g0: {
-            responseIsSpecA0 = true;
-            break;
-        }
-        case LEVEL_g1: {
-            responseIsSpecA0 = false;
-            break;
-        }
-        default: {
-            responseIsSpecA0 = true;
-            break;
-        }
-        }
+        boolean responseIsSpecA0 = getApiLevel(getLocalHomeCommunityId(),
+                NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
         log.debug("EntityDocQueryOrchImpl set responseIsSpecA0=" + responseIsSpecA0);
 
         List<UrlInfo> urlInfoList = null;
@@ -168,177 +151,256 @@ public class EntityDocQueryOrchImpl {
             }
 
             // Obtain all the URLs for the targets being sent to
-            try {
-                urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(targets,
-                        NhincConstants.DOC_QUERY_SERVICE_NAME);
-            } catch (Exception ex) {
-                log.error("EntityDocQueryOrchImpl Failed to obtain target URLs", ex);
-            }
 
-            // Validate that the message is not null
-            if (adhocQueryRequest != null && adhocQueryRequest.getAdhocQuery() != null
-                    && NullChecker.isNotNullish(adhocQueryRequest.getAdhocQuery().getSlot())) {
-                List<SlotType1> slotList = adhocQueryRequest.getAdhocQuery().getSlot();
-                String localAA = new EntityDocQueryHelper().getLocalAssigningAuthority(slotList);
-                String uniquePatientId = new EntityDocQueryHelper().getUniquePatientId(slotList);
-                log.debug("EntityDocQueryOrchImpl uniquePatientId: " + uniquePatientId + " and localAA=" + localAA);
+            urlInfoList = getEndpointForNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
 
-                List<QualifiedSubjectIdentifierType> correlationsResult = new EntityDocQueryHelper()
-                        .retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted, getLocalHomeCommunityId());
+            if ((!isTargeted) || (isTargeted && NullChecker.isNotNullish(urlInfoList))) {
+                RegistryErrorList homeCommunityErrorList = new RegistryErrorList();
+                // Validate that the message is not null
+                if (adhocQueryRequest != null && adhocQueryRequest.getAdhocQuery() != null
+                        && NullChecker.isNotNullish(adhocQueryRequest.getAdhocQuery().getSlot())) {
+                    List<SlotType1> slotList = adhocQueryRequest.getAdhocQuery().getSlot();
+                    String localAA = new EntityDocQueryHelper().getLocalAssigningAuthority(slotList);
+                    String uniquePatientId = new EntityDocQueryHelper().getUniquePatientId(slotList);
+                    log.debug("EntityDocQueryOrchImpl uniquePatientId: " + uniquePatientId + " and localAA=" + localAA);
 
-                if (NullChecker.isNotNullish(correlationsResult)) {
+                    List<QualifiedSubjectIdentifierType> correlationsResult = retrieveCorrelation(slotList,
+                            urlInfoList, assertion, isTargeted, getLocalHomeCommunityId());
 
-                    List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList = new ArrayList<NhinCallableRequest<OutboundDocQueryOrchestratable>>();
-                    String transactionId = (UUID.randomUUID()).toString();
+                    if (NullChecker.isNotNullish(correlationsResult)) {
 
-                    // we hold the error messages for any failed policy checks in policyErrList
-                    RegistryErrorList policyErrList = new RegistryErrorList();
+                        List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList = new ArrayList<NhinCallableRequest<OutboundDocQueryOrchestratable>>();
+                        String transactionId = (UUID.randomUUID()).toString();
 
-                    for (QualifiedSubjectIdentifierType identifier : correlationsResult) {
-                        log.debug("EntityDocQueryOrchImpl correlated target aaid=" + identifier.getAssigningAuthorityIdentifier());
-                        NhinTargetSystemType target = new NhinTargetSystemType();
+                        // we hold the error messages for any failed policy checks in policyErrList
+                        RegistryErrorList policyErrList = new RegistryErrorList();
 
-                        HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(
-                                identifier.getAssigningAuthorityIdentifier(), localAA, getLocalHomeCommunityId());
-                        String sTargetHomeCommunityId = null;
-                        if (targetCommunity != null) {
-                        	target.setHomeCommunity(targetCommunity);
-                            sTargetHomeCommunityId = targetCommunity.getHomeCommunityId();
-                        }
-
-                        log.debug("EntityDocQueryOrchImpl correlated target hcid=" + targetCommunity.getHomeCommunityId());
-	
-                        if (isValidPolicy(adhocQueryRequest, assertion, targetCommunity)) {
-                            OutboundDelegate nd = new OutboundDocQueryDelegate();
-                            OutboundResponseProcessor np = null;
-                            if (responseIsSpecA0) {
-                                np = new OutboundDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
-                            } else {
-                                np = new OutboundDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
-                            }
-
-                            // clone the request
-                            AdhocQueryRequest clonedRequest = cloneRequest(adhocQueryRequest);
-                            // replace the patient id slot
-                            String formattedPatientId = PatientIdFormatUtil.hl7EncodePatientId(
-                                    identifier.getSubjectIdentifier(), identifier.getAssigningAuthorityIdentifier());
-                            List<SlotType1> slotType1 = clonedRequest.getAdhocQuery().getSlot();
-                            Iterator<SlotType1> iterSlotType1 = slotType1.iterator();
-                            while (iterSlotType1.hasNext()) {
-                                SlotType1 slot = iterSlotType1.next();
-                                if ((slot.getName() != null)
-                                        && (slot.getName().equals(DocumentTransformConstants.EBXML_DOCENTRY_PATIENT_ID))) {
-                                    ValueListType slotValueList = new ValueListType();
-                                    slotValueList.getValue().add(formattedPatientId);
-                                    slot.setValueList(slotValueList);
-                                }
-                            }
-                            // set the home community id to the target hcid
-                            if (NullChecker.isNotNullish(sTargetHomeCommunityId)) {
-                                clonedRequest.getAdhocQuery().setHome(sTargetHomeCommunityId);
-                            }
-                            
-                            OutboundDocQueryOrchestratable message = new OutboundDocQueryOrchestratable(nd, np, null,
-                                    null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, 
-                                    clonedRequest);
-                            callableList.add(new NhinCallableRequest<OutboundDocQueryOrchestratable>(message));
-
-                            log.debug("EntityDocQueryOrchImpl added NhinCallableRequest" + " for hcid="
-                                    + target.getHomeCommunity().getHomeCommunityId() + " with formattedPatientId=" + formattedPatientId);
-                        } else {
-                            RegistryError regErr = new RegistryError();
-                            regErr.setCodeContext("Policy Check Failed for homeId="
-                                    + target.getHomeCommunity().getHomeCommunityId() + " and aaId="
+                        for (QualifiedSubjectIdentifierType identifier : correlationsResult) {
+                            log.debug("EntityDocQueryOrchImpl correlated target aaid="
                                     + identifier.getAssigningAuthorityIdentifier());
-                            regErr.setErrorCode("XDSRepositoryError");
-                            regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-                            policyErrList.getRegistryError().add(regErr);
-                       }
-                   }
+                            NhinTargetSystemType target = new NhinTargetSystemType();
+                            HomeCommunityType targetCommunity = getTargetCommunity(
+                                    identifier.getAssigningAuthorityIdentifier(), localAA, getLocalHomeCommunityId());
+                            /*
+                             * HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(
+                             * identifier.getAssigningAuthorityIdentifier(), localAA, getLocalHomeCommunityId());
+                             */
+                            String sTargetHomeCommunityId = null;
+                            if (targetCommunity != null) {
+                                target.setHomeCommunity(targetCommunity);
+                                sTargetHomeCommunityId = targetCommunity.getHomeCommunityId();
+                            }
 
-                    // note that if responseIsSpecA0 taskexecutor is set to return OutboundDocQueryOrchestratable_a0
-                    // else taskexecutor set to return OutboundDocQueryOrchestratable_a1
-                    OutboundDocQueryOrchestratable_a0 orchResponse_g0 = null;
-                    OutboundDocQueryOrchestratable_a1 orchResponse_g1 = null;                    
-                    if (responseIsSpecA0) {
-                        if (callableList.size() > 0) {
-                            NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable>(
-                                    ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(
-                                            correlationsResult.size()) ? largejobExecutor : regularExecutor,
-                                    callableList, transactionId);
-                            dqexecutor.executeTask();
-                            orchResponse_g0 = (OutboundDocQueryOrchestratable_a0) dqexecutor.getFinalResponse();
-                            response = orchResponse_g0.getCumulativeResponse();
-                        } else {
-                            log.debug("No callable requests were sent out.  Setting response to failure.");
-                            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-                        }
-                        
-                        // add any errors from policyErrList to response
-                        if (policyErrList.getRegistryError() != null
-                                && !policyErrList.getRegistryError().isEmpty()) {
-                            if (response.getRegistryErrorList() == null) {
-                                response.setRegistryErrorList(policyErrList);
-                            } else if (response.getRegistryErrorList().getRegistryError() != null) {
-                                response.getRegistryErrorList().getRegistryError()
-                                        .addAll(policyErrList.getRegistryError());
+                            log.debug("EntityDocQueryOrchImpl correlated target hcid="
+                                    + targetCommunity.getHomeCommunityId());
+
+                            if (isValidPolicy(adhocQueryRequest, assertion, targetCommunity)) {
+                                OutboundDelegate nd = new OutboundDocQueryDelegate();
+                                OutboundResponseProcessor np = null;
+                                if (responseIsSpecA0) {
+                                    np = new OutboundDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+                                } else {
+                                    np = new OutboundDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
+                                }
+
+                                // clone the request
+                                AdhocQueryRequest clonedRequest = cloneRequest(adhocQueryRequest);
+                                // replace the patient id slot
+                                String formattedPatientId = PatientIdFormatUtil
+                                        .hl7EncodePatientId(identifier.getSubjectIdentifier(),
+                                                identifier.getAssigningAuthorityIdentifier());
+                                List<SlotType1> slotType1 = clonedRequest.getAdhocQuery().getSlot();
+                                Iterator<SlotType1> iterSlotType1 = slotType1.iterator();
+                                while (iterSlotType1.hasNext()) {
+                                    SlotType1 slot = iterSlotType1.next();
+                                    if ((slot.getName() != null)
+                                            && (slot.getName()
+                                                    .equals(DocumentTransformConstants.EBXML_DOCENTRY_PATIENT_ID))) {
+                                        ValueListType slotValueList = new ValueListType();
+                                        slotValueList.getValue().add(formattedPatientId);
+                                        slot.setValueList(slotValueList);
+                                    }
+                                }
+                                // set the home community id to the target hcid
+                                if (NullChecker.isNotNullish(sTargetHomeCommunityId)) {
+                                    clonedRequest.getAdhocQuery().setHome(sTargetHomeCommunityId);
+                                }
+
+                                for (UrlInfo urlInfo : urlInfoList) {
+                                    if (urlInfo.getHcid().equals(sTargetHomeCommunityId)) {
+                                        if (NullChecker.isNotNullish(urlInfo.getUrl())) {
+                                            OutboundDocQueryOrchestratable message = new OutboundDocQueryOrchestratable(
+                                                    nd, np, null, null, assertion,
+                                                    NhincConstants.DOC_QUERY_SERVICE_NAME, target, clonedRequest);
+                                            callableList.add(new NhinCallableRequest<OutboundDocQueryOrchestratable>(
+                                                    message));
+
+                                        } else {
+                                            RegistryError regErr = new RegistryError();
+                                            regErr.setCodeContext("No URLs found for targeted DocQueryRequest for homecommunity:"
+                                                    + urlInfo.getHcid());
+                                            regErr.setErrorCode(DocumentConstants.XDS_QUERY_ERRORCODE_HOMECOMMUNITY_ERROR);
+                                            regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+                                            homeCommunityErrorList.getRegistryError().add(regErr);
+
+                                        }
+                                    }
+                                }
+
+                                log.debug("EntityDocQueryOrchImpl added NhinCallableRequest" + " for hcid="
+                                        + target.getHomeCommunity().getHomeCommunityId() + " with formattedPatientId="
+                                        + formattedPatientId);
+                            } else {
+                                RegistryError regErr = new RegistryError();
+                                regErr.setCodeContext("Policy Check Failed for homeId="
+                                        + target.getHomeCommunity().getHomeCommunityId() + " and aaId="
+                                        + identifier.getAssigningAuthorityIdentifier());
+                                regErr.setErrorCode("XDSRepositoryError");
+                                regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+                                policyErrList.getRegistryError().add(regErr);
                             }
                         }
+
+                        // note that if responseIsSpecA0 taskexecutor is set to return OutboundDocQueryOrchestratable_a0
+                        // else taskexecutor set to return OutboundDocQueryOrchestratable_a1
+                        // OutboundDocQueryOrchestratable_a0 orchResponse_g0 = null;
+                        // OutboundDocQueryOrchestratable_a1 orchResponse_g1 = null;
+
+                        if (responseIsSpecA0) {
+                            response = specResponseA0(correlationsResult, callableList, transactionId, response,
+                                    policyErrList);
+                        } else {
+                            response = specResponseA1(correlationsResult, callableList, transactionId, response,
+                                    policyErrList);
+                        }
+
+                        log.debug("EntityDocQueryOrchImpl taskexecutor done and received response");
                     } else {
-                        if (callableList.size() > 0) {
-                            NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable>(
-                                    ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(
-                                            correlationsResult.size()) ? largejobExecutor : regularExecutor,
-                                    callableList, transactionId);
-                            dqexecutor.executeTask();
-                            orchResponse_g1 = (OutboundDocQueryOrchestratable_a1) dqexecutor.getFinalResponse();
-                            response = orchResponse_g1.getCumulativeResponse();
-                        } else {
-                            log.debug("No callable requests were sent out.  Setting response to failure.");
-                            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-                        }
-                        
-                        // add any errors from policyErrList to response
-                        if (policyErrList.getRegistryError() != null
-                                && !policyErrList.getRegistryError().isEmpty()) {
-                            if (response.getRegistryErrorList() == null) {
-                                response.setRegistryErrorList(policyErrList);
-                            } else if (response.getRegistryErrorList().getRegistryError() != null) {
-                                response.getRegistryErrorList().getRegistryError()
-                                        .addAll(policyErrList.getRegistryError());
-                            }
-                        }
+                        log.debug("EntityDocQueryOrchImpl no patient found, return empty list");
+                        response = createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
                     }
-
-                    log.debug("EntityDocQueryOrchImpl taskexecutor done and received response");
                 } else {
-                    log.debug("EntityDocQueryOrchImpl no patient found, return empty list");
-                    response = createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
+                    log.error("Incomplete doc query message");
+                    response = createErrorResponse("XDSRepositoryError", "Incomplete/empty adhocquery message");
                 }
+                if (homeCommunityErrorList.getRegistryError() != null
+                        && !homeCommunityErrorList.getRegistryError().isEmpty()) {
+                    if (response.getRegistryErrorList() == null) {
+                        response.setRegistryErrorList(homeCommunityErrorList);
+                    } else if (response.getRegistryErrorList().getRegistryError() != null) {
+                        response.getRegistryErrorList().getRegistryError()
+                                .addAll(homeCommunityErrorList.getRegistryError());
+                    }
+                    if (response.getStatus().equals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS)) {
+                        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIALSUCCESS);
+                    }
+                }
+
             } else {
-                log.error("Incomplete doc query message");
-                response = createErrorResponse("XDSRepositoryError", "Incomplete/empty adhocquery message");
+                log.error("No URLs found for targeted DocQueryRequest");
+                response = createErrorResponse(DocumentConstants.XDS_QUERY_ERRORCODE_HOMECOMMUNITY_ERROR,
+                        "No URLs found for targeted DocQueryRequest");
+                RegistryObjectListType regObjList = new RegistryObjectListType();
+                response.setRegistryObjectList(regObjList);
             }
+
         } catch (Exception e) {
             log.error("Error occured processing doc query on entity interface: " + e.getMessage(), e);
-            response = createErrorResponse("XDSRepositoryError", "Fault encountered processing internal document query" + " exception="
-                    + e.getMessage());
+            response = createErrorResponse("XDSRepositoryError", "Fault encountered processing internal document query"
+                    + " exception=" + e.getMessage());
         }
         auditDocQueryResponse(response, assertion, auditLog);
         log.debug("Exiting EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
         return response;
     }
 
-    private void auditInitialEntityRequest(RespondingGatewayCrossGatewayQuerySecuredRequestType request,
+    /**
+     * @param localHomeCommunityId
+     * @param documentQuery
+     * @return
+     */
+    // quick rig for testing to switch between a0 and a1
+    // note that a0 and a1 would be handled by different methods if they were different
+    protected boolean getApiLevel(String localHomeCommunityId, NHIN_SERVICE_NAMES documentQuery) {
+        boolean responseIsSpecA0 = false;
+        NhinEndpointManager nem = new NhinEndpointManager();
+        NhincConstants.GATEWAY_API_LEVEL gatewayLevel = nem.getApiVersion(getLocalHomeCommunityId(),
+                NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
+        switch (gatewayLevel) {
+        case LEVEL_g0: {
+            responseIsSpecA0 = true;
+            break;
+        }
+        case LEVEL_g1: {
+            responseIsSpecA0 = false;
+            break;
+        }
+        default: {
+            responseIsSpecA0 = true;
+            break;
+        }
+        }
+        return responseIsSpecA0;
+    }
+
+    /**
+     * @param targets
+     * @param docQueryServiceName
+     * @return
+     */
+    protected List<UrlInfo> getEndpointForNhinTargetCommunities(NhinTargetCommunitiesType targets,
+            String docQueryServiceName) {
+        List<UrlInfo> urlInfoList = null;
+        try {
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(targets,
+                    NhincConstants.DOC_QUERY_SERVICE_NAME);
+        } catch (Exception ex) {
+            log.error("EntityDocQueryOrchImpl Failed to obtain target URLs", ex);
+        }
+        return urlInfoList;
+    }
+
+    /**
+     * @param assigningAuthorityIdentifier
+     * @param localAA
+     * @param localHomeCommunityId
+     * @return
+     */
+    protected HomeCommunityType getTargetCommunity(String assigningAuthorityIdentifier, String localAA,
+            String localHomeCommunityId) {
+        HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(
+                assigningAuthorityIdentifier, localAA, localHomeCommunityId);
+        return targetCommunity;
+    }
+
+    /**
+     * @param slotList
+     * @param urlInfoList
+     * @param assertion
+     * @param isTargeted
+     * @param localHomeCommunityId
+     * @return
+     */
+    protected List<QualifiedSubjectIdentifierType> retrieveCorrelation(List<SlotType1> slotList,
+            List<UrlInfo> urlInfoList, AssertionType assertion, boolean isTargeted, String localHomeCommunityId) {
+
+        List<QualifiedSubjectIdentifierType> correlationResult = new ArrayList<QualifiedSubjectIdentifierType>();
+        correlationResult = new EntityDocQueryHelper().retreiveCorrelations(slotList, urlInfoList, assertion,
+                isTargeted, localHomeCommunityId);
+        return correlationResult;
+    }
+
+    protected void auditInitialEntityRequest(RespondingGatewayCrossGatewayQuerySecuredRequestType request,
             AssertionType assertion, DocQueryAuditLog auditLog) {
 
         if (auditLog != null) {
-			auditLog.auditDQRequest(request.getAdhocQueryRequest(), assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                     NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, getLocalHomeCommunityId());
+            auditLog.auditDQRequest(request.getAdhocQueryRequest(), assertion,
+                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+                    getLocalHomeCommunityId());
         }
     }
 
-    private void auditDocQueryResponse(AdhocQueryResponse response, AssertionType assertion, DocQueryAuditLog auditLog) {
+    protected void auditDocQueryResponse(AdhocQueryResponse response, AssertionType assertion, DocQueryAuditLog auditLog) {
 
         if (auditLog != null) {
             AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
@@ -349,22 +411,21 @@ public class EntityDocQueryOrchImpl {
         }
     }
 
-
-    private AdhocQueryRequest cloneRequest(AdhocQueryRequest request){
+    protected AdhocQueryRequest cloneRequest(AdhocQueryRequest request) {
         AdhocQueryRequest newRequest = new AdhocQueryRequest();
         AdhocQueryType currentQuery = request.getAdhocQuery();
 
         AdhocQueryType newQuery = new AdhocQueryType();
         List<SlotType1> newslotList = new ArrayList<SlotType1>();
         List<SlotType1> slotList = currentQuery.getSlot();
-        for(SlotType1 slot : slotList){
+        for (SlotType1 slot : slotList) {
             SlotType1 newSlot = new SlotType1();
             newSlot.setName(slot.getName());
             newSlot.setSlotType(slot.getSlotType());
 
             ValueListType valueListType = new ValueListType();
             List<String> valueList = new ArrayList<String>();
-            for(String value : slot.getValueList().getValue()){
+            for (String value : slot.getValueList().getValue()) {
                 valueList.add(value);
             }
             valueListType.getValue().addAll(valueList);
@@ -395,16 +456,15 @@ public class EntityDocQueryOrchImpl {
         newRequest.setMaxResults(request.getMaxResults());
         newRequest.setResponseOption(request.getResponseOption());
         newRequest.setStartIndex(request.getStartIndex());
-        
+
         log.debug("EntityDocQueryOrchImpl::cloneRequest generated new AdhocQueryRequest");
         return newRequest;
     }
 
-
     protected String getLocalHomeCommunityId() {
         String sHomeCommunity = null;
         try {
-            sHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception ex) {
             log.error(ex.getMessage());
@@ -419,7 +479,7 @@ public class EntityDocQueryOrchImpl {
      * @param assertion
      * @return boolean
      */
-    private boolean isValidPolicy(AdhocQueryRequest queryRequest, AssertionType assertion,
+    protected boolean isValidPolicy(AdhocQueryRequest queryRequest, AssertionType assertion,
             HomeCommunityType targetCommunity) {
         boolean isValid = false;
         AdhocQueryRequestEventType checkPolicy = new AdhocQueryRequestEventType();
@@ -442,22 +502,79 @@ public class EntityDocQueryOrchImpl {
         return isValid;
     }
 
-
     private AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryErrorList(createErrorListWithError(errorCode, codeContext));
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         return response;
     }
-    
+
     private RegistryErrorList createErrorListWithError(String errorCode, String codeContext) {
-    	RegistryErrorList regErrList = new RegistryErrorList();
+        RegistryErrorList regErrList = new RegistryErrorList();
         RegistryError regErr = new RegistryError();
         regErrList.getRegistryError().add(regErr);
         regErr.setCodeContext(codeContext);
         regErr.setErrorCode(errorCode);
         regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         return regErrList;
+    }
+
+    protected AdhocQueryResponse specResponseA0(List<QualifiedSubjectIdentifierType> correlationsResult,
+            List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList, String transactionId,
+            AdhocQueryResponse response, RegistryErrorList policyErrList) throws InterruptedException,
+            ExecutionException {
+        OutboundDocQueryOrchestratable_a0 orchResponse_g0 = null;
+        if (callableList.size() > 0) {
+            NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable>(
+                    ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor
+                            : regularExecutor, callableList, transactionId);
+            dqexecutor.executeTask();
+            orchResponse_g0 = (OutboundDocQueryOrchestratable_a0) dqexecutor.getFinalResponse();
+            response = orchResponse_g0.getCumulativeResponse();
+        } else {
+            log.debug("No callable requests were sent out.  Setting response to failure.");
+            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+        }
+
+        // add any errors from policyErrList to response
+        if (policyErrList.getRegistryError() != null && !policyErrList.getRegistryError().isEmpty()) {
+            if (response.getRegistryErrorList() == null) {
+                response.setRegistryErrorList(policyErrList);
+            } else if (response.getRegistryErrorList().getRegistryError() != null) {
+                response.getRegistryErrorList().getRegistryError().addAll(policyErrList.getRegistryError());
+            }
+        }
+        return response;
+
+    }
+
+    protected AdhocQueryResponse specResponseA1(List<QualifiedSubjectIdentifierType> correlationsResult,
+            List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList, String transactionId,
+            AdhocQueryResponse response, RegistryErrorList policyErrList) throws InterruptedException,
+            ExecutionException {
+        OutboundDocQueryOrchestratable_a1 orchResponse_g1 = null;
+        if (callableList.size() > 0) {
+            NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable>(
+                    ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor
+                            : regularExecutor, callableList, transactionId);
+            dqexecutor.executeTask();
+            orchResponse_g1 = (OutboundDocQueryOrchestratable_a1) dqexecutor.getFinalResponse();
+            response = orchResponse_g1.getCumulativeResponse();
+        } else {
+            log.debug("No callable requests were sent out.  Setting response to failure.");
+            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+        }
+
+        // add any errors from policyErrList to response
+        if (policyErrList.getRegistryError() != null && !policyErrList.getRegistryError().isEmpty()) {
+            if (response.getRegistryErrorList() == null) {
+                response.setRegistryErrorList(policyErrList);
+            } else if (response.getRegistryErrorList().getRegistryError() != null) {
+                response.getRegistryErrorList().getRegistryError().addAll(policyErrList.getRegistryError());
+            }
+        }
+        return response;
+
     }
 
 }

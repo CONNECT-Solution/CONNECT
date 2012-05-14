@@ -80,7 +80,7 @@ public class PatientSaver {
 
         // Set the localDeviceId in the Ack Message
         try {
-            localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME);
+            localDeviceId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME);
         } catch (Exception e) {
             localDeviceId = HL7Constants.DEFAULT_LOCAL_DEVICE_ID;
         }
@@ -102,9 +102,7 @@ public class PatientSaver {
             Patient sourcePatient = HL7Parser201301.ExtractMpiPatientFromHL7Patient(patient);
             log.info("perform patient lookup in mpi");
 
-            log.info("source patient check 1 [" + sourcePatient.getName().getLastName() + "]");
             Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient, AllowSearchByDemographics);
-            log.info("source patient check 2 [" + sourcePatient.getName().getLastName() + "]");
 
             if (CommonChecks.isZeroSearchResult(searchResults)) {
                 log.info("patient not found in MPI");

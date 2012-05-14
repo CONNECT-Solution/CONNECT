@@ -61,7 +61,7 @@ public class HL7Parser201306 {
 
         II id = new II();
         try {
-            id.setRoot(PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME));
+            id.setRoot(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME));
         } catch (PropertyAccessException e) {
             log.error(
                     "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
@@ -450,7 +450,11 @@ public class HL7Parser201306 {
     }
 
     private static PNExplicit createSubjectName(Patient patient) {
-        return createSubjectName(patient.getName());
+        if (patient.getNames().size() > 0) {
+            return createSubjectName(patient.getNames().get(0));
+        }
+        
+        return createSubjectName(new PersonName());
     }
 
     private static PNExplicit createSubjectName(PersonName personName) {

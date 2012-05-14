@@ -975,7 +975,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         String homeCommunityId = null;
         try {
             homeCommunityId = "urn:oid:"
-                    + PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
+                    + PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
         } catch (Throwable t) {
             log.error("Error retrieving the home community id: " + t.getMessage(), t);
         }

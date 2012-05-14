@@ -133,7 +133,7 @@ public class FTATimerTask {
 
     private static void sendNotification(String contents, String topic) {
         try { // Call Web Service Operation
-            String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
+            String endpointURL = PropertyAccessor.getInstance().getProperty("adapter", "EntityNotificationConsumerURL");
             // String endpointURL = "http://localhost:8088/mockEntityNotificationConsumerBindingSoap11";
             log.info("EntitySubscriptionURL :" + endpointURL);
 
@@ -185,7 +185,7 @@ public class FTATimerTask {
 
     private static void sendNotificationSecured(String contents, String topic) {
         try { // Call Web Service Operation
-            String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
+            String endpointURL = PropertyAccessor.getInstance().getProperty("adapter", "EntityNotificationConsumerURL");
             // String endpointURL = "http://localhost:8088/mockEntityNotificationConsumerBindingSoap11";
             log.info("EntitySubscriptionURL :" + endpointURL);
 

@@ -50,7 +50,7 @@ public class FTAConfigurationHelper {
     public static FTAConfiguration loadFTAConfiguration() {
         FTAConfiguration result;
 
-        String propertyDir = PropertyAccessor.getPropertyFileLocation();
+        String propertyDir = PropertyAccessor.getInstance().getPropertyFileLocation();
 
         log.debug(propertyDir);
         result = loadFTAConfiguration(propertyDir, FTA_CONFIG_FILE);

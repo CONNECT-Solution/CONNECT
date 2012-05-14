@@ -689,7 +689,7 @@ public class AdapterPEPImpl {
             xspaAttr.setDataType(new URI(XACML_DATATYPE));
 
             List<String> homeCommunityVals = new ArrayList<String>();
-            String homeCommunityId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY,
+            String homeCommunityId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY,
                     PROPERTY_FILE_KEY_HOME_COMMUNITY);
             log.debug("Adding attribute value: " + homeCommunityId + " for " + XSPA_ENVIRONMENT_LOCALITY);
             homeCommunityVals.add(homeCommunityId);

@@ -30,142 +30,108 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * 
- * @author rayj
- */
 public class PatientMatcher {
 
-    private static Log log = LogFactory.getLog(MiniMpi.class);
+    private static final String TELEPHONE_PREFIX_STRING = "tel:";
 
-    public static boolean IsSearchMatchByIds(Patient possibleMatch, Patient searchParams) {
-        // i will call it a match if any one of the ids matches any other ids
-        // this is over simplified, but fine for now
-        boolean match = false;
-        for (Identifier searchParamIdentifier : searchParams.getIdentifiers()) {
-            for (Identifier possibleMatchIdentifier : possibleMatch.getIdentifiers()) {
-                match = match | IsSearchMatchbyId(searchParamIdentifier, possibleMatchIdentifier);
+    private static Log log = LogFactory.getLog(PatientMatcher.class);
+    private static PatientMatcher instance = null;
+
+    protected PatientMatcher() {
+    }
+
+    public static PatientMatcher getInstance() {
+        if (instance == null) {
+            instance = new PatientMatcher();
+        }
+        return instance;
+    }
+
+    public boolean hasMatchByIds(Patient possibleMatch, Patient searchParams) {
+        for (Identifier possibleMatchIdentifier : possibleMatch.getIdentifiers()) {
+            if (searchParams.getIdentifiers().contains(possibleMatchIdentifier)) {
+                return true;
             }
         }
-        return match;
+
+        return false;
     }
 
-    public static boolean IsSearchMatchbyId(Identifier a, Identifier b) {
-        boolean match;
-        if (a == null) {
-            log.info("a is null");
-        }
-        if (a.getId() == null) {
-            log.info("a.getId() is null");
-        }
-        if (a.getOrganizationId() == null) {
-            log.info("a.getOrganizationId() is null");
-        }
-        if (b == null) {
-            log.info("b is null");
-        }
-        if (b.getId() == null) {
-            log.info("b.getId() is null");
-        }
-        if (b.getOrganizationId() == null) {
-            log.info("b.getOrganizationId() is null");
-        }
-        match = ((!a.getId().contentEquals("")) && (!b.getId().contentEquals("")))
-                && (a.getId().contentEquals(b.getId()) && a.getOrganizationId().contentEquals(b.getOrganizationId()));
-        return match;
-    }
-
-    public static boolean isPatientOptedInCriteriaMet(Patient possibleMatch) {
+    public boolean isPatientOptedInCriteriaMet(Patient possibleMatch) {
         return possibleMatch.isOptedIn();
     }
 
-    public static boolean IsSearchMatchByDemographics(Patient possibleMatch, Patient searchParams) {
+    public boolean hasMatchByDemographics(Patient possibleMatch, Patient searchParams) {
+        Log log = getLogger();
 
-        PersonName possibleMatchName = null;
-        PersonName searchName = null;
+        PersonName possibleMatchName = getPatientName(possibleMatch);
+        PersonName searchName = getPatientName(searchParams);
 
-        if (possibleMatch.getNames().size() > 0) {
-            possibleMatchName = possibleMatch.getNames().get(0);
-        } else {
-            possibleMatchName = possibleMatch.getName();
-        }
-
-        if (searchParams.getNames().size() > 0) {
-            searchName = searchParams.getNames().get(0);
-        } else {
-            searchName = searchParams.getName();
-        }
-
-        boolean match = DoesNameMeetSearchCriteria(possibleMatchName, searchName);
-        log.debug("[" + SerializePatient(searchParams) + "]==[" + SerializePatient(possibleMatch) + "] -> " + match);
+        boolean match = isNameEquals(possibleMatchName, searchName);
         if (match) {
-            match = DoesBirthdateMeetSearchCriteria(possibleMatch.getDateOfBirth(), searchParams.getDateOfBirth());
-            log.debug("[" + searchParams.getDateOfBirth() + "]==[" + possibleMatch.getDateOfBirth() + "] -> " + match);
+            match = isBirthdateEquals(possibleMatch.getDateOfBirth(), searchParams.getDateOfBirth());
         }
         if (match) {
-            match = DoesGenderMeetSearchCriteria(possibleMatch.getGender(), searchParams.getGender());
-            log.debug("[" + searchParams.getGender() + "]==[" + possibleMatch.getGender() + "] -> " + match);
+            match = isGenderEquals(possibleMatch.getGender(), searchParams.getGender());
         }
         if (match && possibleMatch.getAddresses().size() > 0 && searchParams.getAddresses().size() > 0) {
-            match = DoesAddressMeetSearchCriteria(possibleMatch.getAddresses().get(0),
-                    searchParams.getAddresses().get(0));
-            log.debug("[" + SerializePatientAddress(searchParams) + "]==[" + SerializePatientAddress(possibleMatch)
-                    + "] -> " + match);
+            match = isAddressEquals(possibleMatch.getAddresses().get(0), searchParams.getAddresses().get(0));
         }
         if (match && possibleMatch.getPhoneNumbers().size() > 0 && searchParams.getPhoneNumbers().size() > 0) {
-            match = DoesTelecomMeetSearchCriteria(possibleMatch.getPhoneNumbers().get(0).getPhoneNumber(), searchParams
+            match = isPhoneNumberEquals(possibleMatch.getPhoneNumbers().get(0).getPhoneNumber(), searchParams
                     .getPhoneNumbers().get(0).getPhoneNumber());
-            log.debug("[" + searchParams.getPhoneNumbers().get(0).getPhoneNumber() + "]==["
-                    + possibleMatch.getPhoneNumbers().get(0).getPhoneNumber() + "] -> " + match);
         }
+
+        if (log.isDebugEnabled()) {
+            log.debug("hasMatchByDemoagraphics result ==>" + match);
+            log.debug("[" + serializePatient(searchParams) + "]==[" + serializePatient(possibleMatch) + "]");
+            log.debug("[" + searchParams.getDateOfBirth() + "]==[" + possibleMatch.getDateOfBirth() + "]");
+            log.debug("[" + searchParams.getGender() + "]==[" + possibleMatch.getGender() + "]");
+            log.debug("[" + serializePatientAddress(searchParams) + "]==[" + serializePatientAddress(possibleMatch)
+                    + "]");
+            if (searchParams.getPhoneNumbers() != null && searchParams.getPhoneNumbers().size() > 0) {
+                log.debug("[" + searchParams.getPhoneNumbers().get(0).getPhoneNumber() + "]==["
+                        + possibleMatch.getPhoneNumbers().get(0).getPhoneNumber() + "]");
+            }
+        }
+
         return match;
     }
 
-    public static boolean IsMatchByDemographics(Patient patient, Patient possibleMatch) {
-        return IsSearchMatchByDemographics(patient, possibleMatch);
+    protected Log getLogger() {
+        return log;
     }
 
-    private static boolean IsNameNullish(PersonName name) {
-        boolean result;
-        if (name == null) {
-            result = true;
-        } else {
-            result = (NullChecker.isNullish(name.getFirstName()) && NullChecker.isNullish(name.getLastName()));
+    private PersonName getPatientName(Patient patient) {
+        PersonName name = null;
+        if (patient.getNames().size() > 0) {
+            name = patient.getNames().get(0);
+        }
+        return name;
+    }
+
+    private boolean isNameValid(PersonName name) {
+        boolean result = false;
+        if (name != null) {
+            result = name.isValid();
         }
         return result;
     }
 
-    private static boolean DoesNameMeetSearchCriteria(PersonName name, PersonName searchName) {
-        boolean result;
+    private boolean isNameEquals(PersonName name, PersonName searchName) {
+        boolean result = false;
 
-        if (IsNameNullish(searchName)) {
-            log.info("search name nullish");
-            result = false;
-        } else {
-            result = DoesNamePartMeetSearchCriteria(name.getLastName(), searchName.getLastName())
-                    && DoesNamePartMeetSearchCriteria(name.getFirstName(), searchName.getFirstName());
+        if (isNameValid(name) && isNameValid(searchName)) {
+            result = name.getLastName().equalsIgnoreCase(searchName.getLastName())
+                    && name.getFirstName().equalsIgnoreCase(searchName.getFirstName());
         }
         return result;
     }
 
-    private static boolean DoesNamePartMeetSearchCriteria(String namepart, String searchNamepart) {
-        boolean result;
-        if (NullChecker.isNullish(searchNamepart)) {
-            result = true;
-        } else if (NullChecker.isNullish(namepart)) {
-            result = false;
-        } else {
-            result = namepart.equalsIgnoreCase(searchNamepart);
-        }
-        log.info("DoesNamePartMeetSearchCriteria  " + namepart + "=" + searchNamepart + " ->" + result);
-        return result;
-    }
-
-    private static boolean DoesBirthdateMeetSearchCriteria(String birthdate, String searchBirthdate) {
+    private boolean isBirthdateEquals(String birthdate, String searchBirthdate) {
         boolean result;
 
         if (NullChecker.isNullish(searchBirthdate)) {
-            log.info("search birthdate nullish");
             result = true;
         } else if (NullChecker.isNullish(birthdate)) {
             result = false;
@@ -176,11 +142,10 @@ public class PatientMatcher {
         return result;
     }
 
-    private static boolean DoesGenderMeetSearchCriteria(String gender, String searchGender) {
+    private boolean isGenderEquals(String gender, String searchGender) {
         boolean result;
 
         if (NullChecker.isNullish(searchGender)) {
-            log.info("search gender nullish");
             result = true;
         } else if (NullChecker.isNullish(gender)) {
             result = false;
@@ -191,7 +156,7 @@ public class PatientMatcher {
         return result;
     }
 
-    private static boolean IsAddressNullish(Address address) {
+    private boolean isAddressNullish(Address address) {
         boolean result;
         if (address == null) {
             result = true;
@@ -201,24 +166,23 @@ public class PatientMatcher {
         return result;
     }
 
-    private static boolean DoesAddressMeetSearchCriteria(Address address, Address searchAddress) {
+    private boolean isAddressEquals(Address address, Address searchAddress) {
         boolean result;
 
-        if (IsAddressNullish(searchAddress)) {
-            log.info("search address nullish");
+        if (isAddressNullish(searchAddress)) {
             result = false;
         } else {
-            result = (DoesAddressPartMeetSearchCriteria(address.getStreet1(), searchAddress.getStreet1())
-                    && DoesAddressPartMeetSearchCriteria(address.getStreet2(), searchAddress.getStreet2())
-                    && DoesAddressPartMeetSearchCriteria(address.getCity(), searchAddress.getCity())
-                    && DoesAddressPartMeetSearchCriteria(address.getState(), searchAddress.getState()) && DoesAddressPartMeetSearchCriteria(
+            result = (isAddressPartEquals(address.getStreet1(), searchAddress.getStreet1())
+                    && isAddressPartEquals(address.getStreet2(), searchAddress.getStreet2())
+                    && isAddressPartEquals(address.getCity(), searchAddress.getCity())
+                    && isAddressPartEquals(address.getState(), searchAddress.getState()) && isAddressPartEquals(
                     address.getZip(), searchAddress.getZip()));
         }
 
         return result;
     }
 
-    private static boolean DoesAddressPartMeetSearchCriteria(String addresspart, String searchAddresspart) {
+    private boolean isAddressPartEquals(String addresspart, String searchAddresspart) {
         boolean result;
         if (NullChecker.isNullish(searchAddresspart)) {
             result = true;
@@ -227,64 +191,42 @@ public class PatientMatcher {
         } else {
             result = addresspart.equalsIgnoreCase(searchAddresspart);
         }
-        log.info("DoesAddressPartMeetSearchCriteria  " + addresspart + "=" + searchAddresspart + " ->" + result);
+
         return result;
     }
 
-    private static boolean DoesTelecomMeetSearchCriteria(String telecom, String searchTelecom) {
+    private boolean isPhoneNumberEquals(String telecom, String searchTelecom) {
         boolean result;
 
         if (NullChecker.isNullish(searchTelecom)) {
-            log.info("search telecom nullish");
             result = true;
         } else if (NullChecker.isNullish(telecom)) {
             result = false;
         } else {
-            result = compareTelecoms(telecom, searchTelecom);
+            result = isPhoneNumberStringEquals(telecom, searchTelecom);
         }
 
         return result;
     }
 
-    private static boolean compareTelecoms(String telecom, String searchTelecom) {
+    private boolean isPhoneNumberStringEquals(String telecom, String searchTelecom) {
         boolean result = false;
 
-        // Check for valid uri prefix
-        if (telecom != null && searchTelecom != null) {
-            if (!(telecom.startsWith("tel:") && searchTelecom.startsWith("tel:"))) {
-                result = false;
-            } else {
-                String compareTelecom = removeTelecomVisualSeparators(telecom);
-                String compareSearchTelecom = removeTelecomVisualSeparators(searchTelecom);
+        if (telecom.startsWith(TELEPHONE_PREFIX_STRING) && searchTelecom.startsWith(TELEPHONE_PREFIX_STRING)) {
+            String compareTelecom = removeTelecomVisualSeparators(telecom);
+            String compareSearchTelecom = removeTelecomVisualSeparators(searchTelecom);
 
-                result = compareTelecom.equalsIgnoreCase(compareSearchTelecom);
-            }
+            result = compareTelecom.equalsIgnoreCase(compareSearchTelecom);
         }
 
         return result;
     }
 
-    private static String removeTelecomVisualSeparators(String telecomIn) {
-        char[] visualSep = { '-', '.', '(', ')' };
-        StringBuffer telecomOut = new StringBuffer("");
-        boolean skip = false;
-
-        for (int i = 0; i < telecomIn.length(); i++) {
-            skip = false;
-            for (int j = 0; j < 4; j++) {
-                if (telecomIn.charAt(i) == visualSep[j]) {
-                    skip = true;
-                    break;
-                }
-            }
-            if (!skip) {
-                telecomOut.append(telecomIn.charAt(i));
-            }
-        }
-        return telecomOut.toString();
+    private String removeTelecomVisualSeparators(String telecomIn) {
+        return telecomIn.replaceAll("[-.()]", "");
     }
 
-    private static String SerializePatientAddress(Patient patient) {
+    private String serializePatientAddress(Patient patient) {
         String serializedString = "";
         if (patient.getAddresses() != null && patient.getAddresses().size() > 0
                 && patient.getAddresses().get(0) != null) {
@@ -295,7 +237,7 @@ public class PatientMatcher {
         return serializedString;
     }
 
-    private static String SerializePatient(Patient patient) {
+    private String serializePatient(Patient patient) {
         return patient.toString();
     }
 }

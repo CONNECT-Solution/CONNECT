@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.gateway.aggregator.persistence;
 
-import gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateAccessor;
+import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.File;
 import java.io.Serializable;
@@ -225,7 +225,7 @@ public class HibernateUtil {
         File result = null;
 
         try {
-            result = HibernateAccessor.getHibernateFile(NhincConstants.HIBERNATE_AGGREGATOR_REPOSITORY);
+            result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_AGGREGATOR_REPOSITORY);
         } catch (Exception ex) {
             log.error("Unable to load " + NhincConstants.HIBERNATE_AGGREGATOR_REPOSITORY + " " + ex.getMessage(), ex);
         }
