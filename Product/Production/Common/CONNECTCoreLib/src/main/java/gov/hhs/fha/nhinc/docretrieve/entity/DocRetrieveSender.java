@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
@@ -77,6 +77,16 @@ public class DocRetrieveSender {
                 NhinTargetSystemType target = null;
                 if (request != null) {
                     body = request.getRetrieveDocumentSetRequest();
+                    // Check for existing urn:oid: prefix on all home community ids, if not present add it
+                    if (body != null && body.getDocumentRequest() != null && !body.getDocumentRequest().isEmpty()) {
+                        for (DocumentRequest docReq : body.getDocumentRequest()) {
+                            String docReqHcid = docReq.getHomeCommunityId();
+                            if (!docReqHcid.startsWith("urn:oid:")) {
+                                docReqHcid = "urn:oid:" + docReqHcid;
+                                docReq.setHomeCommunityId(docReqHcid);
+                            }
+                        }
+                    }
                     target = request.getNhinTargetSystem();
                 }
 

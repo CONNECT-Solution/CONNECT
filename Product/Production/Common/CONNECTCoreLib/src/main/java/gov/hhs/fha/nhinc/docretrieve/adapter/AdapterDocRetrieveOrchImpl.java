@@ -17,6 +17,7 @@ import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEnginePro
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import java.sql.Timestamp;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -55,6 +56,16 @@ public class AdapterDocRetrieveOrchImpl {
 
             AdapterComponentDocRepositoryProxy proxy = new AdapterComponentDocRepositoryProxyObjectFactory().getAdapterDocumentRepositoryProxy();
             response = proxy.retrieveDocument(body, assertion);
+            //Add urn:oid: to the response of the document retrieve
+            if(response != null){
+                for(DocumentResponse doc : response.getDocumentResponse()){
+                    String docResHcid = doc.getHomeCommunityId();
+                    if (!docResHcid.startsWith("urn:oid:")) {
+                        docResHcid = "urn:oid:" + docResHcid;
+                        doc.setHomeCommunityId(docResHcid);
+                    }
+                }
+            }
             response = callRedactionEngine(body, response, assertion);
 
             // Log the end of the adapter performance record
