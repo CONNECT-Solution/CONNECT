@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
@@ -127,7 +127,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
     /**
      * Perform a document retrieve on the document repository.
      *
-     * @param body Message containing docurment retrieve parameters
+     * @param body Message containing document retrieve parameters
      * @return Document retrieve response message.
      */
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
@@ -153,7 +153,13 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         (oDocRequest.getHomeCommunityId() != null) &&
                         (oDocRequest.getHomeCommunityId().length() > 0)) {
                     homeCommunityId = oDocRequest.getHomeCommunityId();
+                    if (!homeCommunityId.startsWith("urn:oid:")) {
+                        homeCommunityId = "urn:oid:" + homeCommunityId;
+                    }
                 }
+
+
+
 
                 // Document Uniqiue ID
                 //--------------------
