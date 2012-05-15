@@ -64,22 +64,24 @@ public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocS
         return new WebServiceProxyHelper();
     }
 
+    protected void initializeSecurePort(EntityXDRSecuredPortType port, String url, AssertionType assertion) {        
+        oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
+    }
+    
     /**
      * This method retrieves and initializes the port.
      * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected EntityXDRSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction,
-            AssertionType assertion) {
+    protected EntityXDRSecuredPortType getPort(String url, AssertionType assertion) {
         EntityXDRSecuredPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
-
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityXDRSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
-                    wsAddressingAction, assertion);
+            initializeSecurePort(port, url, assertion);
+            
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -109,7 +111,7 @@ public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocS
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_SECURED_SERVICE_NAME);
-            EntityXDRSecuredPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
+            EntityXDRSecuredPortType port = getPort(url, assertion);
 
             if (port != null) {
                 RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType securedRequest = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
@@ -123,6 +125,7 @@ public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocS
             }
         } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
+            ex.printStackTrace();
         }
 
         log.debug("End EntityDocSubmissionProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetB");

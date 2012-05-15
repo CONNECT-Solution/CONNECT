@@ -24,28 +24,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docsubmission.entity.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
+package gov.hhs.fha.nhinc.docsubmission.entity;
+
+import static org.junit.Assert.*;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestDelegate;
 
-public class EntityDocSubmissionProxyJavaImpl implements EntityDocSubmissionProxy {
+import org.junit.Test;
 
-    protected EntityDocSubmissionOrchImpl getEntityDocSubmissionOrchImpl() {
-        return new EntityDocSubmissionOrchImpl();
+
+public class OutboundDocSubmissionOrchestrationContextBuilderTest {
+
+    @Test
+    public void testOutboundDocSubmissionOrchestrationContextBuilder_g0() {
+        OutboundDocSubmissionOrchestrationContextBuilder_g0  contextBuilder = new OutboundDocSubmissionOrchestrationContextBuilder_g0();
+        
+        testContextBuilder(contextBuilder);
     }
     
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
-            AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        RegistryResponseType response = new RegistryResponseType();
-
-        EntityDocSubmissionOrchImpl orchImpl = getEntityDocSubmissionOrchImpl();
-        response = orchImpl.provideAndRegisterDocumentSetB(msg, assertion, targets, urlInfo);
-
-        return response;
+    @Test
+    public void testOutboundDocSubmissionOrchestrationContextBuilder_g1() {
+        OutboundDocSubmissionOrchestrationContextBuilder_g1  contextBuilder = new OutboundDocSubmissionOrchestrationContextBuilder_g1();
+        
+        testContextBuilder(contextBuilder);
+    }
+    
+    private void testContextBuilder(OutboundDocSubmissionOrchestrationContextBuilder contextBuilder) {
+        contextBuilder.build();
+        
+        contextBuilder.setAssertionType(new AssertionType());
+        assertNotNull(contextBuilder.getAssertionType());
+        
+        assertNotNull(contextBuilder.getLog());
+        
+        contextBuilder.setNhinDelegate(new OutboundDocSubmissionDeferredRequestDelegate());
+        assertNotNull(contextBuilder.getNhinDelegate());
+        
+        contextBuilder.setRequest(new ProvideAndRegisterDocumentSetRequestType());
+        assertNotNull(contextBuilder.getRequest());
+        
+        contextBuilder.setTarget(new NhinTargetSystemType());
+        assertNotNull(contextBuilder.getTarget());
     }
 }

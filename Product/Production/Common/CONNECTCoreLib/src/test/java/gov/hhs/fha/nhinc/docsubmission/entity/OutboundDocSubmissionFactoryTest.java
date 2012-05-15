@@ -24,53 +24,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
+
 package gov.hhs.fha.nhinc.docsubmission.entity;
 
-import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxy;
-import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxyObjectFactory;
+import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.Orchestratable;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
-/**
- * 
- * @author akong
- */
-class OutboundDocSubmissionStrategyImpl_g1 implements OrchestrationStrategy {
+import org.junit.Test;
 
-    private static Log log = LogFactory.getLog(OutboundDocSubmissionStrategyImpl_g1.class);
+public class OutboundDocSubmissionFactoryTest {
 
-    public OutboundDocSubmissionStrategyImpl_g1() {
-    }
-
-    protected Log getLogger() {
-        return log;
-    }
-
-    protected NhinDocSubmissionProxy getNhinDocSubmissionProxy() {
-        return new NhinDocSubmissionProxyObjectFactory().getNhinDocSubmissionProxy();
+    @Test
+    public void testCreateOrchestrationContextBuilder() {
+        
+        OutboundDocSubmissionFactory factory = OutboundDocSubmissionFactory.getInstance();
+        
+        OrchestrationContextBuilder contextBuilder = factory.createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);        
+        assertTrue(contextBuilder instanceof OutboundDocSubmissionOrchestrationContextBuilder_g0);
+                
+        contextBuilder = factory.createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);        
+        assertTrue(contextBuilder instanceof OutboundDocSubmissionOrchestrationContextBuilder_g1);        
     }
     
-    @Override
-    public void execute(Orchestratable message) {
-        if (message instanceof OutboundDocSubmissionOrchestratable) {
-            execute((OutboundDocSubmissionOrchestratable) message);
-        } else {
-            getLogger().error("Not an OutboundDocSubmissionOrchestratable.");
-        }
-    }
-
-    public void execute(OutboundDocSubmissionOrchestratable message) {
-        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
-
-        NhinDocSubmissionProxy nhincDocSubmission = getNhinDocSubmissionProxy();
-        RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetB(message.getRequest(),
-                message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
-        message.setResponse(response);
-
-        getLogger().debug("End OutboundDocSubmissionOrchestratableImpl_g1.process");
-    }
 }

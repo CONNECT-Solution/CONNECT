@@ -87,7 +87,7 @@ public class PropertyAccessorFileUtilitiesTest {
         PropertyAccessorFileUtilities fileUtilities = createPropertyAccessorFileUtilities();
         
         fileUtilities.setPropertyFileLocation("/test");
-        assertEquals("/test/", fileUtilities.getPropertyFileLocation());
+        assertTrue(fileUtilities.getPropertyFileLocation().endsWith(File.separator));
     }
     
     @Test
@@ -126,8 +126,8 @@ public class PropertyAccessorFileUtilitiesTest {
             protected Log getLogger() {
                 return mockLog;
             }
-        };
-        assertEquals("/config/", fileUtilities.getPropertyFileLocation());
+        };        
+        assertTrue(fileUtilities.getPropertyFileLocation().endsWith(File.separator));
     }
     
     private PropertyAccessorFileUtilities createPropertyAccessorFileUtilities() {

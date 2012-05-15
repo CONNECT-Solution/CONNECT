@@ -57,7 +57,7 @@ public class OutboundDocSubmissionDelegate implements OutboundDelegate {
             getLogger().debug("processing DS orchestratable ");
             OutboundDocSubmissionOrchestratable dsMessage = (OutboundDocSubmissionOrchestratable) message;
 
-            OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
+            OrchestrationContextBuilder contextBuilder = getOrchestrationContextFactory().getBuilder(
                     dsMessage.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
 
             if (contextBuilder instanceof OutboundDocSubmissionOrchestrationContextBuilder_g0) {
@@ -73,7 +73,11 @@ public class OutboundDocSubmissionDelegate implements OutboundDelegate {
         return null;
     }
 
-    private Log getLogger() {
+    protected OrchestrationContextFactory getOrchestrationContextFactory() {
+        return OrchestrationContextFactory.getInstance();
+    }
+    
+    protected Log getLogger() {
         return log;
     }
 

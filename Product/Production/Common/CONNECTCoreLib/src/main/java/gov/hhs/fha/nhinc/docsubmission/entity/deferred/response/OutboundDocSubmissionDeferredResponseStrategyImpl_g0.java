@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response;
 
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
@@ -51,6 +50,10 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g0 implements Orc
         return log;
     }
 
+    protected NhinDocSubmissionDeferredResponseProxy getNhinDocSubmissionDeferredResponseProxy() {
+        return new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();
+    }
+    
     @Override
     public void execute(Orchestratable message) {
         if (message instanceof OutboundDocSubmissionDeferredResponseOrchestratable) {
@@ -62,22 +65,12 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g0 implements Orc
 
     public void execute(OutboundDocSubmissionDeferredResponseOrchestratable message) {
         getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
-        if (message == null) {
-            getLogger().debug("OutboundDocSubmissionOrchestratable was null");
-            return;
-        }
 
-        if (message instanceof OutboundDocSubmissionDeferredResponseOrchestratable) {
+        NhinDocSubmissionDeferredResponseProxy nhincDocSubmission = getNhinDocSubmissionDeferredResponseProxy();
+        XDRAcknowledgementType response = nhincDocSubmission.provideAndRegisterDocumentSetBDeferredResponse11(
+                message.getRequest(), message.getAssertion(), message.getTarget());
+        message.setResponse(response);
 
-            NhinDocSubmissionDeferredResponseProxy nhincDocSubmission = new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();
-            XDRAcknowledgementType response = nhincDocSubmission.provideAndRegisterDocumentSetBDeferredResponse11(message.getRequest(),
-                    message.getAssertion(), message.getTarget());
-            message.setResponse(response);
-
-        } else {
-            getLogger().error("OutboundDocSubmissionDeferredResponseStrategyImpl_g0 AdapterDelegateImpl_a0.process received a message " +
-                    "which was not of type OutboundDocSubmissionOrchestratableImpl_a0.");
-        }
         getLogger().debug("End OutboundDocSubmissionDeferredResponseStrategyImpl_g0.process");
     }
 

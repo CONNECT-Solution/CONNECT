@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
@@ -34,6 +33,7 @@ import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -43,88 +43,119 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * 
- * @author JHOPPESC
- */
 public class NhinDocSubmissionOrchImpl {
 
-    public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed ";
-    public static final String XDR_POLICY_ERROR_CONTEXT = "Policy Check Failed";
-    private static Log log = null;
+    private static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed ";
+    private static final String XDR_POLICY_ERROR_CONTEXT = "Policy Check Failed";
+    private static Log log = LogFactory.getLog(NhinDocSubmissionOrchImpl.class);
+    private XDRAuditLogger auditLogger = null;
 
     public NhinDocSubmissionOrchImpl() {
-        log = createLogger();
+        log = getLogger();
+        auditLogger = getXDRAuditLogger();
     }
 
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
-        RegistryResponseType result = null;
-
-        log.debug("Entering NhinXDRImpl.documentRepositoryProvideAndRegisterDocumentSetB");
-
-        XDRAuditLogger auditLogger = new XDRAuditLogger();
-        log.debug("Request object is nul = " + (body == null));
-        AcknowledgementType ack = auditLogger.auditNhinXDR(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-        log.debug(ack.getMessage());
-        String localHCID = "";
-        try {
-            localHCID = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-        } catch (PropertyAccessException ex) {
-            log.error(ex.getMessage());
-
-        }
-
-        if (isPolicyOk(body, assertion, assertion.getHomeCommunity().getHomeCommunityId(), localHCID)) {
-            log.debug("Policy Check Succeeded");
-            result = forwardToAgency(body, assertion);
-        } else {
-            log.error("Failed Policy Check");
-            result = createFailedPolicyCheckResponse();
-        }
-
-        ack = auditLogger.auditNhinXDRResponse(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-
-        return result;
-    }
-
-    private RegistryResponseType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
-        log.debug("begin forwardToAgency()");
-
         RegistryResponseType response = null;
 
-        AdapterDocSubmissionProxyObjectFactory factory = new AdapterDocSubmissionProxyObjectFactory();
-        AdapterDocSubmissionProxy proxy = factory.getAdapterDocSubmissionProxy();
+        auditRequestFromNhin(body, assertion);
 
-        response = proxy.provideAndRegisterDocumentSetB(body, assertion);
+        String localHCID = getLocalHCID();
+        if (isPolicyValid(body, assertion, localHCID)) {
+            log.debug("Policy Check Succeeded");
+            response = sendToAdapter(body, assertion);
+        } else {
+            log.error("Failed policy check.  Sending error response.");
+            response = createFailedPolicyCheckResponse();
+        }
+
+        auditResponseToNhin(response, assertion);
 
         return response;
     }
 
-    protected boolean isPolicyOk(ProvideAndRegisterDocumentSetRequestType newRequest, AssertionType assertion,
-            String senderHCID, String receiverHCID) {
-        boolean bPolicyOk = false;
+    protected Log getLogger() {
+        return log;
+    }
 
-        log.debug("checking the policy engine for the new request to a target community");
+    protected XDRAuditLogger getXDRAuditLogger() {
+        return new XDRAuditLogger();
+    }
 
-        // return true if 'permit' returned, false otherwise
-        XDRPolicyChecker policyChecker = new XDRPolicyChecker();
+    protected PropertyAccessor getPropertyAccessor() {
+        return PropertyAccessor.getInstance();
+    }
+
+    protected XDRPolicyChecker getXDRPolicyChecker() {
+        return new XDRPolicyChecker();
+    }
+
+    protected AdapterDocSubmissionProxy getAdapterDocSubmissionProxy() {
+        return new AdapterDocSubmissionProxyObjectFactory().getAdapterDocSubmissionProxy();
+    }
+
+    protected boolean hasHomeCommunityId(AssertionType assertion) {
+        if (assertion != null && assertion.getHomeCommunity() != null
+                && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isPolicyValid(ProvideAndRegisterDocumentSetRequestType newRequest, AssertionType assertion,
+            String receiverHCID) {
+
+        if (!hasHomeCommunityId(assertion)) {
+            log.warn("Failed policy check.  Received assertion does not have a home community id.");
+            return false;
+        }
+        
+        String senderHCID = assertion.getHomeCommunity().getHomeCommunityId();
+
+        XDRPolicyChecker policyChecker = getXDRPolicyChecker();
         return policyChecker.checkXDRRequestPolicy(newRequest, assertion, senderHCID, receiverHCID,
                 NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
-
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    private RegistryResponseType sendToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
+
+        auditRequestToAdapter(request, assertion);
+
+        AdapterDocSubmissionProxy proxy = getAdapterDocSubmissionProxy();
+        RegistryResponseType response = proxy.provideAndRegisterDocumentSetB(request, assertion);
+
+        auditResponseFromAdapter(response, assertion);
+
+        return response;
     }
 
-    private RegistryResponseType createPositiveAck() {
-        RegistryResponseType result = new RegistryResponseType();
+    private String getLocalHCID() {
+        String localHCID = "";
+        try {
+            localHCID = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+        } catch (PropertyAccessException ex) {
+            log.error("Failed to retrieve local HCID from properties file", ex);
+        }
 
-        result.setStatus(DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_SUCCESS);
+        return localHCID;
+    }
 
-        return result;
+    private void auditRequestFromNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
+        auditLogger.auditNhinXDR(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
+
+    private void auditResponseToNhin(RegistryResponseType response, AssertionType assertion) {
+        auditLogger.auditNhinXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    private void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
+        auditLogger.auditNhinXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    private void auditResponseFromAdapter(RegistryResponseType response, AssertionType assertion) {
+        auditLogger.auditEntityXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
     private RegistryResponseType createFailedPolicyCheckResponse() {

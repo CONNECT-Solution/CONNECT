@@ -28,14 +28,13 @@
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
-import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy.PassthruDocSubmissionDeferredRequestProxy;
-import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy.PassthruDocSubmissionDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
@@ -45,119 +44,144 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * 
- * @author jhoppesc
- */
 public class EntityDocSubmissionDeferredRequestOrchImpl {
-    private Log log = null;
+    private static Log log = LogFactory.getLog(EntityDocSubmissionDeferredRequestOrchImpl.class);
     private XDRAuditLogger auditLogger = null;
 
     public EntityDocSubmissionDeferredRequestOrchImpl() {
-        log = createLogger();
-        auditLogger = createAuditLogger();
+        log = getLogger();
+        auditLogger = getXDRAuditLogger();
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
             NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        log.info("Begin provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
-        XDRAcknowledgementType response = new XDRAcknowledgementType();
-        RegistryResponseType regResp = new RegistryResponseType();
-        response.setMessage(regResp);
-        String errMsg = null;
-
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-        provideAndRegisterRequestRequest.setNhinTargetCommunities(targets);
-        provideAndRegisterRequestRequest.setProvideAndRegisterDocumentSetRequest(request);
-        provideAndRegisterRequestRequest.setUrl(urlInfo);
-
-        logRequest(provideAndRegisterRequestRequest, assertion);
-
-        if (provideAndRegisterRequestRequest != null
-                && provideAndRegisterRequestRequest.getNhinTargetCommunities() != null
-                && NullChecker.isNotNullish(provideAndRegisterRequestRequest.getNhinTargetCommunities()
-                        .getNhinTargetCommunity())
-                && provideAndRegisterRequestRequest.getNhinTargetCommunities().getNhinTargetCommunity().get(0) != null
-                && provideAndRegisterRequestRequest.getNhinTargetCommunities().getNhinTargetCommunity().get(0)
-                        .getHomeCommunity() != null
-                && NullChecker.isNotNullish(provideAndRegisterRequestRequest.getNhinTargetCommunities()
-                        .getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId())) {
-
-            if (checkPolicy(provideAndRegisterRequestRequest, assertion)) {
-                log.info("Policy check successful");
-
-                NhinTargetSystemType targetSystemType = new NhinTargetSystemType();
-                targetSystemType.setHomeCommunity(provideAndRegisterRequestRequest.getNhinTargetCommunities()
-                        .getNhinTargetCommunity().get(0).getHomeCommunity());
-
-                gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType proxyRequest = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-                proxyRequest.setProvideAndRegisterDocumentSetRequest(provideAndRegisterRequestRequest
-                        .getProvideAndRegisterDocumentSetRequest());
-                proxyRequest.setNhinTargetSystem(targetSystemType);
-
-                log.debug("Sending request from entity service to NHIN proxy service");
-                response = callNhinXDRRequestProxy(proxyRequest, assertion);
-            } else {
-                errMsg = "Policy check unsuccessful";
-                log.error(errMsg);
-                regResp.setStatus(errMsg);
-
-            }
-        }
-
-        logResponse(response, assertion);
-
-        log.info("End provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, AssertionType)");
-        return response;
-    }
-
-    protected XDRAcknowledgementType callNhinXDRRequestProxy(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest,
-            AssertionType assertion) {
-        log.debug("Begin callNhinXDRRequestProxy");
 
         XDRAcknowledgementType response = null;
 
-        OutboundDocSubmissionDeferredRequestDelegate dsDelegate = new OutboundDocSubmissionDeferredRequestDelegate();
-        OutboundDocSubmissionDeferredRequestOrchestratable dsOrchestratable = new OutboundDocSubmissionDeferredRequestOrchestratable(
-                dsDelegate);
-        dsOrchestratable.setAssertion(assertion);
-        dsOrchestratable.setRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest());
-        dsOrchestratable.setTarget(provideAndRegisterRequestRequest.getNhinTargetSystem());
-        response = ((OutboundDocSubmissionDeferredRequestOrchestratable) dsDelegate.process(dsOrchestratable))
-                .getResponse();
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType internalRequest = createRequestForInternalProcessing(
+                request, assertion, targets, urlInfo);
 
-        log.debug("End callNhinXDRRequestProxy");
+        auditRequestFromAdapter(internalRequest, assertion);
+
+        if (isPolicyValid(internalRequest, assertion)) {
+            log.info("Policy check successful");
+            response = getResponseFromTarget(internalRequest, assertion);
+        } else {
+            log.error("Failed policy check.  Sending error response.");
+            response = createFailedPolicyCheckResponse();
+        }
+
+        auditResponseToAdapter(response, assertion);
+
         return response;
     }
 
-    protected void logRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+    private RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType createRequestForInternalProcessing(
+            ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion, NhinTargetCommunitiesType targets,
+            UrlInfoType urlInfo) {
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+        request.setProvideAndRegisterDocumentSetRequest(msg);
+        request.setNhinTargetCommunities(targets);
+        request.setUrl(urlInfo);
+
+        return request;
+    }
+    
+    private boolean isPolicyValid(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
             AssertionType assertion) {
-        log.debug("Begin logRequest");
-        auditLogger.auditEntityXDR(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-        log.debug("End logRequest");
+        boolean isValid = false;
+
+        if (hasNhinTargetHomeCommunityId(request)) {
+
+            String senderHCID = getSubjectHelper().determineSendingHomeCommunityId(assertion.getHomeCommunity(),
+                    assertion);
+            String receiverHCID = getNhinTargetHomeCommunityId(request);
+            String direction = NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION;
+
+            isValid = getXDRPolicyChecker().checkXDRRequestPolicy(request.getProvideAndRegisterDocumentSetRequest(),
+                    assertion, senderHCID, receiverHCID, direction);
+        } else {
+            log.warn("Check on policy requires a non null target home community ID specified in the request");
+        }
+        log.debug("Check on policy returns: " + isValid);
+
+        return isValid;
+    }
+    
+    private XDRAcknowledgementType getResponseFromTarget(
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+
+        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType nhinRequest = createRequestForNhin(request);
+
+        return sendToNhinProxy(nhinRequest, assertion);
     }
 
-    protected void logResponse(XDRAcknowledgementType response, AssertionType assertion) {
-        log.debug("Beging logResponse");
+    private gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType createRequestForNhin(
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
+        
+        NhinTargetSystemType targetSystemType = new NhinTargetSystemType();
+        targetSystemType.setHomeCommunity(getNhinTargetHomeCommunity(request));
+        
+        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType nhinRequest = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+        nhinRequest.setNhinTargetSystem(targetSystemType);
+        nhinRequest.setProvideAndRegisterDocumentSetRequest(request.getProvideAndRegisterDocumentSetRequest());
+
+        return nhinRequest;
+    }
+    
+    private XDRAcknowledgementType sendToNhinProxy(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+            AssertionType assertion) {
+
+        OutboundDocSubmissionDeferredRequestDelegate delegate = getOutboundDocSubmissionDeferredRequestDelegate();
+        OutboundDocSubmissionDeferredRequestOrchestratable orchestratable = createOrchestratable(delegate, request, assertion);             
+        return ((OutboundDocSubmissionDeferredRequestOrchestratable) delegate.process(orchestratable)).getResponse();
+    }
+
+    private OutboundDocSubmissionDeferredRequestOrchestratable createOrchestratable(OutboundDocSubmissionDeferredRequestDelegate delegate, 
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+        
+        OutboundDocSubmissionDeferredRequestOrchestratable orchestratable = new OutboundDocSubmissionDeferredRequestOrchestratable(
+                delegate);
+        orchestratable.setAssertion(assertion);
+        orchestratable.setRequest(request.getProvideAndRegisterDocumentSetRequest());
+        orchestratable.setTarget(request.getNhinTargetSystem());
+        
+        return orchestratable;
+    }
+
+    private XDRAcknowledgementType createFailedPolicyCheckResponse() {
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
+
+        XDRAcknowledgementType response = new XDRAcknowledgementType();
+        response.setMessage(regResp);
+
+        return response;
+    }
+    
+    private void auditRequestFromAdapter(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+            AssertionType assertion) {
+        auditLogger.auditEntityXDR(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
+
+    private void auditResponseToAdapter(XDRAcknowledgementType response, AssertionType assertion) {
         auditLogger.auditEntityAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.XDR_REQUEST_ACTION);
-        log.debug("End logResponse");
     }
 
-    protected XDRAuditLogger createAuditLogger() {
-        return new XDRAuditLogger();
+    private HomeCommunityType getNhinTargetHomeCommunity(
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
+        return request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity();
+    }
+    
+    private String getNhinTargetHomeCommunityId(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
+        return getNhinTargetHomeCommunity(request).getHomeCommunityId();
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
-    protected boolean checkPolicy(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
-            AssertionType assertion) {
-        log.debug("Begin checkPolicy");
-        boolean bPolicyOk = false;
+    protected boolean hasNhinTargetHomeCommunityId(
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
 
         if (request != null
                 && request.getNhinTargetCommunities() != null
@@ -166,24 +190,29 @@ public class EntityDocSubmissionDeferredRequestOrchImpl {
                 && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity() != null
                 && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity().get(0)
                         .getHomeCommunity().getHomeCommunityId())) {
-
-            SubjectHelper subjHelp = new SubjectHelper();
-            String senderHCID = subjHelp.determineSendingHomeCommunityId(assertion.getHomeCommunity(), assertion);
-            String receiverHCID = request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity()
-                    .getHomeCommunityId();
-            String direction = NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION;
-            log.debug("Checking the policy engine for the " + direction + " request from " + senderHCID + " to "
-                    + receiverHCID);
-
-            // return true if 'permit' returned, false otherwise
-            XDRPolicyChecker policyChecker = new XDRPolicyChecker();
-            bPolicyOk = policyChecker.checkXDRRequestPolicy(request.getProvideAndRegisterDocumentSetRequest(),
-                    assertion, senderHCID, receiverHCID, direction);
-        } else {
-            log.warn("EntityXDRRequestSecuredImpl check on policy requires a non null receiving home community ID specified in the RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType");
+            return true;
         }
-        log.debug("EntityXDRRequestSecuredImpl check on policy returns: " + bPolicyOk);
-        return bPolicyOk;
+
+        return false;
     }
 
+    protected XDRAuditLogger getXDRAuditLogger() {
+        return new XDRAuditLogger();
+    }
+
+    protected Log getLogger() {
+        return log;
+    }
+
+    protected XDRPolicyChecker getXDRPolicyChecker() {
+        return new XDRPolicyChecker();
+    }
+
+    protected SubjectHelper getSubjectHelper() {
+        return new SubjectHelper();
+    }
+
+    protected OutboundDocSubmissionDeferredRequestDelegate getOutboundDocSubmissionDeferredRequestDelegate() {
+        return new OutboundDocSubmissionDeferredRequestDelegate();
+    }
 }
