@@ -58,7 +58,7 @@ public class OutboundDocSubmissionDeferredRequestDelegate implements OutboundDel
             getLogger().debug("processing DS deferred request orchestratable ");
             OutboundDocSubmissionDeferredRequestOrchestratable dsMessage = (OutboundDocSubmissionDeferredRequestOrchestratable) message;
 
-            OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
+            OrchestrationContextBuilder contextBuilder = getOrchestrationContextFactory().getBuilder(
                     dsMessage.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION_DEFERRED_REQUEST);
 
             if (contextBuilder instanceof OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g0) {
@@ -74,16 +74,16 @@ public class OutboundDocSubmissionDeferredRequestDelegate implements OutboundDel
         return null;
     }
 
-    private Log getLogger() {
+    protected Log getLogger() {
         return log;
     }
+    
+    protected OrchestrationContextFactory getOrchestrationContextFactory() {
+        return OrchestrationContextFactory.getInstance();
+    }
 
-	/* (non-Javadoc)
-	 * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable, java.lang.String)
-	 */
 	@Override
 	public void createErrorResponse(OutboundOrchestratable message, String error) {
-		// TODO Auto-generated method stub
-		
+	    // Do Nothing		
 	}
 }

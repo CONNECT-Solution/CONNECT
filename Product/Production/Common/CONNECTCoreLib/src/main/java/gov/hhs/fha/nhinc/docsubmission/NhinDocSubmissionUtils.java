@@ -39,12 +39,22 @@ import org.apache.commons.logging.LogFactory;
 public class NhinDocSubmissionUtils {
     private static Log log = LogFactory.getLog(NhinDocSubmissionUtils.class);
 
+    private static NhinDocSubmissionUtils instance = new NhinDocSubmissionUtils();
+    
+    NhinDocSubmissionUtils() {
+        
+    }
+    
+    public static NhinDocSubmissionUtils getInstance() {
+        return instance;
+    }
+    
     /**
      * Checks the gateway.properties file to see if a specified Patient Discovery Service is enabled.
      * 
      * @return Returns true if a specified Patient Discovery Service is enabled in the properties file.
      */
-    public static boolean isServiceEnabled(String serviceName) {
+    public boolean isServiceEnabled(String serviceName) {
         boolean serviceEnabled = false;
         try {
             serviceEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, serviceName);
@@ -63,7 +73,7 @@ public class NhinDocSubmissionUtils {
      * @return Returns true if the pass through property for a specified Patient Discovery Service in the
      *         gateway.properties file is true.
      */
-    public static boolean isInPassThroughMode(String passThruProperty) {
+    public boolean isInPassThroughMode(String passThruProperty) {
         boolean passThroughModeEnabled = false;
         try {
             passThroughModeEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
