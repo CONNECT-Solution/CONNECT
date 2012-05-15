@@ -100,7 +100,7 @@ public class DocQuerySender {
         }
         // Replace the patient id in the document query message
         DocumentQueryTransform transform = createDocumentTransform();
-        AdhocQueryRequest adhocQueryRequest = transform.replaceAdhocQueryPatientId(oOriginalQueryRequest, sLocalHomeCommunity, oSubjectId.getAssigningAuthorityIdentifier(), oSubjectId.getSubjectIdentifier());
+        AdhocQueryRequest adhocQueryRequest = transform.replaceAdhocQueryPatientId(oOriginalQueryRequest, sTargetHomeCommunityId, oSubjectId.getAssigningAuthorityIdentifier(), oSubjectId.getSubjectIdentifier());
         AdhocQueryResponse queryResults = null;
         if (isValidPolicy(adhocQueryRequest, oAssertion, targetCommunity)) {
             try {
