@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
+ * Copyright 2012(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ *
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
@@ -12,6 +12,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.TimeZone;
@@ -215,16 +216,16 @@ public class HL7Parser201306 {
     private static MFMIMT700711UV01Custodian createCustodian(Patient patient) {
         MFMIMT700711UV01Custodian result = new MFMIMT700711UV01Custodian();
         result.getTypeCode().add("CST");
-        result.setAssignedEntity(createAssignEntity(patient));
+        result.setAssignedEntity(createAssignEntity());
 
         return result;
     }
 
-    private static COCTMT090003UV01AssignedEntity createAssignEntity(Patient patient) {
+    private static COCTMT090003UV01AssignedEntity createAssignEntity() {
         COCTMT090003UV01AssignedEntity assignedEntity = new COCTMT090003UV01AssignedEntity();
         assignedEntity.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
         II id = new II();
-        id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());
+        id.setRoot(HomeCommunityMap.getLocalHomeCommunityId());
         assignedEntity.getId().add(id);
         CE ce = new CE();
         ce.setCode("NotHealthDataLocator");
@@ -253,7 +254,7 @@ public class HL7Parser201306 {
         statusCode.setCode("SD");
         subjectPatient.setStatusCode(statusCode);
 
-        // Add in patient id 
+        // Add in patient id
         subjectPatient.getId().add(createSubjectId(patient));
 
         // Add in patient person
@@ -350,7 +351,7 @@ public class HL7Parser201306 {
             person.setAdministrativeGenderCode(createGender(patient));
         }
 
-        // Set the Subject Name        
+        // Set the Subject Name
         if (patient.getNames().size() > 0) {
             for (PersonName name : patient.getNames()) {
                 person.getName().add(createSubjectName(name));
