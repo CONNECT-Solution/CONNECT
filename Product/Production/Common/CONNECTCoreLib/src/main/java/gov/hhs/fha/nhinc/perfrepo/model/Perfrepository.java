@@ -44,7 +44,14 @@ public class Perfrepository implements Serializable {
     private String direction;
     private String communityid;
     private Integer status;
-
+    
+    private String version;
+    private String payloadType;
+    private String size;
+    private String correlationId;
+    private String otherCommunityId;
+    private String errorCode;
+    
     /**
      * @return id
      */
@@ -169,6 +176,54 @@ public class Perfrepository implements Serializable {
      */
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getMessageVersion() {
+        return version;
+    }
+
+    public void setMessageVersion(String messageVersion) {
+        this.version = messageVersion;
+    }
+
+    public String getPayLoadType() {
+        return payloadType;
+    }
+
+    public void setPayLoadType(String payLoadType) {
+        this.payloadType = payLoadType;
+    }
+
+    public String getPayLoadSize() {
+        return size;
+    }
+
+    public void setPayLoadSize(String payLoadSize) {
+        this.size = payLoadSize;
+    }
+
+    public String getCorrelationId() {
+        return correlationId;
+    }
+
+    public void setCorrelationId(String correlationId) {
+        this.correlationId = correlationId;
+    }
+
+    public String getOtherCommunityId() {
+        return otherCommunityId;
+    }
+
+    public void setOtherCommunityId(String otherCommunityId) {
+        this.otherCommunityId = otherCommunityId;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
     }
 
 }

@@ -81,32 +81,45 @@ public class PerformanceManager {
      * @param communityid
      * @return Long - Generated id from SQL INSERT
      */
-    public Long logPerformanceStart(Timestamp starttime, String servicetype, String messagetype, String direction,
-            String communityid) {
+    public Long logPerformanceStart(final Timestamp starttime, final String servicetype, final String messagetype,
+            final String direction, final String communityid) {
         log.debug("PerformanceManager.logPerformanceStart() - Begin");
 
         Long newId = null;
 
-        if (IsPerfMonitorEnabled()) {
-            Perfrepository perfRecord = new Perfrepository();
-            perfRecord.setStarttime(starttime);
-            perfRecord.setServicetype(servicetype);
-            perfRecord.setMessagetype(messagetype);
-            perfRecord.setDirection(direction);
-            perfRecord.setCommunityid(communityid);
-
-            if (PerfrepositoryDao.getPerfrepositoryDaoInstance().insertPerfrepository(perfRecord)) {
-                newId = perfRecord.getId();
-                log.info("PerformanceManager.logPerformanceStart() - New Performance Log Id = " + newId);
-            } else {
-                log.warn("PerformanceManager.logPerformanceStart() - ERROR Inserting New Performance Log Record");
-            }
+        if (PerformanceManager.IsPerfMonitorEnabled()) {
+            newId = createPerformanceRecord(starttime, servicetype, messagetype, direction, communityid, null, null, null, null, null);
         } else {
             log.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
         }
 
         log.debug("PerformanceManager.logPerformanceStart() - End");
 
+        return newId;
+    }
+
+    private Long createPerformanceRecord(final Timestamp starttime, final String servicetype, final String messagetype,
+            final String direction, final String communityid,final String correlationId,final String errorCode,
+            final String messageVersion,final String payLoadSize, final String payLoadType) {
+        Long newId = null;
+        Perfrepository perfRecord = new Perfrepository();
+        perfRecord.setStarttime(starttime);
+        perfRecord.setServicetype(servicetype);
+        perfRecord.setMessagetype(messagetype);
+        perfRecord.setDirection(direction);
+        perfRecord.setCommunityid(communityid);
+        perfRecord.setCorrelationId(correlationId);
+        perfRecord.setErrorCode(errorCode);
+        perfRecord.setMessageVersion(messageVersion);
+        perfRecord.setPayLoadSize(payLoadSize);
+        perfRecord.setPayLoadType(payLoadType);
+
+        if (PerfrepositoryDao.getPerfrepositoryDaoInstance().insertPerfrepository(perfRecord)) {
+            newId = perfRecord.getId();
+            log.info("PerformanceManager.logPerformanceStart() - New Performance Log Id = " + newId);
+        } else {
+            log.warn("PerformanceManager.logPerformanceStart() - ERROR Inserting New Performance Log Record");
+        }
         return newId;
     }
 
@@ -212,7 +225,8 @@ public class PerformanceManager {
         boolean match = false;
         try {
             // Use CONNECT utility class to access gateway.properties
-            String perfEnabled = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, PERF_LOG_ENABLED);
+            String perfEnabled = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    PERF_LOG_ENABLED);
             if (perfEnabled != null && perfEnabled.equalsIgnoreCase("true")) {
                 match = true;
             }
