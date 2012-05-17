@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CONNECT.Automated.Installer" default="install" basedir=".">
-    
+
     <record name="install.debug.log" append="false" loglevel="debug"/>
-    
+
     <tstamp/>
-    
+
     <dirname property="CONNECT.Automated.Installer.basedir" file="${ant.file.CONNECT.Automated.Installer}"/>
     <property name="CONNECT.Automated.Installer.thirdparty.dir" location="${CONNECT.Automated.Installer.basedir}/../../ThirdParty"/>
 
-	<taskdef resource="net/sf/antcontrib/antlib.xml">
-		<classpath>
-			<fileset dir="${CONNECT.Automated.Installer.thirdparty.dir}/AntExtraLibs">
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <fileset dir="${CONNECT.Automated.Installer.thirdparty.dir}/AntExtraLibs">
                 <include name="ant-contrib-*.jar"/>
-			</fileset>
-		</classpath>
-	</taskdef>
+            </fileset>
+        </classpath>
+    </taskdef>
 
     <property environment="env"/>
     <property name="properties.file" value="${CONNECT.Automated.Installer.basedir}/local.install.properties"/>
-    
+
     <available file="${properties.file}" type="file" property="properties.file.exists"/>
     <fail unless="properties.file.exists" message="Did not find properties file ${properties.file}"/>
-    
+
     <property file="${properties.file}"/>
     <property name="glassfish.install.dir" value="${glassfish.install.dir.root}/${glassfish.install.dir.name}"/>
     <property name="temp.dir" value="${basedir}/.installer.temp"/>
@@ -29,10 +29,11 @@
     <property name="metro.install.ant.script" value="${temp.dir}/metro/metro-on-glassfish.xml"/>
     <property name="sql.scripts.dir" value="${basedir}/../DBScripts/nhincdb"/>
     <property name="thirdparty.dir" value="../../ThirdParty"/>
-    
+    <property name="mysql.executable" value="mysql"/>
+
     <delete dir="${temp.dir}"/>
     <mkdir dir="${temp.dir}"/>
-    
+
     <available file="${glassfish.install.dir}" type="dir" property="glassfish.install.dir.exists"/>
 
     <target name="determine.os">
@@ -46,27 +47,27 @@
             <os family="unix"/>
         </condition>
     </target>
-    
+
     <target name="setup" depends="setup.for.mac, setup.for.windows, setup.for.linux">
         <property name="metro.zip.file" value="${temp.dir}/metro-2.1.1.zip"/>
         <get src="https://developer.connectopensource.org/download/attachments/20316168/metro-2.1.1.zip" dest="${metro.zip.file}"/>
     </target>
-    
+
     <target name="setup.for.mac" if="is.mac">
         <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.mac.zip"/>
         <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.mac.zip" dest="${glassfish.zip.file}"/>
     </target>
-    
+
     <target name="setup.for.linux" if="is.linux" unless="is.mac">
         <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.linux.zip"/>
         <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.linux.zip" dest="${glassfish.zip.file}"/>
     </target>
-    
+
     <target name="setup.for.windows"  if="is.windows">
         <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.windows.zip"/>
         <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.windows.zip" dest="${glassfish.zip.file}"/>
     </target>
-    
+
     <target name="backup.glassfish.install.dir" if="glassfish.install.dir.exists" unless="skip.backup">
         <echo message="WARNING: glassfish appears to already be installed at ${glassfish.install.dir}...backing up."/>
         <copy todir="${glassfish.install.dir.root}/.backup.${glassfish.install.dir.name}.${DSTAMP}_${TSTAMP}">
@@ -76,12 +77,12 @@
 
     <target name="install" depends="determine.os, setup, backup.glassfish.install.dir, install.glassfish.with.metro, install.databases, build.connect, deploy.connect, cleanup"/>
 
-	<target name="install-binary" depends="determine.os, setup, backup.glassfish.install.dir, install.glassfish.with.metro, install.databases, deploy.connect.binary, cleanup"/>
+    <target name="install-binary" depends="determine.os, setup, backup.glassfish.install.dir, install.glassfish.with.metro, install.databases, deploy.connect.binary, cleanup"/>
 
     <target name="cleanup">
         <delete dir="${temp.dir}"/>
     </target>
-    
+
     <target name="install.glassfish.with.metro">
         <echo message="installing glassfish."/>
         <delete dir="${glassfish.install.dir}"/>
@@ -99,17 +100,17 @@
             <replacetoken><![CDATA[Current Java Version ${java.version}]]></replacetoken>
             <replacevalue><![CDATA[Current Local Java Home ${local.java.home}, Current Java Version ${java.version}]]></replacevalue>
         </replace>
-		<if>
-			<istrue value="${is.windows}"/>
-			<then>
-				<ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}"/>
-			</then>
-			<else>
-				<ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}">
-					<property name="java.home" value="${env.JAVA_HOME}"/>
+        <if>
+            <istrue value="${is.windows}"/>
+            <then>
+                <ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}"/>
+            </then>
+            <else>
+                <ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}">
+                    <property name="java.home" value="${env.JAVA_HOME}"/>
                     <property name="local.java.home" value="${env.JAVA_HOME}"/>
-				</ant>
-			</else>
+                </ant>
+            </else>
         </if>
         <echo message="installing metro 2.1 into glassfish."/>
         <unzip src="${metro.zip.file}" dest="${temp.dir}"/>
@@ -143,26 +144,26 @@
             <property name="source.install" value="true"/>
         </ant>
     </target>
-    
+
     <target name="install.databases">
         <echo message="installing MySQL databases and connection users."/>
-        <exec failonerror="true" executable="mysql" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/dropall.sql">
+        <exec failonerror="true" executable="${mysql.executable}" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/dropall.sql">
             <arg value="-v" />
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
         </exec>
-        <exec failonerror="true" executable="mysql" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/nhincdb.sql">
+        <exec failonerror="true" executable="${mysql.executable}" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/nhincdb.sql">
             <arg value="-v" />
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
         </exec>
-        <exec failonerror="true" executable="mysql" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/populateTestData.sql">
+        <exec failonerror="true" executable="${mysql.executable}" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/populateTestData.sql">
             <arg value="-v" />
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
         </exec>
         <echo file="${temp.dir}/show.databases.sql" message="SHOW DATABASES;"/>
-        <exec failonerror="true" executable="mysql" dir="${temp.dir}" input="${temp.dir}/show.databases.sql">
+        <exec failonerror="true" executable="${mysql.executable}" dir="${temp.dir}" input="${temp.dir}/show.databases.sql">
             <arg value="-v" />
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
@@ -171,18 +172,18 @@
 GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
         </echo>
-        <exec failonerror="true" executable="mysql" dir="${temp.dir}" input="${temp.dir}/privileges.sql">
+        <exec failonerror="true" executable="${mysql.executable}" dir="${temp.dir}" input="${temp.dir}/privileges.sql">
             <arg value="-v" />
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
         </exec>
-        <exec failonerror="true" executable="mysql" dir="${basedir}">
+        <exec failonerror="true" executable="${mysql.executable}" dir="${basedir}">
             <arg value="-unhincuser" />
             <arg value="-pnhincpass" />
         </exec>
         <echo message="databases are successfully installed."/>
     </target>
-    
+
     <target name="build.connect" unless="skip.build">
         <echo message="building CONNECT."/>
         <ant antfile="${basedir}/../build.xml" dir="${basedir}/..">
@@ -192,7 +193,7 @@ FLUSH PRIVILEGES;
             <property name="source.install" value="true"/>
         </ant>
     </target>
-    
+
     <target name="deploy.connect" unless="skip.deploy">
         <echo message="deploying CONNECT."/>
         <ant antfile="${basedir}/../build.xml" dir="${basedir}/.." target="deploy">
