@@ -117,36 +117,28 @@ public class WebServiceProxyHelper {
         return url;
     }
 
-	/**
-	 * This method returns the URL endpoint of the passed in adapter service name with the given api level
-	 *
-	 * @param sServiceName
-	 *            The name of the service to locate.
-	 * @param level
-     *            The adapter api level.
-	 * @return The endpoint URL.
-	 * @throws Exception
-	 *             An exception if one occurs.
-	 */
-	public String getEndPointFromConnectionManagerByAdapterAPILevel(
-			String sServiceName, ADAPTER_API_LEVEL level)
-			throws ConnectionManagerException {
-		String url = ConnectionManagerCache.getInstance().getAdapterEndpointURL(
-				sServiceName, level);
-		return url;
-	}
+    /**
+     * This method returns the URL endpoint of the passed in adapter service name with the given api level
+     *
+     * @param sServiceName The name of the service to locate.
+     * @param level The adapter api level.
+     * @return The endpoint URL.
+     * @throws Exception An exception if one occurs.
+     */
+    public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level)
+            throws ConnectionManagerException {
+        String url = ConnectionManagerCache.getInstance().getAdapterEndpointURL(sServiceName, level);
+        return url;
+    }
 
-	/**
+    /**
      * This method returns the URL endpoint of the passed in adapter service name
      *
-     * @param sServiceName
-     *            The name of the service to locate.
+     * @param sServiceName The name of the service to locate.
      * @return The endpoint URL.
-     * @throws Exception
-     *             An exception if one occurs.
+     * @throws Exception An exception if one occurs.
      */
-    public String getAdapterEndPointFromConnectionManager(String sServiceName)
-            throws ConnectionManagerException {
+    public String getAdapterEndPointFromConnectionManager(String sServiceName) throws ConnectionManagerException {
         AdapterEndpointManager adapterEndpointManager = new AdapterEndpointManager();
         ADAPTER_API_LEVEL level = adapterEndpointManager.getApiVersion(sServiceName);
 
@@ -156,11 +148,9 @@ public class WebServiceProxyHelper {
     /**
      * This method returns the URL endpoint of the passed in adapter service name
      *
-     * @param sServiceName
-     *            The name of the service to locate.
+     * @param sServiceName The name of the service to locate.
      * @return The endpoint URL.
-     * @throws Exception
-     *             An exception if one occurs.
+     * @throws Exception An exception if one occurs.
      */
     public String getAdapterEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
             throws ConnectionManagerException {
@@ -181,7 +171,8 @@ public class WebServiceProxyHelper {
      */
     protected String getEndPointFromConnectionManager(String sHomeCommunityId, String sServiceName)
             throws ConnectionManagerException {
-        String url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(sHomeCommunityId, sServiceName);
+        String url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(sHomeCommunityId,
+                sServiceName);
         return url;
     }
 
@@ -393,8 +384,6 @@ public class WebServiceProxyHelper {
         return oTokenCreator.CreateRequestContext(oAssertion, sUrl, sServiceAction);
     }
 
-
-
     /**
      * This method retrieves the message identifier stored in the assertion If the message ID is null or empty, this
      * method will generate a new UUID to use for the message ID.
@@ -475,8 +464,8 @@ public class WebServiceProxyHelper {
         String messageId = getMessageId(assertion);
         List<String> allRelatesTo = getRelatesTo(assertion);
 
-        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, wsAddressingAction, messageId, allRelatesTo);
-
+        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, wsAddressingAction, messageId,
+                allRelatesTo);
 
         List<Header> createdHeaders = hdrCreator.build();
 
@@ -592,7 +581,8 @@ public class WebServiceProxyHelper {
         if (wsAddressingAction != null) {
             setOutboundHeaders(port, wsAddressingAction, assertion);
         } else {
-            if (assertion != null && hasProperMessageIDPrefix(assertion.getMessageId()) == false) {
+            if (assertion != null && (NullChecker.isNotNullish(assertion.getMessageId()))
+                    && !hasProperMessageIDPrefix(assertion.getMessageId())) {
                 fixMessageIDPrefix(assertion);
             }
             log.warn("WS-Addressing information is unavailable, relying on wsdl policy");
@@ -608,12 +598,14 @@ public class WebServiceProxyHelper {
      * @param assertion
      */
     private void setOutboundHeaders(BindingProvider port, String wsAddressingAction, AssertionType assertion) {
-        String url = getUrlFormPort(port);
-
-
-
-        List<Header> createdHeaders = getWSAddressingHeaders(url, wsAddressingAction, assertion);
+        List<Header> createdHeaders = createWSAddressingHeaders(port, wsAddressingAction, assertion);
         setOutboundHeaders(port, createdHeaders);
+    }
+
+    public List<Header> createWSAddressingHeaders(BindingProvider port, String wsAddressingAction,
+            AssertionType assertion) {
+        String url = getUrlFormPort(port);
+        return getWSAddressingHeaders(url, wsAddressingAction, assertion);
     }
 
     /**
@@ -831,7 +823,7 @@ public class WebServiceProxyHelper {
      * @throws Exception generic exception
      */
     public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-            throws Exception{
+            throws Exception {
         log.debug("Begin invokePort");
 
         if (portObject == null) {
@@ -848,7 +840,7 @@ public class WebServiceProxyHelper {
             throw new IllegalArgumentException(methodName + " not found for class " + portClass.getCanonicalName());
         }
 
-       if ((iRetryCount > 0) && (iRetryDelay > 0) && (sExceptionText != null) && (sExceptionText.length() > 0)) {
+        if ((iRetryCount > 0) && (iRetryDelay > 0) && (sExceptionText != null) && (sExceptionText.length() > 0)) {
             oResponse = invokePortWithRetry(portObject, portClass, operationInput, iRetryCount, iRetryDelay, oMethod);
         } // if ((iRetryCount > 0) && (iRetryDelay > 0))
         else {
@@ -914,7 +906,7 @@ public class WebServiceProxyHelper {
      * @throws Exception
      */
     public Object invokePortWithRetry(Object portObject, Class portClass, Object operationInput, int iRetryCount,
-            int iRetryDelay, Method oMethod)  throws Exception {
+            int iRetryDelay, Method oMethod) throws Exception {
         Object oResponse = null;
         int i = 1;
         Exception eCatchExp = null;
@@ -937,7 +929,8 @@ public class WebServiceProxyHelper {
                 // there is no need to sleep again if we are done.
                 // -------------------------------------------------------------------------
                 if (i++ < iRetryCount) {
-                    handleInvokePortRetryFailure(portClass, iRetryDelay, i, sExceptionText, (InvocationTargetException) eCatchExp);
+                    handleInvokePortRetryFailure(portClass, iRetryDelay, i, sExceptionText,
+                            (InvocationTargetException) eCatchExp);
                     retryDelay(portClass, iRetryDelay);
 
                     iRetryDelay = increaseRetryDelay(iRetryDelay);

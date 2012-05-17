@@ -1,54 +1,60 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.hiem.dte;
 
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.ws.WebServiceContext;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
+import java.util.Set;
+
 import javax.xml.soap.SOAPBody;
 import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPHeader;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.handler.soap.SOAPMessageContext;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import com.sun.xml.ws.api.message.Headers;
+
 import com.sun.xml.ws.api.message.Header;
+import com.sun.xml.ws.api.message.Headers;
 import com.sun.xml.ws.developer.WSBindingProvider;
+
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
- * 
- * 
+ *
+ *
  * @author Neil Webb
  */
 public class SoapUtil {
@@ -60,6 +66,7 @@ public class SoapUtil {
      * @param context
      * @param attributeName
      */
+    @Deprecated
     public void extractReferenceParameters(SOAPMessageContext context, String attributeName) {
         log.debug("******** In handleMessage() *************");
         SOAPMessage soapMessage = null;
@@ -194,6 +201,10 @@ public class SoapUtil {
         return firstElement;
     }
 
+    /**
+     * @param WSBindingProvider port
+     * @param ReferenceParametersElements referenceParametersElements
+     */
     public SOAPHeader extractSoapHeader(WebServiceContext context, String attributeName) throws SOAPException {
         SOAPHeader header = null;
         SOAPMessage message = extractSoapMessageObject(context, attributeName);
@@ -205,17 +216,36 @@ public class SoapUtil {
 
     public void attachReferenceParameterElements(WSBindingProvider port,
             ReferenceParametersElements referenceParametersElements) {
-        List<Header> headers = new ArrayList<Header>();
+        attachReferenceParameterElements(port, referenceParametersElements, null);
+    }
+
+    /**
+     * @param WSBindingProvider port
+     * @param ReferenceParametersElements referenceParametersElements
+     * @param List<Header> headers
+     */
+    public void attachReferenceParameterElements(WSBindingProvider port,
+            ReferenceParametersElements referenceParametersElements, List<Header> headers) {
+        List<Header> newHeaders = new ArrayList<Header>();
         if (referenceParametersElements != null) {
             for (Element referenceParametersElement : referenceParametersElements.getElements()) {
 
                 if (validateHeader(referenceParametersElement.getNodeName())) {
                     log.debug("attaching header " + referenceParametersElement.getNodeName());
                     Header header = Headers.create(referenceParametersElement);
-                    headers.add(header);
+                    newHeaders.add(header);
                 }
             }
-            port.setOutboundHeaders(headers);
+            if (headers != null) {
+                // This introduces a chance of duplicate elements
+                newHeaders.addAll(headers);
+                // Casting to LinkedHashSet to remove duplicates and retain order
+                // then cast back to List<Headers>
+                Set<Header> oSet = new LinkedHashSet<Header>(newHeaders);
+                newHeaders.clear();
+                newHeaders.addAll(oSet);
+            }
+            port.setOutboundHeaders(newHeaders);
         }
     }
 
