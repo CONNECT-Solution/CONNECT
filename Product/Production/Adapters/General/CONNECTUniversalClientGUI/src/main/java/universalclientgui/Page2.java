@@ -930,6 +930,8 @@ public class Page2 extends AbstractPageBean {
 
         String html = convertXMLToHTML(new ByteArrayInputStream(document.getBytes()), xsl);
 
+		xsl.close();
+		
         log.debug("HTML PAGE: " + html);
 
         if (html == null || html.isEmpty()) {
