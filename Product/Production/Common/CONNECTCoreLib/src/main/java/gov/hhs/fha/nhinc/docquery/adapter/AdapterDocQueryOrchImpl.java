@@ -73,7 +73,7 @@ public class AdapterDocQueryOrchImpl {
             if (request != null) {
                 // Log the start of the adapter performance record
                 String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-                Timestamp starttime = new Timestamp(System.currentTimeMillis());
+                Timestamp starttime = createTimestamp();
                 Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
                         NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
                         NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
@@ -94,7 +94,7 @@ public class AdapterDocQueryOrchImpl {
                 response = callRedactionEngine(request, response, assertion);
 
                 // Log the end of the adapter performance record
-                Timestamp stoptime = new Timestamp(System.currentTimeMillis());
+                Timestamp stoptime = createTimestamp();
                 PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
             } else {
                 RegistryErrorList errorList = new RegistryErrorList();
@@ -115,6 +115,10 @@ public class AdapterDocQueryOrchImpl {
         log.debug("End AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         return response;
 
+    }
+
+    private Timestamp createTimestamp() {
+        return new Timestamp(System.currentTimeMillis());
     }
 
     protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse,
