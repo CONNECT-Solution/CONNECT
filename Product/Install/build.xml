@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CONNECT.Automated.Installer" default="install" basedir=".">
 
+<!-- this is a test. -->
+
     <record name="install.debug.log" append="false" loglevel="debug"/>
 
     <tstamp/>
