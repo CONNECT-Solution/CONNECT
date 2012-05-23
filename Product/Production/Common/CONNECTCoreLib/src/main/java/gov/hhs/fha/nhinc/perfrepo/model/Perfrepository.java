@@ -36,9 +36,7 @@ import java.sql.Timestamp;
 public class Perfrepository implements Serializable {
 
     private Long id;
-    private Timestamp starttime;
-    private Timestamp stoptime;
-    private Long duration;
+    private Timestamp time;
     private String servicetype;
     private String messagetype;
     private String direction;
@@ -66,48 +64,8 @@ public class Perfrepository implements Serializable {
         this.id = id;
     }
 
-    /**
-     * @return starttime
-     */
-    public Timestamp getStarttime() {
-        return starttime;
-    }
-
-    /**
-     * @param starttime new value for starttime
-     */
-    public void setStarttime(Timestamp starttime) {
-        this.starttime = starttime;
-    }
-
-    /**
-     * @return stoptime
-     */
-    public Timestamp getStoptime() {
-        return stoptime;
-    }
-
-    /**
-     * @param stoptime new value for stoptime
-     */
-    public void setStoptime(Timestamp stoptime) {
-        this.stoptime = stoptime;
-    }
-
-    /**
-     * @return duration
-     */
-    public Long getDuration() {
-        return duration;
-    }
-
-    /**
-     * @param duration new value for duration
-     */
-    public void setDuration(Long duration) {
-        this.duration = duration;
-    }
-
+   
+   
     /**
      * @return servicetype
      */
@@ -224,6 +182,20 @@ public class Perfrepository implements Serializable {
 
     public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
+    }
+
+    /**
+     * @return the time
+     */
+    public Timestamp getTime() {
+        return time;
+    }
+
+    /**
+     * @param time the time to set
+     */
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 
 }
