@@ -77,22 +77,22 @@ public class PerformanceManager {
 
     /**
      * Log new performance repository log record with initial start time
-     *
-     * @param starttime
+     * @param time
      * @param servicetype
      * @param messagetype
      * @param direction
      * @param communityid
      * @return Long - Generated id from SQL INSERT
      */
-    public Long logPerformanceStart(final Timestamp starttime, final String servicetype, final String messagetype,
+    public Long logPerformanceStart(final Timestamp time, final String servicetype, final String messagetype,
             final String direction, final String communityid) {
         log.debug("PerformanceManager.logPerformanceStart() - Begin");
 
         Long newId = null;
 
+
         if (PerformanceManager.isPerfMonitorEnabled()) {
-            newId = createPerformanceRecord(starttime, servicetype, messagetype, direction, communityid, null, null, null, null, null);
+            newId = createPerformanceRecord(time, servicetype, messagetype, direction, communityid, null, null, null, null, null);
         } else {
             log.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
         }
@@ -101,13 +101,39 @@ public class PerformanceManager {
 
         return newId;
     }
+    /**
+     * Log new performance repository log record with initial start time
+     *
+     * @param time
+     * @param servicetype
+     * @param messagetype
+     * @param direction
+     * @param communityid
+     * @return Long - Generated id from SQL INSERT
+     */
+    public Long logPerformanceStop(final Timestamp time, final String servicetype, final String messagetype,
+            final String direction, final String communityid) {
+        log.debug("PerformanceManager.logPerformanceStart() - Begin");
 
-    private Long createPerformanceRecord(final Timestamp starttime, final String servicetype, final String messagetype,
+        Long newId = null;
+
+        if (PerformanceManager.isPerfMonitorEnabled()) {
+            newId = createPerformanceRecord(time, servicetype, messagetype, direction, communityid, null, null, null, null, null);
+        } else {
+            log.info("PerformanceManager.logPerformanceStop() - Performance Monitor is Disabled");
+        }
+
+        log.debug("PerformanceManager.logPerformanceStop() - End");
+
+        return newId;
+    }
+
+    private Long createPerformanceRecord(final Timestamp time, final String servicetype, final String messagetype,
             final String direction, final String communityid,final String correlationId,final String errorCode,
             final String messageVersion,final String payLoadSize, final String payLoadType) {
         Long newId = null;
         Perfrepository perfRecord = new Perfrepository();
-        perfRecord.setStarttime(starttime);
+        perfRecord.setTime(time);
         perfRecord.setServicetype(servicetype);
         perfRecord.setMessagetype(messagetype);
         perfRecord.setDirection(direction);
@@ -134,8 +160,10 @@ public class PerformanceManager {
      * @param starttime
      * @param stoptime
      * @param status
+     * @deprecated
      * @return Long - Calculated duration in milliseconds
      */
+    @Deprecated
     public Long logPerformanceStop(Long id, Timestamp starttime, Timestamp stoptime) {
         log.debug("PerformanceManager.logPerformanceStop() - Begin");
 
@@ -157,9 +185,9 @@ public class PerformanceManager {
                     log.warn("PerformanceManager.logPerformanceStop() - ERROR Calculating Performance Duration - starttime and/or stoptime null");
                 }
 
-                perfRecord.setStoptime(stoptime);
-                perfRecord.setDuration(duration);
-                perfRecord.setStatus(status);
+//                perfRecord.setStoptime(stoptime);
+//                perfRecord.setDuration(duration);
+//                perfRecord.setStatus(status);
 
                 if (!PerfrepositoryDao.getPerfrepositoryDaoInstance().updatePerfrepository(perfRecord)) {
                     status = ERROR;
