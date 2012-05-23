@@ -1,0 +1,1001 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+XmlSchemaUtils (Apache CXF API 2.6.0 API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="org.apache.cxf.common.xmlschema.XmlSchemaUtils class">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="XmlSchemaUtils (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XmlSchemaUtils.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaInvalidOperation.html" title="class in org.apache.cxf.common.xmlschema"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaValidationManager.html" title="interface in org.apache.cxf.common.xmlschema"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/common/xmlschema/XmlSchemaUtils.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="XmlSchemaUtils.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+org.apache.cxf.common.xmlschema</FONT>
+<BR>
+Class XmlSchemaUtils</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>org.apache.cxf.common.xmlschema.XmlSchemaUtils</B>
+</PRE>
+<HR>
+<DL>
+<DT><PRE>public final class <B>XmlSchemaUtils</B><DT>extends <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></DL>
+</PRE>
+
+<P>
+Some functions that avoid problems with Commons XML Schema.
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#XSI_NIL">XSI_NIL</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#XSI_NIL_WITH_PREFIX">XSI_NIL_WITH_PREFIX</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#XSI_NS_ATTR">XSI_NS_ATTR</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#addImportIfNeeded(org.apache.ws.commons.schema.XmlSchema, javax.xml.namespace.QName)">addImportIfNeeded</A></B>(org.apache.ws.commons.schema.XmlSchema&nbsp;schema,
+                  <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;qname)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For convenience, start from a qname, and add the import if it is non-null
+ and has a namespace.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#addImportIfNeeded(org.apache.ws.commons.schema.XmlSchema, java.lang.String)">addImportIfNeeded</A></B>(org.apache.ws.commons.schema.XmlSchema&nbsp;schema,
+                  <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;namespaceUri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assist in managing the required <import namespace='uri'> for imports of peer schemas.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#cleanedUpSchemaSource(org.apache.ws.commons.schema.XmlSchemaObject)">cleanedUpSchemaSource</A></B>(org.apache.ws.commons.schema.XmlSchemaObject&nbsp;subject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#enumeratorValues(org.apache.ws.commons.schema.XmlSchemaSimpleType)">enumeratorValues</A></B>(org.apache.ws.commons.schema.XmlSchemaSimpleType&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieve the string values for an enumeration.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;org.apache.ws.commons.schema.XmlSchemaElement</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#findElementByRefName(org.apache.cxf.common.xmlschema.SchemaCollection, javax.xml.namespace.QName, java.lang.String)">findElementByRefName</A></B>(<A HREF="../../../../../org/apache/cxf/common/xmlschema/SchemaCollection.html" title="class in org.apache.cxf.common.xmlschema">SchemaCollection</A>&nbsp;xmlSchemaCollection,
+                     <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name,
+                     <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;referencingURI)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This copes with an observed phenomenon in the schema built by the
+ ReflectionServiceFactoryBean.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;org.apache.ws.commons.schema.XmlSchemaAll</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getAll(org.apache.ws.commons.schema.XmlSchemaComplexType)">getAll</A></B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getBaseType(org.apache.ws.commons.schema.XmlSchemaComplexType)">getBaseType</A></B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;org.apache.ws.commons.schema.XmlSchemaChoice</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getChoice(org.apache.ws.commons.schema.XmlSchemaComplexType)">getChoice</A></B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;org.apache.ws.commons.schema.XmlSchemaAttributeOrGroupRef&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getContentAttributes(org.apache.ws.commons.schema.XmlSchemaComplexType)">getContentAttributes</A></B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;org.apache.ws.commons.schema.XmlSchemaAnnotated&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getContentAttributes(org.apache.ws.commons.schema.XmlSchemaComplexType, org.apache.cxf.common.xmlschema.SchemaCollection)">getContentAttributes</A></B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type,
+                     <A HREF="../../../../../org/apache/cxf/common/xmlschema/SchemaCollection.html" title="class in org.apache.cxf.common.xmlschema">SchemaCollection</A>&nbsp;collection)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;org.apache.ws.commons.schema.XmlSchemaObject&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getContentElements(org.apache.ws.commons.schema.XmlSchemaComplexType, org.apache.cxf.common.xmlschema.SchemaCollection)">getContentElements</A></B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type,
+                   <A HREF="../../../../../org/apache/cxf/common/xmlschema/SchemaCollection.html" title="class in org.apache.cxf.common.xmlschema">SchemaCollection</A>&nbsp;collection)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;org.apache.ws.commons.schema.XmlSchemaSequence</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getContentSequence(org.apache.ws.commons.schema.XmlSchemaComplexType)">getContentSequence</A></B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getElementQualifiedName(org.apache.ws.commons.schema.XmlSchemaElement, org.apache.ws.commons.schema.XmlSchema)">getElementQualifiedName</A></B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                        org.apache.ws.commons.schema.XmlSchema&nbsp;schema)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By convention, an element that is named in its schema's TNS can have a 'name' but
+ no QName.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;org.apache.ws.commons.schema.XmlSchemaType</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getElementType(org.apache.cxf.common.xmlschema.SchemaCollection, java.lang.String, org.apache.ws.commons.schema.XmlSchemaElement, org.apache.ws.commons.schema.XmlSchemaType)">getElementType</A></B>(<A HREF="../../../../../org/apache/cxf/common/xmlschema/SchemaCollection.html" title="class in org.apache.cxf.common.xmlschema">SchemaCollection</A>&nbsp;xmlSchemaCollection,
+               <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;referencingURI,
+               org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+               org.apache.ws.commons.schema.XmlSchemaType&nbsp;containingType)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow a chain of references from element to element until we can obtain
+ a type.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;org.apache.ws.commons.schema.XmlSchemaAnnotated</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getObjectAnnotated(org.apache.ws.commons.schema.XmlSchemaObject, javax.xml.namespace.QName)">getObjectAnnotated</A></B>(org.apache.ws.commons.schema.XmlSchemaObject&nbsp;object,
+                   <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;contextName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If the object is an attribute or an anyAttribute,
+ return the 'Annotated'.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;org.apache.ws.commons.schema.XmlSchemaParticle</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getObjectParticle(org.apache.ws.commons.schema.XmlSchemaObject, javax.xml.namespace.QName)">getObjectParticle</A></B>(org.apache.ws.commons.schema.XmlSchemaObject&nbsp;object,
+                  <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;contextName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If the object is an element or an any, return the particle.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;org.apache.ws.commons.schema.XmlSchemaElement</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getReferredElement(org.apache.ws.commons.schema.XmlSchemaElement, org.apache.cxf.common.xmlschema.SchemaCollection)">getReferredElement</A></B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                   <A HREF="../../../../../org/apache/cxf/common/xmlschema/SchemaCollection.html" title="class in org.apache.cxf.common.xmlschema">SchemaCollection</A>&nbsp;xmlSchemaCollection)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;org.apache.ws.commons.schema.XmlSchemaSequence</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#getSequence(org.apache.ws.commons.schema.XmlSchemaComplexType)">getSequence</A></B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#isAttributeNameQualified(org.apache.ws.commons.schema.XmlSchemaAttribute, org.apache.ws.commons.schema.XmlSchema)">isAttributeNameQualified</A></B>(org.apache.ws.commons.schema.XmlSchemaAttribute&nbsp;attribute,
+                         org.apache.ws.commons.schema.XmlSchema&nbsp;schema)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#isAttributeQualified(org.apache.ws.commons.schema.XmlSchemaAttribute, boolean, org.apache.ws.commons.schema.XmlSchema, org.apache.ws.commons.schema.XmlSchema)">isAttributeQualified</A></B>(org.apache.ws.commons.schema.XmlSchemaAttribute&nbsp;attribute,
+                     boolean&nbsp;global,
+                     org.apache.ws.commons.schema.XmlSchema&nbsp;localSchema,
+                     org.apache.ws.commons.schema.XmlSchema&nbsp;attributeSchema)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;due to a bug, feature, or just plain oddity of JAXB, it isn't good enough
+ to just check the form of an element and of its schema.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#isComplexType(org.apache.ws.commons.schema.XmlSchemaType)">isComplexType</A></B>(org.apache.ws.commons.schema.XmlSchemaType&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#isElementNameQualified(org.apache.ws.commons.schema.XmlSchemaElement, org.apache.ws.commons.schema.XmlSchema)">isElementNameQualified</A></B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                       org.apache.ws.commons.schema.XmlSchema&nbsp;schema)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#isElementQualified(org.apache.ws.commons.schema.XmlSchemaElement, boolean, org.apache.ws.commons.schema.XmlSchema, org.apache.ws.commons.schema.XmlSchema)">isElementQualified</A></B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                   boolean&nbsp;global,
+                   org.apache.ws.commons.schema.XmlSchema&nbsp;localSchema,
+                   org.apache.ws.commons.schema.XmlSchema&nbsp;elementSchema)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;due to a bug, feature, or just plain oddity of JAXB, it isn't good enough
+ to just check the form of an element and of its schema.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#isEumeration(org.apache.ws.commons.schema.XmlSchemaSimpleType)">isEumeration</A></B>(org.apache.ws.commons.schema.XmlSchemaSimpleType&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return true if a simple type is a straightforward XML Schema representation of an enumeration.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#isParticleArray(org.apache.ws.commons.schema.XmlSchemaParticle)">isParticleArray</A></B>(org.apache.ws.commons.schema.XmlSchemaParticle&nbsp;particle)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#isParticleOptional(org.apache.ws.commons.schema.XmlSchemaParticle)">isParticleOptional</A></B>(org.apache.ws.commons.schema.XmlSchemaParticle&nbsp;particle)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#schemaImportsNamespace(org.apache.ws.commons.schema.XmlSchema, java.lang.String)">schemaImportsNamespace</A></B>(org.apache.ws.commons.schema.XmlSchema&nbsp;schema,
+                       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;namespaceUri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Is there an import for a particular namespace in a schema?</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#setElementName(org.apache.ws.commons.schema.XmlSchemaElement, java.lang.String)">setElementName</A></B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+               <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;name)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wrapper around XmlSchemaElement.setName that checks for inconsistency with
+ refName.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#setElementRefName(org.apache.ws.commons.schema.XmlSchemaElement, javax.xml.namespace.QName)">setElementRefName</A></B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                  <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wrapper around XmlSchemaElement.setRefName that checks for inconsistency with
+ name and QName.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#unsupportedConstruct(java.lang.String, java.lang.String, javax.xml.namespace.QName, org.apache.ws.commons.schema.XmlSchemaObject)">unsupportedConstruct</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;messageKey,
+                     <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;what,
+                     <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;subjectName,
+                     org.apache.ws.commons.schema.XmlSchemaObject&nbsp;subject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#unsupportedConstruct(java.lang.String, org.apache.ws.commons.schema.XmlSchemaType)">unsupportedConstruct</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;messageKey,
+                     org.apache.ws.commons.schema.XmlSchemaType&nbsp;subject)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="XSI_NIL"><!-- --></A><H3>
+XSI_NIL</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>XSI_NIL</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.common.xmlschema.XmlSchemaUtils.XSI_NIL">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="XSI_NS_ATTR"><!-- --></A><H3>
+XSI_NS_ATTR</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>XSI_NS_ATTR</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.common.xmlschema.XmlSchemaUtils.XSI_NS_ATTR">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="XSI_NIL_WITH_PREFIX"><!-- --></A><H3>
+XSI_NIL_WITH_PREFIX</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>XSI_NIL_WITH_PREFIX</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.common.xmlschema.XmlSchemaUtils.XSI_NIL_WITH_PREFIX">Constant Field Values</A></DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="setElementName(org.apache.ws.commons.schema.XmlSchemaElement, java.lang.String)"><!-- --></A><H3>
+setElementName</H3>
+<PRE>
+public static void <B>setElementName</B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                                  <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;name)</PRE>
+<DL>
+<DD>Wrapper around XmlSchemaElement.setName that checks for inconsistency with
+ refName.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>element</CODE> - <DD><CODE>name</CODE> - </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setElementRefName(org.apache.ws.commons.schema.XmlSchemaElement, javax.xml.namespace.QName)"><!-- --></A><H3>
+setElementRefName</H3>
+<PRE>
+public static void <B>setElementRefName</B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                                     <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name)</PRE>
+<DL>
+<DD>Wrapper around XmlSchemaElement.setRefName that checks for inconsistency with
+ name and QName.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>element</CODE> - <DD><CODE>name</CODE> - </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isEumeration(org.apache.ws.commons.schema.XmlSchemaSimpleType)"><!-- --></A><H3>
+isEumeration</H3>
+<PRE>
+public static boolean <B>isEumeration</B>(org.apache.ws.commons.schema.XmlSchemaSimpleType&nbsp;type)</PRE>
+<DL>
+<DD>Return true if a simple type is a straightforward XML Schema representation of an enumeration.
+ If we discover schemas that are 'enum-like' with more complex structures, we might
+ make this deal with them.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>type</CODE> - Simple type, possible an enumeration.
+<DT><B>Returns:</B><DD>true for an enumeration.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="enumeratorValues(org.apache.ws.commons.schema.XmlSchemaSimpleType)"><!-- --></A><H3>
+enumeratorValues</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt; <B>enumeratorValues</B>(org.apache.ws.commons.schema.XmlSchemaSimpleType&nbsp;type)</PRE>
+<DL>
+<DD>Retrieve the string values for an enumeration.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>type</CODE> - 
+<DT><B>Returns:</B><DD></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="schemaImportsNamespace(org.apache.ws.commons.schema.XmlSchema, java.lang.String)"><!-- --></A><H3>
+schemaImportsNamespace</H3>
+<PRE>
+public static boolean <B>schemaImportsNamespace</B>(org.apache.ws.commons.schema.XmlSchema&nbsp;schema,
+                                             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;namespaceUri)</PRE>
+<DL>
+<DD>Is there an import for a particular namespace in a schema?
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>schema</CODE> - <DD><CODE>namespaceUri</CODE> - 
+<DT><B>Returns:</B><DD></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addImportIfNeeded(org.apache.ws.commons.schema.XmlSchema, java.lang.String)"><!-- --></A><H3>
+addImportIfNeeded</H3>
+<PRE>
+public static void <B>addImportIfNeeded</B>(org.apache.ws.commons.schema.XmlSchema&nbsp;schema,
+                                     <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;namespaceUri)</PRE>
+<DL>
+<DD>Assist in managing the required <import namespace='uri'> for imports of peer schemas.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>schema</CODE> - <DD><CODE>namespaceUri</CODE> - </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addImportIfNeeded(org.apache.ws.commons.schema.XmlSchema, javax.xml.namespace.QName)"><!-- --></A><H3>
+addImportIfNeeded</H3>
+<PRE>
+public static void <B>addImportIfNeeded</B>(org.apache.ws.commons.schema.XmlSchema&nbsp;schema,
+                                     <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;qname)</PRE>
+<DL>
+<DD>For convenience, start from a qname, and add the import if it is non-null
+ and has a namespace.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>schema</CODE> - <DD><CODE>qname</CODE> - <DT><B>See Also:</B><DD><A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaUtils.html#addImportIfNeeded(org.apache.ws.commons.schema.XmlSchema, java.lang.String)"><CODE>addImportIfNeeded(XmlSchema, String)</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="findElementByRefName(org.apache.cxf.common.xmlschema.SchemaCollection, javax.xml.namespace.QName, java.lang.String)"><!-- --></A><H3>
+findElementByRefName</H3>
+<PRE>
+public static org.apache.ws.commons.schema.XmlSchemaElement <B>findElementByRefName</B>(<A HREF="../../../../../org/apache/cxf/common/xmlschema/SchemaCollection.html" title="class in org.apache.cxf.common.xmlschema">SchemaCollection</A>&nbsp;xmlSchemaCollection,
+                                                                                 <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name,
+                                                                                 <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;referencingURI)</PRE>
+<DL>
+<DD>This copes with an observed phenomenon in the schema built by the
+ ReflectionServiceFactoryBean. It is creating element such that: (a) the
+ type is not set. (b) the refName is set. (c) the namespaceURI in the
+ refName is set empty. This apparently indicates 'same Schema' to everyone
+ else, so thus function implements that convention here. It is unclear if
+ that is a correct structure, and it if changes, we can simplify or
+ eliminate this function.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>name</CODE> - <DD><CODE>referencingURI</CODE> - 
+<DT><B>Returns:</B><DD></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getBaseType(org.apache.ws.commons.schema.XmlSchemaComplexType)"><!-- --></A><H3>
+getBaseType</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>getBaseType</B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getContentAttributes(org.apache.ws.commons.schema.XmlSchemaComplexType)"><!-- --></A><H3>
+getContentAttributes</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;org.apache.ws.commons.schema.XmlSchemaAttributeOrGroupRef&gt; <B>getContentAttributes</B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getContentAttributes(org.apache.ws.commons.schema.XmlSchemaComplexType, org.apache.cxf.common.xmlschema.SchemaCollection)"><!-- --></A><H3>
+getContentAttributes</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;org.apache.ws.commons.schema.XmlSchemaAnnotated&gt; <B>getContentAttributes</B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type,
+                                                                                         <A HREF="../../../../../org/apache/cxf/common/xmlschema/SchemaCollection.html" title="class in org.apache.cxf.common.xmlschema">SchemaCollection</A>&nbsp;collection)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getContentElements(org.apache.ws.commons.schema.XmlSchemaComplexType, org.apache.cxf.common.xmlschema.SchemaCollection)"><!-- --></A><H3>
+getContentElements</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;org.apache.ws.commons.schema.XmlSchemaObject&gt; <B>getContentElements</B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type,
+                                                                                    <A HREF="../../../../../org/apache/cxf/common/xmlschema/SchemaCollection.html" title="class in org.apache.cxf.common.xmlschema">SchemaCollection</A>&nbsp;collection)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getContentSequence(org.apache.ws.commons.schema.XmlSchemaComplexType)"><!-- --></A><H3>
+getContentSequence</H3>
+<PRE>
+public static org.apache.ws.commons.schema.XmlSchemaSequence <B>getContentSequence</B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getElementQualifiedName(org.apache.ws.commons.schema.XmlSchemaElement, org.apache.ws.commons.schema.XmlSchema)"><!-- --></A><H3>
+getElementQualifiedName</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>getElementQualifiedName</B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                                            org.apache.ws.commons.schema.XmlSchema&nbsp;schema)</PRE>
+<DL>
+<DD>By convention, an element that is named in its schema's TNS can have a 'name' but
+ no QName. This can get inconvenient for consumers who want to think about qualified names.
+ Unfortunately, XmlSchema elements, unlike types, don't store a reference to their containing
+ schema.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>element</CODE> - <DD><CODE>schema</CODE> - 
+<DT><B>Returns:</B><DD></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getElementType(org.apache.cxf.common.xmlschema.SchemaCollection, java.lang.String, org.apache.ws.commons.schema.XmlSchemaElement, org.apache.ws.commons.schema.XmlSchemaType)"><!-- --></A><H3>
+getElementType</H3>
+<PRE>
+public static org.apache.ws.commons.schema.XmlSchemaType <B>getElementType</B>(<A HREF="../../../../../org/apache/cxf/common/xmlschema/SchemaCollection.html" title="class in org.apache.cxf.common.xmlschema">SchemaCollection</A>&nbsp;xmlSchemaCollection,
+                                                                        <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;referencingURI,
+                                                                        org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                                                                        org.apache.ws.commons.schema.XmlSchemaType&nbsp;containingType)</PRE>
+<DL>
+<DD>Follow a chain of references from element to element until we can obtain
+ a type.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>element</CODE> - 
+<DT><B>Returns:</B><DD></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getObjectAnnotated(org.apache.ws.commons.schema.XmlSchemaObject, javax.xml.namespace.QName)"><!-- --></A><H3>
+getObjectAnnotated</H3>
+<PRE>
+public static org.apache.ws.commons.schema.XmlSchemaAnnotated <B>getObjectAnnotated</B>(org.apache.ws.commons.schema.XmlSchemaObject&nbsp;object,
+                                                                                 <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;contextName)</PRE>
+<DL>
+<DD>If the object is an attribute or an anyAttribute,
+ return the 'Annotated'. If it's not one of those, or it's a group,
+ throw. We're not ready for groups yet.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>object</CODE> - 
+<DT><B>Returns:</B><DD></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getObjectParticle(org.apache.ws.commons.schema.XmlSchemaObject, javax.xml.namespace.QName)"><!-- --></A><H3>
+getObjectParticle</H3>
+<PRE>
+public static org.apache.ws.commons.schema.XmlSchemaParticle <B>getObjectParticle</B>(org.apache.ws.commons.schema.XmlSchemaObject&nbsp;object,
+                                                                               <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;contextName)</PRE>
+<DL>
+<DD>If the object is an element or an any, return the particle. If it's not a particle, or it's a group,
+ throw. We're not ready for groups yet.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>object</CODE> - 
+<DT><B>Returns:</B><DD></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getReferredElement(org.apache.ws.commons.schema.XmlSchemaElement, org.apache.cxf.common.xmlschema.SchemaCollection)"><!-- --></A><H3>
+getReferredElement</H3>
+<PRE>
+public static org.apache.ws.commons.schema.XmlSchemaElement <B>getReferredElement</B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                                                                               <A HREF="../../../../../org/apache/cxf/common/xmlschema/SchemaCollection.html" title="class in org.apache.cxf.common.xmlschema">SchemaCollection</A>&nbsp;xmlSchemaCollection)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getSequence(org.apache.ws.commons.schema.XmlSchemaComplexType)"><!-- --></A><H3>
+getSequence</H3>
+<PRE>
+public static org.apache.ws.commons.schema.XmlSchemaSequence <B>getSequence</B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getChoice(org.apache.ws.commons.schema.XmlSchemaComplexType)"><!-- --></A><H3>
+getChoice</H3>
+<PRE>
+public static org.apache.ws.commons.schema.XmlSchemaChoice <B>getChoice</B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAll(org.apache.ws.commons.schema.XmlSchemaComplexType)"><!-- --></A><H3>
+getAll</H3>
+<PRE>
+public static org.apache.ws.commons.schema.XmlSchemaAll <B>getAll</B>(org.apache.ws.commons.schema.XmlSchemaComplexType&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isAttributeNameQualified(org.apache.ws.commons.schema.XmlSchemaAttribute, org.apache.ws.commons.schema.XmlSchema)"><!-- --></A><H3>
+isAttributeNameQualified</H3>
+<PRE>
+public static boolean <B>isAttributeNameQualified</B>(org.apache.ws.commons.schema.XmlSchemaAttribute&nbsp;attribute,
+                                               org.apache.ws.commons.schema.XmlSchema&nbsp;schema)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isAttributeQualified(org.apache.ws.commons.schema.XmlSchemaAttribute, boolean, org.apache.ws.commons.schema.XmlSchema, org.apache.ws.commons.schema.XmlSchema)"><!-- --></A><H3>
+isAttributeQualified</H3>
+<PRE>
+public static boolean <B>isAttributeQualified</B>(org.apache.ws.commons.schema.XmlSchemaAttribute&nbsp;attribute,
+                                           boolean&nbsp;global,
+                                           org.apache.ws.commons.schema.XmlSchema&nbsp;localSchema,
+                                           org.apache.ws.commons.schema.XmlSchema&nbsp;attributeSchema)</PRE>
+<DL>
+<DD>due to a bug, feature, or just plain oddity of JAXB, it isn't good enough
+ to just check the form of an element and of its schema. If schema 'a'
+ (default unqualified) has a complex type with an element with a ref= to
+ schema (b) (default unqualified), JAXB seems to expect to see a
+ qualifier, anyway. <br/> So, if the element is local to a complex type,
+ all we care about is the default element form of the schema and the local
+ form of the element. <br/> If, on the other hand, the element is global,
+ we might need to compare namespaces. <br/>
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>attribute</CODE> - the attribute<DD><CODE>global</CODE> - if this element is a global element (complex type ref= to
+                it, or in a part)<DD><CODE>localSchema</CODE> - the schema of the complex type containing the
+                reference, only used for the 'odd case'.<DD><CODE>elementSchema</CODE> - the schema for the element.
+<DT><B>Returns:</B><DD>if the element needs to be qualified.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isComplexType(org.apache.ws.commons.schema.XmlSchemaType)"><!-- --></A><H3>
+isComplexType</H3>
+<PRE>
+public static boolean <B>isComplexType</B>(org.apache.ws.commons.schema.XmlSchemaType&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isElementNameQualified(org.apache.ws.commons.schema.XmlSchemaElement, org.apache.ws.commons.schema.XmlSchema)"><!-- --></A><H3>
+isElementNameQualified</H3>
+<PRE>
+public static boolean <B>isElementNameQualified</B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                                             org.apache.ws.commons.schema.XmlSchema&nbsp;schema)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isElementQualified(org.apache.ws.commons.schema.XmlSchemaElement, boolean, org.apache.ws.commons.schema.XmlSchema, org.apache.ws.commons.schema.XmlSchema)"><!-- --></A><H3>
+isElementQualified</H3>
+<PRE>
+public static boolean <B>isElementQualified</B>(org.apache.ws.commons.schema.XmlSchemaElement&nbsp;element,
+                                         boolean&nbsp;global,
+                                         org.apache.ws.commons.schema.XmlSchema&nbsp;localSchema,
+                                         org.apache.ws.commons.schema.XmlSchema&nbsp;elementSchema)</PRE>
+<DL>
+<DD>due to a bug, feature, or just plain oddity of JAXB, it isn't good enough
+ to just check the form of an element and of its schema. If schema 'a'
+ (default unqualified) has a complex type with an element with a ref= to
+ schema (b) (default unqualified), JAXB seems to expect to see a
+ qualifier, anyway. <br/> So, if the element is local to a complex type,
+ all we care about is the default element form of the schema and the local
+ form of the element. <br/> If, on the other hand, the element is global,
+ we might need to compare namespaces. <br/>
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>element</CODE> - the element.<DD><CODE>global</CODE> - if this element is a global element (complex type ref= to
+                it, or in a part)<DD><CODE>localSchema</CODE> - the schema of the complex type containing the
+                reference, only used for the 'odd case'.<DD><CODE>elementSchema</CODE> - the schema for the element.
+<DT><B>Returns:</B><DD>if the element needs to be qualified.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isParticleArray(org.apache.ws.commons.schema.XmlSchemaParticle)"><!-- --></A><H3>
+isParticleArray</H3>
+<PRE>
+public static boolean <B>isParticleArray</B>(org.apache.ws.commons.schema.XmlSchemaParticle&nbsp;particle)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isParticleOptional(org.apache.ws.commons.schema.XmlSchemaParticle)"><!-- --></A><H3>
+isParticleOptional</H3>
+<PRE>
+public static boolean <B>isParticleOptional</B>(org.apache.ws.commons.schema.XmlSchemaParticle&nbsp;particle)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="unsupportedConstruct(java.lang.String, java.lang.String, javax.xml.namespace.QName, org.apache.ws.commons.schema.XmlSchemaObject)"><!-- --></A><H3>
+unsupportedConstruct</H3>
+<PRE>
+public static void <B>unsupportedConstruct</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;messageKey,
+                                        <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;what,
+                                        <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;subjectName,
+                                        org.apache.ws.commons.schema.XmlSchemaObject&nbsp;subject)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="unsupportedConstruct(java.lang.String, org.apache.ws.commons.schema.XmlSchemaType)"><!-- --></A><H3>
+unsupportedConstruct</H3>
+<PRE>
+public static void <B>unsupportedConstruct</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;messageKey,
+                                        org.apache.ws.commons.schema.XmlSchemaType&nbsp;subject)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="cleanedUpSchemaSource(org.apache.ws.commons.schema.XmlSchemaObject)"><!-- --></A><H3>
+cleanedUpSchemaSource</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>cleanedUpSchemaSource</B>(org.apache.ws.commons.schema.XmlSchemaObject&nbsp;subject)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/XmlSchemaUtils.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaInvalidOperation.html" title="class in org.apache.cxf.common.xmlschema"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/apache/cxf/common/xmlschema/XmlSchemaValidationManager.html" title="interface in org.apache.cxf.common.xmlschema"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/common/xmlschema/XmlSchemaUtils.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="XmlSchemaUtils.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

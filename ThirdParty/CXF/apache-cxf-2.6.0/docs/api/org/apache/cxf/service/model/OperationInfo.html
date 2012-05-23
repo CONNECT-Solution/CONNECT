@@ -1,0 +1,887 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+OperationInfo (Apache CXF API 2.6.0 API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="org.apache.cxf.service.model.OperationInfo class">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="OperationInfo (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/OperationInfo.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/NamedItem.html" title="interface in org.apache.cxf.service.model"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/SchemaInfo.html" title="class in org.apache.cxf.service.model"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/service/model/OperationInfo.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="OperationInfo.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+org.apache.cxf.service.model</FONT>
+<BR>
+Class OperationInfo</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html" title="class in org.apache.cxf.service.model">org.apache.cxf.service.model.AbstractPropertiesHolder</A>
+      <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>org.apache.cxf.service.model.OperationInfo</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../org/apache/cxf/service/model/Extensible.html" title="interface in org.apache.cxf.service.model">Extensible</A>, <A HREF="../../../../../org/apache/cxf/service/model/NamedItem.html" title="interface in org.apache.cxf.service.model">NamedItem</A></DD>
+</DL>
+<DL>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../org/apache/cxf/service/model/UnwrappedOperationInfo.html" title="class in org.apache.cxf.service.model">UnwrappedOperationInfo</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>OperationInfo</B><DT>extends <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html" title="class in org.apache.cxf.service.model">AbstractPropertiesHolder</A><DT>implements <A HREF="../../../../../org/apache/cxf/service/model/NamedItem.html" title="interface in org.apache.cxf.service.model">NamedItem</A></DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#OperationInfo()">OperationInfo</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#addFault(org.apache.cxf.service.model.FaultInfo)">addFault</A></B>(<A HREF="../../../../../org/apache/cxf/service/model/FaultInfo.html" title="class in org.apache.cxf.service.model">FaultInfo</A>&nbsp;fault)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a fault to this operation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/FaultInfo.html" title="class in org.apache.cxf.service.model">FaultInfo</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#addFault(javax.xml.namespace.QName, javax.xml.namespace.QName)">addFault</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name,
+         <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;message)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds an fault to this operation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.html" title="class in org.apache.cxf.service.model">MessageInfo</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#createMessage(javax.xml.namespace.QName, org.apache.cxf.service.model.MessageInfo.Type)">createMessage</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;nm,
+              <A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.Type.html" title="enum in org.apache.cxf.service.model">MessageInfo.Type</A>&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#equals(java.lang.Object)">equals</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;o)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/FaultInfo.html" title="class in org.apache.cxf.service.model">FaultInfo</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#getFault(javax.xml.namespace.QName)">getFault</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the fault with the given name, if found.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Collection.html" title="class or interface in java.util">Collection</A>&lt;<A HREF="../../../../../org/apache/cxf/service/model/FaultInfo.html" title="class in org.apache.cxf.service.model">FaultInfo</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#getFaults()">getFaults</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all faults for this operation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.html" title="class in org.apache.cxf.service.model">MessageInfo</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#getInput()">getInput</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#getInputName()">getInputName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/InterfaceInfo.html" title="class in org.apache.cxf.service.model">InterfaceInfo</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#getInterface()">getInterface</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#getName()">getName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the name of the Operation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.html" title="class in org.apache.cxf.service.model">MessageInfo</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#getOutput()">getOutput</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#getOutputName()">getOutputName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#getParameterOrdering()">getParameterOrdering</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html" title="class in org.apache.cxf.service.model">OperationInfo</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#getUnwrappedOperation()">getUnwrappedOperation</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#hasFaults()">hasFaults</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#hashCode()">hashCode</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#hasInput()">hasInput</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#hasOutput()">hasOutput</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#isOneWay()">isOneWay</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#isUnwrapped()">isUnwrapped</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#isUnwrappedCapable()">isUnwrappedCapable</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#removeFault(javax.xml.namespace.QName)">removeFault</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Removes a fault from this operation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#setInput(java.lang.String, org.apache.cxf.service.model.MessageInfo)">setInput</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;nm,
+         <A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.html" title="class in org.apache.cxf.service.model">MessageInfo</A>&nbsp;in)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#setName(javax.xml.namespace.QName)">setName</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets the name of the operation.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#setOutput(java.lang.String, org.apache.cxf.service.model.MessageInfo)">setOutput</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;nm,
+          <A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.html" title="class in org.apache.cxf.service.model">MessageInfo</A>&nbsp;out)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#setParameterOrdering(java.util.List)">setParameterOrdering</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;&nbsp;o)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#setUnwrappedOperation(org.apache.cxf.service.model.OperationInfo)">setUnwrappedOperation</A></B>(<A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html" title="class in org.apache.cxf.service.model">OperationInfo</A>&nbsp;op)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html#toString()">toString</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_org.apache.cxf.service.model.AbstractPropertiesHolder"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class org.apache.cxf.service.model.<A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html" title="class in org.apache.cxf.service.model">AbstractPropertiesHolder</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#addExtensionAttribute(javax.xml.namespace.QName, java.lang.Object)">addExtensionAttribute</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#addExtensor(java.lang.Object)">addExtensor</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#containsExtensor(java.lang.Object)">containsExtensor</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#equals(java.lang.Object, java.lang.Object)">equals</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#getDocumentation()">getDocumentation</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#getExtensionAttribute(javax.xml.namespace.QName)">getExtensionAttribute</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#getExtensionAttributes()">getExtensionAttributes</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#getExtensor(java.lang.Class)">getExtensor</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#getExtensors()">getExtensors</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#getExtensors(java.lang.Class)">getExtensors</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#getProperties()">getProperties</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#getProperty(java.lang.String)">getProperty</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#getProperty(java.lang.String, java.lang.Class)">getProperty</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#getTraversedExtensor(T, java.lang.Class)">getTraversedExtensor</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#hasProperty(java.lang.String)">hasProperty</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#removeProperty(java.lang.String)">removeProperty</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#setDelegate(org.apache.cxf.service.model.AbstractPropertiesHolder, boolean)">setDelegate</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#setDocumentation(java.lang.String)">setDocumentation</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#setExtensionAttributes(java.util.Map)">setExtensionAttributes</A>, <A HREF="../../../../../org/apache/cxf/service/model/AbstractPropertiesHolder.html#setProperty(java.lang.String, java.lang.Object)">setProperty</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="OperationInfo()"><!-- --></A><H3>
+OperationInfo</H3>
+<PRE>
+public <B>OperationInfo</B>()</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="getName()"><!-- --></A><H3>
+getName</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>getName</B>()</PRE>
+<DL>
+<DD>Returns the name of the Operation.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../org/apache/cxf/service/model/NamedItem.html#getName()">getName</A></CODE> in interface <CODE><A HREF="../../../../../org/apache/cxf/service/model/NamedItem.html" title="interface in org.apache.cxf.service.model">NamedItem</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the name of the Operation</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setName(javax.xml.namespace.QName)"><!-- --></A><H3>
+setName</H3>
+<PRE>
+public final void <B>setName</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name)</PRE>
+<DL>
+<DD>Sets the name of the operation.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>name</CODE> - the new name of the operation</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getInterface()"><!-- --></A><H3>
+getInterface</H3>
+<PRE>
+public <A HREF="../../../../../org/apache/cxf/service/model/InterfaceInfo.html" title="class in org.apache.cxf.service.model">InterfaceInfo</A> <B>getInterface</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createMessage(javax.xml.namespace.QName, org.apache.cxf.service.model.MessageInfo.Type)"><!-- --></A><H3>
+createMessage</H3>
+<PRE>
+public <A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.html" title="class in org.apache.cxf.service.model">MessageInfo</A> <B>createMessage</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;nm,
+                                 <A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.Type.html" title="enum in org.apache.cxf.service.model">MessageInfo.Type</A>&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOutput()"><!-- --></A><H3>
+getOutput</H3>
+<PRE>
+public <A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.html" title="class in org.apache.cxf.service.model">MessageInfo</A> <B>getOutput</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOutputName()"><!-- --></A><H3>
+getOutputName</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getOutputName</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOutput(java.lang.String, org.apache.cxf.service.model.MessageInfo)"><!-- --></A><H3>
+setOutput</H3>
+<PRE>
+public void <B>setOutput</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;nm,
+                      <A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.html" title="class in org.apache.cxf.service.model">MessageInfo</A>&nbsp;out)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="hasOutput()"><!-- --></A><H3>
+hasOutput</H3>
+<PRE>
+public boolean <B>hasOutput</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getInput()"><!-- --></A><H3>
+getInput</H3>
+<PRE>
+public <A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.html" title="class in org.apache.cxf.service.model">MessageInfo</A> <B>getInput</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getInputName()"><!-- --></A><H3>
+getInputName</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getInputName</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setInput(java.lang.String, org.apache.cxf.service.model.MessageInfo)"><!-- --></A><H3>
+setInput</H3>
+<PRE>
+public void <B>setInput</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;nm,
+                     <A HREF="../../../../../org/apache/cxf/service/model/MessageInfo.html" title="class in org.apache.cxf.service.model">MessageInfo</A>&nbsp;in)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="hasInput()"><!-- --></A><H3>
+hasInput</H3>
+<PRE>
+public boolean <B>hasInput</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isOneWay()"><!-- --></A><H3>
+isOneWay</H3>
+<PRE>
+public boolean <B>isOneWay</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isUnwrappedCapable()"><!-- --></A><H3>
+isUnwrappedCapable</H3>
+<PRE>
+public boolean <B>isUnwrappedCapable</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getUnwrappedOperation()"><!-- --></A><H3>
+getUnwrappedOperation</H3>
+<PRE>
+public <A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html" title="class in org.apache.cxf.service.model">OperationInfo</A> <B>getUnwrappedOperation</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setUnwrappedOperation(org.apache.cxf.service.model.OperationInfo)"><!-- --></A><H3>
+setUnwrappedOperation</H3>
+<PRE>
+public void <B>setUnwrappedOperation</B>(<A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html" title="class in org.apache.cxf.service.model">OperationInfo</A>&nbsp;op)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isUnwrapped()"><!-- --></A><H3>
+isUnwrapped</H3>
+<PRE>
+public boolean <B>isUnwrapped</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addFault(javax.xml.namespace.QName, javax.xml.namespace.QName)"><!-- --></A><H3>
+addFault</H3>
+<PRE>
+public <A HREF="../../../../../org/apache/cxf/service/model/FaultInfo.html" title="class in org.apache.cxf.service.model">FaultInfo</A> <B>addFault</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name,
+                          <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;message)</PRE>
+<DL>
+<DD>Adds an fault to this operation.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>name</CODE> - the fault name.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addFault(org.apache.cxf.service.model.FaultInfo)"><!-- --></A><H3>
+addFault</H3>
+<PRE>
+public void <B>addFault</B>(<A HREF="../../../../../org/apache/cxf/service/model/FaultInfo.html" title="class in org.apache.cxf.service.model">FaultInfo</A>&nbsp;fault)</PRE>
+<DL>
+<DD>Adds a fault to this operation.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fault</CODE> - the fault.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="removeFault(javax.xml.namespace.QName)"><!-- --></A><H3>
+removeFault</H3>
+<PRE>
+public void <B>removeFault</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name)</PRE>
+<DL>
+<DD>Removes a fault from this operation.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>name</CODE> - the qualified fault name.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getFault(javax.xml.namespace.QName)"><!-- --></A><H3>
+getFault</H3>
+<PRE>
+public <A HREF="../../../../../org/apache/cxf/service/model/FaultInfo.html" title="class in org.apache.cxf.service.model">FaultInfo</A> <B>getFault</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name)</PRE>
+<DL>
+<DD>Returns the fault with the given name, if found.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>name</CODE> - the name.
+<DT><B>Returns:</B><DD>the fault; or <code>null</code> if not found.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="hasFaults()"><!-- --></A><H3>
+hasFaults</H3>
+<PRE>
+public boolean <B>hasFaults</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getFaults()"><!-- --></A><H3>
+getFaults</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Collection.html" title="class or interface in java.util">Collection</A>&lt;<A HREF="../../../../../org/apache/cxf/service/model/FaultInfo.html" title="class in org.apache.cxf.service.model">FaultInfo</A>&gt; <B>getFaults</B>()</PRE>
+<DL>
+<DD>Returns all faults for this operation.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>all faults.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setParameterOrdering(java.util.List)"><!-- --></A><H3>
+setParameterOrdering</H3>
+<PRE>
+public void <B>setParameterOrdering</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;&nbsp;o)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getParameterOrdering()"><!-- --></A><H3>
+getParameterOrdering</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt; <B>getParameterOrdering</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="toString()"><!-- --></A><H3>
+toString</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>toString</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#toString()" title="class or interface in java.lang">toString</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="hashCode()"><!-- --></A><H3>
+hashCode</H3>
+<PRE>
+public int <B>hashCode</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#hashCode()" title="class or interface in java.lang">hashCode</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="equals(java.lang.Object)"><!-- --></A><H3>
+equals</H3>
+<PRE>
+public boolean <B>equals</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;o)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang">equals</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/OperationInfo.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/NamedItem.html" title="interface in org.apache.cxf.service.model"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/SchemaInfo.html" title="class in org.apache.cxf.service.model"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/service/model/OperationInfo.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="OperationInfo.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

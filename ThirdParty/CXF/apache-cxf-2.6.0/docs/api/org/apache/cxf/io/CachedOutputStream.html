@@ -1,0 +1,1073 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+CachedOutputStream (Apache CXF API 2.6.0 API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="org.apache.cxf.io.CachedOutputStream class">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="CachedOutputStream (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/CachedOutputStream.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/io/CacheAndWriteOutputStream.html" title="class in org.apache.cxf.io"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/io/CachedOutputStreamCallback.html" title="interface in org.apache.cxf.io"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/io/CachedOutputStream.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="CachedOutputStream.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+org.apache.cxf.io</FONT>
+<BR>
+Class CachedOutputStream</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">java.io.OutputStream</A>
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>org.apache.cxf.io.CachedOutputStream</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/Closeable.html" title="class or interface in java.io">Closeable</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/Flushable.html" title="class or interface in java.io">Flushable</A></DD>
+</DL>
+<DL>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../org/apache/cxf/io/CacheAndWriteOutputStream.html" title="class in org.apache.cxf.io">CacheAndWriteOutputStream</A>, <A HREF="../../../../org/apache/cxf/io/WriteOnCloseOutputStream.html" title="class in org.apache.cxf.io">WriteOnCloseOutputStream</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>CachedOutputStream</B><DT>extends <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A></DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#currentStream">currentStream</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#outputLocked">outputLocked</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#CachedOutputStream()">CachedOutputStream</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#CachedOutputStream(long)">CachedOutputStream</A></B>(long&nbsp;threshold)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#CachedOutputStream(java.io.PipedInputStream)">CachedOutputStream</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/PipedInputStream.html" title="class or interface in java.io">PipedInputStream</A>&nbsp;stream)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#close()">close</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#copyStream(java.io.InputStream, java.io.OutputStream, int)">copyStream</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/InputStream.html" title="class or interface in java.io">InputStream</A>&nbsp;in,
+           <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A>&nbsp;out,
+           int&nbsp;bufferSize)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#deregisterCallback(org.apache.cxf.io.CachedOutputStreamCallback)">deregisterCallback</A></B>(<A HREF="../../../../org/apache/cxf/io/CachedOutputStreamCallback.html" title="interface in org.apache.cxf.io">CachedOutputStreamCallback</A>&nbsp;cb)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#doClose()">doClose</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perform any actions required on stream closure (handle response etc.)</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#doFlush()">doFlush</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perform any actions required on stream flush (freeze headers, reset
+ output stream ...</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#equals(java.lang.Object)">equals</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;obj)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#flush()">flush</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;byte[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#getBytes()">getBytes</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../org/apache/cxf/io/CachedOutputStreamCallback.html" title="interface in org.apache.cxf.io">CachedOutputStreamCallback</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#getCallbacks()">getCallbacks</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/InputStream.html" title="class or interface in java.io">InputStream</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#getInputStream()">getInputStream</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#getOut()">getOut</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/File.html" title="class or interface in java.io">File</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#getTempFile()">getTempFile</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#hashCode()">hashCode</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#holdTempFile()">holdTempFile</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#lockOutputStream()">lockOutputStream</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Locks the output stream to prevent additional writes, but maintains
+ a pointer to it so an InputStream can be obtained</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#onWrite()">onWrite</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#postClose()">postClose</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perform any actions required after stream closure (close the other related stream etc.)</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#registerCallback(org.apache.cxf.io.CachedOutputStreamCallback)">registerCallback</A></B>(<A HREF="../../../../org/apache/cxf/io/CachedOutputStreamCallback.html" title="interface in org.apache.cxf.io">CachedOutputStreamCallback</A>&nbsp;cb)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#releaseTempFileHold()">releaseTempFileHold</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#resetOut(java.io.OutputStream, boolean)">resetOut</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A>&nbsp;out,
+         boolean&nbsp;copyOldContent)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Replace the original stream with the new one, optionally copying the content of the old one
+ into the new one.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#setMaxSize(long)">setMaxSize</A></B>(long&nbsp;maxSize)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#setOutputDir(java.io.File)">setOutputDir</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/File.html" title="class or interface in java.io">File</A>&nbsp;outputDir)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#setThreshold(long)">setThreshold</A></B>(long&nbsp;threshold)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;long</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#size()">size</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#toString()">toString</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#write(byte[])">write</A></B>(byte[]&nbsp;b)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#write(byte[], int, int)">write</A></B>(byte[]&nbsp;b,
+      int&nbsp;off,
+      int&nbsp;len)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#write(int)">write</A></B>(int&nbsp;b)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#writeCacheTo(java.io.OutputStream)">writeCacheTo</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A>&nbsp;out)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#writeCacheTo(java.lang.StringBuilder)">writeCacheTo</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html" title="class or interface in java.lang">StringBuilder</A>&nbsp;out)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#writeCacheTo(java.lang.StringBuilder, long)">writeCacheTo</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html" title="class or interface in java.lang">StringBuilder</A>&nbsp;out,
+             long&nbsp;limit)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#writeCacheTo(java.lang.StringBuilder, java.lang.String)">writeCacheTo</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html" title="class or interface in java.lang">StringBuilder</A>&nbsp;out,
+             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;charsetName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/io/CachedOutputStream.html#writeCacheTo(java.lang.StringBuilder, java.lang.String, long)">writeCacheTo</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html" title="class or interface in java.lang">StringBuilder</A>&nbsp;out,
+             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;charsetName,
+             long&nbsp;limit)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="outputLocked"><!-- --></A><H3>
+outputLocked</H3>
+<PRE>
+protected boolean <B>outputLocked</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="currentStream"><!-- --></A><H3>
+currentStream</H3>
+<PRE>
+protected <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A> <B>currentStream</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="CachedOutputStream(java.io.PipedInputStream)"><!-- --></A><H3>
+CachedOutputStream</H3>
+<PRE>
+public <B>CachedOutputStream</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/PipedInputStream.html" title="class or interface in java.io">PipedInputStream</A>&nbsp;stream)
+                   throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DL>
+<HR>
+
+<A NAME="CachedOutputStream()"><!-- --></A><H3>
+CachedOutputStream</H3>
+<PRE>
+public <B>CachedOutputStream</B>()</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="CachedOutputStream(long)"><!-- --></A><H3>
+CachedOutputStream</H3>
+<PRE>
+public <B>CachedOutputStream</B>(long&nbsp;threshold)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="holdTempFile()"><!-- --></A><H3>
+holdTempFile</H3>
+<PRE>
+public void <B>holdTempFile</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="releaseTempFileHold()"><!-- --></A><H3>
+releaseTempFileHold</H3>
+<PRE>
+public void <B>releaseTempFileHold</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="registerCallback(org.apache.cxf.io.CachedOutputStreamCallback)"><!-- --></A><H3>
+registerCallback</H3>
+<PRE>
+public void <B>registerCallback</B>(<A HREF="../../../../org/apache/cxf/io/CachedOutputStreamCallback.html" title="interface in org.apache.cxf.io">CachedOutputStreamCallback</A>&nbsp;cb)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="deregisterCallback(org.apache.cxf.io.CachedOutputStreamCallback)"><!-- --></A><H3>
+deregisterCallback</H3>
+<PRE>
+public void <B>deregisterCallback</B>(<A HREF="../../../../org/apache/cxf/io/CachedOutputStreamCallback.html" title="interface in org.apache.cxf.io">CachedOutputStreamCallback</A>&nbsp;cb)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCallbacks()"><!-- --></A><H3>
+getCallbacks</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../org/apache/cxf/io/CachedOutputStreamCallback.html" title="interface in org.apache.cxf.io">CachedOutputStreamCallback</A>&gt; <B>getCallbacks</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="doFlush()"><!-- --></A><H3>
+doFlush</H3>
+<PRE>
+protected void <B>doFlush</B>()
+                throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD>Perform any actions required on stream flush (freeze headers, reset
+ output stream ... etc.)
+<P>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="flush()"><!-- --></A><H3>
+flush</H3>
+<PRE>
+public void <B>flush</B>()
+           throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/Flushable.html#flush()" title="class or interface in java.io">flush</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/Flushable.html" title="class or interface in java.io">Flushable</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html#flush()" title="class or interface in java.io">flush</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="doClose()"><!-- --></A><H3>
+doClose</H3>
+<PRE>
+protected void <B>doClose</B>()
+                throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD>Perform any actions required on stream closure (handle response etc.)
+<P>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="postClose()"><!-- --></A><H3>
+postClose</H3>
+<PRE>
+protected void <B>postClose</B>()
+                  throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD>Perform any actions required after stream closure (close the other related stream etc.)
+<P>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="lockOutputStream()"><!-- --></A><H3>
+lockOutputStream</H3>
+<PRE>
+public void <B>lockOutputStream</B>()
+                      throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD>Locks the output stream to prevent additional writes, but maintains
+ a pointer to it so an InputStream can be obtained
+<P>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="close()"><!-- --></A><H3>
+close</H3>
+<PRE>
+public void <B>close</B>()
+           throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/Closeable.html#close()" title="class or interface in java.io">close</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/Closeable.html" title="class or interface in java.io">Closeable</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html#close()" title="class or interface in java.io">close</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="equals(java.lang.Object)"><!-- --></A><H3>
+equals</H3>
+<PRE>
+public boolean <B>equals</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;obj)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang">equals</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="resetOut(java.io.OutputStream, boolean)"><!-- --></A><H3>
+resetOut</H3>
+<PRE>
+public void <B>resetOut</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A>&nbsp;out,
+                     boolean&nbsp;copyOldContent)
+              throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD>Replace the original stream with the new one, optionally copying the content of the old one
+ into the new one.
+ When with Attachment, needs to replace the xml writer stream with the stream used by
+ AttachmentSerializer or copy the cached output stream to the "real"
+ output stream, i.e. onto the wire.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>out</CODE> - the new output stream<DD><CODE>copyOldContent</CODE> - flag indicating if the old content should be copied
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="copyStream(java.io.InputStream, java.io.OutputStream, int)"><!-- --></A><H3>
+copyStream</H3>
+<PRE>
+public static void <B>copyStream</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/InputStream.html" title="class or interface in java.io">InputStream</A>&nbsp;in,
+                              <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A>&nbsp;out,
+                              int&nbsp;bufferSize)
+                       throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="size()"><!-- --></A><H3>
+size</H3>
+<PRE>
+public long <B>size</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getBytes()"><!-- --></A><H3>
+getBytes</H3>
+<PRE>
+public byte[] <B>getBytes</B>()
+                throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="writeCacheTo(java.io.OutputStream)"><!-- --></A><H3>
+writeCacheTo</H3>
+<PRE>
+public void <B>writeCacheTo</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A>&nbsp;out)
+                  throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="writeCacheTo(java.lang.StringBuilder, long)"><!-- --></A><H3>
+writeCacheTo</H3>
+<PRE>
+public void <B>writeCacheTo</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html" title="class or interface in java.lang">StringBuilder</A>&nbsp;out,
+                         long&nbsp;limit)
+                  throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="writeCacheTo(java.lang.StringBuilder, java.lang.String, long)"><!-- --></A><H3>
+writeCacheTo</H3>
+<PRE>
+public void <B>writeCacheTo</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html" title="class or interface in java.lang">StringBuilder</A>&nbsp;out,
+                         <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;charsetName,
+                         long&nbsp;limit)
+                  throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="writeCacheTo(java.lang.StringBuilder)"><!-- --></A><H3>
+writeCacheTo</H3>
+<PRE>
+public void <B>writeCacheTo</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html" title="class or interface in java.lang">StringBuilder</A>&nbsp;out)
+                  throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="writeCacheTo(java.lang.StringBuilder, java.lang.String)"><!-- --></A><H3>
+writeCacheTo</H3>
+<PRE>
+public void <B>writeCacheTo</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/StringBuilder.html" title="class or interface in java.lang">StringBuilder</A>&nbsp;out,
+                         <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;charsetName)
+                  throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOut()"><!-- --></A><H3>
+getOut</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A> <B>getOut</B>()</PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the underlying output stream</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="hashCode()"><!-- --></A><H3>
+hashCode</H3>
+<PRE>
+public int <B>hashCode</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#hashCode()" title="class or interface in java.lang">hashCode</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="toString()"><!-- --></A><H3>
+toString</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>toString</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#toString()" title="class or interface in java.lang">toString</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onWrite()"><!-- --></A><H3>
+onWrite</H3>
+<PRE>
+protected void <B>onWrite</B>()
+                throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="write(byte[], int, int)"><!-- --></A><H3>
+write</H3>
+<PRE>
+public void <B>write</B>(byte[]&nbsp;b,
+                  int&nbsp;off,
+                  int&nbsp;len)
+           throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html#write(byte[], int, int)" title="class or interface in java.io">write</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="write(byte[])"><!-- --></A><H3>
+write</H3>
+<PRE>
+public void <B>write</B>(byte[]&nbsp;b)
+           throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html#write(byte[])" title="class or interface in java.io">write</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="write(int)"><!-- --></A><H3>
+write</H3>
+<PRE>
+public void <B>write</B>(int&nbsp;b)
+           throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html#write(int)" title="class or interface in java.io">write</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html" title="class or interface in java.io">OutputStream</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getTempFile()"><!-- --></A><H3>
+getTempFile</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/File.html" title="class or interface in java.io">File</A> <B>getTempFile</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getInputStream()"><!-- --></A><H3>
+getInputStream</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/InputStream.html" title="class or interface in java.io">InputStream</A> <B>getInputStream</B>()
+                           throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOutputDir(java.io.File)"><!-- --></A><H3>
+setOutputDir</H3>
+<PRE>
+public void <B>setOutputDir</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/File.html" title="class or interface in java.io">File</A>&nbsp;outputDir)
+                  throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setThreshold(long)"><!-- --></A><H3>
+setThreshold</H3>
+<PRE>
+public void <B>setThreshold</B>(long&nbsp;threshold)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMaxSize(long)"><!-- --></A><H3>
+setMaxSize</H3>
+<PRE>
+public void <B>setMaxSize</B>(long&nbsp;maxSize)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/CachedOutputStream.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/io/CacheAndWriteOutputStream.html" title="class in org.apache.cxf.io"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/io/CachedOutputStreamCallback.html" title="interface in org.apache.cxf.io"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/io/CachedOutputStream.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="CachedOutputStream.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

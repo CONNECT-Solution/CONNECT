@@ -38,7 +38,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.SubscriptionManager;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.w3c.dom.Element;
@@ -84,7 +83,7 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
 
     @Override
     public Element unsubscribe(Element unsubscribeElement, ReferenceParametersElements referenceParametersElements,
-            AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault,
+            AssertionType assertion, NhinTargetSystemType target) throws
             UnableToDestroySubscriptionFault, Exception {
         SubscriptionManager port = getPort(target, assertion);
         Element responseElement = null;

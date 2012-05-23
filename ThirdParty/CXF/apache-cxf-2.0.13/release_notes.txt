@@ -1,0 +1,76 @@
+Apache CXF 2.0.13 Release Notes
+
+1. Overview
+
+Apache CXF 2.0.13 delivers the latest set of patches for the 2.0.x series.  
+This release specifically is being done to address a security vulnerability
+for which information will be forth coming.
+
+IMPORTANT NOTE:  2.0.13 is the last scheduled release for the 2.0.x series of 
+Apache CXF.   Users are VERY strongly encouraged to upgrade to the 2.2.x 
+series as soon as possible.
+
+
+2. Installation Prerequisites 
+
+Before installing Apache CXF, make sure the following products,
+with the specified versions, are installed on your system:
+
+    * Java 5 Development Kit   (Java 6 requires extra setup)
+    * Apache ant 1.6
+
+2.1 Java 5 Development Kit
+
+You must install the J2SE Development Kit (JDK) 5.0, which can be downloaded
+from:
+
+    http://java.sun.com/j2se/1.5.0/download.jsp
+
+After installing the JDK, set or modify the following environment variables:
+
+    * JAVA_HOME -- set this environment variable
+      to point at the root directory of the JDK 5.0 installation.
+
+    * PATH -- make sure that your PATH includes: 
+      %JAVA_HOME%\bin  (Windows) 
+      $JAVA_HOME/bin   (UNIX)
+
+If using a Java 6 kit, you may need to copy the jaxb-*, saaj-*, jaxws-* jars 
+from the lib dir to your jre/lib/endorsed directory.
+
+
+2.2 Apache Ant 1.6.5 (or newer, 1.7.0 should work as well)
+
+To run samples included in the binary distribution of Apache CXF,
+you must install the Apache Ant 1.6.5 build utility, which can be downloaded
+from:
+
+    http://ant.apache.org/bindownload.cgi
+
+After installing Apache Ant, add the <AntInstallDir>/bin directory to your PATH.
+
+For more details, see the Installation Guide.
+
+
+3. Building the Samples
+
+Building the samples included in the binary distribution is easy. Change to
+the samples directory and follow the build instructions in the README.txt file 
+included with each sample.
+
+4. Errata
+
+4.1 WS-Security
+The WS-Security configuration mechanisms may change between this release and 
+the next one as we add in support for WS-SecurityPolicy and WS-Trust.
+
+5. Reporting Problems
+
+If you have any problems or want to send feedback of any kind, please e-mail the
+cxf dev list, dev@cxf.apache.org.  You can also file issues in JIRA at:
+
+http://issues.apache.org/jira/browse/CXF
+
+6. Specific issues, features, and improvements fixed in this version:
+
+Fix potential DTD handling exploit.

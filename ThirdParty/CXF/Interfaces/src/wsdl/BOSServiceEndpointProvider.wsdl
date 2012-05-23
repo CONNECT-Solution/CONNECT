@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  BOS Service Endpoint Provider WSDL
+  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+   xmlns="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:bosserviceenpointprovider"
+   xmlns:ep="http://xml.netbeans.org/schema/Endpoint"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:plnk="http://docs.oasis-opewn.org/wsbpel/2.0/plnktype"
+   name="BOSServiceEndpointProvider"
+   targetNamespace="urn:gov:hhs:fha:nhinc:bosserviceenpointprovider">
+    <documentation>BOS Service Endpoint Provider</documentation>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://xml.netbeans.org/schema/Endpoint"
+                 schemaLocation="../schemas/Endpoint/Endpoint.xsd"/>
+           </xsd:schema>
+    </types>
+
+    <message name="FindEndpointRequestMessage">
+        <part name="FindEndPointRequest"
+          element="ep:CreateEPRRequest"/>
+    </message>
+
+    <message name="FindEndpointResponseMessage">
+        <part name="FindEndPointResponse"
+        element="ep:CreateEPRResponse"/>
+    </message>
+
+    <portType name="BOSServiceEndpointProviderPortType">
+        <operation name="FindEndpoint">
+            <input name="FindEndpointRequest"
+             message="tns:FindEndpointRequestMessage" />
+            <output name="FindEndpointResponse"
+              message="tns:FindEndpointResponseMessage" />
+        </operation>
+    </portType>
+
+    <binding name="BOSServiceEndpointProviderSoap" type="tns:BOSServiceEndpointProviderPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="FindEndpoint">
+            <soap:operation soapAction="urn:FindEndPoint"/>
+            <input name="FindEndpointRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="FindEndpointResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="BOSServiceEndpointProvider">
+        <port name="BOSServiceEndpointProviderSoap"
+          binding="tns:BOSServiceEndpointProviderSoap">
+            <soap:address
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/BOSServiceEndpointProvider" />
+        </port>
+    </service>
+
+    <plnk:partnerLinkType name="BOSServiceEndpointProvider">
+    <!-- A partner link type is automatically generated when a new port type is added.
+         Partner link types are used by BPEL processes. In a BPEL process, a partner
+         link represents the interaction between the BPEL process and a partner service.
+         Each partner link is associated with a partner link type. A partner link type
+         characterizes the conversational relationship between two services. The
+         partner link type can have one or two roles.-->
+        <plnk:role name="BOSServiceEndpointProviderPortTypeRole"
+               portType="tns:BOSServiceEndpointProviderPortType"/>
+    </plnk:partnerLinkType>
+
+</definitions>

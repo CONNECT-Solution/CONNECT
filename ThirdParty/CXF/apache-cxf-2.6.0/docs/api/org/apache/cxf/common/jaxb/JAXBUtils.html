@@ -1,0 +1,818 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+JAXBUtils (Apache CXF API 2.6.0 API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="org.apache.cxf.common.jaxb.JAXBUtils class">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="JAXBUtils (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/JAXBUtils.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBContextProxy.html" title="interface in org.apache.cxf.common.jaxb"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.BridgeWrapper.html" title="interface in org.apache.cxf.common.jaxb"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/common/jaxb/JAXBUtils.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JAXBUtils.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+org.apache.cxf.common.jaxb</FONT>
+<BR>
+Class JAXBUtils</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>org.apache.cxf.common.jaxb.JAXBUtils</B>
+</PRE>
+<HR>
+<DL>
+<DT><PRE>public final class <B>JAXBUtils</B><DT>extends <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.BridgeWrapper.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.BridgeWrapper</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.DefaultClassNameAllocator.html" title="class in org.apache.cxf.common.jaxb">JAXBUtils.DefaultClassNameAllocator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.IdentifierType.html" title="enum in org.apache.cxf.common.jaxb">JAXBUtils.IdentifierType</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.JCodeModel.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.JCodeModel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.JDefinedClass.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.JDefinedClass</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.JPackage.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.JPackage</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.JType.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.JType</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.Mapping.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.Mapping</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.Options.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.Options</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.S2JJAXBModel.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.S2JJAXBModel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.SchemaCompiler.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.SchemaCompiler</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.TypeAndAnnotation.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.TypeAndAnnotation</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#JAXB_URI">JAXB_URI</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#builtInTypeToJavaType(java.lang.String)">builtInTypeToJavaType</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.BridgeWrapper.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.BridgeWrapper</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#createBridge(java.util.Set, javax.xml.namespace.QName, java.lang.Class, java.lang.annotation.Annotation[])">createBridge</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&gt;&nbsp;ctxClasses,
+             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;qname,
+             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&nbsp;refcls,
+             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/annotation/Annotation.html" title="class or interface in java.lang.annotation">Annotation</A>[]&nbsp;anns)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#createFileCodeWriter(java.io.File)">createFileCodeWriter</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/File.html" title="class or interface in java.io">File</A>&nbsp;f)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBContext.html" title="class or interface in javax.xml">javax.xml.bind.JAXBContext</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#createRIContext(java.lang.Class[], java.lang.String)">createRIContext</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;[]&nbsp;clss,
+                <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;defaultNS)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.SchemaCompiler.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.SchemaCompiler</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#createSchemaCompiler()">createSchemaCompiler</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.SchemaCompiler.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.SchemaCompiler</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#createSchemaCompilerWithDefaultAllocator(java.util.Set)">createSchemaCompilerWithDefaultAllocator</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;&nbsp;allocatorSet)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/transform/dom/DOMResult.html" title="class or interface in javax.xml.transform.dom">DOMResult</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#generateJaxbSchemas(javax.xml.bind.JAXBContext, java.util.Map)">generateJaxbSchemas</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBContext.html" title="class or interface in javax.xml">javax.xml.bind.JAXBContext</A>&nbsp;context,
+                    <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/transform/dom/DOMResult.html" title="class or interface in javax.xml.transform.dom">DOMResult</A>&gt;&nbsp;builtIns)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBBeanInfo.html" title="interface in org.apache.cxf.common.jaxb">JAXBBeanInfo</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#getBeanInfo(org.apache.cxf.common.jaxb.JAXBContextProxy, java.lang.Class)">getBeanInfo</A></B>(<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBContextProxy.html" title="interface in org.apache.cxf.common.jaxb">JAXBContextProxy</A>&nbsp;context,
+            <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&nbsp;cls)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#getGeneratedClassNames(org.apache.cxf.common.jaxb.JAXBUtils.JCodeModel)">getGeneratedClassNames</A></B>(<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.JCodeModel.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.JCodeModel</A>&nbsp;codeModel)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#getPackageNamespace(java.lang.Class)">getPackageNamespace</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&nbsp;cls)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#getParamClass(org.apache.cxf.common.jaxb.JAXBUtils.SchemaCompiler, java.lang.String)">getParamClass</A></B>(<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.SchemaCompiler.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.SchemaCompiler</A>&nbsp;sc,
+              <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;method)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#getValidClass(java.lang.Class)">getValidClass</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&nbsp;cls)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#holderClass(java.lang.String)">holderClass</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#isJavaKeyword(java.lang.String)">isJavaKeyword</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;word)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checks if the specified word is a Java keyword (as defined in JavaUtils).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#isJAXB22()">isJAXB22</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#logGeneratedClassNames(java.util.logging.Logger, org.apache.cxf.common.jaxb.JAXBUtils.JCodeModel)">logGeneratedClassNames</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/logging/Logger.html" title="class or interface in java.util.logging">Logger</A>&nbsp;logger,
+                       <A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.JCodeModel.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.JCodeModel</A>&nbsp;codeModel)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#namespaceURIToPackage(java.lang.String)">namespaceURIToPackage</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;namespaceURI)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Generates a Java package name from a URI according to the
+ algorithm outlined in JAXB 2.0.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#nameSpaceURIToPackage(java.net.URI)">nameSpaceURIToPackage</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/net/URI.html" title="class or interface in java.net">URI</A>&nbsp;uri)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Generates a Java package name from a URI according to the
+ algorithm outlined in Appendix D of JAXB (2.0+).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#nameToIdentifier(java.lang.String, org.apache.cxf.common.jaxb.JAXBUtils.IdentifierType)">nameToIdentifier</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;name,
+                 <A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.IdentifierType.html" title="enum in org.apache.cxf.common.jaxb">JAXBUtils.IdentifierType</A>&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Converts an XML name to a Java identifier according to the mapping
+ algorithm outlined in the JAXB specification</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#scanPackages(java.util.Set, java.lang.Class[], java.util.Map)">scanPackages</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&gt;&nbsp;classes,
+             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;[]&nbsp;extraClass,
+             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Package.html" title="class or interface in java.lang">Package</A>,<A HREF="../../../../../org/apache/cxf/common/util/CachedClass.html" title="class in org.apache.cxf.common.util">CachedClass</A>&gt;&nbsp;objectFactoryCache)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#scanPackages(java.util.Set, java.util.Map)">scanPackages</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&gt;&nbsp;classes,
+             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Package.html" title="class or interface in java.lang">Package</A>,<A HREF="../../../../../org/apache/cxf/common/util/CachedClass.html" title="class in org.apache.cxf.common.util">CachedClass</A>&gt;&nbsp;objectFactoryCache)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.html#setNamespaceWrapper(java.util.Map, javax.xml.bind.Marshaller)">setNamespaceWrapper</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;&nbsp;nspref,
+                    <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.Marshaller.html" title="class or interface in javax.xml">javax.xml.bind.Marshaller</A>&nbsp;marshaller)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="JAXB_URI"><!-- --></A><H3>
+JAXB_URI</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>JAXB_URI</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.common.jaxb.JAXBUtils.JAXB_URI">Constant Field Values</A></DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="builtInTypeToJavaType(java.lang.String)"><!-- --></A><H3>
+builtInTypeToJavaType</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>builtInTypeToJavaType</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="holderClass(java.lang.String)"><!-- --></A><H3>
+holderClass</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt; <B>holderClass</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isJavaKeyword(java.lang.String)"><!-- --></A><H3>
+isJavaKeyword</H3>
+<PRE>
+protected static boolean <B>isJavaKeyword</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;word)</PRE>
+<DL>
+<DD>Checks if the specified word is a Java keyword (as defined in JavaUtils).
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>word</CODE> - the word to check.
+<DT><B>Returns:</B><DD>true if the word is a keyword.<DT><B>See Also:</B><DD><A HREF="../../../../../org/apache/cxf/helpers/JavaUtils.html" title="class in org.apache.cxf.helpers"><CODE>JavaUtils</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="namespaceURIToPackage(java.lang.String)"><!-- --></A><H3>
+namespaceURIToPackage</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>namespaceURIToPackage</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;namespaceURI)</PRE>
+<DL>
+<DD>Generates a Java package name from a URI according to the
+ algorithm outlined in JAXB 2.0.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>namespaceURI</CODE> - the namespace URI.
+<DT><B>Returns:</B><DD>the package name.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="nameSpaceURIToPackage(java.net.URI)"><!-- --></A><H3>
+nameSpaceURIToPackage</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>nameSpaceURIToPackage</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/net/URI.html" title="class or interface in java.net">URI</A>&nbsp;uri)</PRE>
+<DL>
+<DD>Generates a Java package name from a URI according to the
+ algorithm outlined in Appendix D of JAXB (2.0+).
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>namespaceURI</CODE> - the namespace URI.
+<DT><B>Returns:</B><DD>the package name.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="nameToIdentifier(java.lang.String, org.apache.cxf.common.jaxb.JAXBUtils.IdentifierType)"><!-- --></A><H3>
+nameToIdentifier</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>nameToIdentifier</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;name,
+                                      <A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.IdentifierType.html" title="enum in org.apache.cxf.common.jaxb">JAXBUtils.IdentifierType</A>&nbsp;type)</PRE>
+<DL>
+<DD>Converts an XML name to a Java identifier according to the mapping
+ algorithm outlined in the JAXB specification
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>name</CODE> - the XML name
+<DT><B>Returns:</B><DD>the Java identifier</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getValidClass(java.lang.Class)"><!-- --></A><H3>
+getValidClass</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt; <B>getValidClass</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&nbsp;cls)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createRIContext(java.lang.Class[], java.lang.String)"><!-- --></A><H3>
+createRIContext</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBContext.html" title="class or interface in javax.xml">javax.xml.bind.JAXBContext</A> <B>createRIContext</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;[]&nbsp;clss,
+                                                         <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;defaultNS)
+                                                  throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setNamespaceWrapper(java.util.Map, javax.xml.bind.Marshaller)"><!-- --></A><H3>
+setNamespaceWrapper</H3>
+<PRE>
+public static void <B>setNamespaceWrapper</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;&nbsp;nspref,
+                                       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.Marshaller.html" title="class or interface in javax.xml">javax.xml.bind.Marshaller</A>&nbsp;marshaller)
+                                throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.PropertyException.html" title="class or interface in javax.xml">javax.xml.bind.PropertyException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.PropertyException.html" title="class or interface in javax.xml">javax.xml.bind.PropertyException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createBridge(java.util.Set, javax.xml.namespace.QName, java.lang.Class, java.lang.annotation.Annotation[])"><!-- --></A><H3>
+createBridge</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.BridgeWrapper.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.BridgeWrapper</A> <B>createBridge</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&gt;&nbsp;ctxClasses,
+                                                   <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;qname,
+                                                   <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&nbsp;refcls,
+                                                   <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/annotation/Annotation.html" title="class or interface in java.lang.annotation">Annotation</A>[]&nbsp;anns)
+                                            throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createSchemaCompiler()"><!-- --></A><H3>
+createSchemaCompiler</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.SchemaCompiler.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.SchemaCompiler</A> <B>createSchemaCompiler</B>()
+                                                     throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createSchemaCompilerWithDefaultAllocator(java.util.Set)"><!-- --></A><H3>
+createSchemaCompilerWithDefaultAllocator</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.SchemaCompiler.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.SchemaCompiler</A> <B>createSchemaCompilerWithDefaultAllocator</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;&nbsp;allocatorSet)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="logGeneratedClassNames(java.util.logging.Logger, org.apache.cxf.common.jaxb.JAXBUtils.JCodeModel)"><!-- --></A><H3>
+logGeneratedClassNames</H3>
+<PRE>
+public static void <B>logGeneratedClassNames</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/logging/Logger.html" title="class or interface in java.util.logging">Logger</A>&nbsp;logger,
+                                          <A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.JCodeModel.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.JCodeModel</A>&nbsp;codeModel)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getGeneratedClassNames(org.apache.cxf.common.jaxb.JAXBUtils.JCodeModel)"><!-- --></A><H3>
+getGeneratedClassNames</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt; <B>getGeneratedClassNames</B>(<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.JCodeModel.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.JCodeModel</A>&nbsp;codeModel)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createFileCodeWriter(java.io.File)"><!-- --></A><H3>
+createFileCodeWriter</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A> <B>createFileCodeWriter</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/File.html" title="class or interface in java.io">File</A>&nbsp;f)
+                                   throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getParamClass(org.apache.cxf.common.jaxb.JAXBUtils.SchemaCompiler, java.lang.String)"><!-- --></A><H3>
+getParamClass</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt; <B>getParamClass</B>(<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.SchemaCompiler.html" title="interface in org.apache.cxf.common.jaxb">JAXBUtils.SchemaCompiler</A>&nbsp;sc,
+                                     <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;method)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="generateJaxbSchemas(javax.xml.bind.JAXBContext, java.util.Map)"><!-- --></A><H3>
+generateJaxbSchemas</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/transform/dom/DOMResult.html" title="class or interface in javax.xml.transform.dom">DOMResult</A>&gt; <B>generateJaxbSchemas</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBContext.html" title="class or interface in javax.xml">javax.xml.bind.JAXBContext</A>&nbsp;context,
+                                                  <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/transform/dom/DOMResult.html" title="class or interface in javax.xml.transform.dom">DOMResult</A>&gt;&nbsp;builtIns)
+                                           throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html" title="class or interface in java.io">IOException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPackageNamespace(java.lang.Class)"><!-- --></A><H3>
+getPackageNamespace</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getPackageNamespace</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&nbsp;cls)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="scanPackages(java.util.Set, java.util.Map)"><!-- --></A><H3>
+scanPackages</H3>
+<PRE>
+public static void <B>scanPackages</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&gt;&nbsp;classes,
+                                <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Package.html" title="class or interface in java.lang">Package</A>,<A HREF="../../../../../org/apache/cxf/common/util/CachedClass.html" title="class in org.apache.cxf.common.util">CachedClass</A>&gt;&nbsp;objectFactoryCache)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="scanPackages(java.util.Set, java.lang.Class[], java.util.Map)"><!-- --></A><H3>
+scanPackages</H3>
+<PRE>
+public static void <B>scanPackages</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&gt;&nbsp;classes,
+                                <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;[]&nbsp;extraClass,
+                                <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Package.html" title="class or interface in java.lang">Package</A>,<A HREF="../../../../../org/apache/cxf/common/util/CachedClass.html" title="class in org.apache.cxf.common.util">CachedClass</A>&gt;&nbsp;objectFactoryCache)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isJAXB22()"><!-- --></A><H3>
+isJAXB22</H3>
+<PRE>
+public static boolean <B>isJAXB22</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getBeanInfo(org.apache.cxf.common.jaxb.JAXBContextProxy, java.lang.Class)"><!-- --></A><H3>
+getBeanInfo</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBBeanInfo.html" title="interface in org.apache.cxf.common.jaxb">JAXBBeanInfo</A> <B>getBeanInfo</B>(<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBContextProxy.html" title="interface in org.apache.cxf.common.jaxb">JAXBContextProxy</A>&nbsp;context,
+                                       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;&nbsp;cls)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/JAXBUtils.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBContextProxy.html" title="interface in org.apache.cxf.common.jaxb"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/apache/cxf/common/jaxb/JAXBUtils.BridgeWrapper.html" title="interface in org.apache.cxf.common.jaxb"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/common/jaxb/JAXBUtils.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JAXBUtils.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.xmlCommon.XpathHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.xpath.XPathExpressionException;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -56,11 +55,10 @@ public class PatientIdExtractor {
      * @param subscribeElement Element containing subscribe message
      * @param topicConfig topic configuration containing patient id location and rules.
      * @return Extracted patient identifier
-     * @throws org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault
      * @throws org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault
      */
     public QualifiedSubjectIdentifierType extractPatientIdentifier(Element subscribeElement,
-            TopicConfigurationEntry topicConfig) throws ResourceUnknownFault, SubscribeCreationFailedFault {
+            TopicConfigurationEntry topicConfig) throws SubscribeCreationFailedFault {
         log.debug("begin extractPatientIdentifier");
         QualifiedSubjectIdentifierType patientIdentifier = null;
         if (log.isDebugEnabled()) {

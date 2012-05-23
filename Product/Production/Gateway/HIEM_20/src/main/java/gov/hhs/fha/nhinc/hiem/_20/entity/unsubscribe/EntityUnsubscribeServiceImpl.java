@@ -36,7 +36,6 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.UnableToDestroySubscriptionFaultType;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.w3c.dom.Element;
 
@@ -69,16 +68,14 @@ public class EntityUnsubscribeServiceImpl {
 
     public UnsubscribeResponse unsubscribe(UnsubscribeRequestType unsubscribeRequest, WebServiceContext context)
             throws gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault,
-            gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault, Exception {
+            Exception {
 
         UnsubscribeResponse response = null;
         try {
-            response = unsubscribeOps(unsubscribeRequest, context);
-        } catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
-            throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault(ex.getMessage(), null);
+            response = unsubscribeOps(unsubscribeRequest, context);      
         } catch (UnableToDestroySubscriptionFault ex) {
             throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault(ex.getMessage(),
-                    null);
+                    ex);
         } catch (Exception e) {
             log.error("Exception: " + e.getMessage());
             throw e;
@@ -88,8 +85,7 @@ public class EntityUnsubscribeServiceImpl {
 
     private UnsubscribeResponse unsubscribeOps(UnsubscribeRequestType unsubscribeRequest, WebServiceContext context)
             throws gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault,
-            gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault,
-            org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault, UnableToDestroySubscriptionFault, Exception {
+            UnableToDestroySubscriptionFault, Exception {
         log.debug("Entering EntityUnsubscribeServiceImpl.unsubscribe");
 
         log.debug("extracting reference parameters from soap header");
@@ -154,7 +150,7 @@ public class EntityUnsubscribeServiceImpl {
 
     private void unsubscribeToChild(UnsubscribeRequestType parentUnsubscribeRequest,
             HiemSubscriptionItem childSubscriptionItem, AssertionType parentAssertion)
-            throws UnableToDestroySubscriptionFault, ResourceUnknownFault, Exception {
+            throws UnableToDestroySubscriptionFault, Exception {
         try {
             log.debug("unsubscribing to child subscription");
 
@@ -214,15 +210,13 @@ public class EntityUnsubscribeServiceImpl {
 
     public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeRequest, WebServiceContext context)
             throws gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault,
-            gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.ResourceUnknownFault, Exception {
+            Exception {
         UnsubscribeResponse response = null;
         try {
-            response = unsubscribeOps(unsubscribeRequest, context);
-        } catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
-            throw new gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.ResourceUnknownFault(ex.getMessage(), null);
+            response = unsubscribeOps(unsubscribeRequest, context);        
         } catch (UnableToDestroySubscriptionFault ex) {
             throw new gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault(
-                    ex.getMessage(), null);
+                    ex.getMessage(), ex);
         } catch (Exception e) {
             log.error("Exception occured: " + e.getMessage());
             throw e;
@@ -232,8 +226,7 @@ public class EntityUnsubscribeServiceImpl {
 
     private UnsubscribeResponse unsubscribeOps(Unsubscribe unsubscribeRequest, WebServiceContext context)
             throws gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault,
-            gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.ResourceUnknownFault,
-            org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault, UnableToDestroySubscriptionFault, Exception {
+            UnableToDestroySubscriptionFault, Exception {
         log.debug("Entering EntityUnsubscribeServiceImpl.unsubscribe");
 
         log.debug("extracting reference parameters from soap header");
@@ -297,7 +290,7 @@ public class EntityUnsubscribeServiceImpl {
     }
 
     private void unsubscribeToChild(Unsubscribe parentUnsubscribe, HiemSubscriptionItem childSubscriptionItem,
-            AssertionType parentAssertion) throws UnableToDestroySubscriptionFault, ResourceUnknownFault, Exception {
+            AssertionType parentAssertion) throws UnableToDestroySubscriptionFault, Exception {
         try {
             log.debug("unsubscribing to child subscription");
 

@@ -1,0 +1,751 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+VersionTransformer (Apache CXF API 2.6.0 API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="org.apache.cxf.ws.addressing.VersionTransformer class">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="VersionTransformer (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/VersionTransformer.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/RelatesToType.html" title="class in org.apache.cxf.ws.addressing"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.Names200403.html" title="class in org.apache.cxf.ws.addressing"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/ws/addressing/VersionTransformer.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="VersionTransformer.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+org.apache.cxf.ws.addressing</FONT>
+<BR>
+Class VersionTransformer</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>org.apache.cxf.ws.addressing.VersionTransformer</B>
+</PRE>
+<HR>
+<DL>
+<DT><PRE>public class <B>VersionTransformer</B><DT>extends <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></DL>
+</PRE>
+
+<P>
+This class is responsible for transforming between the native 
+ WS-Addressing schema version (i.e. 2005/08) and exposed
+ version (currently may be 2005/08 or 2004/08).
+ <p>
+ The native version is that used throughout the stack, were the
+ WS-A types are represented via the JAXB generated types for the
+ 2005/08 schema.
+ <p>
+ The exposed version is that used when the WS-A types are 
+ externalized, i.e. are encoded in the headers of outgoing 
+ messages. For outgoing requests, the exposed version is 
+ determined from configuration. For outgoing responses, the
+ exposed version is determined by the exposed version of
+ the corresponding request.
+ <p>
+ The motivation for using different native and exposed types
+ is usually to facilitate a WS-* standard based on an earlier 
+ version of WS-Adressing (for example WS-RM depends on the
+ 2004/08 version).
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.Names200403.html" title="class in org.apache.cxf.ws.addressing">VersionTransformer.Names200403</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Holder for 2004/03 Names</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.Names200408.html" title="class in org.apache.cxf.ws.addressing">VersionTransformer.Names200408</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Holder for 2004/08 Names</TD>
+</TR>
+</TABLE>
+&nbsp;<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#NATIVE_VERSION">NATIVE_VERSION</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected </CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#VersionTransformer()">VersionTransformer</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Constructor.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/AttributedURIType.html" title="class in org.apache.cxf.ws.addressing">AttributedURIType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convert(org.apache.cxf.ws.addressing.v200408.AttributedURI)">convert</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/AttributedURI.html" title="class in org.apache.cxf.ws.addressing.v200408">AttributedURI</A>&nbsp;exposed)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2004/08 AttributedURI to 2005/08 AttributedURI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/AttributedURIType.html" title="class in org.apache.cxf.ws.addressing">AttributedURIType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convert(org.apache.cxf.ws.addressing.v200403.AttributedURI)">convert</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/AttributedURI.html" title="class in org.apache.cxf.ws.addressing.v200403">AttributedURI</A>&nbsp;exposed)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2004/03 AttributedURI to 2005/08 AttributedURI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/AttributedURI.html" title="class in org.apache.cxf.ws.addressing.v200408">AttributedURI</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convert(org.apache.cxf.ws.addressing.AttributedURIType)">convert</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/AttributedURIType.html" title="class in org.apache.cxf.ws.addressing">AttributedURIType</A>&nbsp;internal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2005/08 AttributedURI to 2004/08 AttributedURI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing.v200408">EndpointReferenceType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convert(org.apache.cxf.ws.addressing.EndpointReferenceType)">convert</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A>&nbsp;internal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2005/08 EndpointReferenceType to 2004/08 
+ EndpointReferenceType.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convert(org.apache.cxf.ws.addressing.v200408.EndpointReferenceType)">convert</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing.v200408">EndpointReferenceType</A>&nbsp;exposed)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2004/08 EndpointReferenceType to 2005/08 
+ EndpointReferenceType.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convert(org.apache.cxf.ws.addressing.v200403.EndpointReferenceType)">convert</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing.v200403">EndpointReferenceType</A>&nbsp;exposed)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2004/03 EndpointReferenceType to 2005/08 EndpointReferenceType.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/ReferenceParametersType.html" title="class in org.apache.cxf.ws.addressing.v200408">ReferenceParametersType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convert(org.apache.cxf.ws.addressing.ReferenceParametersType)">convert</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/ReferenceParametersType.html" title="class in org.apache.cxf.ws.addressing">ReferenceParametersType</A>&nbsp;internal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2005/08 ReferenceParametersType to 2004/08
+ ReferenceParametersType.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/ReferenceParametersType.html" title="class in org.apache.cxf.ws.addressing">ReferenceParametersType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convert(org.apache.cxf.ws.addressing.v200408.ReferenceParametersType)">convert</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/ReferenceParametersType.html" title="class in org.apache.cxf.ws.addressing.v200408">ReferenceParametersType</A>&nbsp;exposed)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2004/08 ReferenceParametersType to 2005/08
+ ReferenceParametersType.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/Relationship.html" title="class in org.apache.cxf.ws.addressing.v200408">Relationship</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convert(org.apache.cxf.ws.addressing.RelatesToType)">convert</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/RelatesToType.html" title="class in org.apache.cxf.ws.addressing">RelatesToType</A>&nbsp;internal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2005/08 RelatesToType to 2004/08 Relationship.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/RelatesToType.html" title="class in org.apache.cxf.ws.addressing">RelatesToType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convert(org.apache.cxf.ws.addressing.v200408.Relationship)">convert</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/Relationship.html" title="class in org.apache.cxf.ws.addressing.v200408">Relationship</A>&nbsp;exposed)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2004/08 Relationship to 2005/08 RelatesToType.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/RelatesToType.html" title="class in org.apache.cxf.ws.addressing">RelatesToType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convert(org.apache.cxf.ws.addressing.v200403.Relationship)">convert</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/Relationship.html" title="class in org.apache.cxf.ws.addressing.v200403">Relationship</A>&nbsp;exposed)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2004/03 Relationship to 2005/08 RelatesToType.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/AttributedURI.html" title="class in org.apache.cxf.ws.addressing.v200403">AttributedURI</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convertTo200403(org.apache.cxf.ws.addressing.AttributedURIType)">convertTo200403</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/AttributedURIType.html" title="class in org.apache.cxf.ws.addressing">AttributedURIType</A>&nbsp;internal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2005/08 AttributedURI to 2004/03 AttributedURI.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing.v200403">EndpointReferenceType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convertTo200403(org.apache.cxf.ws.addressing.EndpointReferenceType)">convertTo200403</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A>&nbsp;internal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2005/08 EndpointReferenceType to 2004/03 EndpointReferenceType.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/Relationship.html" title="class in org.apache.cxf.ws.addressing.v200403">Relationship</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convertTo200403(org.apache.cxf.ws.addressing.RelatesToType)">convertTo200403</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/RelatesToType.html" title="class in org.apache.cxf.ws.addressing">RelatesToType</A>&nbsp;internal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert from 2005/08 RelatesToType to 2004/03 Relationship.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#convertToNative(java.lang.Object)">convertToNative</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;exposed)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Converts a version specific EndpointReferenceType to the native version
+ used internally by CXF</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBContext.html" title="class or interface in javax.xml">javax.xml.bind.JAXBContext</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#getExposedJAXBContext(java.lang.String)">getExposedJAXBContext</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;exposedURI)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#getExposedReferenceType(java.lang.String)">getExposedReferenceType</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;exposedURI)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the Class representing the EndpointReferenceType that is used
+ for the specific WS-Addressing version</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#isSupported(java.lang.String)">isSupported</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;namespace)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.html#parseEndpointReference(org.w3c.dom.Element)">parseEndpointReference</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Element.html" title="class or interface in org.w3c.dom">Element</A>&nbsp;ref)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parse an EndpointReferenceType from a DOM element.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="NATIVE_VERSION"><!-- --></A><H3>
+NATIVE_VERSION</H3>
+<PRE>
+protected static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>NATIVE_VERSION</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.VersionTransformer.NATIVE_VERSION">Constant Field Values</A></DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="VersionTransformer()"><!-- --></A><H3>
+VersionTransformer</H3>
+<PRE>
+protected <B>VersionTransformer</B>()</PRE>
+<DL>
+<DD>Constructor.
+<P>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="isSupported(java.lang.String)"><!-- --></A><H3>
+isSupported</H3>
+<PRE>
+public static boolean <B>isSupported</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;namespace)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>namespace</CODE> - a namspace URI to consider
+<DT><B>Returns:</B><DD>true if th WS-Addressing version specified by the namespace 
+ URI is supported</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convert(org.apache.cxf.ws.addressing.AttributedURIType)"><!-- --></A><H3>
+convert</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/AttributedURI.html" title="class in org.apache.cxf.ws.addressing.v200408">AttributedURI</A> <B>convert</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/AttributedURIType.html" title="class in org.apache.cxf.ws.addressing">AttributedURIType</A>&nbsp;internal)</PRE>
+<DL>
+<DD>Convert from 2005/08 AttributedURI to 2004/08 AttributedURI.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>internal</CODE> - the 2005/08 AttributedURIType
+<DT><B>Returns:</B><DD>an equivalent 2004/08 AttributedURI</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convertTo200403(org.apache.cxf.ws.addressing.AttributedURIType)"><!-- --></A><H3>
+convertTo200403</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/AttributedURI.html" title="class in org.apache.cxf.ws.addressing.v200403">AttributedURI</A> <B>convertTo200403</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/AttributedURIType.html" title="class in org.apache.cxf.ws.addressing">AttributedURIType</A>&nbsp;internal)</PRE>
+<DL>
+<DD>Convert from 2005/08 AttributedURI to 2004/03 AttributedURI.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>internal</CODE> - the 2005/08 AttributedURIType
+<DT><B>Returns:</B><DD>an equivalent 2004/08 or 2004/03 AttributedURI</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convert(org.apache.cxf.ws.addressing.v200408.AttributedURI)"><!-- --></A><H3>
+convert</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/AttributedURIType.html" title="class in org.apache.cxf.ws.addressing">AttributedURIType</A> <B>convert</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/AttributedURI.html" title="class in org.apache.cxf.ws.addressing.v200408">AttributedURI</A>&nbsp;exposed)</PRE>
+<DL>
+<DD>Convert from 2004/08 AttributedURI to 2005/08 AttributedURI.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>exposed</CODE> - the 2004/08 AttributedURI
+<DT><B>Returns:</B><DD>an equivalent 2005/08 AttributedURIType</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convert(org.apache.cxf.ws.addressing.v200403.AttributedURI)"><!-- --></A><H3>
+convert</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/AttributedURIType.html" title="class in org.apache.cxf.ws.addressing">AttributedURIType</A> <B>convert</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/AttributedURI.html" title="class in org.apache.cxf.ws.addressing.v200403">AttributedURI</A>&nbsp;exposed)</PRE>
+<DL>
+<DD>Convert from 2004/03 AttributedURI to 2005/08 AttributedURI.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>exposed</CODE> - the 2004/03 AttributedURI
+<DT><B>Returns:</B><DD>an equivalent 2005/08 AttributedURIType</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convert(org.apache.cxf.ws.addressing.EndpointReferenceType)"><!-- --></A><H3>
+convert</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing.v200408">EndpointReferenceType</A> <B>convert</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A>&nbsp;internal)</PRE>
+<DL>
+<DD>Convert from 2005/08 EndpointReferenceType to 2004/08 
+ EndpointReferenceType.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>internal</CODE> - the 2005/08 EndpointReferenceType
+<DT><B>Returns:</B><DD>an equivalent 2004/08 EndpointReferenceType</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convertTo200403(org.apache.cxf.ws.addressing.EndpointReferenceType)"><!-- --></A><H3>
+convertTo200403</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing.v200403">EndpointReferenceType</A> <B>convertTo200403</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A>&nbsp;internal)</PRE>
+<DL>
+<DD>Convert from 2005/08 EndpointReferenceType to 2004/03 EndpointReferenceType.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>internal</CODE> - the 2005/08 EndpointReferenceType
+<DT><B>Returns:</B><DD>an equivalent 2004/03 EndpointReferenceType</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convert(org.apache.cxf.ws.addressing.v200408.EndpointReferenceType)"><!-- --></A><H3>
+convert</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A> <B>convert</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing.v200408">EndpointReferenceType</A>&nbsp;exposed)</PRE>
+<DL>
+<DD>Convert from 2004/08 EndpointReferenceType to 2005/08 
+ EndpointReferenceType.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>exposed</CODE> - the 2004/08 EndpointReferenceType
+<DT><B>Returns:</B><DD>an equivalent 2005/08 EndpointReferenceType</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convert(org.apache.cxf.ws.addressing.v200403.EndpointReferenceType)"><!-- --></A><H3>
+convert</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A> <B>convert</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing.v200403">EndpointReferenceType</A>&nbsp;exposed)</PRE>
+<DL>
+<DD>Convert from 2004/03 EndpointReferenceType to 2005/08 EndpointReferenceType.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>exposed</CODE> - the 2004/03 EndpointReferenceType
+<DT><B>Returns:</B><DD>an equivalent 2005/08 EndpointReferenceType</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convert(org.apache.cxf.ws.addressing.ReferenceParametersType)"><!-- --></A><H3>
+convert</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/ReferenceParametersType.html" title="class in org.apache.cxf.ws.addressing.v200408">ReferenceParametersType</A> <B>convert</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/ReferenceParametersType.html" title="class in org.apache.cxf.ws.addressing">ReferenceParametersType</A>&nbsp;internal)</PRE>
+<DL>
+<DD>Convert from 2005/08 ReferenceParametersType to 2004/08
+ ReferenceParametersType.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>internal</CODE> - the 2005/08 ReferenceParametersType
+<DT><B>Returns:</B><DD>an equivalent 2004/08 ReferenceParametersType</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convert(org.apache.cxf.ws.addressing.v200408.ReferenceParametersType)"><!-- --></A><H3>
+convert</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/ReferenceParametersType.html" title="class in org.apache.cxf.ws.addressing">ReferenceParametersType</A> <B>convert</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/ReferenceParametersType.html" title="class in org.apache.cxf.ws.addressing.v200408">ReferenceParametersType</A>&nbsp;exposed)</PRE>
+<DL>
+<DD>Convert from 2004/08 ReferenceParametersType to 2005/08
+ ReferenceParametersType.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>exposed</CODE> - the 2004/08 ReferenceParametersType
+<DT><B>Returns:</B><DD>an equivalent 2005/08 ReferenceParametersType</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convert(org.apache.cxf.ws.addressing.RelatesToType)"><!-- --></A><H3>
+convert</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/Relationship.html" title="class in org.apache.cxf.ws.addressing.v200408">Relationship</A> <B>convert</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/RelatesToType.html" title="class in org.apache.cxf.ws.addressing">RelatesToType</A>&nbsp;internal)</PRE>
+<DL>
+<DD>Convert from 2005/08 RelatesToType to 2004/08 Relationship.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>internal</CODE> - the 2005/08 RelatesToType
+<DT><B>Returns:</B><DD>an equivalent 2004/08 Relationship</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convertTo200403(org.apache.cxf.ws.addressing.RelatesToType)"><!-- --></A><H3>
+convertTo200403</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/Relationship.html" title="class in org.apache.cxf.ws.addressing.v200403">Relationship</A> <B>convertTo200403</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/RelatesToType.html" title="class in org.apache.cxf.ws.addressing">RelatesToType</A>&nbsp;internal)</PRE>
+<DL>
+<DD>Convert from 2005/08 RelatesToType to 2004/03 Relationship.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>internal</CODE> - the 2005/08 RelatesToType
+<DT><B>Returns:</B><DD>an equivalent 2004/03 Relationship</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convert(org.apache.cxf.ws.addressing.v200408.Relationship)"><!-- --></A><H3>
+convert</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/RelatesToType.html" title="class in org.apache.cxf.ws.addressing">RelatesToType</A> <B>convert</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200408/Relationship.html" title="class in org.apache.cxf.ws.addressing.v200408">Relationship</A>&nbsp;exposed)</PRE>
+<DL>
+<DD>Convert from 2004/08 Relationship to 2005/08 RelatesToType.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>exposed</CODE> - the 2004/08 Relationship
+<DT><B>Returns:</B><DD>an equivalent 2005/08 RelatesToType</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convert(org.apache.cxf.ws.addressing.v200403.Relationship)"><!-- --></A><H3>
+convert</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/RelatesToType.html" title="class in org.apache.cxf.ws.addressing">RelatesToType</A> <B>convert</B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/v200403/Relationship.html" title="class in org.apache.cxf.ws.addressing.v200403">Relationship</A>&nbsp;exposed)</PRE>
+<DL>
+<DD>Convert from 2004/03 Relationship to 2005/08 RelatesToType.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>exposed</CODE> - the 2004/03 Relationship
+<DT><B>Returns:</B><DD>an equivalent 2005/08 RelatesToType</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="parseEndpointReference(org.w3c.dom.Element)"><!-- --></A><H3>
+parseEndpointReference</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A> <B>parseEndpointReference</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Element.html" title="class or interface in org.w3c.dom">Element</A>&nbsp;ref)
+                                                    throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></PRE>
+<DL>
+<DD>Parse an EndpointReferenceType from a DOM element.  Handles all of
+ the WS-Addressing namespaces currently supported.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>ref</CODE> - 
+<DT><B>Returns:</B><DD>
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convertToNative(java.lang.Object)"><!-- --></A><H3>
+convertToNative</H3>
+<PRE>
+public static <A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A> <B>convertToNative</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;exposed)</PRE>
+<DL>
+<DD>Converts a version specific EndpointReferenceType to the native version
+ used internally by CXF
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>exposed</CODE> - 
+<DT><B>Returns:</B><DD></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getExposedReferenceType(java.lang.String)"><!-- --></A><H3>
+getExposedReferenceType</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Class.html" title="class or interface in java.lang">Class</A>&lt;?&gt; <B>getExposedReferenceType</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;exposedURI)</PRE>
+<DL>
+<DD>Gets the Class representing the EndpointReferenceType that is used
+ for the specific WS-Addressing version
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>exposedURI</CODE> - 
+<DT><B>Returns:</B><DD></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getExposedJAXBContext(java.lang.String)"><!-- --></A><H3>
+getExposedJAXBContext</H3>
+<PRE>
+public static <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBContext.html" title="class or interface in javax.xml">javax.xml.bind.JAXBContext</A> <B>getExposedJAXBContext</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;exposedURI)
+                                                        throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></PRE>
+<DL>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>exposedURI</CODE> - specifies the version WS-Addressing
+<DT><B>Returns:</B><DD>JABXContext for the exposed namespace URI
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBException.html" title="class or interface in javax.xml">javax.xml.bind.JAXBException</A></CODE></DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/VersionTransformer.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/RelatesToType.html" title="class in org.apache.cxf.ws.addressing"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/VersionTransformer.Names200403.html" title="class in org.apache.cxf.ws.addressing"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/ws/addressing/VersionTransformer.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="VersionTransformer.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

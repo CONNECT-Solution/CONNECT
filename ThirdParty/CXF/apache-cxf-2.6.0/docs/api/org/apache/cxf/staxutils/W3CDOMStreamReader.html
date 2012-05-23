@@ -1,0 +1,1080 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+W3CDOMStreamReader (Apache CXF API 2.6.0 API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="org.apache.cxf.staxutils.W3CDOMStreamReader class">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="W3CDOMStreamReader (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/W3CDOMStreamReader.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/staxutils/StreamWriterContentHandler.html" title="class in org.apache.cxf.staxutils"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamWriter.html" title="class in org.apache.cxf.staxutils"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/staxutils/W3CDOMStreamReader.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="W3CDOMStreamReader.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_org.apache.cxf.staxutils.AbstractDOMStreamReader">NESTED</A>&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_org.apache.cxf.staxutils.AbstractDOMStreamReader">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+org.apache.cxf.staxutils</FONT>
+<BR>
+Class W3CDOMStreamReader</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">org.apache.cxf.staxutils.AbstractDOMStreamReader</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>org.apache.cxf.staxutils.W3CDOMStreamReader</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/stream.XMLStreamConstants.html" title="class or interface in javax.xml">javax.xml.stream.XMLStreamConstants</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/stream.XMLStreamReader.html" title="class or interface in javax.xml">javax.xml.stream.XMLStreamReader</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>W3CDOMStreamReader</B><DT>extends <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;</DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_org.apache.cxf.staxutils.AbstractDOMStreamReader"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class org.apache.cxf.staxutils.<A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.ElementFrame.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader.ElementFrame</A>&lt;<A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.ElementFrame.html" title="type parameter in AbstractDOMStreamReader.ElementFrame">T</A>,<A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.ElementFrame.html" title="type parameter in AbstractDOMStreamReader.ElementFrame">I</A>&gt;</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_org.apache.cxf.staxutils.AbstractDOMStreamReader"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class org.apache.cxf.staxutils.<A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#currentEvent">currentEvent</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_javax.xml.stream.XMLStreamConstants"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from interface javax.xml.stream.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/stream.XMLStreamConstants.html" title="class or interface in javax.xml">XMLStreamConstants</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>ATTRIBUTE, CDATA, CHARACTERS, COMMENT, DTD, END_DOCUMENT, END_ELEMENT, ENTITY_DECLARATION, ENTITY_REFERENCE, NAMESPACE, NOTATION_DECLARATION, PROCESSING_INSTRUCTION, SPACE, START_DOCUMENT, START_ELEMENT</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#W3CDOMStreamReader(org.w3c.dom.Document)">W3CDOMStreamReader</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Document.html" title="class or interface in org.w3c.dom">Document</A>&nbsp;doc)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#W3CDOMStreamReader(org.w3c.dom.DocumentFragment)">W3CDOMStreamReader</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/DocumentFragment.html" title="class or interface in org.w3c.dom">DocumentFragment</A>&nbsp;docfrag)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#W3CDOMStreamReader(org.w3c.dom.Element)">W3CDOMStreamReader</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Element.html" title="class or interface in org.w3c.dom">Element</A>&nbsp;element)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#W3CDOMStreamReader(org.w3c.dom.Element, java.lang.String)">W3CDOMStreamReader</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Element.html" title="class or interface in org.w3c.dom">Element</A>&nbsp;element,
+                   <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;systemId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#endElement()">endElement</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getAttributeCount()">getAttributeCount</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getAttributeLocalName(int)">getAttributeLocalName</A></B>(int&nbsp;i)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getAttributeName(int)">getAttributeName</A></B>(int&nbsp;i)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getAttributeNamespace(int)">getAttributeNamespace</A></B>(int&nbsp;i)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getAttributePrefix(int)">getAttributePrefix</A></B>(int&nbsp;i)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getAttributeType(int)">getAttributeType</A></B>(int&nbsp;i)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getAttributeValue(int)">getAttributeValue</A></B>(int&nbsp;i)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getAttributeValue(java.lang.String, java.lang.String)">getAttributeValue</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;ns,
+                  <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;local)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.ElementFrame.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader.ElementFrame</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getChildFrame()">getChildFrame</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Element.html" title="class or interface in org.w3c.dom">Element</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getCurrentElement()">getCurrentElement</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getCurrentNode()">getCurrentNode</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Document.html" title="class or interface in org.w3c.dom">Document</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getDocument()">getDocument</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the document associated with this stream.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getElementText()">getElementText</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getEncoding()">getEncoding</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getLocalName()">getLocalName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/stream.Location.html" title="class or interface in javax.xml">javax.xml.stream.Location</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getLocation()">getLocation</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getName()">getName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/NamespaceContext.html" title="class or interface in javax.xml.namespace">NamespaceContext</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getNamespaceContext()">getNamespaceContext</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getNamespaceCount()">getNamespaceCount</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getNamespacePrefix(int)">getNamespacePrefix</A></B>(int&nbsp;i)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getNamespaceURI()">getNamespaceURI</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getNamespaceURI(int)">getNamespaceURI</A></B>(int&nbsp;i)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getNamespaceURI(java.lang.String)">getNamespaceURI</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;prefix)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getPIData()">getPIData</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getPITarget()">getPITarget</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getPrefix()">getPrefix</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getSystemId()">getSystemId</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getText()">getText</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;char[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getTextCharacters()">getTextCharacters</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getTextLength()">getTextLength</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#getTextStart()">getTextStart</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#hasMoreChildren()">hasMoreChildren</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#isAttributeSpecified(int)">isAttributeSpecified</A></B>(int&nbsp;i)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#newFrame(org.apache.cxf.staxutils.AbstractDOMStreamReader.ElementFrame)">newFrame</A></B>(<A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.ElementFrame.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader.ElementFrame</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;&nbsp;frame)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Find name spaces declaration in atrributes and move them to separate
+ collection.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#nextChild()">nextChild</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamReader.html#toString()">toString</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_org.apache.cxf.staxutils.AbstractDOMStreamReader"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class org.apache.cxf.staxutils.<A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#close()">close</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#consumeFrame()">consumeFrame</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getCharacterEncodingScheme()">getCharacterEncodingScheme</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getCurrentFrame()">getCurrentFrame</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getEventType()">getEventType</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getProperty(java.lang.String)">getProperty</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getPublicId()">getPublicId</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getTextCharacters(int, char[], int, int)">getTextCharacters</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getVersion()">getVersion</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#hasName()">hasName</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#hasNext()">hasNext</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#hasText()">hasText</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#isCharacters()">isCharacters</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#isEndElement()">isEndElement</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#isStandalone()">isStandalone</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#isStartElement()">isStartElement</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#isWhiteSpace()">isWhiteSpace</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#next()">next</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#nextTag()">nextTag</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#require(int, java.lang.String, java.lang.String)">require</A>, <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#standaloneSet()">standaloneSet</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="W3CDOMStreamReader(org.w3c.dom.Element)"><!-- --></A><H3>
+W3CDOMStreamReader</H3>
+<PRE>
+public <B>W3CDOMStreamReader</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Element.html" title="class or interface in org.w3c.dom">Element</A>&nbsp;element)</PRE>
+<DL>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>element</CODE> - </DL>
+</DL>
+<HR>
+
+<A NAME="W3CDOMStreamReader(org.w3c.dom.Element, java.lang.String)"><!-- --></A><H3>
+W3CDOMStreamReader</H3>
+<PRE>
+public <B>W3CDOMStreamReader</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Element.html" title="class or interface in org.w3c.dom">Element</A>&nbsp;element,
+                          <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;systemId)</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="W3CDOMStreamReader(org.w3c.dom.Document)"><!-- --></A><H3>
+W3CDOMStreamReader</H3>
+<PRE>
+public <B>W3CDOMStreamReader</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Document.html" title="class or interface in org.w3c.dom">Document</A>&nbsp;doc)</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="W3CDOMStreamReader(org.w3c.dom.DocumentFragment)"><!-- --></A><H3>
+W3CDOMStreamReader</H3>
+<PRE>
+public <B>W3CDOMStreamReader</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/DocumentFragment.html" title="class or interface in org.w3c.dom">DocumentFragment</A>&nbsp;docfrag)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="getDocument()"><!-- --></A><H3>
+getDocument</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Document.html" title="class or interface in org.w3c.dom">Document</A> <B>getDocument</B>()</PRE>
+<DL>
+<DD>Get the document associated with this stream.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getSystemId()"><!-- --></A><H3>
+getSystemId</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getSystemId</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getSystemId()">getSystemId</A></CODE> in class <CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="newFrame(org.apache.cxf.staxutils.AbstractDOMStreamReader.ElementFrame)"><!-- --></A><H3>
+newFrame</H3>
+<PRE>
+protected final void <B>newFrame</B>(<A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.ElementFrame.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader.ElementFrame</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;&nbsp;frame)</PRE>
+<DL>
+<DD>Find name spaces declaration in atrributes and move them to separate
+ collection.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#newFrame(org.apache.cxf.staxutils.AbstractDOMStreamReader.ElementFrame)">newFrame</A></CODE> in class <CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="endElement()"><!-- --></A><H3>
+endElement</H3>
+<PRE>
+protected void <B>endElement</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#endElement()">endElement</A></CODE> in class <CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCurrentNode()"><!-- --></A><H3>
+getCurrentNode</H3>
+<PRE>
+public final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A> <B>getCurrentNode</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCurrentElement()"><!-- --></A><H3>
+getCurrentElement</H3>
+<PRE>
+public final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Element.html" title="class or interface in org.w3c.dom">Element</A> <B>getCurrentElement</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getChildFrame()"><!-- --></A><H3>
+getChildFrame</H3>
+<PRE>
+protected <A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.ElementFrame.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader.ElementFrame</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt; <B>getChildFrame</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getChildFrame()">getChildFrame</A></CODE> in class <CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="hasMoreChildren()"><!-- --></A><H3>
+hasMoreChildren</H3>
+<PRE>
+protected boolean <B>hasMoreChildren</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#hasMoreChildren()">hasMoreChildren</A></CODE> in class <CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="nextChild()"><!-- --></A><H3>
+nextChild</H3>
+<PRE>
+protected int <B>nextChild</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#nextChild()">nextChild</A></CODE> in class <CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getElementText()"><!-- --></A><H3>
+getElementText</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getElementText</B>()
+                      throws <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/stream.XMLStreamException.html" title="class or interface in javax.xml">javax.xml.stream.XMLStreamException</A></PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>getElementText</CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/stream.XMLStreamReader.html" title="class or interface in javax.xml">javax.xml.stream.XMLStreamReader</A></CODE><DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getElementText()">getElementText</A></CODE> in class <CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/stream.XMLStreamException.html" title="class or interface in javax.xml">javax.xml.stream.XMLStreamException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getNamespaceURI(java.lang.String)"><!-- --></A><H3>
+getNamespaceURI</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getNamespaceURI</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;prefix)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>getNamespaceURI</CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/stream.XMLStreamReader.html" title="class or interface in javax.xml">javax.xml.stream.XMLStreamReader</A></CODE><DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getNamespaceURI(java.lang.String)">getNamespaceURI</A></CODE> in class <CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAttributeValue(java.lang.String, java.lang.String)"><!-- --></A><H3>
+getAttributeValue</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getAttributeValue</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;ns,
+                                <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;local)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAttributeCount()"><!-- --></A><H3>
+getAttributeCount</H3>
+<PRE>
+public int <B>getAttributeCount</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAttributeName(int)"><!-- --></A><H3>
+getAttributeName</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>getAttributeName</B>(int&nbsp;i)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAttributeNamespace(int)"><!-- --></A><H3>
+getAttributeNamespace</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getAttributeNamespace</B>(int&nbsp;i)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAttributeLocalName(int)"><!-- --></A><H3>
+getAttributeLocalName</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getAttributeLocalName</B>(int&nbsp;i)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAttributePrefix(int)"><!-- --></A><H3>
+getAttributePrefix</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getAttributePrefix</B>(int&nbsp;i)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAttributeType(int)"><!-- --></A><H3>
+getAttributeType</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getAttributeType</B>(int&nbsp;i)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAttributeValue(int)"><!-- --></A><H3>
+getAttributeValue</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getAttributeValue</B>(int&nbsp;i)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isAttributeSpecified(int)"><!-- --></A><H3>
+isAttributeSpecified</H3>
+<PRE>
+public boolean <B>isAttributeSpecified</B>(int&nbsp;i)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getNamespaceCount()"><!-- --></A><H3>
+getNamespaceCount</H3>
+<PRE>
+public int <B>getNamespaceCount</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getNamespacePrefix(int)"><!-- --></A><H3>
+getNamespacePrefix</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getNamespacePrefix</B>(int&nbsp;i)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getNamespaceURI(int)"><!-- --></A><H3>
+getNamespaceURI</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getNamespaceURI</B>(int&nbsp;i)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getNamespaceContext()"><!-- --></A><H3>
+getNamespaceContext</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/NamespaceContext.html" title="class or interface in javax.xml.namespace">NamespaceContext</A> <B>getNamespaceContext</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getText()"><!-- --></A><H3>
+getText</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getText</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getTextCharacters()"><!-- --></A><H3>
+getTextCharacters</H3>
+<PRE>
+public char[] <B>getTextCharacters</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getTextStart()"><!-- --></A><H3>
+getTextStart</H3>
+<PRE>
+public int <B>getTextStart</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getTextLength()"><!-- --></A><H3>
+getTextLength</H3>
+<PRE>
+public int <B>getTextLength</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getEncoding()"><!-- --></A><H3>
+getEncoding</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getEncoding</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getName()"><!-- --></A><H3>
+getName</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>getName</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLocalName()"><!-- --></A><H3>
+getLocalName</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getLocalName</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getNamespaceURI()"><!-- --></A><H3>
+getNamespaceURI</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getNamespaceURI</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPrefix()"><!-- --></A><H3>
+getPrefix</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getPrefix</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPITarget()"><!-- --></A><H3>
+getPITarget</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getPITarget</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPIData()"><!-- --></A><H3>
+getPIData</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getPIData</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLocation()"><!-- --></A><H3>
+getLocation</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/stream.Location.html" title="class or interface in javax.xml">javax.xml.stream.Location</A> <B>getLocation</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>getLocation</CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/stream.XMLStreamReader.html" title="class or interface in javax.xml">javax.xml.stream.XMLStreamReader</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html#getLocation()">getLocation</A></CODE> in class <CODE><A HREF="../../../../org/apache/cxf/staxutils/AbstractDOMStreamReader.html" title="class in org.apache.cxf.staxutils">AbstractDOMStreamReader</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/org/w3c/dom/Node.html" title="class or interface in org.w3c.dom">Node</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="toString()"><!-- --></A><H3>
+toString</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>toString</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#toString()" title="class or interface in java.lang">toString</A></CODE> in class <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/W3CDOMStreamReader.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/staxutils/StreamWriterContentHandler.html" title="class in org.apache.cxf.staxutils"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/staxutils/W3CDOMStreamWriter.html" title="class in org.apache.cxf.staxutils"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/staxutils/W3CDOMStreamReader.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="W3CDOMStreamReader.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_org.apache.cxf.staxutils.AbstractDOMStreamReader">NESTED</A>&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_org.apache.cxf.staxutils.AbstractDOMStreamReader">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

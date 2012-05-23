@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe;
 
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.w3c.dom.Element;
 
@@ -41,6 +40,6 @@ import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 public interface NhinHiemUnsubscribeProxy {
 
     public Element unsubscribe(Element unsubscribeElement, ReferenceParametersElements referenceParametersElements,
-            AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault,
+            AssertionType assertion, NhinTargetSystemType target) throws
             UnableToDestroySubscriptionFault, Exception;
 }

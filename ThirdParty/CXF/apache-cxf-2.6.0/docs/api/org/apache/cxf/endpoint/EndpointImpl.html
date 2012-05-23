@@ -1,0 +1,697 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+EndpointImpl (Apache CXF API 2.6.0 API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="org.apache.cxf.endpoint.EndpointImpl class">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="EndpointImpl (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/EndpointImpl.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/endpoint/EndpointException.html" title="class in org.apache.cxf.endpoint"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/endpoint/EndpointImplFactory.html" title="interface in org.apache.cxf.endpoint"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/endpoint/EndpointImpl.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="EndpointImpl.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+org.apache.cxf.endpoint</FONT>
+<BR>
+Class EndpointImpl</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/AbstractMap.html" title="class or interface in java.util">java.util.AbstractMap</A>&lt;K,V&gt;
+      <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html" title="class or interface in java.util">java.util.HashMap</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;
+          <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html" title="class in org.apache.cxf.interceptor">org.apache.cxf.interceptor.AbstractAttributedInterceptorProvider</A>
+              <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>org.apache.cxf.endpoint.EndpointImpl</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/io/Serializable.html" title="class or interface in java.io">Serializable</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Cloneable.html" title="class or interface in java.lang">Cloneable</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;, <A HREF="../../../../org/apache/cxf/configuration/Configurable.html" title="interface in org.apache.cxf.configuration">Configurable</A>, <A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A>, <A HREF="../../../../org/apache/cxf/interceptor/InterceptorProvider.html" title="interface in org.apache.cxf.interceptor">InterceptorProvider</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>EndpointImpl</B><DT>extends <A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html" title="class in org.apache.cxf.interceptor">AbstractAttributedInterceptorProvider</A><DT>implements <A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A>, <A HREF="../../../../org/apache/cxf/configuration/Configurable.html" title="interface in org.apache.cxf.configuration">Configurable</A></DL>
+</PRE>
+
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../serialized-form.html#org.apache.cxf.endpoint.EndpointImpl">Serialized Form</A></DL>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_java.util.Map"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface java.util.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.Entry.html" title="class or interface in java.util">Map.Entry</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.Entry.html" title="class or interface in java.util">K</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.Entry.html" title="class or interface in java.util">V</A>&gt;</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#EndpointImpl(org.apache.cxf.Bus, org.apache.cxf.service.Service, org.apache.cxf.service.model.EndpointInfo)">EndpointImpl</A></B>(<A HREF="../../../../org/apache/cxf/Bus.html" title="interface in org.apache.cxf">Bus</A>&nbsp;bus,
+             <A HREF="../../../../org/apache/cxf/service/Service.html" title="interface in org.apache.cxf.service">Service</A>&nbsp;s,
+             <A HREF="../../../../org/apache/cxf/service/model/EndpointInfo.html" title="class in org.apache.cxf.service.model">EndpointInfo</A>&nbsp;ei)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#EndpointImpl(org.apache.cxf.Bus, org.apache.cxf.service.Service, javax.xml.namespace.QName)">EndpointImpl</A></B>(<A HREF="../../../../org/apache/cxf/Bus.html" title="interface in org.apache.cxf">Bus</A>&nbsp;bus,
+             <A HREF="../../../../org/apache/cxf/service/Service.html" title="interface in org.apache.cxf.service">Service</A>&nbsp;s,
+             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;endpointName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../org/apache/cxf/feature/AbstractFeature.html" title="class in org.apache.cxf.feature">AbstractFeature</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#getActiveFeatures()">getActiveFeatures</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#getBeanName()">getBeanName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the configurable object's Bean name</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/binding/Binding.html" title="interface in org.apache.cxf.binding">Binding</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#getBinding()">getBinding</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/Bus.html" title="interface in org.apache.cxf">Bus</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#getBus()">getBus</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/service/model/EndpointInfo.html" title="class in org.apache.cxf.service.model">EndpointInfo</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#getEndpointInfo()">getEndpointInfo</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent">Executor</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#getExecutor()">getExecutor</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/transport/MessageObserver.html" title="interface in org.apache.cxf.transport">MessageObserver</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#getInFaultObserver()">getInFaultObserver</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/transport/MessageObserver.html" title="interface in org.apache.cxf.transport">MessageObserver</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#getOutFaultObserver()">getOutFaultObserver</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/service/Service.html" title="interface in org.apache.cxf.service">Service</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#getService()">getService</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#hashCode()">hashCode</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the hashCode bsed on the EndpointInfo so that this object
+ can be used as a map key.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#initializeActiveFeatures(java.util.List)">initializeActiveFeatures</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../org/apache/cxf/feature/AbstractFeature.html" title="class in org.apache.cxf.feature">AbstractFeature</A>&gt;&nbsp;features)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#setBus(org.apache.cxf.Bus)">setBus</A></B>(<A HREF="../../../../org/apache/cxf/Bus.html" title="interface in org.apache.cxf">Bus</A>&nbsp;bus)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#setExecutor(java.util.concurrent.Executor)">setExecutor</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent">Executor</A>&nbsp;e)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#setInFaultObserver(org.apache.cxf.transport.MessageObserver)">setInFaultObserver</A></B>(<A HREF="../../../../org/apache/cxf/transport/MessageObserver.html" title="interface in org.apache.cxf.transport">MessageObserver</A>&nbsp;observer)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#setOutFaultObserver(org.apache.cxf.transport.MessageObserver)">setOutFaultObserver</A></B>(<A HREF="../../../../org/apache/cxf/transport/MessageObserver.html" title="interface in org.apache.cxf.transport">MessageObserver</A>&nbsp;observer)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html#setProperties(java.util.Map)">setProperties</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;&nbsp;properties)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Utility method to make it easy to set properties from Spring.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_org.apache.cxf.interceptor.AbstractAttributedInterceptorProvider"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class org.apache.cxf.interceptor.<A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html" title="class in org.apache.cxf.interceptor">AbstractAttributedInterceptorProvider</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html#equals(java.lang.Object)">equals</A>, <A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html#getInFaultInterceptors()">getInFaultInterceptors</A>, <A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html#getInInterceptors()">getInInterceptors</A>, <A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html#getOutFaultInterceptors()">getOutFaultInterceptors</A>, <A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html#getOutInterceptors()">getOutInterceptors</A>, <A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html#setInFaultInterceptors(java.util.List)">setInFaultInterceptors</A>, <A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html#setInInterceptors(java.util.List)">setInInterceptors</A>, <A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html#setOutFaultInterceptors(java.util.List)">setOutFaultInterceptors</A>, <A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html#setOutInterceptors(java.util.List)">setOutInterceptors</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.util.HashMap"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.util.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html" title="class or interface in java.util">HashMap</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#clear()" title="class or interface in java.util">clear</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#clone()" title="class or interface in java.util">clone</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#containsKey(java.lang.Object)" title="class or interface in java.util">containsKey</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#containsValue(java.lang.Object)" title="class or interface in java.util">containsValue</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#entrySet()" title="class or interface in java.util">entrySet</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#get(java.lang.Object)" title="class or interface in java.util">get</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#isEmpty()" title="class or interface in java.util">isEmpty</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#keySet()" title="class or interface in java.util">keySet</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#put(K, V)" title="class or interface in java.util">put</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#putAll(java.util.Map)" title="class or interface in java.util">putAll</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#remove(java.lang.Object)" title="class or interface in java.util">remove</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#size()" title="class or interface in java.util">size</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/HashMap.html#values()" title="class or interface in java.util">values</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.util.AbstractMap"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.util.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/AbstractMap.html" title="class or interface in java.util">AbstractMap</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/AbstractMap.html#toString()" title="class or interface in java.util">toString</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.util.Map"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface java.util.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#clear()" title="class or interface in java.util">clear</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#containsKey(java.lang.Object)" title="class or interface in java.util">containsKey</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#containsValue(java.lang.Object)" title="class or interface in java.util">containsValue</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#entrySet()" title="class or interface in java.util">entrySet</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#equals(java.lang.Object)" title="class or interface in java.util">equals</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#get(java.lang.Object)" title="class or interface in java.util">get</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#isEmpty()" title="class or interface in java.util">isEmpty</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#keySet()" title="class or interface in java.util">keySet</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#put(K, V)" title="class or interface in java.util">put</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#putAll(java.util.Map)" title="class or interface in java.util">putAll</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#remove(java.lang.Object)" title="class or interface in java.util">remove</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#size()" title="class or interface in java.util">size</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#values()" title="class or interface in java.util">values</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_org.apache.cxf.interceptor.InterceptorProvider"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface org.apache.cxf.interceptor.<A HREF="../../../../org/apache/cxf/interceptor/InterceptorProvider.html" title="interface in org.apache.cxf.interceptor">InterceptorProvider</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../org/apache/cxf/interceptor/InterceptorProvider.html#getInFaultInterceptors()">getInFaultInterceptors</A>, <A HREF="../../../../org/apache/cxf/interceptor/InterceptorProvider.html#getInInterceptors()">getInInterceptors</A>, <A HREF="../../../../org/apache/cxf/interceptor/InterceptorProvider.html#getOutFaultInterceptors()">getOutFaultInterceptors</A>, <A HREF="../../../../org/apache/cxf/interceptor/InterceptorProvider.html#getOutInterceptors()">getOutInterceptors</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="EndpointImpl(org.apache.cxf.Bus, org.apache.cxf.service.Service, javax.xml.namespace.QName)"><!-- --></A><H3>
+EndpointImpl</H3>
+<PRE>
+public <B>EndpointImpl</B>(<A HREF="../../../../org/apache/cxf/Bus.html" title="interface in org.apache.cxf">Bus</A>&nbsp;bus,
+                    <A HREF="../../../../org/apache/cxf/service/Service.html" title="interface in org.apache.cxf.service">Service</A>&nbsp;s,
+                    <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;endpointName)
+             throws <A HREF="../../../../org/apache/cxf/endpoint/EndpointException.html" title="class in org.apache.cxf.endpoint">EndpointException</A></PRE>
+<DL>
+<DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/EndpointException.html" title="class in org.apache.cxf.endpoint">EndpointException</A></CODE></DL>
+</DL>
+<HR>
+
+<A NAME="EndpointImpl(org.apache.cxf.Bus, org.apache.cxf.service.Service, org.apache.cxf.service.model.EndpointInfo)"><!-- --></A><H3>
+EndpointImpl</H3>
+<PRE>
+public <B>EndpointImpl</B>(<A HREF="../../../../org/apache/cxf/Bus.html" title="interface in org.apache.cxf">Bus</A>&nbsp;bus,
+                    <A HREF="../../../../org/apache/cxf/service/Service.html" title="interface in org.apache.cxf.service">Service</A>&nbsp;s,
+                    <A HREF="../../../../org/apache/cxf/service/model/EndpointInfo.html" title="class in org.apache.cxf.service.model">EndpointInfo</A>&nbsp;ei)
+             throws <A HREF="../../../../org/apache/cxf/endpoint/EndpointException.html" title="class in org.apache.cxf.endpoint">EndpointException</A></PRE>
+<DL>
+<DL>
+
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/EndpointException.html" title="class in org.apache.cxf.endpoint">EndpointException</A></CODE></DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="getBeanName()"><!-- --></A><H3>
+getBeanName</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getBeanName</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../org/apache/cxf/configuration/Configurable.html#getBeanName()">Configurable</A></CODE></B></DD>
+<DD>Get the configurable object's Bean name
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/configuration/Configurable.html#getBeanName()">getBeanName</A></CODE> in interface <CODE><A HREF="../../../../org/apache/cxf/configuration/Configurable.html" title="interface in org.apache.cxf.configuration">Configurable</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the bean name</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getEndpointInfo()"><!-- --></A><H3>
+getEndpointInfo</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/service/model/EndpointInfo.html" title="class in org.apache.cxf.service.model">EndpointInfo</A> <B>getEndpointInfo</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html#getEndpointInfo()">getEndpointInfo</A></CODE> in interface <CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getService()"><!-- --></A><H3>
+getService</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/service/Service.html" title="interface in org.apache.cxf.service">Service</A> <B>getService</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html#getService()">getService</A></CODE> in interface <CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getBinding()"><!-- --></A><H3>
+getBinding</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/binding/Binding.html" title="interface in org.apache.cxf.binding">Binding</A> <B>getBinding</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html#getBinding()">getBinding</A></CODE> in interface <CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getExecutor()"><!-- --></A><H3>
+getExecutor</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent">Executor</A> <B>getExecutor</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html#getExecutor()">getExecutor</A></CODE> in interface <CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setExecutor(java.util.concurrent.Executor)"><!-- --></A><H3>
+setExecutor</H3>
+<PRE>
+public void <B>setExecutor</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/concurrent/Executor.html" title="class or interface in java.util.concurrent">Executor</A>&nbsp;e)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html#setExecutor(java.util.concurrent.Executor)">setExecutor</A></CODE> in interface <CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getBus()"><!-- --></A><H3>
+getBus</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/Bus.html" title="interface in org.apache.cxf">Bus</A> <B>getBus</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setBus(org.apache.cxf.Bus)"><!-- --></A><H3>
+setBus</H3>
+<PRE>
+public void <B>setBus</B>(<A HREF="../../../../org/apache/cxf/Bus.html" title="interface in org.apache.cxf">Bus</A>&nbsp;bus)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getInFaultObserver()"><!-- --></A><H3>
+getInFaultObserver</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/transport/MessageObserver.html" title="interface in org.apache.cxf.transport">MessageObserver</A> <B>getInFaultObserver</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html#getInFaultObserver()">getInFaultObserver</A></CODE> in interface <CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOutFaultObserver()"><!-- --></A><H3>
+getOutFaultObserver</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/transport/MessageObserver.html" title="interface in org.apache.cxf.transport">MessageObserver</A> <B>getOutFaultObserver</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html#getOutFaultObserver()">getOutFaultObserver</A></CODE> in interface <CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setInFaultObserver(org.apache.cxf.transport.MessageObserver)"><!-- --></A><H3>
+setInFaultObserver</H3>
+<PRE>
+public void <B>setInFaultObserver</B>(<A HREF="../../../../org/apache/cxf/transport/MessageObserver.html" title="interface in org.apache.cxf.transport">MessageObserver</A>&nbsp;observer)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html#setInFaultObserver(org.apache.cxf.transport.MessageObserver)">setInFaultObserver</A></CODE> in interface <CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOutFaultObserver(org.apache.cxf.transport.MessageObserver)"><!-- --></A><H3>
+setOutFaultObserver</H3>
+<PRE>
+public void <B>setOutFaultObserver</B>(<A HREF="../../../../org/apache/cxf/transport/MessageObserver.html" title="interface in org.apache.cxf.transport">MessageObserver</A>&nbsp;observer)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html#setOutFaultObserver(org.apache.cxf.transport.MessageObserver)">setOutFaultObserver</A></CODE> in interface <CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setProperties(java.util.Map)"><!-- --></A><H3>
+setProperties</H3>
+<PRE>
+public void <B>setProperties</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;&nbsp;properties)</PRE>
+<DL>
+<DD>Utility method to make it easy to set properties from Spring.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>properties</CODE> - </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getActiveFeatures()"><!-- --></A><H3>
+getActiveFeatures</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../org/apache/cxf/feature/AbstractFeature.html" title="class in org.apache.cxf.feature">AbstractFeature</A>&gt; <B>getActiveFeatures</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html#getActiveFeatures()">getActiveFeatures</A></CODE> in interface <CODE><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the list of fearures <b>already</b> activated for this endpoint.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="initializeActiveFeatures(java.util.List)"><!-- --></A><H3>
+initializeActiveFeatures</H3>
+<PRE>
+public void <B>initializeActiveFeatures</B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../org/apache/cxf/feature/AbstractFeature.html" title="class in org.apache.cxf.feature">AbstractFeature</A>&gt;&nbsp;features)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>the</CODE> - list of fearures <b>already</b> activated for this endpoint.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="hashCode()"><!-- --></A><H3>
+hashCode</H3>
+<PRE>
+public int <B>hashCode</B>()</PRE>
+<DL>
+<DD>Returns the hashCode bsed on the EndpointInfo so that this object
+ can be used as a map key.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html#hashCode()" title="class or interface in java.util">hashCode</A></CODE> in interface <CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;</CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html#hashCode()">hashCode</A></CODE> in class <CODE><A HREF="../../../../org/apache/cxf/interceptor/AbstractAttributedInterceptorProvider.html" title="class in org.apache.cxf.interceptor">AbstractAttributedInterceptorProvider</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/EndpointImpl.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/endpoint/EndpointException.html" title="class in org.apache.cxf.endpoint"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/endpoint/EndpointImplFactory.html" title="interface in org.apache.cxf.endpoint"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/endpoint/EndpointImpl.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="EndpointImpl.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

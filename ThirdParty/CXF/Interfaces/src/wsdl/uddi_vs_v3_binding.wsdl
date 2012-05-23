@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:uddi_vs_v3_portType="urn:uddi-org:vs_v3_portType" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="urn:uddi-org:vs_v3_binding">
+	<!-- 
+	Copyright (c) 2000-2002 by Accenture, Ariba, Inc., Commerce One, Inc. Fujitsu Limited, Hewlett-Packard Company, i2 Technologies, Inc., Intel Corporation, 
+	International Business Machines Corporation, Microsoft Corporation, Oracle Corporation, SAP AG, Sun Microsystems, Inc., and VeriSign, Inc.  All Rights Reserved.
+	
+	Copyright (c) OASIS Open 2002-2004. All Rights Reserved.
+	Version 3.0.2 
+	-->
+	<documentation>
+	                WSDL SOAP/HTTP binding for UDDI Value Set Validation API V3.0.
+	</documentation>
+	<import namespace="urn:uddi-org:vs_v3_portType" location="uddi_vs_v3_portType.wsdl"/>
+	<binding name="UDDI_ValueSetValidation_SoapBinding" type="uddi_vs_v3_portType:UDDI_ValueSetValidation_PortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="validate_values">
+			<soap:operation soapAction="validate_values"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="error">
+				<soap:fault name="error" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+</definitions>

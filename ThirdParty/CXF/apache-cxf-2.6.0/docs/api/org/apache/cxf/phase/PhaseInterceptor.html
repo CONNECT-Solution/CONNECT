@@ -1,0 +1,345 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+PhaseInterceptor (Apache CXF API 2.6.0 API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="org.apache.cxf.phase.PhaseInterceptor interface">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="PhaseInterceptor (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/PhaseInterceptor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/phase/PhaseComparator.html" title="class in org.apache.cxf.phase"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/phase/PhaseInterceptorChain.html" title="class in org.apache.cxf.phase"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/phase/PhaseInterceptor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="PhaseInterceptor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+org.apache.cxf.phase</FONT>
+<BR>
+Interface PhaseInterceptor&lt;T extends <A HREF="../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A>&gt;</H2>
+<DL>
+<DT><B>All Superinterfaces:</B> <DD><A HREF="../../../../org/apache/cxf/interceptor/Interceptor.html" title="interface in org.apache.cxf.interceptor">Interceptor</A>&lt;T&gt;</DD>
+</DL>
+<DL>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../org/apache/cxf/interceptor/AbstractEndpointSelectionInterceptor.html" title="class in org.apache.cxf.interceptor">AbstractEndpointSelectionInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/AbstractInDatabindingInterceptor.html" title="class in org.apache.cxf.interceptor">AbstractInDatabindingInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/AbstractLoggingInterceptor.html" title="class in org.apache.cxf.interceptor">AbstractLoggingInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/AbstractOutDatabindingInterceptor.html" title="class in org.apache.cxf.interceptor">AbstractOutDatabindingInterceptor</A>, <A HREF="../../../../org/apache/cxf/phase/AbstractPhaseInterceptor.html" title="class in org.apache.cxf.phase">AbstractPhaseInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/AttachmentInInterceptor.html" title="class in org.apache.cxf.interceptor">AttachmentInInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/AttachmentOutInterceptor.html" title="class in org.apache.cxf.interceptor">AttachmentOutInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/AttachmentOutInterceptor.AttachmentOutEndingInterceptor.html" title="class in org.apache.cxf.interceptor">AttachmentOutInterceptor.AttachmentOutEndingInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/BareInInterceptor.html" title="class in org.apache.cxf.interceptor">BareInInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/BareOutInterceptor.html" title="class in org.apache.cxf.interceptor">BareOutInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/ClientFaultConverter.html" title="class in org.apache.cxf.interceptor">ClientFaultConverter</A>, <A HREF="../../../../org/apache/cxf/interceptor/DocLiteralInInterceptor.html" title="class in org.apache.cxf.interceptor">DocLiteralInInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/FaultOutInterceptor.html" title="class in org.apache.cxf.interceptor">FaultOutInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/FIStaxInInterceptor.html" title="class in org.apache.cxf.interceptor">FIStaxInInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/FIStaxOutInterceptor.html" title="class in org.apache.cxf.interceptor">FIStaxOutInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/LoggingInInterceptor.html" title="class in org.apache.cxf.interceptor">LoggingInInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/LoggingOutInterceptor.html" title="class in org.apache.cxf.interceptor">LoggingOutInterceptor</A>, <A HREF="../../../../org/apache/cxf/ws/addressing/MAPAggregator.html" title="class in org.apache.cxf.ws.addressing">MAPAggregator</A>, <A HREF="../../../../org/apache/cxf/interceptor/MessageSenderInterceptor.html" title="class in org.apache.cxf.interceptor">MessageSenderInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/MessageSenderInterceptor.MessageSenderEndingInterceptor.html" title="class in org.apache.cxf.interceptor">MessageSenderInterceptor.MessageSenderEndingInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/OneWayProcessorInterceptor.html" title="class in org.apache.cxf.interceptor">OneWayProcessorInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/OutgoingChainInterceptor.html" title="class in org.apache.cxf.interceptor">OutgoingChainInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/ServiceInvokerInterceptor.html" title="class in org.apache.cxf.interceptor">ServiceInvokerInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/StaxInInterceptor.html" title="class in org.apache.cxf.interceptor">StaxInInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/StaxOutEndingInterceptor.html" title="class in org.apache.cxf.interceptor">StaxOutEndingInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/StaxOutInterceptor.html" title="class in org.apache.cxf.interceptor">StaxOutInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/transform/TransformInInterceptor.html" title="class in org.apache.cxf.interceptor.transform">TransformInInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/transform/TransformOutInterceptor.html" title="class in org.apache.cxf.interceptor.transform">TransformOutInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/URIMappingInterceptor.html" title="class in org.apache.cxf.interceptor">URIMappingInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/WrappedOutInterceptor.html" title="class in org.apache.cxf.interceptor">WrappedOutInterceptor</A>, <A HREF="../../../../org/apache/cxf/interceptor/WrappedOutInterceptor.WrappedOutEndingInterceptor.html" title="class in org.apache.cxf.interceptor">WrappedOutInterceptor.WrappedOutEndingInterceptor</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public interface <B>PhaseInterceptor&lt;T extends <A HREF="../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A>&gt;</B><DT>extends <A HREF="../../../../org/apache/cxf/interceptor/Interceptor.html" title="interface in org.apache.cxf.interceptor">Interceptor</A>&lt;T&gt;</DL>
+</PRE>
+
+<P>
+A phase interceptor is an intercetor that participates in a 
+ PhaseInterceptorChain.
+ The phase property controls the phase in which the interceptor is placed.
+ The before and after properties allow for fine grained control over where 
+ the phase the interceptor is placed. They specify the IDs of the 
+ interceptors that must be placed before and after the interceptor.
+<P>
+
+<P>
+<DL>
+<DT><B>Author:</B></DT>
+  <DD>Dan Diephouse</DD>
+<DT><B>See Also:</B><DD><A HREF="../../../../org/apache/cxf/phase/PhaseInterceptorChain.html" title="class in org.apache.cxf.phase"><CODE>PhaseInterceptorChain</CODE></A></DL>
+<HR>
+
+<P>
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Collection.html" title="class or interface in java.util">Collection</A>&lt;<A HREF="../../../../org/apache/cxf/phase/PhaseInterceptor.html" title="interface in org.apache.cxf.phase">PhaseInterceptor</A>&lt;? extends <A HREF="../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A>&gt;&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/phase/PhaseInterceptor.html#getAdditionalInterceptors()">getAdditionalInterceptors</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a collection of Interceptors that should be added to the chain 
+ whenever this interceptor is added.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/phase/PhaseInterceptor.html#getAfter()">getAfter</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a set containing the IDs of the interceptors that should be 
+ executed before this interceptor.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/phase/PhaseInterceptor.html#getBefore()">getBefore</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a set containing the IDs of the interceptors that should be 
+ executed after this interceptor.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/phase/PhaseInterceptor.html#getId()">getId</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the ID of this interceptor.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/phase/PhaseInterceptor.html#getPhase()">getPhase</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the phase in which this interceptor is excecuted.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_org.apache.cxf.interceptor.Interceptor"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface org.apache.cxf.interceptor.<A HREF="../../../../org/apache/cxf/interceptor/Interceptor.html" title="interface in org.apache.cxf.interceptor">Interceptor</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../org/apache/cxf/interceptor/Interceptor.html#handleFault(T)">handleFault</A>, <A HREF="../../../../org/apache/cxf/interceptor/Interceptor.html#handleMessage(T)">handleMessage</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="getAfter()"><!-- --></A><H3>
+getAfter</H3>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt; <B>getAfter</B>()</PRE>
+<DL>
+<DD>Returns a set containing the IDs of the interceptors that should be 
+ executed before this interceptor. This interceptor will be placed 
+ in the chain after the interceptors in the set.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the IDs of the interceptors</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getBefore()"><!-- --></A><H3>
+getBefore</H3>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt; <B>getBefore</B>()</PRE>
+<DL>
+<DD>Returns a set containing the IDs of the interceptors that should be 
+ executed after this interceptor. This interceptor will be placed in 
+ the inteceptor chain before the interceptors in the set.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the ids of the interceptors</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getId()"><!-- --></A><H3>
+getId</H3>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getId</B>()</PRE>
+<DL>
+<DD>Returns the ID of this interceptor.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the ID</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPhase()"><!-- --></A><H3>
+getPhase</H3>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>getPhase</B>()</PRE>
+<DL>
+<DD>Returns the phase in which this interceptor is excecuted.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the phase</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAdditionalInterceptors()"><!-- --></A><H3>
+getAdditionalInterceptors</H3>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Collection.html" title="class or interface in java.util">Collection</A>&lt;<A HREF="../../../../org/apache/cxf/phase/PhaseInterceptor.html" title="interface in org.apache.cxf.phase">PhaseInterceptor</A>&lt;? extends <A HREF="../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A>&gt;&gt; <B>getAdditionalInterceptors</B>()</PRE>
+<DL>
+<DD>Returns a collection of Interceptors that should be added to the chain 
+ whenever this interceptor is added.   May return null.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the collection of interceptors</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/PhaseInterceptor.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/phase/PhaseComparator.html" title="class in org.apache.cxf.phase"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/phase/PhaseInterceptorChain.html" title="class in org.apache.cxf.phase"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/phase/PhaseInterceptor.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="PhaseInterceptor.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

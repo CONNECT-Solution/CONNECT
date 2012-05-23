@@ -50,7 +50,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.NotifyMessageNotSupportedFault;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
 import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
 import org.w3c.dom.Element;
@@ -75,7 +74,7 @@ public class NhinSubscribeProcessor {
      */
     public SubscribeResponse processNhinSubscribe(Element soapMessage, AssertionType assertion)
             throws NotifyMessageNotSupportedFault, SubscribeCreationFailedFault, TopicNotSupportedFault,
-            InvalidTopicExpressionFault, ResourceUnknownFault {
+            InvalidTopicExpressionFault {
         log.debug("In processNhinSubscribe");
 
         log.debug("extract subscribe from soapmessage");
@@ -142,7 +141,7 @@ public class NhinSubscribeProcessor {
     }
 
     private SubscribeResponse nhinSubscribe(Element subscribe, AssertionType assertion) throws TopicNotSupportedFault,
-            InvalidTopicExpressionFault, SubscribeCreationFailedFault, ResourceUnknownFault {
+            InvalidTopicExpressionFault, SubscribeCreationFailedFault {
         log.debug("Begin nhinSubscribe");
         SubscribeResponse response = null;
 

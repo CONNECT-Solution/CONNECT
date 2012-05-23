@@ -41,7 +41,6 @@ import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeResponseMarshaller;
-import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.ResourceUnknownFault;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnableToDestroySubscriptionFault;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeProxy;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeProxyObjectFactory;
@@ -95,12 +94,7 @@ public class ProxyHiemUnsubscribeImpl {
             log.debug("unmarshall unsubscribe response to object");
             WsntUnsubscribeResponseMarshaller marshaller = new WsntUnsubscribeResponseMarshaller();
             response = marshaller.unmarshal(responseElement);
-            log.debug("unmarshalled unsubscribe response to object");
-        } catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
-            log.error("error occurred", ex);
-            // todo: throw proper exception
-            response = new UnsubscribeResponse();
-            response.getAny().add(ex);
+            log.debug("unmarshalled unsubscribe response to object");       
         } catch (org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault ex) {
             log.error("error occurred", ex);
             // todo: throw proper exception
@@ -114,7 +108,7 @@ public class ProxyHiemUnsubscribeImpl {
 
     public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequest,
-            WebServiceContext context) throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
+            WebServiceContext context) throws UnableToDestroySubscriptionFault {
         log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
 
         SoapUtil soaputil = new SoapUtil();
@@ -152,11 +146,6 @@ public class ProxyHiemUnsubscribeImpl {
             WsntUnsubscribeResponseMarshaller marshaller = new WsntUnsubscribeResponseMarshaller();
             response = marshaller.unmarshal(responseElement);
             log.debug("unmarshalled unsubscribe response to object");
-        } catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault e) {
-            log.error("error occurred", e);
-            // todo: throw proper exception
-            response = new UnsubscribeResponse();
-            response.getAny().add(e);
         } catch (org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault e) {
             log.error("error occurred", e);
             // todo: throw proper exception
