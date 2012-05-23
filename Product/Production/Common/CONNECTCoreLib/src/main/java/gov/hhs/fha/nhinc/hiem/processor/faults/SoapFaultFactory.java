@@ -114,10 +114,7 @@ public class SoapFaultFactory {
     }
 
     public SubscribeCreationFailedFault getPatientNotInSubscribeMessage() {                
-        String message = "Patient required for this type of topic, but not supplied.";
-        return new SubscribeCreationFailedFault(message);
-        
-       
+        return new SubscribeCreationFailedFault("Patient required for this type of topic, but not supplied.");
     }
 
     public TopicNotSupportedFault getUnknownTopic(Node topic) {
