@@ -27,7 +27,9 @@
 package gov.hhs.fha.nhinc.docsubmission.nhin.proxy;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import gov.hhs.fha.nhinc.callback.openSAML.OpenSAMLCallbackHandler;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -40,6 +42,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
 import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
 /**
@@ -104,8 +107,20 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
         if (service != null) {
             log.debug("Obtained service - creating port.");
+            
+            // CXF stuff
+            /* this didn't work
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put("samlPropFile", "saml.properties");
+            org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor interceptor = new org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor(m );
+            org.apache.cxf.endpoint.Client cxfClient = org.apache.cxf.frontend.ClientProxy.getClient(service);
+            cxfClient.getInInterceptors().add(interceptor);
+            */
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), DocumentRepositoryXDRPortType.class);
+            ((BindingProvider)port).getRequestContext().put(
+                    "ws-security.saml-callback-handler", new OpenSAMLCallbackHandler()
+                );
             initializeSecurePort(port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain service - no port created.");
