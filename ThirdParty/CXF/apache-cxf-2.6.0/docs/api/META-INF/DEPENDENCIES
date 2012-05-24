@@ -1,0 +1,67 @@
+// ------------------------------------------------------------------
+// Transitive dependencies of this project determined from the
+// maven pom organized by organization.
+// ------------------------------------------------------------------
+
+Apache CXF
+
+
+From: 'an unknown organization'
+  - WSDL4J (http://sf.net/projects/wsdl4j) wsdl4j:wsdl4j:jar:1.6.2
+    License: CPL  (http://www.opensource.org/licenses/cpl1.0.txt)
+
+From: 'Apache Software Foundation' (http://www.apache.org)
+  - Apache Log4j (http://logging.apache.org/log4j/1.2/) log4j:log4j:bundle:1.2.16
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Annotation 1.0 (http://geronimo.apache.org/specs/geronimo-annotation_1.0_spec) org.apache.geronimo.specs:geronimo-annotation_1.0_spec:jar:1.1.1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Streaming API for XML (STAX API 1.0) (http://geronimo.apache.org/specs/geronimo-stax-api_1.0_spec) org.apache.geronimo.specs:geronimo-stax-api_1.0_spec:bundle:1.0.1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'Codehaus' (http://www.codehaus.org/)
+  - Stax2 API (http://woodstox.codehaus.org/StAX2) org.codehaus.woodstox:stax2-api:jar:3.1.1
+    License: The BSD License  (http://www.opensource.org/licenses/bsd-license.php)
+  - Woodstox (http://woodstox.codehaus.org) org.codehaus.woodstox:woodstox-core-asl:jar:4.1.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'ObjectWeb' (http://www.objectweb.org/)
+  - ASM (http://asm.objectweb.org/asm/asm) asm:asm:jar:3.3.1:compile
+    License: BSD  (http://asm.ow2.org/license.html)
+
+From: 'QOS.ch' (http://www.qos.ch)
+  - Simple Logging Facade for Java - API (http://www.slf4j.org/slf4j-api) org.slf4j:slf4j-api:jar:1.6.2:compile
+    License: MIT License  (http://www.slf4j.org/license.html)
+
+From: 'Spring Framework' (http://www.springframework.org/)
+  - Spring ASM  org.springframework:spring-asm:jar:3.0.7.RELEASE:compile
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Beans  org.springframework:spring-beans:jar:3.0.7.RELEASE:compile
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Context  org.springframework:spring-context:jar:3.0.7.RELEASE:compile
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Core  org.springframework:spring-core:jar:3.0.7.RELEASE:compile
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Expression  org.springframework:spring-expression:jar:3.0.7.RELEASE:compile
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'Sun Microsystems' (http://www.sun.com/)
+  - Sun FastInfoset Implementation (http://fi.java.net/FastInfoset) com.sun.xml.fastinfoset:FastInfoset:jar:1.2.9:compile
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Java Architecture for XML Binding (JAXB API) (http://jaxb.java.net/jaxb-api) javax.xml.bind:jaxb-api:jar:2.2.6:compile
+    License: COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0  (http://www.sun.com/cddl/cddl.html)
+
+From: 'The Apache Software Foundation' (http://www.apache.org)
+  - Activation 1.1 (http://geronimo.apache.org/maven/specs/geronimo-activation_1.1_spec/1.1) org.apache.geronimo.specs:geronimo-activation_1.1_spec:bundle:1.1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - JavaMail 1.4 (http://geronimo.apache.org/maven/specs/geronimo-javamail_1.4_spec/1.7.1) org.apache.geronimo.specs:geronimo-javamail_1.4_spec:bundle:1.7.1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'The Apache Software Foundation' (http://www.apache.org/)
+  - Commons Logging (http://commons.apache.org/logging) commons-logging:commons-logging:jar:1.1.1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - XmlSchema Core (http://ws.apache.org/commons/xmlschema20/xmlschema-core/) org.apache.ws.xmlschema:xmlschema-core:bundle:2.0.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+
+
+

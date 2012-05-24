@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.hiem._20.nhin.unsubscribe;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
@@ -46,8 +45,7 @@ public class HiemUnsubscribe {
     private WebServiceContext context;
 
     public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
-            org.oasis_open.docs.wsn.b_2.Unsubscribe unsubscribeRequest) throws UnableToDestroySubscriptionFault,
-            ResourceUnknownFault {
+            org.oasis_open.docs.wsn.b_2.Unsubscribe unsubscribeRequest) throws UnableToDestroySubscriptionFault {
         return new HiemUnsubscribeImpl().unsubscribe(unsubscribeRequest, context);
     }
 

@@ -1,0 +1,510 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+Uses of Class org.apache.cxf.service.model.MessagePartInfo (Apache CXF API 2.6.0 API)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="Uses of Class org.apache.cxf.service.model.MessagePartInfo (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model"><FONT CLASS="NavBarFont1"><B>Class</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Use</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?org/apache/cxf/service/model/class-use/MessagePartInfo.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="MessagePartInfo.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<CENTER>
+<H2>
+<B>Uses of Class<br>org.apache.cxf.service.model.MessagePartInfo</B></H2>
+</CENTER>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Packages that use <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.databinding"><B>org.apache.cxf.databinding</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.interceptor"><B>org.apache.cxf.interceptor</B></A></TD>
+<TD>Core interceptor interfaces which form the basis for message processing chains
+in CXF.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.message"><B>org.apache.cxf.message</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.service"><B>org.apache.cxf.service</B></A></TD>
+<TD>This package and its sub packages contain classes relating to services and the CXF
+service model&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.service.model"><B>org.apache.cxf.service.model</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.databinding"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A> in <A HREF="../../../../../../org/apache/cxf/databinding/package-summary.html">org.apache.cxf.databinding</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../../org/apache/cxf/databinding/package-summary.html">org.apache.cxf.databinding</A> with parameters of type <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>DataReader.</B><B><A HREF="../../../../../../org/apache/cxf/databinding/DataReader.html#read(org.apache.cxf.service.model.MessagePartInfo, T)">read</A></B>(<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;part,
+     <A HREF="../../../../../../org/apache/cxf/databinding/DataReader.html" title="type parameter in DataReader">T</A>&nbsp;input)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Read an object from the input, applying additional conventions based on the WSDL message
+ part.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>DataWriter.</B><B><A HREF="../../../../../../org/apache/cxf/databinding/DataWriter.html#write(java.lang.Object, org.apache.cxf.service.model.MessagePartInfo, T)">write</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;obj,
+      <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;part,
+      <A HREF="../../../../../../org/apache/cxf/databinding/DataWriter.html" title="type parameter in DataWriter">T</A>&nbsp;output)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Write an object to an output sink, including extra processing based on the WSDL 
+ service model for a particular message part.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.interceptor"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A> in <A HREF="../../../../../../org/apache/cxf/interceptor/package-summary.html">org.apache.cxf.interceptor</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../../org/apache/cxf/interceptor/package-summary.html">org.apache.cxf.interceptor</A> that return <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractInDatabindingInterceptor.</B><B><A HREF="../../../../../../org/apache/cxf/interceptor/AbstractInDatabindingInterceptor.html#findMessagePart(org.apache.cxf.message.Exchange, java.util.Collection, javax.xml.namespace.QName, boolean, int, org.apache.cxf.message.Message)">findMessagePart</A></B>(<A HREF="../../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+                <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Collection.html" title="class or interface in java.util">Collection</A>&lt;<A HREF="../../../../../../org/apache/cxf/service/model/OperationInfo.html" title="class in org.apache.cxf.service.model">OperationInfo</A>&gt;&nbsp;operations,
+                <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name,
+                boolean&nbsp;client,
+                int&nbsp;index,
+                <A HREF="../../../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A>&nbsp;message)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Find the next possible message part in the message.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Method parameters in <A HREF="../../../../../../org/apache/cxf/interceptor/package-summary.html">org.apache.cxf.interceptor</A> with type arguments of type <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractOutDatabindingInterceptor.</B><B><A HREF="../../../../../../org/apache/cxf/interceptor/AbstractOutDatabindingInterceptor.html#writeParts(org.apache.cxf.message.Message, org.apache.cxf.message.Exchange, org.apache.cxf.service.model.BindingOperationInfo, org.apache.cxf.message.MessageContentsList, java.util.List)">writeParts</A></B>(<A HREF="../../../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A>&nbsp;message,
+           <A HREF="../../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+           <A HREF="../../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;operation,
+           <A HREF="../../../../../../org/apache/cxf/message/MessageContentsList.html" title="class in org.apache.cxf.message">MessageContentsList</A>&nbsp;objs,
+           <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&gt;&nbsp;parts)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.message"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A> in <A HREF="../../../../../../org/apache/cxf/message/package-summary.html">org.apache.cxf.message</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../../org/apache/cxf/message/package-summary.html">org.apache.cxf.message</A> with parameters of type <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>MessageContentsList.</B><B><A HREF="../../../../../../org/apache/cxf/message/MessageContentsList.html#get(org.apache.cxf.service.model.MessagePartInfo)">get</A></B>(<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;key)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B>MessageContentsList.</B><B><A HREF="../../../../../../org/apache/cxf/message/MessageContentsList.html#hasValue(org.apache.cxf.service.model.MessagePartInfo)">hasValue</A></B>(<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;key)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>MessageContentsList.</B><B><A HREF="../../../../../../org/apache/cxf/message/MessageContentsList.html#put(org.apache.cxf.service.model.MessagePartInfo, java.lang.Object)">put</A></B>(<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;key,
+    <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>MessageContentsList.</B><B><A HREF="../../../../../../org/apache/cxf/message/MessageContentsList.html#remove(org.apache.cxf.service.model.MessagePartInfo)">remove</A></B>(<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;key)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.service"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A> in <A HREF="../../../../../../org/apache/cxf/service/package-summary.html">org.apache.cxf.service</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../../org/apache/cxf/service/package-summary.html">org.apache.cxf.service</A> with parameters of type <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>ServiceModelSchemaValidator.</B><B><A HREF="../../../../../../org/apache/cxf/service/ServiceModelSchemaValidator.html#begin(org.apache.cxf.service.model.MessagePartInfo)">begin</A></B>(<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;part)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>ServiceModelVisitor.</B><B><A HREF="../../../../../../org/apache/cxf/service/ServiceModelVisitor.html#begin(org.apache.cxf.service.model.MessagePartInfo)">begin</A></B>(<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;part)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>ServiceModelVisitor.</B><B><A HREF="../../../../../../org/apache/cxf/service/ServiceModelVisitor.html#end(org.apache.cxf.service.model.MessagePartInfo)">end</A></B>(<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;part)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.service.model"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A> in <A HREF="../../../../../../org/apache/cxf/service/model/package-summary.html">org.apache.cxf.service.model</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../../org/apache/cxf/service/model/package-summary.html">org.apache.cxf.service.model</A> that return <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractMessageContainer.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/AbstractMessageContainer.html#addMessagePart(javax.xml.namespace.QName)">addMessagePart</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a message part to this container.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractMessageContainer.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/AbstractMessageContainer.html#addMessagePart(java.lang.String)">addMessagePart</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;name)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractMessageContainer.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/AbstractMessageContainer.html#addOutOfBandMessagePart(javax.xml.namespace.QName)">addOutOfBandMessagePart</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractMessageContainer.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/AbstractMessageContainer.html#getMessagePart(int)">getMessagePart</A></B>(int&nbsp;n)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the n'th message part.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractMessageContainer.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/AbstractMessageContainer.html#getMessagePart(javax.xml.namespace.QName)">getMessagePart</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the message part with the given name, if found.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractMessageContainer.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/AbstractMessageContainer.html#getMessagePartByIndex(int)">getMessagePartByIndex</A></B>(int&nbsp;i)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../../org/apache/cxf/service/model/package-summary.html">org.apache.cxf.service.model</A> that return types with arguments of type <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>AbstractMessageContainer.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/AbstractMessageContainer.html#getMessageParts()">getMessageParts</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns all message parts for this message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>BindingMessageInfo.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/BindingMessageInfo.html#getMessageParts()">getMessageParts</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>,<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>MessageInfo.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/MessageInfo.html#getMessagePartsMap()">getMessagePartsMap</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>MessageInfo.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/MessageInfo.html#getOrderedParts(java.util.List)">getOrderedParts</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&gt;&nbsp;order)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B>AbstractMessageContainer.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/AbstractMessageContainer.html#getOutOfBandParts()">getOutOfBandParts</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../../org/apache/cxf/service/model/package-summary.html">org.apache.cxf.service.model</A> with parameters of type <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractMessageContainer.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/AbstractMessageContainer.html#addMessagePart(org.apache.cxf.service.model.MessagePartInfo)">addMessagePart</A></B>(<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;part)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a message part to this container.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B>AbstractMessageContainer.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/AbstractMessageContainer.html#getMessagePartIndex(org.apache.cxf.service.model.MessagePartInfo)">getMessagePartIndex</A></B>(<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;part)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../org/apache/cxf/service/model/SchemaInfo.html" title="class in org.apache.cxf.service.model">SchemaInfo</A></CODE></FONT></TD>
+<TD><CODE><B>ServiceModelUtil.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/ServiceModelUtil.html#getSchema(org.apache.cxf.service.model.ServiceInfo, org.apache.cxf.service.model.MessagePartInfo)">getSchema</A></B>(<A HREF="../../../../../../org/apache/cxf/service/model/ServiceInfo.html" title="class in org.apache.cxf.service.model">ServiceInfo</A>&nbsp;serviceInfo,
+          <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&nbsp;messagePartInfo)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Method parameters in <A HREF="../../../../../../org/apache/cxf/service/model/package-summary.html">org.apache.cxf.service.model</A> with type arguments of type <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>BindingMessageInfo.</B><B><A HREF="../../../../../../org/apache/cxf/service/model/BindingMessageInfo.html#setMessageParts(java.util.List)">setMessageParts</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&gt;&nbsp;messageParts)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model"><FONT CLASS="NavBarFont1"><B>Class</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Use</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?org/apache/cxf/service/model/class-use/MessagePartInfo.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="MessagePartInfo.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

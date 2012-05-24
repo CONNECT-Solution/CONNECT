@@ -53,10 +53,12 @@ public class ConnectionManagerCacheTest {
 
     private static String HCID_1 = "1.1";
     private static String HCID_2 = "2.2";
+    private static String HCID_3 = "3.3";
     private static String QUERY_FOR_DOCUMENTS_NAME = "QueryForDocuments";
     private static String RETRIEVE_DOCUMENTS_NAME = "RetrieveDocuments";
     private static String NHIN_TARGET_ENDPOINT_URL_VALUE = "http://localhost:8080/";
     private static String QUERY_FOR_DOCUMENTS_URL = "https://localhost:8181/QueryForDocuments";
+    private static String QUERY_FOR_DOCUMENTS_NULL_URL ="";
     private static String DOC_QUERY_DEFERRED_NAME = "QueryForDocumentsDeferredRequest";
     private static String QUERY_FOR_DOCUMENTS_DEFERRED_URL = "https://localhost:8181/QueryForDocumentsDeferredRequest";
     private static String QUERY_FOR_DOCUMENTS_URL_22 = "https://server2:8181/QueryForDocuments";
@@ -423,6 +425,19 @@ public class ConnectionManagerCacheTest {
         return targetCommunities;
     }
     
+    protected NhinTargetCommunitiesType createNhinTargetCommunitesForNullendPoints() {
+        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
+        NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
+        HomeCommunityType homeCommunity = new HomeCommunityType();
+        homeCommunity.setHomeCommunityId(HCID_3);
+        targetCommunity.setHomeCommunity(homeCommunity);
+        targetCommunity.setRegion(FL_REGION_VALUE);
+        targetCommunity.setList("Unimplemented");
+        targetCommunities.getNhinTargetCommunity().add(targetCommunity);
+
+        return targetCommunities;
+    }
+    
     protected NhinTargetCommunitiesType createNhinTargetCommunitesWithDuplicateTargetCommunities() {
         NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
         NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
@@ -458,6 +473,24 @@ public class ConnectionManagerCacheTest {
             fail("Error running testGetEndpointURLFromNhinTargetCommunities test: " + t.getMessage());
         }
     }
+    
+    @Test
+    public void testGetEndpointURLFromNhinTargetCommunitiesForNullEndPoints() {
+        try {
+            ConnectionManagerCache connectionManager = createConnectionManager();
+
+            List<UrlInfo> endpointUrlList = connectionManager.getEndpointURLFromNhinTargetCommunities(
+                    createNhinTargetCommunitesForNullendPoints(), QUERY_FOR_DOCUMENTS_NAME);
+            assertTrue(endpointUrlList.get(0).getUrl().equals(QUERY_FOR_DOCUMENTS_NULL_URL));                     
+            
+        } catch (Throwable t) {
+            t.printStackTrace();
+            fail("Error running testGetEndpointURLFromNhinTargetCommunities test: " + t.getMessage());
+        }
+    }
+    
+    
+    
     
     @Test
     public void testGetEndpointURLFromNhinTargetCommunitiesUniqueness() {

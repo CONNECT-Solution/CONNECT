@@ -12,7 +12,7 @@
               linesexecuted="0"/>
    <threshold branchcount="26" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAConfigurationHelper"
-              linecount="84"
+              linecount="85"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"

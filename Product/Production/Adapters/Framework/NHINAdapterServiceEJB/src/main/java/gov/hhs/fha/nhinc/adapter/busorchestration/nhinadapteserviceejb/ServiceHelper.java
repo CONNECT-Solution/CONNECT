@@ -82,7 +82,7 @@ public class ServiceHelper {
 
         try {
 
-            sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            sHomeCommunityId = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
 
         } catch (Exception e) {
 

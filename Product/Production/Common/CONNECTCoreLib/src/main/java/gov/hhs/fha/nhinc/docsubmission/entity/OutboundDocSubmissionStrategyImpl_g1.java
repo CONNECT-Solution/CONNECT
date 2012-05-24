@@ -50,6 +50,10 @@ class OutboundDocSubmissionStrategyImpl_g1 implements OrchestrationStrategy {
         return log;
     }
 
+    protected NhinDocSubmissionProxy getNhinDocSubmissionProxy() {
+        return new NhinDocSubmissionProxyObjectFactory().getNhinDocSubmissionProxy();
+    }
+    
     @Override
     public void execute(Orchestratable message) {
         if (message instanceof OutboundDocSubmissionOrchestratable) {
@@ -61,21 +65,12 @@ class OutboundDocSubmissionStrategyImpl_g1 implements OrchestrationStrategy {
 
     public void execute(OutboundDocSubmissionOrchestratable message) {
         getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
-        if (message == null) {
-            getLogger().debug("OutboundDocSubmissionOrchestratable was null");
-            return;
-        }
 
-        if (message instanceof OutboundDocSubmissionOrchestratable) {
-            NhinDocSubmissionProxy nhincDocSubmission = new NhinDocSubmissionProxyObjectFactory()
-                    .getNhinDocSubmissionProxy();
-            RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetB(message.getRequest(),
-                    message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
-            message.setResponse(response);
-        } else {
-            getLogger()
-                    .error("OutboundDocSubmissionOrchestratableImpl_g1 received a message that is not of type OutboundDocSubmissionOrchestratable.");
-        }
+        NhinDocSubmissionProxy nhincDocSubmission = getNhinDocSubmissionProxy();
+        RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetB(message.getRequest(),
+                message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
+        message.setResponse(response);
+
         getLogger().debug("End OutboundDocSubmissionOrchestratableImpl_g1.process");
     }
 }

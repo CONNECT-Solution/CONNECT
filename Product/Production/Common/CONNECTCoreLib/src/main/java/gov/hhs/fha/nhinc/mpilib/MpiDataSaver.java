@@ -64,7 +64,7 @@ public class MpiDataSaver {
             fos = createFileOutputStream(file);
             writePatientList(fos, patientList);
         } catch (Exception e) {
-            throw new UnableToInitializeMpi("Failed to save MPI.", e);
+            throw new MpiException("Failed to save MPI.", e);
         } finally {
             closeFileOutputStream(fos);
         }
@@ -87,7 +87,7 @@ public class MpiDataSaver {
             fis = createFileInputStream(file);
             patientList = readPatientList(fis);
         } catch (Exception e) {
-            throw new UnableToInitializeMpi("Failed to load MPI.", e);
+            throw new MpiException("Failed to load MPI.", e);
         } finally {
             closeFileInputStream(fis);
         }
@@ -105,7 +105,7 @@ public class MpiDataSaver {
     }
 
     protected String getDefaultMpiFilename() {
-        return ((defaultMpiFilename != null) ? defaultMpiFilename : PropertyAccessor.getPropertyFileLocation()
+        return ((defaultMpiFilename != null) ? defaultMpiFilename : PropertyAccessor.getInstance().getPropertyFileLocation()
                 + File.separator + "mpi.xml");
     }
 
@@ -114,7 +114,7 @@ public class MpiDataSaver {
             return new FileOutputStream(file);
         } catch (FileNotFoundException e) {
             logException(e);
-            throw new UnableToInitializeMpi("Error accessing mpi storage.", e);
+            throw new MpiException("Error accessing mpi storage.", e);
         }
     }
 
@@ -123,7 +123,7 @@ public class MpiDataSaver {
             return new FileInputStream(file);
         } catch (FileNotFoundException e) {
             logException(e);
-            throw new UnableToInitializeMpi("Error accessing mpi storage", e);
+            throw new MpiException("Error accessing mpi storage", e);
         }
     }
 
@@ -150,7 +150,7 @@ public class MpiDataSaver {
             xenc.flush();
         } catch (Exception e) {
             logException(e);
-            throw new UnableToInitializeMpi("Error writing patient list to xml.", e);
+            throw new MpiException("Error writing patient list to xml.", e);
         } finally {
             xenc.close();
         }
@@ -164,7 +164,7 @@ public class MpiDataSaver {
             patientList = (Patients) o;
         } catch (Exception e) {
             logException(e);
-            throw new UnableToInitializeMpi("Error reading patient list.", e);
+            throw new MpiException("Error reading patient list.", e);
         } finally {
             xdec.close();
         }
@@ -179,7 +179,7 @@ public class MpiDataSaver {
                 f.createNewFile();
                 saveMpi(new Patients(), file);
             } catch (Exception ex) {
-                throw new UnableToInitializeMpi("Error accessing mpi storage", ex);
+                throw new MpiException("Error accessing mpi storage", ex);
             }
         }
 

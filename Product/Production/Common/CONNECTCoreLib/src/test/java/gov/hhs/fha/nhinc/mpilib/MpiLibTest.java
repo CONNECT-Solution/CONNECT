@@ -61,8 +61,8 @@ public class MpiLibTest {
     @Test
     public void getZeroPatients() {
         System.out.println("getZeroPatients");
-        MiniMpi mpi = MiniMpi.GetMpiInstance("testMPI.xml");
-        mpi.Reset();
+        MiniMpi mpi = MiniMpi.getInstance("testMPI.xml");
+        mpi.reset();
 
         int expResult = 0;
         Patients patientlist = mpi.getPatients();

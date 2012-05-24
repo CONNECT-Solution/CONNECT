@@ -45,7 +45,6 @@ import gov.hhs.fha.nhinc.hiem.processor.faults.SoapFaultFactory;
 import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExtractor;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import javax.xml.xpath.XPathExpressionException;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 
 /**
  * 
@@ -58,7 +57,7 @@ public class EntitySubscribeProcessor {
 
     public SubscribeResponse processSubscribe(Subscribe subscribe, Element subscribeElement, AssertionType assertion,
             NhinTargetCommunitiesType targetCommunitites) throws TopicNotSupportedFault, InvalidTopicExpressionFault,
-            SubscribeCreationFailedFault, ResourceUnknownFault {
+            SubscribeCreationFailedFault {
         SubscribeResponse response = null;
 
         TopicConfigurationEntry topicConfig;

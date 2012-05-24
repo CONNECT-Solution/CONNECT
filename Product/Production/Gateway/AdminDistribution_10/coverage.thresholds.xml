@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDist"
-              linecount="4"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDistSecured"
-              linecount="6"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution._10.nhin.NhinAdministrativeDistribution"
-              linecount="6"
-              linerate="80"
-              linesexecuted="0.04"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.admindistribution._10.entity.EntityAdministrativeDistribution"
               linecount="4"
               linerate="80"
@@ -25,4 +10,19 @@
               linecount="6"
               linerate="80"
               linesexecuted="0.04"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution._10.nhin.NhinAdministrativeDistribution"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0.04"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDist"
+              linecount="4"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDistSecured"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0"/>
 </thresholds>

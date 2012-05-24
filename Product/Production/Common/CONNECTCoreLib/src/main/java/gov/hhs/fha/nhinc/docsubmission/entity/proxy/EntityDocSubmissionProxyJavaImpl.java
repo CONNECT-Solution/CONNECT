@@ -35,11 +35,15 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class EntityDocSubmissionProxyJavaImpl implements EntityDocSubmissionProxy {
 
+    protected EntityDocSubmissionOrchImpl getEntityDocSubmissionOrchImpl() {
+        return new EntityDocSubmissionOrchImpl();
+    }
+    
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         RegistryResponseType response = new RegistryResponseType();
 
-        EntityDocSubmissionOrchImpl orchImpl = new EntityDocSubmissionOrchImpl();
+        EntityDocSubmissionOrchImpl orchImpl = getEntityDocSubmissionOrchImpl();
         response = orchImpl.provideAndRegisterDocumentSetB(msg, assertion, targets, urlInfo);
 
         return response;

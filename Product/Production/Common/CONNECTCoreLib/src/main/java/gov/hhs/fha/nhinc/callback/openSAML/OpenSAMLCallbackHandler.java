@@ -98,6 +98,8 @@ public class OpenSAMLCallbackHandler implements CallbackHandler {
                     throw new UnsupportedCallbackException(null, "Unsupported Callback Type Encountered");
                 }
             }
+        } catch (UnsupportedCallbackException ex) {
+            throw ex;
         } catch (Exception ex) {
             // catching all exceptions and making them IOExceptions. IO picked by flip of coin, neither IOException or
             // UnsupportedCallbackException are appropriate.

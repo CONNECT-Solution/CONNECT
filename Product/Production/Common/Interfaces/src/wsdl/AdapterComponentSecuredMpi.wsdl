@@ -37,11 +37,11 @@
         <wsp:PolicyReference URI="#AdapterComponentMpiSecuredPortType_Binding_SoapPolicy" />
         <operation name="FindCandidates">
             <soap:operation soapAction="FindCandidates" />
-            <input name="FindCandidatesRequest">
+            <input name="FindCandidatesSecuredRequest">
                 <soap:body use="literal" />
                 <wsp:PolicyReference URI="#FindCandidates_Binding_Soap_Input_Policy" />
             </input>
-            <output name="FindCandidatesResponse">
+            <output name="FindCandidatesSecuredResponse">
                 <soap:body use="literal" />
                 <wsp:PolicyReference URI="#FindCandidates_Binding_Soap_Output_Policy" />
             </output>

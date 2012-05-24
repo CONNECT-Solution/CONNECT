@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
-	<threshold branchcount="4" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve._20.ResponseScrubber"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetreiveImpl"
               linecount="26"
               linerate="80"
@@ -15,9 +20,19 @@
               linecount="3"
               linerate="80"
               linesexecuted="0"/>
-    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve._20.nhin.DocRetrieve"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve._20.nhin.DocRetrieveImpl"
+              linecount="15"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve._20.passthru.NhincProxyDocRetrieveImpl"
-              linecount="23"
+              linecount="25"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -29,15 +44,5 @@
               class="gov.hhs.fha.nhinc.docretrieve._20.passthru.NhincProxyDocRetrieveUnsecured"
               linecount="2"
               linerate="80"
-              linesexecuted="0"/>  
-  <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docretrieve._20.nhin.DocRetrieve"
-              linecount="2"
-              linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docretrieve._20.nhin.DocRetrieveImpl"
-              linecount="15"
-              linerate="80"
-              linesexecuted="0"/>  
 </thresholds>

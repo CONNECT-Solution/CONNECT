@@ -26,14 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.passthru.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhincproxydocretrieve.NhincProxyDocRetrievePortType;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
+
 import javax.xml.ws.Service;
+
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -42,7 +43,12 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhincproxydocretrieve.NhincProxyDocRetrievePortType;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 /**
  * 

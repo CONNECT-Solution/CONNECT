@@ -27,8 +27,10 @@
 package gov.hhs.fha.nhinc.hiem.processor.faults;
 
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
+
 import org.oasis_open.docs.wsn.b_2.*;
 import org.oasis_open.docs.wsn.bw_2.*;
+import org.oasis_open.docs.wsrf.rw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsrf.r_2.ResourceUnknownFaultType;
 
 /**
@@ -50,13 +52,13 @@ public class SubscriptionManagerSoapFaultFactory {
         return fault;
     }
 
-    public ResourceUnknownFault getUnableToFindSubscriptionFault() {
+    public Exception getUnableToFindSubscriptionFault() {
         ResourceUnknownFaultType faultInfo = new ResourceUnknownFaultType();
         ResourceUnknownFault fault = new ResourceUnknownFault("Unknown subscription", faultInfo);
         return fault;
     }
 
-    public ResourceUnknownFault getErrorDuringSubscriptionRetrieveFault(SubscriptionRepositoryException ex) {
+    public Exception getErrorDuringSubscriptionRetrieveFault(SubscriptionRepositoryException ex) {
         ResourceUnknownFaultType faultInfo = new ResourceUnknownFaultType();
         ResourceUnknownFault fault = new ResourceUnknownFault("Error occurred while retrieving subscription ["
                 + ex.getMessage() + "]", faultInfo);

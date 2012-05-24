@@ -64,7 +64,7 @@ public class GarbageCollectorMgr {
         String sTimeDuration = "";
         int iTimeDuration = 0;
         try {
-            sTimeDuration = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, GARBAGE_COLLECT_TIME_DURATION);
+            sTimeDuration = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE, GARBAGE_COLLECT_TIME_DURATION);
             iTimeDuration = Integer.parseInt(sTimeDuration);
         } catch (Exception e) {
             String sErrorMessage = "Failed to read and parse property: " + GARBAGE_COLLECT_TIME_DURATION
@@ -104,7 +104,7 @@ public class GarbageCollectorMgr {
             int iStaleDuration = 0;
 
             try {
-                sStaleDuration = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, GARBAGE_COLLECT_STALE_DURATION);
+                sStaleDuration = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE, GARBAGE_COLLECT_STALE_DURATION);
                 iStaleDuration = Integer.parseInt(sStaleDuration);
             } catch (Exception e) {
                 String sErrorMessage = "Failed to read and parse property: " + GARBAGE_COLLECT_STALE_DURATION

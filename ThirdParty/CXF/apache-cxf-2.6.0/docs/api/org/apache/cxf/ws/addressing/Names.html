@@ -1,0 +1,1454 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+Names (Apache CXF API 2.6.0 API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="org.apache.cxf.ws.addressing.Names class">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="Names (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/Names.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/MetadataType.html" title="class in org.apache.cxf.ws.addressing"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/NSManager.html" title="class in org.apache.cxf.ws.addressing"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/ws/addressing/Names.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="Names.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#methods_inherited_from_class_java.lang.Object">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;METHOD</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+org.apache.cxf.ws.addressing</FONT>
+<BR>
+Class Names</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>org.apache.cxf.ws.addressing.Names</B>
+</PRE>
+<HR>
+<DL>
+<DT><PRE>public final class <B>Names</B><DT>extends <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></DL>
+</PRE>
+
+<P>
+Holder for WS-Addressing names (of headers, namespaces etc.).
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#ACTION_MISMATCH_NAME">ACTION_MISMATCH_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#ACTION_MISMATCH_QNAME">ACTION_MISMATCH_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#ACTION_NOT_SUPPORTED_NAME">ACTION_NOT_SUPPORTED_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#ACTION_NOT_SUPPORTED_QNAME">ACTION_NOT_SUPPORTED_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#DESTINATION_UNREACHABLE_NAME">DESTINATION_UNREACHABLE_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#DESTINATION_UNREACHABLE_QNAME">DESTINATION_UNREACHABLE_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#DUPLICATE_MESSAGE_ID_NAME">DUPLICATE_MESSAGE_ID_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#DUPLICATE_MESSAGE_ID_QNAME">DUPLICATE_MESSAGE_ID_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#ENDPOINT_UNAVAILABLE_NAME">ENDPOINT_UNAVAILABLE_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#ENDPOINT_UNAVAILABLE_QNAME">ENDPOINT_UNAVAILABLE_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#HEADER_REQUIRED_NAME">HEADER_REQUIRED_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#HEADER_REQUIRED_QNAME">HEADER_REQUIRED_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#HEADERS">HEADERS</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The set of headers understood by the protocol binding.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#INVALID_CARDINALITY_NAME">INVALID_CARDINALITY_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#INVALID_CARDINALITY_QNAME">INVALID_CARDINALITY_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#INVALID_MAP_NAME">INVALID_MAP_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#INVALID_MAP_QNAME">INVALID_MAP_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#MAP_REQUIRED_NAME">MAP_REQUIRED_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#MAP_REQUIRED_QNAME">MAP_REQUIRED_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#ONLY_ANONYMOUS_ADDRESS_SUPPORTED_NAME">ONLY_ANONYMOUS_ADDRESS_SUPPORTED_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#ONLY_ANONYMOUS_ADDRESS_SUPPORTED_QNAME">ONLY_ANONYMOUS_ADDRESS_SUPPORTED_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#ONLY_NONANONYMOUS_ADDRESS_SUPPORTED_NAME">ONLY_NONANONYMOUS_ADDRESS_SUPPORTED_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#ONLY_NONANONYMOUS_ADDRESS_SUPPORTED_QNAME">ONLY_NONANONYMOUS_ADDRESS_SUPPORTED_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#SOAP_ACTION_HEADER">SOAP_ACTION_HEADER</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#SOAP11HTTP_ADDRESSING_BINDING">SOAP11HTTP_ADDRESSING_BINDING</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#SOAP12HTTP_ADDRESSING_BINDING">SOAP12HTTP_ADDRESSING_BINDING</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_ACTION_DELIMITER">WSA_ACTION_DELIMITER</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_ACTION_NAME">WSA_ACTION_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_ACTION_QNAME">WSA_ACTION_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_ADDRESS_NAME">WSA_ADDRESS_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_ADDRESS_QNAME">WSA_ADDRESS_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_ANONYMOUS_ADDRESS">WSA_ANONYMOUS_ADDRESS</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_DEFAULT_FAULT_ACTION">WSA_DEFAULT_FAULT_ACTION</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_FAULT_DELIMITER">WSA_FAULT_DELIMITER</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_FAULTTO_NAME">WSA_FAULTTO_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_FAULTTO_QNAME">WSA_FAULTTO_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_FROM_NAME">WSA_FROM_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_FROM_QNAME">WSA_FROM_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_IS_REFERENCE_PARAMETER_NAME">WSA_IS_REFERENCE_PARAMETER_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_IS_REFERENCE_PARAMETER_QNAME">WSA_IS_REFERENCE_PARAMETER_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_MESSAGEID_NAME">WSA_MESSAGEID_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_MESSAGEID_QNAME">WSA_MESSAGEID_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_METADATA_NAME">WSA_METADATA_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_METADATA_QNAME">WSA_METADATA_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_NAMESPACE_NAME">WSA_NAMESPACE_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_NAMESPACE_PATTERN">WSA_NAMESPACE_PATTERN</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_NAMESPACE_WSDL_METADATA">WSA_NAMESPACE_WSDL_METADATA</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_NAMESPACE_WSDL_NAME">WSA_NAMESPACE_WSDL_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_NAMESPACE_WSDL_NAME_OLD">WSA_NAMESPACE_WSDL_NAME_OLD</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_NONE_ADDRESS">WSA_NONE_ADDRESS</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_REFERENCE_PARAMETERS_NAME">WSA_REFERENCE_PARAMETERS_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_REFERENCE_PARAMETERS_QNAME">WSA_REFERENCE_PARAMETERS_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_RELATESTO_NAME">WSA_RELATESTO_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_RELATESTO_QNAME">WSA_RELATESTO_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_RELATIONSHIP_DELIMITER">WSA_RELATIONSHIP_DELIMITER</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_RELATIONSHIP_REPLY">WSA_RELATIONSHIP_REPLY</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_RELATIONSHIPTYPE_NAME">WSA_RELATIONSHIPTYPE_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_RELATIONSHIPTYPE_QNAME">WSA_RELATIONSHIPTYPE_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_REPLY_NAME">WSA_REPLY_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_REPLYTO_NAME">WSA_REPLYTO_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_REPLYTO_QNAME">WSA_REPLYTO_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_TO_NAME">WSA_TO_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_TO_QNAME">WSA_TO_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSA_UNSPECIFIED_RELATIONSHIP">WSA_UNSPECIFIED_RELATIONSHIP</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSAW_ACTION_NAME">WSAW_ACTION_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSAW_ACTION_QNAME">WSAW_ACTION_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSAW_USING_ADDRESSING_NAME">WSAW_USING_ADDRESSING_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSAW_USING_ADDRESSING_QNAME">WSAW_USING_ADDRESSING_QNAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/ws/addressing/Names.html#WSDL_INSTANCE_NAMESPACE_NAME">WSDL_INSTANCE_NAMESPACE_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="WSA_NAMESPACE_NAME"><!-- --></A><H3>
+WSA_NAMESPACE_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_NAMESPACE_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_NAMESPACE_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_NAMESPACE_WSDL_NAME"><!-- --></A><H3>
+WSA_NAMESPACE_WSDL_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_NAMESPACE_WSDL_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_NAMESPACE_WSDL_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_NAMESPACE_WSDL_NAME_OLD"><!-- --></A><H3>
+WSA_NAMESPACE_WSDL_NAME_OLD</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_NAMESPACE_WSDL_NAME_OLD</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_NAMESPACE_WSDL_NAME_OLD">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_NAMESPACE_WSDL_METADATA"><!-- --></A><H3>
+WSA_NAMESPACE_WSDL_METADATA</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_NAMESPACE_WSDL_METADATA</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_NAMESPACE_WSDL_METADATA">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_NAMESPACE_PATTERN"><!-- --></A><H3>
+WSA_NAMESPACE_PATTERN</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_NAMESPACE_PATTERN</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_NAMESPACE_PATTERN">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_REFERENCE_PARAMETERS_NAME"><!-- --></A><H3>
+WSA_REFERENCE_PARAMETERS_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_REFERENCE_PARAMETERS_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_REFERENCE_PARAMETERS_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_REFERENCE_PARAMETERS_QNAME"><!-- --></A><H3>
+WSA_REFERENCE_PARAMETERS_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_REFERENCE_PARAMETERS_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_IS_REFERENCE_PARAMETER_NAME"><!-- --></A><H3>
+WSA_IS_REFERENCE_PARAMETER_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_IS_REFERENCE_PARAMETER_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_IS_REFERENCE_PARAMETER_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_IS_REFERENCE_PARAMETER_QNAME"><!-- --></A><H3>
+WSA_IS_REFERENCE_PARAMETER_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_IS_REFERENCE_PARAMETER_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_ADDRESS_NAME"><!-- --></A><H3>
+WSA_ADDRESS_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_ADDRESS_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_ADDRESS_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_ADDRESS_QNAME"><!-- --></A><H3>
+WSA_ADDRESS_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_ADDRESS_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_METADATA_NAME"><!-- --></A><H3>
+WSA_METADATA_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_METADATA_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_METADATA_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_METADATA_QNAME"><!-- --></A><H3>
+WSA_METADATA_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_METADATA_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_FROM_NAME"><!-- --></A><H3>
+WSA_FROM_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_FROM_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_FROM_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_FROM_QNAME"><!-- --></A><H3>
+WSA_FROM_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_FROM_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_TO_NAME"><!-- --></A><H3>
+WSA_TO_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_TO_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_TO_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_TO_QNAME"><!-- --></A><H3>
+WSA_TO_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_TO_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_REPLYTO_NAME"><!-- --></A><H3>
+WSA_REPLYTO_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_REPLYTO_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_REPLYTO_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_REPLYTO_QNAME"><!-- --></A><H3>
+WSA_REPLYTO_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_REPLYTO_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_FAULTTO_NAME"><!-- --></A><H3>
+WSA_FAULTTO_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_FAULTTO_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_FAULTTO_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_FAULTTO_QNAME"><!-- --></A><H3>
+WSA_FAULTTO_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_FAULTTO_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_ACTION_NAME"><!-- --></A><H3>
+WSA_ACTION_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_ACTION_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_ACTION_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_ACTION_QNAME"><!-- --></A><H3>
+WSA_ACTION_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_ACTION_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_MESSAGEID_NAME"><!-- --></A><H3>
+WSA_MESSAGEID_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_MESSAGEID_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_MESSAGEID_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_MESSAGEID_QNAME"><!-- --></A><H3>
+WSA_MESSAGEID_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_MESSAGEID_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_REPLY_NAME"><!-- --></A><H3>
+WSA_REPLY_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_REPLY_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_REPLY_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_RELATIONSHIP_DELIMITER"><!-- --></A><H3>
+WSA_RELATIONSHIP_DELIMITER</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_RELATIONSHIP_DELIMITER</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_RELATIONSHIP_DELIMITER">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_RELATIONSHIP_REPLY"><!-- --></A><H3>
+WSA_RELATIONSHIP_REPLY</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_RELATIONSHIP_REPLY</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_RELATIONSHIP_REPLY">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_RELATESTO_NAME"><!-- --></A><H3>
+WSA_RELATESTO_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_RELATESTO_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_RELATESTO_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_RELATESTO_QNAME"><!-- --></A><H3>
+WSA_RELATESTO_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_RELATESTO_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_RELATIONSHIPTYPE_NAME"><!-- --></A><H3>
+WSA_RELATIONSHIPTYPE_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_RELATIONSHIPTYPE_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_RELATIONSHIPTYPE_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_RELATIONSHIPTYPE_QNAME"><!-- --></A><H3>
+WSA_RELATIONSHIPTYPE_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSA_RELATIONSHIPTYPE_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSA_ANONYMOUS_ADDRESS"><!-- --></A><H3>
+WSA_ANONYMOUS_ADDRESS</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_ANONYMOUS_ADDRESS</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_ANONYMOUS_ADDRESS">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_NONE_ADDRESS"><!-- --></A><H3>
+WSA_NONE_ADDRESS</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_NONE_ADDRESS</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_NONE_ADDRESS">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_UNSPECIFIED_RELATIONSHIP"><!-- --></A><H3>
+WSA_UNSPECIFIED_RELATIONSHIP</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_UNSPECIFIED_RELATIONSHIP</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_UNSPECIFIED_RELATIONSHIP">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_FAULT_DELIMITER"><!-- --></A><H3>
+WSA_FAULT_DELIMITER</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_FAULT_DELIMITER</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_FAULT_DELIMITER">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_DEFAULT_FAULT_ACTION"><!-- --></A><H3>
+WSA_DEFAULT_FAULT_ACTION</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_DEFAULT_FAULT_ACTION</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_DEFAULT_FAULT_ACTION">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSA_ACTION_DELIMITER"><!-- --></A><H3>
+WSA_ACTION_DELIMITER</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSA_ACTION_DELIMITER</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSA_ACTION_DELIMITER">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSAW_ACTION_NAME"><!-- --></A><H3>
+WSAW_ACTION_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSAW_ACTION_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSAW_ACTION_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSAW_ACTION_QNAME"><!-- --></A><H3>
+WSAW_ACTION_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSAW_ACTION_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSAW_USING_ADDRESSING_NAME"><!-- --></A><H3>
+WSAW_USING_ADDRESSING_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSAW_USING_ADDRESSING_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSAW_USING_ADDRESSING_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="WSAW_USING_ADDRESSING_QNAME"><!-- --></A><H3>
+WSAW_USING_ADDRESSING_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>WSAW_USING_ADDRESSING_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WSDL_INSTANCE_NAMESPACE_NAME"><!-- --></A><H3>
+WSDL_INSTANCE_NAMESPACE_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>WSDL_INSTANCE_NAMESPACE_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.WSDL_INSTANCE_NAMESPACE_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="INVALID_MAP_NAME"><!-- --></A><H3>
+INVALID_MAP_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>INVALID_MAP_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.INVALID_MAP_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="INVALID_MAP_QNAME"><!-- --></A><H3>
+INVALID_MAP_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>INVALID_MAP_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="MAP_REQUIRED_NAME"><!-- --></A><H3>
+MAP_REQUIRED_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>MAP_REQUIRED_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.MAP_REQUIRED_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="MAP_REQUIRED_QNAME"><!-- --></A><H3>
+MAP_REQUIRED_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>MAP_REQUIRED_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="DESTINATION_UNREACHABLE_NAME"><!-- --></A><H3>
+DESTINATION_UNREACHABLE_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>DESTINATION_UNREACHABLE_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.DESTINATION_UNREACHABLE_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DESTINATION_UNREACHABLE_QNAME"><!-- --></A><H3>
+DESTINATION_UNREACHABLE_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>DESTINATION_UNREACHABLE_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="ACTION_NOT_SUPPORTED_NAME"><!-- --></A><H3>
+ACTION_NOT_SUPPORTED_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>ACTION_NOT_SUPPORTED_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.ACTION_NOT_SUPPORTED_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="ACTION_NOT_SUPPORTED_QNAME"><!-- --></A><H3>
+ACTION_NOT_SUPPORTED_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>ACTION_NOT_SUPPORTED_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="ENDPOINT_UNAVAILABLE_NAME"><!-- --></A><H3>
+ENDPOINT_UNAVAILABLE_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>ENDPOINT_UNAVAILABLE_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.ENDPOINT_UNAVAILABLE_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="ENDPOINT_UNAVAILABLE_QNAME"><!-- --></A><H3>
+ENDPOINT_UNAVAILABLE_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>ENDPOINT_UNAVAILABLE_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="DUPLICATE_MESSAGE_ID_NAME"><!-- --></A><H3>
+DUPLICATE_MESSAGE_ID_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>DUPLICATE_MESSAGE_ID_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.DUPLICATE_MESSAGE_ID_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DUPLICATE_MESSAGE_ID_QNAME"><!-- --></A><H3>
+DUPLICATE_MESSAGE_ID_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>DUPLICATE_MESSAGE_ID_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="ACTION_MISMATCH_NAME"><!-- --></A><H3>
+ACTION_MISMATCH_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>ACTION_MISMATCH_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.ACTION_MISMATCH_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="ACTION_MISMATCH_QNAME"><!-- --></A><H3>
+ACTION_MISMATCH_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>ACTION_MISMATCH_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="HEADER_REQUIRED_NAME"><!-- --></A><H3>
+HEADER_REQUIRED_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>HEADER_REQUIRED_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.HEADER_REQUIRED_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="HEADER_REQUIRED_QNAME"><!-- --></A><H3>
+HEADER_REQUIRED_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>HEADER_REQUIRED_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="ONLY_ANONYMOUS_ADDRESS_SUPPORTED_NAME"><!-- --></A><H3>
+ONLY_ANONYMOUS_ADDRESS_SUPPORTED_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>ONLY_ANONYMOUS_ADDRESS_SUPPORTED_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.ONLY_ANONYMOUS_ADDRESS_SUPPORTED_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="ONLY_ANONYMOUS_ADDRESS_SUPPORTED_QNAME"><!-- --></A><H3>
+ONLY_ANONYMOUS_ADDRESS_SUPPORTED_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>ONLY_ANONYMOUS_ADDRESS_SUPPORTED_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="ONLY_NONANONYMOUS_ADDRESS_SUPPORTED_NAME"><!-- --></A><H3>
+ONLY_NONANONYMOUS_ADDRESS_SUPPORTED_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>ONLY_NONANONYMOUS_ADDRESS_SUPPORTED_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.ONLY_NONANONYMOUS_ADDRESS_SUPPORTED_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="ONLY_NONANONYMOUS_ADDRESS_SUPPORTED_QNAME"><!-- --></A><H3>
+ONLY_NONANONYMOUS_ADDRESS_SUPPORTED_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>ONLY_NONANONYMOUS_ADDRESS_SUPPORTED_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="INVALID_CARDINALITY_NAME"><!-- --></A><H3>
+INVALID_CARDINALITY_NAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>INVALID_CARDINALITY_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.INVALID_CARDINALITY_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="INVALID_CARDINALITY_QNAME"><!-- --></A><H3>
+INVALID_CARDINALITY_QNAME</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A> <B>INVALID_CARDINALITY_QNAME</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="SOAP11HTTP_ADDRESSING_BINDING"><!-- --></A><H3>
+SOAP11HTTP_ADDRESSING_BINDING</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>SOAP11HTTP_ADDRESSING_BINDING</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.SOAP11HTTP_ADDRESSING_BINDING">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SOAP12HTTP_ADDRESSING_BINDING"><!-- --></A><H3>
+SOAP12HTTP_ADDRESSING_BINDING</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>SOAP12HTTP_ADDRESSING_BINDING</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.SOAP12HTTP_ADDRESSING_BINDING">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SOAP_ACTION_HEADER"><!-- --></A><H3>
+SOAP_ACTION_HEADER</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A> <B>SOAP_ACTION_HEADER</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#org.apache.cxf.ws.addressing.Names.SOAP_ACTION_HEADER">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="HEADERS"><!-- --></A><H3>
+HEADERS</H3>
+<PRE>
+public static final <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Set.html" title="class or interface in java.util">Set</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&gt; <B>HEADERS</B></PRE>
+<DL>
+<DD>The set of headers understood by the protocol binding.
+<P>
+<DL>
+</DL>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/Names.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/MetadataType.html" title="class in org.apache.cxf.ws.addressing"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/apache/cxf/ws/addressing/NSManager.html" title="class in org.apache.cxf.ws.addressing"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/ws/addressing/Names.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="Names.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#methods_inherited_from_class_java.lang.Object">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;METHOD</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

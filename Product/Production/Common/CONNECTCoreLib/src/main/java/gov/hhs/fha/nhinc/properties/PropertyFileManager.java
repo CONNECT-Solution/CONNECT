@@ -53,7 +53,7 @@ public class PropertyFileManager {
             throw new PropertyAccessException("writePropertyFile called with no property file.");
         }
 
-        String sPropFile = PropertyAccessor.getPropertyFileLocation() + sPropertyFile + ".properties";
+        String sPropFile = PropertyAccessor.getInstance().getPropertyFileLocation(sPropertyFile);
         FileWriter fwPropFile = null;
         Exception eError = null;
         String sErrorMessage = "";
@@ -88,7 +88,7 @@ public class PropertyFileManager {
      * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException This exception is thrown if there is an error.
      */
     public static void deletePropertyFile(String sPropertyFile) throws PropertyAccessException {
-        String sPropFile = PropertyAccessor.getPropertyFileLocation() + sPropertyFile + ".properties";
+        String sPropFile = PropertyAccessor.getInstance().getPropertyFileLocation(sPropertyFile);
         File fPropFile = new File(sPropFile);
 
         try {

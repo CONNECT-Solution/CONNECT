@@ -62,16 +62,16 @@ public class AdapterWebPatientCheckerTest {
 
     @Before
     public void setUp() {
-        propertyFileLocation = PropertyAccessor.getPropertyFileLocation();
+        propertyFileLocation = PropertyAccessor.getInstance().getPropertyFileLocation();
         String testConfigDir = System.getProperty("user.dir") + "/src/test/resources/config";
-        PropertyAccessor.setPropertyFileLocation(testConfigDir);
+        PropertyAccessor.getInstance().setPropertyFileLocation(testConfigDir);
     }
 
     @After
     public void tearDown() {
-        PropertyAccessor.setPropertyFileLocation(propertyFileLocation);
+        PropertyAccessor.getInstance().setPropertyFileLocation(propertyFileLocation);
     }
-
+    
     /**
      * Test of FindPatient method, of class PatientChecker.
      */
@@ -79,15 +79,15 @@ public class AdapterWebPatientCheckerTest {
     public void SinglePatientExists() {
         log.info("SinglePatientExists");
         II subjectId = new II();
-        subjectId.setRoot("2.16.840.1.113883.3.200");
-        subjectId.setExtension("1234");
+        subjectId.setRoot("2.2");
+        subjectId.setExtension("500000000");
 
-        PRPAIN201305UV02 query = TestHelper.build201305("Joe", "Smith", "M", "March 1, 1956", subjectId);
+        PRPAIN201305UV02 query = TestHelper.build201305("Gallow", "Younger", "M", "19630804", subjectId);
 
         Identifier patId = new Identifier();
-        patId.setId("1234");
-        patId.setOrganizationId("2.16.840.1.113883.3.200");
-        Patient patient = TestHelper.createMpiPatient("Joe", "Smith", "M", "March 1, 1956", patId);
+        patId.setId("500000000");
+        patId.setOrganizationId("2.2");
+        Patient patient = TestHelper.createMpiPatient("Gallow", "Younger", "M", "19630804", patId);
         Patients patients = new Patients();
         patients.add(patient);
 
@@ -108,7 +108,7 @@ public class AdapterWebPatientCheckerTest {
         II subjectId = new II();
         subjectId.setRoot("2.16.840.1.113883.3.200");
         subjectId.setExtension("1239");
-        PRPAIN201305UV02 query = TestHelper.build201305("Joe", "Anderson", "M", "March 1, 1956", subjectId);
+        PRPAIN201305UV02 query = TestHelper.build201305("Joe", "Anderson", "M", "19560301", subjectId);
         PatientChecker checker = new PatientChecker();
         PRPAIN201306UV02 result = checker.FindPatient(query);
         assertNotNull(result);

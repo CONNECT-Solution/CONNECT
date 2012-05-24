@@ -40,70 +40,79 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * 
- * @author JHOPPESC
- */
 public class PassthruDocSubmissionDeferredResponseOrchImpl {
-    private Log log = null;
+    private Log log = LogFactory.getLog(PassthruDocSubmissionDeferredResponseOrchImpl.class);
     private XDRAuditLogger auditLogger = null;
 
     public PassthruDocSubmissionDeferredResponseOrchImpl() {
-        log = createLogger();
-        auditLogger = createAuditLogger();
+        log = getLogger();
+        auditLogger = getXDRAuditLogger();
     }
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request,
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             AssertionType assertion, NhinTargetSystemType targetSystem) {
-        log.debug("Begin provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
 
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
-        provideAndRegisterResponseRequest.setNhinTargetSystem(targetSystem);
-        provideAndRegisterResponseRequest.setRegistryResponse(request);
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = createRequestForInternalProcessing(
+                body, targetSystem);
 
-        logRequest(provideAndRegisterResponseRequest, assertion);
+        auditRequestToNhin(request, assertion);
 
-        log.debug("Calling delegate");
-        OutboundDocSubmissionDeferredResponseDelegate dsDelegate = new OutboundDocSubmissionDeferredResponseDelegate();
-        OutboundDocSubmissionDeferredResponseOrchestratable dsOrchestratable = new OutboundDocSubmissionDeferredResponseOrchestratable(
-                dsDelegate);
-        dsOrchestratable.setAssertion(assertion);
-        dsOrchestratable.setRequest(provideAndRegisterResponseRequest.getRegistryResponse());
-        dsOrchestratable.setTarget(provideAndRegisterResponseRequest.getNhinTargetSystem());
-        XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredResponseOrchestratable) dsDelegate
+        OutboundDocSubmissionDeferredResponseDelegate delegate = getOutboundDocSubmissionDeferredResponseDelegate();
+        OutboundDocSubmissionDeferredResponseOrchestratable dsOrchestratable = createOrchestratable(delegate, request,
+                assertion);
+        XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredResponseOrchestratable) delegate
                 .process(dsOrchestratable)).getResponse();
 
-        logResponse(response, assertion);
+        auditResponseFromNhin(response, assertion);
 
-        log.debug("End provideAndRegisterDocumentSetBResponse(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType, AssertionType)");
         return response;
     }
 
-    private void logRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
-            AssertionType assertion) {
-        log.debug("Begin logRequest");
-        auditLogger.auditNhinXDRResponseRequest(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-        log.debug("End logRequest");
+    private OutboundDocSubmissionDeferredResponseOrchestratable createOrchestratable(
+            OutboundDocSubmissionDeferredResponseDelegate delegate,
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion) {
+        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = new OutboundDocSubmissionDeferredResponseOrchestratable(
+                delegate);
+        orchestratable.setAssertion(assertion);
+        orchestratable.setRequest(request.getRegistryResponse());
+        orchestratable.setTarget(request.getNhinTargetSystem());
+
+        return orchestratable;
     }
 
-    private void logResponse(XDRAcknowledgementType response, AssertionType assertion) {
-        log.debug("Begin logResponse");
+    private RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType createRequestForInternalProcessing(
+            RegistryResponseType body, NhinTargetSystemType targetSystem) {
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
+        request.setNhinTargetSystem(targetSystem);
+        request.setRegistryResponse(body);
+
+        return request;
+    }
+
+    private void auditRequestToNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
+            AssertionType assertion) {
+        auditLogger.auditNhinXDRResponseRequest(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    private void auditResponseFromNhin(XDRAcknowledgementType response, AssertionType assertion) {
         auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.XDR_RESPONSE_ACTION);
-        log.debug("End logResponse");
     }
 
-    protected XDRAuditLogger createAuditLogger() {
+    protected XDRAuditLogger getXDRAuditLogger() {
         return new XDRAuditLogger();
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    protected Log getLogger() {
+        return log;
+    }
+    
+    protected OutboundDocSubmissionDeferredResponseDelegate getOutboundDocSubmissionDeferredResponseDelegate() {
+        return new OutboundDocSubmissionDeferredResponseDelegate();
     }
 
     protected NhinDocSubmissionDeferredResponseProxy createNhinProxy() {
-        NhinDocSubmissionDeferredResponseProxyObjectFactory factory = new NhinDocSubmissionDeferredResponseProxyObjectFactory();
-        return factory.getNhinDocSubmissionDeferredResponseProxy();
+        return new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();
     }
 
 }

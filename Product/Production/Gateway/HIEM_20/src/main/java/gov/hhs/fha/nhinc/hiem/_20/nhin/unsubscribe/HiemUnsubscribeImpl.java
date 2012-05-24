@@ -68,7 +68,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionRepositoryService;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.w3c.dom.Element;
 
@@ -81,7 +80,7 @@ public class HiemUnsubscribeImpl {
     private static Log log = LogFactory.getLog(HiemUnsubscribeImpl.class);
 
     public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeRequest, WebServiceContext context)
-            throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
+            throws UnableToDestroySubscriptionFault {
         UnsubscribeResponse response;
         try {
             response = unsubscribeOps(unsubscribeRequest, context);
@@ -92,7 +91,7 @@ public class HiemUnsubscribeImpl {
     }
 
     private UnsubscribeResponse unsubscribeOps(Unsubscribe unsubscribeRequest, WebServiceContext context)
-            throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
+            throws UnableToDestroySubscriptionFault, Exception {
         log.debug("Entering HiemUnsubscribeImpl.unsubscribe");
 
         log.debug("extracting reference parameters from soap header");
@@ -112,7 +111,7 @@ public class HiemUnsubscribeImpl {
             subscriptionItem = repo.retrieveByLocalSubscriptionReferenceParameters(referenceParametersElements);
         } catch (SubscriptionRepositoryException ex) {
             log.error(ex);
-            throw new SubscriptionManagerSoapFaultFactory().getErrorDuringSubscriptionRetrieveFault(ex);
+            throw new SubscriptionManagerSoapFaultFactory().getGenericProcessingExceptionFault(ex);
         }
 
         if (subscriptionItem == null) {

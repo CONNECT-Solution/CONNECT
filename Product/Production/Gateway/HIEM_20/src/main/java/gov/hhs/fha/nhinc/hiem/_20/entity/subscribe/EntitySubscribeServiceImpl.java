@@ -36,7 +36,6 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidMessageConte
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidProducerPropertiesExpressionFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidTopicExpressionFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.NotifyMessageNotSupportedFault;
-import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.ResourceUnknownFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.SubscribeCreationFailedFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.TopicExpressionDialectUnknownFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.TopicNotSupportedFault;
@@ -81,7 +80,7 @@ public class EntitySubscribeServiceImpl {
             gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestSecuredType subscribeRequest,
             WebServiceContext context) throws InvalidFilterFault, InvalidMessageContentExpressionFault,
             InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault,
-            ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault,
+            SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault,
             TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault,
             UnsupportedPolicyRequestFault {
         log.debug("In subscribe");
@@ -100,15 +99,13 @@ public class EntitySubscribeServiceImpl {
     		throw new InvalidTopicExpressionFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
     	} catch (org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault ex) {
     		throw new SubscribeCreationFailedFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
-    	} catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
-    		throw new ResourceUnknownFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
     	}
         return response;
     }
     
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
             gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestType subscribeRequest,
-            WebServiceContext context) throws gov.hhs.fha.nhinc.entitysubscriptionmanagement.TopicNotSupportedFault, gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidTopicExpressionFault, gov.hhs.fha.nhinc.entitysubscriptionmanagement.SubscribeCreationFailedFault, gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault {
+            WebServiceContext context) throws gov.hhs.fha.nhinc.entitysubscriptionmanagement.TopicNotSupportedFault, gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidTopicExpressionFault, gov.hhs.fha.nhinc.entitysubscriptionmanagement.SubscribeCreationFailedFault {
         log.debug("In subscribe");
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
@@ -125,14 +122,12 @@ public class EntitySubscribeServiceImpl {
     		throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidTopicExpressionFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
     	} catch (org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault ex) {
     		throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.SubscribeCreationFailedFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
-    	} catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
-    		throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
     	}
         return response;
     }
     
     private org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(Subscribe subscribe, Element subscribeElement, 
-    		AssertionType assertion, NhinTargetCommunitiesType targetCommunitites) throws org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault, org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault, org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault, org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault {
+    		AssertionType assertion, NhinTargetCommunitiesType targetCommunitites) throws org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault, org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault, org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault {
     	SubscribeResponse response = null;
     	EntitySubscribeProcessor processor = new EntitySubscribeProcessor();
     	

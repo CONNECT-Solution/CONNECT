@@ -59,7 +59,9 @@
     <dependency org="jmock" name="hamcrest-core-1.1" rev="1.1" conf="test->default" />
     <dependency org="jmock" name="hamcrest-library-1.1" rev="1.1" conf="test->default" />
     
-    <dependency org="log4j" name="slf4j-log4j12-1.6.4" rev="1.6.4" conf="runtime->default" transitive="false" />
+    <dependency org="log4j" name="slf4j-log4j12-1.6.4" rev="1.6.4" conf="test->default"  />
+    <dependency org="log4j" name="log4j" rev="1.2.15" conf="test->default" transitive="false"/>
+ 
   
    
     <dependency org="openSAML" name="bcprov-jdk15-1.46" rev="1.46" conf="test->default" />
@@ -68,10 +70,7 @@
     <dependency org="openSAML" name="commons-httpclient-3.1" rev="3.1" conf="test->default" />
     <dependency org="openSAML" name="commons-lang-2.6" rev="2.6" conf="test->default" />
     <dependency org="openSAML" name="esapi-2.0.1" rev="2.0.1" conf="test->default" />
-    <dependency org="openSAML" name="jcl-over-slf4j-1.6.4" rev="1.6.4" conf="test->default" />
     <dependency org="openSAML" name="joda-time-1.6.2" rev="1.6.2" conf="test->default" />
-    <dependency org="openSAML" name="jul-to-slf4j-1.6.4" rev="1.6.4" conf="test->default" />
-    <dependency org="openSAML" name="log4j-over-slf4j-1.6.4" rev="1.6.4" conf="test->default" />
     <dependency org="openSAML" name="not-yet-commons-ssl-0.3.9" rev="0.3.9" conf="test->default" />
     <dependency org="openSAML" name="opensaml-2.5.3" rev="2.5.3" conf="test->default" />
     <dependency org="openSAML" name="openws-1.4.4" rev="1.4.4" conf="test->default" />

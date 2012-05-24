@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe;
 
-import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.ResourceUnknownFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault;
 import javax.jws.WebService;
 import javax.annotation.Resource;
@@ -46,8 +45,8 @@ public class EntityUnsubscribeSecuredService {
     private WebServiceContext context;
 
     public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
-            org.oasis_open.docs.wsn.b_2.Unsubscribe unsubscribeRequestSecured) throws ResourceUnknownFault,
-            UnableToDestroySubscriptionFault {
+            org.oasis_open.docs.wsn.b_2.Unsubscribe unsubscribeRequestSecured) throws
+            UnableToDestroySubscriptionFault, Exception {
         return new EntityUnsubscribeServiceImpl().unsubscribe(unsubscribeRequestSecured, context);
     }
 

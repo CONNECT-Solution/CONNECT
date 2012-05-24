@@ -38,7 +38,6 @@ import org.oasis_open.docs.wsn.bw_2.InvalidMessageContentExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.InvalidProducerPropertiesExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.NotifyMessageNotSupportedFault;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
 import org.oasis_open.docs.wsn.bw_2.TopicExpressionDialectUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
@@ -56,7 +55,7 @@ public class NhinHiemSubscribeNoOpImpl implements NhinHiemSubscribeProxy {
 
     public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target)
             throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
-            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault,
+            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault,
             SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault,
             UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
         return buildResponseElement();

@@ -50,7 +50,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.NotifyMessageNotSupportedFault;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
 import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
 import org.w3c.dom.Element;
@@ -70,7 +69,7 @@ public class HiemSubscriptionImpl {
 
     public SubscribeResponse subscribe(Subscribe subscribeRequest, WebServiceContext context)
             throws NotifyMessageNotSupportedFault, SubscribeCreationFailedFault, TopicNotSupportedFault,
-            InvalidTopicExpressionFault, ResourceUnknownFault {
+            InvalidTopicExpressionFault {
         log.debug("Entering HiemSubscriptionImpl.subscribe");
 
         WebServiceContextHelper contextHelper = new WebServiceContextHelper();

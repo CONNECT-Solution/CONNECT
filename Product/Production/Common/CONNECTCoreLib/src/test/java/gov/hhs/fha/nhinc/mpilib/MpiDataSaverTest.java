@@ -104,8 +104,12 @@ public class MpiDataSaverTest {
 
     protected Patient createPatient(String firstName, String lastName) {
         Patient patient = new Patient();
-        patient.setFirstName(firstName);
-        patient.setLastName(lastName);
+        
+        PersonName name = new PersonName();
+        name.setFirstName(firstName);
+        name.setLastName(lastName);        
+        patient.getNames().add(name);
+        
         return patient;
     }
 
@@ -138,9 +142,9 @@ public class MpiDataSaverTest {
         patientList = mpiDataSaver.loadMpi();
 
         assertEquals(1, patientList.size());
-        Patient patient = patientList.get(0);
-        assertEquals("John", patient.getFirstName());
-        assertEquals("Doe", patient.getLastName());
+        Patient patient = patientList.get(0);       
+        assertEquals("John", patient.getNames().get(0).getFirstName());
+        assertEquals("Doe", patient.getNames().get(0).getLastName());
     }
 
     @Test
@@ -164,7 +168,7 @@ public class MpiDataSaverTest {
         assertEquals(0, patientList.size());
     }
 
-    @Test(expected = UnableToInitializeMpi.class)
+    @Test(expected = MpiException.class)
     public void testSaveMpi_BadFile() {
         context.checking(new Expectations() {
             {

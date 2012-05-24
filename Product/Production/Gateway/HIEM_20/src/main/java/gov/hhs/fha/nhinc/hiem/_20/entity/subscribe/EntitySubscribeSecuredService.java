@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidMessageConte
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidProducerPropertiesExpressionFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidTopicExpressionFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.NotifyMessageNotSupportedFault;
-import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.ResourceUnknownFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.SubscribeCreationFailedFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.TopicExpressionDialectUnknownFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.TopicNotSupportedFault;
@@ -62,7 +61,7 @@ public class EntitySubscribeSecuredService {
 
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
             gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestSecuredType subscribeRequestSecured)
-            throws UnrecognizedPolicyRequestFault, InvalidProducerPropertiesExpressionFault, ResourceUnknownFault,
+            throws UnrecognizedPolicyRequestFault, InvalidProducerPropertiesExpressionFault,
             NotifyMessageNotSupportedFault, TopicNotSupportedFault, InvalidTopicExpressionFault,
             SubscribeCreationFailedFault, UnsupportedPolicyRequestFault, UnacceptableInitialTerminationTimeFault,
             InvalidMessageContentExpressionFault, InvalidFilterFault, TopicExpressionDialectUnknownFault {

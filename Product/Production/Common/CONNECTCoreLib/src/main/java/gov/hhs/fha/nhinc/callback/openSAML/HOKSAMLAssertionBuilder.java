@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
@@ -96,20 +97,23 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
 			// set issuer
 			assertion.setIssuer(createIssuer(properties));
+			
+
+			X509Certificate certificate = certificateManager
+					.getDefaultCertificate();
+			PublicKey publicKey = certificateManager.getDefaultPublicKey();
 
 			// set subject
-			assertion.setSubject(createSubject(properties));
+			assertion.setSubject(createSubject(properties,certificate, publicKey));
 
 			// add attribute statements
 			assertion.getStatements().addAll(
 					createAttributeStatements(properties));
 
-			X509Certificate certificate = certificateManager
-					.getDefaultCertificate();
 
 			PrivateKey privateKey = certificateManager.getDefaultPrivateKey();
 			// sign the message
-			signedAssertion = sign(assertion, certificate, privateKey);
+			signedAssertion = sign(assertion, certificate, privateKey, publicKey);
 		} catch (Exception ex) {
 			log.error("Unable to create HOK Assertion: " + ex.getMessage());
 			ex.printStackTrace();
@@ -126,9 +130,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	 * @throws Exception
 	 */
 	static Element sign(Assertion assertion, X509Certificate certificate,
-			PrivateKey privateKey) throws Exception {
+			PrivateKey privateKey, PublicKey publicKey) throws Exception {
 		Signature signature = OpenSAML2ComponentBuilder.getInstance()
-				.createSignature(certificate, privateKey);
+				.createSignature(certificate, privateKey, publicKey);
 		assertion.setSignature(signature);
 
 		// marshall Assertion Java class into XML
@@ -172,14 +176,17 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	}
 
 	/**
+	 * @param PSApk 
+	 * @param certificate 
 	 * @return
 	 * @throws Exception
 	 */
-	static Subject createSubject(CallbackProperties properties) throws Exception {
+	static Subject createSubject(CallbackProperties properties, X509Certificate certificate, PublicKey publicKey) throws Exception {
 		Subject subject = null;
 		String x509Name = "UID=" + properties.getUsername();
 
-		subject = OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name);
+		subject = OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name,
+				certificate, publicKey);
 		return subject;
 	}
 

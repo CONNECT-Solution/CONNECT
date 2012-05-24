@@ -544,7 +544,7 @@ public class PatientDAO {
         boolean result = false;
         try {
             // Use CONNECT utility class to access gateway.properties
-            String allowString = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, ALLOW_SSN_QUERY);
+            String allowString = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, ALLOW_SSN_QUERY);
             if (allowString != null && allowString.equalsIgnoreCase("true")) {
                 result = true;
             }

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.common.connectionmanager.persistence;
 
+import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.apache.commons.logging.Log;
@@ -66,7 +67,7 @@ public class HibernateUtil {
         File result = null;
 
         try {
-            result = HibernateAccessor.getHibernateFile(HIBERNATE_ASSIGNING_AUTHORITY);
+            result = HibernateAccessor.getInstance().getHibernateFile(HIBERNATE_ASSIGNING_AUTHORITY);
         } catch (Exception ex) {
             log.error("Unable to load " + HIBERNATE_ASSIGNING_AUTHORITY + " " + ex.getMessage(), ex);
         }

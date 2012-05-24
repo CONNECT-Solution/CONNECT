@@ -2,7 +2,7 @@
 <thresholds>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.cppgui.AssertionCreator"
-              linecount="30"
+              linecount="31"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -32,7 +32,7 @@
               linesexecuted="0"/>
    <threshold branchcount="40" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.PatientSearchFacade"
-              linecount="63"
+              linecount="65"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="8" branchrate="80" branchsexecuted="0"

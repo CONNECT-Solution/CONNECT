@@ -136,7 +136,7 @@ public class Manager {
                 }
 
                 try {
-                    myCommunityId = PropertyAccessor.getProperty("gateway", "localHomeCommunityId");
+                    myCommunityId = PropertyAccessor.getInstance().getProperty("gateway", "localHomeCommunityId");
                     if (myCommunityId != null) {
                         try {
                             url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(

@@ -54,7 +54,7 @@ public class ConfigurationManager {
     public ExpirationConfiguration loadExpirationConfiguration() {
         ExpirationConfiguration result = null;
         log.debug("begin loadExpirationConfiguration()");
-        String propertyDir = PropertyAccessor.getPropertyFileLocation();
+        String propertyDir = PropertyAccessor.getInstance().getPropertyFileLocation();
 
         log.debug("Property Directory: " + propertyDir);
         result = loadExpirationConfiguration(propertyDir, FTA_CONFIG_FILE);

@@ -43,16 +43,16 @@ public class MpiDataAccess {
         return LookupPatients(queryParams, true);
     }
 
-    public static Patients LookupPatients(PRPAMT201306UV02ParameterList queryParams, boolean AllowSearchByDemographics) {
-        return LookupPatients(HL7Parser201305.ExtractMpiPatientFromQueryParams(queryParams), AllowSearchByDemographics);
+    public static Patients LookupPatients(PRPAMT201306UV02ParameterList queryParams, boolean searchByDemographics) {
+        return LookupPatients(HL7Parser201305.ExtractMpiPatientFromQueryParams(queryParams), searchByDemographics);
     }
 
     public static Patients LookupPatients(Patient searchParams) {
         return LookupPatients(searchParams, true);
     }
 
-    public static Patients LookupPatients(Patient searchParams, boolean AllowSearchByDemographics) {
-        MiniMpi mpi = MiniMpi.GetMpiInstance();
-        return mpi.Search(searchParams, AllowSearchByDemographics);
+    public static Patients LookupPatients(Patient searchParams, boolean searchByDemographics) {
+        MiniMpi mpi = MiniMpi.getInstance();
+        return mpi.search(searchParams, searchByDemographics);
     }
 }

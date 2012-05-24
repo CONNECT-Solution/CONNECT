@@ -1,0 +1,513 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+Uses of Class org.apache.cxf.common.injection.NoJSR250Annotations (Apache CXF API 2.6.0 API)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="Uses of Class org.apache.cxf.common.injection.NoJSR250Annotations (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection"><FONT CLASS="NavBarFont1"><B>Class</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Use</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?org/apache/cxf/common/injection/class-use/NoJSR250Annotations.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="NoJSR250Annotations.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<CENTER>
+<H2>
+<B>Uses of Class<br>org.apache.cxf.common.injection.NoJSR250Annotations</B></H2>
+</CENTER>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Packages that use <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.configuration.jsse"><B>org.apache.cxf.configuration.jsse</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.configuration.spring"><B>org.apache.cxf.configuration.spring</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.endpoint"><B>org.apache.cxf.endpoint</B></A></TD>
+<TD>Client and Server related classes.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.feature"><B>org.apache.cxf.feature</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.interceptor"><B>org.apache.cxf.interceptor</B></A></TD>
+<TD>Core interceptor interfaces which form the basis for message processing chains
+in CXF.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.resource"><B>org.apache.cxf.resource</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.service"><B>org.apache.cxf.service</B></A></TD>
+<TD>This package and its sub packages contain classes relating to services and the CXF
+service model&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.service.invoker"><B>org.apache.cxf.service.invoker</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.workqueue"><B>org.apache.cxf.workqueue</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.ws.addressing"><B>org.apache.cxf.ws.addressing</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.configuration.jsse"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A> in <A HREF="../../../../../../org/apache/cxf/configuration/jsse/package-summary.html">org.apache.cxf.configuration.jsse</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../../org/apache/cxf/configuration/jsse/package-summary.html">org.apache.cxf.configuration.jsse</A> with annotations of type <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/configuration/jsse/TLSClientParametersConfig.html" title="class in org.apache.cxf.configuration.jsse">TLSClientParametersConfig</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This class provides the TLSClientParameters that programmatically
+ configure a HTTPConduit.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/configuration/jsse/TLSServerParametersConfig.html" title="class in org.apache.cxf.configuration.jsse">TLSServerParametersConfig</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This class is used by Spring Config to convert the TLSServerParameters
+ JAXB generated type into programmatic TLS Server Parameters for the
+ configuration of the http-destination.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.configuration.spring"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A> in <A HREF="../../../../../../org/apache/cxf/configuration/spring/package-summary.html">org.apache.cxf.configuration.spring</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../../org/apache/cxf/configuration/spring/package-summary.html">org.apache.cxf.configuration.spring</A> with annotations of type <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/configuration/spring/ConfigurerImpl.html" title="class in org.apache.cxf.configuration.spring">ConfigurerImpl</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/configuration/spring/SpringBeanMap.html" title="class in org.apache.cxf.configuration.spring">SpringBeanMap&lt;V&gt;</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/configuration/spring/SpringBeanQNameMap.html" title="class in org.apache.cxf.configuration.spring">SpringBeanQNameMap&lt;V&gt;</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.endpoint"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A> in <A HREF="../../../../../../org/apache/cxf/endpoint/package-summary.html">org.apache.cxf.endpoint</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../../org/apache/cxf/endpoint/package-summary.html">org.apache.cxf.endpoint</A> with annotations of type <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/endpoint/NullConduitSelector.html" title="class in org.apache.cxf.endpoint">NullConduitSelector</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strategy for null Conduit retrieval.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.feature"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A> in <A HREF="../../../../../../org/apache/cxf/feature/package-summary.html">org.apache.cxf.feature</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../../org/apache/cxf/feature/package-summary.html">org.apache.cxf.feature</A> with annotations of type <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/feature/FastInfosetFeature.html" title="class in org.apache.cxf.feature">FastInfosetFeature</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <![CDATA[
+    <jaxws:endpoint ...>
+      <jaxws:features>
+       <bean class="org.apache.cxf.feature.FastInfosetFeature"/>
+      </jaxws:features>
+    </jaxws:endpoint>
+  ]]></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/feature/LoggingFeature.html" title="class in org.apache.cxf.feature">LoggingFeature</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This class is used to control message-on-the-wire logging.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/feature/StaxTransformFeature.html" title="class in org.apache.cxf.feature">StaxTransformFeature</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <![CDATA[
+    <jaxws:endpoint ...>
+      <jaxws:features>
+       <bean class="org.apache.cxf.feature.StaxTransformFeature"/>
+      </jaxws:features>
+    </jaxws:endpoint>
+  ]]></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.interceptor"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A> in <A HREF="../../../../../../org/apache/cxf/interceptor/package-summary.html">org.apache.cxf.interceptor</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../../org/apache/cxf/interceptor/package-summary.html">org.apache.cxf.interceptor</A> with annotations of type <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/interceptor/LoggingInInterceptor.html" title="class in org.apache.cxf.interceptor">LoggingInInterceptor</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A simple logging handler which outputs the bytes of the message to the
+ Logger.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/interceptor/LoggingOutInterceptor.html" title="class in org.apache.cxf.interceptor">LoggingOutInterceptor</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.resource"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A> in <A HREF="../../../../../../org/apache/cxf/resource/package-summary.html">org.apache.cxf.resource</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../../org/apache/cxf/resource/package-summary.html">org.apache.cxf.resource</A> with annotations of type <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/resource/ClassLoaderResolver.html" title="class in org.apache.cxf.resource">ClassLoaderResolver</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/resource/ClasspathResolver.html" title="class in org.apache.cxf.resource">ClasspathResolver</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Resolve resources from the system class path.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.service"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A> in <A HREF="../../../../../../org/apache/cxf/service/package-summary.html">org.apache.cxf.service</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../../org/apache/cxf/service/package-summary.html">org.apache.cxf.service</A> with annotations of type <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/service/ServiceImpl.html" title="class in org.apache.cxf.service">ServiceImpl</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.service.invoker"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A> in <A HREF="../../../../../../org/apache/cxf/service/invoker/package-summary.html">org.apache.cxf.service.invoker</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../../org/apache/cxf/service/invoker/package-summary.html">org.apache.cxf.service.invoker</A> with annotations of type <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/service/invoker/BeanInvoker.html" title="class in org.apache.cxf.service.invoker">BeanInvoker</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Invoker for externally created service objects.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.workqueue"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A> in <A HREF="../../../../../../org/apache/cxf/workqueue/package-summary.html">org.apache.cxf.workqueue</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../../org/apache/cxf/workqueue/package-summary.html">org.apache.cxf.workqueue</A> with annotations of type <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/workqueue/AutomaticWorkQueueImpl.html" title="class in org.apache.cxf.workqueue">AutomaticWorkQueueImpl</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.ws.addressing"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A> in <A HREF="../../../../../../org/apache/cxf/ws/addressing/package-summary.html">org.apache.cxf.ws.addressing</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../../org/apache/cxf/ws/addressing/package-summary.html">org.apache.cxf.ws.addressing</A> with annotations of type <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection">NoJSR250Annotations</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../org/apache/cxf/ws/addressing/WSAddressingFeature.html" title="class in org.apache.cxf.ws.addressing">WSAddressingFeature</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../org/apache/cxf/common/injection/NoJSR250Annotations.html" title="annotation in org.apache.cxf.common.injection"><FONT CLASS="NavBarFont1"><B>Class</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Use</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?org/apache/cxf/common/injection/class-use/NoJSR250Annotations.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="NoJSR250Annotations.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

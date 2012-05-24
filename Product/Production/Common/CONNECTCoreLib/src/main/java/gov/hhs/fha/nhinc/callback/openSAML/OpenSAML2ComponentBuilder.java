@@ -280,21 +280,24 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return createIssuer(X509_NAME_ID, DEFAULT_ISSUER_VALUE);
 	}
 
+	
+
 	/**
+	 * @param certificate 
 	 * @return
 	 * @throws Exception
 	 */
-	public Subject createSubject(String x509Name)
-			throws Exception {
+	public Subject createSubject(String x509Name, X509Certificate certificate, PublicKey publicKey) throws Exception {
 		Subject subject = (org.opensaml.saml2.core.Subject) createOpenSAMLObject(Subject.DEFAULT_ELEMENT_NAME);
 		subject.setNameID(createNameID(X509_NAME_ID, x509Name));
-
-		SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData();
+		
+		SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData(certificate, publicKey);
 		SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
 		subject.getSubjectConfirmations().add(subjectConfirmation);
 		return subject;
 	}
 
+	
 	private SubjectConfirmation createHoKConfirmation(
 			SubjectConfirmationData subjectConfirmationData) throws Exception {
 		SubjectConfirmation subjectConfirmation = (SubjectConfirmation) createOpenSAMLObject(SubjectConfirmation.DEFAULT_ELEMENT_NAME);
@@ -305,27 +308,29 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return subjectConfirmation;
 	}
 	
-	private SubjectConfirmationData createSubjectConfirmationData() throws Exception {
+	
+	
+
+	private SubjectConfirmationData createSubjectConfirmationData(X509Certificate certificate, PublicKey publicKey) throws Exception {
         SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) createOpenSAMLObject(SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
 
-        subjectConfirmationData.getUnknownXMLObjects().add(getKeyInfo());
+        subjectConfirmationData.getUnknownXMLObjects().add(getKeyInfo(certificate, publicKey));
         return subjectConfirmationData;
 	}
 	
-	public KeyInfo getKeyInfo() throws Exception {
-        KeyInfo ki= (KeyInfo)createOpenSAMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
-        
-        CertificateManager cm = CertificateManagerImpl.getInstance();
-        X509Certificate certificate = cm.getDefaultCertificate();
+	public KeyInfo getKeyInfo(X509Certificate certificate, PublicKey publicKey) throws Exception {
+	            KeyInfo ki= (KeyInfo)createOpenSAMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
         
         BasicX509Credential credential = new BasicX509Credential();
         credential.setEntityCertificate(certificate); 
         
-        KeyInfoHelper.addPublicKey(ki, certificate.getPublicKey()); 
+     	KeyInfoHelper.addPublicKey(ki, publicKey); 
         KeyInfoHelper.addCertificate(ki, certificate);
         return ki;
 	}
 
+	
+	
 	public PublicKey getPublicKey() throws Exception {
 		CertificateManager cm = CertificateManagerImpl.getInstance();
 
@@ -543,7 +548,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	 * 
 	 */
 	public Signature createSignature(X509Certificate certificate,
-			PrivateKey privateKey) throws Exception {
+			PrivateKey privateKey, PublicKey publicKey) throws Exception {
 		BasicX509Credential credential = new BasicX509Credential();
 
 		credential.setEntityCertificate(certificate);
@@ -554,7 +559,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 				.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
 		signature
 				.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
-		signature.setKeyInfo(getKeyInfo());
+		signature.setKeyInfo(getKeyInfo(certificate, publicKey));
 		return signature;
 	}
 

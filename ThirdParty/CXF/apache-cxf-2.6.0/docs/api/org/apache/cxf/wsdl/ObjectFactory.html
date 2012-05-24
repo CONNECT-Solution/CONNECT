@@ -1,0 +1,813 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+ObjectFactory (Apache CXF API 2.6.0 API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="org.apache.cxf.wsdl.ObjectFactory class">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="ObjectFactory (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/ObjectFactory.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/JAXBExtensionHelper.html" title="class in org.apache.cxf.wsdl"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/PrettyPrintXMLStreamWriter.html" title="class in org.apache.cxf.wsdl"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/wsdl/ObjectFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ObjectFactory.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+org.apache.cxf.wsdl</FONT>
+<BR>
+Class ObjectFactory</H2>
+<PRE>
+<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">java.lang.Object</A>
+  <IMG SRC="../../../../resources/inherit.gif" ALT="extended by "><B>org.apache.cxf.wsdl.ObjectFactory</B>
+</PRE>
+<HR>
+<DL>
+<DT><PRE>public class <B>ObjectFactory</B><DT>extends <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></DL>
+</PRE>
+
+<P>
+This object contains factory methods for each 
+ Java content interface and Java element interface 
+ generated in the org.apache.cxf.wsdl package. 
+ <p>An ObjectFactory allows you to programatically 
+ construct new instances of the Java representation 
+ for XML content. The Java representation of XML 
+ content can consist of schema derived interfaces 
+ and classes representing the binding of schema 
+ type definitions, element declarations and model 
+ groups.  Factory methods for each of these are 
+ provided in this class.
+<P>
+
+<P>
+<HR>
+
+<P>
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#ObjectFactory()">ObjectFactory</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.apache.cxf.wsdl</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TDefinitions.html" title="class in org.apache.cxf.wsdl">TDefinitions</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createDefinitions(org.apache.cxf.wsdl.TDefinitions)">createDefinitions</A></B>(<A HREF="../../../../org/apache/cxf/wsdl/TDefinitions.html" title="class in org.apache.cxf.wsdl">TDefinitions</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TDefinitions.html" title="class in org.apache.cxf.wsdl"><CODE>TDefinitions</CODE></A><code>&gt;</code>}</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TBinding.html" title="class in org.apache.cxf.wsdl">TBinding</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTBinding()">createTBinding</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TBinding.html" title="class in org.apache.cxf.wsdl"><CODE>TBinding</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TBindingOperation.html" title="class in org.apache.cxf.wsdl">TBindingOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTBindingOperation()">createTBindingOperation</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TBindingOperation.html" title="class in org.apache.cxf.wsdl"><CODE>TBindingOperation</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TBindingOperationFault.html" title="class in org.apache.cxf.wsdl">TBindingOperationFault</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTBindingOperationFault()">createTBindingOperationFault</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TBindingOperationFault.html" title="class in org.apache.cxf.wsdl"><CODE>TBindingOperationFault</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TBindingOperationMessage.html" title="class in org.apache.cxf.wsdl">TBindingOperationMessage</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTBindingOperationMessage()">createTBindingOperationMessage</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TBindingOperationMessage.html" title="class in org.apache.cxf.wsdl"><CODE>TBindingOperationMessage</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TDefinitions.html" title="class in org.apache.cxf.wsdl">TDefinitions</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTDefinitions()">createTDefinitions</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TDefinitions.html" title="class in org.apache.cxf.wsdl"><CODE>TDefinitions</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TBinding.html" title="class in org.apache.cxf.wsdl">TBinding</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTDefinitionsBinding(org.apache.cxf.wsdl.TBinding)">createTDefinitionsBinding</A></B>(<A HREF="../../../../org/apache/cxf/wsdl/TBinding.html" title="class in org.apache.cxf.wsdl">TBinding</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TBinding.html" title="class in org.apache.cxf.wsdl"><CODE>TBinding</CODE></A><code>&gt;</code>}</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TImport.html" title="class in org.apache.cxf.wsdl">TImport</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTDefinitionsImport(org.apache.cxf.wsdl.TImport)">createTDefinitionsImport</A></B>(<A HREF="../../../../org/apache/cxf/wsdl/TImport.html" title="class in org.apache.cxf.wsdl">TImport</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TImport.html" title="class in org.apache.cxf.wsdl"><CODE>TImport</CODE></A><code>&gt;</code>}</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TMessage.html" title="class in org.apache.cxf.wsdl">TMessage</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTDefinitionsMessage(org.apache.cxf.wsdl.TMessage)">createTDefinitionsMessage</A></B>(<A HREF="../../../../org/apache/cxf/wsdl/TMessage.html" title="class in org.apache.cxf.wsdl">TMessage</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TMessage.html" title="class in org.apache.cxf.wsdl"><CODE>TMessage</CODE></A><code>&gt;</code>}</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TPortType.html" title="class in org.apache.cxf.wsdl">TPortType</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTDefinitionsPortType(org.apache.cxf.wsdl.TPortType)">createTDefinitionsPortType</A></B>(<A HREF="../../../../org/apache/cxf/wsdl/TPortType.html" title="class in org.apache.cxf.wsdl">TPortType</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TPortType.html" title="class in org.apache.cxf.wsdl"><CODE>TPortType</CODE></A><code>&gt;</code>}</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TService.html" title="class in org.apache.cxf.wsdl">TService</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTDefinitionsService(org.apache.cxf.wsdl.TService)">createTDefinitionsService</A></B>(<A HREF="../../../../org/apache/cxf/wsdl/TService.html" title="class in org.apache.cxf.wsdl">TService</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TService.html" title="class in org.apache.cxf.wsdl"><CODE>TService</CODE></A><code>&gt;</code>}</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TTypes.html" title="class in org.apache.cxf.wsdl">TTypes</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTDefinitionsTypes(org.apache.cxf.wsdl.TTypes)">createTDefinitionsTypes</A></B>(<A HREF="../../../../org/apache/cxf/wsdl/TTypes.html" title="class in org.apache.cxf.wsdl">TTypes</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TTypes.html" title="class in org.apache.cxf.wsdl"><CODE>TTypes</CODE></A><code>&gt;</code>}</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TDocumentation.html" title="class in org.apache.cxf.wsdl">TDocumentation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTDocumentation()">createTDocumentation</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TDocumentation.html" title="class in org.apache.cxf.wsdl"><CODE>TDocumentation</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TDocumented.html" title="class in org.apache.cxf.wsdl">TDocumented</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTDocumented()">createTDocumented</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TDocumented.html" title="class in org.apache.cxf.wsdl"><CODE>TDocumented</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TFault.html" title="class in org.apache.cxf.wsdl">TFault</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTFault()">createTFault</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TFault.html" title="class in org.apache.cxf.wsdl"><CODE>TFault</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TImport.html" title="class in org.apache.cxf.wsdl">TImport</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTImport()">createTImport</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TImport.html" title="class in org.apache.cxf.wsdl"><CODE>TImport</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TMessage.html" title="class in org.apache.cxf.wsdl">TMessage</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTMessage()">createTMessage</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TMessage.html" title="class in org.apache.cxf.wsdl"><CODE>TMessage</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TOperation.html" title="class in org.apache.cxf.wsdl">TOperation</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTOperation()">createTOperation</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TOperation.html" title="class in org.apache.cxf.wsdl"><CODE>TOperation</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TFault.html" title="class in org.apache.cxf.wsdl">TFault</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTOperationFault(org.apache.cxf.wsdl.TFault)">createTOperationFault</A></B>(<A HREF="../../../../org/apache/cxf/wsdl/TFault.html" title="class in org.apache.cxf.wsdl">TFault</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TFault.html" title="class in org.apache.cxf.wsdl"><CODE>TFault</CODE></A><code>&gt;</code>}</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl">TParam</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTOperationInput(org.apache.cxf.wsdl.TParam)">createTOperationInput</A></B>(<A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl">TParam</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl"><CODE>TParam</CODE></A><code>&gt;</code>}</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl">TParam</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTOperationOutput(org.apache.cxf.wsdl.TParam)">createTOperationOutput</A></B>(<A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl">TParam</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl"><CODE>TParam</CODE></A><code>&gt;</code>}</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl">TParam</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTParam()">createTParam</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl"><CODE>TParam</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TPart.html" title="class in org.apache.cxf.wsdl">TPart</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTPart()">createTPart</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TPart.html" title="class in org.apache.cxf.wsdl"><CODE>TPart</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TPort.html" title="class in org.apache.cxf.wsdl">TPort</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTPort()">createTPort</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TPort.html" title="class in org.apache.cxf.wsdl"><CODE>TPort</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TPortType.html" title="class in org.apache.cxf.wsdl">TPortType</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTPortType()">createTPortType</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TPortType.html" title="class in org.apache.cxf.wsdl"><CODE>TPortType</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TService.html" title="class in org.apache.cxf.wsdl">TService</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTService()">createTService</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TService.html" title="class in org.apache.cxf.wsdl"><CODE>TService</CODE></A></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/TTypes.html" title="class in org.apache.cxf.wsdl">TTypes</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../org/apache/cxf/wsdl/ObjectFactory.html#createTTypes()">createTTypes</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TTypes.html" title="class in org.apache.cxf.wsdl"><CODE>TTypes</CODE></A></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#clone()" title="class or interface in java.lang">clone</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang">equals</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#finalize()" title="class or interface in java.lang">finalize</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#getClass()" title="class or interface in java.lang">getClass</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#hashCode()" title="class or interface in java.lang">hashCode</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notify()" title="class or interface in java.lang">notify</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#notifyAll()" title="class or interface in java.lang">notifyAll</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#toString()" title="class or interface in java.lang">toString</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait()" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long)" title="class or interface in java.lang">wait</A>, <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html#wait(long, int)" title="class or interface in java.lang">wait</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="ObjectFactory()"><!-- --></A><H3>
+ObjectFactory</H3>
+<PRE>
+public <B>ObjectFactory</B>()</PRE>
+<DL>
+<DD>Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.apache.cxf.wsdl
+<P>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="createTOperation()"><!-- --></A><H3>
+createTOperation</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TOperation.html" title="class in org.apache.cxf.wsdl">TOperation</A> <B>createTOperation</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TOperation.html" title="class in org.apache.cxf.wsdl"><CODE>TOperation</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTPort()"><!-- --></A><H3>
+createTPort</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TPort.html" title="class in org.apache.cxf.wsdl">TPort</A> <B>createTPort</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TPort.html" title="class in org.apache.cxf.wsdl"><CODE>TPort</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTDefinitions()"><!-- --></A><H3>
+createTDefinitions</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TDefinitions.html" title="class in org.apache.cxf.wsdl">TDefinitions</A> <B>createTDefinitions</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TDefinitions.html" title="class in org.apache.cxf.wsdl"><CODE>TDefinitions</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTPart()"><!-- --></A><H3>
+createTPart</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TPart.html" title="class in org.apache.cxf.wsdl">TPart</A> <B>createTPart</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TPart.html" title="class in org.apache.cxf.wsdl"><CODE>TPart</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTDocumentation()"><!-- --></A><H3>
+createTDocumentation</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TDocumentation.html" title="class in org.apache.cxf.wsdl">TDocumentation</A> <B>createTDocumentation</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TDocumentation.html" title="class in org.apache.cxf.wsdl"><CODE>TDocumentation</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTTypes()"><!-- --></A><H3>
+createTTypes</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TTypes.html" title="class in org.apache.cxf.wsdl">TTypes</A> <B>createTTypes</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TTypes.html" title="class in org.apache.cxf.wsdl"><CODE>TTypes</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTBinding()"><!-- --></A><H3>
+createTBinding</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TBinding.html" title="class in org.apache.cxf.wsdl">TBinding</A> <B>createTBinding</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TBinding.html" title="class in org.apache.cxf.wsdl"><CODE>TBinding</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTService()"><!-- --></A><H3>
+createTService</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TService.html" title="class in org.apache.cxf.wsdl">TService</A> <B>createTService</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TService.html" title="class in org.apache.cxf.wsdl"><CODE>TService</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTBindingOperationMessage()"><!-- --></A><H3>
+createTBindingOperationMessage</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TBindingOperationMessage.html" title="class in org.apache.cxf.wsdl">TBindingOperationMessage</A> <B>createTBindingOperationMessage</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TBindingOperationMessage.html" title="class in org.apache.cxf.wsdl"><CODE>TBindingOperationMessage</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTBindingOperationFault()"><!-- --></A><H3>
+createTBindingOperationFault</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TBindingOperationFault.html" title="class in org.apache.cxf.wsdl">TBindingOperationFault</A> <B>createTBindingOperationFault</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TBindingOperationFault.html" title="class in org.apache.cxf.wsdl"><CODE>TBindingOperationFault</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTBindingOperation()"><!-- --></A><H3>
+createTBindingOperation</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TBindingOperation.html" title="class in org.apache.cxf.wsdl">TBindingOperation</A> <B>createTBindingOperation</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TBindingOperation.html" title="class in org.apache.cxf.wsdl"><CODE>TBindingOperation</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTDocumented()"><!-- --></A><H3>
+createTDocumented</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TDocumented.html" title="class in org.apache.cxf.wsdl">TDocumented</A> <B>createTDocumented</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TDocumented.html" title="class in org.apache.cxf.wsdl"><CODE>TDocumented</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTFault()"><!-- --></A><H3>
+createTFault</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TFault.html" title="class in org.apache.cxf.wsdl">TFault</A> <B>createTFault</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TFault.html" title="class in org.apache.cxf.wsdl"><CODE>TFault</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTImport()"><!-- --></A><H3>
+createTImport</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TImport.html" title="class in org.apache.cxf.wsdl">TImport</A> <B>createTImport</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TImport.html" title="class in org.apache.cxf.wsdl"><CODE>TImport</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTMessage()"><!-- --></A><H3>
+createTMessage</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TMessage.html" title="class in org.apache.cxf.wsdl">TMessage</A> <B>createTMessage</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TMessage.html" title="class in org.apache.cxf.wsdl"><CODE>TMessage</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTParam()"><!-- --></A><H3>
+createTParam</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl">TParam</A> <B>createTParam</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl"><CODE>TParam</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTPortType()"><!-- --></A><H3>
+createTPortType</H3>
+<PRE>
+public <A HREF="../../../../org/apache/cxf/wsdl/TPortType.html" title="class in org.apache.cxf.wsdl">TPortType</A> <B>createTPortType</B>()</PRE>
+<DL>
+<DD>Create an instance of <A HREF="../../../../org/apache/cxf/wsdl/TPortType.html" title="class in org.apache.cxf.wsdl"><CODE>TPortType</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTOperationFault(org.apache.cxf.wsdl.TFault)"><!-- --></A><H3>
+createTOperationFault</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TFault.html" title="class in org.apache.cxf.wsdl">TFault</A>&gt; <B>createTOperationFault</B>(<A HREF="../../../../org/apache/cxf/wsdl/TFault.html" title="class in org.apache.cxf.wsdl">TFault</A>&nbsp;value)</PRE>
+<DL>
+<DD>Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TFault.html" title="class in org.apache.cxf.wsdl"><CODE>TFault</CODE></A><code>&gt;</code>}
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTOperationInput(org.apache.cxf.wsdl.TParam)"><!-- --></A><H3>
+createTOperationInput</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl">TParam</A>&gt; <B>createTOperationInput</B>(<A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl">TParam</A>&nbsp;value)</PRE>
+<DL>
+<DD>Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl"><CODE>TParam</CODE></A><code>&gt;</code>}
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTOperationOutput(org.apache.cxf.wsdl.TParam)"><!-- --></A><H3>
+createTOperationOutput</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl">TParam</A>&gt; <B>createTOperationOutput</B>(<A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl">TParam</A>&nbsp;value)</PRE>
+<DL>
+<DD>Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TParam.html" title="class in org.apache.cxf.wsdl"><CODE>TParam</CODE></A><code>&gt;</code>}
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTDefinitionsPortType(org.apache.cxf.wsdl.TPortType)"><!-- --></A><H3>
+createTDefinitionsPortType</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TPortType.html" title="class in org.apache.cxf.wsdl">TPortType</A>&gt; <B>createTDefinitionsPortType</B>(<A HREF="../../../../org/apache/cxf/wsdl/TPortType.html" title="class in org.apache.cxf.wsdl">TPortType</A>&nbsp;value)</PRE>
+<DL>
+<DD>Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TPortType.html" title="class in org.apache.cxf.wsdl"><CODE>TPortType</CODE></A><code>&gt;</code>}
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTDefinitionsMessage(org.apache.cxf.wsdl.TMessage)"><!-- --></A><H3>
+createTDefinitionsMessage</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TMessage.html" title="class in org.apache.cxf.wsdl">TMessage</A>&gt; <B>createTDefinitionsMessage</B>(<A HREF="../../../../org/apache/cxf/wsdl/TMessage.html" title="class in org.apache.cxf.wsdl">TMessage</A>&nbsp;value)</PRE>
+<DL>
+<DD>Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TMessage.html" title="class in org.apache.cxf.wsdl"><CODE>TMessage</CODE></A><code>&gt;</code>}
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTDefinitionsImport(org.apache.cxf.wsdl.TImport)"><!-- --></A><H3>
+createTDefinitionsImport</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TImport.html" title="class in org.apache.cxf.wsdl">TImport</A>&gt; <B>createTDefinitionsImport</B>(<A HREF="../../../../org/apache/cxf/wsdl/TImport.html" title="class in org.apache.cxf.wsdl">TImport</A>&nbsp;value)</PRE>
+<DL>
+<DD>Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TImport.html" title="class in org.apache.cxf.wsdl"><CODE>TImport</CODE></A><code>&gt;</code>}
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTDefinitionsBinding(org.apache.cxf.wsdl.TBinding)"><!-- --></A><H3>
+createTDefinitionsBinding</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TBinding.html" title="class in org.apache.cxf.wsdl">TBinding</A>&gt; <B>createTDefinitionsBinding</B>(<A HREF="../../../../org/apache/cxf/wsdl/TBinding.html" title="class in org.apache.cxf.wsdl">TBinding</A>&nbsp;value)</PRE>
+<DL>
+<DD>Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TBinding.html" title="class in org.apache.cxf.wsdl"><CODE>TBinding</CODE></A><code>&gt;</code>}
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTDefinitionsTypes(org.apache.cxf.wsdl.TTypes)"><!-- --></A><H3>
+createTDefinitionsTypes</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TTypes.html" title="class in org.apache.cxf.wsdl">TTypes</A>&gt; <B>createTDefinitionsTypes</B>(<A HREF="../../../../org/apache/cxf/wsdl/TTypes.html" title="class in org.apache.cxf.wsdl">TTypes</A>&nbsp;value)</PRE>
+<DL>
+<DD>Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TTypes.html" title="class in org.apache.cxf.wsdl"><CODE>TTypes</CODE></A><code>&gt;</code>}
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTDefinitionsService(org.apache.cxf.wsdl.TService)"><!-- --></A><H3>
+createTDefinitionsService</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TService.html" title="class in org.apache.cxf.wsdl">TService</A>&gt; <B>createTDefinitionsService</B>(<A HREF="../../../../org/apache/cxf/wsdl/TService.html" title="class in org.apache.cxf.wsdl">TService</A>&nbsp;value)</PRE>
+<DL>
+<DD>Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TService.html" title="class in org.apache.cxf.wsdl"><CODE>TService</CODE></A><code>&gt;</code>}
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createDefinitions(org.apache.cxf.wsdl.TDefinitions)"><!-- --></A><H3>
+createDefinitions</H3>
+<PRE>
+public <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml">javax.xml.bind.JAXBElement</A>&lt;<A HREF="../../../../org/apache/cxf/wsdl/TDefinitions.html" title="class in org.apache.cxf.wsdl">TDefinitions</A>&gt; <B>createDefinitions</B>(<A HREF="../../../../org/apache/cxf/wsdl/TDefinitions.html" title="class in org.apache.cxf.wsdl">TDefinitions</A>&nbsp;value)</PRE>
+<DL>
+<DD>Create an instance of <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/bind.JAXBElement.html" title="class or interface in javax.xml"><CODE>JAXBElement</CODE></A><code>&lt;</code><A HREF="../../../../org/apache/cxf/wsdl/TDefinitions.html" title="class in org.apache.cxf.wsdl"><CODE>TDefinitions</CODE></A><code>&gt;</code>}
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/ObjectFactory.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/JAXBExtensionHelper.html" title="class in org.apache.cxf.wsdl"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/wsdl/PrettyPrintXMLStreamWriter.html" title="class in org.apache.cxf.wsdl"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/wsdl/ObjectFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ObjectFactory.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

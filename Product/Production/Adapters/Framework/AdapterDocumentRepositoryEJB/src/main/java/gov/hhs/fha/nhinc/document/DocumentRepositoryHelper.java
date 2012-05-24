@@ -904,7 +904,7 @@ public class DocumentRepositoryHelper
 
                             try {
 
-                                doc.setRepositoryId(PropertyAccessor.getProperty(REPOSITORY_PROPERTY_FILE,
+                                doc.setRepositoryId(PropertyAccessor.getInstance().getProperty(REPOSITORY_PROPERTY_FILE,
                                         DEFAULT_REPOSITORY_ID_PROP));
 
                             }

@@ -59,7 +59,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 	 * 
 	 */
 	public CONNECTOrchestrationBase() {
-		propertyAcessor = new PropertyAccessor(
+		propertyAcessor = PropertyAccessor.getInstance(
 				NhincConstants.GATEWAY_PROPERTY_FILE);
 	}
 

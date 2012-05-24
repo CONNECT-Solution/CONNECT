@@ -1,85 +1,75 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.hiem.processor.entity.handler;
+
+import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.oasis_open.docs.wsn.b_2.Subscribe;
+import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
+import org.w3._2005._08.addressing.EndpointReferenceType;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.hiem.processor.common.HiemProcessorConstants;
 import gov.hhs.fha.nhinc.hiem.processor.common.SubscriptionItemUtil;
 import gov.hhs.fha.nhinc.hiem.processor.common.SubscriptionStorage;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeProxy;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeProxyObjectFactory;
-import javax.xml.bind.JAXBException;
-import org.oasis_open.docs.wsn.b_2.Subscribe;
-import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
-import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
-import java.io.StringWriter;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import org.oasis_open.docs.wsn.bw_2.InvalidFilterFault;
-import org.oasis_open.docs.wsn.bw_2.InvalidMessageContentExpressionFault;
-import org.oasis_open.docs.wsn.bw_2.InvalidProducerPropertiesExpressionFault;
-import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
-import org.oasis_open.docs.wsn.bw_2.NotifyMessageNotSupportedFault;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
-import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
-import org.oasis_open.docs.wsn.bw_2.TopicExpressionDialectUnknownFault;
-import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
-import org.oasis_open.docs.wsn.bw_2.UnacceptableInitialTerminationTimeFault;
-import org.oasis_open.docs.wsn.bw_2.UnrecognizedPolicyRequestFault;
-import org.oasis_open.docs.wsn.bw_2.UnsupportedPolicyRequestFault;
-import org.w3._2005._08.addressing.EndpointReferenceType;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import java.util.List;
-import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
-
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import gov.hhs.fha.nhinc.xmlCommon.XpathHelper;
-import javax.xml.xpath.XPathExpressionException;
-import org.w3c.dom.Node;
 
 /**
  * Base entity subscribe handler
- * 
+ *
  * @author Neil Webb
  */
 public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandler {
@@ -91,10 +81,12 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
         log = org.apache.commons.logging.LogFactory.getLog(getClass());
     }
 
+    @Override
     public void setPatientIdentifier(QualifiedSubjectIdentifierType patientIdentifier) {
         this.patientIdentifier = patientIdentifier;
     }
 
+    @Override
     public void setPatientIdentiferLocation(String xpathToPatientId) {
         this.xpathToPatientId = xpathToPatientId;
     }
@@ -163,30 +155,8 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
 
             SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
             subscribeResponse = responseMarshaller.unmarshal(responseElement);
-        } catch (InvalidFilterFault ex) {
-            log.error("InvalidFilterFault: " + ex.getMessage(), ex);
-        } catch (InvalidMessageContentExpressionFault ex) {
-            log.error("InvalidMessageContentExpressionFault: " + ex.getMessage(), ex);
-        } catch (InvalidProducerPropertiesExpressionFault ex) {
-            log.error("InvalidProducerPropertiesExpressionFault: " + ex.getMessage(), ex);
-        } catch (InvalidTopicExpressionFault ex) {
-            log.error("InvalidTopicExpressionFault: " + ex.getMessage(), ex);
-        } catch (NotifyMessageNotSupportedFault ex) {
-            log.error("NotifyMessageNotSupportedFault: " + ex.getMessage(), ex);
-        } catch (ResourceUnknownFault ex) {
-            log.error("ResourceUnknownFault: " + ex.getMessage(), ex);
-        } catch (SubscribeCreationFailedFault ex) {
-            log.error("SubscribeCreationFailedFault: " + ex.getMessage(), ex);
-        } catch (TopicExpressionDialectUnknownFault ex) {
-            log.error("TopicExpressionDialectUnknownFault: " + ex.getMessage(), ex);
-        } catch (TopicNotSupportedFault ex) {
-            log.error("TopicNotSupportedFault: " + ex.getMessage(), ex);
-        } catch (UnacceptableInitialTerminationTimeFault ex) {
-            log.error("UnacceptableInitialTerminationTimeFault: " + ex.getMessage(), ex);
-        } catch (UnrecognizedPolicyRequestFault ex) {
-            log.error("UnrecognizedPolicyRequestFault: " + ex.getMessage(), ex);
-        } catch (UnsupportedPolicyRequestFault ex) {
-            log.error("UnsupportedPolicyRequestFault: " + ex.getMessage(), ex);
+        } catch (Exception ex) {
+            log.error("Exception: " + ex.getMessage(), ex);
         }
         return subscribeResponse;
     }
@@ -211,7 +181,7 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
     protected void updateSubscribeNotificationConsumerEndpointAddress(Element subscribeElement) {
         try {
             // TODO: Replace Notification endpoint address
-            String notificationConsumerEndpointAddress = PropertyAccessor.getProperty("gateway",
+            String notificationConsumerEndpointAddress = PropertyAccessor.getInstance().getProperty("gateway",
                     "NotificationConsumerEndpointAddress");
             String xpathToAddress = "//*[local-name()='Subscribe']/*[local-name()='ConsumerReference']/*[local-name()='Address']";
             Node targetNode = XpathHelper.performXpathQuery(subscribeElement, xpathToAddress);
@@ -338,9 +308,9 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
      * Use reflection to set the subscription reference. The runtime parameter type of the setSubscriptionReference
      * method of SubscriptionResponse is checked and the correct parameter type is created and the method is invoked
      * with the correct type.
-     * 
+     *
      * This is necessary because the buildtime type and runtime type are different for the method called.
-     * 
+     *
      * @param response Subscription response method.
      * @param subRef Subscription reference
      */

@@ -35,13 +35,11 @@ import org.oasis_open.docs.wsn.b_2.TopicNotSupportedFaultType;
 import org.oasis_open.docs.wsn.b_2.UnableToDestroySubscriptionFaultType;
 import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.NotifyMessageNotSupportedFault;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
 import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.oasis_open.docs.wsrf.bf_2.BaseFaultType.Description;
 import org.oasis_open.docs.wsrf.bf_2.BaseFaultType.FaultCause;
-import org.oasis_open.docs.wsrf.r_2.ResourceUnknownFaultType;
 import org.w3c.dom.Node;
 
 /**
@@ -115,12 +113,8 @@ public class SoapFaultFactory {
 
     }
 
-    public ResourceUnknownFault getPatientNotInSubscribeMessage() {
-        ResourceUnknownFaultType faultInfo = null;
-        // Throwable cause = null;
-        ResourceUnknownFault fault = new ResourceUnknownFault(
-                "Patient required for this type of topic, but not supplied.", faultInfo);
-        return fault;
+    public SubscribeCreationFailedFault getPatientNotInSubscribeMessage() {                
+        return new SubscribeCreationFailedFault("Patient required for this type of topic, but not supplied.");
     }
 
     public TopicNotSupportedFault getUnknownTopic(Node topic) {

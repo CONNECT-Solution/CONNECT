@@ -637,7 +637,7 @@ public class ConnectionManagerCache {
     public String getAdapterEndpointURL(String sServiceName, ADAPTER_API_LEVEL level) throws ConnectionManagerException {
         String sHomeCommunityId = null;
         try {
-            sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
@@ -716,7 +716,7 @@ public class ConnectionManagerCache {
         try {
             log.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-            sHomeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
             log.info("Retrieve local home community id: " + sHomeCommunityId);
         } catch (PropertyAccessException ex) {
@@ -803,7 +803,7 @@ public class ConnectionManagerCache {
                     String endpt = getDefaultEndpointURLByServiceName(target.getHomeCommunity().getHomeCommunityId(),
                             serviceName);
 
-                    if (NullChecker.isNotNullish(endpt)) {
+                    if ((NullChecker.isNotNullish(endpt)) || (NullChecker.isNullish(endpt) && (serviceName.equals(NhincConstants.DOC_QUERY_SERVICE_NAME)))) {
                         UrlInfo entry = new UrlInfo();
                         entry.setHcid(target.getHomeCommunity().getHomeCommunityId());
                         entry.setUrl(endpt);

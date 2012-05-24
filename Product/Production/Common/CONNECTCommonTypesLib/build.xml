@@ -11,6 +11,7 @@
   <property name="deploy.isDeployable" value="true"/>
   <property name="build.generated.dir" value="build.generated/generated/client"/>
   <property name="build.wsdl.output.dir" value="build.wsdl.output.dir/wsdl"/>
+  <property name="cxf.home" location ="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/apache-cxf-2.6.0"/>
 
   <!-- Please make sure that this goes up to the correct directory -->
   <import file="../../../build/build.targets.xml" />
@@ -33,6 +34,11 @@
     <include name="Endpoint/**/*.xsd"/>
   </patternset>
 
+  <path id="cxf.classpath">
+      <fileset dir="${cxf.home}/lib">
+         <include name="*.jar"/>
+      </fileset>
+  </path>
 
   <path id="wsdl.list">
     <!-- You can add more or less wsld files here... -->
@@ -104,8 +110,8 @@
     <mkdir dir="${build.classes.dir}" />
     <mkdir dir="${build.generated.dir}"/>
     <mkdir dir="${build.wsdl.output.dir}"/>
-    <call target="generate.proxies.xjc"/>
     <call target="generate.proxies.wsdl"/>
+    <call target="generate.proxies.xjc"/>
     <call target="copy.util.src"/>
     <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}"/>
     <copy todir="${build.classes.dir}/META-INF/wsdl" overwrite="true">
@@ -149,6 +155,40 @@
   </target>
   
   <target name="generate.proxies.wsdl">
+    <outofdate verbose="true" force="${force.package}">
+      <sourcefiles>
+        <path refid="wsdl.list"/>
+      </sourcefiles>
+      <targetfiles path="${build.dir.root}/compilewsdl.flag"/>          
+      <sequential>
+        <for param="wsdl.file.path">
+          <path refid="wsdl.list"/>
+          <sequential>
+            <var name="wsdl.file" unset="true"/>
+            <basename property="wsdl.file" file="@{wsdl.file.path}" />             
+              <basename property="file.basename" file="@{wsdl.file.path}" suffix=".wsdl"/>
+              <java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
+				 <arg value="-client"/>
+				 <arg value="-noAddressBinding"/>
+				 <arg value="-dns"/>
+				 <arg value="false"/>
+				 <arg value="-verbose"/>
+				 <arg value="-d"/>
+				 <arg value="${build.generated.dir}"/>
+				 <arg value="@{wsdl.file.path}"/>
+				 <classpath>
+					<path refid="cxf.classpath"/>
+				 </classpath>
+				 <jvmarg line="-Xmx1024m -Xms1024m"/>
+			  </java>
+          </sequential>
+        </for>  
+        <echo file="${build.dir.root}/compilewsdl.flag" append="false"/>
+      </sequential>
+    </outofdate>
+  </target>  
+  
+  <target name="generate.proxies.wsdl.metro">
     <outofdate verbose="true" force="${force.package}">
       <sourcefiles>
         <path refid="wsdl.list"/>

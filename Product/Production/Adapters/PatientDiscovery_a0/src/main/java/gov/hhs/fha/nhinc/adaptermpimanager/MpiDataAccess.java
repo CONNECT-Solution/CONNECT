@@ -52,24 +52,24 @@ public class MpiDataAccess {
     }
 
     public static Patients LookupPatients(Patient searchParams, boolean AllowSearchByDemographics) {
-        MiniMpi mpi = MiniMpi.GetMpiInstance();
-        return mpi.Search(searchParams, AllowSearchByDemographics);
+        MiniMpi mpi = MiniMpi.getInstance();
+        return mpi.search(searchParams, AllowSearchByDemographics);
     }
 
     public static Patients LookupPatients(Patient searchParams, boolean AllowSearchByDemographics,
             boolean includeOptOutPatient) {
-        MiniMpi mpi = MiniMpi.GetMpiInstance();
-        return mpi.Search(searchParams, AllowSearchByDemographics, includeOptOutPatient);
+        MiniMpi mpi = MiniMpi.getInstance();
+        return mpi.search(searchParams, AllowSearchByDemographics, includeOptOutPatient);
     }
 
     public static Patient SavePatient(Patient patient) {
-        MiniMpi mpi = MiniMpi.GetMpiInstance();
-        return mpi.AddUpdate(patient);
+        MiniMpi mpi = MiniMpi.getInstance();
+        return mpi.addUpdate(patient);
     }
 
     public static void DeletePatient(Patient patient, String homeCommunityId) {
-        MiniMpi mpi = MiniMpi.GetMpiInstance();
-        mpi.Delete(patient, homeCommunityId);
+        MiniMpi mpi = MiniMpi.getInstance();
+        mpi.delete(patient, homeCommunityId);
     }
 
 }

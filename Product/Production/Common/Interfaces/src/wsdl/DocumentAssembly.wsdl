@@ -27,7 +27,7 @@
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="DynamicAssembly_Query">
 			<soap:operation soapAction="urn:DynamicAssembly_Query"/>
-			<input name="DynamicAssembly_QueryRequestMessage">
+			<input name="DynamicAssembly_QueryRequest">
 				<soap:body use="literal"/>
 			</input>
 			<output name="AdapterDocProvideAndRegisterOperationRequest">

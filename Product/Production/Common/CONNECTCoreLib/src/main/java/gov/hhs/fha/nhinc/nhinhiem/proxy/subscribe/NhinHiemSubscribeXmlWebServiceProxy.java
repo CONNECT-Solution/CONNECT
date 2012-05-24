@@ -50,7 +50,6 @@ import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.NotificationProducer;
 import org.oasis_open.docs.wsn.bw_2.NotificationProducerService;
 import org.oasis_open.docs.wsn.bw_2.NotifyMessageNotSupportedFault;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
 import org.oasis_open.docs.wsn.bw_2.TopicExpressionDialectUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
@@ -96,7 +95,7 @@ public class NhinHiemSubscribeXmlWebServiceProxy implements NhinHiemSubscribePro
 
     public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target)
             throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
-            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault,
+            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault,
             SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault,
             UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
         Element resp = null;
@@ -221,7 +220,7 @@ public class NhinHiemSubscribeXmlWebServiceProxy implements NhinHiemSubscribePro
     // TODO: Move to a common library - needs access to b-2.wsdl(?) messages
     private Element parseSubscribeResponse(String responseXml) throws InvalidFilterFault,
             InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
-            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault,
+            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault,
             SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault,
             UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
         Element responseElement = null;

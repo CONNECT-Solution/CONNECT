@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.passthru;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
@@ -39,46 +38,71 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * 
- * @author JHOPPESC
- */
+
 public class PassthruDocSubmissionOrchImpl {
-    private Log log = null;
+    private Log log = LogFactory.getLog(PassthruDocSubmissionOrchImpl.class);
 
     public PassthruDocSubmissionOrchImpl() {
-        log = createLogger();
+        log = getLogger();
     }
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
+    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion, NhinTargetSystemType targetSystem) {
-        RegistryResponseType response = null;
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-        body.setNhinTargetSystem(targetSystem);
-        body.setProvideAndRegisterDocumentSetRequest(request);
 
-        XDRAuditLogger auditLog = getAuditLogger();
-        AcknowledgementType ack = auditLog.auditXDR(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-        log.debug("ack: " + ack.getMessage());
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(
+                body, assertion, targetSystem);
 
-        OutboundDocSubmissionDelegate dsDelegate = new OutboundDocSubmissionDelegate();
-        OutboundDocSubmissionOrchestratable dsOrchestratable = new OutboundDocSubmissionOrchestratable(dsDelegate);
-        dsOrchestratable.setAssertion(assertion);
-        dsOrchestratable.setRequest(body.getProvideAndRegisterDocumentSetRequest());
-        dsOrchestratable.setTarget(body.getNhinTargetSystem());
-        response = ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
+        auditRequestToNhin(request, assertion);
 
-        ack = auditLog.auditNhinXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-        log.debug("ack: " + ack.getMessage());
+        OutboundDocSubmissionDelegate dsDelegate = getOutboundDocSubmissionDelegate();
+        OutboundDocSubmissionOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, request, assertion);
+        RegistryResponseType response = ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable))
+                .getResponse();
+
+        auditResponseFromNhin(response, assertion);
 
         return response;
     }
 
-    protected XDRAuditLogger getAuditLogger() {
+    protected Log getLogger() {
+        return log;
+    }
+        
+    protected XDRAuditLogger getXDRAuditLogger() {
         return new XDRAuditLogger();
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    protected OutboundDocSubmissionDelegate getOutboundDocSubmissionDelegate() {
+        return new OutboundDocSubmissionDelegate();
+    }
+    
+    private void auditRequestToNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+            AssertionType assertion) {
+        getXDRAuditLogger().auditXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    private void auditResponseFromNhin(RegistryResponseType response, AssertionType assertion) {
+        getXDRAuditLogger().auditNhinXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
+
+    private OutboundDocSubmissionOrchestratable createOrchestratable(OutboundDocSubmissionDelegate delegate,
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+        
+        OutboundDocSubmissionOrchestratable dsOrchestratable = new OutboundDocSubmissionOrchestratable(delegate);
+        dsOrchestratable.setAssertion(assertion);
+        dsOrchestratable.setRequest(request.getProvideAndRegisterDocumentSetRequest());
+        dsOrchestratable.setTarget(request.getNhinTargetSystem());
+
+        return dsOrchestratable;
+    }
+
+    private RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType createRequestForInternalProcessing(
+            ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion, NhinTargetSystemType targetSystem) {
+
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+        request.setNhinTargetSystem(targetSystem);
+        request.setProvideAndRegisterDocumentSetRequest(msg);
+
+        return request;
     }
 }

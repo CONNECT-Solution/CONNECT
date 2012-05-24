@@ -1,0 +1,924 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+Uses of Interface org.apache.cxf.message.Exchange (Apache CXF API 2.6.0 API)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="Uses of Interface org.apache.cxf.message.Exchange (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message"><FONT CLASS="NavBarFont1"><B>Class</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Use</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/message/class-use/Exchange.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="Exchange.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<CENTER>
+<H2>
+<B>Uses of Interface<br>org.apache.cxf.message.Exchange</B></H2>
+</CENTER>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Packages that use <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.endpoint"><B>org.apache.cxf.endpoint</B></A></TD>
+<TD>Client and Server related classes.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.interceptor"><B>org.apache.cxf.interceptor</B></A></TD>
+<TD>Core interceptor interfaces which form the basis for message processing chains
+in CXF.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.message"><B>org.apache.cxf.message</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.service.invoker"><B>org.apache.cxf.service.invoker</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.service.model"><B>org.apache.cxf.service.model</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.transport"><B>org.apache.cxf.transport</B></A></TD>
+<TD>Transport related classes.&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><A HREF="#org.apache.cxf.ws.addressing"><B>org.apache.cxf.ws.addressing</B></A></TD>
+<TD>&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.endpoint"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A> in <A HREF="../../../../../org/apache/cxf/endpoint/package-summary.html">org.apache.cxf.endpoint</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../org/apache/cxf/endpoint/package-summary.html">org.apache.cxf.endpoint</A> with parameters of type <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>NullConduitSelector.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/NullConduitSelector.html#complete(org.apache.cxf.message.Exchange)">complete</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called on completion of the MEP for which the Conduit was required.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>ConduitSelector.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/ConduitSelector.html#complete(org.apache.cxf.message.Exchange)">complete</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called on completion of the MEP for which the Conduit was required.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>PreexistingConduitSelector.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/PreexistingConduitSelector.html#complete(org.apache.cxf.message.Exchange)">complete</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called on completion of the MEP for which the Conduit was required.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractConduitSelector.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/AbstractConduitSelector.html#complete(org.apache.cxf.message.Exchange)">complete</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called on completion of the MEP for which the Conduit was required.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Exception.html" title="class or interface in java.lang">Exception</A></CODE></FONT></TD>
+<TD><CODE><B>ClientImpl.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/ClientImpl.html#getException(org.apache.cxf.message.Exchange)">getException</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]</CODE></FONT></TD>
+<TD><CODE><B>ClientImpl.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/ClientImpl.html#invoke(org.apache.cxf.service.model.BindingOperationInfo, java.lang.Object[], org.apache.cxf.message.Exchange)">invoke</A></B>(<A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;oi,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]&nbsp;params,
+       <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]</CODE></FONT></TD>
+<TD><CODE><B>ClientImpl.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/ClientImpl.html#invoke(org.apache.cxf.service.model.BindingOperationInfo, java.lang.Object[], java.util.Map, org.apache.cxf.message.Exchange)">invoke</A></B>(<A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;oi,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]&nbsp;params,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;&nbsp;context,
+       <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]</CODE></FONT></TD>
+<TD><CODE><B>Retryable.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/Retryable.html#invoke(org.apache.cxf.service.model.BindingOperationInfo, java.lang.Object[], java.util.Map, org.apache.cxf.message.Exchange)">invoke</A></B>(<A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;oi,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]&nbsp;params,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;&nbsp;context,
+       <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]</CODE></FONT></TD>
+<TD><CODE><B>Client.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/Client.html#invoke(org.apache.cxf.service.model.BindingOperationInfo, java.lang.Object[], java.util.Map, org.apache.cxf.message.Exchange)">invoke</A></B>(<A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;oi,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]&nbsp;params,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;&nbsp;context,
+       <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Invokes an operation synchronously</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>ClientImpl.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/ClientImpl.html#invoke(org.apache.cxf.endpoint.ClientCallback, org.apache.cxf.service.model.BindingOperationInfo, java.lang.Object[], org.apache.cxf.message.Exchange)">invoke</A></B>(<A HREF="../../../../../org/apache/cxf/endpoint/ClientCallback.html" title="class in org.apache.cxf.endpoint">ClientCallback</A>&nbsp;callback,
+       <A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;oi,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]&nbsp;params,
+       <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>Client.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/Client.html#invoke(org.apache.cxf.endpoint.ClientCallback, org.apache.cxf.service.model.BindingOperationInfo, java.lang.Object[], org.apache.cxf.message.Exchange)">invoke</A></B>(<A HREF="../../../../../org/apache/cxf/endpoint/ClientCallback.html" title="class in org.apache.cxf.endpoint">ClientCallback</A>&nbsp;callback,
+       <A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;oi,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]&nbsp;params,
+       <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Invokes an operation asynchronously</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>ClientImpl.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/ClientImpl.html#invoke(org.apache.cxf.endpoint.ClientCallback, org.apache.cxf.service.model.BindingOperationInfo, java.lang.Object[], java.util.Map, org.apache.cxf.message.Exchange)">invoke</A></B>(<A HREF="../../../../../org/apache/cxf/endpoint/ClientCallback.html" title="class in org.apache.cxf.endpoint">ClientCallback</A>&nbsp;callback,
+       <A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;oi,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]&nbsp;params,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;&nbsp;context,
+       <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>Client.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/Client.html#invoke(org.apache.cxf.endpoint.ClientCallback, org.apache.cxf.service.model.BindingOperationInfo, java.lang.Object[], java.util.Map, org.apache.cxf.message.Exchange)">invoke</A></B>(<A HREF="../../../../../org/apache/cxf/endpoint/ClientCallback.html" title="class in org.apache.cxf.endpoint">ClientCallback</A>&nbsp;callback,
+       <A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;oi,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]&nbsp;params,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;&nbsp;context,
+       <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Invokes an operation asynchronously</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]</CODE></FONT></TD>
+<TD><CODE><B>ClientImpl.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/ClientImpl.html#processResult(org.apache.cxf.message.Message, org.apache.cxf.message.Exchange, org.apache.cxf.service.model.BindingOperationInfo, java.util.Map)">processResult</A></B>(<A HREF="../../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A>&nbsp;message,
+              <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+              <A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;oi,
+              <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Map.html" title="class or interface in java.util">Map</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>,<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;&nbsp;resContext)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>ClientImpl.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/ClientImpl.html#setExchangeProperties(org.apache.cxf.message.Exchange, org.apache.cxf.endpoint.Endpoint, org.apache.cxf.service.model.BindingOperationInfo)">setExchangeProperties</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+                      <A HREF="../../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A>&nbsp;endpoint,
+                      <A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;boi)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>ClientImpl.</B><B><A HREF="../../../../../org/apache/cxf/endpoint/ClientImpl.html#waitResponse(org.apache.cxf.message.Exchange)">waitResponse</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.interceptor"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A> in <A HREF="../../../../../org/apache/cxf/interceptor/package-summary.html">org.apache.cxf.interceptor</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../org/apache/cxf/interceptor/package-summary.html">org.apache.cxf.interceptor</A> with parameters of type <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractInDatabindingInterceptor.</B><B><A HREF="../../../../../org/apache/cxf/interceptor/AbstractInDatabindingInterceptor.html#findMessagePart(org.apache.cxf.message.Exchange, java.util.Collection, javax.xml.namespace.QName, boolean, int, org.apache.cxf.message.Message)">findMessagePart</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+                <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/Collection.html" title="class or interface in java.util">Collection</A>&lt;<A HREF="../../../../../org/apache/cxf/service/model/OperationInfo.html" title="class in org.apache.cxf.service.model">OperationInfo</A>&gt;&nbsp;operations,
+                <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name,
+                boolean&nbsp;client,
+                int&nbsp;index,
+                <A HREF="../../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A>&nbsp;message)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Find the next possible message part in the message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A></CODE></FONT></TD>
+<TD><CODE><B>DocLiteralInInterceptor.</B><B><A HREF="../../../../../org/apache/cxf/interceptor/DocLiteralInInterceptor.html#getBindingOperationInfo(org.apache.cxf.message.Exchange, javax.xml.namespace.QName, boolean)">getBindingOperationInfo</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+                        <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name,
+                        boolean&nbsp;client)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractInDatabindingInterceptor.</B><B><A HREF="../../../../../org/apache/cxf/interceptor/AbstractInDatabindingInterceptor.html#getBindingOperationInfo(org.apache.cxf.message.Exchange, javax.xml.namespace.QName, boolean)">getBindingOperationInfo</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+                        <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;name,
+                        boolean&nbsp;client)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a BindingOperationInfo if the operation is indentified as 
+ a wrapped method,  return null if it is not a wrapped method 
+ (i.e., it is a bare method)</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/interceptor/InterceptorChain.html" title="interface in org.apache.cxf.interceptor">InterceptorChain</A></CODE></FONT></TD>
+<TD><CODE><B>OutgoingChainInterceptor.</B><B><A HREF="../../../../../org/apache/cxf/interceptor/OutgoingChainInterceptor.html#getOutInterceptorChain(org.apache.cxf.message.Exchange)">getOutInterceptorChain</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>OutFaultChainInitiatorObserver.</B><B><A HREF="../../../../../org/apache/cxf/interceptor/OutFaultChainInitiatorObserver.html#initializeInterceptors(org.apache.cxf.message.Exchange, org.apache.cxf.phase.PhaseInterceptorChain)">initializeInterceptors</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex,
+                       <A HREF="../../../../../org/apache/cxf/phase/PhaseInterceptorChain.html" title="class in org.apache.cxf.phase">PhaseInterceptorChain</A>&nbsp;chain)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractFaultChainInitiatorObserver.</B><B><A HREF="../../../../../org/apache/cxf/interceptor/AbstractFaultChainInitiatorObserver.html#initializeInterceptors(org.apache.cxf.message.Exchange, org.apache.cxf.phase.PhaseInterceptorChain)">initializeInterceptors</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex,
+                       <A HREF="../../../../../org/apache/cxf/phase/PhaseInterceptorChain.html" title="class in org.apache.cxf.phase">PhaseInterceptorChain</A>&nbsp;chain)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>InFaultChainInitiatorObserver.</B><B><A HREF="../../../../../org/apache/cxf/interceptor/InFaultChainInitiatorObserver.html#initializeInterceptors(org.apache.cxf.message.Exchange, org.apache.cxf.phase.PhaseInterceptorChain)">initializeInterceptors</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex,
+                       <A HREF="../../../../../org/apache/cxf/phase/PhaseInterceptorChain.html" title="class in org.apache.cxf.phase">PhaseInterceptorChain</A>&nbsp;chain)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractOutDatabindingInterceptor.</B><B><A HREF="../../../../../org/apache/cxf/interceptor/AbstractOutDatabindingInterceptor.html#writeParts(org.apache.cxf.message.Message, org.apache.cxf.message.Exchange, org.apache.cxf.service.model.BindingOperationInfo, org.apache.cxf.message.MessageContentsList, java.util.List)">writeParts</A></B>(<A HREF="../../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A>&nbsp;message,
+           <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+           <A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A>&nbsp;operation,
+           <A HREF="../../../../../org/apache/cxf/message/MessageContentsList.html" title="class in org.apache.cxf.message">MessageContentsList</A>&nbsp;objs,
+           <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="../../../../../org/apache/cxf/service/model/MessagePartInfo.html" title="class in org.apache.cxf.service.model">MessagePartInfo</A>&gt;&nbsp;parts)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.message"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A> in <A HREF="../../../../../org/apache/cxf/message/package-summary.html">org.apache.cxf.message</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Classes in <A HREF="../../../../../org/apache/cxf/message/package-summary.html">org.apache.cxf.message</A> that implement <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/apache/cxf/message/ExchangeImpl.html" title="class in org.apache.cxf.message">ExchangeImpl</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../org/apache/cxf/message/package-summary.html">org.apache.cxf.message</A> that return <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></CODE></FONT></TD>
+<TD><CODE><B>Message.</B><B><A HREF="../../../../../org/apache/cxf/message/Message.html#getExchange()">getExchange</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractWrappedMessage.</B><B><A HREF="../../../../../org/apache/cxf/message/AbstractWrappedMessage.html#getExchange()">getExchange</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></CODE></FONT></TD>
+<TD><CODE><B>MessageImpl.</B><B><A HREF="../../../../../org/apache/cxf/message/MessageImpl.html#getExchange()">getExchange</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../org/apache/cxf/message/package-summary.html">org.apache.cxf.message</A> with parameters of type <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>Message.</B><B><A HREF="../../../../../org/apache/cxf/message/Message.html#setExchange(org.apache.cxf.message.Exchange)">setExchange</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractWrappedMessage.</B><B><A HREF="../../../../../org/apache/cxf/message/AbstractWrappedMessage.html#setExchange(org.apache.cxf.message.Exchange)">setExchange</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>MessageImpl.</B><B><A HREF="../../../../../org/apache/cxf/message/MessageImpl.html#setExchange(org.apache.cxf.message.Exchange)">setExchange</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;e)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.service.invoker"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A> in <A HREF="../../../../../org/apache/cxf/service/invoker/package-summary.html">org.apache.cxf.service.invoker</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../org/apache/cxf/service/invoker/package-summary.html">org.apache.cxf.service.invoker</A> with parameters of type <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/reflect/Method.html" title="class or interface in java.lang.reflect">Method</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractInvoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/AbstractInvoker.html#adjustMethodAndParams(java.lang.reflect.Method, org.apache.cxf.message.Exchange, java.util.List)">adjustMethodAndParams</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/reflect/Method.html" title="class or interface in java.lang.reflect">Method</A>&nbsp;m,
+                      <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex,
+                      <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;&nbsp;params)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractInvoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/AbstractInvoker.html#checkSuspendedInvocation(org.apache.cxf.message.Exchange, java.lang.Object, java.lang.reflect.Method, java.util.List, java.lang.Throwable)">checkSuspendedInvocation</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+                         <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;serviceObject,
+                         <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/reflect/Method.html" title="class or interface in java.lang.reflect">Method</A>&nbsp;m,
+                         <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;&nbsp;params,
+                         <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Throwable.html" title="class or interface in java.lang">Throwable</A>&nbsp;t)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>SingletonFactory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/SingletonFactory.html#create(org.apache.cxf.message.Exchange)">create</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates the object that will be used for the invoke</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>PooledFactory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/PooledFactory.html#create(org.apache.cxf.message.Exchange)">create</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates the object that will be used for the invoke</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>PerRequestFactory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/PerRequestFactory.html#create(org.apache.cxf.message.Exchange)">create</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>SpringBeanFactory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/SpringBeanFactory.html#create(org.apache.cxf.message.Exchange)">create</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;e)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates the object that will be used for the invoke</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>Factory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/Factory.html#create(org.apache.cxf.message.Exchange)">create</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;e)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates the object that will be used for the invoke</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>SessionFactory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/SessionFactory.html#create(org.apache.cxf.message.Exchange)">create</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;e)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates the object that will be used for the invoke</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>PooledFactory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/PooledFactory.html#createObject(org.apache.cxf.message.Exchange)">createObject</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;e)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>FactoryInvoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/FactoryInvoker.html#getServiceObject(org.apache.cxf.message.Exchange)">getServiceObject</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>abstract &nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractInvoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/AbstractInvoker.html#getServiceObject(org.apache.cxf.message.Exchange)">getServiceObject</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;context)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates and returns a service object depending on the scope.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>BeanInvoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/BeanInvoker.html#getServiceObject(org.apache.cxf.message.Exchange)">getServiceObject</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]</CODE></FONT></TD>
+<TD><CODE><B>AbstractInvoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/AbstractInvoker.html#insertExchange(java.lang.reflect.Method, java.lang.Object[], org.apache.cxf.message.Exchange)">insertExchange</A></B>(<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/reflect/Method.html" title="class or interface in java.lang.reflect">Method</A>&nbsp;method,
+               <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]&nbsp;params,
+               <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;context)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>Invoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/Invoker.html#invoke(org.apache.cxf.message.Exchange, java.lang.Object)">invoke</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;o)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractInvoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/AbstractInvoker.html#invoke(org.apache.cxf.message.Exchange, java.lang.Object)">invoke</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;o)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractInvoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/AbstractInvoker.html#invoke(org.apache.cxf.message.Exchange, java.lang.Object, java.lang.reflect.Method, java.util.List)">invoke</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;serviceObject,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/reflect/Method.html" title="class or interface in java.lang.reflect">Method</A>&nbsp;m,
+       <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/util/List.html" title="class or interface in java.util">List</A>&lt;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&gt;&nbsp;params)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A></CODE></FONT></TD>
+<TD><CODE><B>AbstractInvoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/AbstractInvoker.html#performInvocation(org.apache.cxf.message.Exchange, java.lang.Object, java.lang.reflect.Method, java.lang.Object[])">performInvocation</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+                  <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;serviceObject,
+                  <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/reflect/Method.html" title="class or interface in java.lang.reflect">Method</A>&nbsp;m,
+                  <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>[]&nbsp;paramArray)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>SingletonFactory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/SingletonFactory.html#release(org.apache.cxf.message.Exchange, java.lang.Object)">release</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex,
+        <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;o)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post invoke, this is called to allow the factory to release
+ the object, store it, etc...</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>PooledFactory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/PooledFactory.html#release(org.apache.cxf.message.Exchange, java.lang.Object)">release</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex,
+        <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;o)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post invoke, this is called to allow the factory to release
+ the object, store it, etc...</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>PerRequestFactory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/PerRequestFactory.html#release(org.apache.cxf.message.Exchange, java.lang.Object)">release</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex,
+        <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;o)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>SpringBeanFactory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/SpringBeanFactory.html#release(org.apache.cxf.message.Exchange, java.lang.Object)">release</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;e,
+        <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;o)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post invoke, this is called to allow the factory to release
+ the object, store it, etc...</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>Factory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/Factory.html#release(org.apache.cxf.message.Exchange, java.lang.Object)">release</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;e,
+        <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;o)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post invoke, this is called to allow the factory to release
+ the object, store it, etc...</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>SessionFactory.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/SessionFactory.html#release(org.apache.cxf.message.Exchange, java.lang.Object)">release</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;e,
+        <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;o)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post invoke, this is called to allow the factory to release
+ the object, store it, etc...</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>FactoryInvoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/FactoryInvoker.html#releaseServiceObject(org.apache.cxf.message.Exchange, java.lang.Object)">releaseServiceObject</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;ex,
+                     <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;obj)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>AbstractInvoker.</B><B><A HREF="../../../../../org/apache/cxf/service/invoker/AbstractInvoker.html#releaseServiceObject(org.apache.cxf.message.Exchange, java.lang.Object)">releaseServiceObject</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;context,
+                     <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html" title="class or interface in java.lang">Object</A>&nbsp;obj)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called when the invoker is done with the object.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.service.model"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A> in <A HREF="../../../../../org/apache/cxf/service/model/package-summary.html">org.apache.cxf.service.model</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../org/apache/cxf/service/model/package-summary.html">org.apache.cxf.service.model</A> with parameters of type <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A></CODE></FONT></TD>
+<TD><CODE><B>ServiceModelUtil.</B><B><A HREF="../../../../../org/apache/cxf/service/model/ServiceModelUtil.html#getOperation(org.apache.cxf.message.Exchange, javax.xml.namespace.QName)">getOperation</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;opName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A></CODE></FONT></TD>
+<TD><CODE><B>ServiceModelUtil.</B><B><A HREF="../../../../../org/apache/cxf/service/model/ServiceModelUtil.html#getOperation(org.apache.cxf.message.Exchange, java.lang.String)">getOperation</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+             <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A>&nbsp;opName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/service/model/BindingOperationInfo.html" title="class in org.apache.cxf.service.model">BindingOperationInfo</A></CODE></FONT></TD>
+<TD><CODE><B>ServiceModelUtil.</B><B><A HREF="../../../../../org/apache/cxf/service/model/ServiceModelUtil.html#getOperationForWrapperElement(org.apache.cxf.message.Exchange, javax.xml.namespace.QName, boolean)">getOperationForWrapperElement</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+                              <A HREF="http://download.oracle.com/javase/1.5.0/docs/api/javax/xml/namespace/QName.html" title="class or interface in javax.xml.namespace">QName</A>&nbsp;opName,
+                              boolean&nbsp;output)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/service/Service.html" title="interface in org.apache.cxf.service">Service</A></CODE></FONT></TD>
+<TD><CODE><B>ServiceModelUtil.</B><B><A HREF="../../../../../org/apache/cxf/service/model/ServiceModelUtil.html#getService(org.apache.cxf.message.Exchange)">getService</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/String.html" title="class or interface in java.lang">String</A></CODE></FONT></TD>
+<TD><CODE><B>ServiceModelUtil.</B><B><A HREF="../../../../../org/apache/cxf/service/model/ServiceModelUtil.html#getTargetNamespace(org.apache.cxf.message.Exchange)">getTargetNamespace</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.transport"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A> in <A HREF="../../../../../org/apache/cxf/transport/package-summary.html">org.apache.cxf.transport</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../org/apache/cxf/transport/package-summary.html">org.apache.cxf.transport</A> with parameters of type <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>MultipleEndpointObserver.</B><B><A HREF="../../../../../org/apache/cxf/transport/MultipleEndpointObserver.html#setExchangeProperties(org.apache.cxf.message.Exchange, org.apache.cxf.message.Message)">setExchangeProperties</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+                      <A HREF="../../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A>&nbsp;m)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>ChainInitiationObserver.</B><B><A HREF="../../../../../org/apache/cxf/transport/ChainInitiationObserver.html#setExchangeProperties(org.apache.cxf.message.Exchange, org.apache.cxf.message.Message)">setExchangeProperties</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+                      <A HREF="../../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A>&nbsp;m)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<A NAME="org.apache.cxf.ws.addressing"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+Uses of <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A> in <A HREF="../../../../../org/apache/cxf/ws/addressing/package-summary.html">org.apache.cxf.ws.addressing</A></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left" COLSPAN="2">Methods in <A HREF="../../../../../org/apache/cxf/ws/addressing/package-summary.html">org.apache.cxf.ws.addressing</A> with parameters of type <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/transport/Destination.html" title="interface in org.apache.cxf.transport">Destination</A></CODE></FONT></TD>
+<TD><CODE><B>ContextUtils.</B><B><A HREF="../../../../../org/apache/cxf/ws/addressing/ContextUtils.html#createDecoupledDestination(org.apache.cxf.message.Exchange, org.apache.cxf.ws.addressing.EndpointReferenceType)">createDecoupledDestination</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange,
+                           <A HREF="../../../../../org/apache/cxf/ws/addressing/EndpointReferenceType.html" title="class in org.apache.cxf.ws.addressing">EndpointReferenceType</A>&nbsp;reference)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../org/apache/cxf/message/Message.html" title="interface in org.apache.cxf.message">Message</A></CODE></FONT></TD>
+<TD><CODE><B>ContextUtils.</B><B><A HREF="../../../../../org/apache/cxf/ws/addressing/ContextUtils.html#createMessage(org.apache.cxf.message.Exchange)">createMessage</A></B>(<A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a Binding specific Message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B>ContextUtils.</B><B><A HREF="../../../../../org/apache/cxf/ws/addressing/ContextUtils.html#propogateReceivedMAPs(org.apache.cxf.ws.addressing.AddressingProperties, org.apache.cxf.message.Exchange)">propogateReceivedMAPs</A></B>(<A HREF="../../../../../org/apache/cxf/ws/addressing/AddressingProperties.html" title="interface in org.apache.cxf.ws.addressing">AddressingProperties</A>&nbsp;inMAPs,
+                      <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message">Exchange</A>&nbsp;exchange)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Propagate inbound MAPs onto full reponse & fault messages.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../org/apache/cxf/message/Exchange.html" title="interface in org.apache.cxf.message"><FONT CLASS="NavBarFont1"><B>Class</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Use</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV&nbsp;
+&nbsp;NEXT</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../index.html?org/apache/cxf/message/class-use/Exchange.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="Exchange.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

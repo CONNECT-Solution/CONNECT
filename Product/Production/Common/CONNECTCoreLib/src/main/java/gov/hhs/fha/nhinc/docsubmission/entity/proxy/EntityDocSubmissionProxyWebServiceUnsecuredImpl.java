@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.entitypatientdiscoveryasyncreq.EntityPatientDiscoveryAsyncReqPortType;
 import gov.hhs.fha.nhinc.nhincentityxdr.EntityXDRPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -40,9 +39,7 @@ import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+
 
 public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDocSubmissionProxy {
     private Log log = null;
@@ -67,22 +64,24 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
         return new WebServiceProxyHelper();
     }
 
+    protected void initializeUnsecurePort(EntityXDRPortType port, String url, AssertionType assertion) {
+        oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, WS_ADDRESSING_ACTION, assertion);
+    }
+
     /**
      * This method retrieves and initializes the port.
      * 
      * @param url The URL for the web service.
      * @return The port object for the web service.
      */
-    protected EntityXDRPortType getPort(String url, String serviceAction, String wsAddressingAction,
-            AssertionType assertion) {
+    protected EntityXDRPortType getPort(String url, AssertionType assertion) {
         EntityXDRPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityXDRPortType.class);
-            oProxyHelper
-                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+            initializeUnsecurePort(port, url, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }
@@ -112,7 +111,7 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_SERVICE_NAME);
-            EntityXDRPortType port = getPort(url, NhincConstants.XDR_ACTION, WS_ADDRESSING_ACTION, assertion);
+            EntityXDRPortType port = getPort(url, assertion);
 
             if (port != null) {
                 RespondingGatewayProvideAndRegisterDocumentSetRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetRequestType();

@@ -736,7 +736,7 @@ public class SamlCallbackHandler implements CallbackHandler {
         boolean match = false;
         try {
             // Use CONNECT utility class to access gateway.properties
-            String purposeForUseEnabled = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            String purposeForUseEnabled = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     PURPOSE_FOR_USE_DEPRECATED_ENABLED);
             if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
                 match = true;

@@ -66,7 +66,7 @@ public class ConnectSubscriptionReferenceHelper {
         try {
             log.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-            homeCommunityId = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            homeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
             log.info("Retrieve local home community id: " + homeCommunityId);
         } catch (PropertyAccessException ex) {

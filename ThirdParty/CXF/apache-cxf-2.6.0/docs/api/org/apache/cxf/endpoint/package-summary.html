@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+org.apache.cxf.endpoint (Apache CXF API 2.6.0 API)
+</TITLE>
+
+<META NAME="keywords" CONTENT="org.apache.cxf.endpoint package">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    parent.document.title="org.apache.cxf.endpoint (Apache CXF API 2.6.0 API)";
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Package</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <FONT CLASS="NavBarFont1">Class</FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-use.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/databinding/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/extension/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/endpoint/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="package-summary.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<H2>
+Package org.apache.cxf.endpoint
+</H2>
+Client and Server related classes.
+<P>
+<B>See:</B>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="#package_description"><B>Description</B></A>
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Interface Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/Client.html" title="interface in org.apache.cxf.endpoint">Client</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ClientLifeCycleListener.html" title="interface in org.apache.cxf.endpoint">ClientLifeCycleListener</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ClientLifeCycleManager.html" title="interface in org.apache.cxf.endpoint">ClientLifeCycleManager</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ConduitSelector.html" title="interface in org.apache.cxf.endpoint">ConduitSelector</A></B></TD>
+<TD>Strategy for retrieving a Conduit to mediate an outbound message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ConduitSelectorHolder.html" title="interface in org.apache.cxf.endpoint">ConduitSelectorHolder</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ContextInspector.html" title="interface in org.apache.cxf.endpoint">ContextInspector</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/Endpoint.html" title="interface in org.apache.cxf.endpoint">Endpoint</A></B></TD>
+<TD>Represents an endpoint that receives messages.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImplFactory.html" title="interface in org.apache.cxf.endpoint">EndpointImplFactory</A></B></TD>
+<TD>This interface defines an object that can create EndpointImpl
+ objects.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointResolver.html" title="interface in org.apache.cxf.endpoint">EndpointResolver</A></B></TD>
+<TD>Implementations of this interface are responsible for mapping
+ between abstract and concrete endpoint references, and/or
+ renewing stale references.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointResolverRegistry.html" title="interface in org.apache.cxf.endpoint">EndpointResolverRegistry</A></B></TD>
+<TD>Implementations of this interface are responsible for mediating
+ access to registered EndpointResolvers, which themselves map
+ between abstract and concrete endpoint references, and/or
+ facilitate renewal of stale references.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/Retryable.html" title="interface in org.apache.cxf.endpoint">Retryable</A></B></TD>
+<TD>Implemented by Clients that are willing to accept retried invocations.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/Server.html" title="interface in org.apache.cxf.endpoint">Server</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ServerLifeCycleListener.html" title="interface in org.apache.cxf.endpoint">ServerLifeCycleListener</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ServerLifeCycleManager.html" title="interface in org.apache.cxf.endpoint">ServerLifeCycleManager</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ServerRegistry.html" title="interface in org.apache.cxf.endpoint">ServerRegistry</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ServiceContractResolver.html" title="interface in org.apache.cxf.endpoint">ServiceContractResolver</A></B></TD>
+<TD>A <code>ServiceContractResolver</code> resolves a service's QName to the URI
+ of the service's WSDL contract.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ServiceContractResolverRegistry.html" title="interface in org.apache.cxf.endpoint">ServiceContractResolverRegistry</A></B></TD>
+<TD>A registry for maintaining a collection of contract resolvers.</TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/AbstractConduitSelector.html" title="class in org.apache.cxf.endpoint">AbstractConduitSelector</A></B></TD>
+<TD>Abstract base class holding logic common to any ConduitSelector
+ that retrieves a Conduit from the ConduitInitiator.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/AbstractEndpointFactory.html" title="class in org.apache.cxf.endpoint">AbstractEndpointFactory</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ClientCallback.html" title="class in org.apache.cxf.endpoint">ClientCallback</A></B></TD>
+<TD>Asynchronous callback object for calls to <A HREF="../../../../org/apache/cxf/endpoint/Client.html#invoke(org.apache.cxf.endpoint.ClientCallback, java.lang.String, java.lang.Object...)"><CODE>Client.invoke(ClientCallback, String, Object...)</CODE></A>
+ and related functions.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ClientImpl.html" title="class in org.apache.cxf.endpoint">ClientImpl</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ClientImpl.EchoContext.html" title="class in org.apache.cxf.endpoint">ClientImpl.EchoContext</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/DeferredConduitSelector.html" title="class in org.apache.cxf.endpoint">DeferredConduitSelector</A></B></TD>
+<TD>Strategy for lazy deferred retreival of a Conduit to mediate an 
+ outbound message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointImpl.html" title="class in org.apache.cxf.endpoint">EndpointImpl</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ManagedEndpoint.html" title="class in org.apache.cxf.endpoint">ManagedEndpoint</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/NullConduitSelector.html" title="class in org.apache.cxf.endpoint">NullConduitSelector</A></B></TD>
+<TD>Strategy for null Conduit retrieval.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/PreexistingConduitSelector.html" title="class in org.apache.cxf.endpoint">PreexistingConduitSelector</A></B></TD>
+<TD>Strategy for retreival of a pre-existing Conduit to mediate an 
+ outbound message.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/ServerImpl.html" title="class in org.apache.cxf.endpoint">ServerImpl</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/SimpleEndpointImplFactory.html" title="class in org.apache.cxf.endpoint">SimpleEndpointImplFactory</A></B></TD>
+<TD>Create ordinary EndpointImpl objects.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/UpfrontConduitSelector.html" title="class in org.apache.cxf.endpoint">UpfrontConduitSelector</A></B></TD>
+<TD>Strategy for eager upfront retreival of a Conduit to mediate an 
+ outbound message.</TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Exception Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../org/apache/cxf/endpoint/EndpointException.html" title="class in org.apache.cxf.endpoint">EndpointException</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<P>
+<A NAME="package_description"><!-- --></A><H2>
+Package org.apache.cxf.endpoint Description
+</H2>
+
+<P>
+Client and Server related classes.
+<P>
+
+<P>
+<DL>
+</DL>
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Package</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <FONT CLASS="NavBarFont1">Class</FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-use.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+Apache CXF API</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../org/apache/cxf/databinding/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
+&nbsp;<A HREF="../../../../org/apache/cxf/extension/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../index.html?org/apache/cxf/endpoint/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="package-summary.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+Apache CXF
+</BODY>
+</HTML>

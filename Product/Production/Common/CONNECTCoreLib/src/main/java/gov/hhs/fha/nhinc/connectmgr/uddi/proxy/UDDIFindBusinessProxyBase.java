@@ -75,7 +75,7 @@ public abstract class UDDIFindBusinessProxyBase {
     protected void loadProperties() throws UDDIFindBusinessException {
 
         try {
-            String sValue = PropertyAccessor.getProperty(GATEWAY_PROPFILE_NAME, UDDI_INQUIRY_ENDPOINT_URL);
+            String sValue = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPFILE_NAME, UDDI_INQUIRY_ENDPOINT_URL);
             if ((sValue != null) && (sValue.length() > 0)) {
                 m_sUDDIInquiryEndpointURL = sValue;
             }
