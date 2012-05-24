@@ -65,7 +65,7 @@ public class NhinDocRetrieveOrchImpl {
         Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, requestCommunityID);
 
         try {
-            String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
+            String homeCommunityId = HomeCommunityMap.getCommunityIdForRDRequest(body);
             if (isServiceEnabled()) {
                 log.debug("Doc retrieve service is enabled. Procesing message");
 

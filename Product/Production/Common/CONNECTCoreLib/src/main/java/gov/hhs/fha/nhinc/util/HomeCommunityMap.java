@@ -141,6 +141,16 @@ public class HomeCommunityMap {
     }
 
     /**
+     * This method retrieves the community id from the query
+     * document request.
+     * @param body
+     * @return The home community OID string
+     */
+    public static String getCommunityIdForQDRequest(AdhocQueryType body) {
+       return getCommunityIdForDeferredQDRequest(body);
+    }
+
+    /**
      * This method retrieves the community id from the deferred query
      * document response.
      * @param body

@@ -56,7 +56,7 @@ public class NhinDocQueryOrchImpl {
 
         String requestCommunityID = null;
         if (msg != null) {
-            requestCommunityID = HomeCommunityMap.getCommunityIdForDeferredQDRequest(msg.getAdhocQuery());
+            requestCommunityID = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         }
         // Audit the incomming query
         AcknowledgementType ack = auditAdhocQueryRequest(crossGatewayQueryRequest, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
@@ -69,7 +69,7 @@ public class NhinDocQueryOrchImpl {
         // Check if the AdhocQuery Service is enabled
         if (isServiceEnabled()) {
             // Get local home community id for adapter audit log
-            String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+            String homeCommunityId = HomeCommunityMap.getCommunityIdForQDRequest(msg.getAdhocQuery());
             // Check to see if in adapter pass through mode for this service
             if (isInPassThroughMode()) {
                 log.info("Passthrough mode is enabled, sending message to the Adapter");
