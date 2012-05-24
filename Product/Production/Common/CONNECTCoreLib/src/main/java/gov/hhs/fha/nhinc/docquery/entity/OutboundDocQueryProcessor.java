@@ -69,7 +69,11 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
     private static final QName ExtrinsicObjectQname = new QName("urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0",
             "ExtrinsicObject");
-    
+
+    public OutboundDocQueryProcessor() {
+
+    }
+
     public OutboundDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL level) {
         cumulativeSpecLevel = level;
     }
@@ -87,7 +91,23 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
         log.debug("EntityDocQueryProcessor::processNhinResponse count=" + count);
 
         OutboundOrchestratableMessage response = null;
+        cumulativeResponse = getCumulativeResponseBasedGLEVEL(cumulativeResponse, individual);
 
+        if (individual == null) {
+            // can't get here as NhinCallableRequest will always return something
+            // but if we ever do, log it and return cumulativeResponse passed in
+            log.error("EntityDocQueryProcessor::handleNhinResponse individual received was null!!!");
+            response = cumulativeResponse;
+        } else {
+            OutboundOrchestratableMessage individualResponse = processResponse(individual);
+            response = aggregateResponse((OutboundDocQueryOrchestratable) individualResponse, cumulativeResponse);
+        }
+
+        return response;
+    }
+
+    protected OutboundOrchestratableMessage getCumulativeResponseBasedGLEVEL(
+            OutboundOrchestratableMessage cumulativeResponse, OutboundOrchestratableMessage individual) {
         if (cumulativeResponse == null) {
             switch (cumulativeSpecLevel) {
             case LEVEL_g0: {
@@ -110,18 +130,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
             }
             }
         }
+        return cumulativeResponse;
 
-        if (individual == null) {
-            // can't get here as NhinCallableRequest will always return something
-            // but if we ever do, log it and return cumulativeResponse passed in
-            log.error("EntityDocQueryProcessor::handleNhinResponse individual received was null!!!");
-            response = cumulativeResponse;
-        } else {
-            OutboundOrchestratableMessage individualResponse = processResponse(individual);
-            response = aggregateResponse((OutboundDocQueryOrchestratable) individualResponse, cumulativeResponse);
-        }
-
-        return response;
     }
 
     /**
@@ -315,33 +325,46 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
      * caught by aggregateResponse
      */
     @SuppressWarnings("static-access")
-    private void aggregateResponse_a0(OutboundDocQueryOrchestratable_a0 individual,
+    protected void aggregateResponse_a0(OutboundDocQueryOrchestratable_a0 individual,
             OutboundDocQueryOrchestratable_a0 cumulativeResponse) throws Exception {
 
         AdhocQueryResponse current = individual.getResponse();
         if (current != null) {
-        	// handle status first
-        	if (cumulativeResponse.getCumulativeResponse() != null) {
-        		if (cumulativeResponse.getCumulativeResponse().getStatus() == null) {
-        			cumulativeResponse.getCumulativeResponse().setStatus(current.getStatus());
-        		} else {
-        			// there are only 3 cases
-        			// 1) either are partial success
-        			// 2) they are different
-        			// 3) they are the same (we do nothing)
-        			if (cumulativeResponse.getCumulativeResponse().getStatus().equalsIgnoreCase(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS)
-        					|| current.getStatus().equalsIgnoreCase(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS)) {
-        				cumulativeResponse.getCumulativeResponse().setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
-        			} else if (!cumulativeResponse.getCumulativeResponse().getStatus().equalsIgnoreCase(current.getStatus())) {
-        				cumulativeResponse.getCumulativeResponse().setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
-        			}
-        			
-        		}
-        	}
+            // handle status first
+            if (cumulativeResponse.getCumulativeResponse() != null) {
+                if (cumulativeResponse.getCumulativeResponse().getStatus() == null) {
+                    cumulativeResponse.getCumulativeResponse().setStatus(current.getStatus());
+                } else {
+                    // there are only 3 cases
+                    // 1) either are partial success
+                    // 2) they are different
+                    // 3) they are the same (we do nothing)
+                    if (cumulativeResponse.getCumulativeResponse().getStatus()
+                            .equalsIgnoreCase(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS)
+                            || current.getStatus().equalsIgnoreCase(
+                                    DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS)) {
+                        cumulativeResponse.getCumulativeResponse().setStatus(
+                                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
+                    } else if (!cumulativeResponse.getCumulativeResponse().getStatus()
+                            .equalsIgnoreCase(current.getStatus())) {
+                        cumulativeResponse.getCumulativeResponse().setStatus(
+                                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
+                    }
+
+                }
+            }
             // add the responses from registry object list
-            if(current.getRegistryObjectList() != null){
-                List<JAXBElement<? extends IdentifiableType>> identifiableList = current.getRegistryObjectList().getIdentifiable();
-                if(identifiableList != null && identifiableList.size() > 0){
+            if (current.getRegistryObjectList() != null) {
+                List<JAXBElement<? extends IdentifiableType>> identifiableList = current.getRegistryObjectList()
+                        .getIdentifiable();
+                if (identifiableList != null && identifiableList.size() > 0) {
+                    log.debug("individual Response has ObjectList");
+                    if (cumulativeResponse.getCumulativeResponse().getRegistryObjectList() == null) {
+                        SlotListType slots = new SlotListType();
+                        cumulativeResponse.getCumulativeResponse().setResponseSlotList(slots);
+                        RegistryObjectListType regObj = new RegistryObjectListType();
+                        cumulativeResponse.getCumulativeResponse().setRegistryObjectList(regObj);
+                    }
                     cumulativeResponse.getCumulativeResponse().getRegistryObjectList().getIdentifiable()
                             .addAll(identifiableList);
                 }
@@ -357,7 +380,6 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
                 cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError()
                         .addAll(current.getRegistryErrorList().getRegistryError());
             }
-
 
             // add any slotlist response data
             if (current.getResponseSlotList() != null && current.getResponseSlotList().getSlot() != null
@@ -387,9 +409,17 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
         AdhocQueryResponse current = individual.getResponse();
         if (current != null) {
             // add the responses from registry object list
-            if(current.getRegistryObjectList() != null){
-                List<JAXBElement<? extends IdentifiableType>> identifiableList = current.getRegistryObjectList().getIdentifiable();
-                if(identifiableList != null && identifiableList.size() > 0){
+            if (current.getRegistryObjectList() != null) {
+                List<JAXBElement<? extends IdentifiableType>> identifiableList = current.getRegistryObjectList()
+                        .getIdentifiable();
+                if (identifiableList != null && identifiableList.size() > 0) {
+                    log.debug("individual Response has ObjectList");
+                    if (cumulativeResponse.getCumulativeResponse().getRegistryObjectList() == null) {
+                        SlotListType slots = new SlotListType();
+                        cumulativeResponse.getCumulativeResponse().setResponseSlotList(slots);
+                        RegistryObjectListType regObj = new RegistryObjectListType();
+                        cumulativeResponse.getCumulativeResponse().setRegistryObjectList(regObj);
+                    }
                     cumulativeResponse.getCumulativeResponse().getRegistryObjectList().getIdentifiable()
                             .addAll(identifiableList);
                 }
@@ -405,7 +435,6 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
                 cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError()
                         .addAll(current.getRegistryErrorList().getRegistryError());
             }
-
 
             // add any slotlist response data
             if (current.getResponseSlotList() != null && current.getResponseSlotList().getSlot() != null
