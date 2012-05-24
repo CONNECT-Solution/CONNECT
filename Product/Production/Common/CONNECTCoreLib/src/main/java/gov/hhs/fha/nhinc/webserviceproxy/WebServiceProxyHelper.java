@@ -458,7 +458,7 @@ public class WebServiceProxyHelper {
      * @param createdHeaders The listing of WS-Addressing headers.
      */
     protected void setOutboundHeaders(BindingProvider port, List<Header> createdHeaders) {
-        ((WSBindingProvider) port).setOutboundHeaders(createdHeaders);
+        //((WSBindingProvider) port).setOutboundHeaders(createdHeaders);
     }
 
     /**
@@ -989,7 +989,12 @@ public class WebServiceProxyHelper {
      * @return The path where the WSDL files are located.
      */
     protected String getWsdlPath() {
-        return ServicePropertyLoader.getBaseWsdlPath();
+        String path = System.getProperty("wsdl.path");
+        if (path == null)
+        {
+            log.error("wsdl.path not defined.");
+        }
+        return path;
     }
 
     /**

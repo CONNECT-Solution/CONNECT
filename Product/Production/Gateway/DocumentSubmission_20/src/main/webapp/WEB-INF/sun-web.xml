@@ -8,4 +8,5 @@
       <description>Keep a copy of the generated servlet class' java code.</description>
     </property>
   </jsp-config>
+  <class-loader delegate="false"/> 
 </sun-web-app>
