@@ -4471,7 +4471,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 		</con:assertion>
 		<con:assertion name="Doc ID" type="XPath Match">
 			<con:configuration><path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
-					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path><content>////${#Project#DRDocID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path><content>${#Project#DRDocID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 		</con:assertion>
 		<con:assertion name="Document Data" type="GroovyScriptAssertion">
 			<con:configuration><scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
