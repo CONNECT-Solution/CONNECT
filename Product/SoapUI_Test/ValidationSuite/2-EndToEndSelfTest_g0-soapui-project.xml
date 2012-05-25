@@ -4227,7 +4227,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
             <urn1:DocumentRequest>
                <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
+               <urn1:DocumentUniqueId>Break</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
