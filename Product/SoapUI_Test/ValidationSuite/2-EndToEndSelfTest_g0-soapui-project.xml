@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="EndToEndSelfTest_g0" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project abortOnError="false" name="EndToEndSelfTest_g0" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="Global Properties" value=""/>
   <con:entry key="TestSuite" value="EndToEndSelfTest TestSuite"/>
@@ -29,10 +30,10 @@
   <con:entry key="Add Settings" value="false"/>
   <con:entry key="Endpoint" value=""/>
 </xml-fragment>]]></con:setting></con:settings>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="WSDL path not set.  #EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="WSDL path not set.  #EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -40,10 +41,10 @@
 		</con:operation>
 	</con:interface>
 
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="WSDL path not set.  #EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="WSDL path not set.  #EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -51,10 +52,10 @@
 		</con:operation>
 	</con:interface>
 
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntitySubscriptionManager</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer</con:endpoint>
 		</con:endpoints>
@@ -62,10 +63,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:SubscribeCdcBioPackage" anonymous="optional" bindingOperationName="SubscribeCdcBioPackage" inputName="SubscribeCdcBioPackageRequest" isOneWay="false" name="SubscribeCdcBioPackage" outputName="SubscribeCdcBioPackageResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -78,10 +79,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="WSDL path not set.  #EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="WSDL path not set.  #EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationConsumer</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:NotifySubscribersOfCdcBioPackage" anonymous="optional" bindingOperationName="NotifySubscribersOfCdcBioPackage" inputName="NotifySubscribersOfCdcBioPackageRequest" isOneWay="false" name="NotifySubscribersOfCdcBioPackage" outputName="NotifySubscribersOfCdcBioPackageResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -94,10 +95,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="WSDL path not set.  #EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="WSDL path not set.  #EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRRequest</con:endpoint>
 			<con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:endpoint>
 			<con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
@@ -444,10 +445,10 @@
 			</con:call>
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="WSDL path not set.  #EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="WSDL path not set.  #EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
 			<con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncReq</con:endpoint>
 		</con:endpoints>
@@ -455,10 +456,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="WSDL path not set.  #EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="WSDL path not set.  #EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncResp</con:endpoint>
 			<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
 		</con:endpoints>
@@ -466,10 +467,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="WSDL path not set.  #EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="WSDL path not set.  #EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
 			<con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
 		</con:endpoints>
@@ -810,10 +811,10 @@
 			</con:call>
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="WSDL path not set.  #EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="WSDL path not set.  #EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -821,10 +822,10 @@
 		</con:operation>
 	</con:interface>
 
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="WSDL path not set.  #EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="WSDL path not set.  #EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
@@ -1028,8 +1029,8 @@
 		</con:operation>
 	</con:interface>
 
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="WSDL path not set.  #EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/>
-<con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint><con:endpoint>${#Project#Endpoint-DSDeferredResp}</con:endpoint></con:endpoints><con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="WSDL path not set.  #EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/>
+<con:definitionCache/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint><con:endpoint>${#Project#Endpoint-DSDeferredResp}</con:endpoint></con:endpoints><con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint>
 <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
@@ -1225,12 +1226,12 @@
 			<con:settings/>
 			<con:testStep name="EntityXDRRequest" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
 					<con:request incomingWss="" name="EntityXDRRequest" outgoingWss="" useWsAddressing="true" wssPasswordType="">
 						<con:settings>
-							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
@@ -1712,7 +1713,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
 			{
 				def reader = sourceFile.newReader();
 				destinationFile.withWriter 
-				{ writer -&gt;       
+				{ writer ->       
 					writer &lt;&lt; reader;   
 				}   
 				reader.close();
@@ -1742,7 +1743,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
 			{
 				def reader = sourceFile.newReader();
 				destinationFile.withWriter 
-				{ writer -&gt;       
+				{ writer ->       
 					writer &lt;&lt; reader;   
 				}   
 				reader.close();
@@ -1786,7 +1787,7 @@ DeleteFile(backupUddiFile, log);
 	</con:properties>
 	<con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="2622180a-2230-4df7-8f36-e1c9ad29bba8" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true"><con:settings/><con:testStep name="Doc Submission Def Resp" type="request"><con:settings/><con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep"><con:interface>EntityXDRAsyncResponse_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSet-bAsyncResponse</con:operation><con:request name="Doc Submission Def Resp"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DSDeferredResp}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="2622180a-2230-4df7-8f36-e1c9ad29bba8" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true"><con:settings/><con:testStep name="Doc Submission Def Resp" type="request"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityXDRAsyncResponse_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSet-bAsyncResponse</con:operation><con:request name="Doc Submission Def Resp"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-DSDeferredResp}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
@@ -2113,7 +2114,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
 			{
 				def reader = sourceFile.newReader();
 				destinationFile.withWriter 
-				{ writer -&gt;       
+				{ writer ->       
 					writer &lt;&lt; reader;   
 				}   
 				reader.close();
@@ -2143,7 +2144,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
 			{
 				def reader = sourceFile.newReader();
 				destinationFile.withWriter 
-				{ writer -&gt;       
+				{ writer ->       
 					writer &lt;&lt; reader;   
 				}   
 				reader.close();
@@ -2172,7 +2173,7 @@ DeleteFile(backupUddiFile, log);
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityPatientDiscoveryAsyncReqBindingSoap</con:interface>
 			<con:operation>ProcessPatientDiscoveryAsyncReq</con:operation>
 			<con:request name="Patient Discovery Deferred Req" useWsAddressing="true">
@@ -2799,11 +2800,11 @@ DeleteFile(backupUddiFile, log);
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
 			<con:operation>ProcessPatientDiscoveryAsyncResp</con:operation>
 			<con:request name="Patient Discovery Deferred Resp">
-				<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+				<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -3422,7 +3423,7 @@ DeleteFile(backupUddiFile, log);
 	</con:property>
 	<con:property>
 		<con:name>DateOfSignature</con:name>
-		<con:value>20080520&gt;&gt;&gt;&gt;&gt;&gt;&gt; .r3844</con:value>
+		<con:value>20080520>>>>>>> .r3844</con:value>
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
@@ -3449,19 +3450,19 @@ DeleteFile(backupUddiFile, log);
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+			<script>context.withSql('PatientCorrelationDB') { sql -> 
 			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 			}</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Patient Discovery" type="request">
 	<con:settings/>
-	<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
 		<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 		<con:request name="Patient Discovery">
 			<con:settings>
-				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
@@ -3754,7 +3755,7 @@ DeleteFile(backupUddiFile, log);
 <con:testStep name="count correlations (1)" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+		<script>context.withSql('PatientCorrelationDB') { sql -> 
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 		}</script>
 </con:config>
@@ -3817,7 +3818,7 @@ DeleteFile(backupUddiFile, log);
 				properties.load(frPropFile);
 				properties.setProperty(propertyKey, propertyValue);
 				FileOutputStream fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
+				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
 			properties = null;
 			}
 
@@ -3827,7 +3828,7 @@ DeleteFile(backupUddiFile, log);
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+		<script>context.withSql('PatientCorrelationDB') { sql -> 
 		def table = context.findProperty('PatientCorrelationTable')
 
 		sql.execute('delete from ' + table)
@@ -3845,7 +3846,7 @@ DeleteFile(backupUddiFile, log);
 <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -&gt; 
+		<script>context.withSql('AAMappingDB') { sql -> 
 		def table = context.findProperty('AAMappingTable')
 
 		sql.execute('delete from ' + table)
@@ -3860,12 +3861,12 @@ DeleteFile(backupUddiFile, log);
 </con:testStep>
 <con:testStep name="Document Query" type="request">
 	<con:settings/>
-	<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:interface>EntityDocQueryBindingSoap</con:interface>
 		<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 		<con:request name="Document Query">
 			<con:settings>
-				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
@@ -4174,7 +4175,7 @@ DeleteFile(backupUddiFile, log);
 
 	if(gatewayBakFile.exists()) {
 	def reader = gatewayBakFile.newReader()
-	gatewayFile.withWriter { writer -&gt;
+	gatewayFile.withWriter { writer ->
 writer &lt;&lt; reader
 }
 reader.close()
@@ -4208,13 +4209,13 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityDocRetrieveBindingSoap</con:interface>
 			<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 			<con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="">
 				<con:settings>
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
@@ -4469,13 +4470,8 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 			</con:configuration>
 		</con:assertion>
 		<con:assertion name="Doc ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
-					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path>
-				<content>${#Project#DRDocID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
+			<con:configuration><path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
+					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path><content>${#Project#DRDocID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 		</con:assertion>
 		<con:assertion name="Document Data" type="GroovyScriptAssertion">
 			<con:configuration><scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -4512,7 +4508,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
 			{
 				def reader = sourceFile.newReader();
 				destinationFile.withWriter 
-				{ writer -&gt;       
+				{ writer ->       
 					writer &lt;&lt; reader;   
 				}   
 				reader.close();
@@ -4542,7 +4538,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
 			{
 				def reader = sourceFile.newReader();
 				destinationFile.withWriter 
-				{ writer -&gt;       
+				{ writer ->       
 					writer &lt;&lt; reader;   
 				}   
 				reader.close();
@@ -4627,7 +4623,7 @@ DeleteFile(backupUddiFile, log);
 				properties.load(frPropFile);
 				properties.setProperty(propertyKey, propertyValue);
 				FileOutputStream fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
+				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
 			properties = null;
 			}
 
@@ -4639,14 +4635,14 @@ DeleteFile(backupUddiFile, log);
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -&gt; 
+		<script>context.withSql('SubscriptionDB') { sql -> 
 		sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 		}</script>
 </con:config>
 </con:testStep>
 <con:testStep name="Subscribe" type="request">
 	<con:settings/>
-	<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 		<con:operation>Subscribe</con:operation>
 		<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
@@ -4918,7 +4914,7 @@ DeleteFile(backupUddiFile, log);
 </con:testStep>
 <con:testStep name="Count Subscriptions" type="groovy">
 	<con:settings/>
-	<con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+	<con:config><script>context.withSql('SubscriptionDB') { sql -> 
 		assert 2 &lt;= sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 		}</script></con:config>
 </con:testStep>
@@ -4930,7 +4926,7 @@ DeleteFile(backupUddiFile, log);
 
 	if(gatewayBakFile.exists()) {
 	def reader = gatewayBakFile.newReader()
-	gatewayFile.withWriter { writer -&gt;
+	gatewayFile.withWriter { writer ->
 writer &lt;&lt; reader
 }
 reader.close()
@@ -4995,7 +4991,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 				properties.load(frPropFile);
 				properties.setProperty(propertyKey, propertyValue);
 				FileOutputStream fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
+				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
 			properties = null;
 			}
 
@@ -5006,17 +5002,17 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 </con:testStep><con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -&gt; 
+		<script>context.withSql('SubscriptionDB') { sql -> 
 		sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 		}</script>
 </con:config>
 </con:testStep><con:testStep name="Subscribe" type="request">
 	<con:settings/>
-	<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 		<con:operation>Subscribe</con:operation>
 		<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
-			<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+			<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 			<con:encoding>UTF-8</con:encoding>
 			<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
 			<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
@@ -5274,7 +5270,7 @@ log.info "subID= ${subID}";
 testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", subID );
 </script></con:config></con:testStep><con:testStep name="Notify" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityNotificationConsumerBindingSoap</con:interface>
 			<con:operation>Notify</con:operation>
 			<con:request name="Notify">
@@ -5555,7 +5551,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 
 	if(gatewayBakFile.exists()) {
 	def reader = gatewayBakFile.newReader()
-	gatewayFile.withWriter { writer -&gt;
+	gatewayFile.withWriter { writer ->
 writer &lt;&lt; reader
 }
 reader.close()
@@ -5622,7 +5618,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 				properties.setProperty(propertyKey, propertyValue);
 				FileOutputStream fwPropFile = new FileOutputStream(file);
 				fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
+				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
 			properties = null;
 			}
 
@@ -5634,7 +5630,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 <con:testStep name="Clear Subscription Table &amp; Add Sub" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -&gt; 
+		<script>context.withSql('SubscriptionDB') { sql -> 
 		def table = context.findProperty('SubscriptionTable')
 
 		sql.execute('delete from ' + table)
@@ -5649,7 +5645,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 </con:testStep>
 <con:testStep name="Unsubscribe" type="request">
 	<con:settings/>
-	<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:interface>EntitySubscriptionManagerBindingSoap</con:interface>
 		<con:operation>Unsubscribe</con:operation>
 		<con:request incomingWss="" name="Unsubscribe" outgoingWss="" wssPasswordType="">
@@ -5914,7 +5910,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 <con:testStep name="Count Subscriptions (0)" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -&gt; 
+		<script>context.withSql('SubscriptionDB') { sql -> 
 		assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 		}</script>
 </con:config>
@@ -5927,7 +5923,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 
 	if(gatewayBakFile.exists()) {
 	def reader = gatewayBakFile.newReader()
-	gatewayFile.withWriter { writer -&gt;
+	gatewayFile.withWriter { writer ->
 writer &lt;&lt; reader
 }
 reader.close()
@@ -5957,7 +5953,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 	<con:settings/>
 	<con:testStep name="EntityXDR" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
 			<con:operation>ProvideAndRegisterDocumentSet-b</con:operation>
 			<con:request incomingWss="" name="EntityXDR" outgoingWss="" wssPasswordType="">
@@ -6442,7 +6438,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
 			{
 				def reader = sourceFile.newReader();
 				destinationFile.withWriter 
-				{ writer -&gt;       
+				{ writer ->       
 					writer &lt;&lt; reader;   
 				}   
 				reader.close();
@@ -6472,7 +6468,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
 			{
 				def reader = sourceFile.newReader();
 				destinationFile.withWriter 
-				{ writer -&gt;       
+				{ writer ->       
 					writer &lt;&lt; reader;   
 				}   
 				reader.close();
@@ -6519,12 +6515,12 @@ DeleteFile(backupUddiFile, log);
 	<con:settings/>
 	<con:testStep name="AdminDist Request" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
 			<con:operation>SendAlertMessage</con:operation>
 			<con:request name="AdminDist Request">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
@@ -6895,7 +6891,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
 			{
 				def reader = sourceFile.newReader();
 				destinationFile.withWriter 
-				{ writer -&gt;       
+				{ writer ->       
 					writer &lt;&lt; reader;   
 				}   
 				reader.close();
@@ -6925,7 +6921,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
 			{
 				def reader = sourceFile.newReader();
 				destinationFile.withWriter 
-				{ writer -&gt;       
+				{ writer ->       
 					writer &lt;&lt; reader;   
 				}   
 				reader.close();
@@ -7055,7 +7051,7 @@ DeleteFile(backupUddiFile, log);
 	if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileInputStream(propertiesFile))
-	props.each { key, value -&gt;
+	props.each { key, value ->
 project.setPropertyValue(key, value)
 }
 }
@@ -7063,11 +7059,11 @@ project.setPropertyValue(key, value)
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-afterRun: { testRunner, runContext -&gt; },
-afterStep: { testRunner, runContext, result -&gt; },
-beforeStep: { testRunner, runContext -&gt; },
-beforeStep: { testRunner, runContext, testStep -&gt; },
-beforeRun: { testRunner, runContext -&gt; 
+afterRun: { testRunner, runContext -> },
+afterStep: { testRunner, runContext, result -> },
+beforeStep: { testRunner, runContext -> },
+beforeStep: { testRunner, runContext, testStep -> },
+beforeRun: { testRunner, runContext -> 
 use (org.codehaus.groovy.runtime.TimeCategory) {
 def startDate = 5.minutes.ago
 def endDate = 5.minutes.from.now
@@ -7088,14 +7084,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
 return delegate.getProperty(propertyName) ?:
 delegate.testCase.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
 def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
 def host = delegate.findProperty('DBHost')
 def port = delegate.findProperty('DBPort')
