@@ -70,6 +70,7 @@
       <then>
         <runtarget target="deploy.nhinc.configuration.to.glassfish"/>
         <runtarget target="deploy.nhinc.interfaces.to.glassfish"/>
+		<runtarget target="deploy.master.dir"/>
       </then>
     </if>
     <runtarget target="delete.common.jars"/>
@@ -442,6 +443,15 @@
     <copy todir="${deployment.glassfish.domain.config.home}/nhin" verbose="true" overwrite="true">
       <fileset dir="${deployment.interfaces.dir}"/>
     </copy>
+  </target>
+  
+  <target name="deploy.master.dir">
+	<copy file="${deployment.dir}/${deployment.environment.configuration.dir.name}/gateway.properties" todir="${deployment.config.home}/master" verbose="true" overwrite="true"/>
+	<copy file="${deployment.dir}/${deployment.environment.configuration.dir.name}/adapter.properties" todir="${deployment.config.home}/master" verbose="true" overwrite="true"/>
+	<copy file="${deployment.dir}/${deployment.environment.configuration.dir.name}/PCConfiguration.xml" todir="${deployment.config.home}/master" verbose="true" overwrite="true"/>
+	<copy file="${deployment.dir}/${deployment.environment.configuration.dir.name}/internalConnectionInfo.xml" todir="${deployment.config.home}/master" verbose="true" overwrite="true"/>
+	<copy file="${deployment.dir}/${deployment.environment.configuration.dir.name}/hiemTopicConfiguration.xml" todir="${deployment.config.home}/master" verbose="true" overwrite="true"/>
+	<copy file="${deployment.dir}/${deployment.environment.configuration.dir.name}/XDSUniqueIds.properties" todir="${deployment.config.home}/master" verbose="true" overwrite="true"/>
   </target>
 
   <target name="-restore.glassfish.domain.certificates">
