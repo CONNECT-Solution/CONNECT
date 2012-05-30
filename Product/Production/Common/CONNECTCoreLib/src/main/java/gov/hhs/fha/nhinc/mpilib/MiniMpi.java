@@ -62,12 +62,12 @@ public class MiniMpi implements IMPI {
         return instance;
     }
 
-    public void reset() {
+    public synchronized void reset() {
         patients = null;
         saveData();
     }
 
-    private Patients searchByDemographics(Patient searchParams, boolean includeOptOutPatient) {
+    private synchronized Patients searchByDemographics(Patient searchParams, boolean includeOptOutPatient) {
         Patients results = new Patients();
         PatientMatcher matcher = PatientMatcher.getInstance();
         
@@ -82,7 +82,7 @@ public class MiniMpi implements IMPI {
         return results;
     }
 
-    private Patients searchById(Patient searchParams, boolean includeOptOutPatient) {
+    private synchronized Patients searchById(Patient searchParams, boolean includeOptOutPatient) {
         Patients results = new Patients();
         PatientMatcher matcher = PatientMatcher.getInstance();
 
@@ -105,7 +105,7 @@ public class MiniMpi implements IMPI {
               
     }
 
-    public Patient addUpdate(Patient newPatient) {
+    public synchronized Patient addUpdate(Patient newPatient) {
         Patient resultPatient = null;
         validateNewPatient(newPatient);
 
@@ -129,7 +129,7 @@ public class MiniMpi implements IMPI {
         return resultPatient;
     }
 
-    public void delete(Patient patient, String homeCommunityId) {        
+    public synchronized void delete(Patient patient, String homeCommunityId) {        
         Patients existingPatients = search(patient, true, true);
         
         Identifier id;
@@ -153,15 +153,15 @@ public class MiniMpi implements IMPI {
         }      
     }
     
-    public Patients search(Patient searchParams) {
+    public synchronized Patients search(Patient searchParams) {
         return search(searchParams, true, false);
     }
 
-    public Patients search(Patient searchParams, boolean searchByDemographics) {
+    public synchronized Patients search(Patient searchParams, boolean searchByDemographics) {
         return search(searchParams, searchByDemographics, false);
     }
 
-    public Patients search(Patient searchParams, boolean searchByDemographics, boolean includeOptOutPatient) {
+    public synchronized Patients search(Patient searchParams, boolean searchByDemographics, boolean includeOptOutPatient) {
         Patients results = new Patients();
 
         if (searchByDemographics) {
@@ -184,29 +184,29 @@ public class MiniMpi implements IMPI {
         return results;
     }
 
-    public Patients getPatients() {
+    public synchronized Patients getPatients() {
         if (patients == null) {
             patients = new Patients();
         }
         return patients;
     }
 
-    private void setPatients(Patients value) {
+    private synchronized void setPatients(Patients value) {
         patients = value;
     }
 
-    private void loadData() {
+    private synchronized void loadData() {
         MpiDataSaver mpiDataSaver = new MpiDataSaver();
         this.setPatients(mpiDataSaver.loadMpi());
     }
 
-    private void loadData(String fileName) {
+    private synchronized void loadData(String fileName) {
         customFileName = fileName;
         MpiDataSaver mpiDataSaver = new MpiDataSaver();
         this.setPatients(mpiDataSaver.loadMpi(fileName));
     }
 
-    private void saveData() {
+    private synchronized void saveData() {
         MpiDataSaver mpiDataSaver = new MpiDataSaver();
         if (NullChecker.isNullish(customFileName)) {
             mpiDataSaver.saveMpi(this.getPatients());
