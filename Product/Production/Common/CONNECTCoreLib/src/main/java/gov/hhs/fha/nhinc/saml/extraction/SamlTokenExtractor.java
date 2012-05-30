@@ -1,45 +1,30 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.saml.extraction;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.util.List;
 import java.util.Set;
@@ -70,8 +55,23 @@ import com.sun.xml.wss.saml.internal.saml20.jaxb20.ConditionsType;
 import com.sun.xml.wss.saml.internal.saml20.jaxb20.EvidenceType;
 import com.sun.xml.wss.saml.internal.saml20.jaxb20.NameIDType;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
 /**
- * 
+ *
  * @author Jon Hoppesch
  */
 public class SamlTokenExtractor {
@@ -165,7 +165,7 @@ public class SamlTokenExtractor {
     /**
      * Initializes the assertion object to contain empty strings for all values. These are overwritten in the extraction
      * process with real values if they are available
-     * 
+     *
      * @param assertOut The Assertion element being written to
      */
     private static AssertionType initializeAssertion() {
@@ -258,7 +258,7 @@ public class SamlTokenExtractor {
     /**
      * The Subject element contains the user identification information. It is expected to follow an X509 format, but in
      * the case that this is not proven out it will save the entire contents as being the userid.
-     * 
+     *
      * @param assertType The saml assertion type being read from
      * @param assertOut The Assertion element being written to
      */
@@ -312,7 +312,7 @@ public class SamlTokenExtractor {
      * classes to determine if the X509 is properly formed and to extract the value of the UID. The current
      * specification for the string representation of a distinguished name is defined in <a
      * href="http://www.ietf.org/rfc/rfc2253.txt">RFC 2253</a>.
-     * 
+     *
      * @param in509 The X509 formatted string
      * @return The extracted userid value, null if not defined.
      */
@@ -346,7 +346,7 @@ public class SamlTokenExtractor {
      * Assertion element as well as the AttributeStatements found in the Evidence element. The permitted names of the
      * Attributes in the Assertion element are: UserRole, PurposeOfUse, UserName, UserOrganization. The permitted names
      * of the Attributes in the Evidence element are: AccessConsentPolicy and InstanceAccessConsentPolicy
-     * 
+     *
      * @param statement The attribute statement to be extracted
      * @param assertOut The Assertion element being written to
      */
@@ -418,7 +418,7 @@ public class SamlTokenExtractor {
      * The Authorization Decision Statement is used to convey a form authorizing access to medical records. It may embed
      * the binary content of the authorization form as well describing the conditions of its validity. This method saves
      * off all values associated with this Evidence.
-     * 
+     *
      * @param authnStatement The authn statement element
      * @param assertOut The Assertion element being written to
      */
@@ -500,7 +500,7 @@ public class SamlTokenExtractor {
      * The Authorization Decision Statement is used to convey a form authorizing access to medical records. It may embed
      * the binary content of the authorization form as well describing the conditions of its validity. This method saves
      * off all values associated with this Evidence.
-     * 
+     *
      * @param authzState The authorization decision element
      * @param assertOut The Assertion element being written to
      */
@@ -545,7 +545,7 @@ public class SamlTokenExtractor {
     /**
      * This extracts the evidence information from the authorization decision statement and places the data into the
      * assertion class.
-     * 
+     *
      * @param evidence The evidence that was part of the authroization decision statement.
      * @param assertOut The class where the data will be placed.
      */
@@ -633,7 +633,7 @@ public class SamlTokenExtractor {
     /**
      * This method extracts the dates of validity for the Evidence's authorization form. These dates are contained in
      * the Conditions element and are written out to the storage file by this method.
-     * 
+     *
      * @param assertOut The Assertion element being written to
      * @param conditions The Evidence's Conditions element
      */

@@ -1,68 +1,61 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAdapterSender;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
-import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-
-import java.sql.Timestamp;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
- * 
+ *
  * @author westberg
  */
 public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrchestration {
 
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryOrchImpl.class);
 
-    private ServicePropertyAccessor servicePropertyAccessor;
+    private final ServicePropertyAccessor servicePropertyAccessor;
 
-    private PatientDiscoveryAuditor auditLogger;
+    private final PatientDiscoveryAuditor auditLogger;
 
-    private PatientDiscoveryProcessor patientDiscoveryProcessor;
+    private final PatientDiscoveryProcessor patientDiscoveryProcessor;
 
-    private GenericFactory<AdapterPatientDiscoveryProxy> proxyFactory;
+    private final GenericFactory<AdapterPatientDiscoveryProxy> proxyFactory;
 
     NhinPatientDiscoveryOrchImpl(ServicePropertyAccessor servicePropertyAccessor, PatientDiscoveryAuditor auditLogger,
             PatientDiscoveryProcessor patientDiscoveryProcessor,
@@ -75,7 +68,7 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration#respondingGatewayPRPAIN201305UV02
      * (org.hl7.v3.PRPAIN201305UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
@@ -86,7 +79,6 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
         log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
 
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
-        AcknowledgementType ack = new AcknowledgementType();
 
         // Check if the Patient Discovery Service is enabled
         if (isServiceEnabled()) {
@@ -109,28 +101,26 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
     protected PRPAIN201306UV02 auditAndProcess(PRPAIN201305UV02 body, AssertionType assertion,
             PatientDiscoveryAuditor auditLogger) throws PatientDiscoveryException {
         PRPAIN201306UV02 response;
-        AcknowledgementType ack;
 
         // Audit the incoming Nhin 201305 Message
-        ack = auditLogger.auditNhin201305(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        auditLogger.auditNhin201305(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         // Log the start of the adapter performance record
         String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-        Timestamp starttimeAdapter = new Timestamp(System.currentTimeMillis());
-        Long logAdapterId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttimeAdapter,
+        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
                 NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
                 NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
 
         response = process(body, assertion);
 
         // Log the end of the adapter performance record
-        Timestamp stoptimeAdapter = new Timestamp(System.currentTimeMillis());
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logAdapterId, starttimeAdapter,
-                stoptimeAdapter);
+        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
+                NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
 
         // Audit the outgoing Nhin 201306 Message - response that came
         // back from the adapter.
-        ack = auditLogger.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        auditLogger.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         return response;
     }
 
@@ -157,19 +147,19 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
         PRPAIN201306UV02 adapterResp = proxy.respondingGatewayPRPAIN201305UV02(request, assertion);
         return adapterResp;
     }
-    
-    protected PRPAIN201306UV02 process201305(PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
-    	PRPAIN201306UV02 adapterResp = null;
-    	AcknowledgementType ack = null;
-    	ack = auditLogger.auditAdapter201305(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    	adapterResp = patientDiscoveryProcessor.process201305(body, assertion);
-    	ack = auditLogger.auditAdapter201306(adapterResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-    	return adapterResp;
+
+    protected PRPAIN201306UV02 process201305(PRPAIN201305UV02 body, AssertionType assertion)
+            throws PatientDiscoveryException {
+        PRPAIN201306UV02 adapterResp = null;
+        auditLogger.auditAdapter201305(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        adapterResp = patientDiscoveryProcessor.process201305(body, assertion);
+        auditLogger.auditAdapter201306(adapterResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        return adapterResp;
     }
 
     /**
      * Checks the gateway.properties file to see if the Patient Discovery Service is enabled.
-     * 
+     *
      * @return Returns true if the servicePatientDiscovery is enabled in the properties file.
      */
     protected boolean isServiceEnabled() {
@@ -178,7 +168,7 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
 
     /**
      * Checks to see if the query should be handled internally or passed through to an adapter.
-     * 
+     *
      * @return Returns true if the patientDiscoveryPassthrough property of the gateway.properties file is true.
      */
     protected boolean isInPassThroughMode() {

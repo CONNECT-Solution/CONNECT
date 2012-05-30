@@ -104,7 +104,7 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
             log.debug("invoking unsubscribe invokePort");
             if (checkPolicy(unsubscribe, assertion)) {
                 try {
-                    response = (UnsubscribeResponse) oProxyHelper.invokePort(port, SubscriptionManager.class,
+                    response = (UnsubscribeResponse) oProxyHelper.invokePort(port, port.getClass(),
                             UNSUBSCRIBE_SERVICE, unsubscribe);
                 } catch (Exception e) {
                     log.error("Exception: " + e.getMessage());

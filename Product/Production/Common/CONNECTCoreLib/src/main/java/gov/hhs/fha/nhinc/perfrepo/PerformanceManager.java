@@ -48,8 +48,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class PerformanceManager {
 
-    private static final int ERROR = -1;
-    private static final int NORMAL = 0;
     private static Log log = LogFactory.getLog(PerformanceManager.class);
     private static PerformanceManager perfManager = new PerformanceManager();
     private static final String PERF_LOG_ENABLED = "performanceLogEnabled";
@@ -71,28 +69,27 @@ public class PerformanceManager {
         return perfManager;
     }
 
-    /*
-     * Methods for managing the add and update of perfrepository records
-     */
-
     /**
      * Log new performance repository log record with initial start time
+     *
      * @param time
      * @param servicetype
      * @param messagetype
      * @param direction
      * @param communityid
      * @return Long - Generated id from SQL INSERT
+     * @deprecated
      */
+    @Deprecated
     public Long logPerformanceStart(final Timestamp time, final String servicetype, final String messagetype,
             final String direction, final String communityid) {
         log.debug("PerformanceManager.logPerformanceStart() - Begin");
 
         Long newId = null;
 
-
         if (PerformanceManager.isPerfMonitorEnabled()) {
-            newId = createPerformanceRecord(time, servicetype, messagetype, direction, communityid, null, null, null, null, null);
+            newId = createPerformanceRecord(time, servicetype, messagetype, direction, communityid, null, null, null,
+                    null, null);
         } else {
             log.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
         }
@@ -101,6 +98,7 @@ public class PerformanceManager {
 
         return newId;
     }
+
     /**
      * Log new performance repository log record with initial start time
      *
@@ -111,14 +109,43 @@ public class PerformanceManager {
      * @param communityid
      * @return Long - Generated id from SQL INSERT
      */
-    public Long logPerformanceStop(final Timestamp time, final String servicetype, final String messagetype,
+    public Long logPerformanceStart(final String servicetype, final String messagetype,
             final String direction, final String communityid) {
         log.debug("PerformanceManager.logPerformanceStart() - Begin");
 
         Long newId = null;
 
         if (PerformanceManager.isPerfMonitorEnabled()) {
-            newId = createPerformanceRecord(time, servicetype, messagetype, direction, communityid, null, null, null, null, null);
+            newId = createPerformanceRecord(createTimestamp(), servicetype, messagetype, direction, communityid, null, null, null,
+                    null, null);
+        } else {
+            log.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
+        }
+
+        log.debug("PerformanceManager.logPerformanceStart() - End");
+
+        return newId;
+    }
+
+    /**
+     * Log new performance repository log record with initial start time
+     *
+     * @param time
+     * @param servicetype
+     * @param messagetype
+     * @param direction
+     * @param communityid
+     * @return Long - Generated id from SQL INSERT
+     */
+    public Long logPerformanceStop(final String servicetype, final String messagetype,
+            final String direction, final String communityid) {
+        log.debug("PerformanceManager.logPerformanceStart() - Begin");
+
+        Long newId = null;
+
+        if (PerformanceManager.isPerfMonitorEnabled()) {
+            newId = createPerformanceRecord(createTimestamp(), servicetype, messagetype, direction, communityid, null, null, null,
+                    null, null);
         } else {
             log.info("PerformanceManager.logPerformanceStop() - Performance Monitor is Disabled");
         }
@@ -128,9 +155,9 @@ public class PerformanceManager {
         return newId;
     }
 
-    private Long createPerformanceRecord(final Timestamp time, final String servicetype, final String messagetype,
-            final String direction, final String communityid,final String correlationId,final String errorCode,
-            final String messageVersion,final String payLoadSize, final String payLoadType) {
+    private static Long createPerformanceRecord(final Timestamp time, final String servicetype, final String messagetype,
+            final String direction, final String communityid, final String correlationId, final String errorCode,
+            final String messageVersion, final String payLoadSize, final String payLoadType) {
         Long newId = null;
         Perfrepository perfRecord = new Perfrepository();
         perfRecord.setTime(time);
@@ -168,7 +195,6 @@ public class PerformanceManager {
         log.debug("PerformanceManager.logPerformanceStop() - Begin");
 
         Long duration = null;
-        Integer status = NORMAL;
 
         // Check for valid performance repository id
         if (id != null && id > 0) {
@@ -180,17 +206,15 @@ public class PerformanceManager {
                     duration = (stoptime.getTime() - starttime.getTime());
                     log.info("PerformanceManager.logPerformanceStop() - Performance Duration = " + duration);
                 } else {
-                    status = ERROR;
                     duration = null;
                     log.warn("PerformanceManager.logPerformanceStop() - ERROR Calculating Performance Duration - starttime and/or stoptime null");
                 }
 
-//                perfRecord.setStoptime(stoptime);
-//                perfRecord.setDuration(duration);
-//                perfRecord.setStatus(status);
+                // perfRecord.setStoptime(stoptime);
+                // perfRecord.setDuration(duration);
+                // perfRecord.setStatus(status);
 
                 if (!PerfrepositoryDao.getPerfrepositoryDaoInstance().updatePerfrepository(perfRecord)) {
-                    status = ERROR;
                     duration = null;
                     log.warn("PerformanceManager.logPerformanceStop() - ERROR Updating Performance Log Record");
                 }
@@ -268,6 +292,15 @@ public class PerformanceManager {
             log.error(ex.getMessage());
         }
         return match;
+    }
+
+    /**
+     * Returns a timestamp, down to the millisecond.
+     *
+     * @return
+     */
+    public Timestamp createTimestamp() {
+        return new Timestamp(System.currentTimeMillis());
     }
 
 }

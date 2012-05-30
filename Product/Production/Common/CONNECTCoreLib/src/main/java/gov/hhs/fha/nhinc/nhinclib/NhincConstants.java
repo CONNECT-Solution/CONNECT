@@ -29,9 +29,9 @@ package gov.hhs.fha.nhinc.nhinclib;
 import java.math.BigInteger;
 
 /**
- * 
- * 
- * 
+ *
+ *
+ *
  * @author Jon Hoppesch
  */
 public class NhincConstants {
@@ -73,32 +73,32 @@ public class NhincConstants {
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
     };
-    
+
     public static enum NHIN_SERVICE_NAMES {
     	PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME),
     	PATIENT_DISCOVERY_DEFERRED_REQUEST(PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
     	PATIENT_DISCOVERY_DEFERRED_RESPONSE(PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
-    	
+
     	DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
-    	
+
     	DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
-    	
+
     	DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME),
     	DOCUMENT_SUBMISSION_DEFERRED_REQUEST(NHINC_XDR_REQUEST_SERVICE_NAME),
     	DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(NHINC_XDR_RESPONSE_SERVICE_NAME),
-    	
+
     	ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
-    	
+
     	HIEM_SUBSCRIBE(HIEM_SUBSCRIBE_SERVICE_NAME),
     	HIEM_NOTIFY(HIEM_NOTIFY_SERVICE_NAME),
     	HIEM_UNSUBSCRIBE(HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME);
-    	
+
         private String UDDIServiceName = null;
 
         NHIN_SERVICE_NAMES(String value) {
             this.UDDIServiceName = value;
         }
-        
+
     	public String getUDDIServiceName()
     	{
     		return this.UDDIServiceName;
@@ -230,6 +230,7 @@ public class NhincConstants {
     public static final String AUDIT_LOG_INBOUND_DIRECTION = "Inbound";
     public static final String AUDIT_LOG_OUTBOUND_DIRECTION = "Outbound";
     public static final String AUDIT_LOG_ENTITY_INTERFACE = "Entity";
+    public static final String AUDIT_LOG_PROXY_INTERFACE = "Proxy";
     public static final String AUDIT_LOG_NHIN_INTERFACE = "Nhin";
     public static final String AUDIT_LOG_ADAPTER_INTERFACE = "Adapter";
     public static final String AUDIT_LOG_DEFERRED_TYPE = "Deferred";
@@ -295,7 +296,7 @@ public class NhincConstants {
     public static final String HIEM_SUBSCRIBE_SOAP_HDR_ATTR_TAG = "subscribeSoapMessage";
     public static final String HIEM_UNSUBSCRIBE_SOAP_HDR_ATTR_TAG = "unsubscribeSoapMessage";
     public static final String HIEM_NOTIFY_SOAP_HDR_ATTR_TAG = "notifySoapMessage";
-    public static final String WS_ADDRESSING_URL = "http://www.w3.org/2005/08/addressing"; 
+    public static final String WS_ADDRESSING_URL = "http://www.w3.org/2005/08/addressing";
     public static final String WS_ADDRESSING_URL_ANONYMOUS = "http://www.w3.org/2005/08/addressing/anonymous";
     public static final String WS_SOAP_HEADER_ACTION = "Action";
     public static final String WS_RETRIEVE_DOCUMENT_ACTION = "urn:ihe:iti:2007:RetrieveDocumentSet";
@@ -383,6 +384,7 @@ public class NhincConstants {
     public static final String NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME = "servicePatientDiscoveryAsyncReq";
     public static final String NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME = "servicePatientDiscoveryAsyncResp";
     public static final String PATIENT_DISCOVERY_SERVICE_NAME = "PatientDiscovery";
+    public static final String PATIENT_DISCOVERY_DEFERRED_SERVICE_NAME = "DeferredPatientDiscovery";
     public static final String PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME = "PatientDiscoveryDeferredReq";
     public static final String PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME = "PatientDiscoveryDeferredResp";
     public static final String PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY = "patientDiscoveryPassthrough";
@@ -513,7 +515,7 @@ public class NhincConstants {
     public static final String ADAPTER_COMPONENT_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adaptercomponentdocretrievedeferredresponse";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adapterdocretrievedeferredresponse";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SECURED_SERVICE_NAME = "adapterdocretrievedeferredresponsesecured";
-    
+
     public static final String XDS_REGISTRY_ERROR_SEVERITY_WARNING = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning";
     public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
 

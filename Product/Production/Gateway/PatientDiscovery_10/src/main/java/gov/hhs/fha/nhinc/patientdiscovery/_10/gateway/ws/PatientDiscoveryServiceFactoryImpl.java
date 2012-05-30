@@ -40,48 +40,39 @@ import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchFactor
 
 public class PatientDiscoveryServiceFactoryImpl implements PatientDiscoveryServiceFactory {
 
-    @Override
     public NhinPatientDiscoveryImpl getNhinPatientDiscoveryService() {
         return new NhinPatientDiscoveryImpl(new PatientDiscoveryAuditLogger(),
                 InboundPatientDiscoveryOrchFactory.getInstance());
     }
 
-    @Override
     public NhinPatientDiscoveryAsyncReqImpl getNhinPatientDiscoveryAsyncReqImpl() {
         return new NhinPatientDiscoveryAsyncReqImpl();
     }
 
-    @Override
     public NhinPatientDiscoveryAsyncRespImpl getNhinPatientDiscoveryAsyncRespImpl() {
         return new NhinPatientDiscoveryAsyncRespImpl();
     }
 
-    @Override
     public EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
         return new EntityPatientDiscoveryImpl();
     }
 
-    @Override
     public EntityPatientDiscoveryDeferredRequestImpl getEntityPatientDiscoveryDeferredRequestImpl() {
         return new EntityPatientDiscoveryDeferredRequestImpl();
     }
 
-    @Override
     public EntityPatientDiscoveryDeferredResponseImpl getEntityPatientDiscoveryDeferredResponseImpl() {
         return new EntityPatientDiscoveryDeferredResponseImpl();
     }
 
-    @Override
     public NhincProxyPatientDiscoveryImpl getNhincProxyPatientDiscoveryImpl() {
         return new NhincProxyPatientDiscoveryImpl();
     }
 
-    @Override
     public NhincProxyPatientDiscoveryDeferredRequestImpl getNhincProxyPatientDiscoveryDeferredRequestImpl() {
         return new NhincProxyPatientDiscoveryDeferredRequestImpl();
     }
 
-    @Override
     public NhincProxyPatientDiscoveryAsyncRespImpl getNhincProxyPatientDiscoveryAsyncRespImpl() {
         return new NhincProxyPatientDiscoveryAsyncRespImpl();
     }
