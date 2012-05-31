@@ -4,7 +4,7 @@
  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig">
-    <import location="NhinXDR.xml" namespace="urn:ihe:iti:xdr:2007"/>
+    <!-- import location="NhinXDR.xml" namespace="urn:ihe:iti:xdr:2007"/ -->
     <import location="NhinXDRDeferredRequest.xml" namespace="urn:ihe:iti:xdr:2007"/>
     <import location="NhinXDRDeferredResponse.xml" namespace="urn:ihe:iti:xdr:2007"/>
     <import location="NhinXDRDeferredRequest20.xml" namespace="urn:nhin:Deferred"/>

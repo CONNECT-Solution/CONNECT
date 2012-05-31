@@ -32,6 +32,8 @@
     <dependency org="openSAML" name="opensaml-2.5.3" rev="2.5.3" conf="compile->default" transitive="false" />
     <dependency org="openSAML" name="xmlsec-1.4.5" rev="1.4.5" conf="compile->default" transitive="false" />
     <dependency org="openSAML" name="xmltooling-1.3.4" rev="1.3.4" conf="compile->default" transitive="false" />
+    <dependency org="CXF" name="wss4j-1.6.5" rev="1.6.5" conf="compile->default" transitive="false" />
+    <dependency org="CXF" name="cxf-2.6.0" rev="2.6.0" conf="compile->default" transitive="false" />
 
  <!-- runtime jars -->
     <dependency org="commons-collections" name="commons-collections" rev="2.1.1" conf="runtime->default" transitive="false" />

@@ -29,17 +29,20 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.proxy;
 import java.util.HashMap;
 import java.util.Map;
 
-import gov.hhs.fha.nhinc.callback.openSAML.OpenSAMLCallbackHandler;
+import gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler;
+import gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler;
+import gov.hhs.fha.nhinc.callback.cxf.CryptoManager;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ws.security.handler.WSHandlerConstants;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
@@ -107,20 +110,36 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
         if (service != null) {
             log.debug("Obtained service - creating port.");
-            
-            // CXF stuff
-            /* this didn't work
-            Map<String, Object> m = new HashMap<String, Object>();
-            m.put("samlPropFile", "saml.properties");
-            org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor interceptor = new org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor(m );
-            org.apache.cxf.endpoint.Client cxfClient = org.apache.cxf.frontend.ClientProxy.getClient(service);
-            cxfClient.getInInterceptors().add(interceptor);
-            */
 
+            // CXF stuff
+            /*
+             * this didn't work Map<String, Object> m = new HashMap<String, Object>(); m.put("samlPropFile",
+             * "saml.properties"); org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor interceptor = new
+             * org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor(m ); org.apache.cxf.endpoint.Client cxfClient =
+             * org.apache.cxf.frontend.ClientProxy.getClient(service); cxfClient.getInInterceptors().add(interceptor);
+            */ 
+            
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), DocumentRepositoryXDRPortType.class);
-            ((BindingProvider)port).getRequestContext().put(
-                    "ws-security.saml-callback-handler", new OpenSAMLCallbackHandler()
-                );
+            
+            org.apache.cxf.endpoint.Client cxfClient = org.apache.cxf.frontend.ClientProxy.getClient(port);
+            log.debug("there are " + cxfClient.getInInterceptors().size() + " interceptors.");
+                       
+            /*ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "DocumentSubmission_20-client-beans.xml" });
+            port = (DocumentRepositoryXDRPortType)context.getBean("documentSubmissionPortType");*/
+            Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
+            requestContext.put("ws-security.saml-callback-handler", new CXFSAMLCallbackHandler()); 
+            requestContext.put("ws-security.signature.crypto", new CryptoManager());
+            requestContext.put("ws-security.callback-handler", new CXFPasswordCallbackHandler());
+            /*requestContext.put("ws-security.signature.properties", "keystore.properties");
+            requestContext.put(WSHandlerConstants.ACTION, WSHandlerConstants.SAML_TOKEN_SIGNED + " " + WSHandlerConstants.TIMESTAMP);
+            requestContext.put(WSHandlerConstants.USER, "gateway");
+            requestContext.put(WSHandlerConstants.TTL_TIMESTAMP, "3600");
+            requestContext.put(WSHandlerConstants.PASSWORD_TYPE, "PasswordDigest");
+            requestContext.put(WSHandlerConstants.PW_CALLBACK_REF, new CXFPasswordCallbackHandler());
+            requestContext.put(WSHandlerConstants.SIG_PROP_FILE, "keystore.properties");
+            requestContext.put(WSHandlerConstants.SIG_ALGO, "http://www.w3.org/2000/09/xmldsig#rsa-sha1");
+            requestContext.put(WSHandlerConstants.SIG_DIGEST_ALGO, "http://www.w3.org/2000/09/xmldsig#sha1");
+            requestContext.put(WSHandlerConstants.SIGNATURE_PARTS, "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;");*/
             initializeSecurePort(port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain service - no port created.");
