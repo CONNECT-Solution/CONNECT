@@ -119,17 +119,17 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
              * org.apache.cxf.frontend.ClientProxy.getClient(service); cxfClient.getInInterceptors().add(interceptor);
             */ 
             
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), DocumentRepositoryXDRPortType.class);
+            //port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), DocumentRepositoryXDRPortType.class);
             
-            org.apache.cxf.endpoint.Client cxfClient = org.apache.cxf.frontend.ClientProxy.getClient(port);
-            log.debug("there are " + cxfClient.getInInterceptors().size() + " interceptors.");
+            //org.apache.cxf.endpoint.Client cxfClient = org.apache.cxf.frontend.ClientProxy.getClient(port);
+            //log.debug("there are " + cxfClient.getInInterceptors().size() + " interceptors.");
                        
-            /*ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "DocumentSubmission_20-client-beans.xml" });
-            port = (DocumentRepositoryXDRPortType)context.getBean("documentSubmissionPortType");*/
+            ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "DocumentSubmission_20-client-beans.xml" });
+            port = (DocumentRepositoryXDRPortType)context.getBean("documentSubmissionPortType");
             Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
-            requestContext.put("ws-security.saml-callback-handler", new CXFSAMLCallbackHandler()); 
-            requestContext.put("ws-security.signature.crypto", new CryptoManager());
-            requestContext.put("ws-security.callback-handler", new CXFPasswordCallbackHandler());
+            //requestContext.put("ws-security.saml-callback-handler", new CXFSAMLCallbackHandler()); 
+            //requestContext.put("ws-security.signature.crypto", CryptoManager.class);
+            //requestContext.put("ws-security.callback-handler", CXFPasswordCallbackHandler.class);
             /*requestContext.put("ws-security.signature.properties", "keystore.properties");
             requestContext.put(WSHandlerConstants.ACTION, WSHandlerConstants.SAML_TOKEN_SIGNED + " " + WSHandlerConstants.TIMESTAMP);
             requestContext.put(WSHandlerConstants.USER, "gateway");
