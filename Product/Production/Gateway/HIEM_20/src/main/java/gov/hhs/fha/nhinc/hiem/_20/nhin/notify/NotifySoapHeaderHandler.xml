@@ -5,6 +5,10 @@
             <handler>
                 <handler-class>gov.hhs.fha.nhinc.hiem._20.nhin.notify.NotifyHeaderHandler</handler-class>
             </handler>
+            <handler>
+                <handler-name>PerformanceLogHandler</handler-name>
+                <handler-class>gov.hhs.fha.nhinc.perfrepo.PerformanceLogHandler</handler-class>
+            </handler>
         </handler-chain>
     </handler-chains>
 </handler-config>

@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter;
 
+import javax.jws.HandlerChain;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -39,15 +41,14 @@ import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryPr
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  *
  * @author jhoppesc
  */
+@HandlerChain(file = "../../../../../handler-chain.xml")
 public class AdapterDocQueryOrchImpl {
     private Log log = null;
     private static final String ERROR_CODE_CONTEXT = AdapterDocQueryOrchImpl.class.getName();
@@ -72,12 +73,6 @@ public class AdapterDocQueryOrchImpl {
         AdhocQueryResponse response = null;
         try {
             if (request != null) {
-                // Log the start of the adapter performance record
-                String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-                PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                        NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
-                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
-
                 AdapterComponentDocRegistryProxyObjectFactory objFactory = new AdapterComponentDocRegistryProxyObjectFactory();
                 AdapterComponentDocRegistryProxy registryProxy = objFactory.getAdapterComponentDocRegistryProxy();
                 AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
@@ -92,11 +87,6 @@ public class AdapterDocQueryOrchImpl {
                 adhocQueryRequest.setStartIndex(request.getStartIndex());
                 response = registryProxy.registryStoredQuery(request, assertion);
                 response = callRedactionEngine(request, response, assertion);
-
-                // Log the end of the adapter performance record
-                PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                        NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
-                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
             } else {
                 RegistryErrorList errorList = new RegistryErrorList();
                 response = new AdhocQueryResponse();

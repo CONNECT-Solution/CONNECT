@@ -40,10 +40,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQ
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
 import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 class EntityDocQueryImpl {
 
@@ -73,19 +70,8 @@ class EntityDocQueryImpl {
                 AdhocQueryRequest adhocQueryRequest = request.getAdhocQueryRequest();
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
 
-                // Log the start of the performance record
-                String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                        NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
-
                 response = (AdhocQueryResponse) oHelper.invokeSecureWebService(implOrch, implOrch.getClass(),
                         "respondingGatewayCrossGatewayQuery", adhocQueryRequest, targets, context);
-
-                // Log the end of the performance record
-                PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                        NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
             } else {
                 log.error("Failed to call the web orchestration (" + implOrch.getClass()
                         + ".respondingGatewayCrossGatewayQuery).  The input parameter is null.");
@@ -93,8 +79,8 @@ class EntityDocQueryImpl {
         } catch (Exception e) {
             log.error(
                     "Failed to call the web orchestration (" + implOrch.getClass()
-                            + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  "
-                            + "Exception: " + e.getMessage(), e);
+                    + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  "
+                    + "Exception: " + e.getMessage(), e);
         }
         return response;
     }
@@ -120,8 +106,8 @@ class EntityDocQueryImpl {
         } catch (Exception e) {
             log.error(
                     "Failed to call the web orchestration (" + implOrch.getClass()
-                            + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  "
-                            + "Exception: " + e.getMessage(), e);
+                    + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  "
+                    + "Exception: " + e.getMessage(), e);
         }
         return response;
     }

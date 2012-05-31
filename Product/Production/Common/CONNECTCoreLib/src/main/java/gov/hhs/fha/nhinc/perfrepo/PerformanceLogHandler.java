@@ -93,7 +93,7 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  * @author zmelnick
- *
+ * 
  */
 public class PerformanceLogHandler implements SOAPHandler<SOAPMessageContext> {
 
@@ -109,25 +109,33 @@ public class PerformanceLogHandler implements SOAPHandler<SOAPMessageContext> {
     @Override
     public boolean handleMessage(SOAPMessageContext message) {
         if (isOutboundMessage(message) == true) {
-            return handleRequest(message);
-        } else {
             return handleResponse(message);
+        } else {
+            return handleRequest(message);
         }
     }
 
     private boolean handleResponse(SOAPMessageContext message) {
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(message.get(MessageContext.WSDL_SERVICE).toString(),
-                getMessageType(message), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                HomeCommunityMap.getLocalHomeCommunityId());
+        String messageType = this.getMessageType(message);
+        if (messageType != null) {
+            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
+                    message.get(MessageContext.WSDL_SERVICE).toString(), getMessageType(message),
+                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
+            return true;
+        }
+        return false;
 
-        return true;
     }
 
     private boolean handleRequest(SOAPMessageContext message) {
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(message.get(MessageContext.WSDL_SERVICE).toString(),
-                getMessageType(message), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                HomeCommunityMap.getLocalHomeCommunityId());
-        return true;
+        String messageType = this.getMessageType(message);
+        if (messageType != null) {
+            PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
+                    message.get(MessageContext.WSDL_SERVICE).toString(), getMessageType(message),
+                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
+            return true;
+        }
+        return false;
     }
 
     @Override
