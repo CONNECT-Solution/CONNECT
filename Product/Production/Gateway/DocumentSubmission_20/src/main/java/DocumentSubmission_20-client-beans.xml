@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:http="http://cxf.apache.org/transports/http/configuration" xmlns:jaxws="http://cxf.apache.org/jaxws"
     xmlns:cxf="http://cxf.apache.org/core" xmlns:p="http://cxf.apache.org/policy" xmlns:sec="http://cxf.apache.org/configuration/security/"
+    xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
     xsi:schemaLocation="
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
@@ -27,4 +28,8 @@
     </bean>
     
     <bean id="documentSubmissionPortType" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean" factory-bean="proxyFactory" factory-method="create" />
+    
+    <http-conf:conduit name="{http://connectopensource.org/}documentSubmissionPortType.http-conduit">
+       <http-conf:tlsClientParameters disableCNCheck="true" />
+     </http-conf:conduit>    
 </beans>

@@ -40,6 +40,9 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.ws.security.handler.WSHandlerConstants;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -126,6 +129,14 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
                        
             ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "DocumentSubmission_20-client-beans.xml" });
             port = (DocumentRepositoryXDRPortType)context.getBean("documentSubmissionPortType");
+            HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(port).getConduit();
+            
+            TLSClientParameters tlsCP = new TLSClientParameters();
+            //The following is not recommended and would not be done in a prodcution environment,
+            //this is just for illustrative purpose
+            tlsCP.setDisableCNCheck(true);
+     
+            httpConduit.setTlsClientParameters(tlsCP);
             Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
             //requestContext.put("ws-security.saml-callback-handler", new CXFSAMLCallbackHandler()); 
             //requestContext.put("ws-security.signature.crypto", CryptoManager.class);
