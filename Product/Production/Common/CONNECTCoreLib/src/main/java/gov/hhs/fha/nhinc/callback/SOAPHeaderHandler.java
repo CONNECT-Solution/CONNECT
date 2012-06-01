@@ -69,7 +69,10 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext>{
                             SOAPFactory soapFactory = SOAPFactory.newInstance();
                             oMessageIdElem = soapFactory.createElement("MessageID", "", WSA_NS);
                             oMessageIdElem.setTextContent(messageId);
-                            oHeader.addChildElement(oMessageIdElem);
+                            messageContext.put("com.sun.xml.ws.addressing.response.messageID", messageId);
+                            if(oHeader != null)
+                                oHeader.addChildElement(oMessageIdElem);
+
                         }
                     }
                    

@@ -36,6 +36,7 @@ public class NhinAuditQueryWebServiceProxy implements NhinAuditQueryProxy {
 
     private static Log log = LogFactory.getLog(NhinAuditQueryWebServiceProxy.class);
     static FindAuditEvents nhinService = new FindAuditEvents();
+    private static final String WS_ADDRESSING_ACTION = "http://services.nhin.com:findAuditEvents";
 
     public FindAuditEventsResponseType auditQuery(FindAuditEventsRequestType request) {
         String url = null;
@@ -61,6 +62,11 @@ public class NhinAuditQueryWebServiceProxy implements NhinAuditQueryProxy {
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
+            WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+            List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,
+                    WS_ADDRESSING_ACTION, assertion);
+            ((WSBindingProvider) port).setOutboundHeaders(headers);
+            
             // Set up the parameters to the Nhin Audit Query call
             String patientId = null;
             if (NullChecker.isNotNullish(request.getFindAuditEvents().getPatientId())) {

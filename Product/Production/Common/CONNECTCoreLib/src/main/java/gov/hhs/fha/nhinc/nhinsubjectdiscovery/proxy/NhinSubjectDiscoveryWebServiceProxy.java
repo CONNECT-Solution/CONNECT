@@ -10,6 +10,8 @@
  */
 package gov.hhs.fha.nhinc.nhinsubjectdiscovery.proxy;
 
+import com.sun.xml.ws.api.message.Header;
+import com.sun.xml.ws.developer.WSBindingProvider;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -17,8 +19,10 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.pixv3._2007.PIXConsumerPortType;
 import ihe.iti.pixv3._2007.PIXConsumerService;
+import java.util.List;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import org.apache.commons.logging.Log;
@@ -38,7 +42,8 @@ public class NhinSubjectDiscoveryWebServiceProxy implements NhinSubjectDiscovery
 
     private static Log log = LogFactory.getLog(NhinSubjectDiscoveryWebServiceProxy.class);
     static PIXConsumerService nhinService = new PIXConsumerService();
-
+    private static final String WS_ADDRESSING_ACTION = "urn:hl7-org:v3:PRPA_IN201309UV";
+    
     public MCCIIN000002UV01 pixConsumerPRPAIN201301UV(PRPAIN201301UV02 request, AssertionType assertion, NhinTargetSystemType target) {
         String url = null;
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
@@ -53,6 +58,11 @@ public class NhinSubjectDiscoveryWebServiceProxy implements NhinSubjectDiscovery
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+            WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+            List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,
+                    WS_ADDRESSING_ACTION, assertion);
+            ((WSBindingProvider) port).setOutboundHeaders(headers);
 
             ack = port.pixConsumerPRPAIN201301UV(request);
 
