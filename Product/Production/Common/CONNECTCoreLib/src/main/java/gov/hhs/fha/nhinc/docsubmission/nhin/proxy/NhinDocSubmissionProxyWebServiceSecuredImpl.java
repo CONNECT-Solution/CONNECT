@@ -138,6 +138,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
      
             httpConduit.setTlsClientParameters(tlsCP);
             Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
+            requestContext.put("assertion", assertion);
             //requestContext.put("ws-security.saml-callback-handler", new CXFSAMLCallbackHandler()); 
             //requestContext.put("ws-security.signature.crypto", CryptoManager.class);
             //requestContext.put("ws-security.callback-handler", CXFPasswordCallbackHandler.class);

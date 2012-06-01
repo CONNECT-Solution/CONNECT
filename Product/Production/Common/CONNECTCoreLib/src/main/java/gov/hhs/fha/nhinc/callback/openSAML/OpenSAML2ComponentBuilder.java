@@ -480,39 +480,43 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
 	public Attribute createUserRoleAttribute(String userCode,
 			String userSystem, String userSystemName, String userDisplay) {
-		Map<QName, String> userRoleAttributes = new HashMap<QName, String>();
-
-		if (userCode != null) {
-			userRoleAttributes.put(new QName(SamlConstants.CE_CODE_ID),
-					userCode);
-		}
-
-		if (userSystem != null) {
-			userRoleAttributes.put(new QName(SamlConstants.CE_CODESYS_ID),
-					userSystem);
-		}
-
-		if (userSystemName != null) {
-			userRoleAttributes.put(new QName(SamlConstants.CE_CODESYSNAME_ID),
-					userSystemName);
-		}
-
-		if (userDisplay != null) {
-			userRoleAttributes.put(new QName(SamlConstants.CE_DISPLAYNAME_ID),
-					userDisplay);
-		}
-
-		userRoleAttributes.put(new QName(
-				"http://www.w3.org/2001/XMLSchema-instance", "type"), "hl7:CE");
-
-		Object attributeValue = OpenSAML2ComponentBuilder.getInstance()
-				.createAttributeValue("urn:hl7-org:v3", "Role", "hl7",
-						userRoleAttributes);
+		Object attributeValue = createHL7Attribute(userCode, userSystem, userSystemName, userDisplay);
 
 		return OpenSAML2ComponentBuilder.getInstance().createAttribute(null,
 				SamlConstants.USER_ROLE_ATTR, null,
 				Arrays.asList(attributeValue));
 	}
+
+    public XSAny createHL7Attribute(String code, String codeSystem, String codeSystemName, String displayName) {
+        Map<QName, String> userRoleAttributes = new HashMap<QName, String>();
+
+		if (code != null) {
+			userRoleAttributes.put(new QName(SamlConstants.CE_CODE_ID),
+					code);
+		}
+
+		if (codeSystem != null) {
+			userRoleAttributes.put(new QName(SamlConstants.CE_CODESYS_ID),
+					codeSystem);
+		}
+
+		if (codeSystemName != null) {
+			userRoleAttributes.put(new QName(SamlConstants.CE_CODESYSNAME_ID),
+					codeSystemName);
+		}
+
+		if (displayName != null) {
+			userRoleAttributes.put(new QName(SamlConstants.CE_DISPLAYNAME_ID),
+					displayName);
+		}
+
+		userRoleAttributes.put(new QName(
+				"http://www.w3.org/2001/XMLSchema-instance", "type"), "hl7:CE");
+
+		XSAny attributeValue = createAttributeValue("urn:hl7-org:v3", "Role", "hl7",
+						userRoleAttributes);
+        return attributeValue;
+    }
 
 	
 
