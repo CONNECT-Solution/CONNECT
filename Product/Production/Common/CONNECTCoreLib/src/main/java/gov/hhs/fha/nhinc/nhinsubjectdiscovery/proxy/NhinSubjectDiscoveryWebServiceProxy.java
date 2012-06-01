@@ -88,6 +88,11 @@ public class NhinSubjectDiscoveryWebServiceProxy implements NhinSubjectDiscovery
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
+            WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+            List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,
+                    WS_ADDRESSING_ACTION, assertion);
+            ((WSBindingProvider) port).setOutboundHeaders(headers);
+
             ack = port.pixConsumerPRPAIN201302UV(request);
 
         } else {
@@ -116,6 +121,11 @@ public class NhinSubjectDiscoveryWebServiceProxy implements NhinSubjectDiscovery
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+            WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+            List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,
+                    WS_ADDRESSING_ACTION, assertion);
+            ((WSBindingProvider) port).setOutboundHeaders(headers);
 
             resp = port.pixConsumerPRPAIN201309UV(request);
 
