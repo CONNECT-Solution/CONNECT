@@ -25,6 +25,8 @@ import com.sun.xml.ws.api.message.Headers;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.developer.WSBindingProvider;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  *
@@ -186,8 +188,7 @@ public class SoapUtil {
         if (referenceParametersElements != null) {
             for (Element referenceParametersElement : referenceParametersElements.getElements()) {
 
-                if (validateHeader(referenceParametersElement.getNodeName()))
-                {
+                if (validateHeader(referenceParametersElement.getNodeName())) {
                     log.debug("attaching header " + referenceParametersElement.getNodeName());
                     Header header = Headers.create(referenceParametersElement);
                     headers.add(header);
@@ -196,14 +197,45 @@ public class SoapUtil {
             port.setOutboundHeaders(headers);
         }
     }
-    private boolean validateHeader(String headerName)
-    {
+
+    /**
+     * @param WSBindingProvider port
+     * @param ReferenceParametersElements referenceParametersElements
+     * @param List<Header> headers
+     */
+    public void attachReferenceParameterElements(WSBindingProvider port,
+        ReferenceParametersElements referenceParametersElements, List<Header> headers) {
+        List<Header> newHeaders = new ArrayList<Header>();
+        if (referenceParametersElements != null) {
+            for (Element referenceParametersElement : referenceParametersElements.getElements()) {
+
+                if (validateHeader(referenceParametersElement.getNodeName())) {
+                    log.debug("attaching header " + referenceParametersElement.getNodeName());
+                    Header header = Headers.create(referenceParametersElement);
+                    newHeaders.add(header);
+                }
+            }
+        }
+
+        if (headers != null) {
+            // This introduces a chance of duplicate elements
+            newHeaders.addAll(headers);
+            // Casting to LinkedHashSet to remove duplicates and retain order
+            // then cast back to List<Headers>
+            Set<Header> oSet = new LinkedHashSet<Header>(newHeaders);
+            newHeaders.clear();
+            newHeaders.addAll(oSet);
+        }
+        port.setOutboundHeaders(newHeaders);
+
+    }
+
+    private boolean validateHeader(String headerName) {
         boolean result = true;
         String testCondition = headerName.toLowerCase();
 
-        if ((testCondition.equals("to")) || testCondition.equals("replyto") || 
-                testCondition.equals("action") || testCondition.equals("messageid"))
-        {
+        if ((testCondition.equals("to")) || testCondition.equals("replyto") ||
+                testCondition.equals("action") || testCondition.equals("messageid")) {
             result = false;
             log.warn("Invalid header: " + headerName);
         }

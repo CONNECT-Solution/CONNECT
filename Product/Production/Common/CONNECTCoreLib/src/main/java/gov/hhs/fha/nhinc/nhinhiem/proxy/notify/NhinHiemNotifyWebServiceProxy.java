@@ -8,6 +8,9 @@ package gov.hhs.fha.nhinc.nhinhiem.proxy.notify;
 
 import com.sun.xml.ws.developer.WSBindingProvider;
 import com.sun.xml.ws.Closeable;
+import com.sun.xml.ws.api.message.Header;
+import com.sun.xml.ws.api.message.Headers;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
@@ -37,7 +40,11 @@ import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+import java.util.LinkedList;
+import java.util.List;
+import javax.xml.namespace.QName;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
 /**
@@ -48,8 +55,9 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
 
     private static Log log = LogFactory.getLog(NhinHiemNotifyWebServiceProxy.class);
     static NotificationConsumerService nhinService = new NotificationConsumerService();
+    private static final String WS_ADDRESSING_ACTION = "http://docs.oasis-open.org/wsn/bw-2/NotificationConsumer/Notify";
 
-   public void notify(Element notifyElement, ReferenceParametersElements referenceParametersElements,AssertionType assertion, NhinTargetSystemType target) {
+    public void notify(Element notifyElement, ReferenceParametersElements referenceParametersElements,AssertionType assertion, NhinTargetSystemType target) {
         String url = null;
 
         log.debug("Notify element received in NhinHiemNotifyWebServiceProxy: " + XmlUtility.serializeElementIgnoreFaults(notifyElement));
@@ -69,7 +77,7 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
         {
             if (NullChecker.isNotNullish(url)) {
                 NotificationConsumer port = getPort(url);
-
+          
                 log.debug("unmarshaling notify message");
                 WsntSubscribeMarshaller notifyMarshaller = new WsntSubscribeMarshaller();
                 Notify notify = notifyMarshaller.unmarshalNotifyRequest(notifyElement);
@@ -81,9 +89,13 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
                 log.debug("Calling checkPolicy");
                 if(checkPolicy(notify, assertion))
                 {
+                    WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+                    List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,
+                            WS_ADDRESSING_ACTION, assertion);
+                   
                     log.debug("attaching reference parameter headers");
                     SoapUtil soapUtil = new SoapUtil();
-                    soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
+                    soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements, headers);
 
                     auditInputMessage(notify, assertion);
 
@@ -181,4 +193,7 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
         }
     }
 
+    private boolean illegalUUID(String messageId) {
+        return messageId.trim().startsWith("uuid:");
+    }
 }

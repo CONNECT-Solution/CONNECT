@@ -34,10 +34,12 @@ import org.w3c.dom.Element;
 import org.oasis_open.docs.wsn.bw_2.SubscriptionManagerService;
 import com.sun.xml.ws.api.message.Headers;
 import com.sun.xml.ws.api.message.Header;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.xml.namespace.QName;
 
@@ -49,6 +51,7 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
 
     private static Log log = LogFactory.getLog(NhinHiemUnsubscribeWebServiceProxy.class);
     static SubscriptionManagerService nhinService = new SubscriptionManagerService();
+    private static final String WS_ADDRESSING_ACTION = "http://docs.oasis-open.org/wsn/bw-2/SubscriptionManager/UnsubscribeRequest";
 
     public Element unsubscribe(Element unsubscribeElement, ReferenceParametersElements referenceParametersElements, AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault, UnableToDestroySubscriptionFault {
         SubscriptionManager port = getPort(target, assertion);
@@ -56,9 +59,14 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
 
         if (port != null) {
             log.debug("attaching reference parameter headers");
+            WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+                    List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,
+                            WS_ADDRESSING_ACTION, assertion);
+
+            log.debug("attaching reference parameter headers");
             SoapUtil soapUtil = new SoapUtil();
-            soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
-            
+            soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements, headers);
+ 
             log.debug("unmarshalling unsubscribe element");
             WsntUnsubscribeMarshaller marshaller = new WsntUnsubscribeMarshaller();
             Unsubscribe unsubscribe = marshaller.unmarshal(unsubscribeElement);
@@ -101,5 +109,9 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
         }
         return port;
+    }
+
+    private boolean illegalUUID(String messageId) {
+        return messageId.trim().startsWith("uuid:");
     }
 }

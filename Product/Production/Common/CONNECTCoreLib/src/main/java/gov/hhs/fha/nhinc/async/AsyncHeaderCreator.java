@@ -11,6 +11,7 @@ import com.sun.xml.ws.api.message.Headers;
 import com.sun.xml.ws.api.message.Header;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.ArrayList;
+import java.util.UUID;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -24,7 +25,8 @@ import org.w3c.dom.Element;
  * defines WS-Addressing.
  */
 public class AsyncHeaderCreator {
-
+    private static String UUID_TAG = "urn:uuid:";
+    
     private Log log = null;
 
     /**
@@ -100,6 +102,9 @@ public class AsyncHeaderCreator {
 
         //The messageID header is an optional element
         if (messageId != null) {
+            if (hasProperMessageIDPrefix(messageId) == false) {
+               messageId = fixMessageIDPrefix(messageId);
+            }
             qname = new QName(NhincConstants.WS_ADDRESSING_URL, NhincConstants.WS_SOAP_HEADER_MESSAGE_ID);
             Header msgIdHdr = Headers.create(qname, messageId);
             log.debug("Set WS-Addressing <MessageID> " + messageId);
@@ -116,5 +121,37 @@ public class AsyncHeaderCreator {
             }
         }
         return headers;
+    }
+
+     /**
+     * @param messageId
+     * @return
+     */
+    private boolean hasProperMessageIDPrefix(String messageId) {
+        return messageId.trim().startsWith(UUID_TAG);
+    }
+
+    /**
+     * @param messageId
+     */
+    private String fixMessageIDPrefix(String messageId) {
+        if (illegalUUID(messageId, "uuid:")) {
+            return "urn:" + messageId;
+        } else {
+            return UUID_TAG + messageId;
+        }
+    }
+
+    /**
+     * @param messageId
+     * @param string
+     * @return
+     */
+    private boolean illegalUUID(String messageId, String illegalPrefix) {
+        return messageId.trim().startsWith(illegalPrefix);
+    }
+
+    public static String generateMessageId() {
+        return UUID_TAG + UUID.randomUUID().toString();
     }
 }

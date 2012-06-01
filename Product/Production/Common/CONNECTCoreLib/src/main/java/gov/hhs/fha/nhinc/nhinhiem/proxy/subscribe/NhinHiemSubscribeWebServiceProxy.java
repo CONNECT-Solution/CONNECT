@@ -6,6 +6,11 @@
  */
 package gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe;
 
+import com.sun.xml.ws.api.message.Header;
+import com.sun.xml.ws.api.message.Headers;
+import com.sun.xml.ws.developer.WSBindingProvider;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdCreator;
+import javax.xml.namespace.QName;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
@@ -26,7 +31,9 @@ import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+import java.util.List;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
@@ -59,6 +66,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
     private static Log log = LogFactory.getLog(NhinHiemSubscribeWebServiceProxy.class);
     static NotificationProducerService nhinService = new NotificationProducerService();
+    private static final String WS_ADDRESSING_ACTION = "http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/SubscribeRequest";
 
     public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
         Element responseElement = null;
@@ -80,10 +88,14 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
         if (NullChecker.isNotNullish(url)) {
             NotificationProducer port = getPort(url);
-
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.SUBSCRIBE_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+            WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+            List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,
+                    WS_ADDRESSING_ACTION, assertion);
+            ((WSBindingProvider) port).setOutboundHeaders(headers);
 
             WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
             Subscribe subscribe = subscribeMarshaller.unmarshalUnsubscribeRequest(subscribeElement);
@@ -140,7 +152,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
     }
 
     private void auditInputMessage(Subscribe subscribe, AssertionType assertion) {
-        log.debug("In NhinHiemSubscribeWebServiceProxy.auditInputMessage");
+        log.info("In NhinHiemSubscribeWebServiceProxy.auditInputMessage");
         AcknowledgementType ack = null;
         try
         {
@@ -163,6 +175,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         {
             log.error("Error logging subscribe message: " + t.getMessage(), t);
         }
+        log.info("Out NhinHiemSubscribeWebServiceProxy.auditInputMessage");
     }
 
     private void auditResponseMessage(SubscribeResponse response, AssertionType assertion) {
@@ -198,5 +211,9 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
         return port;
+    }
+
+    private boolean illegalUUID(String messageId) {
+        return messageId.trim().startsWith("uuid:");
     }
 }

@@ -12,6 +12,7 @@ package gov.hhs.fha.nhinc.webserviceproxy;
 
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.developer.WSBindingProvider;
+import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.async.AsyncHeaderCreator;
 import gov.hhs.fha.nhinc.tools.ws.processor.generator.ServicePropertyLoader;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -357,6 +358,9 @@ public class WebServiceProxyHelper {
         if ((assertion != null) &&
                 (assertion.getMessageId() != null) &&
                 (assertion.getMessageId().trim().length() > 0)) {
+            if(!hasProperMessageIDPrefix(assertion.getMessageId())){
+                fixMessageIDPrefix(assertion);
+            }
             return assertion.getMessageId();
         } else {
             UUID oUuid = UUID.randomUUID();
@@ -367,6 +371,35 @@ public class WebServiceProxyHelper {
             }
             return sUuid;
         }
+    }
+
+    /**
+     * @param messageId
+     * @return
+     */
+    private boolean hasProperMessageIDPrefix(String messageId) {
+        return messageId.trim().startsWith("urn:uuid:");
+    }
+
+    /**
+     * @param assertion
+     */
+    private void fixMessageIDPrefix(AssertionType assertion) {
+        String messageId = assertion.getMessageId();
+        if (illegalUUID(messageId, "uuid:")) {
+            assertion.setMessageId("urn:" + messageId);
+        } else {
+            assertion.setMessageId("urn:uuid:" + messageId);
+        }
+    }
+
+    /**
+     * @param messageId
+     * @param string
+     * @return
+     */
+    private boolean illegalUUID(String messageId, String illegalPrefix) {
+        return messageId.trim().startsWith(illegalPrefix);
     }
 
     /**
@@ -395,11 +428,14 @@ public class WebServiceProxyHelper {
      */
     protected List getWSAddressingHeaders(String url, String wsAddressingAction, AssertionType assertion) {
 
-        AsyncHeaderCreator hdrCreator = getAsyncHeaderCreator();
-        String messageId = getMessageId(assertion);
+       String messageId = getMessageId(assertion);
         List<String> allRelatesTo = getRelatesTo(assertion);
 
-        List<Header> createdHeaders = hdrCreator.createOutboundHeaders(url, wsAddressingAction, messageId, allRelatesTo);
+        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, wsAddressingAction, messageId,
+                allRelatesTo);
+
+        List<Header> createdHeaders = hdrCreator.build();
+
         return createdHeaders;
     }
 
@@ -813,5 +849,21 @@ public class WebServiceProxyHelper {
 
         log.debug("End createService");
         return service;
+    }
+
+    public List<Header> createWSAddressingHeaders(BindingProvider port, String wsAddressingAction,
+            AssertionType assertion) {
+        String url = getUrlFormPort(port);
+        return getWSAddressingHeaders(url, wsAddressingAction, assertion);
+    }
+
+    /**
+     * @param port
+     * @return
+     */
+    private String getUrlFormPort(BindingProvider port) {
+        Map<String, Object> requestContext = getRequestContextFromPort(port);
+        String url = (String) requestContext.get(KEY_URL);
+        return url;
     }
 }
