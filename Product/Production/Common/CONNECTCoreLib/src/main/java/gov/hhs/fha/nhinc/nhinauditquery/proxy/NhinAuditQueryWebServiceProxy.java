@@ -10,10 +10,12 @@
  */
 package gov.hhs.fha.nhinc.nhinauditquery.proxy;
 
+import com.sun.xml.ws.developer.WSBindingProvider;
 import com.nhin.services.AuditLogQuery;
 import com.nhin.services.FindAuditEvents;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
+import com.sun.xml.ws.api.message.Header;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -21,6 +23,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.List;
 import java.util.Map;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -64,7 +67,7 @@ public class NhinAuditQueryWebServiceProxy implements NhinAuditQueryProxy {
 
             WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
             List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,
-                    WS_ADDRESSING_ACTION, assertion);
+                    WS_ADDRESSING_ACTION, assertIn);
             ((WSBindingProvider) port).setOutboundHeaders(headers);
             
             // Set up the parameters to the Nhin Audit Query call
