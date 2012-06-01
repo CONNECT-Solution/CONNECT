@@ -94,7 +94,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext>{
 
     private static SOAPElement getFirstChild(SOAPHeader header, String name,
             String ns) {
-        if(header == null || header.getChildNodes().getLength() == 0) return null;
+        if(header == null || header.getChildNodes() == null || header.getChildNodes().getLength() == 0) return null;
         
         SOAPElement result = null;
         QName qname = new QName(ns, name);
