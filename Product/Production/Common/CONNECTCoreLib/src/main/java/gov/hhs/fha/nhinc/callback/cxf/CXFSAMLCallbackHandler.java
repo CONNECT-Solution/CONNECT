@@ -30,9 +30,11 @@ import org.apache.ws.security.saml.ext.bean.AuthDecisionStatementBean;
 import org.apache.ws.security.saml.ext.bean.AuthenticationStatementBean;
 import org.apache.ws.security.saml.ext.bean.ConditionsBean;
 import org.apache.ws.security.saml.ext.bean.KeyInfoBean;
+import org.apache.ws.security.saml.ext.bean.SubjectLocalityBean;
 import org.apache.ws.security.saml.ext.bean.KeyInfoBean.CERT_IDENTIFIER;
 import org.apache.ws.security.saml.ext.bean.SubjectBean;
 import org.apache.ws.security.saml.ext.builder.SAML2Constants;
+import org.joda.time.DateTime;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.XMLObject;
 import org.w3c.dom.Element;
@@ -86,7 +88,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
                     oSAMLCallback.setSubject(subjectBean);
 
-                    oSAMLCallback.setAuthenticationStatementData(getAuthenticationStatementData());
+                    oSAMLCallback.setAuthenticationStatementData(getAuthenticationStatementData(custAssertion));
 
                     oSAMLCallback.setAttributeStatementData(getAttributeStatementData(custAssertion));
 
@@ -184,7 +186,37 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     /**
      * @return
      */
-    private List<AuthenticationStatementBean> getAuthenticationStatementData() {
-        return new ArrayList<AuthenticationStatementBean>();
+    private List<AuthenticationStatementBean> getAuthenticationStatementData(AssertionType assertionIn) {
+        List<AuthenticationStatementBean> authenticationStatementBeans = new ArrayList<AuthenticationStatementBean>();
+        AuthenticationStatementBean authBean = new AuthenticationStatementBean();
+        authBean.setAuthenticationMethod(assertionIn.getSamlAuthnStatement().getAuthContextClassRef());
+        
+        String authInstant = assertionIn.getSamlAuthnStatement().getAuthInstant();
+        DateTime authInstantDateTime = new DateTime(authInstant);
+        
+        authBean.setAuthenticationInstant(authInstantDateTime);
+        authBean.setSessionIndex(assertionIn.getSamlAuthnStatement().getSessionIndex());
+        
+        SubjectLocalityBean subjectLocalityBean = null;
+        // Subject Locality is optional
+        if (assertionIn.getSamlAuthnStatement().getSubjectLocalityAddress() != null) {
+            subjectLocalityBean = new SubjectLocalityBean();
+            subjectLocalityBean.setIpAddress(assertionIn.getSamlAuthnStatement().getSubjectLocalityAddress());
+        }
+        
+        if (assertionIn.getSamlAuthnStatement().getSubjectLocalityDNSName() != null ) {
+            if (subjectLocalityBean == null) {
+                subjectLocalityBean = new SubjectLocalityBean();
+            }
+            subjectLocalityBean.setDnsAddress(assertionIn.getSamlAuthnStatement().getSubjectLocalityDNSName());
+        }
+        
+        if ( subjectLocalityBean != null) {
+            authBean.setSubjectLocality(subjectLocalityBean);
+        }
+        
+        authenticationStatementBeans.add(authBean);
+        
+        return authenticationStatementBeans;
     }
 }
