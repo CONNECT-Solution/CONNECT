@@ -200,7 +200,6 @@
   <wsdl:binding name="NotificationConsumerBinding" type="wsntw:NotificationConsumer">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#Subscription_Binding_SoapPolicy"/>
-    <wsp:PolicyReference URI="#Reliable_Messaging_Policy"/>
     <wsdl:operation name="Notify">
       <soap:operation soapAction="http://docs.oasis-open.org/wsn/bw-2/NotificationConsumer/Notify"/>
       <wsdl:input>
@@ -322,15 +321,6 @@
   <!-- ========= NotificationProducer PortType Definition =========== -->
   <!-- ========== SubscriptionManager PortType Definition =========== -->
   
-  <wsp:Policy wsu:Id="Reliable_Messaging_Policy">
-        <wsp:ExactlyOne>
-            <wsp:All>
-                <wsrm:RMAssertion/>
-             <!--       <wsrm:BaseRetransmissionInterval Milliseconds="5000"/>
-                </wsrm:RMAssertion>  -->
-            </wsp:All>
-        </wsp:ExactlyOne>
-    </wsp:Policy>
     <wsp:Policy wsu:Id="Subscription_Binding_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>

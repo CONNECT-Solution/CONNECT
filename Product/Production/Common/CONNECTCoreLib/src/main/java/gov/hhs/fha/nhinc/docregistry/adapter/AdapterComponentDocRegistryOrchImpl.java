@@ -142,6 +142,10 @@ public class AdapterComponentDocRegistryOrchImpl {
     // Properties file keys
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
+    
+    private static final String EBXML_DOCQUERY_STORED_QUERY_ERROR = "XDSUnknownStoredQuery";
+    private static final String EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM = "XDSStoredQueryMissingParam";
+
 
     public AdapterComponentDocRegistryOrchImpl() {
         log = createLogger();
@@ -158,15 +162,19 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request) {
         log.debug("Begin AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
-
-        ObjectFactory queryObjFact = new ObjectFactory();
-        AdhocQueryResponse response = queryObjFact.createAdhocQueryResponse();
-
+        AdhocQueryResponse response = new AdhocQueryResponse();
         boolean queryForStableDocs = true;
         boolean queryForOnDemandDocs = false;
-        
+        boolean registryIdPresent = false;
         DocumentQueryParams params = new DocumentQueryParams();
-        if (request != null) {            
+        if (getRegistryQueryId().contains(request.getAdhocQuery().getId())) {
+                registryIdPresent = true;
+        }
+        if (registryIdPresent) {
+            ObjectFactory queryObjFact = new ObjectFactory();
+            response = queryObjFact.createAdhocQueryResponse();
+        if (request != null) { 
+            
             List<SlotType1> slots = getSlotsFromAdhocQueryRequest(request);
 
             params = generateDocumentQueryParamsFromSlots(slots);
@@ -198,8 +206,13 @@ public class AdapterComponentDocRegistryOrchImpl {
         log.debug("registryStoredQuery- docs.size: " + docs.size());
         
         loadResponseMessage(response, docs);
-
+        
         log.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
+        }
+        else {
+            response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_ERROR, "Unknown Stored Query query id ="
+                    + request.getAdhocQuery().getId());
+        }
         return response;
     }
     
@@ -1106,5 +1119,24 @@ public class AdapterComponentDocRegistryOrchImpl {
         regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         return response;
     }
+    
+    protected List<String> getRegistryQueryId() {
+        List<String> registryQueryId = new ArrayList<String>();
+        registryQueryId.add("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
+        registryQueryId.add("urn:uuid:f26abbcb-ac74-4422-8a30-edb644bbc1a9");
+        registryQueryId.add("urn:uuid:958f3006-baad-4929-a4de-ff1114824431");
+        registryQueryId.add("urn:uuid:10b545ea-725c-446d-9b95-8aeb444eddf3");
+        registryQueryId.add("urn:uuid:5c4f972b-d56b-40ac-a5fc-c8ca9b40b9d4");
+        registryQueryId.add("urn:uuid:5737b14c-8a1a-4539-b659-e03a34a5e1e4");
+        registryQueryId.add("urn:uuid:a7ae438b-4bc2-4642-93e9-be891f7bb155");
+        registryQueryId.add("urn:uuid:bab9529a-4a10-40b3-a01f-f68a615d247a");
+        registryQueryId.add("urn:uuid:51224314-5390-4169-9b91-b1980040715a");
+        registryQueryId.add("urn:uuid:e8e3cb2c-e39c-46b9-99e4-c12f57260b83");
+        registryQueryId.add("urn:uuid:b909a503-523d-4517-8acf-8e5834dfc4c7");
+        registryQueryId.add("urn:uuid:10cae35a-c7f9-4cf5-b61e-fc3278ffb578");
+        registryQueryId.add("urn:uuid:d90e5407-b356-4d91-a89f-873917b4b0e6");
+        return registryQueryId;
+    }
+
 
 }

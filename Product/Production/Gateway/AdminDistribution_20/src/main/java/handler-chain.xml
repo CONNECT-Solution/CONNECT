@@ -15,4 +15,4 @@
             <javaee:handler-class>gov.hhs.fha.nhinc.perfrepo.PerformanceLogHandler</javaee:handler-class>
         </javaee:handler>
     </javaee:handler-chain>
-</javaee:handler-chains>
+</javaee:handler-chains> 

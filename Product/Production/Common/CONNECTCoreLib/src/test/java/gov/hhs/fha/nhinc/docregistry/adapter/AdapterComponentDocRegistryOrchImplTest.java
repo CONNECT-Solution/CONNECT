@@ -35,6 +35,7 @@ import javax.xml.bind.JAXBElement;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -122,14 +123,20 @@ public class AdapterComponentDocRegistryOrchImplTest {
     private AdhocQueryRequest createAdhocQueryRequest(String documentEntryTypeValue) {
         AdhocQueryRequest request = new AdhocQueryRequest();
         AdhocQueryType query = new AdhocQueryType();          
-        request.setAdhocQuery(query);        
+        request.setAdhocQuery(query); 
+        request.getAdhocQuery().setId("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
         SlotType1 slot = new SlotType1();
         slot.setName("$XDSDocumentEntryType");
         ValueListType valList = new ValueListType();
         valList.getValue().add(documentEntryTypeValue);
         slot.setValueList(valList);
         query.getSlot().add(slot);
-        
+        SlotType1 slot2 = new SlotType1();
+        slot2.setName("$XDSDocumentEntryPatientId");
+        ValueListType valList2 = new ValueListType();
+        valList.getValue().add("D123401^^^&1.1&ISO");
+        slot2.setValueList(valList2);
+        query.getSlot().add(slot2);
         return request;
     }
     
@@ -210,6 +217,43 @@ public class AdapterComponentDocRegistryOrchImplTest {
         List<JAXBElement<? extends IdentifiableType>> objectList = response.getRegistryObjectList().getIdentifiable();       
         assertEquals(3, objectList.size());                   
     }
+    
+    @Test
+    public void testRegistryStoredQuery_unknownRegistryQueryId() {
+        AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
+        context.checking(new Expectations() {
+            {
+                allowing(mockLog).debug(with(any(String.class)));
+            }
+        });
+        AdhocQueryRequest request = createAdhocQueryRequestForunknownStoredQuery();
+        AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
+        assertSame(response.getStatus(), DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+    }
+    
+    
+
+    private AdhocQueryRequest createAdhocQueryRequestForunknownStoredQuery() {
+        return createAdhocQueryRequestUnknownStoredQuery("('urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1')");
+    }
+
+    private AdhocQueryRequest createAdhocQueryRequestUnknownStoredQuery(String documentEntryTypeValue) {
+        AdhocQueryRequest request = new AdhocQueryRequest();
+        AdhocQueryType query = new AdhocQueryType();
+        request.setAdhocQuery(query);
+        request.getAdhocQuery().setId("9a74-a90016b0af0d");
+        SlotType1 slot = new SlotType1();
+        slot.setName("$XDSDocumentEntryType");
+        ValueListType valList = new ValueListType();
+        valList.getValue().add(documentEntryTypeValue);
+        slot.setValueList(valList);
+        SlotType1 slot2 = new SlotType1();
+        slot2.setName("$XDSDocumentEntryPatientId");
+        query.getSlot().add(slot);
+        //query.getSlot().add(slot2);
+        return request;
+    }
+
     
     
 }

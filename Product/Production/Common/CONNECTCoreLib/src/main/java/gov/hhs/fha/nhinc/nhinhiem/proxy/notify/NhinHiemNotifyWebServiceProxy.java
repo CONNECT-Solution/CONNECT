@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.nhinhiem.proxy.notify;
 
+
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -116,9 +117,9 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
                     NotificationConsumer port = getPort(url, assertion);
 
                     log.debug("attaching reference parameter headers");
-                    SoapUtil soapUtil = new SoapUtil();
                     List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,
                             WS_ADDRESSING_ACTION, assertion);
+                    SoapUtil soapUtil = new SoapUtil();
                     soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements,
                             headers);
 
@@ -137,7 +138,6 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
                 log.error("The URL for service: " + NhincConstants.HIEM_NOTIFY_SERVICE_NAME + " is null");
             }
         } catch (Throwable t) {
-            // TODO: Figure out what to do with the exception
             log.error("Error sending notify to remote gateway: " + t.getMessage(), t);
         }
     }
@@ -146,7 +146,6 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
         NotificationConsumer oPort = null;
         try {
             Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-
             if (oService != null) {
                 log.debug("subscribe() Obtained service - creating port.");
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NotificationConsumer.class);
