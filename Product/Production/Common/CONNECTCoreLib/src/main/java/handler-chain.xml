@@ -10,9 +10,5 @@
             <javaee:handler-name>SoapHeaderHandler</javaee:handler-name>
             <javaee:handler-class>gov.hhs.fha.nhinc.callback.SOAPHeaderHandler</javaee:handler-class>
         </javaee:handler>
-        <javaee:handler>
-            <javaee:handler-name>PerformanceLogHandler</javaee:handler-name>
-            <javaee:handler-class>gov.hhs.fha.nhinc.perfrepo.PerformanceLogHandler</javaee:handler-class>
-        </javaee:handler>
     </javaee:handler-chain>
 </javaee:handler-chains>
