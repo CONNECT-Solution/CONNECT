@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
+import java.util.Map;
+
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -37,9 +39,16 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
+
 import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 
@@ -161,13 +170,29 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
      */
     protected AuditRepositoryManagerSecuredPortType getPort(String url, String serviceAction,
             String wsAddressingAction, AssertionType assertion) {
+        
         AuditRepositoryManagerSecuredPortType port = null;
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-                    AuditRepositoryManagerSecuredPortType.class);
+            //port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
+            //        AuditRepositoryManagerSecuredPortType.class);
+            
+            ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "AuditRepositoryManager-client-beans.xml" });
+            port = (AuditRepositoryManagerSecuredPortType)context.getBean("auditSecuredPortType");
+            
+            HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(port).getConduit();
+            
+            TLSClientParameters tlsCP = new TLSClientParameters();
+            //The following is not recommended and would not be done in a prodcution environment,
+            //this is just for illustrative purpose
+            tlsCP.setDisableCNCheck(true);
+     
+            httpConduit.setTlsClientParameters(tlsCP);
+            Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
+            requestContext.put("assertion", assertion);
+                        
             oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
                     wsAddressingAction, assertion);
         } else {
