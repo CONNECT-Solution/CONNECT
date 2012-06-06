@@ -104,10 +104,13 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
                     oSAMLCallback.setAttributeStatementData(getAttributeStatementData(custAssertion));
 
-                    String issuer = "default issuer name";
+                    String issuer = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
+                    if (custAssertion.getSamlIssuer() != null) {
+                        issuer = custAssertion.getSamlIssuer().getIssuer();
+                    }
+
                     oSAMLCallback.setAuthDecisionStatementData(getAuthDecisionStatementData(custAssertion, issuer,
                             validityPeriod));
-
                     oSAMLCallback.setIssuer(issuer);
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
@@ -167,8 +170,12 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
         if (assertionIn.getSamlAuthzDecisionStatement().getDecision().equals(DecisionType.PERMIT)) {
             authDecisionStatementBean.setDecision(Decision.PERMIT);
+        } else if (assertionIn.getSamlAuthzDecisionStatement().getDecision().equals(DecisionType.DENY)) {
+            authDecisionStatementBean.setDecision(Decision.DENY);
+        } else if (assertionIn.getSamlAuthzDecisionStatement().getDecision().equals(DecisionType.INDETERMINATE)) {
+            authDecisionStatementBean.setDecision(Decision.INDETERMINATE);
         } else {
-            throw new RuntimeException("AuthDecisionStatement decision must be Permit"); // check this
+            authDecisionStatementBean.setDecision(Decision.PERMIT);
         }
 
         authDecisionStatementBean.setResource(assertionIn.getSamlAuthzDecisionStatement().getResource());
@@ -182,22 +189,25 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         authDecisionStatementBean.setActions(actionBeans);
 
         SamlAuthzDecisionStatementEvidenceType evidenceType = assertionIn.getSamlAuthzDecisionStatement().getEvidence();
-        
+
         String evAssertionID = evidenceType.getAssertion().getId();
         DateTime issueInstant = new DateTime(evidenceType.getAssertion().getIssueInstant());
         String format = evidenceType.getAssertion().getIssuerFormat();
-        List<AttributeStatement> statements = null;
+        List<AttributeStatement> statements = HOKSAMLAssertionBuilder.createEvidenceStatements(assertionIn
+                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy(), assertionIn
+                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy());
         DateTime beginValidTime = new DateTime();
         DateTime endValidTime = new DateTime();
         endValidTime.plus(Seconds.seconds(validityPeriod));
+
         // Build Evidence
         // assertionIn.get
-        Evidence evidence = HOKSAMLAssertionBuilder.buildEvidence(evAssertionID, issueInstant, format,
-        beginValidTime, endValidTime, issuer, statements);
+        Evidence evidence = HOKSAMLAssertionBuilder.buildEvidence(evAssertionID, issueInstant, format, beginValidTime,
+                endValidTime, issuer, statements);
         //
-        
+
         authDecisionStatementBean.setEvidence(evidence);
-        
+
         authDecisionStatementBeans.add(authDecisionStatementBean);
         return authDecisionStatementBeans;
     }
@@ -208,7 +218,6 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     private List<AttributeStatementBean> getAttributeStatementData(AssertionType assertionIn) {
         UserType userInfo = assertionIn.getUserInfo();
         ArrayList<AttributeBean> samlAttributes = new ArrayList<AttributeBean>();
-
 
         samlAttributes.add(new AttributeBean(null, SamlConstants.PATIENT_ID_ATTR, assertionIn.getUniquePatientId()));
 
@@ -223,8 +232,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
         samlAttributes.add(getUserRoleAttribute(userInfo));
 
-        //NPI
-        
+        // NPI
+
         samlAttributes.add(getPurposeOfUseAttribute(assertionIn.getPurposeOfDisclosureCoded()));
 
         AttributeStatementBean attributeStatementBean = new AttributeStatementBean();

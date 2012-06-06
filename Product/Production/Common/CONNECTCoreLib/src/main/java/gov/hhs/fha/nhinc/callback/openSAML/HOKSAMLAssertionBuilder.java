@@ -307,7 +307,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 
 		List<Assertion> evidenceAssertions = new ArrayList<Assertion>();
 		if (evAssertionID == null) {
-			evAssertionID = String.valueOf(UUID.randomUUID());
+			evAssertionID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
 		}
 
 		if (issueInstant == null) {
@@ -379,17 +379,22 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	static List<AttributeStatement> createEvidenceStatements(
 			CallbackProperties properties) {
 		log.debug("SamlCallbackHandler.createEvidenceStatements() -- Begin");
-		List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
 
 		List accessConstentValues = properties.getEvidenceAccessConstent();
+		List evidenceInstanceAccessConsentValues = properties
+		        .getEvidenceInstantAccessConsent();
 
+		return createEvidenceStatements(accessConstentValues, evidenceInstanceAccessConsentValues);
+	}
+
+    public static List<AttributeStatement> createEvidenceStatements(List accessConstentValues,
+            List evidenceInstanceAccessConsentValues) {
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
 		if (accessConstentValues == null) {
 			log.debug("No Access Consent found for Evidence");
 		}
 
 		// Set the Instance Access Consent
-		List evidenceInstanceAccessConsentValues = properties
-				.getEvidenceInstantAccessConsent();
 		if (evidenceInstanceAccessConsentValues == null) {
 			log.debug("No Instance Access Consent found for Evidence");
 		}
@@ -400,7 +405,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
 		log.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
 		return statements;
-	}
+    }
 
 	/**
 	 * Creates the Attribute statements for UserName
