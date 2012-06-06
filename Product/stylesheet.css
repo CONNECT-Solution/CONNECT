@@ -1,0 +1,51 @@
+
+        .bannercell {
+        border: 0px;
+        padding: 0px;
+        }
+        body {
+        margin-left: 10;
+        margin-right: 10;
+        font:normal 80% arial,helvetica,sanserif;
+        background-color:#FFFFFF;
+        color:#000000;
+        }
+        .a td {
+        background: #efefef;
+        }
+        .b td {
+        background: #fff;
+        }
+        th, td {
+        text-align: left;
+        vertical-align: top;
+        }
+        th {
+        font-weight:bold;
+        background: #ccc;
+        color: black;
+        }
+        table, th, td {
+        font-size:100%;
+        border: none
+        }
+        table.log tr td, tr th {
+
+        }
+        h2 {
+        font-weight:bold;
+        font-size:140%;
+        margin-bottom: 5;
+        }
+        h3 {
+        font-size:100%;
+        font-weight:bold;
+        background: #525D76;
+        color: white;
+        text-decoration: none;
+        padding: 5px;
+        margin-right: 2px;
+        margin-left: 2px;
+        margin-bottom: 0;
+        }
+    
