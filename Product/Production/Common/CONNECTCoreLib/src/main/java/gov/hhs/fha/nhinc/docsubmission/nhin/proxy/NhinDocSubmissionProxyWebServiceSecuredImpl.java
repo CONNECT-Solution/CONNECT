@@ -113,45 +113,18 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
         if (service != null) {
             log.debug("Obtained service - creating port.");
-
-            // CXF stuff
-            /*
-             * this didn't work Map<String, Object> m = new HashMap<String, Object>(); m.put("samlPropFile",
-             * "saml.properties"); org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor interceptor = new
-             * org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor(m ); org.apache.cxf.endpoint.Client cxfClient =
-             * org.apache.cxf.frontend.ClientProxy.getClient(service); cxfClient.getInInterceptors().add(interceptor);
-            */ 
-            
-            //port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), DocumentRepositoryXDRPortType.class);
-            
-            //org.apache.cxf.endpoint.Client cxfClient = org.apache.cxf.frontend.ClientProxy.getClient(port);
-            //log.debug("there are " + cxfClient.getInInterceptors().size() + " interceptors.");
                        
             ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "DocumentSubmission_20-client-beans.xml" });
             port = (DocumentRepositoryXDRPortType)context.getBean("documentSubmissionPortType");
-            HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(port).getConduit();
             
+            HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(port).getConduit();
             TLSClientParameters tlsCP = new TLSClientParameters();
-            //The following is not recommended and would not be done in a prodcution environment,
-            //this is just for illustrative purpose
             tlsCP.setDisableCNCheck(true);
-     
             httpConduit.setTlsClientParameters(tlsCP);
+
             Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
             requestContext.put("assertion", assertion);
-            //requestContext.put("ws-security.saml-callback-handler", new CXFSAMLCallbackHandler()); 
-            //requestContext.put("ws-security.signature.crypto", CryptoManager.class);
-            //requestContext.put("ws-security.callback-handler", CXFPasswordCallbackHandler.class);
-            /*requestContext.put("ws-security.signature.properties", "keystore.properties");
-            requestContext.put(WSHandlerConstants.ACTION, WSHandlerConstants.SAML_TOKEN_SIGNED + " " + WSHandlerConstants.TIMESTAMP);
-            requestContext.put(WSHandlerConstants.USER, "gateway");
-            requestContext.put(WSHandlerConstants.TTL_TIMESTAMP, "3600");
-            requestContext.put(WSHandlerConstants.PASSWORD_TYPE, "PasswordDigest");
-            requestContext.put(WSHandlerConstants.PW_CALLBACK_REF, new CXFPasswordCallbackHandler());
-            requestContext.put(WSHandlerConstants.SIG_PROP_FILE, "keystore.properties");
-            requestContext.put(WSHandlerConstants.SIG_ALGO, "http://www.w3.org/2000/09/xmldsig#rsa-sha1");
-            requestContext.put(WSHandlerConstants.SIG_DIGEST_ALGO, "http://www.w3.org/2000/09/xmldsig#sha1");
-            requestContext.put(WSHandlerConstants.SIGNATURE_PARTS, "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;");*/
+
             initializeSecurePort(port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain service - no port created.");

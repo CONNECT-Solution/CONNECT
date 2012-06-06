@@ -29,4 +29,20 @@
         </constructor-arg>
     </bean>
 
+    <bean id="securityInInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+        <constructor-arg>
+            <map>
+                <entry key="action" value="Timestamp SAMLTokenSigned Signature" />
+                <entry key="timeToLive" value="3600" />
+                <entry key="passwordType" value="PasswordDigest" />
+                <entry key="signaturePropFile" value="truststore.properties" />
+                <entry key="signatureAlgorithm" value="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+                <entry key="signatureDigestAlgorithm" value="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <entry key="signatureParts"
+                    value="{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;" />
+                <entry key="enableSignatureConfirmation" value="true" />
+            </map>
+        </constructor-arg>
+    </bean>
+
 </beans>
