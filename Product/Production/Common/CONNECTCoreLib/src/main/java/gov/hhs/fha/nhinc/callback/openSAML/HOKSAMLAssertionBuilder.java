@@ -4,24 +4,15 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import java.security.KeyStore.PrivateKeyEntry;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-
-import javax.xml.namespace.QName;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -298,30 +289,39 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	 */
 	static Evidence createEvidence(CallbackProperties properties) {
 		log.debug("SamlCallbackHandler.createEvidence() -- Begin");
-                DateTime now = new DateTime();
+		String evAssertionID = properties.getEvidenceID();
+		DateTime issueInstant = properties.getEvidenceInstant();
+		String format = properties.getEvidenceIssuerFormat();
+		DateTime beginValidTime = properties.getEvidenceConditionNotBefore();
+		DateTime endValidTime = properties.getEvidenceConditionNotAfter();
+		List<AttributeStatement> statements = createEvidenceStatements(properties);
+
+		String issuer = properties.getEvidenceIssuer();
+		
+		return buildEvidence(evAssertionID, issueInstant, format, beginValidTime, endValidTime, issuer, statements);
+	}
+
+    public static Evidence buildEvidence(String evAssertionID, DateTime issueInstant,
+            String format, DateTime beginValidTime, DateTime endValidTime, String issuer, List<AttributeStatement> statements) {
+        DateTime now = new DateTime();
                 
 		List<Assertion> evidenceAssertions = new ArrayList<Assertion>();
-		String evAssertionID = properties.getEvidenceID();
 		if (evAssertionID == null) {
 			evAssertionID = String.valueOf(UUID.randomUUID());
 		}
 
-		DateTime issueInstant = properties.getEvidenceInstant();
 		if (issueInstant == null) {
 			issueInstant = new DateTime();
 		}
 
-		String format = properties.getEvidenceIssuerFormat();
 		if (!isValidIssuerFormat(format)) {
 			format = X509_NAME_ID;
 		}
 
-		String issuer = properties.getEvidenceIssuer();
 
 		Issuer evIssuerId = OpenSAML2ComponentBuilder.getInstance()
 				.createIssuer(format, issuer);
 
-		DateTime beginValidTime = properties.getEvidenceConditionNotBefore();
                 if (beginValidTime == null || beginValidTime.isAfter(now)){
                     beginValidTime = now;
 		}
@@ -334,8 +334,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                     else
                         beginValidTime = issueInstant;
                 }
-
-		DateTime endValidTime = properties.getEvidenceConditionNotAfter();
                 //Make end datetime at a minimum 5 minutes from now
 		if (endValidTime == null || endValidTime.isBefore(now.plusMinutes(5))) {
 			endValidTime = now.plusMinutes(5);
@@ -349,7 +347,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		Conditions conditions = OpenSAML2ComponentBuilder.getInstance()
 				.createConditions(beginValidTime, endValidTime, null);
 
-		List<AttributeStatement> statements = createEvidenceStatements(properties);
+		
 
 		Assertion evidenceAssertion = OpenSAML2ComponentBuilder.getInstance()
 				.createAssertion(evAssertionID);
@@ -366,7 +364,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
 		log.debug("SamlCallbackHandler.createEvidence() -- End");
 		return evidence;
-	}
+    }
 
 	/**
 	 * Creates the Attribute Statements needed for the Evidence element. These
