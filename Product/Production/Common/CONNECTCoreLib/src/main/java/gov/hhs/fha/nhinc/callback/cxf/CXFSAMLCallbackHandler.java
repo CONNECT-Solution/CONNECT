@@ -75,7 +75,6 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         for (Callback callback : callbacks) {
             if (callback instanceof SAMLCallback) {
 
-                Element assertionElement;
                 try {
 
                     Message message = PhaseInterceptorChain.getCurrentMessage();

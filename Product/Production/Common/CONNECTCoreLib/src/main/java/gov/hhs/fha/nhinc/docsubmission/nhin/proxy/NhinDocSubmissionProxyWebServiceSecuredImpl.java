@@ -26,27 +26,47 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.proxy;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URI;
+import java.net.URL;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.util.HashMap;
 import java.util.Map;
 
 import gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler;
 import gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler;
 import gov.hhs.fha.nhinc.callback.cxf.CryptoManager;
+import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
+import gov.hhs.fha.nhinc.callback.openSAML.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.Bus;
+import org.apache.cxf.BusFactory;
+import org.apache.cxf.bus.spring.SpringBusFactory;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.configuration.security.ClientAuthentication;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.ws.security.handler.WSHandlerConstants;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
+
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
@@ -120,6 +140,31 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
             HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(port).getConduit();
             TLSClientParameters tlsCP = new TLSClientParameters();
             tlsCP.setDisableCNCheck(true);
+            
+            CertificateManager cm = CertificateManagerImpl.getInstance();
+            
+            try {
+                KeyManagerFactory keyFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+                String password = System.getProperty("javax.net.ssl.keyStorePassword");
+                keyFactory.init(cm.getKeyStore(), password.toCharArray()); 
+                KeyManager[] km = keyFactory.getKeyManagers(); 
+                tlsCP.setKeyManagers(km); 
+                
+                TrustManagerFactory trustFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm()); 
+                trustFactory.init(cm.getTrustStore()); 
+                TrustManager[] tm = trustFactory.getTrustManagers(); 
+                tlsCP.setTrustManagers(tm); 
+            } catch (NoSuchAlgorithmException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (UnrecoverableKeyException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (KeyStoreException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
             httpConduit.setTlsClientParameters(tlsCP);
 
             Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();

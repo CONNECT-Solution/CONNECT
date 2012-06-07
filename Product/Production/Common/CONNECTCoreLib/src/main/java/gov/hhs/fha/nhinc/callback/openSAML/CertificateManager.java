@@ -3,6 +3,7 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
@@ -29,5 +30,13 @@ public interface CertificateManager {
 	 * @return
 	 */
 	public abstract RSAPublicKey getDefaultPublicKey();
+    /**
+     * @return the keyStore
+     */
+    public abstract KeyStore getKeyStore();
+    /**
+     * @return the trustStore
+     */
+    public abstract KeyStore getTrustStore();
 
 }

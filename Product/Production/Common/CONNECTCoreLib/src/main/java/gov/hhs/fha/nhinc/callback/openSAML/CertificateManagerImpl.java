@@ -27,6 +27,7 @@ public class CertificateManagerImpl implements CertificateManager {
     private static Log log = LogFactory.getLog(CertificateManagerImpl.class);
 
     private KeyStore keyStore = null;
+
     private KeyStore trustStore = null;
 
     private CertificateManagerImpl() {
@@ -45,6 +46,22 @@ public class CertificateManagerImpl implements CertificateManager {
 
     public static CertificateManager getInstance() {
         return new CertificateManagerImpl();
+    }
+    
+    /**
+     * @return the keyStore
+     */
+    @Override
+    public KeyStore getKeyStore() {
+        return keyStore;
+    }
+
+    /**
+     * @return the trustStore
+     */
+    @Override
+    public KeyStore getTrustStore() {
+        return trustStore;
     }
 
     /**
