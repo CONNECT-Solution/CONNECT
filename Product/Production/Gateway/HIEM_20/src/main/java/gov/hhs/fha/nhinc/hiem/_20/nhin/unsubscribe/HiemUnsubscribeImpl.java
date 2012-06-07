@@ -53,12 +53,10 @@ import gov.hhs.fha.nhinc.hiemadapter.proxy.unsubscribe.HiemUnsubscribeAdapterPro
 import gov.hhs.fha.nhinc.hiemadapter.proxy.unsubscribe.HiemUnsubscribeAdapterProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionRepositoryService;
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
@@ -72,21 +70,12 @@ public class HiemUnsubscribeImpl {
     public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeRequest, WebServiceContext context)
             throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
 
-        // Log the start of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
         UnsubscribeResponse response;
         try {
             response = unsubscribeOps(unsubscribeRequest, context);
         } catch (Exception ex) {
             throw new SubscriptionManagerSoapFaultFactory().getGenericProcessingExceptionFault(ex);
         }
-        // Log the end of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         return response;
     }
 
@@ -175,7 +164,7 @@ public class HiemUnsubscribeImpl {
 
     private void forwardUnsubscribeToAdapter(Unsubscribe parentUnsubscribe,
             ReferenceParametersElements parentReferenceParametersElements, AssertionType parentAssertion)
-            throws UnableToDestroySubscriptionFault {
+                    throws UnableToDestroySubscriptionFault {
         // try {
         log.debug("forwarding unsubscribe to adapter");
 
