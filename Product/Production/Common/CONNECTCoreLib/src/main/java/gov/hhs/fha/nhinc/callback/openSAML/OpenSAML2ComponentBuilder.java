@@ -463,13 +463,13 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		List<Attribute> attributes = new ArrayList<Attribute>();
 
 		if (accessConstentValues != null) {
-			attributes.add(createAttribute("AccessConsentPolicy", namespace,
-					null, accessConstentValues));
+			attributes.add(createAttribute(null, "AccessConsentPolicy", namespace,
+					accessConstentValues));
 		}
 
 		if (evidenceInstanceAccessConsentValues != null) {
-			attributes.add(createAttribute("InstanceAccessConsentPolicy",
-					namespace, null, evidenceInstanceAccessConsentValues));
+			attributes.add(createAttribute(null, "InstanceAccessConsentPolicy",
+					namespace, evidenceInstanceAccessConsentValues));
 		}
 		if (!attributes.isEmpty()) {
 			statements = createAttributeStatement(attributes);
@@ -480,14 +480,14 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
 	public Attribute createUserRoleAttribute(String userCode,
 			String userSystem, String userSystemName, String userDisplay) {
-		Object attributeValue = createHL7Attribute(userCode, userSystem, userSystemName, userDisplay);
+		Object attributeValue = createHL7Attribute("Role", userCode, userSystem, userSystemName, userDisplay);
 
 		return OpenSAML2ComponentBuilder.getInstance().createAttribute(null,
 				SamlConstants.USER_ROLE_ATTR, null,
 				Arrays.asList(attributeValue));
 	}
 
-    public XSAny createHL7Attribute(String code, String codeSystem, String codeSystemName, String displayName) {
+    public XSAny createHL7Attribute(String name, String code, String codeSystem, String codeSystemName, String displayName) {
         Map<QName, String> userRoleAttributes = new HashMap<QName, String>();
 
 		if (code != null) {
@@ -513,7 +513,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		userRoleAttributes.put(new QName(
 				"http://www.w3.org/2001/XMLSchema-instance", "type"), "hl7:CE");
 
-		XSAny attributeValue = createAttributeValue("urn:hl7-org:v3", "Role", "hl7",
+		XSAny attributeValue = createAttributeValue("urn:hl7-org:v3", name, "hl7",
 						userRoleAttributes);
         return attributeValue;
     }

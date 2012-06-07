@@ -112,8 +112,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                             validityPeriod));
                     oSAMLCallback.setIssuer(issuer);
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    log.error("failed to create saml", e);
                 }
             }
         }
@@ -130,6 +129,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         subj.setKeyInfo(getKeyInfoBean());
         subj.setSubjectNameIDFormat("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName");
         subj.setSubjectName("UID=" + custAssertion.getUserInfo().getUserName());
+
         return subj;
     }
 
@@ -192,9 +192,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         String evAssertionID = evidenceType.getAssertion().getId();
         DateTime issueInstant = new DateTime(evidenceType.getAssertion().getIssueInstant());
         String format = evidenceType.getAssertion().getIssuerFormat();
-        List<AttributeStatement> statements = HOKSAMLAssertionBuilder.createEvidenceStatements(assertionIn
-                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy(), assertionIn
-                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy());
+        List<AttributeStatement> statements = HOKSAMLAssertionBuilder.createEvidenceStatements(evidenceType
+                .getAssertion().getAccessConsentPolicy(), evidenceType.getAssertion().getInstanceAccessConsentPolicy());
         DateTime beginValidTime = new DateTime();
         DateTime endValidTime = new DateTime();
         endValidTime.plus(Seconds.seconds(validityPeriod));
@@ -218,6 +217,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         UserType userInfo = assertionIn.getUserInfo();
         ArrayList<AttributeBean> samlAttributes = new ArrayList<AttributeBean>();
 
+        samlAttributes.add(new AttributeBean(null, SamlConstants.USERNAME_ATTR, Arrays.asList(assertionIn.getPersonName().getFullName())));
+     
         samlAttributes.add(new AttributeBean(null, SamlConstants.PATIENT_ID_ATTR, assertionIn.getUniquePatientId()));
 
         samlAttributes.add(new AttributeBean(null, SamlConstants.USER_ORG_ATTR, Arrays.asList(userInfo.getOrg()
@@ -230,8 +231,6 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                 .getHomeCommunity().getHomeCommunityId())));
 
         samlAttributes.add(getUserRoleAttribute(userInfo));
-
-        // NPI
 
         samlAttributes.add(getPurposeOfUseAttribute(assertionIn.getPurposeOfDisclosureCoded()));
 
@@ -254,7 +253,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
         List<XMLObject> attributeValues = new ArrayList<XMLObject>();
 
-        attributeValues.add(OpenSAML2ComponentBuilder.getInstance().createHL7Attribute(
+        attributeValues.add(OpenSAML2ComponentBuilder.getInstance().createHL7Attribute("PurposeForUse",
                 purposeOfDisclosureCoded.getCode(), purposeOfDisclosureCoded.getCodeSystem(),
                 purposeOfDisclosureCoded.getCodeSystemName(), purposeOfDisclosureCoded.getDisplayName()));
         attributeBean.setCustomAttributeValues(attributeValues);
@@ -268,7 +267,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
         List<XMLObject> attributeValues = new ArrayList<XMLObject>();
 
-        attributeValues.add(OpenSAML2ComponentBuilder.getInstance().createHL7Attribute(
+        attributeValues.add(OpenSAML2ComponentBuilder.getInstance().createHL7Attribute("Role",
                 userInfo.getRoleCoded().getCode(), userInfo.getRoleCoded().getCodeSystem(),
                 userInfo.getRoleCoded().getCodeSystemName(), userInfo.getRoleCoded().getDisplayName()));
 
