@@ -223,13 +223,16 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 				.buildObject();
 		authDecision.setResource(resource);
 
-		DecisionTypeEnumeration decision = DecisionTypeEnumeration.DENY;
-
+		//DecisionTypeEnumeration decision = DecisionTypeEnumeration.DENY;
+		// todo: use decisionTxt to set decision
+		DecisionTypeEnumeration decision = DecisionTypeEnumeration.PERMIT;
+		
 		authDecision.setDecision(decision);
 
 		Action actionElement = actionElementBuilder.buildObject();
-		actionElement
-				.setNamespace("urn:oasis:names:tc:SAML:1.0:action:rwedc-negation");
+		//actionElement
+		//		.setNamespace("urn:oasis:names:tc:SAML:1.0:action:rwedc-negation");
+		actionElement.setNamespace("urn:oasis:names:tc:SAML:1.0:action:rwedc");
 		actionElement.setAction(action);
 
 		authDecision.getActions().add(actionElement);
@@ -325,7 +328,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         credential.setEntityCertificate(certificate); 
         
      	KeyInfoHelper.addPublicKey(ki, publicKey); 
-        KeyInfoHelper.addCertificate(ki, certificate);
+        //KeyInfoHelper.addCertificate(ki, certificate);
         return ki;
 	}
 
@@ -353,12 +356,12 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		conditions.setNotBefore(notBefore);
 		conditions.setNotOnOrAfter(notAfter);
 
-		AudienceRestriction audienceRestriction = audienceRestrictionBuilder
-				.buildObject();
-		Audience audience = audienceBuilder.buildObject();
-		audience.setAudienceURI(audienceURI);
-		audienceRestriction.getAudiences().add(audience);
-		conditions.getAudienceRestrictions().add(audienceRestriction);
+//		AudienceRestriction audienceRestriction = audienceRestrictionBuilder
+//				.buildObject();
+//		Audience audience = audienceBuilder.buildObject();
+//		audience.setAudienceURI(audienceURI);
+//		audienceRestriction.getAudiences().add(audience);
+//		conditions.getAudienceRestrictions().add(audienceRestriction);
 
 		return conditions;
 	}
@@ -585,7 +588,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
 		return statements;
 	}
-
+	
 	/**
 	 * PurposeForUse attribute statements.
 	 * @param purposeCode
@@ -604,7 +607,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return statements;
 	}
 	
-	 Attribute createPurposeOfUseAttribute(String purposeCode,
+	public Attribute createPurposeOfUseAttribute(String purposeCode,
 				String purposeSystem, String purposeSystemName,
 				String purposeDisplay) {
 			return createPurposeOfUseAttribute(purposeCode, purposeSystem,

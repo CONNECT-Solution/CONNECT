@@ -4,6 +4,8 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
 import gov.hhs.fha.nhinc.callback.openSAML.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
@@ -12,12 +14,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 
 import java.io.IOException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
@@ -49,6 +54,7 @@ import org.opensaml.saml2.core.Evidence;
 import org.opensaml.xml.XMLObject;
 import org.w3c.dom.Element;
 
+import org.opensaml.saml2.core.Assertion;
 import com.sun.xml.wss.saml.internal.saml20.jaxb20.DecisionType;
 
 /**
@@ -63,7 +69,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
     public CXFSAMLCallbackHandler() {
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -76,7 +82,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
             if (callback instanceof SAMLCallback) {
 
                 try {
-
+                    
                     Message message = PhaseInterceptorChain.getCurrentMessage();
 
                     Object obj = message.get("assertion");
@@ -89,28 +95,14 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     SAMLCallback oSAMLCallback = (SAMLCallback) callback;
 
                     oSAMLCallback.setSamlVersion(SAMLVersion.VERSION_20);
-
-                    SubjectBean subjectBean = getSubjectBean(custAssertion);
-
-                    ConditionsBean conditionsBean = new ConditionsBean();
-                    int validityPeriod = 3600;
-                    conditionsBean.setTokenPeriodMinutes(validityPeriod / 60);
-                    oSAMLCallback.setConditions(conditionsBean);
-
-                    oSAMLCallback.setSubject(subjectBean);
-
-                    oSAMLCallback.setAuthenticationStatementData(getAuthenticationStatementData(custAssertion));
-
-                    oSAMLCallback.setAttributeStatementData(getAttributeStatementData(custAssertion));
-
-                    String issuer = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
-                    if (custAssertion.getSamlIssuer() != null) {
-                        issuer = custAssertion.getSamlIssuer().getIssuer();
-                    }
-
-                    oSAMLCallback.setAuthDecisionStatementData(getAuthDecisionStatementData(custAssertion, issuer,
-                            validityPeriod));
-                    oSAMLCallback.setIssuer(issuer);
+             
+                    SamlTokenCreator creator = new SamlTokenCreator();
+                    
+                    CallbackProperties properties = new CallbackMapProperties(creator.CreateRequestContext(custAssertion, null, null));
+                    
+                    HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+                     
+                    oSAMLCallback.setAssertionElement(builder.build(properties));
                 } catch (Exception e) {
                     log.error("failed to create saml", e);
                 }

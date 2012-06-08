@@ -190,17 +190,76 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		List<Statement> statements = new ArrayList<Statement>();
 
 		statements.addAll(createAuthenicationStatements(properties));
-		statements.addAll(createUserNameAttributeStatements(properties));
-		statements.addAll(createOrganizationAttributeStatements(properties));
-		statements.addAll(createHomeCommunityIdAttributeStatements(properties));
-		statements.addAll(createPatientIdAttributeStatements(properties));
-		statements.addAll(createUserRoleStatements(properties));
-		statements.addAll(createPurposeOfUseStatements(properties));
+		
+		statements.addAll(createAttributeStatementsTest());
+		
+//		statements.addAll(createUserNameAttributeStatements(properties));
+//		statements.addAll(createOrganizationAttributeStatements(properties));
+//		statements.addAll(createHomeCommunityIdAttributeStatements(properties));
+//		statements.addAll(createPatientIdAttributeStatements(properties));
+//		statements.addAll(createUserRoleStatements(properties));
+//		statements.addAll(createPurposeOfUseStatements(properties));
+		
 		statements.addAll(createAuthenicationDecsionStatements(properties));
 
 		return statements;
 	}
 
+	static List<AttributeStatement> createAttributeStatementsTest() {
+	    List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<Attribute> attributes = new ArrayList<Attribute>();
+
+        List<String> values = new ArrayList<String>();
+        values.add("Karl S Skagerberg");
+        attributes.add(OpenSAML2ComponentBuilder.getInstance()
+                .createAttribute(null, SamlConstants.USERNAME_ATTR, null, values));
+        
+        values = new ArrayList<String>();
+        values.add("InternalTest2");
+        attributes.add(OpenSAML2ComponentBuilder.getInstance()
+                .createAttribute(null, SamlConstants.USER_ORG_ATTR, null, values));
+        
+        values = new ArrayList<String>();
+        values.add("2.2");
+        attributes.add(OpenSAML2ComponentBuilder.getInstance()
+                .createAttribute(null, SamlConstants.USER_ORG_ID_ATTR, null, values));
+        
+        values = new ArrayList<String>();
+        values.add("1.1");
+        attributes.add(OpenSAML2ComponentBuilder.getInstance()
+                .createAttribute(null, SamlConstants.HOME_COM_ID_ATTR, null, values));
+        
+        String userCode = "307969004";
+        String userSystem = "2.16.840.1.113883.6.96";
+        String userSystemName = "SNOMED_CT";
+        String userDisplay = "Public Health";
+
+        attributes.add(OpenSAML2ComponentBuilder.getInstance()
+                .createUserRoleAttribute(userCode, userSystem, userSystemName,
+                        userDisplay));
+               
+        final String purposeCode = "PUBLICHEALTHKIERAN";
+        final String purposeSystem = "2.16.840.1.113883.3.18.7.1";
+        final String purposeSystemName = "nhin-purpose";
+        final String purposeDisplay = "Use or disclosure of Psychotherapy Notes";
+        
+        attributes.add(OpenSAML2ComponentBuilder.getInstance().createPurposeOfUseAttribute(purposeCode,
+                 purposeSystem, purposeSystemName, purposeDisplay));
+
+        values = new ArrayList<String>();
+        values.add("500000000^^^&1.1&ISO");
+        attributes.add(OpenSAML2ComponentBuilder.getInstance()
+                .createAttribute(null, SamlConstants.PATIENT_ID_ATTR, null, values));
+
+        if (!attributes.isEmpty()) {
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance()
+                    .createAttributeStatement(attributes));
+        }
+        
+        return statements;
+	}
+	
+	
 	static List<AuthnStatement> createAuthenicationStatements(
 			CallbackProperties properties) {
 
