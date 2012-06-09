@@ -95,11 +95,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 			PublicKey publicKey = certificateManager.getDefaultPublicKey();
 
 			// set subject
-			assertion.setSubject(createSubject(properties,certificate, publicKey));
+			Subject subject = createSubject(properties,certificate, publicKey);			
+			assertion.setSubject(subject);
 
 			// add attribute statements
+			Subject evidenceSubject = createSubject(properties,certificate, publicKey);
 			assertion.getStatements().addAll(
-					createAttributeStatements(properties));
+					createAttributeStatements(properties, evidenceSubject));
 
 
 			PrivateKey privateKey = certificateManager.getDefaultPrivateKey();
@@ -186,7 +188,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	 */
 	@SuppressWarnings("unchecked")
 	static List<Statement> createAttributeStatements(
-			CallbackProperties properties) {
+			CallbackProperties properties, Subject subject) {
 		List<Statement> statements = new ArrayList<Statement>();
 
 		statements.addAll(createAuthenicationStatements(properties));
@@ -200,7 +202,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 //		statements.addAll(createUserRoleStatements(properties));
 //		statements.addAll(createPurposeOfUseStatements(properties));
 		
-		statements.addAll(createAuthenicationDecsionStatements(properties));
+		statements.addAll(createAuthenicationDecsionStatements(properties, subject));
 
 		return statements;
 	}
@@ -299,7 +301,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	 * @return
 	 */
 	static List<AuthzDecisionStatement> createAuthenicationDecsionStatements(
-			CallbackProperties properties) {
+			CallbackProperties properties, Subject subject) {
 		List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<AuthzDecisionStatement>();
 
 		Boolean hasAuthzStmt = properties.getAuthenicationStatementExists();
@@ -323,7 +325,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 			// Therefore the value of the ACTION_PROP is no longer used
 			String action = AUTHZ_DECISION_ACTION_EXECUTE;
 
-			Evidence evidence = createEvidence(properties);
+			Evidence evidence = createEvidence(properties, subject);
 
 			authDecisionStatements.add(OpenSAML2ComponentBuilder.getInstance()
 					.createAuthzDecisionStatement(resource, decision, action,
@@ -346,7 +348,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	 *            The calendar representing the time of Assertion issuance
 	 * @return The Evidence element
 	 */
-	static Evidence createEvidence(CallbackProperties properties) {
+	static Evidence createEvidence(CallbackProperties properties, Subject subject) {
 		log.debug("SamlCallbackHandler.createEvidence() -- Begin");
 		String evAssertionID = properties.getEvidenceID();
 		DateTime issueInstant = properties.getEvidenceInstant();
@@ -356,12 +358,12 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		List<AttributeStatement> statements = createEvidenceStatements(properties);
 
 		String issuer = properties.getEvidenceIssuer();
-		
-		return buildEvidence(evAssertionID, issueInstant, format, beginValidTime, endValidTime, issuer, statements);
+			
+		return buildEvidence(evAssertionID, issueInstant, format, beginValidTime, endValidTime, issuer, statements, subject);
 	}
 
     public static Evidence buildEvidence(String evAssertionID, DateTime issueInstant,
-            String format, DateTime beginValidTime, DateTime endValidTime, String issuer, List<AttributeStatement> statements) {
+            String format, DateTime beginValidTime, DateTime endValidTime, String issuer, List<AttributeStatement> statements, Subject subject) {
         DateTime now = new DateTime();
                 
 		List<Assertion> evidenceAssertions = new ArrayList<Assertion>();
@@ -415,6 +417,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		evidenceAssertion.setConditions(conditions);
 		evidenceAssertion.setIssueInstant(issueInstant);
 		evidenceAssertion.setIssuer(evIssuerId);
+		evidenceAssertion.setSubject(subject);
 
 		evidenceAssertions.add(evidenceAssertion);
 

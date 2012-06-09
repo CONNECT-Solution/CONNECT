@@ -192,8 +192,10 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
         // Build Evidence
         // assertionIn.get
+        //Evidence evidence = HOKSAMLAssertionBuilder.buildEvidence(evAssertionID, issueInstant, format, beginValidTime,
+        //        endValidTime, issuer, statements);
         Evidence evidence = HOKSAMLAssertionBuilder.buildEvidence(evAssertionID, issueInstant, format, beginValidTime,
-                endValidTime, issuer, statements);
+                endValidTime, issuer, statements, null);
         //
 
         authDecisionStatementBean.setEvidence(evidence);
