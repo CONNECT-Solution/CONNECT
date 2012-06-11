@@ -134,7 +134,7 @@ public class AdapterComponentDocRegistryOrchImplTest {
         SlotType1 slot2 = new SlotType1();
         slot2.setName("$XDSDocumentEntryPatientId");
         ValueListType valList2 = new ValueListType();
-        valList.getValue().add("D123401^^^&1.1&ISO");
+        valList2.getValue().add("D123401^^^&1.1&ISO");
         slot2.setValueList(valList2);
         query.getSlot().add(slot2);
         return request;
@@ -253,6 +253,46 @@ public class AdapterComponentDocRegistryOrchImplTest {
         //query.getSlot().add(slot2);
         return request;
     }
+    
+    @Test
+    public void testRegistryStoredQuery_RegistryQueryIdMissingParam(){
+        AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
+        context.checking(new Expectations() {
+            {
+                allowing(mockLog).debug(with(any(String.class)));
+            }
+        });
+        AdhocQueryRequest request = createAdhocQueryRequestforMissingParam();
+        AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
+        assertSame(response.getRegistryErrorList().getRegistryError().get(0).getErrorCode(), "XDSStoredQueryMissingParam");
+    }
+
+    /**
+     * @return
+     */
+    private AdhocQueryRequest createAdhocQueryRequestforMissingParam() {
+       
+        return createAdhocQueryRequestMissingParam("('urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1')");
+    }
+
+    /**
+     * @param string
+     * @return
+     */
+    private AdhocQueryRequest createAdhocQueryRequestMissingParam(String documentEntryTypeValue) {
+        AdhocQueryRequest request = new AdhocQueryRequest();
+        AdhocQueryType query = new AdhocQueryType();
+        request.setAdhocQuery(query);
+        request.getAdhocQuery().setId("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
+        SlotType1 slot = new SlotType1();
+        slot.setName("$XDSDocumentEntryType");
+        ValueListType valList = new ValueListType();
+        valList.getValue().add(documentEntryTypeValue);
+        slot.setValueList(valList);
+        query.getSlot().add(slot);
+        return request;
+    }
+
 
     
     

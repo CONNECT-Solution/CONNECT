@@ -146,7 +146,8 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final String EBXML_DOCQUERY_STORED_QUERY_ERROR = "XDSUnknownStoredQuery";
     private static final String EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM = "XDSStoredQueryMissingParam";
 
-
+    private static final String FindDocumentsQueryId = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
+    
     public AdapterComponentDocRegistryOrchImpl() {
         log = createLogger();
         utcDateUtil = createDateUtil();
@@ -170,13 +171,30 @@ public class AdapterComponentDocRegistryOrchImpl {
         if (getRegistryQueryId().contains(request.getAdhocQuery().getId())) {
                 registryIdPresent = true;
         }
+        boolean patientIdSlotPresent = false;
         if (registryIdPresent) {
             ObjectFactory queryObjFact = new ObjectFactory();
             response = queryObjFact.createAdhocQueryResponse();
         if (request != null) { 
-            
+           
             List<SlotType1> slots = getSlotsFromAdhocQueryRequest(request);
-
+            if(request.getAdhocQuery().getId().equals(FindDocumentsQueryId)){
+                   List<String> slotValues = new ArrayList<String>();
+                   for (SlotType1 slot : slots){
+                       if (slot.getName().equals(EBXML_DOCENTRY_PATIENT_ID)){
+                           patientIdSlotPresent = true;
+                           slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
+                           if( slotValues == null ||slotValues.isEmpty() ){
+                               response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM, "Required parameter XDSDocumentEntryPatientId, not present in query request");
+                               return response;
+                             }
+                       }
+                   }
+                   if (!patientIdSlotPresent){
+                       response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM, "Required parameter XDSDocumentEntryPatientId, not present in query request");
+                       return response;
+                   }
+            }
             params = generateDocumentQueryParamsFromSlots(slots);
             
             List<String> docEntryTypeValues = extractDocumentEntryType(slots);     
