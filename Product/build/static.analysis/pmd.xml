@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<ruleset name="pmd-rules">
+
+    <description>5AM PMD Rules</description>
+
+    <rule ref="rulesets/basic.xml" />
+    <rule ref="rulesets/basic.xml/EmptyCatchBlock">
+        <properties>
+            <property name="allowCommentedBlocks" value="true" />
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/braces.xml" />
+
+    <rule ref="rulesets/clone.xml" />
+
+    <rule ref="rulesets/codesize.xml" >
+        <exclude name="ExcessivePublicCount" />
+    </rule>
+
+    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="minimum" value="50" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveClassLength">
+        <properties>
+            <property name="minimum" value="500" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveParameterList">
+        <properties>
+            <property name="minimum" value="6" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" value="7" />
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/coupling.xml">
+        <exclude name="ExcessiveImports" />
+    </rule>
+
+    <rule ref="rulesets/design.xml">
+        <exclude name="AbstractClassWithoutAbstractMethod" />
+        <exclude name="AvoidSynchronizedAtMethodLevel" />
+        <exclude name="CloseResource" />
+        <exclude name="ConfusingTernary" />
+        <exclude name="MissingStaticMethodInNonInstantiatableClass" />
+        <exclude name="UseSingleton" />
+    </rule>
+
+    <rule ref="rulesets/finalizers.xml" />
+
+    <rule ref="rulesets/imports.xml" />
+
+    <rule ref="rulesets/javabeans.xml">
+        <exclude name="BeanMembersShouldSerialize" />
+    </rule>
+
+    <rule ref="rulesets/logging-jakarta-commons.xml" />
+
+    <rule ref="rulesets/logging-java.xml" />
+
+    <rule ref="rulesets/migrating.xml" />
+
+    <rule ref="rulesets/naming.xml">
+        <exclude name="LongVariable" />
+        <exclude name="ShortVariable" />
+    </rule>
+
+    <rule ref="rulesets/optimizations.xml">
+        <exclude name="AvoidInstantiatingObjectsInLoops" />
+        <exclude name="LocalVariableCouldBeFinal" />
+        <exclude name="MethodArgumentCouldBeFinal" />
+    </rule>
+
+    <rule ref="rulesets/strictexception.xml" />
+
+    <rule ref="rulesets/strings.xml">
+        <exclude name="InsufficientStringBufferDeclaration" />
+    </rule>
+
+    <rule ref="rulesets/sunsecure.xml" />
+
+    <rule ref="rulesets/unusedcode.xml" />
+
+</ruleset>
