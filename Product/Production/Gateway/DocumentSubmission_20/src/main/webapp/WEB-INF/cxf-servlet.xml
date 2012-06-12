@@ -30,11 +30,13 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
              value="keystore.properties"/>
          <entry key="ws-security.encryption.properties" 
              value="truststore.properties"/>
-             
          <entry key="signatureKeyIdentifier" 
              value="DirectReference"/>
 
-         </jaxws:properties> 
+         </jaxws:properties>
+         <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor"/>
+         </jaxws:inInterceptors> 
            
         <!--
         <jaxws:handlers>
