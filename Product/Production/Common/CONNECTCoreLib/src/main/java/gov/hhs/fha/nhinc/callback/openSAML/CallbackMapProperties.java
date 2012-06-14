@@ -182,6 +182,14 @@ public class CallbackMapProperties implements CallbackProperties {
 	public List getEvidenceInstantAccessConsent() {
 		return getNullSafeList(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP);
 	}
+	
+	/* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceSubject()
+     */
+    @Override
+    public String getEvidenceSubject() {
+        return getNullSafeString(SamlConstants.EVIDENCE_SUBJECT_PROP);
+    }
 
 	/* (non-Javadoc)
 	 * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserCode()

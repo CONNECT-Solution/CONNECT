@@ -50,6 +50,8 @@ public interface CallbackProperties {
 	public abstract List getEvidenceAccessConstent();
 
 	public abstract List getEvidenceInstantAccessConsent();
+	
+	public abstract String getEvidenceSubject();
 
 	public abstract String getUserCode();
 

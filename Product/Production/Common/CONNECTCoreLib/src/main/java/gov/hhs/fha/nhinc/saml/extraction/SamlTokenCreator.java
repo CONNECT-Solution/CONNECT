@@ -231,6 +231,13 @@ public class SamlTokenCreator {
                                 .getSamlAuthzDecisionStatement().getEvidence().getAssertion()
                                 .getInstanceAccessConsentPolicy());
                     }
+                    
+                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
+                            .getSubject())) {
+                        requestContext.put(NhincConstants.EVIDENCE_SUBJECT_PROP, assertion
+                                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getSubject());
+                    }
+                                       
                     if (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() != null) {
                         if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence()
                                 .getAssertion().getConditions().getNotBefore())) {

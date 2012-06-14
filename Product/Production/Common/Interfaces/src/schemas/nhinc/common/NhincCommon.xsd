@@ -83,6 +83,7 @@
             <xsd:element name="version" type="xsd:string" minOccurs="0"/>
             <xsd:element name="issuer" type="xsd:string" minOccurs="0"/>
             <xsd:element name="issuerFormat" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="subject" type="xsd:string" minOccurs="0"/>     
             <xsd:element name="conditions" type="tns:SamlAuthzDecisionStatementEvidenceConditionsType" minOccurs="0"/>
             <xsd:element name="accessConsentPolicy" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="instanceAccessConsentPolicy" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>

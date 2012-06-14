@@ -19,6 +19,10 @@
 
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -39,6 +43,9 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.opensaml.saml2.core.validator.AssertionSpecValidator;
+import org.opensaml.xml.validation.Validator;
+import org.opensaml.xml.validation.ValidatorSuite;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -51,6 +58,7 @@ import org.apache.cxf.endpoint.Endpoint;
 import org.apache.cxf.helpers.CastUtils;
 import org.apache.cxf.helpers.DOMUtils;
 import org.apache.cxf.helpers.MapNamespaceContext;
+import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.resource.ResourceManager;
 import org.apache.cxf.service.model.EndpointInfo;
 import org.apache.cxf.ws.policy.AssertionInfo;
@@ -76,7 +84,6 @@ import org.apache.cxf.ws.security.wss4j.policyvalidators.AsymmetricBindingPolicy
 import org.apache.cxf.ws.security.wss4j.policyvalidators.BindingPolicyValidator;
 import org.apache.cxf.ws.security.wss4j.policyvalidators.EncryptedTokenPolicyValidator;
 import org.apache.cxf.ws.security.wss4j.policyvalidators.EndorsingEncryptedTokenPolicyValidator;
-import org.apache.cxf.ws.security.wss4j.policyvalidators.EndorsingTokenPolicyValidator;
 import org.apache.cxf.ws.security.wss4j.policyvalidators.SamlTokenPolicyValidator;
 import org.apache.cxf.ws.security.wss4j.policyvalidators.SecurityContextTokenPolicyValidator;
 import org.apache.cxf.ws.security.wss4j.policyvalidators.SignedEncryptedTokenPolicyValidator;
@@ -108,6 +115,10 @@ public class EndorsingSupportingTokensInterceptor extends WSS4JInInterceptor {
     public static final EndorsingSupportingTokensInterceptor INSTANCE 
         = new EndorsingSupportingTokensInterceptor();
     private static final Logger LOG = LogUtils.getL7dLogger(EndorsingSupportingTokensInterceptor.class);
+    
+    private static final String RELAX_VALIDATION_PROP = "relaxSAMLValidation";
+    private static Boolean relaxValidation = null;
+    
 
     /**
      * 
@@ -116,6 +127,41 @@ public class EndorsingSupportingTokensInterceptor extends WSS4JInInterceptor {
         super(true);
     }
     
+    @Override
+    public void handleMessage(SoapMessage msg) throws Fault {
+        relaxValidation();
+        super.handleMessage(msg);
+    }
+    
+    protected void relaxValidation() {
+        try {
+            Boolean relaxValidationPropertyValue = PropertyAccessor.getInstance().getPropertyBoolean(
+                    NhincConstants.GATEWAY_PROPERTY_FILE, RELAX_VALIDATION_PROP);
+            if (relaxValidation != relaxValidationPropertyValue) {
+                relaxValidation = relaxValidationPropertyValue;
+
+                if (relaxValidation) {                    
+                    registerAssertionValidator(new RelaxedAssertionSpecValidator());
+                } else {                    
+                    registerAssertionValidator(new AssertionSpecValidator());
+                }
+            }
+        } catch (Exception e) {
+            LOG.warning("Failed to modify validation rules for SAML headers. " + e.getMessage());
+        }
+    }
+    
+    protected void registerAssertionValidator(Validator validator) {
+        ValidatorSuite specValidators = org.opensaml.Configuration.getValidatorSuite("saml2-core-spec-validator");
+        QName qName = new QName("urn:oasis:names:tc:SAML:2.0:assertion", "Assertion", "saml2");
+        List<Validator> validatorList = specValidators.getValidators(qName);
+        
+        if (NullChecker.isNotNullish(validatorList)) {
+            specValidators.deregisterValidator(qName, validatorList.get(0));            
+        }
+        specValidators.registerValidator(qName, validator);
+    }
+       
     protected static Map<Object, Properties> getPropertiesCache(SoapMessage message) {
         EndpointInfo info = message.getExchange().get(Endpoint.class).getEndpointInfo();
         synchronized (info) {

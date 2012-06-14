@@ -64,6 +64,7 @@ public class SamlConstants {
     public static final String EVIDENCE_VERSION_PROP = "evidenceAssertionVersion";
     public static final String EVIDENCE_ISSUER_PROP = "evidenceAssertionIssuer";
     public static final String EVIDENCE_ISSUER_FORMAT_PROP = "evidenceAssertionIssuerFormat";
+    public static final String EVIDENCE_SUBJECT_PROP = "evidenceSubject";
     public static final String EVIDENCE_CONDITION_NOT_BEFORE_PROP = "evidenceConditionNotBefore";
     public static final String EVIDENCE_CONDITION_NOT_AFTER_PROP = "evidenceConditionNotAfter";
     public static final String EVIDENCE_ACCESS_CONSENT_PROP = "evidenceAccessConsent";
