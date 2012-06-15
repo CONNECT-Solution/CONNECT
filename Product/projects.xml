@@ -25,8 +25,8 @@
         <name>CONNECTGatewayWeb</name>
         <directory>/Production/Gateway/CONNECTGatewayWeb</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>PatientDiscovery_10</name>

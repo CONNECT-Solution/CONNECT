@@ -26,8 +26,13 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.util.Map;
 
+import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
+import gov.hhs.fha.nhinc.callback.openSAML.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -42,7 +47,12 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
@@ -175,21 +185,40 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
         Service service = getService();
         if (service != null) {
             log.debug("Obtained service - creating port.");
-
-            //port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-            //        AuditRepositoryManagerSecuredPortType.class);
             
             ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "AuditRepositoryManager-client-beans.xml" });
             port = (AuditRepositoryManagerSecuredPortType)context.getBean("auditSecuredPortType");
             
             HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(port).getConduit();
-            
             TLSClientParameters tlsCP = new TLSClientParameters();
-            //The following is not recommended and would not be done in a prodcution environment,
-            //this is just for illustrative purpose
             tlsCP.setDisableCNCheck(true);
-     
+            
+            CertificateManager cm = CertificateManagerImpl.getInstance();
+            
+            try {
+                KeyManagerFactory keyFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+                String password = System.getProperty("javax.net.ssl.keyStorePassword");
+                keyFactory.init(cm.getKeyStore(), password.toCharArray()); 
+                KeyManager[] km = keyFactory.getKeyManagers(); 
+                tlsCP.setKeyManagers(km); 
+                
+                TrustManagerFactory trustFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm()); 
+                trustFactory.init(cm.getTrustStore()); 
+                TrustManager[] tm = trustFactory.getTrustManagers(); 
+                tlsCP.setTrustManagers(tm); 
+            } catch (NoSuchAlgorithmException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (UnrecoverableKeyException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (KeyStoreException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
             httpConduit.setTlsClientParameters(tlsCP);
+
             Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
             requestContext.put("assertion", assertion);
                         

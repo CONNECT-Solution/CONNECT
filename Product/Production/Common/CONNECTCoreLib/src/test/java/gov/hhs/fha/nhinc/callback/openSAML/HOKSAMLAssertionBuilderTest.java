@@ -389,6 +389,12 @@ public class HOKSAMLAssertionBuilderTest {
                 // TODO Auto-generated method stub
                 return "issuer";
             }
+            
+            @Override
+            public String getEvidenceSubject() {
+                // TODO Auto-generated method stub
+                return "evidenceSubject";
+            }
 
             @Override
             public DateTime getEvidenceInstant() {

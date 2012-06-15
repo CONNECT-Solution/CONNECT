@@ -4,6 +4,7 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -99,7 +100,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 			assertion.setSubject(subject);
 
 			// add attribute statements
-			Subject evidenceSubject = createSubject(properties,certificate, publicKey);
+			Subject evidenceSubject = createEvidenceSubject(properties,certificate, publicKey);
 			assertion.getStatements().addAll(
 					createAttributeStatements(properties, evidenceSubject));
 
@@ -109,7 +110,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 			signedAssertion = sign(assertion, certificate, privateKey, publicKey);
 		} catch (Exception ex) {
 			log.error("Unable to create HOK Assertion: " + ex.getMessage());
-			ex.printStackTrace();
 			throw ex;
 		}
 		log.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- End");
@@ -174,14 +174,26 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	 * @return
 	 * @throws Exception
 	 */
-	static Subject createSubject(CallbackProperties properties, X509Certificate certificate, PublicKey publicKey) throws Exception {
-		Subject subject = null;
-		String x509Name = "UID=" + properties.getUsername();
+    static Subject createSubject(CallbackProperties properties, X509Certificate certificate, PublicKey publicKey)
+            throws Exception {
+        String x509Name = "UID=" + properties.getUsername();
 
-		return createSubject(x509Name, certificate, publicKey);
-	}
+        return createSubject(x509Name, certificate, publicKey);
+    }
 
-    public static Subject createSubject(String x509Name, X509Certificate certificate, PublicKey publicKey)
+    static Subject createEvidenceSubject(CallbackProperties properties, X509Certificate certificate, PublicKey publicKey)
+            throws Exception {
+        String evidenceSubject = properties.getEvidenceSubject();
+        if (NullChecker.isNullish(evidenceSubject)) {
+            evidenceSubject = properties.getUsername();
+        }
+        
+        String x509Name = "UID=" + evidenceSubject;
+
+        return createSubject(x509Name, certificate, publicKey);
+    }
+
+    static Subject createSubject(String x509Name, X509Certificate certificate, PublicKey publicKey)
             throws Exception {
         Subject subject;
         subject = OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name,
@@ -360,14 +372,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
 		Conditions conditions = OpenSAML2ComponentBuilder.getInstance()
 				.createConditions(beginValidTime, endValidTime, null);
-
 		
-
 		Assertion evidenceAssertion = OpenSAML2ComponentBuilder.getInstance()
 				.createAssertion(evAssertionID);
 		
-		//evidenceAssertion.setSubject(createSubject(properties,certificate, publicKey))
-
 		evidenceAssertion.getAttributeStatements().addAll(statements);
 		evidenceAssertion.setConditions(conditions);
 		evidenceAssertion.setIssueInstant(issueInstant);

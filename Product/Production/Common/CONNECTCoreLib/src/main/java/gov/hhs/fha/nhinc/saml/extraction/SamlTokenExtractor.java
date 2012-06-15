@@ -573,7 +573,7 @@ public class SamlTokenExtractor {
                         log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.Id = "
                                 + oSamlEvidAssert.getId());
                     }
-
+                                                                 
                     // Issue Instant
                     // --------------
                     if (oAssert.getIssueInstant() != null) {
@@ -606,6 +606,14 @@ public class SamlTokenExtractor {
                                 + oSamlEvidAssert.getIssuer());
                     }
 
+                    // Subject
+                    // -------
+                    if (oAssert.getSubject() != null) {
+                        AssertionType tempAssertion = new AssertionType();
+                        extractSubject(oAssert, tempAssertion);                      
+                        oSamlEvidAssert.setSubject(tempAssertion.getUserInfo().getUserName());
+                    }     
+                    
                     extractConditionsInfo(assertOut, oAssert.getConditions());
 
                     List statements = oAssert.getStatementOrAuthnStatementOrAuthzDecisionStatement();
